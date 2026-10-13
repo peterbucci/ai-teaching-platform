@@ -53,8 +53,15 @@ scoped to an existing issue and coordinate before changing shared contracts.
 - Review the diff, get a teammate's review, and merge after the checks pass. Avoid
   force-pushing shared branches or rewriting someone else's work.
 
-Where the account plan supports private-repository branch protection, protect
-`main` with one approving review and the `quality` check required. Otherwise,
-follow the same review-and-check convention manually until enforcement is
-available. Repository and Project access must be granted to actual teammates
-before they can collaborate.
+GitHub rejected branch protection for this private repository on the owner's
+current free plan. Keep the repository private and follow the review-and-check
+convention manually. If the account is upgraded to GitHub Pro, protect `main`
+with one approving review, the `quality` check required, stale approvals
+dismissed, conversations resolved, and force pushes/deletion disabled.
+Repository and Project access must be granted to actual teammates before they
+can collaborate.
+
+The initial dependency audit found no production vulnerabilities. Development
+lint tooling includes an upstream `braces` advisory; revisit compatible updates
+before processing untrusted repositories. Do not apply the audit's incompatible
+Next.js lint-configuration downgrade.
