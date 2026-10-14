@@ -1,101 +1,129 @@
-# Network Performance: team review for Issue #2
+# Network Performance — Demo Content
 
-**Approval: pending. Issue #2 is not ready to close.** The prepared package is
-stored separately from the application; no tutor, database, or student content
-route has been implemented. Package documents describe proposed behavior and
-examples, not implementation decisions or instructions to expand this PR.
+## What is this?
 
-## Reading and source version
+For our first demo, we're using a short reading about computer networking to demonstrate how our AI teaching platform would work.
 
-- Reading: Peterson and Davie, _Computer Networks: A Systems Approach_, section
-  1.5.1, **Bandwidth and Latency**, source lines **14–187**.
-- Package: `network-performance-v1`; assignment: `network_performance_v1`;
-  source: `peterson_davie_1_5_1`.
-- Pinned commit: [`5deec5e741e2b8c0bc44566108a24cb783c2c7de`](https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst#L14-L187).
-- Assigned passages: **P01–P13**, exactly the allowlist in
-  [manifest.json](network-performance-v1/manifest.json). The complete upstream
-  file is provenance only; later sections are not assigned.
-- The [readable reading](network-performance-v1/reading.md) marks omitted figures
-  and captions and separates two project editorial notes from source material.
-  The exact excerpt and upstream files are retained alongside it.
+The idea is pretty simple: a teacher assigns a reading, and students work through the material with an AI tutor. Instead of just telling students whether their answers are right or wrong, the tutor tries to understand where they're struggling, asks follow-up questions, and offers explanations.
 
-The pinned upstream files, excerpt, passage spans, and hashes were verified.
-No source-version mismatch was found. The supplied ZIP's SHA-256 is
-`c68f1fb894dca4033081a7be3159f293c3124ee338bfbdaa3975a6f3afcad4e4`.
+The teacher can then see patterns across the class, such as concepts students are having trouble with or misconceptions that keep coming up.
 
-## Five concepts and coverage to review
+This folder contains the reading, questions, and examples we're preparing for that demonstration.
 
-All five concepts and all fifteen questions remain `pending_teacher_review`.
-Each question already includes expected answers, required reasoning, acceptable
-variations, partial-credit guidance, examples, and source/misconception links.
+**Current status:** The material has been prepared and checked for consistency, but the team still needs to review and approve it. The AI tutor hasn't been implemented yet.
 
-| Stable concept ID      | Prepared bank questions | Diagnostic and fresh-retest coverage                                                                                       |
-| ---------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `bandwidth_throughput` | `NP-BW-01`–`03`         | No designated diagnostic or fresh retest.                                                                                  |
-| `latency_rtt`          | `NP-RTT-01`–`03`        | No designated diagnostic or fresh retest.                                                                                  |
-| `transmission_delay`   | `NP-TX-01`–`03`         | `NP-TX-01` → diagnostic `D02` → distinct retests `D05`/`D06`.                                                              |
-| `propagation_delay`    | `NP-PROP-01`–`03`       | Assessed alongside transmission in `D02`/`D05`/`D06`; no targeted diagnostic for its two defined misconception categories. |
-| `queuing_delay`        | `NP-QUEUE-01`–`03`      | No designated diagnostic or fresh retest.                                                                                  |
+## Why are we preparing the questions ourselves?
 
-`D01` is a neutral clarification. `D02` probes
-`transmission_depends_on_distance` by changing distance while holding packet
-size, link rate, and propagation speed fixed. `D05` changes packet size; `D06`
-uses a fresh distance comparison and different numbers. Their prompts differ
-from the initial question and preserve immediate-after-feedback labeling.
+For this first demo, we're preparing the questions, expected answers, and examples of common misconceptions ahead of time. That gives us a reliable way to test whether the AI is evaluating student responses correctly and asking useful follow-up questions.
 
-The bank's three questions per concept are practice candidates, not an approved
-initial/diagnostic/retest mapping. The team must explicitly designate suitable
-existing questions or supply missing content; this integration does neither.
+This isn't how we envision teachers using the finished platform. Ideally, a teacher would just upload their assigned material, review the learning objectives suggested by the AI, and approve the assignment. The AI would then generate practice questions, adapt to students' responses, and investigate possible misunderstandings.
 
-[concepts.json](network-performance-v1/concepts.json) defines ten named possible
-misconceptions plus `other_or_uncertain`. The latter records ambiguity rather
-than diagnosing a misconception. The targeted demonstration covers one named
-hypothesis; it does not establish diagnostic coverage for every category.
+We're starting with prepared content so we can focus on demonstrating that the tutoring and teacher-insight features actually work. Automating content generation would come later.
 
-## Approval and publication decisions
+## What we're teaching
 
-- [ ] Approve the exact excerpt/version, the five concepts, objectives, and scope.
-- [ ] Review the existing [questions and answer guidance](network-performance-v1/REVIEW_GUIDE.md),
-      category definitions, and [diagnostic demonstration](network-performance-v1/DEMO_GUIDE.md).
-      Complete the missing per-concept diagnostic/retest designations above.
-- [ ] Accept or revise the documented source cautions: bandwidth/throughput
-      terminology overlap; explicit one-way/RTT assumptions; the unassessed P08
-      one-bit simplification; P10's units typo; and limited queuing coverage.
-- [ ] Resolve and record permitted reuse before public distribution of adapted
-      material. The pinned LICENSE states CC BY 4.0, while the upstream README
-      contains conflicting derivative-work language. Both are preserved in
-      [ATTRIBUTION.md and its linked source notices](network-performance-v1/ATTRIBUTION.md).
-      This integration does not establish legal clearance or extra permission.
-- [ ] After actual approval, record the reviewer, version, and time and update
-      the package's review statuses consistently. Until then, retain the pending
-      status and null approver/time in the manifest.
+We're using Section 1.5.1, _Bandwidth and Latency_, from **Computer Networks: A Systems Approach** by Larry Peterson and Bruce Davie.
 
-Any future reading display must retain the title, authors, Elsevier 2012 notice,
-source and license links, change/omission description, and license/disclaimer.
-Project-authored questions must remain distinguishable from textbook material.
+The reading covers five concepts:
 
-## Verification and preservation
+| Concept                  | What students should understand                                                                 |
+| ------------------------ | ----------------------------------------------------------------------------------------------- |
+| Bandwidth vs. throughput | The difference between how much data a connection can handle and how much it actually transfers |
+| Latency and RTT          | The difference between one-way delay and the time for a message to travel there and back        |
+| Transmission delay       | How long it takes to put a packet's bits onto a network link                                    |
+| Propagation delay        | How long it takes a signal to physically travel across a connection                             |
+| Queuing delay            | Why packets sometimes have to wait before being forwarded                                       |
 
-Run `npm run content:check` with Python 3 available as `python`. It runs the
-supplied verifier with a small added `--check` option that leaves
-`verification.json` unchanged. Without that option, the original command still
-rewrites its report. The supplied report is historical evidence, not the result
-of the current run or proof of AI performance.
+We chose these because they're related but easy to confuse. That makes them useful for demonstrating how the AI can investigate a student's misunderstanding rather than simply marking an answer incorrect.
 
-The existing 208 checks passed: source hashes/spans, references, question counts,
-answer arithmetic, route targets, and synthetic-count consistency. Additional
-inspection confirmed nonempty answer guidance, unique misconception IDs and the
-uncertainty category, and distinct diagnostic/retest prompts. These checks do
-not resolve the coverage gaps above, grant approval, or exercise an AI tutor.
+The package includes 13 reading passages and 15 questions, with three questions prepared for each concept.
 
-All twenty supplied files are retained. Only `verify_package.py` is changed to
-support the non-writing check; the educational content and original report are
-unchanged. Git preserves the imported bytes, and Prettier skips the package.
-`prepare_source.py` and `build_guides.py` are retained authoring utilities; do not
-run them as validation because they overwrite prepared files. They were not run
-during integration.
+## How the demo would work
 
-`evidence-spec.json`, diagnostic routes, and synthetic transcripts remain
-proposals/examples supplied with the content. They do not introduce a database
-schema, executable tutoring workflow, analytics implementation, or extra scope
-for Issue #2.
+For the first demonstration, we're focusing on a student confusing **transmission delay** with **propagation delay**.
+
+Here's an example:
+
+**AI:** If a network cable becomes twice as long, what happens to transmission delay and propagation delay?
+
+**Student:** Both double because the packet has farther to travel.
+
+The student is partly correct. Propagation delay increases, but transmission delay doesn't change when the packet size and transmission rate stay the same.
+
+Instead of immediately concluding that the student has a misconception, the tutor asks another question to investigate their reasoning.
+
+Depending on the response, the AI might:
+
+1. Ask for clarification.
+2. Ask another question to test a possible misunderstanding.
+3. Explain the difference using the assigned reading.
+4. Give a new question to see whether the explanation helped.
+
+The system records what happened so the teacher can see whether similar mistakes are occurring across the class.
+
+**An important distinction:** Getting a question right immediately after an explanation doesn't necessarily mean the student will remember it later. Our system should keep those results separate.
+
+## What we need to review as a team
+
+### 1. Is the material appropriate?
+
+We need to agree on the reading, five concepts, and questions.
+
+Someone familiar with networking should check the technical accuracy. Other teammates can help evaluate whether the questions are understandable and whether the AI's explanations would actually be useful to students.
+
+You don't need a computer science background to contribute to that discussion.
+
+### 2. Do we have the questions needed for the demo?
+
+We've prepared three questions per concept, but we haven't mapped out complete diagnostic and retest sequences for all five concepts.
+
+The transmission-versus-propagation example has a more complete sequence already.
+
+We need to decide whether to expand the other concepts now or focus on getting one complete tutoring experience working first.
+
+The current GitHub issue asks for diagnostic and retest coverage across all five concepts. If we decide to narrow that requirement for the hackathon, we should update the issue together rather than silently changing the scope.
+
+### 3. Are we comfortable using this textbook?
+
+The textbook repository includes a Creative Commons license allowing reuse and adaptation with attribution. However, its README contains wording that conflicts with the license concerning derivative works.
+
+We've preserved the original source information and documented the inconsistency.
+
+We should resolve that concern before publicly distributing adapted material. The attribution document explains the details.
+
+## Where to look
+
+You don't need to go through every file in this folder.
+
+I'd suggest starting with these:
+
+| Document                                                             | What it's for                                                      |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| [Assigned Reading](network-performance-v1/reading.md)                | The material students would study                                  |
+| [Questions and Answer Guide](network-performance-v1/REVIEW_GUIDE.md) | Questions, expected answers, and what counts as a good explanation |
+| [Demo Walkthrough](network-performance-v1/DEMO_GUIDE.md)             | Examples of how the AI tutoring conversation could go              |
+| [Source and Attribution](network-performance-v1/ATTRIBUTION.md)      | Where the reading came from and the licensing considerations       |
+
+For teammates who are working on the application, the package also contains structured JSON files for the concepts, questions, misconception categories, source passages, and proposed learning records.
+
+Those files are intended to help the software use the material consistently. They aren't required reading for everyone.
+
+## A note about accuracy
+
+The content package has passed automated consistency checks. These check things like valid references, calculations, and whether the files agree with one another.
+
+There are also a few textbook details reviewers should pay attention to, including how the reading uses bandwidth/throughput terminology, assumptions about one-way and round-trip delay, a source units typo, and the limited depth of the queuing section. These are documented in the package metadata and review guidance.
+
+**Passing those checks doesn't mean the AI tutor works or that the educational approach has been validated.** We'll need to test the actual AI behavior once we implement it.
+
+## What happens next?
+
+Once we've agreed on the reading and questions, we can use this content to build the first tutoring experience.
+
+For now, the goal is to get one complete sequence working:
+
+**Student answers → AI investigates a possible misunderstanding → AI provides feedback → student tries again → teacher sees the results.**
+
+After that works reliably, we can expand the demonstration to more questions and concepts.
+
+The important thing is that we don't need to build an entire educational platform to show why the idea could be useful.

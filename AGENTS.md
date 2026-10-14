@@ -60,6 +60,48 @@
 - Run only relevant checks for the change; run a broader check/build before integration or submission.
 - Never claim a check passed unless it was actually run; never weaken tests merely to make them pass.
 
+
+## Protected project documentation
+
+The following documents are intentionally maintained for
+human readers, including teammates without technical
+backgrounds:
+
+- `README.md`
+- `PROJECT_CONTEXT.md`
+- `content/README.md`
+- `content/network-performance-v1/README.md`
+- `content/network-performance-v1/DEMO_GUIDE.md`
+- `content/network-performance-v1/REVIEW_GUIDE.md`
+
+These files have been reviewed for clarity, tone, and
+accessibility. Preserve their existing writing style,
+organization, and level of detail.
+
+### Rules
+
+- Do not modify these files unless the user explicitly
+  authorizes changes to them.
+- Do not automatically update documentation as part of
+  feature development, bug fixes, refactoring, or cleanup.
+- Generic instructions such as "update documentation as
+  needed" do not authorize changes to protected files.
+- Do not reformat, restructure, expand, or regenerate
+  these documents without permission.
+- If a code change makes documentation outdated, report
+  what needs updating instead of editing it automatically.
+- When changes are explicitly requested, make only the
+  necessary edits. Preserve the existing voice and avoid
+  unnecessary technical jargon or additional sections.
+- Do not run documentation generators that overwrite
+  protected files without explicit authorization.
+- Keep structured JSON data and human-readable guides
+  separate. Changes to machine-readable content do not
+  automatically authorize rewriting the guides.
+
+Documentation changes should be intentional, focused,
+and reviewed separately from unrelated code changes.
+
 ## Working style
 
 - For nontrivial tasks, briefly state the approach and identify important tradeoffs before editing.

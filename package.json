@@ -11,7 +11,7 @@
     "start": "next start",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "next typegen && tsc --noEmit",
-    "content:check": "python content/network-performance-v1/verify_package.py --check",
+    "content:check": "python content/network-performance-v1/verify_package.py",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
