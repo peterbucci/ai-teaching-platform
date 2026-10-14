@@ -53,13 +53,13 @@ scoped to an existing issue and coordinate before changing shared contracts.
 - Review the diff, get a teammate's review, and merge after the checks pass. Avoid
   force-pushing shared branches or rewriting someone else's work.
 
-GitHub rejected branch protection for this private repository on the owner's
-current free plan. Keep the repository private and follow the review-and-check
-convention manually. If the account is upgraded to GitHub Pro, protect `main`
-with one approving review, the `quality` check required, stale approvals
-dismissed, conversations resolved, and force pushes/deletion disabled.
-Repository and Project access must be granted to actual teammates before they
-can collaborate.
+The repository is public. The protected `main` branch requires a pull request,
+one approving review, resolved conversations, and the passing `quality` check
+on an up-to-date branch. New commits dismiss stale approvals. Protection applies
+to administrators; force pushes and branch deletion are disabled.
+
+Grant repository write access and Project access to actual teammates so they can
+review changes and manage the board.
 
 The initial dependency audit found no production vulnerabilities. Development
 lint tooling includes an upstream `braces` advisory; revisit compatible updates
