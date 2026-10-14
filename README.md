@@ -7,6 +7,11 @@ reading, five approved concepts, and fictional students only.
 The repository currently contains a minimal Next.js application shell. Tutoring,
 database integration, and the teacher dashboard are tracked as upcoming work.
 
+The prepared [Network Performance content and team review summary](content/README.md)
+are integrated as static files for Issue #2. Teacher approval is pending, and
+missing per-concept diagnostic/retest coverage and reuse concerns remain open.
+The package is not loaded by the application or exposed as student content.
+
 [Project board: AI Teaching Platform — PEAAII Hackathon](https://github.com/users/peterbucci/projects/7)
 
 ## Run locally
@@ -30,6 +35,7 @@ keep actual credentials in an ignored `.env.local` file and never commit them.
 ```sh
 npm run lint
 npm run typecheck
+npm run content:check
 npm run format:check
 npm run build
 ```
@@ -37,6 +43,11 @@ npm run build
 Use `npm run format` to apply formatting. GitHub Actions runs the checks above on
 pull requests and pushes to `main`. Add focused behavioral tests only when they
 cover meaningful risks; no broad testing framework is required for this shell.
+
+The content check requires Python 3 on `PATH` (`python --version`); it uses only
+the standard library and does not rewrite the imported verification report.
+Python is needed for this check, not for running the application shell. Imported
+content is excluded from automatic formatting to preserve its supplied bytes.
 
 ## Working together
 

@@ -1,0 +1,717 @@
+{
+  "schema_version": "1.0",
+  "assignment_id": "network_performance_v1",
+  "content_status": "authored_source_checked_draft",
+  "educational_validation_status": "not_educationally_validated",
+  "review_status": "pending_teacher_review",
+  "authorship_note": "These original prompts and rubrics were authored for the demo and checked against the supplied source passages. They are not textbook questions, teacher-approved questions, or educationally validated measures.",
+  "scoring_policy": {
+    "allowed_correctness": [
+      "correct",
+      "partially_correct",
+      "incorrect",
+      "uncertain"
+    ],
+    "correct": "The response supplies the requested conclusions and essential reasoning. Accept equivalent wording, valid alternative units, and algebraically equivalent calculations.",
+    "partially_correct": "At least one assessed answer component or required reasoning step is correct but another is missing or wrong. For multi-part responses, score the components first: any meaningfully correct assessed component makes a mixed joint response partially_correct, even when another component contains explicit misconception evidence. Merely restating a given fact is not a correct answer component. Record arithmetic or conversion errors separately from conceptual reasoning; a correct equation with a numerical slip can show conceptual understanding without a fully correct answer.",
+    "incorrect": "The interpretable response contradicts the requested concept or supplied assumptions and contains no meaningfully correct assessed answer component or required reasoning step. For mixed multi-part answers, partially_correct takes priority; preserve the incorrect component and any explicit misconception evidence within that partial result. Save the claim and explanation; do not infer a specific misconception merely from the outcome.",
+    "uncertain": "The response lacks enough interpretable information to judge the requested idea, or its wording admits materially different interpretations. Ask for clarification rather than inventing reasoning.",
+    "misconception_handling": "No hypothesis is warranted from a single unexplained error, guess, missing answer, or arithmetic slip. Explicit mistaken reasoning may motivate a tentative hypothesis and a targeted diagnostic follow-up; never treat it as a confirmed belief. Evidence from a follow-up can strengthen, weaken, or dismiss it. Use other_or_uncertain when no supported controlled category fits.",
+    "terminology_handling": "P01 uses bandwidth and throughput loosely; P03 makes a more precise distinction. Do not flag the student's vocabulary alone if their account of available versus measured rate is sound. Latency is contextual; honor a correctly stated measurement boundary.",
+    "numeric_handling": "Use decimal kilo/mega prefixes, 8 bits per byte, and the units explicitly supplied. A number without required reasoning may earn partial credit and a clarification. Do not penalize harmless rounding. Report arithmetic, unit conversion, and concept findings separately.",
+    "assistance_handling": "Record whether the answer was independent, after a hint, after corrective feedback, or at a delayed review, and copy the question's embedded_scaffolding into the evidence record. A supplied formula, relationship, or conversion can support application without demonstrating independent recall of the supplied content. Exclude the listed affected rubric criteria from independent-retrieval claims. An immediate correct retest is correct after feedback, not evidence of lasting retention.",
+    "example_response_handling": "Examples illustrate scoring and are not exhaustive answer matches. Do not classify only by text similarity.",
+    "grounding": "Use only linked assigned passages and the question's explicit assumptions. The P08 one-bit simplification is not assessed. If evidence does not support an assessment, return uncertain and request teacher review."
+  },
+  "questions": [
+    {
+      "id": "NP-BW-01",
+      "concept_id": "bandwidth_throughput",
+      "review_status": "pending_teacher_review",
+      "question_type": "retrieval_and_explanation",
+      "embedded_scaffolding": [],
+      "prompt": "A link can transmit at up to 12 Mbps, but a measurement shows an application's transfer rate is 7 Mbps. In the more precise distinction used in the reading, which number describes available link bandwidth and which describes measured throughput? Explain why the two numbers can differ.",
+      "expected_answer": "12 Mbps is the available link bandwidth or data rate; 7 Mbps is the measured application throughput. The available rate does not guarantee the achieved rate; implementation or other stated system inefficiencies can make measured performance lower.",
+      "required_reasoning": [
+        "Distinguish an available rate from an observed rate.",
+        "Explain that practical performance need not reach the available rate."
+      ],
+      "acceptable_variations": [
+        "Capacity and achieved rate are acceptable wording.",
+        "Accept either vocabulary when the distinction itself is explicit; explain the source's more precise usage.",
+        "An explanation of implementation inefficiency is sufficient; no named network protocol is required."
+      ],
+      "partial_credit_guidance": "Correct labels without an explanation are partial. Correct distinction with swapped terminology should be clarified, especially because the source initially treats the words loosely. A clear assertion that both must be 12 Mbps is incorrect.",
+      "misconception_ids": [
+        "bandwidth_guarantees_throughput",
+        "other_or_uncertain"
+      ],
+      "source_passage_ids": [
+        "P01",
+        "P03",
+        "P05"
+      ],
+      "assumptions": [
+        "Mbps means one million bits per second.",
+        "Both figures refer to the stated link and application measurement, not frequency bandwidth in hertz."
+      ],
+      "hint": "Which number says what the link can offer, and which says what was actually observed?",
+      "example_responses": {
+        "correct": "12 is available bandwidth and 7 is throughput. The application does not necessarily achieve the link's maximum, because the implementation can be inefficient.",
+        "partially_correct": "12 is bandwidth and 7 is throughput.",
+        "incorrect": "Throughput has to be 12 Mbps because the link is a 12 Mbps link; the measurement cannot be right.",
+        "uncertain": "They are both the speed, I guess."
+      }
+    },
+    {
+      "id": "NP-BW-02",
+      "concept_id": "bandwidth_throughput",
+      "review_status": "pending_teacher_review",
+      "question_type": "calculation_and_interpretation",
+      "embedded_scaffolding": [],
+      "prompt": "During a 5-second observation, an application transfers 20 million bits over a link whose available data rate is 10 Mbps. Calculate the observed throughput in Mbps. Does that observation establish that the link's available data rate is only your calculated value? Explain.",
+      "expected_answer": "Observed throughput is 20 million bits / 5 seconds = 4 million bits/s = 4 Mbps. No: a measured application rate of 4 Mbps does not change the stated available link data rate of 10 Mbps.",
+      "required_reasoning": [
+        "Divide the transferred bit count by elapsed time.",
+        "Keep measured performance distinct from available link data rate."
+      ],
+      "acceptable_variations": [
+        "4,000,000 bits/s, 4 Mb/s, or 4 Mbps.",
+        "The observation may indicate lower achieved performance without identifying its cause."
+      ],
+      "partial_credit_guidance": "Correct division with an arithmetic slip is partial with arithmetic_error recorded. A correct 4 Mbps answer that redefines the stated link capacity as 4 Mbps is partial with a conceptual issue. Do not require an explanation of the exact cause of the gap.",
+      "misconception_ids": [
+        "bandwidth_guarantees_throughput",
+        "other_or_uncertain"
+      ],
+      "source_passage_ids": [
+        "P01",
+        "P03"
+      ],
+      "assumptions": [
+        "The 20 million bits is the complete count for this throughput measurement.",
+        "The observation interval is exactly 5 seconds.",
+        "Use decimal Mbps."
+      ],
+      "hint": "A rate compares an amount with the time taken. Then compare observed performance with the stated available rate.",
+      "example_responses": {
+        "correct": "20/5 = 4 Mbps. That is achieved throughput; the available rate remains 10 Mbps.",
+        "partially_correct": "20 million divided by 5 is 4 Mbps, so the link must really only have a 4 Mbps capacity.",
+        "incorrect": "It is 10 Mbps because the link's stated bandwidth is always the throughput.",
+        "uncertain": "I would need to know what counts as a bit before I could answer."
+      },
+      "numeric_check": {
+        "inputs": {
+          "transferred_bits": 20000000,
+          "elapsed_seconds": 5,
+          "available_rate_bits_per_second": 10000000
+        },
+        "formula": "transferred_bits / elapsed_seconds / 1000000",
+        "result": 4,
+        "unit": "Mbps"
+      }
+    },
+    {
+      "id": "NP-BW-03",
+      "concept_id": "bandwidth_throughput",
+      "review_status": "pending_teacher_review",
+      "question_type": "transfer_and_comparison",
+      "embedded_scaffolding": [
+        {
+          "type": "supplied_relationship",
+          "concept_ids": [
+            "bandwidth_throughput",
+            "latency_rtt"
+          ],
+          "supplied_content": "For application A, request/reply transmission time is explicitly negligible relative to round-trip waiting.",
+          "affected_rubric_criteria": [
+            "Independently recall or derive that tiny exchanges can be dominated by round-trip waiting. This prompt instead assesses applying the supplied comparison to an improvement choice."
+          ]
+        }
+      ],
+      "prompt": "Consider two applications. In A, sending a tiny request and reply takes negligible transmission time compared with waiting for the round trip. In B, sending one large object takes 8 seconds, while all other delay totals 0.02 seconds. For each application, would reducing round-trip waiting or increasing the effective transfer rate offer the larger opportunity for improvement under these conditions? Explain without claiming either choice always wins.",
+      "expected_answer": "A is dominated by round-trip waiting, so reducing that waiting offers the larger opportunity. B is dominated by the time to transfer the large object, so increasing its effective transfer rate offers the larger opportunity. The answer depends on the stated relative delay contributions and the application.",
+      "required_reasoning": [
+        "Use the explicitly stated dominant contribution in A.",
+        "Compare B's 8-second transfer contribution with its 0.02-second other-delay contribution.",
+        "Make the conclusion conditional on the example rather than universal."
+      ],
+      "acceptable_variations": [
+        "Latency-bound and bandwidth-bound are acceptable but not required terms.",
+        "Accept a comment that the exact gain depends on the magnitude of an improvement, while identifying the dominant contribution."
+      ],
+      "partial_credit_guidance": "Correctly identifying only one application is partial. Correct choices without the contribution comparison are partial. Do not require a quantitative speedup because no upgrade size is specified.",
+      "misconception_ids": [
+        "bandwidth_equals_latency",
+        "other_or_uncertain"
+      ],
+      "source_passage_ids": [
+        "P09",
+        "P10",
+        "P11"
+      ],
+      "assumptions": [
+        "For A, request/reply processing is negligible and the given round-trip waiting dominates.",
+        "For B, 8 seconds is the transfer contribution and 0.02 seconds includes all other delay in this example.",
+        "The question concerns which contribution dominates, not a guarantee for an unspecified upgrade size."
+      ],
+      "hint": "Look for the contribution that accounts for most of the elapsed time in each case.",
+      "example_responses": {
+        "correct": "Reduce round-trip waiting for A because sending the small messages is already negligible. Increase transfer rate for B because almost all its time is spent sending the object. Different sizes and delays could change the answer.",
+        "partially_correct": "A needs a shorter round trip, but I am not sure about B.",
+        "incorrect": "Increase transfer rate for A and reduce round-trip waiting for B. Object size does not matter because bandwidth and latency are interchangeable measures.",
+        "uncertain": "It depends, but I cannot say what it depends on."
+      }
+    },
+    {
+      "id": "NP-RTT-01",
+      "concept_id": "latency_rtt",
+      "review_status": "pending_teacher_review",
+      "question_type": "retrieval_and_explanation",
+      "embedded_scaffolding": [],
+      "prompt": "An observer times one message from host A to host B. A second measurement starts when A sends a request and ends when a reply reaches A. Assume the reply is generated immediately. What does each measurement describe, and what units would you use? Explain the difference in the journeys included.",
+      "expected_answer": "The first is one-way latency from A to B. The second is round-trip time, covering the journey to B and the reply's journey back to A. Both are measured in time units such as seconds or milliseconds.",
+      "required_reasoning": [
+        "State that the first measurement includes only the outward journey.",
+        "State that the second includes both outward and return journeys.",
+        "Use time units."
+      ],
+      "acceptable_variations": [
+        "One-way delay and round-trip delay are acceptable.",
+        "Any consistent time unit is acceptable."
+      ],
+      "partial_credit_guidance": "Correct labels with no explanation of the journeys are partial. Distinguishing the journeys but using bits/s as delay units is partial with a units/concept issue; clarify it.",
+      "misconception_ids": [
+        "rtt_equals_one_way",
+        "bandwidth_equals_latency",
+        "other_or_uncertain"
+      ],
+      "source_passage_ids": [
+        "P06",
+        "P12"
+      ],
+      "assumptions": [
+        "Host B generates its reply with negligible processing time.",
+        "The measurement endpoints are exactly those stated."
+      ],
+      "hint": "Track where the stopwatch starts and stops. Does it include a return to A?",
+      "example_responses": {
+        "correct": "A to B is one-way latency. From A out to B and back to A is RTT. Both can be measured in milliseconds.",
+        "partially_correct": "The first is latency and the second is RTT.",
+        "incorrect": "The first is RTT and the second is one-way latency. RTT stops at B, while one-way latency includes the reply returning to A.",
+        "uncertain": "They are two kinds of speed."
+      }
+    },
+    {
+      "id": "NP-RTT-02",
+      "concept_id": "latency_rtt",
+      "review_status": "pending_teacher_review",
+      "question_type": "calculation_with_asymmetric_delays",
+      "embedded_scaffolding": [],
+      "prompt": "A request takes 18 ms to reach a server, and its reply takes 27 ms to get back. The server replies immediately, and each stated time already includes all delay on that direction's journey. What is the round-trip time? Would doubling 18 ms give the correct RTT here? Explain.",
+      "expected_answer": "RTT = 18 + 27 = 45 ms. Doubling 18 would assume a return delay of 18 ms, contrary to the given 27 ms.",
+      "required_reasoning": [
+        "Add the explicitly given outward and return durations.",
+        "Explain why equal directional delays cannot be assumed here."
+      ],
+      "acceptable_variations": [
+        "0.045 seconds is equivalent.",
+        "An explanation that the two directions have different given delays is sufficient; routing explanations are not required."
+      ],
+      "partial_credit_guidance": "18 + 27 with a sum error is partial with arithmetic_error. 45 ms without reasoning is partial. A 36 ms answer with explicit equal-return reasoning supports a tentative rtt_always_twice_one_way hypothesis only after clarification/follow-up.",
+      "misconception_ids": [
+        "rtt_equals_one_way",
+        "rtt_always_twice_one_way",
+        "other_or_uncertain"
+      ],
+      "source_passage_ids": [
+        "P06",
+        "P12"
+      ],
+      "assumptions": [
+        "Forward delay is 18 ms and reverse delay is 27 ms.",
+        "Response processing is negligible.",
+        "Do not add transmission or queue components again; the stated journey times already include them."
+      ],
+      "hint": "The round trip contains two given intervals. Use each once.",
+      "example_responses": {
+        "correct": "18 + 27 = 45 ms. Doubling 18 gives 36 ms, which wrongly makes the reverse delay equal to the forward delay.",
+        "partially_correct": "I should add 18 and 27, so the answer is 44 ms.",
+        "incorrect": "36 ms, because RTT is always two times the outward delay regardless of the return value.",
+        "uncertain": "I cannot tell whether 18 or 27 is the answer."
+      },
+      "numeric_check": {
+        "inputs": {
+          "forward_delay_ms": 18,
+          "reverse_delay_ms": 27,
+          "response_processing_ms": 0
+        },
+        "formula": "forward_delay_ms + reverse_delay_ms + response_processing_ms",
+        "result": 45,
+        "unit": "ms"
+      }
+    },
+    {
+      "id": "NP-RTT-03",
+      "concept_id": "latency_rtt",
+      "review_status": "pending_teacher_review",
+      "question_type": "insufficient_information",
+      "embedded_scaffolding": [],
+      "prompt": "A message's one-way delay from A to B is 12 ms. Nothing is known about the reply's delay from B to A; reply processing is negligible. Can you determine a unique RTT? Explain what additional fact or explicit assumption would make an RTT calculation possible.",
+      "expected_answer": "No unique RTT follows from the given information. We need the return delay, or an explicit assumption about it. If we additionally assumed an equal 12 ms return delay, then RTT would be 24 ms; that is conditional, not established by the prompt.",
+      "required_reasoning": [
+        "Recognize that the return duration is missing.",
+        "Name a sufficient added fact or assumption and distinguish it from known information."
+      ],
+      "acceptable_variations": [
+        "RTT = 12 ms + unknown return delay is sufficient.",
+        "The conditional 24 ms example is optional; correctly requesting the return delay is enough."
+      ],
+      "partial_credit_guidance": "Saying only not enough information is partial unless the missing return delay is identified. A conditional 24 ms answer is correct if the equality assumption is explicit and the response acknowledges it is not given.",
+      "misconception_ids": [
+        "rtt_always_twice_one_way",
+        "rtt_equals_one_way",
+        "other_or_uncertain"
+      ],
+      "source_passage_ids": [
+        "P06",
+        "P12"
+      ],
+      "assumptions": [
+        "The stated 12 ms is explicitly one-way.",
+        "Response processing is negligible.",
+        "No symmetry of directional delays is supplied."
+      ],
+      "hint": "Which part of the outward-and-back journey has no duration yet?",
+      "example_responses": {
+        "correct": "No. We still need the B-to-A delay. If we assume it is also 12 ms, RTT would be 24 ms, but that assumption was not given.",
+        "partially_correct": "Not enough information.",
+        "incorrect": "It must be 24 ms because the return is always the same as the outward trip.",
+        "uncertain": "Maybe 12, maybe 24; I do not know what to add."
+      }
+    },
+    {
+      "id": "NP-TX-01",
+      "concept_id": "transmission_delay",
+      "review_status": "pending_teacher_review",
+      "question_type": "controlled_diagnostic_comparison",
+      "embedded_scaffolding": [],
+      "prompt": "A single cable becomes twice as long. Packet size, link transmission rate, and propagation speed stay unchanged. What happens to transmission delay and propagation delay? Explain why.",
+      "expected_answer": "Transmission delay is unchanged because it is packet size divided by transmission rate, both fixed. Propagation delay doubles because it is cable length divided by propagation speed, and only cable length doubles.",
+      "required_reasoning": [
+        "Identify packet size and transmission rate as the determinants of transmission delay.",
+        "Identify cable length and propagation speed as the determinants of propagation delay.",
+        "Apply the stated controlled change to both quantities."
+      ],
+      "acceptable_variations": [
+        "The time to put the packet onto the cable stays the same; its signal travel time doubles.",
+        "Verbal proportional reasoning is sufficient; equations are optional."
+      ],
+      "partial_credit_guidance": "One correct effect with the other missing or wrong is partial. Both effects correct without explanation are partial and need a brief reasoning probe. If the student uses transmission to mean total delivery, clarify terminology before assigning a misconception hypothesis.",
+      "misconception_ids": [
+        "transmission_depends_on_distance",
+        "transmission_equals_propagation",
+        "other_or_uncertain"
+      ],
+      "source_passage_ids": [
+        "P07",
+        "P08",
+        "P12"
+      ],
+      "assumptions": [
+        "This is a single cable with no additional switches or links introduced.",
+        "Packet size, effective transmission rate, and propagation speed remain fixed.",
+        "The question asks for the two named components, not a prediction of queue time or total network latency."
+      ],
+      "hint": "Write each delay as a ratio. Which ratio contains cable length?",
+      "example_responses": {
+        "correct": "Transmission is unchanged: the same number of bits is placed on the cable at the same rate. Propagation doubles because the signal travels twice the distance at the same speed.",
+        "partially_correct": "Both double because transmission delay is the time the packet takes to travel the cable, so it depends on distance too.",
+        "incorrect": "Transmission doubles because the cable is longer, but propagation stays the same because packet size is unchanged.",
+        "uncertain": "It takes twice as long to send it."
+      }
+    },
+    {
+      "id": "NP-TX-02",
+      "concept_id": "transmission_delay",
+      "review_status": "pending_teacher_review",
+      "question_type": "calculation_and_units",
+      "embedded_scaffolding": [
+        {
+          "type": "unit_conversion_support",
+          "concept_ids": [
+            "transmission_delay"
+          ],
+          "supplied_content": "1 byte = 8 bits and 1 Mbps = 1,000,000 bits/s are supplied in the prompt.",
+          "affected_rubric_criteria": [
+            "Independently recall the byte-to-bit or Mbps conversion factors. Applying the supplied factors can be assessed; remembering those factors cannot."
+          ]
+        }
+      ],
+      "prompt": "A complete packet is 1,500 bytes long, including any overhead to be counted. It is placed onto one link at 6 Mbps. Use 8 bits per byte and 1 Mbps = 1,000,000 bits/s. What is its transmission delay in milliseconds? Show the size conversion and calculation. Is cable length needed to calculate this component? Explain why or why not.",
+      "expected_answer": "1,500 bytes × 8 = 12,000 bits. Transmission delay = 12,000 / 6,000,000 seconds = 0.002 seconds = 2 ms. Cable length is not a variable in this transmission-delay calculation; it affects propagation instead.",
+      "required_reasoning": [
+        "Convert the complete packet size from bytes to bits.",
+        "Divide bits by the link rate in bits per second.",
+        "Explain why distance is not needed for this component."
+      ],
+      "acceptable_variations": [
+        "0.002 s or 2,000 microseconds is numerically equivalent; prompt requests milliseconds but accept a correct alternative unit with conversion clarification.",
+        "A direct calculation 12 kilobits / 6 megabits per second is acceptable if units are clear."
+      ],
+      "partial_credit_guidance": "Correct size/rate reasoning with a conversion or arithmetic slip is partial; record that separately. 2 ms without the calculation or distance explanation is partial. Requiring cable length is evidence to clarify, not an automatic diagnosis.",
+      "misconception_ids": [
+        "transmission_depends_on_distance",
+        "transmission_equals_propagation",
+        "other_or_uncertain"
+      ],
+      "source_passage_ids": [
+        "P07",
+        "P08"
+      ],
+      "assumptions": [
+        "1 byte = 8 bits; Mbps uses decimal millions.",
+        "6 Mbps is the effective rate for placing this packet's bits onto the link.",
+        "Packet size already includes all overhead being counted.",
+        "Calculate transmission only; do not add propagation or queue delays."
+      ],
+      "hint": "The size and rate must both use bits before you divide. Then convert seconds to milliseconds.",
+      "example_responses": {
+        "correct": "1,500 × 8 = 12,000 bits. Divide by 6,000,000 bits/s to get 0.002 s, or 2 ms. Cable length is used for propagation, not size/rate transmission time.",
+        "partially_correct": "Transmission is size divided by rate: 1,500 / 6,000,000 = 0.25 ms. Distance is not needed.",
+        "incorrect": "It cannot be calculated until we know the cable length, because transmission delay is distance divided by signal speed.",
+        "uncertain": "Maybe 2, but I do not know the unit or why."
+      },
+      "numeric_check": {
+        "inputs": {
+          "packet_bytes": 1500,
+          "bits_per_byte": 8,
+          "link_rate_bits_per_second": 6000000
+        },
+        "formula": "packet_bytes * bits_per_byte / link_rate_bits_per_second * 1000",
+        "result": 2,
+        "unit": "ms"
+      }
+    },
+    {
+      "id": "NP-TX-03",
+      "concept_id": "transmission_delay",
+      "review_status": "pending_teacher_review",
+      "question_type": "controlled_transfer",
+      "embedded_scaffolding": [],
+      "prompt": "The same packet is sent along the same single cable twice. For the second send, the link transmission rate is halved. Cable length and signal propagation speed stay fixed, and there is no queue wait. Compare the second send's transmission delay and propagation delay with the first. Explain the two results separately.",
+      "expected_answer": "Transmission delay doubles because the same number of bits is placed on the link at half the rate. Propagation delay stays unchanged because cable length and signal propagation speed are unchanged.",
+      "required_reasoning": [
+        "Apply the inverse relationship between rate and transmission delay at fixed packet size.",
+        "Keep propagation speed distinct from transmission rate."
+      ],
+      "acceptable_variations": [
+        "Half as many bits each second means twice the time to place the packet on the link.",
+        "Verbal reasoning is sufficient."
+      ],
+      "partial_credit_guidance": "One correctly explained component is partial if the other is missing or wrong. Do not mark an imprecise statement about the whole delivery time as a specific propagation misconception without asking which component the student means.",
+      "misconception_ids": [
+        "propagation_depends_on_link_rate",
+        "transmission_equals_propagation",
+        "other_or_uncertain"
+      ],
+      "source_passage_ids": [
+        "P05",
+        "P07",
+        "P08"
+      ],
+      "assumptions": [
+        "Packet size, cable length, and propagation speed are unchanged.",
+        "This is one link and the specified effective transmission rate is halved.",
+        "Queue wait is zero for both sends."
+      ],
+      "hint": "A rate in bits/s tells you how quickly bits are placed on the cable. Does halving it change the separately fixed signal speed in m/s?",
+      "example_responses": {
+        "correct": "Transmission doubles because the denominator in size/rate is halved. Propagation is unchanged because distance and signal speed are fixed.",
+        "partially_correct": "Both double, since halving the bit rate also makes each signal travel along the cable at half the speed.",
+        "incorrect": "Transmission is unchanged because packet size stays the same. Propagation doubles because halving the bit rate halves signal speed.",
+        "uncertain": "The second send is slower, but I cannot separate the two delays."
+      }
+    },
+    {
+      "id": "NP-PROP-01",
+      "concept_id": "propagation_delay",
+      "review_status": "pending_teacher_review",
+      "question_type": "calculation_and_definition",
+      "embedded_scaffolding": [],
+      "prompt": "A signal travels along a 600 km cable at an effective propagation speed of 2.0 × 10^8 m/s. Calculate propagation delay in milliseconds and describe what interval your answer measures. Do not calculate the time to place a whole packet onto the cable.",
+      "expected_answer": "600 km = 600,000 m. Propagation delay = 600,000 / 200,000,000 seconds = 0.003 s = 3 ms. It measures the travel time of a signal from one end of the cable to the other.",
+      "required_reasoning": [
+        "Convert distance to units consistent with m/s.",
+        "Divide cable length by the supplied effective propagation speed.",
+        "Identify the result as signal travel time rather than whole-packet transmission time."
+      ],
+      "acceptable_variations": [
+        "0.003 seconds or 3,000 microseconds is equivalent.",
+        "A consistent calculation in km/s is acceptable."
+      ],
+      "partial_credit_guidance": "Distance/speed with a numerical or unit-conversion error is partial, not enough to infer a misconception. A correct result that is described as the time to place all packet bits onto the link is partial with a conceptual issue.",
+      "misconception_ids": [
+        "transmission_equals_propagation",
+        "propagation_depends_on_packet_size",
+        "other_or_uncertain"
+      ],
+      "source_passage_ids": [
+        "P07",
+        "P08",
+        "P12"
+      ],
+      "assumptions": [
+        "The cable length is 600 km, not a geographic straight-line estimate.",
+        "Propagation speed is uniform at the supplied value.",
+        "Only propagation is requested."
+      ],
+      "hint": "Match the distance unit to meters per second, then use distance divided by speed.",
+      "example_responses": {
+        "correct": "600,000 / 200,000,000 = 0.003 s = 3 ms. This is how long a signal takes to travel the cable.",
+        "partially_correct": "Use distance/speed: 600 / 200,000,000 = 0.000003 seconds.",
+        "incorrect": "We need packet size first because a larger packet has a larger propagation delay.",
+        "uncertain": "I think it is some number of milliseconds but cannot decide what to divide."
+      },
+      "numeric_check": {
+        "inputs": {
+          "cable_length_m": 600000,
+          "propagation_speed_m_per_second": 200000000
+        },
+        "formula": "cable_length_m / propagation_speed_m_per_second * 1000",
+        "result": 3,
+        "unit": "ms"
+      }
+    },
+    {
+      "id": "NP-PROP-02",
+      "concept_id": "propagation_delay",
+      "review_status": "pending_teacher_review",
+      "question_type": "controlled_transfer",
+      "embedded_scaffolding": [],
+      "prompt": "Two hypothetical links have the same cable length and the same transmission rate. The same packet is sent over each. Link B's effective signal propagation speed is twice Link A's. How do propagation delay and transmission delay on B compare with A? Explain using the quantities that determine each delay.",
+      "expected_answer": "B's propagation delay is half A's because the same distance is divided by twice the signal speed. Transmission delay is the same because packet size and transmission rate are the same.",
+      "required_reasoning": [
+        "Apply distance/speed to the propagation comparison.",
+        "Apply size/rate to the transmission comparison.",
+        "Distinguish signal speed from bit transmission rate."
+      ],
+      "acceptable_variations": [
+        "A ratio of 1/2 for propagation and 1 for transmission is acceptable with explanation.",
+        "No particular physical cable materials need be named."
+      ],
+      "partial_credit_guidance": "One correct comparison is partial if the other is absent or wrong. Equating signal speed with link bit rate is a conceptual issue, but an unclear use of faster should be clarified.",
+      "misconception_ids": [
+        "transmission_equals_propagation",
+        "other_or_uncertain"
+      ],
+      "source_passage_ids": [
+        "P07",
+        "P08"
+      ],
+      "assumptions": [
+        "These are controlled hypothetical links; use the given independent quantities.",
+        "Cable length, packet size, and link transmission rate are identical.",
+        "Only signal propagation speed differs; no other delay is being compared."
+      ],
+      "hint": "The question changes a speed measured in m/s, while keeping the rate measured in bits/s fixed.",
+      "example_responses": {
+        "correct": "B has half the propagation delay because the signal covers the same length at twice the speed. Transmission is unchanged because size and bit rate are unchanged.",
+        "partially_correct": "Both are halved because transmission and propagation mean the same travel time.",
+        "incorrect": "Propagation doubles because signal speed doubles, and transmission doubles because it is the same delay as propagation.",
+        "uncertain": "B is faster, but I cannot say which interval changes."
+      }
+    },
+    {
+      "id": "NP-PROP-03",
+      "concept_id": "propagation_delay",
+      "review_status": "pending_teacher_review",
+      "question_type": "controlled_diagnostic_comparison",
+      "embedded_scaffolding": [],
+      "prompt": "A 1,000-byte packet and a 2,000-byte packet are sent separately over the same single cable at the same transmission rate. Cable length and propagation speed are fixed, with no queue wait. Compare their propagation delays and their transmission delays. Does a larger packet finishing later show that its signals propagated more slowly? Explain.",
+      "expected_answer": "Both have the same propagation delay because the distance and signal speed are unchanged. The 2,000-byte packet has twice the transmission delay because it contains twice as many bits at the same rate. Its final bit is placed onto the cable later; the signals do not need to travel more slowly for the whole packet to finish arriving later.",
+      "required_reasoning": [
+        "Keep distance/speed independent of packet size.",
+        "Apply size/rate to obtain twice the transmission delay.",
+        "Distinguish whole-packet arrival completion from signal travel time."
+      ],
+      "acceptable_variations": [
+        "Each packet's bits take the same travel time after entering the cable, but the larger packet takes longer to enter completely.",
+        "No actual milliseconds need be calculated."
+      ],
+      "partial_credit_guidance": "Same propagation and double transmission with no explanation of arrival completion is partial. A statement that the larger packet takes longer overall can be correct; ask which component the student means before flagging a misconception.",
+      "misconception_ids": [
+        "propagation_depends_on_packet_size",
+        "transmission_equals_propagation",
+        "other_or_uncertain"
+      ],
+      "source_passage_ids": [
+        "P07",
+        "P08",
+        "P12"
+      ],
+      "assumptions": [
+        "The stated byte counts are complete packet sizes.",
+        "The packets are sent separately; they do not queue behind each other in this comparison.",
+        "Cable length, transmission rate, and propagation speed are fixed.",
+        "The question compares named components, not additional protocol or processing behavior."
+      ],
+      "hint": "Separate the time to put all the bits onto the cable from the travel time of a signal already on it.",
+      "example_responses": {
+        "correct": "Propagation is equal: distance and signal speed are the same. The larger packet takes twice as long to transmit because it has twice the bits. Its last bit starts traveling later, which explains a later finish without slower propagation.",
+        "partially_correct": "They have the same propagation delay and the larger packet has double transmission delay.",
+        "incorrect": "The larger packet has twice the propagation delay because twice as many bits take twice as long to travel the cable.",
+        "uncertain": "The larger one arrives later, but I do not know which delay that means."
+      }
+    },
+    {
+      "id": "NP-QUEUE-01",
+      "concept_id": "queuing_delay",
+      "review_status": "pending_teacher_review",
+      "question_type": "retrieval_and_classification",
+      "embedded_scaffolding": [],
+      "prompt": "A packet is stored inside a switch for 4 ms before forwarding on its outbound link begins. What delay component is that waiting interval, and how is it different from transmission delay? In a separate case where forwarding can begin immediately and the stated waiting interval is 0 ms, must you still add a positive queue wait? Explain.",
+      "expected_answer": "The 4 ms stored waiting interval is queuing delay. Transmission delay is the time to place the packet's bits onto the outbound link once transmission occurs. In the separate immediate-forwarding case, the stated queue wait is zero; a positive wait should not be invented.",
+      "required_reasoning": [
+        "Identify waiting before forwarding as queuing.",
+        "Distinguish waiting from placing bits onto the link.",
+        "Honor the explicitly supplied zero-wait case."
+      ],
+      "acceptable_variations": [
+        "Queueing and queuing are both acceptable spellings.",
+        "Buffer waiting is acceptable wording.",
+        "No explanation of traffic load or scheduling is required."
+      ],
+      "partial_credit_guidance": "Naming queuing correctly but not distinguishing transmission or addressing the zero-wait case is partial. Do not require a traffic model or infer a queue duration beyond the supplied facts.",
+      "misconception_ids": [
+        "queuing_equals_transmission",
+        "queuing_is_always_present",
+        "other_or_uncertain"
+      ],
+      "source_passage_ids": [
+        "P07",
+        "P08"
+      ],
+      "assumptions": [
+        "The 4 ms interval is explicitly waiting before forwarding, not transmission or processing.",
+        "The second case is separate and explicitly has zero waiting time.",
+        "Do not model traffic or derive waiting from packet arrival rates."
+      ],
+      "hint": "Does the packet spend this interval waiting for forwarding to start, or being placed onto the link?",
+      "example_responses": {
+        "correct": "The 4 ms is queuing: it waits before forwarding starts. Transmission is the time to put its bits onto the link. If waiting is explicitly zero, no positive queue delay should be added.",
+        "partially_correct": "The first interval is queuing delay because the packet is waiting.",
+        "incorrect": "The 4 ms is transmission delay because waiting inside a switch and sending bits onto the cable are the same process.",
+        "uncertain": "It is a network delay, but I cannot tell which one."
+      }
+    },
+    {
+      "id": "NP-QUEUE-02",
+      "concept_id": "queuing_delay",
+      "review_status": "pending_teacher_review",
+      "question_type": "component_sum",
+      "embedded_scaffolding": [
+        {
+          "type": "supplied_formula",
+          "concept_ids": [
+            "queuing_delay"
+          ],
+          "supplied_content": "Total latency = propagation + transmission + queue.",
+          "affected_rubric_criteria": [
+            "Independently recall the three-component additive latency equation. Applying the supplied equation and explaining the distinct waiting interval can still be assessed."
+          ]
+        }
+      ],
+      "prompt": "For one measured delivery, use the reading's simplified model: total latency = propagation + transmission + queue. The complete contributions for this delivery are 3 ms propagation, 2 ms transmission, and 5 ms queue waiting, with no other delay included. What is the total latency? Explain why the queue interval must be counted separately from transmission.",
+      "expected_answer": "Total latency = 3 + 2 + 5 = 10 ms. The 5 ms represents waiting before forwarding, while the 2 ms represents transmission; both are separate supplied contributions.",
+      "required_reasoning": [
+        "Add the three supplied components once each.",
+        "Distinguish the queue waiting interval from the transmission interval."
+      ],
+      "acceptable_variations": [
+        "0.010 seconds is equivalent.",
+        "The student can describe queue waiting and transmission in ordinary words."
+      ],
+      "partial_credit_guidance": "Correct three-term addition with an arithmetic slip is partial with arithmetic_error. 10 ms without the requested distinction is partial. An omitted queue term is not enough to infer conceptual confusion without the student's explanation.",
+      "misconception_ids": [
+        "queuing_equals_transmission",
+        "other_or_uncertain"
+      ],
+      "source_passage_ids": [
+        "P07",
+        "P08"
+      ],
+      "assumptions": [
+        "The given values are the complete component contributions for this delivery, not per-hop values to multiply.",
+        "The simplified three-component additive model is the intended model.",
+        "All units are milliseconds and no other delay term is included."
+      ],
+      "hint": "List the three distinct intervals and add each exactly once.",
+      "example_responses": {
+        "correct": "3 + 2 + 5 = 10 ms. Queue waiting occurs before forwarding and is not already included in the 2 ms of transmission.",
+        "partially_correct": "Add 3, 2, and 5, which I get as 9 ms. Queue is separate waiting time.",
+        "incorrect": "5 ms total: 3 + 2. Queue waiting is another name for transmission, so adding 5 would count it twice.",
+        "uncertain": "Maybe 5 or 10; I cannot tell whether the intervals overlap in this model."
+      },
+      "numeric_check": {
+        "inputs": {
+          "propagation_ms": 3,
+          "transmission_ms": 2,
+          "queue_ms": 5
+        },
+        "formula": "propagation_ms + transmission_ms + queue_ms",
+        "result": 10,
+        "unit": "ms"
+      }
+    },
+    {
+      "id": "NP-QUEUE-03",
+      "concept_id": "queuing_delay",
+      "review_status": "pending_teacher_review",
+      "question_type": "component_residual",
+      "embedded_scaffolding": [],
+      "prompt": "Under the reading's simplified model with propagation, transmission, and queue waiting as the only components, a delivery's total latency is 14 ms. Its complete propagation contribution is 4 ms and transmission contribution is 3 ms. What queue waiting time is implied? Explain your calculation and what the result represents.",
+      "expected_answer": "Queue = total latency - propagation - transmission = 14 - 4 - 3 = 7 ms. It represents the remaining waiting time in the model, before forwarding on outbound links.",
+      "required_reasoning": [
+        "Rearrange the additive latency equation to isolate queue time.",
+        "Subtract both other supplied contributions.",
+        "Interpret the residual as waiting rather than transmission or signal travel."
+      ],
+      "acceptable_variations": [
+        "7 milliseconds or 0.007 seconds.",
+        "Checking 4 + 3 + 7 = 14 is an acceptable equivalent demonstration."
+      ],
+      "partial_credit_guidance": "Correct rearrangement with an arithmetic error is partial. A correct 7 ms without interpreting it is partial. If the student challenges the simplified model, acknowledge that real measurements may include other effects, then restate the explicit assumptions before scoring.",
+      "misconception_ids": [
+        "queuing_equals_transmission",
+        "other_or_uncertain"
+      ],
+      "source_passage_ids": [
+        "P07",
+        "P08"
+      ],
+      "assumptions": [
+        "14 ms is the total for exactly the same delivery as the supplied component values.",
+        "The three supplied/unknown components exhaust the model for this question.",
+        "The unknown queue duration follows by subtraction; no queueing theory is needed."
+      ],
+      "hint": "Remove the two known contributions from the total. What kind of interval remains?",
+      "example_responses": {
+        "correct": "14 - 4 - 3 = 7 ms. This is queue waiting, the component left after removing propagation and transmission.",
+        "partially_correct": "Queue is total minus propagation minus transmission: 14 - 4 - 3 = 6 ms.",
+        "incorrect": "Queue is 3 ms because queue waiting and transmission delay are the same thing.",
+        "uncertain": "I am not sure which part of 14 ms is waiting."
+      },
+      "numeric_check": {
+        "inputs": {
+          "total_latency_ms": 14,
+          "propagation_ms": 4,
+          "transmission_ms": 3
+        },
+        "formula": "total_latency_ms - propagation_ms - transmission_ms",
+        "result": 7,
+        "unit": "ms"
+      }
+    }
+  ]
+}

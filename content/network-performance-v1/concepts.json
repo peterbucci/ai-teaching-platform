@@ -1,0 +1,174 @@
+{
+  "schema_version": "1.0",
+  "assignment_id": "network_performance_v1",
+  "content_status": "authored_source_checked_draft",
+  "educational_validation_status": "not_educationally_validated",
+  "review_status": "pending_teacher_review",
+  "scope": "Peterson and Davie, section 1.5.1, Bandwidth and Latency, at the source version identified in this package's provenance. Assess only the supplied passages and explicit problem assumptions.",
+  "terminology_policy": "The opening passage uses bandwidth and throughput loosely as related terms. The later passage P03 distinguishes available link data rate from measured performance. Accept a student's loose terminology when their meaning is clear; probe the distinction before treating wording alone as an error. Do not teach that bandwidth in bits/s is signal propagation speed in m/s.",
+  "global_misconceptions": [
+    {
+      "id": "other_or_uncertain",
+      "definition": "The response is ambiguous, insufficient, inconsistent with more than one explanation, or does not fit a supported category.",
+      "handling": "Store the actual response and uncertainty. Ask a neutral clarification when useful. This is an uncertainty label, not a diagnosed misconception."
+    }
+  ],
+  "misconception_policy": "A wrong answer, omitted explanation, or arithmetic error alone is not evidence of a particular mental model. A response that explicitly states the relevant mistaken causal rule can motivate a tentative hypothesis, which must be tested with a targeted follow-up. Preserve evidence against the hypothesis; revise or dismiss it when contradicted. Never label a student with a proven misconception.",
+  "concepts": [
+    {
+      "id": "bandwidth_throughput",
+      "title": "Bandwidth and measured throughput",
+      "review_status": "pending_teacher_review",
+      "objectives": [
+        "Describe link bandwidth or data rate in bits per second and measured throughput as actual observed performance.",
+        "Calculate an observed data-transfer rate from a stated bit count and elapsed time.",
+        "Explain why a link's available data rate need not equal measured throughput.",
+        "Recognize that small exchanges and large transfers can emphasize different performance limits."
+      ],
+      "source_passage_ids": ["P01", "P03", "P05", "P09", "P10", "P11"],
+      "boundaries": [
+        "Frequency-domain bandwidth in hertz is contextual reading, not an assessed objective.",
+        "Do not require explanations involving unassigned transport protocols, congestion-control algorithms, or detailed overhead accounting.",
+        "Application examples compare the stated conditions only; neither latency nor bandwidth always dominates."
+      ],
+      "common_misconceptions": [
+        {
+          "id": "bandwidth_guarantees_throughput",
+          "definition": "Treats a link's available data rate as a guarantee that an application achieves that measured rate.",
+          "evidence_that_may_support": "Explicitly insists the observed rate must equal the stated link capacity despite supplied measurements.",
+          "diagnostic_caution": "Using the words bandwidth and throughput interchangeably does not by itself support this hypothesis."
+        },
+        {
+          "id": "bandwidth_equals_latency",
+          "definition": "Treats data rate and elapsed delay as the same quantity, or claims that raising data rate necessarily reduces every delay component.",
+          "evidence_that_may_support": "An explanation equates bits per second with response time or assumes higher bandwidth necessarily changes propagation time.",
+          "diagnostic_caution": "Bandwidth can reduce transmission time; a statement about a specific large transfer may be correct. Clarify the claim's scope."
+        }
+      ]
+    },
+    {
+      "id": "latency_rtt",
+      "title": "Latency and round-trip time",
+      "review_status": "pending_teacher_review",
+      "objectives": [
+        "Distinguish a stated one-way latency from a round-trip time.",
+        "State delay in units of time rather than bits per second.",
+        "Compute a round-trip duration from explicitly supplied forward and reverse delays under a negligible-response-processing assumption.",
+        "Recognize when one-way information is insufficient to determine a round trip."
+      ],
+      "source_passage_ids": ["P06", "P09", "P12"],
+      "boundaries": [
+        "RTT is not universally twice a measured one-way delay; any equality of the two directions must be supplied as an assumption.",
+        "Do not require clock synchronization, routing, or protocol knowledge.",
+        "Latency is contextual: the source sometimes uses it generically, so identify the measurement's endpoints before scoring."
+      ],
+      "common_misconceptions": [
+        {
+          "id": "rtt_equals_one_way",
+          "definition": "Treats a stated one-way duration as already including the return journey.",
+          "evidence_that_may_support": "Explains that a round-trip duration ends when the first message reaches the destination.",
+          "diagnostic_caution": "The word latency alone is ambiguous in the source; use a prompt that explicitly says one-way."
+        },
+        {
+          "id": "rtt_always_twice_one_way",
+          "definition": "Assumes the reverse journey must have the same delay as the forward journey without a supporting assumption.",
+          "evidence_that_may_support": "States that the return delay is necessarily identical, including when different directional delays are supplied.",
+          "diagnostic_caution": "Twice the one-way delay is correct when equal directional delays are explicitly assumed."
+        }
+      ]
+    },
+    {
+      "id": "transmission_delay",
+      "title": "Transmission delay",
+      "review_status": "pending_teacher_review",
+      "objectives": [
+        "Explain transmission delay as the time needed to place a packet's bits onto the link at its given rate.",
+        "Use transmission delay = packet size in bits / link rate in bits per second.",
+        "Predict the effect of changing packet size or link rate while holding other relevant quantities fixed.",
+        "Explain why changing cable length alone changes propagation delay but not transmission delay."
+      ],
+      "source_passage_ids": ["P05", "P07", "P08"],
+      "boundaries": [
+        "Use the stated effective transmission rate; do not substitute measured application throughput without an explicit instruction.",
+        "Use a single link with stated assumptions; do not infer extra hops when cable length changes.",
+        "Do not assess the source's simplifying one-bit remark in P08."
+      ],
+      "common_misconceptions": [
+        {
+          "id": "transmission_depends_on_distance",
+          "definition": "Claims transmission delay increases with cable length when packet size and link transmission rate remain fixed.",
+          "evidence_that_may_support": "Explicitly uses the greater travel distance as the reason transmission delay increases.",
+          "diagnostic_caution": "The student may be using transmit colloquially for total delivery; first clarify which delay they mean."
+        },
+        {
+          "id": "transmission_equals_propagation",
+          "definition": "Treats putting packet bits onto a link and signal travel along that link as the same delay component.",
+          "evidence_that_may_support": "Uses distance divided by signal speed as the transmission-delay calculation, or explicitly equates the two processes.",
+          "diagnostic_caution": "Equal numerical values in one example do not mean the student thinks the concepts are identical."
+        }
+      ]
+    },
+    {
+      "id": "propagation_delay",
+      "title": "Propagation delay",
+      "review_status": "pending_teacher_review",
+      "objectives": [
+        "Explain propagation delay as signal travel time along a link.",
+        "Use propagation delay = cable length / effective signal speed in that medium.",
+        "Predict effects of changing distance or propagation speed while stating what remains fixed.",
+        "Distinguish propagation delay from effects of packet size and link data rate on transmission delay."
+      ],
+      "source_passage_ids": ["P07", "P08", "P12"],
+      "boundaries": [
+        "Use the supplied signal speed; students need not memorize the medium-specific values.",
+        "Propagation delay is not the time until an entire packet finishes arriving; transmission contributes to whole-packet delivery.",
+        "No claims about the engineering feasibility of changing one parameter independently are assessed."
+      ],
+      "common_misconceptions": [
+        {
+          "id": "propagation_depends_on_packet_size",
+          "definition": "Claims a larger packet takes longer for a given signal to traverse the same link at the same propagation speed.",
+          "evidence_that_may_support": "Attributes increased propagation delay to the number of bits, rather than distinguishing the longer transmission time.",
+          "diagnostic_caution": "A larger packet can finish arriving later because transmission takes longer; that statement alone is correct."
+        },
+        {
+          "id": "propagation_depends_on_link_rate",
+          "definition": "Claims increasing the data rate necessarily increases the signal's travel speed along a link whose medium and propagation speed are fixed.",
+          "evidence_that_may_support": "Uses link rate in bits/s as the denominator for propagation delay or says the signal moves faster because more bits are sent per second.",
+          "diagnostic_caution": "Real upgrades may change several physical properties. Diagnose only within a controlled prompt that fixes propagation speed."
+        }
+      ]
+    },
+    {
+      "id": "queuing_delay",
+      "title": "Queuing delay and total latency",
+      "review_status": "pending_teacher_review",
+      "objectives": [
+        "Identify time a packet waits inside a switch before forwarding as queuing delay.",
+        "Distinguish waiting from transmission and propagation.",
+        "Add supplied propagation, transmission, and queue components in the source's simplified latency model.",
+        "Find an unknown queue component from a supplied total and the other two components."
+      ],
+      "source_passage_ids": ["P07", "P08"],
+      "boundaries": [
+        "Every numerical queue duration is supplied directly or follows by subtraction from supplied component totals.",
+        "Do not assess queue distributions, traffic intensity, arrival rates, utilization, packet loss, or scheduling theory.",
+        "The simplified three-component model is assumed in the questions; do not imply it is exhaustive for every real network."
+      ],
+      "common_misconceptions": [
+        {
+          "id": "queuing_equals_transmission",
+          "definition": "Treats waiting for forwarding to begin as the same process as placing packet bits onto the outbound link.",
+          "evidence_that_may_support": "Labels an explicitly stated waiting interval as transmission or omits it because transmission time has already been counted.",
+          "diagnostic_caution": "A simple summation mistake does not establish conceptual confusion. Ask the student to label the intervals."
+        },
+        {
+          "id": "queuing_is_always_present",
+          "definition": "Claims every packet must experience a positive queue wait even when immediate forwarding is specified.",
+          "evidence_that_may_support": "Insists that a positive wait must be added to an example that explicitly gives zero waiting time.",
+          "diagnostic_caution": "The source says queue delays may occur; do not ask students to predict queue time from unstated traffic conditions."
+        }
+      ]
+    }
+  ]
+}
