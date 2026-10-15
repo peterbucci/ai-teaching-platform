@@ -40,7 +40,7 @@ This repository currently contains a basic **Next.js, React, and TypeScript appl
 
 We've also prepared a versioned networking content package with the reading, questions, expected answers, and example tutoring paths. It's included on the [`feature/2-demo-content` branch](https://github.com/peterbucci/ai-teaching-platform/tree/feature/2-demo-content) in [draft pull request #11](https://github.com/peterbucci/ai-teaching-platform/pull/11), but it has **not yet been merged or connected to the application**.
 
-The team still needs to approve the learning material, decide how much diagnostic coverage is necessary for the first demo, and review a discrepancy between the textbook repository's license and README. Because this repository is public, the prepared content branch is publicly visible, making the reuse question especially important to resolve.
+Peter Bucci approved the prepared learning material for the hackathon team on October 14, 2026 at 7:30 PM ET. The MVP requires one complete transmission/propagation sequence; the other concepts have approved questions and guidance for later expansion. This records team approval; it does not establish classroom-instructor review or scientific validation. The team still needs to review a discrepancy between the textbook repository's license and README. Because this repository is public, the prepared content branch is publicly visible, making the reuse question especially important to resolve.
 
 ## Where to start
 

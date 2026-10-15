@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0",
   "assignment_id": "network_performance_v1",
-  "content_status": "authored_source_checked_draft",
+  "content_status": "authored_source_checked_approved",
   "educational_validation_status": "not_educationally_validated",
-  "review_status": "pending_teacher_review",
+  "review_status": "approved",
   "scope": "Peterson and Davie, section 1.5.1, Bandwidth and Latency, at the source version identified in this package's provenance. Assess only the supplied passages and explicit problem assumptions.",
   "terminology_policy": "The opening passage uses bandwidth and throughput loosely as related terms. The later passage P03 distinguishes available link data rate from measured performance. Accept a student's loose terminology when their meaning is clear; probe the distinction before treating wording alone as an error. Do not teach that bandwidth in bits/s is signal propagation speed in m/s.",
   "global_misconceptions": [
@@ -18,7 +18,7 @@
     {
       "id": "bandwidth_throughput",
       "title": "Bandwidth and measured throughput",
-      "review_status": "pending_teacher_review",
+      "review_status": "approved",
       "objectives": [
         "Describe link bandwidth or data rate in bits per second and measured throughput as actual observed performance.",
         "Calculate an observed data-transfer rate from a stated bit count and elapsed time.",
@@ -49,7 +49,7 @@
     {
       "id": "latency_rtt",
       "title": "Latency and round-trip time",
-      "review_status": "pending_teacher_review",
+      "review_status": "approved",
       "objectives": [
         "Distinguish a stated one-way latency from a round-trip time.",
         "State delay in units of time rather than bits per second.",
@@ -80,7 +80,7 @@
     {
       "id": "transmission_delay",
       "title": "Transmission delay",
-      "review_status": "pending_teacher_review",
+      "review_status": "approved",
       "objectives": [
         "Explain transmission delay as the time needed to place a packet's bits onto the link at its given rate.",
         "Use transmission delay = packet size in bits / link rate in bits per second.",
@@ -111,7 +111,7 @@
     {
       "id": "propagation_delay",
       "title": "Propagation delay",
-      "review_status": "pending_teacher_review",
+      "review_status": "approved",
       "objectives": [
         "Explain propagation delay as signal travel time along a link.",
         "Use propagation delay = cable length / effective signal speed in that medium.",
@@ -142,7 +142,7 @@
     {
       "id": "queuing_delay",
       "title": "Queuing delay and total latency",
-      "review_status": "pending_teacher_review",
+      "review_status": "approved",
       "objectives": [
         "Identify time a packet waits inside a switch before forwarding as queuing delay.",
         "Distinguish waiting from transmission and propagation.",

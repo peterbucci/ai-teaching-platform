@@ -10,7 +10,7 @@ This project is being developed for the **PEAAII AI Applications Hackathon at UM
 - **Category:** AI-powered adaptive learning and teaching analytics
 - **Current implementation (as of October 14, 2026):** The minimal Next.js application foundation is on `main`. A prepared networking content package is under review in [draft PR #11](https://github.com/peterbucci/ai-teaching-platform/pull/11). The database, working AI tutor, and teacher dashboard are not yet implemented.
 
-This document describes **the intended product and agreed MVP direction**, not a claim that every feature exists. Inspect the repository, GitHub issues, and open pull requests for the actual implementation status. In particular, do not assume the draft content package is approved or merged.
+This document describes **the intended product and agreed MVP direction**, not a claim that every feature exists. Inspect the repository, GitHub issues, and open pull requests for the actual implementation status. Team content approval does not mean the draft PR has been merged or the tutor implemented.
 
 ## 1. Project Overview
 
@@ -80,7 +80,7 @@ Teachers should be able to add their own questions or review sample AI-generated
 
 ### Demo reading
 
-**Proposed source:** *Computer Networks: A Systems Approach*, Larry Peterson and Bruce Davie, Section 1.5.1, “Bandwidth and Latency.”
+**Approved demo source:** *Computer Networks: A Systems Approach*, Larry Peterson and Bruce Davie, Section 1.5.1, “Bandwidth and Latency.”
 
 - [Upstream textbook source](https://github.com/SystemsApproach/book/blob/master/foundation/performance.rst)
 - [Pinned source revision used by the content package](https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst#L14-L187)
@@ -93,9 +93,9 @@ The five prepared concepts are:
 4. Propagation delay.
 5. Queuing delay.
 
-The prepared `content/network-performance-v1/` package includes 13 assigned passages, 15 questions, and a detailed transmission-versus-propagation demonstration. The package's IDs and source version should stay stable once approved. The full upstream source file is preserved for provenance, **not** for expanding the assigned reading.
+The prepared `content/network-performance-v1/` package includes 13 assigned passages, 15 questions, and a detailed transmission-versus-propagation demonstration. The package's IDs and source version should stay stable now that it has team approval. The full upstream source file is preserved for provenance, **not** for expanding the assigned reading.
 
-The content is still awaiting team/teacher approval. The existing Issue #2 acceptance criteria request diagnostic and retest coverage for all five concepts, while our preferred minimal demo starts with **one complete sequence**. The team must explicitly decide whether to retain or narrow that issue requirement; do not silently mark unfinished coverage as complete.
+Peter Bucci approved `network-performance-v1` for the hackathon team on October 14, 2026 at 7:30 PM ET (`2026-10-14T19:30-04:00`): the selected reading/version, five concepts, 15 questions and answer guidance, misconception categories, and transmission-versus-propagation demonstration. This records team approval; it does not establish classroom-instructor review or scientific validation. The approved MVP scope requires **one complete adaptive sequence**: initial retrieval, diagnostic follow-up, grounded corrective feedback, fresh retests, and the evidence-recording specification. The other concepts have approved questions and guidance; more sequences can be added later.
 
 Preserve attribution and licensing information. The source repository's CC BY 4.0 license explicitly grants reproduction, sharing, and adaptation rights, subject to its conditions. Its README contains an apparent inconsistency, not proof that separate permission is required. The [attribution document](content/network-performance-v1/ATTRIBUTION.md) links the official license, README, contributor agreement, and relevant commit history; the wording-carryover explanation remains an unconfirmed inference. Follow the license conditions and check separately credited third-party material. The package preserves both notices and does not claim author confirmation or legal clearance.
 
@@ -352,7 +352,7 @@ Static package checks, deterministic software tests, and actual-model evaluation
 Priority order:
 
 1. **Application foundation — completed on `main`.**
-2. **Versioned demo content — prepared in draft PR #11; approval and coverage decisions remain.**
+2. **Versioned demo content — team-approved with one complete prepared sequence in draft PR #11; not yet merged.**
 3. **Shared evidence contract and minimal persistence.**
 4. **Grounded AI evaluation using one approved question.**
 5. **Diagnostic follow-up, feedback, and fresh retest.**
@@ -361,7 +361,7 @@ Priority order:
 
 The frontend, AI, database, and dashboard work can proceed in parallel **once the shared data contracts and IDs are agreed upon**. Do not have different teammates invent incompatible evidence shapes.
 
-Keep issue acceptance criteria and actual work aligned. If the team decides that full diagnostic sequences for all five concepts exceed the MVP, **propose an explicit scope change to Issue #2** rather than quietly treating incomplete work as approved.
+Keep issue acceptance criteria and actual work aligned. Issue #2 uses the approved scope: one complete transmission/propagation sequence, with approved questions and answer guidance for the other concepts. Additional sequences can follow later.
 
 ## 15. Definition of Done
 
@@ -383,8 +383,7 @@ A polished interface is useful, but an understandable, trustworthy end-to-end fl
 These require team agreement rather than silent implementation assumptions:
 
 - Final product name.
-- Final educational approval of the selected reading and package, and confirmation that the planned reuse follows the license conditions and any applicable third-party notices.
-- Whether Issue #2 should require full diagnostic/retest sequences for **all five** concepts or only one complete MVP sequence.
+- Confirmation that the planned reuse follows the license conditions and any applicable third-party notices.
 - The final shared evidence schema and API contracts.
 - AI model selection and evaluation criteria.
 - Exact meanings and thresholds of teacher-facing metrics or support alerts.

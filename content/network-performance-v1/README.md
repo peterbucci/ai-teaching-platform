@@ -10,7 +10,7 @@ While students practice, the system will record what they're understanding and w
 
 **The goal of this package is to give us a consistent set of material to build and test the tutor against.** We're not trying to support every textbook or subject just yet.
 
-**Current status:** The content is prepared but still awaiting teacher/team approval. The tutoring application has not been connected to this package yet.
+**Current status:** Peter Bucci has approved this content for the hackathon team. This does not establish classroom-instructor review or scientific validation. The tutoring application has not been connected to this package yet.
 
 ## The assigned reading
 
@@ -166,19 +166,19 @@ The package also contains a Python script used to verify the content.
 
 Expected answers and grading guidance should stay on the teacher/server side. Students should see the current question and appropriate feedback, not the answer bank.
 
-## What still needs to be decided
+## Team approval and remaining work
 
-The content isn't formally approved yet.
+The prepared content has team approval; actual AI behavior still needs to be tested.
 
-Before we treat it as ready, we need to:
+Here's what is approved and what we still need to do:
 
-1. **Review the reading and five concepts.** Make sure we're happy with the scope, terminology, and learning objectives.
-2. **Review the questions and tutoring examples.** Confirm the answers are accurate and decide how much diagnostic and retest coverage we need for the first demo. Right now, the transmission/propagation sequence is the most complete.
+1. **Reading and five concepts approved.** The selected reading/version, scope, terminology, and learning objectives are approved for the hackathon demo.
+2. **Questions and tutoring examples approved.** All 15 questions and answer guidance, misconception categories, and the transmission/propagation demonstration are approved. The MVP requires that one complete adaptive sequence: initial retrieval, diagnostic follow-up, grounded corrective feedback, fresh retests, and the evidence-recording specification. Other concepts have approved questions and guidance and can expand later.
 3. **Follow the textbook's license and attribution requirements.** Its CC BY 4.0 license explicitly permits adaptations, subject to its conditions. The README's apparent inconsistency is not proof that separate permission is required. We've kept both notices and linked the supporting evidence in `ATTRIBUTION.md`, including the unconfirmed wording-carryover explanation and cautions about third-party material. We do not claim author confirmation or legal clearance.
 
 The source review also identified a few details that may affect question evaluation, including the textbook's terminology for bandwidth and throughput, assumptions about RTT, a units typo, and some limitations in the simplified delay examples. These are documented in the review materials and source metadata.
 
-Once the team approves the content, we should record the approved version, reviewer, and date rather than simply marking it complete without a review.
+The team approval is recorded under Peter Bucci for version `network-performance-v1` at `2026-10-14T19:30-04:00` (October 14, 2026, 7:30 PM ET).
 
 ## Has the content been tested?
 

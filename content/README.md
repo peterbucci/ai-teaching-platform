@@ -10,7 +10,7 @@ The teacher can then see patterns across the class, such as concepts students ar
 
 This folder contains the reading, questions, and examples we're preparing for that demonstration.
 
-**Current status:** The material has been prepared and checked for consistency, but the team still needs to review and approve it. The AI tutor hasn't been implemented yet.
+**Current status:** Peter Bucci approved the prepared material for the hackathon team on October 14, 2026 at 7:30 PM ET. This records team approval; it does not establish classroom-instructor review or scientific validation. The AI tutor hasn't been implemented yet.
 
 ## Why are we preparing the questions ourselves?
 
@@ -63,11 +63,11 @@ The system records what happened so the teacher can see whether similar mistakes
 
 **An important distinction:** Getting a question right immediately after an explanation doesn't necessarily mean the student will remember it later. Our system should keep those results separate.
 
-## What we need to review as a team
+## What the team has approved and what we still need to review
 
 ### 1. Is the material appropriate?
 
-We need to agree on the reading, five concepts, and questions.
+Peter Bucci has approved the selected reading/version, five concepts, 15 questions and answer guidance, misconception categories, and prepared demonstration for the hackathon team.
 
 Someone familiar with networking should check the technical accuracy. Other teammates can help evaluate whether the questions are understandable and whether the AI's explanations would actually be useful to students.
 
@@ -75,13 +75,13 @@ You don't need a computer science background to contribute to that discussion.
 
 ### 2. Do we have the questions needed for the demo?
 
-We've prepared three questions per concept, but we haven't mapped out complete diagnostic and retest sequences for all five concepts.
+We've prepared three approved questions per concept. Complete diagnostic and retest sequences are not required for all five concepts in this MVP.
 
-The transmission-versus-propagation example has a more complete sequence already.
+The transmission-versus-propagation example supplies the complete prepared sequence.
 
-We need to decide whether to expand the other concepts now or focus on getting one complete tutoring experience working first.
+The team has chosen to focus on one complete tutoring experience first; the other concepts can expand later.
 
-The current GitHub issue asks for diagnostic and retest coverage across all five concepts. If we decide to narrow that requirement for the hackathon, we should update the issue together rather than silently changing the scope.
+The approved Issue #2 scope requires one complete adaptive sequence: initial retrieval, a diagnostic follow-up, grounded corrective feedback, fresh retests, and an evidence-recording specification. The other concepts retain approved questions and answer guidance.
 
 ### 3. Are we comfortable using this textbook?
 
@@ -118,7 +118,7 @@ There are also a few textbook details reviewers should pay attention to, includi
 
 ## What happens next?
 
-Once we've agreed on the reading and questions, we can use this content to build the first tutoring experience.
+With the reading and questions approved for the hackathon team, we can use this content to build the first tutoring experience.
 
 For now, the goal is to get one complete sequence working:
 

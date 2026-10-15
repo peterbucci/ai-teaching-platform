@@ -8,7 +8,7 @@ We want our tutor to do more than mark answers right or wrong. We want it to und
 
 **We’re preparing the questions and expected answers ourselves for the hackathon so we can test the AI against known examples.** A real teacher shouldn’t have to do this for every chapter. In the finished product, we want the AI to generate practice from teacher-approved material and adapt questions to student responses. That automated authoring process is future work, not part of this demo.
 
-**Current status:** These questions and concepts are still awaiting team/teacher approval. The content has passed static checks, but the AI tutor itself hasn’t been validated or demonstrated by those checks.
+**Current status:** Peter Bucci approved these questions and concepts for the hackathon team on October 14, 2026 at 7:30 PM ET. This records team approval; it does not establish classroom-instructor review or scientific validation. The content has passed static checks, but the AI tutor itself hasn’t been validated or demonstrated by those checks.
 
 [Read the assigned chapter](reading.md) · [See the tutoring walkthrough](DEMO_GUIDE.md) · [Package overview](README.md) · [Source attribution](ATTRIBUTION.md)
 
@@ -512,15 +512,15 @@ Queue = total latency - propagation - transmission = 14 - 4 - 3 = 7 ms. It repre
 
 We’ll start with `NP-TX-01` and the prepared transmission-versus-propagation sequence. The AI may ask for clarification, investigate a suspected misconception, give feedback grounded in the reading, and ask a fresh question to check whether the explanation helped. The student’s original response, follow-up, feedback, and retest remain linked so the teacher can inspect the evidence.
 
-That full experience is described in [DEMO_GUIDE.md](DEMO_GUIDE.md). The other questions are prepared practice material; we haven’t designed a complete scripted diagnostic path for all of them yet. The team must decide whether to expand that coverage now or narrow Issue #2’s acceptance criteria explicitly.
+That full experience is described in [DEMO_GUIDE.md](DEMO_GUIDE.md). The approved MVP scope requires one complete adaptive sequence with initial retrieval, a diagnostic follow-up, grounded corrective feedback, fresh retests, and the evidence-recording specification. The other concepts have approved questions and answer guidance; additional diagnostic paths can be added later.
 
-## What still needs the team’s approval
+## Team approval and remaining review
 
-- **Question and answer accuracy:** Confirm the five learning goals, all 15 questions, expected answers, and acceptable alternatives.
-- **Tutor experience:** Decide whether the questions and hints are understandable, and whether a student would get useful feedback when they struggle.
-- **Demo coverage:** Decide if the complete transmission/propagation sequence is enough for the hackathon MVP or whether we need more diagnostic/retest mapping now.
+- **Question and answer accuracy:** The selected reading/version, five learning goals, all 15 questions, expected answers, acceptable alternatives, and misconception categories have team approval.
+- **Tutor experience:** The prepared transmission/propagation demonstration has team approval. We still need to test whether the implemented AI gives useful feedback.
+- **Demo coverage:** The team approved one complete transmission/propagation sequence for the hackathon MVP. The other concepts can expand later.
 - **Textbook reuse:** Review [ATTRIBUTION.md](ATTRIBUTION.md) before publicly publishing adapted reading material; the source repository’s CC BY 4.0 license and README contain conflicting statements about derivative works.
-- **Approval status:** An actual reviewer, content version, and approval time still need to be recorded. Nothing is automatically approved just because these questions have been written.
+- **Approval status:** Peter Bucci approved version `network-performance-v1` for the hackathon team at `2026-10-14T19:30-04:00` (October 14, 2026, 7:30 PM ET). This does not establish classroom-instructor review or scientific validation.
 
 ## A note for developers and Codex
 

@@ -12,7 +12,7 @@ The application then saves the interaction so the teacher can see what happened 
 
 This demonstration is based on Section 1.5.1, *Bandwidth and Latency*, from *Computer Networks: A Systems Approach* by Larry Peterson and Bruce Davie.
 
-**Current status:** This is a prepared demonstration awaiting teacher/team approval. The conversations below are fictional examples of how the system should behave, not results from a working AI tutor or actual students.
+**Current status:** Peter Bucci approved this prepared demonstration for the hackathon team on October 14, 2026 at 7:30 PM ET. This records team approval; it does not establish classroom-instructor review or scientific validation. The conversations below are fictional examples of how the system should behave, not results from a working AI tutor or actual students.
 
 ### Why are the questions prepared in advance?
 
