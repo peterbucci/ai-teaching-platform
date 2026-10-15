@@ -116,6 +116,8 @@ Please don't force-push shared branches, overwrite someone else's work, or add r
 
 This repository is public. Anyone can view, clone, or fork it and propose changes through pull requests. Direct write access and Project board editing require the appropriate permissions. Maintainers should confirm that `main` is protected with the intended pull request and CI requirements; regardless of the settings, follow the review-and-check process described above.
 
+The protected `main` branch requires a pull request, one approving review, resolved conversations, and the passing `quality` check on an up-to-date branch. New commits dismiss stale approvals. Protection applies to administrators; force pushes and branch deletion are disabled. Grant repository write access and Project access to actual teammates so they can review changes and manage the board.
+
 The initial dependency audit found no production vulnerabilities but flagged an upstream `braces` advisory in development lint tooling. Revisit compatible tooling updates when appropriate; don't apply an incompatible Next.js lint-configuration downgrade just to clear the audit warning.
 
 ## What success looks like
