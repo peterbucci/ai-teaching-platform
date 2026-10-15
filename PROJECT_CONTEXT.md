@@ -97,7 +97,7 @@ The prepared `content/network-performance-v1/` package includes 13 assigned pass
 
 The content is still awaiting team/teacher approval. The existing Issue #2 acceptance criteria request diagnostic and retest coverage for all five concepts, while our preferred minimal demo starts with **one complete sequence**. The team must explicitly decide whether to retain or narrow that issue requirement; do not silently mark unfinished coverage as complete.
 
-Preserve attribution and licensing information. The source repository's CC BY 4.0 license grants adaptation rights, but its README contains conflicting wording about derivative works. The discrepancy must be addressed before public adapted publication; the prepared package records both notices and does not claim legal clearance.
+Preserve attribution and licensing information. The source repository's CC BY 4.0 license explicitly grants reproduction, sharing, and adaptation rights, subject to its conditions. Its README contains an apparent inconsistency, not proof that separate permission is required. The [attribution document](content/network-performance-v1/ATTRIBUTION.md) links the official license, README, contributor agreement, and relevant commit history; the wording-carryover explanation remains an unconfirmed inference. Follow the license conditions and check separately credited third-party material. The package preserves both notices and does not claim author confirmation or legal clearance.
 
 ## 3. Student Experience and Learning Methods
 
@@ -383,7 +383,7 @@ A polished interface is useful, but an understandable, trustworthy end-to-end fl
 These require team agreement rather than silent implementation assumptions:
 
 - Final product name.
-- Final approval and permitted reuse of the selected reading and package.
+- Final educational approval of the selected reading and package, and confirmation that the planned reuse follows the license conditions and any applicable third-party notices.
 - Whether Issue #2 should require full diagnostic/retest sequences for **all five** concepts or only one complete MVP sequence.
 - The final shared evidence schema and API contracts.
 - AI model selection and evaluation criteria.

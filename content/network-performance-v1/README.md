@@ -174,7 +174,7 @@ Before we treat it as ready, we need to:
 
 1. **Review the reading and five concepts.** Make sure we're happy with the scope, terminology, and learning objectives.
 2. **Review the questions and tutoring examples.** Confirm the answers are accurate and decide how much diagnostic and retest coverage we need for the first demo. Right now, the transmission/propagation sequence is the most complete.
-3. **Resolve the textbook licensing concern.** The source has a CC BY 4.0 license, but its README contains conflicting wording about adaptations. We've kept both notices and documented the issue in `ATTRIBUTION.md`.
+3. **Follow the textbook's license and attribution requirements.** Its CC BY 4.0 license explicitly permits adaptations, subject to its conditions. The README's apparent inconsistency is not proof that separate permission is required. We've kept both notices and linked the supporting evidence in `ATTRIBUTION.md`, including the unconfirmed wording-carryover explanation and cautions about third-party material. We do not claim author confirmation or legal clearance.
 
 The source review also identified a few details that may affect question evaluation, including the textbook's terminology for bandwidth and throughput, assumptions about RTT, a units typo, and some limitations in the simplified delay examples. These are documented in the review materials and source metadata.
 

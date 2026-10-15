@@ -85,11 +85,11 @@ The current GitHub issue asks for diagnostic and retest coverage across all five
 
 ### 3. Are we comfortable using this textbook?
 
-The textbook repository includes a Creative Commons license allowing reuse and adaptation with attribution. However, its README contains wording that conflicts with the license concerning derivative works.
+The textbook repository's CC BY 4.0 license explicitly allows reproducing, sharing, and adapting the licensed material, subject to attribution and its other conditions. Its README contains apparently inconsistent wording about derivative works.
 
-We've preserved the original source information and documented the inconsistency.
+We've preserved the original source information and documented the inconsistency, with links to the license, README, contributor agreement, and relevant commit history in the attribution document.
 
-We should resolve that concern before publicly distributing adapted material. The attribution document explains the details.
+The README wording is not proof that separate permission is required. We still need to follow the license conditions and check any separately credited third-party material. The possible explanation that wording was carried over from other books is unconfirmed; we are not claiming author confirmation or legal clearance.
 
 ## Where to look
 
