@@ -1,0 +1,455 @@
+{
+  "schema_version": "1.0",
+  "assignment_id": "network_performance_v1",
+  "status": "proposed_content_contract_for_teacher_and_implementation_review",
+  "purpose": "Specify the evidence that the first demo should preserve and the dashboard meanings that should be reviewed before implementation. Record types are conceptual; they do not mandate database tables or replace inspection of the actual application.",
+  "source_provenance": {
+    "source_id": "peterson_davie_1_5_1",
+    "source_manifest": "manifest.json",
+    "download_manifest": "upstream/download-manifest.json",
+    "passage_catalog": "passages.json",
+    "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+    "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+    "rule": "Every evaluation and instructional intervention resolves its passage IDs against the pinned source version approved for that assignment. Preserve exact prompt, rubric and source versions if later editing occurs."
+  },
+  "minimal_records": [
+    {
+      "record": "assignment_approval",
+      "required": [
+        "assignment_id",
+        "class_id",
+        "approved_concept_ids",
+        "source_id",
+        "source_commit",
+        "excerpt_sha256",
+        "content_package_version",
+        "status",
+        "approved_by",
+        "approved_at"
+      ],
+      "rules": [
+        "Start draft with approved_by and approved_at null. Only the teacher can approve the assignment and its concepts.",
+        "Retain the approved content version used by each session; a later revision must not silently change past evidence."
+      ]
+    },
+    {
+      "record": "study_session",
+      "required": [
+        "session_id",
+        "student_id",
+        "class_id",
+        "assignment_id",
+        "content_package_version",
+        "started_at",
+        "ended_at",
+        "synthetic"
+      ],
+      "rules": [
+        "Use fictional identifiers for fixtures and demo histories.",
+        "Keep synthetic and real records separable in all aggregations.",
+        "Teacher access follows authorized class membership; do not infer authorization from a model response."
+      ]
+    },
+    {
+      "record": "prompt_instance",
+      "required": [
+        "prompt_instance_id",
+        "session_id",
+        "prompt_id",
+        "prompt_version",
+        "prompt_text",
+        "rubric_version",
+        "concept_ids",
+        "source_passage_ids",
+        "source_id",
+        "source_commit",
+        "intent",
+        "presented_at",
+        "origin",
+        "embedded_scaffolding"
+      ],
+      "enums": {
+        "intent": [
+          "initial_retrieval",
+          "neutral_clarification",
+          "diagnostic_followup",
+          "immediate_retest",
+          "delayed_review"
+        ],
+        "origin": [
+          "authored_bank",
+          "authored_demo",
+          "model_generated",
+          "teacher_edited"
+        ],
+        "embedded_scaffolding_type": [
+          "supplied_formula",
+          "supplied_relationship",
+          "answer_hint",
+          "unit_conversion_support"
+        ]
+      },
+      "rules": [
+        "Preserve the exact text shown, including actual numeric values and assumptions; an ID alone is insufficient.",
+        "Model-generated prompts, if later permitted, also retain generator model and prompt-template versions and pass scope/source checks before display.",
+        "D01 through D08 are sequence node IDs; only nodes that request a student answer create a new response prompt.",
+        "Copy embedded_scaffolding from the reviewed question metadata into the exact displayed prompt instance. A supplied target formula or relationship is assistance for recalling that relationship even when no separate hint was clicked. Ordinary scenario inputs such as distance, packet size and propagation speed are not automatically hints."
+      ],
+      "embedded_scaffolding_fields": [
+        "type",
+        "concept_ids",
+        "supplied_content",
+        "affected_rubric_criteria"
+      ]
+    },
+    {
+      "record": "attempt",
+      "required": [
+        "attempt_id",
+        "session_id",
+        "student_id",
+        "assignment_id",
+        "prompt_instance_id",
+        "parent_attempt_id",
+        "root_attempt_id",
+        "sequence_index",
+        "created_at",
+        "submitted_at",
+        "response_id",
+        "assistance_event_ids_before_submission",
+        "assistance_level",
+        "scaffolding_types",
+        "timing",
+        "independent_retrieval_eligible_by_concept"
+      ],
+      "enums": {
+        "assistance_level": [
+          "none_recorded",
+          "prompt_supplied_content",
+          "hint",
+          "worked_example",
+          "corrective_feedback",
+          "multiple_types"
+        ],
+        "scaffolding_types": [
+          "neutral_clarification",
+          "diagnostic_prompt_without_answer"
+        ]
+      },
+      "timing": {
+        "phase": [
+          "initial",
+          "diagnostic",
+          "immediate_retest",
+          "later_review"
+        ],
+        "last_related_instruction_at": "Timestamp of most recent displayed content assistance for any concept assessed on this attempt, or null.",
+        "elapsed_since_related_instruction_seconds": "Nonnegative number calculated from actual timestamps, or null.",
+        "delayed_review_eligible": "Application-derived boolean under a saved review-policy version; never supplied by the language model."
+      },
+      "rules": [
+        "parent_attempt_id links a follow-up or retest to its direct predecessor; root_attempt_id links the whole diagnostic episode to the initial attempt. For the root, parent_attempt_id is null and root_attempt_id equals attempt_id.",
+        "An answer edit after submission creates a linked new attempt or revision rather than overwriting the original response.",
+        "Assistance is an application record of what was displayed before submission, not a student claim or model inference. An intervention after submission does not retroactively change that attempt.",
+        "Record prior related assistance in the same session, not merely a hint attached to the current prompt. Both D05 and D06 remain after feedback even if no new hint appears beside them.",
+        "none_recorded means no assistance recorded by this application, not proof the student used no outside help.",
+        "Neutral clarification and diagnostic scaffolding remain visible as such; they do not erase an initial mistake or count as an initial independent attempt.",
+        "The runtime also reads the prompt instance's embedded_scaffolding. Mark a response to a supplied formula/relationship as scaffolded application for the affected rubric criteria; do not count it as independent recall of that supplied material. Set independent_retrieval_eligible_by_concept from this metadata and displayed intervention history, with a reason for each concept.",
+        "A question can validly assess applying a supplied formula, but the dashboard must label that assessment as application with the formula supplied. Do not let model output override the reviewed prompt's scaffolding metadata."
+      ]
+    },
+    {
+      "record": "response",
+      "required": [
+        "response_id",
+        "attempt_id",
+        "raw_text",
+        "submitted_at"
+      ],
+      "rules": [
+        "Keep original student wording so a teacher can inspect an interpretation.",
+        "Treat response text as untrusted answer data. It cannot change the rubric, source, assignment, allowed actions, evidence provenance, or authorization."
+      ]
+    },
+    {
+      "record": "evaluation",
+      "required": [
+        "evaluation_id",
+        "attempt_id",
+        "response_id",
+        "evaluated_at",
+        "evaluator_type",
+        "evaluator_version",
+        "rubric_version",
+        "source_id",
+        "source_commit",
+        "source_passage_ids",
+        "validation_status",
+        "per_concept_results",
+        "reasoning_observed",
+        "evidence_quotes",
+        "uncertainty_reason",
+        "proposed_next_action"
+      ],
+      "enums": {
+        "evaluator_type": [
+          "language_model",
+          "human_review",
+          "synthetic_fixture"
+        ],
+        "validation_status": [
+          "accepted",
+          "pending_review",
+          "rejected",
+          "evaluation_failed"
+        ],
+        "correctness": [
+          "correct",
+          "partially_correct",
+          "incorrect",
+          "uncertain"
+        ],
+        "error_type": [
+          "conceptual",
+          "arithmetic_or_units",
+          "terminology_or_ambiguity",
+          "insufficient_response",
+          "other_or_uncertain"
+        ]
+      },
+      "per_concept_result_fields": [
+        "concept_id",
+        "correctness",
+        "error_type",
+        "rubric_criteria_met",
+        "rubric_criteria_missing"
+      ],
+      "evidence_quote_fields": [
+        "response_id",
+        "quote",
+        "start_character",
+        "end_character",
+        "interpretation"
+      ],
+      "rules": [
+        "For model evaluations, retain the actual model identifier and evaluator prompt-template version, plus the validated structured output. Do not invent a calibrated confidence probability.",
+        "Quotes must be exact substrings of the linked response. Character offsets use one documented convention; proposed convention is zero-based Unicode code-point offsets, end-exclusive.",
+        "A response may assess both transmission and propagation; store separate judgments so a correct propagation explanation is not lost when transmission is wrong.",
+        "Use deterministic arithmetic for answer-key calculations, numeric checks, elapsed times, and dashboard counts. Interpret reasoning with the model or human review.",
+        "Reject unknown concepts, invalid passage IDs, fabricated quote spans, unsupported judgments, and disallowed next actions. Keep the raw response pending/unevaluated on failure, without marking it incorrect.",
+        "If an evaluation is corrected, preserve the previous version and identify the superseding accepted evaluation. Only the current accepted version contributes to aggregates.",
+        "Uncertain means insufficient defensible evidence. It is not an incorrect answer and is excluded from a reported scorable-success denominator.",
+        "An optional joint display summary is never copied to each concept. In the synthetic 'both double' example, transmission_delay is incorrect and propagation_delay is correct; a joint partially_correct label cannot replace those two judgments."
+      ]
+    },
+    {
+      "record": "intervention",
+      "required": [
+        "intervention_id",
+        "session_id",
+        "related_attempt_id",
+        "concept_ids",
+        "type",
+        "text_shown",
+        "source_passage_ids",
+        "source_id",
+        "source_commit",
+        "created_at",
+        "visible_at",
+        "delivery_status"
+      ],
+      "enums": {
+        "type": [
+          "hint",
+          "corrective_feedback",
+          "worked_example",
+          "neutral_clarification",
+          "diagnostic_prompt_without_answer",
+          "fallback"
+        ],
+        "delivery_status": [
+          "created",
+          "displayed",
+          "failed"
+        ]
+      },
+      "rules": [
+        "Only displayed content assistance with a valid visible_at timestamp counts as seen before a subsequent submission.",
+        "A created but undelivered hint must not convert an attempt to assisted.",
+        "The next attempt links all relevant prior displayed interventions; feedback links back to the evaluation/attempt that motivated it.",
+        "Neutral clarifications and diagnostic prompts are scaffolding; unsupported-input fallback supplies no answer and is recorded separately."
+      ]
+    },
+    {
+      "record": "hypothesis_event",
+      "required": [
+        "hypothesis_event_id",
+        "hypothesis_instance_id",
+        "student_id",
+        "assignment_id",
+        "concept_id",
+        "misconception_id",
+        "previous_status",
+        "status",
+        "evidence_evaluation_ids",
+        "supporting_response_quotes",
+        "contradicting_evaluation_ids",
+        "reason",
+        "created_at"
+      ],
+      "enums": {
+        "status": [
+          "suspected",
+          "supported",
+          "not_supported",
+          "uncertain"
+        ]
+      },
+      "rules": [
+        "A hypothesis instance concerns one student, assignment, concept and controlled misconception category. Keep append-only transitions and all links rather than overwriting the evidential history.",
+        "Absent means no hypothesis exists; do not create a target hypothesis just to fill a field.",
+        "For transmission_depends_on_distance, suspected requires explicit response evidence; supported requires a distinct follow-up repeating that reasoning before teaching.",
+        "A correct diagnostic explanation can make the hypothesis not_supported, even if an independent arithmetic error remains. A vague follow-up makes an existing hypothesis uncertain.",
+        "Do not equate a model's confidence with evidence, and do not create support by counting the same response twice.",
+        "A retest outcome is recorded separately. Immediate correctness after feedback does not erase the historically supported observations or establish resolution.",
+        "If later independent evidence justifies a new diagnostic episode, retain the old one; selecting a current episode for the dashboard must follow a declared rule."
+      ]
+    },
+    {
+      "record": "episode_outcome",
+      "required": [
+        "episode_id",
+        "root_attempt_id",
+        "student_id",
+        "assignment_id",
+        "concept_ids",
+        "hypothesis_instance_id",
+        "latest_hypothesis_status",
+        "outcome",
+        "supporting_attempt_ids",
+        "intervention_ids",
+        "recorded_at",
+        "next_review_at",
+        "review_policy_version"
+      ],
+      "enums": {
+        "outcome": [
+          "correct_initial_without_content_assistance",
+          "correct_after_neutral_clarification_without_content_assistance",
+          "correct_diagnostic_without_content_assistance",
+          "correct_after_feedback",
+          "distance_error_observed_after_feedback",
+          "partial_after_feedback_arithmetic_or_units",
+          "partial_or_incorrect_after_feedback",
+          "uncertain_after_feedback",
+          "pending_evaluation",
+          "unevaluated"
+        ]
+      },
+      "rules": [
+        "hypothesis_instance_id and latest_hypothesis_status may be null when no hypothesis was justified.",
+        "correct_after_feedback requires correct explanations on both D05 and D06 in this demo, not just one answer.",
+        "A repeated error after feedback is an observed outcome. It is not a diagnosis, an official grade, or an automatic teacher-support escalation.",
+        "The proposed next_review_at is 24 hours after session completion for an observed concept; save the policy version and the reason. This is a demo scheduling default, not a validated optimum.",
+        "For pending_evaluation or unevaluated episodes, next_review_at may remain null until a usable learning interaction or explicit review choice exists.",
+        "No delayed-retrieval evidence exists until an actual later response is submitted and evaluated. Scheduling a review does not count as completing it."
+      ]
+    }
+  ],
+  "timestamp_and_timing_rules": {
+    "storage": "Use server-recorded ISO 8601 UTC timestamps, preserving event order. Display in the user's chosen timezone; this project's current user timezone is America/New_York.",
+    "demonstration_policy": "For an illustrative delayed-review bucket, require a later session at least 24 hours after the most recent relevant displayed explanation/worked example, or the prior completed practice when there was no recorded explanation. Store elapsed time and policy version so the boundary is transparent.",
+    "assistance_on_delayed_review": "A later-session answer after a new hint is delayed-and-assisted, not delayed-independent. A 24-hour threshold is a product demo convention, not a claim about lasting retention."
+  },
+  "dashboard_contract": {
+    "units": "Students are distinct student IDs within a stated assignment, class, concept, data-provenance filter and time window. Attempts and hypotheses are separate counts with separate labels.",
+    "views": [
+      {
+        "label": "Students with evidence for this concept",
+        "definition": "Count distinct students with at least one current accepted evaluation for the concept, including uncertain results. Show the uncertain subset separately.",
+        "restriction": "Do not label this denominator as scorable answers or use it silently for a correctness percentage."
+      },
+      {
+        "label": "Initial answer correct without recorded content assistance",
+        "definition": "For each student/concept in the selected window, select the first submitted initial_retrieval response, then inspect its current accepted evaluation and recorded assistance. Include it in the denominator only if there is no recorded content assistance and correctness is correct, partially_correct or incorrect; the numerator is correct. Show uncertain, unevaluated and assisted initial responses as separate groups. Never substitute a later response. Also require independent_retrieval_eligible_by_concept for the selected concept; report formula-supplied or otherwise scaffolded application separately.",
+        "restriction": "Diagnostic responses, retests, neutral-clarification responses and retries after an unevaluable answer must not replace the initial response. Embedded formulas/relationships and other content cues are assistance even when the separate intervention list is empty."
+      },
+      {
+        "label": "Possible misconception supported by diagnostic evidence",
+        "definition": "Count distinct students whose selected latest diagnostic episode for this concept/category has status supported. Show suspected, uncertain and not_supported separately. Display response evidence and the current post-feedback outcome.",
+        "restriction": "A student counts once for the category even if several responses support it. Multiple categories may overlap, so category totals must not be presented as a count of unique students."
+      },
+      {
+        "label": "Correct on immediate retests after feedback",
+        "definition": "For the supported-hypothesis group from the same selected episodes, count distinct students with outcome correct_after_feedback; denominator is supported students in that group with completed, scorable D05 and D06 retests. Also show students with incomplete or uncertain retests.",
+        "restriction": "This is a subset/overlap with the historical supported group, not a new mutually exclusive mastery category."
+      },
+      {
+        "label": "Later review performance",
+        "definition": "Show actual elapsed time and whether a new hint or explanation preceded the response. Keep delayed-without-recorded-assistance and delayed-assisted separate.",
+        "restriction": "Show no evidence yet when there are no eligible later responses."
+      }
+    ],
+    "evidence_drawer": [
+      "Exact initial prompt and response",
+      "Per-concept evaluation with evidence quote",
+      "Hypothesis transitions and contradicting evidence",
+      "Diagnostic prompt and response",
+      "Displayed feedback with source passage",
+      "Retest prompts and responses",
+      "Recorded assistance and timing",
+      "Next review date and synthetic-data label"
+    ],
+    "no_automatic_support_flag": "A single session, uncertain answer or repeated immediate error does not automatically flag a student for instructor intervention. Teachers can inspect the observations; future support policies require explicit design and review.",
+    "implementation_owner": "Validated application logic/database queries calculate all counts and enforce deduplication. The language model may describe those computed counts but does not produce their numeric truth."
+  },
+  "synthetic_before_after_scenario": {
+    "synthetic": true,
+    "disclaimer": "Hypothetical fixture arithmetic only. These are not actual students, measured results, or evidence of educational effectiveness.",
+    "filter": {
+      "assignment_id": "network_performance_v1",
+      "concept_id": "transmission_delay",
+      "misconception_id": "transmission_depends_on_distance",
+      "synthetic": true,
+      "cohort_size": 25
+    },
+    "before": {
+      "distinct_students_with_concept_evidence": 20,
+      "first_initial_scorable_students_without_recorded_content_assistance": 20,
+      "first_initial_correct_students_without_recorded_content_assistance": 12,
+      "selected_episode_hypothesis_counts": {
+        "supported": 4,
+        "suspected": 1,
+        "uncertain": 2,
+        "not_supported": 1,
+        "no_target_hypothesis": 12
+      },
+      "supported_students_with_complete_scorable_immediate_retests": 4,
+      "supported_students_correct_after_feedback": 3
+    },
+    "added_episode": "SYN-SUPPORTED-01 from diagnostic-sequence.json belongs to new fictional participant SYN-021. The initial and diagnostic responses are incorrect for transmission_delay and correct for propagation_delay (joint display summary: partially_correct). D05 and D06 are correct for both concepts after D03. Four student answers are recorded, but only one student is added per concept/category.",
+    "after": {
+      "distinct_students_with_concept_evidence": 21,
+      "first_initial_scorable_students_without_recorded_content_assistance": 21,
+      "first_initial_correct_students_without_recorded_content_assistance": 12,
+      "selected_episode_hypothesis_counts": {
+        "supported": 5,
+        "suspected": 1,
+        "uncertain": 2,
+        "not_supported": 1,
+        "no_target_hypothesis": 12
+      },
+      "supported_students_with_complete_scorable_immediate_retests": 5,
+      "supported_students_correct_after_feedback": 4
+    },
+    "expected_dashboard_sentence": "In this synthetic scenario, 5 of 21 students with concept evidence supplied repeated responses consistent with the possible distance/transmission misconception. Four of those five answered both immediate retests correctly after feedback.",
+    "counting_checks": [
+      "4 + 1 + 2 + 1 + 12 = 20 before, and 5 + 1 + 2 + 1 + 12 = 21 after.",
+      "Initial correct count stays 12; assisted retest success must not raise it to 13.",
+      "Supported rises from 4 to 5 once, despite two supporting answers from the new student.",
+      "Correct-after-feedback subset rises from 3/4 to 4/5 in this completed-retest fixture; it overlaps the supported group.",
+      "Delayed success remains unknown. The cohort remains 25; participation changes from 20 to 21.",
+      "No instructor-support flag is automatically created."
+    ]
+  }
+}

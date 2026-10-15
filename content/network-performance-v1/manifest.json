@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0",
+  "package_id": "network-performance-v1",
+  "assignment_id": "network_performance_v1",
+  "title": "Network Performance",
+  "created_on": "2026-10-13",
+  "source_title": "Computer Networks: A Systems Approach",
+  "authors": [
+    "Larry Peterson",
+    "Bruce Davie"
+  ],
+  "copyright": "Elsevier, 2012",
+  "source_id": "peterson_davie_1_5_1",
+  "source_section": "1.5.1 Bandwidth and Latency",
+  "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+  "source_url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst",
+  "source_line_range": [
+    14,
+    187
+  ],
+  "license_id": "CC-BY-4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "upstream_license_url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/LICENSE",
+  "upstream_readme_url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/README.rst",
+  "source_sha256": "eec7ed3d2db7d46d7e3b872fdf9e2dd01b714f901b06fc6162961ad5b500ae17",
+  "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+  "teacher_review": {
+    "status": "approved",
+    "approved_by": "Peter Bucci",
+    "approved_at": "2026-10-14T19:30-04:00",
+    "approval_type": "team_approval_of_hackathon_educational_content_and_scope",
+    "approval_note": "Team approval for hackathon use; not scientific validation or confirmation of classroom-instructor review."
+  },
+  "validation_scope": "Source provenance, package structure, calculations, and editorial review; not empirical educational validation or a live AI evaluation.",
+  "assigned_passage_ids": [
+    "P01",
+    "P02",
+    "P03",
+    "P04",
+    "P05",
+    "P06",
+    "P07",
+    "P08",
+    "P09",
+    "P10",
+    "P11",
+    "P12",
+    "P13"
+  ],
+  "source_transformations": [
+    "reading-original.rst is an exact contiguous UTF-8 excerpt of upstream lines 14 through 187.",
+    "passages.json preserves exact paragraph spans and source line numbers.",
+    "reading.md reflows paragraphs, renders RST roles and adds navigation. Figure images and captions are omitted and their positions marked. Two separately labeled project notes flag a source simplification and a units typo; they are not textbook passages.",
+    "Questions, objectives, hypotheses and demonstration text are newly authored and kept in separate files."
+  ],
+  "source_cautions": [
+    "The upstream README sentence about derivative works conflicts with the CC BY 4.0 LICENSE adaptation grant. Both source files are retained; this package does not settle that legal inconsistency.",
+    "The source initially uses bandwidth/throughput loosely before distinguishing available rate from measured performance. Accept accurate explanations rather than penalizing synonyms alone.",
+    "The source uses latency generically. Every assessment specifies one-way latency or RTT explicitly.",
+    "The one-bit simplification in P08 is not assessed. Use finite packets and stated assumptions.",
+    "P10 contains a dimensional typo in the original displayed calculation: its denominator says 10 x 10^6 Mbps where 10 x 10^6 bits/s is intended. The 20-second result is correct. Preserve the source but use dimensionally correct arithmetic in assessment.",
+    "The source uses a simplified three-component delay model. Processing, multi-hop aggregation and advanced queuing models are outside assessment scope.",
+    "Queuing is introduced briefly. Questions use given waiting times, basic definition and delay arithmetic; traffic-dependent queue theory is not inferred from this excerpt."
+  ]
+}
