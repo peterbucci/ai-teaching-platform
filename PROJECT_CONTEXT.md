@@ -266,12 +266,12 @@ The finished product should also allow teachers to dismiss incorrect insights or
 | Application | Next.js, React, TypeScript | Student and teacher interfaces and server-side application logic. |
 | Styling and charts | Tailwind CSS, optional shadcn/ui, Recharts | Consistent UI and dashboard visuals. |
 | Server endpoints | Next.js Route Handlers / Server Actions | Request handling and tutoring coordination. |
-| Database | Supabase PostgreSQL | Students, sessions, attempts, evaluations, and insights. |
-| Authentication | Supabase Auth **if needed** | Teacher/student accounts; restricted demo access remains a decision. |
+| Database | Self-hosted PostgreSQL in Docker | Students, sessions, attempts, evaluations, and insights. |
+| Authentication | Better Auth in Next.js | Password login and sessions for provisioned fictional teacher/student accounts. |
 | AI | OpenAI Responses API with structured outputs | Response evaluation and grounded tutoring decisions. |
 | Validation | Zod | Validate inputs and model-generated data. |
 | Course content | Versioned Markdown/JSON and simple passage lookup | Deterministic content and source references for the MVP. |
-| Deployment | Vercel | Host the demo. |
+| Deployment | Docker Compose on a Docker-capable server | Run the application and PostgreSQL together. |
 | Collaboration | GitHub, Codex | Team development, issues, review, and AI-assisted coding. |
 | Testing | Focused deterministic checks and a small real-model evaluation set | Protect important behavior without excessive test infrastructure. |
 
@@ -387,7 +387,7 @@ These require team agreement rather than silent implementation assumptions:
 - The final shared evidence schema and API contracts.
 - AI model selection and evaluation criteria.
 - Exact meanings and thresholds of teacher-facing metrics or support alerts.
-- Supabase Auth versus restricted fictional demo access.
+- Deployment server and HTTPS setup for the self-hosted demo.
 - Optional improvements if the core is finished early.
 
 The broader product direction is clear: **teachers should not have to author every question, misconception, and tutoring branch**. Exactly how automated content creation and dynamic pattern grouping are implemented remains future design and research work.

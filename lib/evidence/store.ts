@@ -1,8 +1,9 @@
 import "server-only";
 import { randomUUID } from "node:crypto";
+import type { PoolClient } from "pg";
 import { z } from "zod";
 import type { Actor } from "../auth.ts";
-import { createAdminClient } from "../supabase/admin.ts";
+import { evidenceRow, inTransaction } from "../db.ts";
 import {
   AttemptSchema,
   EpisodeOutcomeSchema,
@@ -39,55 +40,94 @@ export class EvidenceError extends Error {
   }
 }
 
-// Construct only from a verified Actor; never from request ownership fields.
+// Construct only from a server-verified Actor; never from browser ownership fields.
 export function evidenceAccess(actor: Actor) {
-  return { actor, admin: createAdminClient() };
+  return { actor };
 }
 export type EvidenceAccess = ReturnType<typeof evidenceAccess>;
 
-function databaseError(error: { code?: string } | null): void {
-  if (!error) return;
-  if (["23505", "23503", "23514", "P0001"].includes(error.code ?? "")) {
+async function transaction<T>(
+  operation: (client: PoolClient) => Promise<T>,
+): Promise<T> {
+  try {
+    return await inTransaction(operation);
+  } catch (error) {
+    if (error instanceof EvidenceError || error instanceof z.ZodError)
+      throw error;
+    const database = z.object({ code: z.string() }).safeParse(error);
+    if (
+      database.success &&
+      ["23505", "23503", "23514", "P0001"].includes(database.data.code)
+    ) {
+      throw new EvidenceError(
+        409,
+        "This operation conflicts with the saved evidence.",
+      );
+    }
     throw new EvidenceError(
-      409,
-      "This operation conflicts with the saved evidence.",
+      503,
+      "Evidence storage is unavailable. Please retry.",
     );
   }
-  throw new EvidenceError(
-    503,
-    "Evidence storage is unavailable. Please retry.",
-  );
 }
 
-export async function authorizeSession(
+async function authorizedSession(
+  client: PoolClient,
   access: EvidenceAccess,
   sessionId: string,
   role: "student" | "teacher",
+  lock: boolean,
 ) {
   z.uuid().parse(sessionId);
-  // User JWT/RLS first. No privileged read occurs until this check succeeds.
-  const { data, error } = await access.actor.client
-    .from("sessions")
-    .select("*")
-    .eq("id", sessionId)
-    .maybeSingle();
-  databaseError(error);
-  if (!data) throw new EvidenceError(404, "Session not found.");
-  const session = SessionSchema.parse(data);
-  if (role === "student") {
-    if (session.student_id !== access.actor.profileId)
-      throw new EvidenceError(403, "Student access required.");
-  } else {
-    const owner = await access.actor.client
-      .from("classes")
-      .select("id")
-      .eq("id", session.class_id)
-      .eq("teacher_id", access.actor.profileId)
-      .maybeSingle();
-    databaseError(owner.error);
-    if (!owner.data) throw new EvidenceError(403, "Teacher access required.");
-  }
-  return session;
+  // Every access is scoped in SQL to the authenticated profile. The role parameter
+  // chooses an endpoint's required relationship, never a browser-provided role.
+  const result = await client.query(
+    `SELECT s.* FROM sessions s JOIN classes c ON c.id = s.class_id
+     WHERE s.id = $1 AND (
+       ($3 = 'student' AND s.student_id = $2 AND EXISTS (
+         SELECT 1 FROM enrollments e WHERE e.class_id = s.class_id AND e.student_id = $2))
+       OR ($3 = 'teacher' AND c.teacher_id = $2)) ${lock ? "FOR UPDATE OF s" : ""}`,
+    [sessionId, access.actor.profileId, role],
+  );
+  if (!result.rows[0]) throw new EvidenceError(404, "Session not found.");
+  return SessionSchema.parse(evidenceRow(result.rows[0]));
+}
+
+async function sessionEvidence(
+  client: PoolClient,
+  access: EvidenceAccess,
+  sessionId: string,
+  role: "student" | "teacher",
+  lock: boolean,
+) {
+  const session = await authorizedSession(
+    client,
+    access,
+    sessionId,
+    role,
+    lock,
+  );
+  const attempts = await client.query(
+    "SELECT * FROM attempts WHERE session_id = $1 ORDER BY sequence_index",
+    [sessionId],
+  );
+  const evaluations = await client.query(
+    "SELECT e.* FROM evaluations e JOIN attempts a ON a.id = e.attempt_id WHERE a.session_id = $1 ORDER BY e.evaluated_at, e.id",
+    [sessionId],
+  );
+  const interventions = await client.query(
+    "SELECT * FROM interventions WHERE session_id = $1 ORDER BY created_at, id",
+    [sessionId],
+  );
+  return validateSessionEvidence(
+    loadApprovedContent(),
+    evidenceRow({
+      session,
+      attempts: attempts.rows,
+      evaluations: evaluations.rows,
+      interventions: interventions.rows,
+    }),
+  );
 }
 
 export async function readSession(
@@ -95,40 +135,11 @@ export async function readSession(
   sessionId: string,
   role: "student" | "teacher",
 ) {
-  const session = await authorizeSession(access, sessionId, role);
-  const [attemptRows, interventionRows] = await Promise.all([
-    access.admin
-      .from("attempts")
-      .select("*")
-      .eq("session_id", sessionId)
-      .order("sequence_index"),
-    access.admin
-      .from("interventions")
-      .select("*")
-      .eq("session_id", sessionId)
-      .order("created_at")
-      .order("id"),
-  ]);
-  databaseError(attemptRows.error);
-  databaseError(interventionRows.error);
-  const attempts = z.array(AttemptSchema).parse(attemptRows.data);
-  const evaluations = attempts.length
-    ? await access.admin
-        .from("evaluations")
-        .select("*")
-        .in(
-          "attempt_id",
-          attempts.map((attempt) => attempt.id),
-        )
-        .order("evaluated_at")
-        .order("id")
-    : { data: [], error: null };
-  databaseError(evaluations.error);
-  return validateSessionEvidence(loadApprovedContent(), {
-    session,
-    attempts,
-    evaluations: evaluations.data,
-    interventions: interventionRows.data,
+  return transaction(async (client) => {
+    await client.query(
+      "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY",
+    );
+    return sessionEvidence(client, access, sessionId, role, false);
   });
 }
 
@@ -145,43 +156,34 @@ export async function startSession(
   dataOrigin: "synthetic_fixture" | "live_demo" = "live_demo",
 ) {
   z.uuid().parse(assignmentId);
-  const assignmentRow = await access.actor.client
-    .from("assignments")
-    .select("id,class_id,content_ref")
-    .eq("id", assignmentId)
-    .maybeSingle();
-  databaseError(assignmentRow.error);
-  if (!assignmentRow.data)
-    throw new EvidenceError(404, "Assignment not found.");
-  const assignment = z
-    .object({ id: z.uuid(), class_id: z.uuid(), content_ref: z.unknown() })
-    .parse(assignmentRow.data);
-  const membership = await access.actor.client
-    .from("enrollments")
-    .select("student_id")
-    .eq("class_id", assignment.class_id)
-    .eq("student_id", access.actor.profileId)
-    .maybeSingle();
-  databaseError(membership.error);
-  if (!membership.data)
-    throw new EvidenceError(403, "Assignment enrollment required.");
-  validateContentRef(loadApprovedContent(), assignment.content_ref);
-  const session = SessionSchema.parse({
-    id: randomUUID(),
-    student_id: access.actor.profileId,
-    assignment_id: assignment.id,
-    class_id: assignment.class_id,
-    status: "active",
-    data_origin: dataOrigin,
-    started_at: new Date().toISOString(),
-    ended_at: null,
+  return transaction(async (client) => {
+    const assignmentRows = await client.query(
+      `SELECT a.id, a.class_id, a.content_ref FROM assignments a
+       JOIN enrollments e ON e.class_id = a.class_id
+       WHERE a.id = $1 AND e.student_id = $2 FOR SHARE OF a, e`,
+      [assignmentId, access.actor.profileId],
+    );
+    if (!assignmentRows.rows[0])
+      throw new EvidenceError(404, "Assignment not found.");
+    const assignment = z
+      .object({ id: z.uuid(), class_id: z.uuid(), content_ref: z.unknown() })
+      .parse(assignmentRows.rows[0]);
+    validateContentRef(loadApprovedContent(), assignment.content_ref);
+    const result = await client.query(
+      "INSERT INTO sessions(id, student_id, assignment_id, class_id, data_origin) VALUES ($1,$2,$3,$4,$5) RETURNING *",
+      [
+        randomUUID(),
+        access.actor.profileId,
+        assignment.id,
+        assignment.class_id,
+        dataOrigin,
+      ],
+    );
+    return SessionSchema.parse(evidenceRow(result.rows[0]));
   });
-  const result = await access.admin.from("sessions").insert(session);
-  databaseError(result.error);
-  return session;
 }
 
-/** Trusted tutor code supplies the question; there is deliberately no browser API for this. */
+/** Trusted tutor code supplies the question; there is no browser API for this. */
 export async function presentQuestion(
   access: EvidenceAccess,
   sessionId: string,
@@ -192,44 +194,50 @@ export async function presentQuestion(
     review_of_attempt_id?: string;
   },
 ) {
-  const evidence = await readSession(access, sessionId, "student");
-  if (evidence.session.status !== "active")
-    throw new EvidenceError(409, "Session has ended.");
-  const question = validateQuestionSnapshot(
-    loadApprovedContent(),
-    input.question,
-  );
-  const parent = input.parent_attempt_id
-    ? evidence.attempts.find(
-        (attempt) => attempt.id === input.parent_attempt_id,
-      )
-    : null;
-  if (input.parent_attempt_id && !parent)
-    throw new EvidenceError(400, "Parent attempt is outside this session.");
-  if (input.intent === "delayed_review" && !input.review_of_attempt_id)
-    throw new EvidenceError(400, "Delayed retrieval requires a prior attempt.");
-  const id = randomUUID();
-  const attempt = AttemptSchema.parse({
-    id,
-    session_id: sessionId,
-    sequence_index:
-      Math.max(-1, ...evidence.attempts.map((item) => item.sequence_index)) + 1,
-    parent_attempt_id: parent?.id ?? null,
-    root_attempt_id: parent?.root_attempt_id ?? id,
-    review_of_attempt_id: input.review_of_attempt_id ?? null,
-    question,
-    intent: input.intent,
-    presented_at: new Date().toISOString(),
-    submitted_at: null,
-    response_text: null,
-    submission_key: null,
-    assistance: null,
-    current_evaluation_id: null,
-    outcome: null,
+  return transaction(async (client) => {
+    const evidence = await sessionEvidence(
+      client,
+      access,
+      sessionId,
+      "student",
+      true,
+    );
+    if (evidence.session.status !== "active")
+      throw new EvidenceError(409, "Session has ended.");
+    const question = validateQuestionSnapshot(
+      loadApprovedContent(),
+      input.question,
+    );
+    const parent = input.parent_attempt_id
+      ? evidence.attempts.find(
+          (attempt) => attempt.id === input.parent_attempt_id,
+        )
+      : null;
+    if (input.parent_attempt_id && !parent)
+      throw new EvidenceError(400, "Parent attempt is outside this session.");
+    if (input.intent === "delayed_review" && !input.review_of_attempt_id)
+      throw new EvidenceError(
+        400,
+        "Delayed retrieval requires a prior attempt.",
+      );
+    const id = randomUUID();
+    const result = await client.query(
+      `INSERT INTO attempts(id,session_id,sequence_index,parent_attempt_id,root_attempt_id,review_of_attempt_id,question,intent)
+       VALUES($1,$2,$3,$4,$5,$6,$7::jsonb,$8) RETURNING *`,
+      [
+        id,
+        sessionId,
+        Math.max(-1, ...evidence.attempts.map((item) => item.sequence_index)) +
+          1,
+        parent?.id ?? null,
+        parent?.root_attempt_id ?? id,
+        input.review_of_attempt_id ?? null,
+        JSON.stringify(question),
+        input.intent,
+      ],
+    );
+    return AttemptSchema.parse(evidenceRow(result.rows[0]));
   });
-  const result = await access.admin.from("attempts").insert(attempt);
-  databaseError(result.error);
-  return attempt;
 }
 
 export async function submitAnswer(
@@ -238,92 +246,114 @@ export async function submitAnswer(
   input: unknown,
 ) {
   const submission = SubmitAnswerSchema.parse(input);
-  // Bound the history snapshot before reading it. A later display acknowledgement
-  // must not retroactively change the help recorded at submission.
-  const submitted_at = new Date().toISOString();
-  const evidence = await readSession(access, sessionId, "student");
-  const attempt = evidence.attempts.find(
-    (item) => item.id === submission.attempt_id,
-  );
-  if (!attempt) throw new EvidenceError(404, "Attempt not found.");
-  const assistance = deriveAssistance(
-    attempt.question,
-    attempt.intent,
-    attempt.presented_at,
-    submitted_at,
-    evidence.interventions,
-  );
-  const result = await access.admin.rpc("submit_answer", {
-    p_attempt_id: attempt.id,
-    p_submission_key: submission.submission_key,
-    p_response_text: submission.response_text,
-    p_assistance: assistance,
-    p_submitted_at: submitted_at,
+  await transaction(async (client) => {
+    const evidence = await sessionEvidence(
+      client,
+      access,
+      sessionId,
+      "student",
+      true,
+    );
+    const attempt = evidence.attempts.find(
+      (item) => item.id === submission.attempt_id,
+    );
+    if (!attempt) throw new EvidenceError(404, "Attempt not found.");
+    // Use the database clock for both the answer and its assistance snapshot.
+    // Session locking serializes this with display acknowledgements and new prompts.
+    // JSON preserves PostgreSQL's microseconds; pg Date conversion could round
+    // below a prompt/display timestamp from the same millisecond.
+    const clock = await client.query(
+      "SELECT to_jsonb(clock_timestamp()) AS now",
+    );
+    const { now: submitted_at } = z
+      .object({ now: z.iso.datetime({ offset: true }) })
+      .parse(evidenceRow(clock.rows[0]));
+    const assistance = deriveAssistance(
+      attempt.question,
+      attempt.intent,
+      attempt.presented_at,
+      submitted_at,
+      evidence.interventions,
+    );
+    await client.query(
+      "SELECT * FROM submit_answer($1,$2,$3,$4::jsonb,$5::timestamptz)",
+      [
+        attempt.id,
+        submission.submission_key,
+        submission.response_text,
+        JSON.stringify(assistance),
+        submitted_at,
+      ],
+    );
   });
-  databaseError(result.error);
-  AttemptSchema.parse(result.data);
   return readStudentSession(access, sessionId);
 }
 
-/** Call after the client renders an intervention. Creation alone is not delivery. */
+/** Call after rendering. Merely creating an intervention does not mark it delivered. */
 export async function acknowledgeIntervention(
   access: EvidenceAccess,
   sessionId: string,
   interventionId: string,
 ) {
   z.uuid().parse(interventionId);
-  const evidence = await readSession(access, sessionId, "student");
-  const intervention = evidence.interventions.find(
-    (item) => item.id === interventionId,
-  );
-  if (!intervention) throw new EvidenceError(404, "Intervention not found.");
-  if (intervention.delivery_status === "failed")
-    throw new EvidenceError(409, "Intervention was not delivered.");
-  if (intervention.delivery_status === "created") {
-    const result = await access.admin
-      .from("interventions")
-      .update({
-        delivery_status: "displayed",
-        visible_at: new Date().toISOString(),
-      })
-      .eq("id", interventionId)
-      .eq("session_id", sessionId)
-      .eq("delivery_status", "created");
-    databaseError(result.error);
-  }
+  await transaction(async (client) => {
+    await authorizedSession(client, access, sessionId, "student", true);
+    const result = await client.query(
+      "SELECT * FROM interventions WHERE id=$1 AND session_id=$2",
+      [interventionId, sessionId],
+    );
+    if (!result.rows[0])
+      throw new EvidenceError(404, "Intervention not found.");
+    const intervention = InterventionSchema.parse(evidenceRow(result.rows[0]));
+    if (intervention.delivery_status === "failed")
+      throw new EvidenceError(409, "Intervention was not delivered.");
+    if (intervention.delivery_status === "created") {
+      await client.query(
+        "UPDATE interventions SET delivery_status='displayed', visible_at=clock_timestamp() WHERE id=$1 AND session_id=$2 AND delivery_status='created'",
+        [interventionId, sessionId],
+      );
+    }
+  });
   return readStudentSession(access, sessionId);
 }
 
-/** Server-only accepted/failed evidence write. Model output must pass the shared contract. */
+/** Server-only evidence write. No route accepts evaluations from a student. */
 export async function recordEvaluation(
   access: EvidenceAccess,
   sessionId: string,
   input: Omit<Evaluation, "evaluated_at">,
 ) {
-  const evidence = await readSession(access, sessionId, "student");
-  const evaluation = EvaluationSchema.parse({
-    ...input,
-    evaluated_at: new Date().toISOString(),
+  return transaction(async (client) => {
+    const evidence = await sessionEvidence(
+      client,
+      access,
+      sessionId,
+      "student",
+      true,
+    );
+    const evaluation = EvaluationSchema.parse({
+      ...input,
+      evaluated_at: new Date().toISOString(),
+    });
+    const attempt = evidence.attempts.find(
+      (item) => item.id === evaluation.attempt_id,
+    );
+    if (!attempt) throw new EvidenceError(404, "Attempt not found.");
+    validateEvaluationReferences(
+      loadApprovedContent(),
+      evaluation,
+      attempt,
+      evidence.attempts,
+      evidence.evaluations,
+    );
+    const result = await client.query(
+      "SELECT * FROM save_evaluation($1::jsonb)",
+      [JSON.stringify(evaluation)],
+    );
+    return EvaluationSchema.parse(evidenceRow(result.rows[0]));
   });
-  const attempt = evidence.attempts.find(
-    (item) => item.id === evaluation.attempt_id,
-  );
-  if (!attempt) throw new EvidenceError(404, "Attempt not found.");
-  validateEvaluationReferences(
-    loadApprovedContent(),
-    evaluation,
-    attempt,
-    evidence.attempts,
-    evidence.evaluations,
-  );
-  const result = await access.admin.rpc("save_evaluation", {
-    p_record: evaluation,
-  });
-  databaseError(result.error);
-  return EvaluationSchema.parse(result.data);
 }
 
-/** Server-only feedback write; the caller does not mark generated text as displayed. */
 export async function recordIntervention(
   access: EvidenceAccess,
   sessionId: string,
@@ -332,53 +362,68 @@ export async function recordIntervention(
     "session_id" | "created_at" | "visible_at" | "delivery_status"
   >,
 ) {
-  const evidence = await readSession(access, sessionId, "student");
-  const intervention = InterventionSchema.parse({
-    ...input,
-    session_id: sessionId,
-    created_at: new Date().toISOString(),
-    visible_at: null,
-    delivery_status: "created",
+  return transaction(async (client) => {
+    const evidence = await sessionEvidence(
+      client,
+      access,
+      sessionId,
+      "student",
+      true,
+    );
+    const intervention = InterventionSchema.parse({
+      ...input,
+      session_id: sessionId,
+      created_at: new Date().toISOString(),
+      visible_at: null,
+      delivery_status: "created",
+    });
+    validateSessionEvidence(loadApprovedContent(), {
+      ...evidence,
+      interventions: [...evidence.interventions, intervention],
+    });
+    const result = await client.query(
+      "INSERT INTO interventions SELECT (jsonb_populate_record(NULL::interventions,$1::jsonb)).* RETURNING *",
+      [JSON.stringify(intervention)],
+    );
+    return InterventionSchema.parse(evidenceRow(result.rows[0]));
   });
-  validateSessionEvidence(loadApprovedContent(), {
-    ...evidence,
-    interventions: [...evidence.interventions, intervention],
-  });
-  const result = await access.admin.from("interventions").insert(intervention);
-  databaseError(result.error);
-  return intervention;
 }
 
-/** Store a deterministic tutor's result; this does not choose the next action. */
+/** Records a deterministic tutor's outcome; it does not choose the next action. */
 export async function finishSession(
   access: EvidenceAccess,
   sessionId: string,
   input: Omit<EpisodeOutcome, "recorded_at">,
 ) {
-  const evidence = await readSession(access, sessionId, "student");
-  const outcome = EpisodeOutcomeSchema.parse({
-    ...input,
-    recorded_at: new Date().toISOString(),
+  return transaction(async (client) => {
+    const evidence = await sessionEvidence(
+      client,
+      access,
+      sessionId,
+      "student",
+      true,
+    );
+    const outcome = EpisodeOutcomeSchema.parse({
+      ...input,
+      recorded_at: new Date().toISOString(),
+    });
+    if (!evidence.attempts.some((item) => item.id === outcome.root_attempt_id))
+      throw new EvidenceError(400, "Episode root not found.");
+    validateSessionEvidence(loadApprovedContent(), {
+      ...evidence,
+      attempts: evidence.attempts.map((item) =>
+        item.id === outcome.root_attempt_id ? { ...item, outcome } : item,
+      ),
+    });
+    const status =
+      outcome.outcome === "pending_evaluation" ||
+      outcome.outcome === "unevaluated"
+        ? outcome.outcome
+        : "completed";
+    const result = await client.query(
+      "SELECT * FROM finish_session($1,$2,$3::jsonb,$4)",
+      [sessionId, outcome.root_attempt_id, JSON.stringify(outcome), status],
+    );
+    return SessionSchema.parse(evidenceRow(result.rows[0]));
   });
-  if (!evidence.attempts.some((item) => item.id === outcome.root_attempt_id))
-    throw new EvidenceError(400, "Episode root not found.");
-  validateSessionEvidence(loadApprovedContent(), {
-    ...evidence,
-    attempts: evidence.attempts.map((item) =>
-      item.id === outcome.root_attempt_id ? { ...item, outcome } : item,
-    ),
-  });
-  const status =
-    outcome.outcome === "pending_evaluation" ||
-    outcome.outcome === "unevaluated"
-      ? outcome.outcome
-      : "completed";
-  const result = await access.admin.rpc("finish_session", {
-    p_session_id: sessionId,
-    p_root_attempt_id: outcome.root_attempt_id,
-    p_outcome: outcome,
-    p_status: status,
-  });
-  databaseError(result.error);
-  return SessionSchema.parse(result.data);
 }

@@ -2,7 +2,7 @@ import "server-only";
 import { z } from "zod";
 import { AuthError } from "./auth.ts";
 import { EvidenceError } from "./evidence/store.ts";
-import { SupabaseConfigurationError } from "./supabase/config.ts";
+import { DatabaseConfigurationError } from "./db.ts";
 
 export async function apiResponse(
   operation: () => Promise<unknown>,
@@ -21,7 +21,7 @@ export async function apiResponse(
     const message =
       error instanceof AuthError || error instanceof EvidenceError
         ? error.message
-        : error instanceof SupabaseConfigurationError
+        : error instanceof DatabaseConfigurationError
           ? "The demo environment is not configured."
           : status === 400
             ? "Invalid request."
@@ -35,8 +35,11 @@ export async function apiResponse(
 
 export async function requestBody(request: Request): Promise<unknown> {
   const origin = request.headers.get("origin");
+  // Next.js may construct request.url with the container's bind address. Compare
+  // the browser Origin with the configured public origin, not that internal URL.
+  const expectedOrigin = new URL(process.env.AUTH_URL ?? request.url).origin;
   if (
-    (origin && origin !== new URL(request.url).origin) ||
+    (origin && origin !== expectedOrigin) ||
     !request.headers
       .get("content-type")
       ?.toLowerCase()

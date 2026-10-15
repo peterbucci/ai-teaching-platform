@@ -11,16 +11,7 @@ permissions:
 jobs:
   quality:
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:17
-        env:
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: evidence_test
-        options: >-
-          --health-cmd "pg_isready -U postgres -d evidence_test"
-          --health-interval 10s --health-timeout 5s --health-retries 5
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: actions/setup-node@v7.1.0
@@ -28,14 +19,49 @@ jobs:
           node-version: "22"
           cache: npm
       - run: npm ci
-      - name: Check database constraints and access policies
-        run: |
-          docker exec -i ${{ job.services.postgres.id }} psql -U postgres -d evidence_test -v ON_ERROR_STOP=1 < supabase/tests/bootstrap.sql
-          docker exec -i ${{ job.services.postgres.id }} psql -U postgres -d evidence_test -v ON_ERROR_STOP=1 < supabase/migrations/20261015000000_learning_evidence.sql
-          docker exec -i ${{ job.services.postgres.id }} psql -U postgres -d evidence_test -v ON_ERROR_STOP=1 < supabase/tests/evidence.sql
       - run: npm run content:check
       - run: npm test
       - run: npm run lint
       - run: npm run typecheck
       - run: npm run format:check
       - run: npm run build
+      - name: Configure isolated fictional demo
+        run: |
+          node --input-type=module <<'NODE'
+          import { randomBytes } from 'node:crypto';
+          import { writeFileSync } from 'node:fs';
+          const secret = () => randomBytes(32).toString('hex');
+          const entries = {
+            POSTGRES_PASSWORD: secret(),
+            PGPASSWORD: secret(),
+            AUTH_SECRET: secret(),
+            AUTH_URL: 'http://localhost:3000',
+            DEMO_TEACHER_EMAIL: 'teacher@example.invalid',
+            DEMO_TEACHER_PASSWORD: secret(),
+            DEMO_STUDENT_ONE_EMAIL: 'student-one@example.invalid',
+            DEMO_STUDENT_ONE_PASSWORD: secret(),
+            DEMO_STUDENT_TWO_EMAIL: 'student-two@example.invalid',
+            DEMO_STUDENT_TWO_PASSWORD: secret(),
+          };
+          writeFileSync('.env', Object.entries(entries).map(([k,v]) => `${k}=${v}`).join('\n'), { mode: 0o600 });
+          NODE
+      - name: Build and start application and database
+        run: docker compose up --build --wait --wait-timeout 180
+      - name: Provision accounts and seed evidence
+        run: docker compose exec -T app npm run db:seed
+      - name: Check SQL constraints
+        run: docker compose exec -T db psql -U learning_app -d learning_platform -v ON_ERROR_STOP=1 < database/tests/evidence.sql
+      - name: Check HTTP authentication and evidence persistence
+        run: docker compose exec -T app npm run db:check -- --prepare-restart
+      - name: Restart without resetting data
+        run: |
+          docker compose restart db app
+          docker compose up --wait --wait-timeout 180 --no-build --no-recreate
+          docker compose exec -T app npm run db:seed
+          docker compose exec -T app npm run db:check -- --verify-restart
+      - name: Show service status on failure
+        if: failure()
+        run: docker compose ps --all
+      - name: Stop isolated stack
+        if: always()
+        run: docker compose down --volumes

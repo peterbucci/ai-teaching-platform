@@ -1,7 +1,19 @@
 import "server-only";
-import type { SupabaseClient } from "@supabase/supabase-js";
+import { betterAuth } from "better-auth";
 import { z } from "zod";
-import { SupabaseConfigurationError } from "./supabase/config.ts";
+import { getAuthOptions } from "./auth-config.ts";
+import { getPool } from "./db.ts";
+
+let auth: ReturnType<typeof createAuth> | undefined;
+
+function createAuth() {
+  return betterAuth(getAuthOptions());
+}
+
+export function getAuth() {
+  // Importing server modules during a build must not require runtime secrets.
+  return (auth ??= createAuth());
+}
 
 export class AuthError extends Error {
   readonly status: 401 | 403 | 503;
@@ -16,48 +28,30 @@ export class AuthError extends Error {
 export type Actor = {
   profileId: string;
   userId: string;
-  client: SupabaseClient;
 };
 
 export async function requireActor(): Promise<Actor> {
-  let client;
-  try {
-    const { createClient } = await import("./supabase/server.ts");
-    client = await createClient();
-  } catch (error) {
-    if (error instanceof SupabaseConfigurationError) {
-      throw new AuthError(503, "The demo environment is not configured.");
-    }
-    throw error;
-  }
-
-  return resolveActor(client);
+  const { headers } = await import("next/headers");
+  return resolveActor(await headers());
 }
 
-export async function resolveActor(client: SupabaseClient): Promise<Actor> {
-  const { data: userData, error: userError } = await client.auth.getUser();
-  if (userError || !userData.user) {
-    if (userError?.status && userError.status >= 500) {
-      throw new AuthError(
-        503,
-        "Sign-in could not be verified. Please try again.",
-      );
-    }
-    throw new AuthError(401, "Sign in to continue.");
+export async function resolveActor(requestHeaders: Headers): Promise<Actor> {
+  try {
+    const session = await getAuth().api.getSession({ headers: requestHeaders });
+    if (!session) throw new AuthError(401, "Sign in to continue.");
+    const { rows } = await getPool().query(
+      "select id from profiles where auth_user_id = $1",
+      [session.user.id],
+    );
+    if (!rows.length)
+      throw new AuthError(403, "This account does not have demo access.");
+    const profile = z.object({ id: z.uuid() }).parse(rows[0]);
+    return { profileId: profile.id, userId: session.user.id };
+  } catch (error) {
+    if (error instanceof AuthError) throw error;
+    throw new AuthError(
+      503,
+      "Sign-in could not be verified. Please try again.",
+    );
   }
-
-  const { data, error } = await client
-    .from("profiles")
-    .select("id")
-    .eq("auth_user_id", userData.user.id)
-    .maybeSingle();
-  if (error) throw new AuthError(503, "Demo access could not be verified.");
-  if (!data)
-    throw new AuthError(403, "This account does not have demo access.");
-
-  const profile = z.object({ id: z.uuid() }).safeParse(data);
-  if (!profile.success) {
-    throw new AuthError(503, "Demo access could not be verified.");
-  }
-  return { profileId: profile.data.id, userId: userData.user.id, client };
 }

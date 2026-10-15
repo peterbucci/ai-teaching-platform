@@ -2,7 +2,7 @@ import "server-only";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { isDeepStrictEqual } from "node:util";
-import type { SupabaseClient } from "@supabase/supabase-js";
+import { evidenceRow, inTransaction } from "../db.ts";
 import { z } from "zod";
 import { getCuratedQuestion, type ApprovedContent } from "./content.ts";
 import type {
@@ -359,18 +359,18 @@ export function buildDemoFixture(content: ApprovedContent) {
 
 export type DemoFixture = ReturnType<typeof buildDemoFixture>;
 export type DemoAuthIds = {
-  teacher?: string;
-  studentOne?: string;
-  studentTwo?: string;
+  teacher: string;
+  studentOne: string;
+  studentTwo: string;
 };
 
 function comparable(value: unknown): unknown {
+  value = evidenceRow(value);
   if (Array.isArray(value)) return value.map(comparable);
   if (value && typeof value === "object")
     return Object.fromEntries(
       Object.entries(value).map(([key, item]) => [key, comparable(item)]),
     );
-  // PostgreSQL normalizes timestamptz values; equivalent offsets are not conflicts.
   if (
     typeof value === "string" &&
     /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(value) &&
@@ -393,166 +393,172 @@ function sameRecord(
   );
 }
 
-/** Explicit development seed only. It never creates Auth users or replaces history. */
-export async function seedDemo(
-  client: SupabaseClient,
-  fixture: DemoFixture,
-  authIds: DemoAuthIds = {},
-) {
-  const requestedIds = Object.values(authIds).filter((id) => id !== undefined);
+/** Operator-only, atomic seed. Fixed IDs are compared, never blindly overwritten. */
+export async function seedDemo(fixture: DemoFixture, authIds: DemoAuthIds) {
   if (
-    requestedIds.some((id) => !z.uuid().safeParse(id).success) ||
-    new Set(requestedIds).size !== requestedIds.length
+    Object.values(authIds).some((id) => !id.trim()) ||
+    new Set(Object.values(authIds)).size !== 3
   )
-    throw new Error("Demo Auth mappings must be distinct valid user UUIDs");
-
-  async function existingRow(table: string, key: Record<string, string>) {
-    const { data, error } = await client
-      .from(table)
-      .select("*")
-      .match(key)
-      .maybeSingle();
-    if (error)
-      throw new Error(
-        `Could not read ${table} fixture; check the migration and project access`,
-      );
-    return z.record(z.string(), z.unknown()).nullable().parse(data);
-  }
-  async function ensureRow(
-    table: string,
-    row: Record<string, unknown>,
-    key: Record<string, string>,
-  ) {
-    const existing = await existingRow(table, key);
-    if (existing) {
-      if (!sameRecord(existing, row))
-        throw new Error(
-          `Conflicting ${table} fixture; existing data was preserved`,
-        );
-      return;
-    }
-    const { error } = await client.from(table).insert(row);
-    if (error)
-      throw new Error(
-        `Could not insert ${table} fixture; existing data was preserved`,
-      );
-  }
-
-  for (const profile of fixture.profiles) {
-    const requested =
-      profile.id === DEMO_IDS.teacher
-        ? authIds.teacher
-        : profile.id === DEMO_IDS.studentOne
-          ? authIds.studentOne
-          : profile.id === DEMO_IDS.studentTwo
-            ? authIds.studentTwo
-            : undefined;
-    const existing = await existingRow("profiles", { id: profile.id });
-    if (!existing) {
-      await ensureRow(
-        "profiles",
-        { ...profile, auth_user_id: requested ?? null },
-        { id: profile.id },
-      );
-    } else {
+    throw new Error("Demo account mappings must be three distinct identities");
+  await inTransaction(async (client) => {
+    await client.query("SELECT pg_advisory_xact_lock(23031504)");
+    type SeedTable =
+      | "profiles"
+      | "classes"
+      | "enrollments"
+      | "assignments"
+      | "sessions"
+      | "attempts"
+      | "interventions";
+    // Table names and key columns are internal constants; all values are parameters.
+    async function existingRow(table: SeedTable, key: Record<string, string>) {
+      const columns = Object.keys(key);
       if (
-        !sameRecord(existing, {
-          id: profile.id,
-          display_name: profile.display_name,
-        }) ||
-        (requested &&
-          existing.auth_user_id !== null &&
-          existing.auth_user_id !== requested)
+        columns.some(
+          (column) => !["id", "class_id", "student_id"].includes(column),
+        )
       )
-        throw new Error(
-          "Conflicting profile ownership; existing data was preserved",
-        );
-      if (requested && existing.auth_user_id === null) {
-        const { data, error } = await client
-          .from("profiles")
-          .update({ auth_user_id: requested })
-          .eq("id", profile.id)
-          .is("auth_user_id", null)
-          .select("auth_user_id")
-          .single();
-        if (error || !sameRecord(data, { auth_user_id: requested }))
-          throw new Error(
-            "Could not bind the explicitly supplied demo Auth user",
-          );
-      }
+        throw new Error("Invalid internal seed key");
+      const where = columns
+        .map((column, index) => column + "=$" + (index + 1))
+        .join(" AND ");
+      const result = await client.query(
+        "SELECT * FROM " + table + " WHERE " + where + " FOR UPDATE",
+        Object.values(key),
+      );
+      return z
+        .record(z.string(), z.unknown())
+        .nullable()
+        .parse(evidenceRow(result.rows[0] ?? null));
     }
-  }
-  await ensureRow("classes", fixture.classRecord, {
-    id: fixture.classRecord.id,
-  });
-  for (const enrollment of fixture.enrollments)
-    await ensureRow("enrollments", enrollment, enrollment);
-  await ensureRow("assignments", fixture.assignment, {
-    id: fixture.assignment.id,
-  });
-
-  for (const evidence of fixture.sessions) {
-    await ensureRow("sessions", evidence.session, { id: evidence.session.id });
-    for (const attempt of evidence.attempts) {
-      const existing = await existingRow("attempts", { id: attempt.id });
-      const initial = {
-        ...attempt,
-        current_evaluation_id: null,
-        outcome: null,
-      };
+    async function ensureRow(
+      table: SeedTable,
+      row: Record<string, unknown>,
+      key: Record<string, string>,
+    ) {
+      const existing = await existingRow(table, key);
       if (existing) {
+        if (!sameRecord(existing, row))
+          throw new Error(
+            "Conflicting " + table + " fixture; existing data was preserved",
+          );
+        return;
+      }
+      await client.query(
+        "INSERT INTO " +
+          table +
+          " SELECT (jsonb_populate_record(NULL::" +
+          table +
+          ",$1::jsonb)).*",
+        [JSON.stringify(row)],
+      );
+    }
+    for (const profile of fixture.profiles) {
+      const requested =
+        profile.id === DEMO_IDS.teacher
+          ? authIds.teacher
+          : profile.id === DEMO_IDS.studentOne
+            ? authIds.studentOne
+            : profile.id === DEMO_IDS.studentTwo
+              ? authIds.studentTwo
+              : null;
+      const existing = await existingRow("profiles", { id: profile.id });
+      if (!existing) {
+        await ensureRow(
+          "profiles",
+          { ...profile, auth_user_id: requested },
+          { id: profile.id },
+        );
+      } else {
         if (
-          !sameRecord(
-            { ...existing, current_evaluation_id: null, outcome: null },
-            initial,
-          ) ||
-          (existing.current_evaluation_id !== null &&
-            existing.current_evaluation_id !== attempt.current_evaluation_id) ||
-          (existing.outcome !== null &&
-            !isDeepStrictEqual(
-              comparable(existing.outcome),
-              comparable(attempt.outcome),
-            ))
+          !sameRecord(existing, {
+            id: profile.id,
+            display_name: profile.display_name,
+          }) ||
+          (existing.auth_user_id !== null &&
+            existing.auth_user_id !== requested)
         )
           throw new Error(
-            "Conflicting attempt history; existing data was preserved",
+            "Conflicting profile ownership; existing data was preserved",
           );
-      } else {
-        await ensureRow("attempts", initial, { id: attempt.id });
+        if (requested && existing.auth_user_id === null)
+          await client.query(
+            "UPDATE profiles SET auth_user_id=$1 WHERE id=$2 AND auth_user_id IS NULL",
+            [requested, profile.id],
+          );
       }
-      for (const evaluation of evidence.evaluations.filter(
-        (item) => item.attempt_id === attempt.id,
-      )) {
-        const { error } = await client.rpc("save_evaluation", {
-          p_record: evaluation,
-        });
-        if (error)
+    }
+    await ensureRow("classes", fixture.classRecord, {
+      id: fixture.classRecord.id,
+    });
+    for (const enrollment of fixture.enrollments)
+      await ensureRow("enrollments", enrollment, enrollment);
+    await ensureRow("assignments", fixture.assignment, {
+      id: fixture.assignment.id,
+    });
+    for (const evidence of fixture.sessions) {
+      await ensureRow("sessions", evidence.session, {
+        id: evidence.session.id,
+      });
+      for (const attempt of evidence.attempts) {
+        const existing = await existingRow("attempts", { id: attempt.id });
+        const initial = {
+          ...attempt,
+          current_evaluation_id: null,
+          outcome: null,
+        };
+        if (existing) {
+          if (
+            !sameRecord(
+              { ...existing, current_evaluation_id: null, outcome: null },
+              initial,
+            ) ||
+            (existing.current_evaluation_id !== null &&
+              existing.current_evaluation_id !==
+                attempt.current_evaluation_id) ||
+            (existing.outcome !== null &&
+              !isDeepStrictEqual(
+                comparable(existing.outcome),
+                comparable(attempt.outcome),
+              ))
+          )
+            throw new Error(
+              "Conflicting attempt history; existing data was preserved",
+            );
+        } else {
+          await ensureRow("attempts", initial, { id: attempt.id });
+        }
+        for (const evaluation of evidence.evaluations.filter(
+          (item) => item.attempt_id === attempt.id,
+        ))
+          await client.query("SELECT * FROM save_evaluation($1::jsonb)", [
+            JSON.stringify(evaluation),
+          ]);
+        for (const intervention of evidence.interventions.filter(
+          (item) => item.related_attempt_id === attempt.id,
+        ))
+          await ensureRow("interventions", intervention, {
+            id: intervention.id,
+          });
+      }
+      for (const attempt of evidence.attempts) {
+        if (attempt.outcome !== null)
+          await client.query(
+            "UPDATE attempts SET outcome=$1::jsonb WHERE id=$2 AND outcome IS NULL",
+            [JSON.stringify(attempt.outcome), attempt.id],
+          );
+        if (
+          !sameRecord(
+            await existingRow("attempts", { id: attempt.id }),
+            attempt,
+          )
+        )
           throw new Error(
-            "Could not save synthetic evaluation; check for conflicting existing evidence",
+            "Stored synthetic evidence differs; existing data was preserved",
           );
       }
-      for (const intervention of evidence.interventions.filter(
-        (item) => item.related_attempt_id === attempt.id,
-      ))
-        await ensureRow("interventions", intervention, { id: intervention.id });
     }
-    for (const attempt of evidence.attempts) {
-      if (attempt.outcome !== null) {
-        const { error } = await client
-          .from("attempts")
-          .update({ outcome: attempt.outcome })
-          .eq("id", attempt.id)
-          .is("outcome", null);
-        if (error)
-          throw new Error("Could not record synthetic episode outcome");
-      }
-      const stored = await existingRow("attempts", { id: attempt.id });
-      if (!sameRecord(stored, attempt))
-        throw new Error(
-          "Stored synthetic evidence differs; existing data was preserved",
-        );
-    }
-  }
+  });
   return {
     sessions: fixture.sessions.length,
     attempts: fixture.sessions.reduce(

@@ -1,13 +1,61 @@
--- Issue #3: evidence storage, not a tutoring engine. Apply to a Supabase database.
-begin;
+-- Issue #3: evidence storage, not a tutoring engine. Applied atomically by scripts/migrate.ts.
+
+-- Better Auth owns password hashing, sessions and these four identity tables.
+create table public.auth_user (
+  id text primary key,
+  name text not null,
+  email text not null unique,
+  "emailVerified" boolean not null default false,
+  image text,
+  "createdAt" timestamptz not null default clock_timestamp(),
+  "updatedAt" timestamptz not null default clock_timestamp()
+);
+
+create table public.auth_session (
+  id text primary key,
+  "expiresAt" timestamptz not null,
+  token text not null unique,
+  "createdAt" timestamptz not null default clock_timestamp(),
+  "updatedAt" timestamptz not null default clock_timestamp(),
+  "ipAddress" text,
+  "userAgent" text,
+  "userId" text not null references public.auth_user(id) on delete cascade
+);
+create index auth_session_user_idx on public.auth_session("userId");
+
+create table public.auth_account (
+  id text primary key,
+  "accountId" text not null,
+  "providerId" text not null,
+  "userId" text not null references public.auth_user(id) on delete cascade,
+  "accessToken" text,
+  "refreshToken" text,
+  "idToken" text,
+  "accessTokenExpiresAt" timestamptz,
+  "refreshTokenExpiresAt" timestamptz,
+  scope text,
+  password text,
+  "createdAt" timestamptz not null default clock_timestamp(),
+  "updatedAt" timestamptz not null default clock_timestamp()
+);
+create index auth_account_user_idx on public.auth_account("userId");
+
+create table public.auth_verification (
+  id text primary key,
+  identifier text not null,
+  value text not null,
+  "expiresAt" timestamptz not null,
+  "createdAt" timestamptz not null default clock_timestamp(),
+  "updatedAt" timestamptz not null default clock_timestamp()
+);
+create index auth_verification_identifier_idx on public.auth_verification(identifier);
 
 create schema if not exists private;
 revoke all on schema private from public;
-grant usage on schema private to authenticated, service_role;
 
 create table public.profiles (
   id uuid primary key default gen_random_uuid(),
-  auth_user_id uuid unique references auth.users(id),
+  auth_user_id text unique references public.auth_user(id),
   display_name text not null check (length(btrim(display_name)) > 0)
 );
 
@@ -346,7 +394,7 @@ $$;
 create trigger intervention_history before insert or update or delete on public.interventions
   for each row execute function private.guard_intervention();
 
--- All three RPCs are server-only. They do not authenticate a browser or accept
+-- These transaction functions do not authenticate a browser or accept
 -- an actor ID. The Next.js boundary must verify the caller and ownership first.
 create function public.submit_answer(p_attempt_id uuid, p_submission_key uuid, p_response_text text, p_assistance jsonb, p_submitted_at timestamptz)
 returns public.attempts language plpgsql security invoker set search_path = '' as $$
@@ -435,83 +483,11 @@ begin
 end;
 $$;
 
--- The helpers return only caller-scoped booleans and avoid recursive RLS joins.
--- Class ownership and enrollment are maintained by the trusted server, never by
--- user-editable Auth metadata or a browser-supplied role.
-create function private.teaches_class(class_key uuid) returns boolean
-language sql stable security definer set search_path = '' as $$
-  select exists (select 1 from public.classes c join public.profiles p on p.id = c.teacher_id
-    where c.id = class_key and p.auth_user_id = (select auth.uid()));
-$$;
-create function private.studies_class(class_key uuid) returns boolean
-language sql stable security definer set search_path = '' as $$
-  select exists (select 1 from public.enrollments e join public.profiles p on p.id = e.student_id
-    where e.class_id = class_key and p.auth_user_id = (select auth.uid()));
-$$;
-create function private.is_self(profile_key uuid) returns boolean
-language sql stable security definer set search_path = '' as $$
-  select exists (select 1 from public.profiles where id = profile_key and auth_user_id = (select auth.uid()));
-$$;
-create function private.teaches_session(session_key uuid) returns boolean
-language sql stable security definer set search_path = '' as $$
-  select exists (select 1 from public.sessions where id = session_key and private.teaches_class(class_id));
-$$;
-
-alter table public.profiles enable row level security;
-alter table public.classes enable row level security;
-alter table public.enrollments enable row level security;
-alter table public.assignments enable row level security;
-alter table public.sessions enable row level security;
-alter table public.attempts enable row level security;
-alter table public.evaluations enable row level security;
-alter table public.interventions enable row level security;
-
-create policy profiles_read on public.profiles for select to authenticated using (
-  auth_user_id = (select auth.uid()) or exists (
-    select 1 from public.enrollments e where e.student_id = profiles.id and private.teaches_class(e.class_id)
-  )
-);
-create policy classes_read on public.classes for select to authenticated using (
-  private.teaches_class(id) or private.studies_class(id)
-);
-create policy enrollments_read on public.enrollments for select to authenticated using (
-  private.is_self(student_id) or private.teaches_class(class_id)
-);
-create policy assignments_read on public.assignments for select to authenticated using (
-  private.teaches_class(class_id) or private.studies_class(class_id)
-);
-create policy sessions_read on public.sessions for select to authenticated using (
-  private.is_self(student_id) or private.teaches_class(class_id)
-);
-create policy attempts_teacher_read on public.attempts for select to authenticated using (
-  private.teaches_session(session_id)
-);
-create policy evaluations_teacher_read on public.evaluations for select to authenticated using (
-  exists (select 1 from public.attempts a where a.id = evaluations.attempt_id and private.teaches_session(a.session_id))
-);
-create policy interventions_teacher_read on public.interventions for select to authenticated using (
-  private.teaches_session(session_id)
-);
-
-revoke all on public.profiles, public.classes, public.enrollments, public.assignments,
-  public.sessions, public.attempts, public.evaluations, public.interventions from public, anon, authenticated;
-grant select on public.profiles, public.classes, public.enrollments, public.assignments,
-  public.sessions, public.attempts, public.evaluations, public.interventions to authenticated;
-grant all on public.profiles, public.classes, public.enrollments, public.assignments,
-  public.sessions, public.attempts, public.evaluations, public.interventions to service_role;
-
-revoke all on all functions in schema private from public, anon, authenticated;
-grant execute on function private.teaches_class(uuid), private.studies_class(uuid),
-  private.is_self(uuid), private.teaches_session(uuid) to authenticated;
-grant execute on all functions in schema private to service_role;
-revoke all on function public.submit_answer(uuid, uuid, text, jsonb, timestamptz), public.save_evaluation(jsonb),
-  public.finish_session(uuid, uuid, jsonb, text) from public, anon, authenticated;
-grant execute on function public.submit_answer(uuid, uuid, text, jsonb, timestamptz), public.save_evaluation(jsonb),
-  public.finish_session(uuid, uuid, jsonb, text) to service_role;
-
 comment on table public.attempts is 'Immutable prompt/rubric and submitted answer snapshots. Raw rows are teacher-only; the server returns a safe student projection.';
 comment on table public.evaluations is 'Append-only evaluation versions; only the attempt current_evaluation_id contributes to current evidence. A failed retry never replaces accepted evidence.';
 comment on column public.sessions.data_origin is 'synthetic_fixture means authored history; live_demo means a real interaction by a fictional demo account, not a real student study.';
 comment on function public.submit_answer(uuid, uuid, text, jsonb, timestamptz) is 'Trusted server only: verify actor and attempt ownership before calling. Use one server-captured timestamp for assistance and submission, never a browser timestamp. Atomically records the first answer and returns it unchanged on a matching retry.';
 
-commit;
+revoke all on all functions in schema private from public;
+revoke all on function public.submit_answer(uuid, uuid, text, jsonb, timestamptz),
+  public.save_evaluation(jsonb), public.finish_session(uuid, uuid, jsonb, text) from public;

@@ -148,33 +148,53 @@ test("approved synthetic histories reconstruct after JSONB-style serialization w
 });
 
 test("API boundaries reject cross-origin writes and hide internal errors without disguising required sign-in", async () => {
-  const url = "https://demo.example/api/sessions";
-  const request = (origin: string, contentType = "application/json") =>
-    new Request(url, {
-      method: "POST",
-      headers: { origin, "Content-Type": contentType },
-      body: "{}",
+  const previousUrl = process.env.AUTH_URL;
+  process.env.AUTH_URL = "https://demo.example";
+  try {
+    const url = "https://demo.example/api/sessions";
+    const request = (origin: string, contentType = "application/json") =>
+      new Request(url, {
+        method: "POST",
+        headers: { origin, "Content-Type": contentType },
+        body: "{}",
+      });
+    assert.deepEqual(await requestBody(request("https://demo.example")), {});
+    assert.deepEqual(
+      await requestBody(
+        new Request("http://0.0.0.0:3000/api/sessions", {
+          method: "POST",
+          headers: {
+            Origin: "https://demo.example",
+            "Content-Type": "application/json",
+          },
+          body: "{}",
+        }),
+      ),
+      {},
+    );
+    await assert.rejects(requestBody(request("https://other.example")));
+    await assert.rejects(
+      requestBody(request("https://demo.example", "text/plain")),
+    );
+    const authResponse = await apiResponse(async () => {
+      throw new AuthError(401, "Sign in to continue.");
     });
-  assert.deepEqual(await requestBody(request("https://demo.example")), {});
-  await assert.rejects(requestBody(request("https://other.example")));
-  await assert.rejects(
-    requestBody(request("https://demo.example", "text/plain")),
-  );
-  const authResponse = await apiResponse(async () => {
-    throw new AuthError(401, "Sign in to continue.");
-  });
-  assert.equal(authResponse.status, 401);
-  assert.deepEqual(await authResponse.json(), {
-    error: "Sign in to continue.",
-  });
-  const internalResponse = await apiResponse(async () => {
-    throw new Error("Internal database credentials must not be returned");
-  });
-  assert.equal(internalResponse.status, 503);
-  assert.deepEqual(await internalResponse.json(), {
-    error: "Evidence is temporarily unavailable.",
-  });
-  assert.equal(internalResponse.headers.get("Cache-Control"), "no-store");
+    assert.equal(authResponse.status, 401);
+    assert.deepEqual(await authResponse.json(), {
+      error: "Sign in to continue.",
+    });
+    const internalResponse = await apiResponse(async () => {
+      throw new Error("Internal database credentials must not be returned");
+    });
+    assert.equal(internalResponse.status, 503);
+    assert.deepEqual(await internalResponse.json(), {
+      error: "Evidence is temporarily unavailable.",
+    });
+    assert.equal(internalResponse.headers.get("Cache-Control"), "no-store");
+  } finally {
+    if (previousUrl === undefined) delete process.env.AUTH_URL;
+    else process.env.AUTH_URL = previousUrl;
+  }
 });
 
 function attemptFixture(): Attempt {

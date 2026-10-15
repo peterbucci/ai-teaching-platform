@@ -1,6 +1,5 @@
 -- Run only on a dedicated development/test database after the migration.
--- All fixtures and test helpers are rolled back. No Auth login/JWT is simulated:
--- role and subject switching exercise PostgreSQL policies, not Supabase Auth.
+-- All fixtures and helpers are rolled back. HTTP checks cover authorization separately.
 begin;
 
 create function public.issue3_assert(condition boolean, message text) returns void
@@ -22,14 +21,12 @@ begin
 end;
 $$;
 
-insert into auth.users(id) values
-  ('00000000-0000-4000-8000-000000000101'), ('00000000-0000-4000-8000-000000000102'),
-  ('00000000-0000-4000-8000-000000000201'), ('00000000-0000-4000-8000-000000000202'),
-  ('00000000-0000-4000-8000-000000000203');
-insert into public.profiles(id, auth_user_id, display_name)
-select id, id, 'SQL fixture ' || right(id::text, 3) from auth.users
-where id in ('00000000-0000-4000-8000-000000000101', '00000000-0000-4000-8000-000000000102',
-  '00000000-0000-4000-8000-000000000201', '00000000-0000-4000-8000-000000000202', '00000000-0000-4000-8000-000000000203');
+insert into public.profiles(id, display_name) values
+  ('00000000-0000-4000-8000-000000000101', 'SQL fixture teacher A'),
+  ('00000000-0000-4000-8000-000000000102', 'SQL fixture teacher B'),
+  ('00000000-0000-4000-8000-000000000201', 'SQL fixture student A'),
+  ('00000000-0000-4000-8000-000000000202', 'SQL fixture student B'),
+  ('00000000-0000-4000-8000-000000000203', 'SQL fixture student C');
 insert into public.classes(id, teacher_id, name) values
   ('00000000-0000-4000-8000-000000000301', '00000000-0000-4000-8000-000000000101', 'Fixture class A'),
   ('00000000-0000-4000-8000-000000000302', '00000000-0000-4000-8000-000000000102', 'Fixture class B');
@@ -67,8 +64,7 @@ from (values ('00000000-0000-4000-8000-000000000601', '00000000-0000-4000-8000-0
   ('00000000-0000-4000-8000-000000000603', '00000000-0000-4000-8000-000000000503')) v(attempt_id, session_id)
 join public.sessions s on s.id = v.session_id::uuid join public.assignments a on a.id = s.assignment_id;
 
--- Server-only RPCs still enforce provenance, links and immutable original data.
-set local role service_role;
+-- Database transactions also enforce provenance, links and immutable original data.
 do $$
 declare
   answer public.attempts;
@@ -106,7 +102,7 @@ begin
       'reasoning_observed', 'Uses size/rate.', 'uncertainty_reason', null, 'proposed_next_action', 'END_SESSION'));
   perform public.save_evaluation(initial_evaluation);
   perform public.save_evaluation(initial_evaluation); -- exact retry is idempotent
-  perform public.issue3_assert((select count(*) = 1 from public.evaluations), 'Evaluation retry must not duplicate');
+  perform public.issue3_assert((select count(*) = 1 from public.evaluations where attempt_id = answer.id), 'Evaluation retry must not duplicate');
   perform public.save_evaluation(initial_evaluation || jsonb_build_object('id', '00000000-0000-4000-8000-000000000802',
     'validation_status', 'evaluation_failed', 'result', null, 'failure_reason', 'Fixture transport failure'));
   perform public.issue3_assert((select current_evaluation_id = '00000000-0000-4000-8000-000000000801'
@@ -121,7 +117,7 @@ begin
       'supersedes_id', '00000000-0000-4000-8000-000000000803'), '{result,evidence_quotes,0,quote}', '"Invented quote"')),
     'P0001', 'quote does not match');
   perform public.issue3_expect_failure('update public.evaluations set failure_reason=''rewrite''', 'P0001', 'append-only');
-  perform public.issue3_assert((select count(*) = 3 from public.evaluations), 'Failed correction must not leave a row');
+  perform public.issue3_assert((select count(*) = 3 from public.evaluations where attempt_id = answer.id), 'Failed correction must not leave a row');
 end;
 $$;
 
@@ -180,41 +176,5 @@ begin
 end;
 $$;
 
--- Set a verified subject explicitly: these checks cover DB authorization only.
-reset role;
-select set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-000000000201', true);
-set local role authenticated;
-select public.issue3_assert((select count(*)=1 from public.profiles), 'Student sees only own profile');
-select public.issue3_assert((select count(*)=1 from public.sessions), 'Student sees only own session');
-select public.issue3_assert((select count(*)=1 from public.classes), 'Student sees enrolled class only');
-select public.issue3_assert((select count(*)=0 from public.attempts), 'Student cannot read rubrics in raw attempts');
-select public.issue3_assert((select count(*)=0 from public.evaluations), 'Student cannot read internal evaluations');
-select public.issue3_assert((select count(*)=0 from public.interventions), 'Student cannot read raw intervention rows');
-select public.issue3_expect_failure('update public.profiles set display_name=''spoof''', '42501');
-select public.issue3_expect_failure('update public.classes set teacher_id=''00000000-0000-4000-8000-000000000201''', '42501');
-select public.issue3_expect_failure('select public.submit_answer(null,null,null,null,null)', '42501');
-select public.issue3_expect_failure('select public.save_evaluation(''{}'')', '42501');
-select public.issue3_expect_failure('select public.finish_session(null,null,null,null)', '42501');
-
-reset role;
-select set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-000000000101', true);
-set local role authenticated;
-select public.issue3_assert((select count(*)=3 from public.profiles), 'Teacher sees self and own roster');
-select public.issue3_assert((select count(*)=2 from public.sessions), 'Teacher cannot cross class boundary');
-select public.issue3_assert((select count(*)=2 from public.attempts), 'Teacher can read own class evidence');
-select public.issue3_assert((select count(*)=3 from public.evaluations), 'Teacher can inspect all evaluation versions');
-reset role;
-select set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-000000000102', true);
-set local role authenticated;
-select public.issue3_assert((select count(*)=1 from public.sessions), 'Second teacher sees only second class');
-select public.issue3_assert((select count(*)=0 from public.evaluations), 'Second teacher cannot read first class evaluations');
-reset role;
-select set_config('request.jwt.claim.sub', '', true);
-set local role anon;
-select public.issue3_expect_failure('select * from public.profiles', '42501');
-select public.issue3_expect_failure('select * from public.sessions', '42501');
-select public.issue3_expect_failure('select * from public.attempts', '42501');
-reset role;
-
 rollback;
-select 'Evidence constraints, RPC behavior and RLS checks passed; fixtures rolled back.' as result;
+select 'Evidence constraints and atomic persistence checks passed; fixtures rolled back.' as result;
