@@ -11,6 +11,15 @@ permissions:
 jobs:
   quality:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: evidence_test
+        options: >-
+          --health-cmd "pg_isready -U postgres -d evidence_test"
+          --health-interval 10s --health-timeout 5s --health-retries 5
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7.0.1
@@ -19,7 +28,13 @@ jobs:
           node-version: "22"
           cache: npm
       - run: npm ci
+      - name: Check database constraints and access policies
+        run: |
+          docker exec -i ${{ job.services.postgres.id }} psql -U postgres -d evidence_test -v ON_ERROR_STOP=1 < supabase/tests/bootstrap.sql
+          docker exec -i ${{ job.services.postgres.id }} psql -U postgres -d evidence_test -v ON_ERROR_STOP=1 < supabase/migrations/20261015000000_learning_evidence.sql
+          docker exec -i ${{ job.services.postgres.id }} psql -U postgres -d evidence_test -v ON_ERROR_STOP=1 < supabase/tests/evidence.sql
       - run: npm run content:check
+      - run: npm test
       - run: npm run lint
       - run: npm run typecheck
       - run: npm run format:check

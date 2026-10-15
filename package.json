@@ -12,13 +12,20 @@
     "lint": "eslint . --max-warnings=0",
     "typecheck": "next typegen && tsc --noEmit",
     "content:check": "python content/network-performance-v1/verify_package.py",
+    "test": "node --experimental-strip-types --conditions=react-server --test tests/*.test.ts",
+    "db:seed": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env.local scripts/seed-demo.ts",
+    "db:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env.local scripts/check-persistence.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.117.3",
     "next": "16.4.0",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "server-only": "^0.0.1",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "4.3.3",
