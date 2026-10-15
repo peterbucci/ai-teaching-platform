@@ -16,6 +16,7 @@ COPY --from=build --chown=node:node /app/lib ./lib
 COPY --from=build --chown=node:node /app/scripts ./scripts
 COPY --from=build --chown=node:node /app/database ./database
 COPY --from=build --chown=node:node /app/content ./content
+COPY --from=build --chown=node:node /app/evals ./evals
 USER node
 EXPOSE 3000
 CMD ["sh", "-c", "npm run db:migrate && exec node node_modules/next/dist/bin/next start --hostname 0.0.0.0"]
