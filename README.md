@@ -36,7 +36,7 @@ The hackathon submission deadline is **October 25, 2026**, with the finalist sym
 
 ## Where the project stands
 
-This repository currently contains a basic **Next.js, React, and TypeScript application shell**. The tutoring experience, database integration, and teacher dashboard are still planned work—not working features yet.
+This branch contains a basic **Next.js, React, and TypeScript application shell** with a Docker-based PostgreSQL and authentication foundation under review in [draft pull request #13](https://github.com/peterbucci/ai-teaching-platform/pull/13). The tutoring experience and teacher dashboard are still planned work—not working features yet.
 
 We've also prepared a versioned networking content package with the reading, questions, expected answers, and example tutoring paths. It's included on the [`feature/2-demo-content` branch](https://github.com/peterbucci/ai-teaching-platform/tree/feature/2-demo-content) in [draft pull request #11](https://github.com/peterbucci/ai-teaching-platform/pull/11), but it has **not yet been merged or connected to the application**.
 
@@ -60,13 +60,14 @@ _Note: The content links above refer to files on the active content branch and w
 
 ## Run the project locally
 
-You'll need **Node.js 22.13 or newer within the Node 22 release line** and npm. The `.nvmrc` file selects Node 22 if you use a compatible version manager. This repository is public, so anyone can clone it.
+You'll need **Docker with Docker Compose**. The containers run the application and its database together. This repository is public, so anyone can clone it.
 
 ```sh
 git clone https://github.com/peterbucci/ai-teaching-platform.git
 cd ai-teaching-platform
-npm ci
-npm run dev
+cp .env.example .env
+# Set the secrets and fictional account credentials described in database/README.md.
+docker compose up --build
 ```
 
 Then open [http://localhost:3000](http://localhost:3000).
@@ -78,7 +79,7 @@ git switch feature/2-demo-content
 npm ci
 ```
 
-The application shell runs without API keys. `.env.example` lists placeholders for future OpenAI and Supabase integrations. When those are needed, keep actual credentials in `.env.local` and **never commit secrets**.
+Run `docker compose exec app npm run db:seed` once to create the fictional accounts and prepared history. [Database setup](database/README.md) explains the required settings and the option to run Next.js locally for development. Keep actual credentials in ignored `.env` and **never commit secrets**. An OpenAI key is not needed for this persistence foundation.
 
 ## Checks for developers
 

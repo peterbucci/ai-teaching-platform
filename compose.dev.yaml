@@ -1,0 +1,5 @@
+# Optional: run Next.js on the host while keeping PostgreSQL in Docker.
+services:
+  db:
+    ports:
+      - "127.0.0.1:${PGPORT:-5432}:5432"
