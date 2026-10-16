@@ -48,6 +48,10 @@ You don't need to read every file to get involved.
 
 | Resource                                                          | What you'll find                                               |
 | ----------------------------------------------------------------- | -------------------------------------------------------------- |
+| [Start Here](docs/START_HERE.md)                                  | The quickest AI-assisted setup for new teammates               |
+| [Getting Started](docs/GETTING_STARTED.md)                        | A more detailed walkthrough of setup on your computer          |
+| [Team Development Guide](CONTRIBUTING.md)                         | How we work together, test changes, and review contributions   |
+| [First Task](docs/FIRST_TASK.md)                                  | A walkthrough from choosing an issue to submitting your work   |
 | [Project board](https://github.com/users/peterbucci/projects/7)   | Current issues, priorities, and who's working on what          |
 | [Demo content overview](content/README.md)                        | The reading, questions, and decisions the team needs to review |
 | [Content package guide](content/network-performance-v1/README.md) | How the prepared lesson and tutoring examples fit together     |
