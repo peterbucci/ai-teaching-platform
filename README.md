@@ -16,11 +16,13 @@ If a response suggests a misunderstanding, the tutor doesn't immediately label t
 
 The application records that process so a teacher can look for patterns across the class, rather than relying only on quiz scores.
 
-In a finished product, we want teachers to be able to upload course material, review AI-suggested learning objectives, and let the system generate and adapt practice questions. **The questions and misconception examples for our hackathon demo are prepared in advance so we can test the AI's decisions—not because we expect teachers to create all of that content themselves.**
+We're also working toward **different ways to learn**, not just a text conversation. For example, the AI could generate a structured interactive diagram or experiment when a student needs to see how something works. A student could make a prediction, explore the diagram, and explain the result. Their reasoning would help determine what the tutor does next.
+
+The broader plan includes teacher-approved review activities, teaching a concept back to the AI, creating lessons from teacher-provided material, recognizing new patterns in student reasoning, and optional voice interaction.
 
 ## What we're building for the hackathon
 
-We're keeping the first demonstration small:
+**The minimum version (MVP)** is a small, dependable demonstration:
 
 - **One teacher and one fictional class** of roughly 20–30 students.
 - **One assigned reading:** Section 1.5.1, _Bandwidth and Latency_, from _Computer Networks: A Systems Approach_ by Larry Peterson and Bruce Davie.
@@ -30,105 +32,117 @@ We're keeping the first demonstration small:
 
 Our main example focuses on a student confusing transmission delay with propagation delay. We want to show the AI investigating that possible misunderstanding, explaining the distinction using the assigned reading, and testing the student again.
 
+**The reach goals** extend this experience. We're actively planning and developing six phases in priority order:
+
+1. [Interactive visual tutoring](https://github.com/peterbucci/ai-teaching-platform/issues/17) — generate interactive diagrams and experiments based on what a student needs.
+2. [Teacher action center](https://github.com/peterbucci/ai-teaching-platform/issues/18) — turn evidence into teacher-reviewed activities.
+3. [Teach-the-AI](https://github.com/peterbucci/ai-teaching-platform/issues/19) — students explain a concept to a fictional learner.
+4. [Teacher-provided lessons](https://github.com/peterbucci/ai-teaching-platform/issues/20) — use approved teacher material to create and assign practice.
+5. [New reasoning patterns](https://github.com/peterbucci/ai-teaching-platform/issues/21) — propose possible patterns not already in our prepared categories.
+6. [Voice interaction](https://github.com/peterbucci/ai-teaching-platform/issues/22) — optionally speak answers or hear feedback.
+
+These are **planned features, not claims of completion**. We can work on them in parallel, but the MVP must still work without them. The [full roadmap](https://github.com/peterbucci/ai-teaching-platform/issues/15) explains the priorities and individual tasks.
+
 All student records in the hackathon demonstration must be **fictional and clearly identified as synthetic**. We're not conducting a classroom study or claiming that the AI's educational decisions have already been validated.
 
 The hackathon submission deadline is **October 25, 2026**, with the finalist symposium on **October 29**.
 
 ## Where the project stands
 
-This branch contains a basic **Next.js, React, and TypeScript application shell** with a Docker-based PostgreSQL and authentication foundation under review in [draft pull request #13](https://github.com/peterbucci/ai-teaching-platform/pull/13). The tutoring experience and teacher dashboard are still planned work—not working features yet.
+_As checked on October 16, 2026:_
 
-We've also prepared a versioned networking content package with the reading, questions, expected answers, and example tutoring paths. It's included on the [`feature/2-demo-content` branch](https://github.com/peterbucci/ai-teaching-platform/tree/feature/2-demo-content) in [draft pull request #11](https://github.com/peterbucci/ai-teaching-platform/pull/11), but it has **not yet been merged or connected to the application**.
+- The **Next.js, React, and TypeScript application foundation** is on `main`.
+- The **prepared networking content** was merged in [PR #11](https://github.com/peterbucci/ai-teaching-platform/pull/11).
+- **Docker, PostgreSQL, Better Auth, and the evidence-storage foundation** were merged in [PR #13](https://github.com/peterbucci/ai-teaching-platform/pull/13). These support fictional logins and persistent learning records.
+- The grounded AI answer evaluator is in [draft PR #14](https://github.com/peterbucci/ai-teaching-platform/pull/14). Its report still identifies an OpenAI HTTP 429/API-access blocker for successful real-model verification.
+- The working student tutoring experience, teacher dashboard, and reach features are **not yet established as complete**. Check the [issue board](https://github.com/users/peterbucci/projects/7) and pull requests for current progress.
 
-Peter Bucci approved the prepared learning material for the hackathon team on October 14, 2026 at 7:30 PM ET. The MVP requires one complete transmission/propagation sequence; the other concepts have approved questions and guidance for later expansion. This records team approval; it does not establish classroom-instructor review or scientific validation. The team still needs to review a discrepancy between the textbook repository's license and README. Because this repository is public, the prepared content branch is publicly visible, making the reuse question especially important to resolve.
+The prepared content was approved for hackathon use on October 14, 2026 at 7:30 PM ET. That was **team approval**, not classroom-instructor review or scientific validation. We must continue to follow the textbook license, attribution requirements, and separately credited third-party material restrictions. See [Source Attribution](content/network-performance-v1/ATTRIBUTION.md).
 
 ## Where to start
 
 You don't need to read every file to get involved.
 
-| Resource                                                          | What you'll find                                               |
-| ----------------------------------------------------------------- | -------------------------------------------------------------- |
-| [Start Here](docs/START_HERE.md)                                  | The quickest AI-assisted setup for new teammates               |
-| [Getting Started](docs/GETTING_STARTED.md)                        | A more detailed walkthrough of setup on your computer          |
-| [Team Development Guide](CONTRIBUTING.md)                         | How we work together, test changes, and review contributions   |
-| [First Task](docs/FIRST_TASK.md)                                  | A walkthrough from choosing an issue to submitting your work   |
-| [Project board](https://github.com/users/peterbucci/projects/7)   | Current issues, priorities, and who's working on what          |
-| [Demo content overview](content/README.md)                        | The reading, questions, and decisions the team needs to review |
-| [Content package guide](content/network-performance-v1/README.md) | How the prepared lesson and tutoring examples fit together     |
-| [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md)                          | The product vision, hackathon scope, and planned architecture  |
-| [AGENTS.md](AGENTS.md)                                            | Development guidelines for contributors and Codex              |
+| Resource                                                                            | What you'll find                                                |
+| ----------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| **[Start Here](docs/START_HERE.md)**                                                | The fastest way to connect an AI coding assistant and get ready |
+| [Getting Started](docs/GETTING_STARTED.md)                                          | A more detailed guide to local setup                            |
+| [Codex setup](docs/CODEX_SETUP.md) / [Claude Code setup](docs/CLAUDE_CODE_SETUP.md) | Setup for your preferred coding tool                            |
+| [First Task](docs/FIRST_TASK.md)                                                    | Your first issue, branch, tests, and pull request               |
+| [Team Development Guide](CONTRIBUTING.md)                                           | How we work together, no matter which AI tool we use            |
+| [Project board](https://github.com/users/peterbucci/projects/7)                     | Current tasks, priorities, and who is working on what           |
+| [Roadmap](https://github.com/peterbucci/ai-teaching-platform/issues/15)             | MVP and all six reach-goal phases                               |
+| [Demo content overview](content/README.md)                                          | The reading, questions, and decisions the team needs to review  |
+| [Content package guide](content/network-performance-v1/README.md)                   | How the prepared lesson and tutoring examples fit together      |
+| [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md)                                            | The product vision, agreed scope, and architecture              |
+| [AGENTS.md](AGENTS.md)                                                              | Shared instructions for AI coding assistants and contributors   |
 
-**You don't need to be a developer to contribute.** Feedback on whether the questions are understandable, the tutoring experience feels helpful, or the dashboard would be useful to a teacher is just as valuable as code review.
-
-_Note: The content links above refer to files on the active content branch and won't be available on `main` until that pull request is merged._
+**You don't need to be a developer to contribute.** Feedback on whether questions are understandable, tutoring feels helpful, or teacher insights make sense is just as valuable as code review.
 
 ## Run the project locally
 
-You'll need **Docker with Docker Compose**. The containers run the application and its database together. This repository is public, so anyone can clone it.
+You'll need **Docker with Docker Compose** to run the application and database together on your computer. You do not need Supabase.
 
 ```sh
 git clone https://github.com/peterbucci/ai-teaching-platform.git
 cd ai-teaching-platform
-cp .env.example .env
-# Set the secrets and fictional account credentials described in database/README.md.
+# Copy .env.example to .env, using the command appropriate for your computer.
+# Fill in the required local secrets and fictional demo accounts.
 docker compose up --build
 ```
 
-Then open [http://localhost:3000](http://localhost:3000).
-
-To work with the prepared networking content before it's merged, switch to its branch and install its dependencies:
+In a second terminal, after the app starts:
 
 ```sh
-git switch feature/2-demo-content
-npm ci
+docker compose exec app npm run db:seed
 ```
 
-Run `docker compose exec app npm run db:seed` once to create the fictional accounts and prepared history. [Database setup](database/README.md) explains the required settings and the option to run Next.js locally for development. Keep actual credentials in ignored `.env` and **never commit secrets**. An OpenAI key is not needed for this persistence foundation.
+Then open [http://localhost:3000/login](http://localhost:3000/login) and sign in with a fictional account from your local `.env`.
+
+For exact Windows/Mac commands and help with passwords, use [Getting Started](docs/GETTING_STARTED.md) or [Database Setup](database/README.md). **Never commit `.env` or share credentials.** The OpenAI application API key is not required for the basic Docker/login setup, but live AI evaluation needs separate configuration and access.
+
+If you're using a cloud coding assistant or working on a task that doesn't require a live database, ask your teammate or coding assistant which local steps you actually need.
 
 ## Checks for developers
 
-Before opening a pull request, run the checks relevant to your changes:
+Before opening a pull request, run the checks relevant to your change:
 
 ```sh
+npm ci
+npm test
 npm run lint
 npm run typecheck
 npm run format:check
 npm run build
-```
-
-On the content branch, also run:
-
-```sh
 npm run content:check
 ```
 
-That content check needs Python 3 available as `python`. It uses the standard library and does not write or change any files. Python is **not** required to start the Next.js app.
+These are example project checks, not a requirement to run every command for every documentation change. [GitHub Actions](https://github.com/peterbucci/ai-teaching-platform/actions) runs the shared checks on pull requests.
 
-`npm run format` applies formatting where permitted. The imported educational-content package is excluded from automatic formatting to preserve its source files. GitHub Actions also runs the quality checks on pull requests and pushes to `main`.
+`npm run content:check` requires Python 3 available as `python`, and doesn't rewrite the prepared source. You do **not** need Python just to start the Docker-based app.
+
+`npm run format` applies formatting where permitted. The educational source package is excluded from automatic formatting so its reference files stay stable.
 
 ## Working together
 
-We use the [GitHub Project board](https://github.com/users/peterbucci/projects/7) to track tasks and pull requests to review changes.
+We use the [GitHub Project board](https://github.com/users/peterbucci/projects/7) to track tasks, and pull requests to review changes.
 
-1. Choose an existing issue and coordinate with the team before changing shared requirements or data structures.
-2. Create a feature or fix branch from the latest `main`. Keep changes focused on the issue.
-3. Open a pull request explaining what changed, linking the issue, and noting which checks you ran.
-4. Review the changes with a teammate when possible, and merge after the relevant checks pass. Only use `Closes #N` when the issue is fully complete.
+1. Choose an issue and check that nobody else is working on it.
+2. Start a separate feature or fix branch from the latest `main`.
+3. Ask your AI coding assistant to help in small steps, and test what it actually builds.
+4. Open a pull request linking the issue and explaining any unfinished work.
+5. Get a teammate's review and passing required checks before merging.
 
-Please don't force-push shared branches, overwrite someone else's work, or add real student information to the demo.
+Don't force-push shared branches, overwrite someone's work, commit passwords, or use real student information in the demo. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full plain-language workflow.
 
 ### Maintainer notes
 
-This repository is public. Anyone can view, clone, or fork it and propose changes through pull requests. Direct write access and Project board editing require the appropriate permissions. Maintainers should confirm that `main` is protected with the intended pull request and CI requirements; regardless of the settings, follow the review-and-check process described above.
+This repository is public. Anyone can view or clone it, but contributing changes to this repository and editing the Project board require the appropriate permissions. Maintainers should confirm the intended branch protections and required checks before approving merges. Follow the review process even if a permission setting allows a shortcut.
 
-The protected `main` branch requires a pull request, one approving review, resolved conversations, and the passing `quality` check on an up-to-date branch. New commits dismiss stale approvals. Protection applies to administrators; force pushes and branch deletion are disabled. Grant repository write access and Project access to actual teammates so they can review changes and manage the board.
-
-The initial dependency audit found no production vulnerabilities but flagged an upstream `braces` advisory in development lint tooling. Revisit compatible tooling updates when appropriate; don't apply an incompatible Next.js lint-configuration downgrade just to clear the audit warning.
+A previous dependency audit identified an upstream `braces` advisory in development lint tooling. Revisit compatible updates when appropriate rather than downgrading the lint configuration just to clear an advisory.
 
 ## What success looks like
 
-For the hackathon, we're aiming for one dependable end-to-end experience:
+**MVP:** A student answers a question → the AI investigates their reasoning → feedback is grounded in the assigned reading → the student tries a fresh question → the teacher sees the learning evidence.
 
-**A student answers → the AI investigates their reasoning → feedback is grounded in the reading → the student tries again → the teacher sees what happened.**
-
-We'd rather demonstrate that clearly and reliably than rush to build an entire learning management system.
+**Our bigger goal:** Build as many verified, integrated reach features as we can before the deadline—especially interactive visual tutoring—without weakening that core experience.
