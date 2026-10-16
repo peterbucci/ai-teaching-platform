@@ -1,5 +1,12 @@
 # Learning Pulse — Team Development Guide
 
+## New to the project?
+
+- Start with [Start Here](docs/START_HERE.md) for the quickest setup.
+- Use [Getting Started](docs/GETTING_STARTED.md) for more detailed instructions.
+- Choose [Codex setup](docs/CODEX_SETUP.md) or [Claude Code setup](docs/CLAUDE_CODE_SETUP.md) for your preferred AI assistant.
+- Follow [First Task](docs/FIRST_TASK.md) when you're ready to work on your first issue.
+
 ## How we'll work together
 
 We're building an AI-powered teaching platform for our hackathon. Since we're using AI-assisted coding tools, everyone can contribute to developing features, regardless of their programming experience.
