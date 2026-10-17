@@ -55,6 +55,8 @@ jobs:
         run: docker compose exec -T app npm run class:check
       - name: Check deterministic tutoring and private evidence
         run: docker compose exec -T app npm run tutor:check
+      - name: Check authorized metrics and evidence refetch
+        run: docker compose exec -T app npm run metrics:check
       - name: Check HTTP authentication and evidence persistence
         run: docker compose exec -T app npm run db:check -- --prepare-restart
       - name: Restart without resetting data
