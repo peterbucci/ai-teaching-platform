@@ -224,6 +224,38 @@ export function validateEvaluationReferences(
       );
       validateQuote(quote, [attempt]);
     }
+    const candidateKeys = new Set<string>();
+    for (const candidate of result.misconception_candidates ?? []) {
+      requireReference(
+        attempt.question.concept_ids.includes(candidate.concept_id),
+        "Misconception candidate references an unassessed concept",
+      );
+      const categoryConcept = content.misconception_concepts.get(
+        candidate.misconception_id,
+      );
+      requireReference(
+        categoryConcept !== undefined &&
+          (categoryConcept === null ||
+            categoryConcept === candidate.concept_id),
+        "Unknown or mismatched misconception candidate category",
+      );
+      const key = JSON.stringify([
+        candidate.concept_id,
+        candidate.misconception_id,
+      ]);
+      requireReference(
+        !candidateKeys.has(key),
+        "Duplicate misconception candidate",
+      );
+      candidateKeys.add(key);
+      for (const quote of candidate.evidence_quotes) {
+        requireReference(
+          quote.response_id === attempt.id,
+          "Misconception candidate quote belongs to a different response",
+        );
+        validateQuote(quote, [attempt]);
+      }
+    }
     if (
       result.per_concept_results.some(
         (item) => item.correctness === "uncertain",

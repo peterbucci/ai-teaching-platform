@@ -271,6 +271,17 @@ export const EvidenceQuoteSchema = z
   );
 export type EvidenceQuote = z.infer<typeof EvidenceQuoteSchema>;
 
+export const MisconceptionCandidateSchema = z.strictObject({
+  concept_id: text,
+  misconception_id: text,
+  status: z.literal("tentative"),
+  evidence_quotes: z.array(EvidenceQuoteSchema).min(1),
+  uncertainty_reason: text,
+});
+export type MisconceptionCandidate = z.infer<
+  typeof MisconceptionCandidateSchema
+>;
+
 export const EvaluationResultSchema = z.strictObject({
   per_concept_results: z
     .array(
@@ -285,6 +296,9 @@ export const EvaluationResultSchema = z.strictObject({
     .min(1),
   source_passage_ids: requiredNames,
   evidence_quotes: z.array(EvidenceQuoteSchema),
+  // Earlier stored fixtures/results predate evaluator candidates. Omission must
+  // remain omission when read, rather than rewriting immutable evidence.
+  misconception_candidates: z.array(MisconceptionCandidateSchema).optional(),
   reasoning_observed: z.string(),
   uncertainty_reason: text.nullable(),
   proposed_next_action: ActionSchema,

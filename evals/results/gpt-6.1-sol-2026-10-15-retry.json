@@ -1,0 +1,60 @@
+{
+  "evaluatorVersion": "grounded-network-performance-v1",
+  "synthetic": true,
+  "startedAt": "2026-10-15T14:50:32.575Z",
+  "finishedAt": "2026-10-15T14:50:34.625Z",
+  "configuredModel": "gpt-6.1-sol",
+  "requestedCaseIds": ["correct-explained"],
+  "cases": [
+    {
+      "caseId": "correct-explained",
+      "questionId": "NP-TX-01",
+      "response": "Transmission delay stays the same because the same number of bits is placed onto the cable at the same rate. Propagation delay doubles because the signal travels twice the distance at the same speed.",
+      "sessionId": "890cd177-aecf-48a2-8e29-4d30ee4e8810",
+      "attemptId": "54956cd6-3ab5-4c02-b68f-6f3d39d85156",
+      "structuralChecks": "failed",
+      "evaluation": {
+        "id": "a74fca45-d171-428d-929e-6b911692ff2c",
+        "attempt_id": "54956cd6-3ab5-4c02-b68f-6f3d39d85156",
+        "validation_status": "evaluation_failed",
+        "evaluator": {
+          "type": "language_model",
+          "model": "gpt-6.1-sol",
+          "version": "grounded-network-performance-v1"
+        },
+        "evaluated_at": "2026-10-15T14:50:34.473Z",
+        "supersedes_id": null,
+        "result": null,
+        "applied_result": null,
+        "failure_reason": "OpenAI temporarily limited this request. No evaluation was accepted."
+      },
+      "provider": {
+        "model": "gpt-6.1-sol",
+        "responseId": null,
+        "latencyMs": 1405,
+        "usage": null
+      },
+      "evaluationFailure": {
+        "code": "rate_limited",
+        "message": "OpenAI temporarily limited this request. No evaluation was accepted."
+      },
+      "integrationFailure": null,
+      "educationalReview": {
+        "status": "not_evaluated",
+        "disagreements": [],
+        "notes": "Both effects and their determinants are explained. Accept verbal reasoning; equations are optional. Do not invent a misconception or claim durable retention from one answer."
+      }
+    }
+  ],
+  "stoppedBecause": "rate_limited: OpenAI temporarily limited this request. No evaluation was accepted.",
+  "cleanupFailures": [],
+  "interpretation": "Structural acceptance is separate from matching the authored educational expectations. Review the saved results, exact quotations, source references, and case notes; this run does not establish educational validity or implement tutoring decisions.",
+  "summary": {
+    "success": false,
+    "casesAttempted": 1,
+    "casesCompleted": 1,
+    "structuralPasses": 0,
+    "educationalMatches": 0,
+    "educationalDisagreements": 0
+  }
+}

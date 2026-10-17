@@ -1,0 +1,20 @@
+{
+  "evaluatorVersion": "grounded-network-performance-v2",
+  "synthetic": true,
+  "startedAt": "2026-10-17T01:28:01.164Z",
+  "finishedAt": "2026-10-17T01:28:01.181Z",
+  "configuredModel": "gpt-6.1-sol",
+  "requestedCaseIds": ["ambiguous-longer"],
+  "cases": [],
+  "stoppedBecause": "DEMO_TEACHER hit the application's login rate limit (HTTP 429); no OpenAI request was made. Wait at least 60 seconds before retrying. Run the full suite in one invocation to reuse its three logins.",
+  "cleanupFailures": [],
+  "interpretation": "Structural acceptance is separate from matching the authored educational expectations. Review the saved results, exact quotations, source references, and case notes; this run does not establish educational validity or implement tutoring decisions.",
+  "summary": {
+    "success": false,
+    "casesAttempted": 0,
+    "casesCompleted": 0,
+    "structuralPasses": 0,
+    "educationalMatches": 0,
+    "educationalDisagreements": 0
+  }
+}

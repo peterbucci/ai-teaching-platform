@@ -31,14 +31,29 @@ const ManifestSchema = z.object({
 const ConceptsSchema = z.object({
   assignment_id: text,
   review_status: z.literal("approved"),
-  global_misconceptions: z.array(z.object({ id: text })),
+  scope: text,
+  terminology_policy: text,
+  misconception_policy: text,
+  global_misconceptions: z.array(
+    z.object({ id: text, definition: text, handling: text }),
+  ),
   concepts: z
     .array(
       z.object({
         id: text,
+        title: text,
+        objectives: refs,
+        boundaries: refs,
         review_status: z.literal("approved"),
         source_passage_ids: refs,
-        common_misconceptions: z.array(z.object({ id: text })),
+        common_misconceptions: z.array(
+          z.object({
+            id: text,
+            definition: text,
+            evidence_that_may_support: text,
+            diagnostic_caution: text,
+          }),
+        ),
       }),
     )
     .min(1),
@@ -65,6 +80,19 @@ const PassagesSchema = z.object({
 const ExpectedAnswerSchema = z.union([text, z.record(z.string(), z.unknown())]);
 const BankSchema = z.object({
   assignment_id: text,
+  scoring_policy: z.object({
+    allowed_correctness: refs,
+    correct: text,
+    partially_correct: text,
+    incorrect: text,
+    uncertain: text,
+    misconception_handling: text,
+    terminology_handling: text,
+    numeric_handling: text,
+    assistance_handling: text,
+    example_response_handling: text,
+    grounding: text,
+  }),
   questions: z
     .array(
       z.object({
@@ -78,6 +106,7 @@ const BankSchema = z.object({
         partial_credit_guidance: text,
         source_passage_ids: refs,
         misconception_ids: refs,
+        assumptions: z.array(text),
         embedded_scaffolding: z.array(EmbeddedScaffoldingSchema),
       }),
     )
@@ -90,6 +119,7 @@ const SequenceSchema = z.object({
   concept_ids: refs,
   initial_question_id: text,
   hypothesis_id: text,
+  interpretation_rules: refs,
   nodes: z.array(
     z.object({
       node_id: text,
@@ -179,20 +209,30 @@ export function loadApprovedContent(
     }
   }
   const misconception_concepts = new Map<string, string | null>();
+  type MisconceptionDefinition = {
+    id: string;
+    concept_id: string | null;
+    definition: string;
+    handling?: string;
+    evidence_that_may_support?: string;
+    diagnostic_caution?: string;
+  };
+  const misconceptions = new Map<string, MisconceptionDefinition>();
   function addMisconception(
-    misconception_id: string,
+    misconception: Omit<MisconceptionDefinition, "concept_id">,
     concept_id: string | null,
   ) {
-    if (misconception_concepts.has(misconception_id))
+    if (misconception_concepts.has(misconception.id))
       throw new Error("Duplicate misconception ID");
-    misconception_concepts.set(misconception_id, concept_id);
+    misconception_concepts.set(misconception.id, concept_id);
+    misconceptions.set(misconception.id, { ...misconception, concept_id });
   }
   for (const misconception of concepts.global_misconceptions)
-    addMisconception(misconception.id, null);
+    addMisconception(misconception, null);
   for (const concept of concepts.concepts) {
     assertKnown(concept.source_passage_ids, passage_ids, "concept passage ID");
     for (const misconception of concept.common_misconceptions)
-      addMisconception(misconception.id, concept.id);
+      addMisconception(misconception, concept.id);
   }
   const misconception_ids = new Set(misconception_concepts.keys());
   assertKnown(sequence.concept_ids, concept_ids, "sequence concept ID");
@@ -202,6 +242,10 @@ export function loadApprovedContent(
     "sequence misconception ID",
   );
   const questions = new Map<string, QuestionSnapshot>();
+  const question_guidance = new Map<
+    string,
+    { assumptions: string[]; misconception_ids: string[] }
+  >();
   for (const question of bank.questions) {
     if (questions.has(question.id)) throw new Error("Duplicate question ID");
     assertKnown([question.concept_id], concept_ids, "question concept ID");
@@ -221,6 +265,10 @@ export function loadApprovedContent(
         concept_ids,
         "scaffolding concept ID",
       );
+    question_guidance.set(question.id, {
+      assumptions: question.assumptions,
+      misconception_ids: question.misconception_ids,
+    });
     questions.set(
       question.id,
       QuestionSnapshotSchema.parse({
@@ -282,6 +330,15 @@ export function loadApprovedContent(
       typeof expected.acceptable_alternative === "string"
         ? [expected.acceptable_alternative]
         : [];
+    // Sequence assumptions live in the prompt and interpretation rules; do not
+    // fabricate a separate authored assumptions list for these nodes.
+    question_guidance.set(node.node_id, {
+      assumptions: [],
+      misconception_ids: [
+        sequence.hypothesis_id,
+        ...concepts.global_misconceptions.map((item) => item.id),
+      ],
+    });
     questions.set(
       node.node_id,
       QuestionSnapshotSchema.parse({
@@ -311,8 +368,18 @@ export function loadApprovedContent(
     concept_ids,
     passage_ids,
     misconception_concepts,
+    misconceptions,
+    concepts: new Map(
+      concepts.concepts.map((concept) => [concept.id, concept]),
+    ),
+    scope: concepts.scope,
+    terminology_policy: concepts.terminology_policy,
+    misconception_policy: concepts.misconception_policy,
+    scoring_policy: bank.scoring_policy,
     sequence_id: sequence.sequence_id,
+    sequence_interpretation_rules: sequence.interpretation_rules,
     questions,
+    question_guidance,
     passages: new Map(
       passages.passages.map((passage) => [passage.id, passage]),
     ),
