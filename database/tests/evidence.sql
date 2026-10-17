@@ -116,8 +116,13 @@ begin
     jsonb_set(initial_evaluation || jsonb_build_object('id', '00000000-0000-4000-8000-000000000805',
       'supersedes_id', '00000000-0000-4000-8000-000000000803'), '{result,evidence_quotes,0,quote}', '"Invented quote"')),
     'P0001', 'quote does not match');
-  perform public.issue3_expect_failure('update public.evaluations set failure_reason=''rewrite''', 'P0001', 'append-only');
+  perform public.issue3_expect_failure('update public.evaluations set failure_reason=''rewrite''', 'P0001', 'first application');
   perform public.issue3_assert((select count(*) = 3 from public.evaluations where attempt_id = answer.id), 'Failed correction must not leave a row');
+  update public.evaluations set applied_result='{"action":"END_SESSION","hypothesis_events":[]}'::jsonb
+    where id='00000000-0000-4000-8000-000000000803';
+  perform public.issue3_expect_failure('update public.evaluations set applied_result=''{}''::jsonb where id=''00000000-0000-4000-8000-000000000803''', 'P0001', 'first application');
+  perform public.issue3_assert((select result = initial_evaluation -> 'result' from public.evaluations
+    where id='00000000-0000-4000-8000-000000000803'), 'Applying a transition must preserve the accepted judgment');
 end;
 $$;
 
