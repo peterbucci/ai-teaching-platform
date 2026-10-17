@@ -120,6 +120,13 @@ const SequenceSchema = z.object({
   initial_question_id: text,
   hypothesis_id: text,
   interpretation_rules: refs,
+  bounds: z.object({
+    max_neutral_clarifications: z.number().int().nonnegative(),
+    max_diagnostic_prompts: z.number().int().nonnegative(),
+    max_immediate_retest_prompts: z.number().int().positive(),
+    max_unsupported_input_retries_total: z.number().int().nonnegative(),
+    max_student_response_prompts: z.number().int().positive(),
+  }),
   nodes: z.array(
     z.object({
       node_id: text,
@@ -127,6 +134,9 @@ const SequenceSchema = z.object({
       prompt: text.optional(),
       expected_answer: ExpectedAnswerSchema.optional(),
       source_passage_ids: refs.optional(),
+      feedback: text.optional(),
+      feedback_variants: z.record(text, text).optional(),
+      next_node_id: text.optional(),
     }),
   ),
 });
@@ -377,6 +387,7 @@ export function loadApprovedContent(
     misconception_policy: concepts.misconception_policy,
     scoring_policy: bank.scoring_policy,
     sequence_id: sequence.sequence_id,
+    sequence,
     sequence_interpretation_rules: sequence.interpretation_rules,
     questions,
     question_guidance,
