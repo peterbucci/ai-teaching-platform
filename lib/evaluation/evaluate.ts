@@ -21,6 +21,7 @@ import {
 import type { EvidenceAccess } from "../evidence/store.ts";
 import { requestEvaluation } from "./provider.ts";
 import { validateModelResult } from "./result.ts";
+import { evaluationRecovery } from "./recovery.ts";
 
 export const EVALUATOR_VERSION = "grounded-network-performance-v2";
 
@@ -78,6 +79,13 @@ Return only the requested structured evaluation.`,
     input: JSON.stringify({
       evaluator_version: EVALUATOR_VERSION,
       question,
+      ...(attempt.intent === "neutral_clarification"
+        ? {
+            original_question_being_clarified: content.questions.get(
+              content.sequence.initial_question_id,
+            ),
+          }
+        : {}),
       question_assumptions: question.question_id
         ? (content.question_guidance.get(question.question_id)?.assumptions ??
           [])
@@ -118,6 +126,7 @@ export async function evaluateSubmittedAttempt(
   access: EvidenceAccess,
   sessionId: string,
   attemptId: string,
+  retryOf?: string,
 ): Promise<EvaluationRun> {
   z.uuid().parse(attemptId);
   // Authorize before taking any model-work lock or spending credits.
@@ -138,16 +147,24 @@ export async function evaluateSubmittedAttempt(
     const evidence = await readSession(access, sessionId, "student");
     const attempt = evidence.attempts.find((item) => item.id === attemptId);
     if (!attempt) throw new EvidenceError(404, "Attempt not found.");
+    const attemptEvaluations = evidence.evaluations.filter(
+      (item) => item.attempt_id === attemptId,
+    );
     const previous =
-      evidence.evaluations.find(
+      attemptEvaluations.findLast(
         (item) => item.id === attempt.current_evaluation_id,
       ) ??
-      evidence.evaluations.find(
+      attemptEvaluations.findLast(
         (item) =>
           item.attempt_id === attemptId &&
           item.evaluator.type === "language_model",
       );
-    if (previous)
+    if (
+      previous &&
+      (previous.validation_status === "accepted" ||
+        !retryOf ||
+        retryOf !== previous.id)
+    )
       return {
         evaluation: previous,
         reused: true,
@@ -162,10 +179,42 @@ export async function evaluateSubmittedAttempt(
                   "The previous evaluation was not accepted.",
               },
       };
+    if (
+      evidence.session.status !== "active" ||
+      evidence.attempts.at(-1)?.id !== attemptId
+    )
+      throw new EvidenceError(409, "Only the current answer can be evaluated.");
+    if (
+      retryOf &&
+      (!previous || !evaluationRecovery(attemptEvaluations, Date.now()).allowed)
+    )
+      throw new EvidenceError(
+        409,
+        "Wait at least a minute before retrying. After two retries, ask your teacher for help.",
+      );
     const content = loadApprovedContent();
-    const provider = await requestEvaluation(
-      evaluationPrompt(content, attempt),
-    );
+    const prompt = evaluationPrompt(content, attempt);
+    // A durable start marker prevents an interrupted or unsaved provider result
+    // from being silently paid for again. It is not an accepted judgment.
+    const configuredModel = process.env.OPENAI_MODEL?.trim();
+    if (configuredModel && process.env.OPENAI_API_KEY?.trim()) {
+      await recordEvaluation(access, sessionId, {
+        id: randomUUID(),
+        attempt_id: attemptId,
+        validation_status: "pending_review",
+        evaluator: {
+          type: "language_model",
+          model: configuredModel,
+          version: EVALUATOR_VERSION,
+        },
+        supersedes_id: null,
+        result: null,
+        applied_result: null,
+        failure_reason:
+          "Evaluation request started. If no result arrives, ask your teacher to check it before another paid request.",
+      });
+    }
+    const provider = await requestEvaluation(prompt);
     let result: Evaluation["result"] = null;
     let failure: EvaluationRun["failure"] = provider.ok
       ? null
