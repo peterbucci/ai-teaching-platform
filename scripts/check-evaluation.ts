@@ -281,8 +281,9 @@ async function main() {
           "An actual model evaluation was mislabeled as authored fixture evidence.",
         );
         check(
-          saved.evaluations.length === 1 &&
-            isDeepStrictEqual(saved.evaluations[0], run.evaluation),
+          saved.evaluations.length === 2 &&
+            saved.evaluations[0].validation_status === "pending_review" &&
+            isDeepStrictEqual(saved.evaluations[1], run.evaluation),
           "Teacher retrieval did not preserve the exact saved evaluation.",
         );
         check(
@@ -316,13 +317,14 @@ async function main() {
           ),
         );
         check(
-          repeatedSaved.evaluations.length === 1,
+          repeatedSaved.evaluations.length === saved.evaluations.length,
           "Repeated evaluation created an extra evaluation record.",
         );
       } else {
         check(
-          saved.evaluations.length === 0 &&
-            saved.attempts[0].current_evaluation_id === null,
+          saved.evaluations.every(
+            (e) => e.validation_status === "pending_review",
+          ) && saved.attempts[0].current_evaluation_id === null,
           "An unsaved evaluation unexpectedly changed persisted judgments.",
         );
       }

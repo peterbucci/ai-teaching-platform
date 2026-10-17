@@ -46,7 +46,7 @@ export function evidenceAccess(actor: Actor) {
 }
 export type EvidenceAccess = ReturnType<typeof evidenceAccess>;
 
-async function transaction<T>(
+export async function transaction<T>(
   operation: (client: PoolClient) => Promise<T>,
 ): Promise<T> {
   try {
@@ -93,7 +93,7 @@ async function authorizedSession(
   return SessionSchema.parse(evidenceRow(result.rows[0]));
 }
 
-async function sessionEvidence(
+export async function sessionEvidence(
   client: PoolClient,
   access: EvidenceAccess,
   sessionId: string,
@@ -258,6 +258,17 @@ export async function submitAnswer(
       (item) => item.id === submission.attempt_id,
     );
     if (!attempt) throw new EvidenceError(404, "Attempt not found.");
+    if (
+      attempt.submitted_at === null &&
+      (attempt.id !== evidence.attempts.at(-1)?.id ||
+        evidence.interventions.some(
+          (item) => item.delivery_status === "created",
+        ))
+    )
+      throw new EvidenceError(
+        409,
+        "Read the displayed feedback before answering the current question.",
+      );
     // Use the database clock for both the answer and its assistance snapshot.
     // Session locking serializes this with display acknowledgements and new prompts.
     // JSON preserves PostgreSQL's microseconds; pg Date conversion could round
@@ -331,9 +342,15 @@ export async function recordEvaluation(
       "student",
       true,
     );
+    const clock = await client.query(
+      "SELECT to_jsonb(clock_timestamp()) AS now",
+    );
+    const { now } = z
+      .object({ now: z.iso.datetime({ offset: true }) })
+      .parse(evidenceRow(clock.rows[0]));
     const evaluation = EvaluationSchema.parse({
       ...input,
-      evaluated_at: new Date().toISOString(),
+      evaluated_at: now,
     });
     const attempt = evidence.attempts.find(
       (item) => item.id === evaluation.attempt_id,
