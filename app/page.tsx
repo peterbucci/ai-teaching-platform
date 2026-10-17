@@ -19,6 +19,12 @@ export default function Home() {
         >
           Open your study session
         </Link>
+        <Link
+          href="/teacher"
+          className="ml-5 mt-5 inline-block font-medium text-teal-800 underline"
+        >
+          Open teacher evidence
+        </Link>
       </div>
     </main>
   );
