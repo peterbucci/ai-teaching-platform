@@ -57,6 +57,8 @@ jobs:
         run: docker compose exec -T app npm run tutor:check
       - name: Check authorized metrics and evidence refetch
         run: docker compose exec -T app npm run metrics:check
+      - name: Check persisted misconception and contradiction counts
+        run: docker compose exec -T app npm run patterns:check
       - name: Check HTTP authentication and evidence persistence
         run: docker compose exec -T app npm run db:check -- --prepare-restart
       - name: Restart without resetting data
