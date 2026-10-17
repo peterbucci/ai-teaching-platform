@@ -106,6 +106,19 @@ async function login(prefix: string, profileId: string) {
     email,
     password,
   });
+  if (response.status === 429) {
+    const retryAfter = Number(
+      response.headers.get("Retry-After") ??
+        response.headers.get("X-Retry-After"),
+    );
+    throw new CheckFailure(
+      `${prefix} hit the application's login rate limit (HTTP 429); no OpenAI request was made. ` +
+        (Number.isFinite(retryAfter) && retryAfter > 0
+          ? `Wait at least ${Math.ceil(retryAfter)} seconds before retrying. `
+          : "Wait for the login limit to reset before retrying. ") +
+        "Run the full suite in one invocation to reuse its three logins.",
+    );
+  }
   check(
     response.status === 200,
     `${prefix} login failed (HTTP ${response.status}).`,

@@ -22,7 +22,7 @@ import type { EvidenceAccess } from "../evidence/store.ts";
 import { requestEvaluation } from "./provider.ts";
 import { validateModelResult } from "./result.ts";
 
-export const EVALUATOR_VERSION = "grounded-network-performance-v1";
+export const EVALUATOR_VERSION = "grounded-network-performance-v2";
 
 export function evaluationPrompt(content: ApprovedContent, attempt: Attempt) {
   const question = validateQuestionSnapshot(content, attempt.question);
@@ -47,8 +47,7 @@ policy must not flatten different concept judgments into a single score.
 Accept technically equivalent wording. Separate conceptual findings from arithmetic
 or unit slips. Credit only reasoning actually stated; never fill in missing reasons.
 For ambiguity, missing answers, unrelated requests or insufficient source support,
-use uncertain and explain the limitation in uncertainty_reason. Recommend
-ASK_SELF_EXPLANATION for unclear student meaning. Do not answer unrelated requests.
+use uncertain and explain the limitation in uncertainty_reason. Do not answer unrelated requests.
 Correct answers need the essential reasoning, not just the right labels. List the
 rubric reasoning demonstrated and missing using concise descriptions.
 reasoning_observed is a brief evidence-based assessment, not private chain of thought.
@@ -63,7 +62,17 @@ an assessed concept, an exact quotation expressing the mistaken reasoning, and a
 specific uncertainty/caution. Wrong results alone, arithmetic slips, omitted reasoning,
 or colloquial terminology cannot establish a misconception. Use no candidate when
 there is no explicit support. Never mark a misconception confirmed or supported.
-Recommend a permitted next action, but do not apply actions, change session state,
+Recommend an action based on the evidence:
+- ASK_RETRIEVAL_QUESTION redirects empty, off-topic or instruction-only input to the assigned question.
+- ASK_SELF_EXPLANATION clarifies an on-topic answer whose meaning or reasoning is missing or ambiguous.
+- ASK_DIAGNOSTIC_FOLLOWUP tests an explicitly stated mistaken explanation. Uncertainty about whether
+  a misconception persists does not make the student's explicit words ambiguous.
+- GIVE_CORRECTIVE_FEEDBACK addresses an identified error needing correction, including arithmetic
+  or units when the conceptual reasoning is sound.
+- MOVE_TO_NEXT_CONCEPT or SCHEDULE_REVIEW is appropriate when the required reasoning is correct.
+Recommendations are advisory: the application uses lesson rules, available activities and session
+state to choose the permitted transition. Do not assume a diagnostic activity exists for every error.
+Do not apply actions, change session state,
 create hypotheses, give feedback to the student, or generate another question.
 Return only the requested structured evaluation.`,
     input: JSON.stringify({
