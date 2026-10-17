@@ -15,7 +15,12 @@ import {
   startSession,
 } from "../lib/evidence/store.ts";
 import { ClassMetricsSchema } from "../lib/teacher/metrics.ts";
-import { readAssignmentMetrics } from "../lib/teacher/store.ts";
+import {
+  readAssignmentMetrics,
+  readAssignmentEvidence,
+  readTeacherSession,
+  teacherAssignments,
+} from "../lib/teacher/store.ts";
 
 // Real authenticated HTTP/database probe; the accepted judgment is explicitly
 // synthetic. No paid provider call and no claim of real-model grading.
@@ -59,6 +64,33 @@ try {
       .parse(await response.json()).metrics;
   }
   const before = await metrics();
+  const overviewPath = `/teacher?assignment=${DEMO_IDS.assignmentId}`;
+  assert.equal((await request(overviewPath, teacher)).status, 200);
+  async function deniedPage(url: string) {
+    const response = await request(url, student);
+    // Next's loading boundary can stream a not-found page with HTTP 200.
+    // Verify the denial content and absence of private evidence, not just status.
+    assert.ok([200, 404].includes(response.status));
+    const html = await response.text();
+    assert.ok(html.includes("This evidence isn’t available"));
+    assert.ok(!html.includes("Original student response"));
+    assert.ok(!html.includes("Responses behind the overview"));
+  }
+  await deniedPage(overviewPath);
+  const anonymousPage = await fetch(new URL(overviewPath, base), {
+    redirect: "manual",
+  });
+  if (anonymousPage.status === 307)
+    assert.equal(
+      new URL(anonymousPage.headers.get("location")!, base).pathname,
+      "/login",
+    );
+  else {
+    assert.equal(anonymousPage.status, 200);
+    const html = await anonymousPage.text();
+    assert.ok(html.includes('content="1;url=/login"'));
+    assert.ok(!html.includes("Responses behind the overview"));
+  }
   assert.ok([403, 404].includes((await request(path, student)).status));
   assert.equal((await request(path)).status, 401);
   assert.equal((await request(`${path}?origin=unknown`, teacher)).status, 400);
@@ -74,6 +106,11 @@ try {
   );
   const actor = await resolveActor(new Headers({ Cookie: student }));
   const access = evidenceAccess(actor);
+  assert.deepEqual(await teacherAssignments(access), []);
+  await assert.rejects(
+    readAssignmentEvidence(access, DEMO_IDS.assignmentId),
+    /Assignment not found/,
+  );
   const content = loadApprovedContent();
   const question = getCuratedQuestion(content, "NP-BW-01");
   const session = await startSession(
@@ -136,6 +173,43 @@ try {
     },
   });
   const after = await metrics();
+  const detailPath = `/teacher/sessions/${session.id}`;
+  await deniedPage(detailPath);
+  await assert.rejects(
+    readTeacherSession(access, session.id),
+    /Session not found/,
+  );
+  await assert.rejects(
+    readTeacherSession(
+      evidenceAccess({
+        profileId: DEMO_IDS.inactiveStudent,
+        userId: "unrelated-owner",
+      }),
+      session.id,
+    ),
+    /Session not found/,
+  );
+  const detail = await request(detailPath, teacher);
+  assert.equal(detail.status, 200);
+  const markup = await detail.text();
+  const escapedAnswer = answer
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#x27;");
+  assert.ok(
+    markup.includes(escapedAnswer),
+    "Teacher detail omitted the exact original answer",
+  );
+  assert.ok(markup.includes("metrics-http-probe-v1"));
+  assert.ok(markup.includes("Synthetic history"));
+  assert.ok(markup.includes(question.content_ref.source_commit));
+  const refreshed = await request(overviewPath, teacher);
+  assert.ok(
+    (await refreshed.text()).includes(detailPath),
+    "Refreshed overview omitted new evidence link",
+  );
   const concept = (m: typeof after) =>
     m.concepts.find((c) => c.concept_id === "bandwidth_throughput")!;
   assert.equal(
@@ -181,6 +255,8 @@ try {
         "unrelated concepts unchanged",
         "duplicate answer unchanged",
         "origin filtering",
+        "teacher dashboard and exact response drill-down",
+        "student/anonymous/unrelated-owner page and projection boundaries",
       ],
       provider: "synthetic fixture only",
       paidRequests: 0,
