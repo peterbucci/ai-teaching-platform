@@ -54,6 +54,9 @@ test("a contradictory follow-up changes one student's status, retaining two stud
     (s) => s.current.status === "not_supported",
   )!;
   assert.equal(changed.history.length, 2);
+  assert.ok(
+    changed.history.every((h) => h.data_origin === "synthetic_fixture"),
+  );
   assert.equal(changed.history[0].status, "suspected");
   assert.equal(changed.current.contradicting_evaluation_ids.length, 1);
   assert.equal(changed.current.supporting_evaluation_ids.length, 1);

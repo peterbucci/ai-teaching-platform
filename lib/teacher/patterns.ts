@@ -8,6 +8,7 @@ type Status = AppliedResult["hypothesis_events"][number]["status"];
 export type PatternObservation = {
   student_id: string;
   session_id: string;
+  data_origin: SessionEvidence["session"]["data_origin"];
   attempt_id: string;
   evaluation_id: string;
   concept_id: string;
@@ -68,6 +69,7 @@ export function calculatePatterns(
       const common = {
         student_id: evidence.session.student_id,
         session_id: evidence.session.id,
+        data_origin: evidence.session.data_origin,
         attempt_id: attempt.id,
         evaluation_id: evaluation.id,
       };

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ApprovedContent } from "../../lib/evidence/content.ts";
 import type { PatternGroup } from "../../lib/teacher/patterns.ts";
-import { date, label } from "./presentation.tsx";
+import { date, label, originLabel } from "./presentation.tsx";
 
 export function Patterns({
   groups,
@@ -77,6 +77,7 @@ export function Patterns({
                     </h4>
                     <p className="mt-1 text-xs text-slate-600">
                       Latest observation {date(student.current.at)} ·{" "}
+                      {originLabel(student.current.data_origin)} ·{" "}
                       {label(student.current.basis)}
                     </p>
                     <ol className="mt-3 space-y-4">
@@ -86,7 +87,8 @@ export function Patterns({
                           className="border-l-2 border-teal-200 pl-3 text-sm"
                         >
                           <p className="font-medium">
-                            {label(observation.status)} · {date(observation.at)}
+                            {label(observation.status)} · {date(observation.at)}{" "}
+                            · {originLabel(observation.data_origin)}
                           </p>
                           <p className="my-1">{observation.reason}</p>
                           {observation.quotes.map((q, i) => (
