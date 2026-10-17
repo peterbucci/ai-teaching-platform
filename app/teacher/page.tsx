@@ -5,6 +5,8 @@ import { AuthError, requireActor } from "../../lib/auth.ts";
 import { loadApprovedContent } from "../../lib/evidence/content.ts";
 import { EvidenceError, evidenceAccess } from "../../lib/evidence/store.ts";
 import { OriginFilterSchema } from "../../lib/teacher/metrics.ts";
+import { calculatePatterns } from "../../lib/teacher/patterns.ts";
+import { Patterns } from "./patterns.tsx";
 import {
   readAssignmentEvidence,
   teacherAssignments,
@@ -208,6 +210,15 @@ export default async function TeacherPage({
           </section>
         ))}
       </div>
+      <Patterns
+        groups={calculatePatterns(
+          data.students.map((s) => s.student_id),
+          new Set(data.approved_misconception_ids),
+          data.evidence,
+        )}
+        students={data.students}
+        content={content}
+      />
       <section id="responses" className="mt-10 scroll-mt-4">
         <h2 className="text-2xl font-semibold">
           Responses behind the overview

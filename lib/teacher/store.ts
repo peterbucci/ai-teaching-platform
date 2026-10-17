@@ -22,7 +22,7 @@ export async function readAssignmentEvidence(
       "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY",
     );
     const result = await client.query(
-      `SELECT a.id,a.class_id,a.title,c.name AS class_name,a.approved_concept_ids FROM assignments a JOIN classes c ON c.id=a.class_id WHERE a.id=$1 AND c.teacher_id=$2`,
+      `SELECT a.id,a.class_id,a.title,c.name AS class_name,a.approved_concept_ids,a.approved_misconception_ids FROM assignments a JOIN classes c ON c.id=a.class_id WHERE a.id=$1 AND c.teacher_id=$2`,
       [assignmentId, access.actor.profileId],
     );
     if (!result.rows[0]) throw new EvidenceError(404, "Assignment not found.");
@@ -33,6 +33,7 @@ export async function readAssignmentEvidence(
         title: z.string(),
         class_name: z.string(),
         approved_concept_ids: z.array(z.string()),
+        approved_misconception_ids: z.array(z.string()),
       })
       .parse(evidenceRow(result.rows[0]));
     const roster = await client.query(
@@ -57,6 +58,7 @@ export async function readAssignmentEvidence(
       class_id: assignment.class_id,
       title: assignment.title,
       class_name: assignment.class_name,
+      approved_misconception_ids: assignment.approved_misconception_ids,
       students,
       evidence,
       metrics: calculateClassMetrics(
