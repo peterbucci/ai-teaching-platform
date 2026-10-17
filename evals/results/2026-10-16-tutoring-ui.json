@@ -1,0 +1,295 @@
+{
+  "sessionId": "1d952083-4f25-4211-9755-09741a23ae61",
+  "model": ["gpt-6.1-sol"],
+  "teacherRetrieval": "passed",
+  "outcome": {
+    "root_attempt_id": "f3b7b0b5-0008-4e72-ae08-4992c40c0528",
+    "concept_ids": ["transmission_delay", "propagation_delay"],
+    "hypothesis_instance_id": "3c4a56d9-13c7-4520-a800-072e0b454d51",
+    "latest_hypothesis_status": "supported",
+    "outcome": "partial_or_incorrect_after_feedback",
+    "supporting_attempt_ids": [
+      "f3b7b0b5-0008-4e72-ae08-4992c40c0528",
+      "b09a3002-3160-4ea7-98a9-5379ae9136cf",
+      "a2aed6ed-53ca-4313-8d45-742eee733c53",
+      "668057b1-7e3d-4365-9be9-ef631ce6bb26"
+    ],
+    "intervention_ids": ["b0dfc980-608f-4584-82d3-38e1c5655d23"],
+    "recorded_at": "2026-10-17T02:03:13.058041+00:00",
+    "next_review_at": "2026-10-18T02:03:13.054Z",
+    "review_policy_version": "approved-sequence-v1",
+    "review_reason": "Illustrative 24-hour review after this session. Immediate success after assistance does not establish lasting retention."
+  },
+  "attempts": [
+    {
+      "questionId": "NP-TX-01",
+      "response": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "assistance": {
+        "intervention_ids": [],
+        "assistance_level": "none_recorded",
+        "scaffolding_types": [],
+        "independent_retrieval_eligible_by_concept": {
+          "propagation_delay": true,
+          "transmission_delay": true
+        },
+        "most_recent_content_assistance_at": null,
+        "elapsed_since_content_assistance_seconds": null
+      },
+      "submittedAt": "2026-10-17T02:00:41.292Z"
+    },
+    {
+      "questionId": "D02",
+      "response": "On A, transmission and propagation are each 1 ms. On B, both are 3 ms, because transmitting across three times the distance takes three times as long.",
+      "assistance": {
+        "intervention_ids": [],
+        "assistance_level": "none_recorded",
+        "scaffolding_types": ["diagnostic_prompt_without_answer"],
+        "independent_retrieval_eligible_by_concept": {
+          "propagation_delay": false,
+          "transmission_delay": false
+        },
+        "most_recent_content_assistance_at": null,
+        "elapsed_since_content_assistance_seconds": null
+      },
+      "submittedAt": "2026-10-17T02:01:10.339Z"
+    },
+    {
+      "questionId": "D05",
+      "response": "Transmission is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes. Propagation is 3 ms for both. More bits take longer to put onto the link, but the distance and propagation speed stay the same.",
+      "assistance": {
+        "intervention_ids": ["b0dfc980-608f-4584-82d3-38e1c5655d23"],
+        "assistance_level": "corrective_feedback",
+        "scaffolding_types": [],
+        "independent_retrieval_eligible_by_concept": {
+          "propagation_delay": false,
+          "transmission_delay": false
+        },
+        "most_recent_content_assistance_at": "2026-10-17T02:01:22.214Z",
+        "elapsed_since_content_assistance_seconds": 59.865
+      },
+      "submittedAt": "2026-10-17T02:02:22.079Z"
+    },
+    {
+      "questionId": "D06",
+      "response": "Transmission is 2 ms for each: 24,000 divided by 12,000,000 seconds. Propagation is 0.5 ms for 100 km and 2 ms for 400 km. Only propagation changes with the distance.",
+      "assistance": {
+        "intervention_ids": ["b0dfc980-608f-4584-82d3-38e1c5655d23"],
+        "assistance_level": "corrective_feedback",
+        "scaffolding_types": [],
+        "independent_retrieval_eligible_by_concept": {
+          "propagation_delay": false,
+          "transmission_delay": false
+        },
+        "most_recent_content_assistance_at": "2026-10-17T02:01:22.214Z",
+        "elapsed_since_content_assistance_seconds": 99.522
+      },
+      "submittedAt": "2026-10-17T02:03:01.736Z"
+    }
+  ],
+  "evaluations": [
+    {
+      "status": "pending_review",
+      "model": "gpt-6.1-sol",
+      "applied": null
+    },
+    {
+      "status": "accepted",
+      "model": "gpt-6.1-sol",
+      "judgments": [
+        {
+          "concept_id": "transmission_delay",
+          "correctness": "incorrect",
+          "error_type": "conceptual",
+          "rubric_criteria_met": [],
+          "rubric_criteria_missing": [
+            "Identify packet size and transmission rate as the determinants of transmission delay.",
+            "Explain that transmission delay remains unchanged because packet size and transmission rate are fixed."
+          ]
+        },
+        {
+          "concept_id": "propagation_delay",
+          "correctness": "partially_correct",
+          "error_type": "insufficient_response",
+          "rubric_criteria_met": ["State that propagation delay doubles."],
+          "rubric_criteria_missing": [
+            "Explain propagation delay using cable length and propagation speed.",
+            "Explain that doubling length at unchanged propagation speed doubles propagation delay."
+          ]
+        }
+      ],
+      "recommended": "ASK_DIAGNOSTIC_FOLLOWUP",
+      "applied": {
+        "action": "ASK_DIAGNOSTIC_FOLLOWUP",
+        "hypothesis_events": [
+          {
+            "id": "d28411ae-8941-467d-b072-4d2ca0271e83",
+            "hypothesis_instance_id": "3c4a56d9-13c7-4520-a800-072e0b454d51",
+            "concept_id": "transmission_delay",
+            "misconception_id": "transmission_depends_on_distance",
+            "previous_status": null,
+            "status": "suspected",
+            "evidence_evaluation_ids": ["3faf3100-962e-4927-a46c-9bc0b47a6e37"],
+            "contradicting_evaluation_ids": [],
+            "supporting_response_quotes": [
+              {
+                "response_id": "f3b7b0b5-0008-4e72-ae08-4992c40c0528",
+                "quote": "Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+                "start_character": 13,
+                "end_character": 109,
+                "interpretation": "Uses greater distance as the reason transmission delay doubles despite fixed packet size and link rate."
+              }
+            ],
+            "reason": "Explicit response evidence suggests the lesson's target hypothesis; persistence has not been established.",
+            "created_at": "2026-10-17T02:00:53.577577+00:00"
+          }
+        ]
+      }
+    },
+    {
+      "status": "pending_review",
+      "model": "gpt-6.1-sol",
+      "applied": null
+    },
+    {
+      "status": "accepted",
+      "model": "gpt-6.1-sol",
+      "judgments": [
+        {
+          "concept_id": "transmission_delay",
+          "correctness": "partially_correct",
+          "error_type": "conceptual",
+          "rubric_criteria_met": [
+            "Correctly gives transmission delay on A as 1 ms."
+          ],
+          "rubric_criteria_missing": [
+            "Transmission delay on B is also 1 ms.",
+            "Uses packet size divided by link rate: 8,000 bits / 8,000,000 bits/s.",
+            "Explains that unchanged packet size and link rate keep transmission delay unchanged despite increased distance."
+          ]
+        },
+        {
+          "concept_id": "propagation_delay",
+          "correctness": "correct",
+          "error_type": null,
+          "rubric_criteria_met": [
+            "Correctly gives propagation delays of 1 ms on A and 3 ms on B.",
+            "Explains the threefold delay increase by the threefold distance increase at the supplied common propagation speed."
+          ],
+          "rubric_criteria_missing": []
+        }
+      ],
+      "recommended": "ASK_DIAGNOSTIC_FOLLOWUP",
+      "applied": {
+        "action": "GIVE_CORRECTIVE_FEEDBACK",
+        "hypothesis_events": [
+          {
+            "id": "6f8bdffd-68d5-4a72-aed4-cabe65bd5a71",
+            "hypothesis_instance_id": "3c4a56d9-13c7-4520-a800-072e0b454d51",
+            "concept_id": "transmission_delay",
+            "misconception_id": "transmission_depends_on_distance",
+            "previous_status": "suspected",
+            "status": "supported",
+            "evidence_evaluation_ids": [
+              "3faf3100-962e-4927-a46c-9bc0b47a6e37",
+              "f77e1ca6-9e58-4ae2-9b50-5879b98164e8"
+            ],
+            "contradicting_evaluation_ids": [],
+            "supporting_response_quotes": [
+              {
+                "response_id": "f3b7b0b5-0008-4e72-ae08-4992c40c0528",
+                "quote": "Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+                "start_character": 13,
+                "end_character": 109,
+                "interpretation": "Uses greater distance as the reason transmission delay doubles despite fixed packet size and link rate."
+              },
+              {
+                "response_id": "b09a3002-3160-4ea7-98a9-5379ae9136cf",
+                "quote": "On B, both are 3 ms, because transmitting across three times the distance takes three times as long.",
+                "start_character": 50,
+                "end_character": 150,
+                "interpretation": "Explicitly attributes an increase in transmission delay to increased link distance."
+              }
+            ],
+            "reason": "A distinct diagnostic response repeats the target explanation; this is evidence consistent with a possible misconception, not proof of a belief.",
+            "created_at": "2026-10-17T02:01:22.184175+00:00"
+          }
+        ]
+      }
+    },
+    {
+      "status": "pending_review",
+      "model": "gpt-6.1-sol",
+      "applied": null
+    },
+    {
+      "status": "accepted",
+      "model": "gpt-6.1-sol",
+      "judgments": [
+        {
+          "concept_id": "transmission_delay",
+          "correctness": "correct",
+          "error_type": null,
+          "rubric_criteria_met": [
+            "Transmission delay is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes.",
+            "Doubling packet size at the fixed rate doubles the time needed to put the bits onto the link."
+          ],
+          "rubric_criteria_missing": []
+        },
+        {
+          "concept_id": "propagation_delay",
+          "correctness": "correct",
+          "error_type": null,
+          "rubric_criteria_met": [
+            "Propagation delay is 3 ms for both packet sizes.",
+            "Propagation delay stays unchanged because distance and propagation speed remain fixed."
+          ],
+          "rubric_criteria_missing": []
+        }
+      ],
+      "recommended": "SCHEDULE_REVIEW",
+      "applied": {
+        "action": "RETEST_CONCEPT",
+        "hypothesis_events": []
+      }
+    },
+    {
+      "status": "pending_review",
+      "model": "gpt-6.1-sol",
+      "applied": null
+    },
+    {
+      "status": "accepted",
+      "model": "gpt-6.1-sol",
+      "judgments": [
+        {
+          "concept_id": "transmission_delay",
+          "correctness": "correct",
+          "error_type": null,
+          "rubric_criteria_met": [
+            "Calculates 24,000 / 12,000,000 seconds as 2 ms for each link.",
+            "Explains that transmission delay does not change when only distance changes."
+          ],
+          "rubric_criteria_missing": []
+        },
+        {
+          "concept_id": "propagation_delay",
+          "correctness": "partially_correct",
+          "error_type": "insufficient_response",
+          "rubric_criteria_met": [
+            "Gives 0.5 ms for 100 km and 2 ms for 400 km.",
+            "Identifies propagation as the delay component that changes with distance."
+          ],
+          "rubric_criteria_missing": [
+            "Shows or states that propagation delay is distance divided by the supplied signal speed."
+          ]
+        }
+      ],
+      "recommended": "ASK_SELF_EXPLANATION",
+      "applied": {
+        "action": "SCHEDULE_REVIEW",
+        "hypothesis_events": []
+      }
+    }
+  ],
+  "displayedInterventions": 2
+}
