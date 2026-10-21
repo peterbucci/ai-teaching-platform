@@ -84,21 +84,6 @@ export function Workspace({
               : "Your workspace"}
         </p>
         {navigation}
-        <div className="lp-sidebar-bottom">
-          <Link href="/" className="lp-home-link">
-            <Icon name="home" />
-            Back to home
-          </Link>
-          <Link href="/login" className="lp-account">
-            <span className="lp-avatar">
-              <Icon name="user" />
-            </span>
-            <span>
-              Demo account<small>Account / sign out</small>
-            </span>
-            <Icon name="arrow" />
-          </Link>
-        </div>
       </aside>
       <div className="lp-workspace">
         <header className="lp-topbar">
