@@ -14,12 +14,14 @@ export function StudentReading({
   onBusy,
   onDisplayed,
   onSelect,
+  onReturn,
 }: {
   sessionId: string;
   requested: { passage: string; citation?: string; key: number } | null;
   onBusy: (busy: boolean) => void;
   onDisplayed: () => Promise<void>;
   onSelect: (passage: string) => void;
+  onReturn: () => void;
 }) {
   const [reading, setReading] = useState<AssignedReadingView | null>(null);
   const [selected, setSelected] = useState<z.infer<
@@ -28,6 +30,9 @@ export function StudentReading({
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [confirmedIntervention, setConfirmedIntervention] = useState<
+    string | null
+  >(null);
   const [retry, setRetry] = useState(0);
   const lastRequest = useRef("");
   const onDisplayedRef = useRef(onDisplayed);
@@ -44,6 +49,10 @@ export function StudentReading({
       onBusy(true);
       setLoading(true);
       setError(null);
+      setReading(null);
+      setSelected(null);
+      setConfirmedIntervention(null);
+      setSaving(false);
       try {
         const response = await fetch(`/api/tutoring/${sessionId}/reading`);
         if (!response.ok)
@@ -106,6 +115,7 @@ export function StudentReading({
           setSaving(false);
           setError(null);
           await onDisplayedRef.current();
+          setConfirmedIntervention(selected.intervention_id);
           onBusy(false);
         }
       } catch (err) {
@@ -127,7 +137,29 @@ export function StudentReading({
   if (!requested) return null;
   return (
     <section className="lp-panel p-6 my-5" aria-label="Assigned reading">
-      <h2 className="text-xl font-semibold mb-3">Assigned reading</h2>
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+        <h2 className="text-xl font-semibold">Assigned reading</h2>
+        <button
+          type="button"
+          className="lp-button"
+          disabled={
+            loading ||
+            saving ||
+            (selected !== null &&
+              confirmedIntervention !== selected.intervention_id)
+          }
+          onClick={() => {
+            setReading(null);
+            setSelected(null);
+            setConfirmedIntervention(null);
+            setError(null);
+            lastRequest.current = "";
+            onReturn();
+          }}
+        >
+          Return to conversation
+        </button>
+      </div>
       <p className="text-sm text-slate-600 mb-4">
         Open any passage. Relevant reading is recorded as help for this practice
         session.
@@ -178,9 +210,11 @@ export function StudentReading({
             <>
               <ReadingSection section={selected.passage} />
               <p role="status" className="text-sm text-slate-600">
-                {saving
-                  ? "Saving reading record…"
-                  : "Reading recorded for this session."}
+                {confirmedIntervention === selected.intervention_id
+                  ? "Reading recorded for this session."
+                  : saving
+                    ? "Saving reading record…"
+                    : "Reading record not yet confirmed. Retry saving above."}
               </p>
             </>
           ) : (

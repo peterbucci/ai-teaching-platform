@@ -1,6 +1,14 @@
 import { z } from "zod";
 import { StudentSessionViewSchema } from "../evidence/contracts.ts";
 
+export const AssignedLessonSchema = z.strictObject({
+  id: z.uuid(),
+  title: z.string().min(1),
+  approval_label: z.string().min(1),
+  session: StudentSessionViewSchema.shape.session.nullable(),
+});
+export type AssignedLesson = z.infer<typeof AssignedLessonSchema>;
+
 export const TutorViewSchema = StudentSessionViewSchema.extend({
   pending_reading: z
     .object({ intervention_id: z.uuid(), passage_id: z.string() })

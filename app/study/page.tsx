@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AuthError, requireActor } from "../../lib/auth.ts";
-import { evidenceAccess } from "../../lib/evidence/store.ts";
+import { EvidenceError, evidenceAccess } from "../../lib/evidence/store.ts";
 import { assignedLessons, tutorView } from "../../lib/tutoring/store.ts";
 import { StudySession } from "./session.tsx";
 import { Workspace } from "../components/workspace.tsx";
@@ -13,10 +13,13 @@ async function loadStudy(session?: string) {
     const access = evidenceAccess(await requireActor());
     const lessons = await assignedLessons(access);
     const initial = session ? await tutorView(access, session) : null;
-    return { lessons, initial };
+    return { lessons, initial, unavailable: false } as const;
   } catch (error) {
     if (error instanceof AuthError && error.status === 401) redirect("/login");
-    return null;
+    return {
+      unavailable: true,
+      missing: error instanceof EvidenceError && error.status === 404,
+    } as const;
   }
 }
 export default async function StudyPage({
@@ -25,7 +28,7 @@ export default async function StudyPage({
   searchParams: Promise<{ session?: string }>;
 }) {
   const data = await loadStudy((await searchParams).session);
-  if (data) {
+  if (!data.unavailable) {
     const { lessons, initial } = data;
     return (
       <Workspace
@@ -36,6 +39,7 @@ export default async function StudyPage({
         }
       >
         <StudySession
+          key={initial?.session.id ?? "assignments"}
           lessons={lessons}
           initial={initial}
           topics={
@@ -54,11 +58,15 @@ export default async function StudyPage({
       <Workspace area="student" section="My learning">
         <section className="lp-panel lp-empty">
           <h1 className="text-2xl font-semibold">
-            This session isn’t available
+            {data.missing
+              ? "This session isn’t available"
+              : "We couldn’t load your learning"}
           </h1>
           <p className="my-4">
-            Check that you’re signed in with the right demo account. Your saved
-            work has not been changed.
+            {data.missing
+              ? "Check that you’re signed in with the right demo account."
+              : "Please try again in a moment."}{" "}
+            Your saved work has not been changed.
           </p>
           <Link href="/study" className="underline">
             Back to your assignments

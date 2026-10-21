@@ -6,18 +6,38 @@ import { Icon } from "../components/icons.tsx";
 import { StudentReading } from "./reading.tsx";
 import {
   TutorViewSchema,
+  type AssignedLesson,
   type TutorView,
 } from "../../lib/tutoring/contracts.ts";
 
-type Lesson = { id: string; title: string; approval_label: string };
 const button = "lp-button lp-button-primary";
+// Some browsers disable tab storage. That must never prevent an answer being sent.
+function saveDraft(attempt: string, value: unknown | null) {
+  try {
+    if (value === null) sessionStorage.removeItem(`learning-pulse:${attempt}`);
+    else
+      sessionStorage.setItem(
+        `learning-pulse:${attempt}`,
+        JSON.stringify(value),
+      );
+  } catch {
+    // The in-memory submission key still protects retries in this tab.
+  }
+}
 async function request(path: string, body?: unknown): Promise<unknown> {
-  const response = await fetch(path, {
-    method: body === undefined ? "GET" : "POST",
-    headers: body === undefined ? {} : { "Content-Type": "application/json" },
-    body: body === undefined ? undefined : JSON.stringify(body),
-  });
-  const value: unknown = await response.json();
+  let response: Response;
+  try {
+    response = await fetch(path, {
+      method: body === undefined ? "GET" : "POST",
+      headers: body === undefined ? {} : { "Content-Type": "application/json" },
+      body: body === undefined ? undefined : JSON.stringify(body),
+    });
+  } catch {
+    throw new Error(
+      "We couldn’t connect. Your answer stays here; check your connection and try again.",
+    );
+  }
+  const value: unknown = await response.json().catch(() => null);
   if (!response.ok)
     throw new Error(
       response.status === 401
@@ -29,6 +49,8 @@ async function request(path: string, body?: unknown): Promise<unknown> {
           ? value.error
           : "We couldn’t finish that request. Your saved work is safe.",
     );
+  if (value === null)
+    throw new Error("We couldn’t load your progress. Please try again.");
   return value;
 }
 export function StudySession({
@@ -36,7 +58,7 @@ export function StudySession({
   initial,
   topics,
 }: {
-  lessons: Lesson[];
+  lessons: AssignedLesson[];
   initial: TutorView | null;
   topics: { id: string; title: string }[];
 }) {
@@ -48,6 +70,10 @@ export function StudySession({
   const [displayRetry, setDisplayRetry] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [readingBusy, setReadingBusy] = useState(false);
+  const currentStep = useRef<HTMLHeadingElement>(null);
+  const feedbackStep = useRef<HTMLHeadingElement>(null);
+  const focusedAttempt = useRef<string | null>(null);
+  const completion = useRef<HTMLHeadingElement>(null);
   const [readingRequest, setReadingRequest] = useState<{
     passage: string;
     citation?: string;
@@ -82,6 +108,13 @@ export function StudySession({
   const last = view?.attempts.at(-1);
   const lastId = last?.id;
   const submittedAt = last?.submitted_at;
+  const phase = view?.progress.phase;
+  const latestFeedback = view?.interventions
+    .filter((i) => i.type !== "reading")
+    .at(-1)?.id;
+  const assignment = lessons.find(
+    (lesson) => lesson.session?.id === view?.session.id,
+  );
   const refresh = useCallback(async (sessionId: string) => {
     const updated = TutorViewSchema.parse(
       await request(`/api/tutoring/${sessionId}`),
@@ -107,7 +140,12 @@ export function StudySession({
     if (!lastId || submittedAt) return;
     submission.current = null;
     queueMicrotask(() => setLocked(false));
-    const stored = sessionStorage.getItem(`learning-pulse:${lastId}`);
+    let stored: string | null = null;
+    try {
+      stored = sessionStorage.getItem(`learning-pulse:${lastId}`);
+    } catch {
+      /* Sending answers still works when tab storage is unavailable. */
+    }
     if (stored) {
       try {
         const saved: unknown = JSON.parse(stored);
@@ -134,7 +172,7 @@ export function StudySession({
           });
         }
       } catch {
-        sessionStorage.removeItem(`learning-pulse:${lastId}`);
+        saveDraft(lastId, null);
       }
     } else queueMicrotask(() => setDraft(""));
   }, [lastId, submittedAt]);
@@ -146,6 +184,66 @@ export function StudySession({
       .map((i) => i.id)
       .join(",") ?? "";
   const sessionId = view?.session.id;
+  const retryAfter = view?.progress.retry_after;
+  // Only read progress: refresh/resume never starts or retries a paid evaluation.
+  // Bound background checks, then leave the explicit Check saved progress control.
+  useEffect(() => {
+    if (!sessionId || busy || (phase !== "evaluate" && phase !== "failed"))
+      return;
+    let cancelled = false;
+    let timer: ReturnType<typeof setTimeout>;
+    let checks = 0;
+    async function poll() {
+      try {
+        const updated = TutorViewSchema.parse(
+          await request(`/api/tutoring/${sessionId}`),
+        );
+        if (cancelled) return;
+        setView(updated);
+        checks += 1;
+        if (
+          checks < 30 &&
+          (updated.progress.phase === "evaluate" ||
+            (updated.progress.phase === "failed" &&
+              !updated.progress.retry_allowed))
+        )
+          timer = setTimeout(poll, 3000);
+      } catch {
+        if (!cancelled)
+          setError(
+            "We couldn’t refresh your saved progress. Check your connection, then choose Check saved progress.",
+          );
+      }
+    }
+    timer = setTimeout(
+      poll,
+      phase === "failed" && retryAfter
+        ? Math.max(
+            1000,
+            Math.min(3000, Date.parse(retryAfter) - Date.now() + 250),
+          )
+        : 3000,
+    );
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, [sessionId, phase, retryAfter, busy]);
+  useEffect(() => {
+    if (phase !== "answer" && phase !== "completed" && phase !== "feedback")
+      return;
+    if (phase === "answer" && focusedAttempt.current === lastId) return;
+    const target =
+      phase === "feedback"
+        ? feedbackStep.current
+        : phase === "completed"
+          ? completion.current
+          : currentStep.current;
+    target?.focus({ preventScroll: true });
+    target?.scrollIntoView({ block: "nearest" });
+    // A delivery acknowledgement must not jump past feedback to the next question.
+    focusedAttempt.current = lastId ?? null;
+  }, [lastId, phase, latestFeedback]);
   useEffect(() => {
     if (!pendingHelp || !sessionId) return;
     let cancelled = false;
@@ -200,17 +298,14 @@ export function StudySession({
           : { attempt: last.id, key: crypto.randomUUID(), response: draft };
       submission.current = next;
       setLocked(true);
-      sessionStorage.setItem(
-        `learning-pulse:${last.id}`,
-        JSON.stringify({ ...next, locked: true }),
-      );
+      saveDraft(last.id, { ...next, locked: true });
       await request(`/api/sessions/${view.session.id}/answers`, {
         attempt_id: last.id,
         submission_key: next.key,
         response_text: next.response,
       });
       await refresh(view.session.id);
-      sessionStorage.removeItem(`learning-pulse:${last.id}`);
+      saveDraft(last.id, null);
       setDraft("");
       submission.current = null;
       setLocked(false);
@@ -235,7 +330,9 @@ export function StudySession({
           <p className="lp-eyebrow">Your learning</p>
         )}
         <h1 className="lp-title">
-          {view ? "Your study session" : "Make room for a little discovery."}
+          {view
+            ? (assignment?.title ?? "Your study session")
+            : "Make room for a little discovery."}
         </h1>
         <p className="lp-intro">
           {view
@@ -245,10 +342,30 @@ export function StudySession({
         <p className="mt-2 text-xs text-slate-600">
           Fictional student demo · Team-approved networking lesson
         </p>
+        {view && (
+          <div className="lp-session-actions">
+            <button
+              type="button"
+              className="lp-button"
+              disabled={busy || readingBusy}
+              onClick={() =>
+                setReadingRequest({ passage: "", key: Date.now() })
+              }
+            >
+              <Icon name="book" /> Assigned reading
+            </button>
+            <a href="#conversation" className="lp-text-link">
+              Your saved conversation
+            </a>
+          </div>
+        )}
       </header>
       {error && (
         <div role="alert" className="lp-notice lp-notice-warning mb-5">
-          {error}
+          {error}{" "}
+          <Link href="/login" className="underline">
+            Check sign-in
+          </Link>
         </div>
       )}
       {!view ? (
@@ -272,13 +389,26 @@ export function StudySession({
                   <p className="my-3 text-sm text-slate-600">
                     {lesson.approval_label}
                   </p>
+                  <p className="my-3 text-sm font-medium">
+                    {lesson.session
+                      ? lesson.session.status === "active"
+                        ? "In progress · Your work is saved"
+                        : "Session saved · Review your conversation"
+                      : "Ready when you are"}
+                  </p>
                   <button
                     type="button"
                     className={button}
                     disabled={busy}
                     onClick={() => void start(lesson.id)}
                   >
-                    {busy ? "Opening…" : "Start or resume"}
+                    {busy
+                      ? "Opening…"
+                      : !lesson.session
+                        ? "Start session"
+                        : lesson.session.status === "active"
+                          ? "Continue session"
+                          : "View saved session"}
                     <Icon name="arrow" />
                   </button>
                 </article>
@@ -291,8 +421,8 @@ export function StudySession({
                   <div>
                     <h2>Pick up where you left off</h2>
                     <p>
-                      Your submitted answers and feedback are saved. Use Start
-                      or resume to return to your latest session.
+                      Your submitted answers and feedback are saved. Return here
+                      any time to continue your session or read it again.
                     </p>
                   </div>
                 </div>
@@ -329,7 +459,29 @@ export function StudySession({
               ? "Saving and checking your answer… You can return to this session if you need to leave."
               : view.progress.message}
           </div>
-          <div className="lp-panel lp-conversation-card">
+          <StudentReading
+            sessionId={view.session.id}
+            requested={readingRequest}
+            onBusy={setReadingBusy}
+            onSelect={(passage) => {
+              if (!readingBusy) setReadingRequest({ passage, key: Date.now() });
+            }}
+            onDisplayed={async () => {
+              await refresh(view.session.id);
+            }}
+            onReturn={() => {
+              setReadingRequest(null);
+              window.history.replaceState(
+                null,
+                "",
+                window.location.pathname + window.location.search,
+              );
+              const target = currentStep.current ?? completion.current;
+              target?.focus({ preventScroll: true });
+              target?.scrollIntoView({ block: "nearest" });
+            }}
+          />
+          <div id="conversation" className="lp-panel lp-conversation-card">
             <div className="lp-conversation-heading">
               Your conversation · Submitted answers are saved
             </div>
@@ -346,7 +498,10 @@ export function StudySession({
                     Learning Pulse
                   </div>
                   <div className="lp-question">
-                    <h2>
+                    <h2
+                      ref={attempt.id === lastId ? currentStep : undefined}
+                      tabIndex={-1}
+                    >
                       {attempt.intent === "diagnostic_followup"
                         ? "Let’s check your reasoning"
                         : attempt.intent === "immediate_retest"
@@ -384,7 +539,14 @@ export function StudySession({
                           Learning Pulse
                         </div>
                         <div className="lp-question">
-                          <h2>
+                          <h2
+                            ref={
+                              help.id === latestFeedback
+                                ? feedbackStep
+                                : undefined
+                            }
+                            tabIndex={-1}
+                          >
                             {help.type === "fallback"
                               ? "Let’s return to the question"
                               : "Feedback"}
@@ -423,29 +585,6 @@ export function StudySession({
                 </li>
               ))}
             </ol>
-            <button
-              type="button"
-              className="lp-text-link my-4"
-              disabled={busy || readingBusy}
-              onClick={() =>
-                setReadingRequest({ passage: "", key: Date.now() })
-              }
-            >
-              <Icon name="book" />
-              Open assigned reading
-            </button>
-            <StudentReading
-              sessionId={view.session.id}
-              requested={readingRequest}
-              onBusy={setReadingBusy}
-              onSelect={(passage) => {
-                if (!readingBusy)
-                  setReadingRequest({ passage, key: Date.now() });
-              }}
-              onDisplayed={async () => {
-                await refresh(view.session.id);
-              }}
-            />
             {view.progress.phase === "answer" && (
               <form onSubmit={(e) => void answer(e)} className="lp-composer">
                 <label htmlFor="response" className="block font-semibold">
@@ -457,13 +596,10 @@ export function StudySession({
                   onChange={(e) => {
                     setDraft(e.target.value);
                     if (last && !submission.current)
-                      sessionStorage.setItem(
-                        `learning-pulse:${last.id}`,
-                        JSON.stringify({
-                          key: crypto.randomUUID(),
-                          response: e.target.value,
-                        }),
-                      );
+                      saveDraft(last.id, {
+                        key: crypto.randomUUID(),
+                        response: e.target.value,
+                      });
                   }}
                   maxLength={12000}
                   required
@@ -497,6 +633,24 @@ export function StudySession({
             )}
           </div>
           <div className="lp-session-actions">
+            {view.progress.phase === "completed" && (
+              <section className="lp-panel lp-session-complete">
+                <span className="lp-avatar">
+                  <Icon name="check" />
+                </span>
+                <h2 ref={completion} tabIndex={-1}>
+                  Your session is saved
+                </h2>
+                <p>
+                  You can revisit your answers and feedback above. A fresh
+                  answer after help shows today’s progress; later practice helps
+                  check what sticks.
+                </p>
+                <Link href="/study" className="lp-button lp-button-primary">
+                  Back to your assignments <Icon name="arrow" />
+                </Link>
+              </section>
+            )}
             {view.progress.phase === "evaluate" && (
               <button
                 type="button"
@@ -504,7 +658,7 @@ export function StudySession({
                 disabled={busy || readingBusy || Boolean(pendingReading)}
                 onClick={() => void evaluate()}
               >
-                Evaluate saved answer
+                {busy ? "Checking your answer…" : "Evaluate saved answer"}
               </button>
             )}
             {view.progress.phase === "failed" && (
@@ -519,7 +673,7 @@ export function StudySession({
                 }
                 onClick={() => void evaluate(true)}
               >
-                Retry evaluation
+                {busy ? "Retrying evaluation…" : "Retry evaluation"}
               </button>
             )}
             {view.progress.phase === "completed" &&

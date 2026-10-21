@@ -26,27 +26,44 @@ import {
 } from "../evidence/store.ts";
 import { evaluateSubmittedAttempt } from "../evaluation/evaluate.ts";
 import { evaluationRecovery } from "../evaluation/recovery.ts";
-import { TutorStepSchema, TutorViewSchema } from "./contracts.ts";
+import {
+  AssignedLessonSchema,
+  TutorStepSchema,
+  TutorViewSchema,
+} from "./contracts.ts";
 import { decideTutoring, tutoringOutcome } from "./decide.ts";
 
 export async function assignedLessons(access: EvidenceAccess) {
   return transaction(async (client) => {
     const rows = await client.query(
-      `SELECT a.id,a.title,a.content_ref FROM assignments a
-      JOIN enrollments e ON e.class_id=a.class_id WHERE e.student_id=$1 AND a.teacher_approved_at IS NOT NULL ORDER BY a.id`,
+      `SELECT a.id,a.title,a.content_ref,latest.session FROM assignments a
+      JOIN enrollments e ON e.class_id=a.class_id
+      LEFT JOIN LATERAL (
+        SELECT jsonb_build_object('id',s.id,'status',s.status) AS session
+        FROM sessions s WHERE s.assignment_id=a.id AND s.class_id=a.class_id
+          AND s.student_id=e.student_id AND s.data_origin='live_demo'
+        ORDER BY s.started_at DESC,s.id DESC LIMIT 1
+      ) latest ON true
+      WHERE e.student_id=$1 AND a.teacher_approved_at IS NOT NULL ORDER BY a.id`,
       [access.actor.profileId],
     );
     const content = loadApprovedContent();
     return rows.rows.map((row) => {
       const assignment = z
-        .object({ id: z.uuid(), title: z.string(), content_ref: z.unknown() })
+        .object({
+          id: z.uuid(),
+          title: z.string(),
+          content_ref: z.unknown(),
+          session: AssignedLessonSchema.shape.session,
+        })
         .parse(row);
       validateContentRef(content, assignment.content_ref);
-      return {
+      return AssignedLessonSchema.parse({
         id: assignment.id,
         title: assignment.title,
         approval_label: "Approved by your teacher",
-      };
+        session: assignment.session,
+      });
     });
   });
 }
@@ -164,7 +181,7 @@ export async function startTutoring(
         "Your teacher needs to activate this assignment first. Your previous work is still saved.",
       );
     const existing = await client.query(
-      "SELECT id FROM sessions WHERE assignment_id=$1 AND student_id=$2 AND data_origin='live_demo' ORDER BY started_at DESC LIMIT 1",
+      "SELECT id FROM sessions WHERE assignment_id=$1 AND student_id=$2 AND data_origin='live_demo' ORDER BY started_at DESC,id DESC LIMIT 1",
       [assignmentId, access.actor.profileId],
     );
     let id: string;
