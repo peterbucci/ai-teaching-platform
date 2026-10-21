@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import { getAuth } from "../../lib/auth.ts";
 import { LoginForm } from "./form.tsx";
 import { Brand } from "../components/workspace.tsx";
+import { demoLoginEnabled } from "../../lib/demo-login.ts";
 
 export const dynamic = "force-dynamic";
 
@@ -42,7 +43,7 @@ export default async function LoginPage({
             demo environment.
           </p>
         ) : (
-          <LoginForm signedIn={signedIn} />
+          <LoginForm signedIn={signedIn} demoEnabled={demoLoginEnabled()} />
         )}
       </section>
     </main>

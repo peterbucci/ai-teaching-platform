@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { z } from "zod";
 import { resolveActor } from "../lib/auth.ts";
+import { demoLoginEnabled } from "../lib/demo-login.ts";
 import { getPool } from "../lib/db.ts";
 import { buildDemoFixture, DEMO_IDS } from "../lib/evidence/demo.ts";
 import {
@@ -61,15 +62,16 @@ async function responseJson(response: Response): Promise<unknown> {
   return response.json();
 }
 
-async function login(prefix: string) {
+async function login(prefix: string, demoRole?: "teacher" | "student") {
   const email = process.env[`${prefix}_EMAIL`];
   const password = process.env[`${prefix}_PASSWORD`];
   if (!email || !password)
     throw new Error(`Set ${prefix}_EMAIL and ${prefix}_PASSWORD in .env.`);
-  const result = await request("/api/auth/sign-in/email", "", {
-    email,
-    password,
-  });
+  const result = await request(
+    demoRole ? "/api/auth/demo-sign-in" : "/api/auth/sign-in/email",
+    "",
+    demoRole ? { role: demoRole } : { email, password },
+  );
   assert.equal(result.status, 200, `${prefix} login failed`);
   const cookies = result.headers.getSetCookie();
   assert.ok(cookies.some((cookie) => /httponly/i.test(cookie)));
@@ -152,8 +154,20 @@ async function verifyRestart() {
 }
 
 async function checkPersistence(prepareRestart: boolean) {
-  const teacher = await login("DEMO_TEACHER");
-  const student = await login("DEMO_STUDENT_ONE");
+  const demoEnabled = demoLoginEnabled();
+  if (!demoEnabled)
+    assert.equal(
+      (await request("/api/auth/demo-sign-in", "", { role: "teacher" })).status,
+      404,
+    );
+  const teacher = await login(
+    "DEMO_TEACHER",
+    demoEnabled ? "teacher" : undefined,
+  );
+  const student = await login(
+    "DEMO_STUDENT_ONE",
+    demoEnabled ? "student" : undefined,
+  );
   const other = await login("DEMO_STUDENT_TWO");
   assert.equal(teacher.actor.profileId, DEMO_IDS.teacher);
   assert.equal(student.actor.profileId, DEMO_IDS.studentOne);

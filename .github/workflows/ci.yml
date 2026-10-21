@@ -36,6 +36,7 @@ jobs:
             PGPASSWORD: secret(),
             AUTH_SECRET: secret(),
             AUTH_URL: 'http://localhost:3000',
+            ENABLE_DEMO_LOGIN: 'true',
             DEMO_TEACHER_EMAIL: 'teacher@example.invalid',
             DEMO_TEACHER_PASSWORD: secret(),
             DEMO_STUDENT_ONE_EMAIL: 'student-one@example.invalid',

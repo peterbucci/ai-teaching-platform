@@ -6,9 +6,9 @@
     "node": ">=22.13.0"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --hostname 127.0.0.1",
     "build": "next build",
-    "start": "next start",
+    "start": "next start --hostname 127.0.0.1",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "next typegen && tsc --noEmit",
     "content:check": "python content/network-performance-v1/verify_package.py",
