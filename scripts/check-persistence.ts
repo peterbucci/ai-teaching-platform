@@ -158,6 +158,16 @@ async function checkPersistence(prepareRestart: boolean) {
   assert.equal(teacher.actor.profileId, DEMO_IDS.teacher);
   assert.equal(student.actor.profileId, DEMO_IDS.studentOne);
   assert.equal(other.actor.profileId, DEMO_IDS.studentTwo);
+  for (const [cookie, destination] of [
+    ["", "/login"],
+    [teacher.cookie, "/teacher"],
+    [student.cookie, "/study"],
+    [other.cookie, "/study"],
+  ]) {
+    const home = await request("/", cookie);
+    assert.equal(home.status, 307);
+    assert.equal(home.headers.get("location"), destination);
+  }
   assert.equal(
     (await request(`/api/sessions/${DEMO_IDS.supportedSession}`)).status,
     401,
