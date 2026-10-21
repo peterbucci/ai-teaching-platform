@@ -5,17 +5,49 @@ import { useSyncExternalStore, type ReactNode } from "react";
 import { Icon } from "./icons.tsx";
 import { AccountMenu } from "./account-menu.tsx";
 
-function subscribeToHashChange(onChange: () => void) {
-  window.addEventListener("hashchange", onChange);
-  window.addEventListener("popstate", onChange);
+function subscribeToVisibleSection(onChange: () => void) {
+  let frame = 0;
+  const update = () => {
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(onChange);
+  };
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  window.addEventListener("hashchange", update);
+  window.addEventListener("popstate", update);
+  const observer = new ResizeObserver(update);
+  const main = document.getElementById("main-content");
+  if (main) observer.observe(main);
   return () => {
-    window.removeEventListener("hashchange", onChange);
-    window.removeEventListener("popstate", onChange);
+    cancelAnimationFrame(frame);
+    observer.disconnect();
+    window.removeEventListener("scroll", update);
+    window.removeEventListener("resize", update);
+    window.removeEventListener("hashchange", update);
+    window.removeEventListener("popstate", update);
   };
 }
 
-const getHash = () => window.location.hash;
-const getServerHash = () => "";
+function getVisibleSection() {
+  const responses = document.getElementById("responses");
+  if (!responses) return "Class overview";
+  const pageHeight = document.documentElement.scrollHeight;
+  if (pageHeight <= window.innerHeight) {
+    return window.location.hash === "#responses"
+      ? "Student evidence"
+      : "Class overview";
+  }
+  const top = responses.getBoundingClientRect().top;
+  const atBottom = window.scrollY + window.innerHeight >= pageHeight - 2;
+  // Short response lists may never reach the upper part of the viewport.
+  return window.scrollY > 0 &&
+    (top <= window.innerHeight * 0.3 || (atBottom && top < window.innerHeight))
+    ? "Student evidence"
+    : "Class overview";
+}
+
+const getServerSection = () => "Class overview";
+const subscribeToNothing = () => () => {};
 
 export function Brand() {
   return (
@@ -45,14 +77,13 @@ export function Workspace({
   sessionHref?: string;
 }) {
   const teacher = area === "teacher";
-  const hash = useSyncExternalStore(
-    subscribeToHashChange,
-    getHash,
-    getServerHash,
-  );
   const overview = teacher && section === "Class overview";
-  const activeSection =
-    overview && hash === "#responses" ? "Student evidence" : section;
+  const visibleSection = useSyncExternalStore(
+    overview ? subscribeToVisibleSection : subscribeToNothing,
+    getVisibleSection,
+    getServerSection,
+  );
+  const activeSection = overview ? visibleSection : section;
   // Native section links keep scrolling, browser history, and the hash in sync.
   const NavigationLink = teacher ? "a" : Link;
   const links = teacher
