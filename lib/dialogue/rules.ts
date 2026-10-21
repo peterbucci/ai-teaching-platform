@@ -408,6 +408,12 @@ export function appendDialogueEvent(
 ): DialogueEvent[] {
   const events = validateDialogueEvents(request, history);
   const event = DialogueEventSchema.parse(input);
+  DialogueStateSchema.parse(state);
+  requireRule(
+    request.session_id === state.lesson.session_id &&
+      request.lesson.assignment_id === state.lesson.assignment_id,
+    "Event belongs to another session",
+  );
   const duplicate = events.find((saved) => saved.event_id === event.event_id);
   if (duplicate) {
     requireRule(same(duplicate, event), "Event ID reused with different data");
@@ -425,7 +431,6 @@ export function appendDialogueEvent(
     );
     return events;
   }
-  DialogueStateSchema.parse(state);
   const accepted = events.find((saved) => saved.outcome === "accepted");
   if (
     event.outcome === "displayed" &&
@@ -446,12 +451,6 @@ export function appendDialogueEvent(
     );
   } else if (!["cancelled", "failed", "rejected"].includes(event.outcome))
     assertCurrentRequest(request, state);
-  else
-    requireRule(
-      request.session_id === state.lesson.session_id &&
-        request.lesson.assignment_id === state.lesson.assignment_id,
-      "Terminal event belongs to another session",
-    );
   const next = validateDialogueEvents(request, [...events, event]);
   if (event.outcome === "accepted") {
     requireRule(

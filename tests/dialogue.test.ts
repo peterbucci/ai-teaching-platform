@@ -310,6 +310,14 @@ test("generated help is hidden until accepted, and only actual display counts as
     }),
     displayed,
   );
+  assert.throws(
+    () =>
+      appendDialogueEvent(request, displayed, display, {
+        ...reserved(),
+        lesson: { ...f.state.lesson, session_id: id(99) },
+      }),
+    /another session/,
+  );
   assert.deepEqual(
     appendDialogueEvent(
       request,
