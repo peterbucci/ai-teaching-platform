@@ -6,6 +6,8 @@ import { AuthError, requireActor } from "../../lib/auth.ts";
 import { loadApprovedContent } from "../../lib/evidence/content.ts";
 import { EvidenceError, evidenceAccess } from "../../lib/evidence/store.ts";
 import { OriginFilterSchema } from "../../lib/teacher/metrics.ts";
+import { calculatePatterns } from "../../lib/teacher/patterns.ts";
+import { Patterns } from "./patterns.tsx";
 import {
   readAssignmentEvidence,
   teacherAssignments,
@@ -305,6 +307,15 @@ export default async function TeacherPage({
           </p>
         </details>
       </section>
+      <Patterns
+        groups={calculatePatterns(
+          data.students.map((s) => s.student_id),
+          new Set(data.approved_misconception_ids),
+          data.evidence,
+        )}
+        students={data.students}
+        content={content}
+      />
       <section id="responses" className="lp-panel lp-responses">
         <h2>Responses behind the overview</h2>
         <p className="lp-panel-description mb-5">
