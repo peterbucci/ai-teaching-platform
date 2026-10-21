@@ -57,7 +57,7 @@ export async function tutorView(access: EvidenceAccess, sessionId: string) {
   const runs = evidence.evaluations.filter((e) => e.attempt_id === last?.id);
   const recovery = evaluationRecovery(runs, Date.now());
   const pendingHelp = evidence.interventions.some(
-    (i) => i.delivery_status === "created",
+    (i) => i.delivery_status === "created" && i.type !== "reading",
   );
   const phase = pendingHelp
     ? "feedback"
@@ -71,6 +71,17 @@ export async function tutorView(access: EvidenceAccess, sessionId: string) {
   const content = loadApprovedContent();
   return TutorViewSchema.parse({
     ...toStudentSessionView(evidence),
+    pending_reading: (() => {
+      const pending = evidence.interventions.find(
+        (item) => item.type === "reading" && item.delivery_status === "created",
+      );
+      return pending
+        ? {
+            intervention_id: pending.id,
+            passage_id: pending.source_passage_ids[0],
+          }
+        : null;
+    })(),
     interventions: toStudentSessionView(evidence).interventions.map((i) => ({
       ...i,
       related_attempt_id: evidence.interventions.find(
@@ -102,7 +113,7 @@ export async function tutorView(access: EvidenceAccess, sessionId: string) {
                 : "Explain your thinking in your own words.",
     },
     citations: evidence.interventions
-      .filter((i) => i.type !== "fallback")
+      .filter((i) => i.type !== "fallback" && i.type !== "reading")
       .flatMap((i) =>
         i.source_passage_ids.map((id) => {
           const passage = content.passages.get(id);

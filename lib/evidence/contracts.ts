@@ -125,6 +125,7 @@ export const AssistanceSnapshotSchema = z.strictObject({
   assistance_level: z.enum([
     "none_recorded",
     "prompt_supplied_content",
+    "reading",
     "hint",
     "worked_example",
     "corrective_feedback",
@@ -381,6 +382,7 @@ export const InterventionSchema = z
     related_attempt_id: id,
     related_evaluation_id: id.nullable(),
     type: z.enum([
+      "reading",
       "hint",
       "corrective_feedback",
       "worked_example",
@@ -417,7 +419,7 @@ export const InterventionSchema = z
     }
     if (
       intervention.type !== "fallback" &&
-      (!intervention.concept_ids.length ||
+      ((!intervention.concept_ids.length && intervention.type !== "reading") ||
         !intervention.source_passage_ids.length)
     ) {
       context.addIssue({
@@ -463,6 +465,7 @@ export const StudentSessionViewSchema = z.strictObject({
     z.strictObject({
       id,
       type: z.enum([
+        "reading",
         "hint",
         "corrective_feedback",
         "worked_example",
