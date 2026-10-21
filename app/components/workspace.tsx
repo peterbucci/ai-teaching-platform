@@ -114,11 +114,18 @@ export function Workspace({
   // Native section links keep scrolling, browser history, and the hash in sync.
   const NavigationLink = teacher ? "a" : Link;
   const links = teacher
-    ? teacherSections.map(({ id, text, icon }) => ({
-        href: `${overview ? "" : "/teacher"}#${id}`,
-        text,
-        icon,
-      }))
+    ? [
+        ...teacherSections.map(({ id, text, icon }) => ({
+          href: `${overview ? "" : "/teacher"}#${id}`,
+          text,
+          icon,
+        })),
+        {
+          href: "/teacher/assignments",
+          text: "Assignments",
+          icon: "book" as const,
+        },
+      ]
     : [
         { href: "/study", text: "My learning", icon: "book" as const },
         ...(sessionHref

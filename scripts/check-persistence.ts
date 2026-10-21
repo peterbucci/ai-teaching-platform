@@ -267,6 +267,30 @@ async function checkPersistence(prepareRestart: boolean) {
   }
 
   // The public endpoint chooses identity; it accepts only assignment ID.
+  // Review a disposable assignment, never silently activate the real demo assignment.
+  const probeAssignment = randomUUID();
+  await getPool().query(
+    `INSERT INTO assignments(id,class_id,title,content_ref,approved_concept_ids,approved_passage_ids,approved_misconception_ids,approval)
+    SELECT $1,class_id,'Persistence check only',content_ref,approved_concept_ids,approved_passage_ids,approved_misconception_ids,approval FROM assignments WHERE id=$2`,
+    [probeAssignment, DEMO_IDS.assignmentId],
+  );
+  const preview = z
+    .object({ review_token: z.string() })
+    .parse(
+      await responseJson(
+        await request(
+          `/api/teacher/assignments/${probeAssignment}/approval`,
+          teacher.cookie,
+        ),
+      ),
+    );
+  await responseJson(
+    await request(
+      `/api/teacher/assignments/${probeAssignment}/approval`,
+      teacher.cookie,
+      preview,
+    ),
+  );
   const newSession = z
     .object({
       session: z.object({ id: z.uuid(), status: z.literal("active") }),
@@ -274,7 +298,7 @@ async function checkPersistence(prepareRestart: boolean) {
     .parse(
       await responseJson(
         await request("/api/sessions", student.cookie, {
-          assignment_id: DEMO_IDS.assignmentId,
+          assignment_id: probeAssignment,
         }),
       ),
     ).session;
@@ -287,6 +311,9 @@ async function checkPersistence(prepareRestart: boolean) {
     "delete from sessions where id = $1 and student_id = $2",
     [created.id, student.actor.profileId],
   );
+  await getPool().query("delete from assignments where id=$1", [
+    probeAssignment,
+  ]);
   const session = await startSession(
     student.access,
     DEMO_IDS.assignmentId,

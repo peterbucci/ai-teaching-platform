@@ -20,6 +20,14 @@ const ManifestSchema = z.object({
   source_commit: text,
   excerpt_sha256: text,
   assigned_passage_ids: refs,
+  source_title: text,
+  authors: refs,
+  copyright: text,
+  source_section: text,
+  source_url: z.url(),
+  license_id: text,
+  license_url: z.url(),
+  source_cautions: refs,
   teacher_review: z.object({
     status: z.literal("approved"),
     approved_by: text,
@@ -373,6 +381,16 @@ export function loadApprovedContent(
   }
   return {
     content_ref,
+    attribution: {
+      title: manifest.source_title,
+      authors: manifest.authors,
+      copyright: manifest.copyright,
+      section: manifest.source_section,
+      url: manifest.source_url,
+      license: manifest.license_id,
+      license_url: manifest.license_url,
+      cautions: manifest.source_cautions,
+    },
     assignment_key: manifest.assignment_id,
     approval: manifest.teacher_review,
     concept_ids,

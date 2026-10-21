@@ -33,7 +33,7 @@ export async function assignedLessons(access: EvidenceAccess) {
   return transaction(async (client) => {
     const rows = await client.query(
       `SELECT a.id,a.title,a.content_ref FROM assignments a
-      JOIN enrollments e ON e.class_id=a.class_id WHERE e.student_id=$1 ORDER BY a.id`,
+      JOIN enrollments e ON e.class_id=a.class_id WHERE e.student_id=$1 AND a.teacher_approved_at IS NOT NULL ORDER BY a.id`,
       [access.actor.profileId],
     );
     const content = loadApprovedContent();
@@ -45,7 +45,7 @@ export async function assignedLessons(access: EvidenceAccess) {
       return {
         id: assignment.id,
         title: assignment.title,
-        approval_label: "Team-approved hackathon lesson",
+        approval_label: "Approved by your teacher",
       };
     });
   });
@@ -138,10 +138,20 @@ export async function startTutoring(
     );
     if (!rows.rows[0]) throw new EvidenceError(404, "Assignment not found.");
     const assignment = z
-      .object({ id: z.uuid(), class_id: z.uuid(), content_ref: z.unknown() })
+      .object({
+        id: z.uuid(),
+        class_id: z.uuid(),
+        content_ref: z.unknown(),
+        teacher_approved_at: z.unknown(),
+      })
       .parse(rows.rows[0]);
     const content = loadApprovedContent();
     validateContentRef(content, assignment.content_ref);
+    if (!assignment.teacher_approved_at)
+      throw new EvidenceError(
+        409,
+        "Your teacher needs to activate this assignment first. Your previous work is still saved.",
+      );
     const existing = await client.query(
       "SELECT id FROM sessions WHERE assignment_id=$1 AND student_id=$2 AND data_origin='live_demo' ORDER BY started_at DESC LIMIT 1",
       [assignmentId, access.actor.profileId],
