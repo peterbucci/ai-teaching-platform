@@ -51,6 +51,8 @@ jobs:
         run: docker compose exec -T app npm run db:seed
       - name: Check SQL constraints
         run: docker compose exec -T db psql -U learning_app -d learning_platform -v ON_ERROR_STOP=1 < database/tests/evidence.sql
+      - name: Check teacher review and activation boundaries
+        run: docker compose exec -T app npm run assignments:check
       - name: Check repeatable fictional class and authorized reconstruction
         run: docker compose exec -T app npm run class:check
       - name: Check deterministic tutoring and private evidence

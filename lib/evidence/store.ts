@@ -158,7 +158,7 @@ export async function startSession(
   z.uuid().parse(assignmentId);
   return transaction(async (client) => {
     const assignmentRows = await client.query(
-      `SELECT a.id, a.class_id, a.content_ref FROM assignments a
+      `SELECT a.id, a.class_id, a.content_ref, a.teacher_approved_at FROM assignments a
        JOIN enrollments e ON e.class_id = a.class_id
        WHERE a.id = $1 AND e.student_id = $2 FOR SHARE OF a, e`,
       [assignmentId, access.actor.profileId],
@@ -166,9 +166,19 @@ export async function startSession(
     if (!assignmentRows.rows[0])
       throw new EvidenceError(404, "Assignment not found.");
     const assignment = z
-      .object({ id: z.uuid(), class_id: z.uuid(), content_ref: z.unknown() })
+      .object({
+        id: z.uuid(),
+        class_id: z.uuid(),
+        content_ref: z.unknown(),
+        teacher_approved_at: z.unknown(),
+      })
       .parse(assignmentRows.rows[0]);
     validateContentRef(loadApprovedContent(), assignment.content_ref);
+    if (dataOrigin === "live_demo" && !assignment.teacher_approved_at)
+      throw new EvidenceError(
+        409,
+        "Your teacher needs to activate this assignment first.",
+      );
     const result = await client.query(
       "INSERT INTO sessions(id, student_id, assignment_id, class_id, data_origin) VALUES ($1,$2,$3,$4,$5) RETURNING *",
       [
