@@ -1,25 +1,18 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
 import type { ClassMetrics } from "../../lib/teacher/metrics.ts";
+import { Workspace } from "../components/workspace.tsx";
 
-export function TeacherFrame({ children }: { children: ReactNode }) {
+export function TeacherFrame({
+  children,
+  section = "Class overview",
+}: {
+  children: ReactNode;
+  section?: string;
+}) {
   return (
-    <main className="mx-auto max-w-6xl px-4 py-8 text-slate-900 sm:px-8">
-      <header className="mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-5">
-        <Link href="/" className="font-semibold text-teal-800">
-          Learning Pulse
-        </Link>
-        <nav className="flex gap-5 text-sm">
-          <Link href="/teacher" className="underline">
-            Class overview
-          </Link>
-          <Link href="/login" className="underline">
-            Account / sign out
-          </Link>
-        </nav>
-      </header>
+    <Workspace area="teacher" section={section}>
       {children}
-    </main>
+    </Workspace>
   );
 }
 
@@ -48,21 +41,36 @@ export function ResultSummary({
 }: {
   results: ClassMetrics["concepts"][number]["latest"];
 }) {
+  const counts = [
+    ["Correct", results.correct],
+    ["Partly correct", results.partially_correct],
+    ["Incorrect", results.incorrect],
+    ["Uncertain", results.uncertain],
+    ["Awaiting evaluation", results.pending],
+    ["Evaluation failed", results.evaluation_failed],
+    ["Evaluation rejected", results.rejected],
+  ] as const;
   return (
-    <div className="space-y-1 text-sm">
-      <p>
-        <strong>{ratio(results.correct_rate)}</strong> correct among assessed
-        students
-      </p>
-      <p className="text-slate-600">
-        {results.partially_correct} partial · {results.incorrect} incorrect ·{" "}
-        {results.uncertain} uncertain
-      </p>
-      <p className="text-slate-600">
-        {results.pending} pending · {results.evaluation_failed} failed ·{" "}
-        {results.rejected} rejected · {results.no_response} without a submitted
-        response
-      </p>
+    <div className="lp-result-summary">
+      {results.correct_rate.denominator === 0 && (
+        <p className="text-slate-600">No assessed answers yet.</p>
+      )}
+      <dl className="lp-result-counts">
+        {counts
+          .filter(([, count]) => count > 0)
+          .map(([name, count]) => (
+            <div key={name}>
+              <dt>{name}</dt>
+              <dd>{count}</dd>
+            </div>
+          ))}
+      </dl>
+      {results.no_response > 0 && (
+        <p className="lp-result-note">
+          {results.no_response} students without a submitted answer in this
+          view.
+        </p>
+      )}
     </div>
   );
 }

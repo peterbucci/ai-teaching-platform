@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createAuthClient } from "better-auth/react";
+import { SignOutButton } from "../components/account-menu.tsx";
 
 const authClient = createAuthClient();
 
@@ -36,43 +37,17 @@ export function LoginForm({ signedIn }: { signedIn: boolean }) {
     }
   }
 
-  async function logout() {
-    setBusy(true);
-    setError(null);
-    try {
-      const result = await authClient.signOut();
-      if (result.error)
-        setError("Sign-out could not be completed. Please try again.");
-      else {
-        router.replace("/login?status=signed-out");
-        router.refresh();
-      }
-    } catch {
-      setError("Sign-out could not be completed. Please try again.");
-    } finally {
-      setBusy(false);
-    }
-  }
-
   return (
     <>
       {error && (
-        <p className="mt-6" role="alert">
+        <p className="lp-notice lp-notice-warning mt-6" role="alert">
           {error}
         </p>
       )}
       {signedIn ? (
         <div className="mt-6 space-y-4">
           <p>You are signed in.</p>
-          <form action={logout}>
-            <button
-              className="rounded bg-slate-900 px-4 py-2 text-white disabled:opacity-60"
-              type="submit"
-              disabled={busy}
-            >
-              Sign out
-            </button>
-          </form>
+          <SignOutButton className="lp-button lp-button-primary" />
         </div>
       ) : (
         <form action={login} className="mt-6 space-y-4">
@@ -87,7 +62,7 @@ export function LoginForm({ signedIn }: { signedIn: boolean }) {
               autoComplete="username"
               required
               maxLength={254}
-              className="mt-1 w-full rounded border border-slate-400 px-3 py-2"
+              className="lp-input mt-2"
             />
           </div>
           <div>
@@ -101,11 +76,11 @@ export function LoginForm({ signedIn }: { signedIn: boolean }) {
               autoComplete="current-password"
               required
               maxLength={128}
-              className="mt-1 w-full rounded border border-slate-400 px-3 py-2"
+              className="lp-input mt-2"
             />
           </div>
           <button
-            className="rounded bg-slate-900 px-4 py-2 text-white disabled:opacity-60"
+            className="lp-button lp-button-primary w-full"
             type="submit"
             disabled={busy}
           >

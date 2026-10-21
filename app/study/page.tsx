@@ -4,6 +4,8 @@ import { AuthError, requireActor } from "../../lib/auth.ts";
 import { evidenceAccess } from "../../lib/evidence/store.ts";
 import { assignedLessons, tutorView } from "../../lib/tutoring/store.ts";
 import { StudySession } from "./session.tsx";
+import { Workspace } from "../components/workspace.tsx";
+import { loadApprovedContent } from "../../lib/evidence/content.ts";
 
 export const dynamic = "force-dynamic";
 async function loadStudy(session?: string) {
@@ -26,40 +28,48 @@ export default async function StudyPage({
   if (data) {
     const { lessons, initial } = data;
     return (
-      <main className="mx-auto max-w-3xl px-4 py-8 text-slate-900 sm:px-8">
-        <header className="mb-8 flex items-center justify-between gap-4">
-          <Link href="/" className="font-semibold text-teal-800">
-            Learning Pulse
-          </Link>
-          <Link href="/login" className="underline">
-            Account / sign out
-          </Link>
-        </header>
-        <h1 className="text-3xl font-semibold">Your study session</h1>
-        <p className="mt-2 text-slate-600">
-          A fictional student demonstration using our team-approved networking
-          lesson.
-        </p>
-        <StudySession lessons={lessons} initial={initial} />
-      </main>
+      <Workspace
+        area="student"
+        section={initial ? "AI tutor" : "My learning"}
+        sessionHref={
+          initial ? `/study?session=${initial.session.id}` : undefined
+        }
+      >
+        <StudySession
+          lessons={lessons}
+          initial={initial}
+          topics={
+            lessons.length
+              ? [...loadApprovedContent().concepts.values()].map((c) => ({
+                  id: c.id,
+                  title: c.title,
+                }))
+              : []
+          }
+        />
+      </Workspace>
     );
   } else {
     return (
-      <main className="mx-auto max-w-xl p-8">
-        <h1 className="text-2xl font-semibold">This session isn’t available</h1>
-        <p className="my-4">
-          Check that you’re signed in with the right demo account. Your saved
-          work has not been changed.
-        </p>
-        <Link href="/study" className="underline">
-          Back to your assignments
-        </Link>
-        <p className="mt-4">
-          <Link href="/login" className="underline">
-            Check your account
+      <Workspace area="student" section="My learning">
+        <section className="lp-panel lp-empty">
+          <h1 className="text-2xl font-semibold">
+            This session isn’t available
+          </h1>
+          <p className="my-4">
+            Check that you’re signed in with the right demo account. Your saved
+            work has not been changed.
+          </p>
+          <Link href="/study" className="underline">
+            Back to your assignments
           </Link>
-        </p>
-      </main>
+          <p className="mt-4">
+            <Link href="/login" className="underline">
+              Check your account
+            </Link>
+          </p>
+        </section>
+      </Workspace>
     );
   }
 }

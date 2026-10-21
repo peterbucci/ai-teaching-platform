@@ -1,7 +1,10 @@
+import { TeacherFrame } from "./presentation.tsx";
 export default function Loading() {
   return (
-    <main className="mx-auto max-w-6xl p-8" role="status">
-      Loading your class evidence…
-    </main>
+    <TeacherFrame>
+      <div className="lp-panel" role="status">
+        Loading your class evidence…
+      </div>
+    </TeacherFrame>
   );
 }
