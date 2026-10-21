@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AI Teaching Platform | PEAAII Hackathon",
+  title: "Learning Pulse | PEAAII Hackathon",
   description:
     "A PEAAII hackathon project for grounded student tutoring and teacher insights.",
 };

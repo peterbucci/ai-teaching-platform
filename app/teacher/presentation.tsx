@@ -1,25 +1,18 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
 import type { ClassMetrics } from "../../lib/teacher/metrics.ts";
+import { Workspace } from "../components/workspace.tsx";
 
-export function TeacherFrame({ children }: { children: ReactNode }) {
+export function TeacherFrame({
+  children,
+  section = "Class overview",
+}: {
+  children: ReactNode;
+  section?: string;
+}) {
   return (
-    <main className="mx-auto max-w-6xl px-4 py-8 text-slate-900 sm:px-8">
-      <header className="mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-5">
-        <Link href="/" className="font-semibold text-teal-800">
-          Learning Pulse
-        </Link>
-        <nav className="flex gap-5 text-sm">
-          <Link href="/teacher" className="underline">
-            Class overview
-          </Link>
-          <Link href="/login" className="underline">
-            Account / sign out
-          </Link>
-        </nav>
-      </header>
+    <Workspace area="teacher" section={section}>
       {children}
-    </main>
+    </Workspace>
   );
 }
 
@@ -49,11 +42,19 @@ export function ResultSummary({
   results: ClassMetrics["concepts"][number]["latest"];
 }) {
   return (
-    <div className="space-y-1 text-sm">
+    <div className="lp-result-summary">
       <p>
         <strong>{ratio(results.correct_rate)}</strong> correct among assessed
         students
       </p>
+      {results.correct_rate.denominator > 0 && (
+        <progress
+          className="lp-progress"
+          aria-label="Correct among assessed students"
+          max={results.correct_rate.denominator}
+          value={results.correct_rate.numerator}
+        />
+      )}
       <p className="text-slate-600">
         {results.partially_correct} partial · {results.incorrect} incorrect ·{" "}
         {results.uncertain} uncertain

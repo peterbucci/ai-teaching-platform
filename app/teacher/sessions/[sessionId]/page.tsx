@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Icon } from "../../../components/icons.tsx";
 import { notFound, redirect } from "next/navigation";
 import { z } from "zod";
 import { AuthError, requireActor } from "../../../../lib/auth.ts";
@@ -68,14 +69,15 @@ export default async function SessionPage({
     );
   }
   return (
-    <TeacherFrame>
+    <TeacherFrame section="Student evidence">
       <Link
         href={`/teacher?assignment=${session.assignment_id}`}
-        className="text-sm text-teal-800 underline"
+        className="lp-text-link"
       >
+        <Icon name="back" />
         Back to assignment overview
       </Link>
-      <h1 className="mt-4 text-3xl font-semibold">
+      <h1 className="lp-title mt-4">
         {display_name} · saved learning evidence
       </h1>
       <p className="mt-3 text-slate-600">
@@ -85,7 +87,7 @@ export default async function SessionPage({
         Started {date(session.started_at)}
         {session.ended_at && ` · Ended ${date(session.ended_at)}`}
       </p>
-      <p className="my-5 rounded-lg bg-amber-50 p-4 text-sm">
+      <p className="lp-notice lp-notice-warning my-5">
         {session.data_origin === "synthetic_fixture"
           ? "This history is a synthetic demonstration, not a measured educational outcome."
           : "This interaction uses a fictional demo student. Each evaluation below identifies its actual evaluator."}{" "}
@@ -97,7 +99,7 @@ export default async function SessionPage({
           <li
             key={a.id}
             id={`attempt-${a.id}`}
-            className="scroll-mt-4 rounded-xl border border-slate-200 p-5 sm:p-6"
+            className="lp-panel scroll-mt-4"
           >
             <p className="text-sm font-medium text-teal-800">
               Step {a.sequence_index + 1} · {label(a.intent)} ·{" "}
@@ -110,7 +112,7 @@ export default async function SessionPage({
               {a.question.concept_ids.map(conceptName).join(" · ")}
             </p>
             <h3 className="mt-5 font-semibold">Original student response</h3>
-            <blockquote className="mt-2 whitespace-pre-wrap break-words border-l-4 border-teal-600 bg-slate-50 p-4">
+            <blockquote className="lp-quote mt-2 whitespace-pre-wrap break-words">
               {a.response_text ?? "No response submitted."}
             </blockquote>
             <p className="mt-2 text-xs text-slate-600">

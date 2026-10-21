@@ -57,7 +57,7 @@ export function LoginForm({ signedIn }: { signedIn: boolean }) {
   return (
     <>
       {error && (
-        <p className="mt-6" role="alert">
+        <p className="lp-notice lp-notice-warning mt-6" role="alert">
           {error}
         </p>
       )}
@@ -66,7 +66,7 @@ export function LoginForm({ signedIn }: { signedIn: boolean }) {
           <p>You are signed in.</p>
           <form action={logout}>
             <button
-              className="rounded bg-slate-900 px-4 py-2 text-white disabled:opacity-60"
+              className="lp-button lp-button-primary"
               type="submit"
               disabled={busy}
             >
@@ -87,7 +87,7 @@ export function LoginForm({ signedIn }: { signedIn: boolean }) {
               autoComplete="username"
               required
               maxLength={254}
-              className="mt-1 w-full rounded border border-slate-400 px-3 py-2"
+              className="lp-input mt-2"
             />
           </div>
           <div>
@@ -101,11 +101,11 @@ export function LoginForm({ signedIn }: { signedIn: boolean }) {
               autoComplete="current-password"
               required
               maxLength={128}
-              className="mt-1 w-full rounded border border-slate-400 px-3 py-2"
+              className="lp-input mt-2"
             />
           </div>
           <button
-            className="rounded bg-slate-900 px-4 py-2 text-white disabled:opacity-60"
+            className="lp-button lp-button-primary w-full"
             type="submit"
             disabled={busy}
           >
