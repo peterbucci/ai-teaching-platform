@@ -200,6 +200,68 @@
     font-size: 11px;
     color: var(--muted);
   }
+  .lp-account-menu {
+    position: relative;
+  }
+  .lp-account-menu > summary {
+    list-style: none;
+  }
+  .lp-account-menu > summary::-webkit-details-marker {
+    display: none;
+  }
+  .lp-account-menu > summary:hover,
+  .lp-account-menu[open] > summary {
+    background: var(--mint);
+    color: var(--green);
+  }
+  .lp-account-dropdown {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 12px);
+    width: 220px;
+    max-width: calc(100vw - 36px);
+    padding: 7px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: 0 12px 35px rgb(23 48 45 / 10%);
+    z-index: 40;
+  }
+  .lp-account-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 9px 16px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--line);
+    overflow-wrap: anywhere;
+  }
+  .lp-account-card strong,
+  .lp-account-card small {
+    display: block;
+  }
+  .lp-account-card strong {
+    font-size: 13px;
+  }
+  .lp-account-card small {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .lp-account-signout {
+    width: 100%;
+    padding: 11px;
+    border-radius: 6px;
+    text-align: left;
+    font-size: 13px;
+  }
+  .lp-account-signout:hover:not(:disabled) {
+    background: var(--mint);
+  }
+  .lp-signout-error {
+    padding: 10px;
+    font-size: 13px;
+    color: #943c2f;
+  }
   .lp-main {
     max-width: 1320px;
     margin: auto;

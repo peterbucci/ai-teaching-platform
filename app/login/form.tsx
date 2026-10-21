@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createAuthClient } from "better-auth/react";
+import { SignOutButton } from "../components/account-menu.tsx";
 
 const authClient = createAuthClient();
 
@@ -36,24 +37,6 @@ export function LoginForm({ signedIn }: { signedIn: boolean }) {
     }
   }
 
-  async function logout() {
-    setBusy(true);
-    setError(null);
-    try {
-      const result = await authClient.signOut();
-      if (result.error)
-        setError("Sign-out could not be completed. Please try again.");
-      else {
-        router.replace("/login?status=signed-out");
-        router.refresh();
-      }
-    } catch {
-      setError("Sign-out could not be completed. Please try again.");
-    } finally {
-      setBusy(false);
-    }
-  }
-
   return (
     <>
       {error && (
@@ -64,15 +47,7 @@ export function LoginForm({ signedIn }: { signedIn: boolean }) {
       {signedIn ? (
         <div className="mt-6 space-y-4">
           <p>You are signed in.</p>
-          <form action={logout}>
-            <button
-              className="lp-button lp-button-primary"
-              type="submit"
-              disabled={busy}
-            >
-              Sign out
-            </button>
-          </form>
+          <SignOutButton className="lp-button lp-button-primary" />
         </div>
       ) : (
         <form action={login} className="mt-6 space-y-4">

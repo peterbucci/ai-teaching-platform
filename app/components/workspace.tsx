@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Icon } from "./icons.tsx";
+import { AccountMenu } from "./account-menu.tsx";
 
 export function Brand() {
   return (
@@ -80,13 +81,7 @@ export function Workspace({
           </div>
           <div className="lp-topbar-right">
             <span className="lp-demo-label">Hackathon demo</span>
-            <Link
-              href="/login"
-              className="lp-avatar"
-              aria-label="Account and sign out"
-            >
-              <Icon name="user" />
-            </Link>
+            <AccountMenu />
           </div>
         </header>
         <details className="lp-mobile-nav">
