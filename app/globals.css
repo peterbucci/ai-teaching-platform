@@ -856,6 +856,20 @@
     max-width: 850px;
     margin: auto;
   }
+  .lp-session-complete {
+    width: 100%;
+    background: var(--mint);
+  }
+  .lp-session-complete h2 {
+    margin: 12px 0 8px;
+    font-size: 21px;
+  }
+  .lp-session-complete p {
+    max-width: 62ch;
+    margin-bottom: 18px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
   .lp-conversation-heading {
     padding: 16px 24px;
     text-align: center;
@@ -931,6 +945,8 @@
     margin-top: 22px;
   }
   .lp-citation {
+    display: block;
+    width: fit-content;
     border-top: 1px solid #d5e5da;
     padding-top: 12px;
     margin-top: 14px;

@@ -1,0 +1,517 @@
+{
+  "checkedAt": "2026-10-21T20:57:34.073Z",
+  "scope": "Issue 6: local fictional student browser walkthrough, not educational validation",
+  "assignmentId": "f8e3f247-28ba-4675-8190-eac7c6d1a374",
+  "sessionId": "a511cb61-adae-4f03-b19a-6bd701421e49",
+  "model": ["gpt-6.1-sol"],
+  "checks": [
+    "Teacher activated separate test assignment through UI",
+    "Student password login landed on /study",
+    "Start, back to assignments, resume and draft refresh",
+    "Submission disabled while saving; original responses persisted",
+    "Refreshed during first submission/evaluation; exactly one accepted evaluation per answer",
+    "App container rebuilt mid-session; saved progress retained",
+    "390px phone viewport: no horizontal overflow; keyboard Tab and Enter submit",
+    "Grounded citation P08 opened; return to conversation; reading recorded only after display",
+    "Five real-model accepted evaluations; clarification, diagnostic, feedback, two fresh retests, completion",
+    "Teacher API retrieval; student teacher-only request denied; unrelated student session request denied; anonymous request denied",
+    "Student projection excludes expected-answer guidance and private evaluations",
+    "Teacher browser view changed from 0/24 to 1/24 participation and 0/5 to 2/5 assessed concepts; one saved live session with five answers visible",
+    "Separate synthetic failure screen: disabled Retry evaluation enabled after server cooldown without a click or provider request"
+  ],
+  "attempts": [
+    {
+      "questionId": "NP-TX-01",
+      "intent": "initial_retrieval",
+      "response": "Both delays double because the bits have twice as far to travel. I think transmission means the time it takes the packet to get across the cable.",
+      "assistance": {
+        "intervention_ids": [],
+        "assistance_level": "none_recorded",
+        "scaffolding_types": [],
+        "independent_retrieval_eligible_by_concept": {
+          "propagation_delay": true,
+          "transmission_delay": true
+        },
+        "most_recent_content_assistance_at": null,
+        "elapsed_since_content_assistance_seconds": null
+      },
+      "submittedAt": "2026-10-21T20:52:43.112Z"
+    },
+    {
+      "questionId": "D01",
+      "intent": "neutral_clarification",
+      "response": "Transmission delay doubles because a longer cable means the transmitter needs twice as long to put the packet onto the cable. Propagation delay also doubles because the signal travels twice the distance at the same speed.",
+      "assistance": {
+        "intervention_ids": [],
+        "assistance_level": "none_recorded",
+        "scaffolding_types": ["neutral_clarification"],
+        "independent_retrieval_eligible_by_concept": {
+          "propagation_delay": false,
+          "transmission_delay": false
+        },
+        "most_recent_content_assistance_at": null,
+        "elapsed_since_content_assistance_seconds": null
+      },
+      "submittedAt": "2026-10-21T20:53:24.142Z"
+    },
+    {
+      "questionId": "D02",
+      "intent": "diagnostic_followup",
+      "response": "For link A, transmission delay is 1 ms and propagation delay is 1 ms. For link B, transmission delay is 3 ms and propagation delay is 3 ms. I think the longer cable makes transmission take longer too because the packet must travel farther.",
+      "assistance": {
+        "intervention_ids": [],
+        "assistance_level": "none_recorded",
+        "scaffolding_types": ["diagnostic_prompt_without_answer"],
+        "independent_retrieval_eligible_by_concept": {
+          "propagation_delay": false,
+          "transmission_delay": false
+        },
+        "most_recent_content_assistance_at": null,
+        "elapsed_since_content_assistance_seconds": null
+      },
+      "submittedAt": "2026-10-21T20:54:00.038Z"
+    },
+    {
+      "questionId": "D05",
+      "intent": "immediate_retest",
+      "response": "Transmission delay is packet size divided by link rate. 1,000 bytes is 8,000 bits, so 8,000 / 8,000,000 = 0.001 s = 1 ms. For 2,000 bytes it is 2 ms. Propagation delay is 600,000 / 200,000,000 = 0.003 s = 3 ms for both packets. Only transmission delay changes because the packet has twice as many bits; distance and propagation speed are unchanged.",
+      "assistance": {
+        "intervention_ids": [
+          "15272034-1fd1-4bf4-999a-5ed485b06007",
+          "647bee38-45f8-4393-bce0-260b6776236a"
+        ],
+        "assistance_level": "multiple_types",
+        "scaffolding_types": [],
+        "independent_retrieval_eligible_by_concept": {
+          "propagation_delay": false,
+          "transmission_delay": false
+        },
+        "most_recent_content_assistance_at": "2026-10-21T20:55:54.578Z",
+        "elapsed_since_content_assistance_seconds": 10.763
+      },
+      "submittedAt": "2026-10-21T20:56:05.341Z"
+    },
+    {
+      "questionId": "D06",
+      "intent": "immediate_retest",
+      "response": "Transmission delay is L/R. The 3,000-byte packet has 24,000 bits, so 24,000 / 12,000,000 = 0.002 seconds = 2 ms on both links. Propagation delay is distance/speed: 100,000 / 200,000,000 = 0.0005 s = 0.5 ms for 100 km, and 400,000 / 200,000,000 = 0.002 s = 2 ms for 400 km. Distance changes propagation delay only; packet size and bit rate stay fixed, so transmission delay is unchanged.",
+      "assistance": {
+        "intervention_ids": [
+          "15272034-1fd1-4bf4-999a-5ed485b06007",
+          "647bee38-45f8-4393-bce0-260b6776236a"
+        ],
+        "assistance_level": "multiple_types",
+        "scaffolding_types": [],
+        "independent_retrieval_eligible_by_concept": {
+          "propagation_delay": false,
+          "transmission_delay": false
+        },
+        "most_recent_content_assistance_at": "2026-10-21T20:55:54.578Z",
+        "elapsed_since_content_assistance_seconds": 58.378
+      },
+      "submittedAt": "2026-10-21T20:56:52.956Z"
+    }
+  ],
+  "evaluations": [
+    {
+      "questionId": "NP-TX-01",
+      "status": "accepted",
+      "evaluator": {
+        "type": "language_model",
+        "model": "gpt-6.1-sol",
+        "version": "grounded-network-performance-v2"
+      },
+      "judgments": [
+        {
+          "concept_id": "transmission_delay",
+          "correctness": "uncertain",
+          "error_type": "terminology_or_ambiguity",
+          "rubric_criteria_met": [],
+          "rubric_criteria_missing": [
+            "Identify packet size and link transmission rate as determinants of transmission delay.",
+            "Explain that transmission delay stays unchanged because packet size and link rate are fixed."
+          ]
+        },
+        {
+          "concept_id": "propagation_delay",
+          "correctness": "correct",
+          "error_type": null,
+          "rubric_criteria_met": [
+            "Identify signal travel distance as determining propagation delay.",
+            "Apply proportional reasoning: doubling distance doubles travel time under the stated fixed propagation speed."
+          ],
+          "rubric_criteria_missing": []
+        }
+      ],
+      "recommended": "ASK_SELF_EXPLANATION",
+      "applied": {
+        "action": "ASK_SELF_EXPLANATION",
+        "hypothesis_events": []
+      }
+    },
+    {
+      "questionId": "D01",
+      "status": "accepted",
+      "evaluator": {
+        "type": "language_model",
+        "model": "gpt-6.1-sol",
+        "version": "grounded-network-performance-v2"
+      },
+      "judgments": [
+        {
+          "concept_id": "transmission_delay",
+          "correctness": "incorrect",
+          "error_type": "conceptual",
+          "rubric_criteria_met": [],
+          "rubric_criteria_missing": [
+            "Identify packet size and transmission rate as the determinants of transmission delay.",
+            "Explain that transmission delay stays unchanged because packet size and transmission rate are fixed."
+          ]
+        },
+        {
+          "concept_id": "propagation_delay",
+          "correctness": "correct",
+          "error_type": null,
+          "rubric_criteria_met": [
+            "Identify cable length and propagation speed as the determinants of propagation delay.",
+            "Explain that propagation delay doubles because distance doubles while propagation speed stays fixed."
+          ],
+          "rubric_criteria_missing": []
+        }
+      ],
+      "recommended": "ASK_DIAGNOSTIC_FOLLOWUP",
+      "applied": {
+        "action": "ASK_DIAGNOSTIC_FOLLOWUP",
+        "hypothesis_events": [
+          {
+            "id": "24487412-9542-4863-ada3-0aef5658318a",
+            "hypothesis_instance_id": "88f689e5-23c4-441f-9885-dc068a4d9e45",
+            "concept_id": "transmission_delay",
+            "misconception_id": "transmission_depends_on_distance",
+            "previous_status": null,
+            "status": "suspected",
+            "evidence_evaluation_ids": ["fbed0e89-f22a-4c3b-a16a-44b657fe6512"],
+            "contradicting_evaluation_ids": [],
+            "supporting_response_quotes": [
+              {
+                "response_id": "d05e0f06-daf2-40fc-bd78-899d6615fdf2",
+                "quote": "Transmission delay doubles because a longer cable means the transmitter needs twice as long to put the packet onto the cable.",
+                "start_character": 0,
+                "end_character": 125,
+                "interpretation": "Explicitly claims that increased cable length increases the time needed to place packet bits onto the link."
+              }
+            ],
+            "reason": "Explicit response evidence suggests the lesson's target hypothesis; persistence has not been established.",
+            "created_at": "2026-10-21T20:53:33.986855+00:00"
+          }
+        ]
+      }
+    },
+    {
+      "questionId": "D02",
+      "status": "accepted",
+      "evaluator": {
+        "type": "language_model",
+        "model": "gpt-6.1-sol",
+        "version": "grounded-network-performance-v2"
+      },
+      "judgments": [
+        {
+          "concept_id": "transmission_delay",
+          "correctness": "partially_correct",
+          "error_type": "conceptual",
+          "rubric_criteria_met": [
+            "Correct transmission delay of 1 ms for link A."
+          ],
+          "rubric_criteria_missing": [
+            "Transmission delay for link B is also 1 ms.",
+            "Transmission delay equals 8,000 bits divided by 8,000,000 bits/s.",
+            "Fixed packet size and link rate keep transmission delay unchanged despite increased cable length."
+          ]
+        },
+        {
+          "concept_id": "propagation_delay",
+          "correctness": "partially_correct",
+          "error_type": "insufficient_response",
+          "rubric_criteria_met": [
+            "Correct propagation delays: 1 ms for link A and 3 ms for link B."
+          ],
+          "rubric_criteria_missing": [
+            "Explain propagation delay using distance divided by the fixed signal speed; the stated distance explanation is explicitly attached to transmission instead."
+          ]
+        }
+      ],
+      "recommended": "ASK_DIAGNOSTIC_FOLLOWUP",
+      "applied": {
+        "action": "GIVE_CORRECTIVE_FEEDBACK",
+        "hypothesis_events": [
+          {
+            "id": "0abb4148-fca3-4414-9969-b5425c43538b",
+            "hypothesis_instance_id": "88f689e5-23c4-441f-9885-dc068a4d9e45",
+            "concept_id": "transmission_delay",
+            "misconception_id": "transmission_depends_on_distance",
+            "previous_status": "suspected",
+            "status": "supported",
+            "evidence_evaluation_ids": [
+              "fbed0e89-f22a-4c3b-a16a-44b657fe6512",
+              "254af3c1-8cfb-468c-af2c-18903d9830aa"
+            ],
+            "contradicting_evaluation_ids": [],
+            "supporting_response_quotes": [
+              {
+                "response_id": "d05e0f06-daf2-40fc-bd78-899d6615fdf2",
+                "quote": "Transmission delay doubles because a longer cable means the transmitter needs twice as long to put the packet onto the cable.",
+                "start_character": 0,
+                "end_character": 125,
+                "interpretation": "Explicitly claims that increased cable length increases the time needed to place packet bits onto the link."
+              },
+              {
+                "response_id": "62eff0f5-9482-4cc9-adf2-e086da6d0617",
+                "quote": "I think the longer cable makes transmission take longer too because the packet must travel farther.",
+                "start_character": 140,
+                "end_character": 239,
+                "interpretation": "Uses greater travel distance as the reason transmission delay increases."
+              }
+            ],
+            "reason": "A distinct diagnostic response repeats the target explanation; this is evidence consistent with a possible misconception, not proof of a belief.",
+            "created_at": "2026-10-21T20:54:12.687891+00:00"
+          }
+        ]
+      }
+    },
+    {
+      "questionId": "D05",
+      "status": "accepted",
+      "evaluator": {
+        "type": "language_model",
+        "model": "gpt-6.1-sol",
+        "version": "grounded-network-performance-v2"
+      },
+      "judgments": [
+        {
+          "concept_id": "transmission_delay",
+          "correctness": "correct",
+          "error_type": null,
+          "rubric_criteria_met": [
+            "Uses packet size in bits divided by link rate.",
+            "Correctly calculates 1 ms for 1,000 bytes and 2 ms for 2,000 bytes.",
+            "Explains that doubling packet size doubles transmission delay at the fixed rate."
+          ],
+          "rubric_criteria_missing": []
+        },
+        {
+          "concept_id": "propagation_delay",
+          "correctness": "correct",
+          "error_type": null,
+          "rubric_criteria_met": [
+            "Uses distance divided by propagation speed.",
+            "Correctly calculates 3 ms for both packets.",
+            "Explains that propagation delay remains unchanged because distance and propagation speed are unchanged."
+          ],
+          "rubric_criteria_missing": []
+        }
+      ],
+      "recommended": "SCHEDULE_REVIEW",
+      "applied": {
+        "action": "RETEST_CONCEPT",
+        "hypothesis_events": []
+      }
+    },
+    {
+      "questionId": "D06",
+      "status": "accepted",
+      "evaluator": {
+        "type": "language_model",
+        "model": "gpt-6.1-sol",
+        "version": "grounded-network-performance-v2"
+      },
+      "judgments": [
+        {
+          "concept_id": "transmission_delay",
+          "correctness": "correct",
+          "error_type": null,
+          "rubric_criteria_met": [
+            "Uses transmission delay = packet size / bit rate.",
+            "Converts 3,000 bytes to 24,000 bits and calculates 2 ms for both links.",
+            "Explains that unchanged packet size and bit rate keep transmission delay unchanged when distance changes."
+          ],
+          "rubric_criteria_missing": []
+        },
+        {
+          "concept_id": "propagation_delay",
+          "correctness": "correct",
+          "error_type": null,
+          "rubric_criteria_met": [
+            "Uses propagation delay = distance / propagation speed.",
+            "Calculates 0.5 ms for 100 km and 2 ms for 400 km with correct distance conversions.",
+            "Explains that changing distance changes propagation delay rather than transmission delay."
+          ],
+          "rubric_criteria_missing": []
+        }
+      ],
+      "recommended": "SCHEDULE_REVIEW",
+      "applied": {
+        "action": "SCHEDULE_REVIEW",
+        "hypothesis_events": []
+      }
+    }
+  ],
+  "outcome": {
+    "root_attempt_id": "88904985-429d-4e10-9970-d4a7b7be3731",
+    "concept_ids": ["transmission_delay", "propagation_delay"],
+    "hypothesis_instance_id": "88f689e5-23c4-441f-9885-dc068a4d9e45",
+    "latest_hypothesis_status": "supported",
+    "outcome": "correct_after_feedback",
+    "supporting_attempt_ids": [
+      "88904985-429d-4e10-9970-d4a7b7be3731",
+      "d05e0f06-daf2-40fc-bd78-899d6615fdf2",
+      "62eff0f5-9482-4cc9-adf2-e086da6d0617",
+      "6290c023-49c8-44eb-ad5d-8d5be02d0769",
+      "0f483fef-05b8-4d7b-b1dc-5a3a306326fe"
+    ],
+    "intervention_ids": [
+      "15272034-1fd1-4bf4-999a-5ed485b06007",
+      "647bee38-45f8-4393-bce0-260b6776236a"
+    ],
+    "recorded_at": "2026-10-21T20:57:05.677067+00:00",
+    "next_review_at": "2026-10-22T20:57:05.671Z",
+    "review_policy_version": "approved-sequence-v1",
+    "review_reason": "Illustrative 24-hour review after this session. Immediate success after assistance does not establish lasting retention."
+  },
+  "interventions": [
+    {
+      "type": "corrective_feedback",
+      "delivery_status": "displayed",
+      "source_passage_ids": ["P07", "P08", "P12"]
+    },
+    {
+      "type": "reading",
+      "delivery_status": "displayed",
+      "source_passage_ids": ["P08"]
+    },
+    {
+      "type": "corrective_feedback",
+      "delivery_status": "displayed",
+      "source_passage_ids": ["P07", "P08", "P12"]
+    }
+  ],
+  "teacherMetrics": {
+    "filter": "live_demo",
+    "participationBefore": {
+      "numerator": 0,
+      "denominator": 24
+    },
+    "participationAfter": {
+      "numerator": 1,
+      "denominator": 24
+    },
+    "conceptsAfter": [
+      {
+        "concept_id": "bandwidth_throughput",
+        "latest": {
+          "numerator": 0,
+          "denominator": 0
+        },
+        "independent": {
+          "numerator": 0,
+          "denominator": 0
+        },
+        "assisted": {
+          "numerator": 0,
+          "denominator": 0
+        },
+        "immediateRetest": {
+          "numerator": 0,
+          "denominator": 0
+        }
+      },
+      {
+        "concept_id": "latency_rtt",
+        "latest": {
+          "numerator": 0,
+          "denominator": 0
+        },
+        "independent": {
+          "numerator": 0,
+          "denominator": 0
+        },
+        "assisted": {
+          "numerator": 0,
+          "denominator": 0
+        },
+        "immediateRetest": {
+          "numerator": 0,
+          "denominator": 0
+        }
+      },
+      {
+        "concept_id": "transmission_delay",
+        "latest": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "independent": {
+          "numerator": 0,
+          "denominator": 1
+        },
+        "assisted": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "immediateRetest": {
+          "numerator": 1,
+          "denominator": 1
+        }
+      },
+      {
+        "concept_id": "propagation_delay",
+        "latest": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "independent": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "assisted": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "immediateRetest": {
+          "numerator": 1,
+          "denominator": 1
+        }
+      },
+      {
+        "concept_id": "queuing_delay",
+        "latest": {
+          "numerator": 0,
+          "denominator": 0
+        },
+        "independent": {
+          "numerator": 0,
+          "denominator": 0
+        },
+        "assisted": {
+          "numerator": 0,
+          "denominator": 0
+        },
+        "immediateRetest": {
+          "numerator": 0,
+          "denominator": 0
+        }
+      }
+    ]
+  },
+  "limitations": [
+    "Local Docker only; public HTTPS and physical phone not tested",
+    "Single bounded walkthrough, not a general grading-accuracy study",
+    "Independent teammate review and PR68 -> PR69 -> PR70 merges remain pending"
+  ],
+  "providerRequests": 5,
+  "observations": [
+    "Initial transmission wording was judged uncertain, so the controller first asked for clarification. Explicit follow-up reasoning then triggered the approved distance diagnostic.",
+    "The diagnostic response received partial credit in both concepts, including missing propagation explanation. Both fresh retests were judged correct. This is preserved model evidence, not a claim of measured grading accuracy.",
+    "Outcome correct_after_feedback is immediate assisted performance, not long-term mastery."
+  ]
+}

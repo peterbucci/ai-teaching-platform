@@ -3,6 +3,7 @@ import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import { getPool } from "../lib/db.ts";
 import { DEMO_IDS } from "../lib/evidence/demo.ts";
+import { AssignedLessonSchema } from "../lib/tutoring/contracts.ts";
 
 const base = process.env.AUTH_URL;
 if (!base) throw new Error("Configure AUTH_URL.");
@@ -28,6 +29,11 @@ async function login(prefix: string) {
     .getSetCookie()
     .map((value) => value.split(";", 1)[0])
     .join("; ");
+}
+async function lessons(cookie: string) {
+  const response = await request("/api/tutoring", cookie);
+  assert.equal(response.status, 200);
+  return z.array(AssignedLessonSchema).parse(await response.json());
 }
 const id = randomUUID();
 const foreign = randomUUID();
@@ -76,6 +82,7 @@ try {
     await (await request(path, teacher)).json(),
   );
   assert.equal(preview.teacher_approved_at, null);
+  assert.ok(!(await lessons(student)).some((item) => item.id === id));
   assert.equal(
     (await request("/api/tutoring", student, { assignment_id: id })).status,
     409,
@@ -145,19 +152,53 @@ try {
     ),
     /immutable/,
   );
+  const available = await lessons(student);
+  assert.equal(available.find((item) => item.id === id)?.session, null);
+  assert.ok(!available.some((item) => item.id === foreign));
+  // A synthetic history and another student's live session must not become
+  // this student's "Continue session" destination.
+  for (const [profile, origin] of [
+    [DEMO_IDS.studentOne, "synthetic_fixture"],
+    [DEMO_IDS.studentTwo, "live_demo"],
+  ])
+    await db.query(
+      "INSERT INTO sessions(id,student_id,assignment_id,class_id,data_origin) VALUES($1,$2,$3,$4,$5)",
+      [randomUUID(), profile, id, DEMO_IDS.classId, origin],
+    );
+  assert.equal(
+    (await lessons(student)).find((item) => item.id === id)?.session,
+    null,
+  );
   const opened = await request("/api/sessions", student, { assignment_id: id });
   assert.equal(opened.status, 200);
-  const lessons = z
-    .array(z.object({ id: z.string() }))
-    .parse(await (await request("/api/tutoring", student)).json());
-  assert.ok(lessons.some((item) => item.id === id));
+  const openedSession = AssignedLessonSchema.shape.session
+    .unwrap()
+    .parse((await opened.json()).session);
+  assert.deepEqual(
+    (await lessons(student)).find((item) => item.id === id)?.session,
+    openedSession,
+  );
+  const next = await request("/api/sessions", student, { assignment_id: id });
+  assert.equal(next.status, 200);
+  const latest = AssignedLessonSchema.shape.session
+    .unwrap()
+    .parse((await next.json()).session);
+  assert.notEqual(latest.id, openedSession.id);
+  await db.query(
+    "UPDATE sessions SET status='completed',ended_at=clock_timestamp() WHERE id=$1",
+    [latest.id],
+  );
+  assert.deepEqual(
+    (await lessons(student)).find((item) => item.id === id)?.session,
+    { id: latest.id, status: "completed" },
+  );
   const historical = await request(
     `/api/teacher/sessions/${DEMO_IDS.supportedSession}`,
     teacher,
   );
   assert.equal(historical.status, 200);
   console.log(
-    "PASS: teacher-only review, stale preview rejection, pending gate in HTTP and SQL, exact version, idempotent activation, immutable approval/scope, student opening, and historical evidence.",
+    "PASS: teacher-only review, stale preview rejection, pending gate in HTTP and SQL, exact version, idempotent activation, immutable approval/scope, scoped latest live-session links, student opening, and historical evidence.",
   );
 } finally {
   const db = getPool();
