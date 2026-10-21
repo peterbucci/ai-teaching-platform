@@ -36,7 +36,7 @@ export function ReadingSection({
   section: { id: string; title: string; text: string };
 }) {
   return (
-    <section id={section.id} className="scroll-mt-24 my-8">
+    <section id={section.id} tabIndex={-1} className="scroll-mt-24 my-8">
       <h3 className="text-lg font-semibold mb-3">
         {section.title}{" "}
         <span className="text-sm font-normal text-slate-500">{section.id}</span>

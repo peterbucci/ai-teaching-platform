@@ -2,6 +2,9 @@ import { z } from "zod";
 import { StudentSessionViewSchema } from "../evidence/contracts.ts";
 
 export const TutorViewSchema = StudentSessionViewSchema.extend({
+  pending_reading: z
+    .object({ intervention_id: z.uuid(), passage_id: z.string() })
+    .nullable(),
   interventions: z.array(
     StudentSessionViewSchema.shape.interventions.element.extend({
       related_attempt_id: z.uuid(),

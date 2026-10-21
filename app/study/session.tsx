@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Icon } from "../components/icons.tsx";
+import { StudentReading } from "./reading.tsx";
 import {
   TutorViewSchema,
   type TutorView,
@@ -46,6 +47,32 @@ export function StudySession({
   const [locked, setLocked] = useState(false);
   const [displayRetry, setDisplayRetry] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [readingBusy, setReadingBusy] = useState(false);
+  const [readingRequest, setReadingRequest] = useState<{
+    passage: string;
+    citation?: string;
+    key: number;
+  } | null>(null);
+  const pendingReading = view?.pending_reading;
+  const restoredReading = useRef<string | null>(null);
+  useEffect(() => {
+    const id = view?.session.id;
+    if (!id || restoredReading.current === id) return;
+    restoredReading.current = id;
+    const passage = window.location.hash.slice(1);
+    if (!pendingReading && /^P\d+$/.test(passage))
+      queueMicrotask(() => setReadingRequest({ passage, key: Date.now() }));
+  }, [view?.session.id, pendingReading]);
+  // On refresh, finish displaying an interrupted passage before accepting an answer.
+  useEffect(() => {
+    if (!pendingReading) return;
+    queueMicrotask(() =>
+      setReadingRequest({
+        passage: pendingReading.passage_id,
+        key: Date.now(),
+      }),
+    );
+  }, [pendingReading]);
   const busyRef = useRef(false);
   const submission = useRef<{
     attempt: string;
@@ -115,7 +142,7 @@ export function StudySession({
   // record it as assistance. The server owns its visibility timestamp.
   const pendingHelp =
     view?.interventions
-      .filter((i) => i.delivery_status === "created")
+      .filter((i) => i.delivery_status === "created" && i.type !== "reading")
       .map((i) => i.id)
       .join(",") ?? "";
   const sessionId = view?.session.id;
@@ -228,8 +255,8 @@ export function StudySession({
         <>
           {lessons.length === 0 && (
             <p className="lp-panel">
-              No assignments are available for this account. Ask your teacher
-              which fictional student login to use.
+              No assignments are active for this account yet. Ask your teacher
+              to review and activate the prepared lesson.
             </p>
           )}
           <div className="lp-study-grid">
@@ -343,7 +370,11 @@ export function StudySession({
                     </div>
                   )}
                   {view.interventions
-                    .filter((help) => help.related_attempt_id === attempt.id)
+                    .filter(
+                      (help) =>
+                        help.related_attempt_id === attempt.id &&
+                        help.type !== "reading",
+                    )
                     .map((help) => (
                       <article key={help.id} className="lp-feedback">
                         <div className="lp-message-label">
@@ -364,26 +395,27 @@ export function StudySession({
                           {view.citations
                             .filter((c) => c.intervention_id === help.id)
                             .map((citation) => (
-                              <details
+                              <a
                                 key={citation.passage_id}
                                 className="lp-citation"
+                                href={`#${citation.passage_id}`}
+                                onClick={(event) => {
+                                  event.preventDefault();
+                                  if (readingBusy || busy) return;
+                                  window.history.replaceState(
+                                    null,
+                                    "",
+                                    `#${citation.passage_id}`,
+                                  );
+                                  setReadingRequest({
+                                    passage: citation.passage_id,
+                                    citation: citation.intervention_id,
+                                    key: Date.now(),
+                                  });
+                                }}
                               >
-                                <summary>
-                                  Reading passage {citation.passage_id}
-                                </summary>
-                                <p className="mt-2 whitespace-pre-wrap text-sm leading-6">
-                                  {citation.text}
-                                </p>
-                                <a
-                                  href={citation.url}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                  className="mt-2 inline-block text-sm underline"
-                                >
-                                  Peterson and Davie, Computer Networks — source
-                                  passage
-                                </a>
-                              </details>
+                                Open reading passage {citation.passage_id}
+                              </a>
                             ))}
                         </div>
                       </article>
@@ -391,6 +423,29 @@ export function StudySession({
                 </li>
               ))}
             </ol>
+            <button
+              type="button"
+              className="lp-text-link my-4"
+              disabled={busy || readingBusy}
+              onClick={() =>
+                setReadingRequest({ passage: "", key: Date.now() })
+              }
+            >
+              <Icon name="book" />
+              Open assigned reading
+            </button>
+            <StudentReading
+              sessionId={view.session.id}
+              requested={readingRequest}
+              onBusy={setReadingBusy}
+              onSelect={(passage) => {
+                if (!readingBusy)
+                  setReadingRequest({ passage, key: Date.now() });
+              }}
+              onDisplayed={async () => {
+                await refresh(view.session.id);
+              }}
+            />
             {view.progress.phase === "answer" && (
               <form onSubmit={(e) => void answer(e)} className="lp-composer">
                 <label htmlFor="response" className="block font-semibold">
@@ -412,14 +467,24 @@ export function StudySession({
                   }}
                   maxLength={12000}
                   required
-                  disabled={busy || locked}
+                  disabled={
+                    busy || locked || readingBusy || Boolean(pendingReading)
+                  }
                   rows={4}
                   placeholder="Write what you think, and why…"
                   className="lp-input"
                 />
                 <div className="lp-composer-footer">
                   <p>A rough idea is a good place to start.</p>
-                  <button className={button} disabled={busy || !draft.trim()}>
+                  <button
+                    className={button}
+                    disabled={
+                      busy ||
+                      readingBusy ||
+                      Boolean(pendingReading) ||
+                      !draft.trim()
+                    }
+                  >
                     {busy
                       ? "Checking…"
                       : locked
@@ -436,7 +501,7 @@ export function StudySession({
               <button
                 type="button"
                 className={button}
-                disabled={busy}
+                disabled={busy || readingBusy || Boolean(pendingReading)}
                 onClick={() => void evaluate()}
               >
                 Evaluate saved answer
@@ -446,7 +511,12 @@ export function StudySession({
               <button
                 type="button"
                 className={button}
-                disabled={busy || !view.progress.retry_allowed}
+                disabled={
+                  busy ||
+                  readingBusy ||
+                  Boolean(pendingReading) ||
+                  !view.progress.retry_allowed
+                }
                 onClick={() => void evaluate(true)}
               >
                 Retry evaluation

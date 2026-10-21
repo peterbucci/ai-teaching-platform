@@ -17,6 +17,7 @@ import type {
 import type { ApprovedContent } from "./content.ts";
 
 const contentAssistance = new Set([
+  "reading",
   "hint",
   "worked_example",
   "corrective_feedback",
