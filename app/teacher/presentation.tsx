@@ -41,29 +41,36 @@ export function ResultSummary({
 }: {
   results: ClassMetrics["concepts"][number]["latest"];
 }) {
+  const counts = [
+    ["Correct", results.correct],
+    ["Partly correct", results.partially_correct],
+    ["Incorrect", results.incorrect],
+    ["Uncertain", results.uncertain],
+    ["Awaiting evaluation", results.pending],
+    ["Evaluation failed", results.evaluation_failed],
+    ["Evaluation rejected", results.rejected],
+  ] as const;
   return (
     <div className="lp-result-summary">
-      <p>
-        <strong>{ratio(results.correct_rate)}</strong> correct among assessed
-        students
-      </p>
-      {results.correct_rate.denominator > 0 && (
-        <progress
-          className="lp-progress"
-          aria-label="Correct among assessed students"
-          max={results.correct_rate.denominator}
-          value={results.correct_rate.numerator}
-        />
+      {results.correct_rate.denominator === 0 && (
+        <p className="text-slate-600">No assessed answers yet.</p>
       )}
-      <p className="text-slate-600">
-        {results.partially_correct} partial · {results.incorrect} incorrect ·{" "}
-        {results.uncertain} uncertain
-      </p>
-      <p className="text-slate-600">
-        {results.pending} pending · {results.evaluation_failed} failed ·{" "}
-        {results.rejected} rejected · {results.no_response} without a submitted
-        response
-      </p>
+      <dl className="lp-result-counts">
+        {counts
+          .filter(([, count]) => count > 0)
+          .map(([name, count]) => (
+            <div key={name}>
+              <dt>{name}</dt>
+              <dd>{count}</dd>
+            </div>
+          ))}
+      </dl>
+      {results.no_response > 0 && (
+        <p className="lp-result-note">
+          {results.no_response} students without a submitted answer in this
+          view.
+        </p>
+      )}
     </div>
   );
 }
