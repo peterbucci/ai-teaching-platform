@@ -36,6 +36,25 @@ export default async function SessionPage({
   const content = loadApprovedContent();
   const { session, attempts, evaluations, interventions } = evidence;
   const conceptName = (id: string) => content.concepts.get(id)?.title ?? id;
+  const stepNames = {
+    initial_retrieval: "First answer",
+    neutral_clarification: "Clarification",
+    diagnostic_followup: "Diagnostic follow-up",
+    immediate_retest: "Retest after feedback",
+    delayed_review: "Later review",
+  };
+  const resultNames = {
+    correct: "Correct",
+    partially_correct: "Partly correct",
+    incorrect: "Incorrect",
+    uncertain: "Uncertain",
+  };
+  const evaluationNames = {
+    accepted: "Accepted evaluation",
+    pending_review: "Awaiting evaluation",
+    rejected: "Evaluation rejected",
+    evaluation_failed: "Evaluation failed",
+  };
   function passages(ids: string[]) {
     return (
       <ul className="mt-2 space-y-2">
@@ -70,268 +89,370 @@ export default async function SessionPage({
   }
   return (
     <TeacherFrame section="Student evidence">
-      <Link
-        href={`/teacher?assignment=${session.assignment_id}`}
-        className="lp-text-link"
-      >
-        <Icon name="back" />
-        Back to assignment overview
-      </Link>
-      <h1 className="lp-title mt-4">
-        {display_name} · saved learning evidence
-      </h1>
-      <p className="mt-3 text-slate-600">
-        {title} · {originLabel(session.data_origin)} · {label(session.status)}
-      </p>
-      <p className="mt-2 text-sm text-slate-600">
-        Started {date(session.started_at)}
-        {session.ended_at && ` · Ended ${date(session.ended_at)}`}
-      </p>
-      <p className="lp-notice lp-notice-warning my-5">
-        {session.data_origin === "synthetic_fixture"
-          ? "This history is a synthetic demonstration, not a measured educational outcome."
-          : "This interaction uses a fictional demo student. Each evaluation below identifies its actual evaluator."}{" "}
-        Judgments describe these responses, not a fixed trait or lasting
-        mastery.
-      </p>
-      <ol className="space-y-8">
-        {attempts.map((a) => (
-          <li
-            key={a.id}
-            id={`attempt-${a.id}`}
-            className="lp-panel scroll-mt-4"
-          >
-            <p className="text-sm font-medium text-teal-800">
-              Step {a.sequence_index + 1} · {label(a.intent)} ·{" "}
-              {a.question.question_id ?? "Generated question"}
-            </p>
-            <h2 className="mt-2 whitespace-pre-wrap text-lg font-semibold">
-              {a.question.prompt_text}
-            </h2>
-            <p className="mt-2 text-sm text-slate-600">
-              {a.question.concept_ids.map(conceptName).join(" · ")}
-            </p>
-            <h3 className="mt-5 font-semibold">Original student response</h3>
-            <blockquote className="lp-quote mt-2 whitespace-pre-wrap break-words">
-              {a.response_text ?? "No response submitted."}
-            </blockquote>
-            <p className="mt-2 text-xs text-slate-600">
-              Presented {date(a.presented_at)}
-              {a.submitted_at && ` · Submitted ${date(a.submitted_at)}`}
-            </p>
-            {a.assistance && (
-              <div className="mt-4 text-sm">
-                <p>Recorded help: {label(a.assistance.assistance_level)}</p>
-                <p>
-                  {a.question.concept_ids
-                    .map(
-                      (id) =>
-                        `${conceptName(id)}: ${a.assistance?.independent_retrieval_eligible_by_concept[id] ? "eligible as independent retrieval" : "not independent retrieval"}`,
-                    )
-                    .join(" · ")}
+      <div className="lp-evidence-page">
+        <Link
+          href={`/teacher?assignment=${session.assignment_id}`}
+          className="lp-text-link"
+        >
+          <Icon name="back" />
+          Back to assignment overview
+        </Link>
+        <h1 className="lp-title mt-4">{display_name}</h1>
+        <p className="lp-evidence-subtitle">{title}</p>
+        <div className="lp-evidence-meta">
+          <span className="lp-badge">{originLabel(session.data_origin)}</span>
+          <span>{label(session.status)}</span>
+          <span>{attempts.filter((a) => a.submitted_at).length} answers</span>
+        </div>
+        <p className="lp-evidence-note">
+          {session.data_origin === "synthetic_fixture"
+            ? "Example data for the demo, not measured classroom outcomes."
+            : "Fictional demo student. Each result identifies how it was evaluated."}
+        </p>
+        <details className="lp-evidence-details lp-session-about">
+          <summary>Session details</summary>
+          <p>Started {date(session.started_at)}</p>
+          {session.ended_at && <p>Ended {date(session.ended_at)}</p>}
+          <p>
+            Judgments describe these responses, not a fixed trait or lasting
+            mastery. Synthetic histories are not measured educational outcomes.
+          </p>
+        </details>
+        <ol className="lp-evidence-steps">
+          {attempts.map((a) => {
+            const history = evaluations.filter((e) => e.attempt_id === a.id);
+            const current = history.find(
+              (e) => e.id === a.current_evaluation_id,
+            );
+            const latest = history.at(-1);
+            return (
+              <li
+                key={a.id}
+                id={`attempt-${a.id}`}
+                className="lp-panel lp-evidence-step scroll-mt-4"
+              >
+                <header className="lp-evidence-step-heading">
+                  <span className="lp-evidence-step-number">
+                    {a.sequence_index + 1}
+                  </span>
+                  <h2>{stepNames[a.intent]}</h2>
+                </header>
+                <p className="lp-evidence-concepts">
+                  {a.question.concept_ids.map(conceptName).join(" · ")}
                 </p>
-              </div>
-            )}
-            {a.question.embedded_scaffolding.map((s, i) => (
-              <p key={i} className="mt-2 text-sm">
-                Already supplied in the question: {s.supplied_content}
-              </p>
-            ))}
-            {evaluations
-              .filter((e) => e.attempt_id === a.id)
-              .map((e) => (
-                <section
-                  key={e.id}
-                  id={`evaluation-${e.id}`}
-                  className="mt-5 rounded-lg bg-slate-50 p-4"
-                >
-                  <h3 className="font-semibold">
-                    {label(e.validation_status)} evaluation
-                    {e.id === a.current_evaluation_id
-                      ? " · current accepted judgment"
-                      : ""}
-                  </h3>
-                  <p className="mt-1 text-xs text-slate-600">
-                    {label(e.evaluator.type)}
-                    {e.evaluator.model && ` · ${e.evaluator.model}`} ·{" "}
-                    {e.evaluator.version} · {date(e.evaluated_at)}
+                <h3 className="lp-evidence-label">Question</h3>
+                <p className="lp-evidence-question">{a.question.prompt_text}</p>
+                <h3 className="lp-evidence-label">Original student response</h3>
+                <blockquote className="lp-evidence-answer">
+                  {a.response_text ?? "No response submitted."}
+                </blockquote>
+                {a.assistance && (
+                  <p className="lp-evidence-note">
+                    {a.assistance.assistance_level === "none_recorded"
+                      ? "No content help recorded before this answer."
+                      : `Help before this answer: ${label(a.assistance.assistance_level)}.`}
                   </p>
-                  {e.failure_reason && (
-                    <p className="mt-3">
-                      No new accepted judgment: {label(e.failure_reason)}
+                )}
+                {current?.result ? (
+                  <section
+                    className="lp-evidence-result"
+                    aria-label="Current accepted result"
+                  >
+                    <h3 className="lp-evidence-label">Result by concept</h3>
+                    <ul>
+                      {current.result.per_concept_results.map((c) => (
+                        <li key={c.concept_id}>
+                          <span>
+                            {conceptName(c.concept_id)}
+                            {c.error_type && (
+                              <small>{label(c.error_type)}</small>
+                            )}
+                          </span>
+                          <strong
+                            className={`lp-result-badge lp-result-${c.correctness}`}
+                          >
+                            {resultNames[c.correctness]}
+                          </strong>
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="lp-evidence-note">
+                      {current.evaluator.type === "synthetic_fixture"
+                        ? "Prepared example judgment · not an AI result"
+                        : current.evaluator.type === "human_review"
+                          ? "Human-reviewed judgment"
+                          : `AI evaluation · ${current.evaluator.model}`}
+                    </p>
+                    {current.result.uncertainty_reason && (
+                      <p className="lp-evidence-caution">
+                        <strong>Uncertainty:</strong>{" "}
+                        {current.result.uncertainty_reason}
+                      </p>
+                    )}
+                    {Boolean(
+                      current.result.misconception_candidates?.length,
+                    ) && (
+                      <p className="lp-evidence-caution">
+                        Possible misunderstanding to investigate. The
+                        evaluator’s suggestion is tentative.
+                      </p>
+                    )}
+                    {current.applied_result?.hypothesis_events.map((h) => (
+                      <p key={h.id} className="lp-evidence-caution">
+                        Reasoning pattern: <strong>{label(h.status)}</strong>.
+                        Supporting and contradicting evidence is available
+                        below.
+                      </p>
+                    ))}
+                  </section>
+                ) : (
+                  <p className="lp-evidence-caution">
+                    {a.submitted_at
+                      ? `${latest ? evaluationNames[latest.validation_status] : "Awaiting evaluation"}. No accepted result yet.`
+                      : "Waiting for the student's answer."}
+                  </p>
+                )}
+                {current &&
+                  latest &&
+                  latest !== current &&
+                  latest.validation_status !== "accepted" && (
+                    <p className="lp-evidence-caution">
+                      {evaluationNames[latest.validation_status]}. The earlier
+                      accepted result is still shown.
                     </p>
                   )}
-                  {e.result && (
-                    <>
-                      <ul className="mt-3 space-y-2">
-                        {e.result.per_concept_results.map((c) => (
-                          <li key={c.concept_id}>
-                            <strong>
-                              {conceptName(c.concept_id)}:{" "}
-                              {label(c.correctness)}
-                            </strong>
-                            {c.error_type && (
-                              <span> · {label(c.error_type)}</span>
-                            )}
-                            <p className="text-sm">
-                              Demonstrated:{" "}
-                              {c.rubric_criteria_met.join("; ") ||
-                                "None recorded"}
-                            </p>
-                            <p className="text-sm">
-                              Missing:{" "}
-                              {c.rubric_criteria_missing.join("; ") ||
-                                "None recorded"}
-                            </p>
-                          </li>
-                        ))}
-                      </ul>
-                      <p className="mt-3 whitespace-pre-wrap">
-                        {e.result.reasoning_observed}
-                      </p>
-                      {e.result.uncertainty_reason && (
-                        <p className="mt-3">
-                          <strong>Uncertainty:</strong>{" "}
-                          {e.result.uncertainty_reason}
-                        </p>
-                      )}
-                      {e.result.evidence_quotes.map((q, i) => (
-                        <blockquote
-                          key={i}
-                          className="my-3 border-l-2 border-slate-400 pl-3 text-sm"
+                {history.length > 0 && (
+                  <details className="lp-evidence-details">
+                    <summary>Evidence, sources, and evaluation history</summary>
+                    <div className="lp-evidence-history">
+                      {history.map((e) => (
+                        <section
+                          key={e.id}
+                          id={`evaluation-${e.id}`}
+                          className="lp-evidence-evaluation"
                         >
-                          <p className="whitespace-pre-wrap">“{q.quote}”</p>
-                          <p className="mt-1 text-slate-600">
-                            {q.interpretation}
-                          </p>
-                        </blockquote>
-                      ))}
-                      {(e.result.misconception_candidates ?? []).map((c, i) => (
-                        <p key={i} className="mt-2 text-sm">
-                          <strong>Tentative candidate:</strong>{" "}
-                          {content.misconceptions.get(c.misconception_id)
-                            ?.definition ?? c.misconception_id}{" "}
-                          — {c.uncertainty_reason}
-                        </p>
-                      ))}
-                      <p className="mt-3 text-sm">
-                        Evaluator recommended:{" "}
-                        {label(e.result.proposed_next_action)}
-                      </p>
-                      <p className="text-sm">
-                        Application applied:{" "}
-                        {e.applied_result
-                          ? label(e.applied_result.action)
-                          : "No action recorded"}
-                      </p>
-                      {e.applied_result?.hypothesis_events.map((h) => (
-                        <div
-                          key={h.id}
-                          className="mt-4 border-t border-slate-300 pt-3 text-sm"
-                        >
-                          <p>
-                            <strong>Possible misunderstanding:</strong>{" "}
-                            {content.misconceptions.get(h.misconception_id)
-                              ?.definition ?? h.misconception_id}
-                          </p>
-                          <p>
-                            {h.previous_status
-                              ? `${label(h.previous_status)} → `
+                          <h3 className="font-semibold">
+                            {evaluationNames[e.validation_status]}
+                            {e.id === a.current_evaluation_id
+                              ? " · current accepted judgment"
                               : ""}
-                            {label(h.status)} · {date(h.created_at)}
+                          </h3>
+                          <p className="mt-1 text-xs text-slate-600">
+                            {label(e.evaluator.type)}
+                            {e.evaluator.model &&
+                              ` · ${e.evaluator.model}`} · {e.evaluator.version}{" "}
+                            · {date(e.evaluated_at)}
                           </p>
-                          <p className="my-2">{h.reason}</p>
-                          <p>
-                            Supporting evaluations:{" "}
-                            {h.evidence_evaluation_ids.map((id) => (
-                              <a
-                                key={id}
-                                href={`#evaluation-${id}`}
-                                className="mr-3 underline"
-                              >
-                                Inspect evidence
-                              </a>
-                            ))}
-                          </p>
-                          <p>
-                            Contradicting evaluations:{" "}
-                            {h.contradicting_evaluation_ids.length
-                              ? h.contradicting_evaluation_ids.map((id) => (
-                                  <a
-                                    key={id}
-                                    href={`#evaluation-${id}`}
-                                    className="mr-3 underline"
-                                  >
-                                    Inspect contradiction
-                                  </a>
-                                ))
-                              : "None recorded"}
-                          </p>
-                        </div>
+                          {e.failure_reason && (
+                            <p className="mt-3">
+                              No new accepted judgment:{" "}
+                              {label(e.failure_reason)}
+                            </p>
+                          )}
+                          {e.result && (
+                            <>
+                              <ul className="mt-3 space-y-2">
+                                {e.result.per_concept_results.map((c) => (
+                                  <li key={c.concept_id}>
+                                    <strong>
+                                      {conceptName(c.concept_id)}:{" "}
+                                      {label(c.correctness)}
+                                    </strong>
+                                    {c.error_type && (
+                                      <span> · {label(c.error_type)}</span>
+                                    )}
+                                    <p className="text-sm">
+                                      Demonstrated:{" "}
+                                      {c.rubric_criteria_met.join("; ") ||
+                                        "None recorded"}
+                                    </p>
+                                    <p className="text-sm">
+                                      Missing:{" "}
+                                      {c.rubric_criteria_missing.join("; ") ||
+                                        "None recorded"}
+                                    </p>
+                                  </li>
+                                ))}
+                              </ul>
+                              <p className="mt-3 whitespace-pre-wrap">
+                                {e.result.reasoning_observed}
+                              </p>
+                              {e.result.uncertainty_reason && (
+                                <p className="mt-3">
+                                  <strong>Uncertainty:</strong>{" "}
+                                  {e.result.uncertainty_reason}
+                                </p>
+                              )}
+                              {e.result.evidence_quotes.map((q, i) => (
+                                <blockquote
+                                  key={i}
+                                  className="my-3 border-l-2 border-slate-400 pl-3 text-sm"
+                                >
+                                  <p className="whitespace-pre-wrap">
+                                    “{q.quote}”
+                                  </p>
+                                  <p className="mt-1 text-slate-600">
+                                    {q.interpretation}
+                                  </p>
+                                </blockquote>
+                              ))}
+                              {(e.result.misconception_candidates ?? []).map(
+                                (c, i) => (
+                                  <p key={i} className="mt-2 text-sm">
+                                    <strong>Tentative candidate:</strong>{" "}
+                                    {content.misconceptions.get(
+                                      c.misconception_id,
+                                    )?.definition ?? c.misconception_id}{" "}
+                                    — {c.uncertainty_reason}
+                                  </p>
+                                ),
+                              )}
+                              <p className="mt-3 text-sm">
+                                Evaluator recommended:{" "}
+                                {label(
+                                  e.result.proposed_next_action.toLowerCase(),
+                                )}
+                              </p>
+                              <p className="text-sm">
+                                Application applied:{" "}
+                                {e.applied_result
+                                  ? label(e.applied_result.action.toLowerCase())
+                                  : "No action recorded"}
+                              </p>
+                              {e.applied_result?.hypothesis_events.map((h) => (
+                                <div
+                                  key={h.id}
+                                  className="mt-4 border-t border-slate-300 pt-3 text-sm"
+                                >
+                                  <p>
+                                    <strong>Possible misunderstanding:</strong>{" "}
+                                    {content.misconceptions.get(
+                                      h.misconception_id,
+                                    )?.definition ?? h.misconception_id}
+                                  </p>
+                                  <p>
+                                    {h.previous_status
+                                      ? `${label(h.previous_status)} → `
+                                      : ""}
+                                    {label(h.status)} · {date(h.created_at)}
+                                  </p>
+                                  <p className="my-2">{h.reason}</p>
+                                  <p>
+                                    Supporting evaluations:{" "}
+                                    {h.evidence_evaluation_ids.map((id) => (
+                                      <a
+                                        key={id}
+                                        href={`#evaluation-${id}`}
+                                        className="mr-3 underline"
+                                      >
+                                        Inspect evidence
+                                      </a>
+                                    ))}
+                                  </p>
+                                  <p>
+                                    Contradicting evaluations:{" "}
+                                    {h.contradicting_evaluation_ids.length
+                                      ? h.contradicting_evaluation_ids.map(
+                                          (id) => (
+                                            <a
+                                              key={id}
+                                              href={`#evaluation-${id}`}
+                                              className="mr-3 underline"
+                                            >
+                                              Inspect contradiction
+                                            </a>
+                                          ),
+                                        )
+                                      : "None recorded"}
+                                  </p>
+                                </div>
+                              ))}
+                              {passages(e.result.source_passage_ids)}
+                            </>
+                          )}
+                        </section>
                       ))}
-                      {passages(e.result.source_passage_ids)}
-                    </>
-                  )}
-                </section>
-              ))}
-            {a.submitted_at &&
-              !evaluations.some((e) => e.attempt_id === a.id) && (
-                <p className="mt-4">
-                  Evaluation pending. This response has no accepted judgment
-                  yet.
-                </p>
-              )}
-            {interventions
-              .filter((i) => i.related_attempt_id === a.id)
-              .map((i) => (
-                <section
-                  key={i.id}
-                  className="mt-4 rounded-lg border border-teal-200 p-4"
-                >
-                  <h3 className="font-semibold">
-                    {label(i.type)} · {label(i.delivery_status)}
-                  </h3>
-                  <p className="mt-2 whitespace-pre-wrap">{i.text_shown}</p>
-                  <p className="mt-2 text-xs">
-                    {i.visible_at
-                      ? `Displayed ${date(i.visible_at)}`
-                      : "Not recorded as displayed; does not count as received help."}
-                  </p>
-                  {passages(i.source_passage_ids)}
-                </section>
-              ))}
-            {a.outcome && (
-              <div className="mt-5 text-sm">
-                <h3 className="font-semibold">Recorded episode outcome</h3>
-                <p>{label(a.outcome.outcome)}</p>
-                <p>{a.outcome.review_reason}</p>
-                {a.outcome.next_review_at && (
-                  <p>Proposed review: {date(a.outcome.next_review_at)}</p>
+                    </div>
+                  </details>
                 )}
-              </div>
-            )}
-            <details className="mt-5 text-xs text-slate-600">
-              <summary className="cursor-pointer">
-                Question guidance and source version
-              </summary>
-              <p className="my-2 whitespace-pre-wrap">
-                {a.question.rubric.answer_guidance}
-              </p>
-              <p className="break-all">
-                Content: {a.question.content_ref.package_id} ·{" "}
-                {a.question.content_ref.content_version}
-              </p>
-              <p className="break-all">
-                Source: {a.question.content_ref.source_id} ·{" "}
-                {a.question.content_ref.source_commit}
-              </p>
-              <p>
-                Question passages: {a.question.source_passage_ids.join(", ")}
-              </p>
-            </details>
-          </li>
-        ))}
-      </ol>
+                {interventions
+                  .filter((i) => i.related_attempt_id === a.id)
+                  .map((i) => (
+                    <details key={i.id} className="lp-evidence-details">
+                      <summary>
+                        {label(i.type)} ·{" "}
+                        {i.delivery_status === "displayed"
+                          ? "shown to student"
+                          : "not recorded as shown"}
+                      </summary>
+                      <p className="mt-2 whitespace-pre-wrap">{i.text_shown}</p>
+                      <p className="mt-2 text-xs">
+                        {i.visible_at
+                          ? `Displayed ${date(i.visible_at)}`
+                          : `Delivery ${label(i.delivery_status)}. Not recorded as displayed; does not count as received help.`}
+                      </p>
+                      {passages(i.source_passage_ids)}
+                    </details>
+                  ))}
+                {a.outcome && (
+                  <details className="lp-evidence-details">
+                    <summary>Outcome and next review</summary>
+                    <p>{label(a.outcome.outcome)}</p>
+                    <p>{a.outcome.review_reason}</p>
+                    {a.outcome.next_review_at && (
+                      <p>Proposed review: {date(a.outcome.next_review_at)}</p>
+                    )}
+                  </details>
+                )}
+                <details className="lp-evidence-details">
+                  <summary>Question, timing, and source details</summary>
+                  <p>
+                    Question: {a.question.question_id ?? "Generated question"}
+                  </p>
+                  <p>Presented {date(a.presented_at)}</p>
+                  {a.submitted_at && <p>Submitted {date(a.submitted_at)}</p>}
+                  {a.assistance && (
+                    <ul className="my-3">
+                      {a.question.concept_ids.map((id) => (
+                        <li key={id}>
+                          {conceptName(id)}:{" "}
+                          {a.assistance
+                            ?.independent_retrieval_eligible_by_concept[id]
+                            ? "eligible as independent retrieval"
+                            : "not independent retrieval"}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {a.question.embedded_scaffolding.map((s, i) => (
+                    <p key={i}>
+                      Already supplied in the question: {s.supplied_content}
+                    </p>
+                  ))}
+                  <h3 className="mt-4 font-semibold">
+                    Expected-answer guidance
+                  </h3>
+                  <p className="my-2 whitespace-pre-wrap">
+                    {a.question.rubric.answer_guidance}
+                  </p>
+                  <p className="break-all">
+                    Content: {a.question.content_ref.package_id} ·{" "}
+                    {a.question.content_ref.content_version}
+                  </p>
+                  <p className="break-all">
+                    Source: {a.question.content_ref.source_id} ·{" "}
+                    {a.question.content_ref.source_commit}
+                  </p>
+                  <p>
+                    Question passages:{" "}
+                    {a.question.source_passage_ids.join(", ")}
+                  </p>
+                </details>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
     </TeacherFrame>
   );
 }
