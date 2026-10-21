@@ -25,7 +25,7 @@ export function Workspace({
   sessionHref,
 }: {
   children: ReactNode;
-  area: "teacher" | "student" | "home";
+  area: "teacher" | "student";
   section: string;
   sessionHref?: string;
 }) {
@@ -39,22 +39,12 @@ export function Workspace({
           icon: "users" as const,
         },
       ]
-    : area === "student"
-      ? [
-          { href: "/study", text: "My learning", icon: "book" as const },
-          ...(sessionHref
-            ? [{ href: sessionHref, text: "AI tutor", icon: "chat" as const }]
-            : []),
-        ]
-      : [
-          { href: "/", text: "Welcome", icon: "home" as const },
-          { href: "/study", text: "Student workspace", icon: "book" as const },
-          {
-            href: "/teacher",
-            text: "Teacher workspace",
-            icon: "chart" as const,
-          },
-        ];
+    : [
+        { href: "/study", text: "My learning", icon: "book" as const },
+        ...(sessionHref
+          ? [{ href: sessionHref, text: "AI tutor", icon: "chat" as const }]
+          : []),
+      ];
   const navigation = (
     <nav aria-label="Workspace navigation" className="lp-nav">
       {links.map((link) => (
@@ -77,24 +67,14 @@ export function Workspace({
       <aside className="lp-sidebar">
         <Brand />
         <p className="lp-nav-label">
-          {teacher
-            ? "Your classroom"
-            : area === "student"
-              ? "Your learning"
-              : "Your workspace"}
+          {teacher ? "Your classroom" : "Your learning"}
         </p>
         {navigation}
       </aside>
       <div className="lp-workspace">
         <header className="lp-topbar">
           <div className="lp-breadcrumb">
-            <span>
-              {teacher
-                ? "Classroom"
-                : area === "student"
-                  ? "Learning"
-                  : "Learning Pulse"}
-            </span>
+            <span>{teacher ? "Classroom" : "Learning"}</span>
             <span aria-hidden="true">/</span>
             <strong>{section}</strong>
           </div>

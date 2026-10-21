@@ -46,7 +46,7 @@ export default async function LoginPage({
           <LoginForm signedIn={signedIn} />
         )}
         <Link href="/" className="lp-text-link mt-8">
-          Back to the home page
+          Open teacher dashboard
         </Link>
       </section>
     </main>
