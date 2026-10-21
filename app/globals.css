@@ -603,9 +603,141 @@
     background: #5d9d7a;
     border-radius: 9px;
   }
+  .lp-patterns,
   .lp-responses {
     margin-top: 24px;
     scroll-margin-top: 24px;
+  }
+  .lp-pattern-list {
+    margin-top: 18px;
+  }
+  .lp-pattern-detail,
+  .lp-pattern-student {
+    border-top: 1px solid var(--line);
+  }
+  .lp-pattern-detail > summary,
+  .lp-pattern-student > summary {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 180px 20px;
+    align-items: center;
+    gap: 24px;
+    padding: 20px 0;
+    list-style: none;
+  }
+  .lp-pattern-detail > summary::-webkit-details-marker,
+  .lp-pattern-student > summary::-webkit-details-marker {
+    display: none;
+  }
+  .lp-pattern-detail > summary:hover .lp-pattern-title,
+  .lp-pattern-student > summary:hover .lp-pattern-student-name {
+    color: var(--green);
+  }
+  .lp-pattern-detail[open] > summary .lp-expand-icon,
+  .lp-pattern-student[open] > summary .lp-expand-icon {
+    transform: rotate(45deg);
+  }
+  .lp-pattern-concept {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+  .lp-pattern-title {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.6;
+  }
+  .lp-pattern-total strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .lp-pattern-total > span,
+  .lp-pattern-origin,
+  .lp-pattern-meta {
+    color: var(--muted);
+    font-size: 12px;
+  }
+  .lp-pattern-body {
+    padding: 4px 0 24px;
+  }
+  .lp-pattern-body h3 {
+    font-size: 14px;
+    font-weight: 650;
+  }
+  .lp-pattern-counts {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    padding: 18px;
+    margin-top: 12px;
+    background: var(--canvas);
+    border-radius: 10px;
+  }
+  .lp-pattern-counts dt {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .lp-pattern-counts dd {
+    margin-top: 5px;
+    font-size: 22px;
+    font-weight: 650;
+  }
+  .lp-pattern-counts dd span {
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .lp-pattern-students {
+    margin-top: 22px;
+  }
+  .lp-pattern-student > summary {
+    grid-template-columns: minmax(0, 1fr) auto 160px 20px;
+    gap: 14px;
+    padding: 16px 0;
+  }
+  .lp-pattern-student-name {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .lp-pattern-history {
+    max-width: 850px;
+    padding-bottom: 8px;
+  }
+  .lp-pattern-history > li {
+    margin: 0 0 16px;
+    padding: 18px;
+    background: var(--canvas);
+    border-radius: 10px;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+  }
+  .lp-pattern-observation-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+  }
+  .lp-pattern-reason {
+    margin: 12px 0;
+  }
+  .lp-pattern-history blockquote {
+    border-left: 3px solid #9ac4ad;
+    padding: 10px 14px;
+    margin: 12px 0;
+    background: white;
+    white-space: pre-wrap;
+    line-height: 1.7;
+  }
+  .lp-pattern-evidence-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 14px;
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--muted);
   }
   .lp-student-row {
     display: grid;
@@ -989,6 +1121,9 @@
     display: grid;
     gap: 24px;
   }
+  .lp-evidence-evaluation {
+    scroll-margin-top: 24px;
+  }
   .lp-evidence-evaluation + .lp-evidence-evaluation {
     border-top: 1px solid var(--line);
     padding-top: 24px;
@@ -1125,6 +1260,25 @@
     .lp-student-row {
       grid-template-columns: minmax(0, 1fr);
       gap: 4px;
+    }
+    .lp-pattern-detail > summary,
+    .lp-pattern-student > summary {
+      grid-template-columns: minmax(0, 1fr) 20px;
+      gap: 8px;
+    }
+    .lp-pattern-detail > summary .lp-expand-icon,
+    .lp-pattern-student > summary .lp-expand-icon {
+      grid-column: 2;
+      grid-row: 1 / span 3;
+    }
+    .lp-pattern-total,
+    .lp-pattern-origin,
+    .lp-pattern-student > summary .lp-badge {
+      grid-column: 1;
+      justify-self: start;
+    }
+    .lp-pattern-counts {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .lp-session-row {
       padding-left: 46px;

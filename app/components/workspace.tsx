@@ -1,9 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useSyncExternalStore, type ReactNode } from "react";
+import { useEffect, useSyncExternalStore, type ReactNode } from "react";
 import { Icon } from "./icons.tsx";
 import { AccountMenu } from "./account-menu.tsx";
+
+const teacherSections = [
+  { id: "main-content", text: "Class overview", icon: "chart" },
+  { id: "patterns", text: "Reasoning patterns", icon: "chat" },
+  { id: "responses", text: "Student evidence", icon: "users" },
+] as const;
 
 function subscribeToVisibleSection(onChange: () => void) {
   let frame = 0;
@@ -29,21 +35,31 @@ function subscribeToVisibleSection(onChange: () => void) {
 }
 
 function getVisibleSection() {
-  const responses = document.getElementById("responses");
-  if (!responses) return "Class overview";
   const pageHeight = document.documentElement.scrollHeight;
   if (pageHeight <= window.innerHeight) {
-    return window.location.hash === "#responses"
-      ? "Student evidence"
-      : "Class overview";
+    return (
+      teacherSections.find(
+        (section) =>
+          window.location.hash === `#${section.id}` &&
+          document.getElementById(section.id),
+      )?.text ?? "Class overview"
+    );
   }
-  const top = responses.getBoundingClientRect().top;
+  if (window.scrollY === 0) return "Class overview";
   const atBottom = window.scrollY + window.innerHeight >= pageHeight - 2;
-  // Short response lists may never reach the upper part of the viewport.
-  return window.scrollY > 0 &&
-    (top <= window.innerHeight * 0.3 || (atBottom && top < window.innerHeight))
-    ? "Student evidence"
-    : "Class overview";
+  for (let index = teacherSections.length - 1; index > 0; index--) {
+    const section = teacherSections[index];
+    const element = document.getElementById(section.id);
+    if (!element) continue;
+    const top = element.getBoundingClientRect().top;
+    // Short sections may never reach the upper part of the viewport.
+    if (
+      top <= window.innerHeight * 0.3 ||
+      (atBottom && top < window.innerHeight)
+    )
+      return section.text;
+  }
+  return "Class overview";
 }
 
 const getServerSection = () => "Class overview";
@@ -78,6 +94,17 @@ export function Workspace({
 }) {
   const teacher = area === "teacher";
   const overview = teacher && section === "Class overview";
+  useEffect(() => {
+    if (!overview) return;
+    const id = window.location.hash.slice(1);
+    if (!teacherSections.some((item) => item.id === id)) return;
+    // Streamed page content may arrive after the browser first tries the anchor.
+    const frame = requestAnimationFrame(() => {
+      if (window.scrollY === 0)
+        document.getElementById(id)?.scrollIntoView({ block: "start" });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [overview]);
   const visibleSection = useSyncExternalStore(
     overview ? subscribeToVisibleSection : subscribeToNothing,
     getVisibleSection,
@@ -87,18 +114,11 @@ export function Workspace({
   // Native section links keep scrolling, browser history, and the hash in sync.
   const NavigationLink = teacher ? "a" : Link;
   const links = teacher
-    ? [
-        {
-          href: overview ? "#main-content" : "/teacher",
-          text: "Class overview",
-          icon: "chart" as const,
-        },
-        {
-          href: overview ? "#responses" : "/teacher#responses",
-          text: "Student evidence",
-          icon: "users" as const,
-        },
-      ]
+    ? teacherSections.map(({ id, text, icon }) => ({
+        href: `${overview ? "" : "/teacher"}#${id}`,
+        text,
+        icon,
+      }))
     : [
         { href: "/study", text: "My learning", icon: "book" as const },
         ...(sessionHref

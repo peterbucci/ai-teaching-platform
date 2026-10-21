@@ -10,6 +10,7 @@ import {
 } from "../../../../lib/evidence/store.ts";
 import { readTeacherSession } from "../../../../lib/teacher/store.ts";
 import { TeacherFrame, date, label, originLabel } from "../../presentation.tsx";
+import { EvidenceAnchor } from "../evidence-anchor.tsx";
 
 export const dynamic = "force-dynamic";
 async function load(id: string) {
@@ -89,6 +90,7 @@ export default async function SessionPage({
   }
   return (
     <TeacherFrame section="Student evidence">
+      <EvidenceAnchor key={session.id} />
       <div className="lp-evidence-page">
         <Link
           href={`/teacher?assignment=${session.assignment_id}`}

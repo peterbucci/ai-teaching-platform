@@ -1,7 +1,26 @@
 import Link from "next/link";
 import type { ApprovedContent } from "../../lib/evidence/content.ts";
 import type { PatternGroup } from "../../lib/teacher/patterns.ts";
-import { date, label, originLabel } from "./presentation.tsx";
+import { Icon } from "../components/icons.tsx";
+import { date, originLabel } from "./presentation.tsx";
+
+const statusLabels = {
+  suspected: "Suspected",
+  supported: "Supported",
+  not_supported: "Not supported",
+  uncertain: "Uncertain",
+} as const;
+const statuses = [
+  "suspected",
+  "supported",
+  "not_supported",
+  "uncertain",
+] as const;
+const basisLabels = {
+  applied_hypothesis: "Tutor observation",
+  tentative_candidate: "Initial suggestion",
+  uncategorized_response: "No named pattern",
+} as const;
 
 export function Patterns({
   groups,
@@ -13,142 +32,181 @@ export function Patterns({
   content: ApprovedContent;
 }) {
   return (
-    <section className="mt-10" aria-labelledby="patterns-title">
-      <h2 id="patterns-title" className="text-2xl font-semibold">
-        Possible reasoning patterns
-      </h2>
-      <p className="my-3 max-w-3xl text-sm text-slate-600">
-        For the assignment, evidence source, and all-recorded-time scope
-        selected above. Each category counts each student once using their
-        latest recorded hypothesis observation. A later correct retest does not
-        erase an earlier investigation. These counts are not a diagnosis or
-        proof of a persistent belief.
+    <section
+      id="patterns"
+      className="lp-panel lp-patterns"
+      aria-labelledby="patterns-title"
+    >
+      <h2 id="patterns-title">Possible reasoning patterns</h2>
+      <p className="lp-panel-description">
+        Open a pattern to see the students and evidence behind it.
       </p>
       {!groups.length && (
-        <p className="rounded-lg bg-slate-50 p-4">
-          No recorded misconception hypotheses or uncategorized uncertain
-          responses in this view. Missing evidence does not establish
-          understanding.
+        <p className="lp-empty-results">
+          No possible patterns recorded in this view yet. This does not tell us
+          whether students understand the material.
         </p>
       )}
-      <div className="space-y-4">
+      <div className="lp-pattern-list">
         {groups.map((group) => (
-          <article
+          <details
             key={`${group.concept_id}:${group.misconception_id}`}
-            className="rounded-xl border border-slate-200 p-5"
+            className="lp-pattern-detail"
           >
-            <p className="text-sm font-medium text-teal-800">
-              {content.concepts.get(group.concept_id)?.title ??
-                group.concept_id}
-            </p>
-            <h3 className="mt-1 font-semibold">
-              {group.misconception_id === "other_or_uncertain"
-                ? "Unclear or uncategorized reasoning"
-                : (content.misconceptions.get(group.misconception_id)
-                    ?.definition ?? group.misconception_id)}
-            </h3>
-            <dl className="my-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {Object.entries(group.counts).map(([status, count]) => (
-                <div key={status} className="rounded-lg bg-slate-50 p-3">
-                  <dt className="text-sm capitalize">{label(status)}</dt>
-                  <dd className="mt-1 text-xl font-semibold">
-                    {count} / {group.denominator}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-            <p className="text-xs text-slate-600">
-              Distinct students / enrolled students. {group.students.length}{" "}
-              with a recorded observation in this group. Suspected includes
-              explicitly tentative, uninvestigated evaluator candidates;
-              supported requires the recorded investigation evidence.
-            </p>
-            <details className="mt-4">
-              <summary className="cursor-pointer font-medium text-teal-800">
-                Inspect students and changing evidence
-              </summary>
-              <ul className="mt-4 divide-y divide-slate-200">
+            <summary>
+              <span className="lp-pattern-heading">
+                <span className="lp-pattern-concept">
+                  {content.concepts.get(group.concept_id)?.title ??
+                    group.concept_id}
+                </span>
+                <span className="lp-pattern-title">
+                  {group.misconception_id === "other_or_uncertain"
+                    ? "Unclear or uncategorized reasoning"
+                    : (content.misconceptions.get(group.misconception_id)
+                        ?.definition ?? group.misconception_id)}
+                </span>
+              </span>
+              <span className="lp-pattern-total">
+                <strong>
+                  {group.students.length} of {group.denominator} students
+                </strong>
+                <span>with recorded evidence</span>
+              </span>
+              <span className="lp-expand-icon" aria-hidden="true">
+                +
+              </span>
+            </summary>
+            <div className="lp-pattern-body">
+              <h3>Latest evidence for each student</h3>
+              <dl className="lp-pattern-counts">
+                {statuses.map((status) => (
+                  <div key={status}>
+                    <dt>{statusLabels[status]}</dt>
+                    <dd>
+                      {group.counts[status]} <span>/ {group.denominator}</span>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="lp-result-note">
+                Each count is distinct students out of {group.denominator}{" "}
+                enrolled. Supported means there is follow-up evidence, not a
+                confirmed lasting belief.
+              </p>
+              <ul className="lp-pattern-students">
                 {group.students.map((student) => (
-                  <li key={student.student_id} className="py-4">
-                    <h4 className="font-semibold">
-                      {students.find((s) => s.student_id === student.student_id)
-                        ?.display_name ?? "Enrolled student"}{" "}
-                      · {label(student.current.status)}
-                    </h4>
-                    <p className="mt-1 text-xs text-slate-600">
-                      Latest observation {date(student.current.at)} ·{" "}
-                      {originLabel(student.current.data_origin)} ·{" "}
-                      {label(student.current.basis)}
-                    </p>
-                    <ol className="mt-3 space-y-4">
-                      {student.history.map((observation, index) => (
-                        <li
-                          key={`${observation.evaluation_id}:${index}`}
-                          className="border-l-2 border-teal-200 pl-3 text-sm"
-                        >
-                          <p className="font-medium">
-                            {label(observation.status)} · {date(observation.at)}{" "}
-                            · {originLabel(observation.data_origin)}
-                          </p>
-                          <p className="my-1">{observation.reason}</p>
-                          {observation.quotes.map((q, i) => (
-                            <blockquote
-                              key={i}
-                              className="my-2 whitespace-pre-wrap text-slate-600"
+                  <li key={student.student_id}>
+                    <details className="lp-pattern-student">
+                      <summary>
+                        <span className="lp-pattern-student-name">
+                          {students.find(
+                            (s) => s.student_id === student.student_id,
+                          )?.display_name ?? "Enrolled student"}
+                        </span>
+                        <span className="lp-badge lp-badge-neutral">
+                          {statusLabels[student.current.status]}
+                        </span>
+                        <span className="lp-pattern-origin">
+                          {originLabel(student.current.data_origin)}
+                        </span>
+                        <span className="lp-expand-icon" aria-hidden="true">
+                          +
+                        </span>
+                      </summary>
+                      <ol
+                        className="lp-pattern-history"
+                        aria-label="Evidence history, oldest first"
+                      >
+                        {student.history.map((observation, index) => (
+                          <li key={`${observation.evaluation_id}:${index}`}>
+                            <div className="lp-pattern-observation-heading">
+                              <strong>
+                                {statusLabels[observation.status]}
+                              </strong>
+                              <span className="lp-badge lp-badge-neutral">
+                                {originLabel(observation.data_origin)}
+                              </span>
+                            </div>
+                            <p className="lp-pattern-meta">
+                              {date(observation.at)} ·{" "}
+                              {basisLabels[observation.basis]}
+                            </p>
+                            <p className="lp-pattern-reason">
+                              {observation.reason}
+                            </p>
+                            {observation.quotes.map((q, i) => (
+                              <blockquote key={i}>“{q.quote}”</blockquote>
+                            ))}
+                            <Link
+                              className="lp-text-link"
+                              href={`/teacher/sessions/${observation.session_id}#evaluation-${observation.evaluation_id}`}
                             >
-                              “{q.quote}”
-                            </blockquote>
-                          ))}
-                          <Link
-                            className="text-teal-800 underline"
-                            href={`/teacher/sessions/${observation.session_id}#evaluation-${observation.evaluation_id}`}
-                          >
-                            Original response, judgment, citations and
-                            follow-ups
-                          </Link>
-                          {observation.supporting_evaluation_ids.length > 0 && (
-                            <p className="mt-2">
-                              Supporting evidence:{" "}
-                              {observation.supporting_evaluation_ids.map(
-                                (id) => (
-                                  <Link
-                                    key={id}
-                                    className="mr-3 underline"
-                                    href={`/teacher/sessions/${observation.session_id}#evaluation-${id}`}
-                                  >
-                                    Inspect support
-                                  </Link>
-                                ),
-                              )}
-                            </p>
-                          )}
-                          {observation.contradicting_evaluation_ids.length >
-                            0 && (
-                            <p className="mt-2">
-                              Contradicting evidence:{" "}
-                              {observation.contradicting_evaluation_ids.map(
-                                (id) => (
-                                  <Link
-                                    key={id}
-                                    className="mr-3 underline"
-                                    href={`/teacher/sessions/${observation.session_id}#evaluation-${id}`}
-                                  >
-                                    Inspect contradiction
-                                  </Link>
-                                ),
-                              )}
-                            </p>
-                          )}
-                        </li>
-                      ))}
-                    </ol>
+                              Read original response and feedback{" "}
+                              <Icon name="arrow" />
+                            </Link>
+                            {observation.supporting_evaluation_ids.length >
+                              0 && (
+                              <div className="lp-pattern-evidence-links">
+                                <span>Supporting evidence</span>
+                                {observation.supporting_evaluation_ids.map(
+                                  (id) => (
+                                    <Link
+                                      key={id}
+                                      className="lp-text-link"
+                                      href={`/teacher/sessions/${observation.session_id}#evaluation-${id}`}
+                                    >
+                                      Inspect support
+                                    </Link>
+                                  ),
+                                )}
+                              </div>
+                            )}
+                            {observation.contradicting_evaluation_ids.length >
+                              0 && (
+                              <div className="lp-pattern-evidence-links">
+                                <span>Contradicting evidence</span>
+                                {observation.contradicting_evaluation_ids.map(
+                                  (id) => (
+                                    <Link
+                                      key={id}
+                                      className="lp-text-link"
+                                      href={`/teacher/sessions/${observation.session_id}#evaluation-${id}`}
+                                    >
+                                      Inspect contradiction
+                                    </Link>
+                                  ),
+                                )}
+                              </div>
+                            )}
+                          </li>
+                        ))}
+                      </ol>
+                    </details>
                   </li>
                 ))}
               </ul>
-            </details>
-          </article>
+            </div>
+          </details>
         ))}
       </div>
+      <details className="lp-results-help">
+        <summary>How to read these patterns</summary>
+        <p>
+          These are possible interpretations of answers, not permanent labels
+          for students. Counts use the assignment and evidence filter selected
+          above, across all recorded time. Each student appears once per
+          pattern, using their latest observation. A student can appear in more
+          than one pattern.
+        </p>
+        <p>
+          Suspected means a tentative suggestion. Supported means follow-up
+          evidence supported it; not supported means later evidence challenged
+          it. Uncertain cases stay separate. A correct retest does not erase the
+          earlier investigation or establish lasting mastery. Open a student to
+          follow the history, including original answers and contradictory
+          evidence.
+        </p>
+      </details>
     </section>
   );
 }
