@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { headers } from "next/headers";
 import { getAuth } from "../../lib/auth.ts";
 import { LoginForm } from "./form.tsx";
@@ -45,9 +44,6 @@ export default async function LoginPage({
         ) : (
           <LoginForm signedIn={signedIn} />
         )}
-        <Link href="/" className="lp-text-link mt-8">
-          Open teacher dashboard
-        </Link>
       </section>
     </main>
   );

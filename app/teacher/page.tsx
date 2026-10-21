@@ -273,13 +273,13 @@ export default async function TeacherPage({
                       </section>
                     ))}
                   </div>
-                  <Link
+                  <a
                     href={href(c.concept_id) + "#responses"}
                     className="lp-text-link"
                   >
                     See student responses
                     <Icon name="arrow" />
-                  </Link>
+                  </a>
                 </div>
               </details>
             );
@@ -312,9 +312,9 @@ export default async function TeacherPage({
             ? `Showing ${content.concepts.get(params.concept)?.title ?? params.concept}. `
             : "Open a session to see the student's answers and feedback. "}
           {params.concept && (
-            <Link href={href() + "#responses"} className="underline">
+            <a href={href() + "#responses"} className="underline">
               Show all concepts
-            </Link>
+            </a>
           )}
         </p>
         {withSessions.length === 0 && (

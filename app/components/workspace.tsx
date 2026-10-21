@@ -1,7 +1,21 @@
+"use client";
+
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { useSyncExternalStore, type ReactNode } from "react";
 import { Icon } from "./icons.tsx";
 import { AccountMenu } from "./account-menu.tsx";
+
+function subscribeToHashChange(onChange: () => void) {
+  window.addEventListener("hashchange", onChange);
+  window.addEventListener("popstate", onChange);
+  return () => {
+    window.removeEventListener("hashchange", onChange);
+    window.removeEventListener("popstate", onChange);
+  };
+}
+
+const getHash = () => window.location.hash;
+const getServerHash = () => "";
 
 export function Brand() {
   return (
@@ -31,11 +45,25 @@ export function Workspace({
   sessionHref?: string;
 }) {
   const teacher = area === "teacher";
+  const hash = useSyncExternalStore(
+    subscribeToHashChange,
+    getHash,
+    getServerHash,
+  );
+  const overview = teacher && section === "Class overview";
+  const activeSection =
+    overview && hash === "#responses" ? "Student evidence" : section;
+  // Native section links keep scrolling, browser history, and the hash in sync.
+  const NavigationLink = teacher ? "a" : Link;
   const links = teacher
     ? [
-        { href: "/teacher", text: "Class overview", icon: "chart" as const },
         {
-          href: "/teacher#responses",
+          href: overview ? "#main-content" : "/teacher",
+          text: "Class overview",
+          icon: "chart" as const,
+        },
+        {
+          href: overview ? "#responses" : "/teacher#responses",
           text: "Student evidence",
           icon: "users" as const,
         },
@@ -49,14 +77,14 @@ export function Workspace({
   const navigation = (
     <nav aria-label="Workspace navigation" className="lp-nav">
       {links.map((link) => (
-        <Link
+        <NavigationLink
           key={link.text}
           href={link.href}
-          aria-current={section === link.text ? "page" : undefined}
+          aria-current={activeSection === link.text ? "location" : undefined}
         >
           <Icon name={link.icon} />
           {link.text}
-        </Link>
+        </NavigationLink>
       ))}
     </nav>
   );
@@ -77,10 +105,9 @@ export function Workspace({
           <div className="lp-breadcrumb">
             <span>{teacher ? "Classroom" : "Learning"}</span>
             <span aria-hidden="true">/</span>
-            <strong>{section}</strong>
+            <strong>{activeSection}</strong>
           </div>
           <div className="lp-topbar-right">
-            <span className="lp-demo-label">Hackathon demo</span>
             <AccountMenu />
           </div>
         </header>
