@@ -996,31 +996,9 @@
     flex: none;
     min-width: 0;
   }
-  .lp-dialogue-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    border-top: 1px solid var(--line);
-    padding: 16px 26px;
-    background: #fdfefd;
-  }
-  .lp-dialogue-tabs .lp-button[aria-pressed="true"] {
-    background: var(--mint);
-    border-color: var(--green);
-    color: var(--green);
-  }
   .lp-dialogue-body {
-    padding: 0 26px 24px;
-  }
-  .lp-dialogue-heading {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 20px;
-    font-size: 13px;
-    color: var(--muted);
+    padding: 16px 26px 24px;
+    border-top: 1px solid var(--line);
   }
   .lp-dialogue-turns {
     display: grid;
@@ -1070,11 +1048,8 @@
     opacity: 0.55;
   }
   @media (max-width: 640px) {
-    .lp-dialogue-tabs {
-      padding: 16px;
-    }
     .lp-dialogue-body {
-      padding: 0 16px 20px;
+      padding: 16px 16px 20px;
     }
     .lp-dialogue-turn .lp-student-message {
       margin-left: 16px;

@@ -3,45 +3,52 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { z } from "zod";
 import {
+  DIALOGUE_LIMITS,
   DisplayDialogueSchema,
-  StudentActionSchema,
   type StudentDialogueContent,
   type StudentDialogueFallback,
 } from "../../../lib/dialogue/contracts.ts";
 import {
-  StudentDialogueViewSchema,
-  type DialogueTransport,
-  type StudentDialogueView,
-} from "../../../lib/dialogue/student-view.ts";
+  ConversationActionSchema,
+  ConversationViewSchema,
+  validateConversationAction,
+  type ConversationMessage,
+  type ConversationTransport,
+} from "../../../lib/dialogue/conversation.ts";
+import type { StudentDialogueView } from "../../../lib/dialogue/student-view.ts";
 import { ReadingSection } from "../../components/reading.tsx";
 import { Icon } from "../../components/icons.tsx";
 import { StudyDialogue } from "../dialogue.tsx";
+import { recoverPreviewConversation } from "./recovery.ts";
 
 const scenarios = [
-  ["help", "Supported help"],
+  ["help", "Help request → prepared hint"],
+  ["answer", "Clear answer → example submission"],
+  ["ambiguous", "Ambiguous message → ask before routing"],
+  ["off_topic", "Off-topic → redirection"],
+  ["private_guidance", "Private guidance → safe fallback"],
   ["disabled", "Feature disabled"],
-  ["timeout", "Timeout fallback"],
-  ["provider_error", "Provider error fallback"],
+  ["timeout", "Classification timeout"],
+  ["provider_error", "Provider error"],
   ["limit_reached", "Help limit reached"],
   ["display_failure", "Display confirmation fails once"],
-  ["off_topic", "Off-topic fallback"],
-  ["private_guidance", "Private guidance fallback"],
-  ["malformed", "Malformed response"],
+  ["malformed", "Invalid classification response"],
   ["offline", "Connection failure"],
   ["delayed", "Delayed response (6 seconds)"],
 ] as const;
 const ScenarioSchema = z.enum(scenarios.map(([key]) => key));
-type Scenario = z.infer<typeof ScenarioSchema>;
 const SavedPreviewSchema = z.object({
-  view: StudentDialogueViewSchema,
+  view: ConversationViewSchema,
   scenario: ScenarioSchema,
   draft: z.string().max(12_000),
   submitted: z.string().max(12_000).nullable(),
   answers: z.int().nonnegative(),
   acknowledgements: z.int().nonnegative(),
+  helpAtSubmission: z.int().nonnegative(),
+  actions: z.array(ConversationActionSchema),
 });
 type SavedPreview = z.infer<typeof SavedPreviewSchema>;
-const storageKey = "learning-pulse:dialogue-preview:v1";
+const storageKey = "learning-pulse:conversation-preview:v2";
 type Citation = {
   passage_id: string;
   content_version: string;
@@ -65,19 +72,20 @@ type PreviewProps = {
 
 export function DialoguePreview(props: PreviewProps) {
   const initial: SavedPreview = {
-    view: props.initial,
+    view: { dialogue: structuredClone(props.initial), messages: [] },
     scenario: "help",
     draft: "",
     submitted: null,
     answers: 0,
     acknowledgements: 0,
+    helpAtSubmission: 0,
+    actions: [],
   };
   const saved = useRef(initial);
   const [snapshot, setSnapshot] = useState(initial);
   const [ready, setReady] = useState(false);
   const [mount, setMount] = useState(0);
   const [passage, setPassage] = useState<Citation | null>(null);
-  const answerInput = useRef<HTMLTextAreaElement>(null);
   const failedAcknowledgements = useRef(new Set<string>());
 
   const persist = useCallback(() => {
@@ -101,35 +109,12 @@ export function DialoguePreview(props: PreviewProps) {
         const restored = SavedPreviewSchema.safeParse(value);
         if (
           restored.success &&
-          restored.data.view.state.lesson.session_id ===
+          restored.data.view.dialogue.state.lesson.session_id ===
             props.initial.state.lesson.session_id
         ) {
           saved.current = restored.data;
-          // A refresh stops the fixture timer. Preserve the question as cancelled
-          // instead of pretending the stopped request completed in a database.
-          const cancelledFallback = props.fallbacks.find(
-            (item) => item.reason === "cancelled",
-          );
-          if (cancelledFallback) {
-            saved.current.view.turns = saved.current.view.turns.map((turn) =>
-              turn.response.status === "pending"
-                ? {
-                    ...turn,
-                    response: {
-                      status: "fallback",
-                      fallback: cancelledFallback,
-                    },
-                  }
-                : turn,
-            );
-            if (
-              !saved.current.view.turns.some(
-                (turn) => turn.response.status === "accepted",
-              )
-            )
-              saved.current.view.state.active_request_id = null;
-          }
-          setSnapshot(saved.current);
+          saved.current.view = recoverPreviewConversation(saved.current.view);
+          persist();
         }
       } catch {
         // Ignore an invalid or unavailable browser-only preview snapshot.
@@ -139,108 +124,209 @@ export function DialoguePreview(props: PreviewProps) {
     return () => {
       cancelled = true;
     };
-  }, [props.initial.state.lesson.session_id, props.fallbacks]);
+  }, [props.initial.state.lesson.session_id, persist]);
 
-  const transport = useMemo<DialogueTransport>(() => {
+  const transport = useMemo<ConversationTransport>(() => {
     const fallback = (reason: StudentDialogueFallback["reason"]) => {
       const result = props.fallbacks.find((item) => item.reason === reason);
       if (!result) throw new Error("Missing fixture fallback");
       return result;
     };
     const result = () => structuredClone(saved.current.view);
+    const answer = (message: ConversationMessage) => {
+      if (saved.current.submitted !== null)
+        throw new Error(
+          "This example question already has a submitted answer.",
+        );
+      message.outcome = {
+        status: "answer",
+        submission_key: crypto.randomUUID(),
+      };
+      saved.current.submitted = message.text;
+      saved.current.answers += 1;
+      saved.current.helpAtSubmission = saved.current.acknowledgements;
+      saved.current.view.dialogue.state.active_request_id = null;
+    };
+    const help = (message: ConversationMessage) => {
+      const current = saved.current.view.dialogue;
+      if (message.text.length > DIALOGUE_LIMITS.requestCharacters) {
+        const response = fallback("limit_reached");
+        message.outcome = {
+          status: "fallback",
+          reason: response.reason,
+          text: response.text,
+        };
+        current.state.active_request_id = null;
+        return;
+      }
+      current.turns.push({
+        request_id: message.request_id,
+        attempt_id: message.attempt_id,
+        purpose: message.purpose_hint ?? "question",
+        text: message.text,
+        response: {
+          status: "accepted",
+          accepted_event_id: crypto.randomUUID(),
+          intervention_id: crypto.randomUUID(),
+          expected_revision: current.state.revision,
+          content: { ...props.help, content_id: crypto.randomUUID() },
+          citations: props.citations,
+        },
+      });
+      message.outcome = {
+        status: "help",
+        dialogue_request_id: message.request_id,
+      };
+      current.state.active_request_id = message.request_id;
+    };
     return {
       async load() {
         return result();
       },
       async act(input) {
-        const action = StudentActionSchema.parse(input);
+        const action = ConversationActionSchema.parse(input);
         const current = saved.current.view;
-        if (action.session_id !== current.state.lesson.session_id)
-          throw new Error("This preview request belongs to another session.");
-        const replay = current.turns.find(
-          (turn) => turn.request_id === action.request_id,
+        const state = current.dialogue.state;
+        const replay = saved.current.actions.find(
+          (item) => item.request_id === action.request_id,
         );
-        if (replay) return result();
-        if (action.expected_revision !== current.state.revision)
-          throw new Error(
-            "This request is out of date. Return to your question.",
+        let blocked: "disabled" | "limit_reached" | null = null;
+        try {
+          const permitted = validateConversationAction(action, current, replay);
+          if (permitted.kind === "replay") return result();
+        } catch (error) {
+          // The shared guard has already checked activity identity, revision and pending
+          // assistance before these two availability failures. Save a fallback,
+          // never pretend classification happened or consume a provider turn.
+          if (action.action === "send_message" && error instanceof Error) {
+            if (error.message === "Intent recognition is unavailable")
+              blocked = "disabled";
+            else if (error.message === "Dialogue usage limit reached")
+              blocked = "limit_reached";
+          }
+          if (!blocked) throw error;
+        }
+        if (action.action === "cancel_message") {
+          const message = current.messages.find(
+            (item) => item.request_id === action.message_request_id,
           );
-        if (action.action === "submit_answer")
-          throw new Error("Use the separate answer form in this preview.");
-        if (action.attempt_id !== current.state.lesson.attempt_id)
-          throw new Error("This preview request belongs to another question.");
-        if (action.action === "return_to_lesson") {
-          current.turns = current.turns.map((turn) =>
-            turn.response.status === "pending" ||
-            turn.response.status === "accepted"
-              ? {
-                  ...turn,
-                  response: {
-                    status: "fallback",
-                    fallback: fallback("cancelled"),
-                  },
-                }
-              : turn,
-          );
-          current.state.active_request_id = null;
-          current.state.revision += 1;
+          if (!message) throw new Error("Missing validated preview message.");
+          message.outcome = { status: "cancelled" };
+          state.active_request_id = null;
+          state.revision += 1;
+          saved.current.actions.push(action);
           persist();
           return result();
         }
+        if (action.action === "resolve_intent") {
+          const message = current.messages.find(
+            (item) => item.request_id === action.message_request_id,
+          );
+          if (!message) throw new Error("Missing validated preview message.");
+          if (action.choice === "answer") answer(message);
+          else help(message);
+          saved.current.actions.push(action);
+          persist();
+          return result();
+        }
+        if (
+          current.messages.length >=
+          DIALOGUE_LIMITS.turnsPerSession *
+            (DIALOGUE_LIMITS.explicitRetriesPerTurn + 1)
+        )
+          throw new Error(
+            "The fixture history is full. Reset the preview to continue.",
+          );
         const scenario = saved.current.scenario;
+        if (scenario === "disabled") blocked = "disabled";
+        if (scenario === "limit_reached") blocked = "limit_reached";
+        if (blocked) {
+          const response = fallback(blocked);
+          current.messages.push({
+            request_id: action.request_id,
+            attempt_id: action.attempt_id,
+            expected_revision: action.expected_revision,
+            text: action.text,
+            ...(action.purpose_hint
+              ? { purpose_hint: action.purpose_hint }
+              : {}),
+            classification: null,
+            outcome: {
+              status: "fallback",
+              reason: response.reason,
+              text: response.text,
+            },
+          });
+          saved.current.actions.push(action);
+          persist();
+          return result();
+        }
         if (scenario === "offline")
           throw new Error(
-            "Preview connection failure. Your question is still here.",
+            "Preview connection failure. Your message is still here.",
           );
         if (scenario === "malformed") return { invalid_fixture_response: true };
-        if (current.state.active_request_id)
-          throw new Error("Another preview request is already active.");
-        const turn = {
+        const message: ConversationMessage = {
           request_id: action.request_id,
           attempt_id: action.attempt_id,
-          purpose: action.purpose,
+          expected_revision: action.expected_revision,
           text: action.text,
-          response: { status: "pending" as const },
+          ...(action.purpose_hint ? { purpose_hint: action.purpose_hint } : {}),
+          classification: null,
+          outcome: { status: "pending" },
         };
-        current.turns.push(turn);
-        current.state.active_request_id = action.request_id;
-        current.state.turns_used += 1;
+        current.messages.push(message);
+        state.active_request_id = action.request_id;
+        state.turns_used += 1;
+        saved.current.actions.push(action);
         persist();
         await new Promise((resolve) =>
           setTimeout(resolve, scenario === "delayed" ? 6_000 : 400),
         );
         const latest = saved.current.view;
-        // A returned/reset activity cancels the fixture response. It must never
-        // insert help into the newly selected activity when the timer finishes.
+        const pending = latest.messages.find(
+          (item) => item.request_id === action.request_id,
+        );
+        // Reset/cancellation invalidates the timer; never insert its result later.
         if (
-          latest.state.revision !== action.expected_revision ||
-          latest.state.active_request_id !== action.request_id
+          !pending ||
+          pending.outcome.status !== "pending" ||
+          latest.dialogue.state.revision !== action.expected_revision ||
+          latest.dialogue.state.active_request_id !== action.request_id
         )
           return result();
-        const response =
+        if (scenario === "answer") {
+          pending.classification = "ANSWER";
+          answer(pending);
+        } else if (scenario === "ambiguous") {
+          pending.classification = "AMBIGUOUS";
+          pending.outcome = { status: "clarification" };
+        } else if (
           scenario === "help" ||
           scenario === "delayed" ||
           scenario === "display_failure"
-            ? {
-                status: "accepted" as const,
-                accepted_event_id: crypto.randomUUID(),
-                intervention_id: crypto.randomUUID(),
-                expected_revision: latest.state.revision,
-                content: { ...props.help, content_id: crypto.randomUUID() },
-                citations: props.citations,
-              }
-            : { status: "fallback" as const, fallback: fallback(scenario) };
-        latest.turns = latest.turns.map((item) =>
-          item.request_id === action.request_id ? { ...item, response } : item,
-        );
-        if (response.status === "fallback")
-          latest.state.active_request_id = null;
+        ) {
+          pending.classification = "QUESTION_OR_HELP";
+          help(pending);
+        } else {
+          const response = fallback(scenario);
+          pending.classification =
+            scenario === "off_topic" || scenario === "private_guidance"
+              ? "OFF_TOPIC_OR_UNSUPPORTED"
+              : null;
+          pending.outcome = {
+            status: "fallback",
+            reason: response.reason,
+            text: response.text,
+          };
+          latest.dialogue.state.active_request_id = null;
+        }
         persist();
         return result();
       },
       async acknowledge(input) {
         const acknowledgement = DisplayDialogueSchema.parse(input);
-        const current = saved.current.view;
+        const current = saved.current.view.dialogue;
         const turn = current.turns.find(
           (item) =>
             (item.response.status === "accepted" ||
@@ -279,55 +365,73 @@ export function DialoguePreview(props: PreviewProps) {
         return result();
       },
     };
-    // Fixture props are immutable for this page; the ref is its browser-only store.
   }, [props.citations, props.fallbacks, props.help, persist]);
 
-  function reset(scenario: Scenario, clearDraft = false) {
+  function reset() {
     failedAcknowledgements.current.clear();
+    const recoveryKey = `learning-pulse:conversation-request:preview:${props.initial.state.lesson.session_id}:${props.initial.state.lesson.attempt_id}`;
+    try {
+      sessionStorage.removeItem(recoveryKey);
+      sessionStorage.removeItem(`${recoveryKey}:draft-backup`);
+    } catch {
+      // Reset still clears the in-memory fixture when storage is unavailable.
+    }
     saved.current = {
       ...initial,
-      scenario,
-      draft: clearDraft ? "" : saved.current.draft,
       view: {
-        state: {
-          ...props.initial.state,
-          enabled: scenario !== "disabled",
-          revision: saved.current.view.state.revision + 1,
+        dialogue: {
+          state: {
+            ...props.initial.state,
+            revision: saved.current.view.dialogue.state.revision + 1,
+          },
+          turns: [],
         },
-        turns: [],
+        messages: [],
       },
     };
     persist();
     setPassage(null);
     setMount((value) => value + 1);
   }
+  const unresolved =
+    snapshot.view.dialogue.state.active_request_id !== null ||
+    snapshot.view.messages.some((message) =>
+      ["pending", "clarification"].includes(message.outcome.status),
+    );
+  const lastMessage = snapshot.view.messages.at(-1);
 
   return (
     <section className="lp-conversation">
       <header className="lp-page-heading">
         <p className="lp-eyebrow">Development preview</p>
-        <h1 className="lp-title">Ask, answer, and return</h1>
+        <h1 className="lp-title">One conversation</h1>
         <p className="lp-intro">
-          A synthetic example of the student conversation. Every supported
-          request shows the same prepared hint. No AI calls, grading, or
-          database writes.
+          A fixture for the single message box. The example below chooses the
+          classification; it does not interpret your wording. No AI calls,
+          grading, or database writes.
         </p>
       </header>
       <div className="lp-notice mb-5">
-        Preview only. Drafts and example turns stay in this browser tab, not
-        your learning record. Changing scenarios clears example turns and keeps
-        your answer draft.
+        Preview only. Messages and drafts stay in this browser tab, not your
+        learning record. Change the example between messages to try a help
+        request followed by an answer. Reset clears the fixture.
       </div>
       <div className="lp-session-actions mb-5">
         <label htmlFor="preview-scenario" className="font-semibold">
-          Example response
+          Next example result
         </label>
         <select
           id="preview-scenario"
           className="lp-input w-auto"
           value={snapshot.scenario}
-          disabled={!ready}
-          onChange={(event) => reset(ScenarioSchema.parse(event.target.value))}
+          disabled={!ready || unresolved}
+          onChange={(event) => {
+            saved.current.scenario = ScenarioSchema.parse(event.target.value);
+            saved.current.view.dialogue.state.enabled =
+              saved.current.scenario !== "disabled";
+            persist();
+            setMount((value) => value + 1);
+          }}
         >
           {scenarios.map(([key, label]) => (
             <option key={key} value={key}>
@@ -335,18 +439,15 @@ export function DialoguePreview(props: PreviewProps) {
             </option>
           ))}
         </select>
-        <button
-          type="button"
-          className="lp-button"
-          onClick={() => reset("help", true)}
-        >
+        <button type="button" className="lp-button" onClick={reset}>
           Reset preview
         </button>
       </div>
       <p className="mb-5 text-sm text-slate-600">
-        Try “What do you mean by packet size?” and then “Can you explain that
-        another way?” without selecting a request type. Quick actions fill an
-        editable message; only Send sends it.
+        Try “What do you mean by packet size?” and “Can you explain that another
+        way?” with the help example. Choose the ambiguous example to try the
+        clarification choices. These controls are only for testing, not part of
+        the student interface.
       </p>
       {passage && (
         <aside className="lp-panel mb-5" aria-label="Preview source passage">
@@ -399,12 +500,6 @@ export function DialoguePreview(props: PreviewProps) {
               <h2>Question 1</h2>
               <p>{props.prompt}</p>
             </div>
-            {snapshot.submitted && (
-              <div className="lp-student-message">
-                <h3 className="lp-message-label">Your answer · Preview only</h3>
-                <p className="lp-answer">{snapshot.submitted}</p>
-              </div>
-            )}
           </article>
         </div>
         {ready ? (
@@ -413,11 +508,23 @@ export function DialoguePreview(props: PreviewProps) {
             sessionId={props.initial.state.lesson.session_id}
             attemptId={props.initial.state.lesson.attempt_id}
             disabled={snapshot.submitted !== null}
+            text={snapshot.draft}
+            onTextChange={(text) => {
+              saved.current.draft = text;
+              persist();
+            }}
+            onSubmitAnswer={async (text) => {
+              if (!text.trim() || saved.current.submitted !== null) return;
+              saved.current.submitted = text;
+              saved.current.answers += 1;
+              saved.current.helpAtSubmission = saved.current.acknowledgements;
+              persist();
+            }}
+            onLessonChanged={async () => {
+              /* The fixture result is already in this browser snapshot. */
+            }}
             transport={transport}
             preview
-            onReturn={() =>
-              requestAnimationFrame(() => answerInput.current?.focus())
-            }
             onCitation={({ passage_id }) =>
               setPassage(
                 props.citations.find(
@@ -425,49 +532,7 @@ export function DialoguePreview(props: PreviewProps) {
                 ) ?? null,
               )
             }
-          >
-            <form
-              className="lp-composer"
-              onSubmit={(event) => {
-                event.preventDefault();
-                if (!saved.current.draft.trim() || saved.current.submitted)
-                  return;
-                saved.current.submitted = saved.current.draft;
-                saved.current.answers += 1;
-                persist();
-              }}
-            >
-              <label htmlFor="preview-answer">Your answer and reasoning</label>
-              <textarea
-                id="preview-answer"
-                className="lp-input"
-                rows={4}
-                maxLength={12_000}
-                ref={answerInput}
-                value={snapshot.draft}
-                disabled={snapshot.submitted !== null}
-                onChange={(event) => {
-                  saved.current.draft = event.target.value;
-                  persist();
-                }}
-                placeholder="Write what you think, and why…"
-              />
-              <div className="lp-composer-footer">
-                <p>Only this button submits your example answer.</p>
-                <button
-                  className="lp-button lp-button-primary"
-                  disabled={
-                    !snapshot.draft.trim() || snapshot.submitted !== null
-                  }
-                >
-                  {snapshot.submitted
-                    ? "Example answer submitted"
-                    : "Submit answer"}
-                  <Icon name="send" />
-                </button>
-              </div>
-            </form>
-          </StudyDialogue>
+          />
         ) : (
           <p className="lp-composer" role="status">
             Opening the fixture preview…
@@ -476,23 +541,25 @@ export function DialoguePreview(props: PreviewProps) {
       </div>
       <p className="mt-4 text-sm text-slate-600" aria-label="Preview counters">
         Preview only: {snapshot.answers} answers submitted ·{" "}
-        {snapshot.acknowledgements} help messages acknowledged as displayed.
+        {snapshot.acknowledgements} help messages acknowledged as displayed.{" "}
+        {snapshot.answers > 0 &&
+          `${snapshot.helpAtSubmission} displayed help messages preceded the answer.`}
       </p>
       <details className="mt-3 text-sm text-slate-600">
         <summary>Fixture request details</summary>
-        {snapshot.view.turns.at(-1) ? (
+        {lastMessage ? (
           <dl className="mt-2">
-            <dt>Last request purpose</dt>
-            <dd>{snapshot.view.turns.at(-1)?.purpose}</dd>
-            <dt>Exact request text</dt>
-            <dd className="whitespace-pre-wrap">
-              {snapshot.view.turns.at(-1)?.text}
-            </dd>
-            <dt>Conversation questions</dt>
-            <dd>{snapshot.view.turns.length}</dd>
+            <dt>Fixture classification</dt>
+            <dd>{lastMessage.classification ?? "No classification"}</dd>
+            <dt>Authorized example result</dt>
+            <dd>{lastMessage.outcome.status}</dd>
+            <dt>Exact message text</dt>
+            <dd className="whitespace-pre-wrap">{lastMessage.text}</dd>
+            <dt>Conversation messages</dt>
+            <dd>{snapshot.view.messages.length}</dd>
           </dl>
         ) : (
-          <p className="mt-2">No request sent.</p>
+          <p className="mt-2">No message sent.</p>
         )}
       </details>
     </section>
