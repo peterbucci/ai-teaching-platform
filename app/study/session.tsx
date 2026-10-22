@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Icon } from "../components/icons.tsx";
 import { LearningOverview } from "./overview.tsx";
 import { SessionElapsed } from "./session-elapsed.tsx";
+import { FeedbackAudio } from "./feedback-audio.tsx";
 import type { StudentDashboard } from "../../lib/tutoring/dashboard-model.ts";
 import { assignmentStudyHref } from "../../lib/tutoring/navigation.ts";
 import {
@@ -517,6 +518,15 @@ export function StudySession({
                           <p className="mt-2 whitespace-pre-wrap leading-7">
                             {help.text_shown}
                           </p>
+                          {help.delivery_status === "displayed" && (
+                            <FeedbackAudio
+                              key={`${help.id}:${last?.id}:${view.session.status}`}
+                              source={{
+                                session_id: view.session.id,
+                                intervention_id: help.id,
+                              }}
+                            />
+                          )}
                           {view.citations
                             .filter((c) => c.intervention_id === help.id)
                             .map((citation) => (
