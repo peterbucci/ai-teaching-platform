@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
+import { z } from "zod";
 import { AuthError, requireActor } from "../../../lib/auth.ts";
 import { EvidenceError, evidenceAccess } from "../../../lib/evidence/store.ts";
 import { loadApprovedContent } from "../../../lib/evidence/content.ts";
@@ -7,6 +8,7 @@ import { teacherAssignments } from "../../../lib/teacher/store.ts";
 import { assignmentReview } from "../../../lib/assignments/store.ts";
 import { assignedReading } from "../../../lib/assignments/reading.ts";
 import { Reading } from "../../components/reading.tsx";
+import { Icon } from "../../components/icons.tsx";
 import { TeacherFrame, date } from "../presentation.tsx";
 import { ApproveAssignment } from "./approve.tsx";
 
@@ -22,7 +24,11 @@ async function load(id?: string) {
     };
   } catch (error) {
     if (error instanceof AuthError && error.status === 401) redirect("/login");
-    if (error instanceof EvidenceError && error.status === 404) notFound();
+    if (
+      error instanceof z.ZodError ||
+      (error instanceof EvidenceError && [403, 404].includes(error.status))
+    )
+      notFound();
     throw error;
   }
 }
@@ -33,83 +39,99 @@ export default async function AssignmentsPage({
 }) {
   const { assignments, selected } = await load((await searchParams).assignment);
   const content = loadApprovedContent();
+  const questions = [...content.questions.values()].filter((question) =>
+    question.question_id?.startsWith("NP-"),
+  );
   return (
     <TeacherFrame section="Assignments">
-      <div className="lp-evidence-page">
-        <h1 className="lp-title">Review an assignment</h1>
+      <header className="lp-page-heading">
+        <p className="lp-eyebrow">Prepare learning</p>
+        <h1 className="lp-title">Assignments</h1>
         <p className="lp-intro">
-          Check the reading and practice, then make them available to your
-          class.
+          Review the source, learning goals, and practice before making them
+          available to your class.
         </p>
-        {assignments.length > 1 && (
-          <nav aria-label="Assignments" className="my-6 space-y-3">
-            {assignments.map((item) => (
-              <p key={item.id}>
-                <Link
-                  className="lp-text-link"
-                  href={`/teacher/assignments?assignment=${item.id}`}
-                >
-                  {item.class_name} · {item.title}
-                </Link>
-              </p>
-            ))}
-          </nav>
-        )}
-        {selected ? (
-          <>
-            <section className="lp-panel p-6 my-6">
-              <p className="lp-eyebrow">{selected.class_name}</p>
-              <h2 className="text-xl font-semibold my-2">{selected.title}</h2>
-              {selected.teacher_approved_at ? (
-                <p role="status" className="my-4">
-                  Active for students · Approved by your teacher account on{" "}
-                  {date(selected.teacher_approved_at)}.
-                </p>
-              ) : (
-                <>
-                  <p className="my-4">
-                    Waiting for your review. The team approved this material for
-                    the hackathon; activating it records your separate classroom
-                    review.
-                  </p>
-                  <ApproveAssignment
-                    id={selected.id}
-                    token={selected.review_token}
-                  />
-                </>
-              )}
-              <p className="text-sm text-slate-600 mt-4">
-                Changes to an activated reading or its learning goals need a new
-                assignment and review. Saved student work keeps its original
-                version.
-              </p>
-            </section>
-            <section className="lp-panel p-6 my-6">
-              <h2 className="text-xl font-semibold mb-4">
-                Five learning goals
-              </h2>
-              {[...content.concepts.values()].map((concept) => (
-                <details key={concept.id} className="lp-evidence-details">
-                  <summary>{concept.title}</summary>
-                  <ul className="list-disc pl-5 my-3 space-y-2">
-                    {concept.objectives.map((objective) => (
-                      <li key={objective}>{objective}</li>
-                    ))}
-                  </ul>
-                </details>
+      </header>
+      {assignments.length > 1 && (
+        <form action="/teacher/assignments" className="lp-filter-bar">
+          <label className="lp-field">
+            Assignment and class
+            <select
+              className="lp-input"
+              name="assignment"
+              defaultValue={selected?.id}
+            >
+              {assignments.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.title} — {item.class_name}
+                </option>
               ))}
-            </section>
-            <section className="lp-panel p-6 my-6">
-              <h2 className="text-xl font-semibold mb-4">Prepared practice</h2>
-              <p className="mb-4">
-                Fifteen questions, with one complete guided sequence for
-                transmission and propagation delay.
-              </p>
-              <details className="lp-evidence-details">
-                <summary>Questions and answer guidance</summary>
-                {[...content.questions.values()]
-                  .filter((q) => q.question_id?.startsWith("NP-"))
-                  .map((question) => (
+            </select>
+          </label>
+          <button className="lp-button">Open assignment</button>
+        </form>
+      )}
+      {selected ? (
+        <>
+          <section className="lp-assignment-summary">
+            <p className="lp-eyebrow">{selected.class_name}</p>
+            <h2>{selected.title}</h2>
+            <p>
+              A versioned reading and grounded practice sequence. Students’
+              original answers, feedback, and source references stay linked to
+              this assignment.
+            </p>
+            <div className="lp-assignment-facts">
+              <span className="lp-badge">
+                {selected.teacher_approved_at
+                  ? "Active for students"
+                  : "Awaiting teacher approval"}
+              </span>
+              <span className="lp-badge lp-badge-neutral">
+                {selected.approved_concept_ids.length} learning goals
+              </span>
+              <span className="lp-badge lp-badge-neutral">
+                {selected.approved_passage_ids.length} reading passages
+              </span>
+              <span className="lp-badge lp-badge-neutral">
+                {questions.length} prepared questions
+              </span>
+            </div>
+          </section>
+          <div className="lp-assignment-layout">
+            <div className="lp-assignment-main">
+              <section id="learning-goals" className="lp-panel">
+                <p className="lp-eyebrow">01 · Learning goals</p>
+                <h2>What students will explore</h2>
+                <p className="lp-panel-description mb-4">
+                  The approved concepts for this assignment. Expand a goal to
+                  review its objectives.
+                </p>
+                {[...content.concepts.values()]
+                  .filter((concept) =>
+                    selected.approved_concept_ids.includes(concept.id),
+                  )
+                  .map((concept) => (
+                    <details key={concept.id} className="lp-evidence-details">
+                      <summary>{concept.title}</summary>
+                      <ul className="list-disc pl-5 my-3 space-y-2">
+                        {concept.objectives.map((objective) => (
+                          <li key={objective}>{objective}</li>
+                        ))}
+                      </ul>
+                    </details>
+                  ))}
+              </section>
+              <section id="prepared-practice" className="lp-panel">
+                <p className="lp-eyebrow">02 · Guided practice</p>
+                <h2>Prepared practice</h2>
+                <p className="lp-panel-description mb-4">
+                  {questions.length} prepared questions, with one complete
+                  guided sequence for transmission and propagation delay.
+                </p>
+                <details className="lp-evidence-details">
+                  <summary>Questions and answer guidance</summary>
+                  {questions.map((question) => (
                     <details
                       className="lp-evidence-details"
                       key={question.question_id}
@@ -123,37 +145,103 @@ export default async function AssignmentsPage({
                       </ul>
                     </details>
                   ))}
-              </details>
-              <details className="lp-evidence-details">
-                <summary>Guided transmission and propagation sequence</summary>
-                <p className="my-3">
-                  Initial question → clarification or diagnostic follow-up →
-                  grounded feedback → fresh retests. Only the permitted steps
-                  are used.
-                </p>
-                {content.sequence.nodes
-                  .filter((node) => node.prompt || node.feedback)
-                  .map((node) => (
-                    <div key={node.node_id} className="my-4">
-                      <h3 className="font-semibold">
-                        {node.node_id} · {node.kind.replaceAll("_", " ")}
-                      </h3>
-                      <p className="my-2">{node.prompt ?? node.feedback}</p>
-                    </div>
-                  ))}
-              </details>
-            </section>
-            <section className="lp-panel p-6 my-6">
-              <h2 className="text-xl font-semibold mb-4">Assigned reading</h2>
-              <Reading reading={assignedReading(selected.content_ref)} />
-            </section>
-          </>
-        ) : (
-          <p className="lp-panel p-6 my-6">
-            No assignments are available for this teacher account.
-          </p>
-        )}
-      </div>
+                </details>
+                <details className="lp-evidence-details">
+                  <summary>
+                    Guided transmission and propagation sequence
+                  </summary>
+                  <p className="my-3">
+                    Initial question → clarification or diagnostic follow-up →
+                    grounded feedback → fresh retests. Only the permitted steps
+                    are used.
+                  </p>
+                  {content.sequence.nodes
+                    .filter((node) => node.prompt || node.feedback)
+                    .map((node) => (
+                      <div key={node.node_id} className="my-4">
+                        <h3 className="font-semibold">
+                          {node.node_id} · {node.kind.replaceAll("_", " ")}
+                        </h3>
+                        <p className="my-2">{node.prompt ?? node.feedback}</p>
+                      </div>
+                    ))}
+                </details>
+              </section>
+              <section id="assigned-reading" className="lp-panel">
+                <p className="lp-eyebrow">03 · Approved source</p>
+                <h2>Assigned reading</h2>
+                <Reading reading={assignedReading(selected.content_ref)} />
+              </section>
+            </div>
+            <aside
+              className="lp-panel lp-assignment-sidebar"
+              aria-label="Assignment review and activation"
+            >
+              <span
+                className={`lp-badge${selected.teacher_approved_at ? "" : " lp-badge-neutral"}`}
+              >
+                {selected.teacher_approved_at
+                  ? "Active assignment"
+                  : "Review required"}
+              </span>
+              <h2>
+                {selected.teacher_approved_at
+                  ? "Ready for your class"
+                  : "Your review matters"}
+              </h2>
+              {selected.teacher_approved_at ? (
+                <>
+                  <p role="status">
+                    Approved by your teacher account on{" "}
+                    {date(selected.teacher_approved_at)}.
+                  </p>
+                  <Link
+                    href={`/teacher/insights?assignment=${selected.id}`}
+                    className="lp-button"
+                  >
+                    View learning evidence <Icon name="arrow" />
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <p>
+                    The team approved this material for the hackathon.
+                    Activating it records your separate classroom review.
+                  </p>
+                  <ApproveAssignment
+                    id={selected.id}
+                    token={selected.review_token}
+                  />
+                </>
+              )}
+              <nav
+                className="lp-assignment-review-list"
+                aria-label="Review assignment sections"
+              >
+                <a href="#learning-goals">
+                  <Icon name="check" /> Learning goals
+                </a>
+                <a href="#prepared-practice">
+                  <Icon name="chat" /> Prepared practice
+                </a>
+                <a href="#assigned-reading">
+                  <Icon name="book" /> Assigned reading
+                </a>
+              </nav>
+              <p className="mt-4">
+                Changes to an activated reading or its learning goals need a new
+                assignment and review. Saved student work keeps its original
+                version.
+              </p>
+            </aside>
+          </div>
+        </>
+      ) : (
+        <section className="lp-panel">
+          <h2>No assignments available</h2>
+          <p>No assignments are available for this teacher account.</p>
+        </section>
+      )}
     </TeacherFrame>
   );
 }

@@ -21,5 +21,5 @@ export default async function Home() {
     [actor.profileId],
   );
   const { teaches } = z.object({ teaches: z.boolean() }).parse(result.rows[0]);
-  redirect(teaches ? "/teacher" : "/study");
+  redirect(teaches ? "/teacher" : "/study/assignments");
 }

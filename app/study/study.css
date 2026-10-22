@@ -1,0 +1,298 @@
+/* The student's workspace follows the unified Learning Pulse reference. */
+.lp-study-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border: 1px solid #d5e5da;
+  background: #f0f7f2;
+  border-radius: 6px;
+  padding: 4px 8px;
+  color: #426b55;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: normal;
+}
+.lp-study-section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.lp-study-section-heading h2 {
+  font-size: 17px;
+  font-weight: 650;
+}
+.lp-study-section-heading p {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.lp-study-empty {
+  max-width: 760px;
+  padding: 36px;
+}
+.lp-study-empty h2 {
+  margin-top: 14px;
+}
+.lp-study-empty p {
+  margin: 12px 0 20px;
+  line-height: 1.8;
+  max-width: 62ch;
+  color: var(--muted);
+}
+
+.lp-study-session {
+  max-width: 1090px;
+  margin: auto;
+}
+.lp-study-session .lp-conversation-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 19px;
+}
+.lp-study-chat-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 12px 23px;
+  border-bottom: 1px solid var(--line);
+  font-size: 12px;
+  color: #4c6a59;
+}
+.lp-study-chat-toolbar > span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 650;
+}
+.lp-study-chat-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #66a381;
+}
+.lp-study-chat-dot[data-status="completed"] {
+  background: #d6ac35;
+}
+.lp-study-chat-meta {
+  color: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.lp-study-chat-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+}
+.lp-study-new-session {
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+}
+.lp-study-session .lp-turns {
+  flex: 1;
+  min-height: 260px;
+  max-height: 55vh;
+  overflow-y: auto;
+  padding: 27px 30px;
+  gap: 26px;
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
+}
+.lp-study-session .lp-question {
+  max-width: 730px;
+  padding: 17px 20px;
+  border-radius: 4px 16px 16px;
+  background: #f2f7f3;
+  font-size: 13px;
+}
+.lp-study-session .lp-question h2 {
+  font-size: 12px;
+  color: #37664b;
+  margin-bottom: 8px;
+}
+.lp-study-session .lp-question p {
+  line-height: 1.85;
+}
+.lp-study-session .lp-student-message {
+  max-width: 680px;
+  margin: 21px 0 0 auto;
+  padding-left: 48px;
+}
+.lp-study-session .lp-answer {
+  background: #e6f2e9;
+  border-color: #d9eade;
+  border-radius: 16px 4px 16px 16px;
+  font-size: 13px;
+  line-height: 1.85;
+}
+.lp-study-session .lp-citation {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--green);
+}
+.lp-study-session .lp-citation .lp-icon {
+  width: 14px;
+  height: 14px;
+}
+.lp-study-citation-version {
+  width: 100%;
+  padding-left: 20px;
+  color: var(--muted);
+  font-size: 10px;
+  overflow-wrap: anywhere;
+}
+.lp-study-session .lp-composer {
+  padding: 19px 24px;
+  background: white;
+}
+.lp-study-session .lp-composer textarea {
+  min-height: 84px;
+  max-height: 180px;
+  padding: 13px 15px;
+  border-radius: 12px;
+  background: #fafcfb;
+}
+.lp-study-session .lp-composer-footer {
+  gap: 10px;
+}
+.lp-study-session .lp-composer-footer .lp-button {
+  font-size: 12px;
+}
+.lp-study-session .lp-composer-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+.lp-study-refresh {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 10px;
+  color: var(--muted);
+  background: transparent;
+}
+.lp-study-refresh:hover:not(:disabled) {
+  color: var(--green);
+  background: var(--canvas);
+}
+.lp-study-refresh .lp-icon {
+  width: 17px;
+  height: 17px;
+}
+.lp-study-session .lp-session-actions > .lp-button {
+  font-size: 12px;
+}
+.lp-study-session .lp-study-session-state {
+  flex-basis: 100%;
+  max-width: 70ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.lp-study-journal-list {
+  margin-top: 20px;
+}
+.lp-study-journal-row {
+  display: grid;
+  grid-template-columns: 66px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 20px;
+  border-top: 1px solid var(--line);
+  padding: 24px 0;
+}
+.lp-study-journal-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 5px;
+  border-radius: 12px;
+  background: #f0f6f2;
+  color: #466d56;
+}
+.lp-study-journal-date strong {
+  font-size: 25px;
+  font-weight: 650;
+  line-height: 1.3;
+}
+.lp-study-journal-date span {
+  font-size: 10px;
+}
+.lp-study-journal-copy h3 {
+  font-size: 15px;
+  font-weight: 650;
+}
+.lp-study-journal-copy p {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 6px 0 9px;
+}
+.lp-study-journal-row .lp-button {
+  font-size: 12px;
+}
+.lp-study-journal-note {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+@media (max-width: 800px) {
+  .lp-study-session .lp-turns {
+    max-height: 58vh;
+    padding: 22px;
+  }
+}
+@media (max-width: 540px) {
+  .lp-study-session .lp-turns {
+    padding: 20px 15px;
+    max-height: 55vh;
+  }
+  .lp-study-session .lp-question,
+  .lp-study-session .lp-answer {
+    padding: 14px 16px;
+  }
+  .lp-study-session .lp-student-message {
+    padding-left: 24px;
+  }
+  .lp-study-session .lp-composer {
+    padding: 17px;
+  }
+  .lp-study-session .lp-composer-footer {
+    align-items: start;
+  }
+  .lp-study-session .lp-composer-footer p {
+    width: 100%;
+  }
+  .lp-study-chat-toolbar {
+    padding: 12px 17px;
+  }
+  .lp-study-journal-row {
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: 14px;
+  }
+  .lp-study-journal-row > .lp-button {
+    grid-column: 2;
+    justify-self: start;
+  }
+  .lp-study-empty {
+    padding: 26px;
+  }
+}

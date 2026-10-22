@@ -50,7 +50,7 @@ export function SignOutButton({ className }: { className: string }) {
   );
 }
 
-export function AccountMenu() {
+export function AccountMenu({ area }: { area?: "student" | "teacher" }) {
   const menu = useRef<HTMLDetailsElement>(null);
   const trigger = useRef<HTMLElement>(null);
   const { data } = authClient.useSession();
@@ -96,7 +96,14 @@ export function AccountMenu() {
           </span>
           <div>
             <strong>{data?.user.name || "Your account"}</strong>
-            <small>Demo account</small>
+            <small>
+              {area === "teacher"
+                ? "Teacher"
+                : area === "student"
+                  ? "Student"
+                  : "Demo"}{" "}
+              account · fictional
+            </small>
           </div>
         </div>
         <SignOutButton className="lp-account-signout" />

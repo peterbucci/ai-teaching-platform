@@ -1,376 +1,297 @@
 import Link from "next/link";
 import { Icon } from "../components/icons.tsx";
-import { notFound, redirect } from "next/navigation";
-import { z } from "zod";
-import { AuthError, requireActor } from "../../lib/auth.ts";
 import { loadApprovedContent } from "../../lib/evidence/content.ts";
-import { EvidenceError, evidenceAccess } from "../../lib/evidence/store.ts";
-import { OriginFilterSchema } from "../../lib/teacher/metrics.ts";
 import { calculatePatterns } from "../../lib/teacher/patterns.ts";
-import { Patterns } from "./patterns.tsx";
 import {
-  readAssignmentEvidence,
-  teacherAssignments,
-} from "../../lib/teacher/store.ts";
-import {
-  TeacherFrame,
-  ResultSummary,
-  date,
-  label,
-  originLabel,
-} from "./presentation.tsx";
+  loadTeacherView,
+  evidenceDescription,
+  teacherViewHref,
+  type TeacherFilters,
+} from "./data.ts";
+import { TeacherFiltersForm } from "./filters.tsx";
+import { TeacherFrame, date, originLabel } from "./presentation.tsx";
 
 export const dynamic = "force-dynamic";
-async function load(params: {
-  assignment?: string;
-  origin?: string;
-  concept?: string;
-}) {
-  try {
-    const access = evidenceAccess(await requireActor());
-    const assignments = await teacherAssignments(access);
-    const origin = OriginFilterSchema.parse(params.origin ?? "all");
-    const assignmentId = params.assignment ?? assignments[0]?.id;
-    const data = assignmentId
-      ? await readAssignmentEvidence(access, assignmentId, origin)
-      : null;
-    if (
-      params.concept &&
-      !data?.metrics.concepts.some((c) => c.concept_id === params.concept)
-    )
-      notFound();
-    return { assignments, origin, data };
-  } catch (error) {
-    if (error instanceof AuthError && error.status === 401) redirect("/login");
-    if (
-      error instanceof z.ZodError ||
-      (error instanceof EvidenceError && [403, 404].includes(error.status))
-    )
-      notFound();
-    throw error;
-  }
-}
 
 export default async function TeacherPage({
   searchParams,
 }: {
-  searchParams: Promise<{
-    assignment?: string;
-    origin?: string;
-    concept?: string;
-  }>;
+  searchParams: Promise<TeacherFilters>;
 }) {
-  const params = await searchParams;
-  const { assignments, origin, data } = await load(params);
+  const { assignments, origin, data } = await loadTeacherView(
+    await searchParams,
+  );
   if (!data)
     return (
       <TeacherFrame>
-        <h1 className="text-3xl font-semibold">No teaching assignments yet</h1>
-        <p className="mt-4">
-          This account has no class assignments to inspect. Check that you’re
-          signed in with your teacher account.
-        </p>
+        <header className="lp-page-heading">
+          <p className="lp-eyebrow">Your classroom</p>
+          <h1 className="lp-title">Class overview</h1>
+        </header>
+        <section className="lp-panel">
+          <h2>No teaching assignments yet</h2>
+          <p>This teacher account has no class assignments to inspect.</p>
+        </section>
       </TeacherFrame>
     );
   const content = loadApprovedContent();
   const { metrics } = data;
-  const href = (concept?: string) =>
-    `/teacher?${new URLSearchParams({ assignment: data.assignment_id, origin, ...(concept ? { concept } : {}) })}`;
-  const students = data.students.map((student) => ({
-    ...student,
-    sessions: data.evidence
-      .filter(
-        (e) =>
-          e.session.student_id === student.student_id &&
-          (!params.concept ||
-            e.attempts.some((a) =>
-              a.question.concept_ids.includes(params.concept!),
-            )),
-      )
-      .sort((a, b) => b.session.started_at.localeCompare(a.session.started_at)),
-  }));
-  const withSessions = students.filter(
-    (student) => student.sessions.length > 0,
+  const insights = teacherViewHref(
+    "/teacher/insights",
+    data.assignment_id,
+    origin,
   );
-  const withoutSessions = students.filter(
-    (student) => student.sessions.length === 0,
+  const directory = teacherViewHref(
+    "/teacher/students",
+    data.assignment_id,
+    origin,
   );
+  const assignment = `/teacher/assignments?assignment=${data.assignment_id}`;
+  const patterns = calculatePatterns(
+    data.students.map((s) => s.student_id),
+    new Set(data.approved_misconception_ids),
+    data.evidence,
+  );
+  const studentsWithPatterns = new Set(
+    patterns.flatMap((group) =>
+      group.students.map((student) => student.student_id),
+    ),
+  ).size;
+  const recentWork = data.evidence
+    .map((item) => ({
+      ...item,
+      submitted: item.attempts.filter((a) => a.submitted_at !== null),
+    }))
+    .filter((item) => item.submitted.length > 0)
+    .sort((a, b) =>
+      b.submitted
+        .at(-1)!
+        .submitted_at!.localeCompare(a.submitted.at(-1)!.submitted_at!),
+    )
+    .slice(0, 5);
   const assessedConcepts = metrics.concepts.filter(
     (c) => c.latest.accepted_students > 0,
   ).length;
-  const conceptResults = [...metrics.concepts].sort(
-    (a, b) =>
-      Number(b.latest.no_response < metrics.enrolled_students) -
-      Number(a.latest.no_response < metrics.enrolled_students),
-  );
-  const sourceDescription =
-    origin === "live_demo"
-      ? "Showing live test sessions from fictional student accounts."
-      : origin === "synthetic_fixture"
-        ? "Showing prepared class examples and software-test histories."
-        : "Showing live test sessions and prepared class examples together.";
-  function sessionLink({
-    session,
-    attempts,
-  }: (typeof withSessions)[number]["sessions"][number]) {
-    return (
-      <li key={session.id} className="lp-session-row">
-        <div>
-          <span
-            className={`lp-badge${session.data_origin === "synthetic_fixture" ? " lp-badge-neutral" : ""}`}
-          >
-            {originLabel(session.data_origin)}
-          </span>
-          <small>
-            {label(session.status)} ·{" "}
-            {attempts.filter((a) => a.submitted_at).length} responses ·{" "}
-            {date(session.started_at)}
-          </small>
-        </div>
-        <Link href={`/teacher/sessions/${session.id}`} className="lp-text-link">
-          Inspect session
-          <Icon name="arrow" />
-        </Link>
-      </li>
-    );
-  }
+
   return (
     <TeacherFrame>
-      <header className="lp-page-heading">
-        <h1 className="lp-title">Class overview</h1>
-        <p className="lp-intro">
-          See how students answered. Open their work for the full story.
-        </p>
+      <header className="lp-page-heading lp-teacher-title-row">
+        <div>
+          <p className="lp-eyebrow">Your classroom</p>
+          <h1 className="lp-title">Class overview</h1>
+          <p className="lp-intro">
+            Pick the next teaching action, then inspect the evidence behind it.
+          </p>
+        </div>
+        <Link className="lp-button" href={assignment}>
+          <Icon name="book" /> Review assignment
+        </Link>
       </header>
-      <form action="/teacher" className="lp-filter-bar">
-        <label className="lp-field">
-          Assignment
-          <select
-            name="assignment"
-            defaultValue={data.assignment_id}
-            className="lp-input"
-          >
-            {assignments.map((a) => (
-              <option key={a.id} value={a.id}>
-                {a.title} — {a.class_name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className="lp-field">
-          Show
-          <select name="origin" defaultValue={origin} className="lp-input">
-            <option value="all">All records</option>
-            <option value="live_demo">Live test sessions</option>
-            <option value="synthetic_fixture">Prepared class examples</option>
-          </select>
-        </label>
-        <button className="lp-button lp-button-primary">Update view</button>
-      </form>
-      <p className="lp-view-context">{sourceDescription}</p>
-      <div className="lp-panel lp-overview-summary">
-        <div>
-          <span className="lp-summary-value">
-            {metrics.participation.numerator}{" "}
-            <span>of {metrics.enrolled_students}</span>
-          </span>
-          <h2>Students answered</h2>
-          <p>{metrics.no_activity_students} without answers in this view</p>
-        </div>
-        <div>
-          <span className="lp-summary-value">
-            {assessedConcepts} <span>of {metrics.concepts.length}</span>
-          </span>
-          <h2>Concepts assessed</h2>
-          <p>Based on the latest answers</p>
-        </div>
-      </div>
-      <section className="lp-panel lp-concept-overview">
-        <div className="lp-panel-heading">
-          <h2>Results by concept</h2>
-          <span className="lp-badge lp-badge-neutral">Latest answers</span>
-        </div>
-        <p className="lp-panel-description">
-          Includes answers after help. Open a concept to compare.
-        </p>
-        <div className="lp-concept-list">
-          {conceptResults.map((c) => {
-            const result = c.latest;
-            const assessed = result.correct_rate.denominator;
-            const waiting =
-              result.pending + result.evaluation_failed + result.rejected;
-            return (
-              <details key={c.concept_id} className="lp-concept-detail">
-                <summary>
-                  <span className="lp-concept-name">
-                    {content.concepts.get(c.concept_id)?.title ?? c.concept_id}
-                  </span>
-                  <span className="lp-concept-score">
-                    {assessed > 0 ? (
-                      <>
-                        <strong>
-                          {result.correct_rate.numerator} of {assessed} correct
-                        </strong>
-                        <progress
-                          className="lp-progress"
-                          aria-label={`${content.concepts.get(c.concept_id)?.title ?? c.concept_id}: correct among assessed students`}
-                          value={result.correct_rate.numerator}
-                          max={assessed}
-                        />
-                      </>
-                    ) : (
-                      <span className="lp-unassessed">
-                        {waiting > 0
-                          ? "Awaiting a valid result"
-                          : "Not assessed"}
-                      </span>
-                    )}
-                    {result.uncertain > 0 && (
-                      <span className="lp-result-flag">
-                        {result.uncertain} uncertain
-                      </span>
-                    )}
-                    {result.pending > 0 && (
-                      <span className="lp-result-flag">
-                        {result.pending} awaiting evaluation
-                      </span>
-                    )}
-                    {result.evaluation_failed > 0 && (
-                      <span className="lp-result-flag">
-                        {result.evaluation_failed} evaluation failed
-                      </span>
-                    )}
-                    {result.rejected > 0 && (
-                      <span className="lp-result-flag">
-                        {result.rejected} evaluation rejected
-                      </span>
-                    )}
-                  </span>
-                  <span className="lp-expand-icon" aria-hidden="true">
-                    +
-                  </span>
-                </summary>
-                <div className="lp-concept-breakdown">
-                  <h3>Latest answers</h3>
-                  <ResultSummary results={result} />
-                  {c.repeated_difficulty.denominator > 0 && (
-                    <p className="lp-result-note">
-                      {c.repeated_difficulty.numerator} of{" "}
-                      {c.repeated_difficulty.denominator} assessed students had
-                      repeated partial or incorrect answers.
-                    </p>
-                  )}
-                  <div className="lp-comparison-grid">
-                    {(
-                      [
-                        ["Without help", c.independent],
-                        ["After help", c.content_assisted],
-                        ["Immediate retest", c.immediate_retest],
-                        ["Later review", c.delayed_review],
-                      ] as const
-                    ).map(([name, result]) => (
-                      <section key={name}>
-                        <h4>{name}</h4>
-                        <ResultSummary results={result} />
-                      </section>
-                    ))}
-                  </div>
-                  <a
-                    href={href(c.concept_id) + "#responses"}
-                    className="lp-text-link"
-                  >
-                    See student responses
-                    <Icon name="arrow" />
-                  </a>
-                </div>
-              </details>
-            );
-          })}
-        </div>
-        <details className="lp-results-help">
-          <summary>How to read these results</summary>
-          <p>
-            Each concept uses the latest submitted answer per student. “Correct”
-            is out of students with an assessed answer, including uncertain
-            results. Pending, failed, and rejected evaluations are listed
-            separately. Missing answers are not incorrect answers.
-          </p>
-          <p>
-            Answers after help and immediate retests do not establish lasting
-            understanding. Later reviews in prepared examples are illustrative.
-          </p>
-          <p>
-            This view includes {metrics.origins.live_demo} students with live
-            test responses and {metrics.origins.synthetic_fixture} with prepared
-            histories. These groups can overlap. Prepared histories are invented
-            or replayed examples, not measured learning outcomes.
-          </p>
-        </details>
-      </section>
-      <Patterns
-        groups={calculatePatterns(
-          data.students.map((s) => s.student_id),
-          new Set(data.approved_misconception_ids),
-          data.evidence,
-        )}
-        students={data.students}
-        content={content}
+      <TeacherFiltersForm
+        action="/teacher"
+        assignments={assignments}
+        assignment={data.assignment_id}
+        origin={origin}
       />
-      <section id="responses" className="lp-panel lp-responses">
-        <h2>Responses behind the overview</h2>
-        <p className="lp-panel-description mb-5">
-          {params.concept
-            ? `Showing ${content.concepts.get(params.concept)?.title ?? params.concept}. `
-            : "Open a session to see the student's answers and feedback. "}
-          {params.concept && (
-            <a href={href() + "#responses"} className="underline">
-              Show all concepts
-            </a>
-          )}
-        </p>
-        {withSessions.length === 0 && (
-          <p className="lp-empty-results">No sessions in this view yet.</p>
-        )}
-        <ul>
-          {withSessions.map((student) => (
-            <li key={student.student_id} className="lp-student-row">
-              <h3 className="lp-student-name">
-                <span className="lp-avatar" aria-hidden="true">
-                  {student.display_name
-                    .split(/\s+/)
-                    .map((part) => part[0])
-                    .slice(0, 2)
-                    .join("")}
-                </span>
-                <span>{student.display_name}</span>
-              </h3>
-              <div>
-                <ul>{sessionLink(student.sessions[0])}</ul>
-                {student.sessions.length > 1 && (
-                  <details className="lp-previous-sessions">
-                    <summary>
-                      {student.sessions.length - 1} earlier sessions
-                    </summary>
-                    <ul>{student.sessions.slice(1).map(sessionLink)}</ul>
-                  </details>
-                )}
-              </div>
-            </li>
-          ))}
-        </ul>
-        {withoutSessions.length > 0 && (
-          <details className="lp-results-help">
-            <summary>
-              {withoutSessions.length} students without sessions in this view
-            </summary>
-            <ul className="lp-no-sessions">
-              {withoutSessions.map((student) => (
-                <li key={student.student_id}>{student.display_name}</li>
-              ))}
-            </ul>
-          </details>
-        )}
+      <div className="lp-teacher-context">
+        <strong>{data.class_name}</strong>
+        <span>{data.title}</span>
+        <span className="lp-badge lp-badge-neutral">
+          {origin === "all"
+            ? "Mixed demo evidence"
+            : origin === "live_demo"
+              ? "Live demo evidence"
+              : "Synthetic histories"}
+        </span>
+      </div>
+      <section
+        className="lp-teacher-focus"
+        aria-labelledby="teacher-focus-title"
+      >
+        <div className="lp-teacher-section-heading">
+          <div>
+            <p className="lp-eyebrow">Start here</p>
+            <h2 id="teacher-focus-title">What needs your attention</h2>
+          </div>
+        </div>
+        <div className="lp-teacher-task-grid">
+          <article className="lp-teacher-task lp-teacher-task-highlight">
+            <p className="lp-eyebrow">Review student reasoning</p>
+            <h3>
+              {patterns.length
+                ? "What do students’ explanations tell us?"
+                : "Start with the student evidence"}
+            </h3>
+            <p>
+              {patterns.length
+                ? `${studentsWithPatterns} distinct students have recorded evidence across ${patterns.length} possible reasoning patterns. Read their explanations before deciding what to revisit.`
+                : "No possible patterns are recorded in this view yet. Look at individual responses and feedback as students work through the assignment."}
+            </p>
+            <div className="lp-teacher-task-footer">
+              <span>Observations to inspect, not fixed student labels</span>
+              <Link
+                href={`${insights}#${patterns.length ? "patterns" : "responses"}`}
+                className="lp-text-link"
+              >
+                Review explanations <Icon name="arrow" />
+              </Link>
+            </div>
+          </article>
+          <article className="lp-teacher-task">
+            <p className="lp-eyebrow">Prepare learning</p>
+            <h3>{data.title}</h3>
+            <p>
+              Review the assigned reading, learning goals, and prepared
+              practice. Your classroom approval controls when students can
+              begin.
+            </p>
+            <div className="lp-teacher-task-footer">
+              <Link className="lp-text-link" href={assignment}>
+                Review assignment <Icon name="arrow" />
+              </Link>
+            </div>
+          </article>
+        </div>
       </section>
+      <section
+        className="lp-panel lp-teacher-snapshot"
+        aria-labelledby="snapshot-title"
+      >
+        <div className="lp-teacher-section-heading">
+          <div>
+            <p className="lp-eyebrow">At a glance</p>
+            <h2 id="snapshot-title">Your class, in context</h2>
+            <p>Use the learning evidence to decide where to look next.</p>
+          </div>
+          <Link className="lp-text-link" href={insights}>
+            Explore learning insights <Icon name="arrow" />
+          </Link>
+        </div>
+        <div className="lp-teacher-stat-strip">
+          <div>
+            <span className="lp-teacher-stat-icon">
+              <Icon name="users" />
+            </span>
+            <div>
+              <strong>
+                {metrics.participation.numerator}{" "}
+                <small>of {metrics.enrolled_students}</small>
+              </strong>
+              <span>Students with submitted answers</span>
+            </div>
+          </div>
+          <div>
+            <span className="lp-teacher-stat-icon">
+              <Icon name="book" />
+            </span>
+            <div>
+              <strong>
+                {assessedConcepts} <small>of {metrics.concepts.length}</small>
+              </strong>
+              <span>Concepts with assessed answers</span>
+            </div>
+          </div>
+        </div>
+        <div className="lp-teacher-snapshot-columns">
+          <section>
+            <h3>Latest concept results</h3>
+            <p className="lp-panel-description">
+              Correct among assessed students; includes answers after help.
+            </p>
+            <div className="lp-teacher-concept-list">
+              {metrics.concepts.map((concept) => (
+                <Link
+                  key={concept.concept_id}
+                  className="lp-teacher-concept-link"
+                  href={`${insights}&concept=${encodeURIComponent(concept.concept_id)}#concept-${concept.concept_id}`}
+                >
+                  <div>
+                    <strong>
+                      {content.concepts.get(concept.concept_id)?.title ??
+                        concept.concept_id}
+                    </strong>
+                    <small>
+                      {concept.latest.correct_rate.denominator
+                        ? `${concept.latest.correct_rate.numerator} of ${concept.latest.correct_rate.denominator} correct · ${concept.latest.uncertain} uncertain`
+                        : "No assessed answers yet"}
+                    </small>
+                    {concept.latest.correct_rate.denominator > 0 && (
+                      <progress
+                        className="lp-progress"
+                        aria-label={`${content.concepts.get(concept.concept_id)?.title ?? concept.concept_id}: correct among assessed students`}
+                        max={concept.latest.correct_rate.denominator}
+                        value={concept.latest.correct_rate.numerator}
+                      />
+                    )}
+                  </div>
+                  <Icon name="arrow" />
+                </Link>
+              ))}
+            </div>
+          </section>
+          <section>
+            <h3>Recent student work</h3>
+            <p className="lp-panel-description">
+              Open a session to read the original responses and feedback.
+            </p>
+            {recentWork.length ? (
+              <ul className="lp-teacher-recent-list">
+                {recentWork.map(({ session, submitted }) => {
+                  const student = data.students.find(
+                    (s) => s.student_id === session.student_id,
+                  );
+                  const name = student?.display_name ?? "Enrolled student";
+                  return (
+                    <li key={session.id}>
+                      <Link
+                        className="lp-teacher-work-link"
+                        href={`/teacher/sessions/${session.id}`}
+                      >
+                        <span className="lp-avatar" aria-hidden="true">
+                          {name
+                            .split(/\s+/)
+                            .map((part) => part[0])
+                            .slice(0, 2)
+                            .join("")}
+                        </span>
+                        <span>
+                          <strong>{name}</strong>
+                          <small>
+                            {submitted.length} responses ·{" "}
+                            {originLabel(session.data_origin)}
+                          </small>
+                          <small>{date(submitted.at(-1)!.submitted_at!)}</small>
+                        </span>
+                        <Icon name="arrow" />
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <p className="lp-empty-results">
+                No submitted responses in this view yet.
+              </p>
+            )}
+            <Link
+              className="lp-text-link lp-teacher-directory-link"
+              href={directory}
+            >
+              View students <Icon name="arrow" />
+            </Link>
+          </section>
+        </div>
+        <p className="lp-teacher-snapshot-note">
+          {evidenceDescription(origin)} {metrics.no_activity_students} students
+          have no submitted answers in this view. Missing answers are not
+          incorrect answers.
+        </p>
+      </section>
+      <p className="lp-teacher-footnote">
+        Immediate success after feedback does not establish lasting
+        understanding. Prepared histories are illustrative, not measured
+        classroom outcomes.
+      </p>
     </TeacherFrame>
   );
 }
