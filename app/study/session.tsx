@@ -114,7 +114,7 @@ export function StudySession({
     .filter((i) => i.type !== "reading")
     .at(-1)?.id;
   const assignment = lessons.find(
-    (lesson) => lesson.session?.id === view?.session.id,
+    (lesson) => lesson.id === view?.session.assignment_id,
   );
   const refresh = useCallback(async (sessionId: string) => {
     const updated = TutorViewSchema.parse(
@@ -264,13 +264,18 @@ export function StudySession({
       cancelled = true;
     };
   }, [pendingHelp, sessionId, refresh, displayRetry]);
-  async function start(id: string) {
+  async function start(id: string, afterSessionId?: string) {
     await perform(async () => {
       const updated = TutorViewSchema.parse(
-        await request("/api/tutoring", { assignment_id: id }),
+        await request("/api/tutoring", {
+          assignment_id: id,
+          ...(afterSessionId ? { after_session_id: afterSessionId } : {}),
+        }),
       );
       setView(updated);
-      router.replace(`/study?session=${updated.session.id}`);
+      const href = `/study?session=${updated.session.id}`;
+      if (afterSessionId) router.push(href);
+      else router.replace(href);
     });
   }
   async function evaluate(retry = false) {
@@ -668,7 +673,19 @@ export function StudySession({
                   answer after help shows today’s progress; later practice helps
                   check what sticks.
                 </p>
-                <Link href="/study" className="lp-button lp-button-primary">
+                <p>Starting again keeps this session and its feedback saved.</p>
+                <button
+                  type="button"
+                  className={button}
+                  disabled={busy || readingBusy || Boolean(pendingReading)}
+                  onClick={() =>
+                    void start(view.session.assignment_id, view.session.id)
+                  }
+                >
+                  {busy ? "Opening practice…" : "Start a new practice session"}
+                  <Icon name="arrow" />
+                </button>
+                <Link href="/study" className="lp-button">
                   Back to your assignments <Icon name="arrow" />
                 </Link>
               </section>

@@ -10,6 +10,9 @@ export const AssignedLessonSchema = z.strictObject({
 export type AssignedLesson = z.infer<typeof AssignedLessonSchema>;
 
 export const TutorViewSchema = StudentSessionViewSchema.extend({
+  session: StudentSessionViewSchema.shape.session.extend({
+    assignment_id: z.uuid(),
+  }),
   pending_reading: z
     .object({ intervention_id: z.uuid(), passage_id: z.string() })
     .nullable(),

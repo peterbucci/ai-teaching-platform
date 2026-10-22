@@ -88,6 +88,11 @@ export async function tutorView(access: EvidenceAccess, sessionId: string) {
   const content = loadApprovedContent();
   return TutorViewSchema.parse({
     ...toStudentSessionView(evidence),
+    session: {
+      id: evidence.session.id,
+      status: evidence.session.status,
+      assignment_id: evidence.session.assignment_id,
+    },
     pending_reading: (() => {
       const pending = evidence.interventions.find(
         (item) => item.type === "reading" && item.delivery_status === "created",
@@ -148,13 +153,15 @@ export async function tutorView(access: EvidenceAccess, sessionId: string) {
   });
 }
 
-/** Resume is idempotent for the seeded assignment. A completed episode remains
- * readable; future scheduled practice is a distinct workflow, not an implicit reset. */
+/** Ordinary start resumes the latest session. Explicit practice after completion
+ * creates a separate session; repeat/stale requests reopen the latest one. */
 export async function startTutoring(
   access: EvidenceAccess,
   assignmentId: string,
+  afterSessionId?: string,
 ) {
   z.uuid().parse(assignmentId);
+  if (afterSessionId !== undefined) z.uuid().parse(afterSessionId);
   const sessionId = await transaction(async (client) => {
     await client.query("SELECT pg_advisory_xact_lock(hashtextextended($1,0))", [
       `start-tutor:${access.actor.profileId}:${assignmentId}`,
@@ -180,21 +187,48 @@ export async function startTutoring(
         409,
         "Your teacher needs to activate this assignment first. Your previous work is still saved.",
       );
+    let origin: "live_demo" | "synthetic_fixture" = "live_demo";
+    if (afterSessionId) {
+      const previous = await sessionEvidence(
+        client,
+        access,
+        afterSessionId,
+        "student",
+        true,
+      );
+      if (previous.session.assignment_id !== assignmentId)
+        throw new EvidenceError(404, "Session not found for this assignment.");
+      if (
+        !["completed", "unevaluated"].includes(previous.session.status) ||
+        previous.interventions.some(
+          (help) =>
+            help.type !== "reading" && help.delivery_status === "created",
+        )
+      )
+        throw new EvidenceError(
+          409,
+          "Finish the current session and read its feedback before starting new practice.",
+        );
+      origin = previous.session.data_origin;
+    }
     const existing = await client.query(
-      "SELECT id FROM sessions WHERE assignment_id=$1 AND student_id=$2 AND data_origin='live_demo' ORDER BY started_at DESC,id DESC LIMIT 1",
-      [assignmentId, access.actor.profileId],
+      "SELECT id FROM sessions WHERE assignment_id=$1 AND student_id=$2 AND data_origin=$3 ORDER BY started_at DESC,id DESC LIMIT 1",
+      [assignmentId, access.actor.profileId, origin],
     );
+    const latestId = existing.rows[0]
+      ? z.object({ id: z.uuid() }).parse(existing.rows[0]).id
+      : null;
     let id: string;
-    if (existing.rows[0])
-      id = z.object({ id: z.uuid() }).parse(existing.rows[0]).id;
+    if (latestId && latestId !== afterSessionId) id = latestId;
     else {
       const row = await client.query(
-        "INSERT INTO sessions(id,student_id,assignment_id,class_id,data_origin) VALUES($1,$2,$3,$4,'live_demo') RETURNING *",
+        "INSERT INTO sessions(id,student_id,assignment_id,class_id,data_origin) VALUES($1,$2,$3,$4,$5) RETURNING *",
         [
           randomUUID(),
           access.actor.profileId,
           assignmentId,
           assignment.class_id,
+          origin,
         ],
       );
       id = SessionSchema.parse(evidenceRow(row.rows[0])).id;

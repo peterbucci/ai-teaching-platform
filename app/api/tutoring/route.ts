@@ -12,11 +12,15 @@ export async function GET() {
 export async function POST(request: Request) {
   return apiResponse(async () => {
     const input = z
-      .strictObject({ assignment_id: z.uuid() })
+      .strictObject({
+        assignment_id: z.uuid(),
+        after_session_id: z.uuid().optional(),
+      })
       .parse(await requestBody(request));
     return startTutoring(
       evidenceAccess(await requireActor()),
       input.assignment_id,
+      input.after_session_id,
     );
   });
 }
