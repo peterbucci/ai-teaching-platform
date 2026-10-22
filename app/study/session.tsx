@@ -1,9 +1,12 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Icon } from "../components/icons.tsx";
-import { StudentReading } from "./reading.tsx";
+import { LearningOverview } from "./overview.tsx";
+import { SessionElapsed } from "./session-elapsed.tsx";
+import type { StudentDashboard } from "../../lib/tutoring/dashboard-model.ts";
+import { assignmentStudyHref } from "../../lib/tutoring/navigation.ts";
 import {
   TutorViewSchema,
   type AssignedLesson,
@@ -11,15 +14,21 @@ import {
 } from "../../lib/tutoring/contracts.ts";
 
 const button = "lp-button lp-button-primary";
+// Keep drafts across same-tab reader navigation even if browser storage is blocked.
+// Restoration still requires the exact attempt returned by the authorized server.
+const draftMemory = new Map<string, string>();
 // Some browsers disable tab storage. That must never prevent an answer being sent.
-function saveDraft(attempt: string, value: unknown | null) {
+function saveDraft(
+  attempt: string,
+  value: { key: string; response: string; locked?: boolean } | null,
+) {
+  const serialized = value === null ? null : JSON.stringify(value);
+  if (serialized === null) draftMemory.delete(attempt);
+  else draftMemory.set(attempt, serialized);
   try {
-    if (value === null) sessionStorage.removeItem(`learning-pulse:${attempt}`);
-    else
-      sessionStorage.setItem(
-        `learning-pulse:${attempt}`,
-        JSON.stringify(value),
-      );
+    if (serialized === null)
+      sessionStorage.removeItem(`learning-pulse:${attempt}`);
+    else sessionStorage.setItem(`learning-pulse:${attempt}`, serialized);
   } catch {
     // The in-memory submission key still protects retries in this tab.
   }
@@ -56,49 +65,46 @@ async function request(path: string, body?: unknown): Promise<unknown> {
 export function StudySession({
   lessons,
   initial,
-  topics,
+  initialTitle,
+  dashboard,
+  assignmentId,
 }: {
   lessons: AssignedLesson[];
   initial: TutorView | null;
-  topics: { id: string; title: string }[];
+  initialTitle?: string;
+  dashboard: StudentDashboard;
+  /** Existing session UI embedded in its authorized assignment detail page. */
+  assignmentId?: string;
 }) {
   const router = useRouter();
+  const wantsReading = useSearchParams().get("reading") === "1";
   const [view, setView] = useState(initial);
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
+  const [startingNew, setStartingNew] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const [locked, setLocked] = useState(false);
   const [displayRetry, setDisplayRetry] = useState(0);
   const [error, setError] = useState<string | null>(null);
-  const [readingBusy, setReadingBusy] = useState(false);
   const currentStep = useRef<HTMLHeadingElement>(null);
   const feedbackStep = useRef<HTMLHeadingElement>(null);
   const focusedAttempt = useRef<string | null>(null);
-  const completion = useRef<HTMLHeadingElement>(null);
-  const [readingRequest, setReadingRequest] = useState<{
-    passage: string;
-    citation?: string;
-    key: number;
-  } | null>(null);
   const pendingReading = view?.pending_reading;
   const restoredReading = useRef<string | null>(null);
   useEffect(() => {
     const id = view?.session.id;
-    if (!id || restoredReading.current === id) return;
-    restoredReading.current = id;
+    if (!id) return;
     const passage = window.location.hash.slice(1);
-    if (!pendingReading && /^P\d+$/.test(passage))
-      queueMicrotask(() => setReadingRequest({ passage, key: Date.now() }));
-  }, [view?.session.id, pendingReading]);
-  // On refresh, finish displaying an interrupted passage before accepting an answer.
-  useEffect(() => {
-    if (!pendingReading) return;
-    queueMicrotask(() =>
-      setReadingRequest({
-        passage: pendingReading.passage_id,
-        key: Date.now(),
-      }),
-    );
-  }, [pendingReading]);
+    // Preserve old saved reader links without restoring the retired sidebar.
+    if (/^P\d+$/.test(passage) || wantsReading) {
+      const query = new URLSearchParams({ session: id, from: "study" });
+      if (/^P\d+$/.test(passage)) query.set("passage", passage);
+      const destination = `/study/reading?${query}`;
+      if (restoredReading.current === destination) return;
+      restoredReading.current = destination;
+      router.replace(destination);
+    }
+  }, [view?.session.id, wantsReading, router]);
   const busyRef = useRef(false);
   const submission = useRef<{
     attempt: string;
@@ -109,6 +115,10 @@ export function StudySession({
   const lastId = last?.id;
   const submittedAt = last?.submitted_at;
   const phase = view?.progress.phase;
+  const progressMessage =
+    view?.session.status === "pending_evaluation"
+      ? "Your answer is saved and evaluation is pending. Refresh saved progress in a moment."
+      : view?.progress.message;
   const latestFeedback = view?.interventions
     .filter((i) => i.type !== "reading")
     .at(-1)?.id;
@@ -136,13 +146,25 @@ export function StudySession({
       setBusy(false);
     }
   }
+  async function refreshProgress() {
+    if (!view) return;
+    await perform(async () => {
+      setRefreshing(true);
+      try {
+        await refresh(view.session.id);
+        setDisplayRetry((value) => value + 1);
+      } finally {
+        setRefreshing(false);
+      }
+    });
+  }
   useEffect(() => {
     if (!lastId || submittedAt) return;
     submission.current = null;
     queueMicrotask(() => setLocked(false));
-    let stored: string | null = null;
+    let stored = draftMemory.get(lastId) ?? null;
     try {
-      stored = sessionStorage.getItem(`learning-pulse:${lastId}`);
+      stored ??= sessionStorage.getItem(`learning-pulse:${lastId}`);
     } catch {
       /* Sending answers still works when tab storage is unavailable. */
     }
@@ -186,7 +208,7 @@ export function StudySession({
   const sessionId = view?.session.id;
   const retryAfter = view?.progress.retry_after;
   // Only read progress: refresh/resume never starts or retries a paid evaluation.
-  // Bound background checks, then leave the explicit Check saved progress control.
+  // Bound background checks, then leave the explicit refresh control.
   useEffect(() => {
     if (!sessionId || busy || (phase !== "evaluate" && phase !== "failed"))
       return;
@@ -211,7 +233,7 @@ export function StudySession({
       } catch {
         if (!cancelled)
           setError(
-            "We couldn’t refresh your saved progress. Check your connection, then choose Check saved progress.",
+            "We couldn’t refresh your saved progress. Check your connection, then use the refresh button.",
           );
       }
     }
@@ -237,7 +259,7 @@ export function StudySession({
       phase === "feedback"
         ? feedbackStep.current
         : phase === "completed"
-          ? completion.current
+          ? (feedbackStep.current ?? currentStep.current)
           : currentStep.current;
     target?.focus({ preventScroll: true });
     target?.scrollIntoView({ block: "nearest" });
@@ -255,7 +277,7 @@ export function StudySession({
       } catch {
         if (!cancelled)
           setError(
-            "The feedback is visible, but we couldn’t confirm it was shown. Check progress before continuing.",
+            "The feedback is visible, but we couldn’t confirm it was shown. Refresh saved progress before continuing.",
           );
       }
     })();
@@ -268,8 +290,8 @@ export function StudySession({
       const updated = TutorViewSchema.parse(
         await request("/api/tutoring", { assignment_id: id }),
       );
-      setView(updated);
-      router.replace(`/study?session=${updated.session.id}`);
+      router.push(assignmentStudyHref(id, updated.session.id));
+      router.refresh();
     });
   }
   async function evaluate(retry = false) {
@@ -285,6 +307,22 @@ export function StudySession({
           }),
         ),
       );
+    });
+  }
+  async function startNewSession() {
+    if (!assignmentId || view?.session.status !== "completed") return;
+    await perform(async () => {
+      setStartingNew(true);
+      try {
+        const updated = TutorViewSchema.parse(
+          await request(`/api/tutoring/${view.session.id}/restart`, {}),
+        );
+        setView(updated);
+        router.push(assignmentStudyHref(assignmentId, updated.session.id));
+        router.refresh();
+      } finally {
+        setStartingNew(false);
+      }
     });
   }
   async function answer(event: React.FormEvent<HTMLFormElement>) {
@@ -318,48 +356,45 @@ export function StudySession({
       );
     });
   }
+  const refreshButton = (
+    <button
+      type="button"
+      className="lp-study-refresh"
+      disabled={busy}
+      aria-label="Refresh saved progress"
+      title="Refresh saved progress"
+      onClick={() => void refreshProgress()}
+    >
+      <Icon name="refresh" />
+    </button>
+  );
   return (
-    <section className={view ? "lp-conversation" : ""}>
-      <header className="lp-page-heading">
-        {view ? (
-          <Link href="/study" className="lp-text-link mb-3">
-            <Icon name="back" />
-            Back to your assignments
-          </Link>
-        ) : (
-          <p className="lp-eyebrow">Your learning</p>
-        )}
-        <h1 className="lp-title">
-          {view
-            ? (assignment?.title ?? "Your study session")
-            : "Make room for a little discovery."}
-        </h1>
-        <p className="lp-intro">
-          {view
-            ? "Take your time. Explain your thinking, and we’ll work through the next step together."
-            : "Work through your assigned lesson with support, one question at a time."}
-        </p>
-        <p className="mt-2 text-xs text-slate-600">
-          Fictional student demo · Team-approved networking lesson
-        </p>
-        {view && (
-          <div className="lp-session-actions">
-            <button
-              type="button"
-              className="lp-button"
-              disabled={busy || readingBusy}
-              onClick={() =>
-                setReadingRequest({ passage: "", key: Date.now() })
-              }
-            >
-              <Icon name="book" /> Assigned reading
-            </button>
-            <a href="#conversation" className="lp-text-link">
-              Your saved conversation
-            </a>
+    <section
+      className={
+        view
+          ? `lp-study-session${assignmentId ? " lp-study-embedded" : ""}`
+          : "lp-study-home lp-s-dashboard"
+      }
+    >
+      {!assignmentId && (
+        <header className="lp-page-heading">
+          <div>
+            <p className="lp-eyebrow">
+              {view ? "AI Study Session" : "My learning"}
+            </p>
+            <h1 className="lp-title">
+              {view
+                ? (assignment?.title ?? initialTitle ?? "Your study session")
+                : `Welcome back, ${dashboard.displayName.trim().split(/\s+/)[0]}.`}
+            </h1>
+            <p className="lp-intro">
+              {view
+                ? "Explain your thinking, one question at a time."
+                : "Your current work, what is next, and support from your instructor."}
+            </p>
           </div>
-        )}
-      </header>
+        </header>
+      )}
       {error && (
         <div role="alert" className="lp-notice lp-notice-warning mb-5">
           {error}{" "}
@@ -369,125 +404,52 @@ export function StudySession({
         </div>
       )}
       {!view ? (
-        <>
-          {lessons.length === 0 && (
-            <p className="lp-panel">
-              No assignments are active for this account yet. Ask your teacher
-              to review and activate the prepared lesson.
-            </p>
-          )}
-          <div className="lp-study-grid">
-            <div className="space-y-5">
-              {lessons.map((lesson) => (
-                <article key={lesson.id} className="lp-panel lp-lesson-hero">
-                  <span className="lp-eyebrow">Your assignment</span>
-                  <h2>{lesson.title}</h2>
-                  <p className="text-slate-600">
-                    Explore how networks move information. Share your reasoning,
-                    get helpful feedback, and try a fresh question.
-                  </p>
-                  <p className="my-3 text-sm text-slate-600">
-                    {lesson.approval_label}
-                  </p>
-                  <p className="my-3 text-sm font-medium">
-                    {lesson.session
-                      ? lesson.session.status === "active"
-                        ? "In progress · Your work is saved"
-                        : "Session saved · Review your conversation"
-                      : "Ready when you are"}
-                  </p>
-                  <button
-                    type="button"
-                    className={button}
-                    disabled={busy}
-                    onClick={() => void start(lesson.id)}
-                  >
-                    {busy
-                      ? "Opening…"
-                      : !lesson.session
-                        ? "Start session"
-                        : lesson.session.status === "active"
-                          ? "Continue session"
-                          : "View saved session"}
-                    <Icon name="arrow" />
-                  </button>
-                </article>
-              ))}
-              {lessons.length > 0 && (
-                <div className="lp-panel lp-learning-note">
-                  <span className="lp-avatar">
-                    <Icon name="clock" />
-                  </span>
-                  <div>
-                    <h2>Pick up where you left off</h2>
-                    <p>
-                      Your submitted answers and feedback are saved. Return here
-                      any time to continue your session or read it again.
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
-            {topics.length > 0 && (
-              <aside className="lp-panel">
-                <h2>Topics in this lesson</h2>
-                <p className="lp-panel-description">
-                  Five ideas behind network performance.
-                </p>
-                <ul className="lp-topic-list">
-                  {topics.map((topic) => (
-                    <li className="lp-topic" key={topic.id}>
-                      <span className="lp-avatar">
-                        <Icon name="book" />
-                      </span>
-                      {topic.title}
-                    </li>
-                  ))}
-                </ul>
-              </aside>
-            )}
-          </div>
-        </>
+        <LearningOverview dashboard={dashboard} busy={busy} onStart={start} />
       ) : (
         <>
-          <div
-            role="status"
-            aria-live="polite"
-            className="lp-notice lp-tutor-status"
-          >
-            {busy
-              ? "Saving and checking your answer… You can return to this session if you need to leave."
-              : view.progress.message}
+          <div role="status" aria-live="polite" className="sr-only">
+            {startingNew
+              ? "Opening your new session…"
+              : refreshing
+                ? "Refreshing saved progress…"
+                : busy
+                  ? "Saving and checking your answer… You can return to this session if you need to leave."
+                  : progressMessage}
           </div>
-          <StudentReading
-            sessionId={view.session.id}
-            requested={readingRequest}
-            onBusy={setReadingBusy}
-            onSelect={(passage) => {
-              if (!readingBusy) setReadingRequest({ passage, key: Date.now() });
-            }}
-            onDisplayed={async () => {
-              await refresh(view.session.id);
-            }}
-            onReturn={() => {
-              setReadingRequest(null);
-              window.history.replaceState(
-                null,
-                "",
-                window.location.pathname + window.location.search,
-              );
-              const target = currentStep.current ?? completion.current;
-              target?.focus({ preventScroll: true });
-              target?.scrollIntoView({ block: "nearest" });
-            }}
-          />
           <div id="conversation" className="lp-panel lp-conversation-card">
-            <div className="lp-conversation-heading">
-              Your conversation · Submitted answers are saved
+            <div className="lp-study-chat-toolbar">
+              <span>
+                <span
+                  className="lp-study-chat-dot"
+                  data-status={view.session.status}
+                  aria-hidden="true"
+                />{" "}
+                {view.session.status === "completed"
+                  ? "Completed"
+                  : "In progress"}
+              </span>
+              <div className="lp-study-chat-controls">
+                {assignmentId && view.session.status === "completed" && (
+                  <button
+                    type="button"
+                    className="lp-text-link lp-study-new-session"
+                    disabled={busy}
+                    onClick={() => void startNewSession()}
+                  >
+                    {startingNew ? "Opening session…" : "Start new session"}
+                  </button>
+                )}
+                <SessionElapsed
+                  key={view.session.id}
+                  startedAt={view.session.started_at}
+                  endedAt={view.session.ended_at}
+                />
+              </div>
             </div>
             <ol
               className="lp-turns"
               aria-label="Your saved learning conversation"
+              tabIndex={0}
             >
               {view.attempts.map((attempt, index) => (
                 <li key={attempt.id} className="lp-turn">
@@ -499,6 +461,7 @@ export function StudySession({
                   </div>
                   <div className="lp-question">
                     <h2
+                      id={`question-${attempt.id}`}
                       ref={attempt.id === lastId ? currentStep : undefined}
                       tabIndex={-1}
                     >
@@ -557,27 +520,30 @@ export function StudySession({
                           {view.citations
                             .filter((c) => c.intervention_id === help.id)
                             .map((citation) => (
-                              <a
+                              <Link
                                 key={citation.passage_id}
                                 className="lp-citation"
-                                href={`#${citation.passage_id}`}
+                                href={`/study/reading?${new URLSearchParams({
+                                  ...(assignmentId
+                                    ? { assignment: assignmentId }
+                                    : {}),
+                                  session: view.session.id,
+                                  version: citation.content_version,
+                                  passage: citation.passage_id,
+                                  citation: citation.intervention_id,
+                                })}`}
+                                prefetch={false}
+                                aria-disabled={busy || undefined}
                                 onClick={(event) => {
-                                  event.preventDefault();
-                                  if (readingBusy || busy) return;
-                                  window.history.replaceState(
-                                    null,
-                                    "",
-                                    `#${citation.passage_id}`,
-                                  );
-                                  setReadingRequest({
-                                    passage: citation.passage_id,
-                                    citation: citation.intervention_id,
-                                    key: Date.now(),
-                                  });
+                                  if (busy) event.preventDefault();
                                 }}
                               >
-                                Open reading passage {citation.passage_id}
-                              </a>
+                                <Icon name="book" /> Reading ·{" "}
+                                {citation.passage_id}
+                                <span className="lp-study-citation-version">
+                                  {citation.content_version}
+                                </span>
+                              </Link>
                             ))}
                         </div>
                       </article>
@@ -603,104 +569,84 @@ export function StudySession({
                   }}
                   maxLength={12000}
                   required
-                  disabled={
-                    busy || locked || readingBusy || Boolean(pendingReading)
-                  }
-                  rows={4}
+                  disabled={busy || locked || Boolean(pendingReading)}
+                  rows={3}
                   placeholder="Write what you think, and why…"
                   className="lp-input"
+                  aria-describedby="response-help"
                 />
                 <div className="lp-composer-footer">
-                  <p>A rough idea is a good place to start.</p>
-                  <button
-                    className={button}
-                    disabled={
-                      busy ||
-                      readingBusy ||
-                      Boolean(pendingReading) ||
-                      !draft.trim()
-                    }
-                  >
-                    {busy
-                      ? "Checking…"
-                      : locked
-                        ? "Retry sending saved answer"
-                        : "Submit answer"}
-                    <Icon name="send" />
-                  </button>
+                  <p id="response-help">
+                    It’s okay to be unsure. Explain what you’re thinking.
+                  </p>
+                  <div className="lp-composer-actions">
+                    {refreshButton}
+                    <button
+                      className={button}
+                      disabled={
+                        busy || Boolean(pendingReading) || !draft.trim()
+                      }
+                    >
+                      {busy && !refreshing
+                        ? "Checking…"
+                        : locked
+                          ? "Retry sending saved answer"
+                          : "Submit answer"}
+                      <Icon name="send" />
+                    </button>
+                  </div>
                 </div>
               </form>
             )}
           </div>
-          <div className="lp-session-actions">
-            {view.progress.phase === "completed" && (
-              <section className="lp-panel lp-session-complete">
-                <span className="lp-avatar">
-                  <Icon name="check" />
-                </span>
-                <h2 ref={completion} tabIndex={-1}>
-                  Your session is saved
-                </h2>
-                <p>
-                  You can revisit your answers and feedback above. A fresh
-                  answer after help shows today’s progress; later practice helps
-                  check what sticks.
-                </p>
-                <Link href="/study" className="lp-button lp-button-primary">
-                  Back to your assignments <Icon name="arrow" />
-                </Link>
-              </section>
-            )}
-            {view.progress.phase === "evaluate" && (
-              <button
-                type="button"
-                className={button}
-                disabled={busy || readingBusy || Boolean(pendingReading)}
-                onClick={() => void evaluate()}
-              >
-                {busy ? "Checking your answer…" : "Evaluate saved answer"}
-              </button>
-            )}
-            {view.progress.phase === "failed" && (
-              <button
-                type="button"
-                className={button}
-                disabled={
-                  busy ||
-                  readingBusy ||
-                  Boolean(pendingReading) ||
-                  !view.progress.retry_allowed
-                }
-                onClick={() => void evaluate(true)}
-              >
-                {busy ? "Retrying evaluation…" : "Retry evaluation"}
-              </button>
-            )}
-            {view.progress.phase === "completed" &&
-              view.progress.next_review_at && (
-                <p className="lp-notice w-full">
-                  Suggested next practice:{" "}
-                  {new Date(view.progress.next_review_at).toLocaleString(
-                    "en-US",
-                    { timeZone: "UTC" },
-                  )}{" "}
-                  UTC. This is an illustrative demo reminder.
+          {((phase !== "answer" && view.session.status !== "completed") ||
+            pendingReading ||
+            (phase !== "answer" && error)) && (
+            <div className="lp-session-actions">
+              {phase !== "answer" && view.session.status !== "completed" && (
+                <p className="lp-study-session-state">{progressMessage}</p>
+              )}
+              {pendingReading && (
+                <p className="lp-study-session-state" role="status">
+                  Finish opening your reading before continuing.{" "}
+                  <Link
+                    href={`/study/reading?${new URLSearchParams({ session: view.session.id, passage: pendingReading.passage_id, from: "study" })}`}
+                    prefetch={false}
+                    className="lp-text-link"
+                  >
+                    Return to reading
+                  </Link>
                 </p>
               )}
-            <button
-              type="button"
-              className="lp-button"
-              disabled={busy}
-              onClick={() =>
-                void perform(async () => {
-                  await refresh(view.session.id);
-                  setDisplayRetry((value) => value + 1);
-                })
-              }
-            >
-              Check saved progress
-            </button>
-          </div>
+              {view.progress.phase === "evaluate" && (
+                <button
+                  type="button"
+                  className={button}
+                  disabled={busy || Boolean(pendingReading)}
+                  onClick={() => void evaluate()}
+                >
+                  {busy ? "Checking your answer…" : "Evaluate saved answer"}
+                </button>
+              )}
+              {view.progress.phase === "failed" && (
+                <button
+                  type="button"
+                  className={button}
+                  disabled={
+                    busy ||
+                    Boolean(pendingReading) ||
+                    !view.progress.retry_allowed
+                  }
+                  onClick={() => void evaluate(true)}
+                >
+                  {busy ? "Retrying evaluation…" : "Retry evaluation"}
+                </button>
+              )}
+              {phase !== "answer" &&
+                (view.session.status !== "completed" || error) &&
+                refreshButton}
+            </div>
+          )}
         </>
       )}
     </section>

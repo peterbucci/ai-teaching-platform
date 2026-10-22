@@ -1,0 +1,399 @@
+/* Student dashboard proportions from the supplied Learning Pulse reference.
+   These rules intentionally do not affect the tutor, journal, or teacher views. */
+.lp-s-dashboard {
+  max-width: 1142px;
+  margin-inline: auto;
+  min-width: 0;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+.lp-s-dashboard > .lp-page-heading {
+  margin-bottom: 29px;
+}
+.lp-s-dashboard .lp-icon {
+  stroke-width: 1.7;
+}
+.lp-s-dashboard .lp-button {
+  font-weight: 700;
+  line-height: 1.4;
+  gap: 8px;
+}
+.lp-s-dashboard .lp-page-heading .lp-title {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -1.35px;
+  line-height: 1.16;
+  margin: 0;
+}
+.lp-s-dashboard .lp-page-heading .lp-eyebrow {
+  margin-bottom: 12px;
+  color: var(--green);
+  font-weight: 800;
+}
+.lp-s-dashboard .lp-page-heading .lp-intro {
+  margin: 11px 0 0;
+  line-height: 1.7;
+}
+.lp-s-dashboard .lesson-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.13fr) minmax(320px, 0.88fr);
+  border: 1px solid #d6e7dc;
+  border-radius: calc(var(--radius) + 5px);
+  background: var(--paper);
+  overflow: hidden;
+  box-shadow: 0 16px 42px rgb(25 68 44 / 3.5%);
+}
+.lp-s-dashboard .lesson-overview {
+  background: linear-gradient(122deg, #f0f8f2 0%, #e7f3ea 61%, #dcece2 100%);
+  padding: 44px 40px 40px;
+  min-height: 428px;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+.lp-s-dashboard .lesson-content {
+  width: 100%;
+  min-width: 0;
+}
+.lp-s-dashboard .lesson-overline,
+.lp-s-dashboard .outline-overline {
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 1.45px;
+  color: var(--green);
+  font-weight: 800;
+}
+.lp-s-dashboard .lesson-overline {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.lp-s-dashboard .lesson-overline .lp-icon {
+  width: 17px;
+  height: 17px;
+}
+.lp-s-dashboard .lesson-course {
+  font-size: 11px;
+  font-weight: 600;
+  color: #5b7565;
+  margin-top: 14px;
+  overflow-wrap: anywhere;
+}
+.lp-s-dashboard .lesson-content h2 {
+  font-size: clamp(28px, 2.8vw, 38px);
+  letter-spacing: -1.35px;
+  line-height: 1.16;
+  max-width: 465px;
+  margin: 13px 0 17px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+.lp-s-dashboard .lesson-content p {
+  max-width: 435px;
+  color: #4f6d5e;
+  line-height: 1.73;
+  font-size: 14px;
+  margin: 0 0 27px;
+}
+.lp-s-dashboard .lesson-continue {
+  font-size: 13px;
+  padding: 13px 19px;
+  min-height: 50px;
+  max-width: 100%;
+  box-shadow: 0 3px 8px rgb(12 92 63 / 8%);
+}
+.lp-s-dashboard .lesson-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 26px;
+}
+.lp-s-dashboard .lesson-resource-link {
+  padding: 4px 0;
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 750;
+  text-decoration: none;
+}
+.lp-s-dashboard .lesson-resource-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.lp-s-dashboard .lesson-resource-link .lp-icon {
+  width: 18px;
+  height: 18px;
+}
+.lp-s-dashboard .lesson-link-divider {
+  height: 24px;
+  width: 1px;
+  background: #bfd9c8;
+}
+.lp-s-dashboard .lesson-outline {
+  background: var(--paper);
+  padding: 34px 33px 24px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.lp-s-dashboard .outline-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.lp-s-dashboard .outline-overline {
+  margin: 0;
+  line-height: 1.55;
+}
+.lp-s-dashboard .outline-count {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.lp-s-dashboard .outline-track {
+  height: 7px;
+  background: #e8f1ea;
+  border-radius: 50px;
+  overflow: hidden;
+  margin-top: 14px;
+  flex-shrink: 0;
+}
+.lp-s-dashboard .outline-track > span {
+  display: block;
+  height: 100%;
+  border-radius: 50px;
+  background: var(--green);
+}
+.lp-s-dashboard .outline-explainer {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 14px 0 17px;
+}
+.lp-s-dashboard .lesson-topic-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #e8eee9;
+}
+.lp-s-dashboard .lesson-topic-list > li {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #e8eee9;
+}
+.lp-s-dashboard .lesson-topic-list > li:last-child {
+  border-bottom: 0;
+}
+.lp-s-dashboard .lesson-topic-link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 13px;
+  padding: 20px 0;
+  color: var(--ink);
+  text-align: left;
+  text-decoration: none;
+}
+.lp-s-dashboard .lesson-topic-link:hover .lesson-topic-copy strong {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--green);
+}
+.lp-s-dashboard .lesson-topic-icon {
+  background: #eef5ef;
+  border-radius: 11px;
+  color: var(--green);
+  width: 39px;
+  height: 39px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.lp-s-dashboard .lesson-topic-icon .lp-icon {
+  width: 17px;
+  height: 17px;
+  stroke-width: 1.7;
+}
+.lp-s-dashboard .lesson-topic-icon.practiced {
+  background: #e6f2e9;
+}
+.lp-s-dashboard .lesson-topic-copy {
+  flex: 1;
+  min-width: 0;
+}
+.lp-s-dashboard .lesson-topic-copy strong {
+  font-size: 12.6px;
+  font-weight: 750;
+  display: block;
+  overflow-wrap: anywhere;
+}
+.lp-s-dashboard .lesson-topic-copy small {
+  color: var(--muted);
+  font-size: 11px;
+  display: block;
+  margin-top: 3px;
+}
+.lp-s-dashboard .lesson-topic-arrow {
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.lp-s-dashboard .lesson-topic-arrow .lp-icon {
+  width: 17px;
+  height: 17px;
+}
+.lp-s-dashboard .student-up-next {
+  margin-top: 24px;
+  padding: 24px;
+}
+.lp-s-dashboard .student-up-next h2 {
+  font-size: 19px;
+  line-height: 1.35;
+  font-weight: 700;
+  letter-spacing: -0.45px;
+  margin: 0 0 12px;
+}
+.lp-s-dashboard .student-work-list {
+  display: grid;
+  gap: 0;
+  margin-top: 16px;
+}
+.lp-s-dashboard .student-work-list article {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 0;
+  border-top: 1px solid var(--line);
+}
+.lp-s-dashboard .student-work-list h3 {
+  font-size: 17px;
+  margin: 0 0 7px;
+  font-weight: 700;
+}
+.lp-s-dashboard .student-work-list article > div {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.lp-s-dashboard .student-work-list p,
+.lp-s-dashboard .empty-next p {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 0;
+  line-height: 1.7;
+}
+.lp-s-dashboard .student-work-list p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 6px;
+}
+.lp-s-dashboard .student-work-list .lp-button {
+  flex-shrink: 0;
+}
+.lp-s-dashboard .home-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 15px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.lp-s-dashboard .all-assignments-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--green);
+  padding: 4px 0;
+}
+.lp-s-dashboard .all-assignments-link .lp-icon {
+  width: 15px;
+  height: 15px;
+}
+@media (max-width: 1140px) {
+  .lp-s-dashboard .lesson-workspace {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.87fr);
+  }
+  .lp-s-dashboard .lesson-overview {
+    padding: 34px 27px;
+    min-height: 390px;
+  }
+  .lp-s-dashboard .lesson-outline {
+    padding: 30px 23px 22px;
+  }
+  .lp-s-dashboard .lesson-content h2 {
+    font-size: 30px;
+  }
+  .lp-s-dashboard .outline-heading {
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 900px) {
+  .lp-s-dashboard .lesson-workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .lp-s-dashboard .lesson-overview {
+    min-height: 0;
+    padding: 29px 25px 30px;
+  }
+  .lp-s-dashboard .lesson-content h2 {
+    font-size: 29px;
+  }
+  .lp-s-dashboard .lesson-outline {
+    padding: 25px;
+  }
+  .lp-s-dashboard .lesson-topic-link {
+    padding: 14px 0;
+  }
+}
+@media (max-width: 800px) {
+  .lp-s-dashboard .lp-page-heading .lp-title {
+    font-size: 31px;
+  }
+  .lp-s-dashboard .student-work-list article {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .lp-s-dashboard .student-work-list .lp-button {
+    width: 100%;
+  }
+}
+@media (max-width: 420px) {
+  .lp-s-dashboard .lesson-content h2 {
+    font-size: 26px;
+  }
+  .lp-s-dashboard .lesson-overview {
+    padding: 25px 20px 28px;
+  }
+  .lp-s-dashboard .lesson-outline {
+    padding: 23px 19px;
+  }
+  .lp-s-dashboard .lesson-links {
+    gap: 10px;
+  }
+  .lp-s-dashboard .lesson-resource-link {
+    gap: 5px;
+    font-size: 11px;
+  }
+  .lp-s-dashboard .lesson-resource-link .lp-icon {
+    width: 16px;
+    height: 16px;
+  }
+  .lp-s-dashboard .outline-heading {
+    flex-wrap: wrap;
+  }
+  .lp-s-dashboard .home-bottom {
+    justify-content: flex-start;
+  }
+}
