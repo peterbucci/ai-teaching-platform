@@ -1,69 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useSyncExternalStore, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { Icon } from "./icons.tsx";
 import { AccountMenu } from "./account-menu.tsx";
-
-const teacherSections = [
-  { id: "main-content", text: "Class overview", icon: "chart" },
-  { id: "patterns", text: "Reasoning patterns", icon: "chat" },
-  { id: "responses", text: "Student evidence", icon: "users" },
-] as const;
-
-function subscribeToVisibleSection(onChange: () => void) {
-  let frame = 0;
-  const update = () => {
-    cancelAnimationFrame(frame);
-    frame = requestAnimationFrame(onChange);
-  };
-  window.addEventListener("scroll", update, { passive: true });
-  window.addEventListener("resize", update);
-  window.addEventListener("hashchange", update);
-  window.addEventListener("popstate", update);
-  const observer = new ResizeObserver(update);
-  const main = document.getElementById("main-content");
-  if (main) observer.observe(main);
-  return () => {
-    cancelAnimationFrame(frame);
-    observer.disconnect();
-    window.removeEventListener("scroll", update);
-    window.removeEventListener("resize", update);
-    window.removeEventListener("hashchange", update);
-    window.removeEventListener("popstate", update);
-  };
-}
-
-function getVisibleSection() {
-  const pageHeight = document.documentElement.scrollHeight;
-  if (pageHeight <= window.innerHeight) {
-    return (
-      teacherSections.find(
-        (section) =>
-          window.location.hash === `#${section.id}` &&
-          document.getElementById(section.id),
-      )?.text ?? "Class overview"
-    );
-  }
-  if (window.scrollY === 0) return "Class overview";
-  const atBottom = window.scrollY + window.innerHeight >= pageHeight - 2;
-  for (let index = teacherSections.length - 1; index > 0; index--) {
-    const section = teacherSections[index];
-    const element = document.getElementById(section.id);
-    if (!element) continue;
-    const top = element.getBoundingClientRect().top;
-    // Short sections may never reach the upper part of the viewport.
-    if (
-      top <= window.innerHeight * 0.3 ||
-      (atBottom && top < window.innerHeight)
-    )
-      return section.text;
-  }
-  return "Class overview";
-}
-
-const getServerSection = () => "Class overview";
-const subscribeToNothing = () => () => {};
 
 export function Brand() {
   return (
@@ -85,67 +25,86 @@ export function Workspace({
   children,
   area,
   section,
-  sessionHref,
+  readingHref = "/study/reading",
 }: {
   children: ReactNode;
   area: "teacher" | "student";
   section: string;
-  sessionHref?: string;
+  readingHref?: string;
 }) {
   const teacher = area === "teacher";
-  const overview = teacher && section === "Class overview";
-  useEffect(() => {
-    if (!overview) return;
-    const id = window.location.hash.slice(1);
-    if (!teacherSections.some((item) => item.id === id)) return;
-    // Streamed page content may arrive after the browser first tries the anchor.
-    const frame = requestAnimationFrame(() => {
-      if (window.scrollY === 0)
-        document.getElementById(id)?.scrollIntoView({ block: "start" });
-    });
-    return () => cancelAnimationFrame(frame);
-  }, [overview]);
-  const visibleSection = useSyncExternalStore(
-    overview ? subscribeToVisibleSection : subscribeToNothing,
-    getVisibleSection,
-    getServerSection,
-  );
-  const activeSection = overview ? visibleSection : section;
-  // Native section links keep scrolling, browser history, and the hash in sync.
-  const NavigationLink = teacher ? "a" : Link;
+  const activeSection =
+    section === "Student evidence" ? "Learning insights" : section;
+  const drawer = useRef<HTMLDialogElement>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
   const links = teacher
     ? [
-        ...teacherSections.map(({ id, text, icon }) => ({
-          href: `${overview ? "" : "/teacher"}#${id}`,
-          text,
-          icon,
-        })),
+        { href: "/teacher", text: "Class overview", icon: "home" as const },
         {
           href: "/teacher/assignments",
           text: "Assignments",
           icon: "book" as const,
         },
+        {
+          href: "/teacher/insights",
+          text: "Learning insights",
+          icon: "chart" as const,
+        },
+        { href: "/teacher/students", text: "Students", icon: "users" as const },
       ]
     : [
-        { href: "/study", text: "My learning", icon: "book" as const },
-        ...(sessionHref
-          ? [{ href: sessionHref, text: "AI tutor", icon: "chat" as const }]
-          : []),
+        {
+          href: "/study/assignments",
+          text: "Assignments",
+          icon: "assignment" as const,
+        },
+        {
+          href: "/study/history",
+          text: "Learning journal",
+          icon: "journal" as const,
+        },
+        { href: readingHref, text: "Reading", icon: "book" as const },
       ];
-  const navigation = (
-    <nav aria-label="Workspace navigation" className="lp-nav">
-      {links.map((link) => (
-        <NavigationLink
-          key={link.text}
-          href={link.href}
-          aria-current={activeSection === link.text ? "location" : undefined}
-        >
-          <Icon name={link.icon} />
-          {link.text}
-        </NavigationLink>
-      ))}
-    </nav>
-  );
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 801px)");
+    const closeOnDesktop = () => {
+      if (desktop.matches) drawer.current?.close();
+    };
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => desktop.removeEventListener("change", closeOnDesktop);
+  }, []);
+
+  function closeDrawer() {
+    drawer.current?.close();
+    trigger.current?.focus();
+  }
+
+  function navigation(mobile = false) {
+    return (
+      <nav
+        aria-label={teacher ? "Teacher navigation" : "Student navigation"}
+        className="lp-nav"
+      >
+        {links.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            aria-current={
+              activeSection.toLowerCase() === link.text.toLowerCase()
+                ? "page"
+                : undefined
+            }
+            onClick={mobile ? closeDrawer : undefined}
+          >
+            <Icon name={link.icon} />
+            {link.text}
+          </Link>
+        ))}
+      </nav>
+    );
+  }
+
   return (
     <div className="lp-layout">
       <a className="lp-skip" href="#main-content">
@@ -156,33 +115,72 @@ export function Workspace({
         <p className="lp-nav-label">
           {teacher ? "Your classroom" : "Your learning"}
         </p>
-        {navigation}
+        {navigation()}
       </aside>
       <div className="lp-workspace">
         <header className="lp-topbar">
-          <div className="lp-breadcrumb">
-            <span>{teacher ? "Classroom" : "Learning"}</span>
-            <span aria-hidden="true">/</span>
-            <strong>{activeSection}</strong>
+          <div className="lp-topbar-start">
+            <button
+              ref={trigger}
+              type="button"
+              className="lp-drawer-trigger"
+              aria-label="Open navigation"
+              aria-haspopup="dialog"
+              aria-controls="workspace-navigation"
+              onClick={() => drawer.current?.showModal()}
+            >
+              <Icon name="menu" />
+            </button>
+            {teacher && (
+              <div className="lp-breadcrumb">
+                <span>Classroom</span>
+                <span aria-hidden="true">/</span>
+                <strong>{section}</strong>
+              </div>
+            )}
           </div>
           <div className="lp-topbar-right">
-            <AccountMenu />
+            <span className="lp-workspace-role">
+              {teacher ? "Teacher" : "Student"} workspace
+            </span>
+            <AccountMenu area={area} />
           </div>
         </header>
-        <details className="lp-mobile-nav">
-          <summary>
-            <Icon name="menu" />
-            Menu<span>Learning Pulse</span>
-          </summary>
-          {navigation}
-          <Link href="/login" className="lp-mobile-account">
-            Account / sign out
-          </Link>
-        </details>
-        <main id="main-content" className={`lp-main lp-main-${area}`}>
+        <main
+          id="main-content"
+          tabIndex={-1}
+          className={`lp-main lp-main-${area}`}
+        >
           {children}
         </main>
       </div>
+      <dialog
+        ref={drawer}
+        id="workspace-navigation"
+        className="lp-navigation-drawer"
+        aria-labelledby="navigation-title"
+        onClick={(event) => {
+          if (event.target === event.currentTarget) closeDrawer();
+        }}
+      >
+        <div className="lp-drawer-content">
+          <div className="lp-drawer-heading">
+            <Brand />
+            <button
+              type="button"
+              className="lp-icon-button"
+              onClick={closeDrawer}
+              aria-label="Close navigation"
+            >
+              <Icon name="close" />
+            </button>
+          </div>
+          <h2 id="navigation-title" className="lp-nav-label">
+            {teacher ? "Your classroom" : "Your learning"}
+          </h2>
+          {navigation(true)}
+        </div>
+      </dialog>
     </div>
   );
 }

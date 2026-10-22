@@ -1,0 +1,536 @@
+/* Assignment routes own their content gutters; the shared workspace is intact. */
+.lp-main-student:has(> .lp-s-assignments) {
+  max-width: none;
+  padding: 0;
+}
+.lp-s-assignments {
+  max-width: 1170px;
+  margin-inline: auto;
+  padding: 42px 44px 92px;
+  min-width: 0;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+.lp-s-assignments .lp-icon {
+  stroke-width: 1.7;
+}
+.lp-s-assignments .heading {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -1.35px;
+  line-height: 1.16;
+  margin: 0;
+}
+.lp-s-assignments .subheading {
+  font-size: 14px;
+  color: #748c7e;
+  line-height: 1.7;
+  margin: 11px 0 0;
+}
+.lp-s-assignments .assignments-title-row {
+  margin-bottom: 24px;
+}
+.lp-s-assignments .assignment-resume {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding: 20px 22px;
+  border: 1px solid #d2e6d9;
+  border-radius: 16px;
+  background: #edf6f0;
+}
+.lp-s-assignments .assignment-resume-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  color: var(--green);
+  background: #deeee4;
+}
+.lp-s-assignments .assignment-resume-copy {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.lp-s-assignments .assignment-resume h2 {
+  margin: 0 0 5px;
+  font-size: 12px;
+  font-weight: 650;
+  color: #466e59;
+}
+.lp-s-assignments .assignment-resume h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 750;
+  line-height: 1.4;
+}
+.lp-s-assignments .assignment-resume p {
+  margin: 5px 0 0;
+  font-size: 11px;
+  color: #617f6c;
+}
+.lp-s-assignments .assignment-resume > .lp-button {
+  flex: none;
+}
+.lp-s-assignments .lp-button {
+  min-height: 42px;
+  padding: 10px 15px;
+  line-height: 1.4;
+  font-size: 12px;
+  font-weight: 750;
+  gap: 8px;
+}
+.lp-s-assignments .lp-button .lp-icon {
+  width: 16px;
+  height: 16px;
+}
+.lp-s-assignments .assignment-ghost {
+  border: 0;
+  background: transparent;
+  color: #377057;
+  font-size: 12px;
+  font-weight: 750;
+  padding: 9px 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 0;
+  text-decoration: none;
+}
+.lp-s-assignments .assignment-ghost:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.lp-s-assignments .assignment-ghost .lp-icon {
+  width: 15px;
+  height: 15px;
+}
+.lp-s-assignments .soft-overline {
+  text-transform: uppercase;
+  color: #617f6c;
+  font-size: 10px;
+  letter-spacing: 1.4px;
+  font-weight: 800;
+}
+.lp-s-assignments .assignments-browser {
+  padding: 0;
+  border: 1px solid #e3ebe5;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 13px 44px rgb(29 59 36 / 3.5%);
+}
+.lp-s-assignments .assignment-scope-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr) minmax(0, 1.25fr);
+  gap: 16px;
+  padding: 20px 24px;
+  background: #f0f7f2;
+  border-bottom: 1px solid #e1eee5;
+}
+.lp-s-assignments .assignment-scope-field {
+  display: block;
+  min-width: 0;
+}
+.lp-s-assignments .assignment-scope-field > span:first-child {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #526f5f;
+}
+.lp-s-assignments .assignment-select-control {
+  display: block;
+  position: relative;
+  min-width: 0;
+}
+.lp-s-assignments .assignment-select-control select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+  padding: 9px 42px 9px 14px;
+  border: 1px solid #d7e6dc;
+  border-radius: 10px;
+  background: #fff;
+  color: #23483a;
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.5;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.lp-s-assignments .assignment-select-control select:disabled {
+  color: #6e8074;
+  background: #f8fbf9;
+  cursor: default;
+}
+.lp-s-assignments .assignment-select-control > svg {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: #46725c;
+  pointer-events: none;
+}
+.lp-s-assignments
+  .assignments-browser
+  :is(a, button, input, select):focus-visible {
+  outline: 3px solid #328264;
+  outline-offset: 2px;
+}
+.lp-s-assignments .assignment-controls {
+  padding: 15px 24px;
+  border-bottom: 1px solid #eaf0ea;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-between;
+  background: #fff;
+}
+.lp-s-assignments .assignment-filter-buttons {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+.lp-s-assignments .assignment-filter {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  padding: 9px 12px;
+  color: #61776a;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 720;
+}
+.lp-s-assignments .assignment-filter:hover {
+  background: #f1f7f2;
+  color: #315b45;
+}
+.lp-s-assignments .assignment-filter.active {
+  color: #17634c;
+  border-color: #dbe9de;
+  background: #e9f4ed;
+}
+.lp-s-assignments .assignment-filter span {
+  font-size: 10.5px;
+  margin-left: 4px;
+}
+.lp-s-assignments .assignment-search-wrap {
+  flex: 0 1 248px;
+  min-width: 0;
+  position: relative;
+}
+.lp-s-assignments .assignment-search-wrap > .lp-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #748c7e;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+}
+.lp-s-assignments .assignment-search-wrap input {
+  background: #fff;
+  border: 1px solid #dee9df;
+  border-radius: 10px;
+  padding: 10px 13px 10px 37px;
+  width: 100%;
+  font-size: 12px;
+  color: #23483a;
+  min-height: 0;
+}
+.lp-s-assignments .assignment-search-wrap input:focus-visible {
+  outline: 3px solid #328264;
+  outline-offset: 1px;
+}
+.lp-s-assignments .assignment-search-wrap input::placeholder {
+  color: #75877b;
+}
+.lp-s-assignments .assignment-list-content {
+  padding: 18px 24px 27px;
+  background: #fff;
+}
+.lp-s-assignments .assignment-results-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  min-height: 30px;
+  margin-bottom: 14px;
+}
+.lp-s-assignments .assignment-results-summary p {
+  margin: 0;
+  font-size: 11px;
+  color: var(--muted);
+}
+.lp-s-assignments .assignment-results-summary .assignment-ghost {
+  padding-block: 5px;
+  font-size: 11px;
+}
+.lp-s-assignments .assignment-shared-reading {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 2px 23px;
+  color: #486c57;
+}
+.lp-s-assignments .assignment-shared-reading > .lp-icon {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  flex: none;
+}
+.lp-s-assignments .assignment-shared-reading > div {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.lp-s-assignments .assignment-shared-reading h2 {
+  margin: 0 0 3px;
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.5;
+  color: #335742;
+}
+.lp-s-assignments .assignment-shared-reading p {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+}
+.lp-s-assignments .assignment-section-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 2px 11px;
+  color: #62846f;
+  font-size: 10.5px;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 1.15px;
+}
+.lp-s-assignments
+  .assignment-list-content
+  > section:first-of-type
+  .assignment-section-label {
+  margin-top: 3px;
+}
+.lp-s-assignments .assignment-section-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e7eee9;
+}
+.lp-s-assignments .assignment-entry {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  padding: 19px 20px;
+  margin: 0 0 10px;
+  border: 1px solid #e5ece6;
+  border-radius: 14px;
+  background: #fff;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+}
+.lp-s-assignments .assignment-entry:hover {
+  border-color: #c5dece;
+}
+.lp-s-assignments .assignment-entry.is-current {
+  background: linear-gradient(104deg, #f3faf5 0%, #f8fbf8 100%);
+  border-color: #d2e6d9;
+}
+.lp-s-assignments .assignment-entry-content {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.lp-s-assignments .assignment-entry h4 {
+  margin: 0;
+  font-size: 15.5px;
+  font-weight: 780;
+  letter-spacing: -0.26px;
+  line-height: 1.4;
+}
+.lp-s-assignments .assignment-entry-class,
+.lp-s-assignments .assignment-entry-source {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 5px 0 0;
+}
+.lp-s-assignments .assignment-entry-class {
+  margin: 0 0 5px;
+}
+.lp-s-assignments .assignment-entry-progress {
+  font-size: 11px;
+  color: #466e59;
+  margin: 7px 0 0;
+}
+.lp-s-assignments .assignment-entry-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  flex-shrink: 0;
+  max-width: 230px;
+}
+.lp-s-assignments .assignment-entry-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.lp-s-assignments .assignment-entry-actions .lp-button {
+  min-height: 40px;
+  white-space: nowrap;
+  font-size: 11.5px;
+  padding: 9px 14px;
+}
+.lp-s-assignments .assignment-entry-actions .assignment-ghost {
+  font-size: 11.5px;
+}
+.lp-s-assignments .assignment-empty {
+  padding: 42px 20px;
+  text-align: center;
+  color: var(--muted);
+}
+.lp-s-assignments .assignment-empty > .lp-icon {
+  margin: 0 auto 16px;
+}
+.lp-s-assignments .assignment-empty h2,
+.lp-s-assignments .assignment-empty h3 {
+  margin: 5px 0 6px;
+  font-size: 17px;
+  color: var(--ink);
+}
+.lp-s-assignments .assignment-empty p {
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 0 0 18px;
+}
+.lp-s-assignments .assignment-action-error {
+  font-size: 12px;
+  color: #943c2f;
+  max-width: 280px;
+  margin: 10px 0 0;
+  line-height: 1.6;
+  white-space: normal;
+}
+@media (max-width: 1150px) {
+  .lp-s-assignments .assignment-entry {
+    padding: 17px;
+  }
+}
+@media (max-width: 1120px) {
+  .lp-s-assignments {
+    padding: 42px 30px 70px;
+  }
+}
+@media (max-width: 1000px) {
+  .lp-s-assignments .assignment-controls {
+    flex-wrap: wrap;
+  }
+  .lp-s-assignments .assignment-filter-buttons {
+    width: 100%;
+  }
+  .lp-s-assignments .assignment-search-wrap {
+    max-width: none;
+    flex: 1 1 100%;
+  }
+}
+@media (max-width: 850px) {
+  .lp-s-assignments {
+    padding: 42px 21px 100px;
+  }
+  .lp-s-assignments .heading {
+    font-size: 31px;
+  }
+}
+@media (max-width: 680px) {
+  .lp-s-assignments {
+    padding-top: 28px;
+  }
+  .lp-s-assignments .assignment-resume {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr);
+    align-items: start;
+    padding: 17px;
+    gap: 12px;
+  }
+  .lp-s-assignments .assignment-resume-icon {
+    width: 34px;
+    height: 34px;
+  }
+  .lp-s-assignments .assignment-resume > .lp-button {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+  .lp-s-assignments .assignment-scope-controls {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 17px;
+    gap: 13px;
+  }
+  .lp-s-assignments .assignment-controls {
+    padding: 12px 13px;
+    gap: 11px;
+  }
+  .lp-s-assignments .assignment-filter-buttons {
+    flex-wrap: wrap;
+    flex-shrink: 1;
+  }
+  .lp-s-assignments .assignment-filter {
+    padding: 8px 9px;
+    font-size: 11px;
+  }
+  .lp-s-assignments .assignment-filter span {
+    margin-left: 1px;
+  }
+  .lp-s-assignments .assignment-search-wrap {
+    max-width: none;
+    width: 100%;
+    flex-basis: 100%;
+  }
+  .lp-s-assignments .assignment-list-content {
+    padding: 12px 13px 22px;
+  }
+  .lp-s-assignments .assignment-entry {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    padding: 16px;
+    gap: 11px;
+  }
+  .lp-s-assignments .assignment-entry-content {
+    min-width: 0;
+  }
+  .lp-s-assignments .assignment-entry h4 {
+    font-size: 14px;
+  }
+  .lp-s-assignments .assignment-entry-actions {
+    width: 100%;
+    align-items: flex-start;
+    max-width: none;
+  }
+  .lp-s-assignments .assignment-entry-actions .lp-button,
+  .lp-s-assignments .assignment-entry-actions .assignment-start-control {
+    width: 100%;
+    white-space: normal;
+  }
+  .lp-s-assignments .assignment-start-control .lp-button {
+    width: 100%;
+  }
+}

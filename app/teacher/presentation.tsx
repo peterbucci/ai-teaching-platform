@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { ClassMetrics } from "../../lib/teacher/metrics.ts";
 import { Workspace } from "../components/workspace.tsx";
+import "./teacher.css";
 
 export function TeacherFrame({
   children,
@@ -11,7 +12,7 @@ export function TeacherFrame({
 }) {
   return (
     <Workspace area="teacher" section={section}>
-      {children}
+      <div className="lp-teacher">{children}</div>
     </Workspace>
   );
 }

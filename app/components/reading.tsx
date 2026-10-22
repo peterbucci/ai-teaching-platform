@@ -41,21 +41,29 @@ export function ReadingSection({
         {section.title}{" "}
         <span className="text-sm font-normal text-slate-500">{section.id}</span>
       </h3>
-      {section.text.split(/\r?\n\r?\n/).map((paragraph, i) =>
-        paragraph.startsWith("```text") ? (
-          <pre
-            key={i}
-            className="overflow-x-auto rounded-xl bg-slate-50 p-4 text-sm"
-          >
-            {paragraph.replace(/^```text\r?\n|\r?\n```$/g, "")}
-          </pre>
-        ) : (
-          <p key={i} className="my-3 leading-7">
-            {inline(paragraph)}
-          </p>
-        ),
-      )}
+      <ReadingBody text={section.text} />
     </section>
+  );
+}
+
+/** Shared, bounded formatting for approved passage text; never execute HTML. */
+export function ReadingBody({ text }: { text: string }) {
+  return text.split(/\r?\n\r?\n/).map((paragraph, i) =>
+    paragraph.startsWith("```text") ? (
+      <pre
+        key={i}
+        className="overflow-x-auto rounded-xl bg-slate-50 p-4 text-sm"
+      >
+        {paragraph.replace(/^```text\r?\n|\r?\n```$/g, "")}
+      </pre>
+    ) : (
+      <p
+        key={i}
+        className={`my-3 leading-7${/^\*\*Project (teaching|editorial) note/.test(paragraph) ? " teaching-note" : ""}`}
+      >
+        {inline(paragraph)}
+      </p>
+    ),
   );
 }
 export function Reading({

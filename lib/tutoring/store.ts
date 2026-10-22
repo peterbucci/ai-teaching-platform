@@ -1,11 +1,13 @@
 import "server-only";
 import { randomUUID } from "node:crypto";
+import type { PoolClient } from "pg";
 import { z } from "zod";
 import { evidenceRow } from "../db.ts";
 import {
   loadApprovedContent,
   getCuratedQuestion,
   validateContentRef,
+  validateQuestionSnapshot,
 } from "../evidence/content.ts";
 import {
   AppliedResultSchema,
@@ -26,6 +28,8 @@ import {
 } from "../evidence/store.ts";
 import { evaluateSubmittedAttempt } from "../evaluation/evaluate.ts";
 import { evaluationRecovery } from "../evaluation/recovery.ts";
+import { sourcePath } from "../reading/source-path.ts";
+import type { StudentHistoryEntry } from "./history-model.ts";
 import {
   AssignedLessonSchema,
   TutorStepSchema,
@@ -68,6 +72,89 @@ export async function assignedLessons(access: EvidenceAccess) {
   });
 }
 
+/** A student's journal contains only their live demo work in classes they still
+ * belong to. Opening the journal reads evidence and never starts an evaluation. */
+export async function studentStudyHistory(
+  access: EvidenceAccess,
+): Promise<StudentHistoryEntry[]> {
+  return transaction(async (client) => {
+    await client.query(
+      "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY",
+    );
+    const rows = await client.query(
+      `SELECT s.id,s.assignment_id,s.status,s.started_at,s.ended_at,a.title,a.content_ref,
+        c.id AS class_id,c.name AS class_name,
+        submitted.response_count,submitted.questions,
+        EXISTS (SELECT 1 FROM interventions i WHERE i.session_id=s.id
+          AND i.type='reading' AND i.delivery_status='displayed') AS reading_opened
+       FROM sessions s
+       JOIN assignments a ON a.id=s.assignment_id AND a.class_id=s.class_id
+       JOIN classes c ON c.id=s.class_id
+       JOIN enrollments e ON e.class_id=s.class_id AND e.student_id=s.student_id
+       JOIN profiles p ON p.id=s.student_id
+       CROSS JOIN LATERAL (
+         SELECT count(*)::integer AS response_count,
+           coalesce(jsonb_agg(t.question ORDER BY t.sequence_index,t.id),'[]'::jsonb) AS questions
+         FROM attempts t WHERE t.session_id=s.id AND t.submitted_at IS NOT NULL
+       ) submitted
+       WHERE s.student_id=$1 AND p.auth_user_id=$2 AND s.data_origin='live_demo'
+       ORDER BY s.started_at DESC,s.id DESC`,
+      [access.actor.profileId, access.actor.userId],
+    );
+    const content = loadApprovedContent();
+    return rows.rows.map((row) => {
+      const entry = z
+        .object({
+          id: z.uuid(),
+          assignment_id: z.uuid(),
+          status: SessionSchema.shape.status,
+          started_at: z.iso.datetime({ offset: true }),
+          ended_at: z.iso.datetime({ offset: true }).nullable(),
+          title: z.string().min(1),
+          class_id: z.uuid(),
+          class_name: z.string().min(1),
+          content_ref: z.unknown(),
+          response_count: z.number().int().nonnegative(),
+          reading_opened: z.boolean(),
+          questions: z.array(z.unknown()),
+        })
+        .parse(evidenceRow(row));
+      const reference = validateContentRef(content, entry.content_ref);
+      const practicedIds = new Set(
+        entry.questions.flatMap(
+          (question) => validateQuestionSnapshot(content, question).concept_ids,
+        ),
+      );
+      return {
+        id: entry.id,
+        assignment_id: entry.assignment_id,
+        title: entry.title,
+        status: entry.status,
+        started_at: entry.started_at,
+        ended_at: entry.ended_at,
+        response_count: entry.response_count,
+        reading_opened: entry.reading_opened,
+        classId: entry.class_id,
+        className: entry.class_name,
+        sourceKey: JSON.stringify([
+          content.attribution.title,
+          content.attribution.authors,
+          content.attribution.copyright,
+        ]),
+        sourceTitle: content.attribution.title,
+        sourceSection: content.attribution.section,
+        sourcePath: sourcePath(content.attribution.section, reference),
+        topics: [...practicedIds].map((id) => {
+          const concept = content.concepts.get(id);
+          if (!concept)
+            throw new EvidenceError(503, "This saved topic is unavailable.");
+          return { id, title: concept.title };
+        }),
+      };
+    });
+  });
+}
+
 export async function tutorView(access: EvidenceAccess, sessionId: string) {
   const evidence = await readSession(access, sessionId, "student");
   const last = evidence.attempts.at(-1);
@@ -91,7 +178,8 @@ export async function tutorView(access: EvidenceAccess, sessionId: string) {
     session: {
       id: evidence.session.id,
       status: evidence.session.status,
-      assignment_id: evidence.session.assignment_id,
+      started_at: evidence.session.started_at,
+      ended_at: evidence.session.ended_at,
     },
     pending_reading: (() => {
       const pending = evidence.interventions.find(
@@ -153,101 +241,121 @@ export async function tutorView(access: EvidenceAccess, sessionId: string) {
   });
 }
 
-/** Ordinary start resumes the latest session. Explicit practice after completion
- * creates a separate session; repeat/stale requests reopen the latest one. */
+/** Ordinary start always resumes the latest saved episode, including completed work. */
 export async function startTutoring(
   access: EvidenceAccess,
   assignmentId: string,
-  afterSessionId?: string,
 ) {
   z.uuid().parse(assignmentId);
-  if (afterSessionId !== undefined) z.uuid().parse(afterSessionId);
+  const sessionId = await transaction((client) =>
+    openTutoringSession(client, access, assignmentId),
+  );
+  return tutorView(access, sessionId);
+}
+
+/** The completed source is the restart intent: repeating it reuses the newest
+ * episode. A further new session requires that newest completed episode's ID. */
+export async function restartTutoring(
+  access: EvidenceAccess,
+  completedSessionId: string,
+) {
+  z.uuid().parse(completedSessionId);
   const sessionId = await transaction(async (client) => {
-    await client.query("SELECT pg_advisory_xact_lock(hashtextextended($1,0))", [
-      `start-tutor:${access.actor.profileId}:${assignmentId}`,
-    ]);
+    // Authorize before using any source assignment ID for the shared start lock.
+    // Do not acquire a session row lock first: start uses the advisory lock first.
     const rows = await client.query(
-      `SELECT a.* FROM assignments a JOIN enrollments e ON e.class_id=a.class_id
-      WHERE a.id=$1 AND e.student_id=$2 FOR SHARE OF a,e`,
-      [assignmentId, access.actor.profileId],
+      `SELECT s.assignment_id,s.status FROM sessions s
+       JOIN enrollments e ON e.class_id=s.class_id AND e.student_id=s.student_id
+       JOIN profiles p ON p.id=s.student_id
+       WHERE s.id=$1 AND s.student_id=$2 AND p.auth_user_id=$3
+         AND s.data_origin='live_demo'`,
+      [completedSessionId, access.actor.profileId, access.actor.userId],
     );
-    if (!rows.rows[0]) throw new EvidenceError(404, "Assignment not found.");
-    const assignment = z
-      .object({
-        id: z.uuid(),
-        class_id: z.uuid(),
-        content_ref: z.unknown(),
-        teacher_approved_at: z.unknown(),
-      })
+    if (!rows.rows[0]) throw new EvidenceError(404, "Session not found.");
+    const source = z
+      .object({ assignment_id: z.uuid(), status: SessionSchema.shape.status })
       .parse(rows.rows[0]);
-    const content = loadApprovedContent();
-    validateContentRef(content, assignment.content_ref);
-    if (!assignment.teacher_approved_at)
+    if (source.status !== "completed")
       throw new EvidenceError(
         409,
-        "Your teacher needs to activate this assignment first. Your previous work is still saved.",
+        "Finish this study session before starting a new one.",
       );
-    let origin: "live_demo" | "synthetic_fixture" = "live_demo";
-    if (afterSessionId) {
-      const previous = await sessionEvidence(
-        client,
-        access,
-        afterSessionId,
-        "student",
-        true,
-      );
-      if (previous.session.assignment_id !== assignmentId)
-        throw new EvidenceError(404, "Session not found for this assignment.");
-      if (
-        !["completed", "unevaluated"].includes(previous.session.status) ||
-        previous.interventions.some(
-          (help) =>
-            help.type !== "reading" && help.delivery_status === "created",
-        )
-      )
-        throw new EvidenceError(
-          409,
-          "Finish the current session and read its feedback before starting new practice.",
-        );
-      origin = previous.session.data_origin;
-    }
-    const existing = await client.query(
-      "SELECT id FROM sessions WHERE assignment_id=$1 AND student_id=$2 AND data_origin=$3 ORDER BY started_at DESC,id DESC LIMIT 1",
-      [assignmentId, access.actor.profileId, origin],
+    return openTutoringSession(
+      client,
+      access,
+      source.assignment_id,
+      completedSessionId,
     );
-    const latestId = existing.rows[0]
-      ? z.object({ id: z.uuid() }).parse(existing.rows[0]).id
-      : null;
-    let id: string;
-    if (latestId && latestId !== afterSessionId) id = latestId;
-    else {
-      const row = await client.query(
-        "INSERT INTO sessions(id,student_id,assignment_id,class_id,data_origin) VALUES($1,$2,$3,$4,$5) RETURNING *",
-        [
-          randomUUID(),
-          access.actor.profileId,
-          assignmentId,
-          assignment.class_id,
-          origin,
-        ],
-      );
-      id = SessionSchema.parse(evidenceRow(row.rows[0])).id;
-    }
-    const evidence = await sessionEvidence(client, access, id, "student", true);
-    if (!evidence.attempts.length && evidence.session.status === "active") {
-      const attemptId = randomUUID();
-      const question = getCuratedQuestion(
-        content,
-        content.sequence.initial_question_id,
-      );
-      await client.query(
-        "INSERT INTO attempts(id,session_id,sequence_index,root_attempt_id,question,intent) VALUES($1,$2,0,$1,$3::jsonb,'initial_retrieval')",
-        [attemptId, id, JSON.stringify(question)],
-      );
-    }
-    return id;
   });
   return tutorView(access, sessionId);
+}
+
+async function openTutoringSession(
+  client: PoolClient,
+  access: EvidenceAccess,
+  assignmentId: string,
+  completedSessionId?: string,
+) {
+  await client.query("SELECT pg_advisory_xact_lock(hashtextextended($1,0))", [
+    `start-tutor:${access.actor.profileId}:${assignmentId}`,
+  ]);
+  const rows = await client.query(
+    `SELECT a.* FROM assignments a JOIN enrollments e ON e.class_id=a.class_id
+     JOIN profiles p ON p.id=e.student_id
+     WHERE a.id=$1 AND e.student_id=$2 AND p.auth_user_id=$3 FOR SHARE OF a,e,p`,
+    [assignmentId, access.actor.profileId, access.actor.userId],
+  );
+  if (!rows.rows[0]) throw new EvidenceError(404, "Assignment not found.");
+  const assignment = z
+    .object({
+      id: z.uuid(),
+      class_id: z.uuid(),
+      content_ref: z.unknown(),
+      teacher_approved_at: z.unknown(),
+    })
+    .parse(rows.rows[0]);
+  const content = loadApprovedContent();
+  validateContentRef(content, assignment.content_ref);
+  if (!assignment.teacher_approved_at)
+    throw new EvidenceError(
+      409,
+      "Your teacher needs to activate this assignment first. Your previous work is still saved.",
+    );
+  const existing = await client.query(
+    `SELECT id FROM sessions WHERE assignment_id=$1 AND student_id=$2
+       AND class_id=$3 AND data_origin='live_demo'
+     ORDER BY started_at DESC,id DESC LIMIT 1`,
+    [assignmentId, access.actor.profileId, assignment.class_id],
+  );
+  const latestId = existing.rows[0]
+    ? z.object({ id: z.uuid() }).parse(existing.rows[0]).id
+    : null;
+  // A stale restart must never repair, reset or create work on the newer episode.
+  if (completedSessionId && latestId !== completedSessionId) {
+    if (!latestId) throw new EvidenceError(404, "Session not found.");
+    return latestId;
+  }
+  let id = latestId;
+  if (!id || completedSessionId) {
+    const row = await client.query(
+      "INSERT INTO sessions(id,student_id,assignment_id,class_id,data_origin) VALUES($1,$2,$3,$4,'live_demo') RETURNING *",
+      [randomUUID(), access.actor.profileId, assignmentId, assignment.class_id],
+    );
+    id = SessionSchema.parse(evidenceRow(row.rows[0])).id;
+  }
+  const evidence = await sessionEvidence(client, access, id, "student", true);
+  if (!evidence.attempts.length && evidence.session.status === "active") {
+    const attemptId = randomUUID();
+    const question = getCuratedQuestion(
+      content,
+      content.sequence.initial_question_id,
+    );
+    await client.query(
+      "INSERT INTO attempts(id,session_id,sequence_index,root_attempt_id,question,intent) VALUES($1,$2,0,$1,$3::jsonb,'initial_retrieval')",
+      [attemptId, id, JSON.stringify(question)],
+    );
+  }
+  return id;
 }
 
 /** All decision effects commit together under the authorized session lock. */

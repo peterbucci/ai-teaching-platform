@@ -1,0 +1,504 @@
+/* Teacher views adapt the supplied unified mockup to persisted MVP evidence. */
+.lp-teacher {
+  max-width: 1190px;
+  margin-inline: auto;
+  min-width: 0;
+}
+.lp-teacher-title-row,
+.lp-teacher-section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.lp-teacher-title-row > div {
+  flex: 1;
+  min-width: 230px;
+}
+.lp-teacher .lp-eyebrow {
+  margin-bottom: 8px;
+}
+.lp-teacher-context {
+  display: flex;
+  align-items: center;
+  gap: 12px 18px;
+  flex-wrap: wrap;
+  padding: 14px 17px;
+  margin: 0 0 28px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: white;
+  color: var(--muted);
+  font-size: 12px;
+}
+.lp-teacher-context strong {
+  color: var(--ink);
+}
+.lp-teacher-context > .lp-badge {
+  margin-left: auto;
+}
+.lp-teacher-filters {
+  margin-bottom: 14px;
+}
+.lp-teacher-focus {
+  margin-bottom: 28px;
+}
+.lp-teacher-section-heading {
+  margin-bottom: 18px;
+}
+.lp-teacher-section-heading h2 {
+  font-size: 20px;
+  font-weight: 750;
+  letter-spacing: -0.5px;
+  margin: 0 0 4px;
+}
+.lp-teacher-section-heading p:not(.lp-eyebrow) {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+.lp-teacher-task-grid {
+  display: grid;
+  grid-template-columns: 1.12fr 0.88fr;
+  gap: 16px;
+}
+.lp-teacher-task {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 25px 26px 22px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+.lp-teacher-task-highlight {
+  background: linear-gradient(116deg, #ebf6ef, #e6f4e9 78%, #dcf0e3);
+  border-color: #d0e7d6;
+}
+.lp-teacher-task h3 {
+  font-size: 20px;
+  font-weight: 750;
+  line-height: 1.35;
+  letter-spacing: -0.5px;
+  margin: 0 0 10px;
+}
+.lp-teacher-task > p:not(.lp-eyebrow) {
+  font-size: 13px;
+  line-height: 1.75;
+  color: #526f60;
+  margin: 0 0 20px;
+}
+.lp-teacher-task-footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.lp-teacher-task-footer > span {
+  font-size: 11px;
+  color: #597764;
+}
+.lp-teacher-snapshot {
+  padding: 26px 27px 0;
+}
+.lp-teacher-stat-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid #e4ede5;
+  border-radius: 12px;
+  background: #f9fcf9;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.lp-teacher-stat-strip > div {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 17px 19px;
+}
+.lp-teacher-stat-strip > div + div {
+  border-left: 1px solid #e0e9e1;
+}
+.lp-teacher-stat-icon {
+  display: grid;
+  place-items: center;
+  height: 39px;
+  width: 39px;
+  flex-shrink: 0;
+  border-radius: 11px;
+  color: #2b7956;
+  background: #e5f3e9;
+}
+.lp-teacher-stat-strip strong {
+  display: block;
+  font-size: 23px;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+.lp-teacher-stat-strip strong small {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.lp-teacher-stat-strip div > span:not(.lp-teacher-stat-icon) {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.lp-teacher-snapshot-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+.lp-teacher-snapshot-columns > section {
+  min-width: 0;
+  padding-bottom: 16px;
+}
+.lp-teacher-snapshot-columns > section + section {
+  padding-left: 25px;
+  border-left: 1px solid #e5ede6;
+}
+.lp-teacher-snapshot-columns h3 {
+  font-size: 15px;
+  font-weight: 750;
+  margin: 0 0 4px;
+}
+.lp-teacher-concept-link,
+.lp-teacher-work-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 17px 0;
+  border-bottom: 1px solid #ebf0ec;
+  text-decoration: none;
+  color: var(--ink);
+}
+.lp-teacher-concept-link:last-child,
+.lp-teacher-recent-list li:last-child .lp-teacher-work-link {
+  border-bottom: 0;
+}
+.lp-teacher-concept-link > div,
+.lp-teacher-work-link > span:nth-child(2) {
+  flex: 1;
+  min-width: 0;
+}
+.lp-teacher-concept-link strong,
+.lp-teacher-work-link strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+}
+.lp-teacher-concept-link small,
+.lp-teacher-work-link small {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.lp-teacher-concept-link .lp-progress {
+  width: 100%;
+  max-width: 340px;
+  margin-top: 9px;
+  height: 6px;
+}
+.lp-teacher-concept-link > .lp-icon,
+.lp-teacher-work-link > .lp-icon {
+  color: var(--green);
+  width: 16px;
+}
+.lp-teacher-concept-link:hover strong,
+.lp-teacher-work-link:hover strong {
+  color: var(--green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.lp-teacher-directory-link {
+  margin-top: 12px;
+}
+.lp-teacher-snapshot-note {
+  border-top: 1px solid var(--line);
+  padding: 16px 0;
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.65;
+}
+.lp-teacher-footnote {
+  color: var(--muted);
+  margin-top: 16px;
+  font-size: 11px;
+  line-height: 1.7;
+}
+.lp-insight-sections {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 22px;
+  overflow-x: auto;
+}
+.lp-insight-sections a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.lp-insight-sections a:hover {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+.lp-directory {
+  padding: 25px;
+}
+.lp-student-search {
+  display: flex;
+  gap: 9px;
+  align-items: end;
+}
+.lp-directory-student {
+  border-top: 1px solid var(--line);
+}
+.lp-directory-student > summary {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 20px 0;
+  cursor: pointer;
+  list-style: none;
+}
+.lp-directory-student > summary::-webkit-details-marker {
+  display: none;
+}
+.lp-directory-student > summary:hover .lp-directory-student-name strong {
+  color: var(--green);
+  text-decoration: underline;
+}
+.lp-directory-student-name {
+  display: grid;
+  gap: 5px;
+  flex: 1;
+}
+.lp-directory-student-name strong {
+  font-size: 13px;
+}
+.lp-directory-student-name small,
+.lp-directory-last-active {
+  color: var(--muted);
+  font-size: 11px;
+}
+.lp-directory-profile {
+  background: #f8fbf9;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.lp-directory-profile > p {
+  margin-bottom: 12px;
+}
+.lp-directory-session {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 17px 0;
+  border-top: 1px solid var(--line);
+}
+.lp-directory-session strong,
+.lp-directory-session small {
+  display: block;
+  margin-top: 5px;
+}
+.lp-directory-session strong {
+  font-size: 12px;
+  font-weight: 600;
+}
+.lp-directory-session small {
+  font-size: 11px;
+  color: var(--muted);
+}
+.lp-assignment-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 22px;
+  align-items: start;
+  margin: 25px 0;
+}
+.lp-assignment-main {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+.lp-assignment-main .lp-panel {
+  padding: 25px;
+}
+.lp-assignment-sidebar {
+  position: sticky;
+  top: 20px;
+  padding: 22px;
+}
+.lp-assignment-sidebar h2,
+.lp-assignment-main h2 {
+  font-size: 19px;
+  font-weight: 750;
+  margin-bottom: 14px;
+}
+.lp-assignment-sidebar p {
+  font-size: 12px;
+  line-height: 1.75;
+  color: var(--muted);
+  margin-bottom: 15px;
+}
+.lp-assignment-sidebar .lp-badge {
+  margin-bottom: 14px;
+}
+.lp-assignment-sidebar .lp-button {
+  width: 100%;
+}
+.lp-assignment-review-list {
+  display: grid;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.lp-assignment-review-list a {
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--green);
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.lp-assignment-summary {
+  padding: 23px 25px;
+  background: linear-gradient(110deg, #edf7f0, #f7fbf8);
+  border: 1px solid #d8e9dc;
+  border-radius: 16px;
+}
+.lp-assignment-summary h2 {
+  font-size: 23px;
+  line-height: 1.35;
+  font-weight: 750;
+  letter-spacing: -0.5px;
+  margin: 5px 0 10px;
+}
+.lp-assignment-summary p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.lp-assignment-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.lp-approval-confirmation {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 16px 0;
+}
+.lp-approval-confirmation input {
+  flex-shrink: 0;
+  margin-top: 4px;
+  width: 17px;
+  height: 17px;
+  accent-color: var(--green);
+}
+.lp-teacher
+  :is(
+    #concepts,
+    #patterns,
+    #responses,
+    #learning-goals,
+    #prepared-practice,
+    #assigned-reading
+  ) {
+  scroll-margin-top: 24px;
+}
+@media (max-width: 1100px) {
+  .lp-teacher-task-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .lp-assignment-layout {
+    grid-template-columns: minmax(0, 1fr) 255px;
+    gap: 16px;
+  }
+}
+@media (max-width: 950px) {
+  .lp-teacher-task-grid,
+  .lp-teacher-snapshot-columns,
+  .lp-assignment-layout {
+    grid-template-columns: 1fr;
+  }
+  .lp-teacher-snapshot-columns > section + section {
+    padding: 18px 0;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+  .lp-assignment-sidebar {
+    position: static;
+  }
+  .lp-directory-last-active {
+    display: none;
+  }
+}
+@media (max-width: 560px) {
+  .lp-teacher-task,
+  .lp-teacher-snapshot,
+  .lp-directory {
+    padding: 20px 18px;
+  }
+  .lp-teacher-snapshot {
+    padding-bottom: 0;
+  }
+  .lp-teacher-stat-strip {
+    grid-template-columns: 1fr;
+  }
+  .lp-teacher-stat-strip > div + div {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+  .lp-teacher-context > .lp-badge {
+    margin-left: 0;
+  }
+  .lp-teacher-task-footer {
+    align-items: flex-start;
+  }
+  .lp-teacher-task-footer > span {
+    flex-basis: 100%;
+  }
+  .lp-directory-profile {
+    padding: 16px;
+  }
+  .lp-directory-session {
+    flex-wrap: wrap;
+  }
+  .lp-student-search {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .lp-student-search .lp-field {
+    flex: 1;
+  }
+  .lp-assignment-main .lp-panel,
+  .lp-assignment-summary {
+    padding: 20px;
+  }
+}
