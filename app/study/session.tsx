@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Icon } from "../components/icons.tsx";
 import { StudentReading } from "./reading.tsx";
+import { StudyDialogue } from "./dialogue.tsx";
 import {
   TutorViewSchema,
   type AssignedLesson,
@@ -585,51 +586,72 @@ export function StudySession({
                 </li>
               ))}
             </ol>
-            {view.progress.phase === "answer" && (
-              <form onSubmit={(e) => void answer(e)} className="lp-composer">
-                <label htmlFor="response" className="block font-semibold">
-                  Your answer and reasoning
-                </label>
-                <textarea
-                  id="response"
-                  value={draft}
-                  onChange={(e) => {
-                    setDraft(e.target.value);
-                    if (last && !submission.current)
-                      saveDraft(last.id, {
-                        key: crypto.randomUUID(),
-                        response: e.target.value,
-                      });
-                  }}
-                  maxLength={12000}
-                  required
-                  disabled={
-                    busy || locked || readingBusy || Boolean(pendingReading)
-                  }
-                  rows={4}
-                  placeholder="Write what you think, and why…"
-                  className="lp-input"
-                />
-                <div className="lp-composer-footer">
-                  <p>A rough idea is a good place to start.</p>
-                  <button
-                    className={button}
+            {view.progress.phase === "answer" && last && (
+              <StudyDialogue
+                key={last.id}
+                sessionId={view.session.id}
+                attemptId={last.id}
+                disabled={
+                  busy || locked || readingBusy || Boolean(pendingReading)
+                }
+                onReturn={() => {
+                  requestAnimationFrame(() =>
+                    document.getElementById("response")?.focus(),
+                  );
+                }}
+                onCitation={({ passage_id, intervention_id }) => {
+                  setReadingRequest({
+                    passage: passage_id,
+                    citation: intervention_id,
+                    key: Date.now(),
+                  });
+                }}
+              >
+                <form onSubmit={(e) => void answer(e)} className="lp-composer">
+                  <label htmlFor="response" className="block font-semibold">
+                    Your answer and reasoning
+                  </label>
+                  <textarea
+                    id="response"
+                    value={draft}
+                    onChange={(e) => {
+                      setDraft(e.target.value);
+                      if (last && !submission.current)
+                        saveDraft(last.id, {
+                          key: crypto.randomUUID(),
+                          response: e.target.value,
+                        });
+                    }}
+                    maxLength={12000}
+                    required
                     disabled={
-                      busy ||
-                      readingBusy ||
-                      Boolean(pendingReading) ||
-                      !draft.trim()
+                      busy || locked || readingBusy || Boolean(pendingReading)
                     }
-                  >
-                    {busy
-                      ? "Checking…"
-                      : locked
-                        ? "Retry sending saved answer"
-                        : "Submit answer"}
-                    <Icon name="send" />
-                  </button>
-                </div>
-              </form>
+                    rows={4}
+                    placeholder="Write what you think, and why…"
+                    className="lp-input"
+                  />
+                  <div className="lp-composer-footer">
+                    <p>A rough idea is a good place to start.</p>
+                    <button
+                      className={button}
+                      disabled={
+                        busy ||
+                        readingBusy ||
+                        Boolean(pendingReading) ||
+                        !draft.trim()
+                      }
+                    >
+                      {busy
+                        ? "Checking…"
+                        : locked
+                          ? "Retry sending saved answer"
+                          : "Submit answer"}
+                      <Icon name="send" />
+                    </button>
+                  </div>
+                </form>
+              </StudyDialogue>
             )}
           </div>
           <div className="lp-session-actions">
