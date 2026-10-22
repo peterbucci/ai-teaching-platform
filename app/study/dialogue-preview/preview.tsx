@@ -343,6 +343,11 @@ export function DialoguePreview(props: PreviewProps) {
           Reset preview
         </button>
       </div>
+      <p className="mb-5 text-sm text-slate-600">
+        Try “What do you mean by packet size?” and then “Can you explain that
+        another way?” without selecting a request type. Quick actions fill an
+        editable message; only Send sends it.
+      </p>
       {passage && (
         <aside className="lp-panel mb-5" aria-label="Preview source passage">
           <button
@@ -473,6 +478,23 @@ export function DialoguePreview(props: PreviewProps) {
         Preview only: {snapshot.answers} answers submitted ·{" "}
         {snapshot.acknowledgements} help messages acknowledged as displayed.
       </p>
+      <details className="mt-3 text-sm text-slate-600">
+        <summary>Fixture request details</summary>
+        {snapshot.view.turns.at(-1) ? (
+          <dl className="mt-2">
+            <dt>Last request purpose</dt>
+            <dd>{snapshot.view.turns.at(-1)?.purpose}</dd>
+            <dt>Exact request text</dt>
+            <dd className="whitespace-pre-wrap">
+              {snapshot.view.turns.at(-1)?.text}
+            </dd>
+            <dt>Conversation questions</dt>
+            <dd>{snapshot.view.turns.length}</dd>
+          </dl>
+        ) : (
+          <p className="mt-2">No request sent.</p>
+        )}
+      </details>
     </section>
   );
 }

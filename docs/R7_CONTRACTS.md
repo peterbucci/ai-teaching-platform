@@ -13,7 +13,7 @@ The fixtures are invented contract examples, not real model outputs or additions
 
 ## Actions and lesson state
 
-`StudentActionSchema` distinguishes `submit_answer`, `ask_tutor`, and `return_to_lesson`. An ask has an explicit purpose: question, clarification, example, or alternative explanation. Never infer an answer submission from its wording. Unclear intent gets the `intent_unclear` fallback and an explicit choice.
+`StudentActionSchema` distinguishes `submit_answer`, `ask_tutor`, and `return_to_lesson`. An ask retains a purpose: question, clarification, example, or alternative explanation. Ordinary free text uses `question`; optional quick actions set a purpose and fill an editable message without sending it. #74 must interpret the actual text and accepted conversation context, not rely exclusively on purpose. Never infer an answer submission from its wording. Unclear intent gets the `intent_unclear` fallback and an explicit choice.
 
 `submit_answer` wraps the existing `SubmitAnswerSchema`. The existing `IntentSchema` still describes assessment question types; it is unchanged. An ask or return produces no answer submission, evaluation, or lesson transition.
 

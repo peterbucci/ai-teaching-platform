@@ -14,6 +14,28 @@ import {
   type StudentAction,
 } from "./contracts.ts";
 
+export const DIALOGUE_QUICK_ACTIONS = [
+  {
+    label: "Give me an example",
+    text: "Give me an example.",
+    purpose: "example",
+  },
+  {
+    label: "Explain another way",
+    text: "Explain that another way.",
+    purpose: "alternative_explanation",
+  },
+  {
+    label: "Help me understand",
+    text: "Help me understand this.",
+    purpose: "clarification",
+  },
+] as const satisfies readonly {
+  label: string;
+  text: string;
+  purpose: AskTutor["purpose"];
+}[];
+
 const requiredText = z.string().refine((value) => value.trim().length > 0);
 const help = StudentDialogueContentSchema.options[0].extend({
   text: requiredText.max(DIALOGUE_LIMITS.responseCharacters),

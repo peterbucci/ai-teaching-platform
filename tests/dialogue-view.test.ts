@@ -8,6 +8,7 @@ import {
 } from "../lib/dialogue/rules.ts";
 import { DIALOGUE_VERSION } from "../lib/dialogue/contracts.ts";
 import {
+  DIALOGUE_QUICK_ACTIONS,
   makeAskAction,
   makeDisplayAcknowledgement,
   makeReturnAction,
@@ -99,6 +100,96 @@ test("ask and return actions preserve the existing activity and cannot become an
     examples.state.progress.current_attempt_id,
     expected.attemptId,
   );
+});
+
+test("free-text asks preserve exact wording; optional quick actions keep compatible metadata", () => {
+  for (const text of [
+    "What do you mean by packet size?",
+    "Can you explain that another way?",
+    "  What do you mean by packet size?\nI mean the size of one packet.  ",
+  ]) {
+    const action = makeAskAction(examples.state, "question", text, id(21));
+    assert.equal(action.text, text);
+    assert.equal(action.purpose, "question");
+    assert.equal(action.action, "ask_tutor");
+    assert.equal("answer" in action, false);
+  }
+  const purposes = ["example", "alternative_explanation", "clarification"];
+  DIALOGUE_QUICK_ACTIONS.forEach((choice, index) => {
+    const edited = `${choice.text} Use a shorter cable in the explanation.`;
+    const action = makeAskAction(
+      examples.state,
+      choice.purpose,
+      edited,
+      id(22),
+    );
+    assert.equal(action.purpose, purposes[index]);
+    assert.equal(action.text, edited);
+    assert.equal(action.action, "ask_tutor");
+    assert.equal(action.attempt_id, expected.attemptId);
+  });
+});
+
+test("follow-up asks retain earlier messages and the same unanswered activity", () => {
+  const first = accepted();
+  const firstResponse = first.turns[0].response;
+  if (firstResponse.status !== "accepted")
+    throw new Error("Expected fixture help");
+  firstResponse.status = "displayed";
+  first.state.active_request_id = null;
+  const followup = makeAskAction(
+    first.state,
+    "question",
+    "Can you explain that another way?",
+    id(23),
+  );
+  const pending = parseStudentDialogueView(
+    {
+      state: { ...first.state, active_request_id: followup.request_id },
+      turns: [
+        ...first.turns,
+        {
+          request_id: followup.request_id,
+          attempt_id: followup.attempt_id,
+          purpose: followup.purpose,
+          text: followup.text,
+          response: { status: "pending" },
+        },
+      ],
+    },
+    expected,
+    first,
+  );
+  const answered = parseStudentDialogueView(
+    {
+      ...pending,
+      turns: [
+        pending.turns[0],
+        {
+          ...pending.turns[1],
+          response: {
+            ...firstResponse,
+            status: "accepted",
+            accepted_event_id: id(24),
+            intervention_id: id(25),
+            content: { ...firstResponse.content, content_id: id(26) },
+          },
+        },
+      ],
+    },
+    expected,
+    pending,
+  );
+  assert.equal(answered.turns.length, 2);
+  assert.deepEqual(answered.turns[0], first.turns[0]);
+  assert.equal(answered.turns[1].text, followup.text);
+  assert.deepEqual(answered.state.lesson, first.state.lesson);
+  assert.deepEqual(answered.state.progress, first.state.progress);
+  const acknowledgement = makeDisplayAcknowledgement(
+    answered.state,
+    answered.turns[1],
+  );
+  assert.equal(acknowledgement.request_id, followup.request_id);
 });
 
 test("student dialogue keeps accepted safe help and never accepts private guidance or generated questions", () => {

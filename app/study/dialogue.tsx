@@ -15,6 +15,7 @@ import {
   type AskTutor,
 } from "../../lib/dialogue/contracts.ts";
 import {
+  DIALOGUE_QUICK_ACTIONS,
   makeAskAction,
   makeReturnAction,
   makeDisplayAcknowledgement,
@@ -24,12 +25,6 @@ import {
   type StudentDialogueTurn,
 } from "../../lib/dialogue/student-view.ts";
 
-const purposes: { value: AskTutor["purpose"]; label: string }[] = [
-  { value: "question", label: "Ask a question" },
-  { value: "clarification", label: "Clarify something" },
-  { value: "example", label: "Show an example" },
-  { value: "alternative_explanation", label: "Explain another way" },
-];
 const RecoverySchema = z.strictObject({
   mode: z.enum(["answer", "ask"]),
   purpose: AskTutorSchema.shape.purpose,
@@ -82,6 +77,10 @@ export function StudyDialogue({
   const [purpose, setPurpose] = useState<AskTutor["purpose"]>("question");
   const [view, setView] = useState<StudentDialogueView | null>(null);
   const [working, setWorking] = useState(false);
+  const [sending, setSending] = useState<{
+    request_id: string;
+    text: string;
+  } | null>(null);
   const [returning, setReturning] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [unavailable, setUnavailable] = useState(false);
@@ -94,6 +93,7 @@ export function StudyDialogue({
   const returningRef = useRef(false);
   const mounted = useRef(true);
   const input = useRef<HTMLTextAreaElement>(null);
+  const focusOnEnter = useRef(false);
   const acknowledging = useRef(new Set<string>());
   const [restored, setRestored] = useState(false);
   const recoveryKey = `learning-pulse:dialogue-ui:${preview ? "preview" : "live"}:${sessionId}:${attemptId}`;
@@ -132,6 +132,7 @@ export function StudyDialogue({
         : null;
       queueMicrotask(() => {
         if (saved?.success) {
+          focusOnEnter.current = saved.data.mode === "ask";
           setText(saved.data.text);
           setPurpose(saved.data.purpose);
           setMode(saved.data.mode);
@@ -187,12 +188,40 @@ export function StudyDialogue({
   }, [restored, mode, transport, load]);
 
   function openAsk() {
+    focusOnEnter.current = true;
     setMode("ask");
     setError(null);
     setUnavailable(false);
     if (transport) void load();
-    requestAnimationFrame(() => input.current?.focus());
   }
+
+  useEffect(() => {
+    if (
+      mode !== "ask" ||
+      working ||
+      returning ||
+      disabled ||
+      !focusOnEnter.current
+    )
+      return;
+    const frame = requestAnimationFrame(() => {
+      if (input.current && !input.current.disabled) {
+        input.current.focus();
+        focusOnEnter.current = false;
+      }
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [mode, working, returning, disabled]);
+
+  // Bring newly received help into view; the existing visibility check records
+  // assistance only after it is actually shown, never merely on arrival.
+  const newestTurn = view?.turns.at(-1);
+  useEffect(() => {
+    if (mode !== "ask" || newestTurn?.response.status !== "accepted") return;
+    document
+      .getElementById(`dialogue-${newestTurn.request_id}`)
+      ?.scrollIntoView({ block: "nearest" });
+  }, [mode, newestTurn?.request_id, newestTurn?.response.status]);
 
   async function ask(event: React.FormEvent) {
     event.preventDefault();
@@ -221,10 +250,12 @@ export function StudyDialogue({
         text,
         crypto.randomUUID(),
       );
+      setSending({ request_id: action.request_id, text: action.text });
       const result = await bounded(transport.act(action));
       if (!mounted.current || epoch.current !== requestEpoch) return;
       receive(result);
       setText("");
+      setPurpose("question");
     } catch {
       if (mounted.current && epoch.current === requestEpoch) {
         setUncertain(true);
@@ -236,6 +267,7 @@ export function StudyDialogue({
       if (mounted.current && epoch.current === requestEpoch) {
         inFlight.current = false;
         setWorking(false);
+        setSending(null);
       }
     }
   }
@@ -248,6 +280,7 @@ export function StudyDialogue({
     const requestEpoch = ++epoch.current; // Late help cannot replace a returned activity.
     inFlight.current = false;
     setWorking(false);
+    setSending(null);
     setReturning(true);
     setError(null);
     try {
@@ -371,12 +404,12 @@ export function StudyDialogue({
               {returning ? "Returning…" : "Return to question"}
             </button>
           </div>
-          {view && (
+          {(Boolean(view?.turns.length) || sending) && (
             <ol
               className="lp-dialogue-turns"
               aria-label="Your questions and tutor help"
             >
-              {view.turns.map((turn) => (
+              {view?.turns.map((turn) => (
                 <DialogueTurn
                   key={turn.request_id}
                   turn={turn}
@@ -385,11 +418,24 @@ export function StudyDialogue({
                   disabled={disabled || needsDisplay}
                 />
               ))}
+              {sending &&
+                !view?.turns.some(
+                  (turn) => turn.request_id === sending.request_id,
+                ) && (
+                  <li className="lp-dialogue-turn">
+                    <div className="lp-student-message">
+                      <h3 className="lp-message-label">You</h3>
+                      <p className="lp-answer">{sending.text}</p>
+                    </div>
+                  </li>
+                )}
             </ol>
           )}
           {working && (
             <p role="status" className="lp-notice">
-              Checking your help request… Your answer hasn’t been submitted.
+              {sending
+                ? "Waiting for the tutor… Your assignment answer hasn’t been submitted."
+                : "Checking your saved conversation…"}
             </p>
           )}
           {!working && pending && !needsDisplay && (
@@ -430,7 +476,7 @@ export function StudyDialogue({
               )}
             </p>
           )}
-          {transport && (
+          {transport && (uncertain || pending || error) && (
             <button
               type="button"
               className="lp-text-link my-3"
@@ -447,26 +493,32 @@ export function StudyDialogue({
             onSubmit={(event) => void ask(event)}
             className="lp-ask-composer"
           >
-            <label htmlFor="ask-purpose">What would help?</label>
-            <select
-              id="ask-purpose"
-              className="lp-input"
-              value={purpose}
-              disabled={working || returning}
-              onChange={(event) => {
-                const choice = purposes.find(
-                  (p) => p.value === event.target.value,
-                );
-                if (choice) setPurpose(choice.value);
-              }}
+            <div
+              className="lp-dialogue-suggestions"
+              role="group"
+              aria-label="Optional starting points"
             >
-              {purposes.map((p) => (
-                <option key={p.value} value={p.value}>
-                  {p.label}
-                </option>
+              {DIALOGUE_QUICK_ACTIONS.map((suggestion) => (
+                <button
+                  key={suggestion.purpose}
+                  type="button"
+                  className="lp-dialogue-chip"
+                  disabled={
+                    disabled || working || returning || needsDisplay || pending
+                  }
+                  onClick={() => {
+                    setText(suggestion.text);
+                    setPurpose(suggestion.purpose);
+                    input.current?.focus();
+                  }}
+                >
+                  {suggestion.label}
+                </button>
               ))}
-            </select>
-            <label htmlFor="tutor-question">Your question for the tutor</label>
+            </div>
+            <label htmlFor="tutor-question" className="sr-only">
+              Your question for the tutor
+            </label>
             <textarea
               id="tutor-question"
               ref={input}
@@ -475,9 +527,12 @@ export function StudyDialogue({
               rows={3}
               maxLength={DIALOGUE_LIMITS.requestCharacters}
               required
-              placeholder="What would you like to understand better?"
-              disabled={working || returning}
-              onChange={(event) => setText(event.target.value)}
+              placeholder="Ask anything about this lesson..."
+              disabled={disabled || working || returning}
+              onChange={(event) => {
+                setText(event.target.value);
+                if (!event.target.value) setPurpose("question");
+              }}
             />
             <div className="lp-composer-footer">
               <p>This asks for help, not a grade.</p>
@@ -495,7 +550,7 @@ export function StudyDialogue({
                   !text.trim()
                 }
               >
-                {working ? "Asking…" : "Ask the tutor"} <Icon name="send" />
+                {working ? "Please wait…" : "Send"} <Icon name="send" />
               </button>
             </div>
           </form>
@@ -521,11 +576,9 @@ function DialogueTurn({
 }) {
   const response = turn.response;
   return (
-    <li className="lp-turn">
+    <li className="lp-turn lp-dialogue-turn">
       <div className="lp-student-message">
-        <h3 className="lp-message-label">
-          Your question · Not an assessed answer
-        </h3>
+        <h3 className="lp-message-label">You</h3>
         <p className="lp-answer">{turn.text}</p>
       </div>
       {response.status === "pending" ? (
@@ -536,7 +589,9 @@ function DialogueTurn({
         <div className="lp-question" id={`dialogue-${turn.request_id}`}>
           <h3 className="lp-message-label">
             <Icon name="pulse" />{" "}
-            {preview ? "Example tutor help · Not live AI" : "Tutor help"}
+            {preview
+              ? "Example tutor · Fixture, not live AI"
+              : "Learning Pulse"}
           </h3>
           <p className="whitespace-pre-wrap">{response.content.text}</p>
           {response.citations.map((citation) => (
