@@ -9,6 +9,7 @@ import {
   evidenceAccess,
 } from "../../../../lib/evidence/store.ts";
 import { readTeacherSession } from "../../../../lib/teacher/store.ts";
+import { OriginFilterSchema } from "../../../../lib/teacher/metrics.ts";
 import { TeacherFrame, date, label, originLabel } from "../../presentation.tsx";
 import { EvidenceAnchor } from "../evidence-anchor.tsx";
 
@@ -28,14 +29,25 @@ async function load(id: string) {
 }
 export default async function SessionPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ sessionId: string }>;
+  searchParams: Promise<{ origin?: string; concept?: string }>;
 }) {
   const { evidence, display_name, title } = await load(
     (await params).sessionId,
   );
   const content = loadApprovedContent();
   const { session, attempts, evaluations, interventions } = evidence;
+  const filters = await searchParams;
+  const origin = OriginFilterSchema.safeParse(filters.origin).data ?? "all";
+  const context = { assignment: session.assignment_id, origin };
+  const query = new URLSearchParams({
+    ...context,
+    ...(filters.concept && content.concepts.has(filters.concept)
+      ? { concept: filters.concept }
+      : {}),
+  });
   const conceptName = (id: string) => content.concepts.get(id)?.title ?? id;
   const stepNames = {
     initial_retrieval: "First answer",
@@ -89,15 +101,12 @@ export default async function SessionPage({
     );
   }
   return (
-    <TeacherFrame section="Student evidence">
+    <TeacherFrame section="Student evidence" context={context}>
       <EvidenceAnchor key={session.id} />
       <div className="lp-evidence-page">
-        <Link
-          href={`/teacher?assignment=${session.assignment_id}`}
-          className="lp-text-link"
-        >
+        <Link href={`/teacher/evidence?${query}`} className="lp-text-link">
           <Icon name="back" />
-          Back to assignment overview
+          Back to student evidence
         </Link>
         <h1 className="lp-title mt-4">{display_name}</h1>
         <p className="lp-evidence-subtitle">{title}</p>

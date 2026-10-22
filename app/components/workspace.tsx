@@ -1,69 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useSyncExternalStore, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
+import type { ReactNode } from "react";
 import { Icon } from "./icons.tsx";
 import { AccountMenu } from "./account-menu.tsx";
 
 const teacherSections = [
-  { id: "main-content", text: "Class overview", icon: "chart" },
-  { id: "patterns", text: "Reasoning patterns", icon: "chat" },
-  { id: "responses", text: "Student evidence", icon: "users" },
+  { href: "/teacher", text: "Class overview", icon: "chart" },
+  { href: "/teacher/patterns", text: "Reasoning patterns", icon: "chat" },
+  { href: "/teacher/evidence", text: "Student evidence", icon: "users" },
+  { href: "/teacher/assignments", text: "Assignments", icon: "book" },
 ] as const;
-
-function subscribeToVisibleSection(onChange: () => void) {
-  let frame = 0;
-  const update = () => {
-    cancelAnimationFrame(frame);
-    frame = requestAnimationFrame(onChange);
-  };
-  window.addEventListener("scroll", update, { passive: true });
-  window.addEventListener("resize", update);
-  window.addEventListener("hashchange", update);
-  window.addEventListener("popstate", update);
-  const observer = new ResizeObserver(update);
-  const main = document.getElementById("main-content");
-  if (main) observer.observe(main);
-  return () => {
-    cancelAnimationFrame(frame);
-    observer.disconnect();
-    window.removeEventListener("scroll", update);
-    window.removeEventListener("resize", update);
-    window.removeEventListener("hashchange", update);
-    window.removeEventListener("popstate", update);
-  };
-}
-
-function getVisibleSection() {
-  const pageHeight = document.documentElement.scrollHeight;
-  if (pageHeight <= window.innerHeight) {
-    return (
-      teacherSections.find(
-        (section) =>
-          window.location.hash === `#${section.id}` &&
-          document.getElementById(section.id),
-      )?.text ?? "Class overview"
-    );
-  }
-  if (window.scrollY === 0) return "Class overview";
-  const atBottom = window.scrollY + window.innerHeight >= pageHeight - 2;
-  for (let index = teacherSections.length - 1; index > 0; index--) {
-    const section = teacherSections[index];
-    const element = document.getElementById(section.id);
-    if (!element) continue;
-    const top = element.getBoundingClientRect().top;
-    // Short sections may never reach the upper part of the viewport.
-    if (
-      top <= window.innerHeight * 0.3 ||
-      (atBottom && top < window.innerHeight)
-    )
-      return section.text;
-  }
-  return "Class overview";
-}
-
-const getServerSection = () => "Class overview";
-const subscribeToNothing = () => () => {};
 
 export function Brand() {
   return (
@@ -86,46 +34,33 @@ export function Workspace({
   area,
   section,
   sessionHref,
+  teacherContext,
 }: {
   children: ReactNode;
   area: "teacher" | "student";
   section: string;
   sessionHref?: string;
+  teacherContext?: { assignment?: string; origin?: string };
 }) {
   const teacher = area === "teacher";
-  const overview = teacher && section === "Class overview";
-  useEffect(() => {
-    if (!overview) return;
-    const id = window.location.hash.slice(1);
-    if (!teacherSections.some((item) => item.id === id)) return;
-    // Streamed page content may arrive after the browser first tries the anchor.
-    const frame = requestAnimationFrame(() => {
-      if (window.scrollY === 0)
-        document.getElementById(id)?.scrollIntoView({ block: "start" });
-    });
-    return () => cancelAnimationFrame(frame);
-  }, [overview]);
-  const visibleSection = useSyncExternalStore(
-    overview ? subscribeToVisibleSection : subscribeToNothing,
-    getVisibleSection,
-    getServerSection,
-  );
-  const activeSection = overview ? visibleSection : section;
-  // Native section links keep scrolling, browser history, and the hash in sync.
-  const NavigationLink = teacher ? "a" : Link;
+  const pathname = usePathname();
+  const activeSection = teacher
+    ? pathname.startsWith("/teacher/sessions/")
+      ? "Student evidence"
+      : (teacherSections.find((item) => item.href === pathname)?.text ??
+        section)
+    : section;
+  const query = new URLSearchParams({
+    ...(teacherContext?.assignment
+      ? { assignment: teacherContext.assignment }
+      : {}),
+    ...(teacherContext?.origin ? { origin: teacherContext.origin } : {}),
+  }).toString();
   const links = teacher
-    ? [
-        ...teacherSections.map(({ id, text, icon }) => ({
-          href: `${overview ? "" : "/teacher"}#${id}`,
-          text,
-          icon,
-        })),
-        {
-          href: "/teacher/assignments",
-          text: "Assignments",
-          icon: "book" as const,
-        },
-      ]
+    ? teacherSections.map((item) => ({
+        ...item,
+        href: `${item.href}${query ? `?${query}` : ""}`,
+      }))
     : [
         { href: "/study", text: "My learning", icon: "book" as const },
         ...(sessionHref
@@ -135,14 +70,14 @@ export function Workspace({
   const navigation = (
     <nav aria-label="Workspace navigation" className="lp-nav">
       {links.map((link) => (
-        <NavigationLink
+        <Link
           key={link.text}
           href={link.href}
-          aria-current={activeSection === link.text ? "location" : undefined}
+          aria-current={activeSection === link.text ? "page" : undefined}
         >
           <Icon name={link.icon} />
           {link.text}
-        </NavigationLink>
+        </Link>
       ))}
     </nav>
   );
@@ -169,7 +104,7 @@ export function Workspace({
             <AccountMenu />
           </div>
         </header>
-        <details className="lp-mobile-nav">
+        <details key={pathname} className="lp-mobile-nav">
           <summary>
             <Icon name="menu" />
             Menu<span>Learning Pulse</span>

@@ -4,6 +4,7 @@ import { AuthError, requireActor } from "../../../lib/auth.ts";
 import { EvidenceError, evidenceAccess } from "../../../lib/evidence/store.ts";
 import { loadApprovedContent } from "../../../lib/evidence/content.ts";
 import { teacherAssignments } from "../../../lib/teacher/store.ts";
+import { OriginFilterSchema } from "../../../lib/teacher/metrics.ts";
 import { assignmentReview } from "../../../lib/assignments/store.ts";
 import { assignedReading } from "../../../lib/assignments/reading.ts";
 import { Reading } from "../../components/reading.tsx";
@@ -29,12 +30,17 @@ async function load(id?: string) {
 export default async function AssignmentsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ assignment?: string }>;
+  searchParams: Promise<{ assignment?: string; origin?: string }>;
 }) {
-  const { assignments, selected } = await load((await searchParams).assignment);
+  const params = await searchParams;
+  const { assignments, selected } = await load(params.assignment);
+  const origin = OriginFilterSchema.safeParse(params.origin).data ?? "all";
   const content = loadApprovedContent();
   return (
-    <TeacherFrame section="Assignments">
+    <TeacherFrame
+      section="Assignments"
+      context={{ assignment: selected?.id, origin }}
+    >
       <div className="lp-evidence-page">
         <h1 className="lp-title">Review an assignment</h1>
         <p className="lp-intro">
@@ -47,7 +53,7 @@ export default async function AssignmentsPage({
               <p key={item.id}>
                 <Link
                   className="lp-text-link"
-                  href={`/teacher/assignments?assignment=${item.id}`}
+                  href={`/teacher/assignments?${new URLSearchParams({ assignment: item.id, origin })}`}
                 >
                   {item.class_name} · {item.title}
                 </Link>

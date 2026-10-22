@@ -26,10 +26,12 @@ export function Patterns({
   groups,
   students,
   content,
+  query,
 }: {
   groups: PatternGroup[];
   students: { student_id: string; display_name: string }[];
   content: ApprovedContent;
+  query: string;
 }) {
   return (
     <section
@@ -139,7 +141,7 @@ export function Patterns({
                             ))}
                             <Link
                               className="lp-text-link"
-                              href={`/teacher/sessions/${observation.session_id}#evaluation-${observation.evaluation_id}`}
+                              href={`/teacher/sessions/${observation.session_id}?${query}#evaluation-${observation.evaluation_id}`}
                             >
                               Read original response and feedback{" "}
                               <Icon name="arrow" />
@@ -153,7 +155,7 @@ export function Patterns({
                                     <Link
                                       key={id}
                                       className="lp-text-link"
-                                      href={`/teacher/sessions/${observation.session_id}#evaluation-${id}`}
+                                      href={`/teacher/sessions/${observation.session_id}?${query}#evaluation-${id}`}
                                     >
                                       Inspect support
                                     </Link>
@@ -170,7 +172,7 @@ export function Patterns({
                                     <Link
                                       key={id}
                                       className="lp-text-link"
-                                      href={`/teacher/sessions/${observation.session_id}#evaluation-${id}`}
+                                      href={`/teacher/sessions/${observation.session_id}?${query}#evaluation-${id}`}
                                     >
                                       Inspect contradiction
                                     </Link>

@@ -52,6 +52,11 @@ async function login(prefix: string) {
     .map((c) => c.split(";", 1)[0])
     .join("; ");
 }
+function links(markup: string) {
+  return [...markup.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)].map(
+    ([, href]) => new URL(href.replaceAll("&amp;", "&"), base),
+  );
+}
 const path = `/api/teacher/assignments/${DEMO_IDS.assignmentId}/metrics`;
 try {
   const teacher = await login("DEMO_TEACHER"),
@@ -64,8 +69,57 @@ try {
       .parse(await response.json()).metrics;
   }
   const before = await metrics();
-  const overviewPath = `/teacher?assignment=${DEMO_IDS.assignmentId}`;
-  assert.equal((await request(overviewPath, teacher)).status, 200);
+  const filters = new URLSearchParams({
+    assignment: DEMO_IDS.assignmentId,
+    origin: "synthetic_fixture",
+  });
+  const evidencePath = `/teacher/evidence?${filters}`;
+  const sectionPaths = ["/teacher", "/teacher/patterns", "/teacher/evidence"];
+  for (const section of sectionPaths) {
+    const page = await request(`${section}?${filters}`, teacher);
+    assert.equal(page.status, 200);
+    assert.equal(new URL(page.url).pathname, section);
+    const markup = await page.text();
+    assert.ok(
+      [...markup.matchAll(/<form\b[^>]*\baction="([^"]+)"/g)].some(
+        ([, action]) =>
+          new URL(action.replaceAll("&amp;", "&"), base).pathname === section,
+      ),
+      `${section} filters must submit to the same section`,
+    );
+    const navigation = links(markup);
+    for (const destination of sectionPaths)
+      assert.ok(
+        navigation.some(
+          (link) =>
+            link.pathname === destination &&
+            link.searchParams.get("assignment") === DEMO_IDS.assignmentId &&
+            link.searchParams.get("origin") === "synthetic_fixture",
+        ),
+        `${section} lost assignment or evidence filters when linking to ${destination}`,
+      );
+    assert.equal(
+      markup.includes("Results by concept"),
+      section === "/teacher",
+      "Concept results should appear only on the overview",
+    );
+    assert.equal(
+      markup.includes("Possible reasoning patterns"),
+      section === "/teacher/patterns",
+      "Reasoning patterns should appear only on their own page",
+    );
+    if (section === "/teacher")
+      assert.ok(
+        navigation.some(
+          (link) =>
+            link.pathname === "/teacher/evidence" &&
+            link.searchParams.get("assignment") === DEMO_IDS.assignmentId &&
+            link.searchParams.get("origin") === "synthetic_fixture" &&
+            link.searchParams.get("concept") === "bandwidth_throughput",
+        ),
+        "Concept drilldown must open filtered student evidence",
+      );
+  }
   async function deniedPage(url: string) {
     const response = await request(url, student);
     // Next's loading boundary can stream a not-found page with HTTP 200.
@@ -74,22 +128,29 @@ try {
     const html = await response.text();
     assert.ok(html.includes("This evidence isn’t available"));
     assert.ok(!html.includes("Original student response"));
-    assert.ok(!html.includes("Responses behind the overview"));
+    assert.ok(!html.includes("Student sessions"));
+    assert.ok(!html.includes("Possible reasoning patterns"));
   }
-  await deniedPage(overviewPath);
-  const anonymousPage = await fetch(new URL(overviewPath, base), {
-    redirect: "manual",
-  });
-  if (anonymousPage.status === 307)
-    assert.equal(
-      new URL(anonymousPage.headers.get("location")!, base).pathname,
-      "/login",
+  for (const section of sectionPaths) {
+    await deniedPage(`${section}?${filters}`);
+    const anonymousPage: Response = await fetch(
+      new URL(`${section}?${filters}`, base),
+      {
+        redirect: "manual",
+      },
     );
-  else {
-    assert.equal(anonymousPage.status, 200);
-    const html = await anonymousPage.text();
-    assert.ok(html.includes('content="1;url=/login"'));
-    assert.ok(!html.includes("Responses behind the overview"));
+    if (anonymousPage.status === 307)
+      assert.equal(
+        new URL(anonymousPage.headers.get("location")!, base).pathname,
+        "/login",
+      );
+    else {
+      assert.equal(anonymousPage.status, 200);
+      const html = await anonymousPage.text();
+      assert.ok(html.includes('content="1;url=/login"'));
+      assert.ok(!html.includes("Student sessions"));
+      assert.ok(!html.includes("Possible reasoning patterns"));
+    }
   }
   assert.ok([403, 404].includes((await request(path, student)).status));
   assert.equal((await request(path)).status, 401);
@@ -205,10 +266,19 @@ try {
   assert.ok(markup.includes("metrics-http-probe-v1"));
   assert.ok(markup.includes("Synthetic history"));
   assert.ok(markup.includes(question.content_ref.source_commit));
-  const refreshed = await request(overviewPath, teacher);
+  const refreshed = await request(
+    `${evidencePath}&concept=bandwidth_throughput`,
+    teacher,
+  );
+  assert.equal(refreshed.status, 200);
   assert.ok(
-    (await refreshed.text()).includes(detailPath),
-    "Refreshed overview omitted new evidence link",
+    links(await refreshed.text()).some(
+      (link) =>
+        link.pathname === detailPath &&
+        link.searchParams.get("origin") === "synthetic_fixture" &&
+        link.searchParams.get("concept") === "bandwidth_throughput",
+    ),
+    "Refreshed evidence page omitted the session link or its filter context",
   );
   const concept = (m: typeof after) =>
     m.concepts.find((c) => c.concept_id === "bandwidth_throughput")!;
@@ -255,7 +325,8 @@ try {
         "unrelated concepts unchanged",
         "duplicate answer unchanged",
         "origin filtering",
-        "teacher dashboard and exact response drill-down",
+        "separate teacher sections and filter-preserving navigation",
+        "concept-filtered evidence and exact response drill-down",
         "student/anonymous/unrelated-owner page and projection boundaries",
       ],
       provider: "synthetic fixture only",

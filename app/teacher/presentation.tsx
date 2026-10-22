@@ -5,12 +5,14 @@ import { Workspace } from "../components/workspace.tsx";
 export function TeacherFrame({
   children,
   section = "Class overview",
+  context,
 }: {
   children: ReactNode;
   section?: string;
+  context?: { assignment?: string; origin?: string };
 }) {
   return (
-    <Workspace area="teacher" section={section}>
+    <Workspace area="teacher" section={section} teacherContext={context}>
       {children}
     </Workspace>
   );

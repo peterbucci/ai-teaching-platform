@@ -1,100 +1,30 @@
 import Link from "next/link";
 import { Icon } from "../components/icons.tsx";
-import { notFound, redirect } from "next/navigation";
-import { z } from "zod";
-import { AuthError, requireActor } from "../../lib/auth.ts";
 import { loadApprovedContent } from "../../lib/evidence/content.ts";
-import { EvidenceError, evidenceAccess } from "../../lib/evidence/store.ts";
-import { OriginFilterSchema } from "../../lib/teacher/metrics.ts";
-import { calculatePatterns } from "../../lib/teacher/patterns.ts";
-import { Patterns } from "./patterns.tsx";
-import {
-  readAssignmentEvidence,
-  teacherAssignments,
-} from "../../lib/teacher/store.ts";
-import {
-  TeacherFrame,
-  ResultSummary,
-  date,
-  label,
-  originLabel,
-} from "./presentation.tsx";
+import { loadTeacherEvidence, type TeacherParams } from "./data.ts";
+import { NoTeachingAssignments, TeacherFilters } from "./filters.tsx";
+import { TeacherFrame, ResultSummary } from "./presentation.tsx";
 
 export const dynamic = "force-dynamic";
-async function load(params: {
-  assignment?: string;
-  origin?: string;
-  concept?: string;
-}) {
-  try {
-    const access = evidenceAccess(await requireActor());
-    const assignments = await teacherAssignments(access);
-    const origin = OriginFilterSchema.parse(params.origin ?? "all");
-    const assignmentId = params.assignment ?? assignments[0]?.id;
-    const data = assignmentId
-      ? await readAssignmentEvidence(access, assignmentId, origin)
-      : null;
-    if (
-      params.concept &&
-      !data?.metrics.concepts.some((c) => c.concept_id === params.concept)
-    )
-      notFound();
-    return { assignments, origin, data };
-  } catch (error) {
-    if (error instanceof AuthError && error.status === 401) redirect("/login");
-    if (
-      error instanceof z.ZodError ||
-      (error instanceof EvidenceError && [403, 404].includes(error.status))
-    )
-      notFound();
-    throw error;
-  }
-}
-
 export default async function TeacherPage({
   searchParams,
 }: {
-  searchParams: Promise<{
-    assignment?: string;
-    origin?: string;
-    concept?: string;
-  }>;
+  searchParams: Promise<TeacherParams>;
 }) {
-  const params = await searchParams;
-  const { assignments, origin, data } = await load(params);
+  const { assignments, origin, data } = await loadTeacherEvidence(
+    await searchParams,
+  );
   if (!data)
     return (
       <TeacherFrame>
-        <h1 className="text-3xl font-semibold">No teaching assignments yet</h1>
-        <p className="mt-4">
-          This account has no class assignments to inspect. Check that you’re
-          signed in with your teacher account.
-        </p>
+        <NoTeachingAssignments />
       </TeacherFrame>
     );
   const content = loadApprovedContent();
   const { metrics } = data;
-  const href = (concept?: string) =>
-    `/teacher?${new URLSearchParams({ assignment: data.assignment_id, origin, ...(concept ? { concept } : {}) })}`;
-  const students = data.students.map((student) => ({
-    ...student,
-    sessions: data.evidence
-      .filter(
-        (e) =>
-          e.session.student_id === student.student_id &&
-          (!params.concept ||
-            e.attempts.some((a) =>
-              a.question.concept_ids.includes(params.concept!),
-            )),
-      )
-      .sort((a, b) => b.session.started_at.localeCompare(a.session.started_at)),
-  }));
-  const withSessions = students.filter(
-    (student) => student.sessions.length > 0,
-  );
-  const withoutSessions = students.filter(
-    (student) => student.sessions.length === 0,
-  );
+  const context = { assignment: data.assignment_id, origin };
+  const href = (concept: string) =>
+    `/teacher/evidence?${new URLSearchParams({ ...context, concept })}`;
   const assessedConcepts = metrics.concepts.filter(
     (c) => c.latest.accepted_students > 0,
   ).length;
@@ -103,71 +33,20 @@ export default async function TeacherPage({
       Number(b.latest.no_response < metrics.enrolled_students) -
       Number(a.latest.no_response < metrics.enrolled_students),
   );
-  const sourceDescription =
-    origin === "live_demo"
-      ? "Showing live test sessions from fictional student accounts."
-      : origin === "synthetic_fixture"
-        ? "Showing prepared class examples and software-test histories."
-        : "Showing live test sessions and prepared class examples together.";
-  function sessionLink({
-    session,
-    attempts,
-  }: (typeof withSessions)[number]["sessions"][number]) {
-    return (
-      <li key={session.id} className="lp-session-row">
-        <div>
-          <span
-            className={`lp-badge${session.data_origin === "synthetic_fixture" ? " lp-badge-neutral" : ""}`}
-          >
-            {originLabel(session.data_origin)}
-          </span>
-          <small>
-            {label(session.status)} ·{" "}
-            {attempts.filter((a) => a.submitted_at).length} responses ·{" "}
-            {date(session.started_at)}
-          </small>
-        </div>
-        <Link href={`/teacher/sessions/${session.id}`} className="lp-text-link">
-          Inspect session
-          <Icon name="arrow" />
-        </Link>
-      </li>
-    );
-  }
   return (
-    <TeacherFrame>
+    <TeacherFrame context={context}>
       <header className="lp-page-heading">
         <h1 className="lp-title">Class overview</h1>
         <p className="lp-intro">
           See how students answered. Open their work for the full story.
         </p>
       </header>
-      <form action="/teacher" className="lp-filter-bar">
-        <label className="lp-field">
-          Assignment
-          <select
-            name="assignment"
-            defaultValue={data.assignment_id}
-            className="lp-input"
-          >
-            {assignments.map((a) => (
-              <option key={a.id} value={a.id}>
-                {a.title} — {a.class_name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className="lp-field">
-          Show
-          <select name="origin" defaultValue={origin} className="lp-input">
-            <option value="all">All records</option>
-            <option value="live_demo">Live test sessions</option>
-            <option value="synthetic_fixture">Prepared class examples</option>
-          </select>
-        </label>
-        <button className="lp-button lp-button-primary">Update view</button>
-      </form>
-      <p className="lp-view-context">{sourceDescription}</p>
+      <TeacherFilters
+        action="/teacher"
+        assignments={assignments}
+        assignment={data.assignment_id}
+        origin={origin}
+      />
       <div className="lp-panel lp-overview-summary">
         <div>
           <span className="lp-summary-value">
@@ -275,13 +154,10 @@ export default async function TeacherPage({
                       </section>
                     ))}
                   </div>
-                  <a
-                    href={href(c.concept_id) + "#responses"}
-                    className="lp-text-link"
-                  >
+                  <Link href={href(c.concept_id)} className="lp-text-link">
                     See student responses
                     <Icon name="arrow" />
-                  </a>
+                  </Link>
                 </div>
               </details>
             );
@@ -306,70 +182,6 @@ export default async function TeacherPage({
             or replayed examples, not measured learning outcomes.
           </p>
         </details>
-      </section>
-      <Patterns
-        groups={calculatePatterns(
-          data.students.map((s) => s.student_id),
-          new Set(data.approved_misconception_ids),
-          data.evidence,
-        )}
-        students={data.students}
-        content={content}
-      />
-      <section id="responses" className="lp-panel lp-responses">
-        <h2>Responses behind the overview</h2>
-        <p className="lp-panel-description mb-5">
-          {params.concept
-            ? `Showing ${content.concepts.get(params.concept)?.title ?? params.concept}. `
-            : "Open a session to see the student's answers and feedback. "}
-          {params.concept && (
-            <a href={href() + "#responses"} className="underline">
-              Show all concepts
-            </a>
-          )}
-        </p>
-        {withSessions.length === 0 && (
-          <p className="lp-empty-results">No sessions in this view yet.</p>
-        )}
-        <ul>
-          {withSessions.map((student) => (
-            <li key={student.student_id} className="lp-student-row">
-              <h3 className="lp-student-name">
-                <span className="lp-avatar" aria-hidden="true">
-                  {student.display_name
-                    .split(/\s+/)
-                    .map((part) => part[0])
-                    .slice(0, 2)
-                    .join("")}
-                </span>
-                <span>{student.display_name}</span>
-              </h3>
-              <div>
-                <ul>{sessionLink(student.sessions[0])}</ul>
-                {student.sessions.length > 1 && (
-                  <details className="lp-previous-sessions">
-                    <summary>
-                      {student.sessions.length - 1} earlier sessions
-                    </summary>
-                    <ul>{student.sessions.slice(1).map(sessionLink)}</ul>
-                  </details>
-                )}
-              </div>
-            </li>
-          ))}
-        </ul>
-        {withoutSessions.length > 0 && (
-          <details className="lp-results-help">
-            <summary>
-              {withoutSessions.length} students without sessions in this view
-            </summary>
-            <ul className="lp-no-sessions">
-              {withoutSessions.map((student) => (
-                <li key={student.student_id}>{student.display_name}</li>
-              ))}
-            </ul>
-          </details>
-        )}
       </section>
     </TeacherFrame>
   );
