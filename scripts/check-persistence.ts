@@ -184,8 +184,16 @@ async function checkPersistence(prepareRestart: boolean) {
   }
   for (const cookie of [student.cookie, other.cookie]) {
     const legacyStudy = await request("/study", cookie);
-    assert.equal(legacyStudy.status, 307);
-    assert.equal(legacyStudy.headers.get("location"), "/study/assignments");
+    if (legacyStudy.status === 307) {
+      assert.equal(legacyStudy.headers.get("location"), "/study/assignments");
+    } else {
+      // The study loading boundary can stream before Next.js sends the redirect.
+      assert.equal(legacyStudy.status, 200);
+      assert.match(
+        await legacyStudy.text(),
+        /<meta id="__next-page-redirect" http-equiv="refresh" content="1;url=\/study\/assignments"\s*\/>/,
+      );
+    }
     assert.equal((await request("/study/assignments", cookie)).status, 200);
   }
   assert.equal(
