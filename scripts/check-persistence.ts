@@ -175,12 +175,18 @@ async function checkPersistence(prepareRestart: boolean) {
   for (const [cookie, destination] of [
     ["", "/login"],
     [teacher.cookie, "/teacher"],
-    [student.cookie, "/study"],
-    [other.cookie, "/study"],
+    [student.cookie, "/study/assignments"],
+    [other.cookie, "/study/assignments"],
   ]) {
     const home = await request("/", cookie);
     assert.equal(home.status, 307);
     assert.equal(home.headers.get("location"), destination);
+  }
+  for (const cookie of [student.cookie, other.cookie]) {
+    const legacyStudy = await request("/study", cookie);
+    assert.equal(legacyStudy.status, 307);
+    assert.equal(legacyStudy.headers.get("location"), "/study/assignments");
+    assert.equal((await request("/study/assignments", cookie)).status, 200);
   }
   assert.equal(
     (await request(`/api/sessions/${DEMO_IDS.supportedSession}`)).status,
