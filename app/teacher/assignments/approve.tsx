@@ -42,14 +42,18 @@ export function ApproveAssignment({
         }
       }}
     >
-      <label className="flex items-start gap-3 my-4">
+      <label className="lp-approval-confirmation">
         <input type="checkbox" required />
         <span>
           I have reviewed this reading, its learning goals, and the prepared
           practice.
         </span>
       </label>
-      <button className="lp-button lp-button-primary" disabled={busy}>
+      <button
+        className="lp-button lp-button-primary"
+        disabled={busy}
+        aria-busy={busy}
+      >
         {busy ? "Activating…" : "Approve and activate"}
       </button>
       {error && (

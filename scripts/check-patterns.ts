@@ -196,9 +196,10 @@ try {
     initial.evaluations[0],
   );
   const page = await request(
-    `/teacher?assignment=${DEMO_IDS.assignmentId}&origin=synthetic_fixture`,
+    `/teacher/insights?assignment=${DEMO_IDS.assignmentId}&origin=synthetic_fixture`,
     teacher.cookie,
   );
+  assert.equal(page.status, 200);
   const html = await page.text();
   assert.ok(html.includes("Possible reasoning patterns"));
   assert.ok(html.includes(`evaluation-${contradiction}`));
@@ -213,7 +214,7 @@ try {
         "persisted diagnostic changes one status",
         "denominator unchanged",
         "original response and evaluation preserved",
-        "refreshed dashboard links contradiction",
+        "refreshed learning insights links contradiction",
       ],
       before: before.counts,
       after: after.counts,

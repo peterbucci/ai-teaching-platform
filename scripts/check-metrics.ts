@@ -65,7 +65,17 @@ try {
   }
   const before = await metrics();
   const overviewPath = `/teacher?assignment=${DEMO_IDS.assignmentId}`;
-  assert.equal((await request(overviewPath, teacher)).status, 200);
+  const insightsPath = `/teacher/insights?assignment=${DEMO_IDS.assignmentId}`;
+  const studentsPath = `/teacher/students?assignment=${DEMO_IDS.assignmentId}`;
+  function noPrivateEvidence(html: string) {
+    for (const text of [
+      "Original student response",
+      "What needs your attention",
+      "Possible reasoning patterns",
+      "Class directory",
+    ])
+      assert.ok(!html.includes(text), `Denied page exposed ${text}`);
+  }
   async function deniedPage(url: string) {
     const response = await request(url, student);
     // Next's loading boundary can stream a not-found page with HTTP 200.
@@ -73,23 +83,28 @@ try {
     assert.ok([200, 404].includes(response.status));
     const html = await response.text();
     assert.ok(html.includes("This evidence isn’t available"));
-    assert.ok(!html.includes("Original student response"));
-    assert.ok(!html.includes("Responses behind the overview"));
+    noPrivateEvidence(html);
   }
-  await deniedPage(overviewPath);
-  const anonymousPage = await fetch(new URL(overviewPath, base), {
-    redirect: "manual",
-  });
-  if (anonymousPage.status === 307)
-    assert.equal(
-      new URL(anonymousPage.headers.get("location")!, base).pathname,
-      "/login",
-    );
-  else {
-    assert.equal(anonymousPage.status, 200);
-    const html = await anonymousPage.text();
-    assert.ok(html.includes('content="1;url=/login"'));
-    assert.ok(!html.includes("Responses behind the overview"));
+  async function anonymousDeniedPage(url: string) {
+    const anonymousPage = await fetch(new URL(url, base), {
+      redirect: "manual",
+    });
+    if (anonymousPage.status === 307)
+      assert.equal(
+        new URL(anonymousPage.headers.get("location")!, base).pathname,
+        "/login",
+      );
+    else {
+      assert.equal(anonymousPage.status, 200);
+      const html = await anonymousPage.text();
+      assert.ok(html.includes('content="1;url=/login"'));
+      noPrivateEvidence(html);
+    }
+  }
+  for (const pagePath of [overviewPath, insightsPath, studentsPath]) {
+    assert.equal((await request(pagePath, teacher)).status, 200);
+    await deniedPage(pagePath);
+    await anonymousDeniedPage(pagePath);
   }
   assert.ok([403, 404].includes((await request(path, student)).status));
   assert.equal((await request(path)).status, 401);
@@ -175,6 +190,7 @@ try {
   const after = await metrics();
   const detailPath = `/teacher/sessions/${session.id}`;
   await deniedPage(detailPath);
+  await anonymousDeniedPage(detailPath);
   await assert.rejects(
     readTeacherSession(access, session.id),
     /Session not found/,
@@ -210,6 +226,17 @@ try {
     (await refreshed.text()).includes(detailPath),
     "Refreshed overview omitted new evidence link",
   );
+  for (const [pagePath, name] of [
+    [insightsPath, "learning insights"],
+    [studentsPath, "student directory"],
+  ]) {
+    const page = await request(pagePath, teacher);
+    assert.equal(page.status, 200);
+    assert.ok(
+      (await page.text()).includes(detailPath),
+      `Refreshed ${name} omitted new evidence link`,
+    );
+  }
   const concept = (m: typeof after) =>
     m.concepts.find((c) => c.concept_id === "bandwidth_throughput")!;
   assert.equal(
@@ -255,7 +282,8 @@ try {
         "unrelated concepts unchanged",
         "duplicate answer unchanged",
         "origin filtering",
-        "teacher dashboard and exact response drill-down",
+        "overview, learning insights, and student directory link new evidence",
+        "exact response drill-down",
         "student/anonymous/unrelated-owner page and projection boundaries",
       ],
       provider: "synthetic fixture only",

@@ -93,11 +93,11 @@ export default async function SessionPage({
       <EvidenceAnchor key={session.id} />
       <div className="lp-evidence-page">
         <Link
-          href={`/teacher?assignment=${session.assignment_id}`}
+          href={`/teacher/insights?assignment=${session.assignment_id}#responses`}
           className="lp-text-link"
         >
           <Icon name="back" />
-          Back to assignment overview
+          Back to learning insights
         </Link>
         <h1 className="lp-title mt-4">{display_name}</h1>
         <p className="lp-evidence-subtitle">{title}</p>
