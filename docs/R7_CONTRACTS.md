@@ -8,12 +8,14 @@
 - [rules.ts](../lib/dialogue/rules.ts): action, source, lifecycle, retry, and student-projection checks.
 - [examples.ts](../lib/dialogue/examples.ts): `makeDialogueExamples(content)` supplies valid and deliberately invalid fixtures. Call it on the server; it includes private question guidance.
 - [dialogue.test.ts](../tests/dialogue.test.ts): executable examples of the boundaries and recovery cases.
+- [conversation.ts](../lib/dialogue/conversation.ts): additive `r7-conversation-v1` message, intent, resolution and student-view contracts for the single composer.
+- [conversation.test.ts](../tests/conversation.test.ts): deterministic routing and recovery examples; these are not live-model results.
 
 The fixtures are invented contract examples, not real model outputs or additions to the approved lesson. They cover distance confusion and packet-size confusion with different diagnostic prompts. The second uses `other_or_uncertain`; it does not invent a confirmed misconception category.
 
 ## Actions and lesson state
 
-`StudentActionSchema` distinguishes `submit_answer`, `ask_tutor`, and `return_to_lesson`. An ask has an explicit purpose: question, clarification, example, or alternative explanation. Never infer an answer submission from its wording. Unclear intent gets the `intent_unclear` fallback and an explicit choice.
+`StudentActionSchema` distinguishes `submit_answer`, `ask_tutor`, and `return_to_lesson`. These existing explicit-action contracts remain compatible. An ask retains a purpose: question, clarification, example, or alternative explanation. Ordinary free text uses `question`; optional quick actions provide a hint and fill an editable message without sending it. The new composer sends an unclassified `send_message`, as described below; the browser never guesses which existing action to execute.
 
 `submit_answer` wraps the existing `SubmitAnswerSchema`. The existing `IntentSchema` still describes assessment question types; it is unchanged. An ask or return produces no answer submission, evaluation, or lesson transition.
 
@@ -41,7 +43,7 @@ For help, `dialogueIntervention` reuses `InterventionSchema`. Acceptance creates
 
 ## Consumer responsibilities
 
-- **#73 — Student UI:** send an explicit action with request ID and expected revision; preserve the draft; render server-authorized projections and safe fallbacks. Acknowledge actual display with `DisplayDialogueSchema`; do not supply timestamps or make lesson decisions.
+- **#73 — Student UI:** send a message or explicit clarification with request ID and expected revision; preserve the draft; render server-authorized projections and safe fallbacks. Acknowledge actual display with `DisplayDialogueSchema`; do not supply timestamps or make lesson decisions.
 - **#74 — Generation:** use approved scoped material and minimal accepted history; validate proposals and semantic disclosure; ask the existing controller for permission. Keep generation separate from evaluation and apply no state changes based on model instructions.
 - **#75 — Persistence:** authenticate and authorize every operation; load trusted state; lock/reserve the session; enforce replay, limits, and revisions atomically. Persist drafts against the owned attempt. Resolve display acknowledgements to saved accepted events and verify ownership/content/revision before recording server time.
 
@@ -75,3 +77,29 @@ An unknown provider outcome must be reconciled before another paid request. Keep
 ## Verification
 
 `npm test` runs the deterministic contract examples alongside existing tests. They check explicit actions, preserved drafts, scoped references, private projections, displayed assistance, generated-question handoffs, stale/duplicate events, bounded retries, and fallback. No OpenAI calls or new database behavior are tested here. #76 owns the integrated real-model demonstration after #73–#75 are connected.
+
+## Student interface handoff (#73)
+
+`app/study/dialogue.tsx` uses one conversational composer. Students type naturally; optional quick actions fill an editable message. Tab storage recovers the local draft and unresolved request identity. It is not a learning-evidence store. The existing answer submission handler remains in `session.tsx` for the explicit unavailable-feature fallback; normal integrated routing must happen on the server.
+
+`lib/dialogue/student-view.ts` retains the help envelope and original `DialogueTransport`. The single composer consumes `ConversationTransport` from `conversation.ts`, whose `load`, `act`, and `acknowledge` return a `ConversationView`. That view wraps the existing help envelope and adds original messages, safe intent labels, and routing outcomes. #75 supplies authenticated endpoints; #74 supplies classification and validated help. Reuse `DisplayDialogueSchema` for actual display. The acknowledgement's `request_id` is the original dialogue request, with its `accepted_event_id` and `content_id`; repeated acknowledgements must reuse that identity. The server owns revision changes, cancellation, timestamps, assistance and authorization.
+
+The envelope carries only accepted help, safe fallbacks, pending status, and previously displayed help. Its citations must match the pinned content version and passage list. A live citation's `intervention_id` is the persisted help intervention used by the existing reading API. Generated diagnostic questions must arrive through the controller's `TutorView`, never replace the question from an ask response. Client validation supplements, and does not replace, server grounding or authorization.
+
+Until #74 and #75 connect that transport, the ordinary study page shows an honest unavailable message after Send and offers an explicit **Submit as my answer** fallback. It does not guess or silently grade the message. No synthetic help is inserted into live learning records. After integration, failed or uncertain requests are checked with a read-only refresh, not automatically regenerated. Once help is accepted, the UI requires its display confirmation before continuing, even after refresh; reliable cancellation of accepted but unseen help is deferred to #75. #75 must enforce the same boundary across tabs and recover a previous accepted result instead of making another paid request.
+
+For local UI verification, run `npm run dev` and open `/study/dialogue-preview`. This development-only page returns 404 in a production build. Its scenario selector supplies invented intent outcomes and the #72 sample hint; it never classifies wording or calls an AI/database. Check direct help, answer, clarification, follow-ups, cancellation, failures and refresh. Asking must leave the answer count at zero; accepted help must be acknowledged once before a later answer. #75's durable dialogue/assistance retrieval and #76's live cross-role verification remain integration requirements.
+
+## Single-composer integration
+
+`ConversationActionSchema` accepts `send_message`, `resolve_intent`, or `cancel_message`. Every action names the owned session, active attempt, request ID and expected revision. Sending preserves exact text. A purpose hint is optional and cannot decide the route. Resolving or cancelling has a new action ID and references the original message ID; the server routes the saved text, not replacement text supplied with the choice.
+
+`IntentClassificationSchema` describes model proposals: `ANSWER`, `QUESTION_OR_HELP`, `AMBIGUOUS`, or `OFF_TOPIC_OR_UNSUPPORTED`, with a short server-only rationale. #74 must use the current question, lesson and bounded accepted conversation. Do not infer intent from punctuation, keywords, quick-action hints or prepared answer phrases. `routeClassifiedMessage` validates the proposal against the current activity and trusted server review. An established answer yields the existing `SubmitAnswerSchema`; help yields the existing `AskTutorSchema`; unclear intent yields clarification; unsupported/private requests yield an application-owned fallback. These helpers perform no effects, model calls, authorization or storage. A model label alone does not authorize an irreversible submission.
+
+An ambiguous message stays ungraded until the student chooses **Submit as my answer** or **I'm asking for help**. If server review disputes an `ANSWER` proposal, project it as effective `AMBIGUOUS` and retain the original provider proposal separately for authorized inspection. #74 must establish this before routing, so corrections do not require rewriting accepted answers. Never display raw classifier rationale or rejected generated output. Fallback text must come from application-owned messages, not unchecked provider prose.
+
+`ConversationView` retains immutable messages and terminal outcomes. A help outcome references the existing dialogue turn with the same text and attempt; an answer references its idempotent submission key. Clarification cannot become a new pending request. The parser also applies existing source-version, citation, accepted-help and revision checks. The answer response retains the requested attempt anchor as its receipt; the caller then refreshes the existing `TutorView` to obtain any next activity. It must not grade merely because it sees an intent label. Pending or clarification messages may be cancelled; their original text remains visible, and a late classifier cannot revive them.
+
+#75 must persist the original action and reserve the session before any paid call, then validate the current revision again when committing the route. Replays return the saved result. Unknown outcomes require read-only reconciliation, not a second model request. Store classifications, explicit resolutions, authorized routes and results without overwriting earlier messages. Preserve one active reservation across classification and help generation. Cancelled or stale completions cannot advance the lesson. An uncertain cancellation needs a durable tombstone before the UI can safely start another message. The existing help display acknowledgement remains the only evidence that generated assistance was received.
+
+The composer accepts up to 12,000 characters, matching the existing assessment input. Existing help requests remain bounded to 2,000; an overlong help message is rejected without truncation or grading. Classification and any subsequent generation share the existing dialogue request budget, one concurrent provider request, 45-second timeout, zero automatic retries and explicit retry cooldown. Each paid call consumes budget. Use the existing bounded history and output ceiling; do not send the entire conversation or create another limit/configuration system. These contracts do not themselves implement the required server reservations or a live classifier.
