@@ -1,0 +1,2198 @@
+{
+  "report_version": "r7-r4-resolver-application-evidence-v1",
+  "exported_at": "2026-10-23T12:18:56.517Z",
+  "evidence_type": "Actual application evidence from temporary combined PR98+PR102 and approved uploaded Moonlight v2",
+  "notice": "Read-only snapshot of fictional demo evidence. Private rubrics, prompts, raw provider outputs, cookies and secrets omitted. Pending work stays pending. No browser display or educational claims are inferred from SQL.",
+  "source": {
+    "content_ref": {
+      "source_kind": "uploaded",
+      "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+      "source_version": 1,
+      "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+      "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+      "attribution": {
+        "title": "Synthetic integration — Moonlight and reflected light",
+        "authors": ["Fictional demo teacher"],
+        "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+        "section": "Imported source",
+        "url": null,
+        "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+        "license_url": null,
+        "cautions": []
+      },
+      "access_scope": {
+        "teacher_id": "10000000-0000-4000-8000-000000000001"
+      },
+      "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+      "content_version": "2"
+    },
+    "attribution": {
+      "title": "Synthetic integration — Moonlight and reflected light",
+      "authors": ["Fictional demo teacher"],
+      "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+      "section": "Imported source",
+      "url": null,
+      "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+      "license_url": null,
+      "cautions": []
+    },
+    "activity_policy": {
+      "allowed_actions": [
+        "ASK_RETRIEVAL_QUESTION",
+        "ASK_DIAGNOSTIC_FOLLOWUP",
+        "GIVE_CORRECTIVE_FEEDBACK",
+        "RETEST_CONCEPT",
+        "SCHEDULE_REVIEW",
+        "END_SESSION",
+        "GIVE_HINT"
+      ],
+      "allow_runtime_generation": true
+    },
+    "approved_concept_ids": ["7e5e69dd-5a0d-439e-9087-b50e917c8223"],
+    "approved_passage_ids": ["p001"]
+  },
+  "session": {
+    "id": "21b2831d-e2aa-4cce-ac76-bd498a6a7fb4",
+    "assignment_id": "7f11450b-53dd-46a4-bad3-634356bae03d",
+    "status": "completed",
+    "data_origin": "live_demo",
+    "started_at": "2026-10-23T12:03:09.245Z",
+    "ended_at": "2026-10-23T12:17:58.543Z"
+  },
+  "operations": [
+    {
+      "request_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+      "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+      "expected_revision": 0,
+      "lesson": {
+        "session_id": "21b2831d-e2aa-4cce-ac76-bd498a6a7fb4",
+        "assignment_id": "7f11450b-53dd-46a4-bad3-634356bae03d",
+        "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "root_attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "sequence_index": 0,
+        "content_ref": {
+          "source_kind": "uploaded",
+          "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+          "source_version": 1,
+          "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+          "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+          "attribution": {
+            "title": "Synthetic integration — Moonlight and reflected light",
+            "authors": ["Fictional demo teacher"],
+            "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+            "license_url": null,
+            "cautions": []
+          },
+          "access_scope": {
+            "teacher_id": "10000000-0000-4000-8000-000000000001"
+          },
+          "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+          "content_version": "2"
+        }
+      },
+      "payload": {
+        "version": "r7-conversation-v1",
+        "request_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+        "session_id": "21b2831d-e2aa-4cce-ac76-bd498a6a7fb4",
+        "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "expected_revision": 0,
+        "action": "send_message",
+        "text": "What does reflected light mean? Please help me understand the word without answering the assignment for me."
+      },
+      "message_request_id": null,
+      "status": "fallback",
+      "proposed_intent": {
+        "category": "QUESTION_OR_HELP",
+        "rationale": "The student explicitly requests a definition of reflected light and conceptual help without asking for the assignment answer."
+      },
+      "authorized_route": "fallback",
+      "message": {
+        "request_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+        "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "expected_revision": 0,
+        "text": "What does reflected light mean? Please help me understand the word without answering the assignment for me.",
+        "classification": null,
+        "outcome": {
+          "status": "fallback",
+          "reason": "provider_error",
+          "text": "Extra tutor help is temporarily unavailable. You can return to the lesson."
+        }
+      },
+      "created_at": "2026-10-23T12:03:29.892Z"
+    },
+    {
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+      "expected_revision": 0,
+      "lesson": {
+        "session_id": "21b2831d-e2aa-4cce-ac76-bd498a6a7fb4",
+        "assignment_id": "7f11450b-53dd-46a4-bad3-634356bae03d",
+        "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "root_attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "sequence_index": 0,
+        "content_ref": {
+          "source_kind": "uploaded",
+          "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+          "source_version": 1,
+          "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+          "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+          "attribution": {
+            "title": "Synthetic integration — Moonlight and reflected light",
+            "authors": ["Fictional demo teacher"],
+            "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+            "license_url": null,
+            "cautions": []
+          },
+          "access_scope": {
+            "teacher_id": "10000000-0000-4000-8000-000000000001"
+          },
+          "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+          "content_version": "2"
+        }
+      },
+      "payload": {
+        "version": "r7-conversation-v1",
+        "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+        "session_id": "21b2831d-e2aa-4cce-ac76-bd498a6a7fb4",
+        "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "expected_revision": 0,
+        "action": "send_message",
+        "text": "What does reflected light mean? Please help me understand the word without answering the assignment for me."
+      },
+      "message_request_id": null,
+      "status": "help",
+      "proposed_intent": {
+        "category": "QUESTION_OR_HELP",
+        "rationale": "The student explicitly requests a definition and help understanding reflected light, not an answer to the assignment."
+      },
+      "authorized_route": "ask_tutor",
+      "message": {
+        "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+        "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "expected_revision": 0,
+        "text": "What does reflected light mean? Please help me understand the word without answering the assignment for me.",
+        "classification": "QUESTION_OR_HELP",
+        "outcome": {
+          "status": "help",
+          "dialogue_request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1"
+        }
+      },
+      "created_at": "2026-10-23T12:14:36.407Z"
+    },
+    {
+      "request_id": "e1b157a7-5fcf-41e0-8f95-85c573945f5f",
+      "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+      "expected_revision": 0,
+      "lesson": {
+        "session_id": "21b2831d-e2aa-4cce-ac76-bd498a6a7fb4",
+        "assignment_id": "7f11450b-53dd-46a4-bad3-634356bae03d",
+        "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "root_attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "sequence_index": 0,
+        "content_ref": {
+          "source_kind": "uploaded",
+          "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+          "source_version": 1,
+          "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+          "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+          "attribution": {
+            "title": "Synthetic integration — Moonlight and reflected light",
+            "authors": ["Fictional demo teacher"],
+            "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+            "license_url": null,
+            "cautions": []
+          },
+          "access_scope": {
+            "teacher_id": "10000000-0000-4000-8000-000000000001"
+          },
+          "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+          "content_version": "2"
+        }
+      },
+      "payload": {
+        "version": "r7-conversation-v1",
+        "request_id": "e1b157a7-5fcf-41e0-8f95-85c573945f5f",
+        "session_id": "21b2831d-e2aa-4cce-ac76-bd498a6a7fb4",
+        "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "expected_revision": 0,
+        "action": "send_message",
+        "text": "The lamp, mirror, white card, and Moon all make their own visible light because each looks bright. I think brightness is enough to show that an object is a light source."
+      },
+      "message_request_id": null,
+      "status": "answer",
+      "proposed_intent": {
+        "category": "ANSWER",
+        "rationale": "The student gives a direct response to the active question with supporting reasoning, without requesting help or confirmation."
+      },
+      "authorized_route": "submit_answer",
+      "message": {
+        "request_id": "e1b157a7-5fcf-41e0-8f95-85c573945f5f",
+        "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "expected_revision": 0,
+        "text": "The lamp, mirror, white card, and Moon all make their own visible light because each looks bright. I think brightness is enough to show that an object is a light source.",
+        "classification": "AMBIGUOUS",
+        "outcome": {
+          "status": "answer",
+          "submission_key": "e1b157a7-5fcf-41e0-8f95-85c573945f5f"
+        }
+      },
+      "created_at": "2026-10-23T12:15:39.567Z"
+    },
+    {
+      "request_id": "f00e1218-37c5-4784-a6e2-f6a3c971db6f",
+      "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+      "expected_revision": 0,
+      "lesson": {
+        "session_id": "21b2831d-e2aa-4cce-ac76-bd498a6a7fb4",
+        "assignment_id": "7f11450b-53dd-46a4-bad3-634356bae03d",
+        "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "root_attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "sequence_index": 0,
+        "content_ref": {
+          "source_kind": "uploaded",
+          "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+          "source_version": 1,
+          "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+          "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+          "attribution": {
+            "title": "Synthetic integration — Moonlight and reflected light",
+            "authors": ["Fictional demo teacher"],
+            "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+            "license_url": null,
+            "cautions": []
+          },
+          "access_scope": {
+            "teacher_id": "10000000-0000-4000-8000-000000000001"
+          },
+          "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+          "content_version": "2"
+        }
+      },
+      "payload": {
+        "version": "r7-conversation-v1",
+        "request_id": "f00e1218-37c5-4784-a6e2-f6a3c971db6f",
+        "session_id": "21b2831d-e2aa-4cce-ac76-bd498a6a7fb4",
+        "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "expected_revision": 0,
+        "action": "resolve_intent",
+        "message_request_id": "e1b157a7-5fcf-41e0-8f95-85c573945f5f",
+        "choice": "answer"
+      },
+      "message_request_id": "e1b157a7-5fcf-41e0-8f95-85c573945f5f",
+      "status": "resolved",
+      "proposed_intent": null,
+      "authorized_route": null,
+      "message": null,
+      "created_at": "2026-10-23T12:16:07.102Z"
+    },
+    {
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+      "expected_revision": 2,
+      "lesson": {
+        "session_id": "21b2831d-e2aa-4cce-ac76-bd498a6a7fb4",
+        "assignment_id": "7f11450b-53dd-46a4-bad3-634356bae03d",
+        "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "root_attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "sequence_index": 0,
+        "content_ref": {
+          "source_kind": "uploaded",
+          "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+          "source_version": 1,
+          "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+          "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+          "attribution": {
+            "title": "Synthetic integration — Moonlight and reflected light",
+            "authors": ["Fictional demo teacher"],
+            "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+            "license_url": null,
+            "cautions": []
+          },
+          "access_scope": {
+            "teacher_id": "10000000-0000-4000-8000-000000000001"
+          },
+          "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+          "content_version": "2"
+        }
+      },
+      "payload": {
+        "action": "controller_action",
+        "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+        "session_id": "21b2831d-e2aa-4cce-ac76-bd498a6a7fb4",
+        "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "expected_revision": 2,
+        "evaluation_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5"
+      },
+      "message_request_id": null,
+      "status": "resolved",
+      "proposed_intent": null,
+      "authorized_route": "controller_action",
+      "message": null,
+      "created_at": "2026-10-23T12:16:16.091Z"
+    },
+    {
+      "request_id": "1f2b81ff-68d6-4e06-8eb9-35ad97782929",
+      "attempt_id": "7433ade8-5a95-4593-9338-82518ed6fb17",
+      "expected_revision": 3,
+      "lesson": {
+        "session_id": "21b2831d-e2aa-4cce-ac76-bd498a6a7fb4",
+        "assignment_id": "7f11450b-53dd-46a4-bad3-634356bae03d",
+        "attempt_id": "7433ade8-5a95-4593-9338-82518ed6fb17",
+        "root_attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "sequence_index": 1,
+        "content_ref": {
+          "source_kind": "uploaded",
+          "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+          "source_version": 1,
+          "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+          "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+          "attribution": {
+            "title": "Synthetic integration — Moonlight and reflected light",
+            "authors": ["Fictional demo teacher"],
+            "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+            "license_url": null,
+            "cautions": []
+          },
+          "access_scope": {
+            "teacher_id": "10000000-0000-4000-8000-000000000001"
+          },
+          "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+          "content_version": "2"
+        }
+      },
+      "payload": {
+        "version": "r7-conversation-v1",
+        "request_id": "1f2b81ff-68d6-4e06-8eb9-35ad97782929",
+        "session_id": "21b2831d-e2aa-4cce-ac76-bd498a6a7fb4",
+        "attempt_id": "7433ade8-5a95-4593-9338-82518ed6fb17",
+        "expected_revision": 3,
+        "action": "send_message",
+        "text": "With the lamp off, the card will stop looking bright. It was reflecting light from the lamp. Brightness while the lamp was on did not prove that the card made light; the lamp was the source."
+      },
+      "message_request_id": null,
+      "status": "answer",
+      "proposed_intent": {
+        "category": "ANSWER",
+        "rationale": "The student directly states a prediction and explains its relation to the idea that bright objects make their own light, without requesting help or confirmation."
+      },
+      "authorized_route": "submit_answer",
+      "message": {
+        "request_id": "1f2b81ff-68d6-4e06-8eb9-35ad97782929",
+        "attempt_id": "7433ade8-5a95-4593-9338-82518ed6fb17",
+        "expected_revision": 3,
+        "text": "With the lamp off, the card will stop looking bright. It was reflecting light from the lamp. Brightness while the lamp was on did not prove that the card made light; the lamp was the source.",
+        "classification": "AMBIGUOUS",
+        "outcome": {
+          "status": "answer",
+          "submission_key": "1f2b81ff-68d6-4e06-8eb9-35ad97782929"
+        }
+      },
+      "created_at": "2026-10-23T12:17:27.736Z"
+    },
+    {
+      "request_id": "ea511d6d-a05b-4594-9217-2d1437fbb06c",
+      "attempt_id": "7433ade8-5a95-4593-9338-82518ed6fb17",
+      "expected_revision": 3,
+      "lesson": {
+        "session_id": "21b2831d-e2aa-4cce-ac76-bd498a6a7fb4",
+        "assignment_id": "7f11450b-53dd-46a4-bad3-634356bae03d",
+        "attempt_id": "7433ade8-5a95-4593-9338-82518ed6fb17",
+        "root_attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "sequence_index": 1,
+        "content_ref": {
+          "source_kind": "uploaded",
+          "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+          "source_version": 1,
+          "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+          "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+          "attribution": {
+            "title": "Synthetic integration — Moonlight and reflected light",
+            "authors": ["Fictional demo teacher"],
+            "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+            "license_url": null,
+            "cautions": []
+          },
+          "access_scope": {
+            "teacher_id": "10000000-0000-4000-8000-000000000001"
+          },
+          "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+          "content_version": "2"
+        }
+      },
+      "payload": {
+        "version": "r7-conversation-v1",
+        "request_id": "ea511d6d-a05b-4594-9217-2d1437fbb06c",
+        "session_id": "21b2831d-e2aa-4cce-ac76-bd498a6a7fb4",
+        "attempt_id": "7433ade8-5a95-4593-9338-82518ed6fb17",
+        "expected_revision": 3,
+        "action": "resolve_intent",
+        "message_request_id": "1f2b81ff-68d6-4e06-8eb9-35ad97782929",
+        "choice": "answer"
+      },
+      "message_request_id": "1f2b81ff-68d6-4e06-8eb9-35ad97782929",
+      "status": "resolved",
+      "proposed_intent": null,
+      "authorized_route": null,
+      "message": null,
+      "created_at": "2026-10-23T12:17:42.051Z"
+    },
+    {
+      "request_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+      "attempt_id": "7433ade8-5a95-4593-9338-82518ed6fb17",
+      "expected_revision": 5,
+      "lesson": {
+        "session_id": "21b2831d-e2aa-4cce-ac76-bd498a6a7fb4",
+        "assignment_id": "7f11450b-53dd-46a4-bad3-634356bae03d",
+        "attempt_id": "7433ade8-5a95-4593-9338-82518ed6fb17",
+        "root_attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "sequence_index": 1,
+        "content_ref": {
+          "source_kind": "uploaded",
+          "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+          "source_version": 1,
+          "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+          "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+          "attribution": {
+            "title": "Synthetic integration — Moonlight and reflected light",
+            "authors": ["Fictional demo teacher"],
+            "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+            "license_url": null,
+            "cautions": []
+          },
+          "access_scope": {
+            "teacher_id": "10000000-0000-4000-8000-000000000001"
+          },
+          "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+          "content_version": "2"
+        }
+      },
+      "payload": {
+        "action": "controller_action",
+        "request_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+        "session_id": "21b2831d-e2aa-4cce-ac76-bd498a6a7fb4",
+        "attempt_id": "7433ade8-5a95-4593-9338-82518ed6fb17",
+        "expected_revision": 5,
+        "evaluation_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f"
+      },
+      "message_request_id": null,
+      "status": "resolved",
+      "proposed_intent": null,
+      "authorized_route": "controller_action",
+      "message": null,
+      "created_at": "2026-10-23T12:17:50.784Z"
+    }
+  ],
+  "events": [
+    {
+      "sequence": 1,
+      "event_id": "53292e06-d9fd-4499-bd7c-ad72dc351df7",
+      "request_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+      "kind": "requested",
+      "at": "2026-10-23T12:03:29.895Z"
+    },
+    {
+      "sequence": 2,
+      "event_id": "5f2f3fbb-dc63-477a-b187-5408e2a408f9",
+      "request_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+      "kind": "provider_reserved",
+      "at": "2026-10-23T12:03:29.991Z"
+    },
+    {
+      "sequence": 3,
+      "event_id": "cecf96c9-c6af-4724-865c-be59f85144fb",
+      "request_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+      "kind": "provider_completed",
+      "at": "2026-10-23T12:03:33.444Z"
+    },
+    {
+      "sequence": 4,
+      "event_id": "eb194823-b68e-4f0a-9cd6-e7d664bd2a7b",
+      "request_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+      "kind": "intent_review",
+      "at": "2026-10-23T12:03:33.519Z",
+      "payload": {
+        "proposal": {
+          "category": "QUESTION_OR_HELP",
+          "rationale": "The student explicitly requests a definition of reflected light and conceptual help without asking for the assignment answer."
+        },
+        "review": {
+          "answer_intent": "uncertain",
+          "disclosure": "safe"
+        },
+        "authorized_route": "ask_tutor"
+      }
+    },
+    {
+      "sequence": 5,
+      "event_id": "95179f82-fb57-4599-8785-110e0964a596",
+      "request_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+      "kind": "dialogue",
+      "at": "2026-10-23T12:03:33.528Z",
+      "payload": {
+        "version": "r7-v1",
+        "event_id": "d423ccf3-0ad5-4c38-b4a3-d831243cf637",
+        "request_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+        "at": "2026-10-23T12:03:33.526104+00:00",
+        "outcome": "requested"
+      }
+    },
+    {
+      "sequence": 6,
+      "event_id": "d409e773-40d1-4879-85da-16e18a9f2ea2",
+      "request_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+      "kind": "action_claimed",
+      "at": "2026-10-23T12:03:33.617Z"
+    },
+    {
+      "sequence": 7,
+      "event_id": "4b5fe96f-be9e-4182-9215-2e9c49494bc1",
+      "request_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+      "kind": "provider_reserved",
+      "at": "2026-10-23T12:03:33.670Z"
+    },
+    {
+      "sequence": 8,
+      "event_id": "35a85e12-90b9-4716-8e22-89f65288c911",
+      "request_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+      "kind": "provider_completed",
+      "at": "2026-10-23T12:03:34.771Z"
+    },
+    {
+      "sequence": 9,
+      "event_id": "82f8303f-a81c-4d4c-a04a-4787e3b07c00",
+      "request_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+      "kind": "action",
+      "at": "2026-10-23T12:03:34.840Z",
+      "payload": {
+        "action_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+        "phase": "failed",
+        "stage": "proposal",
+        "reason": "provider_error",
+        "outcome_unknown": false
+      }
+    },
+    {
+      "sequence": 10,
+      "event_id": "04d09baf-fb1e-44b3-8f96-37a5dca12878",
+      "request_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+      "kind": "action_receipt",
+      "at": "2026-10-23T12:03:34.841Z",
+      "payload": {
+        "status": "stopped",
+        "request_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+        "reason": "provider_error",
+        "reconcile": false,
+        "fallback": {
+          "kind": "fallback",
+          "reason": "provider_error",
+          "text": "Extra tutor help is temporarily unavailable. You can return to the lesson.",
+          "next": "return_to_lesson"
+        }
+      }
+    },
+    {
+      "sequence": 11,
+      "event_id": "083d33ff-28cd-4580-93a6-16972f3ce464",
+      "request_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+      "kind": "failed",
+      "at": "2026-10-23T12:03:34.844Z"
+    },
+    {
+      "sequence": 12,
+      "event_id": "1d9594f6-87dd-4c1e-b850-2c62133c4f85",
+      "request_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+      "kind": "dialogue",
+      "at": "2026-10-23T12:03:34.847Z",
+      "payload": {
+        "version": "r7-v1",
+        "event_id": "e343c580-4395-45f4-8959-39061614c763",
+        "request_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+        "at": "2026-10-23T12:03:34.845694+00:00",
+        "outcome": "failed",
+        "reason": "provider_error"
+      }
+    },
+    {
+      "sequence": 13,
+      "event_id": "dbfa9b7e-9e9f-4966-96b5-7dfbd05a10c3",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "kind": "requested",
+      "at": "2026-10-23T12:14:36.411Z"
+    },
+    {
+      "sequence": 14,
+      "event_id": "29f92a4c-20ec-4df7-b4d8-a37928efbfa6",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "kind": "provider_reserved",
+      "at": "2026-10-23T12:14:36.522Z"
+    },
+    {
+      "sequence": 15,
+      "event_id": "3a67737c-289b-4c1c-8046-8b7f7a0f3382",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "kind": "provider_completed",
+      "at": "2026-10-23T12:14:39.702Z"
+    },
+    {
+      "sequence": 16,
+      "event_id": "df77051c-4908-4f9c-a877-006535013e47",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "kind": "intent_review",
+      "at": "2026-10-23T12:14:39.773Z",
+      "payload": {
+        "proposal": {
+          "category": "QUESTION_OR_HELP",
+          "rationale": "The student explicitly requests a definition and help understanding reflected light, not an answer to the assignment."
+        },
+        "review": {
+          "answer_intent": "uncertain",
+          "disclosure": "safe"
+        },
+        "authorized_route": "ask_tutor"
+      }
+    },
+    {
+      "sequence": 17,
+      "event_id": "0102faae-cab7-46e3-9782-f67e2c3a81a4",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "kind": "dialogue",
+      "at": "2026-10-23T12:14:39.781Z",
+      "payload": {
+        "version": "r7-v1",
+        "event_id": "fed0c510-6ef1-46b1-8538-9859cf39c861",
+        "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+        "at": "2026-10-23T12:14:39.779481+00:00",
+        "outcome": "requested"
+      }
+    },
+    {
+      "sequence": 18,
+      "event_id": "7344fa8a-2cd2-490e-a299-21d0e6e3ec74",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "kind": "action_claimed",
+      "at": "2026-10-23T12:14:39.873Z"
+    },
+    {
+      "sequence": 19,
+      "event_id": "e7e2498a-3ee0-420b-8685-cfadb0973dee",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "kind": "provider_reserved",
+      "at": "2026-10-23T12:14:39.931Z"
+    },
+    {
+      "sequence": 20,
+      "event_id": "a28100ad-d303-44e5-bbab-6255b6330276",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "kind": "provider_completed",
+      "at": "2026-10-23T12:14:47.914Z"
+    },
+    {
+      "sequence": 21,
+      "event_id": "f618b319-a4c1-4bfb-9a78-81c606a14534",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "kind": "action",
+      "at": "2026-10-23T12:14:47.983Z",
+      "payload": {
+        "action_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+        "phase": "proposed",
+        "proposal": {
+          "version": "tutor-orchestration-v1",
+          "content_ref": {
+            "source_kind": "uploaded",
+            "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+            "source_version": 1,
+            "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+            "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+            "attribution": {
+              "title": "Synthetic integration — Moonlight and reflected light",
+              "authors": ["Fictional demo teacher"],
+              "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+              "section": "Imported source",
+              "url": null,
+              "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+              "license_url": null,
+              "cautions": []
+            },
+            "access_scope": {
+              "teacher_id": "10000000-0000-4000-8000-000000000001"
+            },
+            "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+            "content_version": "2"
+          },
+          "concept_ids": ["7e5e69dd-5a0d-439e-9087-b50e917c8223"],
+          "source_passage_ids": ["p001"],
+          "reason_summary": "The student requests the meaning of reflected light without an assignment answer. Use a brief, passage-grounded explanation of the term, without classifying the assignment objects or supplying its response. No prior assistance or accepted evaluation supports a misconception hypothesis.",
+          "action": "explain",
+          "arguments": {
+            "style": "alternative_explanation"
+          }
+        },
+        "invalid_proposal": false
+      }
+    },
+    {
+      "sequence": 22,
+      "event_id": "b0e2da83-b35f-4e10-92ea-cd2685eadc34",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "kind": "action",
+      "at": "2026-10-23T12:14:48.019Z",
+      "payload": {
+        "action_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+        "phase": "validated",
+        "allowed_actions": ["explain"],
+        "decision": "accepted",
+        "reason": null
+      }
+    },
+    {
+      "sequence": 23,
+      "event_id": "05660d7e-a6bd-4f20-b894-b09f67e0aed3",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "kind": "action",
+      "at": "2026-10-23T12:14:48.051Z",
+      "payload": {
+        "action_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+        "phase": "dispatch_started",
+        "tool": "explain"
+      }
+    },
+    {
+      "sequence": 24,
+      "event_id": "f8b80936-1108-466f-8055-f02afe0f9c85",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "kind": "provider_reserved",
+      "at": "2026-10-23T12:14:48.103Z"
+    },
+    {
+      "sequence": 25,
+      "event_id": "f6e8bc64-43da-43a7-9fdc-fa0b0ec37807",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "kind": "provider_completed",
+      "at": "2026-10-23T12:14:57.775Z"
+    },
+    {
+      "sequence": 26,
+      "event_id": "8edfbc8a-967b-41a0-bf7a-54f4f3a76526",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "kind": "provider_reserved",
+      "at": "2026-10-23T12:14:57.868Z"
+    },
+    {
+      "sequence": 27,
+      "event_id": "4b1940bb-bd2e-4365-a196-a3c31224d076",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "kind": "provider_completed",
+      "at": "2026-10-23T12:15:02.761Z"
+    },
+    {
+      "sequence": 28,
+      "event_id": "cbcf44d1-7bb6-4445-9243-2d1643095dcb",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "kind": "dialogue",
+      "at": "2026-10-23T12:15:02.855Z",
+      "payload": {
+        "outcome": "generated",
+        "content": {
+          "kind": "help",
+          "content_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+          "text": "“Reflected light” means light that reaches an object and then bounces off it. Think of the light’s path: it arrives, then bounces away. That explains the word without sorting the objects in your assignment for you.",
+          "concept_ids": ["7e5e69dd-5a0d-439e-9087-b50e917c8223"],
+          "source_passage_ids": ["p001"],
+          "content_ref": {
+            "source_kind": "uploaded",
+            "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+            "source_version": 1,
+            "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+            "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+            "attribution": {
+              "title": "Synthetic integration — Moonlight and reflected light",
+              "authors": ["Fictional demo teacher"],
+              "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+              "section": "Imported source",
+              "url": null,
+              "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+              "license_url": null,
+              "cautions": []
+            },
+            "access_scope": {
+              "teacher_id": "10000000-0000-4000-8000-000000000001"
+            },
+            "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+            "content_version": "2"
+          },
+          "generation": {
+            "model": "gpt-6.1-sol",
+            "prompt_template_version": "r7-grounded-generation-v4",
+            "generated_at": "2026-10-23T12:14:57.753Z"
+          }
+        }
+      }
+    },
+    {
+      "sequence": 29,
+      "event_id": "2b2d1877-c6b3-492c-b433-522860ad7587",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "kind": "dialogue",
+      "at": "2026-10-23T12:15:02.860Z",
+      "payload": {
+        "version": "r7-v1",
+        "event_id": "64d45d0e-e9ba-4009-a4d3-1f55275ad777",
+        "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+        "at": "2026-10-23T12:15:02.857247+00:00",
+        "outcome": "accepted",
+        "content_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+        "applied_attempt_id": null,
+        "applied_revision": 0
+      }
+    },
+    {
+      "sequence": 30,
+      "event_id": "69fedf07-cb79-458f-8e6c-e9f3d944355e",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "kind": "action",
+      "at": "2026-10-23T12:15:02.874Z",
+      "payload": {
+        "action_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+        "phase": "executed",
+        "tool": "explain",
+        "result": {
+          "kind": "generated",
+          "content": {
+            "kind": "help",
+            "content_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+            "text": "“Reflected light” means light that reaches an object and then bounces off it. Think of the light’s path: it arrives, then bounces away. That explains the word without sorting the objects in your assignment for you.",
+            "concept_ids": ["7e5e69dd-5a0d-439e-9087-b50e917c8223"],
+            "source_passage_ids": ["p001"],
+            "content_ref": {
+              "source_kind": "uploaded",
+              "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+              "source_version": 1,
+              "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+              "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+              "attribution": {
+                "title": "Synthetic integration — Moonlight and reflected light",
+                "authors": ["Fictional demo teacher"],
+                "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+                "section": "Imported source",
+                "url": null,
+                "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+                "license_url": null,
+                "cautions": []
+              },
+              "access_scope": {
+                "teacher_id": "10000000-0000-4000-8000-000000000001"
+              },
+              "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+              "content_version": "2"
+            },
+            "generation": {
+              "model": "gpt-6.1-sol",
+              "prompt_template_version": "r7-grounded-generation-v4",
+              "generated_at": "2026-10-23T12:14:57.753Z"
+            }
+          }
+        }
+      }
+    },
+    {
+      "sequence": 31,
+      "event_id": "90d6f95e-6851-4082-9eae-548dd5f4986d",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "kind": "action_receipt",
+      "at": "2026-10-23T12:15:02.877Z",
+      "payload": {
+        "status": "executed",
+        "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+        "action": "explain",
+        "result": {
+          "kind": "generated",
+          "content": {
+            "kind": "help",
+            "content_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+            "text": "“Reflected light” means light that reaches an object and then bounces off it. Think of the light’s path: it arrives, then bounces away. That explains the word without sorting the objects in your assignment for you.",
+            "concept_ids": ["7e5e69dd-5a0d-439e-9087-b50e917c8223"],
+            "source_passage_ids": ["p001"],
+            "content_ref": {
+              "source_kind": "uploaded",
+              "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+              "source_version": 1,
+              "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+              "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+              "attribution": {
+                "title": "Synthetic integration — Moonlight and reflected light",
+                "authors": ["Fictional demo teacher"],
+                "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+                "section": "Imported source",
+                "url": null,
+                "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+                "license_url": null,
+                "cautions": []
+              },
+              "access_scope": {
+                "teacher_id": "10000000-0000-4000-8000-000000000001"
+              },
+              "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+              "content_version": "2"
+            },
+            "generation": {
+              "model": "gpt-6.1-sol",
+              "prompt_template_version": "r7-grounded-generation-v4",
+              "generated_at": "2026-10-23T12:14:57.753Z"
+            }
+          }
+        }
+      }
+    },
+    {
+      "sequence": 32,
+      "event_id": "a26abbdb-6371-46d6-9e4a-1dbe14c9bb9f",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "kind": "dialogue",
+      "at": "2026-10-23T12:15:02.993Z",
+      "payload": {
+        "version": "r7-v1",
+        "event_id": "f573199e-0b7b-454f-adc1-384d77621e7a",
+        "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+        "at": "2026-10-23T12:15:02.990094+00:00",
+        "outcome": "displayed",
+        "content_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+        "intervention_id": "ee348623-0ef2-4b2d-9cec-f679b1dd6257",
+        "assessed_attempt_id": null
+      }
+    },
+    {
+      "sequence": 33,
+      "event_id": "fbaaeb35-cfd7-40a9-a94d-0f771c8c6c46",
+      "request_id": "e1b157a7-5fcf-41e0-8f95-85c573945f5f",
+      "kind": "requested",
+      "at": "2026-10-23T12:15:39.570Z"
+    },
+    {
+      "sequence": 34,
+      "event_id": "272e4f26-ea27-473a-90df-6d21eb1d6492",
+      "request_id": "e1b157a7-5fcf-41e0-8f95-85c573945f5f",
+      "kind": "provider_reserved",
+      "at": "2026-10-23T12:15:39.652Z"
+    },
+    {
+      "sequence": 35,
+      "event_id": "05d681df-4603-4879-b6d9-b82556ba105f",
+      "request_id": "e1b157a7-5fcf-41e0-8f95-85c573945f5f",
+      "kind": "provider_completed",
+      "at": "2026-10-23T12:15:43.200Z"
+    },
+    {
+      "sequence": 36,
+      "event_id": "109b77dd-eeb2-4e40-8e45-a7d5ff959639",
+      "request_id": "e1b157a7-5fcf-41e0-8f95-85c573945f5f",
+      "kind": "intent_review",
+      "at": "2026-10-23T12:15:43.266Z",
+      "payload": {
+        "proposal": {
+          "category": "ANSWER",
+          "rationale": "The student gives a direct response to the active question with supporting reasoning, without requesting help or confirmation."
+        },
+        "review": {
+          "answer_intent": "uncertain",
+          "disclosure": "safe"
+        },
+        "authorized_route": "clarify"
+      }
+    },
+    {
+      "sequence": 37,
+      "event_id": "b044f1eb-3452-4673-8b00-e135b17cce9d",
+      "request_id": "f00e1218-37c5-4784-a6e2-f6a3c971db6f",
+      "kind": "requested",
+      "at": "2026-10-23T12:16:07.104Z"
+    },
+    {
+      "sequence": 38,
+      "event_id": "c6cc89d6-6587-4511-aab3-da23240a1f8d",
+      "request_id": "e1b157a7-5fcf-41e0-8f95-85c573945f5f",
+      "kind": "intent_resolution",
+      "at": "2026-10-23T12:16:07.105Z",
+      "payload": {
+        "request_id": "f00e1218-37c5-4784-a6e2-f6a3c971db6f",
+        "choice": "answer"
+      }
+    },
+    {
+      "sequence": 39,
+      "event_id": "728d5a49-337d-4c1b-bbcb-4747842cabf8",
+      "request_id": "e1b157a7-5fcf-41e0-8f95-85c573945f5f",
+      "kind": "answer_applied",
+      "at": "2026-10-23T12:16:07.128Z"
+    },
+    {
+      "sequence": 40,
+      "event_id": "5762f2ea-87fd-40ce-9043-6e34e022bca3",
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "kind": "controller_requested",
+      "at": "2026-10-23T12:16:16.094Z"
+    },
+    {
+      "sequence": 41,
+      "event_id": "8c49175f-e08f-4681-9cc1-47198fbc98c1",
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "kind": "dialogue",
+      "at": "2026-10-23T12:16:16.095Z",
+      "payload": {
+        "version": "r7-v1",
+        "event_id": "6e38bdd6-41af-4702-b289-2e71c962a87b",
+        "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+        "at": "2026-10-23T12:16:16.088725+00:00",
+        "outcome": "requested"
+      }
+    },
+    {
+      "sequence": 42,
+      "event_id": "655ce689-2965-4859-a410-803649c2f95f",
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "kind": "action_claimed",
+      "at": "2026-10-23T12:16:16.147Z"
+    },
+    {
+      "sequence": 43,
+      "event_id": "594ce047-d26d-41e0-bb02-d5c641197cce",
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "kind": "provider_reserved",
+      "at": "2026-10-23T12:16:16.200Z"
+    },
+    {
+      "sequence": 44,
+      "event_id": "ca3a6ead-c6c8-461c-88c0-5cd52f0dc250",
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "kind": "provider_completed",
+      "at": "2026-10-23T12:16:23.528Z"
+    },
+    {
+      "sequence": 45,
+      "event_id": "d755094f-e1fc-44a9-a4bc-4a2b8c94a1f5",
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "kind": "action",
+      "at": "2026-10-23T12:16:23.681Z",
+      "payload": {
+        "action_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+        "phase": "proposed",
+        "proposal": {
+          "version": "tutor-orchestration-v1",
+          "content_ref": {
+            "source_kind": "uploaded",
+            "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+            "source_version": 1,
+            "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+            "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+            "attribution": {
+              "title": "Synthetic integration — Moonlight and reflected light",
+              "authors": ["Fictional demo teacher"],
+              "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+              "section": "Imported source",
+              "url": null,
+              "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+              "license_url": null,
+              "cautions": []
+            },
+            "access_scope": {
+              "teacher_id": "10000000-0000-4000-8000-000000000001"
+            },
+            "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+            "content_version": "2"
+          },
+          "concept_ids": ["7e5e69dd-5a0d-439e-9087-b50e917c8223"],
+          "source_passage_ids": ["p001"],
+          "reason_summary": "Generate a diagnostic follow-up covering the required source-versus-reflection concept, using the passage’s lamp-off scenario to probe the student's stated reliance on brightness alone. The accepted evaluation records a conceptual error after a displayed terminology hint; no saved misconception IDs are available to target.",
+          "action": "generate_diagnostic",
+          "arguments": {
+            "target_misconception_ids": []
+          }
+        },
+        "invalid_proposal": false
+      }
+    },
+    {
+      "sequence": 46,
+      "event_id": "76d75364-6f15-4fc0-bf47-806d9dc5e753",
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "kind": "action",
+      "at": "2026-10-23T12:16:23.738Z",
+      "payload": {
+        "action_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+        "phase": "validated",
+        "allowed_actions": ["generate_diagnostic", "advance_lesson"],
+        "decision": "accepted",
+        "reason": null
+      }
+    },
+    {
+      "sequence": 47,
+      "event_id": "fe970608-1428-49b7-a075-802ca1b538e2",
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "kind": "action",
+      "at": "2026-10-23T12:16:23.788Z",
+      "payload": {
+        "action_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+        "phase": "dispatch_started",
+        "tool": "generate_diagnostic"
+      }
+    },
+    {
+      "sequence": 48,
+      "event_id": "1cd41aba-4979-46a7-ba5c-79eaea991817",
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "kind": "provider_reserved",
+      "at": "2026-10-23T12:16:23.854Z"
+    },
+    {
+      "sequence": 49,
+      "event_id": "246f44fd-e9b4-40cf-bc5c-05e77aa9f92c",
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "kind": "provider_completed",
+      "at": "2026-10-23T12:16:40.533Z"
+    },
+    {
+      "sequence": 50,
+      "event_id": "0b70564d-2949-4215-bec3-96e5c9a64b01",
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "kind": "provider_reserved",
+      "at": "2026-10-23T12:16:40.605Z"
+    },
+    {
+      "sequence": 51,
+      "event_id": "af89309d-f3d5-4dd2-8d6c-79952a807bb4",
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "kind": "provider_completed",
+      "at": "2026-10-23T12:16:54.552Z"
+    },
+    {
+      "sequence": 52,
+      "event_id": "25b8c1ce-bdce-4450-8482-48f6a95b6aff",
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "kind": "dialogue",
+      "at": "2026-10-23T12:16:54.651Z",
+      "payload": {
+        "outcome": "generated",
+        "content": {
+          "kind": "question",
+          "content_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+          "question": {
+            "question_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+            "prompt_text": "A white card looks bright beside a switched-on lamp in a room with no other light. The lamp is then switched off. What do you predict will happen to the card’s appearance? Explain how your prediction tests your idea that looking bright means an object makes its own light.",
+            "concept_ids": ["7e5e69dd-5a0d-439e-9087-b50e917c8223"],
+            "source_passage_ids": ["p001"],
+            "content_ref": {
+              "source_kind": "uploaded",
+              "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+              "source_version": 1,
+              "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+              "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+              "attribution": {
+                "title": "Synthetic integration — Moonlight and reflected light",
+                "authors": ["Fictional demo teacher"],
+                "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+                "section": "Imported source",
+                "url": null,
+                "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+                "license_url": null,
+                "cautions": []
+              },
+              "access_scope": {
+                "teacher_id": "10000000-0000-4000-8000-000000000001"
+              },
+              "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+              "content_version": "2"
+            },
+            "origin": "generated",
+            "controller_node_id": null,
+            "generation": {
+              "model": "gpt-6.1-sol",
+              "prompt_template_version": "r7-unscaffolded-assessment-generation-v1",
+              "generated_at": "2026-10-23T12:16:40.511Z"
+            }
+          }
+        }
+      }
+    },
+    {
+      "sequence": 53,
+      "event_id": "64e2e783-c310-4ef1-94f8-579453339208",
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "kind": "dialogue",
+      "at": "2026-10-23T12:16:54.654Z",
+      "payload": {
+        "version": "r7-v1",
+        "event_id": "a4f7e99a-400c-4dcb-9939-13d301cf56a9",
+        "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+        "at": "2026-10-23T12:16:54.649601+00:00",
+        "outcome": "accepted",
+        "content_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+        "applied_attempt_id": "7433ade8-5a95-4593-9338-82518ed6fb17",
+        "applied_revision": 3
+      }
+    },
+    {
+      "sequence": 54,
+      "event_id": "470cc81a-eec6-4b20-a5ee-050e60341bd1",
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "kind": "controller_applied",
+      "at": "2026-10-23T12:16:54.655Z",
+      "payload": {
+        "evaluation_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+        "controller_action": "ASK_DIAGNOSTIC_FOLLOWUP",
+        "next_attempt_id": "7433ade8-5a95-4593-9338-82518ed6fb17",
+        "intervention_id": null,
+        "applied_revision": 3
+      }
+    },
+    {
+      "sequence": 55,
+      "event_id": "3e03cd34-fdbb-4770-9d82-71048e29fb4a",
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "kind": "action",
+      "at": "2026-10-23T12:16:54.658Z",
+      "payload": {
+        "action_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+        "phase": "executed",
+        "tool": "generate_diagnostic",
+        "result": {
+          "kind": "generated",
+          "content": {
+            "kind": "question",
+            "content_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+            "question": {
+              "question_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+              "prompt_text": "A white card looks bright beside a switched-on lamp in a room with no other light. The lamp is then switched off. What do you predict will happen to the card’s appearance? Explain how your prediction tests your idea that looking bright means an object makes its own light.",
+              "concept_ids": ["7e5e69dd-5a0d-439e-9087-b50e917c8223"],
+              "source_passage_ids": ["p001"],
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+                "source_version": 1,
+                "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+                "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+                "attribution": {
+                  "title": "Synthetic integration — Moonlight and reflected light",
+                  "authors": ["Fictional demo teacher"],
+                  "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+                "content_version": "2"
+              },
+              "origin": "generated",
+              "controller_node_id": null,
+              "generation": {
+                "model": "gpt-6.1-sol",
+                "prompt_template_version": "r7-unscaffolded-assessment-generation-v1",
+                "generated_at": "2026-10-23T12:16:40.511Z"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "sequence": 56,
+      "event_id": "ed4aca47-4bd8-44a6-84b0-d3b91abdb0df",
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "kind": "action_receipt",
+      "at": "2026-10-23T12:16:54.661Z",
+      "payload": {
+        "status": "executed",
+        "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+        "action": "generate_diagnostic",
+        "result": {
+          "kind": "generated",
+          "content": {
+            "kind": "question",
+            "content_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+            "question": {
+              "question_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+              "prompt_text": "A white card looks bright beside a switched-on lamp in a room with no other light. The lamp is then switched off. What do you predict will happen to the card’s appearance? Explain how your prediction tests your idea that looking bright means an object makes its own light.",
+              "concept_ids": ["7e5e69dd-5a0d-439e-9087-b50e917c8223"],
+              "source_passage_ids": ["p001"],
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+                "source_version": 1,
+                "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+                "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+                "attribution": {
+                  "title": "Synthetic integration — Moonlight and reflected light",
+                  "authors": ["Fictional demo teacher"],
+                  "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+                "content_version": "2"
+              },
+              "origin": "generated",
+              "controller_node_id": null,
+              "generation": {
+                "model": "gpt-6.1-sol",
+                "prompt_template_version": "r7-unscaffolded-assessment-generation-v1",
+                "generated_at": "2026-10-23T12:16:40.511Z"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "sequence": 57,
+      "event_id": "0e624a0d-f5b7-47d0-a07e-ef97032b096d",
+      "request_id": "1f2b81ff-68d6-4e06-8eb9-35ad97782929",
+      "kind": "requested",
+      "at": "2026-10-23T12:17:27.739Z"
+    },
+    {
+      "sequence": 58,
+      "event_id": "85cbc66f-c697-4d7c-80c3-a6eeda048a18",
+      "request_id": "1f2b81ff-68d6-4e06-8eb9-35ad97782929",
+      "kind": "provider_reserved",
+      "at": "2026-10-23T12:17:27.840Z"
+    },
+    {
+      "sequence": 59,
+      "event_id": "5ae84238-2792-4c16-806c-573e2dfc0339",
+      "request_id": "1f2b81ff-68d6-4e06-8eb9-35ad97782929",
+      "kind": "provider_completed",
+      "at": "2026-10-23T12:17:34.348Z"
+    },
+    {
+      "sequence": 60,
+      "event_id": "9449d8db-dbb8-419f-afe0-47c93342bef0",
+      "request_id": "1f2b81ff-68d6-4e06-8eb9-35ad97782929",
+      "kind": "intent_review",
+      "at": "2026-10-23T12:17:34.447Z",
+      "payload": {
+        "proposal": {
+          "category": "ANSWER",
+          "rationale": "The student directly states a prediction and explains its relation to the idea that bright objects make their own light, without requesting help or confirmation."
+        },
+        "review": {
+          "answer_intent": "uncertain",
+          "disclosure": "safe"
+        },
+        "authorized_route": "clarify"
+      }
+    },
+    {
+      "sequence": 61,
+      "event_id": "784264fd-ac54-4b6b-b692-dd9576592c19",
+      "request_id": "ea511d6d-a05b-4594-9217-2d1437fbb06c",
+      "kind": "requested",
+      "at": "2026-10-23T12:17:42.054Z"
+    },
+    {
+      "sequence": 62,
+      "event_id": "71599cab-7b5e-470f-84a1-2c63ea31a0e2",
+      "request_id": "1f2b81ff-68d6-4e06-8eb9-35ad97782929",
+      "kind": "intent_resolution",
+      "at": "2026-10-23T12:17:42.056Z",
+      "payload": {
+        "request_id": "ea511d6d-a05b-4594-9217-2d1437fbb06c",
+        "choice": "answer"
+      }
+    },
+    {
+      "sequence": 63,
+      "event_id": "9d689f6c-b476-4a8b-8970-85ae8c730e5c",
+      "request_id": "1f2b81ff-68d6-4e06-8eb9-35ad97782929",
+      "kind": "answer_applied",
+      "at": "2026-10-23T12:17:42.091Z"
+    },
+    {
+      "sequence": 64,
+      "event_id": "f10f54ca-9c6f-4db4-98dc-bf856817e464",
+      "request_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+      "kind": "controller_requested",
+      "at": "2026-10-23T12:17:50.786Z"
+    },
+    {
+      "sequence": 65,
+      "event_id": "83e9bd7e-c162-40eb-983d-3a6047fb8ed6",
+      "request_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+      "kind": "dialogue",
+      "at": "2026-10-23T12:17:50.788Z",
+      "payload": {
+        "version": "r7-v1",
+        "event_id": "b945f6e6-640c-4426-8703-d9d27d6e66e3",
+        "request_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+        "at": "2026-10-23T12:17:50.782619+00:00",
+        "outcome": "requested"
+      }
+    },
+    {
+      "sequence": 66,
+      "event_id": "fcb03cff-0d22-4750-862e-c5c7da74eb98",
+      "request_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+      "kind": "action_claimed",
+      "at": "2026-10-23T12:17:50.838Z"
+    },
+    {
+      "sequence": 67,
+      "event_id": "66674890-8a85-4696-89e7-c629560b2f5b",
+      "request_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+      "kind": "provider_reserved",
+      "at": "2026-10-23T12:17:50.886Z"
+    },
+    {
+      "sequence": 68,
+      "event_id": "d3c7b0a4-6a3b-46d7-aee3-84ccd898d9f2",
+      "request_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+      "kind": "provider_completed",
+      "at": "2026-10-23T12:17:58.392Z"
+    },
+    {
+      "sequence": 69,
+      "event_id": "6c6d970f-afc1-4f04-8b71-afcbd962e031",
+      "request_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+      "kind": "action",
+      "at": "2026-10-23T12:17:58.443Z",
+      "payload": {
+        "action_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+        "phase": "proposed",
+        "proposal": {
+          "version": "tutor-orchestration-v1",
+          "content_ref": {
+            "source_kind": "uploaded",
+            "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+            "source_version": 1,
+            "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+            "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+            "attribution": {
+              "title": "Synthetic integration — Moonlight and reflected light",
+              "authors": ["Fictional demo teacher"],
+              "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+              "section": "Imported source",
+              "url": null,
+              "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+              "license_url": null,
+              "cautions": []
+            },
+            "access_scope": {
+              "teacher_id": "10000000-0000-4000-8000-000000000001"
+            },
+            "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+            "content_version": "2"
+          },
+          "concept_ids": ["7e5e69dd-5a0d-439e-9087-b50e917c8223"],
+          "source_passage_ids": ["p001"],
+          "reason_summary": "Propose advancement for server consideration: the latest accepted evaluation records a correct diagnostic response distinguishing reflected light from a light source and rejecting brightness alone as proof. The response followed a displayed terminology hint, so it does not establish independent retrieval.",
+          "action": "advance_lesson",
+          "arguments": {}
+        },
+        "invalid_proposal": false
+      }
+    },
+    {
+      "sequence": 70,
+      "event_id": "cd7d6568-a5e0-456b-9587-e90ff5b10b5b",
+      "request_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+      "kind": "action",
+      "at": "2026-10-23T12:17:58.472Z",
+      "payload": {
+        "action_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+        "phase": "validated",
+        "allowed_actions": ["advance_lesson"],
+        "decision": "accepted",
+        "reason": null
+      }
+    },
+    {
+      "sequence": 71,
+      "event_id": "85fb06bf-c84f-4126-bd43-77716b455e87",
+      "request_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+      "kind": "action",
+      "at": "2026-10-23T12:17:58.500Z",
+      "payload": {
+        "action_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+        "phase": "dispatch_started",
+        "tool": "advance_lesson"
+      }
+    },
+    {
+      "sequence": 72,
+      "event_id": "b11df4b4-e8dc-4dd7-88b8-e0a267556733",
+      "request_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+      "kind": "controller_applied",
+      "at": "2026-10-23T12:17:58.547Z",
+      "payload": {
+        "evaluation_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+        "controller_action": "END_SESSION",
+        "next_attempt_id": null,
+        "intervention_id": null,
+        "applied_revision": 7
+      }
+    },
+    {
+      "sequence": 73,
+      "event_id": "f2104031-465a-4670-9eb3-195ef29bb131",
+      "request_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+      "kind": "action",
+      "at": "2026-10-23T12:17:58.550Z",
+      "payload": {
+        "action_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+        "phase": "executed",
+        "tool": "advance_lesson",
+        "result": {
+          "kind": "advance_lesson",
+          "evaluation_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+          "controller_action": "END_SESSION"
+        }
+      }
+    },
+    {
+      "sequence": 74,
+      "event_id": "7991ae89-036e-48c0-932f-34ab27b33fd2",
+      "request_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+      "kind": "action_receipt",
+      "at": "2026-10-23T12:17:58.551Z",
+      "payload": {
+        "status": "executed",
+        "request_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+        "action": "advance_lesson",
+        "result": {
+          "kind": "advance_lesson",
+          "evaluation_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+          "controller_action": "END_SESSION"
+        }
+      }
+    }
+  ],
+  "attempts": [
+    {
+      "id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+      "sequence_index": 0,
+      "parent_attempt_id": null,
+      "root_attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+      "intent": "initial_retrieval",
+      "question": {
+        "question_id": "ed746ee0-8f9c-4117-b1aa-138d05f13bc1",
+        "prompt_text": "A switched-on lamp, a mirror, a white card, and the Moon can all look bright. Which produces its own visible light, and how do the others appear bright? Use the approved reading to explain your reasoning in one or two sentences.",
+        "concept_ids": ["7e5e69dd-5a0d-439e-9087-b50e917c8223"],
+        "source_passage_ids": ["p001"],
+        "content_ref": {
+          "source_kind": "uploaded",
+          "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+          "source_version": 1,
+          "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+          "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+          "attribution": {
+            "title": "Synthetic integration — Moonlight and reflected light",
+            "authors": ["Fictional demo teacher"],
+            "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+            "license_url": null,
+            "cautions": []
+          },
+          "access_scope": {
+            "teacher_id": "10000000-0000-4000-8000-000000000001"
+          },
+          "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+          "content_version": "2"
+        },
+        "origin": "generated",
+        "controller_node_id": null,
+        "generation": {
+          "model": "gpt-6.1-sol",
+          "prompt_template_version": "teacher-question-bank-v2",
+          "generated_at": "2026-10-23T03:19:35.775Z"
+        }
+      },
+      "presented_at": "2026-10-23T12:03:09.264Z",
+      "submitted_at": "2026-10-23T12:16:07.117Z",
+      "response_text": "The lamp, mirror, white card, and Moon all make their own visible light because each looks bright. I think brightness is enough to show that an object is a light source.",
+      "submission_key": "e1b157a7-5fcf-41e0-8f95-85c573945f5f",
+      "assistance": {
+        "intervention_ids": ["ee348623-0ef2-4b2d-9cec-f679b1dd6257"],
+        "assistance_level": "hint",
+        "scaffolding_types": [],
+        "independent_retrieval_eligible_by_concept": {
+          "7e5e69dd-5a0d-439e-9087-b50e917c8223": false
+        },
+        "most_recent_content_assistance_at": "2026-10-23T12:15:02.990Z",
+        "elapsed_since_content_assistance_seconds": 64.127
+      },
+      "current_evaluation_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5"
+    },
+    {
+      "id": "7433ade8-5a95-4593-9338-82518ed6fb17",
+      "sequence_index": 1,
+      "parent_attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+      "root_attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+      "intent": "diagnostic_followup",
+      "question": {
+        "question_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+        "prompt_text": "A white card looks bright beside a switched-on lamp in a room with no other light. The lamp is then switched off. What do you predict will happen to the card’s appearance? Explain how your prediction tests your idea that looking bright means an object makes its own light.",
+        "concept_ids": ["7e5e69dd-5a0d-439e-9087-b50e917c8223"],
+        "source_passage_ids": ["p001"],
+        "content_ref": {
+          "source_kind": "uploaded",
+          "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+          "source_version": 1,
+          "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+          "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+          "attribution": {
+            "title": "Synthetic integration — Moonlight and reflected light",
+            "authors": ["Fictional demo teacher"],
+            "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+            "license_url": null,
+            "cautions": []
+          },
+          "access_scope": {
+            "teacher_id": "10000000-0000-4000-8000-000000000001"
+          },
+          "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+          "content_version": "2"
+        },
+        "origin": "generated",
+        "controller_node_id": "efc5e9ad-ba40-4aec-99de-ad79a70169bb",
+        "generation": {
+          "model": "gpt-6.1-sol",
+          "prompt_template_version": "r7-unscaffolded-assessment-generation-v1",
+          "generated_at": "2026-10-23T12:16:40.511Z"
+        }
+      },
+      "presented_at": "2026-10-23T12:16:54.634Z",
+      "submitted_at": "2026-10-23T12:17:42.076Z",
+      "response_text": "With the lamp off, the card will stop looking bright. It was reflecting light from the lamp. Brightness while the lamp was on did not prove that the card made light; the lamp was the source.",
+      "submission_key": "1f2b81ff-68d6-4e06-8eb9-35ad97782929",
+      "assistance": {
+        "intervention_ids": ["ee348623-0ef2-4b2d-9cec-f679b1dd6257"],
+        "assistance_level": "hint",
+        "scaffolding_types": ["diagnostic_prompt_without_answer"],
+        "independent_retrieval_eligible_by_concept": {
+          "7e5e69dd-5a0d-439e-9087-b50e917c8223": false
+        },
+        "most_recent_content_assistance_at": "2026-10-23T12:15:02.990Z",
+        "elapsed_since_content_assistance_seconds": 159.086
+      },
+      "current_evaluation_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f"
+    }
+  ],
+  "evaluations": [
+    {
+      "id": "84a43692-1834-495d-8f55-dc81bd576267",
+      "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+      "validation_status": "pending_review",
+      "evaluator": {
+        "type": "language_model",
+        "model": "gpt-6.1-sol",
+        "version": "grounded-network-performance-v2"
+      },
+      "evaluated_at": "2026-10-23T12:16:07.280Z",
+      "failure_reason": "Evaluation request started. If no result arrives, ask your teacher to check it before another paid request.",
+      "applied_action": null,
+      "result": null
+    },
+    {
+      "id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+      "validation_status": "accepted",
+      "evaluator": {
+        "type": "language_model",
+        "model": "gpt-6.1-sol",
+        "version": "grounded-network-performance-v2",
+        "provider_reservation_id": "84a43692-1834-495d-8f55-dc81bd576267",
+        "provider_outcome": "settled"
+      },
+      "evaluated_at": "2026-10-23T12:16:16.009Z",
+      "failure_reason": null,
+      "applied_action": "ASK_DIAGNOSTIC_FOLLOWUP",
+      "result": {
+        "per_concept_results": [
+          {
+            "concept_id": "7e5e69dd-5a0d-439e-9087-b50e917c8223",
+            "correctness": "incorrect",
+            "error_type": "conceptual"
+          }
+        ],
+        "source_passage_ids": ["p001"],
+        "uncertainty_reason": null,
+        "proposed_next_action": "ASK_DIAGNOSTIC_FOLLOWUP"
+      }
+    },
+    {
+      "id": "0e60fc7b-9a6d-4374-929e-3bb31fa1cad5",
+      "attempt_id": "7433ade8-5a95-4593-9338-82518ed6fb17",
+      "validation_status": "pending_review",
+      "evaluator": {
+        "type": "language_model",
+        "model": "gpt-6.1-sol",
+        "version": "grounded-network-performance-v2"
+      },
+      "evaluated_at": "2026-10-23T12:17:42.246Z",
+      "failure_reason": "Evaluation request started. If no result arrives, ask your teacher to check it before another paid request.",
+      "applied_action": null,
+      "result": null
+    },
+    {
+      "id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+      "attempt_id": "7433ade8-5a95-4593-9338-82518ed6fb17",
+      "validation_status": "accepted",
+      "evaluator": {
+        "type": "language_model",
+        "model": "gpt-6.1-sol",
+        "version": "grounded-network-performance-v2",
+        "provider_reservation_id": "0e60fc7b-9a6d-4374-929e-3bb31fa1cad5",
+        "provider_outcome": "settled"
+      },
+      "evaluated_at": "2026-10-23T12:17:50.722Z",
+      "failure_reason": null,
+      "applied_action": "END_SESSION",
+      "result": {
+        "per_concept_results": [
+          {
+            "concept_id": "7e5e69dd-5a0d-439e-9087-b50e917c8223",
+            "correctness": "correct",
+            "error_type": null
+          }
+        ],
+        "source_passage_ids": ["p001"],
+        "uncertainty_reason": null,
+        "proposed_next_action": "MOVE_TO_NEXT_CONCEPT"
+      }
+    }
+  ],
+  "interventions": [
+    {
+      "id": "ee348623-0ef2-4b2d-9cec-f679b1dd6257",
+      "session_id": "21b2831d-e2aa-4cce-ac76-bd498a6a7fb4",
+      "related_attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+      "related_evaluation_id": null,
+      "type": "hint",
+      "text_shown": "“Reflected light” means light that reaches an object and then bounces off it. Think of the light’s path: it arrives, then bounces away. That explains the word without sorting the objects in your assignment for you.",
+      "concept_ids": ["7e5e69dd-5a0d-439e-9087-b50e917c8223"],
+      "source_passage_ids": ["p001"],
+      "content_ref": {
+        "source_kind": "uploaded",
+        "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+        "source_version": 1,
+        "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+        "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+        "attribution": {
+          "title": "Synthetic integration — Moonlight and reflected light",
+          "authors": ["Fictional demo teacher"],
+          "copyright": "Original synthetic teaching text created for the Learning Pulse integration test, 2026.",
+          "section": "Imported source",
+          "url": null,
+          "license": "Original synthetic test material, permitted for this fictional classroom demonstration.",
+          "license_url": null,
+          "cautions": []
+        },
+        "access_scope": {
+          "teacher_id": "10000000-0000-4000-8000-000000000001"
+        },
+        "package_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+        "content_version": "2"
+      },
+      "created_at": "2026-10-23T12:15:02.857Z",
+      "visible_at": "2026-10-23T12:15:02.990Z",
+      "delivery_status": "displayed"
+    }
+  ],
+  "provider_calls": [
+    {
+      "id": "7a2fdda4-5d6f-4dfa-b49d-eb39734323e7",
+      "request_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+      "step_id": "classify",
+      "status": "succeeded",
+      "started_at": "2026-10-23T12:03:29.987Z",
+      "finished_at": "2026-10-23T12:03:33.441Z",
+      "metadata": {
+        "stage": "classify",
+        "model": "gpt-6.1-sol",
+        "prompt_version": "r7-intent-v1"
+      },
+      "result": {
+        "ok": true,
+        "model": "gpt-6.1-sol",
+        "responseId": "resp_062a66cf72e46338016adb4d10c5e087d1ba9a4fc49b279215",
+        "latencyMs": 3426,
+        "usage": {
+          "inputTokens": 979,
+          "outputTokens": 40,
+          "totalTokens": 1019
+        },
+        "needs_reconciliation": false
+      }
+    },
+    {
+      "id": "b78a927b-e856-47df-beff-06ad89d5c335",
+      "request_id": "56ea0039-666c-4e1f-9711-0fe07cc52587",
+      "step_id": "propose",
+      "status": "failed",
+      "started_at": "2026-10-23T12:03:33.667Z",
+      "finished_at": "2026-10-23T12:03:34.770Z",
+      "metadata": {
+        "stage": "propose",
+        "model": "gpt-6.1-sol",
+        "prompt_version": "tutor-orchestration-v1"
+      },
+      "result": {
+        "ok": false,
+        "model": "gpt-6.1-sol",
+        "responseId": null,
+        "latencyMs": 1083,
+        "usage": null,
+        "needs_reconciliation": false,
+        "code": "invalid_request"
+      }
+    },
+    {
+      "id": "1189d3fe-9c38-47ee-8842-8fb265aa0bff",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "step_id": "classify",
+      "status": "succeeded",
+      "started_at": "2026-10-23T12:14:36.515Z",
+      "finished_at": "2026-10-23T12:14:39.700Z",
+      "metadata": {
+        "stage": "classify",
+        "model": "gpt-6.1-sol",
+        "prompt_version": "r7-intent-v1"
+      },
+      "result": {
+        "ok": true,
+        "model": "gpt-6.1-sol",
+        "responseId": "resp_0487652ac9b4d410016adb4fabb65c87d1afc64276b8f29278",
+        "latencyMs": 3144,
+        "usage": {
+          "inputTokens": 979,
+          "outputTokens": 40,
+          "totalTokens": 1019
+        },
+        "needs_reconciliation": false
+      }
+    },
+    {
+      "id": "33e3c5ab-9a76-48cd-b647-e7fcf18cd8b0",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "step_id": "propose",
+      "status": "succeeded",
+      "started_at": "2026-10-23T12:14:39.928Z",
+      "finished_at": "2026-10-23T12:14:47.913Z",
+      "metadata": {
+        "stage": "propose",
+        "model": "gpt-6.1-sol",
+        "prompt_version": "tutor-orchestration-v1"
+      },
+      "result": {
+        "ok": true,
+        "model": "gpt-6.1-sol",
+        "responseId": "resp_08def2249bd87842016adb4faea48887d1b846516e2e68d5ba",
+        "latencyMs": 7963,
+        "usage": {
+          "inputTokens": 3832,
+          "outputTokens": 379,
+          "totalTokens": 4211
+        },
+        "needs_reconciliation": false
+      }
+    },
+    {
+      "id": "6e051506-f79c-4c6b-bb19-446231e4cc65",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "step_id": "generate",
+      "status": "succeeded",
+      "started_at": "2026-10-23T12:14:48.100Z",
+      "finished_at": "2026-10-23T12:14:57.772Z",
+      "metadata": {
+        "stage": "generate",
+        "model": "gpt-6.1-sol",
+        "prompt_version": "r7-grounded-generation-v4"
+      },
+      "result": {
+        "ok": true,
+        "model": "gpt-6.1-sol",
+        "responseId": "resp_04d65f4f961a98a5016adb4fb6ad4c87d1b5a67c35494aa3a7",
+        "latencyMs": 9649,
+        "usage": {
+          "inputTokens": 1625,
+          "outputTokens": 355,
+          "totalTokens": 1980
+        },
+        "needs_reconciliation": false
+      }
+    },
+    {
+      "id": "9ed1fd3e-b8af-494d-9555-8520c7847a41",
+      "request_id": "f0468b96-9e9a-4d79-bc62-ef4ed48df8f1",
+      "step_id": "review",
+      "status": "succeeded",
+      "started_at": "2026-10-23T12:14:57.865Z",
+      "finished_at": "2026-10-23T12:15:02.759Z",
+      "metadata": {
+        "stage": "review",
+        "model": "gpt-6.1-sol",
+        "prompt_version": "r7-independent-review-v2"
+      },
+      "result": {
+        "ok": true,
+        "model": "gpt-6.1-sol",
+        "responseId": "resp_0615faa056f685bc016adb4fc06be887d1bb93f5d29330fba5",
+        "latencyMs": 4869,
+        "usage": {
+          "inputTokens": 2050,
+          "outputTokens": 144,
+          "totalTokens": 2194
+        },
+        "needs_reconciliation": false
+      }
+    },
+    {
+      "id": "9b5b936f-ff62-4d76-a5f6-37cfcfc0d954",
+      "request_id": "e1b157a7-5fcf-41e0-8f95-85c573945f5f",
+      "step_id": "classify",
+      "status": "succeeded",
+      "started_at": "2026-10-23T12:15:39.648Z",
+      "finished_at": "2026-10-23T12:15:43.198Z",
+      "metadata": {
+        "stage": "classify",
+        "model": "gpt-6.1-sol",
+        "prompt_version": "r7-intent-v1"
+      },
+      "result": {
+        "ok": true,
+        "model": "gpt-6.1-sol",
+        "responseId": "resp_0f019f989fd350b7016adb4fea58d887d197989b56d06a53e6",
+        "latencyMs": 3529,
+        "usage": {
+          "inputTokens": 1078,
+          "outputTokens": 39,
+          "totalTokens": 1117
+        },
+        "needs_reconciliation": false
+      }
+    },
+    {
+      "id": "cfd5372f-255b-4d6b-8b31-818027402ddf",
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "step_id": "propose",
+      "status": "succeeded",
+      "started_at": "2026-10-23T12:16:16.198Z",
+      "finished_at": "2026-10-23T12:16:23.522Z",
+      "metadata": {
+        "stage": "propose",
+        "model": "gpt-6.1-sol",
+        "prompt_version": "tutor-orchestration-v1"
+      },
+      "result": {
+        "ok": true,
+        "model": "gpt-6.1-sol",
+        "responseId": "resp_08fe2f9ddd72d24d016adb500ed51487d1908f39e67c9bcba4",
+        "latencyMs": 7205,
+        "usage": {
+          "inputTokens": 4498,
+          "outputTokens": 389,
+          "totalTokens": 4887
+        },
+        "needs_reconciliation": false
+      }
+    },
+    {
+      "id": "0b893a0b-4256-428c-a263-198d656ca18b",
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "step_id": "generate",
+      "status": "succeeded",
+      "started_at": "2026-10-23T12:16:23.852Z",
+      "finished_at": "2026-10-23T12:16:40.530Z",
+      "metadata": {
+        "stage": "generate",
+        "model": "gpt-6.1-sol",
+        "prompt_version": "r7-unscaffolded-assessment-generation-v1"
+      },
+      "result": {
+        "ok": true,
+        "model": "gpt-6.1-sol",
+        "responseId": "resp_0ae06f75b82136ae016adb50166e5c87d1b866e51811757996",
+        "latencyMs": 16655,
+        "usage": {
+          "inputTokens": 1986,
+          "outputTokens": 742,
+          "totalTokens": 2728
+        },
+        "needs_reconciliation": false
+      }
+    },
+    {
+      "id": "2f35b39f-d052-4270-a43a-efe89d3936b1",
+      "request_id": "02ba7b58-056b-4881-8bb3-e7fe854adbf5",
+      "step_id": "review",
+      "status": "succeeded",
+      "started_at": "2026-10-23T12:16:40.602Z",
+      "finished_at": "2026-10-23T12:16:54.551Z",
+      "metadata": {
+        "stage": "review",
+        "model": "gpt-6.1-sol",
+        "prompt_version": "r7-unscaffolded-assessment-review-v1"
+      },
+      "result": {
+        "ok": true,
+        "model": "gpt-6.1-sol",
+        "responseId": "resp_0ea11b121cd9000a016adb5027428087d182310a1cee73b9b2",
+        "latencyMs": 13928,
+        "usage": {
+          "inputTokens": 2855,
+          "outputTokens": 935,
+          "totalTokens": 3790
+        },
+        "needs_reconciliation": false
+      }
+    },
+    {
+      "id": "93656b33-be3f-46bc-bdd9-d5d088a777f3",
+      "request_id": "1f2b81ff-68d6-4e06-8eb9-35ad97782929",
+      "step_id": "classify",
+      "status": "succeeded",
+      "started_at": "2026-10-23T12:17:27.835Z",
+      "finished_at": "2026-10-23T12:17:34.345Z",
+      "metadata": {
+        "stage": "classify",
+        "model": "gpt-6.1-sol",
+        "prompt_version": "r7-intent-v1"
+      },
+      "result": {
+        "ok": true,
+        "model": "gpt-6.1-sol",
+        "responseId": "resp_09bfafddaf54308d016adb5056772487d19665dfc43715aa2f",
+        "latencyMs": 6480,
+        "usage": {
+          "inputTokens": 1188,
+          "outputTokens": 46,
+          "totalTokens": 1234
+        },
+        "needs_reconciliation": false
+      }
+    },
+    {
+      "id": "4de8c3af-47c6-4670-9a0f-0615ccac51e0",
+      "request_id": "2eecde2e-55d0-4611-a7db-e4195f3e460f",
+      "step_id": "propose",
+      "status": "succeeded",
+      "started_at": "2026-10-23T12:17:50.883Z",
+      "finished_at": "2026-10-23T12:17:58.390Z",
+      "metadata": {
+        "stage": "propose",
+        "model": "gpt-6.1-sol",
+        "prompt_version": "tutor-orchestration-v1"
+      },
+      "result": {
+        "ok": true,
+        "model": "gpt-6.1-sol",
+        "responseId": "resp_01652f94e321f5d3016adb506d7e0887d1b97116379bc55a8c",
+        "latencyMs": 7487,
+        "usage": {
+          "inputTokens": 4891,
+          "outputTokens": 375,
+          "totalTokens": 5266
+        },
+        "needs_reconciliation": false
+      }
+    }
+  ],
+  "checks": {
+    "display_acknowledgements": 1,
+    "unique_display_acknowledgements": 1,
+    "displayed_interventions": 1,
+    "undisplayed_interventions": 0,
+    "submitted_answers": 2,
+    "unique_submission_keys": 2,
+    "submitted_answers_details": [
+      {
+        "attempt_id": "ccb2b151-cc5f-4c19-8dc8-b22882d51657",
+        "accepted_evaluations": 1,
+        "exact_original_message": true,
+        "assistance_recorded_before_submission": true
+      },
+      {
+        "attempt_id": "7433ade8-5a95-4593-9338-82518ed6fb17",
+        "accepted_evaluations": 1,
+        "exact_original_message": true,
+        "assistance_recorded_before_submission": true
+      }
+    ],
+    "ambiguity": [
+      {
+        "request_id": "e1b157a7-5fcf-41e0-8f95-85c573945f5f",
+        "model_proposal": "ANSWER",
+        "resolution": {
+          "request_id": "f00e1218-37c5-4784-a6e2-f6a3c971db6f",
+          "choice": "answer",
+          "at": "2026-10-23T12:16:07.105Z"
+        },
+        "answer_submitted_at": "2026-10-23T12:16:07.117Z",
+        "no_answer_before_explicit_resolution": true
+      },
+      {
+        "request_id": "1f2b81ff-68d6-4e06-8eb9-35ad97782929",
+        "model_proposal": "ANSWER",
+        "resolution": {
+          "request_id": "ea511d6d-a05b-4594-9217-2d1437fbb06c",
+          "choice": "answer",
+          "at": "2026-10-23T12:17:42.056Z"
+        },
+        "answer_submitted_at": "2026-10-23T12:17:42.076Z",
+        "no_answer_before_explicit_resolution": true
+      }
+    ],
+    "provider_calls": 12,
+    "provider_successes_with_response_id": 11,
+    "provider_failed_reservations": 1,
+    "provider_dispatch_caveat": "A provider record reserves a bounded step. Failed invalid_request records do not persist whether failure occurred during local schema construction or HTTP400/422; elapsed time alone cannot prove network dispatch or paid usage.",
+    "unresolved_provider_calls": 0,
+    "provider_token_usage": 29445,
+    "provider_input_tokens": 25961,
+    "provider_output_tokens": 3484,
+    "evaluator_reservations": 2,
+    "accepted_evaluations": 2,
+    "evaluator_usage_metadata": "Legacy evaluator records do not persist provider response ID, usage or latency; totals above cover dialogue calls only.",
+    "source_matches_exact_authorized_resolver": true
+  },
+  "exporter_model_calls": 0,
+  "exporter_writes_to_database": 0
+}

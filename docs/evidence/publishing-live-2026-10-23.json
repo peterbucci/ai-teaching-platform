@@ -1,0 +1,283 @@
+{
+  "schema_version": 1,
+  "checked_at_utc": "2026-10-23T03:28:27.166Z",
+  "local_check_date": "2026-10-22",
+  "local_time_zone": "America/New_York",
+  "issue": 52,
+  "purpose": "Actual browser and saved database evidence for teacher publishing through the existing deterministic tutor. All lesson material and student responses are synthetic; no real student records are included.",
+  "verification": {
+    "browser_actions": "Operator completed import, objective suggestion and review, question generation and review, assembly, lesson approval, publication, assignment activation, and the three-answer student session.",
+    "database_audit": "Read-only transaction scoped to this source, lesson, assignment, and session; audit made no model calls or database changes.",
+    "teacher_evidence": "Browser operator verified the authorized teacher evidence page: all three original answers, evaluation results and assistance; accepted evaluation 82690b9d-2e83-41fb-a380-d1af598fc518 with original quotes and proposed/applied diagnostic; expanded passage p001; exact Moonlight source version 1 and lesson version 1. Screenshot publishing-moonlight-teacher-evidence.jpg is retained locally outside the repository. This browser observation is separate from the read-only database audit."
+  },
+  "source_pin": {
+    "source_kind": "uploaded",
+    "source_id": "6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90",
+    "source_version": 1,
+    "document_sha256": "70aea17c99423b3449977ad235cbc42563d58008c4498c007ae846ba1521fb47",
+    "excerpt_sha256": "140f020a2d64efeaa7e03568fbdfd196514ab479c211b3e12c87ac5f9e8dab98",
+    "lesson_id": "5d208961-a50e-45c1-9f29-692cd5d82ef8",
+    "lesson_version": "1",
+    "passage_ids": ["p001"],
+    "title": "Synthetic integration — Moonlight and reflected light"
+  },
+  "authoring": {
+    "objectives": {
+      "request_id": "e3557b0b-1535-4fed-a67c-b85c817f7632",
+      "status": "applied",
+      "outcome_ok": true,
+      "applied_revision": 2,
+      "accepted_suggestion_count": 1,
+      "approved_revision": 4,
+      "prompt_template_version": null,
+      "calls": [
+        {
+          "phase": "suggestion",
+          "model": "gpt-6.1-sol",
+          "response_id": "resp_06b5701f3960c023016adacce0cec487d28b1dc96f72d59b11",
+          "provider_response_status": null,
+          "latency_ms": 4854,
+          "usage": {
+            "inputTokens": 622,
+            "outputTokens": 204,
+            "totalTokens": 826
+          }
+        },
+        {
+          "phase": "support",
+          "model": "gpt-6.1-sol",
+          "response_id": "resp_023c5ee5f8212315016adacce5788c87d2abef3e8ad7c42504",
+          "provider_response_status": null,
+          "latency_ms": 7123,
+          "usage": {
+            "inputTokens": 1136,
+            "outputTokens": 362,
+            "totalTokens": 1498
+          }
+        }
+      ]
+    },
+    "question_bank": {
+      "operations": [
+        {
+          "request_id": "d619afe8-5d8d-4d78-9862-a30b4d5f9e67",
+          "status": "completed",
+          "outcome_ok": true,
+          "applied_revision": 6,
+          "prompt_template_versions": ["teacher-question-bank-v2"],
+          "calls": [
+            {
+              "phase": "generation",
+              "model": "gpt-6.1-sol",
+              "response_id": "resp_0a8a4d5347b11b4f016adad22088e487d18203be26418f16cb",
+              "provider_response_status": null,
+              "latency_ms": 34802,
+              "usage": {
+                "inputTokens": 2071,
+                "totalTokens": 4391,
+                "outputTokens": 2320
+              }
+            },
+            {
+              "phase": "critique",
+              "model": "gpt-6.1-sol",
+              "response_id": "resp_03cddc34f53b4443016adad24346c087d1888aa7ff6ed3211a",
+              "provider_response_status": null,
+              "latency_ms": 3770,
+              "usage": {
+                "inputTokens": 3516,
+                "totalTokens": 3652,
+                "outputTokens": 136
+              }
+            }
+          ]
+        }
+      ],
+      "question_count": 4,
+      "reviewed_item_count": 4,
+      "approved_content_fingerprint": "5d38ab8c995942df0f616f108a26e74e0dd8f8b5b054510d61545e2079692925",
+      "approval_matches_current_fingerprint": true
+    },
+    "publication": {
+      "approved_draft_revision": 9,
+      "published_at": "2026-10-23T03:21:36.696Z",
+      "content_snapshot_sha256": "0e1df79870a7bb985fb0363aceaa11551f4fd64cb5e20a0caf435be78a3249f0",
+      "private_authoring_metadata_absent": true
+    }
+  },
+  "assignment": {
+    "id": "17966c5c-894c-4da0-b6c2-39a5247b562a",
+    "creation_request_id": "7db989eb-beb4-4bc0-8a43-939ae560e102",
+    "title": "Moonlight — approved source practice",
+    "instructions": "Read the Moonlight passage, then explain how a light source differs from a reflecting object. Give your own reasoning and use the reading when you need support.",
+    "activated_at": "2026-10-23T03:22:05.135Z",
+    "published_version_pinned": true,
+    "student_enrolled": true,
+    "class_teacher_owns_lesson": true
+  },
+  "student_session": {
+    "id": "58336e23-45f1-4437-854d-c14a5b716d2a",
+    "status": "completed",
+    "data_origin": "live_demo",
+    "started_at": "2026-10-23T03:23:43.503Z",
+    "ended_at": "2026-10-23T03:25:34.835Z",
+    "attempts": [
+      {
+        "attempt_id": "88ac296f-53e8-49ad-8df3-cb83f167787c",
+        "sequence_index": 0,
+        "intent": "initial_retrieval",
+        "question_id": "ed746ee0-8f9c-4117-b1aa-138d05f13bc1",
+        "prompt_text": "A switched-on lamp, a mirror, a white card, and the Moon can all look bright. Which produces its own visible light, and how do the others appear bright? Use the approved reading to explain your reasoning in one or two sentences.",
+        "question_snapshot_sha256": "2e14b0dbc19ef17f377834f7945fa76bbf8b83e0b4da67ab5297baeacfeab964",
+        "exact_published_question": true,
+        "exact_source_pin": true,
+        "source_passage_ids": ["p001"],
+        "response_text": "The lamp and Moon make their own visible light because both look bright. The mirror and card reflect light from the lamp.",
+        "submitted_at": "2026-10-23T03:24:13.122Z",
+        "assistance": {
+          "level": "none_recorded",
+          "intervention_ids": [],
+          "scaffolding_types": [],
+          "independent_retrieval_eligible": true
+        },
+        "evaluation": {
+          "id": "82690b9d-2e83-41fb-a380-d1af598fc518",
+          "validation_status": "accepted",
+          "evaluator": {
+            "type": "language_model",
+            "model": "gpt-6.1-sol",
+            "version": "grounded-network-performance-v2"
+          },
+          "correctness": "partially_correct",
+          "error_type": "conceptual",
+          "source_passage_ids": ["p001"],
+          "proposed_action": "ASK_DIAGNOSTIC_FOLLOWUP",
+          "applied_action": "ASK_DIAGNOSTIC_FOLLOWUP",
+          "evidence_quotes_match_original_response": true,
+          "provider_response_id": null,
+          "provider_response_status": null,
+          "usage": null
+        }
+      },
+      {
+        "attempt_id": "6ae739ff-79a9-47b0-8d9b-18df10ca57ad",
+        "sequence_index": 1,
+        "intent": "diagnostic_followup",
+        "question_id": "efc5e9ad-ba40-4aec-99de-ad79a70169bb",
+        "prompt_text": "Someone says, “The mirror looks bright beside the switched-on lamp, so both must make their own light.” Do you agree with that reasoning? Explain what the mirror's brightness does or does not tell you, using the approved reading in one or two sentences.",
+        "question_snapshot_sha256": "f932a102d2265aaf736a934e05dfcc626e83b36156c5659f4190bd40ddc5aa83",
+        "exact_published_question": true,
+        "exact_source_pin": true,
+        "source_passage_ids": ["p001"],
+        "response_text": "I agree with the claim: if the mirror looks bright, that brightness means it makes visible light just as the lamp does.",
+        "submitted_at": "2026-10-23T03:24:58.647Z",
+        "assistance": {
+          "level": "none_recorded",
+          "intervention_ids": [],
+          "scaffolding_types": ["diagnostic_prompt_without_answer"],
+          "independent_retrieval_eligible": false
+        },
+        "evaluation": {
+          "id": "6615e5ed-da31-4617-b802-4e18bfd36c5c",
+          "validation_status": "accepted",
+          "evaluator": {
+            "type": "language_model",
+            "model": "gpt-6.1-sol",
+            "version": "grounded-network-performance-v2"
+          },
+          "correctness": "incorrect",
+          "error_type": "conceptual",
+          "source_passage_ids": ["p001"],
+          "proposed_action": "ASK_DIAGNOSTIC_FOLLOWUP",
+          "applied_action": "GIVE_CORRECTIVE_FEEDBACK",
+          "evidence_quotes_match_original_response": true,
+          "provider_response_id": null,
+          "provider_response_status": null,
+          "usage": null
+        }
+      },
+      {
+        "attempt_id": "1ace1c89-d2c3-4251-ae96-bba87b2af791",
+        "sequence_index": 2,
+        "intent": "immediate_retest",
+        "question_id": "2b33f187-7431-4ac4-a92a-a22fd5a8bec1",
+        "prompt_text": "In an otherwise completely dark room, a student switches on a lamp beside a white card, observes that the card looks bright, and ends the demonstration. What additional step should the student take to test whether the card shines by itself, and what result would the approved reading predict? Explain what that result would show in one or two sentences.",
+        "question_snapshot_sha256": "560af16faab871d404af42232c77b8af55c5255dad129eaf391465e0950fa50f",
+        "exact_published_question": true,
+        "exact_source_pin": true,
+        "source_passage_ids": ["p001"],
+        "response_text": "Switch off the lamp while keeping the room otherwise completely dark. The card should stop looking bright because it reflects the lamp’s light; without incoming light it does not keep shining on its own.",
+        "submitted_at": "2026-10-23T03:25:27.139Z",
+        "assistance": {
+          "level": "corrective_feedback",
+          "intervention_ids": ["c27df777-bc4e-455f-b439-c30b8417e4d5"],
+          "scaffolding_types": [],
+          "independent_retrieval_eligible": false
+        },
+        "evaluation": {
+          "id": "b3bdf9fb-5184-481f-af41-d227313b7a85",
+          "validation_status": "accepted",
+          "evaluator": {
+            "type": "language_model",
+            "model": "gpt-6.1-sol",
+            "version": "grounded-network-performance-v2"
+          },
+          "correctness": "correct",
+          "error_type": null,
+          "source_passage_ids": ["p001"],
+          "proposed_action": "SCHEDULE_REVIEW",
+          "applied_action": "SCHEDULE_REVIEW",
+          "evidence_quotes_match_original_response": true,
+          "provider_response_id": null,
+          "provider_response_status": null,
+          "usage": null
+        }
+      }
+    ],
+    "displayed_interventions": [
+      {
+        "id": "c27df777-bc4e-455f-b439-c30b8417e4d5",
+        "type": "corrective_feedback",
+        "text_shown": "The lamp is a source of visible light. The mirror and white card reflect lamp light, and the Moon reflects sunlight. Looking bright does not by itself show that an object makes light.",
+        "related_attempt_id": "6ae739ff-79a9-47b0-8d9b-18df10ca57ad",
+        "related_evaluation_id": "6615e5ed-da31-4617-b802-4e18bfd36c5c",
+        "source_passage_ids": ["p001"],
+        "exact_source_pin": true,
+        "visible_at": "2026-10-23T03:25:05.796Z"
+      },
+      {
+        "id": "8097e8de-8d0e-4646-ba9c-51dcd7610f3f",
+        "type": "corrective_feedback",
+        "text_shown": "Your answer after feedback has been saved. A later independent check can provide different evidence of your understanding.",
+        "related_attempt_id": "1ace1c89-d2c3-4251-ae96-bba87b2af791",
+        "related_evaluation_id": "b3bdf9fb-5184-481f-af41-d227313b7a85",
+        "source_passage_ids": ["p001"],
+        "exact_source_pin": true,
+        "visible_at": "2026-10-23T03:25:34.922Z"
+      }
+    ],
+    "outcome": "correct_after_feedback",
+    "independent_retention_demonstrated": false
+  },
+  "model_counts": {
+    "provider": "OpenAI Responses API",
+    "models": ["gpt-6.1-sol"],
+    "objective_calls_with_saved_response_ids": 2,
+    "question_calls_with_saved_response_ids": 2,
+    "accepted_language_model_evaluations": 3,
+    "evaluation_start_markers": 3,
+    "evaluation_database_rows": 6,
+    "evaluation_calls_supported_by_start_and_success_records": 3,
+    "total_logical_calls_evidenced": 7,
+    "known_authoring_tokens": 10367,
+    "evaluation_tokens": null,
+    "complete_run_token_total": null
+  },
+  "limits": [
+    "This verifies one synthetic browser journey through the existing deterministic tutor, not R7 live conversation or adaptive tool execution.",
+    "A correct immediate retest after displayed feedback does not establish independent mastery or lasting retention.",
+    "Objective proposal records do not store a prompt-template version. Raw provider response status is not persisted for these stages.",
+    "Evaluation rows preserve actual model/version, accepted judgments and executed actions, but do not store provider response IDs or token usage. Start markers are not additional calls.",
+    "Separate service/SQL fixture checks cover two-class evidence isolation, stale/replayed operations and later-version historical preservation; this browser run used one class and one lesson version."
+  ]
+}

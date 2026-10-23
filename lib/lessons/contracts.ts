@@ -10,6 +10,7 @@ import {
   SequenceSchema,
 } from "../evidence/content.ts";
 import { AttributionSchema } from "./source-contracts.ts";
+import { QuestionBankMetadataSchema } from "../question-bank/contracts.ts";
 import { ObjectiveWorkflowSchema } from "../objectives/contracts.ts";
 
 const text = z.string().min(1);
@@ -71,9 +72,14 @@ export const LessonContentSchema = z.strictObject({
 export type LessonContent = z.infer<typeof LessonContentSchema>;
 /** Incomplete authoring state is allowed; approval/publication requires the full schema. */
 export const LessonDraftContentSchema = LessonContentSchema.partial().extend({
+  question_bank: QuestionBankMetadataSchema.optional(),
   objective_workflow: ObjectiveWorkflowSchema.optional(),
 });
 export type LessonDraftContent = z.infer<typeof LessonDraftContentSchema>;
+/** Draft review metadata is not a second published lesson contract. */
+export function projectLessonDraftContent(draft: LessonDraftContent) {
+  return LessonContentSchema.partial().strip().parse(draft);
+}
 export type ResolvedLessonContent = Omit<
   LessonContent,
   "concepts" | "passages" | "questions" | "misconceptions" | "question_guidance"

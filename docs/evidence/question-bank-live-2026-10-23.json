@@ -1,0 +1,623 @@
+{
+  "schema_version": 1,
+  "checked_at_utc": "2026-10-23T02:34:43.743Z",
+  "local_check_date": "2026-10-22",
+  "local_time_zone": "America/New_York",
+  "purpose": "Actual bounded model generation and teacher-bank persistence evidence for issue #51. This is neither lesson publication evidence nor educational efficacy evidence.",
+  "material": {
+    "kind": "Original synthetic demo material",
+    "title": "Water changing state",
+    "authors": ["Fictional demo teacher"],
+    "license": "Original synthetic material; permitted for this demo",
+    "scope": "Qualitative evaporation and condensation only; no boiling, freezing, or weather prediction.",
+    "passages": [
+      {
+        "reference": "water-01",
+        "section": "Evaporation",
+        "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared."
+      },
+      {
+        "reference": "water-02",
+        "section": "Condensation",
+        "text": "Condensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state."
+      }
+    ],
+    "approved_objectives": [
+      {
+        "title": "Evaporation",
+        "objectives": ["Explain liquid water changing to water vapor."],
+        "boundaries": [
+          "Use only the changes of state described in the reading."
+        ],
+        "source_passage_references": ["water-01"]
+      },
+      {
+        "title": "Condensation",
+        "objectives": ["Explain water vapor changing to liquid water."],
+        "boundaries": [
+          "Use only the changes of state described in the reading."
+        ],
+        "source_passage_references": ["water-02"]
+      }
+    ]
+  },
+  "call_scope": {
+    "provider_requests_initiated": 5,
+    "known_completed_requests": 4,
+    "requests_with_unknown_provider_outcome": 1,
+    "automatic_provider_retries": 0,
+    "separate_bounded_run_after_explicit_unknown_acknowledgement": true,
+    "completed_generation_output_token_limit_per_call": 12000,
+    "completed_critique_output_token_limit_per_call": 4000,
+    "timeout_explanation": "The first generation call exceeded the then-45-second client timeout. Its provider outcome and token usage remain unknown, and no questions were applied. After explicitly acknowledging that uncertainty, a separate bounded run used a 90-second timeout per call and completed generation plus critique twice. No additional calls were made after the observed quality issues."
+  },
+  "timeout_attempt": {
+    "status": "unknown",
+    "failure_code": "timeout",
+    "draft_changes_applied": false,
+    "calls": [
+      {
+        "stage": "generation",
+        "model": "gpt-6.1-sol",
+        "latency_ms": 45023,
+        "usage": null
+      }
+    ]
+  },
+  "completed_cases": [
+    {
+      "case": "Initial multi-concept short-answer question family",
+      "operation_status": "completed",
+      "prompt_template_versions": ["teacher-question-bank-v1"],
+      "calls": [
+        {
+          "stage": "generation",
+          "model": "gpt-6.1-sol",
+          "latency_ms": 55553,
+          "usage": {
+            "inputTokens": 1852,
+            "totalTokens": 4340,
+            "outputTokens": 2488
+          }
+        },
+        {
+          "stage": "critique",
+          "model": "gpt-6.1-sol",
+          "latency_ms": 9570,
+          "usage": {
+            "inputTokens": 3563,
+            "totalTokens": 3836,
+            "outputTokens": 273
+          }
+        }
+      ],
+      "questions": [
+        {
+          "role": "initial",
+          "format": "short_answer",
+          "difficulty": "intermediate",
+          "prompt_text": "A puddle shrinks as water evaporates into the air. Nearby, water vapor cools near a cold surface and droplets form. Name the change occurring in each case. Explain the direction of each state change, why these changes are opposites, and whether the evaporating water has disappeared. Justify your reasoning from the reading.",
+          "expected_answer": "The puddle undergoes evaporation: liquid water becomes water vapor, a gas, rather than disappearing. The droplets form through condensation: water vapor becomes liquid water. These are opposite directions between the same two states.",
+          "answer_criteria": [
+            "Identifies evaporation as liquid water changing into water vapor.",
+            "Identifies condensation as water vapor changing into liquid water.",
+            "Explains that the changes have opposite directions and that evaporating water changes state rather than disappearing."
+          ],
+          "acceptable_variations": [
+            "Accept water gas for water vapor when the direction is clear.",
+            "Accept explanations in the student's own words."
+          ],
+          "partial_answer_guidance": "Credit each correctly explained direction independently. Give partial credit for correct process names without directions; full credit requires the comparison and explanation that water has not disappeared.",
+          "feedback_guidance": "Ask the student to identify the starting and ending states for each event. If disappearance is mentioned, ask what the reading says happened to the water; record the response without assigning a misconception category.",
+          "source_passage_references": ["water-01", "water-02"],
+          "source_support": [
+            {
+              "passage_reference": "water-01",
+              "quote": "Evaporation changes liquid water into water vapor, a gas.",
+              "criterion": "Identifies evaporation as liquid water changing into water vapor."
+            },
+            {
+              "passage_reference": "water-02",
+              "quote": "Condensation changes water vapor into liquid water.",
+              "criterion": "Identifies condensation as water vapor changing into liquid water."
+            },
+            {
+              "passage_reference": "water-02",
+              "quote": "Evaporation and condensation describe opposite changes of state.",
+              "criterion": "Explains that the changes have opposite directions and that evaporating water changes state rather than disappearing."
+            },
+            {
+              "passage_reference": "water-01",
+              "quote": "The water has changed state; it has not disappeared.",
+              "criterion": "Explains that the changes have opposite directions and that evaporating water changes state rather than disappearing."
+            }
+          ],
+          "tentative_reasoning_error": "Possible confusion that shrinking liquid water disappears rather than changing state.",
+          "approved_misconception_references": [],
+          "embedded_scaffolding": [],
+          "review_status": "needs_review",
+          "model_critique_flags": [],
+          "generation": {
+            "model": "gpt-6.1-sol",
+            "prompt_template_version": "teacher-question-bank-v1",
+            "generated_at_utc": "2026-10-23T02:34:16.867Z"
+          }
+        },
+        {
+          "role": "alternative",
+          "format": "short_answer",
+          "difficulty": "intermediate",
+          "prompt_text": "Complete these two state-change descriptions in words: (1) liquid water → ___, called ___; (2) water vapor → ___, called ___. Explain how the directions compare. Then explain why 'the water disappeared' is not an accurate description of the first change. Justify your answers from the reading.",
+          "expected_answer": "The first description is liquid water to water vapor, called evaporation. The second is water vapor to liquid water, called condensation. The directions are opposite. Evaporation changes water's state; it does not make the water disappear.",
+          "answer_criteria": [
+            "Completes the first description as water vapor and evaporation.",
+            "Completes the second description as liquid water and condensation.",
+            "Explains that the directions are opposite and evaporation does not mean water disappears."
+          ],
+          "acceptable_variations": [
+            "Accept water gas instead of water vapor.",
+            "Accept a verbal description instead of reproducing the arrows."
+          ],
+          "partial_answer_guidance": "Credit correct ending states and names even if the comparison is incomplete. Reserve full credit for explaining both the opposite directions and continued existence of the water.",
+          "feedback_guidance": "Have the student read each arrow as 'changes into' and compare the starting and ending states. Probe any disappearance claim without treating it as an established diagnosis.",
+          "source_passage_references": ["water-01", "water-02"],
+          "source_support": [
+            {
+              "passage_reference": "water-01",
+              "quote": "Evaporation changes liquid water into water vapor, a gas.",
+              "criterion": "Completes the first description as water vapor and evaporation."
+            },
+            {
+              "passage_reference": "water-02",
+              "quote": "Condensation changes water vapor into liquid water.",
+              "criterion": "Completes the second description as liquid water and condensation."
+            },
+            {
+              "passage_reference": "water-02",
+              "quote": "Evaporation and condensation describe opposite changes of state.",
+              "criterion": "Explains that the directions are opposite and evaporation does not mean water disappears."
+            },
+            {
+              "passage_reference": "water-01",
+              "quote": "The water has changed state; it has not disappeared.",
+              "criterion": "Explains that the directions are opposite and evaporation does not mean water disappears."
+            }
+          ],
+          "tentative_reasoning_error": "Possible confusion between a change of state and disappearance, or reversal of process names.",
+          "approved_misconception_references": [],
+          "embedded_scaffolding": [],
+          "review_status": "needs_review",
+          "model_critique_flags": [],
+          "generation": {
+            "model": "gpt-6.1-sol",
+            "prompt_template_version": "teacher-question-bank-v1",
+            "generated_at_utc": "2026-10-23T02:34:16.867Z"
+          }
+        },
+        {
+          "role": "diagnostic",
+          "format": "short_answer",
+          "difficulty": "intermediate",
+          "prompt_text": "Consider this explanation: 'When a puddle evaporates, its water stops existing. When droplets form from water vapor near a cold surface, the vapor changes into liquid water.' Evaluate each statement separately using the reading. Explain what happens to the water in each event, name both processes, and compare their directions.",
+          "expected_answer": "The first statement is not supported: during evaporation liquid water becomes water vapor and does not stop existing. The second is supported and describes condensation, water vapor becoming liquid water. The directions are opposite.",
+          "answer_criteria": [
+            "Rejects the claim that evaporating water stops existing and explains that evaporation changes liquid water into water vapor.",
+            "Accepts the second statement as condensation, in which water vapor changes into liquid water.",
+            "Compares evaporation and condensation as opposite changes of state."
+          ],
+          "acceptable_variations": [
+            "Accept water gas for water vapor.",
+            "Accept 'incorrect' and 'correct' with accurate explanations rather than 'not supported' and 'supported'."
+          ],
+          "partial_answer_guidance": "Credit evaluation and explanation of each statement independently. An unsupported yes/no judgment earns less credit than an accurate state-change explanation.",
+          "feedback_guidance": "Record the student's exact explanation. If they accept the first claim, ask what state the water is in after evaporation. If they reject the second, ask them to trace vapor to droplets. Do not assign a misconception diagnosis.",
+          "source_passage_references": ["water-01", "water-02"],
+          "source_support": [
+            {
+              "passage_reference": "water-01",
+              "quote": "Evaporation changes liquid water into water vapor, a gas.",
+              "criterion": "Rejects the claim that evaporating water stops existing and explains that evaporation changes liquid water into water vapor."
+            },
+            {
+              "passage_reference": "water-01",
+              "quote": "The water has changed state; it has not disappeared.",
+              "criterion": "Rejects the claim that evaporating water stops existing and explains that evaporation changes liquid water into water vapor."
+            },
+            {
+              "passage_reference": "water-02",
+              "quote": "Condensation changes water vapor into liquid water.",
+              "criterion": "Accepts the second statement as condensation, in which water vapor changes into liquid water."
+            },
+            {
+              "passage_reference": "water-02",
+              "quote": "Evaporation and condensation describe opposite changes of state.",
+              "criterion": "Compares evaporation and condensation as opposite changes of state."
+            }
+          ],
+          "tentative_reasoning_error": "Investigates whether the student equates evaporation with water ceasing to exist, without assuming that belief.",
+          "approved_misconception_references": [],
+          "embedded_scaffolding": [],
+          "review_status": "needs_review",
+          "model_critique_flags": [],
+          "generation": {
+            "model": "gpt-6.1-sol",
+            "prompt_template_version": "teacher-question-bank-v1",
+            "generated_at_utc": "2026-10-23T02:34:16.867Z"
+          }
+        },
+        {
+          "role": "retest",
+          "format": "short_answer",
+          "difficulty": "intermediate",
+          "prompt_text": "A diagram follows water through two steps: liquid water → water vapor → liquid droplets on a cold surface. A caption says, 'Both arrows show evaporation, and the water disappears between the arrows.' Rewrite the caption to explain the whole sequence accurately. Name the process at each arrow, explain both directions of state change, and justify your corrections from the reading.",
+          "expected_answer": "A corrected caption should describe evaporation from liquid water to water vapor, followed by condensation from water vapor to liquid droplets. The water remains present as vapor between the arrows rather than disappearing. The second step reverses the direction of the first.",
+          "answer_criteria": [
+            "Labels the first arrow evaporation and explains the change from liquid water to water vapor.",
+            "Labels the second arrow condensation and explains the change from water vapor to liquid water.",
+            "Explains that the water has not disappeared between the steps and that the second change reverses the first."
+          ],
+          "acceptable_variations": [
+            "Accept water gas for water vapor.",
+            "Accept two or more sentences instead of a single caption."
+          ],
+          "partial_answer_guidance": "Credit each correct arrow explanation independently. Full credit also requires correcting the disappearance claim and recognizing the reversed direction.",
+          "feedback_guidance": "Ask the student to track the water's state through the entire sequence, not just name isolated processes. Use their explanation of the middle state to probe any remaining uncertainty about disappearance.",
+          "source_passage_references": ["water-01", "water-02"],
+          "source_support": [
+            {
+              "passage_reference": "water-01",
+              "quote": "Evaporation changes liquid water into water vapor, a gas.",
+              "criterion": "Labels the first arrow evaporation and explains the change from liquid water to water vapor."
+            },
+            {
+              "passage_reference": "water-02",
+              "quote": "Condensation changes water vapor into liquid water.",
+              "criterion": "Labels the second arrow condensation and explains the change from water vapor to liquid water."
+            },
+            {
+              "passage_reference": "water-01",
+              "quote": "The water has changed state; it has not disappeared.",
+              "criterion": "Explains that the water has not disappeared between the steps and that the second change reverses the first."
+            },
+            {
+              "passage_reference": "water-02",
+              "quote": "Evaporation and condensation describe opposite changes of state.",
+              "criterion": "Explains that the water has not disappeared between the steps and that the second change reverses the first."
+            }
+          ],
+          "tentative_reasoning_error": "Possible failure to track water through consecutive opposite state changes, including a possible disappearance interpretation.",
+          "approved_misconception_references": [],
+          "embedded_scaffolding": [],
+          "review_status": "needs_review",
+          "model_critique_flags": [
+            "duplicate_retest: The diagram and caption repackage the initial question's same requirements: name both processes, explain their opposite directions, and reject disappearance. Correcting the caption also repeats the diagnostic's claim-evaluation task. Although the events are now consecutive, the state sequence is supplied, so no materially new reasoning is needed."
+          ],
+          "generation": {
+            "model": "gpt-6.1-sol",
+            "prompt_template_version": "teacher-question-bank-v1",
+            "generated_at_utc": "2026-10-23T02:34:16.867Z"
+          }
+        }
+      ]
+    },
+    {
+      "case": "Selective multiple-choice retest regeneration",
+      "operation_status": "completed",
+      "prompt_template_versions": ["teacher-question-bank-v1"],
+      "calls": [
+        {
+          "stage": "generation",
+          "model": "gpt-6.1-sol",
+          "latency_ms": 20918,
+          "usage": {
+            "inputTokens": 3396,
+            "totalTokens": 4270,
+            "outputTokens": 874
+          }
+        },
+        {
+          "stage": "critique",
+          "model": "gpt-6.1-sol",
+          "latency_ms": 5359,
+          "usage": {
+            "inputTokens": 3673,
+            "totalTokens": 3841,
+            "outputTokens": 168
+          }
+        }
+      ],
+      "questions": [
+        {
+          "role": "retest",
+          "format": "multiple_choice",
+          "difficulty": "intermediate",
+          "prompt_text": "A student makes a model that follows water through two changes. First, liquid water becomes water vapor. Next, that water vapor cools near a cold surface and forms liquid droplets. Which route correctly tracks the water through the whole model?\n\nA. Liquid water → evaporation → water vapor → condensation → liquid water.\nB. Liquid water → condensation → water vapor → evaporation → liquid water.\nC. Liquid water → evaporation → no water exists → condensation → liquid water.\nD. Liquid water → evaporation → water vapor → condensation → water vapor.\n\nChoose one answer and justify it using the reading. Explain the direction of each change, how the second change compares with the first, and whether the water stops existing between the changes.",
+          "expected_answer": "A is correct. The model tracks liquid water becoming water vapor through evaporation, then water vapor becoming liquid water through condensation. The second change reverses the direction of the first, returning the water to its starting state. Water changes state rather than ceasing to exist between the changes.",
+          "answer_criteria": [
+            "Selects A and explains that evaporation changes liquid water into water vapor.",
+            "Explains that condensation changes water vapor into liquid water.",
+            "Explains that the second change is opposite to the first.",
+            "Explains that the water changes state rather than stops existing."
+          ],
+          "acceptable_variations": [
+            "Accept water gas instead of water vapor when the direction is clear.",
+            "Accept an explanation that the water returns to its starting state as an explanation of the opposite directions.",
+            "Accept explanations in the student's own words."
+          ],
+          "partial_answer_guidance": "Credit each accurate state-change explanation independently. A correct choice without reasoning earns partial credit only. If the choice and explanation conflict, credit the accurate reasoning components and record the inconsistency; full credit requires A and all four criteria.",
+          "feedback_guidance": "Ask the student to trace the ending state of the first change into the starting state of the second. If they choose C or describe disappearance, ask what the reading says exists after evaporation. Record the exact response without assigning a misconception category.",
+          "source_passage_references": ["water-01", "water-02"],
+          "source_support": [
+            {
+              "passage_reference": "water-01",
+              "quote": "Evaporation changes liquid water into water vapor, a gas.",
+              "criterion": "Selects A and explains that evaporation changes liquid water into water vapor."
+            },
+            {
+              "passage_reference": "water-02",
+              "quote": "Condensation changes water vapor into liquid water.",
+              "criterion": "Explains that condensation changes water vapor into liquid water."
+            },
+            {
+              "passage_reference": "water-02",
+              "quote": "Evaporation and condensation describe opposite changes of state.",
+              "criterion": "Explains that the second change is opposite to the first."
+            },
+            {
+              "passage_reference": "water-01",
+              "quote": "The water has changed state; it has not disappeared.",
+              "criterion": "Explains that the water changes state rather than stops existing."
+            }
+          ],
+          "tentative_reasoning_error": "Possible confusion about tracking water across successive opposite changes, reversing process names, or treating evaporation as water ceasing to exist; investigate without assuming any of these beliefs.",
+          "approved_misconception_references": [],
+          "embedded_scaffolding": [],
+          "review_status": "needs_review",
+          "model_critique_flags": [
+            "duplicate_retest: The sequential model and route choices repackage the initial question’s same required reasoning: name both processes, describe their directions, compare them as opposites, and explain that water does not disappear. These requirements also repeat the retained alternative and diagnostic questions. Because the prompt supplies both successive state changes, tracing the route does not introduce a substantive new reasoning task."
+          ],
+          "generation": {
+            "model": "gpt-6.1-sol",
+            "prompt_template_version": "teacher-question-bank-v1",
+            "generated_at_utc": "2026-10-23T02:34:43.706Z"
+          }
+        }
+      ]
+    }
+  ],
+  "independent_educational_review": {
+    "scope": "Independent coding-assistant review of actual generated questions, private criteria, source quotations, and model critiques. This is a qualitative content review, not evidence of educational efficacy.",
+    "overall": "Useful grounded draft requiring teacher correction before approval. Both live retests need substantive revision; changing format did not resolve duplicate reasoning.",
+    "source_fidelity": "The expected liquid-to-gas and gas-to-liquid answers are correct against water-01 and water-02. Supporting quotes are verbatim and address the corresponding criteria. No unapproved misconception categories were introduced.",
+    "findings": [
+      {
+        "role": "initial",
+        "status": "edit_required",
+        "concern": "The prompt says 'as water evaporates' while the rubric awards identifying evaporation. This partially discloses an assessed answer. Feedback is teacher-directed procedure, not a correction suitable for direct student delivery.",
+        "suggested_prompt": "A puddle becomes smaller over time. Nearby, liquid droplets appear on a cold surface in damp air. Name the change occurring in each observation. Explain the starting and ending state of the water, compare the two changes, and explain what happened to the water no longer visible in the puddle. Justify your reasoning from the reading.",
+        "suggested_feedback": "Evaporation changes liquid water into water vapor, so water in the shrinking puddle changes state rather than disappearing. Condensation changes water vapor into liquid water, producing droplets near the cold surface. The two processes go in opposite directions between liquid and gas."
+      },
+      {
+        "role": "alternative",
+        "status": "usable_with_feedback_edit",
+        "concern": "The arrow-completion format provides a useful easier retrieval variant with an explanation requirement. It is not itself stronger transfer evidence. Its feedback is also written to the teacher rather than the student."
+      },
+      {
+        "role": "diagnostic",
+        "status": "usable_with_feedback_edit",
+        "concern": "Evaluating the disappearance claim can investigate a tentative reasoning error; it does not establish a student's misconception. Private guidance preserves this distinction. Feedback again needs a student-facing correction if delivered directly."
+      },
+      {
+        "role": "retest",
+        "status": "substantive_rewrite_required",
+        "concern": "Both the caption-rewrite retest and regenerated multiple-choice route repeat naming processes, describing opposite directions, and rejecting disappearance. The chain's states are supplied; the new format does not introduce a new reasoning demand. Both independent model critiques correctly preserved a duplicate_retest flag. The multiple-choice answer A is defensible and its distractors have identifiable errors, but that alone does not establish meaningful retest variation.",
+        "suggested_prompt": "A group wants to report observations that demonstrate BOTH evaporation and condensation. Which report provides evidence of both?\nA. A puddle becomes smaller, and droplets form on a cold surface in damp air.\nB. Two puddles become smaller.\nC. Droplets form on two cold surfaces in damp air.\nChoose one report. Explain why each of the other two reports leaves one change untested, using the starting and ending states.",
+        "suggested_private_criteria": [
+          "Select A because it includes liquid changing to gas and gas changing to liquid.",
+          "Explain that B demonstrates evaporation only and leaves condensation untested.",
+          "Explain that C demonstrates condensation only and leaves evaporation untested."
+        ],
+        "suggested_revision_note": "Change the task from labeling a supplied state-change chain to selecting sufficient evidence and explaining why incomplete evidence does not demonstrate both changes. Update source-support criterion strings alongside the rubric."
+      }
+    ],
+    "suggested_edits_are_not_model_outputs": true,
+    "approval": "No question was approved by this review artifact. Apply and inspect teacher edits through the application before explicit bank approval."
+  },
+  "verified_by_this_harness": [
+    "Approved synthetic source and objective fixtures reached the real provider through canonical teacher-owned source and lesson-draft services.",
+    "Four multi-concept short-answer proposals and their source-supported private criteria were persisted for review.",
+    "The selected retest format was manually saved as multiple_choice, and selective regeneration preserved unrelated questions byte-for-byte.",
+    "Both independent model critiques flagged the repeated retest reasoning; the flags remained available to block approval until teacher correction.",
+    "A separate deterministic forged-source-quote case was rejected with no paid call. This fixture is not proof of live-model injection resistance."
+  ],
+  "limitations_and_follow_up": [
+    "One short source, one two-concept family and two formats were checked with real model calls. Calculation coverage is deterministic only.",
+    "Neither generated retest demonstrated sufficiently different reasoning without teacher rewriting; the multiple-choice format change alone did not fix the issue.",
+    "The initial question partially disclosed an assessed process name, and feedback fields contained teacher instructions unsuitable for direct student delivery.",
+    "The recorded actual outputs used teacher-question-bank-v1. The subsequent teacher-question-bank-v2 prompt adds direct student-facing correction requirements, answer-leak checks and stronger retest instructions; v2 has NOT been verified with another live call.",
+    "Known usage excludes the timed-out call, whose final provider outcome and charges cannot be inferred from the client timeout.",
+    "Teacher edits and explicit review are required. This artifact does not approve, publish, activate, or demonstrate a working runtime tutor."
+  ],
+  "actual_browser_review": {
+    "actor": "Agent operating the fictional demo teacher; not human educator validation",
+    "stage": "After actual v1 model calls, before integrating the newly available #50 objective workflow",
+    "saved_revision": 8,
+    "explicit_bank_approval": true,
+    "publication_or_assignment": false,
+    "questions": [
+      {
+        "role": "initial",
+        "format": "short_answer",
+        "prompt": "A puddle becomes smaller over time. Nearby, liquid droplets appear on a cold surface in damp air. Name the change occurring in each case. Explain the direction of each state change, why these changes are opposites, and whether the water from the puddle has disappeared. Justify your reasoning from the reading.",
+        "feedback": "Evaporation changes liquid water into water vapor, a gas; the water changes state instead of disappearing. Condensation changes water vapor into liquid water, which can form droplets near a cold surface. Compare the starting and ending states: the two processes have opposite directions.",
+        "source_support": [
+          {
+            "quote": "Evaporation changes liquid water into water vapor, a gas.",
+            "criterion": "Identifies evaporation as liquid water changing into water vapor.",
+            "passage_id": "water-01"
+          },
+          {
+            "quote": "Condensation changes water vapor into liquid water.",
+            "criterion": "Identifies condensation as water vapor changing into liquid water.",
+            "passage_id": "water-02"
+          },
+          {
+            "quote": "Evaporation and condensation describe opposite changes of state.",
+            "criterion": "Explains that the changes have opposite directions and that evaporating water changes state rather than disappearing.",
+            "passage_id": "water-02"
+          },
+          {
+            "quote": "The water has changed state; it has not disappeared.",
+            "criterion": "Explains that the changes have opposite directions and that evaporating water changes state rather than disappearing.",
+            "passage_id": "water-01"
+          }
+        ],
+        "review_notes": "Reviewed against water-01 and water-02. Removed the process-name clue from the student prompt and replaced teacher-directed feedback with a source-grounded explanation suitable for delivery.",
+        "private_rubric": {
+          "version": "authoring-live-1",
+          "criteria": [
+            "Identifies evaporation as liquid water changing into water vapor.",
+            "Identifies condensation as water vapor changing into liquid water.",
+            "Explains that the changes have opposite directions and that evaporating water changes state rather than disappearing."
+          ],
+          "answer_guidance": "The puddle undergoes evaporation: liquid water becomes water vapor, a gas, rather than disappearing. The droplets form through condensation: water vapor becomes liquid water. These are opposite directions between the same two states.",
+          "acceptable_variations": [
+            "Accept water gas for water vapor when the direction is clear.",
+            "Accept explanations in the student's own words."
+          ],
+          "partial_credit_guidance": "Credit each correctly explained direction independently. Give partial credit for correct process names without directions; full credit requires the comparison and explanation that water has not disappeared."
+        }
+      },
+      {
+        "role": "alternative",
+        "format": "short_answer",
+        "prompt": "Complete these two state-change descriptions in words: (1) liquid water → ___, called ___; (2) water vapor → ___, called ___. Explain how the directions compare. Then explain why 'the water disappeared' is not an accurate description of the first change. Justify your answers from the reading.",
+        "feedback": "Evaporation changes liquid water into water vapor, while condensation changes water vapor into liquid water. Read each arrow as 'changes into' and compare the starting and ending states. The opposite directions are changes of state; evaporation does not mean water disappears.",
+        "source_support": [
+          {
+            "quote": "Evaporation changes liquid water into water vapor, a gas.",
+            "criterion": "Completes the first description as water vapor and evaporation.",
+            "passage_id": "water-01"
+          },
+          {
+            "quote": "Condensation changes water vapor into liquid water.",
+            "criterion": "Completes the second description as liquid water and condensation.",
+            "passage_id": "water-02"
+          },
+          {
+            "quote": "Evaporation and condensation describe opposite changes of state.",
+            "criterion": "Explains that the directions are opposite and evaporation does not mean water disappears.",
+            "passage_id": "water-02"
+          },
+          {
+            "quote": "The water has changed state; it has not disappeared.",
+            "criterion": "Explains that the directions are opposite and evaporation does not mean water disappears.",
+            "passage_id": "water-01"
+          }
+        ],
+        "review_notes": "Compared each answer criterion with the exact source quote. This alternative uses a symbolic description of the same concepts. Changed feedback to a direct explanation for students.",
+        "private_rubric": {
+          "version": "authoring-live-1",
+          "criteria": [
+            "Completes the first description as water vapor and evaporation.",
+            "Completes the second description as liquid water and condensation.",
+            "Explains that the directions are opposite and evaporation does not mean water disappears."
+          ],
+          "answer_guidance": "The first description is liquid water to water vapor, called evaporation. The second is water vapor to liquid water, called condensation. The directions are opposite. Evaporation changes water's state; it does not make the water disappear.",
+          "acceptable_variations": [
+            "Accept water gas instead of water vapor.",
+            "Accept a verbal description instead of reproducing the arrows."
+          ],
+          "partial_credit_guidance": "Credit correct ending states and names even if the comparison is incomplete. Reserve full credit for explaining both the opposite directions and continued existence of the water."
+        }
+      },
+      {
+        "role": "diagnostic",
+        "format": "short_answer",
+        "prompt": "Consider this explanation: 'When a puddle evaporates, its water stops existing. When droplets form from water vapor near a cold surface, the vapor changes into liquid water.' Evaluate each statement separately using the reading. Explain what happens to the water in each event, name both processes, and compare their directions.",
+        "feedback": "The first statement is unsupported: evaporation changes liquid water into water vapor rather than making water stop existing. The second statement describes condensation, which changes water vapor into liquid water. Compare the starting and ending states to see the opposite directions.",
+        "source_support": [
+          {
+            "quote": "Evaporation changes liquid water into water vapor, a gas.",
+            "criterion": "Rejects the claim that evaporating water stops existing and explains that evaporation changes liquid water into water vapor.",
+            "passage_id": "water-01"
+          },
+          {
+            "quote": "The water has changed state; it has not disappeared.",
+            "criterion": "Rejects the claim that evaporating water stops existing and explains that evaporation changes liquid water into water vapor.",
+            "passage_id": "water-01"
+          },
+          {
+            "quote": "Condensation changes water vapor into liquid water.",
+            "criterion": "Accepts the second statement as condensation, in which water vapor changes into liquid water.",
+            "passage_id": "water-02"
+          },
+          {
+            "quote": "Evaporation and condensation describe opposite changes of state.",
+            "criterion": "Compares evaporation and condensation as opposite changes of state.",
+            "passage_id": "water-02"
+          }
+        ],
+        "review_notes": "Verified the diagnostic examines an uncertain disappearance claim without assigning a confirmed misconception. Each statement is answerable from the cited passages. Converted feedback to a direct student explanation.",
+        "private_rubric": {
+          "version": "authoring-live-1",
+          "criteria": [
+            "Rejects the claim that evaporating water stops existing and explains that evaporation changes liquid water into water vapor.",
+            "Accepts the second statement as condensation, in which water vapor changes into liquid water.",
+            "Compares evaporation and condensation as opposite changes of state."
+          ],
+          "answer_guidance": "The first statement is not supported: during evaporation liquid water becomes water vapor and does not stop existing. The second is supported and describes condensation, water vapor becoming liquid water. The directions are opposite.",
+          "acceptable_variations": [
+            "Accept water gas for water vapor.",
+            "Accept 'incorrect' and 'correct' with accurate explanations rather than 'not supported' and 'supported'."
+          ],
+          "partial_credit_guidance": "Credit evaluation and explanation of each statement independently. An unsupported yes/no judgment earns less credit than an accurate state-change explanation."
+        }
+      },
+      {
+        "role": "retest",
+        "format": "multiple_choice",
+        "prompt": "Your goal is to obtain liquid water from water vapor in the air. Which plan is supported by the reading?\n\nA. Cool water vapor near a cold surface so that liquid droplets can form.\nB. Let liquid water evaporate into the air to obtain more liquid water.\nC. Make a puddle evaporate because its water disappears.\nD. Use condensation to change liquid water into water vapor.\n\nChoose a plan and explain why it reaches the goal. Explain why evaporation moves water in the opposite direction, and why the disappearance claim in C is unsupported.",
+        "feedback": "To obtain liquid from water vapor, use condensation: vapor can cool near a cold surface and form droplets. Evaporation goes the other way, from liquid to vapor. Neither state change means the water disappears.",
+        "source_support": [
+          {
+            "quote": "Evaporation changes liquid water into water vapor, a gas.",
+            "criterion": "Explains that evaporation changes liquid water into water vapor and would not achieve the goal.",
+            "passage_id": "water-01"
+          },
+          {
+            "quote": "Condensation changes water vapor into liquid water.",
+            "criterion": "Selects A and explains that condensation changes water vapor into liquid water.",
+            "passage_id": "water-02"
+          },
+          {
+            "quote": "Evaporation and condensation describe opposite changes of state.",
+            "criterion": "Uses the opposite directions of the two processes to justify the plan.",
+            "passage_id": "water-02"
+          },
+          {
+            "quote": "The water has changed state; it has not disappeared.",
+            "criterion": "Rejects the claim that water disappears during evaporation.",
+            "passage_id": "water-01"
+          }
+        ],
+        "review_notes": "Replaced the repeated sequence-labeling task with goal-directed plan selection. Checked the correct plan and each rejected option against water-01 and water-02. The task now requires choosing a process to achieve a new goal and explaining why the opposite process will not do so.",
+        "private_rubric": {
+          "version": "authoring-live-1",
+          "criteria": [
+            "Selects A and explains that condensation changes water vapor into liquid water.",
+            "Explains that evaporation changes liquid water into water vapor and would not achieve the goal.",
+            "Uses the opposite directions of the two processes to justify the plan.",
+            "Rejects the claim that water disappears during evaporation."
+          ],
+          "answer_guidance": "A is supported: cooling water vapor near a cold surface can cause condensation, changing gas into liquid droplets. Evaporation changes liquid water into gas, the opposite direction, so it does not accomplish the goal. The water changes state during evaporation rather than disappearing, so C is also unsupported.",
+          "acceptable_variations": [
+            "Accept water gas instead of water vapor when the direction is clear.",
+            "Accept explanations in the student's own words that connect the state change to the goal."
+          ],
+          "partial_credit_guidance": "Credit selecting the supported plan, explaining each state-change direction, and rejecting disappearance separately. A correct choice without explanation receives partial credit. Full credit requires using the two concepts to justify the plan and rejecting the unsupported claim."
+        }
+      }
+    ]
+  }
+}

@@ -150,3 +150,19 @@ test("diagnostic mappings must assess their misconception's concrete concept", (
   data.sequence.diagnostic_options[0].misconception_id = null;
   assert.doesNotThrow(() => hydrateLessonContent(data));
 });
+
+test("published bank questions cannot forge runtime controller bindings", () => {
+  const data = fixture();
+  data.questions[0].origin = "generated";
+  data.questions[0].generation = {
+    model: "synthetic-authoring-fixture",
+    prompt_template_version: "publication-binding-test",
+    generated_at: "2026-10-23T11:00:00Z",
+  };
+  assert.doesNotThrow(() => hydrateLessonContent(data));
+  data.questions[0].controller_node_id = "WC-DIAGNOSTIC";
+  assert.throws(
+    () => hydrateLessonContent(data),
+    /runtime controller bindings/,
+  );
+});

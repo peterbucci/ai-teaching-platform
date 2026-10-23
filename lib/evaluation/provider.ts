@@ -36,6 +36,7 @@ export type EvaluationFailureCode = keyof typeof failureMessages;
 export type EvaluationProviderOutcome =
   | {
       ok: true;
+      needsReconciliation: false;
       result: unknown;
       model: string;
       responseId: string;
@@ -44,6 +45,7 @@ export type EvaluationProviderOutcome =
     }
   | {
       ok: false;
+      needsReconciliation: boolean;
       code: EvaluationFailureCode;
       message: string;
       model: string | null;
@@ -67,9 +69,13 @@ export async function requestEvaluation(input: {
       model?: string;
       responseId?: string;
       usage?: EvaluationUsage | null;
+      needsReconciliation?: boolean;
     } = {},
   ): EvaluationProviderOutcome => ({
     ok: false,
+    needsReconciliation: ["timeout", "connection", "provider_error"].includes(
+      code,
+    ),
     code,
     message: failureMessages[code],
     model,
@@ -111,7 +117,11 @@ export async function requestEvaluation(input: {
     };
     if (response.status === "incomplete") return fail("incomplete", metadata);
     if (response.status !== "completed")
-      return fail("provider_error", metadata);
+      return fail("provider_error", {
+        ...metadata,
+        needsReconciliation:
+          response.status !== "failed" && response.status !== "cancelled",
+      });
     const messages = response.output.filter((item) => item.type === "message");
     if (
       messages.some((message) =>
@@ -134,13 +144,21 @@ export async function requestEvaluation(input: {
     }
     const parsed = ModelEvaluationSchema.safeParse(value);
     if (!parsed.success) return fail("invalid_output", metadata);
-    return { ok: true, result: parsed.data, latencyMs: elapsed(), ...metadata };
+    return {
+      ok: true,
+      needsReconciliation: false,
+      result: parsed.data,
+      latencyMs: elapsed(),
+      ...metadata,
+    };
   } catch (error) {
     if (error instanceof OpenAI.APIConnectionTimeoutError)
       return fail("timeout");
     if (error instanceof OpenAI.APIConnectionError) return fail("connection");
     if (error instanceof OpenAI.APIError) {
       switch (error.status) {
+        case 408:
+          return fail("timeout");
         case 401:
           return fail("authentication");
         case 403:
@@ -157,6 +175,12 @@ export async function requestEvaluation(input: {
         case 422:
           return fail("invalid_request");
       }
+      if (
+        error.status !== undefined &&
+        error.status >= 400 &&
+        error.status < 500
+      )
+        return fail("invalid_request");
     }
     return fail("provider_error");
   }

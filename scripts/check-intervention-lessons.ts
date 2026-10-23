@@ -148,6 +148,7 @@ try {
     lesson_id: lessonDraft.id,
     version: "1",
     title: "Synthetic uploaded intervention assignment",
+    instructions: "Explain the changes of state using the approved passages.",
   });
   const review = await assignmentReview(teacher, assignment.id);
   await approveAssignment(teacher, assignment.id, review.review_token);
