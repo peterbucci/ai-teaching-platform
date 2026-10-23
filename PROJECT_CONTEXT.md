@@ -1,491 +1,343 @@
-# AI-Powered Teaching and Learning Platform
+# Learning Pulse — Product Context and Hackathon Plan
 
-## Project Status
+_Last product-direction revision: October 22, 2026 · Working product name: Learning Pulse_
 
-This project is being developed for the **PEAAII AI Applications Hackathon at UMass Boston**.
+> **Purpose:** This is the team's product specification: what Learning Pulse should do, why it matters, and what a truthful demonstration must prove. It is **not** a claim that all described features are implemented. Check the [GitHub roadmap (#15)](https://github.com/peterbucci/ai-teaching-platform/issues/15), [project board](https://github.com/users/peterbucci/projects/7), current pull requests, and actual code for implementation status. The roadmap and older guides still need to be reconciled with this product reset.
 
-- **Submission deadline:** October 25, 2026
-- **Finalist symposium:** October 29, 2026
-- **Working name:** Learning Pulse (not finalized)
-- **Category:** AI-powered adaptive learning and teaching analytics
-- **Status checked October 16, 2026:** The basic Next.js application, versioned networking lesson, and Docker/PostgreSQL/Better Auth evidence foundation are on `main`. Prepared content was merged in [PR #11](https://github.com/peterbucci/ai-teaching-platform/pull/11), and the database/authentication foundation in [PR #13](https://github.com/peterbucci/ai-teaching-platform/pull/13). The grounded AI evaluator is in [draft PR #14](https://github.com/peterbucci/ai-teaching-platform/pull/14), whose report says successful real-model evaluation is blocked by HTTP 429/API access. The complete tutor, dashboard, and reach-goal experiences have **not yet been verified as finished**.
+## 1. What we're building
 
-This document explains **what we're trying to build and why**, not a claim that every feature is working. For live development status, see the [GitHub Project board](https://github.com/users/peterbucci/projects/7), [issues](https://github.com/peterbucci/ai-teaching-platform/issues), and [pull requests](https://github.com/peterbucci/ai-teaching-platform/pulls).
+**Learning Pulse is an agentic AI-powered teaching and learning platform.** It helps instructors create lessons from their own approved material, gives students a conversational tutor that adapts its teaching strategy, and turns learning evidence into useful, reviewable next steps.
 
-**Our planning decision:** The original MVP is still our minimum definition of success, but the team is actively pursuing six additional reach goals before the hackathon. They can be built in parallel. The full [development roadmap](https://github.com/peterbucci/ai-teaching-platform/issues/15) is the source of truth for their stories and priorities.
+The product has three connected experiences:
 
-## 1. Project Overview
+1. **Teacher authoring:** Teachers provide source material, define or review learning concepts, work with AI to generate and edit questions and assignments, then approve what students will receive.
+2. **Student learning:** Students read approved material and interact with an AI tutor through one natural conversation. The tutor interprets their reasoning, proposes an instructional action, uses a permitted tool when appropriate, and adapts to what happens next.
+3. **Teaching insights and action:** The platform examines recorded work, proposes evidence-backed patterns and optional practice, and helps teachers prepare, review, and approve interventions.
 
-We're building an AI-powered educational platform for **both teachers and students**.
+A **context-aware teacher copilot** supports these workflows. It can retrieve permitted information and propose concrete edits to the page or form the teacher is working on; it does not merely offer advice in a chat bubble.
 
-Students get personalized practice based on material their teacher assigns. The AI should help students reason through questions, not simply tell them the correct answer or summarize a chapter.
+**Guiding principles:**
 
-At the same time, the platform keeps a record of the learning process and helps teachers see:
+- Students should do the thinking. The AI supports reasoning instead of supplying an unrevealed assessment answer.
+- AI can propose actions; application code validates and executes only authorized actions.
+- Teacher decisions and official assignments remain under teacher control.
+- Original responses, source references, assistance, uncertainty, and decisions remain inspectable.
+- A system that only evaluates an answer and selects prewritten questions is our **reliable baseline**, not proof of the intended agentic experience.
 
-- Which concepts students are struggling with.
-- Common *possible* misunderstandings in student explanations.
-- Whether students respond differently after receiving an explanation or trying another activity.
-- Whether students can recall something later, not just right after getting help.
-- Which observed learning patterns might be worth discussing in class.
+### Hackathon context
 
-A normal quiz might tell a teacher that 40% of the class got a question wrong. Our system aims to help the teacher understand **what reasoning might be behind those answers** and decide what to do next.
+The project is for the **PEAAII AI Applications Hackathon at UMass Boston**. The [PEAAII program's 2026 theme is Agentic AI](https://ai.umb.edu/events/). The posted project submission deadline is **October 25, 2026**; the finalist symposium is **October 29, 2026**. Team members must confirm submission details and any additional judging criteria in the official Canvas materials; this file does not claim to reproduce that private rubric.
 
-We also want the AI to adapt **how it teaches**. If a conversation isn't helping, it might offer a guided diagram or experiment. If several students struggle with the same idea, it could propose a teacher-reviewed review activity.
+The **team's revised demonstration objective** is to show a real, bounded, goal-directed AI workflow—not merely a static chat UI or one model call. We are prioritizing **R4 + R7 as the critical path**, **R1 + R2 as high-priority connected showcase goals**, a focused **R5** discovery path, and the first useful **Teacher Copilot** workflow. This supersedes the earlier planning assumption that the prepared single-lesson tutoring loop alone represented the full hackathon target.
 
-The goal isn't to replace teachers, build a complete learning management system, or create another generic AI chatbot. We want to give students more useful practice and teachers clearer, inspectable information.
+## 2. The end-to-end product journey
 
-> **Guiding principle: AI detects learning signals. Humans understand students.**
+**Teacher supplies material → AI proposes concepts and questions → teacher edits and approves → student studies with an agentic tutor → tutor uses permitted tools and adapts → system records evidence → AI recommends additional learning and teaching actions → teacher reviews and acts.**
 
-## 2. Hackathon Scope and How It Differs from a Real Service
+Each stage must use the **same approved, versioned content and evidence system**. Do not build a second evaluator, tutor state machine, lesson store, or parallel set of student records for new features.
 
-### The minimum version we must finish (MVP)
+The older curated networking lesson remains a valuable test fixture and deterministic fallback. It is no longer the only kind of lesson the product is designed to deliver.
 
-Our **minimum viable product (MVP)** is a small, dependable experience:
+## 3. Teacher experience: source material to approved lesson (R4)
 
-- One fictional teacher and one fictional class.
-- Approximately 20–30 fictional students represented by **clearly labeled synthetic histories**.
-- One preloaded, versioned textbook reading.
-- Five prepared learning concepts and a small curated question bank.
-- One complete tutoring sequence: initial answer, appropriate diagnostic follow-up, grounded feedback, and a fresh retest.
-- Saved learning evidence and a teacher dashboard that visibly updates after a live interaction.
+### 3.1 Provide and review learning material
 
-The teacher must be able to **review and approve** the prepared assignment. Our team's earlier approval of the reference material is not the same thing as approval by a teacher in the application.
+A teacher can create a lesson from permitted material, such as textbook excerpts, lecture notes, slides, worksheets, documents, or pasted text. Material may comprise more than one source; each source needs its own identity, attribution, access scope, and version.
 
-**If none of the reach goals is completed, the MVP can still be a valid hackathon submission.** It must continue to work if a reach feature is turned off or fails.
+**Bounded first implementation:** pasted text, UTF-8 `.txt`/`.md`, and text-based PDFs. Extract text into **reviewable, ordered passages** with stable IDs and page/section references where reliably available. The teacher must be able to correct or reject extraction before publication.
 
-### Six planned reach goals
+**Expansion:** `.pptx` and `.docx` text and slide/section references; complex diagrams, image-heavy files, scans, and OCR only with separately reviewed extraction. Never imply that every slide, scan, formula, or PDF image was understood correctly. Reject unreadable or unsupported content with a clear explanation.
 
-We're also actively developing the following, in this priority order:
+Store uploaded assets privately; preserve copyright attribution, permitted-use confirmation, a content hash, and source version. Extracted text and uploaded instructions are **untrusted source content**, not instructions to the AI system. The system cannot assume teachers have unlimited redistribution rights.
 
-| Phase | What we're trying to add | What it would let someone do |
+### 3.2 Define and approve learning objectives
+
+Teachers can **enter concepts themselves** or ask AI to propose them from the selected material. The AI should supply short descriptions, measurable learning objectives, and supporting passage references. Teachers can add, remove, edit, merge, and reorder concepts and mark learning goals as essential, supporting, or optional.
+
+If a proposed concept is unsupported by the assigned material, flag it instead of inventing evidence. Teacher approval of objectives is distinct from publishing a lesson and from activating a class assignment.
+
+### 3.3 Generate and curate questions
+
+For each approved concept, AI can propose:
+
+- Initial retrieval or explanation questions, including questions that assess **more than one concept**.
+- Variations in wording, examples, numerical values, or difficulty that test the **same intended reasoning**, not merely surface paraphrases.
+- Private answer criteria, permitted variations, partial-credit guidance, and citations.
+- Possible reasoning errors worth investigating, neutral clarification questions, targeted diagnostics, hints, explanations, and meaningfully different retests.
+- Question formats and activity types allowed by the teacher's lesson policy.
+
+Teachers can inspect, edit, add, delete, and reorder questions, change rubrics and instructions, and regenerate selected parts. They can request a particular style, such as conceptual rather than computational questions, a focus on a named misconception, or stronger emphasis on explaining *why*.
+
+Teachers should **review the initial bank and generation policy**, but need not approve every runtime variation individually. New runtime questions must still pass server validation, adhere to the approved policy and exact source version, and retain an immutable snapshot and private evaluation guidance. Do not generate an effectively identical retest or leak unrevealed expected answers.
+
+### 3.4 Assemble, preview, and publish
+
+A lesson can contain ordered reading, guided study, practice questions, and supported visual activities. An assignment chooses an approved **immutable lesson version**, target class/recipients, instructions, and availability or due-date settings.
+
+A teacher can preview both the student experience and private answer guidance, then explicitly approve and publish. A later edit creates a **new version**; previous assignments and student evidence stay tied to the old version. Reuse the same lesson version across authorized classes without mixing enrollments or results. Draft, approved, published, assigned, and closed states must not be conflated.
+
+## 4. Teacher Copilot: an assistant that can use the workspace
+
+The copilot should know the **authorized context of the page** the teacher is viewing: selected class, current draft/version, assignment, concept, or insight. It should not search unrelated classes or assume broad permission from an arbitrary URL or browser-provided identifier.
+
+**In the assignment editor**, a teacher could write:
+
+> Make these questions less mathematical, focus on transmission versus propagation, and add one harder diagnostic question.
+
+The copilot would use structured tools to **propose edits to the current draft**. The teacher sees the proposed changes in the actual form, can accept individual changes, reject them, or revise the request. Changes are applied against the correct draft revision, are undoable or recoverable, and never silently overwrite newer edits.
+
+Other useful page-specific capabilities:
+
+| Teacher area | Copilot capabilities |
+| --- | --- |
+| Materials library | Find passages, identify missing or contradictory coverage, summarize within authorized sources. |
+| Lesson builder | Propose objectives, lesson structure, examples, instructional sequencing, and question coverage. |
+| Assignment builder | Propose specific changes to fields, questions, rubrics, notes, and recipients; preview diffs before applying. |
+| Class overview | Summarize recorded participation and evidence-backed teaching priorities. |
+| Learning insights | Investigate possible reasoning patterns, retrieve supporting and contradicting student responses. |
+| Student profile | Summarize observable learning behavior, help already shown, and possible appropriate next steps. |
+| Teacher action center | Draft a targeted activity and suggested recipients for teacher review and approval. |
+
+**Approval boundary:** The copilot may create a private draft or proposal, but it must not automatically publish a lesson, assign work, change official grades, or contact students. The teacher reviews before such actions. Every accepted edit and intervention records authorization, ownership, provenance, and the source draft version.
+
+**First demonstrable slice:** One context-aware copilot in the assignment editor that proposes structured question/form changes and lets the teacher preview and accept them. The broader teacher workspace assistant is a product requirement but need not be implemented on every page before the hackathon.
+
+## 5. Student experience: one conversation with an adaptive tutor (R7)
+
+### 5.1 Student pages and entry points
+
+Students need distinct access to **My Learning, Assignments, Reading, Study Session, and Learning Journal**. They must be able to read material independently, open an assignment, resume saved work, or review prior answers without having to start a new paid evaluation.
+
+A student's personal progress should be tied to their actual authorized work. "Practiced," "correct independently," "correct after assistance," "completed practice," and "retained in a later check" are different concepts; do not collapse them into an arbitrary mastery score.
+
+### 5.2 One conversation, not separate Ask/Answer modes
+
+The study session has **one message composer**. Students can ask about the material, request a different explanation, or submit an answer without manually choosing a mode or dropdown.
+
+The model proposes the **message intent** using the active question, student's exact message, and limited prior conversation. The server validates and routes the result:
+
+- **Answer:** Route a clearly intended answer through the existing assessed-answer and evaluation process, preserving idempotency and making the resulting action visible.
+- **Question or help:** Respond through authorized, grounded tutoring dialogue; do **not** grade or complete the original attempt.
+- **Ambiguous:** Ask a short clarification or provide explicit in-conversation choices before grading. Never turn an ambiguous help request into a wrong answer.
+- **Off-topic or unsupported:** Give a bounded redirection or safe fallback, without fabricating source support.
+
+A student can correct a misinterpretation. Asking for help leaves the original question and unsent work intact; returning or resuming does not silently submit an answer. If live intent recognition is unavailable, use an **honest confirmation/fallback**, not fake AI classification.
+
+### 5.3 The tutor adapts its strategy
+
+The tutor should aim to help the student understand the **teacher-approved learning objectives**. After observing an answer, question, or experiment, a bounded AI decision step considers which of the currently permitted instructional actions is most useful.
+
+Examples:
+
+- Retrieve specific approved passages and cite the exact version.
+- Ask a neutral clarification or self-explanation question.
+- Generate a targeted diagnostic for a possible error.
+- Give a grounded hint, worked example, or different explanation.
+- Choose a supported visual diagram or interactive experiment (R1).
+- Give a fresh, independently answerable retest or move to another objective.
+- Recommend optional practice or later review when supported by recorded evidence.
+
+**Agentic requirement:** In at least one demonstrated path, the AI must actually **select a meaningful action/tool based on the student's reasoning**; the server validates that action; the tool executes; the next observation changes what the tutor does. Rewording a canned prompt does not meet this goal.
+
+The AI's proposal is advisory. **The server controller remains the authority** for permitted transitions, scope, spending limits, and state changes. No unbounded autonomous loop. Limit turns, context, tokens, time, retries, and concurrent operations; keep a text fallback if generation or a visual tool fails.
+
+### 5.4 R1: interactive visual tutoring
+
+The agent may select a visual when it is educationally appropriate, not simply because a student got something wrong. The first reviewed quantitative tool can simulate transmission and propagation delay using packet size, link rate, distance, and propagation speed.
+
+A meaningful interaction is **predict → change variables → observe a server-verified result → explain → follow up**. The model may propose structured layouts, prompts, and allowable parameters; **reviewed code**, not arbitrary generated JavaScript or formulas, calculates results. Student predictions, choices, explanations, generated activity/version, help shown, and outcome become durable evidence.
+
+A visual activity that merely looks polished or runs a canned animation is not a completed R1 agentic experience. The student response must influence the following tutor decision. The student must always have a text alternative.
+
+### 5.5 Personalized optional practice
+
+After a session, AI may recommend a small, source-grounded optional activity based on *observed* difficulties or requested help. Recommendations should say **why** they were suggested and which concepts they address. A student may opt in without the system pretending that the teacher formally assigned the work. A teacher-assigned intervention requires teacher approval and distinct assignment provenance.
+
+Follow-up success immediately after assistance is not proof of durable retention. Track delayed independent practice separately when it actually occurs.
+
+## 6. Teaching insights, R5 discovery, and R2 interventions
+
+The teacher dashboard should turn saved student evidence into **inspectable learning signals**, not unsupported claims about ability or motivation.
+
+It should display participation, concept-level outcomes with meaningful denominators, independent versus assisted responses, original questions and answers, uncertainties, help shown, possible misconceptions, and later changes. Class patterns must count **distinct students**, not repeated attempts by one person as different students.
+
+**R5 — new-pattern proposals:** AI may propose a recurring reasoning pattern not already represented by the approved categories, with supporting and contradictory examples. These are hypotheses, not diagnoses; teachers can inspect, correct, rename, approve, or dismiss them.
+
+**R2 — teacher action center:** From an approved concept/pattern insight, AI can draft a targeted review activity tied to the permitted reading. The teacher reviews the evidence, edits question/instructions/recipients, approves the activity, and assigns it. Later student work is linked back to the intervention so teachers can compare observations **without claiming the activity caused an improvement**.
+
+**Student support suggestions:** Explain the observable basis (e.g. repeated difficulty with a specific concept, no independent retest yet), show counterevidence and sample size, and provide links to original work. Do not infer disability, effort, motivation, or permanent aptitude. Do not autonomously message students or take high-stakes action.
+
+Start with **on-demand analysis or analysis triggered by new accepted evidence**, not an always-running agent. A scheduled teaching brief is a later extension.
+
+## 7. Agentic architecture and responsibility boundaries
+
+The student tutor and teacher copilot may have different system prompts and allowed tools, but they share **one small server-side orchestration/action-validation approach**, approved content services, model-access conventions, authentication, and evidence system. **Multiple autonomous agents or a new framework are not prerequisites.**
+
+### A bounded decision-and-tool cycle
+
+1. **Authorize and load context:** Determine actor, classroom/assignment/lesson version, current session or draft revision, relevant approved passages, and bounded history.
+2. **Request an AI proposal:** The model classifies intent where appropriate and chooses from a server-supplied list of currently permitted actions. Return structured output; do not trust model instructions or claims of permission.
+3. **Validate:** Check the schema, actor permissions, source/content version, allowed action, factual grounding and answer leakage, current revision, budget, and preconditions.
+4. **Execute one permitted server tool:** Use existing services for retrieval, question/explanation generation, validated diagrams/experiments, evidence queries, or **draft-only** teacher edits. Never execute arbitrary model-generated code.
+5. **Persist and display:** Save request identity, proposal, validation outcome, actual tool result, generated snapshot/source, and assistance **actually shown**.
+6. **Observe and continue:** Accept the student's next response or teacher approval, reevaluate what happened, and decide whether to continue, ask for clarification, offer optional practice, or stop.
+
+Do not replace `lib/tutoring/decide.ts` or the established evaluator with a second parallel controller. Extend their interfaces so a validated AI action proposal can be considered under server-owned rules. An unsuccessful proposal returns a transparent curated fallback without losing prior work.
+
+### Examples of tools, not necessarily their final function names
+
+| Student tutor | Teacher copilot |
+| --- | --- |
+| Retrieve authorized source passages | Retrieve authorized source passages and lesson drafts |
+| Evaluate a submitted answer via the existing evaluator | Suggest learning concepts with source evidence |
+| Generate a validated diagnostic question or explanation | Generate/revise draft questions, rubrics, and lesson outlines |
+| Propose a supported visual activity; calculate its results in reviewed code | Propose structured edits to the current assignment draft |
+| Recommend optional practice based on saved evidence | Query allowed class insights and inspect original evidence |
+| Propose an allowed next tutoring step | Draft a follow-up intervention awaiting teacher approval |
+
+**Never permit the model to choose its own authorization or tool inventory.** Read-only queries, draft proposals, and side-effecting actions have different permissions. Publishing, class-wide assignment, external messages, and high-stakes decisions require explicit human authorization.
+
+**Untrusted inputs:** Student responses, uploaded documents, retrieved passages, and model outputs can contain prompt-injection text. Treat them as data, not developer/system instructions. Do not leak private grading rubrics, hidden answers, internal hypotheses, unrelated class records, or credentials to the student or model without authorization.
+
+## 8. Data model, provenance, and evidence
+
+### Existing foundation to preserve
+
+The repository already uses **PostgreSQL** for authenticated profiles/classes/enrollments/assignments and session evidence such as attempts, evaluations, and interventions. Keep the existing Better Auth, transaction, idempotency, source-reference, and evidence-integrity patterns.
+
+### Add only the records required by real workflows
+
+- **Source material and versions:** Ownership, private asset location, extracted passages, source hash, attribution, extraction/review status.
+- **Reusable lessons and immutable lesson versions:** Approved objectives, questions, rubrics, policy, permitted tools, and source-version references. Assignments pin one approved version.
+- **Teacher drafts and copilot proposals:** Form revision, proposed structured patch, source context, validation, teacher accept/reject action, and history.
+- **Agent operations:** Actor/session/draft identities; AI-proposed intent and tool; validation and acceptance; actual execution result; retry/idempotency identity; model/template provenance; citations; displayed status and timestamps.
+- **Optional-practice recommendations and interventions:** Supporting evidence, target concepts, student choice or teacher approval, assigned recipients, and follow-up linkage.
+
+Use relational foreign keys for identity, ownership, version and approval relationships; use validated JSON/JSONB for flexible question, rubric, visual and model payloads where appropriate. Do not create a global question/concept ontology or a table for every field without a concrete query or integrity requirement. Source-document versions and published lesson versions are different identities.
+
+**Immutable learning evidence:** Preserve the exact original student answer/question snapshot; accepted evaluations and their uncertainty; the actual assistance seen **before** an answer; generated content/source/version; separate student asks from assessed attempts; the action the server executed; and later responses. A newer source or lesson version cannot rewrite historical evidence. An accepted but undisplayed hint does not count as seen assistance. A student's later answer can be assisted because of previously shown help; do not label same-session success as retention.
+
+**Analytics:** Derive authoritative metrics from persisted, authorized evidence rather than maintaining competing progress records. Keep fictional seed data and live-model results distinguishable, and report denominators, missing data, and uncertainty.
+
+## 9. Prepared networking fixture and licensing
+
+The curated, team-reviewed regression fixture remains:
+
+- *Computer Networks: A Systems Approach*, Larry Peterson and Bruce Davie, Section 1.5.1, **Bandwidth and Latency**.
+- Pinned upstream [source revision](https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst#L14-L187).
+- Five concepts: bandwidth vs. throughput; latency vs. RTT; transmission delay; propagation delay; queuing delay.
+- `content/network-performance-v1/` includes **13 approved passages and 15 prepared questions**, including the `NP-TX-01` transmission/propagation diagnostic example.
+- Team content approval: **October 14, 2026**, for hackathon use; **not** proof of classroom-instructor approval or educational validation.
+
+Do not rename these approved IDs, silently expand the assigned excerpt, or rewrite the curated source to accommodate a new loader. See `content/network-performance-v1/ATTRIBUTION.md` for attribution, license, and third-party notices. Observe CC BY 4.0 terms and any separately credited content restrictions; do not imply author endorsement or legal clearance. Teacher-provided uploads require their own rights and access review.
+
+Use this fixture to compare actual model decisions with known examples and to keep the **nonagentic tutoring fallback** testable. New teacher-created lessons must go through the same authorized evidence and tutoring pipeline, not a special demo-only system.
+
+## 10. Hackathon targets and realistic scope
+
+**The legacy single-lesson path is a regression baseline, not the new definition of a successful agentic showcase.** It should keep working, but it cannot substitute for a live AI decision and tool-use loop.
+
+| Workstream / reach | 2026 team target | Priority |
 | --- | --- | --- |
-| **R1 — [Interactive visual tutoring](https://github.com/peterbucci/ai-teaching-platform/issues/17)** | AI-generated, validated diagrams and guided experiments | A student predicts, changes variables, explains what happened, and gets a different next step based on that reasoning. |
-| **R2 — [Teacher action center](https://github.com/peterbucci/ai-teaching-platform/issues/18)** | Suggested review activities based on learning evidence | A teacher reviews, edits, approves, and assigns a useful follow-up, then sees what happened afterward. |
-| **R3 — [Teach-the-AI](https://github.com/peterbucci/ai-teaching-platform/issues/19)** | Students explain a concept to a fictional learner | The AI asks follow-up questions, and the student completes a fresh check of understanding. |
-| **R4 — [Teacher-provided lessons](https://github.com/peterbucci/ai-teaching-platform/issues/20)** | Import approved material and generate a bounded lesson | A teacher reviews learning goals and publishes activities using the same tutoring system. |
-| **R5 — [New reasoning patterns](https://github.com/peterbucci/ai-teaching-platform/issues/21)** | AI proposes possible class-wide patterns not already in our list | A teacher can inspect, correct, approve, or dismiss a suggested pattern. |
-| **R6 — [Voice](https://github.com/peterbucci/ai-teaching-platform/issues/22)** | Optional speech input and spoken feedback | Students can speak an answer or listen to feedback while retaining the full text option. |
+| **R4 / E11 — Teacher content** | Import a bounded teacher-provided source; review AI concepts/questions; publish an immutable lesson. | **P0 — critical path** |
+| **R7 / E13 — Agentic tutor** | One composer; real intent recognition, generated diagnostics/explanations, bounded action choice, source grounding, persisted evidence. | **P0 — critical path** |
+| **R1 / E07 — Visual tool** | Agent selects and runs a validated interactive activity; prediction/explanation changes next tutoring action. | **P1 — committed showcase goal** |
+| **R2 / E08 — Teacher action** | AI drafts an evidence-backed follow-up; teacher edits/approves/assigns; linked later evidence can be inspected. | **P1 — committed showcase goal** |
+| **R5 / E09 — Pattern proposals** | At least one tentative new-pattern suggestion with original evidence and teacher review. | **P1 — narrow slice** |
+| **New Teacher Copilot capability** | Assistant proposes a structured, reviewable change to a draft assignment and can answer an authorized evidence question. | **P1 — narrow slice** |
+| R3 / E10 and R6 / E12 | Teach-the-AI and optional voice; keep planned work visible. | **P2 — later** |
 
-These are **reach goals, not promises**. Teams can develop them alongside the MVP using shared examples. An individual component can work before its full feature is connected. We should only call a reach goal complete after its real end-to-end experience has been verified.
+These priorities express the **team's desired deliverable**, not unsupported claims that the official judging rubric mandates each named reach goal. With the October 25 deadline, finish and verify vertical slices rather than claiming a broad but unconnected feature set. Missing showcase work must be reported honestly, not silently replaced with fixtures.
 
-The [roadmap (#15)](https://github.com/peterbucci/ai-teaching-platform/issues/15) contains the more detailed epics, stories, dependencies, and test conditions.
+### Target end-to-end demonstration
 
-### Why we're preparing some content manually
+1. A fictional teacher imports a **new, permitted text-based source**, checks the extracted passages, and confirms its attribution.
+2. AI suggests supported learning concepts and a small initial question bank. The teacher edits an objective or question (optionally using the copilot's structured draft proposal), previews the student experience, and publishes the approved lesson.
+3. A fictional student opens the assignment. Through **one input**, the student asks for clarification, receives a grounded cited reply, and then answers a question. The ask is not graded.
+4. The student exhibits an unfamiliar error. A **real model proposes an appropriate instructional action**, the server validates it, and the app performs it. Show meaningfully different decisions for at least **two different misunderstandings**, not just different wording.
+5. When R1 is enabled, the agent chooses a validated packet-delay experiment. The student predicts, changes a variable, and explains the result; that evidence changes the following question or explanation.
+6. The tutor proposes a source-grounded **optional practice** recommendation, explicitly separate from teacher-assigned work.
+7. The teacher sees the original answers, help shown, decisions, uncertainty, citations, and subsequent results. AI suggests a possible pattern and drafts a **reviewable R2 follow-up**; the teacher edits and approves it.
+8. Verify that the live flow uses authenticated PostgreSQL persistence, survives refresh, respects class permissions, bounds AI calls, and falls back without losing work. Label synthetic class histories and any unsupported/fixture components accurately.
 
-The fixed reading, questions, expected answers, diagnostic scenarios, and misconception categories give us reliable examples against which to test the AI.
+**Minimum truthful agentic evidence:** A real model-generated decision among allowed actions, a real authorized tool execution, an observed result that affects a subsequent decision, and traceable logs/citations. A static mockup, keyword routing, canned explanation, and one standalone LLM evaluation do not satisfy this test. Do not present a mostly scripted demo as fully autonomous.
 
-They serve two purposes:
+## 11. Status snapshot and work not yet complete
 
-1. They give us a repeatable hackathon demonstration.
-2. They give us a **reference for evaluating the AI's decisions**. We can compare its judgments and follow-ups against known examples rather than simply assuming they are educationally useful.
+_Checked against the repository and issue/PR descriptions on October 22, 2026. The live state may have changed; inspect before editing._
 
-This does **not** mean real teachers should manually write every question, rubric, misconception, and retest for every chapter. That would create more work for teachers and undermine the value of the product.
+**Implemented foundations on `main`:** Next.js/React/TypeScript, Docker/PostgreSQL, Better Auth, approved networking package, grounded evaluator, deterministic tutor/controller and saved evidence, teacher metrics/patterns, core student pages and assignment/reading improvements. These constitute real infrastructure, **not** the finished agentic experience.
 
-### How a real teacher would use the finished service
+**Work in flight:**
 
-The intended experience is much simpler for teachers:
+- [PR #81](https://github.com/peterbucci/ai-teaching-platform/pull/81): single-composer student conversation and intent contracts with fixtures; **draft** and **not live AI classification or durable dialogue integration**. Actual model recognition/generation and persistence belong to [#74](https://github.com/peterbucci/ai-teaching-platform/issues/74) and [#75](https://github.com/peterbucci/ai-teaching-platform/issues/75).
+- [PR #82](https://github.com/peterbucci/ai-teaching-platform/pull/82): teacher workspace pages; **draft** and not an implemented teacher copilot.
+- [R7 contracts #72 / PR #77](https://github.com/peterbucci/ai-teaching-platform/pull/77) were merged, but contracts and fixtures do **not** establish live agentic behavior.
 
-1. **Assign material.** Upload or choose a chapter, reading, slides, or other permitted material.
-2. **Review learning goals.** The AI suggests key concepts. The teacher edits or approves them, rather than authoring a complete question bank.
-3. **Let students study.** The tutor asks grounded questions and adapts its explanations, follow-ups, and activities to each student's responses.
-4. **Review learning insights.** The teacher sees concept performance, possible class-wide misunderstandings, and the evidence behind them.
-5. **Stay in control.** The teacher can inspect, correct, dismiss, or act on an insight. The AI doesn't make high-stakes decisions about students.
+**Planned or integration-incomplete:** R4 import/concept/question/publish [#49–#53](https://github.com/peterbucci/ai-teaching-platform/issues/20); R7 real selection/generation/persistence/evaluation; R1 visual action and feedback; R2 intervention workflow; R5 new pattern discovery; Teacher Copilot; production end-to-end showcase.
 
-Teachers should be able to add their own questions or review AI-generated examples, but **approving every individual practice question shouldn't be required**.
+Older README/issue/guide claims about a *locked nonagentic MVP* or *six reach goals* are historical and **must be reconciled** with this approved product direction. Do not silently mark issues complete or rewrite status history. Update roadmap #15, release epic #9, relevant issue criteria, and protected docs in a reviewed, explicitly authorized change.
 
-### A roadmap, not two separate products
+## 12. Roadmap ownership and GitHub project organization
 
-The preloaded networking lesson and teacher-generated lessons should eventually use the **same question, source, evaluation, and evidence system**. We should extend the working foundation rather than create a second tutor just for generated material.
+Keep the existing workstreams and issues where possible; avoid reimplementing merged functionality:
 
-We can start with a small, safe content format. Supporting teacher-provided text and carefully scoped documents does **not** mean accepting every PDF, scan, figure, or textbook perfectly.
+| Existing issue area | What it should now deliver |
+| --- | --- |
+| [R4 #20 / #49–#53](https://github.com/peterbucci/ai-teaching-platform/issues/20) | Teacher-supplied and immutable versioned content, approved concepts/questions, assignment publication. |
+| [R7 #71 / #73–#76](https://github.com/peterbucci/ai-teaching-platform/issues/71) | Single student conversation, live intent and instructional-action selection, grounded generation, safe persistence and real tests. Add one focused orchestration story if no existing issue owns it. |
+| [R1 #17 / #38–#43](https://github.com/peterbucci/ai-teaching-platform/issues/17) | Validated visual tool, calculation, generated visual, tutoring adapter, and saved interaction evidence. |
+| [R2 #18 / #44–#46](https://github.com/peterbucci/ai-teaching-platform/issues/18) | Draft, teacher approval and delivery, later evidence comparison. |
+| [R5 #21 / #54–#55](https://github.com/peterbucci/ai-teaching-platform/issues/21) | New potential patterns, correctable teacher review. |
+| **New Teacher Copilot epic (proposed)** | Context-aware assistant, structured draft patches, authorized insights, teacher confirmation. |
+| [Integration/release #9, #35–#37](https://github.com/peterbucci/ai-teaching-platform/issues/9) | Real agentic demo acceptance, deployment, failure recovery and submitted evidence. Keep the old baseline regression checks. |
 
-### Demo reading
+Retain Project #7's **Backlog, Todo, In Progress, In Review, Done** statuses. Use views such as *Critical Path, Teacher Authoring & Copilot, Agentic Tutoring, Insights & Interventions, Integration & Release,* and *Later*. Track priority, owner, dependency, target date, and **verification level** (fixture / real-model / integrated). An attractive or passing UI fixture is not a real service.
 
-**Approved demo source:** *Computer Networks: A Systems Approach*, Larry Peterson and Bruce Davie, Section 1.5.1, “Bandwidth and Latency.”
+Parallelize independent contracts, visual renderer, pure simulation, teacher form, and analytics work. Coordinate shared migrations, lesson/content references, agent action contracts, and session/teacher permissions before merging. Do not assign invented teammate handles or override someone else's branch.
 
-- [Upstream textbook source](https://github.com/SystemsApproach/book/blob/master/foundation/performance.rst)
-- [Pinned source revision used by the content package](https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst#L14-L187)
+## 13. Testing and acceptance
 
-The five prepared concepts are:
+Tests should target consequential behavior rather than arbitrary coverage counts.
 
-1. Bandwidth versus throughput.
-2. Latency versus round-trip time (RTT).
-3. Transmission delay.
-4. Propagation delay.
-5. Queuing delay.
+**Shared checks:** valid/invalid source extraction, lesson version pinning, teacher approvals, class isolation, grounding and unsupported evidence, prompt injection and hidden rubric leakage, session recovery, idempotency and spending limits, permission failures, original answer immutability, and honest metrics.
 
-The prepared `content/network-performance-v1/` package includes **13 assigned passages, 15 questions**, and a detailed transmission-versus-propagation demonstration. The package's IDs and source version should stay stable now that it has team approval. The full upstream source file is preserved for provenance, **not** for expanding the assigned reading.
+**Agentic tutor checks:** distinct previously unseen errors lead to meaningfully different permitted actions; help asks never become assessed answers; ambiguous intent is clarified; source-backed answers remain relevant; failed tool/model calls fall back; visual results are recomputed in reviewed code; the next decision responds to new student evidence.
 
-The prepared content was approved for hackathon team use on October 14, 2026, at 7:30 PM ET (`2026-10-14T19:30-04:00`): reading, five concepts, question guidance, possible misconceptions, and the complete transmission/propagation example. This does **not** establish actual classroom-instructor review or scientific validation. The other concepts also have approved questions but do not need complete diagnostic sequences for the MVP.
+**Teacher checks:** copilot proposes an accurate draft patch but does not silently publish; stale form versions reject overwrites; suggested recipients and patterns have inspectable evidence; only authorized teachers see student-level material; approved intervention results link back to original observations.
 
-Preserve attribution and licensing information. The source repository's CC BY 4.0 license explicitly grants reproduction, sharing, and adaptation rights, subject to its conditions. Its README contains an apparent inconsistency, not proof that separate permission is required. The [attribution document](content/network-performance-v1/ATTRIBUTION.md) links the official license, README, contributor agreement, and relevant commit history; the wording-carryover explanation remains an unconfirmed inference. Follow the license conditions and check separately credited third-party material. The package preserves both notices and does not claim author confirmation or legal clearance.
+**Three distinct types of evidence:**
 
-## 3. Student Experience and Learning Methods
+1. **Deterministic tests** prove code contracts, authorization and state transitions.
+2. **Actual-model tests** exercise real classification, questions, actions, grounding and pedagogical appropriateness with reviewed fictional cases.
+3. **Integrated browser/database tests** prove that the teacher and student can use the feature end to end and recover from failures.
 
-Students open an assignment and study the approved material with the AI tutor. The AI should encourage them to **do the thinking**, not immediately provide summaries or answers.
+Report the real model, source version, test input, observed decision/tool, outcome, failures, and remaining unrun cases. Do not treat a mock, a passing JSON schema, or a screenshot as a passed agentic demonstration. A teammate should review meaningful educational examples and critical permission changes.
 
-### Retrieval practice — essential for the MVP
+## 14. Technology, security and non-goals
 
-Ask students to recall information without seeing the correct answer first. For example: “Without looking back, what determines transmission delay?”
+**Keep the installed stack:** Next.js 16 / React / TypeScript / Tailwind; Next.js server endpoints; PostgreSQL under Docker Compose; Better Auth; `pg`; Zod; OpenAI model access; versioned Markdown/JSON content; GitHub Issues, PRs, and Project #7.
 
-### Self-explanation — essential for the MVP
+Use simple server modules and reviewed React visual renderers. **Do not add** LangGraph/LangChain, a second backend/database, vector search, arbitrary model-generated code execution, or a general multi-agent framework without a demonstrated need and team review.
 
-Sometimes ask students *why* they chose an answer or how they reached it. Their reasoning can reveal useful learning signals that a simple right/wrong result cannot.
+For the hackathon use **fictional accounts and synthetic student records**, with live model calls on fictional submissions clearly distinguished from prepared synthetic histories. Never commit secrets or upload private classroom records. Authentication, server-side authorization, provenance, data minimization, and clear failure behavior are required even in a demo. Do not claim school deployment readiness, FERPA compliance, research validation, or clinically/educationally calibrated mastery scores.
 
-### Corrective feedback — essential for the MVP
+**Not part of the October 25 vertical slice:** unrestricted every-format ingestion or reliable OCR of scans, full LMS/Canvas synchronization or official gradebook, automatic high-stakes outreach, parent accounts, school-wide analytics for actual students, scientifically validated knowledge-tracing, broad cross-teacher sharing, and open-ended autonomous browser/code execution.
 
-Give specific, source-supported explanations of mistakes. Avoid generic “Incorrect” responses. Then let the student demonstrate understanding again with a **fresh question**.
+## 15. Decisions still requiring review
 
-### Spaced practice — basic tracking in the MVP
+- Confirm the official Canvas submission rubric, deliverables, and any account-specific requirements.
+- Identify who owns the new R7 orchestration, R4 resolver/import, Teacher Copilot, and integrated demo.
+- Agree the first teacher-provided source and its permitted rights; choose whether slide/Word parsing fits before the deadline.
+- Define the precise teacher-authoring approval and draft patch/apply API contracts.
+- Agree which R1 visual formats and available tutor actions are enabled in the initial agentic demo.
+- Choose honest thresholds for reporting pattern evidence and student practice recommendations; avoid unvalidated mastery claims.
+- Verify production model credentials/budget and deployment, then run actual-model tests and an independent teammate rehearsal.
 
-Store when a concept should be reviewed again. A student answering correctly immediately after a hint is not evidence of durable retention. The demo can use synthetic prior histories to illustrate delayed practice; a complete scheduling engine is not needed now.
+## 16. Definition of done and final principle
 
-### Interleaving — optional learning method
+A **feature** is done only when its actual authorized workflow works end to end, its important failure paths preserve state, and its claims are backed by relevant tests. The **legacy curated tutoring baseline** should always remain usable; it is necessary regression coverage but is **not sufficient** to call the revised hackathon product agentic.
 
-Mix related concepts once students have practiced them individually. This can help them distinguish, for instance, transmission delay from propagation delay. Do not prioritize it ahead of the working core flow.
+Our **agentic demonstration** is complete only when a real model can interpret a student's goal/evidence, propose a meaningful permitted action, use the approved tool through server validation, observe the result, and adapt—while the teacher can inspect the underlying learning evidence. Our team's broader submission goal also connects teacher-authored content and the prioritized R1/R2 showcase experiences. Report any unfinished elements openly.
 
-### Pretesting — optional learning method
-
-A few low-stakes questions before a reading could establish prior knowledge. This is not required for the first demonstration.
-
-### Exploring and teaching back — planned reach activities
-
-An interactive experiment can ask a student to **predict, investigate, and explain**. Teach-the-AI mode can ask the student to explain something to a fictional learner. Both should end with a meaningful question that doesn't simply repeat the answer the student was shown.
-
-The learning methods above have research support, especially retrieval and distributed practice. That **does not** mean our particular AI tutor, scoring, generated diagrams, or misconception detection has been educationally validated.
-
-## 4. Adaptive Tutoring Behavior
-
-The tutor follows a **controlled decision process**. The AI evaluates what the student says and proposes an appropriate next step; the application checks whether that step is permitted and records what actually happened.
-
-A typical sequence is:
-
-1. Select a teacher-approved concept and grounded question.
-2. Receive the student's answer.
-3. Evaluate correctness and ask for an explanation when useful.
-4. Decide whether to continue, clarify, investigate a possible misconception, offer feedback, or retest.
-5. Save the answer, evaluation, source references, and any assistance.
-6. Continue or schedule future practice.
-
-Actions available to the core tutor may include:
-
-- `ASK_RETRIEVAL_QUESTION`
-- `ASK_SELF_EXPLANATION`
-- `ASK_DIAGNOSTIC_FOLLOWUP`
-- `GIVE_HINT`
-- `GIVE_CORRECTIVE_FEEDBACK`
-- `RETEST_CONCEPT`
-- `MOVE_TO_NEXT_CONCEPT`
-- `SCHEDULE_REVIEW`
-
-The reach goals may extend the allowed actions, for example by offering a validated visual activity. Those extensions must use the **same server-controlled tutoring process**, not a competing state machine.
-
-### How visual tutoring would work (R1)
-
-Suppose a student thinks doubling the cable length doubles both transmission and propagation delay.
-
-The tutor might choose a guided packet-delay experiment:
-
-1. **Predict:** The student says what they think will change.
-2. **Experiment:** The student adjusts distance, packet size, or link rate and sees the resulting delay.
-3. **Explain:** The student describes why the result happened.
-4. **Adapt:** The tutor uses the prediction and explanation to choose a clarification, another comparison, feedback, or a fresh retest.
-
-The AI can produce **structured instructions** for concept diagrams, sequences, or supported experiments. Reviewed application components display them. For quantitative examples, **ordinary code calculates the results**, using checked formulas and inputs.
-
-Do **not** run arbitrary model-generated JavaScript, HTML, SVG, or mathematical formulas in the student's browser. A new quantitative subject needs its own reviewed calculations. A failed diagram should leave the ordinary text tutoring experience available.
-
-An animation or a correct slider setting alone is **not** evidence that the student understands the concept. Ask them to explain what they observed.
-
-### Other tutoring modes (R3 and R6)
-
-In **Teach-the-AI**, the student explains a concept to a fictional learner. The AI asks a relevant follow-up and uses the normal evaluator to help check the explanation. A fresh question follows.
-
-In **Voice mode**, a student can speak an answer or listen to feedback if the feature is available. Students must be able to review a transcript before it's treated as their answer, and text remains available.
-
-The AI should never have unrestricted autonomy over student records, official grades, private messages, or assignments.
-
-## 5. Detecting Misconceptions
-
-Investigating a *possible* misconception is one of the central features of the project.
-
-Suppose a student says:
-
-> “Transmission delay doubles because the packet has farther to travel.”
-
-The tutor can form a **tentative hypothesis**: the student may be confusing transmission delay with propagation delay.
-
-Rather than immediately labeling the student, it asks a question designed to test that explanation. It might change distance while keeping packet size and rate constant, then ask the student to explain what changes. A separate follow-up can vary packet size instead.
-
-The result may **support, weaken, reject, or leave the hypothesis uncertain**. Then the tutor can provide grounded corrective feedback and ask a different retest question.
-
-A single wrong answer, arithmetic mistake, ambiguous response, or skipped explanation does not establish a specific misconception. We cannot observe a student's internal mental model directly.
-
-### How we handle misconceptions in the MVP
-
-Use the prepared concept-level misconception IDs from `concepts.json`, including `other_or_uncertain`. These make the demo consistent and give us reference cases for evaluation. The transmission-versus-propagation sequence is the primary fully mapped example.
-
-### Discovering new patterns (R5)
-
-In the longer-term product, a teacher should **not** have to anticipate and define every misconception manually.
-
-Our **R5 hackathon reach goal** explores a bounded version of this: the AI proposes possible recurring reasoning patterns from responses that don't fit existing categories. It keeps the original answers, shows evidence for and against each proposal, and lets the teacher rename, correct, approve, or dismiss a suggestion.
-
-Similar wording can hide different mistakes, and different wording can express the same idea. New groupings need careful review. **R5 is active reach-goal work, not an MVP requirement or an already validated feature.**
-
-## 6. Grounding and RAG
-
-The tutor should generate questions, explanations, evaluations, and visual activities using **the material the teacher assigned**, rather than drawing freely from everything the model knows.
-
-For the MVP, we have one versioned excerpt and known concept-to-passage mappings. We can look up those passages directly without a vector database.
-
-The grounding process is:
-
-1. Identify the current concept and question or activity.
-2. Look up its approved source passages.
-3. Give those passages and relevant student response context to the model.
-4. Validate cited passage IDs against the approved document version.
-5. Save relevant source references alongside the result.
-
-If the assigned material doesn't provide enough evidence for an answer, the tutor should say so instead of inventing one. A failed retrieval is not proof that the full reading lacks the answer, so handle uncertainty carefully.
-
-For **R4 teacher-provided lessons**, the same source-first rule applies to imported material. A published lesson must use the **right approved lesson version**, even after a teacher adds a newer reading. The scoped content resolver is tracked in [LP-11.5](https://github.com/peterbucci/ai-teaching-platform/issues/53).
-
-RAG (retrieval-augmented generation) means giving the AI relevant source material when it answers. It reduces some risks but does not guarantee correctness.
-
-## 7. Learning Evidence and Shared Data Contracts
-
-**Learning evidence** is the record of what the student actually said and did, along with the system's careful interpretation. It is how teachers can inspect an AI judgment and how the dashboard can calculate trustworthy patterns.
-
-At a minimum, an attempt or linked evaluation should preserve:
-
-- Unique attempt ID; student, class, assignment, session, concept, and question IDs.
-- The student's original response and when it was submitted.
-- Whether the attempt was independent, assisted, diagnostic, an immediate retest, or a delayed retrieval.
-- Assistance or hints **actually shown** before the response, not merely proposed by the model.
-- Evaluation results and meaningful uncertainty.
-- Supporting passage IDs and exact document/content version.
-- Any possible misconception, status, and supporting or contradictory evidence.
-- The next permitted tutoring action and any corrective feedback shown.
-- Links among initial attempts, diagnostic follow-ups, and retests.
-- Last-practiced and next-review information when applicable.
-
-**Reach-goal evidence** may also record validated visual activity versions, the student's predictions and submitted experiment settings, server-calculated outcomes, explanations, generated lesson versions, and teacher-reviewed intervention decisions.
-
-Not every field needs its own database table or applies to every step. Store original student answers separately from model interpretations where practical. Avoid unnecessary duplication, but preserve the evidence needed to reconstruct a session.
-
-**Content provenance:** A curated question must retain its approved reading and version. A generated question or activity must preserve its source references and information about how it was generated. A later lesson revision must not rewrite older learning records.
-
-Do not count multiple attempts by one student as multiple students. Do not treat same-session success after help as demonstrated long-term retention.
-
-The **PostgreSQL evidence and authentication foundation is already merged**. New features should extend that foundation instead of adding a separate database or replacing the existing contracts.
-
-## 8. Teacher Dashboard
-
-The dashboard should translate tutoring sessions into **useful, inspectable learning signals**, rather than only showing quiz scores.
-
-### Class overview
-
-- Participation in the assigned activity.
-- Performance by concept, with clear definitions and denominators.
-- Common possible misconceptions and recurring error patterns.
-- Observed situations where additional teacher support might be helpful.
-
-### Concept insights
-
-Show where students succeed independently versus after help. Avoid presenting an arbitrary percentage as a scientifically validated mastery score.
-
-### Misconception trends
-
-Show how many **distinct students** have responses consistent with a particular pattern, what the pattern is, whether later responses changed, and original examples/source passages supporting it.
-
-In the MVP, grouping can use reviewed misconception IDs. In R5, AI-proposed groupings need to remain reviewable and correctable.
-
-### Retention
-
-Keep immediate and delayed retrieval separate. If delayed results are only synthetic, label them clearly. Do not imply that an actual longitudinal study occurred.
-
-### Individual support
-
-Describe **observed learning behavior**, not a student's character, motivation, ability, disability, or personal circumstances. The teacher decides whether and how to reach out.
-
-### Teacher action center (R2)
-
-A teacher can turn a dashboard observation into a **reviewed follow-up activity**. The AI may draft a targeted exercise from the approved material, but the teacher checks and approves it before assigning it. Later responses should link back to that assignment.
-
-The dashboard should also be able to show a saved visual activity (R1) without regenerating it and compare what the student predicted, tried, and explained.
-
-## 9. Proposed Technology Stack
-
-| Area | Technology | Purpose |
-| --- | --- | --- |
-| Application | Next.js, React, TypeScript | Student and teacher screens and server-side logic |
-| Styling and charts | Tailwind CSS; optional shadcn/ui and Recharts | Clear, usable interfaces |
-| Server endpoints | Next.js Route Handlers / Server Actions | Handle requests and coordinate tutoring |
-| Database | **Self-hosted PostgreSQL in Docker** | Store students, sessions, attempts, evaluations, and insights |
-| Authentication | **Better Auth** | Sign-in and sessions for fictional teacher/student accounts |
-| AI | OpenAI Responses API with structured outputs | Evaluate responses and propose grounded next steps or activities |
-| Validation | Zod | Check inputs, AI judgments, and generated activity descriptions |
-| Course content | Versioned Markdown/JSON and approved passage lookup | Keep the MVP repeatable; extend for R4 lesson imports |
-| Visual tutoring (R1) | Reusable React renderer and reviewed simulations | Display AI-composed diagrams safely |
-| Deployment | Docker Compose on a Docker-capable server | Run the web app and database together |
-| Collaboration | GitHub and AI coding assistants (Codex, Claude Code, or others) | Track issues, reviews, and parallel contributions |
-| Testing | Focused deterministic checks and small real-model evaluation sets | Verify important behavior honestly |
-
-A separate Python backend, LangChain/LangGraph, custom AI model, vector database, and general-purpose AI code-execution engine are **not required**. They shouldn't be added without a concrete, team-reviewed need.
-
-## 10. Architectural Principles
-
-Keep the implementation understandable and as small as practical.
-
-- **UI:** Display questions, diagrams, controls, feedback, and teacher insights.
-- **API/application layer:** Check permissions and coordinate requests.
-- **Tutoring logic:** Decide which actions and state changes are allowed.
-- **AI service:** Interpret language and propose grounded evaluations, tutoring actions, or activity specifications.
-- **Data access:** Save original responses, validated judgments, and interaction evidence.
-- **Analytics:** Use ordinary TypeScript/SQL to calculate counts and clear metrics.
-- **Visual model:** Use validated activity descriptions, reusable display components, and reviewed calculations.
-
-**Separate the source of learning content from the tutoring workflow.** A question should have concept, source, answer guidance, and version information whether it was curated for the demo or generated from approved material.
-
-The same principle applies to visual activities. The AI may choose an appropriate structure and guided steps, but the application controls rendering, calculations, user permissions, and recording.
-
-This is a *compatibility principle*, not permission to create abstract provider frameworks, plugin systems, or extensive generalized engines in advance. Start with the approved networking package and extend only for actual stories.
-
-All model output is untrusted: validate schema, IDs, references, permitted actions, and parameters. Keep secrets on the server. A teacher may see authorized classroom evidence but not another class's private records.
-
-**Failure rule:** If a visual generator, speech service, or other reach component fails, the student's text-based learning progress must remain usable.
-
-## 11. Minimum Viable Product
-
-The submission-ready **core demonstration** needs to show:
-
-1. One prepared reading and approved concepts in a fictional teacher's assignment.
-2. A fictional student answering a retrieval question grounded in the reading.
-3. An AI evaluation of that response using approved passages and expected-answer guidance.
-4. A diagnostic follow-up when an answer suggests a possible misconception.
-5. Grounded corrective feedback and a **different** immediate retest question.
-6. Saved evidence linking the initial answer, follow-up, feedback, and retest.
-7. A teacher dashboard showing class patterns from clearly labeled synthetic histories.
-8. At least one teacher-facing insight changing after a live student interaction.
-
-The first end-to-end path should use the prepared `NP-TX-01` transmission-versus-propagation scenario. It must handle more than the “misconception supported” outcome; the model should be able to reject or remain uncertain about an initial hypothesis.
-
-We do **not** require generated diagrams, new imported lessons, discovered categories, voice, or the other reach features to complete the MVP. They are additional planned work, not a replacement for the core.
-
-## 12. Outside Our Hackathon Scope
-
-The following are **not** approved as part of the MVP or the six bounded reach phases:
-
-- A complete learning management system, Canvas/Blackboard synchronization, or official gradebook.
-- Unrestricted processing of every textbook, PDF, scanned page, figure, or course.
-- Automatic production of entire large-scale question banks or fully autonomous courses without teacher oversight.
-- Scientifically calibrated mastery scores or complex, unvalidated knowledge-tracing claims.
-- Parent accounts, native mobile apps, or autonomous high-stakes student messaging.
-- Real classroom experiments, production-compliance claims, or automatic high-stakes decisions about students.
-- Arbitrary execution of AI-generated code in student visualizations.
-- Building our own AI model or a large, unnecessary multi-agent orchestration platform.
-
-**Important distinction:** A *bounded* teacher-content importer (R4) and teacher-reviewed new-pattern suggestions (R5) **are part of our planned reach goals**. They should not be dismissed as out of scope simply because the full production versions would be much larger.
-
-If the deadline becomes tight, ship a dependable core and only the reach goals that have passed their end-to-end checks.
-
-## 13. Testing Priorities
-
-Focus on **realistic, consequential failures**, not test count or coverage targets.
-
-Core checks:
-
-- The actual model distinguishes correct, partial, incorrect, ambiguous, and unsupported responses in a small reference set.
-- One initial answer does not establish a definite misconception.
-- Follow-ups can strengthen, reject, or leave a hypothesis uncertain.
-- Invalid AI actions, source IDs, and outputs fail safely without corrupting a session.
-- Original responses, assistance, feedback, and retests are linked correctly.
-- Class metrics count distinct students and use correct denominators.
-- Teacher/student permissions prevent unintended data access.
-- The live end-to-end demo works, with an honest backup walkthrough if needed.
-
-For implemented reach goals, also check:
-
-- **R1:** Generated activities are grounded and valid; calculations are correct; prediction, experiment, and explanation events affect the tutor. A failed visual step leaves text tutoring available.
-- **R2:** Teachers can inspect, edit, approve, and assign an intervention and see follow-up evidence.
-- **R3:** Teach-the-AI questions probe reasoning without rewarding superficial agreement.
-- **R4:** A teacher's imported lesson uses the correct approved source/version and doesn't leak another class's content.
-- **R5:** Proposed patterns remain tentative, evidence-backed, and correctable.
-- **R6:** Students can review transcripts and still use text without speech.
-
-Static content checks, deterministic software tests, and actual-model evaluations answer **different questions**. Passing a JSON verifier or mocked test does not prove the AI is a good tutor.
-
-## 14. Development Priorities and Team Workflow
-
-**Submission deadline: October 25, 2026.** Work in small GitHub issues and feature branches, with teammate review before merging to `main`.
-
-Our shared planning reference is [Roadmap #15](https://github.com/peterbucci/ai-teaching-platform/issues/15). Its epics divide the work into **MVP/P0**, **primary reach/P1**, and **additional reach/P2**.
-
-### What we should focus on now
-
-1. Finish and verify the evaluator in [Issue #4](https://github.com/peterbucci/ai-teaching-platform/issues/4) and draft PR #14, including resolving the reported API-access blocker.
-2. Agree on shared request/response examples in [LP-01.2](https://github.com/peterbucci/ai-teaching-platform/issues/24) and visual-activity formats in [LP-07.1](https://github.com/peterbucci/ai-teaching-platform/issues/38).
-3. Build student tutoring, assignment approval, synthetic class data, dashboard, and Docker deployment in parallel.
-4. Develop the interactive diagram player, networking experiment calculations, activity generation, and tutor integration **in parallel with the MVP**, not after everything else.
-5. Work on teacher actions, Teach-the-AI, lesson imports, new-pattern proposals, and voice when owners can build them without blocking shared integration.
-6. Rehearse the independent MVP first, then each fully integrated reach feature. Demonstrate what actually works.
-
-This order guides **integration attention**. It does not mean everyone must finish one phase before anyone begins another.
-
-### Working as a team with AI
-
-Teammates may use **Codex, Claude Code, or other coding assistants**. They don't all need a computer science background, or even the same editor.
-
-- Use one assigned issue and your own branch at a time.
-- Read the issue and ask the AI to explain it before changing files.
-- Coordinate shared interfaces, migrations, permissions, and deployment.
-- Use clearly labeled sample data to let independent work begin; don't present mock data as working live AI.
-- Run the relevant tests and explain what wasn't tested.
-- Ask a teammate to review the pull request before merging.
-
-See [Start Here](docs/START_HERE.md), [CONTRIBUTING.md](CONTRIBUTING.md), and [First Task](docs/FIRST_TASK.md) for the easy version of the workflow.
-
-## 15. Definition of Done
-
-The **core MVP** is ready when:
-
-- One fictional student can complete a source-grounded retrieval question.
-- The AI evaluates the response without inventing sources or forcing a diagnosis.
-- The tutor can ask an appropriate diagnostic follow-up.
-- Grounded feedback and a different retest work.
-- The original answers, evaluations, displayed assistance, and citations remain linked.
-- The teacher can inspect the evidence behind a class insight.
-- A live student response visibly changes a teacher-facing result.
-- The deployed experience works reliably and all synthetic data is clearly identified.
-- The entire flow still works when reach features are off.
-
-An individual **reach goal** is ready only when its real experience works, meets its epic's acceptance criteria, and doesn't break the core. Working mock components or generated screenshots are useful progress, but not proof of completion.
-
-## 16. Open Decisions and Blockers
-
-These need team agreement or verification rather than silent implementation assumptions:
-
-- Final product name.
-- Confirmation that textbook reuse follows the license conditions and any applicable third-party notices.
-- Final approved extensions to the shared evidence and visual-activity formats.
-- **OpenAI API access for real-model tests** and the configured model; PR #14 currently reports HTTP 429 as a blocker.
-- Definitions of teacher-facing metrics and thresholds.
-- Deployment host and HTTPS setup for the self-hosted demonstration.
-- Which reach goals receive owners and which versions pass integration before the deadline.
-
-The overall direction is clear: **teachers should not have to author every question, misconception, and tutoring branch**. The hackathon's six reach phases let us explore parts of that vision with bounded, testable implementations.
-
-## 17. Project Principle
-
-Build a reliable learning loop:
-
-**Assigned material → Student reasoning → Diagnostic AI tutoring → Structured evidence → Teacher insight**
-
-Then extend it when useful:
-
-**Different activity (such as a visual experiment) → Student prediction and explanation → Adaptive follow-up → Teacher-approved next action**
-
-The hackathon's curated content lets us test that core flow. The reach goals show how the platform could generate grounded activities and help teachers respond to what students need, while preserving evidence, safeguards, and human oversight.
-
-**Build ambitiously, but verify honestly. The minimum experience should stand on its own.**
+**Build a platform that helps teachers decide what to teach and students decide how to reason—not a black-box grader, a collection of mockups, or an unrestricted autonomous agent.**

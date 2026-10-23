@@ -127,12 +127,14 @@ export function VisualPlayerSamples() {
         className="lp-visual-sample-notice"
         aria-label="Experiment integration status"
       >
-        <strong>Networking calculation integration is pending.</strong>
+        <strong>
+          Local calculation previews, without saved learning evidence.
+        </strong>
         <p>
-          The generic link-delay and packet-count controls in #38 are not yet
-          mapped to #40’s packet bits, link rate, distance, and propagation
-          speed. This page uses explicitly labeled fixture results, with no
-          calculated durations or authoritative server outcomes.
+          Packet examples use the reviewed single-link calculation with exact
+          units. These browser previews are synthetic; an authenticated server
+          must recheck the activity and recompute before recording real
+          evidence. Older generic controls use a text fallback.
         </p>
       </aside>
 

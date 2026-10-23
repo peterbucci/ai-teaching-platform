@@ -12,7 +12,9 @@ import {
   ActivityEventSchema,
   VISUAL_LIMITS,
   type ActivityEvent,
+  type PacketExperiment,
 } from "../../../lib/visual/contracts.ts";
+import { PacketDelayParametersSchema } from "../../../lib/networking/packet-delay.ts";
 import {
   appendPlayerEvent,
   checkedExperimentResult,
@@ -78,6 +80,8 @@ export function VisualPlayer(props: VisualPlayerProps) {
     ? parsePlayerEvents(props.initialEvents ?? [], props.context, activity)
     : null;
   if (!activity || !events) return <Fallback text={props.fallbackText} />;
+  if (activity.kind === "packet_experiment" && activity.version === "visual-v1")
+    return <Fallback text={activity.text_alternative} />;
   // Snapshots are immutable. Replacing the record, identity, revision or replay
   // input remounts the controller, aborting any request for the previous view.
   const identity = JSON.stringify([
@@ -109,7 +113,7 @@ function Player({
   visualAvailable = true,
   onEvent,
 }: Omit<VisualPlayerProps, "activity" | "initialEvents"> & {
-  activity: VisualActivity;
+  activity: Exclude<VisualActivity, PacketExperiment>;
   initialEvents: ActivityEvent[];
 }) {
   const id = useId();
@@ -127,10 +131,10 @@ function Player({
   const activeRequest = useRef<AbortController | null>(null);
   const [settings, setSettings] = useState<Record<string, number>>(() => {
     const saved = initialEvents.findLast(
-      (event) => event.type === "experiment_state",
+      (event) => event.type === "packet_state",
     );
-    return saved?.type === "experiment_state"
-      ? saved.settings
+    return saved?.type === "packet_state"
+      ? saved.parameters
       : activity.kind === "packet_experiment"
         ? defaultSettings(activity)
         : {};
@@ -143,7 +147,7 @@ function Player({
   );
   const replay = mode === "replay";
   const prediction = events.find((event) => event.type === "prediction");
-  const result = events.find((event) => event.type === "experiment_result");
+  const result = events.find((event) => event.type === "packet_result");
   const explanations = events.filter((event) => event.type === "explanation");
   const can = (type: PlayerEventType) =>
     !replay &&
@@ -157,7 +161,7 @@ function Player({
     [adapter],
   );
   useEffect(() => {
-    if (!permittedEvents.includes("experiment_result"))
+    if (!permittedEvents.includes("packet_result"))
       activeRequest.current?.abort();
   }, [permittedEvents]);
   useEffect(() => {
@@ -252,7 +256,7 @@ function Player({
     if (
       activity.kind !== "packet_experiment" ||
       !activity.controls.includes("adjust_setting") ||
-      !can("experiment_state") ||
+      !can("packet_state") ||
       !settingsValid ||
       busy ||
       result
@@ -261,8 +265,10 @@ function Player({
     const event = ActivityEventSchema.parse({
       ...context,
       event_id: crypto.randomUUID(),
-      type: "experiment_state",
-      settings: draftSettings,
+      type: "packet_state",
+      version: activity.version,
+      model_version: activity.model_version,
+      parameters: draftSettings,
     });
     if (emit(event)) {
       setSettings(draftSettings);
@@ -276,7 +282,7 @@ function Player({
       prediction?.type !== "prediction" ||
       result ||
       !adapter ||
-      !can("experiment_result") ||
+      !can("packet_result") ||
       busy ||
       runAttempted ||
       dirty ||
@@ -285,15 +291,17 @@ function Player({
       return;
     // A settings snapshot is always emitted before execution, even at defaults.
     if (
-      !can("experiment_state") ||
+      !can("packet_state") ||
       eventLog.current.length > VISUAL_LIMITS.eventsPerActivity - 2
     )
       return;
     const stateEvent = ActivityEventSchema.parse({
       ...context,
       event_id: crypto.randomUUID(),
-      type: "experiment_state",
-      settings,
+      type: "packet_state",
+      version: activity.version,
+      model_version: activity.model_version,
+      parameters: settings,
     });
     if (!emit(stateEvent)) return;
     const controller = new AbortController();
@@ -301,7 +309,7 @@ function Player({
     const request: ExperimentRequest = {
       activity,
       context,
-      settings: { ...settings },
+      settings: PacketDelayParametersSchema.parse(settings),
       prediction: prediction.text,
       request_id: crypto.randomUUID(),
       signal: controller.signal,
@@ -449,41 +457,58 @@ function Player({
                 Change only the settings offered for this activity.
               </p>
               <div className="vp-fields">
-                {activity.parameters.map((parameter) => (
-                  <label className="lp-field" key={parameter.id}>
-                    {parameter.label} ({parameter.unit})
+                {activity.adjustable_parameters.map((parameter) => (
+                  <label className="lp-field" key={parameter.parameter}>
+                    {PACKET_LABELS[parameter.parameter]}
                     <input
                       className="lp-input"
                       type="number"
                       min={parameter.min}
                       max={parameter.max}
-                      step={1}
-                      value={settingDrafts[parameter.id] ?? ""}
+                      step={parameter.parameter === "packet_bits" ? 1 : "any"}
+                      value={settingDrafts[parameter.parameter] ?? ""}
                       disabled={
                         replay ||
                         busy ||
                         Boolean(result) ||
                         !activity.controls.includes("adjust_setting") ||
-                        !can("experiment_state")
+                        !can("packet_state")
                       }
                       onChange={(event) =>
                         setSettingDrafts({
                           ...settingDrafts,
-                          [parameter.id]: event.target.value,
+                          [parameter.parameter]: event.target.value,
                         })
                       }
-                      aria-describedby={`${id}-${parameter.id}-range`}
+                      aria-describedby={`${id}-${parameter.parameter}-range`}
                     />
                     <span
                       className="vp-note"
-                      id={`${id}-${parameter.id}-range`}
+                      id={`${id}-${parameter.parameter}-range`}
                     >
-                      {parameter.min}–{parameter.max} {parameter.unit}, whole
-                      numbers
+                      {parameter.min}–{parameter.max};{" "}
+                      {parameter.parameter === "packet_bits"
+                        ? "whole numbers"
+                        : "decimals allowed"}
                     </span>
                   </label>
                 ))}
               </div>
+              <dl>
+                {PacketDelayParametersSchema.keyof()
+                  .options.filter(
+                    (key) =>
+                      !activity.adjustable_parameters.some(
+                        (control) => control.parameter === key,
+                      ),
+                  )
+                  .map((key) => (
+                    <div key={key}>
+                      <dt>{PACKET_LABELS[key]} (fixed)</dt>
+                      <dd>{activity.parameters[key]}</dd>
+                    </div>
+                  ))}
+              </dl>
               {!replay && activity.controls.includes("adjust_setting") && (
                 <button
                   className="lp-button"
@@ -493,7 +518,7 @@ function Player({
                     !settingsValid ||
                     busy ||
                     Boolean(result) ||
-                    !can("experiment_state")
+                    !can("packet_state")
                   }
                   onClick={applySettings}
                 >
@@ -504,7 +529,7 @@ function Player({
                 <p className="vp-note" role="status">
                   {settingsValid
                     ? "Apply your changed settings before running."
-                    : "Enter a whole number within each permitted range."}
+                    : "Enter a value within each permitted range. Packet size must be a whole number."}
                 </p>
               )}
               {result && (
@@ -563,14 +588,34 @@ function Player({
               <span className="lp-badge lp-badge-neutral">
                 {(result ? outcomeProvenance : adapter?.provenance) ===
                 "fixture"
-                  ? "Fixture outcome · not a calculation"
+                  ? "Local calculation preview · not saved evidence"
                   : result && !outcomeProvenance
                     ? "Recorded outcome"
                     : "Host-provided outcome"}
               </span>
             </div>
-            {result?.type === "experiment_result" && prediction ? (
-              <p className="vp-preserve">{result.outcome}</p>
+            {result?.type === "packet_result" && prediction ? (
+              <div>
+                <dl>
+                  <dt>Transmission delay (seconds)</dt>
+                  <dd>
+                    {result.calculation.result.transmission_delay_seconds}
+                  </dd>
+                  <dt>Propagation delay (seconds)</dt>
+                  <dd>{result.calculation.result.propagation_delay_seconds}</dd>
+                  <dt>Transmission plus propagation (seconds)</dt>
+                  <dd>
+                    {
+                      result.calculation.result
+                        .transmission_plus_propagation_seconds
+                    }
+                  </dd>
+                </dl>
+                <p className="vp-note">
+                  One link, excluding queueing and processing. This is not
+                  round-trip time.
+                </p>
+              </div>
             ) : (
               <>
                 <p>
@@ -589,8 +634,8 @@ function Player({
                       runAttempted ||
                       dirty ||
                       !adapter ||
-                      !can("experiment_result") ||
-                      !can("experiment_state") ||
+                      !can("packet_result") ||
+                      !can("packet_state") ||
                       events.length > VISUAL_LIMITS.eventsPerActivity - 2
                     }
                   >
@@ -689,13 +734,31 @@ function Player({
           <dd>{activity.source.source_id}</dd>
           <dt>Content version</dt>
           <dd>{activity.source.content_version}</dd>
-          <dt>Source commit</dt>
-          <dd>{activity.source.source_commit}</dd>
+          {"source_kind" in activity.source ? (
+            <>
+              <dt>Source version</dt>
+              <dd>{activity.source.source_version}</dd>
+              <dt>Attribution</dt>
+              <dd>{activity.source.attribution.title}</dd>
+            </>
+          ) : (
+            <>
+              <dt>Source commit</dt>
+              <dd>{activity.source.source_commit}</dd>
+            </>
+          )}
         </dl>
       </details>
     </section>
   );
 }
+
+const PACKET_LABELS = {
+  packet_bits: "Packet size (bits)",
+  link_rate_bits_per_second: "Link rate (bits per second)",
+  distance_meters: "Cable length (meters)",
+  propagation_speed_meters_per_second: "Signal speed (meters per second)",
+} as const;
 
 function PacketPicture({
   textOnly,

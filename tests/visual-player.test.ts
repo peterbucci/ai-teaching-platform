@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   PacketExperimentSchema,
+  PacketDelayExperimentSchema,
   VISUAL_LIMITS,
   type ActivityEvent,
 } from "../lib/visual/contracts.ts";
@@ -9,6 +10,8 @@ import {
   validActivityEvents,
   validConceptGraph,
   validPacketExperiment,
+  validPacketDelayExperiment,
+  validPacketDelayEvents,
   validSequenceDiagram,
 } from "../lib/visual/examples.ts";
 import {
@@ -21,8 +24,13 @@ import {
   type ExperimentRequest,
   type PlayerContext,
 } from "../lib/visual/player.ts";
+import { calculatePacketDelay } from "../lib/networking/packet-delay.ts";
+import { makeTeacherSourceReference } from "./fixtures/teacher-lesson.ts";
 
 const activity = PacketExperimentSchema.parse(validPacketExperiment);
+const currentActivity = PacketDelayExperimentSchema.parse(
+  validPacketDelayExperiment,
+);
 const context: PlayerContext = {
   activity_id: validActivityEvents[0].activity_id,
   session_id: validActivityEvents[0].session_id,
@@ -42,12 +50,19 @@ const result: Extract<ActivityEvent, { type: "experiment_result" }> = {
   type: "experiment_result",
   outcome: "Fixture outcome for the player, not a calculated result.",
 };
+const numericResult: Extract<ActivityEvent, { type: "packet_result" }> = {
+  ...context,
+  event_id: result.event_id,
+  version: "visual-v2",
+  type: "packet_result",
+  calculation: calculatePacketDelay(currentActivity.parameters),
+};
 
 function experimentRequest(signal = new AbortController().signal) {
   return {
-    activity,
+    activity: currentActivity,
     context,
-    settings: defaultSettings(activity),
+    settings: { ...currentActivity.parameters },
     prediction: prediction.text,
     request_id: result.event_id,
     signal,
@@ -206,7 +221,10 @@ test("submitted settings must match the declared controls, bounds and integer un
 
 test("an adapter result must match the exact request identity and contain only public fields", () => {
   const request = experimentRequest();
-  assert.deepEqual(checkedExperimentResult(result, request), result);
+  assert.deepEqual(
+    checkedExperimentResult(numericResult, request),
+    numericResult,
+  );
   for (const field of [
     "event_id",
     "activity_id",
@@ -215,15 +233,16 @@ test("an adapter result must match the exact request identity and contain only p
     "attempt_id",
   ] as const) {
     assert.equal(
-      checkedExperimentResult({ ...result, [field]: otherId }, request),
+      checkedExperimentResult({ ...numericResult, [field]: otherId }, request),
       null,
     );
   }
   for (const response of [
     null,
     prediction,
-    { ...result, expected_answer: "Private answer" },
-    { ...result, outcome: "x".repeat(VISUAL_LIMITS.promptCharacters + 1) },
+    result,
+    { ...numericResult, expected_answer: "Private answer" },
+    { ...numericResult, outcome: "A prose result is not a calculation" },
   ]) {
     assert.equal(checkedExperimentResult(response, request), null);
   }
@@ -233,14 +252,93 @@ test("a late adapter result is rejected after cancellation or invalid submitted 
   const controller = new AbortController();
   const request = experimentRequest(controller.signal);
   controller.abort();
-  assert.equal(checkedExperimentResult(result, request), null);
+  assert.equal(checkedExperimentResult(numericResult, request), null);
   assert.equal(
-    checkedExperimentResult(result, {
+    checkedExperimentResult(numericResult, {
       ...experimentRequest(),
-      settings: { "link-delay": 50, "packet-count": 101 },
+      settings: { ...currentActivity.parameters, distance_meters: 400_001 },
     }),
     null,
   );
+});
+
+test("v2 playback accepts fractional settings and binds numeric results to the last exact state", () => {
+  assert.deepEqual(
+    parsePlayerActivity(validPacketDelayExperiment),
+    validPacketDelayExperiment,
+  );
+  assert.deepEqual(
+    parsePlayerEvents(validPacketDelayEvents, context, currentActivity),
+    validPacketDelayEvents,
+  );
+  assert.equal(
+    validSettings(currentActivity, {
+      ...currentActivity.parameters,
+      distance_meters: 0.125,
+    }),
+    true,
+  );
+  assert.equal(
+    validSettings(currentActivity, {
+      ...currentActivity.parameters,
+      packet_bits: 8001,
+    }),
+    false,
+  );
+  const changed = {
+    ...numericResult,
+    calculation: calculatePacketDelay({
+      ...currentActivity.parameters,
+      distance_meters: 300_000,
+    }),
+  };
+  assert.equal(checkedExperimentResult(changed, experimentRequest()), null);
+  assert.equal(
+    parsePlayerEvents(
+      [validPacketDelayEvents[3], prediction, changed],
+      context,
+      currentActivity,
+    ),
+    null,
+  );
+  assert.equal(
+    parsePlayerEvents(
+      [
+        prediction,
+        numericResult,
+        { ...validPacketDelayEvents[3], event_id: otherId },
+      ],
+      context,
+      currentActivity,
+    ),
+    null,
+  );
+  assert.deepEqual(
+    parsePlayerEvents([numericResult], context, currentActivity),
+    [],
+  );
+  assert.equal(appendPlayerEvent([], numericResult, ["packet_result"]), null);
+  assert.deepEqual(
+    appendPlayerEvent([prediction], numericResult, ["packet_result"]),
+    [prediction, numericResult],
+  );
+});
+
+test("uploaded source versions and stable concept IDs are valid player records", () => {
+  const record = {
+    ...validConceptGraph,
+    concept_ids: ["50000000-0000-4000-8000-000000000001"],
+    source: {
+      ...makeTeacherSourceReference(
+        "50000000-0000-4000-8000-000000000002",
+        "50000000-0000-4000-8000-000000000003",
+        2,
+      ),
+      package_id: "50000000-0000-4000-8000-000000000004",
+      content_version: "3",
+    },
+  };
+  assert.deepEqual(parsePlayerActivity(record), record);
 });
 
 test("event submission respects permissions, prediction-before-reveal and duplicate identity", () => {

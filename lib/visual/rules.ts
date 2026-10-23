@@ -16,7 +16,7 @@ export function toStudentActivityEvents(
       predicted.add(event.activity_id);
     }
     if (
-      event.type === "experiment_result" &&
+      (event.type === "experiment_result" || event.type === "packet_result") &&
       !predicted.has(event.activity_id)
     ) {
       continue;

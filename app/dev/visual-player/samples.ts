@@ -1,15 +1,18 @@
 import {
   ConceptGraphSchema,
   PacketExperimentSchema,
+  PacketDelayExperimentSchema,
   SequenceDiagramSchema,
   type ActivityEvent,
   type ConceptGraph,
   type PacketExperiment,
+  type PacketDelayExperiment,
   type SequenceDiagram,
 } from "../../../lib/visual/contracts.ts";
 import {
   validConceptGraph,
   validPacketExperiment,
+  validPacketDelayExperiment,
   validSequenceDiagram,
 } from "../../../lib/visual/examples.ts";
 import type {
@@ -17,8 +20,10 @@ import type {
   PlayerContext,
   PlayerEventType,
 } from "../../../lib/visual/player.ts";
+import { calculatePacketActivity } from "../../../lib/visual/packet.ts";
 
-type Activity = ConceptGraph | SequenceDiagram | PacketExperiment;
+type Activity =
+  ConceptGraph | SequenceDiagram | PacketExperiment | PacketDelayExperiment;
 
 export interface PlayerSample {
   id: string;
@@ -30,17 +35,14 @@ export interface PlayerSample {
   replay: ActivityEvent[];
 }
 
-export const FIXTURE_OUTCOME =
-  "Fixture result: the demonstration packet has reached the receiver. This is an illustration, not a calculated delay. These generic controls are not yet mapped to the reviewed networking model.";
-
 export const SAMPLE_FALLBACK =
   "This sample could not be drawn. In the text activity, identify the sender and receiver, describe how a packet moves between them, and distinguish sending the packet onto a link from its travel along the link.";
 
 export const SAMPLE_PERMITTED_EVENTS: readonly PlayerEventType[] = [
   "display",
-  "experiment_state",
+  "packet_state",
   "prediction",
-  "experiment_result",
+  "packet_result",
   "explanation",
 ];
 
@@ -69,28 +71,36 @@ function replayEvents(
       supplied_hint_ids: [],
     },
   ];
-  if (activity.kind === "packet_experiment") {
+  if (
+    activity.kind === "packet_experiment" &&
+    activity.version === "visual-v2"
+  ) {
     events.push(
       {
         ...base(2),
-        type: "experiment_state",
-        settings: Object.fromEntries(
-          activity.parameters.map((parameter) => [
-            parameter.id,
-            parameter.default,
-          ]),
-        ),
+        type: "packet_state",
+        version: activity.version,
+        model_version: activity.model_version,
+        parameters: activity.parameters,
       },
       {
         ...base(3),
         type: "prediction",
         text: "Synthetic prediction: I expect the packet to move from the sender to the receiver.",
       },
-      { ...base(4), type: "experiment_result", outcome: FIXTURE_OUTCOME },
+      {
+        ...base(4),
+        type: "packet_result",
+        version: activity.version,
+        calculation: calculatePacketActivity(activity, activity.parameters, {
+          content_ref: activity.source,
+          concept_ids: new Set(activity.concept_ids),
+        }),
+      },
       {
         ...base(5),
         type: "explanation",
-        text: "Synthetic explanation: sending onto the link and travelling across it are separate stages. This fixture does not establish their duration.",
+        text: "Synthetic explanation: sending onto the link and travelling across it are separate stages. This preview uses a single-link model without queueing or processing.",
       },
     );
   }
@@ -266,37 +276,26 @@ const sixParticipants = SequenceDiagramSchema.parse({
   ],
 });
 
-const packet = PacketExperimentSchema.parse({
-  ...validPacketExperiment,
+const packet = PacketDelayExperimentSchema.parse({
+  ...validPacketDelayExperiment,
   guided_steps: [
     "Explore the permitted settings and write a prediction before revealing a result.",
-    "Run the illustration, then compare it with your prediction.",
-    "Explain what this fixture can and cannot tell you about packet delay.",
+    "Run the calculation preview, then compare it with your prediction.",
+    "Explain how transmission and propagation respond to the change.",
   ],
 });
 
-const boundedPacket = PacketExperimentSchema.parse({
+const boundedPacket = PacketDelayExperimentSchema.parse({
   ...packet,
   title: "An experiment with a fixed setting",
   controls: ["adjust_setting", "step_through"],
   prompt:
-    "Compare a narrow range of link-delay settings while the packet count stays fixed. Predict before inspecting the fixture result.",
-  parameters: [
+    "Change link rate while packet size, cable length and signal speed stay fixed. Predict which delay changes.",
+  adjustable_parameters: [
     {
-      id: "link-delay",
-      label: "Link delay",
-      unit: "ms",
-      min: 20,
-      max: 60,
-      default: 40,
-    },
-    {
-      id: "packet-count",
-      label: "Packets sent (fixed for this activity)",
-      unit: "packets",
-      min: 1,
-      max: 1,
-      default: 1,
+      parameter: "link_rate_bits_per_second",
+      min: 500_000.5,
+      max: 1_500_000.5,
     },
   ],
 });
@@ -361,10 +360,49 @@ export const PLAYER_SAMPLES: PlayerSample[] = [
   sample(
     8,
     "packet-original",
-    "Experiment · original parameters",
-    "The existing link-delay and packet-count controls. Results are qualitative fixtures.",
+    "Experiment · transmission and propagation",
+    "Change cable length using the versioned packet model. Results are local previews, not saved evidence.",
     "Experiments",
     packet,
+  ),
+  sample(
+    12,
+    "packet-legacy",
+    "Legacy experiment · text fallback",
+    "Older generic units remain readable without being converted into model inputs.",
+    "Validation",
+    PacketExperimentSchema.parse(validPacketExperiment),
+  ),
+  sample(
+    13,
+    "uploaded-source",
+    "Graph · teacher-provided source",
+    "A synthetic uploaded source version and digit-leading concept identity.",
+    "Concept graphs",
+    ConceptGraphSchema.parse({
+      ...chain,
+      concept_ids: ["50000000-0000-4000-8000-000000000001"],
+      source: {
+        package_id: "50000000-0000-4000-8000-000000000002",
+        content_version: "2",
+        source_kind: "uploaded",
+        source_id: "50000000-0000-4000-8000-000000000003",
+        source_version: 2,
+        document_sha256: "a".repeat(64),
+        excerpt_sha256: "b".repeat(64),
+        attribution: {
+          title: "Synthetic packet reading",
+          authors: ["Fictional teacher"],
+          copyright: "2026 Fictional teacher",
+          section: "Packets",
+          url: null,
+          license: "Original synthetic demo",
+          license_url: null,
+          cautions: [],
+        },
+        access_scope: { teacher_id: "50000000-0000-4000-8000-000000000004" },
+      },
+    }),
   ),
   sample(
     9,
@@ -404,7 +442,7 @@ export const PLAYER_SAMPLES: PlayerSample[] = [
 ];
 
 export const ADAPTER_MODES = [
-  { id: "fixture", label: "Fixture result" },
+  { id: "fixture", label: "Local calculation preview" },
   { id: "delayed", label: "Delayed fixture (four seconds)" },
   { id: "failure", label: "Simulated failure" },
   { id: "invalid", label: "Invalid result" },
@@ -444,8 +482,16 @@ export function fixtureAdapter(
       return {
         ...request.context,
         event_id: request.request_id,
-        type: "experiment_result",
-        outcome: FIXTURE_OUTCOME,
+        type: "packet_result",
+        version: request.activity.version,
+        calculation: calculatePacketActivity(
+          request.activity,
+          request.settings,
+          {
+            content_ref: request.activity.source,
+            concept_ids: new Set(request.activity.concept_ids),
+          },
+        ),
       } satisfies ActivityEvent;
     },
   };

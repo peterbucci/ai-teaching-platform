@@ -1,6 +1,7 @@
 import { z } from "zod";
 import {
   ConceptGraphSchema,
+  PacketDelayExperimentSchema,
   PacketExperimentSchema,
   SequenceDiagramSchema,
 } from "./contracts.ts";
@@ -8,7 +9,10 @@ import {
 const ActivitySchemas = {
   concept_graph: ConceptGraphSchema,
   sequence_diagram: SequenceDiagramSchema,
-  packet_experiment: PacketExperimentSchema,
+  packet_experiment: z.union([
+    PacketExperimentSchema,
+    PacketDelayExperimentSchema,
+  ]),
 } as const;
 
 export type ValidationResult =
@@ -20,7 +24,7 @@ export function validateVisualActivity(record: unknown): ValidationResult {
     typeof record === "object" && record !== null && "kind" in record
       ? record.kind
       : undefined;
-  if (typeof kind !== "string" || !(kind in ActivitySchemas)) {
+  if (typeof kind !== "string" || !Object.hasOwn(ActivitySchemas, kind)) {
     return {
       ok: false,
       errors: [
