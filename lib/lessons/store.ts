@@ -262,6 +262,13 @@ export async function saveLessonDraftInTransaction(
       throw new EvidenceError(409, error.message);
     throw error;
   }
+  // Omitting authoring metadata cannot remove an existing question-bank review gate.
+  if (!retained.question_bank && previous.draft?.question_bank) {
+    retained.question_bank = {
+      ...previous.draft.question_bank,
+      approval: null,
+    };
+  }
   // Generic editors cannot mint bank review receipts. Unchanged content retains the stored receipt.
   if (
     retained.question_bank &&

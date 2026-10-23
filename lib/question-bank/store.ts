@@ -306,6 +306,19 @@ function sanitizeEdit(
     const after = questions.find((q) => q.question_id === item.question_id);
     const corrected =
       !isDeepStrictEqual(before, after) ||
+      !isDeepStrictEqual(
+        previous.question_guidance?.find(
+          (guidance) => guidance.question_id === item.question_id,
+        ),
+        request.question_guidance.find(
+          (guidance) => guidance.question_id === item.question_id,
+        ),
+      ) ||
+      old?.family_id !== item.family_id ||
+      old?.role !== item.role ||
+      old?.format !== item.format ||
+      old?.difficulty !== item.difficulty ||
+      old?.reasoning_error !== item.reasoning_error ||
       !isDeepStrictEqual(old?.source_support, item.source_support) ||
       old?.feedback_guidance !== item.feedback_guidance ||
       !isDeepStrictEqual(old?.calculation, item.calculation);
