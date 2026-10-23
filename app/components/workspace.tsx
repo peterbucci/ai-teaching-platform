@@ -51,6 +51,11 @@ export function Workspace({
           icon: "chart" as const,
         },
         { href: "/teacher/students", text: "Students", icon: "users" as const },
+        {
+          href: "/teacher/materials",
+          text: "Materials",
+          icon: "book" as const,
+        },
       ]
     : [
         {
