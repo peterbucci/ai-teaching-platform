@@ -26,6 +26,7 @@ import {
   teacherSourceAttribution,
   teacherSourceDocument,
   teacherSourcePassages,
+  makeTeacherLesson,
 } from "../tests/fixtures/teacher-lesson.ts";
 import { makeQuestionBankObjectiveEdits } from "../tests/fixtures/question-bank-objectives.ts";
 
@@ -226,7 +227,42 @@ try {
   );
   assert.equal(versionCount.rows[0].count, 0);
 
+  // Simulate #52 attaching its derived sequence. Bank edits must not retain old feedback.
+  const assembled = await saveLessonDraft(teacher, {
+    lesson_id: row.id,
+    expected_revision: view.revision,
+    title: row.title,
+    draft: {
+      ...view.draft,
+      sequence: makeTeacherLesson(source.source_ref, row.id, "1").sequence,
+    },
+  });
+  assert.ok(assembled.draft?.sequence);
+  assert.ok(
+    assembled.draft?.question_bank?.approval,
+    "Assembly alone preserves the reviewed bank",
+  );
+  view = await readQuestionBank(teacher, row.id);
+  view.draft.question_bank.items[0].feedback_guidance +=
+    " Explain both state changes in your own words.";
+  view = await updateQuestionBank(teacher, row.id, save(view));
+  assert.equal(
+    view.draft.sequence,
+    undefined,
+    "Editing reviewed feedback removes the old derived sequence",
+  );
+  assert.equal(view.draft.question_bank.approval, null);
+
   // A generic draft save cannot replace a bank receipt or mint one for edited content.
+  view = await updateQuestionBank(teacher, row.id, {
+    action: "approve",
+    expected_revision: view.revision,
+  });
+  assert.equal(
+    view.draft.sequence,
+    undefined,
+    "Bank reapproval cannot resurrect stale feedback; #52 must assemble again",
+  );
   const originalReceipt = structuredClone(view.draft.question_bank.approval);
   const forgedDraft = structuredClone(view.draft);
   forgedDraft.question_bank.approval = {
@@ -511,6 +547,7 @@ try {
         "selective regeneration",
         "manual edit/add/delete/reorder",
         "bank-only approval/reload",
+        "bank edits invalidate previously assembled feedback",
         "ownership",
         "stale draft/in-flight result",
         "durable replay/concurrency",

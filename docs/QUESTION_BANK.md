@@ -71,6 +71,8 @@ and bank approval require a present #50 workflow and
 `assertObjectiveReviewForLesson(draft)`, not just an old approved `concepts` array.
 Question edits preserve that server-owned objective review. Objective edits,
 reordering, emphasis or reapproval invalidate dependent bank approval.
+Any invalidated bank also clears its derived tutoring sequence; #52 must assemble
+the reviewed bank again before full lesson approval, preventing stale feedback.
 
 The fingerprint covers source identity, passages, objectives/workflow, questions,
 private criteria, policy, preferences, item review and delivery. It deliberately
@@ -143,7 +145,7 @@ approved-objectives link into a fixture-generated bank, added and removed a manu
 row, and saved a wording edit. This exposed and fixed a recovery bug when undoing
 all unsaved edits; the same browser sequence then remained editable.
 
-Final local checks: 142 deterministic tests; `questions:check`, `objectives:check`
+Final local checks: 143 deterministic tests; `questions:check`, `objectives:check`
 and `lessons:check` on isolated PostgreSQL; 293 curated content checks; ESLint,
 TypeScript, formatting and diff checks; Docker production build. Database and
 browser fixtures are explicitly distinct from the five actual model calls above.
