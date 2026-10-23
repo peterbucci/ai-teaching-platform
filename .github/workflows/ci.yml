@@ -68,6 +68,8 @@ jobs:
         run: docker compose exec -T app npm run lessons:check
       - name: Check question-bank review, selective regeneration and durable requests
         run: docker compose exec -T app npm run questions:check
+      - name: Check objective review, source grounding and proposal recovery
+        run: docker compose exec -T app npm run objectives:check
       - name: Check HTTP authentication and evidence persistence
         run: docker compose exec -T app npm run db:check -- --prepare-restart
       - name: Restart without resetting data
