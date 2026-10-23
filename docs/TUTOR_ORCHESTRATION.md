@@ -11,7 +11,7 @@ This module coordinates **one proposal and at most one instructional tool per sa
 - **#75:** authenticated operation reservation, actor/enrollment checks, immutable request matching, concurrency, shared usage, all persistence/commit/display effects, and teacher reconstruction.
 - **#53:** exact assignment-pinned `ApprovedContent` and its activity policy. The orchestrator never loads a default lesson from disk.
 
-The interfaces were coordinated with the active #74/#75/#53 workers. Existing dialogue, evaluator, controller and evidence files remain unchanged in this PR.
+The interfaces were coordinated with the active #74/#75/#53 workers. The only shared-file change is #74's agreed additive `immediate_retest` enum in the existing dialogue contract; evaluator, controller and evidence files remain unchanged.
 
 ## Allowed tools
 
@@ -41,25 +41,25 @@ The proposal prompt includes the current approved objectives/passages, exact sav
 5. `complete` atomically rechecks current authorization, anchor, cancellation, policy and installed capability; applies any approved controller effect; stores the exact result and an `executed` record; and releases the operation. For help/retrieval it stores accepted content for #75's display flow. It must **not** demand another generation budget after those calls already completed. A generated question is not executed until an actual controller-authorized immutable attempt handoff commits.
 6. `fail` appends failure information without replacing earlier proposal/validation/tool records. Unknown provider or commit outcomes remain blocked for read-only reconciliation. Failure to save failure information returns a reconciliation-required storage fallback; it never triggers another call.
 
-`OrchestrationRecordSchema` validates proposed, validated, dispatch-started, executed and failed records. #75's envelope supplies authenticated session/request identity and server timestamps. Raw malformed proposals and model provenance remain in the private reserved provider result; the orchestration record references them by the same request/action identity instead of accepting arbitrary JSON into its typed trace.
+`OrchestrationRecordSchema` validates proposed, validated, dispatch-started, executed and failed records. #75's envelope supplies authenticated session/request identity and server timestamps. Provider outcomes and model provenance belong to the private reserved call. Malformed proposals are recorded as invalid with no accepted typed proposal; the dispatcher does not copy arbitrary provider JSON into its typed trace. The common request/action identity links the two records.
 
 `OrchestrationReceipt` is **server-private** because generated snapshots contain private criteria. Only `toStudentOrchestrationReceipt()` may be used as an instructional display payload. Production transport must still connect it to #81's conversation receipt/display contracts; returning a payload does not mark assistance as displayed.
 
 ## Limits and recovery
 
-All paid calls share `DIALOGUE_LIMITS` (36 provider calls, 12 turns, one concurrent request, zero automatic retries, 45-second call timeout). The allowlist reserves room for one proposal and, for generated instruction, two subsequent calls. Provider timeouts abort and stop the current execution; late results cannot resume it. #75 must reconcile the external outcome before any new paid retry. Explicit retries remain #75's existing linked-request/cooldown policy.
+All paid calls share `DIALOGUE_LIMITS` (36 provider calls, 12 turns, one concurrent request, zero automatic retries, 45-second call timeout). The allowlist reserves room for one proposal and, for generated instruction, two subsequent calls. The composite generation-plus-review tool has a 90-second ceiling (two bounded calls); the adapter must propagate cancellation into both calls. Provider timeouts abort and stop the current execution; late results cannot resume it. #75 must reconcile the external outcome before any new paid retry. Explicit retries remain #75's existing linked-request/cooldown policy.
 
 One tool result ends the function. A later saved student response/evaluation produces a new request and freshly loaded context. There is no self-invoking follow-up or keyword-selected demonstration path.
 
 ## Integration gates and verification scope
 
-This focused PR runs against merged `r7-v1` contracts. It is **not a live connected tutoring endpoint**. Its deterministic tests simulate persistence/provider services; they do not prove database durability, real model quality, or browser delivery.
+This focused PR runs against merged `r7-v1` contracts plus #74's coordinated retest enum. It is **not a live connected tutoring endpoint**. Its deterministic tests simulate persistence/provider services; they do not prove database durability, real model quality, or browser delivery.
 
 Before enabling production:
 
-- Connect #75's reservation/checkpoint/commit/failure adapter and #74's reviewed generation. Keep generated assessment tools out of `installed_tools` until the controller handoff exists.
+- Connect #75's reservation/checkpoint/commit/failure adapter and #74's reviewed generation. The first #75 adapter is limited to student help; evaluated controller operations need their own reviewed reservation gate. Keep generated assessment tools out of `installed_tools` until the controller handoff exists.
 - Resolve the generated-question continuation gate: `decideTutoring` currently looks up authored question IDs, while generated snapshots use immutable UUIDs. A generated Attempt alone will not make subsequent controller decisions work. Agree an approved activity-slot mapping without a second state machine.
-- Integrate #74's additive `immediate_retest` contract. On merged baseline the schema rejects this request, so retest generation is unavailable.
+- Preserve #74's additive `immediate_retest` contract when integrating its provider branch. Retest generation remains unavailable without the controller handoff.
 - Resolve actual assignment content and policy through #53; retain curated behavior as a regression path. Uploaded sources require that branch's content-reference extension.
 - Connect safe results and actual display acknowledgements to #73/#81, including reading assistance. Reconstruct the full trace in authorized teacher evidence.
 - Run the #76 live gate using two held-out misunderstandings and one complete reasoning → actual model proposal → permitted execution → next student observation → changed decision cycle. Record model/configuration, source/version, database IDs, failures and educational review separately from simulated tests.

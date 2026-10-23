@@ -60,6 +60,7 @@ function stopped(
  * keep the reservation unknown until reconciled, even if abort reaches the SDK. */
 async function bounded<T>(
   call: (signal: AbortSignal) => Promise<T>,
+  timeoutMs: number = DIALOGUE_LIMITS.timeoutMs,
 ): Promise<T> {
   const controller = new AbortController();
   let timer: ReturnType<typeof setTimeout> | undefined;
@@ -70,7 +71,7 @@ async function bounded<T>(
         timer = setTimeout(() => {
           controller.abort();
           reject(new OrchestrationError("timeout", true));
-        }, DIALOGUE_LIMITS.timeoutMs);
+        }, timeoutMs);
       }),
     ]);
   } finally {
@@ -102,10 +103,27 @@ async function executeTool(
         DIALOGUE_LIMITS.responseCharacters
       )
         throw new OrchestrationError("limit_reached");
+      // Match the existing reading service: displayed passage exposure is derived
+      // from approved concept/question mappings, never the model's target list.
+      const exposedConcepts = new Set<string>();
+      for (const concept of context.content.concepts.values())
+        if (
+          concept.source_passage_ids.some((id) =>
+            proposal.source_passage_ids.includes(id),
+          )
+        )
+          exposedConcepts.add(concept.id);
+      for (const question of context.content.questions.values())
+        if (
+          question.source_passage_ids.some((id) =>
+            proposal.source_passage_ids.includes(id),
+          )
+        )
+          question.concept_ids.forEach((id) => exposedConcepts.add(id));
       return TutorToolResultSchema.parse({
         kind: "passages",
         content_ref: context.content.content_ref,
-        concept_ids: proposal.concept_ids,
+        concept_ids: [...exposedConcepts],
         passages,
         assistance_type: "reading",
       });
@@ -134,8 +152,9 @@ async function executeTool(
     }
     default: {
       if (!ports.generate) throw new OrchestrationError("unsupported");
-      const generated = await bounded((signal) =>
-        ports.generate!({ proposal, request, context, signal }),
+      const generated = await bounded(
+        (signal) => ports.generate!({ proposal, request, context, signal }),
+        2 * DIALOGUE_LIMITS.timeoutMs,
       );
       let content;
       try {
@@ -164,7 +183,9 @@ async function executeTool(
         if (
           content.kind !== "help" ||
           (proposal.action === "clarify" &&
-            content.assistance_type !== "neutral_clarification")
+            content.assistance_type !== "neutral_clarification") ||
+          (proposal.action === "explain" &&
+            content.assistance_type === "neutral_clarification")
         )
           throw new OrchestrationError("invalid_output");
       } else {

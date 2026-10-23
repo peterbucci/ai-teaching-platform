@@ -178,8 +178,8 @@ export function availableTools(
       candidates.push("generate_followup");
     if (action === "GIVE_CORRECTIVE_FEEDBACK" && intent === "explanation")
       candidates.push("clarify", "explain");
-    // The merged request schema does not yet advertise retests. This remains unreachable
-    // until the #74/#75 contract and existing controller handoff are extended together.
+    // Contract support does not enable the assessed-question handoff: production
+    // must omit this installed capability until the controller integration is reviewed.
     if (action === "RETEST_CONCEPT" && intent === "immediate_retest")
       candidates.push("generate_retest");
     candidates.push("advance_lesson");
