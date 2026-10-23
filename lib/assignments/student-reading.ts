@@ -2,10 +2,11 @@ import "server-only";
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import { evidenceRow } from "../db.ts";
+import { validateContentRef } from "../evidence/content.ts";
 import {
-  loadApprovedContent,
-  validateContentRef,
-} from "../evidence/content.ts";
+  readAssignmentContent,
+  resolveAssignmentContent,
+} from "../lessons/store.ts";
 import { InterventionSchema } from "../evidence/contracts.ts";
 import {
   EvidenceError,
@@ -29,7 +30,12 @@ export async function studentReading(
   const question = evidence.attempts[0]?.question;
   if (!question)
     throw new EvidenceError(409, "Open your assigned question before reading.");
-  return ReadingSchema.parse(assignedReading(question.content_ref));
+  const content = await readAssignmentContent(
+    access,
+    evidence.session.assignment_id,
+    "student",
+  );
+  return ReadingSchema.parse(assignedReading(question.content_ref, content));
 }
 
 /** Resolves content server-side. The existing acknowledgement records actual display. */
@@ -61,7 +67,12 @@ export async function openPassage(
         409,
         "Finish opening the previous passage before choosing another.",
       );
-    const content = loadApprovedContent();
+    const content = await resolveAssignmentContent(
+      client,
+      access,
+      evidence.session.assignment_id,
+      "student",
+    );
     let reference = attempt.question.content_ref;
     if (request.citation_id) {
       const citation = evidence.interventions.find(
@@ -78,7 +89,7 @@ export async function openPassage(
       reference = citation.content_ref;
     }
     validateContentRef(content, reference);
-    const passage = assignedReading(reference).sections.find(
+    const passage = assignedReading(reference, content).sections.find(
       (item) => item.id === request.passage_id,
     );
     if (!passage)

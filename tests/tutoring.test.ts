@@ -188,3 +188,119 @@ test("unsupported input has one bounded repeat without a hypothesis or an invent
   assert.equal(decision.nextQuestionId, null);
   assert.equal(decision.applied.hypothesis_events.length, 0);
 });
+
+test("a reviewed neutral diagnostic tests an error without inventing a hypothesis", () => {
+  const lesson = structuredClone(content);
+  lesson.sequence.hypothesis_id = null;
+  lesson.sequence.diagnostic_options = [
+    { misconception_id: null, question_id: "D02" },
+  ];
+  const evidence = initial("different-transmission-error");
+  evidence.evaluations[0].result!.misconception_candidates = [];
+  const decision = decideTutoring(
+    lesson,
+    evidence,
+    evidence.evaluations[0].id,
+    now,
+  );
+  assert.equal(decision.nextQuestionId, "D02");
+  assert.equal(decision.applied.action, "ASK_DIAGNOSTIC_FOLLOWUP");
+  assert.deepEqual(decision.applied.hypothesis_events, []);
+
+  const ambiguous = initial("ambiguous-longer");
+  assert.equal(
+    decideTutoring(lesson, ambiguous, ambiguous.evaluations[0].id, now).applied
+      .action,
+    "ASK_SELF_EXPLANATION",
+    "Ambiguity must not become a diagnostic claim",
+  );
+  lesson.sequence.bounds.max_diagnostic_prompts = 0;
+  assert.equal(
+    decideTutoring(lesson, evidence, evidence.evaluations[0].id, now).applied
+      .action,
+    "GIVE_CORRECTIVE_FEEDBACK",
+    "A neutral diagnostic obeys the same prompt budget",
+  );
+});
+
+test("multiple approved diagnostics select the matching category and question", () => {
+  const lesson = structuredClone(content);
+  const originalNode = lesson.sequence.nodes.find(
+    (node) => node.node_id === "D02",
+  )!;
+  const originalQuestion = lesson.questions.get("D02")!;
+  lesson.sequence.nodes.push({ ...originalNode, node_id: "D02-propagation" });
+  lesson.questions.set("D02-propagation", {
+    ...originalQuestion,
+    question_id: "D02-propagation",
+  });
+  lesson.sequence.diagnostic_options = [
+    {
+      misconception_id: "propagation_depends_on_packet_size",
+      question_id: "D02-propagation",
+    },
+    {
+      misconception_id: "transmission_depends_on_distance",
+      question_id: "D02",
+    },
+  ];
+  const evidence = initial("explicit-distance-confusion");
+  const decision = decideTutoring(
+    lesson,
+    evidence,
+    evidence.evaluations[0].id,
+    now,
+  );
+  assert.equal(decision.nextQuestionId, "D02-propagation");
+  assert.equal(decision.applied.hypothesis_events.length, 1);
+  assert.equal(
+    decision.applied.hypothesis_events[0].misconception_id,
+    "propagation_depends_on_packet_size",
+  );
+});
+
+test("neutral diagnostic results do not promote a category from unrelated evidence", () => {
+  const lesson = structuredClone(content);
+  lesson.sequence.hypothesis_id = null;
+  lesson.sequence.diagnostic_options = [
+    { misconception_id: null, question_id: "D02" },
+  ];
+  const evidence = structuredClone(authored);
+  evidence.session.status = "active";
+  evidence.session.ended_at = null;
+  evidence.attempts = evidence.attempts.slice(0, 2);
+  evidence.attempts[0].outcome = null;
+  evidence.interventions = [];
+  evidence.evaluations = evidence.evaluations.filter((evaluation) =>
+    evidence.attempts.some((attempt) => attempt.id === evaluation.attempt_id),
+  );
+  for (const evaluation of evidence.evaluations) {
+    if (evaluation.applied_result)
+      evaluation.applied_result.hypothesis_events = [];
+    evaluation.result!.misconception_candidates = [];
+  }
+  const current = evidence.evaluations.at(-1)!;
+  current.applied_result = null;
+  const decision = decideTutoring(lesson, evidence, current.id, now);
+  assert.deepEqual(decision.applied.hypothesis_events, []);
+  assert.equal(decision.applied.action, "GIVE_CORRECTIVE_FEEDBACK");
+});
+
+test("arithmetic feedback does not assume the lesson is about networking", () => {
+  const evidence = initial("correct-model-arithmetic-error");
+  const decision = decideTutoring(
+    content,
+    evidence,
+    evidence.evaluations[0].id,
+    now,
+  );
+  assert.ok(decision.help);
+  assert.match(
+    decision.help.text_shown,
+    /^Your explanation of .* was correct\.|^Check the arithmetic/,
+  );
+  assert.doesNotMatch(
+    decision.help.text_shown,
+    /Your reasoning separates the two delays/,
+  );
+});

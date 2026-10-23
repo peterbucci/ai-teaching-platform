@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Icon } from "../../components/icons.tsx";
-import { loadApprovedContent } from "../../../lib/evidence/content.ts";
 import {
   loadTeacherView,
   evidenceDescription,
@@ -19,7 +18,6 @@ export default async function TeacherStudentsPage({
   const params = await searchParams;
   const { assignments, origin, data } = await loadTeacherView(params);
   const query = (params.q ?? "").trim().slice(0, 100);
-  const content = loadApprovedContent();
   return (
     <TeacherFrame section="Students">
       <header className="lp-page-heading">
@@ -143,7 +141,8 @@ export default async function TeacherStudentsPage({
                           {concepts.size
                             ? [...concepts]
                                 .map(
-                                  (id) => content.concepts.get(id)?.title ?? id,
+                                  (id) =>
+                                    data.content.concepts.get(id)?.title ?? id,
                                 )
                                 .join(" · ")
                             : "No concepts with submitted responses in this view."}

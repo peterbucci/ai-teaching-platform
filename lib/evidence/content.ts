@@ -2,8 +2,11 @@ import "server-only";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { z } from "zod";
+import { isDeepStrictEqual } from "node:util";
+import type { ResolvedLessonContent } from "../lessons/contracts.ts";
 import {
   ContentRefSchema,
+  ActionSchema,
   EmbeddedScaffoldingSchema,
   QuestionSnapshotSchema,
 } from "./contracts.ts";
@@ -36,7 +39,7 @@ const ManifestSchema = z.object({
     approval_note: text,
   }),
 });
-const ConceptsSchema = z.object({
+export const ConceptsSchema = z.object({
   assignment_id: text,
   review_status: z.literal("approved"),
   scope: text,
@@ -86,7 +89,7 @@ const PassagesSchema = z.object({
     .min(1),
 });
 const ExpectedAnswerSchema = z.union([text, z.record(z.string(), z.unknown())]);
-const BankSchema = z.object({
+export const BankSchema = z.object({
   assignment_id: text,
   scoring_policy: z.object({
     allowed_correctness: refs,
@@ -120,13 +123,18 @@ const BankSchema = z.object({
     )
     .min(1),
 });
-const SequenceSchema = z.object({
+export const SequenceSchema = z.object({
   assignment_id: text,
   sequence_id: text,
   status: z.literal("approved"),
   concept_ids: refs,
   initial_question_id: text,
-  hypothesis_id: text,
+  hypothesis_id: text.nullable(),
+  diagnostic_options: z
+    .array(
+      z.strictObject({ misconception_id: text.nullable(), question_id: text }),
+    )
+    .default([]),
   interpretation_rules: refs,
   bounds: z.object({
     max_neutral_clarifications: z.number().int().nonnegative(),
@@ -171,7 +179,7 @@ function answerText(answer: z.infer<typeof ExpectedAnswerSchema>): string {
 /** Server-side filesystem loader. Public routes must return an explicit student projection. */
 export function loadApprovedContent(
   directory = join(process.cwd(), "content", "network-performance-v1"),
-) {
+): ApprovedContent {
   const manifest = ManifestSchema.parse(readJson(directory, "manifest.json"));
   const concepts = ConceptsSchema.parse(readJson(directory, "concepts.json"));
   const passages = PassagesSchema.parse(readJson(directory, "passages.json"));
@@ -255,7 +263,7 @@ export function loadApprovedContent(
   const misconception_ids = new Set(misconception_concepts.keys());
   assertKnown(sequence.concept_ids, concept_ids, "sequence concept ID");
   assertKnown(
-    [sequence.hypothesis_id],
+    sequence.hypothesis_id ? [sequence.hypothesis_id] : [],
     misconception_ids,
     "sequence misconception ID",
   );
@@ -353,7 +361,7 @@ export function loadApprovedContent(
     question_guidance.set(node.node_id, {
       assumptions: [],
       misconception_ids: [
-        sequence.hypothesis_id,
+        ...(sequence.hypothesis_id ? [sequence.hypothesis_id] : []),
         ...concepts.global_misconceptions.map((item) => item.id),
       ],
     });
@@ -379,7 +387,21 @@ export function loadApprovedContent(
       }),
     );
   }
+  if (!sequence.diagnostic_options.length && sequence.hypothesis_id) {
+    const diagnostic = sequence.nodes.find(
+      (node) => node.kind === "diagnostic_followup",
+    );
+    if (diagnostic)
+      sequence.diagnostic_options.push({
+        misconception_id: sequence.hypothesis_id,
+        question_id: diagnostic.node_id,
+      });
+  }
   return {
+    activity_policy: {
+      allowed_actions: [...ActionSchema.options],
+      allow_runtime_generation: false,
+    },
     content_ref,
     attribution: {
       title: manifest.source_title,
@@ -414,14 +436,16 @@ export function loadApprovedContent(
     ),
   };
 }
-export type ApprovedContent = ReturnType<typeof loadApprovedContent>;
+export type ApprovedContent = ResolvedLessonContent;
 
 export function validateContentRef(
   content: ApprovedContent,
   input: unknown,
 ): ContentRef {
   const reference = ContentRefSchema.parse(input);
-  if (JSON.stringify(reference) !== JSON.stringify(content.content_ref))
+  if (
+    !isDeepStrictEqual(reference, ContentRefSchema.parse(content.content_ref))
+  )
     throw new Error("Unknown content/source version");
   return reference;
 }
@@ -458,11 +482,15 @@ export function validateQuestionSnapshot(
     question.sequence_id !== content.sequence_id
   )
     throw new Error("Unknown sequence ID");
-  if (question.origin === "curated") {
+  if (
+    question.origin === "curated" ||
+    (question.question_id !== null &&
+      content.questions.has(question.question_id))
+  ) {
     const curated = question.question_id
       ? content.questions.get(question.question_id)
       : undefined;
-    if (!curated || JSON.stringify(question) !== JSON.stringify(curated))
+    if (!curated || !isDeepStrictEqual(question, curated))
       throw new Error("Curated snapshot differs from the approved question");
   }
   return question;
