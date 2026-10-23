@@ -1,0 +1,316 @@
+{
+  "version": "visual-generation-check-v1",
+  "synthetic": true,
+  "actual_model": true,
+  "started_at": "2026-10-23T16:56:25.442Z",
+  "dependency_commit": "05db1ebb6fb41539e9a3258609d35fdc93c55a72",
+  "configured_model": "gpt-6.1-sol",
+  "scope": "Actual #93 approved source/lesson resolver, #98 operation/revision checks and durable provider reservations; synthetic teacher/student authorizations and fixture evaluations. Visual tool selection is an explicit test allowlist, not integrated #42. No rendering, display acknowledgment, assistance marking, evidence persistence by #43, or tutoring progression is claimed.",
+  "maximum_paid_calls": 2,
+  "actual_provider_dispatches": 2,
+  "assignment_id": "d8618973-d6cc-4f51-ac3b-290960fe03c6",
+  "cases": [
+    {
+      "id": "distance-packet-experiment",
+      "fixture_evaluation": "explicit-distance-confusion",
+      "student_text": "Transmission delay doubles because its delay is determined by the cable length. Propagation delay stays unchanged because the packet still contains the same number of bits.",
+      "request": {
+        "session_id": "176020cb-998c-4cd4-bd9a-e8f7b865724d",
+        "operation_id": "97768839-e6d1-4229-9d33-884be06653f5",
+        "expected_revision": 0,
+        "kind": "packet_experiment",
+        "concept_ids": ["transmission_delay", "propagation_delay"],
+        "source_passage_ids": ["P07", "P08", "P12"]
+      },
+      "result": {
+        "ok": true,
+        "activity": {
+          "version": "visual-v2",
+          "title": "Separating sending time from signal travel time",
+          "source": {
+            "source_kind": "uploaded",
+            "source_id": "943c19e7-fa61-4424-bd65-cc2860e46687",
+            "source_version": 1,
+            "document_sha256": "798fb9db127c4eb0be0418e7bcde210409dd472d1f5f8e5ff3dd52aceaed1066",
+            "excerpt_sha256": "cb5a1c00d3f5ca828a02a17dd40898cf997bec5f1aeec96d9407a1fbdb71541d",
+            "attribution": {
+              "title": "Computer Networks: A Systems Approach",
+              "authors": ["Larry Peterson", "Bruce Davie"],
+              "copyright": "Elsevier, 2012",
+              "section": "1.5.1 Bandwidth and Latency",
+              "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst",
+              "license": "CC-BY-4.0",
+              "license_url": "https://creativecommons.org/licenses/by/4.0/",
+              "cautions": [
+                "The upstream README sentence about derivative works conflicts with the CC BY 4.0 LICENSE adaptation grant. Both source files are retained; this package does not settle that legal inconsistency.",
+                "The source initially uses bandwidth/throughput loosely before distinguishing available rate from measured performance. Accept accurate explanations rather than penalizing synonyms alone.",
+                "The source uses latency generically. Every assessment specifies one-way latency or RTT explicitly.",
+                "The one-bit simplification in P08 is not assessed. Use finite packets and stated assumptions.",
+                "P10 contains a dimensional typo in the original displayed calculation: its denominator says 10 x 10^6 Mbps where 10 x 10^6 bits/s is intended. The 20-second result is correct. Preserve the source but use dimensionally correct arithmetic in assessment.",
+                "The source uses a simplified three-component delay model. Processing, multi-hop aggregation and advanced queuing models are outside assessment scope.",
+                "Queuing is introduced briefly. Questions use given waiting times, basic definition and delay arithmetic; traffic-dependent queue theory is not inferred from this excerpt."
+              ]
+            },
+            "access_scope": {
+              "teacher_id": "83fc7ca3-eb45-4173-bb90-397bccb0f2b6"
+            },
+            "package_id": "c4638572-b9f1-4155-b81c-681c99985fd9",
+            "content_version": "1"
+          },
+          "concept_ids": ["transmission_delay", "propagation_delay"],
+          "text_alternative": "Follow one finite packet in one direction across a single link. Transmission delay is the time needed to put its bits onto the link; propagation delay is the time a signal takes to travel along the cable. The illustrative inputs are a 12000-bit packet, a link rate of 10000000 bits per second, a cable length of 100000 meters, and a propagation speed of 200000000 meters per second. Only cable length is adjustable; all other inputs stay fixed. Compare these two delays separately.",
+          "guided_steps": [
+            "Before changing cable length, predict which delay will change and explain what each delay measures.",
+            "Choose another cable length within the range, then compare the displayed transmission and propagation delays with your prediction."
+          ],
+          "controls": ["adjust_setting", "step_through"],
+          "provenance": {
+            "generated_by": "ai_generated",
+            "generator_version": "visual-packet-generation-v2",
+            "reviewed_by_teacher": false
+          },
+          "kind": "packet_experiment",
+          "prompt": "You connected transmission delay to cable length and propagation delay to packet size. Test that distinction: when only the cable length changes, which delay do you predict will change, and why?",
+          "model_version": "packet-delay-v1",
+          "parameters": {
+            "packet_bits": 12000,
+            "link_rate_bits_per_second": 10000000,
+            "distance_meters": 100000,
+            "propagation_speed_meters_per_second": 200000000
+          },
+          "adjustable_parameters": [
+            {
+              "parameter": "distance_meters",
+              "min": 75000,
+              "max": 150000
+            }
+          ]
+        },
+        "provenance": {
+          "generator_version": "visual-packet-generation-v2",
+          "session_id": "176020cb-998c-4cd4-bd9a-e8f7b865724d",
+          "operation_id": "97768839-e6d1-4229-9d33-884be06653f5",
+          "expected_revision": 0,
+          "lesson": {
+            "session_id": "176020cb-998c-4cd4-bd9a-e8f7b865724d",
+            "assignment_id": "d8618973-d6cc-4f51-ac3b-290960fe03c6",
+            "attempt_id": "a422e9e5-e907-4dde-b259-e646a0e7e900",
+            "root_attempt_id": "a422e9e5-e907-4dde-b259-e646a0e7e900",
+            "sequence_index": 0,
+            "content_ref": {
+              "source_kind": "uploaded",
+              "source_id": "943c19e7-fa61-4424-bd65-cc2860e46687",
+              "source_version": 1,
+              "document_sha256": "798fb9db127c4eb0be0418e7bcde210409dd472d1f5f8e5ff3dd52aceaed1066",
+              "excerpt_sha256": "cb5a1c00d3f5ca828a02a17dd40898cf997bec5f1aeec96d9407a1fbdb71541d",
+              "attribution": {
+                "title": "Computer Networks: A Systems Approach",
+                "authors": ["Larry Peterson", "Bruce Davie"],
+                "copyright": "Elsevier, 2012",
+                "section": "1.5.1 Bandwidth and Latency",
+                "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst",
+                "license": "CC-BY-4.0",
+                "license_url": "https://creativecommons.org/licenses/by/4.0/",
+                "cautions": [
+                  "The upstream README sentence about derivative works conflicts with the CC BY 4.0 LICENSE adaptation grant. Both source files are retained; this package does not settle that legal inconsistency.",
+                  "The source initially uses bandwidth/throughput loosely before distinguishing available rate from measured performance. Accept accurate explanations rather than penalizing synonyms alone.",
+                  "The source uses latency generically. Every assessment specifies one-way latency or RTT explicitly.",
+                  "The one-bit simplification in P08 is not assessed. Use finite packets and stated assumptions.",
+                  "P10 contains a dimensional typo in the original displayed calculation: its denominator says 10 x 10^6 Mbps where 10 x 10^6 bits/s is intended. The 20-second result is correct. Preserve the source but use dimensionally correct arithmetic in assessment.",
+                  "The source uses a simplified three-component delay model. Processing, multi-hop aggregation and advanced queuing models are outside assessment scope.",
+                  "Queuing is introduced briefly. Questions use given waiting times, basic definition and delay arithmetic; traffic-dependent queue theory is not inferred from this excerpt."
+                ]
+              },
+              "access_scope": {
+                "teacher_id": "83fc7ca3-eb45-4173-bb90-397bccb0f2b6"
+              },
+              "package_id": "c4638572-b9f1-4155-b81c-681c99985fd9",
+              "content_version": "1"
+            }
+          },
+          "source_passage_ids": ["P07", "P12", "P08"],
+          "activity_sha256": "9b663a32ca0caa4ab7c0a37a4d12e72e68d31f7033677adc7ac594f87f349435",
+          "calls": [
+            {
+              "stage": "generate",
+              "outcome": "succeeded",
+              "code": null,
+              "needs_reconciliation": false,
+              "model": "gpt-6.1-sol",
+              "response_id": "resp_047ac1c9c0f07746016adb91b9a95487d299210ba0bf29a472",
+              "prompt_version": "visual-packet-generate-v2",
+              "input_hash": "74a73d66408a271e06a1c245c06fd1a627d0eb253f06e1e9bfa7f89da3ccf817",
+              "completed_at": "2026-10-23T16:56:34.944Z",
+              "latency_ms": 8707,
+              "usage": {
+                "inputTokens": 2132,
+                "outputTokens": 333,
+                "totalTokens": 2465
+              }
+            },
+            {
+              "stage": "review",
+              "outcome": "succeeded",
+              "code": null,
+              "needs_reconciliation": false,
+              "model": "gpt-6.1-sol",
+              "response_id": "resp_04c3d51f1463110f016adb91c1eb5887d29d00e829dd4c7107",
+              "prompt_version": "visual-packet-review-v2",
+              "input_hash": "342fcd40d9cabcc72005dfa69bd6499b4c40c84858fc5dd4922a3578c35be2a6",
+              "completed_at": "2026-10-23T16:56:47.879Z",
+              "latency_ms": 12766,
+              "usage": {
+                "inputTokens": 3497,
+                "outputTokens": 668,
+                "totalTokens": 4165
+              }
+            }
+          ],
+          "factual_review": {
+            "status": "accepted",
+            "coverage": [
+              {
+                "field": "title",
+                "support": "supported",
+                "sources": [
+                  {
+                    "passage_id": "P07",
+                    "quote": "Second, there is the amount of time it takes to transmit a unit of data."
+                  },
+                  {
+                    "passage_id": "P12",
+                    "quote": "the specific amount of time it takes a signal to propagate\nfrom one end of a link to another"
+                  }
+                ]
+              },
+              {
+                "field": "text_alternative",
+                "support": "supported",
+                "sources": [
+                  {
+                    "passage_id": "P08",
+                    "quote": "Propagation =  Distance/SpeedOfLight\n   Transmit = Size/Bandwidth"
+                  },
+                  {
+                    "passage_id": "P08",
+                    "quote": "where ``Distance`` is the length of the wire over which the data will\ntravel, ``SpeedOfLight`` is the effective speed of light over that wire,\n``Size`` is the size of the packet, and ``Bandwidth`` is the bandwidth\nat which the packet is transmitted."
+                  }
+                ]
+              },
+              {
+                "field": "guided_steps.0",
+                "support": "supported",
+                "sources": [
+                  {
+                    "passage_id": "P08",
+                    "quote": "Propagation =  Distance/SpeedOfLight\n   Transmit = Size/Bandwidth"
+                  }
+                ]
+              },
+              {
+                "field": "guided_steps.1",
+                "support": "supported",
+                "sources": [
+                  {
+                    "passage_id": "P08",
+                    "quote": "Propagation =  Distance/SpeedOfLight\n   Transmit = Size/Bandwidth"
+                  }
+                ]
+              },
+              {
+                "field": "prompt",
+                "support": "supported",
+                "sources": [
+                  {
+                    "passage_id": "P08",
+                    "quote": "Propagation =  Distance/SpeedOfLight\n   Transmit = Size/Bandwidth"
+                  }
+                ]
+              },
+              {
+                "field": "parameters",
+                "support": "supported",
+                "sources": [
+                  {
+                    "passage_id": "P08",
+                    "quote": "where ``Distance`` is the length of the wire over which the data will\ntravel, ``SpeedOfLight`` is the effective speed of light over that wire,\n``Size`` is the size of the packet, and ``Bandwidth`` is the bandwidth\nat which the packet is transmitted."
+                  }
+                ]
+              },
+              {
+                "field": "adjustable_parameters",
+                "support": "supported",
+                "sources": [
+                  {
+                    "passage_id": "P08",
+                    "quote": "Propagation =  Distance/SpeedOfLight\n   Transmit = Size/Bandwidth"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "evidence_unchanged": true,
+      "replay_identical": true,
+      "stale_denied": true,
+      "foreign_denied": true
+    }
+  ],
+  "provider_records": [
+    {
+      "session_id": "176020cb-998c-4cd4-bd9a-e8f7b865724d",
+      "request_id": "97768839-e6d1-4229-9d33-884be06653f5",
+      "step_id": "generate",
+      "metadata": {
+        "model": "gpt-6.1-sol",
+        "stage": "generate",
+        "step_id": "generate",
+        "input_hash": "74a73d66408a271e06a1c245c06fd1a627d0eb253f06e1e9bfa7f89da3ccf817",
+        "prompt_version": "visual-packet-generate-v2"
+      },
+      "status": "succeeded",
+      "started_at": "2026-10-23T16:56:26.231Z",
+      "finished_at": "2026-10-23T16:56:34.973Z",
+      "outcome": {
+        "ok": true,
+        "model": "gpt-6.1-sol",
+        "responseId": "resp_047ac1c9c0f07746016adb91b9a95487d299210ba0bf29a472",
+        "usage": {
+          "inputTokens": 2132,
+          "totalTokens": 2465,
+          "outputTokens": 333
+        },
+        "needs_reconciliation": false
+      }
+    },
+    {
+      "session_id": "176020cb-998c-4cd4-bd9a-e8f7b865724d",
+      "request_id": "97768839-e6d1-4229-9d33-884be06653f5",
+      "step_id": "review",
+      "metadata": {
+        "model": "gpt-6.1-sol",
+        "stage": "review",
+        "step_id": "review",
+        "input_hash": "342fcd40d9cabcc72005dfa69bd6499b4c40c84858fc5dd4922a3578c35be2a6",
+        "prompt_version": "visual-packet-review-v2"
+      },
+      "status": "succeeded",
+      "started_at": "2026-10-23T16:56:35.116Z",
+      "finished_at": "2026-10-23T16:56:47.916Z",
+      "outcome": {
+        "ok": true,
+        "model": "gpt-6.1-sol",
+        "responseId": "resp_04c3d51f1463110f016adb91c1eb5887d29d00e829dd4c7107",
+        "usage": {
+          "inputTokens": 3497,
+          "totalTokens": 4165,
+          "outputTokens": 668
+        },
+        "needs_reconciliation": false
+      }
+    }
+  ],
+  "educational_review": "Pending independent manual review of accepted specifications; model review alone is not human validation.",
+  "stopped_because": null
+}
