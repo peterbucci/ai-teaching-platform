@@ -518,27 +518,17 @@
 .lp-s-assignment-detail .lp-study-embedded .lp-composer {
   min-width: 0;
 }
-.lp-s-assignment-detail .lp-study-embedded .lp-turns {
-  height: 0;
-  min-height: 0;
-  max-height: none;
-  align-content: start;
-}
 .lp-s-assignment-detail .lp-study-embedded .lp-conversation-card {
   flex: 1;
   min-height: 220px;
 }
-/* Help is taller than the answer form; keep the question readable above it. */
-.lp-s-assignment-detail
-  .lp-study-embedded
-  .lp-conversation-card:has(.lp-dialogue) {
-  flex: 1 0 auto;
-}
-.lp-s-assignment-detail .lp-study-embedded:has(.lp-dialogue) .lp-turns {
-  min-height: 180px;
+.lp-s-assignment-detail .lp-study-embedded .lp-conversation-scroll {
+  height: 0;
+  min-height: 0;
+  max-height: none;
 }
 /* Short screens may scroll the page so the answer field remains usable. */
-.lp-s-assignment-detail .lp-study-embedded:has(.lp-composer) {
+.lp-s-assignment-detail .lp-study-embedded:has(.lp-ask-composer) {
   min-height: 480px;
 }
 .lp-s-assignment-detail
