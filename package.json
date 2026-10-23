@@ -37,7 +37,8 @@
     "auth:rate-limit:check": "node --experimental-strip-types --env-file-if-exists=.env scripts/check-auth-rate-limit.ts",
     "publishing:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-publishing.ts",
     "publishing:preview": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/seed-publishing-preview.ts",
-    "publishing:http:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-publishing-http.ts"
+    "publishing:http:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-publishing-http.ts",
+    "audio:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-feedback-audio.ts"
   },
   "dependencies": {
     "better-auth": "^1.7.9",

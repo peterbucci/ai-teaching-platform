@@ -17,7 +17,7 @@ const Input = z.union([
 export async function POST(request: Request) {
   try {
     const actor = await requireActor();
-    const input = Input.parse(await requestBody(request));
+    const input = Input.parse(await requestBody(request, 1024));
     let text = SAMPLE_FEEDBACK;
     if (!("sample" in input)) {
       const evidence = await readSession(

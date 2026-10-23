@@ -27,7 +27,7 @@ using both Compose files. Default Compose startup keeps the text tutor independe
 of speech. Without the override, the audio endpoint returns a useful unavailable
 message.
 
-In a real study session the controls appear only for displayed feedback. The
+In a real study session the controls appear only for displayed feedback, including R7 conversation help. Focusing or typing in the answer composer, sending a message, confirming an answer, stopping playback, or leaving the page stops audio. The
 server accepts a session/intervention ID, checks student ownership, and reads
 the exact saved text; it never accepts arbitrary client text or grades answers.
 Generation is capped at 4,000 characters, one request at a time per app process,
@@ -64,3 +64,41 @@ be verified before claiming integrated completion of #57.
 - Stopping speech and restarting the app to clear its cache produced the useful
   audio-unavailable message; text and sources remained visible. Speech was then
   restarted. No live evaluation was made and no student evidence was fabricated.
+
+## R7 integration checks (October 23, 2026)
+
+The isolated `lp-integrate84` stack uses PostgreSQL and the production Next.js
+16.4.3 build with the optional Piper service. The original contributor branch is
+preserved; integration adds the conversation controls and answer-entry stop hooks.
+
+- All 336 deterministic tests, full lint, typecheck, formatting, and the Docker production build passed. Independent integration review found no blockers.
+- `npm run audio:check` passed against the actual local Piper service on Linux
+  x86-64, returning a 380,972-byte WAV and an identical cached replay.
+- The authenticated check rejects anonymous, other-student, teacher, undisplayed
+  feedback, foreign-origin, arbitrary-client-text, and oversized-body requests.
+  It also verifies the authenticated study-page link and compares the full saved
+  student session before and after speech requests to
+  verify that no answer, evaluation, progression, or assistance record changes.
+- Learning content in this check is an explicitly synthetic R7 help fixture from
+  a canonical published lesson. Piper generation is real; model-generated tutor
+  help remains a separate acceptance gate. No paid model calls were made.
+- A real signed-in browser opened the canonical study page and verified Listen,
+  native pause/resume, and stopping on composer focus and typing. Unsent text was
+  retained. With speech stopped and the app cache cleared, refresh preserved that
+  draft plus the explanation and P07/P08 citations; Listen reported that audio
+  could not be generated while Send stayed available. No answer was submitted.
+  The isolated speech service was restored afterwards. This verifies browser
+  playback state, not human listening quality.
+- A subsequent read-only PostgreSQL check confirmed the exact original question
+  and help snapshots, one unanswered attempt, zero evaluations, one displayed
+  intervention, one dialogue operation and zero provider calls. The unsent text
+  remained browser draft state and never became a saved answer.
+
+To repeat the service check, use a disposable local database with fictional demo
+accounts seeded by `npm run db:seed`, start the optional speech stack, leave
+`OPENAI_API_KEY` empty, and run `npm run audio:check`. It creates a synthetic class,
+lesson, assignment, and displayed help item and prints that study page URL. Sign
+in as Demo student there to check Listen, pause/resume, Stop, and composer entry.
+Verify that typing retains the draft and stops playback, then stop speech and
+restart the app to clear its process cache; text and citations must remain usable.
+This fixture check does not establish a complete live agentic tutoring journey.

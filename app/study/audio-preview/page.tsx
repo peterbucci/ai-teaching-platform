@@ -32,7 +32,7 @@ export default async function AudioPreviewPage() {
           {["P07", "P08"].map((id) => (
             <a
               key={id}
-              href={content.passages.get(id)?.url}
+              href={content.passages.get(id)?.url ?? undefined}
               className="underline"
             >
               Source {id}

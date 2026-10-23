@@ -6,6 +6,10 @@ type Source =
   { sample: true } | { session_id: string; intervention_id: string };
 const stopEvent = "learning-pulse:stop-audio";
 
+export function stopFeedbackAudio() {
+  window.dispatchEvent(new Event(stopEvent));
+}
+
 export function FeedbackAudio({ source }: { source: Source }) {
   const audio = useRef<HTMLAudioElement>(null);
   const pending = useRef<AbortController | null>(null);
@@ -42,7 +46,7 @@ export function FeedbackAudio({ source }: { source: Source }) {
   }, []);
 
   async function listen() {
-    window.dispatchEvent(new Event(stopEvent));
+    stopFeedbackAudio();
     if (url.current && audio.current) {
       try {
         await audio.current.play();
@@ -113,7 +117,7 @@ export function FeedbackAudio({ source }: { source: Source }) {
           type="button"
           className="lp-button"
           disabled={!ready && status !== "Generating audio…"}
-          onClick={() => window.dispatchEvent(new Event(stopEvent))}
+          onClick={stopFeedbackAudio}
         >
           Stop
         </button>
