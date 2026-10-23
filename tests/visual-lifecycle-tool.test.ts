@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import test from "node:test";
-import { ActivityEventLogSchema } from "../lib/visual/contracts.ts";
+import {
+  ActivityEventLogSchema,
+  ConceptGraphSchema,
+} from "../lib/visual/contracts.ts";
 import {
   VisualToolProposalSchema,
   VisualToolRequestSchema,
@@ -10,6 +13,10 @@ import {
 import { validConceptGraph } from "../lib/visual/examples.ts";
 import { validPacketDelayExperiment } from "../lib/visual/examples.ts";
 import { calculatePacketDelay } from "../lib/networking/packet-delay.ts";
+import {
+  activitySnapshotSha256,
+  verifyActivitySnapshotSha256,
+} from "../lib/visual/snapshot-hash.ts";
 
 const base = () => ({
   event_id: randomUUID(),
@@ -194,6 +201,30 @@ test("v2 packet requests and results use an explicit version and numeric observa
         result: { ...result.observation.result, propagation_delay_seconds: 9 },
       },
     }).success,
+    false,
+  );
+});
+
+test("the snapshot hash ignores key order but changes with content", () => {
+  const graph = ConceptGraphSchema.parse(validConceptGraph);
+  const reordered = Object.fromEntries(
+    Object.entries(graph).reverse(),
+  ) as typeof graph;
+  const hash = activitySnapshotSha256(graph);
+  assert.match(hash, /^[a-f0-9]{64}$/);
+  assert.equal(activitySnapshotSha256(reordered), hash);
+  assert.notEqual(
+    activitySnapshotSha256({ ...graph, title: "Changed title" }),
+    hash,
+  );
+});
+
+test("verifies a snapshot against its stored hash and rejects tampering", () => {
+  const graph = ConceptGraphSchema.parse(validConceptGraph);
+  const hash = activitySnapshotSha256(graph);
+  assert.equal(verifyActivitySnapshotSha256(graph, hash), true);
+  assert.equal(
+    verifyActivitySnapshotSha256({ ...graph, title: "Changed title" }, hash),
     false,
   );
 });

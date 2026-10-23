@@ -38,6 +38,10 @@ export const VisualActivitySnapshotSchema = z.union([
   PacketDelayExperimentSchema,
 ]);
 
+export type VisualActivitySnapshot = z.infer<
+  typeof VisualActivitySnapshotSchema
+>;
+
 // Written by the server after it checks the student's session and eligibility.
 export const VisualToolRequestSchema = z
   .strictObject({
