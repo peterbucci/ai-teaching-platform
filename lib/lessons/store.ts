@@ -19,11 +19,18 @@ import {
   LessonContentSchema,
   LessonDraftContentSchema,
   type LessonContent,
+  type LessonDraftContent,
 } from "./contracts.ts";
 import { AttributionSchema, SourcePassageSchema } from "./source-contracts.ts";
 import { hydrateLessonContent } from "./validate.ts";
+import {
+  retainObjectiveWorkflow,
+  lessonWithoutObjectiveWorkflow,
+  assertObjectiveReviewForLesson,
+  ObjectiveReviewError,
+} from "../objectives/rules.ts";
 
-const LessonRowSchema = z.object({
+export const LessonRowSchema = z.object({
   id: z.string(),
   owner_id: z.uuid().nullable(),
   title: z.string(),
@@ -39,7 +46,10 @@ const VersionRowSchema = z.object({
   owner_id: z.uuid().nullable(),
 });
 
-async function teacher(client: PoolClient, access: EvidenceAccess) {
+export async function requireLessonTeacher(
+  client: PoolClient,
+  access: EvidenceAccess,
+) {
   const result = await client.query(
     "SELECT 1 FROM classes WHERE teacher_id=$1 LIMIT 1",
     [access.actor.profileId],
@@ -47,7 +57,7 @@ async function teacher(client: PoolClient, access: EvidenceAccess) {
   if (!result.rowCount)
     throw new EvidenceError(403, "Teacher access is required.");
 }
-async function ownedDraft(
+export async function ownedLessonDraft(
   client: PoolClient,
   access: EvidenceAccess,
   id: string,
@@ -202,8 +212,8 @@ export async function saveLessonDraft(access: EvidenceAccess, input: unknown) {
     })
     .parse(input);
   return transaction(async (client) => {
-    await teacher(client, access);
-    const draft = { ...request.draft };
+    await requireLessonTeacher(client, access);
+    const draft = retainObjectiveWorkflow(null, request.draft);
     delete draft.approval;
     if (!request.lesson_id) {
       if (request.expected_revision !== 0)
@@ -215,24 +225,49 @@ export async function saveLessonDraft(access: EvidenceAccess, input: unknown) {
       );
       return LessonRowSchema.parse(evidenceRow(result.rows[0]));
     }
-    await ownedDraft(
+    const previous = await ownedLessonDraft(
       client,
       access,
       request.lesson_id,
       request.expected_revision,
     );
-    const result = await client.query(
-      "UPDATE lessons SET title=$2,draft=$3::jsonb,revision=revision+1,approved_revision=NULL WHERE id=$1 RETURNING *",
-      [request.lesson_id, request.title, JSON.stringify(draft)],
+    let retained;
+    try {
+      retained = retainObjectiveWorkflow(previous.draft, draft);
+    } catch (error) {
+      if (error instanceof ObjectiveReviewError)
+        throw new EvidenceError(409, error.message);
+      throw error;
+    }
+    return writeLessonDraftInTransaction(
+      client,
+      previous.id,
+      request.title,
+      retained,
     );
-    return LessonRowSchema.parse(evidenceRow(result.rows[0]));
   });
 }
+/** Internal authoring primitive. Call only after locking an owned expected revision. */
+export async function writeLessonDraftInTransaction(
+  client: PoolClient,
+  lessonId: string,
+  title: string,
+  draft: LessonDraftContent,
+) {
+  const clean = LessonDraftContentSchema.parse(draft);
+  delete clean.approval;
+  const result = await client.query(
+    "UPDATE lessons SET title=$2,draft=$3::jsonb,revision=revision+1,approved_revision=NULL WHERE id=$1 RETURNING *",
+    [lessonId, title, JSON.stringify(clean)],
+  );
+  return LessonRowSchema.parse(evidenceRow(result.rows[0]));
+}
+
 export async function readLessonDraft(
   access: EvidenceAccess,
   lessonId: string,
 ) {
-  return transaction((client) => ownedDraft(client, access, lessonId));
+  return transaction((client) => ownedLessonDraft(client, access, lessonId));
 }
 export async function approveLessonDraft(
   access: EvidenceAccess,
@@ -241,10 +276,24 @@ export async function approveLessonDraft(
 ) {
   z.number().int().positive().parse(expectedRevision);
   return transaction(async (client) => {
-    const lesson = await ownedDraft(client, access, lessonId, expectedRevision);
+    const lesson = await ownedLessonDraft(
+      client,
+      access,
+      lessonId,
+      expectedRevision,
+    );
     if (lesson.approved_revision === expectedRevision) return lesson;
+    if (!lesson.draft)
+      throw new EvidenceError(409, "The lesson draft is empty.");
+    try {
+      assertObjectiveReviewForLesson(lesson.draft);
+    } catch (error) {
+      if (error instanceof ObjectiveReviewError)
+        throw new EvidenceError(409, error.message);
+      throw error;
+    }
     const content = LessonContentSchema.parse({
-      ...lesson.draft,
+      ...lessonWithoutObjectiveWorkflow(lesson.draft),
       approval: {
         status: "approved",
         approved_by: access.actor.profileId,
@@ -267,7 +316,7 @@ export async function approveLessonDraft(
       );
     const result = await client.query(
       "UPDATE lessons SET draft=$2::jsonb,approved_revision=revision WHERE id=$1 RETURNING *",
-      [lesson.id, JSON.stringify(content)],
+      [lesson.id, JSON.stringify({ ...lesson.draft, ...content })],
     );
     return LessonRowSchema.parse(evidenceRow(result.rows[0]));
   });
@@ -279,13 +328,22 @@ export async function publishLessonVersion(
 ) {
   z.number().int().positive().parse(expectedRevision);
   return transaction(async (client) => {
-    const lesson = await ownedDraft(client, access, lessonId, expectedRevision);
+    const lesson = await ownedLessonDraft(
+      client,
+      access,
+      lessonId,
+      expectedRevision,
+    );
     if (lesson.approved_revision !== expectedRevision)
       throw new EvidenceError(
         409,
         "Approve the current draft before publishing.",
       );
-    const content = LessonContentSchema.parse(lesson.draft);
+    if (!lesson.draft)
+      throw new EvidenceError(409, "The lesson draft is empty.");
+    const content = LessonContentSchema.parse(
+      lessonWithoutObjectiveWorkflow(lesson.draft),
+    );
     const approved = await validateOwnedContent(
       client,
       access.actor.profileId,
