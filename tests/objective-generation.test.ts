@@ -50,12 +50,7 @@ const review = {
   ordinal: 0,
   status: "supported",
   reason: "The passage explicitly relates heating to evaporation rate.",
-  evidence: [
-    {
-      passage_id: passage.passage_id,
-      quote: "Heating water generally increases the rate of evaporation.",
-    },
-  ],
+  evidence_ids: ["source-0-excerpt-0"],
 };
 function metadata(
   phase: ObjectiveProviderMetadata["phase"],
@@ -95,7 +90,7 @@ test("suggestions get a separate semantic review with exact source evidence in a
       support: {
         status: review.status,
         reason: review.reason,
-        evidence: review.evidence,
+        evidence: [{ passage_id: passage.passage_id, quote: passage.text }],
       },
     },
   ]);
@@ -112,12 +107,19 @@ test("suggestions get a separate semantic review with exact source evidence in a
       objectives: z.array(
         z.object({
           ordinal: z.number(),
-          passages: z.array(z.object({ text: z.string() })),
+          passages: z.array(
+            z.object({ excerpts: z.array(z.object({ text: z.string() })) }),
+          ),
         }),
       ),
     })
     .parse(JSON.parse(calls[1].input));
-  assert.equal(supportInput.objectives[0].passages[0].text, passage.text);
+  assert.equal(
+    supportInput.objectives[0].passages[0].excerpts
+      .map((item) => item.text)
+      .join(""),
+    passage.text,
+  );
 });
 
 test("a valid passage ID cannot make a contradictory objective supported", async () => {
@@ -134,12 +136,7 @@ test("a valid passage ID cannot make a contradictory objective supported", async
           status: "unsupported",
           reason:
             "The passage explicitly says evaporation occurs below the boiling point.",
-          evidence: [
-            {
-              passage_id: passage.passage_id,
-              quote: "Evaporation can occur below the boiling point.",
-            },
-          ],
+          evidence_ids: ["source-0-excerpt-0"],
         },
       ],
     },
@@ -184,26 +181,33 @@ test("unknown and repeated passage references stop before another paid call", as
   }
 });
 
-test("source review rejects fabricated quotations and missing citation evidence", async () => {
-  for (const evidence of [
-    [
-      {
-        passage_id: passage.passage_id,
-        quote: "Heating always doubles evaporation.",
-      },
-    ],
-    [{ passage_id: "other-teacher-passage", quote: passage.text }],
+test("source review rejects unknown, duplicate and out-of-scope excerpt IDs and missing coverage", async () => {
+  const secondPassage = {
+    passage_id: "water-p2",
+    text: "Water can be liquid.",
+  };
+  for (const evidence_ids of [
+    ["fabricated-excerpt"],
+    ["__proto__"],
+    ["constructor"],
+    ["source-0-excerpt-0", "source-0-excerpt-0"],
+    ["source-1-excerpt-0"],
     [],
   ]) {
     const { provider } = fixtureProvider([
-      { reviews: [{ ...review, evidence }] },
+      { reviews: [{ ...review, evidence_ids }] },
     ]);
     const result = await reviewObjectiveSupport(
-      { ...context, suggestions: [suggestion] },
+      {
+        ...context,
+        passages: [passage, secondPassage],
+        suggestions: [suggestion],
+      },
       provider,
     );
     assert.equal(result.ok, false);
     if (!result.ok) assert.equal(result.code, "invalid_evidence");
+    assert.ok(!("suggestions" in result));
   }
 });
 
@@ -415,4 +419,178 @@ test("configuration absence never makes a request and rate limits remain one san
     assert.ok(!limited.message.includes("Secret"));
   }
   assert.equal(fetch.mock.callCount(), 1);
+});
+
+test("server-owned evidence preserves CRLF, nonbreaking spaces, Unicode and formulas exactly", async () => {
+  const exact = {
+    ...passage,
+    text: "“Heat” does not mean temperature.\r\nEnergy = m·c·ΔT; m\u00a0=\u00a02 kg. Do not omit the ‘not’ qualifier. 😀",
+  };
+  const { provider } = fixtureProvider([{ reviews: [review] }]);
+  const result = await reviewObjectiveSupport(
+    { ...context, passages: [exact], suggestions: [suggestion] },
+    provider,
+  );
+  assert.equal(result.ok, true);
+  if (result.ok) {
+    assert.deepEqual(result.suggestions[0].support.evidence, [
+      { passage_id: exact.passage_id, quote: exact.text },
+    ]);
+  }
+});
+
+test("bounded contiguous excerpts preserve full context and do not split surrogate pairs or CRLF", async () => {
+  for (const text of [
+    "x".repeat(3999) + "😀" + " y".repeat(2000),
+    "x".repeat(3999) + "\r\n" + "not a different claim.".repeat(220),
+    "Read the whole statement. ".repeat(110) +
+      "\r\n\r\n" +
+      "qualifier".repeat(700),
+  ]) {
+    const exact = { ...passage, text };
+    let observed: { evidence_id: string; text: string }[] = [];
+    const provider: ObjectiveProvider = async (request) => {
+      const parsed = z
+        .object({
+          objectives: z.array(
+            z.object({
+              passages: z.array(
+                z.object({
+                  excerpts: z.array(
+                    z.object({ evidence_id: z.string(), text: z.string() }),
+                  ),
+                }),
+              ),
+            }),
+          ),
+        })
+        .parse(JSON.parse(request.input));
+      observed = parsed.objectives[0].passages[0].excerpts;
+      return {
+        ok: true,
+        result: {
+          reviews: [
+            {
+              ...review,
+              evidence_ids: observed.map((item) => item.evidence_id),
+            },
+          ],
+        },
+        metadata: metadata(request.phase),
+      };
+    };
+    const result = await reviewObjectiveSupport(
+      { ...context, passages: [exact], suggestions: [suggestion] },
+      provider,
+    );
+    assert.equal(result.ok, true);
+    assert.equal(observed.map((item) => item.text).join(""), text);
+    assert.ok(observed.length > 1);
+    for (const [index, item] of observed.entries()) {
+      assert.ok(item.text.length <= 4000);
+      assert.ok(!/[\uD800-\uDBFF]$/.test(item.text));
+      assert.ok(!/^[\uDC00-\uDFFF]/.test(item.text));
+      assert.ok(
+        !(
+          item.text.endsWith("\r") && observed[index + 1]?.text.startsWith("\n")
+        ),
+      );
+      assert.ok(text.includes(item.text));
+    }
+    if (text.startsWith("Read the whole statement.")) {
+      assert.ok(observed[0].text.endsWith("\r\n\r\n"));
+    }
+    if (result.ok) {
+      assert.deepEqual(
+        result.suggestions[0].support.evidence.map((item) => item.quote),
+        observed.map((item) => item.text.trim()),
+      );
+    }
+  }
+});
+
+test("one invalid review rejects the whole batch instead of returning unchecked partial suggestions", async () => {
+  const { provider } = fixtureProvider([
+    {
+      reviews: [
+        review,
+        { ...review, ordinal: 1, evidence_ids: ["not-an-authorized-excerpt"] },
+      ],
+    },
+  ]);
+  const result = await reviewObjectiveSupport(
+    {
+      ...context,
+      suggestions: [
+        suggestion,
+        { ...suggestion, concept_name: "Second concept" },
+      ],
+    },
+    provider,
+  );
+  assert.equal(result.ok, false);
+  if (!result.ok) assert.equal(result.code, "invalid_evidence");
+  assert.ok(!("suggestions" in result));
+});
+
+test("actual adapter validates selected evidence IDs, passage coverage and rejects model-written quotes", async (t) => {
+  configure(t);
+  const secondPassage = {
+    passage_id: "water-p2",
+    text: "The change of state preserves water.",
+  };
+  let candidate: unknown;
+  const fetch = t.mock.method(globalThis, "fetch", async () =>
+    Response.json(envelope(candidate)),
+  );
+  const cases = [
+    {
+      evidence_ids: ["unknown"],
+      passage_ids: [passage.passage_id],
+      code: "invalid_evidence",
+    },
+    {
+      evidence_ids: ["source-1-excerpt-0"],
+      passage_ids: [passage.passage_id],
+      code: "invalid_evidence",
+    },
+    {
+      evidence_ids: ["source-0-excerpt-0"],
+      passage_ids: [passage.passage_id, secondPassage.passage_id],
+      code: "invalid_evidence",
+    },
+    {
+      evidence_ids: ["source-0-excerpt-0", "source-0-excerpt-0"],
+      passage_ids: [passage.passage_id],
+      code: "invalid_evidence",
+    },
+  ];
+  for (const item of cases) {
+    candidate = { reviews: [{ ...review, evidence_ids: item.evidence_ids }] };
+    const result = await reviewObjectiveSupport({
+      ...context,
+      passages: [passage, secondPassage],
+      suggestions: [{ ...suggestion, passage_ids: item.passage_ids }],
+    });
+    assert.equal(result.ok, false);
+    if (!result.ok) assert.equal(result.code, item.code);
+    assert.equal(result.provider.length, 1);
+  }
+  candidate = {
+    reviews: [
+      {
+        ...review,
+        evidence: [
+          { passage_id: passage.passage_id, quote: "Invented evidence." },
+        ],
+      },
+    ],
+  };
+  const invalid = await reviewObjectiveSupport({
+    ...context,
+    suggestions: [suggestion],
+  });
+  assert.equal(invalid.ok, false);
+  if (!invalid.ok) assert.equal(invalid.code, "invalid_output");
+  assert.equal(fetch.mock.callCount(), cases.length + 1);
 });

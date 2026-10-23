@@ -15,7 +15,7 @@ import type {
   UploadedSourceReference,
 } from "../lessons/source-contracts.ts";
 
-export const OBJECTIVE_GENERATOR_VERSION = "source-grounded-objectives-v1";
+export const OBJECTIVE_GENERATOR_VERSION = "source-grounded-objectives-v2";
 export { ObjectiveSupportSchema } from "./contracts.ts";
 export const ObjectiveSuggestionSchema = CheckedObjectiveSuggestionSchema.omit({
   support: true,
@@ -33,7 +33,8 @@ const SupportReviewSchema = z.strictObject({
     .array(
       z.strictObject({
         ordinal: z.number().int().min(0).max(7),
-        ...ObjectiveSupportSchema.shape,
+        ...ObjectiveSupportSchema.pick({ status: true, reason: true }).shape,
+        evidence_ids: z.array(z.string().trim().min(1).max(80)).max(20),
       }),
     )
     .min(1)
@@ -304,6 +305,49 @@ function validateReferences(
   );
 }
 
+type SourceEvidenceExcerpt = { passage_id: string; text: string };
+
+/** Request-local evidence IDs resolve only to exact, bounded source substrings.
+ * The ordered excerpts retain the full passage, including boundary whitespace.
+ */
+function sourceEvidenceExcerpts(passages: SourcePassage[]) {
+  const excerpts = new Map<string, SourceEvidenceExcerpt>();
+  for (const [passageIndex, passage] of passages.entries()) {
+    let start = 0;
+    let excerptIndex = 0;
+    while (start < passage.text.length) {
+      let end = Math.min(start + 4000, passage.text.length);
+      if (end < passage.text.length) {
+        const last = passage.text.charCodeAt(end - 1);
+        const next = passage.text.charCodeAt(end);
+        if (
+          (last >= 0xd800 &&
+            last <= 0xdbff &&
+            next >= 0xdc00 &&
+            next <= 0xdfff) ||
+          (passage.text[end - 1] === "\r" && passage.text[end] === "\n")
+        )
+          end -= 1;
+        const candidate = passage.text.slice(start, end);
+        // Prefer a nearby paragraph or sentence boundary without dropping text.
+        for (const match of candidate.matchAll(
+          /[\r\n]{2,}|[.!?。！？][”’"')\]]*(?:\s+|$)/gu,
+        )) {
+          const boundary = match.index + match[0].length;
+          if (boundary >= candidate.length / 2) end = start + boundary;
+        }
+      }
+      excerpts.set(`source-${passageIndex}-excerpt-${excerptIndex}`, {
+        passage_id: passage.passage_id,
+        text: passage.text.slice(start, end),
+      });
+      start = end;
+      excerptIndex += 1;
+    }
+  }
+  return excerpts;
+}
+
 /** Independent semantic review, using only each suggestion's exact cited passages.
  * Exact quote verification is an additional integrity check, not a semantic proof.
  * The caller still requires explicit human review before objective approval.
@@ -331,9 +375,7 @@ export async function reviewObjectiveSupport(
       "invalid_source_reference",
       "An objective cites an unknown or repeated source passage. Your draft is unchanged.",
     );
-  const passages = new Map(
-    context.data.passages.map((passage) => [passage.passage_id, passage]),
-  );
+  const excerpts = sourceEvidenceExcerpts(context.data.passages);
   const result = await provider({
     phase: "support",
     instructions: `Independently check whether each proposed learning objective is substantively supported.
@@ -346,9 +388,13 @@ contradicts the goal, or does not teach a required skill, makes it unsupported. 
 matches and valid passage IDs alone are insufficient. Mark supported only if all important content is
 supported and the objective is measurable. Mark uncertain for ambiguous or partial support; unsupported
 for contradiction or absent support. Do not repair or rewrite the goal. Explain the specific finding
-briefly, including missing support. For supported judgments quote exact source substrings from EVERY
-cited passage that directly support the goal; do not remove negations or qualifiers. Uncertain or
-unsupported judgments may quote relevant contrary evidence or return no evidence. Return the reviews.`,
+briefly, including missing support. Each passage is supplied as ordered, contiguous source excerpts;
+read the full passage across excerpt boundaries, preserving negations, qualifiers and conditions.
+For supported judgments select evidence_ids from EVERY cited passage that directly supports the goal.
+Select only the server-supplied excerpt IDs within that objective's passages; never invent IDs, copy
+or rewrite quotations, or treat an ID alone as semantic proof. If support spans a boundary, select
+the adjacent excerpts needed to retain the complete claim. Uncertain or unsupported judgments may
+select relevant contrary evidence IDs or return no evidence IDs. Return the reviews.`,
     input: JSON.stringify({
       generator_version: OBJECTIVE_GENERATOR_VERSION,
       source_version: {
@@ -360,7 +406,15 @@ unsupported judgments may quote relevant contrary evidence or return no evidence
         ordinal,
         concept_name: suggestion.concept_name,
         objective: suggestion.objective,
-        passages: suggestion.passage_ids.map((id) => passages.get(id)),
+        passages: suggestion.passage_ids.map((passage_id) => ({
+          passage_id,
+          excerpts: [...excerpts.entries()]
+            .filter(([, excerpt]) => excerpt.passage_id === passage_id)
+            .map(([evidence_id, excerpt]) => ({
+              evidence_id,
+              text: excerpt.text,
+            })),
+        })),
       })),
     }),
   });
@@ -390,19 +444,33 @@ unsupported judgments may quote relevant contrary evidence or return no evidence
       return invalid("invalid_output", failureMessages.invalid_output, [
         result.metadata,
       ]);
-    const { status, reason, evidence } = review;
-    if (
-      evidence.some(
-        (item) =>
-          !suggestion.passage_ids.includes(item.passage_id) ||
-          !passages.get(item.passage_id)?.text.includes(item.quote),
-      )
-    )
+    const { status, reason, evidence_ids } = review;
+    const evidence: ObjectiveSupport["evidence"] = [];
+    if (new Set(evidence_ids).size !== evidence_ids.length)
       return invalid(
         "invalid_evidence",
-        "AI source review quoted evidence absent from its cited passages. Your draft is unchanged.",
+        "AI source review repeated an evidence excerpt. Your draft is unchanged.",
         [result.metadata],
       );
+    for (const evidenceId of evidence_ids) {
+      const excerpt = excerpts.get(evidenceId);
+      if (
+        !excerpt ||
+        !suggestion.passage_ids.includes(excerpt.passage_id) ||
+        !excerpt.text.trim()
+      )
+        return invalid(
+          "invalid_evidence",
+          "AI source review selected evidence outside its cited passages. Your draft is unchanged.",
+          [result.metadata],
+        );
+      evidence.push({
+        passage_id: excerpt.passage_id,
+        // The public quote contract trims boundary whitespace only. Internal
+        // whitespace, punctuation and Unicode remain exact source characters.
+        quote: excerpt.text.trim(),
+      });
+    }
     if (
       status === "supported" &&
       suggestion.passage_ids.some(
