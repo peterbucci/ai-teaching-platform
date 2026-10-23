@@ -66,6 +66,8 @@ jobs:
         run: docker compose exec -T app npm run patterns:check
       - name: Check lesson versions, ownership and historical evidence
         run: docker compose exec -T app npm run lessons:check
+      - name: Check private material extraction, review and version storage
+        run: docker compose exec -T app npm run materials:check
       - name: Check HTTP authentication and evidence persistence
         run: docker compose exec -T app npm run db:check -- --prepare-restart
       - name: Restart without resetting data
