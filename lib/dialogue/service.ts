@@ -38,7 +38,7 @@ import {
 export type { DialogueModelContext } from "./generation.ts";
 export const DIALOGUE_PROMPTS = {
   classify: "r7-intent-v1",
-  generate: "r7-grounded-generation-v1",
+  generate: "r7-grounded-generation-v2",
   review: "r7-independent-review-v1",
 } as const;
 export type ProviderStep = {
@@ -272,6 +272,10 @@ HTML, code blocks or executable content. Never disclose an unrevealed answer or 
 If the current assessment is unanswered, use minimal scaffolding or a clarifying question without solving it.
 For alternative explanations/examples, adapt the representation to the student's difficulty.
 For assessed questions, make the reasoning probe materially different from all previous prompts, not a paraphrase.
+The active question is also a previous prompt. Do not repeat its controlled change with different wording or
+event labels. Use a different causal intervention, controlled variable, contrasting case or representation
+that distinguishes the student's stated explanation from an alternative. Keep the same target concept,
+but ask for new evidence; renaming the events in the original scenario is insufficient.
 Supply source-supported private answer guidance and criteria for the new question only. Do not reveal its answer
 in the prompt. List all embedded hints/relationships as scaffolding; neutral_clarification supplies no content help.
 Use only allowed misconception IDs (or none); do not invent a category. Rubric version is the prompt version.

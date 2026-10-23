@@ -91,6 +91,7 @@ let outputPath = "";
 let outputCreated = false;
 let activeCase = "";
 let inFlight = false;
+let diagnosticsOnly = false;
 
 async function saveReport() {
   await writeFile(outputPath, `${JSON.stringify(report, null, 2)}\n`, {
@@ -247,11 +248,13 @@ async function main() {
   let runLive = false;
   for (const arg of process.argv.slice(2)) {
     if (arg === "--run-live" && !runLive) runLive = true;
+    else if (arg === "--diagnostics-only" && !diagnosticsOnly)
+      diagnosticsOnly = true;
     else if (arg.startsWith("--output=") && !outputPath)
       outputPath = resolve(arg.slice("--output=".length));
     else
       throw new HarnessFailure(
-        "Use --run-live [--output=new-report-path.json].",
+        "Use --run-live [--diagnostics-only] [--output=new-report-path.json].",
       );
   }
   if (!runLive)
@@ -262,6 +265,7 @@ async function main() {
     throw new HarnessFailure(
       "Configure OPENAI_API_KEY and OPENAI_MODEL first.",
     );
+  if (diagnosticsOnly) report.planned_maximum_requests = 4;
   if (!outputPath) {
     await mkdir(resolve(".setup"), { recursive: true });
     outputPath = resolve(".setup", `dialogue-provider-${Date.now()}.json`);
@@ -320,7 +324,7 @@ async function main() {
       "OFF_TOPIC_OR_UNSUPPORTED",
     ],
   ] as const;
-  for (const [id, text, expected] of classifications) {
+  for (const [id, text, expected] of diagnosticsOnly ? [] : classifications) {
     const context = { ...base, text };
     const allowed =
       id === "injected_instructions"
@@ -349,14 +353,18 @@ async function main() {
   const misunderstandings = [
     {
       id: "diagnostic_distance",
-      text: "The sender has to keep feeding the packet for longer when the cable stretches farther, even though the number of bits and the sending rate stay fixed.",
+      text: diagnosticsOnly
+        ? "An identical packet cannot finish leaving the network card until the last bit has crossed all the cable. A longer cable keeps the card busy sending it longer, even at the same data rate."
+        : "The sender has to keep feeding the packet for longer when the cable stretches farther, even though the number of bits and the sending rate stay fixed.",
       request: example.controllerRequests.distance,
       expected_focus:
         "Probe whether time to put bits onto the link depends on distance, separating transmission from travel.",
     },
     {
       id: "diagnostic_packet_size",
-      text: "A packet is one object, so the sender finishes putting a short packet and a longer packet onto the same fixed-rate link in the same time.",
+      text: diagnosticsOnly
+        ? "Since the wire's bit rate is constant I think it gives every packet a fixed duration, whether the packet holds many bits or few."
+        : "A packet is one object, so the sender finishes putting a short packet and a longer packet onto the same fixed-rate link in the same time.",
       request: example.controllerRequests.packetSize,
       expected_focus:
         "Probe why more packet bits require more sender transmission time at a fixed rate, rather than repeating the distance probe.",
@@ -414,6 +422,7 @@ async function main() {
     review_instruction:
       "Inspect public questions and private criteria for educationally different reasoning probes. Text inequality, citations, and model self-review alone do not prove that difference.",
   };
+  if (diagnosticsOnly) return;
 
   function helpInput(
     text: string,
@@ -624,7 +633,7 @@ try {
   report.finished_at = new Date().toISOString();
   report.automatic_checks_passed =
     !report.stopped_because &&
-    report.cases.length === 14 &&
+    report.cases.length === (diagnosticsOnly ? 2 : 14) &&
     report.cases.every((item) => item.status === "passed");
   if (outputCreated) await saveReport();
   console.log(
