@@ -132,8 +132,9 @@ export async function createSourceVersion(
   value: CreateSourceVersionInput,
 ): Promise<SourceVersion> {
   const input = CreateSourceVersionSchema.parse(value);
+  const originalBytes = Buffer.from(input.original_bytes);
   const documentHash = createHash("sha256")
-    .update(input.original_bytes)
+    .update(originalBytes)
     .digest("hex");
   // Ordered reviewed passage objects are the stable, documented excerpt hash input.
   const excerptHash = createHash("sha256")
@@ -204,7 +205,7 @@ export async function createSourceVersion(
         documentId,
         latest + 1,
         input.request_id,
-        Buffer.from(input.original_bytes),
+        originalBytes,
         input.file_name,
         input.mime_type,
         documentHash,
