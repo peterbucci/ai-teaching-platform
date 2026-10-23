@@ -1,7 +1,7 @@
 # Learning Pulse — Hackathon Demonstration Plan
 
 **Status:** Revised demo target; not a claim that every feature works  
-**Planning date:** October 22, 2026  
+**Planning date:** October 23, 2026
 **Event:** UMass Boston PEAAII AI Applications Hackathon  
 **Submission date:** **October 25, 2026** · **Finalist symposium:** October 29, 2026
 
@@ -11,193 +11,143 @@ The [official PEAAII events page](https://ai.umb.edu/events/) identifies **Agent
 
 ## 1. The story we want the judges to see
 
-**Learning Pulse helps teachers prepare lessons and helps students learn—not by handing every task to a chatbot, but by allowing AI to choose and use bounded educational tools while teachers retain control.**
+**Learning Pulse helps teachers identify possible gaps in understanding, inspect the student reasoning behind them, prepare targeted support with AI, and examine what students demonstrate afterward.** Teachers review, edit, approve, and assign interventions. The student tutor supplies learning evidence and bounded instructional actions that support this teacher-facing story.
 
-One connected journey:
+Lead with one connected journey:
 
-**Teacher provides material → AI proposes objectives and questions → teacher reviews and publishes → student converses with an AI tutor → tutor chooses a useful, permitted teaching action → student responds → evidence is saved → AI recommends optional practice or a teacher-reviewed intervention.**
+**Teacher overview → original student evidence → AI intervention draft → teacher review/edit/approval → delivery → student follow-up → teacher examines subsequent evidence.**
 
-The key demonstration of **agentic AI** is **a real model selecting an appropriate action based on new evidence, the server executing an approved tool, and a later observation changing what happens next**. A fixed script, a classifier alone, a chat response alone, or a generated UI is not enough.
+Lesson authoring remains part of the product: **teacher uploads material → AI suggests objectives/questions → teacher reviews → publishes and assigns**. Show this as a short supporting workflow after the teacher value is clear, using an approved lesson already available for the core demonstration.
 
-We will show the difference between:
-- **Model proposal:** What the AI recommends and why, in a short, inspectable summary.
-- **Application decision:** Whether the action is permitted, adequately grounded, and safe.
-- **Executed action:** Which approved server tool actually ran and what was shown.
-- **Observed evidence:** What the student then said or did and how the next step adapted.
+The key demonstration of **agentic AI** remains **a real model selecting an appropriate action based on new evidence, the server executing an approved tool, and a later observation changing what happens next**. A fixed script, a classifier alone, a chat response alone, or a generated UI is not enough. Make the model proposal, server authorization, actual executed result, and subsequent evidence inspectable without requiring judges to understand internal implementation details.
+
+**UI/UX quality, reliability, and presentation are release requirements.** A backend test pass does not establish that a teacher can find the evidence, understand the next step, complete an intervention, or recover from a failure. A teammate must independently rehearse the actual interface.
 
 ## 2. Delivery priorities
 
-| Priority | Capability | Hackathon target | Existing ownership |
-| --- | --- | --- | --- |
-| **P0: critical path** | **R4 — Teacher-provided lessons** | One permitted new source → reviewed concepts/questions → published version | [#20, #49–#53](https://github.com/peterbucci/ai-teaching-platform/issues/20) |
-| **P0: critical path** | **R7 — Agentic dialogue and orchestration** | One composer, real intent routing, grounded new diagnostic/help, bounded action choice, persisted evidence | [#71–#76](https://github.com/peterbucci/ai-teaching-platform/issues/71) |
-| **P1: priority showcase** | **R1 — Interactive visual tutoring** | Agent chooses one validated experiment; student's prediction, changes, and explanation influence the follow-up | [#17, #38–#43](https://github.com/peterbucci/ai-teaching-platform/issues/17) |
-| **P1: priority showcase** | **R2 — Teacher Action Center** | Evidence-backed follow-up draft → teacher edits/approves/assigns → later evidence remains linked | [#18, #44–#46](https://github.com/peterbucci/ai-teaching-platform/issues/18) |
-| **Focused addition** | **Teacher Copilot** | Propose a real structured edit to the *currently open* assignment form; teacher previews/accepts | New focused epic/stories, pending team review |
-| **Focused addition** | **R5 / optional practice** | Inspectable candidate learning pattern and/or recommended opt-in practice, without unsupported mastery claims | [#21, #54–#55](https://github.com/peterbucci/ai-teaching-platform/issues/21) and focused follow-up story |
-| **Later** | R3 Teach-the-AI, R6 voice, broad LMS/document-format coverage | Do not block the core agentic demonstration | [#19](https://github.com/peterbucci/ai-teaching-platform/issues/19), [#22](https://github.com/peterbucci/ai-teaching-platform/issues/22) |
+This October 23 reprioritization supersedes the October 22 capability-first presentation order. Preserve existing owners, completed work, and issue history; use the existing workstreams rather than reopening implemented features or creating duplicate epics.
 
-These are **team delivery goals**, not an assertion that PEAAII's official scoring rubric requires these particular reach-goal names. Preserve the original deterministic tutoring loop as a **working regression baseline and fallback**, but **do not count it as proof of the new agentic goal**.
-
-## 3. Intended live demo: one connected journey
-
-Use **fictional students and clearly labeled synthetic class histories**, not real student data. Choose a short source with permitted reuse; the approved networking excerpt can remain a controlled comparison fixture. For the R4 claim, actually import a **second, new** supported text-based source rather than calling the existing bundled excerpt an upload.
-
-### Scene A — The teacher creates the assignment (R4 + Teacher Copilot)
-
-**Teacher's goal:** Make a short assignment about network performance without hand-writing a full question bank.
-
-1. Sign in as the fictional teacher.
-2. Open **Materials / Lesson Builder** (or whichever actual route is implemented).
-3. Import a permitted text-based source and show the extracted text, passage IDs, source attribution, version, and a reviewable preview. A pasted-text source is a valid narrow starting point if the demo labels the supported format precisely.
-4. Ask AI to suggest a few learning concepts and objectives. Show citations to the relevant source passages.
-5. **Edit** one suggested concept, **remove** an unsupported one, and **add** a teacher-authored objective.
-6. Ask AI to prepare a question bank: an initial question, at least one alternative/diagnostic, private evaluation criteria, and a different retest.
-7. In the copilot, give a natural instruction such as:  
-   *“Make these questions more conceptual. Focus on confusing transmission delay with propagation delay, and add a question that asks students to explain why.”*
-8. Show **actual proposed changes to the open form**, not merely advice in a chat bubble. Preview/accept selected changes; reject an unwanted change.
-9. Preview the student-visible lesson separately from the teacher-only guidance, then approve/publish an immutable lesson version and activate an assignment for the fictional class.
-
-**Evidence to capture:** Source/version ID, reviewed concepts and question definitions, copilot action proposal and accepted form patch, final approved lesson version, class assignment identity.
-
-**Failure to avoid:** Silently inserting unsupported generated questions; exposing private answer guidance; overwriting a newer form revision; falsely claiming PDF/slides support that the importer lacks.
-
-**Acceptance:** The new assignment resolves the correct authorized source/version through the **same tutor/evaluator/evidence path** as the curated networking lesson.
-
-### Scene B — The student has one natural conversation (R7)
-
-**Student's goal:** Work through the assigned question while being able to ask the tutor for help.
-
-1. Sign in as the enrolled fictional student; open the new assignment.
-2. Show the **same assigned reading**, its source reference, and one conversational input. **No mandatory Ask/Answer mode picker.**
-3. Show the active question. Student types:  
-   *“What do you mean by packet size?”*
-4. The **real model** classifies this as a question/help request from context. The server routes it to permitted grounded assistance, without recording a graded answer.
-5. The model retrieves approved passages and returns a relevant explanation with an inspectable citation. Record help **only when actually displayed**.
-6. Student asks: *“Could you explain that another way?”* and receives a different, grounded explanation.
-7. Student gives an intended answer. The application sends it through the existing assessed-answer workflow. If the text could plausibly be either an answer or a help request, ask for a short clarification **before** grading.
-8. Show the saved original question/answer, evaluation, assistance timing, and what the tutor recommends next.
-
-**Evidence to capture:** Original message text, proposed intent, authorized route, actual help and citation, displayed acknowledgement, submitted answer and evaluator result, request/session IDs.
-
-**Failure to avoid:** A help question becoming an answer; a model classification treated as unquestionable permission; repeated Send making duplicate paid calls or attempts.
-
-### Scene C — Show meaningful AI action choice (R7 + R1)
-
-**Student's goal:** Resolve a specific misunderstanding by investigating it.
-
-Prepare **two held-out fictional student responses** to the same concept, not just different wording of the same mistake:
-
-- **Case A — distance confusion:** *“The transmission delay doubles when the cable is twice as long.”*
-- **Case B — packet-size confusion:** *“Sending a larger packet takes the same amount of time at the same bit rate.”*
-
-For each case:
-
-1. Run the **real evaluator**; keep judgments tentative and source-grounded.
-2. Show the **agent's proposed next action** selected from a server-provided list (for example, retrieve passage, generate diagnostic, explain, select visual, retest).
-3. Show the controller's **accept/reject** decision and the actual tool result.
-4. Generate a **materially different** targeted diagnostic or helpful activity appropriate to that student's reasoning. A cosmetic paraphrase is not a meaningful difference.
-5. For **one justified case**, demonstrate **R1**: the agent requests a validated packet-delay experiment.
-6. Student predicts an outcome, changes **one variable at a time** (distance, packet size, or bit rate), and explains what they observed.
-7. The application performs checked calculations; the student-visible experiment does **not** execute arbitrary model-generated code.
-8. The tutor uses the saved prediction/interaction/explanation to choose and deliver an appropriate **next** question, correction, or retest.
-
-**Evidence to capture:** Two exact fictional inputs, actual model/configuration, allowed action set, chosen proposals and short rationale, validation results, generated question/visual spec, calculations and inputs, student explanation, next action.
-
-**Failure to avoid:** Hardcoding the visual choice for the demo while claiming AI selected it; showing the same canned diagnostic for both cases; letting a visual with the correct slider position stand in for understanding.
-
-### Scene D — Optional practice recommendation
-
-**Student's goal:** Decide what to review after the session.
-
-1. Show a recommendation tied to saved concept evidence, such as a **short optional comparison practice** or **later independent review**.
-2. Make the recommendation **opt-in**, with an explanation of the relevant observed evidence.
-3. Keep it separate from teacher-issued assignments.
-4. If follow-up scheduling or practice creation is not actually implemented, label the proposed draft and do **not** imply a queued assignment exists.
-
-**Evidence to capture:** Triggering attempt/concept IDs, reason and source/policy, recommendation status, student opt-in if performed.
-
-**Failure to avoid:** Declaring durable mastery or retention from an immediate answer after hints.
-
-### Scene E — Teacher sees evidence and acts (R2 + narrow R5)
-
-**Teacher's goal:** Understand a class-level concern and assign targeted support.
-
-1. Return to the fictional teacher's workspace; show an actual new learning event reflected in class insights.
-2. Ask the teacher copilot:  
-   *“Are other students confusing transmission and propagation delay? Show me the evidence.”*
-3. Query **only authorized evidence**. Show original student responses, correct distinct-student denominators, source context, and **contradictory evidence** where relevant.
-4. If **R5** is enabled, show a tentative AI-proposed reasoning pattern **not already in the predefined category list**. Teacher may inspect, correct, or dismiss it.
-5. Use **R2** to propose an appropriate targeted review activity based on that evidence. Show the connection between the observation and proposed questions.
-6. Teacher reviews, edits, chooses recipients, and **explicitly approves/assigns** the intervention.
-7. Student opens the assigned follow-up. Later performance is linked back for a before/after comparison. If this last step is not integrated, do not claim successful R2 delivery.
-
-**Evidence to capture:** Source responses, number of distinct students, supporting/contradictory evidence, teacher draft edits and approval, recipient scope, new assignment ID, follow-up attempt IDs if available.
-
-**Failure to avoid:** AI automatically assigning work, inferring permanent learner traits, confusing synthetic fixture class patterns with new real-model evidence, or claiming causality from a before/after observation.
-
-## 4. What must be demonstrated versus what can be shown as planned
-
-**Minimum credible agentic demonstration (non-negotiable for the revised product goal):**
-
-- [ ] One **real** AI-proposed instructional action based on new student evidence, not solely prewritten application branching.
-- [ ] A **server-permitted tool call** executes that action and produces a source-grounded, validated result.
-- [ ] The student responds, and that observation **actually changes** the next decision or step.
-- [ ] An original message is correctly routed as **help vs intended answer**, with safe ambiguity handling and no accidental grading.
-- [ ] The action, result, source/version, and student evidence are saved and inspectable.
-- [ ] Invalid proposals and service failures preserve the student's work and use a truthful fallback.
-
-**Our desired integrated showcase:**
-
-- [ ] **R4:** New source imported, concepts/questions reviewed, published, and actually used by a student.
-- [ ] **R7:** Natural dialogue, meaningful varied diagnostic/explanation and observe–decide–act loop with real model calls.
-- [ ] **R1:** Agent-selected visual tool with correct calculations and student evidence affecting a next step.
-- [ ] **R2:** Evidence-backed teacher-reviewed intervention is approved, assigned, and linked to later work.
-- [ ] **Teacher Copilot:** At least one structured, previewable edit applied to the currently open teacher draft with approval.
-- [ ] **R5 / optional practice:** A narrow, inspectable example where implemented, clearly distinguished from broader roadmap ambitions.
-
-The team should pursue all these, but **do not claim a target passed** unless its complete real integration was observed. Unfinished features remain openly marked **planned**, **fixture-only**, or **partially integrated**.
-
-## 5. Current development baseline (October 22 checkpoint)
-
-| Component | Verified planning status from repository/PR descriptions | What remains |
+| Priority | Release outcome | Existing ownership |
 | --- | --- | --- |
-| Curated network source, evidence DB, authenticated class and teacher analytics | Existing merged foundation on `main` | Keep unchanged and regression tested |
-| Grounded evaluator and deterministic tutor | Existing merged baseline | Preserve alongside new runtime agentic decisions |
-| Single-composer student UI + intent contracts | [PR #81](https://github.com/peterbucci/ai-teaching-platform/pull/81) is **draft/open**, with fixture tests | Live classifier, grounded generator, transactional storage, cross-role test |
-| Teacher pages separated | [PR #82](https://github.com/peterbucci/ai-teaching-platform/pull/82) is **draft/open** | Merge/review and connect new teacher authoring/coplay tools |
-| Teacher-provided source/lesson pipeline | [R4 #49–#53](https://github.com/peterbucci/ai-teaching-platform/issues/20) planned | Real import → objectives → questions → publish → tutor |
-| R1 visual experiment | [R1 #38–#43](https://github.com/peterbucci/ai-teaching-platform/issues/17) planned | Validated player, calculation, generation, agent selection, evidence |
-| R2 teacher intervention | [R2 #44–#46](https://github.com/peterbucci/ai-teaching-platform/issues/18) planned | Generate → review → approve → assign → follow-up |
-| Teacher Copilot and optional practice | Product-reset targets | Focused issues/contracts and real integration |
+| **P0** | Clear teacher overview, inspectable original reasoning, cautious evidence labels, and a navigable path to action | [#8](https://github.com/peterbucci/ai-teaching-platform/issues/8), [#9](https://github.com/peterbucci/ai-teaching-platform/issues/9), [#114](https://github.com/peterbucci/ai-teaching-platform/issues/114) |
+| **P0** | R2 draft → teacher edits/reviews recipients → explicit approval → separate delivery → linked student follow-up and comparison | [#44](https://github.com/peterbucci/ai-teaching-platform/issues/44), [#45](https://github.com/peterbucci/ai-teaching-platform/issues/45), [#46](https://github.com/peterbucci/ai-teaching-platform/issues/46) |
+| **P0** | Preserve the working R4/R7 content, tutor, evidence, permission, and recovery paths needed for the teacher journey; verify the integrated main build | [#71](https://github.com/peterbucci/ai-teaching-platform/issues/71), [#76](https://github.com/peterbucci/ai-teaching-platform/issues/76), [#85](https://github.com/peterbucci/ai-teaching-platform/issues/85), [#35](https://github.com/peterbucci/ai-teaching-platform/issues/35) |
+| **P0** | Consistent interface, clear navigation/context, usable loading/empty/error states, independent rehearsal, reliable deployment, backup recording and submission | [#114](https://github.com/peterbucci/ai-teaching-platform/issues/114), [#35](https://github.com/peterbucci/ai-teaching-platform/issues/35), [#37](https://github.com/peterbucci/ai-teaching-platform/issues/37) |
+| **P1: conditional** | Polish existing lesson authoring; one narrow copilot edit or visual only when its dependencies are ready and it improves the teacher story | [#20](https://github.com/peterbucci/ai-teaching-platform/issues/20), [#87](https://github.com/peterbucci/ai-teaching-platform/issues/87), [#88](https://github.com/peterbucci/ai-teaching-platform/issues/88), [#42](https://github.com/peterbucci/ai-teaching-platform/issues/42), [#43](https://github.com/peterbucci/ai-teaching-platform/issues/43) |
+| **P2: defer** | Broad copilot coverage/evidence questions, voice, new visual types, broader analytics/pattern discovery, optional-practice expansion, and speculative infrastructure | Existing roadmap [#15](https://github.com/peterbucci/ai-teaching-platform/issues/15) and capability issues, including [#86](https://github.com/peterbucci/ai-teaching-platform/issues/86) and [#89](https://github.com/peterbucci/ai-teaching-platform/issues/89) |
 
-**This table is a historical snapshot, not a live status feed.** Refresh issue/PR status before recording completed demo claims. Do not treat a merged contract or screenshot as evidence of a running generator.
+These are team release priorities, not a claim about the private PEAAII scoring rubric. P1 work must not delay the P0 walkthrough. Retain the original deterministic tutoring loop as a regression baseline and fallback; it does not independently prove the agentic goal. This planning update authorizes **no application refactor, new feature implementation, or paid evaluation**.
+
+## 3. Intended live demo: one teacher-first journey
+
+Use fictional accounts and clearly labeled synthetic class histories. Historical actual-model runs on fictional inputs are a separate evidence category: neither seed histories nor software tests establish educational effectiveness. Keep source rights and exact approved lesson versions visible where relevant.
+
+### Scene A — The teacher finds a concern
+
+1. Start in the teacher overview for the selected fictional class/assignment.
+2. Identify one concept that may need attention, explain the denominator and missing evidence, and distinguish initial independent answers from assisted responses or immediate retests.
+3. Follow a clear route to the relevant insight and student work while retaining assignment and evidence-origin context.
+4. State the teaching question: *“What did these students say that suggests they need a different explanation?”*
+
+### Scene B — Inspect the original reasoning
+
+1. Show the exact question and original student response, approved source/citation, assistance actually displayed, and the evaluator's uncertainty.
+2. Inspect a diagnostic or later response, including contrary evidence when available. Describe a possible misconception, not a permanent student trait.
+3. Briefly show the saved tutor action trace: a real proposal, a permitted executed tool, the student's observation, and the next action. Use the existing reviewed R7 evidence; label a recording or historical run as such.
+4. Briefly switch to the fictional student on that same approved assignment: show a help question being treated as help, then an intended answer and the resulting permitted tutoring action. Return to the teacher and refresh the linked saved evidence. Perform any live model interaction only within the team's separately approved rehearsal/demo budget; a labeled historical recording is a backup, not proof that the final build was freshly verified.
+
+**Evidence to capture:** Assignment/source version, original attempt and follow-up IDs, evidence origin, assistance timing, action/result trace, and uncertainty.
+
+### Scene C — Prepare targeted support and keep the teacher in control
+
+1. Reach the intervention workflow from the teacher evidence context. The teacher should not need a developer-supplied URL to find it.
+2. Show an AI-generated, source-grounded intervention draft tied to the inspected evidence, with rationale, editable student content, and private teacher guidance distinguished.
+3. Teacher edits the draft and reviews the proposed recipients and student preview.
+4. Teacher **explicitly approves**, then **separately delivers** the intervention. Show the saved state and actual delivery result; approval alone is not delivery.
+5. Preserve work through refresh, stale revision, loading and error states. Never silently replace teacher edits or retry an uncertain paid request.
+
+**Evidence to capture:** Original evidence links, draft/version, teacher edits, recipient scope, approval, delivery identity, and any failure/recovery.
+
+### Scene D — Observe follow-up and return to the teacher
+
+1. The intended fictional student opens the delivered activity, receives the approved content, and completes the follow-up/fresh check through the implemented flow.
+2. Return to the teacher's comparison. Show the linked subsequent response, whether help was shown, and incomplete/not-started cases where applicable.
+3. Explain what was observed and what remains unknown. Immediate success after assistance is not durable retention; a before/after comparison does not prove the intervention caused learning.
+4. End with the teacher's next decision, not a claim of automatic mastery or educational validation.
+
+**Evidence to capture:** Delivery/recipient identity, displayed content, original follow-up response, assistance, comparison linkage and origin labels.
+
+### Supporting workflow — Lesson authoring
+
+Once the core teacher story is clear, briefly show **upload → AI objectives/questions → teacher review → publish/assign** using the existing R4 workflow. To claim a new upload, use a permitted supported text-based source, inspect extraction and citations, approve the immutable lesson version, and demonstrate that the student resolves that version through the same tutor/evidence path. The bundled networking lesson alone does not prove upload support.
+
+Polish and additional generation are P1. A page-aware copilot should appear only if its structured proposal, preview, teacher acceptance and stale-revision checks actually work; existing objective suggestions or intervention revision do not prove the broader copilot is complete.
+
+### Conditional supporting workflow — Agent-selected visual
+
+Only include this after [#42](https://github.com/peterbucci/ai-teaching-platform/issues/42) and [#43](https://github.com/peterbucci/ai-teaching-platform/issues/43) establish the complete loop: real allowed visual selection → validated activity/calculation → student prediction/interaction/explanation → persisted/displayed evidence → changed next decision. A standalone renderer or generated artifact is not that integration. Use the text fallback and omit the visual segment if the dependencies are not ready.
+
+## 4. Release gates and truthful claims
+
+**P0 teacher journey:**
+
+- [ ] A teammate can identify a concern, inspect original evidence, reach the intervention, edit/review, approve, deliver and inspect linked follow-up without developer coaching.
+- [ ] Navigation retains relevant assignment and evidence context, actions have clear labels, and information hierarchy makes the teacher's next decision obvious.
+- [ ] Layout, spacing, typography and controls are consistent; ordinary viewport sizes remain usable; keyboard focus and basic contrast are checked.
+- [ ] Loading, empty, error, stale-edit and retry states explain what happened and preserve work. No broken links, dead ends or unexplained disabled actions interrupt the route.
+- [ ] Synthetic histories, historical actual-model evidence, and newly observed results are distinguished; missing/assisted evidence and uncertainty are visible.
+- [ ] The final environment/build is rehearsed and documented, with a truthful backup and submission owner.
+
+**Agentic evidence retained within that journey:**
+
+- [ ] A real model proposed an instructional action based on student evidence; the server permitted and executed the tool.
+- [ ] A new student observation affected the next decision, with saved actions, result, source/version and evidence.
+- [ ] Help was not graded as an answer; ambiguity and invalid proposals preserved work and a truthful fallback.
+- [ ] Historical two-misunderstanding/model checks retain their original scope and limitations; they are not relabeled as a fresh final-build or educational-effectiveness result.
+
+**P1 claims are conditional:** New lesson authoring, narrow copilot and R1 visual segments may be demonstrated only to the extent their complete authorized workflows were observed. Mark incomplete work planned, fixture-only or partially integrated. Do not reopen already completed implementation issues merely because final demo acceptance remains open.
+
+## 5. Implementation and verification checkpoint (October 23)
+
+Code inspected at [`main` `723ed6f`](https://github.com/peterbucci/ai-teaching-platform/commit/723ed6fea41138b604a9d333ebcd4a07b2202c36). This is a bounded audit checkpoint, not a live status feed or a new browser/model test.
+
+| Area | Implemented evidence | Remaining release gate |
+| --- | --- | --- |
+| Teacher overview, insights, student/session evidence | Existing teacher pages and persisted evidence views on main | Independent UX walkthrough, contextual navigation and evidence-to-action discoverability |
+| R4 teacher lessons | Import, objectives, questions, immutable publication and assignment activation are present | Preserve approved version/permissions; polish the supporting authoring route without rebuilding it |
+| R7 tutor and orchestration | Single composer, real provider/classification, persistence, controller adapters and teacher action traces are present | Preserve historical [application](../evals/R7_APPLICATION_VERIFICATION.md) and [uploaded-source](../evals/R7_RESOLVER_VERIFICATION.md) records; verify final demo route and recovery |
+| R2 interventions | Draft generation/revision, editing/recipients, approval, separate delivery, student follow-up and teacher comparison are present | Joined teacher-first discoverability and final environment acceptance; historical [draft](../evals/INTERVENTION_DRAFT_VERIFICATION.md), [approval](../evals/INTERVENTION_APPROVAL_VERIFICATION.md), and [outcome](../evals/INTERVENTION_OUTCOMES_VERIFICATION.md) reports retain their stated scope |
+| R1 visuals (only if included) | Renderer/generator components and historical verification exist | Tutor action allowlist does not yet include a visual action; #42/#43 integration remains a dependency |
+| R5 / Teacher Copilot | Existing predefined-pattern evidence and focused authoring/intervention proposals | Do not claim new open-ended pattern discovery or a general page-aware copilot from these components |
+
+The older October 22 descriptions of #81/#82 as draft-only and R4/R7/R2 as merely planned are superseded for this checkpoint. Existing verification includes genuine local real-model/browser evidence as well as deterministic and injected-provider checks. Preserve each report's tested commit, environment, inputs, failed/unrun cases and limitations. The historical [#35](https://github.com/peterbucci/ai-teaching-platform/issues/35) checkpoint at `6ecc80f` is separate from the required independent walkthrough of the final main/deployment build. No fresh paid evaluation or runtime acceptance was performed by this planning audit.
 
 ## 6. Rehearsal runbook
 
 ### Preparation
 
 - [ ] Review **Canvas submission instructions** and identify the exact cut-off and required materials.
-- [ ] Select one **permitted new** text-based source; verify extraction, attribution and readable passage references.
+- [ ] Prepare an approved lesson and evidence/intervention scenario for the core teacher route; select a permitted new source only if showing the supporting upload workflow.
 - [ ] Use **fictional teacher/student accounts** and an isolated synthetic class.
 - [ ] Ensure a working HTTPS deployment or reliable local/demo environment and stable seeded data.
-- [ ] Confirm OpenAI credentials, chosen model, API budget, and a deliberately bounded live test plan. No keys in screen recordings.
+- [ ] Confirm configuration and fallback for the selected demo. Any new paid rehearsal/evaluation needs a separately authorized bounded scope; this planning task runs none. No keys in screen recordings.
 - [ ] Ensure approved lesson/source versions and correct class enrollment; clear only disposable demo test records, never real history.
 - [ ] Confirm all demonstration URLs and direct navigation paths; use actual routes rather than inventing them in slides.
 - [ ] Confirm visually distinct labels for **fixture**, **live model**, **curated fallback**, and **not yet implemented**.
 - [ ] Prepare two held-out student responses and one ambiguous ask/answer test.
-- [ ] Have a team member rehearse the sequence without relying on the original developer's local state.
+- [ ] Have a team member rehearse the teacher-first sequence without developer coaching or reliance on the original developer's local state; record blocking UX defects under [#114](https://github.com/peterbucci/ai-teaching-platform/issues/114).
 
 ### Suggested presentation pacing (adjust to any official limit)
 
 | Segment | Suggested focus |
 | --- | --- |
-| Problem and product | Teachers lack insight into *why* students struggle; students need responsive explanations |
-| Teacher authoring | Upload, AI objectives/questions, approval, copilot's actual proposed edit |
-| Student agent | One conversation, intent recognition, generated help, AI-chosen action/tool, responsive retest |
-| Visual | R1 prediction → experiment → explanation → next tutoring decision |
-| Teacher impact | Evidence trace and R2 reviewed intervention |
-| Trust | Approved sources, human approvals, bounded tools, safe fallback, honest limits |
+| Teacher overview | The teaching concern and why it deserves attention |
+| Evidence | Exact original reasoning, assistance, source and uncertainty |
+| Teacher action | AI draft, teacher edit/review, approval and delivery |
+| Follow-up | Student response and linked teacher comparison; observed evidence and limits |
+| Supporting authoring | Brief upload/review/publish flow, only after the value is clear |
+| Optional verified segment | Narrow copilot or R1 only if ready; omit to protect the core route |
+| Trust and close | Human control, bounded tools, recovery and honest claims |
 
 Avoid spending most of the demonstration navigating the UI. Show the **agent decision and its executed result** clearly.
 
@@ -234,9 +184,9 @@ This template is intentionally blank. Do not prefill it with fixture data and ca
 | Agent action selection | Two held-out misunderstandings produce educationally distinct and justified actions/prompts |
 | Action validation | Unknown tool, disallowed step, unsupported citation, or invalid output is rejected and leaves state consistent |
 | Tool execution | Accepted tool actually runs, result persists, and the next student observation changes the following permitted step |
-| R1 visuals | Server calculations match reviewed model; prediction, parameters and explanation are saved; text fallback works |
+| R1 visuals (only if included) | Server calculations match reviewed model; prediction, parameters and explanation are saved; text fallback works |
 | R2 interventions | Evidence-backed draft requires teacher approval; correct recipients; later attempts linked correctly |
-| Copilot | Proposed form patch targets the correct teacher/draft/revision; teacher approval required; stale patch rejected |
+| Copilot (only if included) | Proposed form patch targets the correct teacher/draft/revision; teacher approval required; stale patch rejected |
 | Isolation | Student cannot read another student's work; teacher cannot access another teacher's class |
 | Recovery | Duplicate Send, double click, tab refresh, pending provider timeout, retry and reconnect never corrupt evidence or auto-repeat paid calls |
 | Analytics | Distinct student denominators and origin labels correct; assisted immediate retest is **not** described as retention |
@@ -260,7 +210,7 @@ npm run patterns:check
 npm run eval:live
 ```
 
-The final database and live-model commands require working credentials/configuration; a documentation change **does not** mean these have been executed. Avoid unbounded paid calls.
+Database checks need working configuration. Paid model checks require a separately approved scope; **do not run them as part of this planning audit**. A documentation change does not mean any runtime check was executed. Independent UI acceptance remains required even when automated checks pass.
 
 ## 8. Integration and deadline decisions
 
@@ -268,21 +218,20 @@ The sequence below is a **planning target**, not a promise of completion. Use in
 
 | Date | Highest-value work | Decision gate |
 | --- | --- | --- |
-| **Oct 22** | Review revised scope, branch/PR ownership and required interfaces: #53 content resolver, R7 orchestration + #74/#75, R1 activity contract, R2 intervention schema | Confirm what is truly built vs planned; agree on one vertical slice |
-| **Oct 23** | Integrate one new source + approved question and live R7 model intent/action routing; build narrow R1 and R2 services in parallel | A student can actually use the new approved lesson and agent action |
-| **Oct 24** | Join R1 experiment, saved evidence, and R2 teacher-reviewed follow-up; run adversarial and cross-role tests | Freeze speculative features; identify reliable demo route and honest limitations |
-| **Oct 25** | Rehearse real model trace, build/deploy, record backup, prepare and **submit** through the official required platform | Submit **before Canvas's verified cutoff**; don't wait for last-minute integration |
+| **Oct 23** | Reconcile implemented work, current PRs and project metadata; agree the teacher-first route and P0 UX issue; retain owners/history | Identify actual integration and discoverability blockers without recreating completed work |
+| **Oct 24** | Rehearse overview → evidence → intervention → follow-up on the intended environment; address P0 failures and freeze the route | Independent teammate can complete it; defer P1/P2 additions that threaten reliability |
+| **Oct 25** | Verify final build/deployment, rehearse the approved route, record backup and submit | Submit before Canvas's verified cutoff; record confirmation and known limitations |
 
-**If something is blocked:** Cut breadth, not truthfulness. For example, support a single clearly described text import rather than pretending all PDFs/slides work; deliver one real visual tool rather than five fake visual types; show a teacher-reviewed R2 draft without claiming a follow-up occurred if it didn't.
+**If something is blocked:** Reduce optional breadth. Use the verified text tutoring path when visual integration is incomplete and omit a broad copilot segment. If intervention delivery or follow-up fails, report that as an incomplete P0 gate; showing only a draft does not satisfy the full teacher journey.
 
-**Release decisions:** The deterministic baseline remains independently testable. The new *agentic showcase* gate is separate. An incomplete agentic gate must be reported as incomplete even if the baseline passes.
+**Release decisions:** Track deterministic baseline, agentic evidence and teacher-facing UX acceptance separately. Passing one does not silently waive the others. Keep deployment/submission and exact private Canvas requirements with their existing owners.
 
 ## 9. Submission checklist and handoff
 
 - [ ] Confirm the **official Canvas rubric and submission package** (links, slides, code, video, declaration, team membership as required).
 - [ ] The README and public demo description match the actual implementation, not only the target plan.
 - [ ] Confirm all source rights/attribution and remove secrets, test credentials, real student data and private files from artifacts.
-- [ ] Record deployment URL, git SHA, model/config, tests, real trace and known limitations.
+- [ ] Record deployment URL, git SHA, model/config, tests, real trace, independent UX walkthrough, known limitations and remaining blockers.
 - [ ] Capture a short, **truthfully labeled** backup recording of the *actual running* demo.
 - [ ] Verify a teammate can open the experience and recover the demo if the live API is unavailable.
 - [ ] Include a clear explanation of **why an agent is needed**: choosing instructional actions from evidence, safely using tools, and adapting to observed results.
@@ -296,5 +245,6 @@ The sequence below is a **planning target**, not a promise of completion. Use in
 - [R7 Contracts](R7_CONTRACTS.md): existing dialogue contracts and planned single-composer/live integration.
 - [Curated demo source guide](../content/network-performance-v1/DEMO_GUIDE.md): prepared networking example (not a substitute for a new uploaded lesson).
 - [Roadmap #15](https://github.com/peterbucci/ai-teaching-platform/issues/15), [release epic #9](https://github.com/peterbucci/ai-teaching-platform/issues/9), [Project #7](https://github.com/users/peterbucci/projects/7): current tickets/owners/statuses.
+- [Teacher-First Showcase view](https://github.com/users/peterbucci/projects/7/views/10): focused release view using the existing project workflow and ownership.
 
-**Final rule:** Show the real path from **AI decision → validated tool call → observed student response → next action**, and show which parts the teacher controls. If a feature is a fixture, an unmerged PR, or a plan, label it accordingly.
+**Final rule:** Make the teacher's benefit and control clear through **overview → evidence → reviewed intervention → follow-up**, supported by the real **AI decision → validated tool call → observed student response → next action** trace. If a feature is a fixture, an unmerged PR, or a plan, label it accordingly.
