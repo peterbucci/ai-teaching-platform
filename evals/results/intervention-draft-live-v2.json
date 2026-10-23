@@ -1,0 +1,464 @@
+{
+  "issue": 44,
+  "started_at": "2026-10-23T02:32:13.430Z",
+  "completed_at": "2026-10-23T02:32:40.594Z",
+  "verification": "service/database integration with one actual model-generation request; authentication/browser checked separately",
+  "evidence_origin": "recorded fictional synthetic_fixture responses and authored accepted evaluations, not real classroom data",
+  "actual_model_requests_requested": 1,
+  "synthetic_generation_scenarios": "skipped",
+  "deterministic_checks": [
+    "recorded fictional evidence includes supporting, contrary, independent and assisted examples with distinct-student counts",
+    "original responses, accepted evaluations, assistance, sources and class metrics remain unchanged"
+  ],
+  "deterministic_provider_calls": 0,
+  "request": {
+    "request_id": "5ba375a5-8256-4961-a82f-f9dc60652f6a",
+    "draft_id": "baaa38f1-8ebd-46b1-ab5b-003a99106e7e",
+    "expected_revision": 0,
+    "selection": {
+      "assignment_id": "30000000-0000-4000-8000-000000000001",
+      "concept_id": "transmission_delay",
+      "misconception_id": null,
+      "attempt_ids": [
+        "50000000-0000-4000-8000-000000000001",
+        "50000000-0000-4000-8000-000000000005"
+      ],
+      "origin": "synthetic_fixture"
+    },
+    "revision_instructions": "Prepare a useful qualitative review of the observed relationship between distance and transmission delay; preserve the counterevidence and distinguish assisted follow-up from independent understanding."
+  },
+  "result": {
+    "status": "completed",
+    "request_id": "5ba375a5-8256-4961-a82f-f9dc60652f6a",
+    "draft": {
+      "id": "baaa38f1-8ebd-46b1-ab5b-003a99106e7e",
+      "assignment_id": "30000000-0000-4000-8000-000000000001",
+      "revision": 1,
+      "status": "private_draft",
+      "activity": {
+        "title": "Separating sending time from signal travel time",
+        "learning_objective": "Explain why changing cable length alone changes propagation delay but not transmission delay.",
+        "strategy": "predict_then_explain",
+        "rationale": "Predict a change, then explain the reasoning for Transmission delay, prompted by recorded reasoning: “Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.”. Correct or contrary evidence is also retained for review.",
+        "explanation": "Second, there is the amount of time it takes to transmit a unit of data.\nThis is a function of the network bandwidth and the size of the packet in\nwhich the data is carried.\n\nPropagation =  Distance/SpeedOfLight\n   Transmit = Size/Bandwidth\n\nwhere ``Distance`` is the length of the wire over which the data will\ntravel, ``SpeedOfLight`` is the effective speed of light over that wire,\n``Size`` is the size of the packet, and ``Bandwidth`` is the bandwidth\nat which the packet is transmitted.",
+        "exercise_text": "For each situation, predict transmission delay and propagation delay separately before reading the source excerpts. Explain which changed quantity matters for each delay and which quantities remain fixed. Then use the excerpts to check your reasoning and revise it if needed.",
+        "practice_questions": [
+          {
+            "origin": "generated",
+            "question_id": "9c29bf28-9846-4d8d-aea4-ef8ee3b3f6ba",
+            "sequence_id": null,
+            "prompt_text": "A sensor sends a packet over a single cable. The cable is replaced by a shorter cable with the same effective signal speed. Packet size and link transmission rate stay fixed. Predict whether each delay decreases, increases, or stays unchanged. Explain your predictions by identifying what determines each delay.",
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            },
+            "concept_ids": ["transmission_delay", "propagation_delay"],
+            "source_passage_ids": ["P08"],
+            "rubric": {
+              "version": "teacher-intervention-v2",
+              "answer_guidance": "Propagation =  Distance/SpeedOfLight\n   Transmit = Size/Bandwidth\n\nwhere ``Distance`` is the length of the wire over which the data will\ntravel, ``SpeedOfLight`` is the effective speed of light over that wire,\n``Size`` is the size of the packet, and ``Bandwidth`` is the bandwidth\nat which the packet is transmitted.",
+              "criteria": [
+                "Propagation =  Distance/SpeedOfLight",
+                "Transmit = Size/Bandwidth",
+                "``Distance`` is the length of the wire over which the data will\ntravel"
+              ],
+              "acceptable_variations": [],
+              "partial_credit_guidance": null
+            },
+            "embedded_scaffolding": [],
+            "generation": {
+              "model": "gpt-6.1-sol",
+              "prompt_template_version": "teacher-intervention-v2",
+              "generated_at": "2026-10-23T02:32:40.540Z"
+            }
+          }
+        ],
+        "fresh_check": {
+          "origin": "generated",
+          "question_id": "693eee7d-f526-4c53-8c59-7d69e9ca963b",
+          "sequence_id": null,
+          "prompt_text": "A laboratory compares sending the same packet across a single link before and after changing its medium. Cable length and link transmission rate remain fixed, but effective signal speed is lower in the new medium. Predict what happens to transmission delay and propagation delay. Explain why the delays need not change together.",
+          "content_ref": {
+            "package_id": "network-performance-v1",
+            "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+            "source_id": "peterson_davie_1_5_1",
+            "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+            "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+          },
+          "concept_ids": ["transmission_delay", "propagation_delay"],
+          "source_passage_ids": ["P08"],
+          "rubric": {
+            "version": "teacher-intervention-v2",
+            "answer_guidance": "Propagation =  Distance/SpeedOfLight\n   Transmit = Size/Bandwidth\n\nwhere ``Distance`` is the length of the wire over which the data will\ntravel, ``SpeedOfLight`` is the effective speed of light over that wire,\n``Size`` is the size of the packet, and ``Bandwidth`` is the bandwidth\nat which the packet is transmitted.",
+            "criteria": [
+              "Propagation =  Distance/SpeedOfLight",
+              "Transmit = Size/Bandwidth",
+              "``SpeedOfLight`` is the effective speed of light over that wire"
+            ],
+            "acceptable_variations": [],
+            "partial_credit_guidance": null
+          },
+          "embedded_scaffolding": [],
+          "generation": {
+            "model": "gpt-6.1-sol",
+            "prompt_template_version": "teacher-intervention-v2",
+            "generated_at": "2026-10-23T02:32:40.540Z"
+          }
+        },
+        "source_references": [
+          {
+            "passage_id": "P07",
+            "quote": "Second, there is the amount of time it takes to transmit a unit of data.\nThis is a function of the network bandwidth and the size of the packet in\nwhich the data is carried."
+          },
+          {
+            "passage_id": "P08",
+            "quote": "Propagation =  Distance/SpeedOfLight\n   Transmit = Size/Bandwidth\n\nwhere ``Distance`` is the length of the wire over which the data will\ntravel, ``SpeedOfLight`` is the effective speed of light over that wire,\n``Size`` is the size of the packet, and ``Bandwidth`` is the bandwidth\nat which the packet is transmitted."
+          }
+        ],
+        "evidence_references": [
+          {
+            "attempt_id": "50000000-0000-4000-8000-000000000001",
+            "evaluation_id": "60000000-0000-4000-8000-000000000001",
+            "response_quote": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+            "role": "supporting"
+          },
+          {
+            "attempt_id": "50000000-0000-4000-8000-000000000002",
+            "evaluation_id": "60000000-0000-4000-8000-000000000002",
+            "response_quote": "On A, transmission and propagation are each 1 ms. On B, both are 3 ms, because transmitting across three times the distance takes three times as long.",
+            "role": "supporting"
+          },
+          {
+            "attempt_id": "50000000-0000-4000-8000-000000000003",
+            "evaluation_id": "60000000-0000-4000-8000-000000000003",
+            "response_quote": "More bits take longer to put onto the link, but the distance and propagation speed stay the same.",
+            "role": "contradictory"
+          },
+          {
+            "attempt_id": "50000000-0000-4000-8000-000000000004",
+            "evaluation_id": "60000000-0000-4000-8000-000000000004",
+            "response_quote": "Only propagation changes with the distance.",
+            "role": "contradictory"
+          },
+          {
+            "attempt_id": "50000000-0000-4000-8000-000000000005",
+            "evaluation_id": "60000000-0000-4000-8000-000000000005",
+            "response_quote": "Transmission delay is unchanged: the number of packet bits and the rate at which they enter the link are unchanged. Propagation delay doubles because distance doubles at the same propagation speed.",
+            "role": "contradictory"
+          }
+        ],
+        "suggested_recipients": [
+          {
+            "student_id": "10000000-0000-4000-8000-000000000002",
+            "evidence_attempt_ids": [
+              "50000000-0000-4000-8000-000000000001",
+              "50000000-0000-4000-8000-000000000002",
+              "50000000-0000-4000-8000-000000000003",
+              "50000000-0000-4000-8000-000000000004"
+            ],
+            "reason": "Included history: 2 responses suggesting review, 2 correct or contrary responses, and 0 uncertain/context responses. 1 of 4 responses are eligible as independent for Transmission delay. These are response counts for this learner, not a diagnosis; recipient selection remains with the teacher."
+          }
+        ],
+        "uncertainty": "This draft responds to recorded work, not a diagnosis of a lasting misconception or an assessment of ability or motivation. Correct and assisted responses may qualify the recommendation; immediate improvement does not establish retention. Source excerpts and references were checked, but a teacher must review the new prompts and their answer guidance for educational fit before any future assignment."
+      },
+      "provenance": {
+        "model": "gpt-6.1-sol",
+        "response_id": "resp_0c302bafa1559207016adac72d2a9c87d2b6bb629443db0514",
+        "prompt_template_version": "teacher-intervention-v2",
+        "generated_at": "2026-10-23T02:32:40.540Z",
+        "usage": {
+          "inputTokens": 3766,
+          "outputTokens": 1351,
+          "totalTokens": 5117
+        }
+      },
+      "created_at": "2026-10-23T02:32:13.465Z",
+      "updated_at": "2026-10-23T02:32:40.540Z"
+    }
+  },
+  "evidence": {
+    "selection": {
+      "assignment_id": "30000000-0000-4000-8000-000000000001",
+      "concept_id": "transmission_delay",
+      "misconception_id": null,
+      "attempt_ids": [
+        "50000000-0000-4000-8000-000000000001",
+        "50000000-0000-4000-8000-000000000005"
+      ],
+      "origin": "synthetic_fixture"
+    },
+    "content_ref": {
+      "package_id": "network-performance-v1",
+      "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+      "source_id": "peterson_davie_1_5_1",
+      "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+      "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+    },
+    "counts": {
+      "selected_students": 2,
+      "selected_responses": 5,
+      "enrolled_students": 24
+    },
+    "sources": [
+      {
+        "passage_id": "P05",
+        "text": "While you can talk about the bandwidth of the network as a whole,\nsometimes you want to be more precise, focusing, for example, on the\nbandwidth of a single physical link or of a logical process-to-process\nchannel. At the physical level, bandwidth is constantly improving, with\nno end in sight. Intuitively, if you think of a second of time as a\ndistance you could measure with a ruler and bandwidth as how many bits\nfit in that distance, then you can think of each bit as a pulse of some\nwidth. For example, each bit on a 1-Mbps link is 1 μs wide, while each\nbit on a 2-Mbps link is 0.5 μs wide, as illustrated in :numref:`Figure\n%s <fig-bit-width>`. The more sophisticated the transmitting and receiving\ntechnology, the narrower each bit can become and, thus, the higher the\nbandwidth. For logical process-to-process channels, bandwidth is also\ninfluenced by other factors, including how many times the software that\nimplements the channel has to handle, and possibly transform, each bit\nof data.",
+        "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst#L56-L70"
+      },
+      {
+        "passage_id": "P07",
+        "text": "We often think of latency as having three components. First, there is\nthe speed-of-light propagation delay. This delay occurs because nothing,\nincluding a bit on a wire, can travel faster than the speed of light. If\nyou know the distance between two points, you can calculate the\nspeed-of-light latency, although you have to be careful because light\ntravels across different media at different speeds: It travels at\n3.0 × 10\\ :sup:`8` m/s in a vacuum, 2.3 × 10\\ :sup:`8` m/s\nin a copper cable, and 2.0 × 10\\ :sup:`8` m/s in an optical fiber.\nSecond, there is the amount of time it takes to transmit a unit of data.\nThis is a function of the network bandwidth and the size of the packet in\nwhich the data is carried. Third, there may be queuing delays inside the\nnetwork, since packet switches generally need to store packets for some\ntime before forwarding them on an outbound link. So, we could define the\ntotal latency as",
+        "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst#L94-L107"
+      },
+      {
+        "passage_id": "P08",
+        "text": "::\n\n   Latency = Propagation + Transmit + Queue\n   Propagation =  Distance/SpeedOfLight\n   Transmit = Size/Bandwidth\n\nwhere ``Distance`` is the length of the wire over which the data will\ntravel, ``SpeedOfLight`` is the effective speed of light over that wire,\n``Size`` is the size of the packet, and ``Bandwidth`` is the bandwidth\nat which the packet is transmitted. Note that if the message contains\nonly one bit and we are talking about a single link (as opposed to a\nwhole network), then the ``Transmit`` and ``Queue`` terms are not\nrelevant, and latency corresponds to the propagation delay only.",
+        "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst#L109-L121"
+      }
+    ],
+    "observations": [
+      {
+        "evidence_id": "E1",
+        "student_id": "10000000-0000-4000-8000-000000000002",
+        "session_id": "40000000-0000-4000-8000-000000000001",
+        "attempt_id": "50000000-0000-4000-8000-000000000001",
+        "evaluation_id": "60000000-0000-4000-8000-000000000001",
+        "original_question": "A single cable becomes twice as long. Packet size, link transmission rate, and propagation speed stay unchanged. What happens to transmission delay and propagation delay? Explain why.",
+        "original_question_concepts": [
+          "transmission_delay",
+          "propagation_delay"
+        ],
+        "original_question_sources": ["P07", "P08", "P12"],
+        "original_response": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+        "accepted_per_concept_judgments": [
+          {
+            "concept_id": "transmission_delay",
+            "correctness": "incorrect",
+            "error_type": "conceptual",
+            "rubric_criteria_met": [],
+            "rubric_criteria_missing": []
+          },
+          {
+            "concept_id": "propagation_delay",
+            "correctness": "correct",
+            "error_type": null,
+            "rubric_criteria_met": [],
+            "rubric_criteria_missing": []
+          }
+        ],
+        "reasoning": "Authored SYN-SUPPORTED-01 example: the response explicitly links transmission time to distance while answering propagation correctly.",
+        "uncertainty": null,
+        "assistance": {
+          "intervention_ids": [],
+          "assistance_level": "none_recorded",
+          "scaffolding_types": [],
+          "independent_retrieval_eligible_by_concept": {
+            "propagation_delay": true,
+            "transmission_delay": true
+          },
+          "most_recent_content_assistance_at": null,
+          "elapsed_since_content_assistance_seconds": null
+        },
+        "intent": "initial_retrieval",
+        "role": "supporting",
+        "origin": "synthetic_fixture"
+      },
+      {
+        "evidence_id": "E2",
+        "student_id": "10000000-0000-4000-8000-000000000002",
+        "session_id": "40000000-0000-4000-8000-000000000001",
+        "attempt_id": "50000000-0000-4000-8000-000000000002",
+        "evaluation_id": "60000000-0000-4000-8000-000000000002",
+        "original_question": "Compare two single optical-fiber links. Link A is 200 km long and link B is 600 km long. Each sends the same 1,000-byte packet at 8 Mbps, and propagation speed is 200,000,000 m/s on both. Ignore queuing and processing. For each link, find transmission delay and propagation delay. Which delay changes between the links, and why?",
+        "original_question_concepts": [
+          "transmission_delay",
+          "propagation_delay"
+        ],
+        "original_question_sources": ["P07", "P08"],
+        "original_response": "On A, transmission and propagation are each 1 ms. On B, both are 3 ms, because transmitting across three times the distance takes three times as long.",
+        "accepted_per_concept_judgments": [
+          {
+            "concept_id": "transmission_delay",
+            "correctness": "incorrect",
+            "error_type": "conceptual",
+            "rubric_criteria_met": [],
+            "rubric_criteria_missing": []
+          },
+          {
+            "concept_id": "propagation_delay",
+            "correctness": "correct",
+            "error_type": null,
+            "rubric_criteria_met": [],
+            "rubric_criteria_missing": []
+          }
+        ],
+        "reasoning": "Authored SYN-SUPPORTED-01 example: the response explicitly links transmission time to distance while answering propagation correctly.",
+        "uncertainty": null,
+        "assistance": {
+          "intervention_ids": [],
+          "assistance_level": "none_recorded",
+          "scaffolding_types": ["diagnostic_prompt_without_answer"],
+          "independent_retrieval_eligible_by_concept": {
+            "propagation_delay": false,
+            "transmission_delay": false
+          },
+          "most_recent_content_assistance_at": null,
+          "elapsed_since_content_assistance_seconds": null
+        },
+        "intent": "diagnostic_followup",
+        "role": "supporting",
+        "origin": "synthetic_fixture"
+      },
+      {
+        "evidence_id": "E3",
+        "student_id": "10000000-0000-4000-8000-000000000002",
+        "session_id": "40000000-0000-4000-8000-000000000001",
+        "attempt_id": "50000000-0000-4000-8000-000000000003",
+        "evaluation_id": "60000000-0000-4000-8000-000000000003",
+        "original_question": "On a 600 km optical-fiber link, the rate is 8 Mbps and propagation speed is 200,000,000 m/s. Compare sending a 1,000-byte packet with sending a 2,000-byte packet. Only packet size changes. What are transmission delay and propagation delay in each case? Explain which quantity changes.",
+        "original_question_concepts": [
+          "transmission_delay",
+          "propagation_delay"
+        ],
+        "original_question_sources": ["P07", "P08"],
+        "original_response": "Transmission is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes. Propagation is 3 ms for both. More bits take longer to put onto the link, but the distance and propagation speed stay the same.",
+        "accepted_per_concept_judgments": [
+          {
+            "concept_id": "transmission_delay",
+            "correctness": "correct",
+            "error_type": null,
+            "rubric_criteria_met": [],
+            "rubric_criteria_missing": []
+          },
+          {
+            "concept_id": "propagation_delay",
+            "correctness": "correct",
+            "error_type": null,
+            "rubric_criteria_met": [],
+            "rubric_criteria_missing": []
+          }
+        ],
+        "reasoning": "Authored SYN-SUPPORTED-01 example: the response distinguishes the determinants of transmission and propagation.",
+        "uncertainty": null,
+        "assistance": {
+          "intervention_ids": ["70000000-0000-4000-8000-000000000001"],
+          "assistance_level": "corrective_feedback",
+          "scaffolding_types": [],
+          "independent_retrieval_eligible_by_concept": {
+            "propagation_delay": false,
+            "transmission_delay": false
+          },
+          "most_recent_content_assistance_at": "2026-10-14T23:43:11.000Z",
+          "elapsed_since_content_assistance_seconds": 109
+        },
+        "intent": "immediate_retest",
+        "role": "contradictory",
+        "origin": "synthetic_fixture"
+      },
+      {
+        "evidence_id": "E4",
+        "student_id": "10000000-0000-4000-8000-000000000002",
+        "session_id": "40000000-0000-4000-8000-000000000001",
+        "attempt_id": "50000000-0000-4000-8000-000000000004",
+        "evaluation_id": "60000000-0000-4000-8000-000000000004",
+        "original_question": "Now send a 3,000-byte packet at 12 Mbps over a single optical-fiber link. Compare a 100 km link with a 400 km link, both with propagation speed 200,000,000 m/s. Only distance changes. Find transmission delay and propagation delay in each case, and explain your comparison.",
+        "original_question_concepts": [
+          "transmission_delay",
+          "propagation_delay"
+        ],
+        "original_question_sources": ["P07", "P08"],
+        "original_response": "Transmission is 2 ms for each: 24,000 divided by 12,000,000 seconds. Propagation is 0.5 ms for 100 km and 2 ms for 400 km. Only propagation changes with the distance.",
+        "accepted_per_concept_judgments": [
+          {
+            "concept_id": "transmission_delay",
+            "correctness": "correct",
+            "error_type": null,
+            "rubric_criteria_met": [],
+            "rubric_criteria_missing": []
+          },
+          {
+            "concept_id": "propagation_delay",
+            "correctness": "correct",
+            "error_type": null,
+            "rubric_criteria_met": [],
+            "rubric_criteria_missing": []
+          }
+        ],
+        "reasoning": "Authored SYN-SUPPORTED-01 example: the response distinguishes the determinants of transmission and propagation.",
+        "uncertainty": null,
+        "assistance": {
+          "intervention_ids": ["70000000-0000-4000-8000-000000000001"],
+          "assistance_level": "corrective_feedback",
+          "scaffolding_types": [],
+          "independent_retrieval_eligible_by_concept": {
+            "propagation_delay": false,
+            "transmission_delay": false
+          },
+          "most_recent_content_assistance_at": "2026-10-14T23:43:11.000Z",
+          "elapsed_since_content_assistance_seconds": 229
+        },
+        "intent": "immediate_retest",
+        "role": "contradictory",
+        "origin": "synthetic_fixture"
+      },
+      {
+        "evidence_id": "E5",
+        "student_id": "10000000-0000-4000-8000-000000000003",
+        "session_id": "40000000-0000-4000-8000-000000000002",
+        "attempt_id": "50000000-0000-4000-8000-000000000005",
+        "evaluation_id": "60000000-0000-4000-8000-000000000005",
+        "original_question": "A single cable becomes twice as long. Packet size, link transmission rate, and propagation speed stay unchanged. What happens to transmission delay and propagation delay? Explain why.",
+        "original_question_concepts": [
+          "transmission_delay",
+          "propagation_delay"
+        ],
+        "original_question_sources": ["P07", "P08", "P12"],
+        "original_response": "Transmission delay is unchanged: the number of packet bits and the rate at which they enter the link are unchanged. Propagation delay doubles because distance doubles at the same propagation speed.",
+        "accepted_per_concept_judgments": [
+          {
+            "concept_id": "transmission_delay",
+            "correctness": "correct",
+            "error_type": null,
+            "rubric_criteria_met": [],
+            "rubric_criteria_missing": []
+          },
+          {
+            "concept_id": "propagation_delay",
+            "correctness": "correct",
+            "error_type": null,
+            "rubric_criteria_met": [],
+            "rubric_criteria_missing": []
+          }
+        ],
+        "reasoning": "Authored SYN-CORRECT-01 example: the response distinguishes the determinants of transmission and propagation.",
+        "uncertainty": null,
+        "assistance": {
+          "intervention_ids": [],
+          "assistance_level": "none_recorded",
+          "scaffolding_types": [],
+          "independent_retrieval_eligible_by_concept": {
+            "propagation_delay": true,
+            "transmission_delay": true
+          },
+          "most_recent_content_assistance_at": null,
+          "elapsed_since_content_assistance_seconds": null
+        },
+        "intent": "initial_retrieval",
+        "role": "contradictory",
+        "origin": "synthetic_fixture"
+      }
+    ]
+  },
+  "saved_draft_matches": true,
+  "educational_review": {
+    "status": "agent_reviewed_suitable_for_teacher_review",
+    "expected_reasoning": {
+      "practice": "With a shorter cable, fixed packet size/rate/signal speed: transmission delay unchanged; propagation decreases.",
+      "fresh_check": "With lower signal speed and fixed cable length, packet size and transmission rate: transmission unchanged; propagation increases."
+    },
+    "notes": "Both assessed concepts are preserved. P07/P08 excerpts support the relationships. Rationale cites the observed distance-confusion and retains contrary independent/assisted responses. Practice is a close conceptual reversal of the initial question; the fresh check transfers reasoning to a different variable (signal speed), rather than repeating it. Recipient suggestion retains the later correct work and independent eligibility counts. No administrative disclaimer in student exercise. This is agent review, not teacher approval or educational validation. Private guidance is accurate source text but generic; #45 teacher editing should clarify expected directional answers and show prediction before explanation or count displayed explanation as assistance."
+  }
+}
