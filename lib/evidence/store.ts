@@ -19,11 +19,8 @@ import type {
   Intervention,
   EpisodeOutcome,
 } from "./contracts.ts";
-import {
-  loadApprovedContent,
-  validateContentRef,
-  validateQuestionSnapshot,
-} from "./content.ts";
+import { validateContentRef, validateQuestionSnapshot } from "./content.ts";
+import { resolveAssignmentContent } from "../lessons/store.ts";
 import {
   deriveAssistance,
   toStudentSessionView,
@@ -120,7 +117,7 @@ export async function sessionEvidence(
     [sessionId],
   );
   return validateSessionEvidence(
-    loadApprovedContent(),
+    await resolveAssignmentContent(client, access, session.assignment_id, role),
     evidenceRow({
       session,
       attempts: attempts.rows,
@@ -213,7 +210,13 @@ export async function startSession(
         teacher_approved_at: z.unknown(),
       })
       .parse(assignmentRows.rows[0]);
-    validateContentRef(loadApprovedContent(), assignment.content_ref);
+    const content = await resolveAssignmentContent(
+      client,
+      access,
+      assignment.id,
+      "student",
+    );
+    validateContentRef(content, assignment.content_ref);
     if (dataOrigin === "live_demo" && !assignment.teacher_approved_at)
       throw new EvidenceError(
         409,
@@ -255,7 +258,12 @@ export async function presentQuestion(
     if (evidence.session.status !== "active")
       throw new EvidenceError(409, "Session has ended.");
     const question = validateQuestionSnapshot(
-      loadApprovedContent(),
+      await resolveAssignmentContent(
+        client,
+        access,
+        evidence.session.assignment_id,
+        "student",
+      ),
       input.question,
     );
     const parent = input.parent_attempt_id
@@ -422,7 +430,12 @@ export async function recordEvaluation(
     );
     if (!attempt) throw new EvidenceError(404, "Attempt not found.");
     validateEvaluationReferences(
-      loadApprovedContent(),
+      await resolveAssignmentContent(
+        client,
+        access,
+        evidence.session.assignment_id,
+        "student",
+      ),
       evaluation,
       attempt,
       evidence.attempts,
@@ -459,10 +472,18 @@ export async function recordIntervention(
       visible_at: null,
       delivery_status: "created",
     });
-    validateSessionEvidence(loadApprovedContent(), {
-      ...evidence,
-      interventions: [...evidence.interventions, intervention],
-    });
+    validateSessionEvidence(
+      await resolveAssignmentContent(
+        client,
+        access,
+        evidence.session.assignment_id,
+        "student",
+      ),
+      {
+        ...evidence,
+        interventions: [...evidence.interventions, intervention],
+      },
+    );
     const result = await client.query(
       "INSERT INTO interventions SELECT (jsonb_populate_record(NULL::interventions,$1::jsonb)).* RETURNING *",
       [JSON.stringify(intervention)],
@@ -491,12 +512,20 @@ export async function finishSession(
     });
     if (!evidence.attempts.some((item) => item.id === outcome.root_attempt_id))
       throw new EvidenceError(400, "Episode root not found.");
-    validateSessionEvidence(loadApprovedContent(), {
-      ...evidence,
-      attempts: evidence.attempts.map((item) =>
-        item.id === outcome.root_attempt_id ? { ...item, outcome } : item,
+    validateSessionEvidence(
+      await resolveAssignmentContent(
+        client,
+        access,
+        evidence.session.assignment_id,
+        "student",
       ),
-    });
+      {
+        ...evidence,
+        attempts: evidence.attempts.map((item) =>
+          item.id === outcome.root_attempt_id ? { ...item, outcome } : item,
+        ),
+      },
+    );
     const status =
       outcome.outcome === "pending_evaluation" ||
       outcome.outcome === "unevaluated"

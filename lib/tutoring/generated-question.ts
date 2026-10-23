@@ -16,14 +16,21 @@ import type { TutorDecision } from "./decide.ts";
  * reviewed authored activity whose existing transition semantics apply. */
 export function controllerNode(content: ApprovedContent, attempt: Attempt) {
   const question = validateQuestionSnapshot(content, attempt.question);
-  const nodeId =
-    question.origin === "generated"
-      ? question.controller_node_id
-      : question.question_id;
+  // A teacher-approved bank question can itself have generated provenance. Its
+  // exact published snapshot still owns an authored activity ID; only a new
+  // runtime snapshot needs the separate server binding.
+  const published =
+    question.question_id !== null &&
+    content.questions.has(question.question_id);
+  if (published && question.controller_node_id !== undefined)
+    throw new Error(
+      "Published questions cannot carry runtime activity bindings",
+    );
+  const nodeId = published ? question.question_id : question.controller_node_id;
   const node = content.sequence.nodes.find((item) => item.node_id === nodeId);
   if (!node || question.sequence_id !== content.sequence.sequence_id)
     throw new Error("Question has no approved controller activity binding");
-  if (question.origin === "generated") {
+  if (!published) {
     const authored = content.questions.get(node.node_id);
     if (
       !authored ||

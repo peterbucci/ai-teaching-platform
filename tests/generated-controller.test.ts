@@ -2,6 +2,11 @@ import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import test from "node:test";
 import { loadApprovedContent } from "../lib/evidence/content.ts";
+import { hydrateLessonContent } from "../lib/lessons/validate.ts";
+import {
+  makeTeacherLesson,
+  makeTeacherSourceReference,
+} from "./fixtures/teacher-lesson.ts";
 import { buildDemoFixture } from "../lib/evidence/demo.ts";
 import {
   QuestionSnapshotSchema,
@@ -250,4 +255,137 @@ test("generated assessed prompts cannot carry assistance before a question-displ
     bindGeneratedQuestion(content, evidence, decision, generated),
   );
   assert.equal(content.questions.get("D02")!.origin, "curated");
+});
+
+test("approved uploaded bank questions retain their authored slots even with generated provenance", () => {
+  const data = makeTeacherLesson(
+    makeTeacherSourceReference(randomUUID(), randomUUID()),
+    randomUUID(),
+    "1",
+  );
+  data.questions = data.questions.map((question) => ({
+    ...question,
+    origin: "generated",
+    generation: {
+      model: "synthetic_authoring_fixture",
+      prompt_template_version: "approved-bank-test",
+      generated_at: now,
+    },
+  }));
+  const lesson = hydrateLessonContent(data);
+  const original = lesson.questions.get("WC-01")!;
+  const attempt = {
+    ...structuredClone(authored.attempts[0]),
+    question: original,
+  };
+  assert.equal(controllerNode(lesson, attempt).node_id, "WC-01");
+  assert.equal(original.controller_node_id, undefined);
+  assert.throws(() =>
+    controllerNode(lesson, {
+      ...attempt,
+      question: { ...original, prompt_text: "Unapproved replacement" },
+    }),
+  );
+  assert.throws(() =>
+    controllerNode(lesson, {
+      ...attempt,
+      question: { ...original, controller_node_id: "WC-DIAGNOSTIC" },
+    }),
+  );
+});
+
+test("runtime uploaded diagnostics bind the published slot and exact source without registering a new bank question", () => {
+  const lesson = hydrateLessonContent(
+    makeTeacherLesson(
+      makeTeacherSourceReference(randomUUID(), randomUUID()),
+      randomUUID(),
+      "1",
+    ),
+  );
+  const evidence = structuredClone(authored);
+  evidence.attempts = [
+    { ...evidence.attempts[0], question: lesson.questions.get("WC-01")! },
+  ];
+  const id = randomUUID();
+  const generated: Extract<GeneratedDialogue, { kind: "question" }> = {
+    kind: "question",
+    content_id: id,
+    intent: "diagnostic_followup",
+    target_misconception_ids: [],
+    question: {
+      ...lesson.questions.get("WC-DIAGNOSTIC")!,
+      origin: "generated",
+      question_id: id,
+      sequence_id: null,
+      prompt_text:
+        "Water on a plate dries while droplets form beside a cool surface. Describe what happens to the water in both cases.",
+      generation: {
+        model: "synthetic_fixture",
+        prompt_template_version: "uploaded-controller-test",
+        generated_at: now,
+      },
+    },
+  };
+  const decision = {
+    applied: {
+      action: "ASK_DIAGNOSTIC_FOLLOWUP" as const,
+      hypothesis_events: [],
+    },
+    nextQuestionId: "WC-DIAGNOSTIC",
+    help: null,
+    outcome: null,
+  };
+  const bound = bindGeneratedQuestion(lesson, evidence, decision, generated);
+  assert.equal(
+    controllerNode(lesson, {
+      ...evidence.attempts[0],
+      intent: "diagnostic_followup",
+      question: bound,
+    }).node_id,
+    "WC-DIAGNOSTIC",
+  );
+  assert.equal(lesson.questions.has(id), false);
+  assert.deepEqual(bound.content_ref, lesson.content_ref);
+  assert.deepEqual(bound.rubric, generated.question.rubric);
+  const changed = structuredClone(generated);
+  changed.question.content_ref.content_version = "2";
+  assert.throws(() =>
+    bindGeneratedQuestion(lesson, evidence, decision, changed),
+  );
+  changed.question.content_ref = generated.question.content_ref;
+  changed.question.concept_ids = ["evaporation"];
+  assert.throws(() =>
+    bindGeneratedQuestion(lesson, evidence, decision, changed),
+  );
+});
+
+test("runtime diagnostic slots preserve the resolver's unclassified-hypothesis safeguards", () => {
+  const lesson = structuredClone(content);
+  lesson.sequence.diagnostic_options = [
+    { misconception_id: "other_or_uncertain", question_id: "D02" },
+  ];
+  const evidence = episode(2);
+  replaceWithGenerated(evidence, 1);
+  const prior = evidence.evaluations[0].applied_result!.hypothesis_events[0];
+  prior.misconception_id = "other_or_uncertain";
+  prior.status = "uncertain";
+  const current = evidence.evaluations.at(-1)!;
+  current.result!.misconception_candidates =
+    current.result!.misconception_candidates!.map((candidate) => ({
+      ...candidate,
+      misconception_id: "other_or_uncertain",
+    }));
+  const original = structuredClone(evidence);
+  const decision = decideTutoring(lesson, evidence, current.id, now);
+  assert.equal(decision.nextQuestionId, "D05");
+  assert.equal(
+    decision.applied.hypothesis_events[0].misconception_id,
+    "other_or_uncertain",
+  );
+  assert.equal(decision.applied.hypothesis_events[0].status, "uncertain");
+  assert.deepEqual(
+    decision.applied.hypothesis_events[0].contradicting_evaluation_ids,
+    [],
+  );
+  assert.deepEqual(evidence, original);
 });

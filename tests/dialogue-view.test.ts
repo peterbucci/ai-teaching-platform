@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { loadApprovedContent } from "../lib/evidence/content.ts";
+import {
+  makeTeacherLesson,
+  makeTeacherSourceReference,
+} from "./fixtures/teacher-lesson.ts";
 import { makeDialogueExamples } from "../lib/dialogue/examples.ts";
 import {
   dialogueFallback,
@@ -231,6 +235,8 @@ test("wrong session, question, assignment, source and regressed revisions cannot
     /assignment/,
   );
   const changedSource = structuredClone(view);
+  if (!("source_commit" in changedSource.state.lesson.content_ref))
+    throw new Error("Expected a curated source fixture");
   changedSource.state.lesson.content_ref.source_commit = "1".repeat(40);
   assert.throws(
     () => parseStudentDialogueView(changedSource, expected, view),
@@ -408,5 +414,96 @@ test("late loads cannot remove, rewrite or regress accepted help; cancellation o
   assert.deepEqual(
     parseStudentDialogueView(displayed, expected, displayed),
     displayed,
+  );
+});
+
+function uploadedAccepted(): StudentDialogueView {
+  const view = accepted();
+  const lesson = makeTeacherLesson(
+    makeTeacherSourceReference(id(31), id(32)),
+    id(33),
+    "water-v1",
+  );
+  view.state.lesson.content_ref = lesson.content_ref;
+  const response = view.turns[0].response;
+  assert.equal(response.status, "accepted");
+  if (response.status !== "accepted") throw new Error("Expected accepted help");
+  response.content.content_ref = structuredClone(lesson.content_ref);
+  response.content.text = "Evaporation changes liquid water into water vapor.";
+  response.content.concept_ids = ["evaporation"];
+  response.content.source_passage_ids = ["water-01"];
+  response.citations = [
+    {
+      passage_id: "water-01",
+      content_version: lesson.content_ref.content_version,
+      text: lesson.passages[0].text,
+      url: null,
+    },
+  ];
+  return view;
+}
+
+test("uploaded dialogue accepts private reading citations without fabricating a public source URL", () => {
+  const view = uploadedAccepted();
+  const parsed = parseStudentDialogueView(view, expected);
+  assert.deepEqual(parsed, view);
+  const response = parsed.turns[0].response;
+  if (response.status !== "accepted") throw new Error("Expected accepted help");
+  assert.equal(response.citations[0].url, null);
+  assert.equal("source_commit" in response.content.content_ref, false);
+  response.citations[0].url = "javascript:alert(1)";
+  assert.equal(StudentDialogueViewSchema.safeParse(parsed).success, false);
+});
+
+test("uploaded dialogue pins source version, original and excerpt hashes, owner and attribution across recovery", () => {
+  const before = uploadedAccepted();
+  const changeReference = (
+    mutate: (
+      ref: Extract<
+        typeof before.state.lesson.content_ref,
+        { source_kind: "uploaded" }
+      >,
+    ) => void,
+  ) => {
+    const next = structuredClone(before);
+    const response = next.turns[0].response;
+    if (
+      response.status !== "accepted" ||
+      !("source_kind" in response.content.content_ref)
+    )
+      throw new Error("Expected uploaded help");
+    mutate(response.content.content_ref);
+    assert.equal(StudentDialogueViewSchema.safeParse(next).success, false);
+    // Even a consistently rewritten response and anchor cannot replace the saved version.
+    next.state.lesson.content_ref = structuredClone(
+      response.content.content_ref,
+    );
+    assert.throws(() => parseStudentDialogueView(next, expected, before));
+  };
+  changeReference((ref) => {
+    ref.source_version += 1;
+  });
+  changeReference((ref) => {
+    ref.document_sha256 = "a".repeat(64);
+  });
+  changeReference((ref) => {
+    ref.excerpt_sha256 = "b".repeat(64);
+  });
+  changeReference((ref) => {
+    ref.access_scope.teacher_id = id(34);
+  });
+  changeReference((ref) => {
+    ref.attribution.title = "A different source";
+  });
+  const reordered: unknown = JSON.parse(
+    JSON.stringify(before, (_key, value: unknown) =>
+      value !== null && typeof value === "object" && !Array.isArray(value)
+        ? Object.fromEntries(Object.entries(value).reverse())
+        : value,
+    ),
+  );
+  assert.deepEqual(
+    parseStudentDialogueView(reordered, expected, before),
+    before,
   );
 });

@@ -4,6 +4,7 @@ import { randomUUID } from "node:crypto";
 import { transaction, type EvidenceAccess } from "../evidence/store.ts";
 import type { AppliedResult } from "../evidence/contracts.ts";
 import { decideTutoring } from "../tutoring/decide.ts";
+import { authorizedRuntimeTools } from "./runtime-policy.ts";
 import {
   DIALOGUE_LIMITS,
   DIALOGUE_VERSION,
@@ -98,6 +99,14 @@ export async function reserveControllerOperation(
       context.evidence,
       evaluationId,
       requestedAt,
+    );
+    conflict(
+      authorizedRuntimeTools(
+        context.content,
+        "controller",
+        decision.applied.action,
+      ).length > 0,
+      "The published lesson does not permit this runtime instructional action.",
     );
     // Evaluation UUID is a stable server identity, including after process/browser recovery.
     const request = DialogueRequestSchema.parse({

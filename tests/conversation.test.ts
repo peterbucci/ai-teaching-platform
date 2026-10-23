@@ -317,6 +317,8 @@ test("conversation projection preserves messages and terminal outcomes across re
     parseConversationView(settled, { ...expected, sessionId: id(20) }),
   );
   const changedSource = structuredClone(settled);
+  if (!("source_commit" in changedSource.dialogue.state.lesson.content_ref))
+    throw new Error("Expected a curated source fixture");
   changedSource.dialogue.state.lesson.content_ref.source_commit = "1".repeat(
     40,
   );

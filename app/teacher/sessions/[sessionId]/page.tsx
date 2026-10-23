@@ -3,7 +3,7 @@ import { Icon } from "../../../components/icons.tsx";
 import { notFound, redirect } from "next/navigation";
 import { z } from "zod";
 import { AuthError, requireActor } from "../../../../lib/auth.ts";
-import { loadApprovedContent } from "../../../../lib/evidence/content.ts";
+import { readAssignmentContent } from "../../../../lib/lessons/store.ts";
 import {
   EvidenceError,
   evidenceAccess,
@@ -18,11 +18,16 @@ export const dynamic = "force-dynamic";
 async function load(id: string) {
   try {
     const access = evidenceAccess(await requireActor());
-    const [detail, conversation] = await Promise.all([
-      readTeacherSession(access, id),
+    const detail = await readTeacherSession(access, id);
+    const [conversation, content] = await Promise.all([
       readTeacherConversation(access, id),
+      readAssignmentContent(
+        access,
+        detail.evidence.session.assignment_id,
+        "teacher",
+      ),
     ]);
-    return { ...detail, conversation };
+    return { ...detail, conversation, content };
   } catch (error) {
     if (error instanceof AuthError && error.status === 401) redirect("/login");
     if (
@@ -38,10 +43,9 @@ export default async function SessionPage({
 }: {
   params: Promise<{ sessionId: string }>;
 }) {
-  const { evidence, display_name, title, conversation } = await load(
+  const { evidence, display_name, title, conversation, content } = await load(
     (await params).sessionId,
   );
-  const content = loadApprovedContent();
   const { session, attempts, evaluations, interventions } = evidence;
   const conceptName = (id: string) => content.concepts.get(id)?.title ?? id;
   const stepNames = {
@@ -72,20 +76,22 @@ export default async function SessionPage({
             <li key={id}>
               <details className="rounded border border-slate-200 p-3">
                 <summary className="cursor-pointer text-teal-800">
-                  {id} · textbook evidence
+                  {id} · source evidence
                 </summary>
                 <p className="my-3 whitespace-pre-wrap text-sm">
                   {p?.text ?? "Passage text unavailable for this version."}
                 </p>
-                {p && (
+                {p?.url && (
                   <a
                     href={p.url}
                     className="text-sm underline"
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Open pinned textbook source, lines {p.start_line}–
-                    {p.end_line}
+                    Open pinned source
+                    {p.start_line !== null && p.end_line !== null
+                      ? `, lines ${p.start_line}–${p.end_line}`
+                      : ""}
                   </a>
                 )}
               </details>
@@ -455,7 +461,9 @@ export default async function SessionPage({
                   </p>
                   <p className="break-all">
                     Source: {a.question.content_ref.source_id} ·{" "}
-                    {a.question.content_ref.source_commit}
+                    {"source_commit" in a.question.content_ref
+                      ? a.question.content_ref.source_commit
+                      : `version ${a.question.content_ref.source_version}`}
                   </p>
                   <p>
                     Question passages:{" "}

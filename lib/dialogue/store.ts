@@ -10,6 +10,7 @@ import {
   type EvidenceAccess,
 } from "../evidence/store.ts";
 import { evaluationRecovery } from "../evaluation/recovery.ts";
+import { authorizedRuntimeTools } from "./runtime-policy.ts";
 import {
   DIALOGUE_LIMITS,
   DIALOGUE_VERSION,
@@ -639,6 +640,14 @@ export async function commitConversationHelpInTransaction(
     conflict(
       content.kind === "help",
       "Generated assessments require a controller handoff and are not enabled here.",
+    );
+    conflict(
+      authorizedRuntimeTools(context.content, "student").includes(
+        content.assistance_type === "neutral_clarification"
+          ? "clarify"
+          : "explain",
+      ),
+      "The published lesson does not permit this generated assistance.",
     );
   } catch {
     await appendDelivery(client, requestId, {

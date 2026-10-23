@@ -1,22 +1,12 @@
-import { z } from "zod";
+import type { ApprovedContent } from "../evidence/content.ts";
+import type { AppliedResult } from "../evidence/contracts.ts";
 import type { TutorTool } from "../tutoring/orchestration/contracts.ts";
 
-/**
- * Temporary, assignment-scoped opt-in while #53's published activity policy is
- * unmerged. This is trusted deployment configuration, never a browser/model
- * permission. The authorized content resolver still checks the exact version.
- * Replace this bridge with resolvedContent.activity_policy when #93 lands.
- */
-export function runtimeGenerationEnabled(
-  assignmentId: string,
-  configuredAssignments = process.env.R7_RUNTIME_ASSIGNMENT_IDS ?? "",
-): boolean {
-  const entries = configuredAssignments
-    .split(",")
-    .map((id) => id.trim())
-    .filter(Boolean);
-  const parsed = z.array(z.uuid()).safeParse(entries);
-  return parsed.success && parsed.data.includes(assignmentId);
+type PublishedPolicy = Pick<ApprovedContent, "activity_policy">;
+
+/** Only the exact authorized, published lesson supplies runtime permission. */
+export function runtimeGenerationEnabled(content: PublishedPolicy): boolean {
+  return content.activity_policy.allow_runtime_generation;
 }
 
 export const INSTALLED_RUNTIME_TOOLS: readonly TutorTool[] = [
@@ -27,3 +17,31 @@ export const INSTALLED_RUNTIME_TOOLS: readonly TutorTool[] = [
   "generate_retest",
   "advance_lesson",
 ];
+
+/** Map existing activity permissions to installed tools; neither configuration nor
+ * a model proposal can grant permission. An assessed transition also needs its
+ * exact recomputed controller action in the published policy. */
+export function authorizedRuntimeTools(
+  content: PublishedPolicy,
+  trigger: "student" | "controller",
+  controllerAction?: AppliedResult["action"],
+): TutorTool[] {
+  if (!runtimeGenerationEnabled(content)) return [];
+  const actions = content.activity_policy.allowed_actions;
+  if (trigger === "student") {
+    const tools: TutorTool[] = [];
+    if (actions.includes("ASK_SELF_EXPLANATION")) tools.push("clarify");
+    // Pre-answer explanations/examples are assistance, even without correction.
+    if (actions.includes("GIVE_HINT")) tools.push("explain");
+    return tools;
+  }
+  if (!controllerAction || !actions.includes(controllerAction)) return [];
+  const tools: TutorTool[] = ["advance_lesson"];
+  if (controllerAction === "ASK_DIAGNOSTIC_FOLLOWUP")
+    tools.push("generate_diagnostic");
+  if (controllerAction === "ASK_SELF_EXPLANATION")
+    tools.push("generate_followup");
+  if (controllerAction === "RETEST_CONCEPT") tools.push("generate_retest");
+  if (controllerAction === "GIVE_CORRECTIVE_FEEDBACK") tools.push("explain");
+  return tools;
+}

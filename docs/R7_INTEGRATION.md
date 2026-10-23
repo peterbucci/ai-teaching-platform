@@ -69,25 +69,34 @@ intervention/next attempt privately, rather than claiming that generation means
 display. Teacher session evidence includes the original message, authorized route,
 proposed action, validation, execution result and linked controller action.
 
-## Authorized content and temporary enablement
+## Authorized published content
 
-PR #93/#53 was unmerged when this branch was integrated. The current executable
-source is therefore the approved curated lesson. The dialogue context checks the
-assignment's exact approved content reference and concept/passage/misconception
-scope; unknown versions fail closed. Proposal context, selection and generation
-remain within that authorized scope.
+PR #93 merged as `939c766d5cd82fa1347b731eabbba24331a836a4` and is
+reconciled into this branch. Dialogue, evaluation, tutoring, reading, persistence
+and teacher evidence use the existing authorized assignment resolver. It checks
+the exact approved lesson/source version, class ownership or enrollment, complete
+concept/passage/category scope and immutable publication. Private uploaded sources
+need no public URL or invented Git commit. Full resolved content remains server-only.
 
-`R7_RUNTIME_ASSIGNMENT_IDS` is a temporary deployment-owned, comma-separated list
-of assignment UUIDs approved for runtime generation. An absent or invalid list
-enables no assignments. A browser/model cannot grant this permission. The gate is
-rechecked during orchestration and final delivery. Valid provider configuration
-is also required. Do not put credentials or private verification records in Git.
+Runtime permission comes only from that version's published `activity_policy`.
+The temporary deployment assignment allowlist is removed. Installed capabilities
+are intersected with the published actions at claim, checkpoint and final commit.
+The controller helper independently re-resolves content under the session lock;
+a caller's copied policy cannot enable a tool. Intent classification is separate
+from generation permission. The original curated lesson keeps runtime generation
+disabled and uses its approved deterministic instruction; its saved R7 history
+remains readable. A new approved uploaded version may explicitly enable generation.
 
-After #93 merges, reconcile its `resolveAssignmentContent(client, access,
-assignmentId, role)` and the resolved `activity_policy` directly. Replace this
-configuration bridge with the exact published lesson policy, preserving the
-assignment/source checks. Uploaded lessons are not supported by substituting the
-curated loader. The temporary bridge is not a permanent networking-only resolver.
+Student explanations require `GIVE_HINT`; neutral clarification requires
+`ASK_SELF_EXPLANATION`. Controller generation requires both the exact recomputed
+controller action and the corresponding published permission. Diagnostic, neutral
+follow-up, explanation and retest map to the existing diagnostic/self-explanation/
+corrective-feedback/retest actions. No policy change rewrites a published version.
+
+Approved AI-authored bank questions may have `origin: generated`; exact catalog
+snapshot equality makes them approved controller questions. Runtime UUID snapshots
+remain distinct and carry server-assigned activity-slot bindings. Publication
+rejects runtime bindings in bank questions. No second controller is introduced.
 
 Installed tools are deliberately limited:
 
@@ -190,31 +199,23 @@ the existing full database/application restart check still reuses saved cookies 
 compares the original evidence and record counts. Do not replace this isolation
 with sleeps, login retries, larger limits, or disabling authentication.
 
-Feature development is paused pending #93's reviewed fixes and merge. The worker
-resuming that integration should:
+## Remaining R4/R7 integration gates
 
-- Start from this integration branch and merge/reconcile the final merged #93
-  ancestry. Preserve the four original R7 PR histories and avoid applying them
-  twice. Keep #98 a draft until its remaining review and acceptance gates pass.
-- Replace `lib/dialogue/persistence.ts`'s curated context bridge and
-  `lib/dialogue/runtime-policy.ts`'s temporary assignment allowlist with #93's
-  authorized content resolver and exact published `activity_policy`. Recheck
-  permission and source scope at claim, checkpoint and commit; never fall back to
-  curated networking content for an unknown uploaded version.
-- Reconcile both branches' evidence/tutoring store changes explicitly. Keep
-  `applyTutoringInTransaction`, immutable generated question snapshots, and their
-  server-owned `controller_node_id` bindings to existing activity slots. Use the
-  same evaluator/controller for curated and uploaded lessons; preserve private
-  rubric separation, concept coverage, and exact version/passage citations.
-- Retain migrations `008` and `009` alongside #93's lesson-registry migrations.
-  The exact reservation-linked settled/unknown evaluator outcome governs whether
-  an explicit retry is allowed. Unknown calls remain reserved, spent calls still
-  count, and refresh never starts or resumes paid work automatically.
-- Preserve both display receipts: conversation help is acknowledged by dialogue;
-  controller feedback uses the existing intervention acknowledgement only when
-  its text is actually visible. Preserve original answers and accepted evaluations.
-- Verify curated and uploaded assignments end to end, including denied/unpublished
-  sources, stale policy/version, generated assessment snapshots, refresh and teacher
-  evidence. Reuse the recorded 22-call live application evidence; run further paid
-  checks only for newly unverified behavior. Pending provider-operation
-  reconciliation, human review and uploaded-lesson acceptance remain #76 gates.
+#102 owns the importer/objective/question-bank/publishing UI. Reuse that reviewed
+implementation for the final imported-lesson workflow; do not recreate it here or
+claim its existing seven-call authoring demonstration was rerun. Any combined
+verification checkout is a test artifact, not a dependency merge into this PR.
+
+A generation-disabled published lesson stays disabled. For a live uploaded R7 run,
+review a new version with explicit generation and relevant activity permissions,
+then create and activate its own assignment through the existing services. Verify
+the previous version and its original responses remain unchanged.
+
+Retain migrations 006, 008 and 009 unchanged; later #102 authoring migrations must
+be reconciled as their own dependency stack. Preserve provider uncertainty, both
+display acknowledgement paths and original evidence. Unknown/interrupted operation
+reconciliation and human educational/security review remain #76 acceptance gates.
+
+The initial application evidence remains in `evals/R7_APPLICATION_VERIFICATION.md`.
+Record resolver-phase fixture, PostgreSQL, browser and actual-model checks separately
+so earlier curated live results are not presented as newly verified uploaded behavior.

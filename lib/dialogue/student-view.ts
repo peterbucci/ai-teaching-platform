@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { ContentRef } from "../evidence/contracts.ts";
+import { ContentRefSchema, type ContentRef } from "../evidence/contracts.ts";
 import {
   AskTutorSchema,
   DIALOGUE_LIMITS,
@@ -62,7 +62,7 @@ const turn = z.strictObject({
           passage_id: requiredText,
           content_version: requiredText,
           text: requiredText,
-          url: z.url({ protocol: /^https?$/ }),
+          url: z.url({ protocol: /^https?$/ }).nullable(),
         }),
       ),
     }),
@@ -71,12 +71,11 @@ const turn = z.strictObject({
 export type StudentDialogueTurn = z.infer<typeof turn>;
 
 function sameSource(left: ContentRef, right: ContentRef) {
+  // Zod normalizes property order; compare the complete curated or uploaded
+  // identity, including source version, hashes, attribution and access scope.
   return (
-    left.package_id === right.package_id &&
-    left.content_version === right.content_version &&
-    left.source_id === right.source_id &&
-    left.source_commit === right.source_commit &&
-    left.excerpt_sha256 === right.excerpt_sha256
+    JSON.stringify(ContentRefSchema.parse(left)) ===
+    JSON.stringify(ContentRefSchema.parse(right))
   );
 }
 

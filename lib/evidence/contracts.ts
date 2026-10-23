@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { UploadedSourceReferenceSchema } from "../lessons/source-contracts.ts";
 
 const text = z
   .string()
@@ -16,13 +17,22 @@ const requiredNames = names.refine(
   "At least one ID is required",
 );
 
-export const ContentRefSchema = z.strictObject({
+export const CuratedContentRefSchema = z.strictObject({
   package_id: text,
   content_version: text,
   source_id: text,
   source_commit: z.string().regex(/^[a-f0-9]{40}$/),
   excerpt_sha256: z.string().regex(/^[a-f0-9]{64}$/),
 });
+export const UploadedContentRefSchema = UploadedSourceReferenceSchema.extend({
+  package_id: text,
+  content_version: text,
+});
+// Preserve the original curated wire shape, including existing saved evidence.
+export const ContentRefSchema = z.union([
+  CuratedContentRefSchema,
+  UploadedContentRefSchema,
+]);
 export type ContentRef = z.infer<typeof ContentRefSchema>;
 
 export const EmbeddedScaffoldingSchema = z.strictObject({

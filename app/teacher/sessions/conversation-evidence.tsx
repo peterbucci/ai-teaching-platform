@@ -276,7 +276,10 @@ export function ConversationEvidence({
                       Content: {source.content_ref.package_id} ·{" "}
                       {source.content_ref.content_version}. Source:{" "}
                       {source.content_ref.source_id} ·{" "}
-                      {source.content_ref.source_commit}.
+                      {"source_commit" in source.content_ref
+                        ? source.content_ref.source_commit
+                        : `version ${source.content_ref.source_version}`}
+                      .
                     </p>
                     {renderPassages(source.source_passage_ids)}
                   </details>

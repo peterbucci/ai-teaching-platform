@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { createHash, randomUUID } from "node:crypto";
 import { getPool, inTransaction } from "../lib/db.ts";
+import { createApprovedRuntimeLesson } from "./fixtures/approved-r7-lesson.ts";
+import { readAssignmentContent } from "../lib/lessons/store.ts";
 import { buildDemoFixture } from "../lib/evidence/demo.ts";
 import {
   getCuratedQuestion,
@@ -69,9 +71,9 @@ assert.ok(
 if (httpOnly) assert.ok(httpBase, "--http-only requires DIALOGUE_CHECK_URL.");
 const fixturePassword = `synthetic-only-${randomUUID()}`;
 const pool = getPool();
-const content = loadApprovedContent();
-const examples = makeDialogueExamples(content);
-const demo = buildDemoFixture(content);
+let content = loadApprovedContent();
+let examples = makeDialogueExamples(content);
+let demo = buildDemoFixture(content);
 const report: {
   fixture_only: true;
   database?: string;
@@ -106,7 +108,7 @@ const otherTeacher = actor();
 const classId = randomUUID();
 const otherClassId = randomUUID();
 const emptyClassId = randomUUID();
-const assignmentId = randomUUID();
+let assignmentId: string = randomUUID();
 const otherAssignmentId = randomUUID();
 const emptyAssignmentId = randomUUID();
 const knownOutcome = {
@@ -201,7 +203,6 @@ async function seed() {
         [id, member.actor.profileId],
       );
     for (const [id, class_id, owner] of [
-      [assignmentId, classId, teacher],
       [otherAssignmentId, otherClassId, otherTeacher],
       [emptyAssignmentId, emptyClassId, teacher],
     ] as const) {
@@ -219,11 +220,21 @@ async function seed() {
       );
     }
   });
+  ({ content, assignmentId } = await createApprovedRuntimeLesson(
+    teacher,
+    classId,
+  ));
+  examples = makeDialogueExamples(content);
+  demo = buildDemoFixture(content);
 }
 async function newSession(access = student, assignment = assignmentId) {
+  const resolved = await readAssignmentContent(access, assignment, "student");
   const session = await startSession(access, assignment, "synthetic_fixture");
   const attempt = await presentQuestion(access, session.id, {
-    question: getCuratedQuestion(content, content.sequence.initial_question_id),
+    question: getCuratedQuestion(
+      resolved,
+      resolved.sequence.initial_question_id,
+    ),
     intent: "initial_retrieval",
   });
   report.sessions.push(session.id);

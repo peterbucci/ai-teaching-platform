@@ -39,6 +39,7 @@ import { decideTutoring } from "../tutoring/decide.ts";
 import { validateGeneratedDialogue } from "./rules.ts";
 import { randomUUID } from "node:crypto";
 import { validateProposal } from "../tutoring/orchestration/policy.ts";
+import { authorizedRuntimeTools } from "./runtime-policy.ts";
 
 function authorizeRequest(context: DialogueContext, input: DialogueRequest) {
   const request = DialogueRequestSchema.parse(input);
@@ -98,7 +99,11 @@ function actionContext(
     content: context.content,
     source_scope: context.scope,
     history: DialogueHistorySchema.parse(history),
-    lesson_policy: approved,
+    lesson_policy: authorizedRuntimeTools(
+      context.content,
+      request.trigger.kind,
+      decision?.applied.action,
+    ),
     ...(decision
       ? {
           instructional_scope: {

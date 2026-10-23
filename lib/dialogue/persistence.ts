@@ -4,10 +4,8 @@ import { isDeepStrictEqual } from "node:util";
 import type { PoolClient } from "pg";
 import { z } from "zod";
 import { evidenceRow } from "../db.ts";
-import {
-  loadApprovedContent,
-  validateContentRef,
-} from "../evidence/content.ts";
+import { validateContentRef } from "../evidence/content.ts";
+import { resolveAssignmentContent } from "../lessons/store.ts";
 import {
   EvidenceError,
   sessionEvidence,
@@ -97,16 +95,13 @@ export async function dialogueContext(
   const attempt = evidence.attempts.at(-1);
   conflict(attempt, "No current lesson question.");
   const assignmentResult = await client.query(
-    "SELECT content_ref,teacher_approved_at,approved_concept_ids,approved_passage_ids,approved_misconception_ids FROM assignments WHERE id=$1 AND class_id=$2",
+    "SELECT content_ref,teacher_approved_at FROM assignments WHERE id=$1 AND class_id=$2",
     [evidence.session.assignment_id, evidence.session.class_id],
   );
   const assignment = z
     .object({
       content_ref: z.unknown(),
       teacher_approved_at: z.unknown(),
-      approved_concept_ids: z.array(z.string()),
-      approved_passage_ids: z.array(z.string()),
-      approved_misconception_ids: z.array(z.string()),
     })
     .parse(assignmentResult.rows[0]);
   conflict(
@@ -154,22 +149,13 @@ export async function dialogueContext(
   const calls = z
     .object({ used: z.int(), unresolved: z.int() })
     .parse(counts.rows[0]);
-  // Curated resolver bridge until #53 merges; reject any unavailable version.
-  // Replace this with resolveAssignmentContent(client, access, assignmentId, role).
-  const content = loadApprovedContent();
-  validateContentRef(content, assignment.content_ref);
-  conflict(
-    assignment.approved_concept_ids.every((id) =>
-      content.concept_ids.has(id),
-    ) &&
-      assignment.approved_passage_ids.every((id) =>
-        content.passage_ids.has(id),
-      ) &&
-      assignment.approved_misconception_ids.every((id) =>
-        content.misconceptions.has(id),
-      ),
-    "The approved assignment scope is unavailable.",
+  const content = await resolveAssignmentContent(
+    client,
+    access,
+    evidence.session.assignment_id,
+    role,
   );
+  validateContentRef(content, attempt.question.content_ref);
   const lesson = LessonAnchorSchema.parse({
     session_id: sessionId,
     assignment_id: evidence.session.assignment_id,
@@ -190,9 +176,9 @@ export async function dialogueContext(
     unresolved_provider_calls: calls.unresolved,
     content,
     scope: {
-      concept_ids: new Set(assignment.approved_concept_ids),
-      passage_ids: new Set(assignment.approved_passage_ids),
-      misconception_ids: new Set(assignment.approved_misconception_ids),
+      concept_ids: new Set(content.concept_ids),
+      passage_ids: new Set(content.passage_ids),
+      misconception_ids: new Set(content.misconceptions.keys()),
     },
   };
 }

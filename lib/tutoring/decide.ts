@@ -64,9 +64,6 @@ export function decideTutoring(
   );
   const result = evaluation.result;
   const judgments = result.per_concept_results;
-  const candidate = result.misconception_candidates?.find(
-    (item) => item.misconception_id === lesson.hypothesis_id,
-  );
   const correct = judgments.every((item) => item.correctness === "correct");
   const arithmeticOnly = judgments.every(
     (item) =>
@@ -82,8 +79,33 @@ export function decideTutoring(
   const events = evidence.evaluations
     .filter((item) => episode.some((a) => a.id === item.attempt_id))
     .flatMap((item) => item.applied_result?.hypothesis_events ?? []);
+  const diagnostic = lesson.diagnostic_options.find(
+    (option) =>
+      option.misconception_id !== null &&
+      result.misconception_candidates?.some(
+        (item) => item.misconception_id === option.misconception_id,
+      ) &&
+      !episode.some(
+        (item) => controllerNode(content, item).node_id === option.question_id,
+      ),
+  );
+  const hypothesisId =
+    node.kind === "diagnostic_followup"
+      ? (lesson.diagnostic_options.find(
+          (option) => option.question_id === node.node_id,
+        )?.misconception_id ?? null)
+      : node.kind === "immediate_retest"
+        ? (events.at(-1)?.misconception_id ?? lesson.hypothesis_id)
+        : (diagnostic?.misconception_id ?? lesson.hypothesis_id);
+  const candidate = result.misconception_candidates?.find(
+    (item) => item.misconception_id === hypothesisId,
+  );
   const previous = events
-    .filter((item) => item.misconception_id === lesson.hypothesis_id)
+    .filter(
+      (item) =>
+        item.misconception_id === hypothesisId &&
+        (!candidate || item.concept_id === candidate.concept_id),
+    )
     .at(-1);
   const hypothesisEvents: AppliedResult["hypothesis_events"] = [];
   const count = (kind: string) =>
@@ -138,16 +160,26 @@ export function decideTutoring(
   function updateHypothesis(
     status: "suspected" | "supported" | "not_supported" | "uncertain",
   ) {
-    if (!candidate && !previous) return;
+    if (hypothesisId === null || (!candidate && !previous)) return;
     const conceptId = candidate?.concept_id ?? previous?.concept_id;
     if (!conceptId) throw new Error("Hypothesis requires an assessed concept");
+    // Earlier evidence is not evidence about this response. Preserve its hypothesis
+    // unchanged when the current question/evaluation did not assess that concept.
+    if (
+      !attempt.question.concept_ids.includes(conceptId) ||
+      !judgments.some((judgment) => judgment.concept_id === conceptId)
+    )
+      return;
+    // The reserved category records unclassified evidence, never a specific belief.
+    const nextStatus =
+      hypothesisId === "other_or_uncertain" ? "uncertain" : status;
     hypothesisEvents.push({
       id: randomUUID(),
       hypothesis_instance_id: previous?.hypothesis_instance_id ?? randomUUID(),
       concept_id: conceptId,
-      misconception_id: lesson.hypothesis_id,
+      misconception_id: hypothesisId,
       previous_status: previous?.status ?? null,
-      status,
+      status: nextStatus,
       evidence_evaluation_ids: [
         ...new Set([
           ...(previous?.evidence_evaluation_ids ?? []),
@@ -157,7 +189,7 @@ export function decideTutoring(
       contradicting_evaluation_ids: [
         ...new Set([
           ...(previous?.contradicting_evaluation_ids ?? []),
-          ...(status === "not_supported" ? [evaluation.id] : []),
+          ...(nextStatus === "not_supported" ? [evaluation.id] : []),
         ]),
       ],
       supporting_response_quotes: [
@@ -165,13 +197,15 @@ export function decideTutoring(
         ...(candidate?.evidence_quotes ?? []),
       ],
       reason:
-        status === "supported"
-          ? "A distinct diagnostic response repeats the target explanation; this is evidence consistent with a possible misconception, not proof of a belief."
-          : status === "not_supported"
-            ? "The diagnostic explanation contradicts the earlier hypothesis before teaching."
-            : status === "uncertain"
-              ? "The follow-up does not clearly support or contradict the earlier explanation."
-              : "Explicit response evidence suggests the lesson's target hypothesis; persistence has not been established.",
+        hypothesisId === "other_or_uncertain"
+          ? "This response remains unclassified; it does not establish a specific misconception."
+          : nextStatus === "supported"
+            ? "A distinct diagnostic response repeats the target explanation; this is evidence consistent with a possible misconception, not proof of a belief."
+            : nextStatus === "not_supported"
+              ? "The diagnostic explanation contradicts the earlier hypothesis before teaching."
+              : nextStatus === "uncertain"
+                ? "The follow-up does not clearly support or contradict the earlier explanation."
+                : "Explicit response evidence suggests the lesson's target hypothesis; persistence has not been established.",
       created_at: now,
     });
   }
@@ -202,7 +236,7 @@ export function decideTutoring(
     const kind =
       arithmetic &&
       node.kind === "diagnostic_followup" &&
-      attempt.question.origin === "curated"
+      content.questions.has(attempt.question.question_id ?? "")
         ? "arithmetic_feedback"
         : "corrective_feedback";
     const selected = activity(kind);
@@ -218,7 +252,7 @@ export function decideTutoring(
     const help = helpFor(kind);
     if (arithmetic && kind !== "arithmetic_feedback")
       help.text_shown =
-        "Your reasoning separates the two delays. Check the arithmetic and units in your calculation; this is separate from the conceptual distinction. " +
+        "Check the arithmetic and units in your calculation; this is separate from the conceptual reasoning. " +
         help.text_shown;
     return decision("GIVE_CORRECTIVE_FEEDBACK", next.question_id, help);
   }
@@ -271,7 +305,9 @@ export function decideTutoring(
     );
     const outcome: Outcome = paired.every((j) => j.correctness === "correct")
       ? "correct_after_feedback"
-      : candidate
+      : candidate?.misconception_id === "transmission_depends_on_distance" &&
+          content.content_ref.package_id === "network-performance-v1" &&
+          "source_commit" in content.content_ref
         ? "distance_error_observed_after_feedback"
         : paired.some((j) => j.correctness === "uncertain")
           ? "uncertain_after_feedback"
@@ -317,12 +353,13 @@ export function decideTutoring(
     throw new Error("Unsupported response activity");
   if (
     candidate &&
+    diagnostic &&
     count("diagnostic_followup") < lesson.bounds.max_diagnostic_prompts
   ) {
     updateHypothesis("suspected");
     return decision(
       "ASK_DIAGNOSTIC_FOLLOWUP",
-      question(activity("diagnostic_followup").node_id),
+      question(diagnostic.question_id),
     );
   }
   if (correct)
@@ -346,6 +383,29 @@ export function decideTutoring(
     return decision(
       "ASK_SELF_EXPLANATION",
       question(activity("neutral_clarification").node_id),
+    );
+  const neutralDiagnostic = lesson.diagnostic_options.find(
+    (option) =>
+      option.misconception_id === null &&
+      !episode.some(
+        (item) => controllerNode(content, item).node_id === option.question_id,
+      ),
+  );
+  const conceptualError = judgments.some(
+    (item) =>
+      ["incorrect", "partially_correct"].includes(item.correctness) &&
+      item.error_type === "conceptual",
+  );
+  if (
+    !unclear &&
+    !diagnostic &&
+    neutralDiagnostic &&
+    conceptualError &&
+    count("diagnostic_followup") < lesson.bounds.max_diagnostic_prompts
+  )
+    return decision(
+      "ASK_DIAGNOSTIC_FOLLOWUP",
+      question(neutralDiagnostic.question_id),
     );
   return correction(arithmeticOnly);
 }

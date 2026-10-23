@@ -40,7 +40,7 @@ export const TutorViewSchema = StudentSessionViewSchema.extend({
       passage_id: z.string(),
       content_version: z.string(),
       text: z.string(),
-      url: z.url(),
+      url: z.url().nullable(),
     }),
   ),
 });

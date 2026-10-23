@@ -4,12 +4,15 @@ import type { PoolClient } from "pg";
 import { z } from "zod";
 import { evidenceRow } from "../db.ts";
 import {
-  loadApprovedContent,
   getCuratedQuestion,
   validateContentRef,
   validateQuestionSnapshot,
   type ApprovedContent,
 } from "../evidence/content.ts";
+import {
+  readAssignmentContent,
+  resolveAssignmentContent,
+} from "../lessons/store.ts";
 import {
   AppliedResultSchema,
   AttemptSchema,
@@ -57,8 +60,8 @@ export async function assignedLessons(access: EvidenceAccess) {
       WHERE e.student_id=$1 AND a.teacher_approved_at IS NOT NULL ORDER BY a.id`,
       [access.actor.profileId],
     );
-    const content = loadApprovedContent();
-    return rows.rows.map((row) => {
+    const lessons: z.infer<typeof AssignedLessonSchema>[] = [];
+    for (const row of rows.rows) {
       const assignment = z
         .object({
           id: z.uuid(),
@@ -67,14 +70,23 @@ export async function assignedLessons(access: EvidenceAccess) {
           session: AssignedLessonSchema.shape.session,
         })
         .parse(row);
+      const content = await resolveAssignmentContent(
+        client,
+        access,
+        assignment.id,
+        "student",
+      );
       validateContentRef(content, assignment.content_ref);
-      return AssignedLessonSchema.parse({
-        id: assignment.id,
-        title: assignment.title,
-        approval_label: "Approved by your teacher",
-        session: assignment.session,
-      });
-    });
+      lessons.push(
+        AssignedLessonSchema.parse({
+          id: assignment.id,
+          title: assignment.title,
+          approval_label: "Approved by your teacher",
+          session: assignment.session,
+        }),
+      );
+    }
+    return lessons;
   });
 }
 
@@ -107,8 +119,8 @@ export async function studentStudyHistory(
        ORDER BY s.started_at DESC,s.id DESC`,
       [access.actor.profileId, access.actor.userId],
     );
-    const content = loadApprovedContent();
-    return rows.rows.map((row) => {
+    const history: StudentHistoryEntry[] = [];
+    for (const row of rows.rows) {
       const entry = z
         .object({
           id: z.uuid(),
@@ -125,13 +137,19 @@ export async function studentStudyHistory(
           questions: z.array(z.unknown()),
         })
         .parse(evidenceRow(row));
+      const content = await resolveAssignmentContent(
+        client,
+        access,
+        entry.assignment_id,
+        "student",
+      );
       const reference = validateContentRef(content, entry.content_ref);
       const practicedIds = new Set(
         entry.questions.flatMap(
           (question) => validateQuestionSnapshot(content, question).concept_ids,
         ),
       );
-      return {
+      history.push({
         id: entry.id,
         assignment_id: entry.assignment_id,
         title: entry.title,
@@ -156,8 +174,9 @@ export async function studentStudyHistory(
             throw new EvidenceError(503, "This saved topic is unavailable.");
           return { id, title: concept.title };
         }),
-      };
-    });
+      });
+    }
+    return history;
   });
 }
 
@@ -183,7 +202,11 @@ export async function tutorView(access: EvidenceAccess, sessionId: string) {
         : recovery.failed
           ? "failed"
           : "evaluate";
-  const content = loadApprovedContent();
+  const content = await readAssignmentContent(
+    access,
+    evidence.session.assignment_id,
+    "student",
+  );
   return TutorViewSchema.parse({
     ...studentView,
     session: {
@@ -325,7 +348,12 @@ async function openTutoringSession(
       teacher_approved_at: z.unknown(),
     })
     .parse(rows.rows[0]);
-  const content = loadApprovedContent();
+  const content = await resolveAssignmentContent(
+    client,
+    access,
+    assignment.id,
+    "student",
+  );
   validateContentRef(content, assignment.content_ref);
   if (!assignment.teacher_approved_at)
     throw new EvidenceError(
@@ -401,9 +429,28 @@ export async function applyTutoringInTransaction(
   const { now } = z
     .object({ now: z.iso.datetime({ offset: true }) })
     .parse(evidenceRow(clock.rows[0]));
-  const content = handoff.content ?? loadApprovedContent();
+  // Resolve again inside the session transaction. A caller's earlier context is
+  // not authority for a current version, source grant, or generation policy.
+  const content = await resolveAssignmentContent(
+    client,
+    access,
+    evidence.session.assignment_id,
+    "student",
+  );
+  if (handoff.content) validateContentRef(content, handoff.content.content_ref);
   validateContentRef(content, attempt.question.content_ref);
   const decision = decideTutoring(content, evidence, evaluationId, now);
+  if (
+    !content.activity_policy.allowed_actions.includes(
+      decision.applied.action,
+    ) ||
+    ((handoff.generatedHelp || handoff.generatedQuestion) &&
+      !content.activity_policy.allow_runtime_generation)
+  )
+    throw new EvidenceError(
+      409,
+      "This instructional action is not permitted by the published lesson policy.",
+    );
   if (handoff.generatedHelp && handoff.generatedQuestion)
     throw new EvidenceError(409, "Only one instructional tool may be applied.");
   const generatedQuestion = handoff.generatedQuestion

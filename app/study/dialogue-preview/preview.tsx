@@ -53,7 +53,7 @@ type Citation = {
   passage_id: string;
   content_version: string;
   text: string;
-  url: string;
+  url: string | null;
 };
 type PreviewProps = {
   initial: StudentDialogueView;
@@ -66,7 +66,7 @@ type PreviewProps = {
     authors: string;
     copyright: string;
     license: string;
-    license_url: string;
+    license_url: string | null;
   };
 };
 
@@ -468,19 +468,24 @@ export function DialoguePreview(props: PreviewProps) {
           <p className="text-sm">
             From <em>{props.attribution.title}</em>, {props.attribution.authors}
             . Copyright {props.attribution.copyright}.{" "}
-            <a href={props.attribution.license_url} className="lp-text-link">
-              {props.attribution.license}
-            </a>
+            {props.attribution.license_url ? (
+              <a href={props.attribution.license_url} className="lp-text-link">
+                {props.attribution.license}
+              </a>
+            ) : (
+              props.attribution.license
+            )}
             .{" "}
-            <a
-              href={passage.url}
-              className="lp-text-link"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Original source
-            </a>
-            .
+            {passage.url && (
+              <a
+                href={passage.url}
+                className="lp-text-link"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Original source
+              </a>
+            )}
           </p>
         </aside>
       )}

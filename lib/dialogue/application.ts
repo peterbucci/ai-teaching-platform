@@ -48,7 +48,7 @@ import { runTutorOrchestration } from "../tutoring/orchestration/run.ts";
 import { OrchestrationError } from "../tutoring/orchestration/errors.ts";
 import type { OrchestrationPorts } from "../tutoring/orchestration/contracts.ts";
 
-function boundedQuestions(context: DialogueContext) {
+function boundedQuestions(context: Pick<DialogueContext, "evidence">) {
   const questions = context.evidence.attempts
     .map((attempt) => attempt.question)
     .slice(-DIALOGUE_LIMITS.historyMessages);
@@ -118,9 +118,7 @@ export async function executeInstruction(
   const services: DialogueServices = { runReservedCall };
   const ports: OrchestrationPorts = {
     ...createOrchestrationPersistence(access, request.session_id, (current) =>
-      runtimeGenerationEnabled(current.lesson.assignment_id)
-        ? INSTALLED_RUNTIME_TOOLS
-        : [],
+      runtimeGenerationEnabled(current.content) ? INSTALLED_RUNTIME_TOOLS : [],
     ),
     propose: createProposalService({
       model,
@@ -145,6 +143,8 @@ export async function executeInstruction(
           context: {
             ...modelContext(context, text),
             content: current.content,
+            scope: current.source_scope,
+            prior_questions: boundedQuestions(current),
             lesson: current.state.lesson,
             revision: current.state.revision,
             question: attempt.question,
@@ -194,13 +194,9 @@ export async function actApplicationConversation(
 ) {
   const action = ConversationActionSchema.parse(input);
   conflict(action.session_id === sessionId, "Wrong conversation session.");
-  const initial = await transaction((client) =>
-    dialogueContext(client, access, sessionId, false),
-  );
-  if (
-    !runtimeGenerationEnabled(initial.lesson.assignment_id) ||
-    !configuredDialogueModel()
-  )
+  // Classification proposes intent; the published generation policy controls
+  // instructional content separately. Every reservation still authorizes access.
+  if (!configuredDialogueModel())
     return actConversation(access, sessionId, action);
 
   const reserved = await reserveConversationOperation(access, action);
@@ -301,7 +297,7 @@ export async function continueApplicationTutoring(
   if (existing?.status === "resolved") return tutorView(access, sessionId);
   if (
     existing?.status === "fallback" ||
-    !runtimeGenerationEnabled(context.lesson.assignment_id) ||
+    !runtimeGenerationEnabled(context.content) ||
     !configuredDialogueModel() ||
     context.turns_used >= DIALOGUE_LIMITS.turnsPerSession ||
     context.provider_requests_used >= DIALOGUE_LIMITS.providerRequestsPerSession

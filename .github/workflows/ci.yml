@@ -68,6 +68,8 @@ jobs:
         run: node scripts/check-isolated.mjs app npm run metrics:check
       - name: Check persisted misconception and contradiction counts
         run: node scripts/check-isolated.mjs app npm run patterns:check
+      - name: Check lesson versions, ownership and historical evidence
+        run: node scripts/check-isolated.mjs app npm run lessons:check
       - name: Check login limits and forwarding-header resistance
         run: node scripts/check-isolated.mjs app npm run auth:rate-limit:check
       - name: Check HTTP authentication and evidence persistence
@@ -78,6 +80,8 @@ jobs:
           docker compose up --wait --wait-timeout 180 --no-build --no-recreate
           docker compose exec -T app npm run db:seed
           docker compose exec -T app npm run db:check -- --verify-restart
+      - name: Check uploaded-lesson uncertainty and authorized teacher pages
+        run: node scripts/check-isolated.mjs app npm run lessons:uncertainty:check
       - name: Show service status on failure
         if: failure()
         run: docker compose ps --all

@@ -1,3 +1,9 @@
+import { createLessonAssignment } from "../lib/lessons/store.ts";
+import {
+  assignmentReview,
+  approveAssignment,
+} from "../lib/assignments/store.ts";
+import { createApprovedRuntimeLesson } from "./fixtures/approved-r7-lesson.ts";
 import assert from "node:assert/strict";
 import { createHash, randomUUID } from "node:crypto";
 import { readFileSync } from "node:fs";
@@ -63,7 +69,7 @@ for (const name of ["PGHOST", "PGPORT", "PGUSER", "PGDATABASE", "PGPASSWORD"])
     `Set ${name} explicitly for the disposable database.`,
   );
 const pool = getPool();
-const content = loadApprovedContent();
+let content = loadApprovedContent();
 const demo = buildDemoFixture(content);
 const recorded = z
   .object({
@@ -88,8 +94,8 @@ const actor = () =>
 const student = actor(),
   teacher = actor(),
   peer = actor();
-const classId = randomUUID(),
-  assignmentId = randomUUID();
+const classId = randomUUID();
+let assignmentId: string;
 const report: {
   fixture_only: true;
   model_calls: 0;
@@ -135,20 +141,11 @@ async function seed() {
         "INSERT INTO enrollments(class_id,student_id) VALUES($1,$2)",
         [classId, access.actor.profileId],
       );
-    await client.query(
-      "INSERT INTO assignments SELECT (jsonb_populate_record(NULL::assignments,$1::jsonb)).*",
-      [
-        JSON.stringify({
-          ...demo.assignment,
-          id: assignmentId,
-          class_id: classId,
-          title: "Synthetic controller handoff checks",
-          teacher_approved_by: teacher.actor.profileId,
-          teacher_approved_at: new Date().toISOString(),
-        }),
-      ],
-    );
   });
+  ({ assignmentId, content } = await createApprovedRuntimeLesson(
+    teacher,
+    classId,
+  ));
 }
 async function initial() {
   const session = await startSession(
@@ -563,7 +560,57 @@ async function main() {
   await runTutorOrchestration(request, failureFixture.ports);
   assert.deepEqual(failureFixture.calls, callsBefore);
   pass(
-    "Invalid generated source leaves the original answer/evaluation intact; explicit curated continuation works and stale replay starts no extra stage",
+    "Invalid generated source leaves the original answer/evaluation intact; explicit authored continuation works and stale replay starts no extra stage",
+  );
+
+  content = loadApprovedContent();
+  const authoredAssignment = await createLessonAssignment(teacher, {
+    class_id: classId,
+    lesson_id: content.content_ref.package_id,
+    version: content.content_ref.content_version,
+    title: "Synthetic runtime-disabled controller check",
+  });
+  assignmentId = authoredAssignment.id;
+  const approval = await assignmentReview(teacher, assignmentId);
+  await approveAssignment(teacher, assignmentId, approval.review_token);
+  const disabled = await initial();
+  await answer(disabled.sessionId, disabled.attempt, initialCase.response);
+  const disabledEvaluation = await judged(
+    disabled.sessionId,
+    disabled.attempt,
+    initialCase.evaluation,
+  );
+  const beforeDenied = await readSession(
+    student,
+    disabled.sessionId,
+    "student",
+  );
+  const forged = structuredClone(content);
+  forged.activity_policy.allow_runtime_generation = true;
+  await assert.rejects(
+    inTransaction((client) =>
+      applyTutoringInTransaction(
+        client,
+        student,
+        disabled.sessionId,
+        disabledEvaluation.id,
+        { content: forged, generatedQuestion: generatedQuestion("D02") },
+      ),
+    ),
+    /not permitted by the published lesson policy/,
+  );
+  assert.deepEqual(
+    await readSession(student, disabled.sessionId, "student"),
+    beforeDenied,
+  );
+  await applyTutoring(student, disabled.sessionId, disabledEvaluation.id);
+  const fallback = await readSession(student, disabled.sessionId, "student");
+  assert.deepEqual(
+    fallback.attempts[1].question,
+    getCuratedQuestion(content, "D02"),
+  );
+  pass(
+    "Final controller commit reloads published runtime policy despite a forged caller context; denial preserves evidence and the authored fallback remains available",
   );
 }
 try {
