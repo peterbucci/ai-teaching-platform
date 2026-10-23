@@ -72,6 +72,8 @@ jobs:
         run: node scripts/check-isolated.mjs app npm run patterns:check
       - name: Check lesson versions, ownership and historical evidence
         run: node scripts/check-isolated.mjs app npm run lessons:check
+      - name: Check question-bank review, selective regeneration and durable requests
+        run: node scripts/check-isolated.mjs app npm run questions:check
       - name: Check objective review, source grounding and proposal recovery
         run: node scripts/check-isolated.mjs app npm run objectives:check
       - name: Check login limits and forwarding-header resistance
@@ -86,8 +88,12 @@ jobs:
           docker compose exec -T app npm run db:check -- --verify-restart
       - name: Check uploaded-lesson uncertainty and authorized teacher pages
         run: node scripts/check-isolated.mjs app npm run lessons:uncertainty:check
+      - name: Check lesson publishing and isolated class evidence
+        run: node scripts/check-isolated.mjs app npm run publishing:check
       - name: Check private material extraction, review and version storage
         run: node scripts/check-isolated.mjs app npm run materials:check
+      - name: Check publishing HTTP and new-version authorization
+        run: node scripts/check-isolated.mjs app npm run publishing:http:check
       - name: Show service status on failure
         if: failure()
         run: docker compose ps --all

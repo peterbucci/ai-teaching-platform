@@ -108,7 +108,16 @@ export function hydrateLessonContent(input: unknown): ApprovedContent {
       question.controller_node_id === undefined,
       "Published questions cannot contain runtime controller bindings",
     );
-    validateQuestionSnapshot(content, question);
+    try {
+      validateQuestionSnapshot(content, question);
+    } catch (error) {
+      // Snapshot validation predates typed lesson errors. Keep its precise
+      // source/scope failures visible in teacher publication review.
+      throw new LessonValidationError(
+        error instanceof Error ? error.message : "Invalid question snapshot",
+        { cause: error },
+      );
+    }
     requireRule(
       question_guidance.has(question.question_id!),
       "Missing private question guidance",
