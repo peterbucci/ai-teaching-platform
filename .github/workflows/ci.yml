@@ -106,3 +106,45 @@ jobs:
       - name: Stop isolated stack
         if: always()
         run: docker compose down --volumes
+
+  intervention-approval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: "22"
+      - name: Configure isolated fictional demo
+        run: |
+          node --input-type=module <<'NODE'
+          import { randomBytes } from 'node:crypto';
+          import { writeFileSync } from 'node:fs';
+          const secret = () => randomBytes(32).toString('hex');
+          const entries = {
+            POSTGRES_PASSWORD: secret(),
+            PGPASSWORD: secret(),
+            AUTH_SECRET: secret(),
+            AUTH_URL: 'http://localhost:3000',
+            ENABLE_DEMO_LOGIN: 'true',
+            DEMO_TEACHER_EMAIL: 'teacher@example.invalid',
+            DEMO_TEACHER_PASSWORD: secret(),
+            DEMO_STUDENT_ONE_EMAIL: 'student-one@example.invalid',
+            DEMO_STUDENT_ONE_PASSWORD: secret(),
+            DEMO_STUDENT_TWO_EMAIL: 'student-two@example.invalid',
+            DEMO_STUDENT_TWO_PASSWORD: secret(),
+          };
+          writeFileSync('.env', Object.entries(entries).map(([k,v]) => `${k}=${v}`).join('\n'), { mode: 0o600 });
+          NODE
+      - name: Start fresh approval verification stack
+        run: docker compose -p intervention-approval up --build --wait --wait-timeout 180
+      - name: Seed fictional accounts and evidence
+        run: docker compose -p intervention-approval exec -T app npm run db:seed
+      - name: Check uploaded and curated approval and delivery
+        run: docker compose -p intervention-approval exec -T app npm run interventions:approval:lessons -- --setup-fixtures
+      - name: Show approval service status on failure
+        if: failure()
+        run: docker compose -p intervention-approval ps --all
+      - name: Stop isolated approval stack
+        if: always()
+        run: docker compose -p intervention-approval down --volumes

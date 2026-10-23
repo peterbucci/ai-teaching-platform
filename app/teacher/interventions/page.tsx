@@ -6,6 +6,7 @@ import { readAssignmentContent } from "../../../lib/lessons/store.ts";
 import { EvidenceError, evidenceAccess } from "../../../lib/evidence/store.ts";
 import type { InterventionEvidence } from "../../../lib/interventions/contracts.ts";
 import { buildInterventionEvidence } from "../../../lib/interventions/evidence.ts";
+import { readInterventionReview } from "../../../lib/interventions/approval.ts";
 import {
   readInterventionDraft,
   readInterventionDrafts,
@@ -57,6 +58,7 @@ export default async function TeacherInterventionsPage({
   const access = evidenceAccess(await requireActor());
   const drafts = await readInterventionDrafts(access, data.assignment_id);
   let draft = null;
+  let review = null;
   if (params.draft) {
     try {
       draft = await readInterventionDraft(access, params.draft);
@@ -65,6 +67,8 @@ export default async function TeacherInterventionsPage({
       throw error;
     }
     if (draft.assignment_id !== data.assignment_id) notFound();
+    review = await readInterventionReview(access, draft.id);
+    draft = review.draft;
   }
   const content = await readAssignmentContent(
     access,
@@ -116,7 +120,7 @@ export default async function TeacherInterventionsPage({
           Back to learning insights
         </Link>
         <p className="lp-eyebrow mt-5">Evidence into teaching</p>
-        <h1 className="lp-title">Intervention drafts</h1>
+        <h1 className="lp-title">Interventions</h1>
         <p className="lp-intro">
           Prepare a focused review activity from recorded student reasoning. You
           decide what happens next.
@@ -182,7 +186,7 @@ export default async function TeacherInterventionsPage({
       )}
       {drafts.length > 0 && (
         <details className="mt-5">
-          <summary>Saved private drafts ({drafts.length})</summary>
+          <summary>Saved interventions ({drafts.length})</summary>
           <ul className="lp-intervention-drafts">
             {drafts.map((item) => (
               <li key={item.id}>
@@ -194,7 +198,8 @@ export default async function TeacherInterventionsPage({
                     draft: item.id,
                   })}`}
                 >
-                  {item.activity.title} · revision {item.revision}
+                  {item.activity.title} · revision {item.revision} ·{" "}
+                  {item.status.replaceAll("_", " ")}
                 </Link>
               </li>
             ))}
@@ -218,6 +223,7 @@ export default async function TeacherInterventionsPage({
         initialDraft={draft}
         initialRequestId={params.request ?? null}
         initialDraftId={params.generation_draft ?? null}
+        initialReview={review}
       />
     </TeacherFrame>
   );

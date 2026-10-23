@@ -161,23 +161,32 @@ try {
   const page = await request(pagePath, teacher.cookie);
   assert.equal(page.status, 200);
   const html = await page.text();
+  assert.match(html, /<h1\b[^>]*>Interventions<\/h1>/);
   for (const marker of [
-    "Intervention drafts",
+    "Private draft",
     "Recorded learning evidence",
-    "Fresh check of understanding",
-    "Private answer guidance",
-    "Possible recipients for your consideration",
-    "Source-grounded explanation",
+    "Review the proposed activity",
+    "Student preview",
+    "Teacher-only review",
+    "Check your understanding",
+    "Source references",
   ])
     assert.ok(html.includes(marker), `Saved review page is missing ${marker}.`);
   assert.ok(html.includes(saved.request.draft_id));
   const deniedPage = await request(pagePath, student.cookie);
+  // Next can stream the authorized not-found boundary after a 200 response starts.
   assert.ok([200, 404].includes(deniedPage.status));
   const deniedHtml = await deniedPage.text();
   assert.ok(deniedHtml.includes("This evidence isn’t available"));
+  assert.ok(
+    !deniedHtml.includes(
+      draftPayload.draft.activity.fresh_check.rubric.answer_guidance,
+    ),
+    "Student page must not include the saved private answer guidance.",
+  );
   assert.ok(!deniedHtml.includes("Private answer guidance"));
   checks.push(
-    "saved teacher review page renders activity, evidence, source and private guidance; student page denies private evidence",
+    "saved teacher workspace renders private-draft status, evidence, student preview and teacher-review controls; student page denies private evidence",
   );
 
   const crossOrigin = await request(api, teacher.cookie, {

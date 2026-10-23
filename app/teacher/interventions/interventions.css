@@ -125,6 +125,108 @@
 .lp-intervention-source {
   margin-top: 16px;
 }
+.lp-intervention-status {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px 16px;
+  border: 1px solid #d6e7da;
+  border-radius: 10px;
+  background: #f4faf6;
+  font-size: 12px;
+}
+.lp-intervention-status span {
+  color: var(--muted);
+}
+.lp-intervention-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  border-bottom: 1px solid var(--line);
+  padding: 16px 0;
+}
+.lp-intervention-tabs button {
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.lp-intervention-tabs button[aria-pressed="true"] {
+  background: #e7f0eb;
+  color: #24583b;
+}
+.lp-intervention-tabs button:focus-visible,
+.lp-intervention-choice input:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.lp-intervention-editor {
+  min-width: 0;
+  border: 0;
+}
+.lp-intervention-editor:disabled {
+  opacity: 0.7;
+}
+.lp-intervention-field .lp-intervention-long-input {
+  min-height: 180px;
+}
+.lp-intervention-fieldset {
+  border: 0;
+  margin-top: 16px;
+}
+.lp-intervention-fieldset legend {
+  font-size: 12px;
+  font-weight: 600;
+}
+.lp-intervention-source-editor,
+.lp-intervention-recipient {
+  border: 1px solid var(--line);
+  padding: 14px;
+  margin: 12px 0;
+  border-radius: 10px;
+}
+.lp-intervention-source-editor > .lp-intervention-field:first-child,
+.lp-intervention-recipient > .lp-intervention-choice {
+  margin-top: 0;
+}
+.lp-intervention-recipient details {
+  margin: 8px 0 0 23px;
+  font-size: 12px;
+}
+.lp-intervention-recipient summary,
+.lp-intervention-section > summary {
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+.lp-intervention-approval-summary {
+  background: #f6f8fb;
+  border: 1px solid #dce2ec;
+  border-radius: 12px;
+  padding: 18px;
+  margin-top: 24px;
+}
+.lp-intervention-approval-summary > * + * {
+  margin-top: 12px;
+}
+.lp-intervention-warning {
+  background: #fff8e8;
+  border: 1px solid #ebd6a3;
+  padding: 14px;
+  border-radius: 10px;
+  margin-top: 16px;
+  font-size: 13px;
+}
+.lp-intervention-warning .lp-button {
+  margin: 12px 8px 0 0;
+}
+.lp-intervention-editor-workspace > [role="status"] {
+  margin-top: 18px;
+}
+.lp-intervention-student-preview {
+  padding-top: 16px;
+}
 @media (max-width: 950px) {
   .lp-intervention-layout {
     grid-template-columns: 1fr;

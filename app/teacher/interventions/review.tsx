@@ -190,10 +190,19 @@ export function EvidenceReview({
   );
 }
 
-function QuestionReview({ question }: { question: QuestionSnapshot }) {
+function QuestionReview({
+  question,
+  teacherOnly = false,
+}: {
+  question: QuestionSnapshot;
+  teacherOnly?: boolean;
+}) {
   return (
     <>
-      <p className="whitespace-pre-wrap">{question.prompt_text}</p>
+      <p className="whitespace-pre-wrap">
+        {teacherOnly && <strong>Student question for context: </strong>}
+        {question.prompt_text}
+      </p>
       <p className="lp-intervention-meta">
         Approved passages: {question.source_passage_ids.join(", ")}
       </p>
@@ -219,39 +228,54 @@ function QuestionReview({ question }: { question: QuestionSnapshot }) {
 export function ActivityReview({
   activity,
   evidence,
+  teacherOnly = false,
 }: {
   activity: InterventionActivity;
   evidence: InterventionEvidence;
+  teacherOnly?: boolean;
 }) {
   return (
     <div>
-      <h2>{activity.title}</h2>
+      <h2>
+        {teacherOnly
+          ? "Recommendation and private answer guidance"
+          : activity.title}
+      </h2>
       <section className="lp-intervention-section">
-        <h3>Learning objective</h3>
-        <p>{activity.learning_objective}</p>
+        {!teacherOnly && (
+          <>
+            <h3>Learning objective</h3>
+            <p>{activity.learning_objective}</p>
+          </>
+        )}
         <h3>Why this activity</h3>
         <p>{activity.rationale}</p>
         <p className="lp-intervention-note">{activity.uncertainty}</p>
       </section>
-      <section className="lp-intervention-section">
-        <h3>Source-grounded explanation</h3>
-        <p className="whitespace-pre-wrap">{activity.explanation}</p>
-        <h3>Review activity</h3>
-        <p className="whitespace-pre-wrap">{activity.exercise_text}</p>
-      </section>
+      {!teacherOnly && (
+        <section className="lp-intervention-section">
+          <h3>Source-grounded explanation</h3>
+          <p className="whitespace-pre-wrap">{activity.explanation}</p>
+          <h3>Review activity</h3>
+          <p className="whitespace-pre-wrap">{activity.exercise_text}</p>
+        </section>
+      )}
       <section className="lp-intervention-section">
         <h3>Targeted practice</h3>
         <ol className="lp-intervention-questions">
           {activity.practice_questions.map((question, index) => (
             <li key={index}>
-              <QuestionReview question={question} />
+              <QuestionReview question={question} teacherOnly={teacherOnly} />
             </li>
           ))}
         </ol>
       </section>
       <section className="lp-intervention-section">
         <h3>Fresh check of understanding</h3>
-        <QuestionReview question={activity.fresh_check} />
+        <QuestionReview
+          question={activity.fresh_check}
+          teacherOnly={teacherOnly}
+        />
       </section>
       <section className="lp-intervention-section">
         <h3>Evidence used in this recommendation</h3>
@@ -271,36 +295,40 @@ export function ActivityReview({
             <blockquote>{reference.response_quote}</blockquote>
           </div>
         ))}
-        <h3>Approved source support</h3>
-        {activity.source_references.map((reference, index) => {
-          const source = evidence.sources.find(
-            (item) => item.passage_id === reference.passage_id,
-          );
-          return (
-            <div className="lp-intervention-source" key={index}>
-              {source &&
-                (source.url ? (
-                  <a
-                    className="lp-text-link"
-                    href={source.url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {reference.passage_id}
-                  </a>
-                ) : (
-                  <span>{reference.passage_id}</span>
-                ))}
-              <blockquote>{reference.quote}</blockquote>
-            </div>
-          );
-        })}
+        {!teacherOnly && (
+          <>
+            <h3>Approved source support</h3>
+            {activity.source_references.map((reference, index) => {
+              const source = evidence.sources.find(
+                (item) => item.passage_id === reference.passage_id,
+              );
+              return (
+                <div className="lp-intervention-source" key={index}>
+                  {source &&
+                    (source.url ? (
+                      <a
+                        className="lp-text-link"
+                        href={source.url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {reference.passage_id}
+                      </a>
+                    ) : (
+                      <span>{reference.passage_id}</span>
+                    ))}
+                  <blockquote>{reference.quote}</blockquote>
+                </div>
+              );
+            })}
+          </>
+        )}
       </section>
       <section className="lp-intervention-section">
         <h3>Possible recipients for your consideration</h3>
         <p>
-          No recipients have been selected. Review their evidence before
-          deciding who needs this activity.
+          These suggestions do not select or assign anyone. Review their
+          evidence before choosing recipients in the separate selection below.
         </p>
         {activity.suggested_recipients.length === 0 && (
           <p>No specific students suggested.</p>
