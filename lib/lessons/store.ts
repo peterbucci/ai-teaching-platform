@@ -24,8 +24,11 @@ import {
 } from "./contracts.ts";
 import { AttributionSchema, SourcePassageSchema } from "./source-contracts.ts";
 import { hydrateLessonContent } from "./validate.ts";
-import { getReviewedQuestionBank } from "../question-bank/validation.ts";
 import { assembleReviewedLesson } from "./assemble.ts";
+import {
+  getReviewedQuestionBank,
+  fingerprintQuestionBank,
+} from "../question-bank/validation.ts";
 import {
   retainObjectiveWorkflow,
   assertObjectiveReviewForLesson,
@@ -251,6 +254,8 @@ export async function saveLessonDraftInTransaction(
     .parse(input);
   await requireLessonTeacher(client, access);
   const draft = retainObjectiveWorkflow(null, request.draft);
+  if (draft.question_bank)
+    draft.question_bank = { ...draft.question_bank, approval: null };
   delete draft.approval;
   if (!request.lesson_id) {
     if (request.expected_revision !== 0)
@@ -276,6 +281,18 @@ export async function saveLessonDraftInTransaction(
       throw new EvidenceError(409, error.message);
     throw error;
   }
+  // Generic editors cannot mint bank review receipts. Unchanged content retains the stored receipt.
+  if (
+    retained.question_bank &&
+    previous.draft?.question_bank?.approval &&
+    fingerprintQuestionBank(retained) ===
+      previous.draft.question_bank.approval.content_fingerprint
+  ) {
+    retained.question_bank = {
+      ...retained.question_bank,
+      approval: previous.draft.question_bank.approval,
+    };
+  }
   return writeLessonDraftInTransaction(
     client,
     previous.id,
@@ -292,6 +309,13 @@ export async function writeLessonDraftInTransaction(
 ) {
   const clean = LessonDraftContentSchema.parse(draft);
   delete clean.approval;
+  if (
+    clean.question_bank?.approval &&
+    clean.question_bank.approval.content_fingerprint !==
+      fingerprintQuestionBank(clean)
+  ) {
+    clean.question_bank = { ...clean.question_bank, approval: null };
+  }
   const result = await client.query(
     "UPDATE lessons SET title=$2,draft=$3::jsonb,revision=revision+1,approved_revision=NULL WHERE id=$1 RETURNING *",
     [lessonId, title, JSON.stringify(clean)],

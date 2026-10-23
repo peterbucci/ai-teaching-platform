@@ -19,7 +19,12 @@ import {
   readLessonDraft,
   readLessonDraftInTransaction,
   saveLessonDraftInTransaction,
+  writeLessonDraftInTransaction,
 } from "../lessons/store.ts";
+import {
+  assertObjectiveReviewForLesson,
+  ObjectiveReviewError,
+} from "../objectives/rules.ts";
 import { readSourceVersionInTransaction } from "../lessons/sources.ts";
 import { UploadedSourceReferenceSchema } from "../lessons/source-contracts.ts";
 import {
@@ -102,7 +107,13 @@ export function bankMetadata(draft: LessonDraftContent): QuestionBankMetadata {
   return (
     draft.question_bank ??
     QuestionBankMetadataSchema.parse({
-      preferences: DEFAULT_QUESTION_BANK_PREFERENCES,
+      preferences: {
+        ...DEFAULT_QUESTION_BANK_PREFERENCES,
+        emphasized_concept_ids:
+          draft.objective_workflow?.items
+            .filter((item) => item.emphasis === "essential")
+            .map((item) => item.concept_id) ?? [],
+      },
       items: [],
       approval: null,
     })
@@ -164,6 +175,18 @@ async function approvedContext(
       "Passages must match the exact reviewed source version.",
     );
   const concepts = draft.concepts;
+  if (!draft.objective_workflow)
+    throw new EvidenceError(
+      409,
+      "Approve learning objectives in the objectives editor before generating or approving questions.",
+    );
+  try {
+    assertObjectiveReviewForLesson(draft);
+  } catch (error) {
+    if (error instanceof ObjectiveReviewError)
+      throw new EvidenceError(409, error.message);
+    throw error;
+  }
   if (
     !concepts?.length ||
     concepts.some(
@@ -396,12 +419,22 @@ export async function updateQuestionBank(
           },
         };
       }
-      await saveLessonDraftInTransaction(client, access, {
-        lesson_id: lessonId,
-        expected_revision: lesson.revision,
-        title: lesson.title,
-        draft,
-      });
+      if (command.action === "approve") {
+        // This owned, locked, source-validated path alone mints a bank receipt.
+        await writeLessonDraftInTransaction(
+          client,
+          lessonId,
+          lesson.title,
+          draft,
+        );
+      } else {
+        await saveLessonDraftInTransaction(client, access, {
+          lesson_id: lessonId,
+          expected_revision: lesson.revision,
+          title: lesson.title,
+          draft,
+        });
+      }
     });
     return readQuestionBank(access, lessonId);
   }
