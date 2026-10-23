@@ -375,6 +375,24 @@
 .lp-s-assignments .assignment-entry-class {
   margin: 0 0 5px;
 }
+.lp-s-assignments .assignment-entry-instructions {
+  margin-top: 9px;
+  font-size: 12px;
+  line-height: 1.65;
+  color: #466e59;
+}
+.lp-s-assignments .assignment-entry-instructions summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+.lp-s-assignments .assignment-entry-instructions summary:focus-visible {
+  outline: 3px solid #328264;
+  outline-offset: 3px;
+}
+.lp-s-assignments .assignment-entry-instructions p {
+  margin: 8px 0 0;
+  white-space: pre-wrap;
+}
 .lp-s-assignments .assignment-entry-progress {
   font-size: 11px;
   color: #466e59;

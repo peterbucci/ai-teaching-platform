@@ -992,6 +992,72 @@
     color: var(--muted);
     font-size: 11px;
   }
+  .lp-dialogue {
+    flex: none;
+    min-width: 0;
+  }
+  .lp-dialogue-body {
+    padding: 16px 26px 24px;
+    border-top: 1px solid var(--line);
+  }
+  .lp-dialogue-turns {
+    display: grid;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .lp-dialogue-turn {
+    display: grid;
+    gap: 14px;
+    min-width: 0;
+  }
+  .lp-dialogue-turn .lp-student-message {
+    margin: 0 0 0 36px;
+  }
+  .lp-dialogue-turn .lp-question {
+    margin-right: 36px;
+  }
+  .lp-dialogue-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .lp-dialogue-chip {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: white;
+    color: var(--green);
+    padding: 9px 12px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .lp-dialogue-chip:hover:not(:disabled) {
+    background: var(--mint);
+    border-color: var(--green);
+  }
+  .lp-ask-composer {
+    display: grid;
+    gap: 10px;
+  }
+  .lp-ask-composer textarea {
+    min-width: 0;
+    resize: vertical;
+    line-height: 1.7;
+  }
+  .lp-dialogue button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+  @media (max-width: 640px) {
+    .lp-dialogue-body {
+      padding: 16px 16px 20px;
+    }
+    .lp-dialogue-turn .lp-student-message {
+      margin-left: 16px;
+    }
+    .lp-dialogue-turn .lp-question {
+      margin-right: 16px;
+    }
+  }
   .lp-tutor-status {
     margin: 16px 0;
   }

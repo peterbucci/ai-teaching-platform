@@ -1,0 +1,328 @@
+{
+  "report_version": "r7-r4-resolver-application-evidence-v1",
+  "exported_at": "2026-10-23T12:18:57.072Z",
+  "evidence_type": "Actual browser curated baseline with unchanged runtime-disabled policy",
+  "notice": "Read-only snapshot of fictional demo evidence. Private rubrics, prompts, raw provider outputs, cookies and secrets omitted. Pending work stays pending. No browser display or educational claims are inferred from SQL.",
+  "source": {
+    "content_ref": {
+      "package_id": "network-performance-v1",
+      "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+      "source_id": "peterson_davie_1_5_1",
+      "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+      "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+    },
+    "attribution": {
+      "title": "Computer Networks: A Systems Approach",
+      "authors": ["Larry Peterson", "Bruce Davie"],
+      "copyright": "Elsevier, 2012",
+      "section": "1.5.1 Bandwidth and Latency",
+      "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst",
+      "license": "CC-BY-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "cautions": [
+        "The upstream README sentence about derivative works conflicts with the CC BY 4.0 LICENSE adaptation grant. Both source files are retained; this package does not settle that legal inconsistency.",
+        "The source initially uses bandwidth/throughput loosely before distinguishing available rate from measured performance. Accept accurate explanations rather than penalizing synonyms alone.",
+        "The source uses latency generically. Every assessment specifies one-way latency or RTT explicitly.",
+        "The one-bit simplification in P08 is not assessed. Use finite packets and stated assumptions.",
+        "P10 contains a dimensional typo in the original displayed calculation: its denominator says 10 x 10^6 Mbps where 10 x 10^6 bits/s is intended. The 20-second result is correct. Preserve the source but use dimensionally correct arithmetic in assessment.",
+        "The source uses a simplified three-component delay model. Processing, multi-hop aggregation and advanced queuing models are outside assessment scope.",
+        "Queuing is introduced briefly. Questions use given waiting times, basic definition and delay arithmetic; traffic-dependent queue theory is not inferred from this excerpt."
+      ]
+    },
+    "activity_policy": {
+      "allowed_actions": [
+        "ASK_RETRIEVAL_QUESTION",
+        "ASK_SELF_EXPLANATION",
+        "ASK_DIAGNOSTIC_FOLLOWUP",
+        "GIVE_HINT",
+        "GIVE_CORRECTIVE_FEEDBACK",
+        "RETEST_CONCEPT",
+        "MOVE_TO_NEXT_CONCEPT",
+        "SCHEDULE_REVIEW",
+        "END_SESSION"
+      ],
+      "allow_runtime_generation": false
+    },
+    "approved_concept_ids": [
+      "bandwidth_throughput",
+      "latency_rtt",
+      "transmission_delay",
+      "propagation_delay",
+      "queuing_delay"
+    ],
+    "approved_passage_ids": [
+      "P01",
+      "P02",
+      "P03",
+      "P04",
+      "P05",
+      "P06",
+      "P07",
+      "P08",
+      "P09",
+      "P10",
+      "P11",
+      "P12",
+      "P13"
+    ]
+  },
+  "session": {
+    "id": "71677467-a6b2-4778-94db-866d640b0ff9",
+    "assignment_id": "30000000-0000-4000-8000-000000000001",
+    "status": "active",
+    "data_origin": "live_demo",
+    "started_at": "2026-10-23T11:59:33.110Z",
+    "ended_at": null
+  },
+  "operations": [
+    {
+      "request_id": "2e8662de-ed34-44d6-b756-f8d2cc789e67",
+      "attempt_id": "bb72522d-2a92-46c9-9876-e72728b09789",
+      "expected_revision": 0,
+      "lesson": {
+        "session_id": "71677467-a6b2-4778-94db-866d640b0ff9",
+        "assignment_id": "30000000-0000-4000-8000-000000000001",
+        "attempt_id": "bb72522d-2a92-46c9-9876-e72728b09789",
+        "root_attempt_id": "bb72522d-2a92-46c9-9876-e72728b09789",
+        "sequence_index": 0,
+        "content_ref": {
+          "package_id": "network-performance-v1",
+          "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+          "source_id": "peterson_davie_1_5_1",
+          "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+          "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+        }
+      },
+      "payload": {
+        "version": "r7-conversation-v1",
+        "request_id": "2e8662de-ed34-44d6-b756-f8d2cc789e67",
+        "session_id": "71677467-a6b2-4778-94db-866d640b0ff9",
+        "attempt_id": "bb72522d-2a92-46c9-9876-e72728b09789",
+        "expected_revision": 0,
+        "action": "send_message",
+        "text": "Can you explain what propagation means without answering the cable question?"
+      },
+      "message_request_id": null,
+      "status": "fallback",
+      "proposed_intent": {
+        "category": "QUESTION_OR_HELP",
+        "rationale": "The student requests a definition of propagation and explicitly asks not to answer the active assessment."
+      },
+      "authorized_route": "fallback",
+      "message": {
+        "request_id": "2e8662de-ed34-44d6-b756-f8d2cc789e67",
+        "attempt_id": "bb72522d-2a92-46c9-9876-e72728b09789",
+        "expected_revision": 0,
+        "text": "Can you explain what propagation means without answering the cable question?",
+        "classification": null,
+        "outcome": {
+          "status": "fallback",
+          "reason": "limit_reached",
+          "text": "You've reached the extra-help limit. You can still continue your lesson or use the reading."
+        }
+      },
+      "created_at": "2026-10-23T11:59:38.330Z"
+    }
+  ],
+  "events": [
+    {
+      "sequence": 348,
+      "event_id": "9c288c05-c880-427f-93c0-2b0793cdd689",
+      "request_id": "2e8662de-ed34-44d6-b756-f8d2cc789e67",
+      "kind": "requested",
+      "at": "2026-10-23T11:59:38.333Z"
+    },
+    {
+      "sequence": 349,
+      "event_id": "e74db35f-fab2-4db9-ad08-6d7966646ccb",
+      "request_id": "2e8662de-ed34-44d6-b756-f8d2cc789e67",
+      "kind": "provider_reserved",
+      "at": "2026-10-23T11:59:38.421Z"
+    },
+    {
+      "sequence": 350,
+      "event_id": "668d09ee-0fd6-4665-8a83-1adb7f97239e",
+      "request_id": "2e8662de-ed34-44d6-b756-f8d2cc789e67",
+      "kind": "provider_completed",
+      "at": "2026-10-23T11:59:43.656Z"
+    },
+    {
+      "sequence": 351,
+      "event_id": "b46b1122-bcdc-427f-878a-f6143ef4272a",
+      "request_id": "2e8662de-ed34-44d6-b756-f8d2cc789e67",
+      "kind": "intent_review",
+      "at": "2026-10-23T11:59:43.730Z",
+      "payload": {
+        "proposal": {
+          "category": "QUESTION_OR_HELP",
+          "rationale": "The student requests a definition of propagation and explicitly asks not to answer the active assessment."
+        },
+        "review": {
+          "answer_intent": "uncertain",
+          "disclosure": "safe"
+        },
+        "authorized_route": "ask_tutor"
+      }
+    },
+    {
+      "sequence": 352,
+      "event_id": "9dc260d5-2e1e-470a-9e1f-52219cace8e7",
+      "request_id": "2e8662de-ed34-44d6-b756-f8d2cc789e67",
+      "kind": "dialogue",
+      "at": "2026-10-23T11:59:43.738Z",
+      "payload": {
+        "version": "r7-v1",
+        "event_id": "64700794-a919-4b2d-abc5-09de78e24ee4",
+        "request_id": "2e8662de-ed34-44d6-b756-f8d2cc789e67",
+        "at": "2026-10-23T11:59:43.736104+00:00",
+        "outcome": "requested"
+      }
+    },
+    {
+      "sequence": 353,
+      "event_id": "e2af8709-a07f-4bb6-b1ce-617ae1c7abf0",
+      "request_id": "2e8662de-ed34-44d6-b756-f8d2cc789e67",
+      "kind": "action_claimed",
+      "at": "2026-10-23T11:59:43.828Z"
+    },
+    {
+      "sequence": 354,
+      "event_id": "81e6cbad-f1de-4024-ba3c-caafecceef5b",
+      "request_id": "2e8662de-ed34-44d6-b756-f8d2cc789e67",
+      "kind": "action",
+      "at": "2026-10-23T11:59:43.858Z",
+      "payload": {
+        "action_id": "2e8662de-ed34-44d6-b756-f8d2cc789e67",
+        "phase": "failed",
+        "stage": "context",
+        "reason": "limit_reached",
+        "outcome_unknown": false
+      }
+    },
+    {
+      "sequence": 355,
+      "event_id": "3225da2f-c8b2-495b-8b34-0ce680a87485",
+      "request_id": "2e8662de-ed34-44d6-b756-f8d2cc789e67",
+      "kind": "action_receipt",
+      "at": "2026-10-23T11:59:43.860Z",
+      "payload": {
+        "status": "stopped",
+        "request_id": "2e8662de-ed34-44d6-b756-f8d2cc789e67",
+        "reason": "limit_reached",
+        "reconcile": false,
+        "fallback": {
+          "kind": "fallback",
+          "reason": "limit_reached",
+          "text": "You've reached the extra-help limit. You can still continue your lesson or use the reading.",
+          "next": "return_to_lesson"
+        }
+      }
+    },
+    {
+      "sequence": 356,
+      "event_id": "4cf791d2-6556-4382-ad59-4cb7d98fe0f3",
+      "request_id": "2e8662de-ed34-44d6-b756-f8d2cc789e67",
+      "kind": "failed",
+      "at": "2026-10-23T11:59:43.863Z"
+    },
+    {
+      "sequence": 357,
+      "event_id": "c5792555-1a38-477a-8b2e-0a424423cdee",
+      "request_id": "2e8662de-ed34-44d6-b756-f8d2cc789e67",
+      "kind": "dialogue",
+      "at": "2026-10-23T11:59:43.866Z",
+      "payload": {
+        "version": "r7-v1",
+        "event_id": "a36988a1-ab74-4e85-9b9f-1da11e228bfd",
+        "request_id": "2e8662de-ed34-44d6-b756-f8d2cc789e67",
+        "at": "2026-10-23T11:59:43.864562+00:00",
+        "outcome": "failed",
+        "reason": "limit_reached"
+      }
+    }
+  ],
+  "attempts": [
+    {
+      "id": "bb72522d-2a92-46c9-9876-e72728b09789",
+      "sequence_index": 0,
+      "parent_attempt_id": null,
+      "root_attempt_id": "bb72522d-2a92-46c9-9876-e72728b09789",
+      "intent": "initial_retrieval",
+      "question": {
+        "question_id": "NP-TX-01",
+        "prompt_text": "A single cable becomes twice as long. Packet size, link transmission rate, and propagation speed stay unchanged. What happens to transmission delay and propagation delay? Explain why.",
+        "concept_ids": ["transmission_delay", "propagation_delay"],
+        "source_passage_ids": ["P07", "P08", "P12"],
+        "content_ref": {
+          "package_id": "network-performance-v1",
+          "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+          "source_id": "peterson_davie_1_5_1",
+          "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+          "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+        },
+        "origin": "curated",
+        "controller_node_id": null,
+        "generation": null
+      },
+      "presented_at": "2026-10-23T11:59:33.126Z",
+      "submitted_at": null,
+      "response_text": null,
+      "submission_key": null,
+      "assistance": null,
+      "current_evaluation_id": null
+    }
+  ],
+  "evaluations": [],
+  "interventions": [],
+  "provider_calls": [
+    {
+      "id": "72ec410c-56bc-44fd-80fc-10281efbd085",
+      "request_id": "2e8662de-ed34-44d6-b756-f8d2cc789e67",
+      "step_id": "classify",
+      "status": "succeeded",
+      "started_at": "2026-10-23T11:59:38.417Z",
+      "finished_at": "2026-10-23T11:59:43.651Z",
+      "metadata": {
+        "stage": "classify",
+        "model": "gpt-6.1-sol",
+        "prompt_version": "r7-intent-v1"
+      },
+      "result": {
+        "ok": true,
+        "model": "gpt-6.1-sol",
+        "responseId": "resp_0326872a39cd4a4d016adb4c2a420887d1a791d29715ceed98",
+        "latencyMs": 5189,
+        "usage": {
+          "inputTokens": 3571,
+          "outputTokens": 38,
+          "totalTokens": 3609
+        },
+        "needs_reconciliation": false
+      }
+    }
+  ],
+  "checks": {
+    "display_acknowledgements": 0,
+    "unique_display_acknowledgements": 0,
+    "displayed_interventions": 0,
+    "undisplayed_interventions": 0,
+    "submitted_answers": 0,
+    "unique_submission_keys": 0,
+    "submitted_answers_details": [],
+    "ambiguity": [],
+    "provider_calls": 1,
+    "provider_successes_with_response_id": 1,
+    "provider_failed_reservations": 0,
+    "provider_dispatch_caveat": "A provider record reserves a bounded step. Failed invalid_request records do not persist whether failure occurred during local schema construction or HTTP400/422; elapsed time alone cannot prove network dispatch or paid usage.",
+    "unresolved_provider_calls": 0,
+    "provider_token_usage": 3609,
+    "provider_input_tokens": 3571,
+    "provider_output_tokens": 38,
+    "evaluator_reservations": 0,
+    "accepted_evaluations": 0,
+    "evaluator_usage_metadata": "Legacy evaluator records do not persist provider response ID, usage or latency; totals above cover dialogue calls only.",
+    "source_matches_exact_authorized_resolver": true
+  },
+  "exporter_model_calls": 0,
+  "exporter_writes_to_database": 0
+}
