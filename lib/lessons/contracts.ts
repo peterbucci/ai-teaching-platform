@@ -10,6 +10,7 @@ import {
   SequenceSchema,
 } from "../evidence/content.ts";
 import { AttributionSchema } from "./source-contracts.ts";
+import { ObjectiveWorkflowSchema } from "../objectives/contracts.ts";
 
 const text = z.string().min(1);
 export const LessonPassageSchema = z.strictObject({
@@ -69,7 +70,9 @@ export const LessonContentSchema = z.strictObject({
 });
 export type LessonContent = z.infer<typeof LessonContentSchema>;
 /** Incomplete authoring state is allowed; approval/publication requires the full schema. */
-export const LessonDraftContentSchema = LessonContentSchema.partial();
+export const LessonDraftContentSchema = LessonContentSchema.partial().extend({
+  objective_workflow: ObjectiveWorkflowSchema.optional(),
+});
 export type LessonDraftContent = z.infer<typeof LessonDraftContentSchema>;
 export type ResolvedLessonContent = Omit<
   LessonContent,
