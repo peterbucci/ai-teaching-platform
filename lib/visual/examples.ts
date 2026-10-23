@@ -1,5 +1,9 @@
 import type { ActivityEvent } from "./contracts.ts";
-import { VISUAL_VERSION } from "./contracts.ts";
+import { VISUAL_VERSION, PACKET_VISUAL_VERSION } from "./contracts.ts";
+import {
+  calculatePacketDelay,
+  PACKET_DELAY_MODEL_VERSION,
+} from "../networking/packet-delay.ts";
 
 // Synthetic examples for contract tests. They contain no student data or rubrics.
 const sharedActivity = {
@@ -104,6 +108,29 @@ export const invalidPacketExperiments = {
   },
 };
 
+/** Current calculation example. The earlier visual-v1 example is legacy text only. */
+export const validPacketDelayExperiment = {
+  ...sharedActivity,
+  version: PACKET_VISUAL_VERSION,
+  kind: "packet_experiment",
+  title: "Packet transmission and propagation",
+  concept_ids: ["transmission_delay", "propagation_delay"],
+  prompt:
+    "Predict how a longer cable changes each delay. Keep the other settings fixed.",
+  model_version: PACKET_DELAY_MODEL_VERSION,
+  parameters: {
+    packet_bits: 8_000,
+    link_rate_bits_per_second: 1_000_000,
+    distance_meters: 200_000,
+    propagation_speed_meters_per_second: 200_000_000,
+  },
+  adjustable_parameters: [
+    { parameter: "distance_meters", min: 0, max: 400_000 },
+  ],
+  text_alternative:
+    "Compare transmission and propagation for one link, excluding queueing and processing. Predict what changes when only cable length changes.",
+};
+
 const linkIds = {
   session_id: "8f1c2a10-0000-4000-8000-0000000000bb",
   root_attempt_id: "8f1c2a10-0000-4000-8000-0000000000cc",
@@ -146,6 +173,29 @@ export const validActivityEvents: ActivityEvent[] = [
     ...linkIds,
     type: "experiment_result",
     outcome: "Packets arrived about 300 ms later than with no delay.",
+  },
+];
+
+export const validPacketDelayEvents: ActivityEvent[] = [
+  validActivityEvents[0],
+  validActivityEvents[1],
+  validActivityEvents[2],
+  {
+    ...linkIds,
+    event_id: "8f1c2a10-0000-4000-8000-000000000004",
+    activity_id: validActivityEvents[0].activity_id,
+    version: PACKET_VISUAL_VERSION,
+    type: "packet_state",
+    model_version: PACKET_DELAY_MODEL_VERSION,
+    parameters: validPacketDelayExperiment.parameters,
+  },
+  {
+    ...linkIds,
+    event_id: "8f1c2a10-0000-4000-8000-000000000005",
+    activity_id: validActivityEvents[0].activity_id,
+    version: PACKET_VISUAL_VERSION,
+    type: "packet_result",
+    calculation: calculatePacketDelay(validPacketDelayExperiment.parameters),
   },
 ];
 
