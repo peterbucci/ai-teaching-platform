@@ -6,6 +6,7 @@ import {
   type LessonDraftContent,
 } from "../lessons/contracts.ts";
 import type { QuestionSnapshot } from "../evidence/contracts.ts";
+import { assertObjectiveReviewForLesson } from "../objectives/rules.ts";
 import {
   QuestionCalculationSchema,
   type QuestionBankIssue,
@@ -107,6 +108,13 @@ export function validateQuestionBank(input: unknown): QuestionBankIssue[] {
     add("An exact lesson and source version is required.");
   if (!draft.concepts?.length)
     add("Approve learning objectives before generating questions.");
+  try {
+    assertObjectiveReviewForLesson(draft);
+  } catch {
+    add(
+      "The current learning objectives need approval before reviewing this bank.",
+    );
+  }
   if (!draft.passages?.length) add("Approved source passages are required.");
   if (!draft.questions?.length)
     add("Add at least one complete question family.");
@@ -447,6 +455,7 @@ export function fingerprintQuestionBank(input: LessonDraftContent): string {
           content_ref: draft.content_ref,
           attribution: draft.attribution,
           concepts: draft.concepts,
+          objective_workflow: draft.objective_workflow,
           passages: draft.passages,
           misconceptions: draft.misconceptions,
           scope: draft.scope,

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { ObjectiveWorkflowSchema } from "../objectives/contracts.ts";
 import {
   ActionSchema,
   ContentRefSchema,
@@ -189,6 +190,7 @@ export const QuestionBankViewSchema = z.object({
   title: requiredNote,
   revision: z.number().int().nonnegative(),
   draft: z.object({
+    objective_workflow: ObjectiveWorkflowSchema.optional(),
     content_ref: ContentRefSchema.optional(),
     scope: requiredNote.optional(),
     terminology_policy: requiredNote.optional(),
