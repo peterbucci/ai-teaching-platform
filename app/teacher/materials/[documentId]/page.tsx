@@ -40,6 +40,22 @@ export default async function SavedMaterialPage({
           published or assigned by this import.
         </p>
       </header>
+      {source.review_status === "approved" && (
+        <section className="lp-panel">
+          <h2>Prepare a lesson</h2>
+          <p>
+            Create a lesson draft and choose {source.attribution.title} ·
+            version {source.version} from your approved material. Then review
+            learning objectives and questions before publishing.
+          </p>
+          <Link
+            className="lp-button lp-button-primary mt-3"
+            href="/teacher/objectives"
+          >
+            Create learning objectives
+          </Link>
+        </section>
+      )}
       <section className="lp-panel" aria-labelledby="source-details">
         <h2 id="source-details">Source details</h2>
         <dl className="lp-material-metadata">

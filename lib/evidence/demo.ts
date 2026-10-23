@@ -493,9 +493,15 @@ export async function seedDemo(fixture: DemoFixture, authIds: DemoAuthIds) {
     });
     for (const enrollment of fixture.enrollments)
       await ensureRow("enrollments", enrollment, enrollment);
-    await ensureRow("assignments", fixture.assignment, {
-      id: fixture.assignment.id,
-    });
+    // jsonb_populate_record supplies NULL for omitted columns instead of using
+    // database defaults. Keep the historical fixture compatible with #52.
+    await ensureRow(
+      "assignments",
+      { instructions: "", ...fixture.assignment },
+      {
+        id: fixture.assignment.id,
+      },
+    );
     for (const evidence of fixture.sessions) {
       await ensureRow("sessions", evidence.session, {
         id: evidence.session.id,
