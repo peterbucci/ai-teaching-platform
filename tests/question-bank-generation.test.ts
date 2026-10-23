@@ -437,6 +437,52 @@ test("saved per-question format and difficulty override global regeneration pref
   }
 });
 
+test("calculation validation rejects tiny and large incorrect answers while allowing floating-point roundoff", async () => {
+  const cases = [
+    {
+      operation: "multiply" as const,
+      operands: [0.000001, 0.000001],
+      expected: 0,
+      accepted: false,
+    },
+    {
+      operation: "add" as const,
+      operands: [1_000_000_000, 1],
+      expected: 1_000_000_001.01,
+      accepted: false,
+    },
+    {
+      operation: "add" as const,
+      operands: [0.1, 0.2],
+      expected: 0.3,
+      accepted: true,
+    },
+  ];
+  for (const example of cases) {
+    const question = proposal(targets[0]);
+    question.format = "calculation";
+    question.prompt_text = `Calculate ${example.operands.join(` ${example.operation} `)}. Then compare evaporation and condensation.`;
+    question.rubric.answer_guidance += ` The calculated result is ${example.expected} units.`;
+    question.calculation = {
+      operation: example.operation,
+      operands: example.operands,
+      expected: example.expected,
+      unit: "units",
+    };
+    const { provider, requests } = fakeProvider([question]);
+    const result = await generateQuestionBank(
+      {
+        draft: fixture(),
+        preferences: { ...preferences, format: "calculation" },
+        targets: [targets[0]],
+      },
+      provider,
+    );
+    assert.equal(result.ok, example.accepted);
+    assert.equal(requests.length, example.accepted ? 2 : 1);
+  }
+});
+
 function configure(t: TestContext) {
   const keys = [
     "OPENAI_API_KEY",

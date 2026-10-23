@@ -264,20 +264,53 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
   const concepts = view.draft.concepts ?? [];
   const passages = view.draft.passages ?? [];
   const prerequisites = Boolean(
-    view.draft.content_ref && concepts.length && passages.length,
+    view.draft.content_ref &&
+    concepts.length &&
+    passages.length &&
+    view.draft.objective_workflow?.reviewed,
   );
   const locked = Boolean(busy || pending || recoveryAvailable);
   const reviewedCount = bank.question_bank.items.filter(
     (item) => item.review_status === "reviewed",
   ).length;
+  const families = [
+    ...new Set(bank.question_bank.items.map((item) => item.family_id)),
+  ].map((familyId, index) => {
+    const initial = bank.question_bank.items.find(
+      (item) => item.family_id === familyId && item.role === "initial",
+    );
+    const prompt = bank.questions
+      .find((question) => question.question_id === initial?.question_id)
+      ?.prompt_text.replace(/\s+/g, " ")
+      .trim();
+    return {
+      id: familyId,
+      title: `Family ${index + 1}${prompt ? ` · ${prompt.length > 80 ? `${prompt.slice(0, 77)}…` : prompt}` : ""}`,
+    };
+  });
   const hasUnknown =
     view.has_unknown_outcome ||
     view.operations.some((operation) => operation.status === "unknown");
   const generationBlocked =
-    locked || dirty || conflict || (hasUnknown && !acknowledgeUnknown);
+    !prerequisites ||
+    locked ||
+    dirty ||
+    conflict ||
+    (hasUnknown && !acknowledgeUnknown);
 
   useEffect(() => {
-    if (!dirty) return;
+    if (!dirty) {
+      // Once this session owns the form, returning to the saved content also
+      // discards any intermediate recovery copy (for example add then delete).
+      if (recoveryDismissed) {
+        try {
+          sessionStorage.removeItem(recoveryKey);
+        } catch {
+          /* Storage is optional. */
+        }
+      }
+      return;
+    }
     try {
       sessionStorage.setItem(
         recoveryKey,
@@ -296,7 +329,14 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
     };
     window.addEventListener("beforeunload", preventLoss);
     return () => window.removeEventListener("beforeunload", preventLoss);
-  }, [dirty, recoveryKey, view.lesson_id, editingRevision, bank]);
+  }, [
+    dirty,
+    recoveryDismissed,
+    recoveryKey,
+    view.lesson_id,
+    editingRevision,
+    bank,
+  ]);
 
   function clearRecovery() {
     setRecoveryDismissed(true);
@@ -318,6 +358,7 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
   }
 
   function edit(update: (current: EditableBank) => EditableBank) {
+    setRecoveryDismissed(true);
     setBank((current) => {
       const next = update(current);
       return {
@@ -830,9 +871,16 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
           <h2>Approved objectives and passages are needed</h2>
           <p>
             Finish the source and learning-objective review for this lesson
-            before generating or adding questions. This editor uses the approved
-            objectives from the lesson draft.
+            before generating, adding, or approving questions. The reviewed
+            objectives and their supporting passages must be saved in this
+            lesson draft.
           </p>
+          <Link
+            className="lp-button mt-3"
+            href={`/teacher/objectives/${encodeURIComponent(view.lesson_id)}`}
+          >
+            Review and approve objectives
+          </Link>
         </section>
       )}
 
@@ -1218,13 +1266,25 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
                         </label>
                         <label className="lp-field">
                           Question family
-                          <input
+                          <select
                             className="lp-input"
                             value={metadata.family_id}
                             onChange={(event) =>
-                              item(id, { family_id: event.target.value })
+                              item(id, {
+                                family_id:
+                                  event.target.value || crypto.randomUUID(),
+                              })
                             }
-                          />
+                          >
+                            {families.map((family) => (
+                              <option key={family.id} value={family.id}>
+                                {family.title}
+                              </option>
+                            ))}
+                            <option value="">
+                              Start a new question family
+                            </option>
+                          </select>
                           <span className="qb-help">
                             Use the same family for an initial question and its
                             alternatives, diagnostic, and retest.
@@ -1293,7 +1353,8 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
                           }
                         />
                         <TextField
-                          title="Feedback guidance"
+                          title="Corrective feedback for later student delivery"
+                          hint="Teachers review this text here. It may be shown to students after an assessed answer as corrective feedback; keep private rubric notes and answers to unasked questions out of it."
                           value={metadata.feedback_guidance}
                           onChange={(value) =>
                             item(id, { feedback_guidance: value })
@@ -1750,6 +1811,7 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
                   dirty ||
                   conflict ||
                   !policyReviewed ||
+                  !prerequisites ||
                   !bank.questions.length ||
                   reviewedCount !== bank.questions.length ||
                   Boolean(view.issues.length)

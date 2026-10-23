@@ -614,12 +614,14 @@ export function ObjectiveEditor({ lessonId }: { lessonId: string }) {
                 {new Date(reviewed.reviewed_at).toLocaleString()}. Editing the
                 objectives requires a new review.
               </p>
-              <Link
-                className="lp-button lp-button-primary mt-3"
-                href={`/teacher/lessons/${encodeURIComponent(lessonId)}/questions`}
-              >
-                Continue to question bank
-              </Link>
+              {data.source.review_status === "approved" && !busy && (
+                <Link
+                  className="lp-button lp-button-primary mt-3"
+                  href={`/teacher/lessons/${encodeURIComponent(lessonId)}/questions`}
+                >
+                  Continue to question bank
+                </Link>
+              )}
             </div>
           )}
           <div className="lo-editor-layout">
