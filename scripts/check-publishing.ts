@@ -48,6 +48,7 @@ import {
   lessonPublishingReview,
   listTeacherLessons,
   readPublishedLessonForReview,
+  startLessonVersion,
 } from "../lib/lessons/publishing.ts";
 import {
   readAssignmentEvidence,
@@ -436,6 +437,120 @@ try {
   assert.deepEqual(
     (await readLessonDraft(teacher, bankDraft.id)).draft?.question_bank,
     reviewedBank,
+  );
+  // Version creation carries saved work forward without touching published history.
+  const publishedBankAssignment = await createLessonAssignment(teacher, {
+    request_id: randomUUID(),
+    class_id: classA,
+    lesson_id: bankDraft.id,
+    version: "1",
+    title: "Synthetic original bank assignment",
+  });
+  const assignmentBeforeVersion = (
+    await db.query("SELECT * FROM assignments WHERE id=$1", [
+      publishedBankAssignment.id,
+    ])
+  ).rows[0];
+  bankDraft = await readLessonDraft(teacher, bankDraft.id);
+  bankDraft = await saveLessonDraft(teacher, {
+    lesson_id: bankDraft.id,
+    expected_revision: bankDraft.revision,
+    title: "Current saved title carried into version two",
+    draft: bankDraft.draft,
+  });
+  assert.ok(bankDraft.draft?.question_bank?.approval);
+  const beforeVersion = structuredClone(bankDraft);
+  const versionRequest = {
+    expected_revision: bankDraft.revision,
+    version: "2",
+    confirmed: true,
+  };
+  await denied(
+    startLessonVersion(otherTeacher, bankDraft.id, versionRequest),
+    404,
+  );
+  await denied(startLessonVersion(studentA, bankDraft.id, versionRequest), 404);
+  await denied(
+    startLessonVersion(teacher, bankDraft.id, {
+      ...versionRequest,
+      expected_revision: bankDraft.revision - 1,
+    }),
+    409,
+  );
+  await denied(
+    startLessonVersion(teacher, bankDraft.id, {
+      ...versionRequest,
+      version: "1",
+    }),
+    409,
+  );
+  assert.deepEqual(await readLessonDraft(teacher, bankDraft.id), beforeVersion);
+  const started = await startLessonVersion(
+    teacher,
+    bankDraft.id,
+    versionRequest,
+  );
+  bankDraft = await readLessonDraft(teacher, bankDraft.id);
+  assert.deepEqual(started, {
+    lesson_id: bankDraft.id,
+    version: "2",
+    revision: beforeVersion.revision + 1,
+  });
+  assert.equal(bankDraft.title, beforeVersion.title);
+  assert.equal(bankDraft.approved_revision, null);
+  assert.equal(bankDraft.draft?.question_bank?.approval, null);
+  assert.equal(bankDraft.draft?.sequence, undefined);
+  assert.deepEqual(
+    bankDraft.draft?.objective_workflow,
+    beforeVersion.draft?.objective_workflow,
+  );
+  assert.deepEqual(bankDraft.draft?.concepts, beforeVersion.draft?.concepts);
+  assert.deepEqual(bankDraft.draft?.passages, beforeVersion.draft?.passages);
+  const expectedRef = {
+    ...beforeVersion.draft!.content_ref!,
+    content_version: "2",
+  };
+  assert.deepEqual(bankDraft.draft?.content_ref, expectedRef);
+  assert.deepEqual(
+    bankDraft.draft?.questions,
+    beforeVersion.draft!.questions!.map((question) => ({
+      ...question,
+      content_ref: expectedRef,
+    })),
+  );
+  await denied(startLessonVersion(teacher, bankDraft.id, versionRequest), 409);
+  await denied(
+    startLessonVersion(teacher, bankDraft.id, {
+      ...versionRequest,
+      expected_revision: bankDraft.revision,
+      version: "3",
+    }),
+    409,
+  );
+  await denied(
+    approveLessonDraft(teacher, bankDraft.id, bankDraft.revision),
+    409,
+  );
+  assert.deepEqual(
+    await readPublishedLessonForReview(teacher, bankDraft.id, "1"),
+    publishedBank,
+  );
+  assert.deepEqual(
+    (
+      await db.query("SELECT * FROM assignments WHERE id=$1", [
+        publishedBankAssignment.id,
+      ])
+    ).rows[0],
+    assignmentBeforeVersion,
+  );
+  assert.equal(
+    (
+      await db.query(
+        "SELECT count(*)::integer AS count FROM lesson_versions WHERE lesson_id=$1",
+        [bankDraft.id],
+      )
+    ).rows[0].count,
+    1,
   );
   let draft = await saveLessonDraft(teacher, {
     expected_revision: 0,
@@ -851,6 +966,16 @@ try {
     " State both starting states explicitly.";
   lessonV2.sequence.nodes[0].prompt = lessonV2.questions[0].prompt_text;
   const oldRevision = draft.revision;
+  await startLessonVersion(teacher, draft.id, {
+    expected_revision: draft.revision,
+    version: "2",
+    confirmed: true,
+  });
+  draft = await readLessonDraft(teacher, draft.id);
+  assert.deepEqual(draft.draft?.content_ref, {
+    ...lessonV1.content_ref,
+    content_version: "2",
+  });
   draft = await saveLessonDraft(teacher, {
     lesson_id: draft.id,
     expected_revision: draft.revision,
@@ -902,7 +1027,7 @@ try {
     assert.deepEqual(reader?.reading.content_ref, lessonV1.content_ref);
   }
   console.log(
-    "PASS: real objective/bank approval services with synthetic inputs; edited feedback requires reassembly; reviewed publication and source gates; ownership; stale/concurrent/replayed publication, creation and activation; immutable assignment instructions; two authorized classes with isolated student evidence; exact uploaded reading/evaluator/controller/teacher evidence paths; private rubric protection; prior source/version snapshots preserved after v2. No model call was made.",
+    "PASS: real objective/bank approval services with synthetic inputs; edited feedback requires reassembly; reviewed publication and source gates; owned expected-revision new versions preserve saved edits/source/concepts and invalidate bank/full approval; version collisions and stale retries rejected; ownership; stale/concurrent/replayed publication, creation and activation; immutable assignment instructions; two authorized classes with isolated student evidence; exact uploaded reading/evaluator/controller/teacher evidence paths; private rubric protection; prior source/version snapshots preserved after v2. No model call was made.",
   );
   console.log(
     `Retained labeled synthetic publishing probe ${run} in the configured development database.`,

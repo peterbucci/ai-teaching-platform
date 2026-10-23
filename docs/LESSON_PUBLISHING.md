@@ -22,6 +22,7 @@ The complete import → AI objectives/questions → publish → student → teac
 6. Open `/teacher/lessons/[lessonId]?version=...` to preview the exact immutable snapshot being assigned. The current editable draft cannot silently replace this preview.
 7. Choose an authorized class, review the assignment title and instructions, and create an **inactive** class assignment pinned to that version.
 8. Follow the existing `/teacher/assignments?assignment=...` review page and explicitly **Approve and activate**. Only then does the assignment appear to enrolled students.
+9. When the current draft's version has already been published, select **Start new version**, enter an unused version name, and confirm. This carries the current saved draft forward, including saved edits; it does not restore an older snapshot over those edits. Review the new question bank, prepare its sequence, and approve/publish it separately.
 
 Lesson approval, publication, assignment creation, and classroom activation are separate authorized operations. Approval and publication HTTP requests require `confirmed: true`. Classroom activation uses the existing assignment review token. Assembly is a teacher-initiated draft edit and still requires subsequent whole-lesson review and approval.
 
@@ -29,13 +30,14 @@ The current assignment schema supports immediate availability after activation. 
 
 ## Server interfaces
 
-`lib/lessons/publishing.ts` supplies teacher-only reads:
+`lib/lessons/publishing.ts` supplies teacher-only review and version services:
 
-| Function                                                  | Result                                                                                                                     |
-| --------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `listTeacherLessons(access)`                              | Owned lesson summaries and published version identities.                                                                   |
-| `lessonPublishingReview(access, lessonId)`                | Current draft/revision, validation issues, published version metadata, authorized classes, and existing class assignments. |
-| `readPublishedLessonForReview(access, lessonId, version)` | The owner's exact immutable published content for review. Never expose this full private content to a student.             |
+| Function                                                  | Result                                                                                                                                                                                                            |
+| --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `listTeacherLessons(access)`                              | Owned lesson summaries and published version identities.                                                                                                                                                          |
+| `lessonPublishingReview(access, lessonId)`                | Current draft/revision, validation issues, published version metadata, authorized classes, and existing class assignments.                                                                                        |
+| `readPublishedLessonForReview(access, lessonId, version)` | The owner's exact immutable published content for review. Never expose this full private content to a student.                                                                                                    |
+| `startLessonVersion(access, lessonId, input)`             | Locks the owned expected revision, requires the current version to be published, rejects an already published target name, and saves the current draft under the new version through the canonical draft service. |
 
 `lib/lessons/store.ts` supplies mutations:
 
@@ -46,7 +48,9 @@ The current assignment schema supports immediate availability after activation. 
 | `publishLessonVersion(access, lessonId, expectedRevision)`                   | Publishes only the approved revision; existing immutable versions cannot be replaced.                                                                                                                  |
 | `createLessonAssignment(access, input)`                                      | Authorizes the class and published lesson, then creates an inactive assignment with its exact version pin.                                                                                             |
 
-The publishing HTTP routes are under `/api/teacher/lessons/[lessonId]/`: `assembly`, `approval`, `publication`, and `assignments`. They resolve the actor from the authenticated session and enforce same-origin JSON requests. The assignment route requires a UUID `request_id`, `version`, `class_id`, `title`, and `instructions`. The underlying service keeps `request_id` optional for existing internal callers; new publishing UI calls always supply it.
+The publishing HTTP routes are under `/api/teacher/lessons/[lessonId]/`: `assembly`, `approval`, `publication`, `assignments`, and `versions`. They resolve the actor from the authenticated session and enforce same-origin JSON requests. The assignment route requires a UUID `request_id`, `version`, `class_id`, `title`, and `instructions`. The underlying service keeps `request_id` optional for existing internal callers; new publishing UI calls always supply it. `POST versions` requires `expected_revision`, an unused `version` name of at most 100 characters, and `confirmed: true`, with a 2,000-byte request limit. A stale or repeated old revision returns 409; reload to inspect the saved result.
+
+Starting a version preserves exact approved source provenance, passage text, concept IDs, question IDs and current saved edits. It changes the lesson and every question's `content_ref.content_version` together. Unchanged objective review remains valid, while the question-bank fingerprint and whole-lesson approval are invalidated; the old derived sequence is removed for banks. It creates no publication, assignment, activation or model request. Published snapshots and earlier student evidence remain immutable. An already unpublished current draft must be reviewed rather than renamed repeatedly through this control.
 
 Activation continues to use `assignmentReview` and `approveAssignment` in `lib/assignments/store.ts` and `/api/teacher/assignments/[assignmentId]/approval`. Neither publication nor inactive assignment creation calls activation implicitly.
 
@@ -139,11 +143,11 @@ The importer now validates the complete PDF page tree before extraction and uses
 
 A new production build and isolated database passed all 10 migrations plus `lessons:uncertainty:check`, `publishing:check`, `publishing:http:check`, and `materials:check`. The importer probe verified complete flat/nested page trees and both content streams; malformed trees and damaged streams produced no partial preview, approval receipt or saved source. Authentic obsolete versionless/v2 preview receipts failed both save and renewal. These checks used synthetic inputs and no models; the original Moonlight database was untouched. The importer owner separately verified the actual browser rejection and valid two-page save/reload on `b60e1f1`.
 
-## Known revision and policy UI limits
+## New-version integration
 
-The question-bank editor can toggle runtime generation, but its permitted-action list is read-only. The publishing UI also has no control to start a new lesson version. The minimal coordinated additions are a #51 action selector using the existing revision-checked bank save path, and a #52 new-version action that updates the draft and every question reference together while invalidating dependent approvals. Existing published versions must remain immutable.
+The publishing UI now exposes the revision-checked new-version action described above. Its PostgreSQL regression checks unauthorized actors, stale requests, published-name collisions, saved-title preservation, stable concept/question identities, unchanged source text/provenance, invalidated bank/full approval and immutable v1 assignments/evidence. The authenticated HTTP suite exercises the same endpoint and verifies that an existing student's v1 reading and attempt stay pinned. Record the actual execution result separately; these checks make no model calls.
 
-For R7 integration testing, a private disposable copy of the synthetic Moonlight database can reuse the real model-authored bank. The supported current path is an explicitly labeled service-prepared v2 draft through `saveLessonDraft`, followed by the existing bank review, assembly, whole-lesson approval/publication and separate assignment activation UI. Source version 1 can remain pinned while lesson version 2 adds teacher-reviewed policy. This is not a wholly browser-authored v2 and does not complete those missing controls. Moonlight v1 retains runtime generation disabled and its original evidence.
+#51 owns the question-bank tutoring-policy controls. Source version 1 can remain pinned while lesson version 2 adds teacher-reviewed policy through that editor, followed by bank review, sequence assembly, whole-lesson approval/publication and separate assignment activation. The original Moonlight v1 and its model/browser evidence are unaffected by this code change.
 
 ## Remaining integration and closure gates
 

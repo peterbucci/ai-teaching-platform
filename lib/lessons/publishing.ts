@@ -22,7 +22,105 @@ import {
 import {
   validateLessonAuthoringReview,
   validateOwnedContent,
+  readLessonDraftInTransaction,
+  saveLessonDraftInTransaction,
 } from "./store.ts";
+import { readSourceVersionInTransaction } from "./sources.ts";
+import { UploadedSourceReferenceSchema } from "./source-contracts.ts";
+
+export const StartLessonVersionSchema = z.strictObject({
+  expected_revision: z.number().int().positive(),
+  version: z.string().trim().min(1).max(100),
+  confirmed: z.literal(true),
+});
+
+/** Carry the current saved draft forward; never restore over newer teacher edits. */
+export async function startLessonVersion(
+  access: EvidenceAccess,
+  lessonId: string,
+  value: unknown,
+) {
+  z.string().min(1).parse(lessonId);
+  const input = StartLessonVersionSchema.parse(value);
+  return transaction(async (client) => {
+    const lesson = await readLessonDraftInTransaction(
+      client,
+      access,
+      lessonId,
+      input.expected_revision,
+    );
+    const draft = lesson.draft;
+    const ref = draft?.content_ref;
+    if (
+      !draft ||
+      !ref ||
+      !("source_kind" in ref) ||
+      ref.package_id !== lessonId ||
+      ref.access_scope.teacher_id !== access.actor.profileId
+    )
+      throw new EvidenceError(
+        409,
+        "The current draft needs an owned source version.",
+      );
+    const source = await readSourceVersionInTransaction(
+      client,
+      access,
+      ref.source_id,
+      ref.source_version,
+    );
+    if (
+      source.review_status !== "approved" ||
+      !isDeepStrictEqual(
+        UploadedSourceReferenceSchema.strip().parse(ref),
+        source.source_ref,
+      )
+    )
+      throw new EvidenceError(
+        409,
+        "The draft must retain its exact approved source version.",
+      );
+    const published = await client.query(
+      "SELECT version FROM lesson_versions WHERE lesson_id=$1 AND version=ANY($2::text[])",
+      [lessonId, [ref.content_version, input.version]],
+    );
+    const versions = z
+      .array(z.object({ version: z.string() }))
+      .parse(published.rows);
+    if (versions.some((row) => row.version === input.version))
+      throw new EvidenceError(
+        409,
+        "That lesson version is already published. Choose an unused version name.",
+      );
+    if (!versions.some((row) => row.version === ref.content_version))
+      throw new EvidenceError(
+        409,
+        "The current draft already has an unpublished version. Continue reviewing it.",
+      );
+    const content_ref = { ...ref, content_version: input.version };
+    const saved = await saveLessonDraftInTransaction(client, access, {
+      lesson_id: lesson.id,
+      expected_revision: input.expected_revision,
+      title: lesson.title,
+      draft: {
+        ...draft,
+        content_ref,
+        ...(draft.questions
+          ? {
+              questions: draft.questions.map((question) => ({
+                ...question,
+                content_ref,
+              })),
+            }
+          : {}),
+      },
+    });
+    return {
+      lesson_id: saved.id,
+      version: input.version,
+      revision: saved.revision,
+    };
+  });
+}
 
 /** Metadata only. Private lesson content is loaded after an owned lesson lookup. */
 export async function listTeacherLessons(

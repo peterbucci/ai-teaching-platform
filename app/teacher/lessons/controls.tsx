@@ -33,6 +33,90 @@ async function post(url: string, payload: unknown) {
   return body;
 }
 
+export function StartLessonVersion({
+  lessonId,
+  revision,
+  currentVersion,
+}: {
+  lessonId: string;
+  revision: number;
+  currentVersion: string;
+}) {
+  const [version, setVersion] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+  return (
+    <form
+      className="space-y-3"
+      onSubmit={async (event) => {
+        event.preventDefault();
+        if (busy || !version.trim()) return;
+        setBusy(true);
+        setError(null);
+        try {
+          await post(
+            `/api/teacher/lessons/${encodeURIComponent(lessonId)}/versions`,
+            {
+              expected_revision: revision,
+              version,
+              confirmed: true,
+            },
+          );
+          router.push(`/teacher/lessons/${encodeURIComponent(lessonId)}`);
+          router.refresh();
+        } catch (err) {
+          setError(
+            err instanceof Error
+              ? err.message
+              : "Please reload to check the saved draft.",
+          );
+        } finally {
+          setBusy(false);
+        }
+      }}
+    >
+      <h3 className="font-semibold">Start a new lesson version</h3>
+      <p>
+        Carry your current saved draft of version {currentVersion} into a new
+        version. Its questions and lesson will need review again. Published
+        versions, assignments, and student work stay unchanged.
+      </p>
+      <label className="lp-field">
+        New version name
+        <input
+          className="lp-input"
+          value={version}
+          maxLength={100}
+          required
+          disabled={busy}
+          onChange={(event) => setVersion(event.target.value)}
+          placeholder="For example, 2"
+        />
+      </label>
+      <label className="lp-approval-confirmation">
+        <input type="checkbox" required disabled={busy} />
+        <span>
+          Start from the current saved draft and review the new version before
+          publishing.
+        </span>
+      </label>
+      <button
+        className="lp-button"
+        disabled={busy || !version.trim()}
+        aria-busy={busy}
+      >
+        {busy ? "Starting version…" : "Start new version"}
+      </button>
+      {error && (
+        <p role="alert">
+          {error} Reload to check the current draft before retrying.
+        </p>
+      )}
+    </form>
+  );
+}
+
 export function ReviewActions({
   lessonId,
   revision,

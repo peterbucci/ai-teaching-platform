@@ -10,6 +10,7 @@ import {
   AssembleLesson,
   CreateClassAssignment,
   ReviewActions,
+  StartLessonVersion,
 } from "../controls.tsx";
 
 export const dynamic = "force-dynamic";
@@ -31,6 +32,10 @@ export default async function LessonReviewPage({
   const { lesson, validation } = review;
   const content = published ?? lesson.draft;
   const href = `/teacher/lessons/${encodeURIComponent(lessonId)}`;
+  const currentVersion = lesson.draft?.content_ref?.content_version;
+  const currentVersionPublished = review.published_versions.some(
+    (item) => item.version === currentVersion,
+  );
   const families = [
     ...new Set(
       lesson.draft?.question_bank?.items.map((item) => item.family_id) ?? [],
@@ -178,6 +183,16 @@ export default async function LessonReviewPage({
                 valid={validation.valid}
               />
             </>
+          )}
+          {currentVersion && currentVersionPublished && (
+            <section className="mt-6">
+              <StartLessonVersion
+                key={lesson.revision}
+                lessonId={lessonId}
+                revision={lesson.revision}
+                currentVersion={currentVersion}
+              />
+            </section>
           )}
           <h3 className="font-semibold mt-6">Published versions</h3>
           {review.published_versions.length ? (

@@ -133,6 +133,7 @@ try {
   });
   const path = `/api/teacher/lessons/${draft.id}`;
   const action = () => ({ expected_revision: draft.revision, confirmed: true });
+  const newVersion = () => ({ ...action(), version: "2" });
   const assignmentInput = {
     request_id: randomUUID(),
     class_id: classId,
@@ -146,11 +147,32 @@ try {
     [`${path}/approval`, action()],
     [`${path}/publication`, action()],
     [`${path}/assignments`, assignmentInput],
+    [`${path}/versions`, newVersion()],
   ] as const) {
     await status(endpoint, "", body, 401);
     await status(endpoint, student.cookie, body, 404);
     await status(endpoint, other.cookie, body, 404);
   }
+  for (const body of [
+    { version: "2", confirmed: true },
+    { expected_revision: draft.revision, version: "2" },
+    { ...newVersion(), confirmed: false },
+    { ...newVersion(), version: " " },
+    { ...newVersion(), owner_id: other.access.actor.profileId },
+  ])
+    await status(`${path}/versions`, teacher.cookie, body, 400);
+  assert.equal(
+    (
+      await request(
+        `${path}/versions`,
+        teacher.cookie,
+        newVersion(),
+        "https://unrelated.example.invalid",
+      )
+    ).status,
+    403,
+  );
+  await status(`${path}/versions`, teacher.cookie, newVersion(), 409);
   for (const endpoint of [`${path}/approval`, `${path}/publication`]) {
     for (const body of [
       { confirmed: true },
@@ -371,8 +393,91 @@ try {
     [opened.session.id],
   );
   assert.equal(counts.rows[0].count, 0);
+  // Starting a version does not rewrite the publication, active assignment or student attempt.
+  const history = async () => ({
+    publications: (
+      await db.query(
+        "SELECT * FROM lesson_versions WHERE lesson_id=$1 ORDER BY version",
+        [draft.id],
+      )
+    ).rows,
+    assignment: (
+      await db.query("SELECT * FROM assignments WHERE id=$1", [created.id])
+    ).rows,
+    attempts: (
+      await db.query("SELECT * FROM attempts WHERE session_id=$1 ORDER BY id", [
+        opened.session.id,
+      ])
+    ).rows,
+  });
+  const beforeVersion = await history();
+  const current = await readLessonDraft(teacher.access, draft.id);
+  await status(
+    `${path}/versions`,
+    teacher.cookie,
+    { ...newVersion(), version: "1" },
+    409,
+  );
+  await status(
+    `${path}/versions`,
+    teacher.cookie,
+    { ...newVersion(), expected_revision: draft.revision - 1 },
+    409,
+  );
+  assert.deepEqual(await readLessonDraft(teacher.access, draft.id), current);
+  const started = z
+    .object({
+      lesson_id: z.string(),
+      revision: z.number(),
+      version: z.string(),
+    })
+    .parse(
+      await (
+        await status(`${path}/versions`, teacher.cookie, newVersion(), 200)
+      ).json(),
+    );
+  const next = await readLessonDraft(teacher.access, draft.id);
+  assert.deepEqual(started, {
+    lesson_id: draft.id,
+    revision: current.revision + 1,
+    version: "2",
+  });
+  assert.equal(next.approved_revision, null);
+  assert.deepEqual(next.draft?.content_ref, {
+    ...current.draft!.content_ref!,
+    content_version: "2",
+  });
+  assert.deepEqual(next.draft?.concepts, current.draft?.concepts);
+  assert.deepEqual(next.draft?.passages, current.draft?.passages);
+  assert.deepEqual(
+    next.draft?.questions,
+    current.draft!.questions!.map((question) => ({
+      ...question,
+      content_ref: next.draft!.content_ref,
+    })),
+  );
+  await status(`${path}/versions`, teacher.cookie, newVersion(), 409);
+  await status(
+    `${path}/versions`,
+    teacher.cookie,
+    { ...newVersion(), expected_revision: next.revision, version: "3" },
+    409,
+  );
+  await status(
+    `${path}/assignments`,
+    teacher.cookie,
+    { ...assignmentInput, request_id: randomUUID(), version: "2" },
+    404,
+  );
+  assert.deepEqual(await history(), beforeVersion);
+  const preservedReading = await request(
+    `/api/tutoring/${opened.session.id}/reading`,
+    student.cookie,
+  );
+  assert.equal(preservedReading.status, 200);
+  assert.deepEqual(ReadingSchema.parse(await preservedReading.json()), reading);
   console.log(
-    "PASS: authenticated teacher-only publishing APIs; explicit confirmation and revision; incomplete/mismatched source rejection; approval/publication/activation separation; required idempotency identity; replay/conflict handling; class ownership and enrollment; exact student reading with private guidance withheld. No model call was made.",
+    "PASS: authenticated teacher-only publishing APIs; explicit confirmation and revision; incomplete/mismatched source rejection; approval/publication/activation separation; new-version ownership/confirmation/collision/stale gates preserve exact source, concepts, v1 publication, assignment, attempt and reading; required idempotency identity; replay/conflict handling; class ownership and enrollment; exact student reading with private guidance withheld. No model call was made.",
   );
   console.log(
     `Retained synthetic HTTP probe ${run} in the configured development environment.`,
