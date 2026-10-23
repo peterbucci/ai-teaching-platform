@@ -84,6 +84,14 @@ export function interventionPrompt(
     throw new Error(
       "This selection exceeds the model context limit. Select fewer responses; no evidence was truncated.",
     );
+  const suppliedConceptIds = new Set(
+    [evidence.concept, ...evidence.related_concepts].map(
+      (concept) => concept.id,
+    ),
+  );
+  const hasCuratedDelayIds = ["transmission_delay", "propagation_delay"].every(
+    (id) => suppliedConceptIds.has(id),
+  );
   return {
     instructions: [
       "You propose one private teacher intervention draft. You cannot publish, assign, choose final recipients, grade, or message anyone.",
@@ -93,7 +101,12 @@ export function interventionPrompt(
       "Create a short useful student-ready exercise and one or two targeted practice questions plus a genuinely different fresh check. Keep private-draft, teacher-review, AI, validation, and product notices out of the exercise and questions; the application shows those separately. Ask for explanation or prediction in a novel concrete situation; do not repeat or merely paraphrase original or practice questions. Do not supply the answer in a question.",
       "This bounded first version supports qualitative activities from the authorized lesson only: no numeric calculation, digit characters, equations, external URLs, HTML or code in title, exercise or question prompts. Stay inside concept boundaries. Do not introduce unassigned topics or factual claims about students.",
       "For source_references quote exact contiguous source text (at least thirty characters). These quotations become the source-grounded explanation; do not invent explanatory factual prose. Only cite supplied passage IDs.",
-      "For each question, list ALL assessed concept_ids from the target concept and supplied related_concepts, always including the target. When supplied networking concepts assess transmission and propagation delay, list both transmission_delay and propagation_delay. Every question concept must have a supplied approved passage in that question's source_passage_ids. Do not assess related concepts absent from the supplied list, even if an earlier draft did.",
+      "For each question, list ALL assessed concept_ids from the target concept and supplied related_concepts, always including the target. Copy the supplied IDs exactly, including UUIDs; never replace them with inferred concept labels. Every question concept must have a supplied approved passage in that question's source_passage_ids. Do not assess related concepts absent from the supplied list, even if an earlier draft did.",
+      ...(hasCuratedDelayIds
+        ? [
+            "When a question assesses both transmission and propagation delay, include both supplied IDs transmission_delay and propagation_delay.",
+          ]
+        : []),
       "For each question, answer_guidance must be ONE exact contiguous excerpt (at least thirty characters) from a cited source. Each criterion must also be an exact contiguous excerpt (at least fifteen characters) from a cited source. Questions must be answerable using that excerpt; no invented answer criteria or numeric results.",
       "Evidence references use the supplied evidence_id, exact contiguous original_response quotation, and unchanged role. Include supporting and contradictory evidence whenever each exists. References are the basis of the server-composed factual recommendation reason; do not invent findings or counts.",
       "Possible recipients are suggestions only: use supplied pseudonyms and their own evidence_ids, including at least one supporting or context observation. Correct-only responses do not justify targeting someone. Empty suggested_recipients is permitted. Never emit database identities.",
@@ -103,15 +116,65 @@ export function interventionPrompt(
   };
 }
 
-function requireRule(value: unknown, message: string): asserts value {
-  if (!value) throw new Error(message);
+const validationMessages = {
+  plain_text_required:
+    "Activity must remain qualitative, plain text and free of personal judgments.",
+  source_mismatch: "Generated activity uses another source or lesson version.",
+  objective_unapproved: "Learning objective is not approved for this concept.",
+  duplicate_source: "Duplicate source reference.",
+  source_quote_unsupported:
+    "Explanation quotation is not an exact approved source excerpt.",
+  duplicate_evidence: "Duplicate evidence reference.",
+  evidence_quote_unsupported:
+    "Evidence reference, role or response quotation is unsupported.",
+  omitted_evidence:
+    "Generated draft omits supporting or contradictory evidence.",
+  question_too_short: "Question lacks an assessable prompt.",
+  repeated_question:
+    "A generated question repeats an original or practice question.",
+  question_source_unauthorized: "Question references an unauthorized source.",
+  question_concept_unauthorized:
+    "Question concepts are outside the authorized draft scope or omit its target.",
+  missing_concept_citation:
+    "A question concept lacks its approved source citation.",
+  missing_delay_concept:
+    "An explicitly assessed delay concept is missing from question metadata.",
+  answer_guidance_unsupported:
+    "Private answer guidance is not an exact cited source excerpt.",
+  answer_criteria_unsupported: "Answer criteria contain unsupported content.",
+  question_outside_topic: "Question is outside the source topic.",
+  exercise_not_student_ready:
+    "Exercise instructions must be student-ready; review notices belong in the teacher interface.",
+  duplicate_recipient: "Duplicate suggested recipient.",
+  recipient_evidence_mismatch:
+    "Suggested recipient evidence belongs to another student.",
+  recipient_without_evidence:
+    "A recipient suggestion requires recorded review or uncertainty evidence.",
+} as const;
+
+/** Only fixed, server-owned rule failures may be shown to the owning teacher. */
+export class InterventionValidationError extends Error {
+  readonly code: keyof typeof validationMessages;
+
+  constructor(code: keyof typeof validationMessages) {
+    super(validationMessages[code]);
+    this.code = code;
+    this.name = "InterventionValidationError";
+  }
+}
+
+function requireRule(
+  value: unknown,
+  code: keyof typeof validationMessages,
+): asserts value {
+  if (!value) throw new InterventionValidationError(code);
 }
 function plainQualitative(text: string) {
   requireRule(
     !/[\d<>]|https?:|javascript:|```|\b(?:incapable|unmotivated|lazy|permanently|diagnosed|always struggles)\b/i.test(
       text,
     ),
-    "Activity must remain qualitative, plain text and free of personal judgments.",
+    "plain_text_required",
   );
 }
 const tokens = (value: string) =>
@@ -140,23 +203,23 @@ export function validateInterventionActivity(
   const candidate = ModelInterventionSchema.parse(raw);
   requireRule(
     isDeepStrictEqual(candidate.content_ref, evidence.content_ref),
-    "Generated activity uses another source or lesson version.",
+    "source_mismatch",
   );
   requireRule(
     evidence.concept.objectives.includes(candidate.learning_objective),
-    "Learning objective is not approved for this concept.",
+    "objective_unapproved",
   );
   const sources = new Map(evidence.sources.map((s) => [s.passage_id, s.text]));
   requireRule(
     new Set(candidate.source_references.map((s) => s.passage_id)).size ===
       candidate.source_references.length,
-    "Duplicate source reference.",
+    "duplicate_source",
   );
   for (const reference of candidate.source_references) {
     requireRule(
       reference.quote.length >= 30 &&
         sources.get(reference.passage_id)?.includes(reference.quote),
-      "Explanation quotation is not an exact approved source excerpt.",
+      "source_quote_unsupported",
     );
   }
   const observations = new Map(
@@ -165,7 +228,7 @@ export function validateInterventionActivity(
   requireRule(
     new Set(candidate.evidence_references.map((r) => r.evidence_id)).size ===
       candidate.evidence_references.length,
-    "Duplicate evidence reference.",
+    "duplicate_evidence",
   );
   const references = candidate.evidence_references.map((reference) => {
     const o = observations.get(reference.evidence_id);
@@ -173,7 +236,7 @@ export function validateInterventionActivity(
       o &&
         o.role === reference.role &&
         o.attempt.response_text?.includes(reference.response_quote),
-      "Evidence reference, role or response quotation is unsupported.",
+      "evidence_quote_unsupported",
     );
     return {
       attempt_id: o.attempt.id,
@@ -186,7 +249,7 @@ export function validateInterventionActivity(
     requireRule(
       !evidence.observations.some((o) => o.role === role) ||
         references.some((r) => r.role === role),
-      "Generated draft omits supporting or contradictory evidence.",
+      "omitted_evidence",
     );
   const allowedConcepts = new Map(
     [evidence.concept, ...evidence.related_concepts].map((concept) => [
@@ -202,27 +265,24 @@ export function validateInterventionActivity(
     candidate.fresh_check,
   ].map((q) => {
     plainQualitative(q.prompt_text);
-    requireRule(
-      q.prompt_text.length >= 35,
-      "Question lacks an assessable prompt.",
-    );
+    requireRule(q.prompt_text.length >= 35, "question_too_short");
     requireRule(
       !questionPrompts.some(
         (previous) => similarity(previous, q.prompt_text) >= 0.72,
       ),
-      "A generated question repeats an original or practice question.",
+      "repeated_question",
     );
     questionPrompts.push(q.prompt_text);
     requireRule(
       new Set(q.source_passage_ids).size === q.source_passage_ids.length &&
         q.source_passage_ids.every((id) => sources.has(id)),
-      "Question references an unauthorized source.",
+      "question_source_unauthorized",
     );
     requireRule(
       new Set(q.concept_ids).size === q.concept_ids.length &&
         q.concept_ids.includes(evidence.concept.id) &&
         q.concept_ids.every((id) => allowedConcepts.has(id)),
-      "Question concepts are outside the authorized draft scope or omit its target.",
+      "question_concept_unauthorized",
     );
     requireRule(
       q.concept_ids.every((id) =>
@@ -230,7 +290,7 @@ export function validateInterventionActivity(
           allowedConcepts.get(id)!.source_passage_ids.includes(passageId),
         ),
       ),
-      "A question concept lacks its approved source citation.",
+      "missing_concept_citation",
     );
     // Catch explicit omissions in this bounded networking activity. This does not
     // pretend to infer every assessed concept from arbitrary model prose.
@@ -240,16 +300,13 @@ export function validateInterventionActivity(
         allowedConcepts.has(id) &&
         new RegExp(`\\b${word}\\b`, "i").test(q.prompt_text)
       )
-        requireRule(
-          q.concept_ids.includes(id),
-          "An explicitly assessed delay concept is missing from question metadata.",
-        );
+        requireRule(q.concept_ids.includes(id), "missing_delay_concept");
     }
     const quotedSources = q.source_passage_ids.map((id) => sources.get(id)!);
     requireRule(
       q.answer_guidance.length >= 30 &&
         quotedSources.some((text) => text.includes(q.answer_guidance)),
-      "Private answer guidance is not an exact cited source excerpt.",
+      "answer_guidance_unsupported",
     );
     requireRule(
       q.criteria.every(
@@ -257,12 +314,12 @@ export function validateInterventionActivity(
           criterion.length >= 15 &&
           quotedSources.some((text) => text.includes(criterion)),
       ),
-      "Answer criteria contain unsupported content.",
+      "answer_criteria_unsupported",
     );
     const domain = tokens([evidence.concept.title, ...quotedSources].join(" "));
     requireRule(
       [...tokens(q.prompt_text)].filter((word) => domain.has(word)).length >= 3,
-      "Question is outside the source topic.",
+      "question_outside_topic",
     );
     return QuestionSnapshotSchema.parse({
       origin: "generated",
@@ -293,23 +350,23 @@ export function validateInterventionActivity(
     !/private draft|teacher review|educationally validated|model.generated|AI.generated/i.test(
       candidate.exercise_text,
     ),
-    "Exercise instructions must be student-ready; review notices belong in the teacher interface.",
+    "exercise_not_student_ready",
   );
   requireRule(
     new Set(candidate.suggested_recipients.map((r) => r.pseudonym)).size ===
       candidate.suggested_recipients.length,
-    "Duplicate suggested recipient.",
+    "duplicate_recipient",
   );
   const recipients = candidate.suggested_recipients.map((r) => {
     const rows = r.evidence_ids.map((id) => observations.get(id));
     requireRule(
       new Set(r.evidence_ids).size === r.evidence_ids.length &&
         rows.every((o) => o && o.pseudonym === r.pseudonym),
-      "Suggested recipient evidence belongs to another student.",
+      "recipient_evidence_mismatch",
     );
     requireRule(
       rows.some((o) => o?.role === "supporting" || o?.role === "context"),
-      "A recipient suggestion requires recorded review or uncertainty evidence.",
+      "recipient_without_evidence",
     );
     const first = rows[0]!;
     const history = evidence.observations.filter(

@@ -8,7 +8,7 @@ import {
 import { ClassMetricsSchema, OriginFilterSchema } from "../teacher/metrics.ts";
 const text = (max: number) => z.string().trim().min(1).max(max);
 const unique = <T>(items: T[]) => new Set(items).size === items.length;
-export const INTERVENTION_PROMPT_VERSION = "teacher-intervention-v3";
+export const INTERVENTION_PROMPT_VERSION = "teacher-intervention-v4";
 export const InterventionSelectionSchema = z.strictObject({
   assignment_id: z.uuid(),
   concept_id: text(100),

@@ -10,6 +10,7 @@ import {
 } from "../lib/interventions/evidence.ts";
 import {
   interventionPrompt,
+  InterventionValidationError,
   validateInterventionActivity,
 } from "../lib/interventions/generate.ts";
 import {
@@ -19,6 +20,7 @@ import {
   type ModelIntervention,
 } from "../lib/interventions/contracts.ts";
 import { zodTextFormat } from "openai/helpers/zod";
+import { makeTeacherSourceReference } from "./fixtures/teacher-lesson.ts";
 
 const content = loadApprovedContent();
 const fixture = buildClassFixture(content);
@@ -448,4 +450,92 @@ test("legacy trimmed source snapshots regenerate without rewriting history or ac
       "teacher-intervention-v2",
     ),
   );
+});
+
+test("uploaded UUID concepts never receive instructions to substitute curated networking IDs", () => {
+  const uploaded = structuredClone(bundle);
+  const targetId = "10000000-0000-4000-8000-000000000001";
+  const relatedId = "20000000-0000-4000-8000-000000000001";
+  uploaded.content_ref = {
+    ...makeTeacherSourceReference(
+      "30000000-0000-4000-8000-000000000001",
+      "40000000-0000-4000-8000-000000000001",
+    ),
+    package_id: "synthetic-uploaded-networking",
+    content_version: "1",
+  };
+  uploaded.selection.concept_id = targetId;
+  uploaded.concept.id = targetId;
+  uploaded.related_concepts = [
+    {
+      ...structuredClone(
+        bundle.related_concepts.find((c) => c.id === "propagation_delay")!,
+      ),
+      id: relatedId,
+    },
+  ];
+  const prompt = interventionPrompt(uploaded);
+  assert.ok(
+    prompt.instructions.includes(
+      "Copy the supplied IDs exactly, including UUIDs",
+    ),
+  );
+  assert.ok(!prompt.instructions.includes("transmission_delay"));
+  assert.ok(!prompt.instructions.includes("propagation_delay"));
+  const projected = InterventionEvidenceSchema.pick({
+    content_ref: true,
+    concept: true,
+    related_concepts: true,
+  })
+    .strip()
+    .parse(JSON.parse(prompt.input));
+  assert.equal(projected.concept.id, targetId);
+  assert.equal(projected.related_concepts[0].id, relatedId);
+  assert.deepEqual(projected.content_ref, uploaded.content_ref);
+
+  const curated = interventionPrompt(bundle);
+  assert.ok(
+    curated.instructions.includes(
+      "both supplied IDs transmission_delay and propagation_delay",
+    ),
+  );
+  const oneCuratedConcept = structuredClone(bundle);
+  oneCuratedConcept.related_concepts = [];
+  assert.ok(
+    !interventionPrompt(oneCuratedConcept).instructions.includes(
+      "both supplied IDs",
+    ),
+  );
+});
+
+test("source and concept rule failures carry fixed typed reasons without model text", () => {
+  const invalidSource = proposal();
+  invalidSource.content_ref.content_version = "private-model-source-sentinel";
+  const invalidConcept = proposal();
+  invalidConcept.practice_questions[0].concept_ids = [
+    "private-model-concept-sentinel",
+  ];
+  for (const [candidate, code, message] of [
+    [
+      invalidSource,
+      "source_mismatch",
+      "Generated activity uses another source or lesson version.",
+    ],
+    [
+      invalidConcept,
+      "question_concept_unauthorized",
+      "Question concepts are outside the authorized draft scope or omit its target.",
+    ],
+  ] as const) {
+    assert.throws(
+      () => validateInterventionActivity(candidate, bundle, metadata),
+      (error: unknown) => {
+        assert.ok(error instanceof InterventionValidationError);
+        assert.equal(error.code, code);
+        assert.equal(error.message, message);
+        assert.ok(!error.message.includes("private-model"));
+        return true;
+      },
+    );
+  }
 });

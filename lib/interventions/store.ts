@@ -22,6 +22,7 @@ import {
 } from "./evidence.ts";
 import {
   interventionPrompt,
+  InterventionValidationError,
   validateInterventionActivity,
 } from "./generate.ts";
 import { requestIntervention } from "./provider.ts";
@@ -425,9 +426,11 @@ export async function generateInterventionDraft(
     const message =
       error instanceof EvidenceError
         ? error.message
-        : error instanceof z.ZodError
-          ? "The generated activity failed validation. The previous draft is intact."
-          : "The activity could not be generated or validated. The previous draft is intact.";
+        : error instanceof InterventionValidationError
+          ? `${error.message} The previous draft is intact.`
+          : error instanceof z.ZodError
+            ? "The generated activity failed validation. The previous draft is intact."
+            : "The activity could not be generated or validated. The previous draft is intact.";
     await transaction(async (client) => {
       await authorize(client, access, input.selection.assignment_id);
       await client.query(
