@@ -80,6 +80,7 @@ type Lesson = Awaited<ReturnType<typeof readLessonDraft>>;
 function withBankDefaults(draft: LessonDraftContent): LessonDraftContent {
   return {
     ...draft,
+    misconceptions: draft.misconceptions ?? [],
     scope: draft.scope ?? DEFAULT_BANK_SCOPE,
     terminology_policy:
       draft.terminology_policy ?? DEFAULT_BANK_TERMINOLOGY_POLICY,

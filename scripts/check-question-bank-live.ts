@@ -8,13 +8,15 @@ import { DEMO_IDS } from "../lib/evidence/demo.ts";
 import { evidenceAccess } from "../lib/evidence/store.ts";
 import { saveLessonDraft } from "../lib/lessons/store.ts";
 import {
+  createObjectiveDraft,
+  saveObjectiveDraft,
+  approveObjectives,
+} from "../lib/objectives/store.ts";
+import {
   createSourceVersion,
   type SourceVersion,
 } from "../lib/lessons/sources.ts";
-import type {
-  LessonContent,
-  LessonDraftContent,
-} from "../lib/lessons/contracts.ts";
+import type { LessonDraftContent } from "../lib/lessons/contracts.ts";
 import {
   generateQuestionBank,
   GeneratedQuestionBankSchema,
@@ -31,12 +33,12 @@ import {
   type QuestionBankView,
 } from "../lib/question-bank/store.ts";
 import {
-  makeTeacherLesson,
   teacherSourceAttribution,
   teacherSourceDocument,
   teacherSourcePassages,
 } from "../tests/fixtures/teacher-lesson.ts";
 import { fixtureQuestionBankProvider } from "../tests/fixtures/question-bank-provider.ts";
+import { makeQuestionBankObjectiveEdits } from "../tests/fixtures/question-bank-objectives.ts";
 
 // Original synthetic material in the seeded local demo DB. Two generation calls
 // plus two separate critiques, no retry. Bank review/approval remains with the teacher.
@@ -52,7 +54,7 @@ const directory = resolve(".setup");
 const reportPath = resolve(directory, `question-bank-live-${runId}.json`);
 const preferences = {
   ...DEFAULT_QUESTION_BANK_PREFERENCES,
-  emphasized_concept_ids: ["evaporation", "condensation"],
+  emphasized_concept_ids: [] as string[],
   priorities: ["comparison" as const, "application" as const],
   reasoning_errors: [
     "Possible confusion that water disappears during evaporation; investigate without assuming a student holds this belief.",
@@ -63,7 +65,7 @@ const preferences = {
 const db = getPool();
 let paidCalls = 0;
 let source: SourceVersion | null = null;
-let fixture: LessonContent | null = null;
+let approvedObjectivesDraft: LessonDraftContent | null = null;
 let lessonId: string | null = null;
 const provider: QuestionBankProvider = async (input) => {
   assert.ok(
@@ -93,8 +95,9 @@ const writeReport = async () => {
         lesson_id: lessonId,
         editor_path: lessonId ? `/teacher/lessons/${lessonId}/questions` : null,
         source_version: source,
-        source_passages: fixture?.passages,
-        approved_objectives: fixture?.concepts,
+        source_passages: approvedObjectivesDraft?.passages,
+        approved_objectives: approvedObjectivesDraft?.concepts,
+        objective_review_workflow: approvedObjectivesDraft?.objective_workflow,
         paid_provider_calls: paidCalls,
         acknowledged_prior_unknown_outcome: acknowledgeUnknown,
         cases: reports,
@@ -132,15 +135,34 @@ try {
     permitted_use: true,
   });
   const title = `Synthetic live question bank ${runId.slice(0, 8)}`;
-  const initial = await saveLessonDraft(access, {
-    expected_revision: 0,
+  const initial = await createObjectiveDraft(access, {
+    request_id: randomUUID(),
     title,
-    draft: {},
+    source_id: source.document_id,
+    source_version: source.version,
   });
   lessonId = initial.id;
-  fixture = makeTeacherLesson(source.source_ref, lessonId, "authoring-live-1");
+  const objectiveEdits = makeQuestionBankObjectiveEdits();
+  const savedObjectives = await saveObjectiveDraft(access, {
+    lesson_id: lessonId,
+    expected_revision: initial.revision,
+    title,
+    items: objectiveEdits,
+  });
+  const reviewedObjectives = await approveObjectives(access, {
+    lesson_id: lessonId,
+    expected_revision: savedObjectives.revision,
+  });
+  approvedObjectivesDraft = reviewedObjectives.draft;
+  assert.ok(
+    approvedObjectivesDraft?.objective_workflow?.reviewed,
+    "The live check must consume #50's actual server-owned objective review receipt",
+  );
+  preferences.emphasized_concept_ids = objectiveEdits
+    .filter((item) => item.emphasis === "essential")
+    .map((item) => item.concept_id);
   const draft: LessonDraftContent = {
-    ...fixture,
+    ...approvedObjectivesDraft,
     question_bank: {
       preferences,
       items: [],
@@ -148,13 +170,9 @@ try {
       approval: null,
     },
   };
-  delete draft.questions;
-  delete draft.question_guidance;
-  delete draft.sequence;
-  delete draft.approval;
   const saved = await saveLessonDraft(access, {
     lesson_id: lessonId,
-    expected_revision: initial.revision,
+    expected_revision: reviewedObjectives.revision,
     title,
     draft,
   });
@@ -163,9 +181,11 @@ try {
     question_id: "deterministic-forged-quote",
     family_id: "synthetic-rejection",
     role: "initial",
-    concept_ids: ["evaporation", "condensation"],
+    concept_ids: preferences.emphasized_concept_ids,
   };
+  let rejectionCheckCalls = 0;
   const unsupportedProvider: QuestionBankProvider = async (input) => {
+    rejectionCheckCalls++;
     if (input.stage === "critique")
       throw new Error("A forged citation must be rejected before critique.");
     const result = await fixtureQuestionBankProvider(input);
@@ -179,7 +199,13 @@ try {
     { draft, preferences, targets: [target] },
     unsupportedProvider,
   );
-  assert.equal(rejected.ok, false);
+  assert.ok(!rejected.ok);
+  assert.equal(rejected.code, "invalid_output");
+  assert.equal(
+    rejectionCheckCalls,
+    1,
+    "The forged quote is rejected after generation and before critique",
+  );
   assert.equal(paidCalls, 0);
 
   const firstRequest = randomUUID();
