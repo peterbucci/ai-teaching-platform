@@ -22,6 +22,7 @@
     "class:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-class-fixture.ts",
     "db:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-persistence.ts",
     "eval:live": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-evaluation.ts",
+    "visual:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-visual-generation.ts",
     "tutor:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-tutoring.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
