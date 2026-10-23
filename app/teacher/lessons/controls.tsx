@@ -462,7 +462,7 @@ export function AssembleLesson({
 }: {
   lessonId: string;
   revision: number;
-  families: string[];
+  families: { id: string; label: string }[];
 }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
@@ -483,7 +483,7 @@ export function AssembleLesson({
               "/assembly",
             {
               expected_revision: revision,
-              family_id: String(form.get("family_id") ?? families[0]),
+              family_id: String(form.get("family_id") ?? families[0]?.id ?? ""),
             },
           );
           router.refresh();
@@ -505,9 +505,9 @@ export function AssembleLesson({
       <label className="lp-field my-3">
         Question family
         <select className="lp-input" name="family_id" disabled={busy}>
-          {families.map((id) => (
-            <option key={id} value={id}>
-              {id}
+          {families.map((family) => (
+            <option key={family.id} value={family.id}>
+              {family.label}
             </option>
           ))}
         </select>

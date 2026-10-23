@@ -31,6 +31,23 @@ export default async function LessonReviewPage({
   const { lesson, validation } = review;
   const content = published ?? lesson.draft;
   const href = `/teacher/lessons/${encodeURIComponent(lessonId)}`;
+  const families = [
+    ...new Set(
+      lesson.draft?.question_bank?.items.map((item) => item.family_id) ?? [],
+    ),
+  ].map((id, index) => {
+    const initial = lesson.draft?.question_bank?.items.find(
+      (item) => item.family_id === id && item.role === "initial",
+    );
+    const prompt = lesson.draft?.questions
+      ?.find((question) => question.question_id === initial?.question_id)
+      ?.prompt_text.replace(/\s+/g, " ")
+      .trim();
+    return {
+      id,
+      label: `Family ${index + 1}${prompt ? ` · ${prompt.length > 80 ? `${prompt.slice(0, 77)}…` : prompt}` : ""}`,
+    };
+  });
   return (
     <TeacherFrame section="Lessons">
       <header className="lp-page-heading">
@@ -96,7 +113,14 @@ export default async function LessonReviewPage({
                 <ul className="list-disc pl-5 my-3">
                   {validation.issues.map((issue, index) => (
                     <li key={index}>
-                      <strong>{issue.path || "Lesson"}:</strong> {issue.message}
+                      {issue.path === "sequence" && !lesson.draft?.sequence ? (
+                        "Prepare the reviewed tutoring sequence before approving this lesson."
+                      ) : (
+                        <>
+                          <strong>{issue.path || "Lesson"}:</strong>{" "}
+                          {issue.message}
+                        </>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -108,13 +132,7 @@ export default async function LessonReviewPage({
               <AssembleLesson
                 lessonId={lessonId}
                 revision={lesson.revision}
-                families={[
-                  ...new Set(
-                    lesson.draft.question_bank.items.map(
-                      (item) => item.family_id,
-                    ),
-                  ),
-                ]}
+                families={families}
               />
             </section>
           )}
