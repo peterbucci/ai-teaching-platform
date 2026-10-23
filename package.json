@@ -32,6 +32,10 @@
     "tutor:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-tutoring.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "dialogue:check": "node --experimental-strip-types --conditions=react-server scripts/check-dialogue.ts",
+    "dialogue:recovery:check": "node --experimental-strip-types --conditions=react-server scripts/check-dialogue-recovery.ts",
+    "r7:controller:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-r7-controller.ts",
+    "auth:rate-limit:check": "node --experimental-strip-types --env-file-if-exists=.env scripts/check-auth-rate-limit.ts",
     "publishing:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-publishing.ts",
     "publishing:preview": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/seed-publishing-preview.ts",
     "publishing:http:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-publishing-http.ts"

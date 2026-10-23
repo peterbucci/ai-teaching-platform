@@ -1,0 +1,3296 @@
+{
+  "report_version": "r7-application-evidence-v1",
+  "exported_at": "2026-10-23T02:22:24.983Z",
+  "evidence_type": "Actual application / model / PostgreSQL evidence from fictional demo accounts",
+  "notice": "Read-only final snapshot of two fictional demo sessions. No provider calls or display acknowledgments were made by this exporter. Private grading criteria, raw provider responses, model prompts, credentials, and real student data are excluded.",
+  "totals": {
+    "sessions": 2,
+    "original_student_messages": 6,
+    "submitted_answers": 3,
+    "accepted_evaluations": 3,
+    "retained_evaluation_reservations": 3,
+    "unique_display_acknowledgements": 2,
+    "displayed_interventions": 3,
+    "undisplayed_interventions": 0,
+    "dialogue_provider_calls": 19,
+    "dialogue_provider_statuses": {
+      "succeeded": 19
+    },
+    "legacy_evaluation_calls": 3,
+    "actual_model_calls_in_these_sessions": 22,
+    "stored_dialogue_usage": {
+      "input_tokens": 76433,
+      "output_tokens": 5202,
+      "total_tokens": 81635
+    },
+    "intent_model_proposals": {
+      "QUESTION_OR_HELP": 2,
+      "AMBIGUOUS": 1,
+      "ANSWER": 3
+    },
+    "model_answer_proposals_requiring_confirmation": 3,
+    "all_original_answers_exactly_preserved": true,
+    "every_submitted_answer_has_one_accepted_evaluation": true,
+    "no_answer_before_explicit_resolution": true,
+    "counts_unchanged_after_refresh_and_teacher_read": true,
+    "controller_intervention_display_records": 1,
+    "display_acknowledgement_accounting": "Two dialogue displayed receipts plus one controller intervention visible_at record account for the three displayed help items.",
+    "original_assistance_unchanged_by_later_controller_feedback": true,
+    "no_new_model_calls_during_controller_feedback_display": true
+  },
+  "usage_caveats": [
+    "Dialogue call records preserve model, stage, response ID, latency, status, and usage. The 81,635-token subtotal covers only those 19 calls.",
+    "Three successful legacy evaluator calls are evidenced by the accepted evaluation workflow. That subsystem does not persist response IDs, token usage, or latency, so total provider tokens and monetary cost cannot be derived from this artifact.",
+    "Three immutable pending_review reservation rows remain alongside accepted results. Each submitted attempt points to one accepted evaluation; these reservation rows are not additional calls or unresolved active evaluations.",
+    "Counts cover only the two session IDs in this artifact, excluding earlier service-level checks, deterministic fixtures, and unrelated sessions."
+  ],
+  "intent_interpretation": "The live model proposed QUESTION_OR_HELP twice, AMBIGUOUS once, and ANSWER three times. All three ANSWER proposals became clarify routes because the server-owned answer-intent review was uncertain. Explicit confirmations preserved the exact original text before grading. The student-visible AMBIGUOUS label on these three messages must not be reported as the model misclassifying them.",
+  "educational_review": {
+    "reviewer_scope": "Independent integration-agent review of exact synthetic responses, generated content, permitted-tool records, accepted evaluations, and the approved source passages included below. This is not external teacher validation or evidence of educational effectiveness.",
+    "findings": [
+      {
+        "case": "Distance-dependent transmission reasoning after terminology help",
+        "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+        "action_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+        "permitted_actions": ["generate_diagnostic", "advance_lesson"],
+        "selected_action": "generate_diagnostic",
+        "assessment": "The student conflated placing bits onto the cable with their journey along it. Rather than treating that as a confirmed stable misconception, the generated diagnostic changed the transmission rate while holding distance and propagation speed constant, and asked for the ending event of each delay. This is a relevant probe of the proposed distinction, grounded in P07, P08, and P12, without supplying the answer."
+      },
+      {
+        "case": "New correct observation after the generated diagnostic",
+        "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+        "action_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+        "permitted_actions": ["advance_lesson"],
+        "selected_action": "advance_lesson",
+        "assessment": "The next exact response correctly distinguished the sender finishing the last bit from a bit reaching the far end. The accepted evaluation changed the authorized controller state and the agent advanced, ending this session. Advancement was the only permitted tool at this point, so this proves evidence-sensitive progression, not an unconstrained choice among several instructional strategies."
+      },
+      {
+        "case": "Instantaneous packet-entry reasoning without prior help",
+        "session_id": "9c2de1e3-bebd-42a4-92c2-c7d5f5691ef3",
+        "action_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+        "permitted_actions": ["explain", "advance_lesson"],
+        "selected_action": "explain",
+        "assessment": "The answer predicted the distance effect partly correctly but justified unchanged transmission using an explicit all-at-once packet-entry claim. Corrective feedback accurately distinguishes unchanged from zero transmission time and uses finite bit duration and Size/Bandwidth, grounded in P05, P07, and P08. Providing the answer here is appropriate post-assessment feedback. The existing controller queued a curated retest; the generated explanation was subsequently displayed in the actual student browser, but the retest remains unanswered."
+      }
+    ],
+    "comparison": "The two assessed misunderstandings produced educationally distinct diagnostic and explanation actions through controller-authorized choices. No instruction to alternate actions or satisfy action diversity was used in these cases. The permitted sets differed with accepted evidence and help history, so this is bounded adaptation within the existing controller, not proof of unrestricted model policy quality.",
+    "limits": [
+      "The two terminology-help requests both selected alternative explanations, appropriately within the help-only clarify/explain set. They are not themselves evidence of adaptive assessment actions.",
+      "The generated diagnostic answer followed help and remains assisted evidence. Neither a same-session correction nor session completion establishes independent mastery or durable retention.",
+      "Only one generated assessed diagnostic was completed in the browser. The second case reached displayed corrective feedback and a queued unanswered curated retest; no successful generated retest or second-case learning outcome is claimed.",
+      "Both cases use the authorized curated networking source. This artifact does not verify live behavior against a newly uploaded teacher lesson.",
+      "This small synthetic sample does not establish classifier accuracy, broad instructional quality, or full R7 acceptance."
+    ]
+  },
+  "session_summaries": [
+    {
+      "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+      "original_student_messages": 5,
+      "submitted_answers": 2,
+      "accepted_evaluations": 2,
+      "retained_evaluation_reservations": 2,
+      "displayed_interventions": 2,
+      "unique_display_acknowledgements": 2,
+      "executed_tools": [
+        "explain",
+        "explain",
+        "generate_diagnostic",
+        "advance_lesson"
+      ],
+      "dialogue_provider_calls": 15,
+      "successful_legacy_evaluations": 2,
+      "stored_dialogue_tokens": 64719
+    },
+    {
+      "session_id": "9c2de1e3-bebd-42a4-92c2-c7d5f5691ef3",
+      "original_student_messages": 1,
+      "submitted_answers": 1,
+      "accepted_evaluations": 1,
+      "retained_evaluation_reservations": 1,
+      "displayed_interventions": 1,
+      "unique_display_acknowledgements": 0,
+      "executed_tools": ["explain"],
+      "dialogue_provider_calls": 4,
+      "successful_legacy_evaluations": 1,
+      "stored_dialogue_tokens": 16916,
+      "controller_intervention_display_records": 1
+    }
+  ],
+  "sessions": [
+    {
+      "session": {
+        "id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+        "assignment_id": "30000000-0000-4000-8000-000000000001",
+        "status": "completed",
+        "data_origin": "live_demo",
+        "started_at": "2026-10-23T01:59:06.503Z",
+        "ended_at": "2026-10-23T02:04:34.433Z"
+      },
+      "operations": [
+        {
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+          "expected_revision": 0,
+          "lesson": {
+            "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+            "assignment_id": "30000000-0000-4000-8000-000000000001",
+            "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "root_attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "sequence_index": 0,
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          "payload": {
+            "version": "r7-conversation-v1",
+            "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+            "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+            "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "expected_revision": 0,
+            "action": "send_message",
+            "text": "What does packet size mean here? I want to understand the term before answering."
+          },
+          "message_request_id": null,
+          "status": "help",
+          "proposed_intent": {
+            "category": "QUESTION_OR_HELP",
+            "rationale": "The student explicitly requests a definition of packet size before attempting the active question, rather than offering an answer."
+          },
+          "authorized_route": "ask_tutor",
+          "message": {
+            "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+            "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "expected_revision": 0,
+            "text": "What does packet size mean here? I want to understand the term before answering.",
+            "classification": "QUESTION_OR_HELP",
+            "outcome": {
+              "status": "help",
+              "dialogue_request_id": "43bcb177-df23-44fb-a391-b5e760ef278f"
+            }
+          },
+          "created_at": "2026-10-23T01:59:22.800Z"
+        },
+        {
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+          "expected_revision": 0,
+          "lesson": {
+            "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+            "assignment_id": "30000000-0000-4000-8000-000000000001",
+            "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "root_attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "sequence_index": 0,
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          "payload": {
+            "version": "r7-conversation-v1",
+            "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+            "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+            "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "expected_revision": 0,
+            "action": "send_message",
+            "text": "Explain that another way.",
+            "purpose_hint": "alternative_explanation"
+          },
+          "message_request_id": null,
+          "status": "help",
+          "proposed_intent": {
+            "category": "QUESTION_OR_HELP",
+            "rationale": "The student requests a different explanation of the preceding clarification about packet size, rather than offering an answer to the assessment."
+          },
+          "authorized_route": "ask_tutor",
+          "message": {
+            "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+            "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "expected_revision": 0,
+            "text": "Explain that another way.",
+            "purpose_hint": "alternative_explanation",
+            "classification": "QUESTION_OR_HELP",
+            "outcome": {
+              "status": "help",
+              "dialogue_request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9"
+            }
+          },
+          "created_at": "2026-10-23T02:00:23.022Z"
+        },
+        {
+          "request_id": "2e64e81f-b9c5-492b-ae06-b04366f74945",
+          "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+          "expected_revision": 0,
+          "lesson": {
+            "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+            "assignment_id": "30000000-0000-4000-8000-000000000001",
+            "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "root_attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "sequence_index": 0,
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          "payload": {
+            "version": "r7-conversation-v1",
+            "request_id": "2e64e81f-b9c5-492b-ae06-b04366f74945",
+            "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+            "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "expected_revision": 0,
+            "action": "send_message",
+            "text": "I think both delays double—is that right?"
+          },
+          "message_request_id": null,
+          "status": "cancelled",
+          "proposed_intent": {
+            "category": "AMBIGUOUS",
+            "rationale": "The student offers a tentative answer to the active question while asking for confirmation, making both answer and help-seeking intentions plausible."
+          },
+          "authorized_route": "cancel",
+          "message": {
+            "request_id": "2e64e81f-b9c5-492b-ae06-b04366f74945",
+            "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "expected_revision": 0,
+            "text": "I think both delays double—is that right?",
+            "classification": "AMBIGUOUS",
+            "outcome": {
+              "status": "cancelled"
+            }
+          },
+          "created_at": "2026-10-23T02:01:12.651Z"
+        },
+        {
+          "request_id": "d5b811c5-1356-4938-9d8d-3b11b714bf70",
+          "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+          "expected_revision": 0,
+          "lesson": {
+            "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+            "assignment_id": "30000000-0000-4000-8000-000000000001",
+            "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "root_attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "sequence_index": 0,
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          "payload": {
+            "version": "r7-conversation-v1",
+            "request_id": "d5b811c5-1356-4938-9d8d-3b11b714bf70",
+            "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+            "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "expected_revision": 0,
+            "action": "cancel_message",
+            "message_request_id": "2e64e81f-b9c5-492b-ae06-b04366f74945"
+          },
+          "message_request_id": "2e64e81f-b9c5-492b-ae06-b04366f74945",
+          "status": "resolved",
+          "proposed_intent": null,
+          "authorized_route": null,
+          "message": null,
+          "created_at": "2026-10-23T02:01:59.588Z"
+        },
+        {
+          "request_id": "34a197f0-3664-46a8-b0e0-69afc92c5607",
+          "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+          "expected_revision": 1,
+          "lesson": {
+            "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+            "assignment_id": "30000000-0000-4000-8000-000000000001",
+            "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "root_attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "sequence_index": 0,
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          "payload": {
+            "version": "r7-conversation-v1",
+            "request_id": "34a197f0-3664-46a8-b0e0-69afc92c5607",
+            "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+            "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "expected_revision": 1,
+            "action": "send_message",
+            "text": "My answer: transmission delay doubles because the transmitter has to push the same packet all the way through twice as much wire. Propagation delay also doubles because the bit has twice the distance to travel."
+          },
+          "message_request_id": null,
+          "status": "answer",
+          "proposed_intent": {
+            "category": "ANSWER",
+            "rationale": "The student explicitly presents an answer to the active question, stating what happens to both delays and explaining why, without requesting help or confirmation."
+          },
+          "authorized_route": "submit_answer",
+          "message": {
+            "request_id": "34a197f0-3664-46a8-b0e0-69afc92c5607",
+            "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "expected_revision": 1,
+            "text": "My answer: transmission delay doubles because the transmitter has to push the same packet all the way through twice as much wire. Propagation delay also doubles because the bit has twice the distance to travel.",
+            "classification": "AMBIGUOUS",
+            "outcome": {
+              "status": "answer",
+              "submission_key": "34a197f0-3664-46a8-b0e0-69afc92c5607"
+            }
+          },
+          "created_at": "2026-10-23T02:01:59.835Z"
+        },
+        {
+          "request_id": "c00d0c6b-7630-4e1f-ac49-a9b49630b6f7",
+          "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+          "expected_revision": 1,
+          "lesson": {
+            "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+            "assignment_id": "30000000-0000-4000-8000-000000000001",
+            "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "root_attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "sequence_index": 0,
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          "payload": {
+            "version": "r7-conversation-v1",
+            "request_id": "c00d0c6b-7630-4e1f-ac49-a9b49630b6f7",
+            "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+            "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "expected_revision": 1,
+            "action": "resolve_intent",
+            "message_request_id": "34a197f0-3664-46a8-b0e0-69afc92c5607",
+            "choice": "answer"
+          },
+          "message_request_id": "34a197f0-3664-46a8-b0e0-69afc92c5607",
+          "status": "resolved",
+          "proposed_intent": null,
+          "authorized_route": null,
+          "message": null,
+          "created_at": "2026-10-23T02:02:45.340Z"
+        },
+        {
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+          "expected_revision": 3,
+          "lesson": {
+            "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+            "assignment_id": "30000000-0000-4000-8000-000000000001",
+            "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "root_attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "sequence_index": 0,
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          "payload": {
+            "action": "controller_action",
+            "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+            "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+            "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "expected_revision": 3,
+            "evaluation_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1"
+          },
+          "message_request_id": null,
+          "status": "resolved",
+          "proposed_intent": null,
+          "authorized_route": "controller_action",
+          "message": null,
+          "created_at": "2026-10-23T02:02:57.442Z"
+        },
+        {
+          "request_id": "e2515118-c6cd-4f97-b573-3f182442b2b3",
+          "attempt_id": "7307ba37-d10c-48c4-86e1-55e1d42fe343",
+          "expected_revision": 4,
+          "lesson": {
+            "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+            "assignment_id": "30000000-0000-4000-8000-000000000001",
+            "attempt_id": "7307ba37-d10c-48c4-86e1-55e1d42fe343",
+            "root_attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "sequence_index": 1,
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          "payload": {
+            "version": "r7-conversation-v1",
+            "request_id": "e2515118-c6cd-4f97-b573-3f182442b2b3",
+            "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+            "attempt_id": "7307ba37-d10c-48c4-86e1-55e1d42fe343",
+            "expected_revision": 4,
+            "action": "send_message",
+            "text": "My answer: the higher bit rate lets the sender finish putting the last bit onto the cable sooner, so transmission delay is smaller. Propagation ends when a particular bit reaches the far end. That journey takes the same time because the cable length and propagation speed did not change."
+          },
+          "message_request_id": null,
+          "status": "answer",
+          "proposed_intent": {
+            "category": "ANSWER",
+            "rationale": "The student explicitly presents an answer to the active question, explaining both delays and their ending events without requesting help or confirmation."
+          },
+          "authorized_route": "submit_answer",
+          "message": {
+            "request_id": "e2515118-c6cd-4f97-b573-3f182442b2b3",
+            "attempt_id": "7307ba37-d10c-48c4-86e1-55e1d42fe343",
+            "expected_revision": 4,
+            "text": "My answer: the higher bit rate lets the sender finish putting the last bit onto the cable sooner, so transmission delay is smaller. Propagation ends when a particular bit reaches the far end. That journey takes the same time because the cable length and propagation speed did not change.",
+            "classification": "AMBIGUOUS",
+            "outcome": {
+              "status": "answer",
+              "submission_key": "e2515118-c6cd-4f97-b573-3f182442b2b3"
+            }
+          },
+          "created_at": "2026-10-23T02:04:04.681Z"
+        },
+        {
+          "request_id": "729f24e3-5385-4d52-bc4a-f2393c173d8d",
+          "attempt_id": "7307ba37-d10c-48c4-86e1-55e1d42fe343",
+          "expected_revision": 4,
+          "lesson": {
+            "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+            "assignment_id": "30000000-0000-4000-8000-000000000001",
+            "attempt_id": "7307ba37-d10c-48c4-86e1-55e1d42fe343",
+            "root_attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "sequence_index": 1,
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          "payload": {
+            "version": "r7-conversation-v1",
+            "request_id": "729f24e3-5385-4d52-bc4a-f2393c173d8d",
+            "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+            "attempt_id": "7307ba37-d10c-48c4-86e1-55e1d42fe343",
+            "expected_revision": 4,
+            "action": "resolve_intent",
+            "message_request_id": "e2515118-c6cd-4f97-b573-3f182442b2b3",
+            "choice": "answer"
+          },
+          "message_request_id": "e2515118-c6cd-4f97-b573-3f182442b2b3",
+          "status": "resolved",
+          "proposed_intent": null,
+          "authorized_route": null,
+          "message": null,
+          "created_at": "2026-10-23T02:04:20.467Z"
+        },
+        {
+          "request_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+          "attempt_id": "7307ba37-d10c-48c4-86e1-55e1d42fe343",
+          "expected_revision": 6,
+          "lesson": {
+            "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+            "assignment_id": "30000000-0000-4000-8000-000000000001",
+            "attempt_id": "7307ba37-d10c-48c4-86e1-55e1d42fe343",
+            "root_attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "sequence_index": 1,
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          "payload": {
+            "action": "controller_action",
+            "request_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+            "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+            "attempt_id": "7307ba37-d10c-48c4-86e1-55e1d42fe343",
+            "expected_revision": 6,
+            "evaluation_id": "5381d12f-6d30-4854-baeb-0565c60d4916"
+          },
+          "message_request_id": null,
+          "status": "resolved",
+          "proposed_intent": null,
+          "authorized_route": "controller_action",
+          "message": null,
+          "created_at": "2026-10-23T02:04:28.381Z"
+        }
+      ],
+      "events": [
+        {
+          "sequence": 264,
+          "event_id": "30d5d60e-c928-4ad8-9848-b775f9cad3b0",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "kind": "requested",
+          "at": "2026-10-23T01:59:22.802Z"
+        },
+        {
+          "sequence": 265,
+          "event_id": "7c5fd6ab-7f4e-485a-a689-5e40a4ad07d8",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "kind": "provider_reserved",
+          "at": "2026-10-23T01:59:22.888Z"
+        },
+        {
+          "sequence": 266,
+          "event_id": "21a02c07-c25c-45a6-accb-f7e34bf9edf1",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "kind": "provider_completed",
+          "at": "2026-10-23T01:59:29.175Z"
+        },
+        {
+          "sequence": 267,
+          "event_id": "4756e56f-d1bc-4bc0-96b4-a0feb1e18ed6",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "kind": "intent_review",
+          "at": "2026-10-23T01:59:29.235Z",
+          "payload": {
+            "proposal": {
+              "category": "QUESTION_OR_HELP",
+              "rationale": "The student explicitly requests a definition of packet size before attempting the active question, rather than offering an answer."
+            },
+            "review": {
+              "answer_intent": "uncertain",
+              "disclosure": "safe"
+            },
+            "authorized_route": "ask_tutor"
+          }
+        },
+        {
+          "sequence": 268,
+          "event_id": "64db6268-a17e-4061-9173-c4e0e4c77095",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "kind": "dialogue",
+          "at": "2026-10-23T01:59:29.243Z",
+          "payload": {
+            "version": "r7-v1",
+            "event_id": "2aebcf7f-efbe-4358-8051-f9ce12634cb8",
+            "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+            "at": "2026-10-23T01:59:29.241107+00:00",
+            "outcome": "requested"
+          }
+        },
+        {
+          "sequence": 269,
+          "event_id": "3f719ee2-5641-49f5-8e8f-9fc77d80b962",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "kind": "action_claimed",
+          "at": "2026-10-23T01:59:29.362Z"
+        },
+        {
+          "sequence": 270,
+          "event_id": "06602e99-730f-46a0-8c35-869bbe02686c",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "kind": "provider_reserved",
+          "at": "2026-10-23T01:59:29.417Z"
+        },
+        {
+          "sequence": 271,
+          "event_id": "ac2271b5-73fb-461d-9d06-102ca8e770b3",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "kind": "provider_completed",
+          "at": "2026-10-23T01:59:34.647Z"
+        },
+        {
+          "sequence": 272,
+          "event_id": "d02d35a8-0b06-4bb5-9bff-52c48ae64f2c",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "kind": "action",
+          "at": "2026-10-23T01:59:34.705Z",
+          "payload": {
+            "action_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+            "phase": "proposed",
+            "proposal": {
+              "version": "tutor-orchestration-v1",
+              "content_ref": {
+                "package_id": "network-performance-v1",
+                "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                "source_id": "peterson_davie_1_5_1",
+                "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+              },
+              "concept_ids": ["transmission_delay"],
+              "source_passage_ids": ["P07", "P08"],
+              "reason_summary": "The student requests the meaning of packet size before attempting the question. Offer a brief content explanation of packet size as the amount of data in the packet, measured in bits, without revealing the delay-change answers. This requires explain rather than neutral clarification; no misconception is inferred.",
+              "action": "explain",
+              "arguments": {
+                "style": "alternative_explanation"
+              }
+            },
+            "invalid_proposal": false
+          }
+        },
+        {
+          "sequence": 273,
+          "event_id": "80790ce4-6ae4-47dd-ba3f-dda681bc276d",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "kind": "action",
+          "at": "2026-10-23T01:59:34.732Z",
+          "payload": {
+            "action_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+            "phase": "validated",
+            "allowed_actions": ["clarify", "explain"],
+            "decision": "accepted",
+            "reason": null
+          }
+        },
+        {
+          "sequence": 274,
+          "event_id": "00598226-dbd4-4d7f-aeb1-0e032cc74f42",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "kind": "action",
+          "at": "2026-10-23T01:59:34.768Z",
+          "payload": {
+            "action_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+            "phase": "dispatch_started",
+            "tool": "explain"
+          }
+        },
+        {
+          "sequence": 275,
+          "event_id": "d474cfb2-9dd6-460e-a6f5-5060cfb43e49",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "kind": "provider_reserved",
+          "at": "2026-10-23T01:59:34.811Z"
+        },
+        {
+          "sequence": 276,
+          "event_id": "7ff542b8-0396-491c-82b4-ea59ad76d282",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "kind": "provider_completed",
+          "at": "2026-10-23T01:59:39.635Z"
+        },
+        {
+          "sequence": 277,
+          "event_id": "50fcd9e4-227c-4767-959e-53342744c023",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "kind": "provider_reserved",
+          "at": "2026-10-23T01:59:39.709Z"
+        },
+        {
+          "sequence": 278,
+          "event_id": "f716c0df-b4d4-4010-a162-bdccfeb903fd",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "kind": "provider_completed",
+          "at": "2026-10-23T01:59:48.743Z"
+        },
+        {
+          "sequence": 279,
+          "event_id": "6a063cc2-a30e-48a2-a4ec-c7aa2b07d80f",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "kind": "dialogue",
+          "at": "2026-10-23T01:59:48.830Z",
+          "payload": {
+            "outcome": "generated",
+            "content": {
+              "kind": "help",
+              "content_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+              "text": "Here, “packet size” means the amount of data in the packet, measured in bits—not its physical length along the cable. Think of it as how many bits the sender has to send. The question says that this amount stays the same.",
+              "concept_ids": ["transmission_delay"],
+              "source_passage_ids": ["P07", "P08"],
+              "content_ref": {
+                "package_id": "network-performance-v1",
+                "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                "source_id": "peterson_davie_1_5_1",
+                "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+              },
+              "generation": {
+                "model": "gpt-6.1-sol",
+                "prompt_template_version": "r7-grounded-generation-v4",
+                "generated_at": "2026-10-23T01:59:39.615Z"
+              }
+            }
+          }
+        },
+        {
+          "sequence": 280,
+          "event_id": "3dbdf10c-3461-4069-895c-09255c4d8272",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "kind": "dialogue",
+          "at": "2026-10-23T01:59:48.837Z",
+          "payload": {
+            "version": "r7-v1",
+            "event_id": "d87c0e9a-23be-4a00-b2b6-a4a3c8c653a0",
+            "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+            "at": "2026-10-23T01:59:48.833997+00:00",
+            "outcome": "accepted",
+            "content_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+            "applied_attempt_id": null,
+            "applied_revision": 0
+          }
+        },
+        {
+          "sequence": 281,
+          "event_id": "b2ab7b65-526e-48af-ae17-42075b906e6c",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "kind": "action",
+          "at": "2026-10-23T01:59:48.847Z",
+          "payload": {
+            "action_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+            "phase": "executed",
+            "tool": "explain",
+            "result": {
+              "kind": "generated",
+              "content": {
+                "kind": "help",
+                "content_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+                "text": "Here, “packet size” means the amount of data in the packet, measured in bits—not its physical length along the cable. Think of it as how many bits the sender has to send. The question says that this amount stays the same.",
+                "concept_ids": ["transmission_delay"],
+                "source_passage_ids": ["P07", "P08"],
+                "content_ref": {
+                  "package_id": "network-performance-v1",
+                  "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                  "source_id": "peterson_davie_1_5_1",
+                  "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                  "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+                },
+                "generation": {
+                  "model": "gpt-6.1-sol",
+                  "prompt_template_version": "r7-grounded-generation-v4",
+                  "generated_at": "2026-10-23T01:59:39.615Z"
+                }
+              }
+            }
+          }
+        },
+        {
+          "sequence": 282,
+          "event_id": "343f53ee-9095-4006-b331-6170eecacd5d",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "kind": "action_receipt",
+          "at": "2026-10-23T01:59:48.849Z",
+          "payload": {
+            "status": "executed",
+            "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+            "action": "explain",
+            "result": {
+              "kind": "generated",
+              "content": {
+                "kind": "help",
+                "content_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+                "text": "Here, “packet size” means the amount of data in the packet, measured in bits—not its physical length along the cable. Think of it as how many bits the sender has to send. The question says that this amount stays the same.",
+                "concept_ids": ["transmission_delay"],
+                "source_passage_ids": ["P07", "P08"],
+                "content_ref": {
+                  "package_id": "network-performance-v1",
+                  "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                  "source_id": "peterson_davie_1_5_1",
+                  "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                  "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+                },
+                "generation": {
+                  "model": "gpt-6.1-sol",
+                  "prompt_template_version": "r7-grounded-generation-v4",
+                  "generated_at": "2026-10-23T01:59:39.615Z"
+                }
+              }
+            }
+          }
+        },
+        {
+          "sequence": 283,
+          "event_id": "20130081-ac8a-4490-9e9f-97c0ae66ebfd",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "kind": "dialogue",
+          "at": "2026-10-23T01:59:48.990Z",
+          "payload": {
+            "version": "r7-v1",
+            "event_id": "5e0ebd52-2f8c-4a01-92d0-afc165ec9fad",
+            "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+            "at": "2026-10-23T01:59:48.988559+00:00",
+            "outcome": "displayed",
+            "content_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+            "intervention_id": "5562a31a-7cb2-43dc-bbae-972efe23fb6c",
+            "assessed_attempt_id": null
+          }
+        },
+        {
+          "sequence": 364,
+          "event_id": "7c6e9e67-fc50-4ea6-82aa-a4464b8ba20d",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "kind": "requested",
+          "at": "2026-10-23T02:00:23.024Z"
+        },
+        {
+          "sequence": 365,
+          "event_id": "2bcf34f8-cf52-408a-86f7-bae0e94bbb20",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "kind": "provider_reserved",
+          "at": "2026-10-23T02:00:23.110Z"
+        },
+        {
+          "sequence": 366,
+          "event_id": "ccfb3608-29ef-4690-8a76-22faa957f40c",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "kind": "provider_completed",
+          "at": "2026-10-23T02:00:26.061Z"
+        },
+        {
+          "sequence": 367,
+          "event_id": "445d0d78-aa5b-4599-9705-e961ed2997a4",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "kind": "intent_review",
+          "at": "2026-10-23T02:00:26.121Z",
+          "payload": {
+            "proposal": {
+              "category": "QUESTION_OR_HELP",
+              "rationale": "The student requests a different explanation of the preceding clarification about packet size, rather than offering an answer to the assessment."
+            },
+            "review": {
+              "answer_intent": "uncertain",
+              "disclosure": "safe"
+            },
+            "authorized_route": "ask_tutor"
+          }
+        },
+        {
+          "sequence": 368,
+          "event_id": "c19a41ff-b0a8-4fe8-bf00-bacbfe8bf0fe",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "kind": "dialogue",
+          "at": "2026-10-23T02:00:26.126Z",
+          "payload": {
+            "version": "r7-v1",
+            "event_id": "07373fa7-3b56-4fc5-86a0-5a232ac4cc2b",
+            "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+            "at": "2026-10-23T02:00:26.125708+00:00",
+            "outcome": "requested"
+          }
+        },
+        {
+          "sequence": 369,
+          "event_id": "df2e21bc-3fb5-4d05-9e35-1a7bb461243e",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "kind": "action_claimed",
+          "at": "2026-10-23T02:00:26.254Z"
+        },
+        {
+          "sequence": 370,
+          "event_id": "8a702195-4e61-4848-bde1-5e54e452d6d5",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "kind": "provider_reserved",
+          "at": "2026-10-23T02:00:26.403Z"
+        },
+        {
+          "sequence": 371,
+          "event_id": "9519f6b8-1c41-4b52-af09-02f4949f8476",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "kind": "provider_completed",
+          "at": "2026-10-23T02:00:32.653Z"
+        },
+        {
+          "sequence": 372,
+          "event_id": "92bdde33-e9f5-42c0-b484-e8a1f129749f",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "kind": "action",
+          "at": "2026-10-23T02:00:32.719Z",
+          "payload": {
+            "action_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+            "phase": "proposed",
+            "proposal": {
+              "version": "tutor-orchestration-v1",
+              "content_ref": {
+                "package_id": "network-performance-v1",
+                "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                "source_id": "peterson_davie_1_5_1",
+                "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+              },
+              "concept_ids": ["transmission_delay"],
+              "source_passage_ids": ["P07", "P08"],
+              "reason_summary": "The student requests another explanation of packet size after a terminology-focused hint. Offer an alternative explanation of packet size as an amount of data, grounded in the transmission-delay passages, without revealing the active question's answer or inferring a misconception.",
+              "action": "explain",
+              "arguments": {
+                "style": "alternative_explanation"
+              }
+            },
+            "invalid_proposal": false
+          }
+        },
+        {
+          "sequence": 373,
+          "event_id": "1b0d840c-cf27-4360-875c-c80659d59cff",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "kind": "action",
+          "at": "2026-10-23T02:00:32.756Z",
+          "payload": {
+            "action_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+            "phase": "validated",
+            "allowed_actions": ["clarify", "explain"],
+            "decision": "accepted",
+            "reason": null
+          }
+        },
+        {
+          "sequence": 374,
+          "event_id": "6ebc7803-ec0c-4152-9f8f-c070758986f2",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "kind": "action",
+          "at": "2026-10-23T02:00:32.796Z",
+          "payload": {
+            "action_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+            "phase": "dispatch_started",
+            "tool": "explain"
+          }
+        },
+        {
+          "sequence": 375,
+          "event_id": "2d2deaef-3180-4e44-96cb-3e6c9d73b019",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "kind": "provider_reserved",
+          "at": "2026-10-23T02:00:32.861Z"
+        },
+        {
+          "sequence": 376,
+          "event_id": "4aa52506-8453-4a36-9b63-55e224aad041",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "kind": "provider_completed",
+          "at": "2026-10-23T02:00:39.392Z"
+        },
+        {
+          "sequence": 377,
+          "event_id": "7057b91a-df03-46a0-a5dd-57d212dc5de6",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "kind": "provider_reserved",
+          "at": "2026-10-23T02:00:39.464Z"
+        },
+        {
+          "sequence": 378,
+          "event_id": "2088a0eb-acd9-4453-ba91-b32ebc4f4f07",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "kind": "provider_completed",
+          "at": "2026-10-23T02:00:46.109Z"
+        },
+        {
+          "sequence": 379,
+          "event_id": "54a8455b-6396-4e5e-883f-7f0c5228ec35",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "kind": "dialogue",
+          "at": "2026-10-23T02:00:46.171Z",
+          "payload": {
+            "outcome": "generated",
+            "content": {
+              "kind": "help",
+              "content_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+              "text": "Think of a packet as a list of bits waiting to be sent. “Packet size” means how many bits are on that list. Transmission delay is the time the sender needs to put all those bits onto the link—not a measurement of how much cable they occupy.",
+              "concept_ids": ["transmission_delay"],
+              "source_passage_ids": ["P07", "P08"],
+              "content_ref": {
+                "package_id": "network-performance-v1",
+                "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                "source_id": "peterson_davie_1_5_1",
+                "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+              },
+              "generation": {
+                "model": "gpt-6.1-sol",
+                "prompt_template_version": "r7-grounded-generation-v4",
+                "generated_at": "2026-10-23T02:00:39.376Z"
+              }
+            }
+          }
+        },
+        {
+          "sequence": 380,
+          "event_id": "6a43686d-cafd-4e37-bf55-f45f7f8de7a0",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "kind": "dialogue",
+          "at": "2026-10-23T02:00:46.175Z",
+          "payload": {
+            "version": "r7-v1",
+            "event_id": "257c1cc5-1418-4cf8-91eb-4cdb34680a60",
+            "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+            "at": "2026-10-23T02:00:46.172954+00:00",
+            "outcome": "accepted",
+            "content_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+            "applied_attempt_id": null,
+            "applied_revision": 0
+          }
+        },
+        {
+          "sequence": 381,
+          "event_id": "988e5147-5453-424e-b6d3-097b8202aaa7",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "kind": "action",
+          "at": "2026-10-23T02:00:46.181Z",
+          "payload": {
+            "action_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+            "phase": "executed",
+            "tool": "explain",
+            "result": {
+              "kind": "generated",
+              "content": {
+                "kind": "help",
+                "content_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+                "text": "Think of a packet as a list of bits waiting to be sent. “Packet size” means how many bits are on that list. Transmission delay is the time the sender needs to put all those bits onto the link—not a measurement of how much cable they occupy.",
+                "concept_ids": ["transmission_delay"],
+                "source_passage_ids": ["P07", "P08"],
+                "content_ref": {
+                  "package_id": "network-performance-v1",
+                  "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                  "source_id": "peterson_davie_1_5_1",
+                  "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                  "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+                },
+                "generation": {
+                  "model": "gpt-6.1-sol",
+                  "prompt_template_version": "r7-grounded-generation-v4",
+                  "generated_at": "2026-10-23T02:00:39.376Z"
+                }
+              }
+            }
+          }
+        },
+        {
+          "sequence": 382,
+          "event_id": "61b186e1-7296-4c46-8ed5-0f00eae96a0b",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "kind": "action_receipt",
+          "at": "2026-10-23T02:00:46.182Z",
+          "payload": {
+            "status": "executed",
+            "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+            "action": "explain",
+            "result": {
+              "kind": "generated",
+              "content": {
+                "kind": "help",
+                "content_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+                "text": "Think of a packet as a list of bits waiting to be sent. “Packet size” means how many bits are on that list. Transmission delay is the time the sender needs to put all those bits onto the link—not a measurement of how much cable they occupy.",
+                "concept_ids": ["transmission_delay"],
+                "source_passage_ids": ["P07", "P08"],
+                "content_ref": {
+                  "package_id": "network-performance-v1",
+                  "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                  "source_id": "peterson_davie_1_5_1",
+                  "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                  "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+                },
+                "generation": {
+                  "model": "gpt-6.1-sol",
+                  "prompt_template_version": "r7-grounded-generation-v4",
+                  "generated_at": "2026-10-23T02:00:39.376Z"
+                }
+              }
+            }
+          }
+        },
+        {
+          "sequence": 383,
+          "event_id": "fbe57cc0-0956-4fde-bd2a-0da6318ddcd2",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "kind": "dialogue",
+          "at": "2026-10-23T02:00:46.308Z",
+          "payload": {
+            "version": "r7-v1",
+            "event_id": "a9dd4895-62c6-4442-8d74-d3e6eb508e02",
+            "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+            "at": "2026-10-23T02:00:46.306616+00:00",
+            "outcome": "displayed",
+            "content_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+            "intervention_id": "71d26562-eefc-4c91-a7c6-e9652d866007",
+            "assessed_attempt_id": null
+          }
+        },
+        {
+          "sequence": 384,
+          "event_id": "c9a241d1-148c-4a9c-98c8-3a99815c83ef",
+          "request_id": "2e64e81f-b9c5-492b-ae06-b04366f74945",
+          "kind": "requested",
+          "at": "2026-10-23T02:01:12.652Z"
+        },
+        {
+          "sequence": 385,
+          "event_id": "8241becd-5108-46f1-b660-9ea4e8b1512b",
+          "request_id": "2e64e81f-b9c5-492b-ae06-b04366f74945",
+          "kind": "provider_reserved",
+          "at": "2026-10-23T02:01:12.712Z"
+        },
+        {
+          "sequence": 386,
+          "event_id": "db291e10-7a09-44e3-86e5-331f2824721c",
+          "request_id": "2e64e81f-b9c5-492b-ae06-b04366f74945",
+          "kind": "provider_completed",
+          "at": "2026-10-23T02:01:15.648Z"
+        },
+        {
+          "sequence": 387,
+          "event_id": "5908a4b5-18c1-4950-9ff2-3f8a502b2530",
+          "request_id": "2e64e81f-b9c5-492b-ae06-b04366f74945",
+          "kind": "intent_review",
+          "at": "2026-10-23T02:01:15.713Z",
+          "payload": {
+            "proposal": {
+              "category": "AMBIGUOUS",
+              "rationale": "The student offers a tentative answer to the active question while asking for confirmation, making both answer and help-seeking intentions plausible."
+            },
+            "review": {
+              "answer_intent": "uncertain",
+              "disclosure": "safe"
+            },
+            "authorized_route": "clarify"
+          }
+        },
+        {
+          "sequence": 388,
+          "event_id": "d96e06cd-7dc1-4eee-ba6a-1a6e140aeeaa",
+          "request_id": "d5b811c5-1356-4938-9d8d-3b11b714bf70",
+          "kind": "requested",
+          "at": "2026-10-23T02:01:59.592Z"
+        },
+        {
+          "sequence": 389,
+          "event_id": "559fed2f-c64d-43e5-9495-d6e4f488dfa1",
+          "request_id": "2e64e81f-b9c5-492b-ae06-b04366f74945",
+          "kind": "cancelled",
+          "at": "2026-10-23T02:01:59.595Z"
+        },
+        {
+          "sequence": 390,
+          "event_id": "7154d1ae-c2f0-4e98-a4e4-c4c95af70f3d",
+          "request_id": "34a197f0-3664-46a8-b0e0-69afc92c5607",
+          "kind": "requested",
+          "at": "2026-10-23T02:01:59.837Z"
+        },
+        {
+          "sequence": 391,
+          "event_id": "4efac7ad-c829-4bc5-b988-e27bd2b8b890",
+          "request_id": "34a197f0-3664-46a8-b0e0-69afc92c5607",
+          "kind": "provider_reserved",
+          "at": "2026-10-23T02:01:59.908Z"
+        },
+        {
+          "sequence": 392,
+          "event_id": "7a608858-058c-4a57-bcd5-8b2197f55cc0",
+          "request_id": "34a197f0-3664-46a8-b0e0-69afc92c5607",
+          "kind": "provider_completed",
+          "at": "2026-10-23T02:02:02.263Z"
+        },
+        {
+          "sequence": 393,
+          "event_id": "a338c9b8-dda0-4473-b83b-6a6d376d30de",
+          "request_id": "34a197f0-3664-46a8-b0e0-69afc92c5607",
+          "kind": "intent_review",
+          "at": "2026-10-23T02:02:02.321Z",
+          "payload": {
+            "proposal": {
+              "category": "ANSWER",
+              "rationale": "The student explicitly presents an answer to the active question, stating what happens to both delays and explaining why, without requesting help or confirmation."
+            },
+            "review": {
+              "answer_intent": "uncertain",
+              "disclosure": "safe"
+            },
+            "authorized_route": "clarify"
+          }
+        },
+        {
+          "sequence": 394,
+          "event_id": "991df806-82a6-4fab-b9ad-974ec94c8d79",
+          "request_id": "c00d0c6b-7630-4e1f-ac49-a9b49630b6f7",
+          "kind": "requested",
+          "at": "2026-10-23T02:02:45.341Z"
+        },
+        {
+          "sequence": 395,
+          "event_id": "6432d3c5-1ee6-4144-8fc9-0f9a1623d247",
+          "request_id": "34a197f0-3664-46a8-b0e0-69afc92c5607",
+          "kind": "intent_resolution",
+          "at": "2026-10-23T02:02:45.342Z",
+          "payload": {
+            "request_id": "c00d0c6b-7630-4e1f-ac49-a9b49630b6f7",
+            "choice": "answer"
+          }
+        },
+        {
+          "sequence": 396,
+          "event_id": "8fff4d2c-44b2-48dc-b448-2f21b3c47d3e",
+          "request_id": "34a197f0-3664-46a8-b0e0-69afc92c5607",
+          "kind": "answer_applied",
+          "at": "2026-10-23T02:02:45.362Z"
+        },
+        {
+          "sequence": 397,
+          "event_id": "0170b276-65a7-4876-a648-e8367770b602",
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "kind": "controller_requested",
+          "at": "2026-10-23T02:02:57.445Z"
+        },
+        {
+          "sequence": 398,
+          "event_id": "964f092a-15b3-4dfe-a352-7135b9cad6e6",
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "kind": "dialogue",
+          "at": "2026-10-23T02:02:57.446Z",
+          "payload": {
+            "version": "r7-v1",
+            "event_id": "f7810a78-ce1f-428a-8c83-530bda5e25f3",
+            "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+            "at": "2026-10-23T02:02:57.439458+00:00",
+            "outcome": "requested"
+          }
+        },
+        {
+          "sequence": 399,
+          "event_id": "7281ee58-e27f-423d-b08b-becc9e8c34e3",
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "kind": "action_claimed",
+          "at": "2026-10-23T02:02:57.490Z"
+        },
+        {
+          "sequence": 400,
+          "event_id": "0205d2ab-31df-47d7-b854-85b5c5e1ec7f",
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "kind": "provider_reserved",
+          "at": "2026-10-23T02:02:57.544Z"
+        },
+        {
+          "sequence": 401,
+          "event_id": "b8344442-338e-40ac-b574-26dd5cd84277",
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "kind": "provider_completed",
+          "at": "2026-10-23T02:03:03.758Z"
+        },
+        {
+          "sequence": 402,
+          "event_id": "0eebed2a-186e-4cfb-923b-05fefa5d1929",
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "kind": "action",
+          "at": "2026-10-23T02:03:03.865Z",
+          "payload": {
+            "action_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+            "phase": "proposed",
+            "proposal": {
+              "version": "tutor-orchestration-v1",
+              "content_ref": {
+                "package_id": "network-performance-v1",
+                "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                "source_id": "peterson_davie_1_5_1",
+                "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+              },
+              "concept_ids": ["transmission_delay", "propagation_delay"],
+              "source_passage_ids": ["P07", "P08", "P12"],
+              "reason_summary": "Generate a diagnostic covering both required concepts to distinguish sender-side transmission time from signal travel time. The accepted evaluation tentatively identifies distance-dependent transmission reasoning, while noting possible colloquial use of transmission for delivery. Since packet-size and sender-side hints were already displayed, probe that distinction rather than repeat the hints or assume the hypothesis is confirmed.",
+              "action": "generate_diagnostic",
+              "arguments": {
+                "target_misconception_ids": ["transmission_depends_on_distance"]
+              }
+            },
+            "invalid_proposal": false
+          }
+        },
+        {
+          "sequence": 403,
+          "event_id": "91747661-8c14-46ca-8338-7a1478f7a80d",
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "kind": "action",
+          "at": "2026-10-23T02:03:03.914Z",
+          "payload": {
+            "action_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+            "phase": "validated",
+            "allowed_actions": ["generate_diagnostic", "advance_lesson"],
+            "decision": "accepted",
+            "reason": null
+          }
+        },
+        {
+          "sequence": 404,
+          "event_id": "2d81fd48-1af6-4087-8128-8db5b1d7cd46",
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "kind": "action",
+          "at": "2026-10-23T02:03:03.963Z",
+          "payload": {
+            "action_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+            "phase": "dispatch_started",
+            "tool": "generate_diagnostic"
+          }
+        },
+        {
+          "sequence": 405,
+          "event_id": "a29629e9-ccb6-478b-8c8a-3f6c4f84c61b",
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "kind": "provider_reserved",
+          "at": "2026-10-23T02:03:04.040Z"
+        },
+        {
+          "sequence": 406,
+          "event_id": "0c550dc0-174c-4941-bd46-0b26e081b3ec",
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "kind": "provider_completed",
+          "at": "2026-10-23T02:03:16.019Z"
+        },
+        {
+          "sequence": 407,
+          "event_id": "f0422c0d-1fd1-472e-a2aa-c4ceaa7b9ca3",
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "kind": "provider_reserved",
+          "at": "2026-10-23T02:03:16.114Z"
+        },
+        {
+          "sequence": 408,
+          "event_id": "9dd7660c-e62e-4974-971d-2a8ca1994859",
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "kind": "provider_completed",
+          "at": "2026-10-23T02:03:35.111Z"
+        },
+        {
+          "sequence": 409,
+          "event_id": "9456e8ba-8870-4820-b2e2-56bb950bbcf9",
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "kind": "dialogue",
+          "at": "2026-10-23T02:03:35.216Z",
+          "payload": {
+            "outcome": "generated",
+            "content": {
+              "kind": "question",
+              "content_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+              "question": {
+                "question_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+                "prompt_text": "A sender sends the same packet over a single cable in two trials. In the second trial, the link transmission rate is higher, but the cable length and signal propagation speed are unchanged. Compare the transmission delay and propagation delay between the trials. Explain your reasoning for each, including what event marks the end of each delay.",
+                "concept_ids": ["transmission_delay", "propagation_delay"],
+                "source_passage_ids": ["P07", "P08", "P12"],
+                "content_ref": {
+                  "package_id": "network-performance-v1",
+                  "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                  "source_id": "peterson_davie_1_5_1",
+                  "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                  "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+                },
+                "origin": "generated",
+                "controller_node_id": null,
+                "generation": {
+                  "model": "gpt-6.1-sol",
+                  "prompt_template_version": "r7-unscaffolded-assessment-generation-v1",
+                  "generated_at": "2026-10-23T02:03:16.002Z"
+                }
+              }
+            }
+          }
+        },
+        {
+          "sequence": 410,
+          "event_id": "d1dfef53-782d-4f8e-95e6-1d09e2e7582e",
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "kind": "dialogue",
+          "at": "2026-10-23T02:03:35.217Z",
+          "payload": {
+            "version": "r7-v1",
+            "event_id": "34107a58-a0c8-4520-b4cd-fe46530393bb",
+            "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+            "at": "2026-10-23T02:03:35.21405+00:00",
+            "outcome": "accepted",
+            "content_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+            "applied_attempt_id": "7307ba37-d10c-48c4-86e1-55e1d42fe343",
+            "applied_revision": 4
+          }
+        },
+        {
+          "sequence": 411,
+          "event_id": "8e9bf92e-61be-4ef5-8e07-0ef2448a5ab9",
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "kind": "controller_applied",
+          "at": "2026-10-23T02:03:35.219Z",
+          "payload": {
+            "evaluation_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+            "controller_action": "ASK_DIAGNOSTIC_FOLLOWUP",
+            "next_attempt_id": "7307ba37-d10c-48c4-86e1-55e1d42fe343",
+            "intervention_id": null,
+            "applied_revision": 4
+          }
+        },
+        {
+          "sequence": 412,
+          "event_id": "8e8e5d17-dd60-4052-b629-2fd562e63e03",
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "kind": "action",
+          "at": "2026-10-23T02:03:35.223Z",
+          "payload": {
+            "action_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+            "phase": "executed",
+            "tool": "generate_diagnostic",
+            "result": {
+              "kind": "generated",
+              "content": {
+                "kind": "question",
+                "content_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+                "question": {
+                  "question_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+                  "prompt_text": "A sender sends the same packet over a single cable in two trials. In the second trial, the link transmission rate is higher, but the cable length and signal propagation speed are unchanged. Compare the transmission delay and propagation delay between the trials. Explain your reasoning for each, including what event marks the end of each delay.",
+                  "concept_ids": ["transmission_delay", "propagation_delay"],
+                  "source_passage_ids": ["P07", "P08", "P12"],
+                  "content_ref": {
+                    "package_id": "network-performance-v1",
+                    "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                    "source_id": "peterson_davie_1_5_1",
+                    "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                    "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+                  },
+                  "origin": "generated",
+                  "controller_node_id": null,
+                  "generation": {
+                    "model": "gpt-6.1-sol",
+                    "prompt_template_version": "r7-unscaffolded-assessment-generation-v1",
+                    "generated_at": "2026-10-23T02:03:16.002Z"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "sequence": 413,
+          "event_id": "ab5d26b7-8e2b-427c-9556-a317ed701e62",
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "kind": "action_receipt",
+          "at": "2026-10-23T02:03:35.224Z",
+          "payload": {
+            "status": "executed",
+            "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+            "action": "generate_diagnostic",
+            "result": {
+              "kind": "generated",
+              "content": {
+                "kind": "question",
+                "content_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+                "question": {
+                  "question_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+                  "prompt_text": "A sender sends the same packet over a single cable in two trials. In the second trial, the link transmission rate is higher, but the cable length and signal propagation speed are unchanged. Compare the transmission delay and propagation delay between the trials. Explain your reasoning for each, including what event marks the end of each delay.",
+                  "concept_ids": ["transmission_delay", "propagation_delay"],
+                  "source_passage_ids": ["P07", "P08", "P12"],
+                  "content_ref": {
+                    "package_id": "network-performance-v1",
+                    "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                    "source_id": "peterson_davie_1_5_1",
+                    "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                    "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+                  },
+                  "origin": "generated",
+                  "controller_node_id": null,
+                  "generation": {
+                    "model": "gpt-6.1-sol",
+                    "prompt_template_version": "r7-unscaffolded-assessment-generation-v1",
+                    "generated_at": "2026-10-23T02:03:16.002Z"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "sequence": 414,
+          "event_id": "cfe5e5f6-bd4d-4f9c-b3ac-3f2922efb48d",
+          "request_id": "e2515118-c6cd-4f97-b573-3f182442b2b3",
+          "kind": "requested",
+          "at": "2026-10-23T02:04:04.683Z"
+        },
+        {
+          "sequence": 415,
+          "event_id": "b9338da6-094f-4e20-b2d8-14eca3219df0",
+          "request_id": "e2515118-c6cd-4f97-b573-3f182442b2b3",
+          "kind": "provider_reserved",
+          "at": "2026-10-23T02:04:04.763Z"
+        },
+        {
+          "sequence": 416,
+          "event_id": "04b01c71-b9ac-4656-869c-2f4896d0e6cc",
+          "request_id": "e2515118-c6cd-4f97-b573-3f182442b2b3",
+          "kind": "provider_completed",
+          "at": "2026-10-23T02:04:07.576Z"
+        },
+        {
+          "sequence": 417,
+          "event_id": "f3a7f8cb-8061-4969-b253-f1971293a5cc",
+          "request_id": "e2515118-c6cd-4f97-b573-3f182442b2b3",
+          "kind": "intent_review",
+          "at": "2026-10-23T02:04:07.633Z",
+          "payload": {
+            "proposal": {
+              "category": "ANSWER",
+              "rationale": "The student explicitly presents an answer to the active question, explaining both delays and their ending events without requesting help or confirmation."
+            },
+            "review": {
+              "answer_intent": "uncertain",
+              "disclosure": "safe"
+            },
+            "authorized_route": "clarify"
+          }
+        },
+        {
+          "sequence": 418,
+          "event_id": "a5fc1708-aae8-4b49-a26f-4b9340247216",
+          "request_id": "729f24e3-5385-4d52-bc4a-f2393c173d8d",
+          "kind": "requested",
+          "at": "2026-10-23T02:04:20.469Z"
+        },
+        {
+          "sequence": 419,
+          "event_id": "e965f805-bd93-4aa9-934a-6ce11dfd25c8",
+          "request_id": "e2515118-c6cd-4f97-b573-3f182442b2b3",
+          "kind": "intent_resolution",
+          "at": "2026-10-23T02:04:20.471Z",
+          "payload": {
+            "request_id": "729f24e3-5385-4d52-bc4a-f2393c173d8d",
+            "choice": "answer"
+          }
+        },
+        {
+          "sequence": 420,
+          "event_id": "912d997e-a3dd-4f3f-b323-641198a00685",
+          "request_id": "e2515118-c6cd-4f97-b573-3f182442b2b3",
+          "kind": "answer_applied",
+          "at": "2026-10-23T02:04:20.485Z"
+        },
+        {
+          "sequence": 421,
+          "event_id": "b400e975-8ae3-44a2-9501-94daf3c4eff0",
+          "request_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+          "kind": "controller_requested",
+          "at": "2026-10-23T02:04:28.383Z"
+        },
+        {
+          "sequence": 422,
+          "event_id": "8372dd88-db11-40c8-8203-4223a5dd4299",
+          "request_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+          "kind": "dialogue",
+          "at": "2026-10-23T02:04:28.384Z",
+          "payload": {
+            "version": "r7-v1",
+            "event_id": "9b0c1b56-f1a2-46ca-aef5-4cf77d56baf3",
+            "request_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+            "at": "2026-10-23T02:04:28.378512+00:00",
+            "outcome": "requested"
+          }
+        },
+        {
+          "sequence": 423,
+          "event_id": "e4997e5a-ca9c-448f-9cfe-4701d0bfa906",
+          "request_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+          "kind": "action_claimed",
+          "at": "2026-10-23T02:04:28.430Z"
+        },
+        {
+          "sequence": 424,
+          "event_id": "f2f712a5-aede-4e8d-a2e9-7fdfeb48258b",
+          "request_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+          "kind": "provider_reserved",
+          "at": "2026-10-23T02:04:28.470Z"
+        },
+        {
+          "sequence": 425,
+          "event_id": "7904c796-855a-410b-9ccf-b931f2a6e169",
+          "request_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+          "kind": "provider_completed",
+          "at": "2026-10-23T02:04:34.210Z"
+        },
+        {
+          "sequence": 426,
+          "event_id": "637a62da-b4b2-4061-8b59-85479b11d06b",
+          "request_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+          "kind": "action",
+          "at": "2026-10-23T02:04:34.280Z",
+          "payload": {
+            "action_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+            "phase": "proposed",
+            "proposal": {
+              "version": "tutor-orchestration-v1",
+              "content_ref": {
+                "package_id": "network-performance-v1",
+                "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                "source_id": "peterson_davie_1_5_1",
+                "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+              },
+              "concept_ids": ["transmission_delay", "propagation_delay"],
+              "source_passage_ids": ["P07", "P08", "P12"],
+              "reason_summary": "Propose advancement for server consideration: the latest accepted evaluation records both concepts as correct with no remaining tentative hypotheses. Following the displayed hints, the student's latest reasoning distinguishes placing the last bit onto the cable from a bit reaching the far end and addresses the changed rate and unchanged propagation conditions. This proposal does not authorize a transition or establish independent mastery.",
+              "action": "advance_lesson",
+              "arguments": {}
+            },
+            "invalid_proposal": false
+          }
+        },
+        {
+          "sequence": 427,
+          "event_id": "ba75b82a-84f5-4fe2-9c73-1961e5886833",
+          "request_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+          "kind": "action",
+          "at": "2026-10-23T02:04:34.326Z",
+          "payload": {
+            "action_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+            "phase": "validated",
+            "allowed_actions": ["advance_lesson"],
+            "decision": "accepted",
+            "reason": null
+          }
+        },
+        {
+          "sequence": 428,
+          "event_id": "e10abf15-b8b8-4d15-ab71-4d28fc9cad02",
+          "request_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+          "kind": "action",
+          "at": "2026-10-23T02:04:34.363Z",
+          "payload": {
+            "action_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+            "phase": "dispatch_started",
+            "tool": "advance_lesson"
+          }
+        },
+        {
+          "sequence": 429,
+          "event_id": "8152fc38-76a5-4d6e-9a2e-6b9a92518c4f",
+          "request_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+          "kind": "controller_applied",
+          "at": "2026-10-23T02:04:34.441Z",
+          "payload": {
+            "evaluation_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+            "controller_action": "END_SESSION",
+            "next_attempt_id": null,
+            "intervention_id": null,
+            "applied_revision": 8
+          }
+        },
+        {
+          "sequence": 430,
+          "event_id": "31cf5337-bd38-494d-9705-6312eb033b16",
+          "request_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+          "kind": "action",
+          "at": "2026-10-23T02:04:34.447Z",
+          "payload": {
+            "action_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+            "phase": "executed",
+            "tool": "advance_lesson",
+            "result": {
+              "kind": "advance_lesson",
+              "evaluation_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+              "controller_action": "END_SESSION"
+            }
+          }
+        },
+        {
+          "sequence": 431,
+          "event_id": "51381fb4-0ca5-4269-a864-05f20d02b1e7",
+          "request_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+          "kind": "action_receipt",
+          "at": "2026-10-23T02:04:34.449Z",
+          "payload": {
+            "status": "executed",
+            "request_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+            "action": "advance_lesson",
+            "result": {
+              "kind": "advance_lesson",
+              "evaluation_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+              "controller_action": "END_SESSION"
+            }
+          }
+        }
+      ],
+      "attempts": [
+        {
+          "id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+          "sequence_index": 0,
+          "parent_attempt_id": null,
+          "root_attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+          "intent": "initial_retrieval",
+          "question": {
+            "question_id": "NP-TX-01",
+            "prompt_text": "A single cable becomes twice as long. Packet size, link transmission rate, and propagation speed stay unchanged. What happens to transmission delay and propagation delay? Explain why.",
+            "concept_ids": ["transmission_delay", "propagation_delay"],
+            "source_passage_ids": ["P07", "P08", "P12"],
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            },
+            "origin": "curated",
+            "controller_node_id": null,
+            "generation": null
+          },
+          "presented_at": "2026-10-23T01:59:06.519Z",
+          "submitted_at": "2026-10-23T02:02:45.354Z",
+          "response_text": "My answer: transmission delay doubles because the transmitter has to push the same packet all the way through twice as much wire. Propagation delay also doubles because the bit has twice the distance to travel.",
+          "submission_key": "34a197f0-3664-46a8-b0e0-69afc92c5607",
+          "assistance": {
+            "intervention_ids": [
+              "5562a31a-7cb2-43dc-bbae-972efe23fb6c",
+              "71d26562-eefc-4c91-a7c6-e9652d866007"
+            ],
+            "assistance_level": "hint",
+            "scaffolding_types": [],
+            "independent_retrieval_eligible_by_concept": {
+              "propagation_delay": true,
+              "transmission_delay": false
+            },
+            "most_recent_content_assistance_at": "2026-10-23T02:00:46.306Z",
+            "elapsed_since_content_assistance_seconds": 119.048
+          },
+          "current_evaluation_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1"
+        },
+        {
+          "id": "7307ba37-d10c-48c4-86e1-55e1d42fe343",
+          "sequence_index": 1,
+          "parent_attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+          "root_attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+          "intent": "diagnostic_followup",
+          "question": {
+            "question_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+            "prompt_text": "A sender sends the same packet over a single cable in two trials. In the second trial, the link transmission rate is higher, but the cable length and signal propagation speed are unchanged. Compare the transmission delay and propagation delay between the trials. Explain your reasoning for each, including what event marks the end of each delay.",
+            "concept_ids": ["transmission_delay", "propagation_delay"],
+            "source_passage_ids": ["P07", "P08", "P12"],
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            },
+            "origin": "generated",
+            "controller_node_id": "D02",
+            "generation": {
+              "model": "gpt-6.1-sol",
+              "prompt_template_version": "r7-unscaffolded-assessment-generation-v1",
+              "generated_at": "2026-10-23T02:03:16.002Z"
+            }
+          },
+          "presented_at": "2026-10-23T02:03:35.200Z",
+          "submitted_at": "2026-10-23T02:04:20.479Z",
+          "response_text": "My answer: the higher bit rate lets the sender finish putting the last bit onto the cable sooner, so transmission delay is smaller. Propagation ends when a particular bit reaches the far end. That journey takes the same time because the cable length and propagation speed did not change.",
+          "submission_key": "e2515118-c6cd-4f97-b573-3f182442b2b3",
+          "assistance": {
+            "intervention_ids": [
+              "5562a31a-7cb2-43dc-bbae-972efe23fb6c",
+              "71d26562-eefc-4c91-a7c6-e9652d866007"
+            ],
+            "assistance_level": "hint",
+            "scaffolding_types": ["diagnostic_prompt_without_answer"],
+            "independent_retrieval_eligible_by_concept": {
+              "propagation_delay": false,
+              "transmission_delay": false
+            },
+            "most_recent_content_assistance_at": "2026-10-23T02:00:46.306Z",
+            "elapsed_since_content_assistance_seconds": 214.173
+          },
+          "current_evaluation_id": "5381d12f-6d30-4854-baeb-0565c60d4916"
+        }
+      ],
+      "evaluations": [
+        {
+          "id": "c96a6a5a-b70f-423c-a8fc-1ffa1ee9c9d6",
+          "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+          "validation_status": "pending_review",
+          "evaluator": {
+            "type": "language_model",
+            "model": "gpt-6.1-sol",
+            "version": "grounded-network-performance-v2"
+          },
+          "evaluated_at": "2026-10-23T02:02:47.138Z",
+          "failure_reason": "Evaluation request started. If no result arrives, ask your teacher to check it before another paid request.",
+          "applied_action": null,
+          "result": null
+        },
+        {
+          "id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+          "validation_status": "accepted",
+          "evaluator": {
+            "type": "language_model",
+            "model": "gpt-6.1-sol",
+            "version": "grounded-network-performance-v2"
+          },
+          "evaluated_at": "2026-10-23T02:02:57.375Z",
+          "failure_reason": null,
+          "applied_action": "ASK_DIAGNOSTIC_FOLLOWUP",
+          "result": {
+            "per_concept_results": [
+              {
+                "concept_id": "transmission_delay",
+                "correctness": "incorrect",
+                "error_type": "conceptual"
+              },
+              {
+                "concept_id": "propagation_delay",
+                "correctness": "correct",
+                "error_type": null
+              }
+            ],
+            "source_passage_ids": ["P07", "P08", "P12"],
+            "reasoning_observed": "The student gives explicit distance-based explanations for both components. That reasoning correctly explains propagation but incorrectly treats transmission as requiring travel through the entire cable. The attempt followed a hint; transmission is not eligible as independent retrieval, while propagation is eligible. Embedded scaffolding was empty.",
+            "uncertainty_reason": null,
+            "proposed_next_action": "ASK_DIAGNOSTIC_FOLLOWUP"
+          }
+        },
+        {
+          "id": "e8c95874-a9d6-4fb3-94e6-db9626bd471f",
+          "attempt_id": "7307ba37-d10c-48c4-86e1-55e1d42fe343",
+          "validation_status": "pending_review",
+          "evaluator": {
+            "type": "language_model",
+            "model": "gpt-6.1-sol",
+            "version": "grounded-network-performance-v2"
+          },
+          "evaluated_at": "2026-10-23T02:04:20.655Z",
+          "failure_reason": "Evaluation request started. If no result arrives, ask your teacher to check it before another paid request.",
+          "applied_action": null,
+          "result": null
+        },
+        {
+          "id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+          "attempt_id": "7307ba37-d10c-48c4-86e1-55e1d42fe343",
+          "validation_status": "accepted",
+          "evaluator": {
+            "type": "language_model",
+            "model": "gpt-6.1-sol",
+            "version": "grounded-network-performance-v2"
+          },
+          "evaluated_at": "2026-10-23T02:04:28.311Z",
+          "failure_reason": null,
+          "applied_action": "END_SESSION",
+          "result": {
+            "per_concept_results": [
+              {
+                "concept_id": "transmission_delay",
+                "correctness": "correct",
+                "error_type": null
+              },
+              {
+                "concept_id": "propagation_delay",
+                "correctness": "correct",
+                "error_type": null
+              }
+            ],
+            "source_passage_ids": ["P07", "P08", "P12"],
+            "reasoning_observed": "The response distinguishes placing packet bits onto the cable from a bit traveling along it and supplies both required comparisons and completion events. This was an answer after hint-level assistance, with no embedded question scaffolding; it is not evidence of independent retrieval or lasting retention.",
+            "uncertainty_reason": null,
+            "proposed_next_action": "MOVE_TO_NEXT_CONCEPT"
+          }
+        }
+      ],
+      "interventions": [
+        {
+          "id": "5562a31a-7cb2-43dc-bbae-972efe23fb6c",
+          "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+          "related_attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+          "related_evaluation_id": null,
+          "type": "hint",
+          "text_shown": "Here, “packet size” means the amount of data in the packet, measured in bits—not its physical length along the cable. Think of it as how many bits the sender has to send. The question says that this amount stays the same.",
+          "concept_ids": ["transmission_delay"],
+          "source_passage_ids": ["P07", "P08"],
+          "content_ref": {
+            "package_id": "network-performance-v1",
+            "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+            "source_id": "peterson_davie_1_5_1",
+            "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+            "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+          },
+          "created_at": "2026-10-23T01:59:48.833Z",
+          "visible_at": "2026-10-23T01:59:48.988Z",
+          "delivery_status": "displayed"
+        },
+        {
+          "id": "71d26562-eefc-4c91-a7c6-e9652d866007",
+          "session_id": "e83c2dd0-c28a-4a6b-983f-97583bb27c6e",
+          "related_attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+          "related_evaluation_id": null,
+          "type": "hint",
+          "text_shown": "Think of a packet as a list of bits waiting to be sent. “Packet size” means how many bits are on that list. Transmission delay is the time the sender needs to put all those bits onto the link—not a measurement of how much cable they occupy.",
+          "concept_ids": ["transmission_delay"],
+          "source_passage_ids": ["P07", "P08"],
+          "content_ref": {
+            "package_id": "network-performance-v1",
+            "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+            "source_id": "peterson_davie_1_5_1",
+            "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+            "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+          },
+          "created_at": "2026-10-23T02:00:46.172Z",
+          "visible_at": "2026-10-23T02:00:46.306Z",
+          "delivery_status": "displayed"
+        }
+      ],
+      "provider_calls": [
+        {
+          "id": "478507f1-1273-4aae-a922-9ee4825acc7b",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "step_id": "classify",
+          "status": "succeeded",
+          "started_at": "2026-10-23T01:59:22.884Z",
+          "finished_at": "2026-10-23T01:59:29.174Z",
+          "metadata": {
+            "stage": "classify",
+            "model": "gpt-6.1-sol",
+            "prompt_version": "r7-intent-v1"
+          },
+          "result": {
+            "ok": true,
+            "model": "gpt-6.1-sol",
+            "responseId": "resp_070346d19b58aa68016adabf7aad1487d2acdff08df2e2dc5b",
+            "latencyMs": 6269,
+            "usage": {
+              "inputTokens": 3574,
+              "outputTokens": 42,
+              "totalTokens": 3616
+            },
+            "needs_reconciliation": false
+          }
+        },
+        {
+          "id": "1653dff7-12ff-4be3-8536-d77a7b36d820",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "step_id": "propose",
+          "status": "succeeded",
+          "started_at": "2026-10-23T01:59:29.415Z",
+          "finished_at": "2026-10-23T01:59:34.646Z",
+          "metadata": {
+            "stage": "propose",
+            "model": "gpt-6.1-sol",
+            "prompt_version": "tutor-orchestration-v1"
+          },
+          "result": {
+            "ok": true,
+            "model": "gpt-6.1-sol",
+            "responseId": "resp_05b314db0c7d457f016adabf80a5d487d29460e4748d70626e",
+            "latencyMs": 5210,
+            "usage": {
+              "inputTokens": 2942,
+              "outputTokens": 236,
+              "totalTokens": 3178
+            },
+            "needs_reconciliation": false
+          }
+        },
+        {
+          "id": "92ca06e5-f37f-46d7-aadd-54ef1b43758f",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "step_id": "generate",
+          "status": "succeeded",
+          "started_at": "2026-10-23T01:59:34.809Z",
+          "finished_at": "2026-10-23T01:59:39.633Z",
+          "metadata": {
+            "stage": "generate",
+            "model": "gpt-6.1-sol",
+            "prompt_version": "r7-grounded-generation-v4"
+          },
+          "result": {
+            "ok": true,
+            "model": "gpt-6.1-sol",
+            "responseId": "resp_07bf44e0f599ee8b016adabf86026c87d2b08d67811d816e5c",
+            "latencyMs": 4801,
+            "usage": {
+              "inputTokens": 4090,
+              "outputTokens": 207,
+              "totalTokens": 4297
+            },
+            "needs_reconciliation": false
+          }
+        },
+        {
+          "id": "8e5aab0f-bceb-4d30-9171-b750783b189b",
+          "request_id": "43bcb177-df23-44fb-a391-b5e760ef278f",
+          "step_id": "review",
+          "status": "succeeded",
+          "started_at": "2026-10-23T01:59:39.706Z",
+          "finished_at": "2026-10-23T01:59:48.742Z",
+          "metadata": {
+            "stage": "review",
+            "model": "gpt-6.1-sol",
+            "prompt_version": "r7-independent-review-v2"
+          },
+          "result": {
+            "ok": true,
+            "model": "gpt-6.1-sol",
+            "responseId": "resp_098ce448aca21260016adabf8adcf487d295aaded218b3da9d",
+            "latencyMs": 9010,
+            "usage": {
+              "inputTokens": 4539,
+              "outputTokens": 360,
+              "totalTokens": 4899
+            },
+            "needs_reconciliation": false
+          }
+        },
+        {
+          "id": "6867b4b9-8cd1-48c1-a11d-4b2cb3748a28",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "step_id": "classify",
+          "status": "succeeded",
+          "started_at": "2026-10-23T02:00:23.107Z",
+          "finished_at": "2026-10-23T02:00:26.059Z",
+          "metadata": {
+            "stage": "classify",
+            "model": "gpt-6.1-sol",
+            "prompt_version": "r7-intent-v1"
+          },
+          "result": {
+            "ok": true,
+            "model": "gpt-6.1-sol",
+            "responseId": "resp_09e972622ca75cc3016adabfb6682c87d2abae9767d7c24eda",
+            "latencyMs": 2929,
+            "usage": {
+              "inputTokens": 3644,
+              "outputTokens": 44,
+              "totalTokens": 3688
+            },
+            "needs_reconciliation": false
+          }
+        },
+        {
+          "id": "0314338f-922b-4f91-abfc-dff7e774518e",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "step_id": "propose",
+          "status": "succeeded",
+          "started_at": "2026-10-23T02:00:26.400Z",
+          "finished_at": "2026-10-23T02:00:32.651Z",
+          "metadata": {
+            "stage": "propose",
+            "model": "gpt-6.1-sol",
+            "prompt_version": "tutor-orchestration-v1"
+          },
+          "result": {
+            "ok": true,
+            "model": "gpt-6.1-sol",
+            "responseId": "resp_0811d4626c4a0236016adabfb9b3d887d289cb4539db8e4af3",
+            "latencyMs": 6219,
+            "usage": {
+              "inputTokens": 3136,
+              "outputTokens": 229,
+              "totalTokens": 3365
+            },
+            "needs_reconciliation": false
+          }
+        },
+        {
+          "id": "3ca4afb1-d2aa-4d04-afba-df58dbda956b",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "step_id": "generate",
+          "status": "succeeded",
+          "started_at": "2026-10-23T02:00:32.858Z",
+          "finished_at": "2026-10-23T02:00:39.390Z",
+          "metadata": {
+            "stage": "generate",
+            "model": "gpt-6.1-sol",
+            "prompt_version": "r7-grounded-generation-v4"
+          },
+          "result": {
+            "ok": true,
+            "model": "gpt-6.1-sol",
+            "responseId": "resp_02ace66fc79b07f8016adabfc007d487d2a1c8da41208a642c",
+            "latencyMs": 6510,
+            "usage": {
+              "inputTokens": 4162,
+              "outputTokens": 295,
+              "totalTokens": 4457
+            },
+            "needs_reconciliation": false
+          }
+        },
+        {
+          "id": "b6025916-2807-462b-8875-326b79989ada",
+          "request_id": "bbd71d45-6ad9-41ef-9082-6a948fdbe6e9",
+          "step_id": "review",
+          "status": "succeeded",
+          "started_at": "2026-10-23T02:00:39.461Z",
+          "finished_at": "2026-10-23T02:00:46.106Z",
+          "metadata": {
+            "stage": "review",
+            "model": "gpt-6.1-sol",
+            "prompt_version": "r7-independent-review-v2"
+          },
+          "result": {
+            "ok": true,
+            "model": "gpt-6.1-sol",
+            "responseId": "resp_0423fc6861ec8dbe016adabfc6a5e487d292ef47e19f68eab9",
+            "latencyMs": 6625,
+            "usage": {
+              "inputTokens": 4622,
+              "outputTokens": 250,
+              "totalTokens": 4872
+            },
+            "needs_reconciliation": false
+          }
+        },
+        {
+          "id": "81a3bd20-2fcf-4227-ac2c-ad2113ba379b",
+          "request_id": "2e64e81f-b9c5-492b-ae06-b04366f74945",
+          "step_id": "classify",
+          "status": "succeeded",
+          "started_at": "2026-10-23T02:01:12.709Z",
+          "finished_at": "2026-10-23T02:01:15.647Z",
+          "metadata": {
+            "stage": "classify",
+            "model": "gpt-6.1-sol",
+            "prompt_version": "r7-intent-v1"
+          },
+          "result": {
+            "ok": true,
+            "model": "gpt-6.1-sol",
+            "responseId": "resp_0103d0bba998edd7016adabfe7f03c87d2902fb06d9258bd78",
+            "latencyMs": 2906,
+            "usage": {
+              "inputTokens": 3722,
+              "outputTokens": 47,
+              "totalTokens": 3769
+            },
+            "needs_reconciliation": false
+          }
+        },
+        {
+          "id": "866ef891-7908-4c86-b4eb-77b6bf45b87c",
+          "request_id": "34a197f0-3664-46a8-b0e0-69afc92c5607",
+          "step_id": "classify",
+          "status": "succeeded",
+          "started_at": "2026-10-23T02:01:59.904Z",
+          "finished_at": "2026-10-23T02:02:02.261Z",
+          "metadata": {
+            "stage": "classify",
+            "model": "gpt-6.1-sol",
+            "prompt_version": "r7-intent-v1"
+          },
+          "result": {
+            "ok": true,
+            "model": "gpt-6.1-sol",
+            "responseId": "resp_01db269132e30451016adac0171bfc87d2865bfceb0eea1707",
+            "latencyMs": 2328,
+            "usage": {
+              "inputTokens": 3751,
+              "outputTokens": 46,
+              "totalTokens": 3797
+            },
+            "needs_reconciliation": false
+          }
+        },
+        {
+          "id": "db46f5e8-b97c-4210-9dcf-65725d15d11a",
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "step_id": "propose",
+          "status": "succeeded",
+          "started_at": "2026-10-23T02:02:57.541Z",
+          "finished_at": "2026-10-23T02:03:03.754Z",
+          "metadata": {
+            "stage": "propose",
+            "model": "gpt-6.1-sol",
+            "prompt_version": "tutor-orchestration-v1"
+          },
+          "result": {
+            "ok": true,
+            "model": "gpt-6.1-sol",
+            "responseId": "resp_0783dd9e961c4790016adac050bfe887d2a7af2050f538e4b8",
+            "latencyMs": 6184,
+            "usage": {
+              "inputTokens": 3880,
+              "outputTokens": 265,
+              "totalTokens": 4145
+            },
+            "needs_reconciliation": false
+          }
+        },
+        {
+          "id": "cb255cc3-3d78-4833-8cb9-212636d6a09f",
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "step_id": "generate",
+          "status": "succeeded",
+          "started_at": "2026-10-23T02:03:04.036Z",
+          "finished_at": "2026-10-23T02:03:16.018Z",
+          "metadata": {
+            "stage": "generate",
+            "model": "gpt-6.1-sol",
+            "prompt_version": "r7-unscaffolded-assessment-generation-v1"
+          },
+          "result": {
+            "ok": true,
+            "model": "gpt-6.1-sol",
+            "responseId": "resp_0bdf0637e8d5d942016adac057335c87d2885a49607189d9d4",
+            "latencyMs": 11958,
+            "usage": {
+              "inputTokens": 4476,
+              "outputTokens": 626,
+              "totalTokens": 5102
+            },
+            "needs_reconciliation": false
+          }
+        },
+        {
+          "id": "bfd4824d-1911-4526-9c13-f4482a166f93",
+          "request_id": "88a26d61-61b7-4621-9308-3782d9bbb2c1",
+          "step_id": "review",
+          "status": "succeeded",
+          "started_at": "2026-10-23T02:03:16.112Z",
+          "finished_at": "2026-10-23T02:03:35.108Z",
+          "metadata": {
+            "stage": "review",
+            "model": "gpt-6.1-sol",
+            "prompt_version": "r7-unscaffolded-assessment-review-v1"
+          },
+          "result": {
+            "ok": true,
+            "model": "gpt-6.1-sol",
+            "responseId": "resp_09d6a59e252144b6016adac063504087d2b07d4d6e9b80e670",
+            "latencyMs": 18978,
+            "usage": {
+              "inputTokens": 5626,
+              "outputTokens": 1329,
+              "totalTokens": 6955
+            },
+            "needs_reconciliation": false
+          }
+        },
+        {
+          "id": "b48fb74f-17be-472d-9032-32a93e771909",
+          "request_id": "e2515118-c6cd-4f97-b573-3f182442b2b3",
+          "step_id": "classify",
+          "status": "succeeded",
+          "started_at": "2026-10-23T02:04:04.760Z",
+          "finished_at": "2026-10-23T02:04:07.575Z",
+          "metadata": {
+            "stage": "classify",
+            "model": "gpt-6.1-sol",
+            "prompt_version": "r7-intent-v1"
+          },
+          "result": {
+            "ok": true,
+            "model": "gpt-6.1-sol",
+            "responseId": "resp_010ba120603aca44016adac0940d8087d2aeae5d4123da93f7",
+            "latencyMs": 2794,
+            "usage": {
+              "inputTokens": 3908,
+              "outputTokens": 43,
+              "totalTokens": 3951
+            },
+            "needs_reconciliation": false
+          }
+        },
+        {
+          "id": "32ecce94-49f1-4cc3-9ab7-1aff46be8068",
+          "request_id": "5381d12f-6d30-4854-baeb-0565c60d4916",
+          "step_id": "propose",
+          "status": "succeeded",
+          "started_at": "2026-10-23T02:04:28.468Z",
+          "finished_at": "2026-10-23T02:04:34.209Z",
+          "metadata": {
+            "stage": "propose",
+            "model": "gpt-6.1-sol",
+            "prompt_version": "tutor-orchestration-v1"
+          },
+          "result": {
+            "ok": true,
+            "model": "gpt-6.1-sol",
+            "responseId": "resp_0f46c15aa817b598016adac0abac5487d29edcccf13c0c56c2",
+            "latencyMs": 5723,
+            "usage": {
+              "inputTokens": 4374,
+              "outputTokens": 254,
+              "totalTokens": 4628
+            },
+            "needs_reconciliation": false
+          }
+        }
+      ],
+      "approved_source": {
+        "content_ref": {
+          "package_id": "network-performance-v1",
+          "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+          "source_id": "peterson_davie_1_5_1",
+          "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+          "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+        },
+        "attribution": {
+          "title": "Computer Networks: A Systems Approach",
+          "authors": ["Larry Peterson", "Bruce Davie"],
+          "copyright": "Elsevier, 2012",
+          "section": "1.5.1 Bandwidth and Latency",
+          "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst",
+          "license": "CC-BY-4.0",
+          "license_url": "https://creativecommons.org/licenses/by/4.0/",
+          "cautions": [
+            "The upstream README sentence about derivative works conflicts with the CC BY 4.0 LICENSE adaptation grant. Both source files are retained; this package does not settle that legal inconsistency.",
+            "The source initially uses bandwidth/throughput loosely before distinguishing available rate from measured performance. Accept accurate explanations rather than penalizing synonyms alone.",
+            "The source uses latency generically. Every assessment specifies one-way latency or RTT explicitly.",
+            "The one-bit simplification in P08 is not assessed. Use finite packets and stated assumptions.",
+            "P10 contains a dimensional typo in the original displayed calculation: its denominator says 10 x 10^6 Mbps where 10 x 10^6 bits/s is intended. The 20-second result is correct. Preserve the source but use dimensionally correct arithmetic in assessment.",
+            "The source uses a simplified three-component delay model. Processing, multi-hop aggregation and advanced queuing models are outside assessment scope.",
+            "Queuing is introduced briefly. Questions use given waiting times, basic definition and delay arithmetic; traffic-dependent queue theory is not inferred from this excerpt."
+          ]
+        }
+      },
+      "approved_passages": [
+        {
+          "id": "P07",
+          "source_id": "peterson_davie_1_5_1",
+          "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+          "text": "We often think of latency as having three components. First, there is\nthe speed-of-light propagation delay. This delay occurs because nothing,\nincluding a bit on a wire, can travel faster than the speed of light. If\nyou know the distance between two points, you can calculate the\nspeed-of-light latency, although you have to be careful because light\ntravels across different media at different speeds: It travels at\n3.0 × 10\\ :sup:`8` m/s in a vacuum, 2.3 × 10\\ :sup:`8` m/s\nin a copper cable, and 2.0 × 10\\ :sup:`8` m/s in an optical fiber.\nSecond, there is the amount of time it takes to transmit a unit of data.\nThis is a function of the network bandwidth and the size of the packet in\nwhich the data is carried. Third, there may be queuing delays inside the\nnetwork, since packet switches generally need to store packets for some\ntime before forwarding them on an outbound link. So, we could define the\ntotal latency as\n",
+          "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst#L94-L107",
+          "start_line": 94,
+          "end_line": 107,
+          "sha256": "51f1135fe5aee7997884623e998f08f5a87c9f268ed97852871c2d906accad05"
+        },
+        {
+          "id": "P08",
+          "source_id": "peterson_davie_1_5_1",
+          "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+          "text": "::\n\n   Latency = Propagation + Transmit + Queue\n   Propagation =  Distance/SpeedOfLight\n   Transmit = Size/Bandwidth\n\nwhere ``Distance`` is the length of the wire over which the data will\ntravel, ``SpeedOfLight`` is the effective speed of light over that wire,\n``Size`` is the size of the packet, and ``Bandwidth`` is the bandwidth\nat which the packet is transmitted. Note that if the message contains\nonly one bit and we are talking about a single link (as opposed to a\nwhole network), then the ``Transmit`` and ``Queue`` terms are not\nrelevant, and latency corresponds to the propagation delay only.\n",
+          "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst#L109-L121",
+          "start_line": 109,
+          "end_line": 121,
+          "sha256": "a578dad4725c25437d4c501763562d1b58f16ebd8329a69d3ce1f41a7bd42367"
+        },
+        {
+          "id": "P12",
+          "source_id": "peterson_davie_1_5_1",
+          "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+          "text": "Note that throughout this book we use the terms *latency* and *delay* in\na generic way to denote how long it takes to perform a particular\nfunction, such as delivering a message or moving an object. When we are\nreferring to the specific amount of time it takes a signal to propagate\nfrom one end of a link to another, we use the term *propagation delay*.\nAlso, we make it clear in the context of the discussion whether we are\nreferring to the one-way latency or the round-trip time.\n",
+          "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst#L169-L175",
+          "start_line": 169,
+          "end_line": 175,
+          "sha256": "1eaf2c312ee0f4302242aca9dfad7aa780977d2333ec00c9c5582e79405fb086"
+        }
+      ],
+      "checks": {
+        "display_acknowledgements": 2,
+        "unique_display_acknowledgements": 2,
+        "displayed_interventions": 2,
+        "submitted_answers": 2,
+        "unique_submission_keys": 2,
+        "submitted_answers_details": [
+          {
+            "attempt_id": "86093e24-fd39-43a1-b12f-cbf2446fa102",
+            "accepted_evaluations": 1,
+            "exact_original_message": true,
+            "assistance_recorded_before_submission": true
+          },
+          {
+            "attempt_id": "7307ba37-d10c-48c4-86e1-55e1d42fe343",
+            "accepted_evaluations": 1,
+            "exact_original_message": true,
+            "assistance_recorded_before_submission": true
+          }
+        ],
+        "ambiguity": [
+          {
+            "request_id": "2e64e81f-b9c5-492b-ae06-b04366f74945",
+            "resolution": null,
+            "answer_submitted_at": null,
+            "no_answer_before_explicit_resolution": true
+          },
+          {
+            "request_id": "34a197f0-3664-46a8-b0e0-69afc92c5607",
+            "resolution": {
+              "request_id": "c00d0c6b-7630-4e1f-ac49-a9b49630b6f7",
+              "choice": "answer",
+              "at": "2026-10-23T02:02:45.342Z"
+            },
+            "answer_submitted_at": "2026-10-23T02:02:45.354Z",
+            "no_answer_before_explicit_resolution": true
+          },
+          {
+            "request_id": "e2515118-c6cd-4f97-b573-3f182442b2b3",
+            "resolution": {
+              "request_id": "729f24e3-5385-4d52-bc4a-f2393c173d8d",
+              "choice": "answer",
+              "at": "2026-10-23T02:04:20.471Z"
+            },
+            "answer_submitted_at": "2026-10-23T02:04:20.479Z",
+            "no_answer_before_explicit_resolution": true
+          }
+        ],
+        "provider_calls": 15,
+        "unresolved_provider_calls": 0,
+        "provider_token_usage": 64719,
+        "evaluator_usage_metadata": "Legacy evaluation records do not persist provider response ID, usage, or latency; not inferred."
+      },
+      "verification_scope": {
+        "method": "Actual signed-in student browser and authorized teacher browser against PostgreSQL and real model services",
+        "observations": [
+          "One composer accepted a question and an alternative-explanation request; both produced grounded help and display acknowledgments.",
+          "The tentative confirmation request required clarification and was cancelled without grading.",
+          "Both intended answers were explicitly confirmed after conservative server review, then evaluated once.",
+          "The generated diagnostic became the next assessed attempt through the existing controller; the student answered it and the next accepted action ended the session.",
+          "Refreshing the completed student session restored both original and generated questions, both answers, and both displayed helps.",
+          "The authorized teacher session page showed all five original messages, both display timestamps, accepted evaluation links, and proposed/validated/executed diagnostic and advancement records with the exact follow-up and response.",
+          "The teacher dashboard distinguished live-demo evidence from prepared synthetic histories.",
+          "A second read-only database snapshot after browser refresh and teacher reads found unchanged answer, acknowledgment, evaluation, and provider-call counts."
+        ],
+        "browser_observation_source": "Integration lead browser run; database counts independently verified by this read-only export",
+        "screenshot_names": [
+          "r7-live-recovered.jpg",
+          "r7-teacher-adaptive-evidence.jpg"
+        ]
+      }
+    },
+    {
+      "session": {
+        "id": "9c2de1e3-bebd-42a4-92c2-c7d5f5691ef3",
+        "assignment_id": "30000000-0000-4000-8000-000000000001",
+        "status": "active",
+        "data_origin": "live_demo",
+        "started_at": "2026-10-23T02:06:10.087Z",
+        "ended_at": null
+      },
+      "operations": [
+        {
+          "request_id": "8d1bfc98-8cbf-4a49-b0e8-a5199f8fbf4a",
+          "attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+          "expected_revision": 0,
+          "lesson": {
+            "session_id": "9c2de1e3-bebd-42a4-92c2-c7d5f5691ef3",
+            "assignment_id": "30000000-0000-4000-8000-000000000001",
+            "attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+            "root_attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+            "sequence_index": 0,
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          "payload": {
+            "version": "r7-conversation-v1",
+            "request_id": "8d1bfc98-8cbf-4a49-b0e8-a5199f8fbf4a",
+            "session_id": "9c2de1e3-bebd-42a4-92c2-c7d5f5691ef3",
+            "attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+            "expected_revision": 0,
+            "action": "send_message",
+            "text": "My answer: transmission delay is zero because the packet enters the cable all at once, so making the cable longer cannot change it. Propagation delay doubles because each bit travels twice as far."
+          },
+          "message_request_id": null,
+          "status": "answer",
+          "proposed_intent": {
+            "category": "ANSWER",
+            "rationale": "The student explicitly presents an answer to both delay components and explains their reasoning, without requesting help or confirmation."
+          },
+          "authorized_route": "submit_answer",
+          "message": {
+            "request_id": "8d1bfc98-8cbf-4a49-b0e8-a5199f8fbf4a",
+            "attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+            "expected_revision": 0,
+            "text": "My answer: transmission delay is zero because the packet enters the cable all at once, so making the cable longer cannot change it. Propagation delay doubles because each bit travels twice as far.",
+            "classification": "AMBIGUOUS",
+            "outcome": {
+              "status": "answer",
+              "submission_key": "8d1bfc98-8cbf-4a49-b0e8-a5199f8fbf4a"
+            }
+          },
+          "created_at": "2026-10-23T02:06:11.157Z"
+        },
+        {
+          "request_id": "1e04163e-224b-4402-8643-4bf414ccfed7",
+          "attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+          "expected_revision": 0,
+          "lesson": {
+            "session_id": "9c2de1e3-bebd-42a4-92c2-c7d5f5691ef3",
+            "assignment_id": "30000000-0000-4000-8000-000000000001",
+            "attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+            "root_attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+            "sequence_index": 0,
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          "payload": {
+            "version": "r7-conversation-v1",
+            "request_id": "1e04163e-224b-4402-8643-4bf414ccfed7",
+            "session_id": "9c2de1e3-bebd-42a4-92c2-c7d5f5691ef3",
+            "attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+            "expected_revision": 0,
+            "action": "resolve_intent",
+            "message_request_id": "8d1bfc98-8cbf-4a49-b0e8-a5199f8fbf4a",
+            "choice": "answer"
+          },
+          "message_request_id": "8d1bfc98-8cbf-4a49-b0e8-a5199f8fbf4a",
+          "status": "resolved",
+          "proposed_intent": null,
+          "authorized_route": null,
+          "message": null,
+          "created_at": "2026-10-23T02:06:14.295Z"
+        },
+        {
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+          "expected_revision": 2,
+          "lesson": {
+            "session_id": "9c2de1e3-bebd-42a4-92c2-c7d5f5691ef3",
+            "assignment_id": "30000000-0000-4000-8000-000000000001",
+            "attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+            "root_attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+            "sequence_index": 0,
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          "payload": {
+            "action": "controller_action",
+            "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+            "session_id": "9c2de1e3-bebd-42a4-92c2-c7d5f5691ef3",
+            "attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+            "expected_revision": 2,
+            "evaluation_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba"
+          },
+          "message_request_id": null,
+          "status": "resolved",
+          "proposed_intent": null,
+          "authorized_route": "controller_action",
+          "message": null,
+          "created_at": "2026-10-23T02:06:26.360Z"
+        }
+      ],
+      "events": [
+        {
+          "sequence": 432,
+          "event_id": "e9c17efa-a4ef-4b3d-900e-d5b65e22637b",
+          "request_id": "8d1bfc98-8cbf-4a49-b0e8-a5199f8fbf4a",
+          "kind": "requested",
+          "at": "2026-10-23T02:06:11.162Z"
+        },
+        {
+          "sequence": 433,
+          "event_id": "a30010f4-713c-4ab4-8f1b-469bb9e9dbaf",
+          "request_id": "8d1bfc98-8cbf-4a49-b0e8-a5199f8fbf4a",
+          "kind": "provider_reserved",
+          "at": "2026-10-23T02:06:11.258Z"
+        },
+        {
+          "sequence": 434,
+          "event_id": "499955fd-47e6-415c-8a89-288374886362",
+          "request_id": "8d1bfc98-8cbf-4a49-b0e8-a5199f8fbf4a",
+          "kind": "provider_completed",
+          "at": "2026-10-23T02:06:14.040Z"
+        },
+        {
+          "sequence": 435,
+          "event_id": "ae5129d8-de97-4b9e-aec1-f5857dd5e56a",
+          "request_id": "8d1bfc98-8cbf-4a49-b0e8-a5199f8fbf4a",
+          "kind": "intent_review",
+          "at": "2026-10-23T02:06:14.113Z",
+          "payload": {
+            "proposal": {
+              "category": "ANSWER",
+              "rationale": "The student explicitly presents an answer to both delay components and explains their reasoning, without requesting help or confirmation."
+            },
+            "review": {
+              "answer_intent": "uncertain",
+              "disclosure": "safe"
+            },
+            "authorized_route": "clarify"
+          }
+        },
+        {
+          "sequence": 436,
+          "event_id": "7c9ee599-a47c-45fe-8d2d-6d329fdafbce",
+          "request_id": "1e04163e-224b-4402-8643-4bf414ccfed7",
+          "kind": "requested",
+          "at": "2026-10-23T02:06:14.300Z"
+        },
+        {
+          "sequence": 437,
+          "event_id": "c1378ce8-6c13-4b0e-b210-16439a049c5a",
+          "request_id": "8d1bfc98-8cbf-4a49-b0e8-a5199f8fbf4a",
+          "kind": "intent_resolution",
+          "at": "2026-10-23T02:06:14.302Z",
+          "payload": {
+            "request_id": "1e04163e-224b-4402-8643-4bf414ccfed7",
+            "choice": "answer"
+          }
+        },
+        {
+          "sequence": 438,
+          "event_id": "1b01f8da-0abb-4243-a046-457b5634dee1",
+          "request_id": "8d1bfc98-8cbf-4a49-b0e8-a5199f8fbf4a",
+          "kind": "answer_applied",
+          "at": "2026-10-23T02:06:14.316Z"
+        },
+        {
+          "sequence": 439,
+          "event_id": "9e6f37ca-e03f-4d26-831f-f60583f7abdd",
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "kind": "controller_requested",
+          "at": "2026-10-23T02:06:26.363Z"
+        },
+        {
+          "sequence": 440,
+          "event_id": "c6296490-1aee-4c9f-b439-cd4e3cbd334c",
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "kind": "dialogue",
+          "at": "2026-10-23T02:06:26.365Z",
+          "payload": {
+            "version": "r7-v1",
+            "event_id": "feeba60b-56de-4066-a42a-2ec9172fc061",
+            "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+            "at": "2026-10-23T02:06:26.357069+00:00",
+            "outcome": "requested"
+          }
+        },
+        {
+          "sequence": 441,
+          "event_id": "ab49f4e1-735a-462b-a331-7e90935a1eab",
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "kind": "action_claimed",
+          "at": "2026-10-23T02:06:26.408Z"
+        },
+        {
+          "sequence": 442,
+          "event_id": "3599b798-0428-456f-9b72-4cf284ef0911",
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "kind": "provider_reserved",
+          "at": "2026-10-23T02:06:26.448Z"
+        },
+        {
+          "sequence": 443,
+          "event_id": "532e2cec-e0d1-445c-88d9-f6dd793f4cc0",
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "kind": "provider_completed",
+          "at": "2026-10-23T02:06:31.505Z"
+        },
+        {
+          "sequence": 444,
+          "event_id": "11c87058-e3ab-4e7b-888d-7c57b0ababfd",
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "kind": "action",
+          "at": "2026-10-23T02:06:31.556Z",
+          "payload": {
+            "action_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+            "phase": "proposed",
+            "proposal": {
+              "version": "tutor-orchestration-v1",
+              "content_ref": {
+                "package_id": "network-performance-v1",
+                "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                "source_id": "peterson_davie_1_5_1",
+                "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+              },
+              "concept_ids": ["transmission_delay", "propagation_delay"],
+              "source_passage_ids": ["P05", "P07", "P08"],
+              "reason_summary": "The accepted evaluation flags the student's claim that the packet enters all at once as a tentative conceptual issue. With no prior help displayed, explain finite bit-placement time using bit duration and Size/Bandwidth, contrasting it with signal travel time using Distance/SpeedOfLight. Cover both required concepts while distinguishing unchanged transmission time from zero transmission time.",
+              "action": "explain",
+              "arguments": {
+                "style": "alternative_explanation"
+              }
+            },
+            "invalid_proposal": false
+          }
+        },
+        {
+          "sequence": 445,
+          "event_id": "7547981c-7d50-4220-8ecd-0765e47c6c40",
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "kind": "action",
+          "at": "2026-10-23T02:06:31.581Z",
+          "payload": {
+            "action_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+            "phase": "validated",
+            "allowed_actions": ["explain", "advance_lesson"],
+            "decision": "accepted",
+            "reason": null
+          }
+        },
+        {
+          "sequence": 446,
+          "event_id": "6bb6ee4d-a3c2-40d9-aa9a-2370223cb94e",
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "kind": "action",
+          "at": "2026-10-23T02:06:31.604Z",
+          "payload": {
+            "action_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+            "phase": "dispatch_started",
+            "tool": "explain"
+          }
+        },
+        {
+          "sequence": 447,
+          "event_id": "a0e277d3-0f04-4b53-bcae-3c85a9758031",
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "kind": "provider_reserved",
+          "at": "2026-10-23T02:06:31.638Z"
+        },
+        {
+          "sequence": 448,
+          "event_id": "97446227-161b-4a99-89ce-492d5f8d5388",
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "kind": "provider_completed",
+          "at": "2026-10-23T02:06:38.447Z"
+        },
+        {
+          "sequence": 449,
+          "event_id": "cfd8cbd3-7baf-4b5a-92fa-cf6f0af8e863",
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "kind": "provider_reserved",
+          "at": "2026-10-23T02:06:38.517Z"
+        },
+        {
+          "sequence": 450,
+          "event_id": "1540be19-cd35-407f-a684-2adc31b46a21",
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "kind": "provider_completed",
+          "at": "2026-10-23T02:06:46.045Z"
+        },
+        {
+          "sequence": 451,
+          "event_id": "7c5e74eb-e1c0-455a-a459-c7d739746e36",
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "kind": "dialogue",
+          "at": "2026-10-23T02:06:46.150Z",
+          "payload": {
+            "outcome": "generated",
+            "content": {
+              "kind": "help",
+              "content_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+              "text": "Your propagation-delay reasoning is correct: each bit travels twice as far at the same speed, so propagation delay doubles.\n\nThe part to revise is “the packet enters the cable all at once.” Picture the packet as a sequence of bit pulses, each occupying some time on the link. Transmission delay measures how long the sender takes to put that sequence onto the cable; propagation delay measures a signal’s travel along the cable.\n\nTransmission delay = packet size / link rate. For a nonempty packet at a finite link rate, that takes time—it is not zero. Making the cable longer changes neither the packet size nor the link rate, so transmission delay stays unchanged.",
+              "concept_ids": ["transmission_delay", "propagation_delay"],
+              "source_passage_ids": ["P05", "P07", "P08"],
+              "content_ref": {
+                "package_id": "network-performance-v1",
+                "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                "source_id": "peterson_davie_1_5_1",
+                "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+              },
+              "generation": {
+                "model": "gpt-6.1-sol",
+                "prompt_template_version": "r7-grounded-generation-v4",
+                "generated_at": "2026-10-23T02:06:38.420Z"
+              }
+            }
+          }
+        },
+        {
+          "sequence": 452,
+          "event_id": "3821b55d-d7ef-4668-af17-93ff33353d20",
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "kind": "dialogue",
+          "at": "2026-10-23T02:06:46.151Z",
+          "payload": {
+            "version": "r7-v1",
+            "event_id": "9a88d17a-a039-489b-8659-0073cec98670",
+            "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+            "at": "2026-10-23T02:06:46.145593+00:00",
+            "outcome": "accepted",
+            "content_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+            "applied_attempt_id": null,
+            "applied_revision": 2
+          }
+        },
+        {
+          "sequence": 453,
+          "event_id": "9c08677b-7de7-43e2-affa-af57fc0186b9",
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "kind": "controller_applied",
+          "at": "2026-10-23T02:06:46.154Z",
+          "payload": {
+            "evaluation_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+            "controller_action": "GIVE_CORRECTIVE_FEEDBACK",
+            "next_attempt_id": "27236c23-2163-400a-b314-495586c0290e",
+            "intervention_id": "6c25627e-9a45-4d1f-ab9d-77edf66a2914",
+            "applied_revision": 3
+          }
+        },
+        {
+          "sequence": 454,
+          "event_id": "546e77f3-523a-453a-a525-30442ac47d24",
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "kind": "action",
+          "at": "2026-10-23T02:06:46.163Z",
+          "payload": {
+            "action_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+            "phase": "executed",
+            "tool": "explain",
+            "result": {
+              "kind": "generated",
+              "content": {
+                "kind": "help",
+                "content_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+                "text": "Your propagation-delay reasoning is correct: each bit travels twice as far at the same speed, so propagation delay doubles.\n\nThe part to revise is “the packet enters the cable all at once.” Picture the packet as a sequence of bit pulses, each occupying some time on the link. Transmission delay measures how long the sender takes to put that sequence onto the cable; propagation delay measures a signal’s travel along the cable.\n\nTransmission delay = packet size / link rate. For a nonempty packet at a finite link rate, that takes time—it is not zero. Making the cable longer changes neither the packet size nor the link rate, so transmission delay stays unchanged.",
+                "concept_ids": ["transmission_delay", "propagation_delay"],
+                "source_passage_ids": ["P05", "P07", "P08"],
+                "content_ref": {
+                  "package_id": "network-performance-v1",
+                  "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                  "source_id": "peterson_davie_1_5_1",
+                  "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                  "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+                },
+                "generation": {
+                  "model": "gpt-6.1-sol",
+                  "prompt_template_version": "r7-grounded-generation-v4",
+                  "generated_at": "2026-10-23T02:06:38.420Z"
+                }
+              }
+            }
+          }
+        },
+        {
+          "sequence": 455,
+          "event_id": "ee52f085-36d9-4317-b5f7-0c91d5880200",
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "kind": "action_receipt",
+          "at": "2026-10-23T02:06:46.167Z",
+          "payload": {
+            "status": "executed",
+            "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+            "action": "explain",
+            "result": {
+              "kind": "generated",
+              "content": {
+                "kind": "help",
+                "content_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+                "text": "Your propagation-delay reasoning is correct: each bit travels twice as far at the same speed, so propagation delay doubles.\n\nThe part to revise is “the packet enters the cable all at once.” Picture the packet as a sequence of bit pulses, each occupying some time on the link. Transmission delay measures how long the sender takes to put that sequence onto the cable; propagation delay measures a signal’s travel along the cable.\n\nTransmission delay = packet size / link rate. For a nonempty packet at a finite link rate, that takes time—it is not zero. Making the cable longer changes neither the packet size nor the link rate, so transmission delay stays unchanged.",
+                "concept_ids": ["transmission_delay", "propagation_delay"],
+                "source_passage_ids": ["P05", "P07", "P08"],
+                "content_ref": {
+                  "package_id": "network-performance-v1",
+                  "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                  "source_id": "peterson_davie_1_5_1",
+                  "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                  "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+                },
+                "generation": {
+                  "model": "gpt-6.1-sol",
+                  "prompt_template_version": "r7-grounded-generation-v4",
+                  "generated_at": "2026-10-23T02:06:38.420Z"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "attempts": [
+        {
+          "id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+          "sequence_index": 0,
+          "parent_attempt_id": null,
+          "root_attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+          "intent": "initial_retrieval",
+          "question": {
+            "question_id": "NP-TX-01",
+            "prompt_text": "A single cable becomes twice as long. Packet size, link transmission rate, and propagation speed stay unchanged. What happens to transmission delay and propagation delay? Explain why.",
+            "concept_ids": ["transmission_delay", "propagation_delay"],
+            "source_passage_ids": ["P07", "P08", "P12"],
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            },
+            "origin": "curated",
+            "controller_node_id": null,
+            "generation": null
+          },
+          "presented_at": "2026-10-23T02:06:10.101Z",
+          "submitted_at": "2026-10-23T02:06:14.309Z",
+          "response_text": "My answer: transmission delay is zero because the packet enters the cable all at once, so making the cable longer cannot change it. Propagation delay doubles because each bit travels twice as far.",
+          "submission_key": "8d1bfc98-8cbf-4a49-b0e8-a5199f8fbf4a",
+          "assistance": {
+            "intervention_ids": [],
+            "assistance_level": "none_recorded",
+            "scaffolding_types": [],
+            "independent_retrieval_eligible_by_concept": {
+              "propagation_delay": true,
+              "transmission_delay": true
+            },
+            "most_recent_content_assistance_at": null,
+            "elapsed_since_content_assistance_seconds": null
+          },
+          "current_evaluation_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba"
+        },
+        {
+          "id": "27236c23-2163-400a-b314-495586c0290e",
+          "sequence_index": 1,
+          "parent_attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+          "root_attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+          "intent": "immediate_retest",
+          "question": {
+            "question_id": "D05",
+            "prompt_text": "On a 600 km optical-fiber link, the rate is 8 Mbps and propagation speed is 200,000,000 m/s. Compare sending a 1,000-byte packet with sending a 2,000-byte packet. Only packet size changes. What are transmission delay and propagation delay in each case? Explain which quantity changes.",
+            "concept_ids": ["transmission_delay", "propagation_delay"],
+            "source_passage_ids": ["P07", "P08"],
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            },
+            "origin": "curated",
+            "controller_node_id": null,
+            "generation": null
+          },
+          "presented_at": "2026-10-23T02:06:46.129Z",
+          "submitted_at": null,
+          "response_text": null,
+          "submission_key": null,
+          "assistance": null,
+          "current_evaluation_id": null
+        }
+      ],
+      "evaluations": [
+        {
+          "id": "ad810bab-9507-4ec4-8baf-70cf6ea56551",
+          "attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+          "validation_status": "pending_review",
+          "evaluator": {
+            "type": "language_model",
+            "model": "gpt-6.1-sol",
+            "version": "grounded-network-performance-v2"
+          },
+          "evaluated_at": "2026-10-23T02:06:15.157Z",
+          "failure_reason": "Evaluation request started. If no result arrives, ask your teacher to check it before another paid request.",
+          "applied_action": null,
+          "result": null
+        },
+        {
+          "id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+          "validation_status": "accepted",
+          "evaluator": {
+            "type": "language_model",
+            "model": "gpt-6.1-sol",
+            "version": "grounded-network-performance-v2"
+          },
+          "evaluated_at": "2026-10-23T02:06:26.241Z",
+          "failure_reason": null,
+          "applied_action": "GIVE_CORRECTIVE_FEEDBACK",
+          "result": {
+            "per_concept_results": [
+              {
+                "concept_id": "transmission_delay",
+                "correctness": "partially_correct",
+                "error_type": "conceptual"
+              },
+              {
+                "concept_id": "propagation_delay",
+                "correctness": "correct",
+                "error_type": null
+              }
+            ],
+            "source_passage_ids": ["P07", "P08", "P12"],
+            "reasoning_observed": "In this initial response with no recorded assistance or embedded scaffolding, the student correctly reasons about propagation distance and correctly predicts unchanged transmission delay, but supports the latter with an explicit instantaneous-packet-entry error.",
+            "uncertainty_reason": null,
+            "proposed_next_action": "ASK_DIAGNOSTIC_FOLLOWUP"
+          }
+        }
+      ],
+      "interventions": [
+        {
+          "id": "6c25627e-9a45-4d1f-ab9d-77edf66a2914",
+          "session_id": "9c2de1e3-bebd-42a4-92c2-c7d5f5691ef3",
+          "related_attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+          "related_evaluation_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "type": "corrective_feedback",
+          "text_shown": "Your propagation-delay reasoning is correct: each bit travels twice as far at the same speed, so propagation delay doubles.\n\nThe part to revise is “the packet enters the cable all at once.” Picture the packet as a sequence of bit pulses, each occupying some time on the link. Transmission delay measures how long the sender takes to put that sequence onto the cable; propagation delay measures a signal’s travel along the cable.\n\nTransmission delay = packet size / link rate. For a nonempty packet at a finite link rate, that takes time—it is not zero. Making the cable longer changes neither the packet size nor the link rate, so transmission delay stays unchanged.",
+          "concept_ids": ["transmission_delay", "propagation_delay"],
+          "source_passage_ids": ["P05", "P07", "P08"],
+          "content_ref": {
+            "package_id": "network-performance-v1",
+            "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+            "source_id": "peterson_davie_1_5_1",
+            "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+            "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+          },
+          "created_at": "2026-10-23T02:06:46.129Z",
+          "visible_at": "2026-10-23T02:20:26.930Z",
+          "delivery_status": "displayed"
+        }
+      ],
+      "provider_calls": [
+        {
+          "id": "773c04b2-790b-4ca8-9ac2-816d6053682e",
+          "request_id": "8d1bfc98-8cbf-4a49-b0e8-a5199f8fbf4a",
+          "step_id": "classify",
+          "status": "succeeded",
+          "started_at": "2026-10-23T02:06:11.255Z",
+          "finished_at": "2026-10-23T02:06:14.038Z",
+          "metadata": {
+            "stage": "classify",
+            "model": "gpt-6.1-sol",
+            "prompt_version": "r7-intent-v1"
+          },
+          "result": {
+            "ok": true,
+            "model": "gpt-6.1-sol",
+            "responseId": "resp_010c7556a938b210016adac1128dac87d2bcd83dc2665e9303",
+            "latencyMs": 2759,
+            "usage": {
+              "inputTokens": 3596,
+              "outputTokens": 40,
+              "totalTokens": 3636
+            },
+            "needs_reconciliation": false
+          }
+        },
+        {
+          "id": "92712450-40d9-4696-9235-cce64fc46c0c",
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "step_id": "propose",
+          "status": "succeeded",
+          "started_at": "2026-10-23T02:06:26.445Z",
+          "finished_at": "2026-10-23T02:06:31.503Z",
+          "metadata": {
+            "stage": "propose",
+            "model": "gpt-6.1-sol",
+            "prompt_version": "tutor-orchestration-v1"
+          },
+          "result": {
+            "ok": true,
+            "model": "gpt-6.1-sol",
+            "responseId": "resp_0b6b8a791de132b3016adac121a1dc87d29127ee0ee21336ce",
+            "latencyMs": 5028,
+            "usage": {
+              "inputTokens": 3429,
+              "outputTokens": 256,
+              "totalTokens": 3685
+            },
+            "needs_reconciliation": false
+          }
+        },
+        {
+          "id": "9ed1343d-2fe0-42a9-a458-e4912e1d2a1b",
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "step_id": "generate",
+          "status": "succeeded",
+          "started_at": "2026-10-23T02:06:31.636Z",
+          "finished_at": "2026-10-23T02:06:38.444Z",
+          "metadata": {
+            "stage": "generate",
+            "model": "gpt-6.1-sol",
+            "prompt_version": "r7-grounded-generation-v4"
+          },
+          "result": {
+            "ok": true,
+            "model": "gpt-6.1-sol",
+            "responseId": "resp_0ded99b0712b7f77016adac126cdb087d2863df6ad6f6fbac8",
+            "latencyMs": 6779,
+            "usage": {
+              "inputTokens": 4166,
+              "outputTokens": 302,
+              "totalTokens": 4468
+            },
+            "needs_reconciliation": false
+          }
+        },
+        {
+          "id": "801fce61-bccc-4881-a4bf-832bf9df9d8b",
+          "request_id": "0537ad47-70f2-483d-b9fc-e215eb5835ba",
+          "step_id": "review",
+          "status": "succeeded",
+          "started_at": "2026-10-23T02:06:38.515Z",
+          "finished_at": "2026-10-23T02:06:46.040Z",
+          "metadata": {
+            "stage": "review",
+            "model": "gpt-6.1-sol",
+            "prompt_version": "r7-independent-review-v2"
+          },
+          "result": {
+            "ok": true,
+            "model": "gpt-6.1-sol",
+            "responseId": "resp_05c7646ccd57534c016adac12db1c087d2b206005ca77d3dea",
+            "latencyMs": 7496,
+            "usage": {
+              "inputTokens": 4796,
+              "outputTokens": 331,
+              "totalTokens": 5127
+            },
+            "needs_reconciliation": false
+          }
+        }
+      ],
+      "approved_source": {
+        "content_ref": {
+          "package_id": "network-performance-v1",
+          "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+          "source_id": "peterson_davie_1_5_1",
+          "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+          "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+        },
+        "attribution": {
+          "title": "Computer Networks: A Systems Approach",
+          "authors": ["Larry Peterson", "Bruce Davie"],
+          "copyright": "Elsevier, 2012",
+          "section": "1.5.1 Bandwidth and Latency",
+          "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst",
+          "license": "CC-BY-4.0",
+          "license_url": "https://creativecommons.org/licenses/by/4.0/",
+          "cautions": [
+            "The upstream README sentence about derivative works conflicts with the CC BY 4.0 LICENSE adaptation grant. Both source files are retained; this package does not settle that legal inconsistency.",
+            "The source initially uses bandwidth/throughput loosely before distinguishing available rate from measured performance. Accept accurate explanations rather than penalizing synonyms alone.",
+            "The source uses latency generically. Every assessment specifies one-way latency or RTT explicitly.",
+            "The one-bit simplification in P08 is not assessed. Use finite packets and stated assumptions.",
+            "P10 contains a dimensional typo in the original displayed calculation: its denominator says 10 x 10^6 Mbps where 10 x 10^6 bits/s is intended. The 20-second result is correct. Preserve the source but use dimensionally correct arithmetic in assessment.",
+            "The source uses a simplified three-component delay model. Processing, multi-hop aggregation and advanced queuing models are outside assessment scope.",
+            "Queuing is introduced briefly. Questions use given waiting times, basic definition and delay arithmetic; traffic-dependent queue theory is not inferred from this excerpt."
+          ]
+        }
+      },
+      "approved_passages": [
+        {
+          "id": "P07",
+          "source_id": "peterson_davie_1_5_1",
+          "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+          "text": "We often think of latency as having three components. First, there is\nthe speed-of-light propagation delay. This delay occurs because nothing,\nincluding a bit on a wire, can travel faster than the speed of light. If\nyou know the distance between two points, you can calculate the\nspeed-of-light latency, although you have to be careful because light\ntravels across different media at different speeds: It travels at\n3.0 × 10\\ :sup:`8` m/s in a vacuum, 2.3 × 10\\ :sup:`8` m/s\nin a copper cable, and 2.0 × 10\\ :sup:`8` m/s in an optical fiber.\nSecond, there is the amount of time it takes to transmit a unit of data.\nThis is a function of the network bandwidth and the size of the packet in\nwhich the data is carried. Third, there may be queuing delays inside the\nnetwork, since packet switches generally need to store packets for some\ntime before forwarding them on an outbound link. So, we could define the\ntotal latency as\n",
+          "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst#L94-L107",
+          "start_line": 94,
+          "end_line": 107,
+          "sha256": "51f1135fe5aee7997884623e998f08f5a87c9f268ed97852871c2d906accad05"
+        },
+        {
+          "id": "P08",
+          "source_id": "peterson_davie_1_5_1",
+          "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+          "text": "::\n\n   Latency = Propagation + Transmit + Queue\n   Propagation =  Distance/SpeedOfLight\n   Transmit = Size/Bandwidth\n\nwhere ``Distance`` is the length of the wire over which the data will\ntravel, ``SpeedOfLight`` is the effective speed of light over that wire,\n``Size`` is the size of the packet, and ``Bandwidth`` is the bandwidth\nat which the packet is transmitted. Note that if the message contains\nonly one bit and we are talking about a single link (as opposed to a\nwhole network), then the ``Transmit`` and ``Queue`` terms are not\nrelevant, and latency corresponds to the propagation delay only.\n",
+          "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst#L109-L121",
+          "start_line": 109,
+          "end_line": 121,
+          "sha256": "a578dad4725c25437d4c501763562d1b58f16ebd8329a69d3ce1f41a7bd42367"
+        },
+        {
+          "id": "P12",
+          "source_id": "peterson_davie_1_5_1",
+          "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+          "text": "Note that throughout this book we use the terms *latency* and *delay* in\na generic way to denote how long it takes to perform a particular\nfunction, such as delivering a message or moving an object. When we are\nreferring to the specific amount of time it takes a signal to propagate\nfrom one end of a link to another, we use the term *propagation delay*.\nAlso, we make it clear in the context of the discussion whether we are\nreferring to the one-way latency or the round-trip time.\n",
+          "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst#L169-L175",
+          "start_line": 169,
+          "end_line": 175,
+          "sha256": "1eaf2c312ee0f4302242aca9dfad7aa780977d2333ec00c9c5582e79405fb086"
+        },
+        {
+          "id": "P05",
+          "source_id": "peterson_davie_1_5_1",
+          "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+          "text": "While you can talk about the bandwidth of the network as a whole,\nsometimes you want to be more precise, focusing, for example, on the\nbandwidth of a single physical link or of a logical process-to-process\nchannel. At the physical level, bandwidth is constantly improving, with\nno end in sight. Intuitively, if you think of a second of time as a\ndistance you could measure with a ruler and bandwidth as how many bits\nfit in that distance, then you can think of each bit as a pulse of some\nwidth. For example, each bit on a 1-Mbps link is 1 μs wide, while each\nbit on a 2-Mbps link is 0.5 μs wide, as illustrated in :numref:`Figure\n%s <fig-bit-width>`. The more sophisticated the transmitting and receiving\ntechnology, the narrower each bit can become and, thus, the higher the\nbandwidth. For logical process-to-process channels, bandwidth is also\ninfluenced by other factors, including how many times the software that\nimplements the channel has to handle, and possibly transform, each bit\nof data.\n",
+          "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst#L56-L70",
+          "start_line": 56,
+          "end_line": 70,
+          "sha256": "b981a6b0e2809e58626338f2a3e8b94398fba1b5321065f7455ca235646aa079"
+        }
+      ],
+      "checks": {
+        "display_acknowledgements": 0,
+        "unique_display_acknowledgements": 0,
+        "displayed_interventions": 1,
+        "submitted_answers": 1,
+        "unique_submission_keys": 1,
+        "submitted_answers_details": [
+          {
+            "attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+            "accepted_evaluations": 1,
+            "exact_original_message": true,
+            "assistance_recorded_before_submission": true
+          }
+        ],
+        "ambiguity": [
+          {
+            "request_id": "8d1bfc98-8cbf-4a49-b0e8-a5199f8fbf4a",
+            "resolution": {
+              "request_id": "1e04163e-224b-4402-8643-4bf414ccfed7",
+              "choice": "answer",
+              "at": "2026-10-23T02:06:14.302Z"
+            },
+            "answer_submitted_at": "2026-10-23T02:06:14.309Z",
+            "no_answer_before_explicit_resolution": true
+          }
+        ],
+        "provider_calls": 4,
+        "unresolved_provider_calls": 0,
+        "provider_token_usage": 16916,
+        "evaluator_usage_metadata": "Legacy evaluation records do not persist provider response ID, usage, or latency; not inferred."
+      },
+      "verification_scope": {
+        "method": "Actual authenticated HTTP for answer, evaluation and agent action; subsequent actual signed-in student browser for resume and controller feedback display",
+        "case": "held-out simultaneous-bits misunderstanding",
+        "started_at": "2026-10-23T02:06:07.669Z",
+        "finished_at": "2026-10-23T02:06:46.216Z",
+        "hard_model_call_cap": 6,
+        "actual_model_calls": 5,
+        "observations": [
+          "A different synthetic answer claimed the packet enters the cable all at once. The model proposed ANSWER; conservative server review required explicit confirmation before submission.",
+          "The accepted evaluation fed an actual explain proposal and grounded corrective feedback through the existing controller.",
+          "On browser resume the Feedback heading was visible but its text was below the viewport. A read-only database snapshot still showed created and visible_at null, with no new provider call.",
+          "After scrolling the actual feedback text into view, the existing intervention acknowledgment marked it displayed. The exact original answer and its assistance snapshot remained unchanged.",
+          "The controller queued an existing curated immediate retest. It remains unanswered, so this case does not establish a student learning outcome.",
+          "Earlier authorized teacher inspection left the intervention undisplayed and did not count as student assistance.",
+          "A subsequent actual browser refresh restored the generated feedback, exact original answer, queued curated D05 question, and single composer. A repeat database snapshot found all exported persisted evidence exactly unchanged."
+        ],
+        "screenshot_names": [
+          "r7-generated-feedback.jpg",
+          "r7-generated-feedback-visible.jpg"
+        ],
+        "browser_observation_source": "Integration lead browser run; before/after database snapshots independently verified by this exporter"
+      }
+    }
+  ],
+  "controller_display_verification": {
+    "session_id": "9c2de1e3-bebd-42a4-92c2-c7d5f5691ef3",
+    "intervention_id": "6c25627e-9a45-4d1f-ab9d-77edf66a2914",
+    "original_attempt_id": "dc32f58e-2a97-4e59-892f-f7bad95c8ad8",
+    "before_browser": {
+      "exported_at": "2026-10-23T02:11:44.593Z",
+      "created_at": "2026-10-23T02:06:46.129Z",
+      "delivery_status": "created",
+      "visible_at": null
+    },
+    "text_offscreen": {
+      "exported_at": "2026-10-23T02:20:24.913Z",
+      "delivery_status": "created",
+      "visible_at": null,
+      "browser_observation": "Heading visible; feedback text below viewport. No display acknowledgment observed."
+    },
+    "text_visible": {
+      "exported_at": "2026-10-23T02:21:34.008Z",
+      "delivery_status": "displayed",
+      "visible_at": "2026-10-23T02:20:26.930Z",
+      "browser_observation": "Feedback text scrolled into viewport; existing intervention display endpoint acknowledged it."
+    },
+    "original_answer_and_assistance_exactly_unchanged": true,
+    "accepted_evaluation_exactly_unchanged": true,
+    "dialogue_provider_records_exactly_unchanged": true,
+    "original_assistance_snapshot": {
+      "intervention_ids": [],
+      "assistance_level": "none_recorded",
+      "scaffolding_types": [],
+      "independent_retrieval_eligible_by_concept": {
+        "propagation_delay": true,
+        "transmission_delay": true
+      },
+      "most_recent_content_assistance_at": null,
+      "elapsed_since_content_assistance_seconds": null
+    },
+    "original_assistance_intervention_ids": [],
+    "queued_curated_retest_submitted_at": null,
+    "hidden_document_scope": "Hidden-document and asynchronous observer race behavior is covered by deterministic tests. Actual browser verification here covers offscreen text becoming visible, not a hidden-tab experiment.",
+    "after_refresh": {
+      "exported_at": "2026-10-23T02:22:24.983Z",
+      "visible_at": "2026-10-23T02:20:26.930Z",
+      "all_saved_evidence_exactly_unchanged": true,
+      "no_duplicate_display_timestamp": true,
+      "no_new_provider_calls": true
+    }
+  }
+}
