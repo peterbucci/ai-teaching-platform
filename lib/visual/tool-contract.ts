@@ -3,6 +3,10 @@ import { ActionSchema, ContentRefSchema } from "../evidence/contracts.ts";
 import {
   PACKET_VISUAL_VERSION,
   PacketDelayCalculationSchema,
+  PacketDelayExperimentSchema,
+  ConceptGraphSchema,
+  PacketExperimentSchema,
+  SequenceDiagramSchema,
   VISUAL_LIMITS,
   VISUAL_VERSION,
 } from "./contracts.ts";
@@ -25,6 +29,15 @@ export const VisualToolProposalSchema = z.strictObject({
 
 export type VisualToolProposal = z.infer<typeof VisualToolProposalSchema>;
 
+// The full activity the server verified. The hash is computed by the server
+// over this snapshot, so the stored copy can be checked against the hash later.
+export const VisualActivitySnapshotSchema = z.union([
+  ConceptGraphSchema,
+  SequenceDiagramSchema,
+  PacketExperimentSchema,
+  PacketDelayExperimentSchema,
+]);
+
 // Written by the server after it checks the student's session and eligibility.
 export const VisualToolRequestSchema = z
   .strictObject({
@@ -35,6 +48,7 @@ export const VisualToolRequestSchema = z
     source: ContentRefSchema,
     eligible_action: ActionSchema,
     proposal: VisualToolProposalSchema,
+    activity_snapshot: VisualActivitySnapshotSchema,
     activity_sha256: sha256,
   })
   .superRefine((request, context) => {
@@ -46,6 +60,28 @@ export const VisualToolRequestSchema = z
         code: "custom",
         path: ["proposal", "activity_kind"],
         message: "Visual v2 currently supports only packet experiments",
+      });
+    if (request.activity_snapshot.kind !== request.proposal.activity_kind) {
+      context.addIssue({
+        code: "custom",
+        path: ["activity_snapshot", "kind"],
+        message: "The activity must match the proposed kind",
+      });
+    }
+    if (request.activity_snapshot.version !== request.version)
+      context.addIssue({
+        code: "custom",
+        path: ["activity_snapshot", "version"],
+        message: "The activity must match the request version",
+      });
+    if (
+      JSON.stringify(request.activity_snapshot.source) !==
+      JSON.stringify(request.source)
+    )
+      context.addIssue({
+        code: "custom",
+        path: ["activity_snapshot", "source"],
+        message: "The activity must match the request source",
       });
   });
 
