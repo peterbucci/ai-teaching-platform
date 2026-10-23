@@ -222,3 +222,6 @@ uncertainty and material extraction/review checks also passed. These integration
 checks used injected provider responses only, with zero new paid model calls.
 The ten recorded historical actual-model calls above remain the quality evidence.
 Publication and assignment activation still enter main through #102.
+
+Independent reconciliation review found no remaining #101 blockers at `abfd8d7`.
+The actual teacher UI also denied access to the separately owned PostgreSQL probe.
