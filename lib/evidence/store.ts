@@ -298,6 +298,20 @@ export async function presentQuestion(
   });
 }
 
+/** Intervention follow-ups share the evidence tables but have their own approved
+ * one-question lifecycle. The ordinary controller must never advance them. */
+export async function requireTutoringSession(
+  client: PoolClient,
+  sessionId: string,
+) {
+  z.uuid().parse(sessionId);
+  const linked = await client.query(
+    "SELECT 1 FROM teacher_intervention_followups WHERE session_id=$1",
+    [sessionId],
+  );
+  if (linked.rowCount) throw new EvidenceError(404, "Session not found.");
+}
+
 /** Reuse the existing submission inside an already-authorized operation transaction. */
 export async function submitAnswerInTransaction(
   client: PoolClient,
@@ -306,6 +320,7 @@ export async function submitAnswerInTransaction(
   input: unknown,
 ) {
   const submission = SubmitAnswerSchema.parse(input);
+  await requireTutoringSession(client, sessionId);
   const evidence = await sessionEvidence(
     client,
     access,

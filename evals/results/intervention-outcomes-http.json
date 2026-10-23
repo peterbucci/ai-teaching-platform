@@ -1,0 +1,122 @@
+{
+  "issue": 46,
+  "checked_at": "2026-10-23T12:35:50.163Z",
+  "status": "passed",
+  "origin": "http://localhost:3046",
+  "verification": "real PostgreSQL and authenticated HTTP with authored deterministic provider fixtures; no actual-model evaluation",
+  "source_draft_id": "baaa38f1-8ebd-46b1-ab5b-003a99106e7e",
+  "source_provenance": {
+    "model": "gpt-6.1-sol",
+    "response_id": "resp_0c302bafa1559207016adac72d2a9c87d2b6bb629443db0514",
+    "prompt_template_version": "teacher-intervention-v2",
+    "generated_at": "2026-10-23T02:32:40.540Z",
+    "usage": {
+      "inputTokens": 3766,
+      "outputTokens": 1351,
+      "totalTokens": 5117
+    }
+  },
+  "copies": [
+    {
+      "label": "two recipients, one assisted correct submission",
+      "draft_id": "d45febb5-3e65-475e-8a66-6317ddc43e7d",
+      "approval_id": "85d23150-6618-42c0-b66a-3a49ade50c3d"
+    },
+    {
+      "label": "accepted but uncertain judgment",
+      "draft_id": "e5ee44e6-f5f7-420d-8718-6ce3c51b27e4",
+      "approval_id": "d834efd5-2042-463d-98ed-0255c42607f2"
+    },
+    {
+      "label": "known evaluation failure and explicit recovery",
+      "draft_id": "8146e9f6-fcba-4f2c-a477-3c9614c71d20",
+      "approval_id": "762cf6bf-9d56-469e-b3ef-5fd90d752acb"
+    },
+    {
+      "label": "uncertain provider outcome preserves answer",
+      "draft_id": "13f1ef40-9735-4bb7-b07f-d9dc0f127af1",
+      "approval_id": "5be4b1e4-1095-4054-bee2-78e39b00e499"
+    },
+    {
+      "label": "HTTP submission with unavailable evaluator configuration",
+      "draft_id": "c4455031-3f26-44b0-b910-a023f148d7b0",
+      "approval_id": "d7693138-23b1-4679-ba1a-7e54a6fb57c8"
+    }
+  ],
+  "scripted_provider_calls": 9,
+  "followup_scripted_provider_calls": 5,
+  "evaluator_regression_scripted_provider_calls": 4,
+  "new_model_calls": 0,
+  "original_session_ids": [
+    "0a2ff5af-2860-4803-9f13-088804a6eeb6",
+    "0ef74cea-99dc-4b72-89db-fdf33060bdc4",
+    "129120b0-f584-41f0-8e58-c3e190941799",
+    "1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9",
+    "2059e442-c03f-48d4-9e0f-fd435cbfb465",
+    "25624f02-90ca-4015-839d-6643a741e2b0",
+    "2be2efa1-031f-4e3b-8ef2-a992afecb614",
+    "2e2c7e01-eae4-4c64-8c89-b71f72775f4a",
+    "30c2ee19-6b0c-4f78-8237-cb823dce1bcd",
+    "38e1460f-d141-4433-87b1-75cedda710d7",
+    "3aef592e-f157-4bb6-975a-4f15859901e0",
+    "3bc58bb5-0c79-4507-82c8-ee854302f155",
+    "40000000-0000-4000-8000-000000000001",
+    "40000000-0000-4000-8000-000000000002",
+    "433f787a-9a5d-4bb6-bb73-db036b97f00d",
+    "46303c8e-3ea9-4226-b683-8897c9fbef70",
+    "51ce329d-3d56-40ef-b609-5db33672c778",
+    "5ab6e6d9-4508-456a-adc8-d8a38cf4869e",
+    "60587236-2f1c-4601-8890-6c5ead54a1a4",
+    "60c118ec-b50c-44ec-8fd7-d27e9d1a1853",
+    "68917b56-f43c-428d-ad1d-2b80c458d8da",
+    "691df5ed-72c7-439e-8b8b-ba9479c105b2",
+    "6a177104-be98-44fa-8ab2-773e69aa9c71",
+    "71e100da-5bf1-4251-b205-0c72735bdd73",
+    "77f64c36-50da-4534-9506-bf2f9a431407",
+    "7d6aeb0d-23ac-4f94-8091-32dd1a023f51",
+    "7f412178-abd6-45ed-b80d-44c88e8b6aac",
+    "848df0c7-c28d-48a8-8613-7431cdf81b44",
+    "877850bf-11a3-40e9-8dfd-0c1a9fef84d9",
+    "8e761712-7936-4eb7-8216-373744e73ddc",
+    "92ba670b-b686-4aba-86e8-4cc8ebbf81c1",
+    "979f47a4-d1c0-47c8-9e50-a294eec4490a",
+    "9901ffb2-8d76-4028-8b73-0891f46d6953",
+    "9a0073f1-6095-4bbc-b584-bfde11411fdb",
+    "9e1c0bc6-ad0d-4af3-bd54-1d55754cdd8d",
+    "abfe4c2e-e45f-433c-bf9c-fc0f289129a4",
+    "ae71b8e0-54cb-416e-8f03-bac46347ae6e",
+    "b15ce6e5-45ed-408b-8787-1e3e5bf1e12c",
+    "bc2fa7db-2e05-4be3-a0d1-afef99d64359",
+    "bfbc4cf6-8bec-4c94-bbf2-f7a56a8b85d1",
+    "c2368338-ee2b-424d-8c32-d3e6a172cb03",
+    "c72b5c9d-ec51-4b25-891b-1c9041794977",
+    "c748cc04-91ba-4f7c-b04b-9c3c0f19c379",
+    "cd0b1a36-b5b3-4c6a-bfb8-1a9de48296e9",
+    "ce94d451-cca7-4433-b512-1004fa555284",
+    "d23b0efe-6274-4bfc-87e2-62a88f9a5640",
+    "df176a6c-85e0-4334-8dde-49fc4dd8a07f",
+    "e21c0dc0-f215-414a-98b4-d1ff1c9ac7a3",
+    "e96d1f8d-96ee-42dd-86d9-d7504730787e",
+    "ea4a0e92-924b-4381-8623-cb3afa9fa37e",
+    "f7187c8e-cbac-47b8-8801-f7d1e0f9dfbe",
+    "fce00993-a4a2-4244-8194-c7d381a75471"
+  ],
+  "original_rows_sha256": "722fee217a932a09f05a1d83b0d2bf1515dd80533cedc8cecd7b762645aec402",
+  "persisted_fingerprints": {
+    "85d23150-6618-42c0-b66a-3a49ade50c3d": "a02281bf29cc108cd7c36b5bc19d737c87b6f9f58e4259662325a457727b1e54",
+    "d834efd5-2042-463d-98ed-0255c42607f2": "02f2c381bfdaaed96919948abc5b516ff32981e792771a63b30c92e5679e707f",
+    "762cf6bf-9d56-469e-b3ef-5fd90d752acb": "c8a926973817aa276814b212c5a194e3294945aff6b595ccb83d90a0b30452bc",
+    "5be4b1e4-1095-4054-bee2-78e39b00e499": "bba6f04e7787a3440e70e88e470b5508a56ba3f6155ed6a46375fb2cbc646c67",
+    "d7693138-23b1-4679-ba1a-7e54a6fb57c8": "ea5de72d5862f85f1b6fffe000bfc9da79af2d653715dc99d6d0970bee9c88bb"
+  },
+  "checks": [
+    "Reads do not start an exercise; anonymous, nonrecipient, unrelated teacher, student-to-teacher, forged profile and cross-origin requests are denied before any provider dispatch.",
+    "Dedicated follow-ups cannot enter the ordinary tutor controller, history or dashboard selection; evaluator timeout, connection and provider-error persistence/replay regressions passed through real PostgreSQL with four injected calls.",
+    "Concurrent starts and exact submissions create one session, immutable approved question, answer and provider call. Student A has accepted assisted evidence; student B remains missing, not failed; exact replay and refresh preserve the original response; conflicting answers and accepted-result retries are rejected.",
+    "Teacher comparison preserves original evidence and source identity, counts distinct recipients with established metrics, and marks assisted correct work without independent-learning or retention claims. Private question rubrics stay server-side.",
+    "Accepted uncertainty is distinct from failure; an unknown timeout stays pending and cannot be retried or spent twice; authenticated HTTP with unavailable evaluator configuration saves the response and reports failure without losing work.",
+    "A known failed evaluation rejects early retry; after the real cooldown, explicit recovery evaluates the same saved answer once and retains the failed evaluation history.",
+    "PostgreSQL protects follow-up links and completed dispatch history; all pre-existing original sessions, answers, accepted evaluations, tutoring assistance, the saved #44 draft and generator-request count remain byte-equivalent.",
+    "Migration017 rejects terminal dispatches with null completion time and completed dispatches without an accepted saved evaluation; negative SQL checks roll back."
+  ]
+}
