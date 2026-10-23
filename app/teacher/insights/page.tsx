@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { Icon } from "../../components/icons.tsx";
 
-import { loadApprovedContent } from "../../../lib/evidence/content.ts";
-
 import { calculatePatterns } from "../../../lib/teacher/patterns.ts";
 import { Patterns } from "../patterns.tsx";
 import { loadTeacherView } from "../data.ts";
@@ -37,7 +35,7 @@ export default async function TeacherInsightsPage({
         </p>
       </TeacherFrame>
     );
-  const content = loadApprovedContent();
+  const { content } = data;
   const { metrics } = data;
   const href = (concept?: string) =>
     `/teacher/insights?${new URLSearchParams({ assignment: data.assignment_id, origin, ...(concept ? { concept } : {}) })}`;

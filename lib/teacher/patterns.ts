@@ -12,19 +12,26 @@ export type PatternObservation = {
   attempt_id: string;
   evaluation_id: string;
   concept_id: string;
-  misconception_id: string;
-  status: Status;
-  basis:
-    "applied_hypothesis" | "tentative_candidate" | "uncategorized_response";
   at: string;
   reason: string;
   quotes: EvidenceQuote[];
   supporting_evaluation_ids: string[];
   contradicting_evaluation_ids: string[];
-};
+} & (
+  | {
+      misconception_id: string;
+      status: Status;
+      basis: "applied_hypothesis" | "tentative_candidate";
+    }
+  | {
+      misconception_id: null;
+      status: "uncertain";
+      basis: "uncategorized_response";
+    }
+);
 export type PatternGroup = {
   concept_id: string;
-  misconception_id: string;
+  misconception_id: string | null;
   counts: Record<Status, number>;
   students: {
     student_id: string;
@@ -137,7 +144,7 @@ export function calculatePatterns(
             ? {
                 ...common,
                 concept_id: judgment.concept_id,
-                misconception_id: "other_or_uncertain",
+                misconception_id: null,
                 status: "uncertain",
                 basis: "uncategorized_response",
                 at: evaluation.evaluated_at,
@@ -162,7 +169,12 @@ export function calculatePatterns(
       a.evaluation_id.localeCompare(b.evaluation_id),
   );
   for (const observation of observations) {
-    if (!approvedIds.has(observation.misconception_id))
+    // Unclassified uncertainty is derived from an accepted judgment, not an
+    // authored category. Named candidates and hypotheses still require approval.
+    if (
+      observation.basis !== "uncategorized_response" &&
+      !approvedIds.has(observation.misconception_id)
+    )
       throw new Error("Unapproved misconception category");
     const key = JSON.stringify([
       observation.concept_id,
@@ -198,6 +210,6 @@ export function calculatePatterns(
   return [...groups.values()].sort(
     (a, b) =>
       a.concept_id.localeCompare(b.concept_id) ||
-      a.misconception_id.localeCompare(b.misconception_id),
+      (a.misconception_id ?? "").localeCompare(b.misconception_id ?? ""),
   );
 }

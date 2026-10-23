@@ -4,12 +4,26 @@ import { join } from "node:path";
 import {
   loadApprovedContent,
   validateContentRef,
+  type ApprovedContent,
 } from "../evidence/content.ts";
 
-/** Display the existing prepared text, including its separately labeled editorial notes. */
-export function assignedReading(reference: unknown) {
-  const content = loadApprovedContent();
+/** Project only public reading text; preserve curated editorial notes separately. */
+export function assignedReading(
+  reference: unknown,
+  content: ApprovedContent = loadApprovedContent(),
+) {
   validateContentRef(content, reference);
+  if (!("source_commit" in content.content_ref)) {
+    return {
+      content_ref: content.content_ref,
+      attribution: content.attribution,
+      sections: [...content.passages.values()].map((passage) => ({
+        id: passage.id,
+        title: passage.section ?? passage.id,
+        text: passage.text,
+      })),
+    };
+  }
   const text = readFileSync(
     join(process.cwd(), "content/network-performance-v1/reading.md"),
     "utf8",

@@ -163,18 +163,25 @@ export function EvidenceReview({
           <br />
           Source: {evidence.content_ref.source_id}
           <br />
-          Source revision: {evidence.content_ref.source_commit}
+          Source revision:{" "}
+          {"source_commit" in evidence.content_ref
+            ? evidence.content_ref.source_commit
+            : evidence.content_ref.source_version}
         </p>
         {evidence.sources.map((source) => (
           <div className="lp-intervention-source" key={source.passage_id}>
-            <a
-              className="lp-text-link"
-              href={source.url}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {source.passage_id}
-            </a>
+            {source.url ? (
+              <a
+                className="lp-text-link"
+                href={source.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {source.passage_id}
+              </a>
+            ) : (
+              <span>{source.passage_id}</span>
+            )}
             <blockquote>{source.text}</blockquote>
           </div>
         ))}
@@ -271,16 +278,19 @@ export function ActivityReview({
           );
           return (
             <div className="lp-intervention-source" key={index}>
-              {source && (
-                <a
-                  className="lp-text-link"
-                  href={source.url}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {reference.passage_id}
-                </a>
-              )}
+              {source &&
+                (source.url ? (
+                  <a
+                    className="lp-text-link"
+                    href={source.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {reference.passage_id}
+                  </a>
+                ) : (
+                  <span>{reference.passage_id}</span>
+                ))}
               <blockquote>{reference.quote}</blockquote>
             </div>
           );

@@ -5,14 +5,21 @@ import type { PoolClient } from "pg";
 import { z } from "zod";
 import { assignmentReview } from "../assignments/store.ts";
 import { evidenceRow } from "../db.ts";
-import { loadApprovedContent } from "../evidence/content.ts";
+import { validateContentRef } from "../evidence/content.ts";
+import {
+  readAssignmentContent,
+  resolveAssignmentContent,
+} from "../lessons/store.ts";
 import {
   EvidenceError,
   transaction,
   type EvidenceAccess,
 } from "../evidence/store.ts";
 import { readAssignmentEvidence } from "../teacher/store.ts";
-import { buildInterventionEvidence } from "./evidence.ts";
+import {
+  buildInterventionEvidence,
+  interventionRevisionEvidence,
+} from "./evidence.ts";
 import {
   interventionPrompt,
   validateInterventionActivity,
@@ -20,7 +27,7 @@ import {
 import { requestIntervention } from "./provider.ts";
 import {
   INTERVENTION_PROMPT_VERSION,
-  InterventionEvidenceSchema,
+  type InterventionEvidence,
 } from "./contracts.ts";
 import {
   InterventionDraftSchema,
@@ -58,6 +65,35 @@ async function authorize(
     [assignmentId, access.actor.profileId],
   );
   if (!owned.rows.length) throw new EvidenceError(404, "Assignment not found.");
+}
+
+/** The same immutable assignment source must still be authorized at dispatch and save. */
+async function requireCurrentSource(
+  client: PoolClient,
+  access: EvidenceAccess,
+  evidence: InterventionEvidence,
+) {
+  const content = await resolveAssignmentContent(
+    client,
+    access,
+    evidence.selection.assignment_id,
+    "teacher",
+  );
+  try {
+    validateContentRef(content, evidence.content_ref);
+    if (
+      evidence.sources.some(
+        (source) =>
+          content.passages.get(source.passage_id)?.text !== source.text,
+      )
+    )
+      throw new Error("Source passages changed");
+  } catch {
+    throw new EvidenceError(
+      409,
+      "The draft no longer matches its assigned lesson and source version.",
+    );
+  }
 }
 
 function response(
@@ -265,8 +301,12 @@ export async function generateInterventionDraft(
   provider: typeof requestIntervention = requestIntervention,
 ): Promise<InterventionGenerationResponse> {
   const input = InterventionGenerationRequestSchema.parse(raw);
-  // Reuse the established approved curated assignment review; #53 owns expansion.
   await assignmentReview(access, input.selection.assignment_id);
+  const content = await readAssignmentContent(
+    access,
+    input.selection.assignment_id,
+    "teacher",
+  );
   const reserved = await reserve(access, input);
   if (reserved.replay) return reserved.replay;
   const previous = reserved.draft;
@@ -277,18 +317,23 @@ export async function generateInterventionDraft(
         ? null
         : InterventionDraftSchema.parse(previous.snapshot);
     const bundle = previousDraft
-      ? InterventionEvidenceSchema.parse(previousDraft.evidence)
+      ? interventionRevisionEvidence(
+          content,
+          previousDraft.evidence,
+          previousDraft.provenance.prompt_template_version,
+        )
       : buildInterventionEvidence(
           await readAssignmentEvidence(
             access,
             input.selection.assignment_id,
             input.selection.origin,
           ),
-          loadApprovedContent(),
+          content,
           input.selection,
         );
     await transaction(async (client) => {
       await authorize(client, access, input.selection.assignment_id);
+      await requireCurrentSource(client, access, bundle);
       const saved = await client.query(
         `UPDATE teacher_intervention_requests SET evidence=$3 WHERE teacher_id=$1 AND request_id=$2 AND status='pending' RETURNING request_id`,
         [access.actor.profileId, input.request_id, bundle],
@@ -333,6 +378,7 @@ export async function generateInterventionDraft(
     });
     return await transaction(async (client) => {
       await authorize(client, access, input.selection.assignment_id);
+      await requireCurrentSource(client, access, bundle);
       const operation = await client.query(
         "SELECT status FROM teacher_intervention_requests WHERE teacher_id=$1 AND request_id=$2 FOR UPDATE",
         [access.actor.profileId, input.request_id],

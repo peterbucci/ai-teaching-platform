@@ -229,3 +229,30 @@ export function buildInterventionEvidence(
   });
   return result;
 }
+
+/** Historical v1/v2 snapshots trimmed passages. Restore only verified whitespace
+ * in a new generation bundle; never rewrite the prior draft/request snapshot. */
+export function interventionRevisionEvidence(
+  content: ApprovedContent,
+  input: InterventionEvidence,
+  promptVersion: string,
+): InterventionEvidence {
+  const evidence = InterventionEvidenceSchema.parse(input);
+  validateContentRef(content, evidence.content_ref);
+  const legacy =
+    promptVersion === "teacher-intervention-v1" ||
+    promptVersion === "teacher-intervention-v2";
+  for (const source of evidence.sources) {
+    const canonical = content.passages.get(source.passage_id);
+    if (
+      !canonical ||
+      (source.text !== canonical.text &&
+        !(legacy && source.text === canonical.text.trim()))
+    )
+      throw new Error(
+        "Saved source excerpt does not match its assigned passage.",
+      );
+    source.text = canonical.text;
+  }
+  return evidence;
+}
