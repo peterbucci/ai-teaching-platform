@@ -46,6 +46,8 @@ A second agent independently inspected the source passages, public prompts and p
 
 The final implementation passed 107 repository tests, including 5 provider and 24 service tests, TypeScript, lint, formatting, 293 content checks and a production build. The final optional `selected_source` handoff for #85 is covered by deterministic tests and generation prompt v3; the live runs recorded above exercised v1/v2 and did not exercise that optional narrowed selection.
 
+The final build initially exited after compilation/type checking on the existing Next.js 16.4.0 security advisory. Repeating the unchanged build passed with the advisory still present. No dependency versions were changed; the warning needs a separate dependency update.
+
 No browser/database integration was executed here. Authentication, durable reservations, intent resolution, commit-time revision checks, display acknowledgement, saved teacher evidence and generated-question controller/evaluator handoff remain #75/#85/#73 integration gates. #53/#52 own exact uploaded lesson resolution/publication; this branch did not run uploaded-lesson acceptance. The current curated controller cannot yet treat a generated UUID snapshot as a complete supported activity transition.
 
 The checker supplies explicit synthetic controller permission; it does not enable production runtime generation or override #53's lesson policy. The results show successful bounded provider behavior on a small sample, with a retained failure. They do not prove a full observe–act–observe cycle, guaranteed semantic correctness, learning improvement or production reliability. Issue #74 and Epic #71 must remain open pending their integrated acceptance.
