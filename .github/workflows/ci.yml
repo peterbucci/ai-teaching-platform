@@ -53,23 +53,33 @@ jobs:
       - name: Check SQL constraints
         run: docker compose exec -T db psql -U learning_app -d learning_platform -v ON_ERROR_STOP=1 < database/tests/evidence.sql
       - name: Check teacher review and activation boundaries
-        run: docker compose exec -T app npm run assignments:check
+        run: node scripts/check-isolated.mjs app npm run assignments:check
       - name: Check reading citations and displayed assistance
-        run: docker compose exec -T app npm run reading:check
+        run: node scripts/check-isolated.mjs app npm run reading:check
       - name: Check repeatable fictional class and authorized reconstruction
-        run: docker compose exec -T app npm run class:check
+        run: node scripts/check-isolated.mjs app npm run class:check
       - name: Check deterministic tutoring and private evidence
-        run: docker compose exec -T app npm run tutor:check
+        run: node scripts/check-isolated.mjs app npm run tutor:check
+      - name: Check durable dialogue and authenticated recovery with synthetic providers
+        run: node scripts/check-isolated.mjs -e DIALOGUE_CHECK_SYNTHETIC=1 -e DIALOGUE_CHECK_URL=http://localhost:3000 app npm run dialogue:check
+      - name: Recover only successful saved dialogue outcomes without provider calls
+        run: node scripts/check-isolated.mjs -e DIALOGUE_CHECK_SYNTHETIC=1 -e DIALOGUE_CHECK_URL=http://localhost:3000 app npm run dialogue:recovery:check
+      - name: Check generated controller handoffs with synthetic providers
+        run: node scripts/check-isolated.mjs -e DIALOGUE_CHECK_SYNTHETIC=1 app npm run r7:controller:check
       - name: Check authorized metrics and evidence refetch
-        run: docker compose exec -T app npm run metrics:check
+        run: node scripts/check-isolated.mjs app npm run metrics:check
       - name: Check persisted misconception and contradiction counts
-        run: docker compose exec -T app npm run patterns:check
+        run: node scripts/check-isolated.mjs app npm run patterns:check
       - name: Check lesson versions, ownership and historical evidence
-        run: docker compose exec -T app npm run lessons:check
+        run: node scripts/check-isolated.mjs app npm run lessons:check
+      - name: Check question-bank review, selective regeneration and durable requests
+        run: node scripts/check-isolated.mjs app npm run questions:check
       - name: Check objective review, source grounding and proposal recovery
-        run: docker compose exec -T app npm run objectives:check
+        run: node scripts/check-isolated.mjs app npm run objectives:check
+      - name: Check login limits and forwarding-header resistance
+        run: node scripts/check-isolated.mjs app npm run auth:rate-limit:check
       - name: Check HTTP authentication and evidence persistence
-        run: docker compose exec -T app npm run db:check -- --prepare-restart
+        run: node scripts/check-isolated.mjs app npm run db:check -- --prepare-restart
       - name: Restart without resetting data
         run: |
           docker compose restart db app
@@ -77,10 +87,19 @@ jobs:
           docker compose exec -T app npm run db:seed
           docker compose exec -T app npm run db:check -- --verify-restart
       - name: Check uploaded-lesson uncertainty and authorized teacher pages
-        run: docker compose exec -T app npm run lessons:uncertainty:check
-      # Keep extra demo sign-ins outside the pre-restart checks' rate window.
+        run: node scripts/check-isolated.mjs app npm run lessons:uncertainty:check
+      - name: Check lesson publishing and isolated class evidence
+        run: node scripts/check-isolated.mjs app npm run publishing:check
       - name: Check private material extraction, review and version storage
-        run: docker compose exec -T app npm run materials:check
+        run: node scripts/check-isolated.mjs app npm run materials:check
+      - name: Check publishing HTTP and new-version authorization
+        run: node scripts/check-isolated.mjs app npm run publishing:http:check
+      - name: Check intervention generation and immutable evidence with synthetic providers
+        run: node scripts/check-isolated.mjs -e CHECK_INTERVENTION_REPORT=/tmp/intervention-fixture.json app npm run interventions:check
+      - name: Check uploaded intervention source/version authorization
+        run: node scripts/check-isolated.mjs app npm run interventions:lessons:check
+      - name: Check authenticated private intervention review and invalid generation requests
+        run: node scripts/check-isolated.mjs -e CHECK_INTERVENTION_REPORT=/tmp/intervention-fixture.json app npm run interventions:http
       - name: Show service status on failure
         if: failure()
         run: docker compose ps --all

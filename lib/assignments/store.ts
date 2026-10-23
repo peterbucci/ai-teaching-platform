@@ -17,6 +17,7 @@ const AssignmentSchema = z.object({
   id: z.uuid(),
   class_id: z.uuid(),
   title: z.string(),
+  instructions: z.string(),
   class_name: z.string(),
   content_ref: ContentRefSchema,
   approved_concept_ids: z.array(z.string()),

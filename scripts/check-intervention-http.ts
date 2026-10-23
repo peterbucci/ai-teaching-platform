@@ -213,7 +213,10 @@ try {
     checks,
   };
   await writeFile(
-    resolve("evals/results/intervention-http.json"),
+    resolve(
+      process.env.CHECK_INTERVENTION_HTTP_REPORT ??
+        "evals/results/intervention-http.json",
+    ),
     `${JSON.stringify(report, null, 2)}\n`,
   );
   console.log(JSON.stringify(report));
