@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Icon } from "../components/icons.tsx";
-import { loadApprovedContent } from "../../lib/evidence/content.ts";
 import { calculatePatterns } from "../../lib/teacher/patterns.ts";
 import {
   loadTeacherView,
@@ -34,7 +33,7 @@ export default async function TeacherPage({
         </section>
       </TeacherFrame>
     );
-  const content = loadApprovedContent();
+  const { content } = data;
   const { metrics } = data;
   const insights = teacherViewHref(
     "/teacher/insights",

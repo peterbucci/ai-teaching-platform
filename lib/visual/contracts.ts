@@ -1,5 +1,8 @@
 import { z } from "zod";
-import { ContentRefSchema } from "../evidence/contracts.ts";
+import {
+  ContentRefSchema,
+  QuestionSnapshotSchema,
+} from "../evidence/contracts.ts";
 
 export const VISUAL_VERSION = "visual-v1";
 export const VISUAL_LIMITS = {
@@ -31,13 +34,10 @@ const identifier = z
     /^[a-z][a-z0-9-]{0,39}$/,
     "Use lowercase letters, numbers, and dashes",
   );
-// Concept IDs match the approved content package, which uses underscores.
-const conceptIdentifier = z
-  .string()
-  .regex(
-    /^[a-z][a-z0-9_-]{0,79}$/,
-    "Use lowercase letters, numbers, underscores, and dashes",
-  );
+// Reuse content identities, including uploaded lessons' stable UUID concepts.
+// Syntax does not authorize a concept: runtime callers must check membership
+// in the exact lesson/source version resolved for the actor.
+const conceptIdentifier = QuestionSnapshotSchema.shape.concept_ids.element;
 
 const unique = (values: string[]) => new Set(values).size === values.length;
 

@@ -1,0 +1,267 @@
+.qb-editor {
+  display: grid;
+  gap: 20px;
+  padding-bottom: 30px;
+}
+.qb-editor h2 {
+  font-size: 20px;
+  font-weight: 750;
+  margin-bottom: 10px;
+}
+.qb-editor h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.qb-editor p {
+  line-height: 1.7;
+}
+.qb-toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 18px 22px;
+  position: sticky;
+  top: 8px;
+  z-index: 2;
+  box-shadow: 0 3px 15px #2443340d;
+}
+.qb-toolbar > div {
+  margin-right: auto;
+}
+.qb-toolbar .qb-help {
+  display: block;
+  margin-top: 4px;
+}
+.qb-help {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+.qb-section {
+  padding: 24px;
+}
+.qb-section > summary {
+  cursor: pointer;
+}
+.qb-section > summary .qb-help {
+  display: block;
+  margin-top: 5px;
+}
+.qb-fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.qb-fieldset:disabled {
+  opacity: 0.7;
+}
+.qb-field {
+  margin: 20px 0;
+}
+.qb-editor textarea.lp-input {
+  resize: vertical;
+  min-height: 72px;
+  width: 100%;
+  line-height: 1.6;
+}
+.qb-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.qb-grid .lp-input {
+  width: 100%;
+}
+.qb-choices {
+  border: 0;
+  padding: 0;
+  margin: 22px 0;
+}
+.qb-choices legend {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.qb-choices label {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.qb-choices input,
+.qb-select input {
+  margin-top: 3px;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  accent-color: var(--green);
+}
+.qb-inline label {
+  display: inline-flex;
+  margin-right: 20px;
+}
+.qb-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.qb-notice {
+  padding: 18px 22px;
+  border: 1px solid #c9ded0;
+  border-radius: 12px;
+  background: #f1f9f3;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.qb-notice h2 {
+  font-size: 16px;
+}
+.qb-notice .qb-actions {
+  margin-top: 14px;
+}
+.qb-notice a {
+  text-decoration: underline;
+}
+.qb-notice ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin-top: 10px;
+}
+.qb-error {
+  background: #fff7ed;
+  border-color: #efd2ac;
+  color: #653d20;
+}
+.qb-question-list {
+  display: grid;
+  gap: 20px;
+}
+.qb-question {
+  padding: 24px;
+  scroll-margin-top: 115px;
+}
+.qb-question-heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.qb-select {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-right: auto;
+  font-size: 12px;
+}
+.qb-question-summary {
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1.7;
+  font-weight: 650;
+  margin-top: 18px;
+  white-space: pre-wrap;
+}
+.qb-question-fields {
+  border-top: 1px solid var(--line);
+  margin-top: 18px;
+}
+.qb-private {
+  background: #f7f8fc;
+  border: 1px solid #e1e4ee;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 25px 0;
+}
+.qb-source {
+  margin: 25px 0;
+}
+.qb-source-support {
+  padding: 18px;
+  border: 1px solid var(--line);
+  background: #fafcfb;
+  border-radius: 10px;
+  display: grid;
+  gap: 13px;
+  margin: 16px 0;
+}
+.qb-source-support .qb-field {
+  margin: 0;
+}
+.qb-source-support .lp-input {
+  width: 100%;
+}
+.qb-source-support > button {
+  justify-self: start;
+}
+.qb-small {
+  font-size: 12px;
+  min-height: 34px;
+  padding: 8px 12px;
+}
+.qb-question-actions {
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  margin-top: 20px;
+}
+.qb-preview-question {
+  padding: 24px 0;
+  border-top: 1px solid var(--line);
+  margin-top: 20px;
+}
+.qb-preview-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin-top: 14px;
+}
+.qb-operation {
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+  margin-top: 14px;
+  display: grid;
+  gap: 5px;
+}
+.qb-operation button {
+  justify-self: start;
+  margin-top: 8px;
+}
+.qb-policy dt {
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 16px;
+}
+.qb-policy dd {
+  font-size: 13px;
+  line-height: 1.7;
+  margin-top: 5px;
+  color: var(--muted);
+}
+@media (max-width: 650px) {
+  .qb-grid {
+    grid-template-columns: 1fr;
+  }
+  .qb-section,
+  .qb-question {
+    padding: 18px;
+  }
+  .qb-private {
+    padding: 15px;
+  }
+  .qb-toolbar {
+    position: static;
+    padding: 16px;
+  }
+  .qb-toolbar > div {
+    flex-basis: 100%;
+  }
+  .qb-actions .lp-button {
+    flex: 1 1 180px;
+  }
+}

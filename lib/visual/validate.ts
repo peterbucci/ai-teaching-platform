@@ -20,7 +20,7 @@ export function validateVisualActivity(record: unknown): ValidationResult {
     typeof record === "object" && record !== null && "kind" in record
       ? record.kind
       : undefined;
-  if (typeof kind !== "string" || !(kind in ActivitySchemas)) {
+  if (typeof kind !== "string" || !Object.hasOwn(ActivitySchemas, kind)) {
     return {
       ok: false,
       errors: [

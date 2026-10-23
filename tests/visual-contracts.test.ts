@@ -17,9 +17,43 @@ import {
   validSequenceDiagram,
 } from "../lib/visual/examples.ts";
 import { toStudentActivityEvents } from "../lib/visual/rules.ts";
+import { validateVisualActivity } from "../lib/visual/validate.ts";
 
 test("accepts a valid concept graph", () => {
   assert.equal(ConceptGraphSchema.safeParse(validConceptGraph).success, true);
+});
+
+test("visuals preserve canonical concept IDs from uploaded lessons", () => {
+  const conceptId = "50000000-0000-4000-8000-000000000001";
+  for (const activity of [
+    validConceptGraph,
+    validSequenceDiagram,
+    validPacketExperiment,
+  ]) {
+    assert.equal(
+      validateVisualActivity({ ...activity, concept_ids: [conceptId] }).ok,
+      true,
+    );
+    assert.equal(
+      validateVisualActivity({
+        ...activity,
+        concept_ids: [conceptId, conceptId],
+      }).ok,
+      false,
+    );
+    assert.equal(
+      validateVisualActivity({ ...activity, concept_ids: [" "] }).ok,
+      false,
+    );
+  }
+});
+
+test("unknown and inherited activity kinds return validation errors", () => {
+  for (const kind of ["constructor", "toString", "__proto__", "unknown"]) {
+    const result = validateVisualActivity({ ...validConceptGraph, kind });
+    assert.equal(result.ok, false);
+    assert.ok(!result.ok && result.errors[0].startsWith("kind:"));
+  }
 });
 
 test("rejects an edge that points to an unknown node", () => {
