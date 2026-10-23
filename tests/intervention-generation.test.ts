@@ -480,6 +480,12 @@ test("uploaded UUID concepts never receive instructions to substitute curated ne
       "Copy the supplied IDs exactly, including UUIDs",
     ),
   );
+  assert.ok(!prompt.instructions.includes("Never emit database identities."));
+  assert.ok(
+    prompt.instructions.includes(
+      "Never emit student, session, attempt, or evaluation database identities.",
+    ),
+  );
   assert.ok(!prompt.instructions.includes("transmission_delay"));
   assert.ok(!prompt.instructions.includes("propagation_delay"));
   const projected = InterventionEvidenceSchema.pick({

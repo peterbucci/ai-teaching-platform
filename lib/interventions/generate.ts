@@ -109,7 +109,7 @@ export function interventionPrompt(
         : []),
       "For each question, answer_guidance must be ONE exact contiguous excerpt (at least thirty characters) from a cited source. Each criterion must also be an exact contiguous excerpt (at least fifteen characters) from a cited source. Questions must be answerable using that excerpt; no invented answer criteria or numeric results.",
       "Evidence references use the supplied evidence_id, exact contiguous original_response quotation, and unchanged role. Include supporting and contradictory evidence whenever each exists. References are the basis of the server-composed factual recommendation reason; do not invent findings or counts.",
-      "Possible recipients are suggestions only: use supplied pseudonyms and their own evidence_ids, including at least one supporting or context observation. Correct-only responses do not justify targeting someone. Empty suggested_recipients is permitted. Never emit database identities.",
+      "Possible recipients are suggestions only: use supplied pseudonyms and their own evidence_ids, including at least one supporting or context observation. Correct-only responses do not justify targeting someone. Empty suggested_recipients is permitted. Never emit student, session, attempt, or evaluation database identities.",
       "Return only the structured schema. Teacher review is required; generated prompts have not been educationally validated.",
     ].join("\n"),
     input,
