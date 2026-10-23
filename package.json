@@ -19,6 +19,8 @@
     "reading:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-reading.ts",
     "metrics:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-metrics.ts",
     "patterns:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-patterns.ts",
+    "interventions:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-interventions.ts",
+    "interventions:http": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-intervention-http.ts",
     "class:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-class-fixture.ts",
     "db:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-persistence.ts",
     "eval:live": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-evaluation.ts",

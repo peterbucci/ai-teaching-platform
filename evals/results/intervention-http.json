@@ -1,0 +1,16 @@
+{
+  "issue": 44,
+  "verification": "authenticated HTTP and server-rendered saved review page; not a visual browser interaction test",
+  "checked_at": "2026-10-23T02:36:11.329Z",
+  "origin": "http://localhost:3044",
+  "draft_id": "baaa38f1-8ebd-46b1-ab5b-003a99106e7e",
+  "saved_revision": 1,
+  "status": "passed",
+  "paid_requests": 0,
+  "checks": [
+    "anonymous access returns 401; fictional student cannot read teacher draft or generation request (404)",
+    "authenticated teacher retrieves saved private draft and immutable completed request via no-store API",
+    "saved teacher review page renders activity, evidence, source and private guidance; student page denies private evidence",
+    "cross-origin POST returns 403; oversized and malformed generation requests return 400 before any reservation or model call; original evidence preserved"
+  ]
+}
