@@ -7,7 +7,11 @@ import {
   transaction,
   type EvidenceAccess,
 } from "../evidence/store.ts";
-import { LessonContentSchema, type LessonContent } from "./contracts.ts";
+import {
+  LessonContentSchema,
+  projectLessonDraftContent,
+  type LessonContent,
+} from "./contracts.ts";
 import {
   LessonPublishingReviewSchema,
   TeacherLessonSummarySchema,
@@ -15,7 +19,10 @@ import {
   type PublishingValidationIssue,
   type TeacherLessonSummary,
 } from "./publishing-contracts.ts";
-import { validateOwnedContent } from "./store.ts";
+import {
+  validateLessonAuthoringReview,
+  validateOwnedContent,
+} from "./store.ts";
 
 /** Metadata only. Private lesson content is loaded after an owned lesson lookup. */
 export async function listTeacherLessons(
@@ -76,10 +83,18 @@ export async function lessonPublishingReview(
       [lesson.id, access.actor.profileId],
     );
     const issues: PublishingValidationIssue[] = [];
+    try {
+      validateLessonAuthoringReview(lesson.draft ?? {});
+    } catch (error) {
+      if (error instanceof EvidenceError)
+        issues.push({ path: "authoring_review", message: error.message });
+      else throw error;
+    }
+    const projected = projectLessonDraftContent(lesson.draft ?? {});
     // This approval-shaped value permits the same structural validation used by
     // approval. It is never saved and does not approve this draft.
     const candidate = LessonContentSchema.safeParse({
-      ...lesson.draft,
+      ...projected,
       approval: {
         status: "approved",
         approved_by: access.actor.profileId,
@@ -122,7 +137,7 @@ export async function lessonPublishingReview(
       if (
         published &&
         (lesson.approved_revision !== lesson.revision ||
-          !isDeepStrictEqual(published.content, lesson.draft))
+          !isDeepStrictEqual(published.content, projected))
       )
         issues.push({
           path: "content_ref.content_version",

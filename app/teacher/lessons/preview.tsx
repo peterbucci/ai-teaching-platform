@@ -61,6 +61,21 @@ export function LessonPreview({
               {concept.boundaries.map((boundary) => (
                 <p key={boundary}>{boundary}</p>
               ))}
+              {concept.common_misconceptions.length > 0 && (
+                <>
+                  <h3 className="font-semibold mt-3">
+                    Teacher-only reasoning patterns to investigate
+                  </h3>
+                  {concept.common_misconceptions.map((item) => (
+                    <div key={item.id} className="my-3">
+                      <p className="font-semibold">{item.id}</p>
+                      <p>{item.definition}</p>
+                      <p>Possible evidence: {item.evidence_that_may_support}</p>
+                      <p>Caution: {item.diagnostic_caution}</p>
+                    </div>
+                  ))}
+                </>
+              )}
             </details>
           ))
         ) : (
@@ -120,9 +135,22 @@ export function LessonPreview({
                     <h4 className="font-semibold mt-3">
                       Help already included in this question
                     </h4>
-                    <pre className="whitespace-pre-wrap text-sm">
-                      {JSON.stringify(question.embedded_scaffolding, null, 2)}
-                    </pre>
+                    {question.embedded_scaffolding.map((help, index) => (
+                      <div key={index} className="my-3">
+                        <p className="font-semibold">
+                          {help.type.replaceAll("_", " ")}
+                        </p>
+                        <p className="whitespace-pre-wrap">
+                          {help.supplied_content}
+                        </p>
+                        <p>Concepts: {help.concept_ids.join(", ")}</p>
+                        <p>
+                          Affected criteria:{" "}
+                          {help.affected_rubric_criteria.join(", ") ||
+                            "None specified"}
+                        </p>
+                      </div>
+                    ))}
                   </>
                 )}
                 <p className="my-3">

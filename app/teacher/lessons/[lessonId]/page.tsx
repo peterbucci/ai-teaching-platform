@@ -6,7 +6,11 @@ import {
 import { TeacherFrame } from "../../presentation.tsx";
 import { loadTeacherLesson } from "../load.ts";
 import { LessonPreview } from "../preview.tsx";
-import { CreateClassAssignment, ReviewActions } from "../controls.tsx";
+import {
+  AssembleLesson,
+  CreateClassAssignment,
+  ReviewActions,
+} from "../controls.tsx";
 
 export const dynamic = "force-dynamic";
 export default async function LessonReviewPage({
@@ -71,6 +75,21 @@ export default async function LessonReviewPage({
                   ))}
                 </ul>
               )}
+            </section>
+          )}
+          {!published && lesson.draft?.question_bank?.approval && (
+            <section className="lp-panel">
+              <AssembleLesson
+                lessonId={lessonId}
+                revision={lesson.revision}
+                families={[
+                  ...new Set(
+                    lesson.draft.question_bank.items.map(
+                      (item) => item.family_id,
+                    ),
+                  ),
+                ]}
+              />
             </section>
           )}
           <LessonPreview content={content} />

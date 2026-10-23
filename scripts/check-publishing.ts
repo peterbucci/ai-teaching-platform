@@ -22,6 +22,7 @@ import {
 import { studentReading } from "../lib/assignments/student-reading.ts";
 import {
   approveLessonDraft,
+  assembleReviewedLessonDraft,
   createLessonAssignment,
   publishLessonVersion,
   readAssignmentContent,
@@ -29,6 +30,12 @@ import {
   saveLessonDraft,
 } from "../lib/lessons/store.ts";
 import { createSourceVersion } from "../lib/lessons/sources.ts";
+import type { LessonDraftContent } from "../lib/lessons/contracts.ts";
+import {
+  DEFAULT_QUESTION_BANK_PREFERENCES,
+  QuestionBankMetadataSchema,
+} from "../lib/question-bank/contracts.ts";
+import { fingerprintQuestionBank } from "../lib/question-bank/validation.ts";
 import { studentReader } from "../lib/reading/student-reader.ts";
 import { studentDashboard } from "../lib/tutoring/dashboard.ts";
 import {
@@ -166,6 +173,126 @@ try {
     permitted_use: true as const,
   };
   const source = await createSourceVersion(teacher, sourceInput);
+
+  // Exercise the actual #51 reviewed-bank handoff. These source-backed examples
+  // are deliberate fixtures; no objective editor or question generator is faked.
+  let bankDraft = await saveLessonDraft(teacher, {
+    expected_revision: 0,
+    title: "Synthetic reviewed-bank assembly check",
+    draft: {},
+  });
+  const bank: LessonDraftContent = makeTeacherLesson(
+    source.source_ref,
+    bankDraft.id,
+    "1",
+  );
+  const roles = ["initial", "alternative", "diagnostic", "retest", "retest"];
+  bank.question_bank = QuestionBankMetadataSchema.parse({
+    preferences: DEFAULT_QUESTION_BANK_PREFERENCES,
+    items: bank.questions!.map((question, index) => ({
+      question_id: question.question_id,
+      family_id: "water-state",
+      role: roles[index],
+      format: "short_answer",
+      difficulty: "intermediate",
+      feedback_guidance:
+        "Evaporation changes liquid water to vapor; condensation changes vapor to liquid. Compare the starting and ending states.",
+      reasoning_error: null,
+      source_support: question.rubric.criteria.map(
+        (criterion, criterionIndex) => ({
+          passage_id: bank.passages![criterionIndex].id,
+          quote: bank.passages![criterionIndex].text.split(". ")[0] + ".",
+          criterion,
+        }),
+      ),
+      calculation: null,
+      review_status: "reviewed",
+      review_notes: "Reviewed synthetic example; no model call.",
+      quality_issues: [],
+    })),
+    approval: null,
+  });
+  delete bank.sequence;
+  delete bank.approval;
+  bankDraft = await saveLessonDraft(teacher, {
+    lesson_id: bankDraft.id,
+    expected_revision: bankDraft.revision,
+    title: bankDraft.title,
+    draft: bank,
+  });
+  await denied(
+    assembleReviewedLessonDraft(teacher, bankDraft.id, bankDraft.revision),
+    409,
+  );
+  bank.question_bank.approval = {
+    reviewed_by: teacher.actor.profileId,
+    reviewed_at: new Date().toISOString(),
+    content_fingerprint: fingerprintQuestionBank(bank),
+  };
+  bankDraft = await saveLessonDraft(teacher, {
+    lesson_id: bankDraft.id,
+    expected_revision: bankDraft.revision,
+    title: bankDraft.title,
+    draft: bank,
+  });
+  await denied(
+    assembleReviewedLessonDraft(otherTeacher, bankDraft.id, bankDraft.revision),
+    404,
+  );
+  const bankRevision = bankDraft.revision;
+  const assembled = await assembleReviewedLessonDraft(
+    teacher,
+    bankDraft.id,
+    bankRevision,
+    "water-state",
+  );
+  assert.equal(assembled.revision, bankRevision + 1);
+  assert.equal(
+    assembled.approved_revision,
+    null,
+    "Assembly does not approve the lesson",
+  );
+  assert.deepEqual(assembled.draft?.question_bank, bank.question_bank);
+  assert.ok(assembled.draft?.sequence);
+  await denied(
+    assembleReviewedLessonDraft(
+      teacher,
+      bankDraft.id,
+      bankRevision,
+      "water-state",
+    ),
+    409,
+  );
+  assert.equal(
+    (await readLessonDraft(teacher, bankDraft.id)).revision,
+    assembled.revision,
+  );
+  await denied(
+    publishLessonVersion(teacher, bankDraft.id, assembled.revision),
+    409,
+  );
+  await approveLessonDraft(teacher, bankDraft.id, assembled.revision);
+  const bankPublication = await publishLessonVersion(
+    teacher,
+    bankDraft.id,
+    assembled.revision,
+  );
+  assert.deepEqual(
+    await publishLessonVersion(teacher, bankDraft.id, assembled.revision),
+    bankPublication,
+  );
+  const publishedBank = await readPublishedLessonForReview(
+    teacher,
+    bankDraft.id,
+    "1",
+  );
+  assert.equal("question_bank" in publishedBank, false);
+  assert.equal("objective_workflow" in publishedBank, false);
+  assert.equal(publishedBank.sequence.initial_question_id, "WC-01");
+  assert.deepEqual(
+    (await readLessonDraft(teacher, bankDraft.id)).draft?.question_bank,
+    bank.question_bank,
+  );
   let draft = await saveLessonDraft(teacher, {
     expected_revision: 0,
     title: "Synthetic publishing water lesson",

@@ -137,7 +137,15 @@ async function requestLock<T>(
 }
 function parsePending(raw: string | null): Pending | null {
   if (raw === null) return null;
-  const result = PendingAssignment.safeParse(JSON.parse(raw));
+  let value: unknown;
+  try {
+    value = JSON.parse(raw);
+  } catch {
+    throw new Error(
+      "The saved request is unreadable. Review existing assignments before clearing it.",
+    );
+  }
+  const result = PendingAssignment.safeParse(value);
   if (!result.success)
     throw new Error(
       "The saved request is unreadable. Review existing assignments before clearing it.",
@@ -442,6 +450,75 @@ export function CreateClassAssignment({
             Clear reviewed request and edit details
           </button>
         </div>
+      )}
+    </form>
+  );
+}
+
+export function AssembleLesson({
+  lessonId,
+  revision,
+  families,
+}: {
+  lessonId: string;
+  revision: number;
+  families: string[];
+}) {
+  const router = useRouter();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  return (
+    <form
+      className="my-4"
+      onSubmit={async (event) => {
+        event.preventDefault();
+        if (busy) return;
+        const form = new FormData(event.currentTarget);
+        setBusy(true);
+        setError(null);
+        try {
+          await post(
+            "/api/teacher/lessons/" +
+              encodeURIComponent(lessonId) +
+              "/assembly",
+            {
+              expected_revision: revision,
+              family_id: String(form.get("family_id") ?? families[0]),
+            },
+          );
+          router.refresh();
+        } catch (err) {
+          setError(
+            err instanceof Error ? err.message : "Please reload and review.",
+          );
+        } finally {
+          setBusy(false);
+        }
+      }}
+    >
+      <h3 className="font-semibold">Prepare reviewed practice</h3>
+      <p>
+        Choose a reviewed question family for the text tutor. This creates a new
+        draft revision using its approved questions and feedback. Review the
+        resulting sequence before lesson approval.
+      </p>
+      <label className="lp-field my-3">
+        Question family
+        <select className="lp-input" name="family_id" disabled={busy}>
+          {families.map((id) => (
+            <option key={id} value={id}>
+              {id}
+            </option>
+          ))}
+        </select>
+      </label>
+      <button className="lp-button" disabled={busy || !families.length}>
+        {busy ? "Preparing…" : "Prepare tutoring sequence"}
+      </button>
+      {error && (
+        <p role="alert">
+          {error} Reload the lesson to review the current revision.
+        </p>
       )}
     </form>
   );

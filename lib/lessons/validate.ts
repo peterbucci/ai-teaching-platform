@@ -214,6 +214,14 @@ export function hydrateLessonContent(input: unknown): ApprovedContent {
       nodes.get(option.question_id)?.kind === "diagnostic_followup",
       "Diagnostic option is not an approved diagnostic",
     );
+    if (option.misconception_id !== null) {
+      const conceptId = misconceptions.get(option.misconception_id)?.concept_id;
+      requireRule(
+        !!conceptId &&
+          !!questions.get(option.question_id)?.concept_ids.includes(conceptId),
+        "A diagnostic must assess the concept of its mapped misconception",
+      );
+    }
   }
   // Only the existing bounded sequence is executable. Publication does not enable arbitrary graph code.
   const retests = sequence.nodes.filter((n) => n.kind === "immediate_retest");

@@ -20,10 +20,26 @@ import {
   LessonDraftContentSchema,
   projectLessonDraftContent,
   type LessonContent,
+  type LessonDraftContent,
 } from "./contracts.ts";
 import { AttributionSchema, SourcePassageSchema } from "./source-contracts.ts";
 import { hydrateLessonContent } from "./validate.ts";
 import { getReviewedQuestionBank } from "../question-bank/validation.ts";
+import { assembleReviewedLesson } from "./assemble.ts";
+
+/** Shared authoring gate for review, whole-lesson approval and publication. */
+export function validateLessonAuthoringReview(draft: LessonDraftContent) {
+  try {
+    if (draft.question_bank) getReviewedQuestionBank(draft);
+  } catch (error) {
+    throw new EvidenceError(
+      409,
+      error instanceof Error
+        ? error.message
+        : "Review the lesson's authoring requirements.",
+    );
+  }
+}
 
 const LessonRowSchema = z.object({
   id: z.string(),
@@ -255,6 +271,60 @@ export async function readLessonDraft(
     readLessonDraftInTransaction(client, access, lessonId),
   );
 }
+
+/** A confirmed authoring step, with the same ownership/revision gate as editors.
+ * It saves routing only; lesson approval and publication remain separate. */
+export async function assembleReviewedLessonDraft(
+  access: EvidenceAccess,
+  lessonId: string,
+  expectedRevision: number,
+  familyId?: string,
+) {
+  z.number().int().positive().parse(expectedRevision);
+  if (familyId !== undefined) z.string().min(1).max(160).parse(familyId);
+  return transaction(async (client) => {
+    const lesson = await readLessonDraftInTransaction(
+      client,
+      access,
+      lessonId,
+      expectedRevision,
+    );
+    if (!lesson.draft)
+      throw new EvidenceError(409, "The lesson draft is empty.");
+    validateLessonAuthoringReview(lesson.draft);
+    let assembled: LessonDraftContent;
+    try {
+      assembled = assembleReviewedLesson(lesson.draft, familyId);
+    } catch (error) {
+      throw new EvidenceError(
+        409,
+        error instanceof Error
+          ? error.message
+          : "Review this lesson before assembling practice.",
+      );
+    }
+    const content = LessonContentSchema.parse({
+      ...projectLessonDraftContent(assembled),
+      approval: {
+        status: "approved",
+        approved_by: access.actor.profileId,
+        approved_at: new Date().toISOString(),
+        approval_type: "validation_preview",
+        approval_note:
+          "Assembly validation only; teacher lesson approval is still required.",
+      },
+    });
+    if (content.content_ref.package_id !== lesson.id)
+      throw new EvidenceError(409, "Draft belongs to a different lesson.");
+    await validateOwnedContent(client, access.actor.profileId, content);
+    return saveLessonDraftInTransaction(client, access, {
+      lesson_id: lesson.id,
+      expected_revision: lesson.revision,
+      title: lesson.title,
+      draft: assembled,
+    });
+  });
+}
 export async function approveLessonDraft(
   access: EvidenceAccess,
   lessonId: string,
@@ -268,8 +338,8 @@ export async function approveLessonDraft(
       lessonId,
       expectedRevision,
     );
+    validateLessonAuthoringReview(lesson.draft ?? {});
     if (lesson.approved_revision === expectedRevision) return lesson;
-    if (lesson.draft?.question_bank) getReviewedQuestionBank(lesson.draft);
     const content = LessonContentSchema.parse({
       ...projectLessonDraftContent(lesson.draft ?? {}),
       approval: {
@@ -317,7 +387,7 @@ export async function publishLessonVersion(
         409,
         "Approve the current draft before publishing.",
       );
-    if (lesson.draft?.question_bank) getReviewedQuestionBank(lesson.draft);
+    validateLessonAuthoringReview(lesson.draft ?? {});
     const content = LessonContentSchema.parse(
       projectLessonDraftContent(lesson.draft ?? {}),
     );

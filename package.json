@@ -28,7 +28,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "publishing:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-publishing.ts",
-    "publishing:preview": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/seed-publishing-preview.ts"
+    "publishing:preview": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/seed-publishing-preview.ts",
+    "publishing:http:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-publishing-http.ts"
   },
   "dependencies": {
     "better-auth": "^1.7.9",
