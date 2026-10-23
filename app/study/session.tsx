@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Icon } from "../components/icons.tsx";
+import { StudyDialogue } from "./dialogue.tsx";
 import { LearningOverview } from "./overview.tsx";
 import { SessionElapsed } from "./session-elapsed.tsx";
 import type { StudentDashboard } from "../../lib/tutoring/dashboard-model.ts";
@@ -325,15 +326,14 @@ export function StudySession({
       }
     });
   }
-  async function answer(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!view || !last || !draft.trim()) return;
+  async function answer(response: string) {
+    if (!view || !last || !response.trim()) return;
     await perform(async () => {
       const stored = submission.current;
       const next =
         stored?.attempt === last.id
           ? stored
-          : { attempt: last.id, key: crypto.randomUUID(), response: draft };
+          : { attempt: last.id, key: crypto.randomUUID(), response };
       submission.current = next;
       setLocked(true);
       saveDraft(last.id, { ...next, locked: true });
@@ -551,52 +551,38 @@ export function StudySession({
                 </li>
               ))}
             </ol>
-            {view.progress.phase === "answer" && (
-              <form onSubmit={(e) => void answer(e)} className="lp-composer">
-                <label htmlFor="response" className="block font-semibold">
-                  Your answer and reasoning
-                </label>
-                <textarea
-                  id="response"
-                  value={draft}
-                  onChange={(e) => {
-                    setDraft(e.target.value);
-                    if (last && !submission.current)
-                      saveDraft(last.id, {
-                        key: crypto.randomUUID(),
-                        response: e.target.value,
-                      });
-                  }}
-                  maxLength={12000}
-                  required
-                  disabled={busy || locked || Boolean(pendingReading)}
-                  rows={3}
-                  placeholder="Write what you think, and why…"
-                  className="lp-input"
-                  aria-describedby="response-help"
-                />
-                <div className="lp-composer-footer">
-                  <p id="response-help">
-                    It’s okay to be unsure. Explain what you’re thinking.
-                  </p>
-                  <div className="lp-composer-actions">
-                    {refreshButton}
-                    <button
-                      className={button}
-                      disabled={
-                        busy || Boolean(pendingReading) || !draft.trim()
-                      }
-                    >
-                      {busy && !refreshing
-                        ? "Checking…"
-                        : locked
-                          ? "Retry sending saved answer"
-                          : "Submit answer"}
-                      <Icon name="send" />
-                    </button>
-                  </div>
-                </div>
-              </form>
+            {view.progress.phase === "answer" && last && (
+              <StudyDialogue
+                key={last.id}
+                sessionId={view.session.id}
+                attemptId={last.id}
+                disabled={busy || Boolean(pendingReading)}
+                locked={locked}
+                text={draft}
+                onTextChange={(text) => {
+                  setDraft(text);
+                  if (!submission.current)
+                    saveDraft(last.id, {
+                      key: crypto.randomUUID(),
+                      response: text,
+                    });
+                }}
+                onSubmitAnswer={answer}
+                onLessonChanged={async () => {
+                  await refresh(view.session.id);
+                }}
+                onCitation={({ passage_id, intervention_id }) => {
+                  router.push(
+                    `/study/reading?${new URLSearchParams({
+                      ...(assignmentId ? { assignment: assignmentId } : {}),
+                      session: view.session.id,
+                      passage: passage_id,
+                      citation: intervention_id,
+                      from: "study",
+                    })}`,
+                  );
+                }}
+              />
             )}
           </div>
           {((phase !== "answer" && view.session.status !== "completed") ||
