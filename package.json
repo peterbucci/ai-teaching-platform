@@ -34,6 +34,8 @@
     "tutor:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-tutoring.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "interventions:approval": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-intervention-approval.ts",
+    "interventions:approval:lessons": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-intervention-approval-lessons.ts",
     "dialogue:check": "node --experimental-strip-types --conditions=react-server scripts/check-dialogue.ts",
     "dialogue:recovery:check": "node --experimental-strip-types --conditions=react-server scripts/check-dialogue-recovery.ts",
     "r7:controller:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-r7-controller.ts",

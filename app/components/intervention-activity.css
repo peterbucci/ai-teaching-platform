@@ -1,0 +1,98 @@
+.lp-review-activity {
+  color: #233c30;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.lp-review-activity h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 750;
+  line-height: 1.25;
+  margin: 8px 0 14px;
+  letter-spacing: -0.025em;
+}
+.lp-review-activity h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.lp-review-activity section {
+  margin-top: 26px;
+}
+.lp-review-objective {
+  color: #526b5c;
+}
+.lp-review-prose {
+  white-space: pre-wrap;
+}
+.lp-review-questions {
+  list-style: decimal;
+  padding-left: 24px;
+}
+.lp-review-questions li {
+  padding: 12px 0 14px 8px;
+}
+.lp-review-activity small {
+  color: #64796c;
+  display: block;
+  margin-top: 8px;
+  font-size: 0.8rem;
+}
+.lp-review-explanation {
+  background: #edf5ef;
+  border-left: 3px solid #478c66;
+  padding: 20px;
+  border-radius: 0 12px 12px 0;
+}
+.lp-review-sources {
+  border-top: 1px solid #dce6df;
+  padding-top: 22px;
+}
+.lp-review-sources blockquote {
+  border-left: 2px solid #dce6df;
+  padding-left: 16px;
+  margin: 16px 0;
+  font-size: 0.9rem;
+}
+.lp-review-sources strong {
+  color: #55735f;
+}
+.lp-assigned-reviews {
+  margin: 28px 0;
+}
+.lp-assigned-reviews h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.lp-assigned-reviews > p {
+  color: #64796c;
+  margin: 6px 0 16px;
+}
+.lp-review-cards {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+.lp-review-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 22px;
+}
+.lp-review-card h3 {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.lp-review-page {
+  max-width: 840px;
+  margin: 0 auto;
+}
+.lp-review-page > .lp-panel {
+  padding: clamp(20px, 4vw, 36px);
+  margin-top: 18px;
+}
+.lp-review-page .lp-review-meta {
+  color: #637c6b;
+  font-size: 0.85rem;
+  margin: 12px 0;
+}
