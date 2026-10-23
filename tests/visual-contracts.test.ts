@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
+  ActivityEventSchema,
   ActivityEventLogSchema,
   ConceptGraphSchema,
   PacketExperimentSchema,
@@ -8,6 +9,7 @@ import {
 } from "../lib/visual/contracts.ts";
 import {
   invalidActivityEvents,
+  invalidActivityLinks,
   invalidConceptGraphs,
   invalidPacketExperiments,
   invalidSequenceDiagrams,
@@ -39,6 +41,21 @@ test("rejects duplicate node IDs", () => {
   assert.equal(result.success, false);
   assert.ok(
     result.error?.issues.some((issue) => issue.message.includes("unique")),
+  );
+});
+
+test("rejects a concept graph with an unsupported control", () => {
+  const result = ConceptGraphSchema.safeParse(
+    invalidConceptGraphs.unsupportedControl,
+  );
+  assert.equal(result.success, false);
+});
+
+test("rejects an activity event with no session link", () => {
+  assert.equal(
+    ActivityEventSchema.safeParse(invalidActivityLinks.missingSessionId)
+      .success,
+    false,
   );
 });
 

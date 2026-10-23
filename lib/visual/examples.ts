@@ -203,4 +203,15 @@ export const invalidConceptGraphs = {
     ...validConceptGraph,
     rubric: "Students must name the router.",
   },
+  unsupportedControl: {
+    ...validConceptGraph,
+    controls: ["drag_node"],
+  },
+};
+
+export const invalidActivityLinks = {
+  missingSessionId: {
+    ...validActivityEvents[0],
+    session_id: undefined,
+  },
 };
