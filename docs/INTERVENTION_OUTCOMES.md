@@ -70,9 +70,11 @@ reservation; a read, refresh, restart or replay never repeats paid work.
 
 Known failure permits an explicit retry after 60 seconds, at most three dispatches
 per answer, reusing the same immutable response. Accepted evaluations never retry.
-The adapter opts into preserving timeout, connection and provider-error outcomes
-as `pending_review`; unknown completion requires operator reconciliation instead
-of another paid call. Configuration failure is a failed dispatch with no invented
+The shared evaluator records one `pending_review` start reservation, followed by
+a final outcome linked through `provider_reservation_id`. Unknown completion is
+`evaluation_failed` with `provider_outcome: "unknown"`; its original reservation
+remains unresolved and budget-spent. Both the follow-up journal and evaluator
+reject retry until reconciliation. No second pending marker is created. Configuration failure is a failed dispatch with no invented
 model evaluation. An accepted uncertain judgment is counted as accepted **and**
 uncertain, distinct from an unknown provider outcome. No automatic retry occurs.
 
@@ -97,23 +99,20 @@ assistance, exact content references and links to teacher session evidence.
 016 adds only the link and dispatch journal. 017 strengthens terminal dispatch
 timestamp and accepted-evaluation integrity after independent review, without
 rewriting already-applied 016. Their allocation follows inspected R4 010–013,
-R2 014–015 and R7 008. The existing cross-branch 009 collision remains a dependency
-integration concern. Independent review covers the combined schema before merge.
+R2 014-015 and R7 008-009. Integration preserves the original bytes of all applied
+migrations, including 016 and 017.
 
-The branch starts at #103 (`9299f00`) and targets
-`feature/45-intervention-approval` while that PR is unmerged. It preserves the
-later #99 uncategorized-pattern selector fix from `15ca855`. It does not modify
-either dependency branch.
+The combined stack uses the canonical assignment resolver for both curated and
+uploaded lessons. Follow-up reads and actions validate the exact immutable
+approved question, source/version, current enrollment and recipient. Private
+uploaded source links render as labels rather than fabricated public URLs. The
+ordinary answer, controller and R7 conversation paths reject follow-up sessions
+before changing evidence, reserving a provider call or applying a tutor result.
 
-This slice verifies curated content. Merged #93 provides
-`resolveAssignmentContent`/`readAssignmentContent` and the curated/uploaded
-content-reference union, but #44/#45 still validate curated draft/approval scope.
-Reconcile those shared approval/draft contracts and exact immutable uploaded
-lesson policy with their owners before enabling uploaded intervention follow-up.
-Do not silently substitute the current curated package for an uploaded version.
-R7's `submitAnswerInTransaction` and canonical resolver changes need deliberate
-reconciliation when combining stacks. No uploaded path or complete R2 epic is
-claimed here.
+The integration keeps the original #99/#103/#106 histories through normal merges;
+it does not edit the original worker checkouts or dependency branches. This
+compatibility work does not establish new live-model quality or complete the R2
+epic's browser acceptance.
 
 ## Verification
 
@@ -129,3 +128,30 @@ private projection, exact versions and ordinary-tutor isolation.
 restart. Actual-model and browser evidence is recorded separately in
 `evals/INTERVENTION_OUTCOMES_VERIFICATION.md`. Keep #46 and R2 open until their
 integration and independent human review gates are accepted.
+
+The self-contained integration command is:
+
+```sh
+npm run interventions:approval:lessons -- --setup-fixtures --with-followups
+```
+
+It creates fictional uploaded and curated fixtures, approves and delivers them
+through authenticated HTTP, then checks explicit start, exact answer persistence,
+concurrent replay, private student projections and the teacher comparison. It
+also checks ordinary answer/controller/R7 exclusion and the one-reservation
+unknown-outcome ledger, including blocked retries after elapsed time. The fresh
+CI approval job runs this command with no provider credentials. Providers are
+injected through an internal test seam; these results are not live AI acceptance.
+
+On the combined integration tree, 356 deterministic tests, lint, typecheck,
+formatting and a production build passed. The isolated PostgreSQL/HTTP suite passed
+for both lesson types with 21 injected generation/evaluation calls and zero paid
+calls (nine setup calls and twelve follow-up/recovery calls). Reloads reused saved
+approved and submitted evidence. Visual browser interaction and a new actual-model
+follow-up evaluation were not performed in this reconciliation.
+
+A final focused rerun used the retained fixtures with twelve additional injected
+evaluations, including meaningful water-state and networking responses, and
+compared the exact original teacher evidence before and after follow-up. An
+isolated PostgreSQL/app restart retained matching fingerprints across nine
+evidence tables and all four initially created follow-ups. No paid calls occurred.

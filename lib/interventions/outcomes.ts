@@ -7,11 +7,12 @@ import { evidenceRow } from "../db.ts";
 import type { SessionEvidence } from "../evidence/contracts.ts";
 import { ContentRefSchema } from "../evidence/contracts.ts";
 import {
-  loadApprovedContent,
   validateContentRef,
   validateQuestionSnapshot,
 } from "../evidence/content.ts";
 import { deriveAssistance } from "../evidence/rules.ts";
+import { resolveAssignmentContent } from "../lessons/store.ts";
+import { interventionRevisionEvidence } from "./evidence.ts";
 import {
   EvidenceError,
   sessionEvidence,
@@ -94,10 +95,24 @@ async function recipientScope(
   return ScopeSchema.parse(evidenceRow(result.rows[0]));
 }
 
-function validateScope(scope: Scope) {
-  const content = loadApprovedContent();
+async function validateScope(
+  client: PoolClient,
+  access: EvidenceAccess,
+  scope: Scope,
+) {
+  const content = await resolveAssignmentContent(
+    client,
+    access,
+    scope.snapshot.assignment_id,
+    "student",
+  );
   try {
     validateContentRef(content, scope.content_ref);
+    interventionRevisionEvidence(
+      content,
+      scope.snapshot.evidence,
+      scope.snapshot.provenance.prompt_template_version,
+    );
     validateQuestionSnapshot(content, scope.snapshot.activity.fresh_check);
   } catch {
     throw new EvidenceError(
@@ -216,6 +231,7 @@ export function projectInterventionFollowup(
     !accepted &&
     (request?.state === "pending" ||
       evaluation?.validation_status === "pending_review" ||
+      evaluation?.evaluator.provider_outcome === "unknown" ||
       (attempt?.submitted_at && !request));
   const failed =
     !accepted &&
@@ -296,7 +312,8 @@ export async function readStudentInterventionFollowup(
     await client.query(
       "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY",
     );
-    await recipientScope(client, access, approvalId);
+    const scope = await recipientScope(client, access, approvalId);
+    await validateScope(client, access, scope);
     const link = await linkFor(client, approvalId, access.actor.profileId);
     return projectInterventionFollowup(
       approvalId,
@@ -325,7 +342,7 @@ export async function applyStudentInterventionFollowup(
   const input = InterventionFollowupActionSchema.parse(raw);
   const reserved = await transaction(async (client) => {
     const scope = await recipientScope(client, access, approvalId, true);
-    validateScope(scope);
+    await validateScope(client, access, scope);
     let link = await linkFor(client, approvalId, access.actor.profileId);
     if (input.action === "start") {
       if (!link) {
@@ -463,10 +480,11 @@ export async function applyStudentInterventionFollowup(
         reserved.sessionId,
         reserved.attemptId,
         reserved.retryOf,
-        { ...options, preserveUncertainProviderOutcome: true },
+        options,
       );
       const pending =
         run.evaluation?.validation_status === "pending_review" ||
+        run.evaluation?.evaluator.provider_outcome === "unknown" ||
         run.failure?.code === "persistence_failed";
       const provider = run.provider;
       await transaction(async (client) => {

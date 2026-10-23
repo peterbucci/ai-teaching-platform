@@ -4,12 +4,16 @@ import { buildClassFixture } from "../lib/evidence/class-fixture.ts";
 import { loadApprovedContent } from "../lib/evidence/content.ts";
 import { DEMO_IDS } from "../lib/evidence/demo.ts";
 import { calculateClassMetrics } from "../lib/teacher/metrics.ts";
-import { buildInterventionEvidence } from "../lib/interventions/evidence.ts";
+import {
+  buildInterventionEvidence,
+  interventionRevisionEvidence,
+} from "../lib/interventions/evidence.ts";
 import {
   interventionPrompt,
   validateInterventionActivity,
 } from "../lib/interventions/generate.ts";
 import {
+  InterventionEvidenceSchema,
   ModelInterventionSchema,
   type InterventionEvidence,
   type ModelIntervention,
@@ -219,7 +223,13 @@ test("valid qualitative activity creates generated snapshots and checked source/
     activity.rationale.includes(raw.evidence_references[0].response_quote),
   );
   assert.ok(activity.uncertainty.includes("not a diagnosis"));
-  assert.equal(activity.explanation, raw.source_references[0].quote);
+  assert.equal(
+    activity.explanation,
+    ModelInterventionSchema.parse(raw).source_references[0].quote,
+  );
+  assert.ok(
+    bundle.sources.some((source) => source.text.includes(activity.explanation)),
+  );
   assert.doesNotThrow(() =>
     zodTextFormat(ModelInterventionSchema, "teacher_intervention"),
   );
@@ -376,5 +386,66 @@ test("keeps rationale concise, counts all recipient history in code, and keeps r
   assert.throws(
     () => validateInterventionActivity(raw, bundle, metadata),
     /student-ready/,
+  );
+});
+
+test("accepts the full reviewed objective length supported by lesson authoring", () => {
+  const evidence = structuredClone(bundle);
+  const objective =
+    `${evidence.concept.objectives[2]} ${"Explain the reasoning using the approved passage and distinguish the relevant events. ".repeat(18)}`.trim();
+  assert.ok(objective.length > 1000 && objective.length <= 2000);
+  evidence.concept.objectives[2] = objective;
+  const parsedEvidence = InterventionEvidenceSchema.parse(evidence);
+  const candidate = ModelInterventionSchema.parse(proposal(parsedEvidence));
+  const activity = validateInterventionActivity(
+    candidate,
+    parsedEvidence,
+    metadata,
+  );
+  assert.equal(activity.learning_objective, objective);
+});
+
+test("legacy trimmed source snapshots regenerate without rewriting history or accepting changed excerpts", () => {
+  const saved = structuredClone(bundle);
+  for (const source of saved.sources) source.text = source.text.trim();
+  assert.ok(
+    saved.sources.some(
+      (source) => source.text !== content.passages.get(source.passage_id)!.text,
+    ),
+  );
+  const before = JSON.stringify(saved);
+  for (const version of [
+    "teacher-intervention-v1",
+    "teacher-intervention-v2",
+  ]) {
+    const next = interventionRevisionEvidence(content, saved, version);
+    for (const source of next.sources)
+      assert.equal(source.text, content.passages.get(source.passage_id)!.text);
+    assert.equal(JSON.stringify(saved), before);
+    const modified = structuredClone(saved);
+    modified.sources[0].text += " Modified source claim.";
+    assert.throws(
+      () => interventionRevisionEvidence(content, modified, version),
+      /does not match/,
+    );
+  }
+  for (const version of ["teacher-intervention-v3", "unknown-version"]) {
+    assert.throws(
+      () => interventionRevisionEvidence(content, saved, version),
+      /does not match/,
+    );
+    assert.deepEqual(
+      interventionRevisionEvidence(content, bundle, version),
+      bundle,
+    );
+  }
+  const wrongVersion = structuredClone(saved);
+  wrongVersion.content_ref.content_version = "other";
+  assert.throws(() =>
+    interventionRevisionEvidence(
+      content,
+      wrongVersion,
+      "teacher-intervention-v2",
+    ),
   );
 });

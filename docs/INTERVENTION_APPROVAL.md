@@ -125,10 +125,15 @@ intervention caused improvement. #46 must deliberately carry displayed help into
 the existing assistance/evaluation path before describing later work as
 independent. Do not rewrite original attempts or their accepted evaluations.
 
-**#52 / #53:** This slice supports the existing approved curated lesson resolver.
-Imported lesson versions require a coordinated extension of the existing resolver
-and assignment contracts. There is no parallel lesson store or imported-content
-implementation here.
+**#52 / #53:** Save, approval, delivery and student reads use the canonical
+assignment resolver for both curated and teacher-uploaded lessons. Teacher actions
+resolve with teacher access under the existing transaction locks; student reads
+and display acknowledgements resolve with student access after recipient and
+enrollment checks. Exact source references and passage bytes are checked using
+#44's version-aware validator, including its narrowly verified v1/v2 whitespace
+compatibility. Historical evidence is not rewritten. Private uploaded sources
+retain null URLs, and objectives support the authoring contract's 2,000-character
+bound. No parallel source or lesson store is introduced.
 
 **#98 / R7:** No R7 tutoring implementation files are changed to deliver this
 workflow. Students access the activity through the existing authenticated student
@@ -155,3 +160,21 @@ recipients can read it after delivery, a third student cannot, and refresh
 preserves the approval and a single delivery. Also exercise stale edits and retry
 recovery without discarding local text. Report actual executed test and browser
 results separately; this document is not a claim that these checks passed.
+
+### Uploaded and curated approval regression
+
+With an isolated seeded PostgreSQL database and a running local app, run
+`npm run interventions:approval:lessons -- --setup-fixtures`. This creates its
+own injected uploaded and curated drafts. CI runs it in a separate fresh
+application/database job so earlier demo checks cannot consume its budgets or
+authentication rate window. To reuse existing fixtures, omit the setup flag and
+set `CHECK_UPLOADED_INTERVENTION_DRAFT` and `CHECK_CURATED_INTERVENTION_DRAFT` to
+their retained draft IDs. The check
+uses injected-provider fixtures, provisions credentials only for the synthetic
+uploaded-fixture actors, and logs in through the actual application. It verifies
+save/replay/stale edits, invalid references, separate approval and delivery,
+recipient privacy, explicit display, immutable history and preserved original
+evidence for an uploaded lesson and a legacy trimmed curated snapshot. It makes
+zero model calls. Set `CHECK_INTERVENTION_APPROVAL_OUTPUT` to an ignored local
+path to retain the result. This establishes HTTP/database integration and server
+rendering, not visual browser interaction or actual-model quality.

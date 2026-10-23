@@ -220,6 +220,7 @@ function fixture(
       .parse(JSON.parse(prompt.input));
     return {
       ok: true,
+      needsReconciliation: false,
       model: "scripted-outcomes-verification",
       responseId: `fixture-${randomUUID()}`,
       latencyMs: 0,
@@ -263,6 +264,7 @@ const knownFailure: typeof requestEvaluation = async () => {
   return {
     ok: false,
     code: "rate_limited",
+    needsReconciliation: false,
     message: "Scripted known provider failure; no paid call was made.",
     model: "scripted-outcomes-verification",
     latencyMs: 0,
@@ -273,6 +275,7 @@ const uncertainTransport: typeof requestEvaluation = async () => {
   return {
     ok: false,
     code: "timeout",
+    needsReconciliation: true,
     message: "Scripted unknown provider outcome; no paid call was made.",
     model: "scripted-outcomes-verification",
     latencyMs: 0,
@@ -889,12 +892,18 @@ try {
     const recoveredStudent = recoveredComparison.recipients.find(
       (row) => row.student_id === DEMO_IDS.studentOne,
     )!;
-    assert.equal(recoveredStudent.evaluations.length, 2);
+    assert.equal(recoveredStudent.evaluations.length, 4);
+    assert.deepEqual(
+      recoveredStudent.evaluations
+        .filter((e) => e.validation_status === "pending_review")
+        .map((e) => e.evaluator.model),
+      ["injected-fixture", "injected-fixture"],
+    );
     assert.equal(
-      recoveredStudent.evaluations[0].validation_status,
+      recoveredStudent.evaluations[1].validation_status,
       "evaluation_failed",
     );
-    assert.equal(recoveredStudent.evaluations[1].validation_status, "accepted");
+    assert.equal(recoveredStudent.evaluations[3].validation_status, "accepted");
     checks.push(
       "A known failed evaluation rejects early retry; after the real cooldown, explicit recovery evaluates the same saved answer once and retains the failed evaluation history.",
     );

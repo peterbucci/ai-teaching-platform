@@ -247,24 +247,34 @@ export function InterventionFollowup({
               </div>
               <div>
                 <dt>Source revision</dt>
-                <dd>{comparison.content_ref.source_commit}</dd>
+                <dd>
+                  {"source_commit" in comparison.content_ref
+                    ? comparison.content_ref.source_commit
+                    : comparison.content_ref.source_version}
+                </dd>
               </div>
               <div>
                 <dt>Excerpt SHA-256</dt>
                 <dd>{comparison.content_ref.excerpt_sha256}</dd>
               </div>
             </dl>
-            {comparison.original_evidence.sources.map((source) => (
-              <a
-                key={source.passage_id}
-                className="lp-text-link mr-3"
-                href={source.url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {source.passage_id}
-              </a>
-            ))}
+            {comparison.original_evidence.sources.map((source) =>
+              source.url ? (
+                <a
+                  key={source.passage_id}
+                  className="lp-text-link mr-3"
+                  href={source.url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {source.passage_id}
+                </a>
+              ) : (
+                <span key={source.passage_id} className="mr-3">
+                  {source.passage_id} - private approved source
+                </span>
+              ),
+            )}
           </details>
           {comparison.recipients.map((recipient) => {
             const originals = comparison.original_evidence.observations.filter(
@@ -358,8 +368,10 @@ export function InterventionFollowup({
                         <p className="lp-intervention-meta">
                           Lesson {attempt.question.content_ref.content_version}{" "}
                           · Source revision{" "}
-                          {attempt.question.content_ref.source_commit} ·
-                          Passages{" "}
+                          {"source_commit" in attempt.question.content_ref
+                            ? attempt.question.content_ref.source_commit
+                            : attempt.question.content_ref.source_version}{" "}
+                          · Passages{" "}
                           {attempt.question.source_passage_ids.join(", ")}
                         </p>
                         <Link

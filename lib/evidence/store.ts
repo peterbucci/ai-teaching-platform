@@ -19,11 +19,8 @@ import type {
   Intervention,
   EpisodeOutcome,
 } from "./contracts.ts";
-import {
-  loadApprovedContent,
-  validateContentRef,
-  validateQuestionSnapshot,
-} from "./content.ts";
+import { validateContentRef, validateQuestionSnapshot } from "./content.ts";
+import { resolveAssignmentContent } from "../lessons/store.ts";
 import {
   deriveAssistance,
   toStudentSessionView,
@@ -120,7 +117,7 @@ export async function sessionEvidence(
     [sessionId],
   );
   return validateSessionEvidence(
-    loadApprovedContent(),
+    await resolveAssignmentContent(client, access, session.assignment_id, role),
     evidenceRow({
       session,
       attempts: attempts.rows,
@@ -143,11 +140,51 @@ export async function readSession(
   });
 }
 
+/** Read one authorized snapshot, retaining all evidence while separating UI delivery. */
+export async function readStudentDeliveryContext(
+  access: EvidenceAccess,
+  sessionId: string,
+) {
+  return transaction(async (client) => {
+    await client.query(
+      "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY",
+    );
+    const evidence = await sessionEvidence(
+      client,
+      access,
+      sessionId,
+      "student",
+      false,
+    );
+    const deliveries = await client.query(
+      "SELECT intervention_id FROM dialogue_operations WHERE session_id=$1 AND intervention_id IS NOT NULL",
+      [sessionId],
+    );
+    const conversationIds = new Set(
+      deliveries.rows.map(
+        (row) =>
+          z.object({ intervention_id: z.uuid() }).parse(row).intervention_id,
+      ),
+    );
+    return {
+      evidence,
+      controllerInterventions: evidence.interventions.filter(
+        (item) => !conversationIds.has(item.id),
+      ),
+    };
+  });
+}
+
 export async function readStudentSession(
   access: EvidenceAccess,
   sessionId: string,
 ) {
-  return toStudentSessionView(await readSession(access, sessionId, "student"));
+  const { evidence, controllerInterventions } =
+    await readStudentDeliveryContext(access, sessionId);
+  return toStudentSessionView({
+    ...evidence,
+    interventions: controllerInterventions,
+  });
 }
 
 export async function startSession(
@@ -173,7 +210,13 @@ export async function startSession(
         teacher_approved_at: z.unknown(),
       })
       .parse(assignmentRows.rows[0]);
-    validateContentRef(loadApprovedContent(), assignment.content_ref);
+    const content = await resolveAssignmentContent(
+      client,
+      access,
+      assignment.id,
+      "student",
+    );
+    validateContentRef(content, assignment.content_ref);
     if (dataOrigin === "live_demo" && !assignment.teacher_approved_at)
       throw new EvidenceError(
         409,
@@ -215,7 +258,12 @@ export async function presentQuestion(
     if (evidence.session.status !== "active")
       throw new EvidenceError(409, "Session has ended.");
     const question = validateQuestionSnapshot(
-      loadApprovedContent(),
+      await resolveAssignmentContent(
+        client,
+        access,
+        evidence.session.assignment_id,
+        "student",
+      ),
       input.question,
     );
     const parent = input.parent_attempt_id
@@ -250,63 +298,84 @@ export async function presentQuestion(
   });
 }
 
-export async function submitAnswer(
+/** Intervention follow-ups share the evidence tables but have their own approved
+ * one-question lifecycle. The ordinary controller must never advance them. */
+export async function requireTutoringSession(
+  client: PoolClient,
+  sessionId: string,
+) {
+  z.uuid().parse(sessionId);
+  const linked = await client.query(
+    "SELECT 1 FROM teacher_intervention_followups WHERE session_id=$1",
+    [sessionId],
+  );
+  if (linked.rowCount) throw new EvidenceError(404, "Session not found.");
+}
+
+/** Reuse the existing submission inside an already-authorized operation transaction. */
+export async function submitAnswerInTransaction(
+  client: PoolClient,
   access: EvidenceAccess,
   sessionId: string,
   input: unknown,
 ) {
   const submission = SubmitAnswerSchema.parse(input);
-  await transaction(async (client) => {
-    const evidence = await sessionEvidence(
-      client,
-      access,
-      sessionId,
-      "student",
-      true,
+  await requireTutoringSession(client, sessionId);
+  const evidence = await sessionEvidence(
+    client,
+    access,
+    sessionId,
+    "student",
+    true,
+  );
+  const attempt = evidence.attempts.find(
+    (item) => item.id === submission.attempt_id,
+  );
+  if (!attempt) throw new EvidenceError(404, "Attempt not found.");
+  if (
+    attempt.submitted_at === null &&
+    (attempt.id !== evidence.attempts.at(-1)?.id ||
+      evidence.interventions.some((item) => item.delivery_status === "created"))
+  )
+    throw new EvidenceError(
+      409,
+      "Read the displayed feedback before answering the current question.",
     );
-    const attempt = evidence.attempts.find(
-      (item) => item.id === submission.attempt_id,
-    );
-    if (!attempt) throw new EvidenceError(404, "Attempt not found.");
-    if (
-      attempt.submitted_at === null &&
-      (attempt.id !== evidence.attempts.at(-1)?.id ||
-        evidence.interventions.some(
-          (item) => item.delivery_status === "created",
-        ))
-    )
-      throw new EvidenceError(
-        409,
-        "Read the displayed feedback before answering the current question.",
-      );
-    // Use the database clock for both the answer and its assistance snapshot.
-    // Session locking serializes this with display acknowledgements and new prompts.
-    // JSON preserves PostgreSQL's microseconds; pg Date conversion could round
-    // below a prompt/display timestamp from the same millisecond.
-    const clock = await client.query(
-      "SELECT to_jsonb(clock_timestamp()) AS now",
-    );
-    const { now: submitted_at } = z
-      .object({ now: z.iso.datetime({ offset: true }) })
-      .parse(evidenceRow(clock.rows[0]));
-    const assistance = deriveAssistance(
-      attempt.question,
-      attempt.intent,
-      attempt.presented_at,
+  // Use the database clock for both the answer and its assistance snapshot.
+  // Session locking serializes this with display acknowledgements and new prompts.
+  // JSON preserves PostgreSQL's microseconds; pg Date conversion could round
+  // below a prompt/display timestamp from the same millisecond.
+  const clock = await client.query("SELECT to_jsonb(clock_timestamp()) AS now");
+  const { now: submitted_at } = z
+    .object({ now: z.iso.datetime({ offset: true }) })
+    .parse(evidenceRow(clock.rows[0]));
+  const assistance = deriveAssistance(
+    attempt.question,
+    attempt.intent,
+    attempt.presented_at,
+    submitted_at,
+    evidence.interventions,
+  );
+  await client.query(
+    "SELECT * FROM submit_answer($1,$2,$3,$4::jsonb,$5::timestamptz)",
+    [
+      attempt.id,
+      submission.submission_key,
+      submission.response_text,
+      JSON.stringify(assistance),
       submitted_at,
-      evidence.interventions,
-    );
-    await client.query(
-      "SELECT * FROM submit_answer($1,$2,$3,$4::jsonb,$5::timestamptz)",
-      [
-        attempt.id,
-        submission.submission_key,
-        submission.response_text,
-        JSON.stringify(assistance),
-        submitted_at,
-      ],
-    );
-  });
+    ],
+  );
+}
+
+export async function submitAnswer(
+  access: EvidenceAccess,
+  sessionId: string,
+  input: unknown,
+) {
+  await transaction((client) =>
+    submitAnswerInTransaction(client, access, sessionId, input),
+  );
   return readStudentSession(access, sessionId);
 }
 
@@ -325,6 +394,15 @@ export async function acknowledgeIntervention(
     );
     if (!result.rows[0])
       throw new EvidenceError(404, "Intervention not found.");
+    const conversation = await client.query(
+      "SELECT 1 FROM dialogue_operations WHERE intervention_id=$1 AND session_id=$2",
+      [interventionId, sessionId],
+    );
+    if (conversation.rows.length)
+      throw new EvidenceError(
+        409,
+        "Acknowledge this help through its conversation display receipt.",
+      );
     const intervention = InterventionSchema.parse(evidenceRow(result.rows[0]));
     if (intervention.delivery_status === "failed")
       throw new EvidenceError(409, "Intervention was not delivered.");
@@ -367,7 +445,12 @@ export async function recordEvaluation(
     );
     if (!attempt) throw new EvidenceError(404, "Attempt not found.");
     validateEvaluationReferences(
-      loadApprovedContent(),
+      await resolveAssignmentContent(
+        client,
+        access,
+        evidence.session.assignment_id,
+        "student",
+      ),
       evaluation,
       attempt,
       evidence.attempts,
@@ -404,10 +487,18 @@ export async function recordIntervention(
       visible_at: null,
       delivery_status: "created",
     });
-    validateSessionEvidence(loadApprovedContent(), {
-      ...evidence,
-      interventions: [...evidence.interventions, intervention],
-    });
+    validateSessionEvidence(
+      await resolveAssignmentContent(
+        client,
+        access,
+        evidence.session.assignment_id,
+        "student",
+      ),
+      {
+        ...evidence,
+        interventions: [...evidence.interventions, intervention],
+      },
+    );
     const result = await client.query(
       "INSERT INTO interventions SELECT (jsonb_populate_record(NULL::interventions,$1::jsonb)).* RETURNING *",
       [JSON.stringify(intervention)],
@@ -436,12 +527,20 @@ export async function finishSession(
     });
     if (!evidence.attempts.some((item) => item.id === outcome.root_attempt_id))
       throw new EvidenceError(400, "Episode root not found.");
-    validateSessionEvidence(loadApprovedContent(), {
-      ...evidence,
-      attempts: evidence.attempts.map((item) =>
-        item.id === outcome.root_attempt_id ? { ...item, outcome } : item,
+    validateSessionEvidence(
+      await resolveAssignmentContent(
+        client,
+        access,
+        evidence.session.assignment_id,
+        "student",
       ),
-    });
+      {
+        ...evidence,
+        attempts: evidence.attempts.map((item) =>
+          item.id === outcome.root_attempt_id ? { ...item, outcome } : item,
+        ),
+      },
+    );
     const status =
       outcome.outcome === "pending_evaluation" ||
       outcome.outcome === "unevaluated"

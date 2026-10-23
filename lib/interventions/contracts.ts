@@ -8,7 +8,7 @@ import {
 import { ClassMetricsSchema, OriginFilterSchema } from "../teacher/metrics.ts";
 const text = (max: number) => z.string().trim().min(1).max(max);
 const unique = <T>(items: T[]) => new Set(items).size === items.length;
-export const INTERVENTION_PROMPT_VERSION = "teacher-intervention-v2";
+export const INTERVENTION_PROMPT_VERSION = "teacher-intervention-v3";
 export const InterventionSelectionSchema = z.strictObject({
   assignment_id: z.uuid(),
   concept_id: text(100),
@@ -29,7 +29,7 @@ const SourceReferenceSchema = z.strictObject({
 const ConceptScopeSchema = z.strictObject({
   id: text(100),
   title: text(300),
-  objectives: z.array(text(1000)),
+  objectives: z.array(text(2000)),
   boundaries: z.array(text(1000)),
   source_passage_ids: z.array(text(100)),
 });
@@ -93,8 +93,8 @@ export const InterventionEvidenceSchema = z.strictObject({
     .array(
       z.strictObject({
         passage_id: text(100),
-        text: text(12000),
-        url: z.url(),
+        text: z.string().min(1).max(12000),
+        url: z.url().nullable(),
       }),
     )
     .min(1),
@@ -118,7 +118,7 @@ const ModelQuestionSchema = z.strictObject({
 export const ModelInterventionSchema = z.strictObject({
   content_ref: ContentRefSchema,
   title: text(120),
-  learning_objective: text(1000),
+  learning_objective: text(2000),
   strategy: InterventionStrategySchema,
   exercise_text: text(900),
   source_references: z.array(SourceReferenceSchema).min(1).max(4),
@@ -146,7 +146,7 @@ export const ModelInterventionSchema = z.strictObject({
 export type ModelIntervention = z.infer<typeof ModelInterventionSchema>;
 export const InterventionActivitySchema = z.strictObject({
   title: text(120),
-  learning_objective: text(1000),
+  learning_objective: text(2000),
   strategy: InterventionStrategySchema,
   rationale: text(6000),
   explanation: text(12000),

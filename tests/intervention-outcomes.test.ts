@@ -135,6 +135,24 @@ test("a saved response and unknown dispatch remain pending and never become a re
   assert.equal(unconfirmed.retry_allowed, false);
 });
 
+test("a linked unknown final outcome remains pending even when its dispatch is marked failed", () => {
+  const evidence = followupFixture();
+  unaccepted(evidence, "evaluation_failed");
+  evidence.evaluations[0].evaluator.provider_reservation_id = randomUUID();
+  evidence.evaluations[0].evaluator.provider_outcome = "unknown";
+  const request = dispatch(evidence, "failed");
+  const view = projectInterventionFollowup(
+    approvalId,
+    evidence,
+    [request],
+    Date.now() + 7 * 86_400_000,
+  );
+  assert.equal(view.evaluation_status, "pending");
+  assert.equal(view.retry_allowed, false);
+  assert.equal(view.retry_after, null);
+  assert.equal(view.response_text, evidence.attempts[0].response_text);
+});
+
 test("accepted uncertain judgments stay accepted while the student projection excludes private rubric and evaluator details", () => {
   const evidence = followupFixture();
   const evaluation = evidence.evaluations[0];

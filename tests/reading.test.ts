@@ -6,6 +6,14 @@ import { deriveAssistance } from "../lib/evidence/rules.ts";
 import { getCuratedQuestion } from "../lib/evidence/content.ts";
 import { InterventionSchema } from "../lib/evidence/contracts.ts";
 import { randomUUID } from "node:crypto";
+import { ReadingSchema } from "../lib/assignments/contracts.ts";
+import { hydrateLessonContent } from "../lib/lessons/validate.ts";
+import { sourcePath } from "../lib/reading/source-path.ts";
+import {
+  makeTeacherLesson,
+  makeTeacherSourceReference,
+  teacherSourcePassages,
+} from "./fixtures/teacher-lesson.ts";
 
 test("prepared reading resolves only the pinned assigned passages and retains editorial notes", () => {
   const content = loadApprovedContent();
@@ -29,6 +37,62 @@ test("prepared reading resolves only the pinned assigned passages and retains ed
         content_version: "unavailable",
       }),
     /Unknown content/,
+  );
+});
+
+test("teacher-provided reading projects its own ordered passages without private guidance or borrowed textbook metadata", () => {
+  const source = makeTeacherSourceReference(randomUUID(), randomUUID());
+  const content = hydrateLessonContent(
+    makeTeacherLesson(source, randomUUID(), "water-v1"),
+  );
+  const reading = ReadingSchema.parse(
+    assignedReading(content.content_ref, content),
+  );
+  assert.deepEqual(
+    reading.sections.map((section) => section.id),
+    ["water-01", "water-02"],
+  );
+  assert.deepEqual(
+    reading.sections.map((section) => section.text),
+    teacherSourcePassages.map((passage) => passage.text),
+  );
+  assert.deepEqual(
+    reading.sections.map((section) => section.title),
+    ["Evaporation", "Condensation"],
+  );
+  assert.equal(reading.attribution.title, "Water changing state");
+  assert.equal(reading.attribution.url, null);
+  assert.equal(reading.attribution.license_url, null);
+  assert.equal("questions" in reading, false);
+  assert.equal("rubric" in reading, false);
+  assert.deepEqual(
+    sourcePath(reading.attribution.section, reading.content_ref),
+    [{ number: null, title: "Evaporation and condensation", kind: "section" }],
+  );
+});
+
+test("reading keeps a saved teacher lesson version and rejects a reference from a newer publication", () => {
+  const source = makeTeacherSourceReference(randomUUID(), randomUUID());
+  const lessonId = randomUUID();
+  const oldContent = hydrateLessonContent(
+    makeTeacherLesson(source, lessonId, "water-v1"),
+  );
+  const nextContent = hydrateLessonContent(
+    makeTeacherLesson(source, lessonId, "water-v2"),
+  );
+  assert.throws(
+    () => assignedReading(nextContent.content_ref, oldContent),
+    /Unknown content/,
+  );
+  assert.equal(
+    assignedReading(oldContent.content_ref, oldContent).content_ref
+      .content_version,
+    "water-v1",
+  );
+  assert.equal(
+    assignedReading(nextContent.content_ref, nextContent).content_ref
+      .content_version,
+    "water-v2",
   );
 });
 

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { z } from "zod";
 import { requireActor } from "../../../lib/auth.ts";
-import { loadApprovedContent } from "../../../lib/evidence/content.ts";
+import { readAssignmentContent } from "../../../lib/lessons/store.ts";
 import { EvidenceError, evidenceAccess } from "../../../lib/evidence/store.ts";
 import type { InterventionEvidence } from "../../../lib/interventions/contracts.ts";
 import { buildInterventionEvidence } from "../../../lib/interventions/evidence.ts";
@@ -70,7 +70,11 @@ export default async function TeacherInterventionsPage({
     review = await readInterventionReview(access, draft.id);
     draft = review.draft;
   }
-  const content = loadApprovedContent();
+  const content = await readAssignmentContent(
+    access,
+    data.assignment_id,
+    "teacher",
+  );
   const conceptId =
     draft?.evidence.selection.concept_id ??
     params.concept ??

@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "scope": "A constructed false expected answer with valid real source quotation is passed through the production v2 critique, then tested against the real bank approval gate. Generation of the negative-control proposal is deterministic, not an actual model output.",
+  "prompt_template_version": "teacher-question-bank-v2",
+  "paid_call_limit": 1,
+  "automatic_retries": 0,
+  "objective_review": {
+    "workflow": "Real #100 createObjectiveDraft, saveObjectiveDraft and approveObjectives",
+    "reviewed": true,
+    "objectives": [
+      {
+        "title": "Evaporation",
+        "objectives": ["Explain liquid water changing to water vapor."],
+        "source_passage_references": ["water-01"]
+      },
+      {
+        "title": "Condensation",
+        "objectives": ["Explain water vapor changing to liquid water."],
+        "source_passage_references": ["water-02"]
+      }
+    ]
+  },
+  "source_passages": [
+    {
+      "reference": "water-01",
+      "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared."
+    },
+    {
+      "reference": "water-02",
+      "text": "Condensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state."
+    }
+  ],
+  "structural_validation": {
+    "passed": true,
+    "issues": [],
+    "explanation": "Question/source/concept identities and exact quotation all validate. Those checks do not prove that the quote supports the false expected answer."
+  },
+  "constructed_proposal": {
+    "role": "initial",
+    "prompt_text": "Compare a shrinking puddle and droplets on a cold glass. Explain water's starting and ending state in each observation.",
+    "expected_answer": "Evaporation changes water vapor into liquid water. Condensation also changes water vapor into liquid water, so the two processes have the same direction.",
+    "answer_criteria": [
+      "Explain evaporation as water vapor changing into liquid water.",
+      "Explain condensation as gas changing to liquid."
+    ],
+    "partial_answer_guidance": "Credit an explanation of gas changing to liquid for each observation.",
+    "source_support": [
+      {
+        "passage_reference": "water-01",
+        "quote": "Evaporation changes liquid water into water vapor, a gas.",
+        "criterion": "Explain evaporation as water vapor changing into liquid water."
+      },
+      {
+        "passage_reference": "water-02",
+        "quote": "Condensation changes water vapor into liquid water.",
+        "criterion": "Explain condensation as gas changing to liquid."
+      }
+    ]
+  },
+  "paid_provider_calls": 1,
+  "checked_at_utc": "2026-10-23T03:18:04.851Z",
+  "actual_provider": {
+    "ok": true,
+    "stage": "critique",
+    "model": "gpt-6.1-sol",
+    "latency_ms": 5540,
+    "usage": {
+      "inputTokens": 3019,
+      "outputTokens": 128,
+      "totalTokens": 3147
+    },
+    "critique": [
+      {
+        "role": "initial",
+        "issues": [
+          {
+            "code": "incorrect_answer",
+            "explanation": "The answer guidance, evaporation criterion, and partial-credit guidance incorrectly treat evaporation in the shrinking puddle as gas changing to liquid. Passage water-01 states that evaporation changes liquid water into water vapor. The guidance also incorrectly says the processes have the same direction; water-02 explicitly describes them as opposite changes. The cited evaporation quote contradicts its attached criterion."
+          }
+        ]
+      }
+    ]
+  },
+  "operation_status": "completed",
+  "persisted_semantic_flags": [
+    "incorrect_answer: The answer guidance, evaporation criterion, and partial-credit guidance incorrectly treat evaporation in the shrinking puddle as gas changing to liquid. Passage water-01 states that evaporation changes liquid water into water vapor. The guidance also incorrectly says the processes have the same direction; water-02 explicitly describes them as opposite changes. The cited evaporation quote contradicts its attached criterion."
+  ],
+  "approval_gate": {
+    "all_questions_marked_reviewed": true,
+    "false_answer_not_corrected": true,
+    "provider_flags_preserved": true,
+    "approval_blocked": true,
+    "error": {
+      "status": 409,
+      "message": "Educational review: incorrect_answer: The answer guidance, evaporation criterion, and partial-credit guidance incorrectly treat evaporation in the shrinking puddle as gas changing to liquid. Passage water-01 states that evaporation changes liquid water into water vapor. The guidance also incorrectly says the processes have the same direction; water-02 explicitly describes them as opposite changes. The cited evaporation quote contradicts its attached criterion."
+    },
+    "bank_approval": null
+  },
+  "educational_review": "The expected answer reverses evaporation and falsely treats the two changes as having the same direction. The cited passage explicitly defines evaporation as liquid-to-gas. This deliberately constructed false answer demonstrates why exact quotations and valid IDs are insufficient; the actual semantic critique caught the contradiction and the server blocked bank approval. One successful negative control does not establish universal semantic reliability."
+}

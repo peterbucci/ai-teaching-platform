@@ -260,6 +260,12 @@ export function AssignmentList({ dashboard }: { dashboard: StudentDashboard }) {
                         </p>
                       )}
                       <h4>{lesson.title}</h4>
+                      {lesson.instructions && (
+                        <details className="assignment-entry-instructions">
+                          <summary>Instructions from your teacher</summary>
+                          <p>{lesson.instructions}</p>
+                        </details>
+                      )}
                       {!sharedReading && (
                         <p className="assignment-entry-source">
                           {!sharedSource && (

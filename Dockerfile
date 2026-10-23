@@ -14,6 +14,7 @@ COPY --from=build --chown=node:node /app/node_modules ./node_modules
 COPY --from=build --chown=node:node /app/.next ./.next
 COPY --from=build --chown=node:node /app/lib ./lib
 COPY --from=build --chown=node:node /app/scripts ./scripts
+COPY --from=build --chown=node:node /app/tests/fixtures ./tests/fixtures
 COPY --from=build --chown=node:node /app/database ./database
 COPY --from=build --chown=node:node /app/content ./content
 COPY --from=build --chown=node:node /app/evals ./evals

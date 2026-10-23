@@ -30,6 +30,7 @@ function lesson(
     classId,
     className: "Same class name",
     title: "Packet delays",
+    instructions: "",
     teacherApprovedAt: "2026-10-21T12:00:00Z",
     sourceTitle: "A networking textbook",
     sourceKey: "networking-textbook",

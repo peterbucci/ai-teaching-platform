@@ -12,11 +12,12 @@ import {
 } from "./contracts.ts";
 
 const strategies = {
-  compare_explanations: "Compare explanations of the same network behavior",
+  compare_explanations:
+    "Compare explanations of the same source-supported relationship",
   predict_then_explain: "Predict a change, then explain the reasoning",
   counterexample: "Test a claim with a contrasting situation",
   self_explanation:
-    "Explain the relevant network relationship in the student's own words",
+    "Explain the relevant relationship in the student's own words",
 } as const;
 
 /** A bounded projection: student names/IDs, session IDs, exact timestamps, private
@@ -90,9 +91,9 @@ export function interventionPrompt(
       "Use only the supplied approved target concept, related_concepts, and exact source version. Copy content_ref exactly. Copy learning_objective exactly from concept.objectives; choose a qualitative objective when possible.",
       "Choose the strategy that best addresses the OBSERVED reasoning; wrong answers alone never establish a stable misconception. Preserve uncertainty, correct contrary examples and assistance distinctions. Do not claim motivation, ability, durable mastery or causal improvement.",
       "Create a short useful student-ready exercise and one or two targeted practice questions plus a genuinely different fresh check. Keep private-draft, teacher-review, AI, validation, and product notices out of the exercise and questions; the application shows those separately. Ask for explanation or prediction in a novel concrete situation; do not repeat or merely paraphrase original or practice questions. Do not supply the answer in a question.",
-      "This bounded first version supports qualitative networking activities only: no numeric calculation, digit characters, equations, external URLs, HTML or code in title, exercise or question prompts. Stay inside concept boundaries. Do not introduce unassigned protocols or factual claims about students.",
+      "This bounded first version supports qualitative activities from the authorized lesson only: no numeric calculation, digit characters, equations, external URLs, HTML or code in title, exercise or question prompts. Stay inside concept boundaries. Do not introduce unassigned topics or factual claims about students.",
       "For source_references quote exact contiguous source text (at least thirty characters). These quotations become the source-grounded explanation; do not invent explanatory factual prose. Only cite supplied passage IDs.",
-      "For each question, list ALL assessed concept_ids from the target concept and supplied related_concepts, always including the target. If assessing transmission and propagation delay, list both transmission_delay and propagation_delay. Every question concept must have a supplied approved passage in that question's source_passage_ids. Do not assess related concepts absent from the supplied list, even if an earlier draft did.",
+      "For each question, list ALL assessed concept_ids from the target concept and supplied related_concepts, always including the target. When supplied networking concepts assess transmission and propagation delay, list both transmission_delay and propagation_delay. Every question concept must have a supplied approved passage in that question's source_passage_ids. Do not assess related concepts absent from the supplied list, even if an earlier draft did.",
       "For each question, answer_guidance must be ONE exact contiguous excerpt (at least thirty characters) from a cited source. Each criterion must also be an exact contiguous excerpt (at least fifteen characters) from a cited source. Questions must be answerable using that excerpt; no invented answer criteria or numeric results.",
       "Evidence references use the supplied evidence_id, exact contiguous original_response quotation, and unchanged role. Include supporting and contradictory evidence whenever each exists. References are the basis of the server-composed factual recommendation reason; do not invent findings or counts.",
       "Possible recipients are suggestions only: use supplied pseudonyms and their own evidence_ids, including at least one supporting or context observation. Correct-only responses do not justify targeting someone. Empty suggested_recipients is permitted. Never emit database identities.",
@@ -235,7 +236,10 @@ export function validateInterventionActivity(
     // pretend to infer every assessed concept from arbitrary model prose.
     for (const id of ["transmission_delay", "propagation_delay"]) {
       const word = id.split("_")[0];
-      if (new RegExp(`\\b${word}\\b`, "i").test(q.prompt_text))
+      if (
+        allowedConcepts.has(id) &&
+        new RegExp(`\\b${word}\\b`, "i").test(q.prompt_text)
+      )
         requireRule(
           q.concept_ids.includes(id),
           "An explicitly assessed delay concept is missing from question metadata.",

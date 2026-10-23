@@ -1,8 +1,11 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Icon } from "../components/icons.tsx";
+import { StudyDialogue } from "./dialogue.tsx";
+import { createConversationTransport } from "./conversation-transport.ts";
+import { createDisplayAcknowledgements } from "./display-acknowledgement.ts";
 import { LearningOverview } from "./overview.tsx";
 import { SessionElapsed } from "./session-elapsed.tsx";
 import type { StudentDashboard } from "../../lib/tutoring/dashboard-model.ts";
@@ -88,6 +91,7 @@ export function StudySession({
   const [error, setError] = useState<string | null>(null);
   const currentStep = useRef<HTMLHeadingElement>(null);
   const feedbackStep = useRef<HTMLHeadingElement>(null);
+  const acknowledgingHelp = useRef(new Set<string>());
   const focusedAttempt = useRef<string | null>(null);
   const pendingReading = view?.pending_reading;
   const restoredReading = useRef<string | null>(null);
@@ -206,6 +210,10 @@ export function StudySession({
       .map((i) => i.id)
       .join(",") ?? "";
   const sessionId = view?.session.id;
+  const conversationTransport = useMemo(
+    () => (sessionId ? createConversationTransport(sessionId) : undefined),
+    [sessionId],
+  );
   const retryAfter = view?.progress.retry_after;
   // Only read progress: refresh/resume never starts or retries a paid evaluation.
   // Bound background checks, then leave the explicit refresh control.
@@ -269,22 +277,63 @@ export function StudySession({
   useEffect(() => {
     if (!pendingHelp || !sessionId) return;
     let cancelled = false;
-    void (async () => {
-      try {
-        for (const id of pendingHelp.split(","))
-          await request(`/api/sessions/${sessionId}/interventions/${id}`, {});
-        if (!cancelled) await refresh(sessionId);
-      } catch {
-        if (!cancelled)
-          setError(
-            "The feedback is visible, but we couldn’t confirm it was shown. Refresh saved progress before continuing.",
-          );
+    const ids = pendingHelp.split(",");
+    const intersecting = new Set<string>();
+    const delivery = createDisplayAcknowledgements({
+      ids,
+      acknowledging: acknowledgingHelp.current,
+      isVisible(id) {
+        if (document.visibilityState !== "visible" || !intersecting.has(id))
+          return false;
+        const element = document.getElementById(`feedback-${id}`);
+        if (!element) return false;
+        const rect = element.getBoundingClientRect();
+        return (
+          rect.width > 0 &&
+          rect.height > 0 &&
+          rect.bottom > 0 &&
+          rect.top < window.innerHeight &&
+          rect.right > 0 &&
+          rect.left < window.innerWidth
+        );
+      },
+      async acknowledge(id) {
+        await request(`/api/sessions/${sessionId}/interventions/${id}`, {});
+        if (cancelled) return;
+        const updated = TutorViewSchema.parse(
+          await request(`/api/tutoring/${sessionId}`),
+        );
+        // A response from an old session/effect cannot replace newer progress.
+        if (!cancelled) setView(updated);
+      },
+      onError() {
+        setError(
+          "The feedback is visible, but we couldn’t confirm it was shown. Refresh saved progress before continuing.",
+        );
+      },
+    });
+    const confirm = () => void delivery.check();
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        const id = entry.target.id.slice("feedback-".length);
+        if (entry.isIntersecting && entry.intersectionRatio > 0)
+          intersecting.add(id);
+        else intersecting.delete(id);
       }
-    })();
+      confirm();
+    });
+    for (const id of ids) {
+      const element = document.getElementById(`feedback-${id}`);
+      if (element) observer.observe(element);
+    }
+    document.addEventListener("visibilitychange", confirm);
     return () => {
       cancelled = true;
+      delivery.stop();
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", confirm);
     };
-  }, [pendingHelp, sessionId, refresh, displayRetry]);
+  }, [pendingHelp, sessionId, displayRetry]);
   async function start(id: string) {
     await perform(async () => {
       const updated = TutorViewSchema.parse(
@@ -325,15 +374,14 @@ export function StudySession({
       }
     });
   }
-  async function answer(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!view || !last || !draft.trim()) return;
+  async function answer(response: string) {
+    if (!view || !last || !response.trim()) return;
     await perform(async () => {
       const stored = submission.current;
       const next =
         stored?.attempt === last.id
           ? stored
-          : { attempt: last.id, key: crypto.randomUUID(), response: draft };
+          : { attempt: last.id, key: crypto.randomUUID(), response };
       submission.current = next;
       setLocked(true);
       saveDraft(last.id, { ...next, locked: true });
@@ -514,7 +562,10 @@ export function StudySession({
                               ? "Let’s return to the question"
                               : "Feedback"}
                           </h2>
-                          <p className="mt-2 whitespace-pre-wrap leading-7">
+                          <p
+                            id={`feedback-${help.id}`}
+                            className="mt-2 whitespace-pre-wrap leading-7"
+                          >
                             {help.text_shown}
                           </p>
                           {view.citations
@@ -551,52 +602,51 @@ export function StudySession({
                 </li>
               ))}
             </ol>
-            {view.progress.phase === "answer" && (
-              <form onSubmit={(e) => void answer(e)} className="lp-composer">
-                <label htmlFor="response" className="block font-semibold">
-                  Your answer and reasoning
-                </label>
-                <textarea
-                  id="response"
-                  value={draft}
-                  onChange={(e) => {
-                    setDraft(e.target.value);
-                    if (last && !submission.current)
-                      saveDraft(last.id, {
-                        key: crypto.randomUUID(),
-                        response: e.target.value,
-                      });
-                  }}
-                  maxLength={12000}
-                  required
-                  disabled={busy || locked || Boolean(pendingReading)}
-                  rows={3}
-                  placeholder="Write what you think, and why…"
-                  className="lp-input"
-                  aria-describedby="response-help"
-                />
-                <div className="lp-composer-footer">
-                  <p id="response-help">
-                    It’s okay to be unsure. Explain what you’re thinking.
-                  </p>
-                  <div className="lp-composer-actions">
-                    {refreshButton}
-                    <button
-                      className={button}
-                      disabled={
-                        busy || Boolean(pendingReading) || !draft.trim()
-                      }
-                    >
-                      {busy && !refreshing
-                        ? "Checking…"
-                        : locked
-                          ? "Retry sending saved answer"
-                          : "Submit answer"}
-                      <Icon name="send" />
-                    </button>
-                  </div>
-                </div>
-              </form>
+            {last && (
+              <StudyDialogue
+                key={last.id}
+                sessionId={view.session.id}
+                attemptId={last.id}
+                disabled={busy || Boolean(pendingReading)}
+                locked={locked}
+                readOnly={view.progress.phase !== "answer"}
+                transport={conversationTransport}
+                text={draft}
+                onTextChange={(text) => {
+                  setDraft(text);
+                  if (!submission.current)
+                    saveDraft(last.id, {
+                      key: crypto.randomUUID(),
+                      response: text,
+                    });
+                }}
+                onSubmitAnswer={answer}
+                onLessonChanged={async ({ evaluate: evaluateAnswer }) => {
+                  const updated = await refresh(view.session.id);
+                  if (
+                    evaluateAnswer &&
+                    updated.progress.phase === "evaluate" &&
+                    updated.progress.current_attempt_id === last.id
+                  ) {
+                    saveDraft(last.id, null);
+                    setDraft("");
+                    submission.current = null;
+                    setLocked(false);
+                    await evaluate();
+                  }
+                }}
+                onCitation={({ passage_id, intervention_id }) => {
+                  router.push(
+                    `/study/reading?${new URLSearchParams({
+                      ...(assignmentId ? { assignment: assignmentId } : {}),
+                      session: view.session.id,
+                      passage: passage_id,
+                      citation: intervention_id,
+                      from: "study",
+                    })}`,
+                  );
+                }}
+              />
             )}
           </div>
           {((phase !== "answer" && view.session.status !== "completed") ||

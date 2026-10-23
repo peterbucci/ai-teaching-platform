@@ -12,6 +12,8 @@ export type DashboardTopic = {
 };
 
 export type DashboardLesson = AssignedLesson & {
+  /** Teacher-authored, student-visible directions for this assignment. */
+  instructions: string;
   classId: string;
   className: string;
   teacherApprovedAt: string;

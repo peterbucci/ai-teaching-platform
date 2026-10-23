@@ -89,7 +89,7 @@ export async function checkInterventionEvaluatorRecovery(
 ) {
   const apiKey = process.env.OPENAI_API_KEY;
   const model = process.env.OPENAI_MODEL;
-  process.env.OPENAI_API_KEY = "fixture-provider-never-used";
+  process.env.OPENAI_API_KEY = "";
   process.env.OPENAI_MODEL = "intervention-recovery-fixture";
   try {
     const cases = [
@@ -120,14 +120,13 @@ export async function checkInterventionEvaluatorRecovery(
         return {
           ok: false,
           code,
+          needsReconciliation: preserve,
           message: "Injected provider outcome; no real model request.",
           model: "intervention-recovery-fixture",
           latencyMs: 1,
         };
       };
-      const options = preserve
-        ? { provider, preserveUncertainProviderOutcome: true }
-        : { provider };
+      const options = { provider };
       const first = await evaluateSubmittedAttempt(
         access,
         session.id,
@@ -136,10 +135,7 @@ export async function checkInterventionEvaluatorRecovery(
         options,
       );
       assert.ok(first.evaluation);
-      assert.equal(
-        first.evaluation.validation_status,
-        preserve ? "pending_review" : "evaluation_failed",
-      );
+      assert.equal(first.evaluation.validation_status, "evaluation_failed");
       const saved = await readSession(access, session.id, "student");
       assert.equal(saved.attempts[0].current_evaluation_id, null);
       assert.equal(
