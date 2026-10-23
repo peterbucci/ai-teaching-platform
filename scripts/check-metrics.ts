@@ -220,6 +220,7 @@ try {
   );
   assert.ok(markup.includes("metrics-http-probe-v1"));
   assert.ok(markup.includes("Synthetic history"));
+  assert.ok("source_commit" in question.content_ref);
   assert.ok(markup.includes(question.content_ref.source_commit));
   const refreshed = await request(overviewPath, teacher);
   assert.ok(

@@ -133,9 +133,7 @@ export async function createSourceVersion(
 ): Promise<SourceVersion> {
   const input = CreateSourceVersionSchema.parse(value);
   const originalBytes = Buffer.from(input.original_bytes);
-  const documentHash = createHash("sha256")
-    .update(originalBytes)
-    .digest("hex");
+  const documentHash = createHash("sha256").update(originalBytes).digest("hex");
   // Ordered reviewed passage objects are the stable, documented excerpt hash input.
   const excerptHash = createHash("sha256")
     .update(JSON.stringify(input.passages))

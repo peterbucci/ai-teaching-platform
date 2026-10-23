@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { z } from "zod";
 import { AuthError, requireActor } from "../../lib/auth.ts";
 import { EvidenceError, evidenceAccess } from "../../lib/evidence/store.ts";
+import { readAssignmentContent } from "../../lib/lessons/store.ts";
 import { OriginFilterSchema } from "../../lib/teacher/metrics.ts";
 import {
   readAssignmentEvidence,
@@ -23,7 +24,10 @@ export async function loadTeacherView(params: TeacherFilters) {
     const origin = OriginFilterSchema.parse(params.origin ?? "all");
     const assignmentId = params.assignment ?? assignments[0]?.id;
     const data = assignmentId
-      ? await readAssignmentEvidence(access, assignmentId, origin)
+      ? {
+          ...(await readAssignmentEvidence(access, assignmentId, origin)),
+          content: await readAssignmentContent(access, assignmentId, "teacher"),
+        }
       : null;
     if (
       params.concept &&
