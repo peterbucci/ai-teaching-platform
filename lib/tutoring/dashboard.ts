@@ -7,10 +7,11 @@ import {
   SessionSchema,
 } from "../evidence/contracts.ts";
 import {
-  loadApprovedContent,
   validateContentRef,
   validateQuestionSnapshot,
+  type ApprovedContent,
 } from "../evidence/content.ts";
+import { resolveAssignmentContent } from "../lessons/store.ts";
 import {
   EvidenceError,
   transaction,
@@ -96,9 +97,21 @@ export async function readStudentDashboard(
      ORDER BY t.submitted_at DESC,t.id DESC`,
     [access.actor.profileId],
   );
-  const content = loadApprovedContent();
+  const lessonRecords = lessonRows.rows.map((row) =>
+    LessonRowSchema.parse(evidenceRow(row)),
+  );
+  const contents = new Map<string, ApprovedContent>();
+  for (const lesson of lessonRecords) {
+    contents.set(
+      lesson.id,
+      await resolveAssignmentContent(client, access, lesson.id, "student"),
+    );
+  }
   const attempts = attemptRows.rows.map((row) => {
     const attempt = AttemptRowSchema.parse(evidenceRow(row));
+    const content = contents.get(attempt.assignment_id);
+    if (!content)
+      throw new EvidenceError(503, "This saved lesson version is unavailable.");
     const question = validateQuestionSnapshot(content, attempt.question);
     return {
       id: attempt.id,
@@ -108,8 +121,8 @@ export async function readStudentDashboard(
       conceptIds: question.concept_ids,
     };
   });
-  const lessons: DashboardLesson[] = lessonRows.rows.map((row) => {
-    const lesson = LessonRowSchema.parse(evidenceRow(row));
+  const lessons: DashboardLesson[] = lessonRecords.map((lesson) => {
+    const content = contents.get(lesson.id)!;
     const topics = assignmentPracticeTopics(content, lesson);
     const submittedAttempts = attempts.filter(
       (attempt) => attempt.assignmentId === lesson.id,
@@ -176,7 +189,12 @@ export async function readStudentAssignmentWork(
   );
   if (!assignmentRows.rows[0])
     throw new EvidenceError(404, "Assignment not found.");
-  const content = loadApprovedContent();
+  const content = await resolveAssignmentContent(
+    client,
+    access,
+    assignmentId,
+    "student",
+  );
   const assignment = z
     .object({ content_ref: z.unknown() })
     .parse(assignmentRows.rows[0]);

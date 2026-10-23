@@ -8,9 +8,9 @@ export const ReadingSchema = z.strictObject({
     authors: z.array(z.string()),
     copyright: z.string(),
     section: z.string(),
-    url: z.url(),
+    url: z.url().nullable(),
     license: z.string(),
-    license_url: z.url(),
+    license_url: z.url().nullable(),
     cautions: z.array(z.string()),
   }),
   sections: z.array(
