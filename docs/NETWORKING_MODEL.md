@@ -19,7 +19,11 @@ A one-bit packet still has nonzero transmission delay. Packet size includes any
 counted overhead. Changing the link rate does not change the separately supplied
 signal speed. The functions retain floating-point precision; round only for display.
 
-## Public API
+## Provisional calculation API
+
+These TypeScript inputs, results and validation schemas belong to this calculation
+module. They are provisional interfaces for independent #40 development, not the
+final shared R1 activity schema. No #38 contracts are created or modified here.
 
 | Export                                                                               | Purpose                                                                |
 | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------- |
@@ -72,7 +76,10 @@ not expose the R1 activity/tool contract. These are mathematical input/result
 types only; no replacement activity schema was introduced. The #38 owner should
 map the agreed canonical parameters and `PacketDelayCalculation` into that
 boundary, including source/version, reveal policy and activity-specific controls.
-This adapter remains an integration gate; #40 is not closed by the pure module.
+That adapter and agreement on activity-specific bounds are follow-up integration
+work once #38 is ready. They do not block completing or reviewing #40's pure
+calculation module. The integrated renderer, tutor action and evidence flow still
+require their own verification.
 
 **#39:** Convert explicit UI units, validate against permitted control bounds,
 then use the same calculation function for numerical previews. Label the combined

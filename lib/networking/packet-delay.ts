@@ -1,5 +1,8 @@
 import { z } from "zod";
 
+// Provisional module-local calculation interfaces. The approved #38 activity
+// parameter/result types will connect through an adapter when available.
+
 // Version the equations, units and accepted ranges together for recorded replay.
 export const PACKET_DELAY_MODEL_VERSION = "packet-delay-v1";
 
