@@ -65,6 +65,7 @@ test("a server-written request links the proposal to an eligible action and sour
     source: validConceptGraph.source,
     eligible_action: "GIVE_HINT",
     proposal: { activity_kind: "concept_graph" },
+    activity_snapshot: validConceptGraph,
     activity_sha256: "a".repeat(64),
   };
   assert.equal(VisualToolRequestSchema.safeParse(request).success, true);
@@ -75,6 +76,35 @@ test("a server-written request links the proposal to an eligible action and sour
     }).success,
     false,
   );
+});
+
+test("a request must carry the full activity snapshot", () => {
+  const request = {
+    version: "visual-v1",
+    request_id: randomUUID(),
+    session_id: randomUUID(),
+    expected_revision: 3,
+    source: validConceptGraph.source,
+    eligible_action: "GIVE_HINT",
+    proposal: { activity_kind: "concept_graph" },
+    activity_sha256: "a".repeat(64),
+  };
+  assert.equal(VisualToolRequestSchema.safeParse(request).success, false);
+});
+
+test("a request rejects a snapshot whose kind differs from the proposal", () => {
+  const request = {
+    version: "visual-v1",
+    request_id: randomUUID(),
+    session_id: randomUUID(),
+    expected_revision: 3,
+    source: validConceptGraph.source,
+    eligible_action: "GIVE_HINT",
+    proposal: { activity_kind: "packet_experiment" },
+    activity_snapshot: validConceptGraph,
+    activity_sha256: "a".repeat(64),
+  };
+  assert.equal(VisualToolRequestSchema.safeParse(request).success, false);
 });
 
 test("a verified result needs a server observation and display acknowledgement", () => {
@@ -113,9 +143,22 @@ test("v2 packet requests and results use an explicit version and numeric observa
     source: validPacketDelayExperiment.source,
     eligible_action: "GIVE_HINT",
     proposal: { activity_kind: "packet_experiment" },
+    activity_snapshot: validPacketDelayExperiment,
     activity_sha256: "a".repeat(64),
   };
   assert.equal(VisualToolRequestSchema.safeParse(request).success, true);
+  assert.equal(
+    VisualToolRequestSchema.safeParse({ ...request, version: "visual-v1" })
+      .success,
+    false,
+  );
+  assert.equal(
+    VisualToolRequestSchema.safeParse({
+      ...request,
+      source: { ...request.source, content_version: "another-version" },
+    }).success,
+    false,
+  );
   assert.equal(
     VisualToolRequestSchema.safeParse({
       ...request,

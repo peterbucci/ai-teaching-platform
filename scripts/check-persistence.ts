@@ -269,6 +269,7 @@ async function checkPersistence(prepareRestart: boolean) {
       "insert into assignments select (jsonb_populate_record(null::assignments, $1::jsonb)).*",
       [
         JSON.stringify({
+          instructions: "",
           ...fixture.assignment,
           id: foreignAssignment,
           class_id: foreignClass,
