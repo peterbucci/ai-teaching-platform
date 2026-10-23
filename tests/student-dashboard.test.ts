@@ -79,6 +79,7 @@ function lesson(
   return {
     id,
     title: id,
+    instructions: "",
     approval_label: "Approved by your teacher",
     session: status ? { id: `session-${id}`, status } : null,
     latestSessionStartedAt: status ? date : null,

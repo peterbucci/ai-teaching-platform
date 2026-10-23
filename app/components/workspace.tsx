@@ -50,6 +50,7 @@ export function Workspace({
           text: "Learning insights",
           icon: "chart" as const,
         },
+        { href: "/teacher/lessons", text: "Lessons", icon: "book" as const },
         { href: "/teacher/students", text: "Students", icon: "users" as const },
       ]
     : [

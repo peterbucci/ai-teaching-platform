@@ -66,7 +66,7 @@ async function ownedDraft(
     );
   return lesson;
 }
-async function validateOwnedContent(
+export async function validateOwnedContent(
   client: PoolClient,
   owner: string,
   content: LessonContent,
@@ -119,7 +119,16 @@ async function validateOwnedContent(
       409,
       "Lesson passages differ from the approved source version.",
     );
-  return hydrateLessonContent(content);
+  try {
+    return hydrateLessonContent(content);
+  } catch (error) {
+    throw new EvidenceError(
+      409,
+      error instanceof Error
+        ? `Lesson content needs review: ${error.message}`
+        : "Lesson content needs review before publication.",
+    );
+  }
 }
 
 /** Server-only full context. Student responses must use explicit existing projections. */
@@ -338,10 +347,12 @@ export async function createLessonAssignment(
 ) {
   const request = z
     .strictObject({
+      request_id: z.uuid().optional(),
       class_id: z.uuid(),
       lesson_id: z.string().min(1),
       version: z.string().min(1),
       title: z.string().trim().min(1).max(300),
+      instructions: z.string().trim().max(5000).default(""),
     })
     .parse(input);
   return transaction(async (client) => {
@@ -350,6 +361,50 @@ export async function createLessonAssignment(
       [request.class_id, access.actor.profileId],
     );
     if (!owned.rowCount) throw new EvidenceError(404, "Class not found.");
+    if (request.request_id) {
+      // Serialize matching requests across server processes; the unique database
+      // key remains the final guard. The request never activates its assignment.
+      await client.query("SELECT pg_advisory_xact_lock(hashtext($1))", [
+        `lesson-assignment:${request.request_id}`,
+      ]);
+      const prior = await client.query(
+        `SELECT a.id,a.class_id,a.lesson_id,a.lesson_version,a.title,a.instructions,c.teacher_id
+         FROM assignments a JOIN classes c ON c.id=a.class_id
+         WHERE a.creation_request_id=$1`,
+        [request.request_id],
+      );
+      if (prior.rows[0]) {
+        const saved = z
+          .object({
+            id: z.uuid(),
+            class_id: z.uuid(),
+            lesson_id: z.string(),
+            lesson_version: z.string(),
+            title: z.string(),
+            instructions: z.string(),
+            teacher_id: z.uuid(),
+          })
+          .parse(prior.rows[0]);
+        if (
+          saved.teacher_id !== access.actor.profileId ||
+          saved.class_id !== request.class_id ||
+          saved.lesson_id !== request.lesson_id ||
+          saved.lesson_version !== request.version ||
+          saved.title !== request.title ||
+          saved.instructions !== request.instructions
+        )
+          throw new EvidenceError(
+            409,
+            "This assignment request was already used with different details. Review the existing assignment or start a new request.",
+          );
+        return {
+          id: saved.id,
+          class_id: saved.class_id,
+          lesson_id: saved.lesson_id,
+          lesson_version: saved.lesson_version,
+        };
+      }
+    }
     const version = await client.query(
       `SELECT v.*,l.owner_id FROM lesson_versions v JOIN lessons l ON l.id=v.lesson_id WHERE v.lesson_id=$1 AND v.version=$2 AND (l.owner_id=$3 OR l.owner_id IS NULL)`,
       [request.lesson_id, request.version, access.actor.profileId],
@@ -368,8 +423,8 @@ export async function createLessonAssignment(
     validateContentRef(content, row.content_ref);
     const id = randomUUID();
     await client.query(
-      `INSERT INTO assignments(id,class_id,title,content_ref,approved_concept_ids,approved_passage_ids,approved_misconception_ids,approval,lesson_id,lesson_version)
-      VALUES($1,$2,$3,$4::jsonb,$5,$6,$7,$8::jsonb,$9,$10)`,
+      `INSERT INTO assignments(id,class_id,title,content_ref,approved_concept_ids,approved_passage_ids,approved_misconception_ids,approval,lesson_id,lesson_version,instructions,creation_request_id)
+      VALUES($1,$2,$3,$4::jsonb,$5,$6,$7,$8::jsonb,$9,$10,$11,$12)`,
       [
         id,
         request.class_id,
@@ -381,6 +436,8 @@ export async function createLessonAssignment(
         JSON.stringify(content.approval),
         row.lesson_id,
         row.version,
+        request.instructions,
+        request.request_id ?? null,
       ],
     );
     return {
