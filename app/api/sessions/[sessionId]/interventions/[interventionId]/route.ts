@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { apiResponse, requestBody } from "../../../../../../lib/api.ts";
 import { requireActor } from "../../../../../../lib/auth.ts";
+import { requireOrdinarySession } from "../../../../../../lib/interventions/session-boundary.ts";
 import {
   acknowledgeIntervention,
   evidenceAccess,
@@ -13,10 +14,8 @@ export async function POST(
   return apiResponse(async () => {
     z.strictObject({}).parse(await requestBody(request));
     const { sessionId, interventionId } = await context.params;
-    return acknowledgeIntervention(
-      evidenceAccess(await requireActor()),
-      sessionId,
-      interventionId,
-    );
+    const access = evidenceAccess(await requireActor());
+    await requireOrdinarySession(access, sessionId);
+    return acknowledgeIntervention(access, sessionId, interventionId);
   });
 }

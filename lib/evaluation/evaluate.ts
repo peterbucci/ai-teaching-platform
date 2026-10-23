@@ -118,6 +118,12 @@ export type EvaluationRun = {
   failure: { code: string; message: string } | null;
 };
 
+/** Trusted adapters can exercise the same evaluator with a deterministic
+ * provider through the same durable reservation and outcome ledger. */
+export type EvaluationOptions = {
+  provider?: typeof requestEvaluation;
+};
+
 /** Server/operator-only. There is deliberately no public model-spending endpoint.
  * One explicit call per submitted attempt: existing results (including failures)
  * are reused. A later retry policy is a deliberate tutor decision, not an SDK retry.
@@ -127,6 +133,7 @@ export async function evaluateSubmittedAttempt(
   sessionId: string,
   attemptId: string,
   retryOf?: string,
+  options: EvaluationOptions = {},
 ): Promise<EvaluationRun> {
   z.uuid().parse(attemptId);
   // Authorize before taking any model-work lock or spending credits.
@@ -201,9 +208,14 @@ export async function evaluateSubmittedAttempt(
     const prompt = evaluationPrompt(content, attempt);
     // A durable start marker prevents an interrupted or unsaved provider result
     // from being silently paid for again. It is not an accepted judgment.
-    const configuredModel = process.env.OPENAI_MODEL?.trim();
+    const configuredModel = options.provider
+      ? "injected-fixture"
+      : process.env.OPENAI_MODEL?.trim();
     let reservationId: string | undefined;
-    if (configuredModel && process.env.OPENAI_API_KEY?.trim()) {
+    if (
+      configuredModel &&
+      (options.provider || process.env.OPENAI_API_KEY?.trim())
+    ) {
       reservationId = randomUUID();
       await recordEvaluation(access, sessionId, {
         id: reservationId,
@@ -221,7 +233,7 @@ export async function evaluateSubmittedAttempt(
           "Evaluation request started. If no result arrives, ask your teacher to check it before another paid request.",
       });
     }
-    const provider = await requestEvaluation(prompt);
+    const provider = await (options.provider ?? requestEvaluation)(prompt);
     let result: Evaluation["result"] = null;
     let failure: EvaluationRun["failure"] = provider.ok
       ? null

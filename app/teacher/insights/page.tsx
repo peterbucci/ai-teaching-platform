@@ -121,6 +121,11 @@ export default async function TeacherInsightsPage({
         <a href="#concepts">Concept results</a>
         <a href="#patterns">Reasoning patterns</a>
         <a href="#responses">Student responses</a>
+        <Link
+          href={`/teacher/interventions?${new URLSearchParams({ assignment: data.assignment_id, origin, ...(params.concept ? { concept: params.concept } : {}) })}`}
+        >
+          Intervention drafts
+        </Link>
       </nav>
       <div className="lp-panel lp-overview-summary">
         <div>
@@ -241,6 +246,13 @@ export default async function TeacherInsightsPage({
                     See student responses
                     <Icon name="arrow" />
                   </a>
+                  <Link
+                    href={`/teacher/interventions?${new URLSearchParams({ assignment: data.assignment_id, origin, concept: c.concept_id })}`}
+                    className="lp-text-link mt-3"
+                  >
+                    Draft a review activity
+                    <Icon name="arrow" />
+                  </Link>
                 </div>
               </details>
             );

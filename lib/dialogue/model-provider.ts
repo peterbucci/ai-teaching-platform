@@ -2,6 +2,7 @@ import "server-only";
 import OpenAI from "openai";
 import { zodTextFormat } from "openai/helpers/zod";
 import type { z } from "zod";
+import { omitUnsupportedUriFormat } from "../structured-output.ts";
 import { DIALOGUE_LIMITS } from "./contracts.ts";
 
 export type ModelUsage = {
@@ -60,21 +61,6 @@ export function configuredDialogueModel(): string | null {
   return process.env.OPENAI_API_KEY?.trim()
     ? process.env.OPENAI_MODEL?.trim() || null
     : null;
-}
-
-/** Only adapt the provider wire schema; canonical Zod validation stays unchanged. */
-function omitUnsupportedUriFormat(value: unknown): void {
-  if (!value || typeof value !== "object") return;
-  if (Array.isArray(value)) {
-    for (const child of value) omitUnsupportedUriFormat(child);
-    return;
-  }
-  // This is SDK-generated JSON Schema, never model output or source data.
-  const schema = value as Record<string, unknown>;
-  // Structured Outputs supports UUID and other formats, but not URI. Uploaded
-  // attribution URLs are still checked by input.schema.safeParse after transport.
-  if (schema.type === "string" && schema.format === "uri") delete schema.format;
-  for (const child of Object.values(schema)) omitUnsupportedUriFormat(child);
 }
 
 /**
