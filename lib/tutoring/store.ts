@@ -26,6 +26,7 @@ import {
 import {
   EvidenceError,
   readStudentDeliveryContext,
+  requireTutoringSession,
   sessionEvidence,
   transaction,
   type EvidenceAccess,
@@ -55,6 +56,7 @@ export async function assignedLessons(access: EvidenceAccess) {
         SELECT jsonb_build_object('id',s.id,'status',s.status) AS session
         FROM sessions s WHERE s.assignment_id=a.id AND s.class_id=a.class_id
           AND s.student_id=e.student_id AND s.data_origin='live_demo'
+          AND NOT EXISTS (SELECT 1 FROM teacher_intervention_followups f WHERE f.session_id=s.id)
         ORDER BY s.started_at DESC,s.id DESC LIMIT 1
       ) latest ON true
       WHERE e.student_id=$1 AND a.teacher_approved_at IS NOT NULL ORDER BY a.id`,
@@ -116,6 +118,7 @@ export async function studentStudyHistory(
          FROM attempts t WHERE t.session_id=s.id AND t.submitted_at IS NOT NULL
        ) submitted
        WHERE s.student_id=$1 AND p.auth_user_id=$2 AND s.data_origin='live_demo'
+         AND NOT EXISTS (SELECT 1 FROM teacher_intervention_followups f WHERE f.session_id=s.id)
        ORDER BY s.started_at DESC,s.id DESC`,
       [access.actor.profileId, access.actor.userId],
     );
@@ -181,6 +184,7 @@ export async function studentStudyHistory(
 }
 
 export async function tutorView(access: EvidenceAccess, sessionId: string) {
+  await transaction((client) => requireTutoringSession(client, sessionId));
   const { evidence, controllerInterventions } =
     await readStudentDeliveryContext(access, sessionId);
   const studentView = toStudentSessionView({
@@ -302,7 +306,8 @@ export async function restartTutoring(
        JOIN enrollments e ON e.class_id=s.class_id AND e.student_id=s.student_id
        JOIN profiles p ON p.id=s.student_id
        WHERE s.id=$1 AND s.student_id=$2 AND p.auth_user_id=$3
-         AND s.data_origin='live_demo'`,
+         AND s.data_origin='live_demo'
+         AND NOT EXISTS (SELECT 1 FROM teacher_intervention_followups f WHERE f.session_id=s.id)`,
       [completedSessionId, access.actor.profileId, access.actor.userId],
     );
     if (!rows.rows[0]) throw new EvidenceError(404, "Session not found.");
@@ -361,9 +366,10 @@ async function openTutoringSession(
       "Your teacher needs to activate this assignment first. Your previous work is still saved.",
     );
   const existing = await client.query(
-    `SELECT id FROM sessions WHERE assignment_id=$1 AND student_id=$2
-       AND class_id=$3 AND data_origin='live_demo'
-     ORDER BY started_at DESC,id DESC LIMIT 1`,
+    `SELECT s.id FROM sessions s WHERE s.assignment_id=$1 AND s.student_id=$2
+       AND s.class_id=$3 AND s.data_origin='live_demo'
+       AND NOT EXISTS (SELECT 1 FROM teacher_intervention_followups f WHERE f.session_id=s.id)
+     ORDER BY s.started_at DESC,s.id DESC LIMIT 1`,
     [assignmentId, access.actor.profileId, assignment.class_id],
   );
   const latestId = existing.rows[0]
@@ -412,6 +418,7 @@ export async function applyTutoringInTransaction(
   evaluationId: string,
   handoff: TutoringHandoff = {},
 ) {
+  await requireTutoringSession(client, sessionId);
   const evidence = await sessionEvidence(
     client,
     access,
@@ -582,6 +589,9 @@ export async function continueTutoring(
   input: unknown,
 ) {
   const step = TutorStepSchema.parse(input);
+  // Check before the evaluator: rejecting the controller after a paid request
+  // would already have crossed the follow-up's authorization boundary.
+  await transaction((client) => requireTutoringSession(client, sessionId));
   const run = await evaluateSubmittedAttempt(
     access,
     sessionId,

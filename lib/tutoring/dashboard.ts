@@ -76,12 +76,14 @@ export async function readStudentDashboard(
        SELECT jsonb_build_object('id',s.id,'status',s.status) AS session,s.started_at
        FROM sessions s WHERE s.assignment_id=a.id AND s.class_id=a.class_id
          AND s.student_id=e.student_id AND s.data_origin='live_demo'
+         AND NOT EXISTS (SELECT 1 FROM teacher_intervention_followups f WHERE f.session_id=s.id)
        ORDER BY s.started_at DESC,s.id DESC LIMIT 1
      ) latest ON true
      LEFT JOIN LATERAL (
        SELECT MAX(s.ended_at) AS last_completed_at
        FROM sessions s WHERE s.assignment_id=a.id AND s.class_id=a.class_id
          AND s.student_id=e.student_id AND s.data_origin='live_demo'
+         AND NOT EXISTS (SELECT 1 FROM teacher_intervention_followups f WHERE f.session_id=s.id)
          AND s.status='completed'
      ) completed ON true
      WHERE e.student_id=$1 AND a.teacher_approved_at IS NOT NULL ORDER BY a.id`,
@@ -94,6 +96,7 @@ export async function readStudentDashboard(
      JOIN assignments a ON a.id=s.assignment_id AND a.class_id=s.class_id
      JOIN enrollments e ON e.class_id=s.class_id AND e.student_id=s.student_id
      WHERE s.student_id=$1 AND s.data_origin='live_demo'
+       AND NOT EXISTS (SELECT 1 FROM teacher_intervention_followups f WHERE f.session_id=s.id)
        AND a.teacher_approved_at IS NOT NULL AND t.submitted_at IS NOT NULL
      ORDER BY t.submitted_at DESC,t.id DESC`,
     [access.actor.profileId],
@@ -209,6 +212,7 @@ export async function readStudentAssignmentWork(
      JOIN assignments a ON a.id=s.assignment_id AND a.class_id=s.class_id
      JOIN enrollments e ON e.class_id=s.class_id AND e.student_id=s.student_id
      WHERE a.id=$1 AND s.student_id=$2 AND s.data_origin='live_demo'
+       AND NOT EXISTS (SELECT 1 FROM teacher_intervention_followups f WHERE f.session_id=s.id)
        AND a.teacher_approved_at IS NOT NULL
      ORDER BY s.started_at DESC,s.id DESC`,
     [assignmentId, access.actor.profileId],
@@ -219,6 +223,7 @@ export async function readStudentAssignmentWork(
      JOIN assignments a ON a.id=s.assignment_id AND a.class_id=s.class_id
      JOIN enrollments e ON e.class_id=s.class_id AND e.student_id=s.student_id
      WHERE a.id=$1 AND s.student_id=$2 AND s.data_origin='live_demo'
+       AND NOT EXISTS (SELECT 1 FROM teacher_intervention_followups f WHERE f.session_id=s.id)
        AND a.teacher_approved_at IS NOT NULL AND t.submitted_at IS NOT NULL
      ORDER BY t.session_id,t.sequence_index,t.id`,
     [assignmentId, access.actor.profileId],
@@ -307,6 +312,7 @@ export async function readStudentSessionAssignment(
      JOIN enrollments e ON e.class_id=s.class_id AND e.student_id=s.student_id
      JOIN profiles p ON p.id=s.student_id
      WHERE s.id=$1 AND p.id=$2 AND p.auth_user_id=$3
+       AND NOT EXISTS (SELECT 1 FROM teacher_intervention_followups f WHERE f.session_id=s.id)
        AND s.data_origin='live_demo' AND a.teacher_approved_at IS NOT NULL`,
     [sessionId, access.actor.profileId, access.actor.userId],
   );
