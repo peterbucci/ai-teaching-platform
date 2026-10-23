@@ -228,3 +228,39 @@ test("publication rejects a misconception mapped to a diagnostic that does not a
     "A neutral diagnostic does not claim a misconception category",
   );
 });
+
+test("previously approved global diagnostic categories remain readable without weakening concept-specific scope", () => {
+  // Global categories were already a valid published contract before #52.
+  // Hydration also runs when reopening old assignments and saved evidence.
+  const original = makeTeacherLesson(
+    makeTeacherSourceReference(sourceId, teacherId),
+    lessonId,
+    "1",
+  );
+  original.misconceptions.push({
+    id: "cause-and-description",
+    concept_id: null,
+    definition: "Uses a description as a causal explanation.",
+    handling: "Investigate with evidence; do not infer a stable belief.",
+  });
+  original.question_guidance.find(
+    (item) => item.question_id === "WC-DIAGNOSTIC",
+  )!.misconception_ids = ["cause-and-description"];
+  original.sequence.diagnostic_options[0].misconception_id =
+    "cause-and-description";
+  const before = structuredClone(original);
+  const reopened = hydrateLessonContent(original);
+  assert.equal(
+    reopened.misconceptions.get("cause-and-description")?.concept_id,
+    null,
+  );
+  assert.equal(
+    reopened.sequence.diagnostic_options[0].misconception_id,
+    "cause-and-description",
+  );
+  assert.deepEqual(
+    original,
+    before,
+    "Reading a published snapshot must not rewrite it",
+  );
+});

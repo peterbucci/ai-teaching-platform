@@ -51,6 +51,32 @@ export default async function LessonReviewPage({
             Return to current draft
           </Link>
         )}
+        {!published && (
+          <nav className="flex flex-wrap gap-3" aria-label="Lesson authoring">
+            {lesson.draft?.content_ref &&
+              "source_kind" in lesson.draft.content_ref && (
+                <Link
+                  className="lp-button"
+                  href={`/teacher/materials/${encodeURIComponent(lesson.draft.content_ref.source_id)}?version=${lesson.draft.content_ref.source_version}`}
+                >
+                  Review source material
+                </Link>
+              )}
+            {lesson.draft?.objective_workflow && (
+              <Link
+                className="lp-button"
+                href={`/teacher/objectives/${encodeURIComponent(lessonId)}`}
+              >
+                Edit learning objectives
+              </Link>
+            )}
+            {!!lesson.draft?.concepts?.length && (
+              <Link className="lp-button" href={`${href}/questions`}>
+                Edit question bank
+              </Link>
+            )}
+          </nav>
+        )}
       </header>
       <div className="lp-assignment-layout">
         <div className="lp-assignment-main">

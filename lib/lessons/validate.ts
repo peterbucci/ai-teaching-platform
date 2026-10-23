@@ -217,8 +217,11 @@ export function hydrateLessonContent(input: unknown): ApprovedContent {
     if (option.misconception_id !== null) {
       const conceptId = misconceptions.get(option.misconception_id)?.concept_id;
       requireRule(
-        !!conceptId &&
-          !!questions.get(option.question_id)?.concept_ids.includes(conceptId),
+        conceptId === null ||
+          (conceptId !== undefined &&
+            !!questions
+              .get(option.question_id)
+              ?.concept_ids.includes(conceptId)),
         "A diagnostic must assess the concept of its mapped misconception",
       );
     }

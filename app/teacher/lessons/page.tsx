@@ -16,9 +16,20 @@ export default async function LessonsPage() {
           Review your material, learning goals, and questions. Publish an
           approved version, then choose a class and activate its assignment.
         </p>
-        <Link href="/teacher/assignments" className="lp-button">
-          Class assignments
-        </Link>
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href="/teacher/objectives"
+            className="lp-button lp-button-primary"
+          >
+            Create a lesson draft
+          </Link>
+          <Link href="/teacher/materials" className="lp-button">
+            Import material
+          </Link>
+          <Link href="/teacher/assignments" className="lp-button">
+            Class assignments
+          </Link>
+        </div>
       </header>
       {lessons.length ? (
         <div className="space-y-4">
@@ -49,9 +60,9 @@ export default async function LessonsPage() {
         <section className="lp-panel">
           <h2>No lesson drafts yet</h2>
           <p>
-            Lessons appear here after material, objectives, and questions have
-            been saved in the lesson editor. A complete reviewed lesson is
-            required before publication.
+            Start a lesson draft from your approved material, then review its
+            objectives and question bank. A complete reviewed lesson is required
+            before publication.
           </p>
         </section>
       )}

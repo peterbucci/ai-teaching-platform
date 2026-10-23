@@ -608,11 +608,19 @@ export function ObjectiveEditor({ lessonId }: { lessonId: string }) {
             <span className="lo-muted">Revision {data.lesson.revision}</span>
           </div>
           {reviewed && !dirty && (
-            <p className="lo-notice lo-success">
-              This set was approved on{" "}
-              {new Date(reviewed.reviewed_at).toLocaleString()}. Editing the
-              objectives requires a new review.
-            </p>
+            <div className="lo-notice lo-success">
+              <p>
+                This set was approved on{" "}
+                {new Date(reviewed.reviewed_at).toLocaleString()}. Editing the
+                objectives requires a new review.
+              </p>
+              <Link
+                className="lp-button lp-button-primary mt-3"
+                href={`/teacher/lessons/${encodeURIComponent(lessonId)}/questions`}
+              >
+                Continue to question bank
+              </Link>
+            </div>
           )}
           <div className="lo-editor-layout">
             <div>
