@@ -18,10 +18,12 @@ import {
 import {
   LessonContentSchema,
   LessonDraftContentSchema,
+  projectLessonDraftContent,
   type LessonContent,
 } from "./contracts.ts";
 import { AttributionSchema, SourcePassageSchema } from "./source-contracts.ts";
 import { hydrateLessonContent } from "./validate.ts";
+import { getReviewedQuestionBank } from "../question-bank/validation.ts";
 
 const LessonRowSchema = z.object({
   id: z.string(),
@@ -47,7 +49,7 @@ async function teacher(client: PoolClient, access: EvidenceAccess) {
   if (!result.rowCount)
     throw new EvidenceError(403, "Teacher access is required.");
 }
-async function ownedDraft(
+export async function readLessonDraftInTransaction(
   client: PoolClient,
   access: EvidenceAccess,
   id: string,
@@ -202,6 +204,16 @@ export async function readAssignmentContent(
 
 /** Optimistic authoring API: editing clears approval; publishing never edits this row's old versions. */
 export async function saveLessonDraft(access: EvidenceAccess, input: unknown) {
+  return transaction((client) =>
+    saveLessonDraftInTransaction(client, access, input),
+  );
+}
+/** Same canonical write boundary, composable with a durable generation receipt. */
+export async function saveLessonDraftInTransaction(
+  client: PoolClient,
+  access: EvidenceAccess,
+  input: unknown,
+) {
   const request = z
     .strictObject({
       lesson_id: z.string().min(1).optional(),
@@ -210,38 +222,38 @@ export async function saveLessonDraft(access: EvidenceAccess, input: unknown) {
       draft: LessonDraftContentSchema,
     })
     .parse(input);
-  return transaction(async (client) => {
-    await teacher(client, access);
-    const draft = { ...request.draft };
-    delete draft.approval;
-    if (!request.lesson_id) {
-      if (request.expected_revision !== 0)
-        throw new EvidenceError(409, "A new draft starts at revision zero.");
-      const id = randomUUID();
-      const result = await client.query(
-        "INSERT INTO lessons(id,owner_id,title,draft,revision) VALUES($1,$2,$3,$4::jsonb,1) RETURNING *",
-        [id, access.actor.profileId, request.title, JSON.stringify(draft)],
-      );
-      return LessonRowSchema.parse(evidenceRow(result.rows[0]));
-    }
-    await ownedDraft(
-      client,
-      access,
-      request.lesson_id,
-      request.expected_revision,
-    );
+  await teacher(client, access);
+  const draft = { ...request.draft };
+  delete draft.approval;
+  if (!request.lesson_id) {
+    if (request.expected_revision !== 0)
+      throw new EvidenceError(409, "A new draft starts at revision zero.");
+    const id = randomUUID();
     const result = await client.query(
-      "UPDATE lessons SET title=$2,draft=$3::jsonb,revision=revision+1,approved_revision=NULL WHERE id=$1 RETURNING *",
-      [request.lesson_id, request.title, JSON.stringify(draft)],
+      "INSERT INTO lessons(id,owner_id,title,draft,revision) VALUES($1,$2,$3,$4::jsonb,1) RETURNING *",
+      [id, access.actor.profileId, request.title, JSON.stringify(draft)],
     );
     return LessonRowSchema.parse(evidenceRow(result.rows[0]));
-  });
+  }
+  await readLessonDraftInTransaction(
+    client,
+    access,
+    request.lesson_id,
+    request.expected_revision,
+  );
+  const result = await client.query(
+    "UPDATE lessons SET title=$2,draft=$3::jsonb,revision=revision+1,approved_revision=NULL WHERE id=$1 RETURNING *",
+    [request.lesson_id, request.title, JSON.stringify(draft)],
+  );
+  return LessonRowSchema.parse(evidenceRow(result.rows[0]));
 }
 export async function readLessonDraft(
   access: EvidenceAccess,
   lessonId: string,
 ) {
-  return transaction((client) => ownedDraft(client, access, lessonId));
+  return transaction((client) =>
+    readLessonDraftInTransaction(client, access, lessonId),
+  );
 }
 export async function approveLessonDraft(
   access: EvidenceAccess,
@@ -250,10 +262,16 @@ export async function approveLessonDraft(
 ) {
   z.number().int().positive().parse(expectedRevision);
   return transaction(async (client) => {
-    const lesson = await ownedDraft(client, access, lessonId, expectedRevision);
+    const lesson = await readLessonDraftInTransaction(
+      client,
+      access,
+      lessonId,
+      expectedRevision,
+    );
     if (lesson.approved_revision === expectedRevision) return lesson;
+    if (lesson.draft?.question_bank) getReviewedQuestionBank(lesson.draft);
     const content = LessonContentSchema.parse({
-      ...lesson.draft,
+      ...projectLessonDraftContent(lesson.draft ?? {}),
       approval: {
         status: "approved",
         approved_by: access.actor.profileId,
@@ -276,7 +294,7 @@ export async function approveLessonDraft(
       );
     const result = await client.query(
       "UPDATE lessons SET draft=$2::jsonb,approved_revision=revision WHERE id=$1 RETURNING *",
-      [lesson.id, JSON.stringify(content)],
+      [lesson.id, JSON.stringify({ ...lesson.draft, ...content })],
     );
     return LessonRowSchema.parse(evidenceRow(result.rows[0]));
   });
@@ -288,13 +306,21 @@ export async function publishLessonVersion(
 ) {
   z.number().int().positive().parse(expectedRevision);
   return transaction(async (client) => {
-    const lesson = await ownedDraft(client, access, lessonId, expectedRevision);
+    const lesson = await readLessonDraftInTransaction(
+      client,
+      access,
+      lessonId,
+      expectedRevision,
+    );
     if (lesson.approved_revision !== expectedRevision)
       throw new EvidenceError(
         409,
         "Approve the current draft before publishing.",
       );
-    const content = LessonContentSchema.parse(lesson.draft);
+    if (lesson.draft?.question_bank) getReviewedQuestionBank(lesson.draft);
+    const content = LessonContentSchema.parse(
+      projectLessonDraftContent(lesson.draft ?? {}),
+    );
     const approved = await validateOwnedContent(
       client,
       access.actor.profileId,
