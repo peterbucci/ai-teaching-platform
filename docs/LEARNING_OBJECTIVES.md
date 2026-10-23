@@ -163,7 +163,7 @@ metadata, silently overwrite newer work, publish or assign. No copilot is added.
 
 ## Recorded verification and remaining work
 
-- 111 deterministic tests and 293 curated content checks passed. Provider tests
+- Initial feature verification passed 111 deterministic tests and 293 curated content checks. Provider tests
   inject results or mock HTTP; they do not establish live-model quality.
 - `objectives:check` passed against isolated PostgreSQL with fictional teachers:
   manual editing/merge/order/review/reload, ownership, stale writes, unsupported
@@ -192,7 +192,84 @@ metadata, silently overwrite newer work, publish or assign. No copilot is added.
   to isolate concurrent localhost sessions. This test-only prefix change is
   excluded from the feature commit.
 
-The checked sources were created through #53's registry, not #49's importer UI.
-Reviewed-import integration, #51 question authoring and #52 publication remain
-separate dependencies. This does not claim full R4 completion or educational
+The initial model/browser sources were created through #53's registry. The
+later #97 reconciliation below verifies the real importer HTTP-to-objectives
+path separately. #51 question authoring and #52 publication remain separate
+integration work. This does not claim full R4 completion or educational
 validation.
+
+## Reconciliation after #93 squash merge
+
+On October 23, 2026, #100 was reconciled with main
+`939c766d5cd82fa1347b731eabbba24331a836a4` using a normal merge into the
+existing feature branch. The original #50 commits remain ancestors; no rebase,
+force-push or replay of the old #93 patches was used. The diff against main keeps
+only the original 29-file objective feature scope. Reviewed #93 diagnostic,
+uncertainty, analytics and source guards are preserved. #101 and #102 branches
+were not changed; they can integrate this descendant without losing their work.
+
+The reconciled tree passed 119 deterministic tests, 293 content checks, lint,
+typecheck, formatting and production Docker build. Fresh isolated PostgreSQL
+passed objectives, expanded lesson resolution, uploaded-lesson uncertainty and
+authenticated teacher pages, SQL constraints, assignments, reading, tutoring,
+metrics, patterns and persistence through application/database restart.
+Independent read-only review found no actionable reconciliation issue and
+separately ran 28 focused objective/lesson tests. These regression checks used
+synthetic fixtures and zero model calls; the earlier three-call model/browser
+record above remains the live acceptance evidence.
+
+The original development database retained a pre-commit checksum for migration
+010 with one extra trailing blank line. It was left untouched, including its
+approved browser draft. Published migration bytes match #100, #101 and #102;
+no migration or stored checksum was rewritten. Fresh-schema checks passed.
+
+PR #100 now targets main. Reconciliation commit `1cae90f` preserves both
+parents. Independent repository review was requested; maintainer approval and
+downstream combined integration remain pending. No PR was merged or issue closed.
+
+## Reconciliation after #97 squash merge
+
+The existing branch was merged normally with main
+`d2d145c1f7ea175c788b7ed67a644be60d95173f`, preserving the previous #100 head
+`4791bf6b7350ce76948bcfa87700821a45e25de7`. The only conflict was the package
+script list; both `materials:check` and `objectives:check` are retained. All
+importer-only files and the dependency lock match main exactly. Reviewed
+objective implementation and migration bytes are unchanged. The diff against
+main still contains the same 29 objective-feature paths. No rebase, force-push,
+migration rewrite or downstream branch change was used.
+
+The combined tree passed 181 deterministic tests, 293 content checks, lint,
+typecheck, formatting and production Docker build. An independent read-only
+review passed 90 focused objective/importer/lesson tests and found no actionable
+reconciliation defect. Isolated PostgreSQL and the production app passed SQL
+constraints, assignments, reading, class, tutor, metrics, patterns, lessons,
+objectives, uncertainty and material-import checks. The material check first
+hit the demo login rate limit; the unchanged suite passed after the real
+cooldown. Windows npm dropped the local restart flags, so the checker was then
+invoked directly: prepared evidence and authenticated sessions survived an
+application/database restart, repeat migration/seed retained record counts,
+and logout revoked both sessions. CI retains main's importer check ordering.
+
+A separate authenticated HTTP/PostgreSQL junction check passed 22 assertion
+groups: paste into the real importer, preview, correct and approve passages,
+save the source, create a manual objective from that exact version, save and
+reload unapproved work, edit and attest support, approve objectives, and reload
+revision 4. A second read after restart preserved the source hashes, corrected
+text, stable concept ID, source version and review receipt. Unknown passages,
+quotes removed during source review, stale revisions, unreviewed approval and
+another teacher's access were denied. An extracted-only source fixture was
+also rejected. Full lesson approval stayed null with no publication,
+assignment or AI request. This is HTTP/service evidence, not a new browser or
+model-quality run; zero paid calls were made. The prior live-model/browser
+record above and its original approved draft remain intact.
+
+#93 and #97 are now integrated dependencies. #101 must incorporate this #100
+reconciliation before #102 updates from #101 and resolves its combined importer,
+question-bank and publication work. Preserve both workflow extensions and
+publication projections described above. Their branches were left untouched.
+Independent maintainer review and downstream combined acceptance remain open;
+this draft does not establish the complete R4 authoring pipeline.
+
+The unchanged main dependency lock also reports a production Next.js 16.4.0
+security advisory in `npm audit`; dependency remediation needs a separate
+maintainer follow-up. No dependency upgrade was included in this reconciliation.

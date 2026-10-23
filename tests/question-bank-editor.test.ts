@@ -1,6 +1,16 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { QuestionSnapshotSchema } from "../lib/evidence/contracts.ts";
+import type { LessonDraftContent } from "../lib/lessons/contracts.ts";
+import {
+  fingerprintQuestionBank,
+  getReviewedQuestionBank,
+} from "../lib/question-bank/validation.ts";
+import {
+  makeTeacherLesson,
+  makeTeacherSourceReference,
+} from "./fixtures/teacher-lesson.ts";
+
 import {
   DEFAULT_QUESTION_BANK_PREFERENCES,
   QuestionBankMetadataSchema,
@@ -9,6 +19,7 @@ import {
 import {
   parseRecovery,
   questionFormatChange,
+  withHintPermission,
 } from "../app/teacher/lessons/[lessonId]/questions/editor-state.ts";
 
 function recoveryCopy() {
@@ -155,4 +166,85 @@ test("recovery continues to reject malformed cache and wrong field types", () =>
     },
   };
   assert.equal(parseRecovery(JSON.stringify(invalid)), null);
+});
+
+test("changing hints invalidates reviewed policy while preserving fallback actions and refresh recovery", () => {
+  const teacherId = "11111111-1111-4111-8111-111111111111";
+  const draft: LessonDraftContent = makeTeacherLesson(
+    makeTeacherSourceReference(
+      "33333333-3333-4333-8333-333333333333",
+      teacherId,
+    ),
+    "22222222-2222-4222-8222-222222222222",
+    "1",
+  );
+  draft.questions = draft.questions!.slice(0, 4);
+  draft.question_guidance = draft.question_guidance!.slice(0, 4);
+  const roles = ["initial", "alternative", "diagnostic", "retest"];
+  draft.question_bank = QuestionBankMetadataSchema.parse({
+    preferences: DEFAULT_QUESTION_BANK_PREFERENCES,
+    items: draft.questions.map((question, index) => ({
+      question_id: question.question_id,
+      family_id: "water-state",
+      role: roles[index],
+      format: "short_answer",
+      difficulty: "intermediate",
+      feedback_guidance:
+        "Compare the starting and ending states: evaporation changes liquid to gas; condensation changes gas to liquid.",
+      reasoning_error: index === 2 ? "The direction may be reversed." : null,
+      source_support: question.rubric.criteria.map(
+        (criterion, passageIndex) => ({
+          passage_id: draft.passages![passageIndex].id,
+          quote: draft.passages![passageIndex].text.split(". ")[0] + ".",
+          criterion,
+        }),
+      ),
+      calculation: null,
+      review_status: "reviewed",
+      review_notes: "",
+      quality_issues: [],
+    })),
+    approval: null,
+  });
+  draft.question_bank.approval = {
+    reviewed_by: teacherId,
+    reviewed_at: "2026-10-22T12:00:00Z",
+    content_fingerprint: fingerprintQuestionBank(draft),
+  };
+  assert.doesNotThrow(() => getReviewedQuestionBank(draft));
+  const originalPolicy = structuredClone(draft.activity_policy!);
+  const changed = {
+    ...draft,
+    activity_policy: withHintPermission(draft.activity_policy!, true),
+  };
+  assert.throws(
+    () => getReviewedQuestionBank(changed),
+    /explicit teacher approval/,
+    "A previously approved bank cannot publish newly enabled help without review.",
+  );
+  assert.deepEqual(draft.activity_policy, originalPolicy);
+  assert.deepEqual(changed.activity_policy.allowed_actions, [
+    ...originalPolicy.allowed_actions,
+    "GIVE_HINT",
+  ]);
+  assert.equal(changed.activity_policy.allow_runtime_generation, false);
+  assert.deepEqual(
+    withHintPermission(changed.activity_policy, true),
+    changed.activity_policy,
+    "Saving an already enabled permission must not duplicate the action.",
+  );
+  const recovered = parseRecovery(
+    JSON.stringify({
+      lesson_id: draft.content_ref!.package_id,
+      revision: 7,
+      bank: changed,
+    }),
+  );
+  assert.ok(recovered);
+  assert.deepEqual(recovered.bank.activity_policy, changed.activity_policy);
+  assert.deepEqual(
+    withHintPermission(recovered.bank.activity_policy, false),
+    originalPolicy,
+    "Disabling hints must preserve neutral clarification and fallback permissions.",
+  );
 });

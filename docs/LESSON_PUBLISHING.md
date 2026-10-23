@@ -2,7 +2,7 @@
 
 This is the implementation handoff for [Issue #52](https://github.com/peterbucci/ai-teaching-platform/issues/52). It extends the [#53 lesson resolver](LESSON_RESOLVER.md), the existing assignment record, and the existing tutor/evidence path. It does not introduce a second lesson store, evaluator, or tutoring controller.
 
-[Draft PR #102](https://github.com/peterbucci/ai-teaching-platform/pull/102) targets `feature/51-question-bank` so its review isolates the publishing integration from the upstream authoring work. It remains a draft and has not been merged. The composed worktree integrates #49, #50, #51, and #53. #93 has merged to `main` as `939c766`; #97, #100 and #101 remain separate draft dependencies. #101 still depends on #100, so #102 retains its existing base until a coordinated restack.
+[PR #102](https://github.com/peterbucci/ai-teaching-platform/pull/102) integrates publication onto main after #93, #97, #100 and #101. Main `4a209ba` contains the canonical registry, importer, objectives and reviewed question bank. A normal merge preserves the existing feature history and unchanged migrations.
 
 ## Current delivery boundary
 
@@ -10,7 +10,7 @@ The publishing interface works with real teacher-owned draft, source, publicatio
 
 #49's real material importer, #50's objective generation/review editor, and #51's question generation/review editor are integrated with the #53 draft and published-version contracts. Navigation connects imported material, objectives, questions, and publishing. The publishing assembler consumes the actual reviewed bank; production behavior does not substitute a fixture for these authoring steps.
 
-The complete import → AI objectives/questions → publish → student → teacher browser/database journey passed with original synthetic Moonlight material and actual model calls. The canonical #93 uncertainty fixes are integrated through `f298791` in merge `d410426`. The reviewed #97 page-tree and old-preview correction `b60e1f1` is integrated by normal merge `6d28023`. Commit-specific checks are recorded below and on PR #102; maintainer review and dependency reconciliation remain required. PR #102 remains a draft and #52 remains open; the successful walkthrough does not establish R7's separate live conversational-agent acceptance.
+The complete import → AI objectives/questions → publish → student → teacher browser/database journey passed with original synthetic Moonlight material and actual model calls. The canonical #93 uncertainty fixes are integrated through `f298791` in merge `d410426`. The reviewed #97 page-tree and old-preview correction `b60e1f1` is integrated by normal merge `6d28023`. Commit-specific checks are recorded below and on PR #102; current integration checks are recorded below. #52 remains open; the successful walkthrough does not establish R7's separate live conversational-agent acceptance.
 
 ## Teacher workflow and authorization
 
@@ -156,3 +156,35 @@ The publishing UI now exposes the revision-checked new-version action described 
 - R7's worker continues to own live conversational routing, adaptive tool execution, and its actual-agent acceptance. The passed schema compatibility check does not complete that separate integration.
 - Keep the actual-model evidence record separate from fixture probes, including the authoring token subtotal and unavailable student token usage. Retain the successful Moonlight version/evidence without rewriting it during later tests.
 - A fresh independent agent review of `7132b88` found no additional actionable #52 findings across publication permissions, idempotency, private projections, assembly and migration guards; its five focused assembly tests passed. It did not independently repeat the model/browser/database journey. Obtain maintainer review of the composed contracts before merging. Do not use `Closes #52` until its real integrated acceptance and important failure cases pass.
+
+## Main reconciliation verification — October 23, 2026
+
+The normal merge with main `4a209ba` preserves the already merged importer,
+objective workflow and question bank exactly. All applied migration files are
+unchanged. Only publishing, version creation and their focused integration paths
+remain in the diff against main.
+
+The reconciled application passed 219 deterministic tests, 293 curated-content
+checks, lint, TypeScript, formatting and Docker production build. Isolated
+PostgreSQL checks passed for publishing, objectives, questions, lesson resolution
+and SQL constraints. Authenticated assignment, reading, class, tutor, metrics,
+patterns, uploaded uncertainty and importer checks passed. Database/application
+restart preserved evidence, sessions and migration/seed counts.
+
+The extended publication HTTP suite passed ownership, confirmation, stale and
+collision gates for the new-version endpoint, plus exact v1 publication,
+assignment, attempt and reading preservation. CI now runs this suite in a fresh
+application process after the other login-heavy probes; authorization and rate
+limits remain unchanged.
+
+In the real teacher UI, the labeled synthetic development lesson was approved
+and published as version 1, then carried into version 2 using the new explicit
+control. Refresh retained draft revision 3, lesson version 2, source version 1,
+required new lesson approval, and the separate published version-1 link. No class
+assignment was created by this browser check. The corresponding lesson is
+`9938a5fc-7397-49f1-b2d6-4e96485b97c6` in the isolated integration database.
+
+All reconciliation checks used synthetic inputs with zero new paid model calls.
+The historical seven-call Moonlight browser record remains separate. Independent
+technical reviews covered the new-version service and resolved canonical store.
+The maintainer authorized bypassing human review; exact-head CI remains required.

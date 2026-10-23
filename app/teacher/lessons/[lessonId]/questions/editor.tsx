@@ -24,7 +24,11 @@ import {
   type QuestionBankMetadata,
   type QuestionBankPreferences,
 } from "../../../../../lib/question-bank/contracts.ts";
-import { parseRecovery, questionFormatChange } from "./editor-state.ts";
+import {
+  parseRecovery,
+  questionFormatChange,
+  withHintPermission,
+} from "./editor-state.ts";
 import "./questions.css";
 
 type View = z.infer<typeof QuestionBankViewSchema>;
@@ -1695,9 +1699,31 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
                   }
                 />
                 <span>
-                  Permit runtime question generation under this lesson’s
-                  approved policy. This is disabled by default and requires the
-                  separate runtime tutor integration.
+                  Allow the tutor to generate questions and help under this
+                  lesson’s reviewed policy. Save and review this policy before
+                  publishing.
+                </span>
+              </label>
+              <label className="lp-approval-confirmation">
+                <input
+                  type="checkbox"
+                  checked={bank.activity_policy.allowed_actions.includes(
+                    "GIVE_HINT",
+                  )}
+                  onChange={(event) =>
+                    edit((current) => ({
+                      ...current,
+                      activity_policy: withHintPermission(
+                        current.activity_policy,
+                        event.target.checked,
+                      ),
+                    }))
+                  }
+                />
+                <span>
+                  Hints and explanations. Allow source-grounded help before a
+                  student answers, without revealing the assessed answer.
+                  Generated help also requires the permission above.
                 </span>
               </label>
             </fieldset>

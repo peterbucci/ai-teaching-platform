@@ -406,12 +406,12 @@ export async function approveLessonDraft(
       lessonId,
       expectedRevision,
     );
-    validateLessonAuthoringReview(lesson.draft ?? {});
-    if (lesson.approved_revision === expectedRevision) return lesson;
     if (!lesson.draft)
       throw new EvidenceError(409, "The lesson draft is empty.");
+    validateLessonAuthoringReview(lesson.draft);
+    if (lesson.approved_revision === expectedRevision) return lesson;
     const content = LessonContentSchema.parse({
-      ...projectLessonDraftContent(lesson.draft ?? {}),
+      ...projectLessonDraftContent(lesson.draft),
       approval: {
         status: "approved",
         approved_by: access.actor.profileId,
@@ -457,9 +457,11 @@ export async function publishLessonVersion(
         409,
         "Approve the current draft before publishing.",
       );
-    validateLessonAuthoringReview(lesson.draft ?? {});
+    if (!lesson.draft)
+      throw new EvidenceError(409, "The lesson draft is empty.");
+    validateLessonAuthoringReview(lesson.draft);
     const content = LessonContentSchema.parse(
-      projectLessonDraftContent(lesson.draft ?? {}),
+      projectLessonDraftContent(lesson.draft),
     );
     const approved = await validateOwnedContent(
       client,
