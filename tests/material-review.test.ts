@@ -133,7 +133,11 @@ test("modified extraction, forged signatures, and malformed receipts are rejecte
 });
 
 test("authentic previews from an older extraction policy cannot be saved or renewed", () => {
-  for (const policy of [undefined, "material-extraction-v1"]) {
+  for (const policy of [
+    undefined,
+    "material-extraction-v1",
+    "material-extraction-v2",
+  ]) {
     const payload = Buffer.from(
       JSON.stringify({
         ...(policy ? { extractionPolicy: policy } : {}),

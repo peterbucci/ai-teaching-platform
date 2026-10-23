@@ -11,8 +11,8 @@ export class MaterialReviewError extends Error {
 }
 
 const ReceiptSchema = z.strictObject({
-  // Reject previews signed before strict PDF stream validation, including renewal.
-  extractionPolicy: z.literal("material-extraction-v2"),
+  // Reject previews signed before full PDF page-tree validation, including renewal.
+  extractionPolicy: z.literal("material-extraction-v3"),
   actorId: z.uuid(),
   requestId: z.uuid(),
   expiresAt: z.number().int(),
@@ -55,7 +55,7 @@ export function createPreviewReceipt(
   requestId: string = randomUUID(),
 ) {
   const receipt = ReceiptSchema.parse({
-    extractionPolicy: "material-extraction-v2",
+    extractionPolicy: "material-extraction-v3",
     actorId,
     requestId,
     expiresAt: now + 2 * 60 * 60 * 1000,
