@@ -24,9 +24,20 @@ revision `2e247ab1d08d47d61cfedd0459903c9b74a553c2`, combining the exact PR #98 
 above with #102 head `6893bbe32caa999c4e1acc0fb353e0d6db71af8a`. The initial temporary
 merge was `e19941ac383a22f77915f3278ea05d6fc3875cc7`. This is a verification artifact;
 #102 was not landed in PR #98. The #102 owner subsequently reported importer-only
-changes through `edb9dfd`; those later importer changes are not claimed as tested
+changes through `edb9dfd`; those later importer changes are not claimed as browser-tested
 here. The reviewed publication-contract workflow did not need another paid
 question-authoring run.
+
+After this browser run, main gained #97's approved importer at
+`d2d145c1f7ea175c788b7ed67a644be60d95173f`. The final integration reconciles that
+main update without applying #102's authoring stack. Its only textual conflict
+was CI ordering: both uncertainty and material checks use the existing fresh-app
+isolation wrapper. Authentication limits and the database/restart checks remain
+unchanged. Independent review confirmed no dialogue, evaluator, controller,
+resolver or migration overlap. The importer is not claimed as a new browser/model
+run; the actual uploaded tutoring evidence remains tied to the revisions above.
+The reconciled checkout passed 273 unit tests, lint, TypeScript and repository
+formatting locally. Its final CI result is linked from PR #98.
 
 Sanitized evidence:
 
