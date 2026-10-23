@@ -34,7 +34,7 @@ Every service dependency is mandatory:
 
 The authorized context includes `ApprovedContent`, `LessonAnchor`, the canonical `QuestionSnapshot`, `student_text`, `assessment_status`, `runtime_generation_allowed`, `permitted_kinds`, and the server-owned source/concept scope. The generator verifies those references against the loaded approved content. The existing resolver remains responsible for ownership, assignment access, publication and exact lesson/source-version selection.
 
-The integration branch preserves the original #41 work and normally merges the current #38 contract, #40 calculator, and main lesson/security dependencies. Production wiring also needs the merged #98 R7 implementation. Do not substitute a browser's reading text or import a second content resolver. Both the generator and its runtime dependencies must use the same checkout's content-reference schemas, including uploaded sources and UUID concept IDs.
+The integration branch preserves the original #41 work and normally merges the current #38 contract, #40 calculator, and main lesson/security/R7 dependencies. Production wiring still requires #42/#43 to register and persist the authorized visual tool. Do not substitute a browser's reading text or import a second content resolver. Both the generator and its runtime dependencies must use the same checkout's content-reference schemas, including uploaded sources and UUID concept IDs.
 
 ## Generation, validation and factual review
 
