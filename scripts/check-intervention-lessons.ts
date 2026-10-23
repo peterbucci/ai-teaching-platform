@@ -29,6 +29,7 @@ import { buildInterventionEvidence } from "../lib/interventions/evidence.ts";
 import {
   generateInterventionDraft,
   readInterventionDraft,
+  readInterventionRequest,
 } from "../lib/interventions/store.ts";
 import {
   ModelInterventionSchema,
@@ -340,12 +341,90 @@ try {
       return { ...value, result: invalid };
     },
   );
-  assert.equal(failed.status, "failed");
-  assert.match(failed.error!, /previous draft is intact/);
-  assert.deepEqual(
-    await readInterventionDraft(teacher, generated.draft.id),
-    generated.draft,
+  async function assertPreservedFailure(
+    result: Awaited<ReturnType<typeof generateInterventionDraft>>,
+    message: string,
+  ) {
+    assert.equal(result.status, "failed");
+    assert.equal(result.error, message);
+    assert.deepEqual(
+      await readInterventionRequest(teacher, assignment.id, result.request_id),
+      result,
+    );
+    const persisted = await db.query(
+      "SELECT error,result_snapshot FROM teacher_intervention_requests WHERE teacher_id=$1 AND request_id=$2",
+      [teacher.actor.profileId, result.request_id],
+    );
+    assert.equal(persisted.rows[0]?.error, message);
+    assert.equal(persisted.rows[0]?.result_snapshot, null);
+    assert.deepEqual(
+      await readInterventionDraft(teacher, generated.draft!.id),
+      generated.draft,
+    );
+  }
+  await assertPreservedFailure(
+    failed,
+    "Generated activity uses another source or lesson version. The previous draft is intact.",
   );
+  const wrongConceptRequest = {
+    ...request,
+    request_id: randomUUID(),
+    expected_revision: 1,
+  };
+  const wrongConcept = await generateInterventionDraft(
+    teacher,
+    wrongConceptRequest,
+    async (input) => {
+      const value = await provider(input);
+      assert.ok(value.ok);
+      const invalid = ModelInterventionSchema.parse(value.result);
+      // A plausible label cannot replace this lesson's stable uploaded UUID.
+      invalid.fresh_check.concept_ids = ["evaporation"];
+      return { ...value, result: invalid };
+    },
+  );
+  await assertPreservedFailure(
+    wrongConcept,
+    "Question concepts are outside the authorized draft scope or omit its target. The previous draft is intact.",
+  );
+  const beforeConceptReplay = calls;
+  assert.deepEqual(
+    await generateInterventionDraft(teacher, wrongConceptRequest, provider),
+    wrongConcept,
+  );
+  assert.equal(calls, beforeConceptReplay);
+  const unknownRequest = {
+    ...request,
+    request_id: randomUUID(),
+    expected_revision: 1,
+  };
+  const privateSentinel = "PRIVATE_PROVIDER_ERROR_MUST_NOT_REACH_TEACHER";
+  const unknown = await generateInterventionDraft(
+    teacher,
+    unknownRequest,
+    async () => {
+      calls += 1;
+      const error = new Error(privateSentinel);
+      error.name = "InterventionValidationError";
+      throw error;
+    },
+  );
+  await assertPreservedFailure(
+    unknown,
+    "The activity could not be generated or validated. The previous draft is intact.",
+  );
+  const beforeUnknownReplay = calls;
+  assert.deepEqual(
+    await generateInterventionDraft(teacher, unknownRequest, provider),
+    unknown,
+  );
+  assert.equal(calls, beforeUnknownReplay);
+  assert.ok(!JSON.stringify(unknown).includes(privateSentinel));
+  const unknownRow = await db.query(
+    "SELECT to_jsonb(r) AS request FROM teacher_intervention_requests r WHERE teacher_id=$1 AND request_id=$2",
+    [teacher.actor.profileId, unknownRequest.request_id],
+  );
+  assert.ok(!JSON.stringify(unknownRow.rows).includes(privateSentinel));
   // New source versions never retarget an already-published assignment/draft.
   const newer = await createSourceVersion(teacher, {
     ...sourceInput,
@@ -453,7 +532,9 @@ try {
         "Canonical approved uploaded source, published lesson and assignment retain exact source and UUID concepts",
         "Private source excerpts retain null URLs without fabricated public links",
         "Only owner teacher may generate/read; stale revisions reject before dispatch",
-        "Changed source version in provider output rejects without overwriting the prior draft",
+        "Changed source version in provider output persists its fixed rejection reason without overwriting the prior draft",
+        "Uploaded concept labels cannot replace UUIDs; their fixed rejection persists and replays without dispatch",
+        "Unknown provider errors cannot impersonate typed validation failures or leak private text on readback or replay",
         "Source version append and attempted assignment retarget cannot change pinned draft evidence",
         "Replays do not dispatch again; original student evidence and curated baseline remain unchanged",
         "Legacy trimmed snapshots restore canonical bytes only in new revisions; altered legacy and trimmed v3 sources reject before dispatch",
