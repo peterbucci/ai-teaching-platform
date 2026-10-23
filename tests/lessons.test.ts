@@ -115,3 +115,38 @@ test("runtime generated snapshots can be validated without catalog registration 
   question.question_id = "WC-01";
   assert.throws(() => validateQuestionSnapshot(content, question));
 });
+
+test("diagnostic mappings must assess their misconception's concrete concept", () => {
+  const data = fixture();
+  data.misconceptions.push({
+    id: "evaporation_disappears",
+    concept_id: "evaporation",
+    definition: "Evaporated water no longer exists.",
+  });
+  data.sequence.diagnostic_options = [
+    {
+      misconception_id: "evaporation_disappears",
+      question_id: "WC-DIAGNOSTIC",
+    },
+  ];
+  const diagnostic = data.questions.find(
+    (q) => q.question_id === "WC-DIAGNOSTIC",
+  )!;
+  diagnostic.concept_ids = ["condensation"];
+  assert.throws(
+    () => hydrateLessonContent(data),
+    /Diagnostic must assess its mapped misconception's concept/,
+  );
+  diagnostic.concept_ids = ["evaporation"];
+  assert.doesNotThrow(() => hydrateLessonContent(data));
+  diagnostic.concept_ids.push("condensation");
+  assert.doesNotThrow(() => hydrateLessonContent(data));
+  data.misconceptions[0].concept_id = null;
+  assert.deepEqual(
+    serializeLessonContent(hydrateLessonContent(data)),
+    data,
+    "Global category mappings remain readable without changing saved content",
+  );
+  data.sequence.diagnostic_options[0].misconception_id = null;
+  assert.doesNotThrow(() => hydrateLessonContent(data));
+});

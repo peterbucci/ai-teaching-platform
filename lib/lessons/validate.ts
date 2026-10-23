@@ -7,8 +7,10 @@ import {
   type ApprovedContent,
 } from "../evidence/content.ts";
 
+export class LessonValidationError extends Error {}
+
 function requireRule(ok: boolean, message: string): asserts ok {
-  if (!ok) throw new Error(message);
+  if (!ok) throw new LessonValidationError(message);
 }
 function unique<T extends { id: string }>(items: T[], label: string) {
   const map = new Map(items.map((item) => [item.id, item]));
@@ -214,6 +216,17 @@ export function hydrateLessonContent(input: unknown): ApprovedContent {
       nodes.get(option.question_id)?.kind === "diagnostic_followup",
       "Diagnostic option is not an approved diagnostic",
     );
+    if (option.misconception_id !== null) {
+      const conceptId = misconceptions.get(option.misconception_id)?.concept_id;
+      requireRule(
+        conceptId === null ||
+          (conceptId !== undefined &&
+            questions
+              .get(option.question_id)
+              ?.concept_ids.includes(conceptId) === true),
+        "Diagnostic must assess its mapped misconception's concept",
+      );
+    }
   }
   // Only the existing bounded sequence is executable. Publication does not enable arbitrary graph code.
   const retests = sequence.nodes.filter((n) => n.kind === "immediate_retest");

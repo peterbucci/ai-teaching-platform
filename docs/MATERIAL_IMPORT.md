@@ -102,7 +102,7 @@ renewed. Valid two-stream controls must preserve both passages through reload.
 It retains clearly labeled synthetic source versions because history is append-only;
 run it only in an isolated fictional test environment. No paid model calls occur.
 
-The PR depends on #53 / PR #93. #50 consumes approved passages, #51 builds question
-drafts, and #52 publishes lessons. Those later workflows are not implemented or
-claimed by the importer. Protected guides and the curated networking package stay
-unchanged.
+The importer uses #53 / PR #93's source registry, now merged into `main`.
+#50 consumes approved passages, #51 builds question drafts, and #52 publishes
+lessons. Those later workflows are owned by their separate PRs and are not changed
+by this importer. Protected guides and the curated networking package stay unchanged.

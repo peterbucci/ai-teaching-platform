@@ -8,6 +8,10 @@ import {
   EvaluationSchema,
   type SessionEvidence,
 } from "../lib/evidence/contracts.ts";
+import {
+  deriveAssistance,
+  validateSessionEvidence,
+} from "../lib/evidence/rules.ts";
 import { decideTutoring } from "../lib/tutoring/decide.ts";
 
 const content = loadApprovedContent();
@@ -303,4 +307,254 @@ test("arithmetic feedback does not assume the lesson is about networking", () =>
     decision.help.text_shown,
     /Your reasoning separates the two delays/,
   );
+});
+
+test("an unrelated diagnostic assessment advances without changing an earlier hypothesis", () => {
+  for (const correctness of ["correct", "incorrect", "uncertain"] as const) {
+    // Reproduce an already loaded legacy mapping that predates publication validation.
+    const lesson = structuredClone(content);
+    const evidence = structuredClone(authored);
+    evidence.session.status = "active";
+    evidence.session.ended_at = null;
+    evidence.attempts = evidence.attempts.slice(0, 2);
+    evidence.attempts[0].outcome = null;
+    evidence.interventions = [];
+    evidence.evaluations = evidence.evaluations.filter((evaluation) =>
+      evidence.attempts.some((attempt) => attempt.id === evaluation.attempt_id),
+    );
+    const previous = structuredClone(evidence.evaluations[0]);
+    const hypothesis = previous.applied_result!.hypothesis_events[0];
+    const current = evidence.evaluations.at(-1)!;
+    current.applied_result = null;
+    const attempt = evidence.attempts.at(-1)!;
+    const unrelatedConcept = attempt.question.concept_ids.find(
+      (id) => id !== hypothesis.concept_id,
+    )!;
+    assert.ok(unrelatedConcept);
+    attempt.question.concept_ids = [unrelatedConcept];
+    lesson.questions.set(
+      attempt.question.question_id!,
+      structuredClone(attempt.question),
+    );
+    attempt.assistance = deriveAssistance(
+      attempt.question,
+      attempt.intent,
+      attempt.presented_at,
+      attempt.submitted_at!,
+      [],
+    );
+    current.result!.per_concept_results = current
+      .result!.per_concept_results.filter(
+        (judgment) => judgment.concept_id === unrelatedConcept,
+      )
+      .map((judgment) => ({
+        ...judgment,
+        correctness,
+        error_type: correctness === "correct" ? null : "conceptual",
+      }));
+    current.result!.uncertainty_reason =
+      correctness === "uncertain"
+        ? "The unrelated explanation is unclear."
+        : null;
+    current.result!.misconception_candidates = [];
+    validateSessionEvidence(lesson, evidence);
+    const decision = decideTutoring(lesson, evidence, current.id, now);
+    current.applied_result = decision.applied;
+    assert.doesNotThrow(() => validateSessionEvidence(lesson, evidence));
+    assert.deepEqual(decision.applied.hypothesis_events, []);
+    assert.deepEqual(
+      evidence.evaluations[0],
+      previous,
+      "Original hypothesis evidence stays unchanged",
+    );
+    assert.equal(
+      decision.applied.action,
+      correctness === "correct" ? "END_SESSION" : "GIVE_CORRECTIVE_FEEDBACK",
+    );
+  }
+});
+
+test("a global category cannot carry a hypothesis instance across assessed concepts", () => {
+  const lesson = structuredClone(content);
+  const evidence = structuredClone(authored);
+  evidence.session.status = "active";
+  evidence.session.ended_at = null;
+  evidence.attempts = evidence.attempts.slice(0, 2);
+  evidence.attempts[0].outcome = null;
+  evidence.interventions = [];
+  evidence.evaluations = evidence.evaluations.filter((evaluation) =>
+    evidence.attempts.some((attempt) => attempt.id === evaluation.attempt_id),
+  );
+  const globalCategory = "variables_confused";
+  lesson.misconception_concepts.set(globalCategory, null);
+  lesson.misconceptions.set(globalCategory, {
+    id: globalCategory,
+    concept_id: null,
+    definition: "Assumes independent variables change together.",
+  });
+  lesson.sequence.diagnostic_options = [
+    { misconception_id: globalCategory, question_id: "D02" },
+  ];
+  const previous = evidence.evaluations[0].applied_result!.hypothesis_events[0];
+  previous.misconception_id = globalCategory;
+  const before = structuredClone(evidence.evaluations[0]);
+  const current = evidence.evaluations.at(-1)!;
+  current.applied_result = null;
+  const attempt = evidence.attempts.at(-1)!;
+  const otherConcept = attempt.question.concept_ids.find(
+    (id) => id !== previous.concept_id,
+  )!;
+  assert.ok(otherConcept);
+  attempt.response_text = "I assume the two delays always change together.";
+  const quote = {
+    response_id: attempt.id,
+    quote: attempt.response_text,
+    start_character: 0,
+    end_character: attempt.response_text.length,
+    interpretation:
+      "Synthetic global-category candidate for the other assessed concept.",
+  };
+  current.result!.evidence_quotes = [quote];
+  current.result!.misconception_candidates = [
+    {
+      concept_id: otherConcept,
+      misconception_id: globalCategory,
+      status: "tentative",
+      uncertainty_reason:
+        "This is a synthetic observation, not an established belief.",
+      evidence_quotes: [quote],
+    },
+  ];
+  validateSessionEvidence(lesson, evidence);
+  const decision = decideTutoring(lesson, evidence, current.id, now);
+  const event = decision.applied.hypothesis_events[0];
+  assert.equal(event.status, "suspected");
+  assert.equal(event.concept_id, otherConcept);
+  assert.notEqual(
+    event.hypothesis_instance_id,
+    previous.hypothesis_instance_id,
+  );
+  assert.equal(event.previous_status, null);
+  assert.deepEqual(event.evidence_evaluation_ids, [current.id]);
+  assert.deepEqual(event.supporting_response_quotes, [quote]);
+  assert.deepEqual(evidence.evaluations[0], before);
+  current.applied_result = decision.applied;
+  assert.doesNotThrow(() => validateSessionEvidence(lesson, evidence));
+});
+
+test("reserved uncertainty candidates never establish a specific hypothesis", () => {
+  const lesson = structuredClone(content);
+  lesson.sequence.diagnostic_options = [
+    { misconception_id: "other_or_uncertain", question_id: "D02" },
+  ];
+  const evidence = initial("explicit-distance-confusion");
+  const evaluation = evidence.evaluations[0];
+  const candidate = evaluation.result!.misconception_candidates![0];
+  assert.ok(candidate);
+  evaluation.result!.misconception_candidates = [
+    { ...candidate, misconception_id: "other_or_uncertain" },
+  ];
+  const original = structuredClone(evidence);
+  const decision = decideTutoring(lesson, evidence, evaluation.id, now);
+  assert.equal(decision.applied.action, "ASK_DIAGNOSTIC_FOLLOWUP");
+  assert.equal(decision.applied.hypothesis_events[0].status, "uncertain");
+  assert.deepEqual(evidence, original);
+  evaluation.applied_result = decision.applied;
+  assert.doesNotThrow(() => validateSessionEvidence(lesson, evidence));
+});
+
+test("reserved uncertainty stays uncertain on repeated, correct, and inconclusive diagnostics", () => {
+  for (const followup of ["candidate", "correct", "inconclusive"] as const) {
+    const lesson = structuredClone(content);
+    lesson.sequence.diagnostic_options = [
+      { misconception_id: "other_or_uncertain", question_id: "D02" },
+    ];
+    const evidence = structuredClone(authored);
+    evidence.session.status = "active";
+    evidence.session.ended_at = null;
+    evidence.attempts = evidence.attempts.slice(0, 2);
+    evidence.attempts[0].outcome = null;
+    evidence.interventions = [];
+    evidence.evaluations = evidence.evaluations.filter((evaluation) =>
+      evidence.attempts.some((attempt) => attempt.id === evaluation.attempt_id),
+    );
+    const previous =
+      evidence.evaluations[0].applied_result!.hypothesis_events[0];
+    previous.misconception_id = "other_or_uncertain";
+    previous.status = "uncertain";
+    previous.reason = "The earlier explanation is unclassified.";
+    const before = structuredClone(evidence.evaluations[0]);
+    const current = evidence.evaluations.at(-1)!;
+    const currentEvent = current.applied_result!.hypothesis_events[0];
+    current.applied_result = null;
+    current.result!.misconception_candidates =
+      followup === "candidate"
+        ? [
+            {
+              concept_id: previous.concept_id,
+              misconception_id: "other_or_uncertain",
+              status: "tentative",
+              uncertainty_reason: "The response remains unclassified.",
+              evidence_quotes: currentEvent.supporting_response_quotes.filter(
+                (quote) => quote.response_id === current.attempt_id,
+              ),
+            },
+          ]
+        : [];
+    if (followup === "correct")
+      current.result!.per_concept_results =
+        current.result!.per_concept_results.map((judgment) => ({
+          ...judgment,
+          correctness: "correct",
+          error_type: null,
+        }));
+    validateSessionEvidence(lesson, evidence);
+    const decision = decideTutoring(lesson, evidence, current.id, now);
+    const event = decision.applied.hypothesis_events[0];
+    assert.equal(event.status, "uncertain", followup);
+    assert.deepEqual(event.contradicting_evaluation_ids, []);
+    assert.deepEqual(evidence.evaluations[0], before);
+    current.applied_result = decision.applied;
+    assert.doesNotThrow(() => validateSessionEvidence(lesson, evidence));
+  }
+});
+
+test("reserved uncertainty on a retest cannot claim a specific distance misconception outcome", () => {
+  const evidence = structuredClone(authored);
+  evidence.session.status = "active";
+  evidence.session.ended_at = null;
+  evidence.attempts[0].outcome = null;
+  for (const evaluation of evidence.evaluations)
+    for (const event of evaluation.applied_result?.hypothesis_events ?? []) {
+      event.misconception_id = "other_or_uncertain";
+      event.status = "uncertain";
+      event.previous_status =
+        event.previous_status === null ? null : "uncertain";
+    }
+  const current = evidence.evaluations.at(-1)!;
+  const attempt = evidence.attempts.at(-1)!;
+  current.applied_result = null;
+  const quote = {
+    response_id: attempt.id,
+    quote: attempt.response_text!,
+    start_character: 0,
+    end_character: Array.from(attempt.response_text!).length,
+    interpretation: "Synthetic unclassified retest response.",
+  };
+  current.result!.per_concept_results[0].correctness = "incorrect";
+  current.result!.per_concept_results[0].error_type = "other_or_uncertain";
+  current.result!.misconception_candidates = [
+    {
+      concept_id: current.result!.per_concept_results[0].concept_id,
+      misconception_id: "other_or_uncertain",
+      status: "tentative",
+      uncertainty_reason: "No specific reasoning pattern was identified.",
+      evidence_quotes: [quote],
+    },
+  ];
+  const decision = decideTutoring(content, evidence, current.id, now);
+  assert.equal(decision.outcome, "partial_or_incorrect_after_feedback");
+  assert.equal(decision.applied.hypothesis_events[0].status, "uncertain");
+  current.applied_result = decision.applied;
+  assert.doesNotThrow(() => validateSessionEvidence(content, evidence));
 });
