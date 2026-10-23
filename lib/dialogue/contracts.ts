@@ -146,7 +146,11 @@ export const GeneratedDialogueSchema = z
     z.strictObject({
       kind: z.literal("question"),
       content_id: z.uuid(),
-      intent: z.enum(["diagnostic_followup", "neutral_clarification"]),
+      intent: z.enum([
+        "diagnostic_followup",
+        "neutral_clarification",
+        "immediate_retest",
+      ]),
       question: generatedQuestion,
       // Investigated possibilities, never confirmed beliefs or student-visible labels.
       target_misconception_ids: z
@@ -181,6 +185,7 @@ export const DialogueRequestSchema = z
         allowed_intent: z.enum([
           "diagnostic_followup",
           "neutral_clarification",
+          "immediate_retest",
           "explanation",
         ]),
       }),
