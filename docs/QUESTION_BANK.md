@@ -71,6 +71,10 @@ and bank approval require a present #50 workflow and
 `assertObjectiveReviewForLesson(draft)`, not just an old approved `concepts` array.
 Question edits preserve that server-owned objective review. Objective edits,
 reordering, emphasis or reapproval invalidate dependent bank approval.
+Generic draft saves also preserve an existing question bank when its metadata is
+omitted; omission cannot bypass its review gate. Changed content still invalidates
+the stored approval. Corrections to format or private assumptions/misconception
+references can resolve flags with review notes; notes alone cannot clear them.
 Any invalidated bank also clears its derived tutoring sequence; #52 must assemble
 the reviewed bank again before full lesson approval, preventing stale feedback.
 
@@ -122,15 +126,15 @@ stale in-flight results, durable replay, malformed output and provider uncertain
 `npm run questions:live -- --run-paid-check` is an explicitly bounded paid harness;
 an additional `--acknowledge-unknown` is required after an uncertain prior outcome.
 
-The actual model evidence and educational review are preserved in
+The original v1 model evidence and educational review are preserved in
 [`evidence/question-bank-live-2026-10-23.json`](evidence/question-bank-live-2026-10-23.json).
 Five calls were initiated: one timed out at the former 45-second bound, then four
 calls completed for an initial family and selective MC retest regeneration. The
 small synthetic water lesson used approved-objective fixtures before #50 became
 available. Facts and citations were sound, but both retests were flagged as
 insufficiently different. Independent review also found an initial answer clue
-and teacher-directed feedback. Prompt v2 addresses these findings and has
-deterministic coverage; it has **not** been retested with a paid model.
+and teacher-directed feedback. Prompt v2 addresses these findings; the later
+actual-model verification below tests that revised prompt.
 
 Actual browser testing edited the initial wording, rewrote the retest as a
 goal-directed plan choice, relinked its criteria to source quotations, rewrote
@@ -145,7 +149,54 @@ approved-objectives link into a fixture-generated bank, added and removed a manu
 row, and saved a wording edit. This exposed and fixed a recovery bug when undoing
 all unsaved edits; the same browser sequence then remained editable.
 
-Final local checks: 143 deterministic tests; `questions:check`, `objectives:check`
-and `lessons:check` on isolated PostgreSQL; 293 curated content checks; ESLint,
-TypeScript, formatting and diff checks; Docker production build. Database and
-browser fixtures are explicitly distinct from the five actual model calls above.
+### Current #50 workflow and v2 verification
+
+The follow-up used real `createObjectiveDraft`, `saveObjectiveDraft` and
+`approveObjectives` services for two synthetic water objectives. The actual
+authenticated browser then generated four questions, edited the initial question,
+changed only the retest to multiple choice, saved, selected that retest, and
+regenerated it. Exact PostgreSQL snapshots confirmed the other three questions,
+their private guidance and metadata were unchanged by regeneration, including the
+teacher's wording edit and review. The alternative and diagnostic wording also
+remained unchanged from the original generation through approval.
+
+Four provider calls completed without retries: initial generation/critique and
+selected regeneration/critique. The first v2 retest asked what missing starting-state
+evidence was needed to identify a process, a different reasoning task from naming
+two observed changes. The regenerated multiple-choice retest asked which new
+observation would complete a claim about both processes. Its critic flagged an
+answer clue in option A. The editor correction removed the explicit vapor starting
+state; a review note explained the change. After all four items and the delivery
+policy were reviewed, explicit approval saved revision 10. Browser refresh retained
+the approved bank, and the student preview showed only questions/instructions.
+This workflow did not publish a lesson or activate an assignment.
+
+[Full v2 browser evidence and educational review](evidence/question-bank-browser-live-2026-10-23.json)
+records the questions, expected answers, source passages, criteria, model flags,
+manual correction, call usage and preservation assertions. These are agent-operated
+synthetic checks and an independent agent review, not an educator validation or
+proof of learning effectiveness.
+
+A separate one-call [semantic negative control](evidence/question-bank-semantic-2026-10-23.json)
+paired a deliberately false evaporation answer with genuine source quotations and
+valid references. Structural checks passed, but the actual production v2 critic
+flagged the contradiction. Marking every question reviewed without correcting it
+still left bank approval blocked with 409. The constructed negative proposal was
+deterministic; only its critique was a real model call. Reproduce with
+`node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-question-bank-semantic-live.ts --run-paid-check`;
+the script records a one-use receipt, permits one call and never retries.
+It is restricted to the isolated demo database on port 5551; a prior uncertain
+operation also requires an explicit `--acknowledge-unknown` flag.
+
+Cumulative actual-model usage for #51: **10 initiated calls**, including the
+original timeout, four completed v1 calls, four completed v2 browser calls and
+one completed v2 semantic critique. No further model calls are needed for this
+PR. The bounded sample demonstrates these cases, not universal semantic accuracy.
+
+Final local checks: **146 deterministic tests**; `questions:check`,
+`objectives:check` and `lessons:check` on isolated PostgreSQL; **293 curated content
+checks**; ESLint, TypeScript, formatting and diff checks; Docker production build.
+Independent review found and rechecked fixes for hidden calculation metadata after
+format changes, recovery of temporarily empty feedback, private-guidance flag
+corrections and generic metadata omission. #52's separate PR owns final integrated
+publication and activation, including the combined SQL metadata projection.
