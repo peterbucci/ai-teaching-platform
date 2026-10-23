@@ -9,6 +9,11 @@ import {
 } from "../lib/materials/contracts.ts";
 import { extractMaterial } from "../lib/materials/extract.ts";
 import { syntheticPdf } from "./fixtures/materials/synthetic-pdf.ts";
+import {
+  CONTENT_STREAM_PARAGRAPHS,
+  contentStreamPdf,
+  INVALID_CONTENT_STREAM_PDF_VARIANTS,
+} from "./fixtures/materials/content-stream-pdf.ts";
 
 function file(text: string, filename = "notes.txt", mediaType = "text/plain") {
   return {
@@ -209,6 +214,72 @@ test("real PDF parser extracts ordered text pages with references and original-b
     ],
   );
   assert.match(result.warnings[0], /Images and diagrams were not imported/);
+});
+
+for (const variant of ["valid", "valid_ascii85_flate"] as const) {
+  test(`a ${variant} page with two content streams preserves both distinct paragraphs in order`, async () => {
+    const bytes = contentStreamPdf(variant);
+    const result = await extractMaterial({
+      kind: "file",
+      bytes,
+      filename: `fictional-two-stream-${variant}.pdf`,
+      mediaType: "application/pdf",
+    });
+    const text = result.passages.map((passage) => passage.text).join("\n");
+    const firstIndex = text.indexOf(CONTENT_STREAM_PARAGRAPHS[0]);
+    const secondIndex = text.indexOf(CONTENT_STREAM_PARAGRAPHS[1]);
+    assert.ok(firstIndex >= 0, "the first content stream must be included");
+    assert.ok(
+      secondIndex > firstIndex,
+      "the second content stream must follow the first",
+    );
+    assert.ok(result.passages.every((passage) => passage.page_number === 1));
+    assert.equal(
+      result.contentHash,
+      createHash("sha256").update(bytes).digest("hex"),
+    );
+  });
+}
+
+for (const variant of INVALID_CONTENT_STREAM_PDF_VARIANTS) {
+  test(`PDF ${variant} in a later content stream rejects the entire extraction`, async () => {
+    await assert.rejects(
+      extractMaterial({
+        kind: "file",
+        bytes: contentStreamPdf(variant),
+        filename: `fictional-${variant}.pdf`,
+        mediaType: "application/pdf",
+      }),
+      hasCode("unreadable_pdf"),
+      "A readable first stream must not hide a damaged or unsupported later stream",
+    );
+  });
+}
+
+test("PDF extraction admits two workers, rejects a third, and releases capacity afterward", async () => {
+  const extract = () =>
+    extractMaterial({
+      kind: "file",
+      bytes: contentStreamPdf(),
+      filename: "fictional-concurrent-source.pdf",
+      mediaType: "application/pdf",
+    });
+  // Start all three before awaiting, so both slots are occupied by active workers.
+  const results = await Promise.allSettled([extract(), extract(), extract()]);
+  assert.equal(
+    results.filter((result) => result.status === "fulfilled").length,
+    2,
+  );
+  const rejected = results.filter((result) => result.status === "rejected");
+  assert.equal(rejected.length, 1);
+  assert.ok(rejected[0].reason instanceof MaterialExtractionError);
+  assert.equal(rejected[0].reason.code, "pdf_busy");
+
+  const next = await extract();
+  const text = next.passages.map((passage) => passage.text).join("\n");
+  assert.ok(
+    CONTENT_STREAM_PARAGRAPHS.every((paragraph) => text.includes(paragraph)),
+  );
 });
 
 test("scanned, mixed scan/text, encrypted and damaged PDFs fail with no partial result", async () => {

@@ -16,6 +16,10 @@ activate an assignment. It consumes #53's `lib/lessons/sources.ts` and migration
 - PDF extraction has a 10-second deadline, 128 MB V8 old-generation heap limit,
   and at most two concurrent workers per application process. This is not an
   operating-system memory sandbox or a cross-process rate limiter.
+- PDF stream encodings are limited to unfiltered text, Flate, and ASCII85,
+  including supported filter chains and validated TIFF/PNG predictors. Other
+  encodings fail closed. Encoded/decoded streams are capped at 8,000,000 bytes
+  each, with a 32,000,000-byte cumulative decoded budget per worker.
 - No OCR, Word, PowerPoint, PDF rendering, source URL fetch, or model call.
 
 PDF page numbers come from the parser; Markdown section labels come from explicit
@@ -44,7 +48,9 @@ document reads and revision writes to the authenticated owner.
 
 Actual streamed request bytes are capped before multipart decoding. Receipts
 bind the authenticated actor, original-byte hash, extraction/references, expiry,
-and save request identity. Save rehashes the resubmitted original. Passage IDs,
+save request identity, and extraction-policy version. Receipts from the earlier
+extraction policy cannot be saved or renewed; teachers must preview the original
+again. Save rehashes the resubmitted original. Passage IDs,
 ordering, and page/section references cannot be replaced by review input. The
 shared store computes authoritative hashes/IDs and preserves immutable versions,
 idempotent identical retries, and optimistic revision checks.
@@ -60,7 +66,24 @@ The worker uses a guarded internal operator stream from the exact pinned PDF.js
 version. Its public `getOperatorList()` can resolve a partial list before reporting
 an image-limit error; the stream lets the importer fail closed instead. Image
 size zero prevents image decode, and missing/changing internals reject extraction.
-Re-review this adapter and its scan/late-image tests before upgrading PDF.js.
+
+`pdf-integrity.mjs` verifies the installed worker bundle's SHA-256 before installing
+an adapter around that same parser. It rejects cross-reference recovery, missing
+objects, incorrect declared stream boundaries, and non-stream or discarded page
+contents. Flate streams use bounded native zlib decoding with complete-input and
+checksum checks; ASCII85 input and predictor rows are validated before decoding.
+A sticky integrity failure survives PDF.js's internal recovery catches and blocks
+the successful worker result, even when text extraction resolves. Diagnostics are
+an additional conservative check, not the primary stream-integrity test. Only
+trusted dependency source and a fixed export shim are loaded as JavaScript;
+uploaded bytes never become executable code.
+
+Unused image resources remain undecoded; actually painted images and image-typed
+page content are rejected. The adapter allows only the known bundled standard-font
+substitution diagnostic, while uploaded font inconsistencies still fail. Re-review
+the bundle hash, internal adapters, valid controls, and malformed-stream/scan tests
+before upgrading PDF.js. Strict validation intentionally rejects PDFs that a
+viewer might repair; it does not prove that layout or reading order is correct.
 
 The native worker constructor is resolved at runtime because Next's bundler
 otherwise rewrites the worker and breaks PDF.js's sibling worker resolution.
@@ -73,6 +96,9 @@ in the production image.
 synthetic PDFs. `npm run materials:check` requires a running configured application
 and fictional demo accounts/database. It verifies actual HTTP extraction, review,
 private bytes, save/reload, access denial, replay, and immutable revision history.
+It also verifies that damaged multi-stream PDFs produce no receipt or persistence,
+and that authentic receipts from the old extraction policy cannot be saved or
+renewed. Valid two-stream controls must preserve both passages through reload.
 It retains clearly labeled synthetic source versions because history is append-only;
 run it only in an isolated fictional test environment. No paid model calls occur.
 
