@@ -4,6 +4,8 @@ import { readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { z } from "zod";
+import { betterAuth } from "better-auth";
+import { getAuthOptions } from "../lib/auth-config.ts";
 import { SessionEvidenceSchema } from "../lib/evidence/contracts.ts";
 import { resolveActor } from "../lib/auth.ts";
 import { getPool } from "../lib/db.ts";
@@ -79,11 +81,18 @@ async function request(path: string, cookie: string, body?: unknown) {
     body: body === undefined ? undefined : JSON.stringify(body),
   });
 }
-async function login(prefix: string) {
-  const response = await request("/api/auth/sign-in/email", "", {
-    email: process.env[`${prefix}_EMAIL`],
-    password: process.env[`${prefix}_PASSWORD`],
-  });
+async function login(
+  prefix: string,
+  credentials?: { email: string; password: string },
+) {
+  const response = await request(
+    "/api/auth/sign-in/email",
+    "",
+    credentials ?? {
+      email: process.env[`${prefix}_EMAIL`],
+      password: process.env[`${prefix}_PASSWORD`],
+    },
+  );
   assert.equal(
     response.status,
     200,
@@ -195,8 +204,37 @@ async function accepted(
 try {
   const teacher = await login("DEMO_TEACHER");
   const student = await login("DEMO_STUDENT_ONE");
-  // This existing fictional account owns only the newly created foreign class.
-  const otherTeacher = await login("DEMO_STUDENT_TWO");
+  const otherStudent = await login("DEMO_STUDENT_TWO");
+  async function studentsKeepTheirLandingPage() {
+    for (const account of [student, otherStudent]) {
+      const home = await request("/", account.cookie);
+      assert.equal(home.status, 307);
+      assert.equal(home.headers.get("location"), "/study/assignments");
+    }
+  }
+  await studentsKeepTheirLandingPage();
+  // Provision a separate fictional owner, using the same local-only API as
+  // provision-demo.ts. Giving a demo student a class would change their role.
+  const options = getAuthOptions();
+  const provisioningAuth = betterAuth({
+    ...options,
+    emailAndPassword: { ...options.emailAndPassword, disableSignUp: false },
+  });
+  const credentials = {
+    email: `uncertainty-teacher-${run}@example.invalid`,
+    password: randomUUID(),
+  };
+  const created = await provisioningAuth.api.signUpEmail({
+    body: {
+      ...credentials,
+      name: "Foreign uncertainty teacher (fictional)",
+    },
+  });
+  await db.query(
+    "INSERT INTO profiles(auth_user_id,display_name) VALUES($1,$2)",
+    [created.user.id, "Foreign uncertainty teacher (fictional)"],
+  );
+  const otherTeacher = await login("FOREIGN_UNCERTAINTY_TEACHER", credentials);
   await db.query(
     "INSERT INTO classes(id,teacher_id,name) VALUES($1,$2,$3),($4,$5,$6)",
     [
@@ -213,7 +251,7 @@ try {
     [
       classId,
       student.access.actor.profileId,
-      otherTeacher.access.actor.profileId,
+      otherStudent.access.actor.profileId,
     ],
   );
   const source = await createSourceVersion(teacher.access, {
@@ -602,6 +640,7 @@ try {
       assert.ok(!deniedHtml.includes("I cannot explain these changes yet."));
     }
   }
+  await studentsKeepTheirLandingPage();
   if (baseline) {
     await writeFile(baselinePath, JSON.stringify(baselineEvidence), {
       mode: 0o600,
