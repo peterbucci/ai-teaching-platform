@@ -62,6 +62,8 @@ jobs:
         run: docker compose exec -T app npm run tutor:check
       - name: Check durable dialogue and authenticated recovery with synthetic providers
         run: docker compose exec -T -e DIALOGUE_CHECK_SYNTHETIC=1 -e DIALOGUE_CHECK_URL=http://localhost:3000 app npm run dialogue:check
+      - name: Check generated controller handoffs with synthetic providers
+        run: docker compose exec -T -e DIALOGUE_CHECK_SYNTHETIC=1 app npm run r7:controller:check
       - name: Check authorized metrics and evidence refetch
         run: docker compose exec -T app npm run metrics:check
       - name: Check persisted misconception and contradiction counts

@@ -975,3 +975,89 @@ test("direct candidate review still enforces authorized context and cannot accep
   );
   assert.equal(h.reservations.length, 0);
 });
+
+test("generated assessed questions reject declared scaffolding before review or direct-review bypass", async () => {
+  const request = input({
+    request: f.controllerRequests.distance,
+    context: context({ assessment_status: "evaluated" }),
+  });
+  const scaffold = {
+    type: "supplied_relationship" as const,
+    concept_ids: ["transmission_delay"],
+    supplied_content: "More bits require more time at a fixed rate.",
+    affected_rubric_criteria: [],
+  };
+  const h = harness([{ ...questionDraft(), embedded_scaffolding: [scaffold] }]);
+  const rejected = await generateDialogue(request, h.services);
+  assert.equal(rejected.ok, false);
+  assert.deepEqual(
+    h.reservations.map((step) => step.stage),
+    ["generate"],
+  );
+  const candidate = structuredClone(f.diagnostics.distance);
+  assert.equal(candidate.kind, "question");
+  if (candidate.kind !== "question") throw new Error("Expected question");
+  candidate.question.embedded_scaffolding = [scaffold];
+  const direct = harness([]);
+  assert.equal(
+    (await reviewDialogueCandidate(request, candidate, direct.services)).ok,
+    false,
+  );
+  assert.equal(direct.reservations.length, 0);
+});
+
+test("question-only policy requires independent inspection for undeclared hints and preserves help prompts", async () => {
+  const assessed = harness([questionDraft(), reviewReply()]);
+  const result = await generateDialogue(
+    input({
+      request: f.controllerRequests.distance,
+      context: context({ assessment_status: "evaluated" }),
+    }),
+    assessed.services,
+  );
+  assert.ok(result.ok);
+  assert.match(
+    assessed.prompts[0].instructions,
+    /Set embedded_scaffolding to \[\]/,
+  );
+  assert.match(
+    assessed.prompts[1].instructions,
+    /even when embedded_scaffolding is empty/,
+  );
+  assert.match(
+    assessed.reservations[0].prompt_version,
+    /unscaffolded-assessment/,
+  );
+  assert.match(
+    assessed.reservations[1].prompt_version,
+    /unscaffolded-assessment/,
+  );
+  const hiddenHint = harness([
+    questionDraft(),
+    reviewReply((review) => ({ ...review, assistance: "understated" })),
+  ]);
+  const rejected = await generateDialogue(
+    input({
+      request: f.controllerRequests.distance,
+      context: context({ assessment_status: "evaluated" }),
+    }),
+    hiddenHint.services,
+  );
+  assert.equal(rejected.ok, false);
+  assert.equal(hiddenHint.reservations.length, 2);
+  const help = harness([helpDraft(), reviewReply()]);
+  assert.ok((await generateDialogue(input(), help.services)).ok);
+  assert.doesNotMatch(
+    help.prompts[0].instructions,
+    /Set embedded_scaffolding to \[\]/,
+  );
+  assert.doesNotMatch(
+    help.prompts[1].instructions,
+    /even when embedded_scaffolding is empty/,
+  );
+  assert.equal(
+    help.reservations[0].prompt_version,
+    "r7-grounded-generation-v4",
+  );
+  assert.equal(help.reservations[1].prompt_version, "r7-independent-review-v2");
+});

@@ -8,6 +8,7 @@ import {
   getCuratedQuestion,
   validateContentRef,
   validateQuestionSnapshot,
+  type ApprovedContent,
 } from "../evidence/content.ts";
 import {
   AppliedResultSchema,
@@ -36,6 +37,11 @@ import {
   TutorViewSchema,
 } from "./contracts.ts";
 import { decideTutoring, tutoringOutcome } from "./decide.ts";
+import { bindGeneratedQuestion, controllerNode } from "./generated-question.ts";
+import {
+  GeneratedDialogueSchema,
+  type GeneratedDialogue,
+} from "../dialogue/contracts.ts";
 
 export async function assignedLessons(access: EvidenceAccess) {
   return transaction(async (client) => {
@@ -363,111 +369,166 @@ async function openTutoringSession(
   return id;
 }
 
+export type TutoringHandoff = {
+  content?: ApprovedContent;
+  generatedQuestion?: Extract<GeneratedDialogue, { kind: "question" }>;
+  generatedHelp?: Extract<GeneratedDialogue, { kind: "help" }>;
+};
+
+/** Reuse the existing controller effects inside an already-owned session transaction.
+ * No provider work occurs here; the caller supplies independently reviewed output. */
+export async function applyTutoringInTransaction(
+  client: PoolClient,
+  access: EvidenceAccess,
+  sessionId: string,
+  evaluationId: string,
+  handoff: TutoringHandoff = {},
+) {
+  const evidence = await sessionEvidence(
+    client,
+    access,
+    sessionId,
+    "student",
+    true,
+  );
+  const evaluation = evidence.evaluations.find((e) => e.id === evaluationId);
+  if (!evaluation) throw new EvidenceError(404, "Evaluation not found.");
+  if (evaluation.applied_result) return null;
+  const attempt = evidence.attempts.at(-1);
+  if (!attempt || attempt.id !== evaluation.attempt_id)
+    throw new EvidenceError(409, "This answer is no longer the current step.");
+  const clock = await client.query("SELECT to_jsonb(clock_timestamp()) AS now");
+  const { now } = z
+    .object({ now: z.iso.datetime({ offset: true }) })
+    .parse(evidenceRow(clock.rows[0]));
+  const content = handoff.content ?? loadApprovedContent();
+  validateContentRef(content, attempt.question.content_ref);
+  const decision = decideTutoring(content, evidence, evaluationId, now);
+  if (handoff.generatedHelp && handoff.generatedQuestion)
+    throw new EvidenceError(409, "Only one instructional tool may be applied.");
+  const generatedQuestion = handoff.generatedQuestion
+    ? bindGeneratedQuestion(
+        content,
+        evidence,
+        decision,
+        handoff.generatedQuestion,
+      )
+    : null;
+  if (handoff.generatedHelp) {
+    const help = GeneratedDialogueSchema.parse(handoff.generatedHelp);
+    if (
+      help.kind !== "help" ||
+      decision.applied.action !== "GIVE_CORRECTIVE_FEEDBACK" ||
+      !decision.help ||
+      help.assistance_type === "neutral_clarification" ||
+      help.concept_ids.length !== decision.help.concept_ids.length ||
+      help.concept_ids.some((id) => !decision.help!.concept_ids.includes(id)) ||
+      help.source_passage_ids.some((id) => !content.passage_ids.has(id))
+    )
+      throw new EvidenceError(
+        409,
+        "Generated help is not authorized for this controller action.",
+      );
+    validateContentRef(content, help.content_ref);
+    decision.help = {
+      type: help.assistance_type,
+      text_shown: help.text,
+      concept_ids: help.concept_ids,
+      source_passage_ids: help.source_passage_ids,
+    };
+  }
+  const applied = AppliedResultSchema.parse(decision.applied);
+  evaluation.applied_result = applied;
+  validateSessionEvidence(content, evidence);
+  await client.query(
+    "UPDATE evaluations SET applied_result=$2::jsonb WHERE id=$1 AND applied_result IS NULL",
+    [evaluationId, JSON.stringify(applied)],
+  );
+  let interventionId: string | null = null;
+  if (decision.help) {
+    const intervention = InterventionSchema.parse({
+      ...decision.help,
+      id: randomUUID(),
+      session_id: sessionId,
+      related_attempt_id: attempt.id,
+      related_evaluation_id: evaluationId,
+      content_ref: attempt.question.content_ref,
+      created_at: now,
+      visible_at: null,
+      delivery_status: "created",
+    });
+    await client.query(
+      "INSERT INTO interventions SELECT (jsonb_populate_record(NULL::interventions,$1::jsonb)).*",
+      [JSON.stringify(intervention)],
+    );
+    evidence.interventions.push(intervention);
+    interventionId = intervention.id;
+  }
+  let nextAttemptId: string | null = null;
+  if (decision.nextQuestionId) {
+    // An unsupported response repeats the same immutable generated snapshot; its
+    // UUID must not create an extra slot or restart the authored retry budget.
+    const repeatGenerated =
+      decision.applied.action === "ASK_RETRIEVAL_QUESTION" &&
+      attempt.question.origin === "generated" &&
+      controllerNode(content, attempt).node_id === decision.nextQuestionId;
+    const question =
+      generatedQuestion ??
+      (repeatGenerated
+        ? attempt.question
+        : getCuratedQuestion(content, decision.nextQuestionId));
+    const node = content.sequence.nodes.find(
+      (n) => n.node_id === decision.nextQuestionId,
+    );
+    const intent =
+      decision.applied.action === "ASK_RETRIEVAL_QUESTION"
+        ? attempt.intent
+        : node?.kind;
+    const next = AttemptSchema.parse({
+      ...attempt,
+      id: randomUUID(),
+      parent_attempt_id: attempt.id,
+      question,
+      intent,
+      sequence_index: attempt.sequence_index + 1,
+      presented_at: now,
+      submitted_at: null,
+      response_text: null,
+      submission_key: null,
+      assistance: null,
+      current_evaluation_id: null,
+      outcome: null,
+    });
+    await client.query(
+      "INSERT INTO attempts SELECT (jsonb_populate_record(NULL::attempts,$1::jsonb)).*",
+      [JSON.stringify(next)],
+    );
+    evidence.attempts.push(next);
+    nextAttemptId = next.id;
+  }
+  const outcome = tutoringOutcome(evidence, attempt, evaluation, decision, now);
+  if (outcome)
+    await client.query("SELECT * FROM finish_session($1,$2,$3::jsonb,$4)", [
+      sessionId,
+      attempt.root_attempt_id,
+      JSON.stringify(outcome),
+      outcome.outcome === "unevaluated" ? "unevaluated" : "completed",
+    ]);
+  validateSessionEvidence(content, evidence);
+  return { decision, nextAttemptId, interventionId };
+}
+
 /** All decision effects commit together under the authorized session lock. */
 export async function applyTutoring(
   access: EvidenceAccess,
   sessionId: string,
   evaluationId: string,
 ) {
-  await transaction(async (client) => {
-    const evidence = await sessionEvidence(
-      client,
-      access,
-      sessionId,
-      "student",
-      true,
-    );
-    const evaluation = evidence.evaluations.find((e) => e.id === evaluationId);
-    if (!evaluation) throw new EvidenceError(404, "Evaluation not found.");
-    if (evaluation.applied_result) return; // Repeat request reads the same durable progress.
-    const attempt = evidence.attempts.at(-1);
-    if (!attempt || attempt.id !== evaluation.attempt_id)
-      throw new EvidenceError(
-        409,
-        "This answer is no longer the current step.",
-      );
-    const clock = await client.query(
-      "SELECT to_jsonb(clock_timestamp()) AS now",
-    );
-    const { now } = z
-      .object({ now: z.iso.datetime({ offset: true }) })
-      .parse(evidenceRow(clock.rows[0]));
-    const content = loadApprovedContent();
-    const decision = decideTutoring(content, evidence, evaluationId, now);
-    const applied = AppliedResultSchema.parse(decision.applied);
-    evaluation.applied_result = applied;
-    validateSessionEvidence(content, evidence);
-    await client.query(
-      "UPDATE evaluations SET applied_result=$2::jsonb WHERE id=$1 AND applied_result IS NULL",
-      [evaluationId, JSON.stringify(applied)],
-    );
-    if (decision.help) {
-      const intervention = InterventionSchema.parse({
-        ...decision.help,
-        id: randomUUID(),
-        session_id: sessionId,
-        related_attempt_id: attempt.id,
-        related_evaluation_id: evaluationId,
-        content_ref: attempt.question.content_ref,
-        created_at: now,
-        visible_at: null,
-        delivery_status: "created",
-      });
-      await client.query(
-        "INSERT INTO interventions SELECT (jsonb_populate_record(NULL::interventions,$1::jsonb)).*",
-        [JSON.stringify(intervention)],
-      );
-      evidence.interventions.push(intervention);
-    }
-    if (decision.nextQuestionId) {
-      const question = getCuratedQuestion(content, decision.nextQuestionId);
-      const node = content.sequence.nodes.find(
-        (n) => n.node_id === question.question_id,
-      );
-      const intent =
-        decision.applied.action === "ASK_RETRIEVAL_QUESTION"
-          ? attempt.intent
-          : node?.kind;
-      const next = AttemptSchema.parse({
-        ...attempt,
-        id: randomUUID(),
-        parent_attempt_id: attempt.id,
-        question,
-        intent,
-        sequence_index: attempt.sequence_index + 1,
-        presented_at: now,
-        submitted_at: null,
-        response_text: null,
-        submission_key: null,
-        assistance: null,
-        current_evaluation_id: null,
-        outcome: null,
-      });
-      await client.query(
-        "INSERT INTO attempts SELECT (jsonb_populate_record(NULL::attempts,$1::jsonb)).*",
-        [JSON.stringify(next)],
-      );
-      evidence.attempts.push(next);
-    }
-    const outcome = tutoringOutcome(
-      evidence,
-      attempt,
-      evaluation,
-      decision,
-      now,
-    );
-    if (outcome)
-      await client.query("SELECT * FROM finish_session($1,$2,$3::jsonb,$4)", [
-        sessionId,
-        attempt.root_attempt_id,
-        JSON.stringify(outcome),
-        outcome.outcome === "unevaluated" ? "unevaluated" : "completed",
-      ]);
-    validateSessionEvidence(content, evidence);
-  });
+  await transaction((client) =>
+    applyTutoringInTransaction(client, access, sessionId, evaluationId),
+  );
   return tutorView(access, sessionId);
 }
-
 export async function continueTutoring(
   access: EvidenceAccess,
   sessionId: string,

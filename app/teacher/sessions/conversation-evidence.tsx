@@ -102,6 +102,37 @@ function ActionAudit({ event }: { event: AuditEvent }) {
     </div>
   );
 }
+const ControllerAppliedSchema = z.object({
+  evaluation_id: z.uuid(),
+  controller_action: z.string(),
+  next_attempt_id: z.uuid().nullable(),
+  intervention_id: z.uuid().nullable(),
+  applied_revision: z.int().nonnegative(),
+});
+
+function ControllerApplied({ event }: { event: AuditEvent }) {
+  if (event.kind !== "controller_applied") return null;
+  const parsed = ControllerAppliedSchema.safeParse(event.payload);
+  if (!parsed.success) return null;
+  const applied = parsed.data;
+  return (
+    <p className="mt-2">
+      Applied lesson action: {label(applied.controller_action)}.
+      {applied.next_attempt_id && (
+        <>
+          {" "}
+          <a className="underline" href={`#attempt-${applied.next_attempt_id}`}>
+            Inspect the follow-up question and response
+          </a>
+          .
+        </>
+      )}
+      {applied.intervention_id &&
+        " Teaching content delivery is recorded with the lesson feedback below."}
+    </p>
+  );
+}
+
 function auditLabel(event: AuditEvent) {
   const dialogue = DialogueEventSchema.safeParse(event.payload);
   if (event.kind === "dialogue" && dialogue.success)
@@ -118,7 +149,10 @@ export function ConversationEvidence({
   const messages = operations.filter(
     (operation) => operation.payload.action === "send_message",
   );
-  if (!messages.length) return null;
+  const controllerActions = operations.filter(
+    (operation) => operation.payload.action === "controller_action",
+  );
+  if (!messages.length && !controllerActions.length) return null;
   return (
     <section
       className="lp-panel my-6 p-5"
@@ -274,6 +308,69 @@ export function ConversationEvidence({
           );
         })}
       </ol>
+      {controllerActions.length > 0 && (
+        <>
+          <h3 className="mt-6 font-semibold">Adaptive tutoring decisions</h3>
+          <p className="lp-evidence-note">
+            These decisions follow saved assessment evidence. Proposals,
+            validation, execution and the resulting lesson activity are recorded
+            separately.
+          </p>
+          <ol className="mt-4 space-y-5">
+            {controllerActions.map((operation) => {
+              const payload = operation.payload;
+              if (payload.action !== "controller_action") return null;
+              const history = events.filter(
+                (event) => event.request_id === operation.request_id,
+              );
+              return (
+                <li
+                  key={operation.request_id}
+                  className="border-t border-slate-200 pt-4"
+                >
+                  <p className="text-sm">
+                    {date(operation.created_at)} ·{" "}
+                    <a
+                      className="underline"
+                      href={`#attempt-${operation.attempt_id}`}
+                    >
+                      Original answer
+                    </a>{" "}
+                    ·{" "}
+                    <a
+                      className="underline"
+                      href={`#evaluation-${payload.evaluation_id}`}
+                    >
+                      Accepted evaluation
+                    </a>
+                  </p>
+                  <p className="mt-2 text-sm">
+                    Authorized route:{" "}
+                    {operation.authorized_route
+                      ? label(operation.authorized_route)
+                      : "No route authorized"}
+                    . Outcome: {label(operation.status)}.
+                  </p>
+                  <p className="mt-2 break-all text-xs">
+                    Saved lesson: {operation.lesson.content_ref.package_id} ·{" "}
+                    {operation.lesson.content_ref.content_version}. Revision:{" "}
+                    {operation.expected_revision}.
+                  </p>
+                  <ol className="my-3 space-y-2 text-sm">
+                    {history.map((event) => (
+                      <li key={event.event_id}>
+                        {auditLabel(event)} · {date(event.at)}
+                        <ActionAudit event={event} />
+                        <ControllerApplied event={event} />
+                      </li>
+                    ))}
+                  </ol>
+                </li>
+              );
+            })}
+          </ol>
+        </>
+      )}
     </section>
   );
 }

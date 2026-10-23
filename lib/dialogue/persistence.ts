@@ -4,7 +4,10 @@ import { isDeepStrictEqual } from "node:util";
 import type { PoolClient } from "pg";
 import { z } from "zod";
 import { evidenceRow } from "../db.ts";
-import { loadApprovedContent } from "../evidence/content.ts";
+import {
+  loadApprovedContent,
+  validateContentRef,
+} from "../evidence/content.ts";
 import {
   EvidenceError,
   sessionEvidence,
@@ -22,6 +25,15 @@ import {
   IntentClassificationSchema,
 } from "./conversation.ts";
 
+/** Persisted server actions are separate from the browser's message contract. */
+export const ControllerOperationPayloadSchema = z.strictObject({
+  action: z.literal("controller_action"),
+  request_id: z.uuid(),
+  session_id: z.uuid(),
+  attempt_id: z.uuid(),
+  expected_revision: z.int().nonnegative(),
+  evaluation_id: z.uuid(),
+});
 export const OperationSchema = z.object({
   request_id: z.uuid(),
   session_id: z.uuid(),
@@ -29,7 +41,10 @@ export const OperationSchema = z.object({
   actor_id: z.uuid(),
   expected_revision: z.int().nonnegative(),
   lesson: LessonAnchorSchema,
-  payload: ConversationActionSchema,
+  payload: z.union([
+    ConversationActionSchema,
+    ControllerOperationPayloadSchema,
+  ]),
   message_request_id: z.uuid().nullable(),
   status: z.enum([
     "pending",
@@ -133,12 +148,28 @@ export async function dialogueContext(
   );
   const counts = await client.query(
     `SELECT (count(*) + (SELECT count(*) FROM evaluations e JOIN attempts a ON a.id=e.attempt_id WHERE a.session_id=$1 AND e.validation_status='pending_review' AND e.evaluator->>'type'='language_model'))::integer AS used,
-      (count(*) FILTER(WHERE status IN ('reserved','unknown')) + (SELECT count(*) FROM evaluations e JOIN attempts a ON a.id=e.attempt_id WHERE a.session_id=$1 AND e.validation_status='pending_review' AND e.evaluator->>'type'='language_model' AND NOT EXISTS(SELECT 1 FROM evaluations later WHERE later.attempt_id=e.attempt_id AND later.evaluator->>'type'='language_model' AND later.validation_status IN ('accepted','rejected') AND later.evaluated_at>e.evaluated_at)))::integer AS unresolved FROM dialogue_provider_calls WHERE session_id=$1`,
+      (count(*) FILTER(WHERE status IN ('reserved','unknown')) + (SELECT count(*) FROM evaluations e JOIN attempts a ON a.id=e.attempt_id WHERE a.session_id=$1 AND e.validation_status='pending_review' AND e.evaluator->>'type'='language_model' AND NOT EXISTS(SELECT 1 FROM evaluations later WHERE later.attempt_id=e.attempt_id AND later.evaluator->>'type'='language_model' AND (later.validation_status IN ('accepted','rejected') OR (later.validation_status='evaluation_failed' AND later.evaluator->>'provider_outcome'='settled' AND later.evaluator->>'provider_reservation_id'=e.id::text)) AND later.evaluated_at>e.evaluated_at)))::integer AS unresolved FROM dialogue_provider_calls WHERE session_id=$1`,
     [sessionId],
   );
   const calls = z
     .object({ used: z.int(), unresolved: z.int() })
     .parse(counts.rows[0]);
+  // Curated resolver bridge until #53 merges; reject any unavailable version.
+  // Replace this with resolveAssignmentContent(client, access, assignmentId, role).
+  const content = loadApprovedContent();
+  validateContentRef(content, assignment.content_ref);
+  conflict(
+    assignment.approved_concept_ids.every((id) =>
+      content.concept_ids.has(id),
+    ) &&
+      assignment.approved_passage_ids.every((id) =>
+        content.passage_ids.has(id),
+      ) &&
+      assignment.approved_misconception_ids.every((id) =>
+        content.misconceptions.has(id),
+      ),
+    "The approved assignment scope is unavailable.",
+  );
   const lesson = LessonAnchorSchema.parse({
     session_id: sessionId,
     assignment_id: evidence.session.assignment_id,
@@ -157,7 +188,7 @@ export async function dialogueContext(
     turns_used: state.turns_used,
     provider_requests_used: calls.used,
     unresolved_provider_calls: calls.unresolved,
-    content: loadApprovedContent(),
+    content,
     scope: {
       concept_ids: new Set(assignment.approved_concept_ids),
       passage_ids: new Set(assignment.approved_passage_ids),
@@ -167,16 +198,38 @@ export async function dialogueContext(
 }
 export type DialogueContext = Awaited<ReturnType<typeof dialogueContext>>;
 
+/** A controller reservation is valid only for its still-unapplied accepted observation. */
+export function isCurrentOperation(
+  context: DialogueContext,
+  operation: DialogueOperation,
+) {
+  const base =
+    context.evidence.session.status === "active" &&
+    operation.expected_revision === context.revision &&
+    same(operation.lesson, context.lesson);
+  if (!base) return false;
+  if (operation.payload.action !== "controller_action")
+    return !context.attempt.submitted_at;
+  const payload = operation.payload;
+  const evaluation = context.evidence.evaluations.find(
+    (item) => item.id === payload.evaluation_id,
+  );
+  return (
+    !!context.attempt.submitted_at &&
+    evaluation?.id === context.attempt.current_evaluation_id &&
+    evaluation?.attempt_id === context.attempt.id &&
+    evaluation?.validation_status === "accepted" &&
+    evaluation.result !== null &&
+    evaluation.applied_result === null
+  );
+}
+
 export function currentOperation(context: DialogueContext, requestId: string) {
   const operation = context.operations.find((o) => o.request_id === requestId);
   if (!operation)
     throw new EvidenceError(404, "Conversation request not found.");
   conflict(
-    context.evidence.session.status === "active" &&
-      !context.attempt.submitted_at &&
-      operation.expected_revision === context.revision &&
-      same(operation.lesson, context.lesson) &&
-      operation.status === "pending",
+    isCurrentOperation(context, operation) && operation.status === "pending",
     "The conversation operation is stale, cancelled or settled.",
   );
   return operation;

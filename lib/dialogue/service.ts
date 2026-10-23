@@ -44,6 +44,10 @@ export const DIALOGUE_PROMPTS = {
   generate: "r7-grounded-generation-v4",
   review: "r7-independent-review-v2",
 } as const;
+export const ASSESSMENT_PROMPTS = {
+  generate: "r7-unscaffolded-assessment-generation-v1",
+  review: "r7-unscaffolded-assessment-review-v1",
+} as const;
 export type ProviderStep = {
   step_id: string;
   stage: "classify" | "generate" | "review" | "propose";
@@ -129,6 +133,7 @@ async function callModel<T>(
   instructions: string,
   input: unknown,
   schema: z.ZodType<T>,
+  promptVersion: string = DIALOGUE_PROMPTS[stage],
 ): Promise<ModelOutcome<T> | null> {
   const model = services.provider?.model ?? configuredDialogueModel();
   if (!model) return null;
@@ -143,14 +148,14 @@ async function callModel<T>(
     step_id: stage,
     stage,
     model,
-    prompt_version: DIALOGUE_PROMPTS[stage],
+    prompt_version: promptVersion,
     input_hash: createHash("sha256")
       .update(
         JSON.stringify({
           instructions,
           input: inputText,
           schemaName: prompt.schemaName,
-          version: DIALOGUE_PROMPTS[stage],
+          version: promptVersion,
         }),
       )
       .digest("hex"),
@@ -269,6 +274,9 @@ export async function generateDialogue(
     request.trigger.allowed_intent !== "explanation"
       ? request.trigger.allowed_intent
       : null;
+  const generationPromptVersion = questionIntent
+    ? ASSESSMENT_PROMPTS.generate
+    : DIALOGUE_PROMPTS.generate;
   const instructions = `${UNTRUSTED_DATA_POLICY}
 Generate only the caller's permitted instructional response, addressing the exact student reasoning.
 Respect instructional_strategy without changing its action. For clarify, ask what the student means or how
@@ -293,7 +301,7 @@ but ask for new evidence; renaming the events in the original scenario is insuff
 Supply source-supported private answer guidance and criteria for the new question only. Do not reveal its answer
 in the prompt. List all embedded hints/relationships as scaffolding; neutral_clarification supplies no content help.
 Use only allowed misconception IDs (or none); do not invent a category. Rubric version is the prompt version.
-The server supplies identity, model and timestamps. You cannot choose a transition or authorize a new assessment.`;
+The server supplies identity, model and timestamps. You cannot choose a transition or authorize a new assessment.${questionIntent ? "\nThis assessed activity must contain no teaching, hints, supplied formulas, worked steps, or explanatory relationships. Set embedded_scaffolding to []. Ask for the student's reasoning using only neutral scenario facts. Do not hide scaffolding by leaving the array empty. If support is needed, the controller must deliver it separately through an acknowledged help action." : ""}`;
   const modelInput = {
     ...projection,
     instructional_strategy: strategy,
@@ -307,7 +315,7 @@ The server supplies identity, model and timestamps. You cannot choose a transiti
       strategy?.action === "generate_diagnostic"
         ? strategy.arguments.target_misconception_ids
         : [...context.scope.misconception_ids],
-    prompt_version: DIALOGUE_PROMPTS.generate,
+    prompt_version: generationPromptVersion,
   };
   // Separate root object schemas are supported by the provider; no top-level union.
   const draft = questionIntent
@@ -318,6 +326,7 @@ The server supplies identity, model and timestamps. You cannot choose a transiti
         instructions,
         modelInput,
         QuestionDraftSchema,
+        generationPromptVersion,
       )
     : await callModel(
         services,
@@ -335,7 +344,7 @@ The server supplies identity, model and timestamps. You cannot choose a transiti
     const contentId = request.request_id;
     const generation = {
       model: draft.model,
-      prompt_template_version: DIALOGUE_PROMPTS.generate,
+      prompt_template_version: generationPromptVersion,
       generated_at: draft.completedAt,
     };
     if (questionIntent) {
@@ -353,7 +362,7 @@ The server supplies identity, model and timestamps. You cannot choose a transiti
           content_ref: value.content_ref,
           concept_ids: value.concept_ids,
           source_passage_ids: value.source_passage_ids,
-          rubric: { ...value.rubric, version: DIALOGUE_PROMPTS.generate },
+          rubric: { ...value.rubric, version: generationPromptVersion },
           embedded_scaffolding: value.embedded_scaffolding,
           generation,
         },
@@ -457,7 +466,7 @@ coverage entry per field, with exact quotes (preserve whitespace) from the candi
 References must support the actual claim, not merely mention its topic. Pedagogical/partial-credit criteria may
 cite the source relationship they assess. Mark unsupported or uncertain when support is insufficient.
 Every cited passage needs relevant supporting evidence. For help answerability/novelty may be not_applicable.
-Give a concise private reason for the review, not chain of thought.`,
+Give a concise private reason for the review, not chain of thought.${candidate.kind === "question" ? "\nThis assessed activity permits no embedded content assistance. Independently inspect the public prompt for teaching, hints, formulas, worked steps or explanatory relationships, even when embedded_scaffolding is empty. If any are present, mark assistance understated; do not accept the empty array as proof that the prompt is unscaffolded. Neutral scenario facts needed to pose the problem are permitted." : ""}`,
     {
       ...projection,
       instructional_strategy: input.instructional_strategy ?? null,
@@ -467,6 +476,9 @@ Give a concise private reason for the review, not chain of thought.`,
       private_active_rubric_for_disclosure_check_only: context.question.rubric,
     },
     SemanticReviewSchema,
+    candidate.kind === "question"
+      ? ASSESSMENT_PROMPTS.review
+      : DIALOGUE_PROMPTS.review,
   );
   if (!reviewResult) return fail("disabled", calls);
   if (!reviewResult.ok) return providerFailure(reviewResult, calls);

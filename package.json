@@ -25,7 +25,8 @@
     "tutor:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-tutoring.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "dialogue:check": "node --experimental-strip-types --conditions=react-server scripts/check-dialogue.ts"
+    "dialogue:check": "node --experimental-strip-types --conditions=react-server scripts/check-dialogue.ts",
+    "r7:controller:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-r7-controller.ts"
   },
   "dependencies": {
     "better-auth": "^1.7.9",

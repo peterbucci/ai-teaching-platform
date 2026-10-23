@@ -4,6 +4,8 @@ import { type EvidenceAccess, transaction } from "../evidence/store.ts";
 import {
   DIALOGUE_LIMITS,
   DialogueHistorySchema,
+  DialogueEventSchema,
+  DIALOGUE_VERSION,
   DialogueRequestSchema,
   type DialogueRequest,
 } from "./contracts.ts";
@@ -12,6 +14,7 @@ import {
   appendOperationEvent,
   conflict,
   currentOperation,
+  databaseTime,
   dialogueContext,
   same,
   type DialogueContext,
@@ -28,7 +31,14 @@ import {
   TutorToolResultSchema,
   type OrchestrationContext,
   type OrchestrationPorts,
+  type TutorTool,
 } from "../tutoring/orchestration/contracts.ts";
+
+import { applyTutoringInTransaction } from "../tutoring/store.ts";
+import { decideTutoring } from "../tutoring/decide.ts";
+import { validateGeneratedDialogue } from "./rules.ts";
+import { randomUUID } from "node:crypto";
+import { validateProposal } from "../tutoring/orchestration/policy.ts";
 
 function authorizeRequest(context: DialogueContext, input: DialogueRequest) {
   const request = DialogueRequestSchema.parse(input);
@@ -39,11 +49,28 @@ function authorizeRequest(context: DialogueContext, input: DialogueRequest) {
   );
   return operation;
 }
+export type AuthorizedTools =
+  readonly TutorTool[] | ((context: DialogueContext) => readonly TutorTool[]);
+
 function actionContext(
   context: DialogueContext,
   access: EvidenceAccess,
-  approvedTools: readonly ("clarify" | "explain")[],
+  approvedTools: AuthorizedTools,
+  request: DialogueRequest,
 ): OrchestrationContext {
+  const approved =
+    typeof approvedTools === "function"
+      ? approvedTools(context)
+      : approvedTools;
+  const decision =
+    request.trigger.kind === "controller"
+      ? decideTutoring(
+          context.content,
+          context.evidence,
+          request.trigger.evaluation_id,
+          request.requested_at,
+        )
+      : null;
   const view = projectConversation(context);
   const history: z.infer<typeof DialogueHistorySchema> = [];
   for (const message of view.messages) {
@@ -66,12 +93,34 @@ function actionContext(
     history.shift();
   return {
     actor_profile_id: access.actor.profileId,
-    state: view.dialogue.state,
+    state: { ...view.dialogue.state, active_request_id: request.request_id },
     evidence: context.evidence,
     content: context.content,
+    source_scope: context.scope,
     history: DialogueHistorySchema.parse(history),
-    lesson_policy: approvedTools,
-    installed_tools: approvedTools,
+    lesson_policy: approved,
+    ...(decision
+      ? {
+          instructional_scope: {
+            question_concept_ids: decision.nextQuestionId
+              ? (context.content.questions.get(decision.nextQuestionId)
+                  ?.concept_ids ?? null)
+              : null,
+            help_concept_ids: decision.help?.concept_ids ?? null,
+          },
+        }
+      : {}),
+    installed_tools: approved.filter((tool) =>
+      request.trigger.kind === "student"
+        ? tool === "clarify" || tool === "explain"
+        : [
+            "explain",
+            "generate_diagnostic",
+            "generate_followup",
+            "generate_retest",
+            "advance_lesson",
+          ].includes(tool),
+    ),
   };
 }
 function records(context: DialogueContext, id: string) {
@@ -87,12 +136,12 @@ function receipt(context: DialogueContext, id: string) {
 }
 
 /** Storage half of #85's ports. Provider selection/generation are supplied by #74/#85.
- * Only grounded conversational help is installed; generated assessment handoff,
- * reading delivery and controller progression require their reviewed adapters. */
+ * Conversational help and controller-authorized instruction share the existing operation log.
+ * Retrieval/return tools remain absent until their display/persistence adapters exist. */
 export function createOrchestrationPersistence(
   access: EvidenceAccess,
   sessionId: string,
-  approvedHelpTools: readonly ("clarify" | "explain")[] = [],
+  approvedHelpTools: AuthorizedTools = [],
 ): Pick<OrchestrationPorts, "claim" | "checkpoint" | "complete" | "fail"> {
   return {
     async claim(request) {
@@ -125,7 +174,7 @@ export function createOrchestrationPersistence(
         });
         return {
           kind: "claimed" as const,
-          context: actionContext(context, access, approvedHelpTools),
+          context: actionContext(context, access, approvedHelpTools, request),
         };
       });
     },
@@ -154,7 +203,7 @@ export function createOrchestrationPersistence(
             same(duplicate, record),
             "Action phase was reused with different evidence.",
           );
-          return actionContext(context, access, approvedHelpTools);
+          return actionContext(context, access, approvedHelpTools, request);
         }
         const last = previous.at(-1);
         conflict(
@@ -176,7 +225,12 @@ export function createOrchestrationPersistence(
             "Dispatch must match the validated proposal and known provider outcomes.",
           );
           conflict(
-            approvedHelpTools.some((tool) => tool === record.tool),
+            actionContext(
+              context,
+              access,
+              approvedHelpTools,
+              request,
+            ).installed_tools.includes(record.tool),
             "This tool has no installed persistence adapter.",
           );
         }
@@ -184,7 +238,7 @@ export function createOrchestrationPersistence(
           kind: "action",
           payload: record,
         });
-        return actionContext(context, access, approvedHelpTools);
+        return actionContext(context, access, approvedHelpTools, request);
       });
     },
     async complete(request, proposalInput, resultInput) {
@@ -231,24 +285,161 @@ export function createOrchestrationPersistence(
             dispatched.tool === proposal.action,
           "Tool completion has no matching approved dispatch.",
         );
+        const installed = actionContext(
+          context,
+          access,
+          approvedHelpTools,
+          request,
+        ).installed_tools;
         conflict(
-          approvedHelpTools.some((tool) => tool === proposal.action) &&
-            result.kind === "generated" &&
-            result.content.kind === "help",
+          installed.includes(proposal.action),
           "Tool delivery is not installed.",
         );
-        // #85 validates semantic grounding/disclosure before invoking complete.
-        const accepted = await commitConversationHelpInTransaction(
-          client,
-          context,
-          operation,
-          result.content,
-          {
-            grounding: "supported",
-            disclosure: "safe_scaffolding",
-            permitted_by_controller: true,
-          },
+        validateProposal(
+          proposal,
+          request,
+          actionContext(context, access, approvedHelpTools, request),
+          installed,
+          { completed: true },
         );
+        let accepted = true;
+        if (request.trigger.kind === "controller") {
+          const decision = decideTutoring(
+            context.content,
+            context.evidence,
+            request.trigger.evaluation_id,
+            request.requested_at,
+          );
+          const generated =
+            result.kind === "generated" ? result.content : undefined;
+          if (proposal.action === "advance_lesson") {
+            conflict(
+              result.kind === "advance_lesson" &&
+                result.evaluation_id === request.trigger.evaluation_id &&
+                result.controller_action === decision.applied.action,
+              "The proposed controller transition changed.",
+            );
+          } else {
+            conflict(
+              generated,
+              "The selected instructional tool has no generated result.",
+            );
+            const expected =
+              proposal.action === "generate_diagnostic"
+                ? "diagnostic_followup"
+                : proposal.action === "generate_followup"
+                  ? "neutral_clarification"
+                  : proposal.action === "generate_retest"
+                    ? "immediate_retest"
+                    : null;
+            conflict(
+              expected
+                ? generated.kind === "question" && generated.intent === expected
+                : proposal.action === "explain" &&
+                    generated.kind === "help" &&
+                    generated.assistance_type !== "neutral_clarification",
+              "The result does not match the selected instructional action.",
+            );
+            validateGeneratedDialogue(
+              context.content,
+              context.scope,
+              request,
+              generated,
+              {
+                grounding: "supported",
+                disclosure: "safe_scaffolding",
+                permitted_by_controller: true,
+              },
+            );
+          }
+          // The controller reauthorizes the slot and commits every transition in this transaction.
+          const applied = await applyTutoringInTransaction(
+            client,
+            access,
+            sessionId,
+            request.trigger.evaluation_id,
+            {
+              content: context.content,
+              ...(generated?.kind === "question"
+                ? { generatedQuestion: generated }
+                : {}),
+              ...(generated?.kind === "help"
+                ? { generatedHelp: generated }
+                : {}),
+            },
+          );
+          conflict(
+            applied,
+            "This evaluation was already applied by another operation.",
+          );
+          const state = await client.query(
+            "SELECT revision FROM dialogue_sessions WHERE session_id=$1",
+            [sessionId],
+          );
+          const appliedRevision = z
+            .object({ revision: z.int().nonnegative() })
+            .parse(state.rows[0]).revision;
+          if (generated) {
+            const at = await databaseTime(client);
+            for (const delivery of [
+              { outcome: "generated", content: generated },
+              {
+                outcome: "accepted",
+                content_id: generated.content_id,
+                applied_attempt_id:
+                  generated.kind === "question" ? applied.nextAttemptId : null,
+                applied_revision:
+                  generated.kind === "question"
+                    ? appliedRevision
+                    : request.expected_revision,
+              },
+            ]) {
+              await appendOperationEvent(client, request.request_id, {
+                kind: "dialogue",
+                payload: DialogueEventSchema.parse({
+                  ...delivery,
+                  version: DIALOGUE_VERSION,
+                  event_id: randomUUID(),
+                  request_id: request.request_id,
+                  at,
+                }),
+              });
+            }
+          }
+          // These are controller deliveries: their existing tutor display acknowledgement owns assistance.
+          // Do not set dialogue_operations.intervention_id, which belongs to conversational-help delivery.
+          await appendOperationEvent(client, request.request_id, {
+            kind: "controller_applied",
+            payload: {
+              evaluation_id: request.trigger.evaluation_id,
+              controller_action: applied.decision.applied.action,
+              next_attempt_id: applied.nextAttemptId,
+              intervention_id: applied.interventionId,
+              applied_revision: appliedRevision,
+            },
+          });
+          await client.query(
+            "UPDATE dialogue_operations SET status='resolved' WHERE request_id=$1",
+            [request.request_id],
+          );
+        } else {
+          conflict(
+            result.kind === "generated" && result.content.kind === "help",
+            "This tool has no conversation delivery adapter.",
+          );
+          // #85 validates semantic grounding/disclosure before invoking complete.
+          accepted = await commitConversationHelpInTransaction(
+            client,
+            context,
+            operation,
+            result.content,
+            {
+              grounding: "supported",
+              disclosure: "safe_scaffolding",
+              permitted_by_controller: true,
+            },
+          );
+        }
         const output = OrchestrationReceiptSchema.parse(
           accepted
             ? {
@@ -331,6 +522,11 @@ export function createOrchestrationPersistence(
           kind: "action_receipt",
           payload: output,
         });
+        if (!output.reconcile && request.trigger.kind === "controller")
+          await client.query(
+            "UPDATE dialogue_operations SET status='fallback' WHERE request_id=$1 AND status='pending'",
+            [request.request_id],
+          );
         if (!output.reconcile)
           await failConversationInTransaction(
             client,

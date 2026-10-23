@@ -315,6 +315,10 @@ export function validateCandidate(
   )
     throw new Error("Generated source outside authorized scope");
   if (candidate.kind === "question") {
+    if (candidate.question.embedded_scaffolding.length)
+      throw new Error(
+        "Generated assessment scaffolding requires an acknowledged display contract",
+      );
     validateQuestionSnapshot(context.content, candidate.question);
     if (
       request.trigger.kind !== "controller" ||

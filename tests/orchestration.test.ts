@@ -36,6 +36,7 @@ import {
 } from "../lib/tutoring/orchestration/provider.ts";
 
 import { decideTutoring } from "../lib/tutoring/decide.ts";
+import { bindGeneratedQuestion } from "../lib/tutoring/generated-question.ts";
 
 const content = loadApprovedContent();
 const f = makeDialogueExamples(content);
@@ -65,6 +66,11 @@ function studentContext(): OrchestrationContext {
       interventions: [],
     },
     content,
+    source_scope: {
+      concept_ids: content.concept_ids,
+      passage_ids: content.passage_ids,
+      misconception_ids: new Set(content.misconception_concepts.keys()),
+    },
     history: [],
     lesson_policy: tools,
     installed_tools: tools,
@@ -1055,14 +1061,33 @@ test("a controller-permitted generated retest needs a fresh question and install
         "  " + current.question.prompt_text.toUpperCase() + "  ";
     if (variant === "same_id") {
       // A saved generated activity earlier in the same episode already owns this ID.
-      const previous = context.evidence.attempts[0];
-      previous.question = {
-        ...previous.question,
-        origin: "generated",
-        sequence_id: null,
-        question_id: candidate.content_id,
-        generation: candidate.question.generation,
-      };
+      const previous = context.evidence.attempts[1];
+      const priorApplied = context.evidence.evaluations[0].applied_result;
+      assert.ok(priorApplied);
+      previous.question = bindGeneratedQuestion(
+        content,
+        {
+          ...context.evidence,
+          attempts: context.evidence.attempts.slice(0, 1),
+        },
+        {
+          applied: priorApplied,
+          nextQuestionId: previous.question.question_id,
+          help: null,
+          outcome: null,
+        },
+        {
+          ...candidate,
+          intent: "diagnostic_followup",
+          question: {
+            ...previous.question,
+            origin: "generated",
+            sequence_id: null,
+            question_id: candidate.content_id,
+            generation: candidate.question.generation,
+          },
+        },
+      );
     }
     if (variant === "unavailable")
       context.installed_tools = tools.filter(

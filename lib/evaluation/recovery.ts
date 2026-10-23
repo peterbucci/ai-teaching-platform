@@ -10,7 +10,9 @@ export function evaluationRecovery(
     (e) => e.evaluator.type === "language_model",
   );
   const latest = modelRuns.at(-1);
-  const unfinished = latest?.validation_status === "pending_review";
+  const unfinished =
+    latest?.validation_status === "pending_review" ||
+    latest?.evaluator.provider_outcome === "unknown";
   const failed =
     latest && latest.validation_status !== "accepted" ? latest : null;
   const retryAfter = failed

@@ -9,6 +9,7 @@ import type {
   SessionEvidence,
 } from "../evidence/contracts.ts";
 import { validateSessionEvidence } from "../evidence/rules.ts";
+import { controllerNode } from "./generated-question.ts";
 
 export const TUTOR_POLICY_VERSION = "approved-sequence-v1";
 type Outcome = EpisodeOutcome["outcome"];
@@ -57,10 +58,7 @@ export function decideTutoring(
     throw new Error(
       "This question has no supported approved tutoring sequence",
     );
-  const node = lesson.nodes.find(
-    (item) => item.node_id === attempt.question.question_id,
-  );
-  if (!node) throw new Error("Question is outside the approved sequence");
+  const node = controllerNode(content, attempt);
   const episode = evidence.attempts.filter(
     (item) => item.root_attempt_id === attempt.root_attempt_id,
   );
@@ -91,12 +89,8 @@ export function decideTutoring(
   const count = (kind: string) =>
     new Set(
       episode
-        .filter(
-          (item) =>
-            lesson.nodes.find((n) => n.node_id === item.question.question_id)
-              ?.kind === kind,
-        )
-        .map((item) => item.question.question_id),
+        .filter((item) => controllerNode(content, item).kind === kind)
+        .map((item) => controllerNode(content, item).node_id),
     ).size;
   function activity(kind: string) {
     const matches = lesson.nodes.filter((item) => item.kind === kind);
@@ -206,7 +200,9 @@ export function decideTutoring(
     // The authored numerical worked example applies only to the diagnostic's numbers.
     // Elsewhere preserve credit and request a unit/calculation check, without inventing numbers.
     const kind =
-      arithmetic && node?.kind === "diagnostic_followup"
+      arithmetic &&
+      node.kind === "diagnostic_followup" &&
+      attempt.question.origin === "curated"
         ? "arithmetic_feedback"
         : "corrective_feedback";
     const selected = activity(kind);
@@ -229,7 +225,8 @@ export function decideTutoring(
   if (unsupported) {
     const repeated =
       episode.length -
-      new Set(episode.map((item) => item.question.question_id)).size;
+      new Set(episode.map((item) => controllerNode(content, item).node_id))
+        .size;
     const fallback = activity("unsupported_input_or_evaluation_fallback");
     const message = fallback.feedback_variants?.unrelated_or_empty;
     if (!message) throw new Error("Approved fallback is missing");
@@ -258,7 +255,7 @@ export function decideTutoring(
       ...new Map(
         episode
           .filter((item) => item.intent === "immediate_retest")
-          .map((item) => [item.question.question_id, item]),
+          .map((item) => [controllerNode(content, item).node_id, item]),
       ).values(),
     ];
     const evaluations = retests.map((a) =>

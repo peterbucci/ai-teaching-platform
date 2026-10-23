@@ -41,6 +41,7 @@ import {
   appendOperationEvent,
   conflict,
   currentOperation,
+  isCurrentOperation,
   databaseTime,
   dialogueContext,
   same,
@@ -912,7 +913,7 @@ export async function readConversationOperation(
     return {
       request_id: requestId,
       status:
-        isCurrent(context, operation) ||
+        isCurrentOperation(context, operation) ||
         !["pending", "clarification"].includes(operation.status)
           ? operation.status
           : "stale",

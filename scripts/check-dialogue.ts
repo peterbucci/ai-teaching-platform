@@ -1029,6 +1029,95 @@ async function sharedLegacyProviderGate() {
     "Legacy evaluations share provider concurrency and budget; evaluation_failed stays unresolved until a known result is recorded",
   );
 }
+async function linkedEvaluationOutcomes() {
+  for (const outcome of ["settled", "unknown"] as const) {
+    const { session, attempt } = await newSession();
+    await submitAnswer(student, session.id, {
+      attempt_id: attempt.id,
+      submission_key: randomUUID(),
+      response_text:
+        "Synthetic evaluator settlement check; original answer retained.",
+    });
+    const marker = {
+      id: randomUUID(),
+      attempt_id: attempt.id,
+      validation_status: "pending_review" as const,
+      evaluator: {
+        type: "language_model" as const,
+        model: "fixture-alias",
+        version: "settlement-fixture-v1",
+      },
+      supersedes_id: null,
+      result: null,
+      applied_result: null,
+      failure_reason: "Synthetic durable reservation; no provider call.",
+    };
+    await recordEvaluation(student, session.id, marker);
+    const final = {
+      ...marker,
+      id: randomUUID(),
+      validation_status: "evaluation_failed" as const,
+      evaluator: {
+        ...marker.evaluator,
+        model: "fixture-dated-model",
+        provider_reservation_id: marker.id,
+        provider_outcome: outcome,
+      },
+      failure_reason: "Synthetic provider outcome.",
+    };
+    await denied(
+      recordEvaluation(student, session.id, {
+        ...final,
+        evaluator: {
+          ...final.evaluator,
+          provider_reservation_id: randomUUID(),
+        },
+      }),
+    );
+    await recordEvaluation(student, session.id, final);
+    const retry = { ...marker, id: randomUUID() };
+    if (outcome === "unknown") {
+      await denied(recordEvaluation(student, session.id, retry));
+    } else {
+      await recordEvaluation(student, session.id, retry);
+      await recordEvaluation(student, session.id, {
+        ...final,
+        id: randomUUID(),
+        evaluator: { ...final.evaluator, provider_reservation_id: retry.id },
+      });
+    }
+    await presentQuestion(student, session.id, {
+      question: demo.sessions[0].attempts[1].question,
+      intent: demo.sessions[0].attempts[1].intent,
+      parent_attempt_id: attempt.id,
+    });
+    const next = await message(session.id);
+    if (outcome === "unknown") {
+      await denied(reserveConversationOperation(student, next));
+    } else {
+      await reserveConversationOperation(student, next);
+      await createReservedCall(
+        student,
+        session.id,
+        next.request_id,
+      )(descriptor("classify"), async () => knownOutcome);
+    }
+    assert.equal(
+      (await loadConversation(student, session.id)).dialogue.state
+        .provider_requests_used,
+      outcome === "settled" ? 3 : 1,
+    );
+    const saved = await readSession(student, session.id, "student");
+    assert.equal(
+      saved.attempts[0].response_text,
+      "Synthetic evaluator settlement check; original answer retained.",
+    );
+    assert.equal(saved.evaluations[0].id, marker.id);
+    check(
+      `Exact linked ${outcome} evaluator outcome ${outcome === "settled" ? "permits explicit new work" : "blocks evaluator and dialogue work"}; spent budget and original evidence retained`,
+    );
+  }
+}
 async function orchestrationRecords() {
   const { session } = await newSession();
   const action = await message(session.id);
@@ -1397,6 +1486,7 @@ try {
     await providerFlow();
     await limits();
     await sharedLegacyProviderGate();
+    await linkedEvaluationOutcomes();
     await pendingControllerFeedback();
     await orchestrationRecords();
     await httpRoutes();

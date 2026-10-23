@@ -6,7 +6,7 @@ import {
   type DialogueRequest,
   type DialogueState,
 } from "../../dialogue/contracts.ts";
-import type { DialogueReview } from "../../dialogue/rules.ts";
+import type { DialogueReview, DialogueScope } from "../../dialogue/rules.ts";
 import {
   ActionSchema,
   ContentRefSchema,
@@ -198,9 +198,15 @@ export type OrchestrationContext = {
   state: DialogueState;
   evidence: SessionEvidence;
   content: ApprovedContent;
+  source_scope: DialogueScope;
   history: DialogueHistory;
   lesson_policy: readonly TutorTool[];
   installed_tools: readonly TutorTool[];
+  /** Exact coverage required by an installed controller handoff, never model/browser authority. */
+  instructional_scope?: {
+    question_concept_ids: string[] | null;
+    help_concept_ids: string[] | null;
+  };
 };
 export type ProposalPrompt = { instructions: string; input: string };
 export type OrchestrationPorts = {
