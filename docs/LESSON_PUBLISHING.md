@@ -1,0 +1,190 @@
+# Teacher lesson publishing (#52)
+
+This is the implementation handoff for [Issue #52](https://github.com/peterbucci/ai-teaching-platform/issues/52). It extends the [#53 lesson resolver](LESSON_RESOLVER.md), the existing assignment record, and the existing tutor/evidence path. It does not introduce a second lesson store, evaluator, or tutoring controller.
+
+[PR #102](https://github.com/peterbucci/ai-teaching-platform/pull/102) integrates publication onto main after #93, #97, #100 and #101. Main `4a209ba` contains the canonical registry, importer, objectives and reviewed question bank. A normal merge preserves the existing feature history and unchanged migrations.
+
+## Current delivery boundary
+
+The publishing interface works with real teacher-owned draft, source, publication, and assignment records. The complete reviewed water lesson used for verification is a labeled synthetic development fixture. Production pages do not create that fixture or substitute it for unfinished authoring.
+
+#49's real material importer, #50's objective generation/review editor, and #51's question generation/review editor are integrated with the #53 draft and published-version contracts. Navigation connects imported material, objectives, questions, and publishing. The publishing assembler consumes the actual reviewed bank; production behavior does not substitute a fixture for these authoring steps.
+
+The complete import → AI objectives/questions → publish → student → teacher browser/database journey passed with original synthetic Moonlight material and actual model calls. The canonical #93 uncertainty fixes are integrated through `f298791` in merge `d410426`. The reviewed #97 page-tree and old-preview correction `b60e1f1` is integrated by normal merge `6d28023`. Commit-specific checks are recorded below and on PR #102; current integration checks are recorded below. #52 remains open; the successful walkthrough does not establish R7's separate live conversational-agent acceptance.
+
+## Teacher workflow and authorization
+
+1. Import and approve permitted source material at `/teacher/materials`, select that source/version at `/teacher/objectives`, then review and approve objectives and questions in their respective editors. `/teacher/lessons` lists owned drafts and published versions and links back to these authoring steps.
+2. Open `/teacher/lessons/[lessonId]` to review the saved draft revision. The preview separates student questions from teacher-only answer criteria and guidance, shows approved source passages and concepts, and lists missing or inconsistent requirements.
+3. For a reviewed #51 bank, choose a question family and select **Prepare tutoring sequence**. This is an explicit draft edit: it increments revision and clears whole-lesson approval. It does not approve or publish anything.
+4. Explicitly approve the complete current revision. The server rechecks the authoring review, source ownership/approval, content references, and executable fallback.
+5. Separately publish that approved revision as an immutable lesson version. Repeating publication of the same approved revision returns its existing version.
+6. Open `/teacher/lessons/[lessonId]?version=...` to preview the exact immutable snapshot being assigned. The current editable draft cannot silently replace this preview.
+7. Choose an authorized class, review the assignment title and instructions, and create an **inactive** class assignment pinned to that version.
+8. Follow the existing `/teacher/assignments?assignment=...` review page and explicitly **Approve and activate**. Only then does the assignment appear to enrolled students.
+9. When the current draft's version has already been published, select **Start new version**, enter an unused version name, and confirm. This carries the current saved draft forward, including saved edits; it does not restore an older snapshot over those edits. Review the new question bank, prepare its sequence, and approve/publish it separately.
+
+Lesson approval, publication, assignment creation, and classroom activation are separate authorized operations. Approval and publication HTTP requests require `confirmed: true`. Classroom activation uses the existing assignment review token. Assembly is a teacher-initiated draft edit and still requires subsequent whole-lesson review and approval.
+
+The current assignment schema supports immediate availability after activation. It has no scheduled availability or due-date fields, so this interface does not pretend to save or enforce those settings. Instructions are stored on the existing assignment and shown to its enrolled students. The activation review token includes them, and the existing assignment history guard freezes them after activation or evidence creation.
+
+## Server interfaces
+
+`lib/lessons/publishing.ts` supplies teacher-only review and version services:
+
+| Function                                                  | Result                                                                                                                                                                                                            |
+| --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `listTeacherLessons(access)`                              | Owned lesson summaries and published version identities.                                                                                                                                                          |
+| `lessonPublishingReview(access, lessonId)`                | Current draft/revision, validation issues, published version metadata, authorized classes, and existing class assignments.                                                                                        |
+| `readPublishedLessonForReview(access, lessonId, version)` | The owner's exact immutable published content for review. Never expose this full private content to a student.                                                                                                    |
+| `startLessonVersion(access, lessonId, input)`             | Locks the owned expected revision, requires the current version to be published, rejects an already published target name, and saves the current draft under the new version through the canonical draft service. |
+
+`lib/lessons/store.ts` supplies mutations:
+
+| Function                                                                     | Boundary                                                                                                                                                                                               |
+| ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `assembleReviewedLessonDraft(access, lessonId, expectedRevision, familyId?)` | Locks the owned draft, checks reviewed bank/source, assembles supported practice, and saves the next draft revision. A stale or repeated old revision returns 409; reload to inspect the saved result. |
+| `approveLessonDraft(access, lessonId, expectedRevision)`                     | Approves only the current complete reviewed draft. Editing clears approval.                                                                                                                            |
+| `publishLessonVersion(access, lessonId, expectedRevision)`                   | Publishes only the approved revision; existing immutable versions cannot be replaced.                                                                                                                  |
+| `createLessonAssignment(access, input)`                                      | Authorizes the class and published lesson, then creates an inactive assignment with its exact version pin.                                                                                             |
+
+The publishing HTTP routes are under `/api/teacher/lessons/[lessonId]/`: `assembly`, `approval`, `publication`, `assignments`, and `versions`. They resolve the actor from the authenticated session and enforce same-origin JSON requests. The assignment route requires a UUID `request_id`, `version`, `class_id`, `title`, and `instructions`. The underlying service keeps `request_id` optional for existing internal callers; new publishing UI calls always supply it. `POST versions` requires `expected_revision`, an unused `version` name of at most 100 characters, and `confirmed: true`, with a 2,000-byte request limit. A stale or repeated old revision returns 409; reload to inspect the saved result.
+
+Starting a version preserves exact approved source provenance, passage text, concept IDs, question IDs and current saved edits. It changes the lesson and every question's `content_ref.content_version` together. Unchanged objective review remains valid, while the question-bank fingerprint and whole-lesson approval are invalidated; the old derived sequence is removed for banks. It creates no publication, assignment, activation or model request. Published snapshots and earlier student evidence remain immutable. An already unpublished current draft must be reviewed rather than renamed repeatedly through this control.
+
+Activation continues to use `assignmentReview` and `approveAssignment` in `lib/assignments/store.ts` and `/api/teacher/assignments/[assignmentId]/approval`. Neither publication nor inactive assignment creation calls activation implicitly.
+
+Assembly, publishing review, lesson approval, and publication all enforce the composed objective/question-bank review checks. Generic draft saves cannot mint objective review metadata or a question-bank receipt. They retain only server-stored metadata for unchanged reviewed content. Omitting bank metadata from a save cannot remove an existing bank's review requirement: its server-stored metadata is retained, and changed content invalidates its approval. The bank fingerprint includes objective workflow state, so objective edits or changed approval invalidate the bank review. Source-scope failures retain their specific validation message: for example, an unknown question passage is shown as `Unknown question passage ID` instead of an unexpected server error.
+
+## Reviewed question-bank assembly
+
+`lib/lessons/assemble.ts` consumes `getReviewedQuestionBank`, including its content fingerprint. It selects one reviewed family, uses its initial question, diagnostic options and ordered retests, and retains the remaining reviewed questions in the bank. It changes routing identifiers without changing question wording, private rubrics, source references, generation provenance, or authoring review metadata.
+
+Only the selected family drives the current practice sequence. The published lesson and assignment retain the full approved reading, concept scope, and question bank; other families do not run automatically. Teacher metrics can therefore show other approved concepts with no attempts. This bounded assembly does not claim that students have practiced every retained family.
+
+The initial item's reviewed feedback supplies corrective/arithmetic feedback. Reviewed bank delivery settings supply closing/fallback text. The assembler requires an existing reviewed scoring policy; it does not invent one. It uses the current deterministic controller's supported sequence with no neutral clarification activity, at most one diagnostic, an explicit retest chain, and bounded unsupported-input retry. The final assembled sequence remains visible for whole-lesson review.
+
+A newly assembled diagnostic carries a misconception mapping only when that category is already approved and its concrete concept is assessed by that diagnostic. Otherwise assembly uses a neutral diagnostic. `hydrateLessonContent` rejects a mapped diagnostic whose question does not assess the mapped concrete concept. The canonical #53 compatibility fix retains existing approved global categories whose `concept_id` is `null`; loading those historical packages does not rewrite them. The existing controller also preserves prior hypothesis evidence when the current question/evaluation did not assess the target concept. Unconfirmed reasoning-error prose does not create new misconception categories.
+
+Integration review found that editing only reviewed feedback or delivery text could leave an older assembled sequence in the draft. The canonical draft write now removes the derived sequence whenever a question bank lacks a current approval receipt. Reapproving that bank does not restore the sequence: the teacher must explicitly prepare it again before whole-lesson approval. A service regression verifies the edited initial, closing, and fallback feedback is used after reassembly/publication. Approved-bank assembly retains its sequence, and complete manual example packages without bank metadata retain their existing sequence.
+
+## Versioning, persistence, and recovery
+
+Assignments pin the complete approved `lesson_id`, `lesson_version`, and `content_ref`. Uploaded source document/version identity is independent from lesson version identity. All source ownership, review status, hashes, attribution, passage text, and version references are checked against the saved source. A later source or lesson revision cannot rewrite an old assignment, question snapshot, citation, or student response.
+
+Migration `011_lesson_publishing.sql` adds `instructions` and the optional unique `creation_request_id` to the existing assignments table. Matching concurrent requests reuse one assignment. Reusing a request UUID with changed class, lesson version, title, or instructions returns 409. Its creation identity remains immutable even before activation.
+
+Migration `012_lesson_authoring_publication.sql` preserves authoring metadata in the draft while retaining the strict published runtime contract. Its publication comparison removes **only** `objective_workflow` and `question_bank` from the saved draft. It keeps the existing owner, source approval, content reference, approved-scope, and immutable-version checks. This migration is separate from 011 so environments that already applied 011 can upgrade without rewriting its checksum.
+
+A fresh-database compatibility check applied all 12 unchanged migrations together: shared `001`–`006`, the separate R7 branch's `008`/`009`, and this stack's `010`–`013`. Lesson and publishing service probes passed against that composed schema without paid calls. Earlier migration checksums were preserved. This is migration compatibility evidence only: R7 code was not merged and its runtime was not verified by this check.
+
+`CreateClassAssignment` keeps an unresolved request UUID and exact form payload in browser `localStorage`, scoped to the lesson/version. Web Locks serialize cooperating tabs, and storage comparisons prevent a stale tab from replacing another tab's pending request. An uncertain response retains the original payload for retry. The server is the authority for replay and authorization; browser state cannot grant ownership. The interface asks the teacher to inspect existing assignments before clearing an uncertain saved request. Browsers without the required storage/lock support receive an explicit recovery error rather than an unsafe duplicate request.
+
+## Student and evidence integration
+
+The student assignments page and approved reader resolve the pinned lesson version. Starting work uses the existing tutoring service, `lib/tutoring/decide.ts`, evaluator, session/attempt persistence, and teacher evidence views. Reading or opening a question does not submit an answer or request a paid evaluation.
+
+Student projections omit private rubrics, answer guidance, source bytes, and question-bank authoring metadata. Reusing one version in two teacher-owned classes preserves enrollment and assignment/session isolation. There is no parallel progress or evidence store, and no R7 live-conversation implementation in this story.
+
+## Verification checkpoint
+
+The verification history includes the #51 metadata-omission guard (`813eb99`), #93 uncertainty corrections, and #97 PDF integrity corrections. The latest local suite after merge `6d28023` passed 218 tests and 293 content checks. [CI at `6893bbe`](https://github.com/peterbucci/ai-teaching-platform/actions/runs/39899080959) passed before the newest importer merge; PR #102 records the final commit-specific CI result for that merge. Restart and fixture checks are separate from actual-model testing.
+
+| Verification                       | Observed result and limit                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Deterministic suite                | 218 tests passed, including authoring, assembly, version validation, importer integrity, student projections and existing regressions. These are not actual-model tests.                                                                                                                                                                                                                                                         |
+| Approved networking content        | 293 content checks passed. The original networking package remains the regression baseline.                                                                                                                                                                                                                                                                                                                                      |
+| Static checks and production build | Lint, TypeScript checking, formatting checks, and the latest Docker production build passed. These checks do not establish actual-model behavior.                                                                                                                                                                                                                                                                                |
+| `npm run publishing:check`         | Passed against an isolated development database: valid/incomplete/unapproved content, ownership, stale/concurrent/replayed requests, instructions immutability, two authorized classes with separate student evidence, exact source use, private projections, and preservation after later source/lesson versions. Evaluations are explicitly synthetic fixtures.                                                                |
+| Assembly database regression       | Passed: unreviewed bank rejected, reviewed bank assembled at the next revision, no implicit approval, stale repeat rejected, explicit approval/publication succeeds, draft retains metadata while published content omits it.                                                                                                                                                                                                    |
+| Composed authoring regression      | Passed against the `publishing52` development database: feedback/delivery edits clear bank approval and the derived sequence; bank reapproval alone cannot approve the lesson; explicit reassembly publishes the edited text. Complete manual packages without bank metadata retain their sequence.                                                                                                                              |
+| Existing `npm run lessons:check`   | Passed through shared resolver, reading, evaluator-context, deterministic controller and saved evidence paths. No model call.                                                                                                                                                                                                                                                                                                    |
+| Combined R4/R7 migration schema    | All 12 unchanged migrations applied to a fresh database; lesson and publishing service probes passed. Zero paid calls. No R7 runtime integration is claimed.                                                                                                                                                                                                                                                                     |
+| `npm run publishing:http:check`    | Passed authenticated HTTP boundaries, teacher/class/enrollment permissions, confirmation/revision gates, publication/activation separation, required request identity, replay/conflict behavior, exact student reading and private guidance protection. No answer-evaluation endpoint or generator was invoked.                                                                                                                  |
+| Latest production smoke checks     | The upgraded Docker production runtime passed refreshed `publishing:http:check` and `materials:check`, including valid two-stream PDF extraction and rejection of a corrupted later stream. Both probes used fixtures and made zero model calls.                                                                                                                                                                                 |
+| Browser/database walkthrough       | A fictional teacher reviewed the synthetic water lesson, approved, published, created an assignment, and separately activated it. A fictional student opened the exact water version 1 reading and started the existing tutor's puddle/cold-glass question. No evaluated answer was submitted in this walkthrough at the checkpoint.                                                                                             |
+| Actual-model verification          | The Moonlight browser/database walkthrough completed real objective/question authoring, explicit publication/activation, three evaluated student answers, and teacher inspection of original evidence with exact source/version citations. Seven logical `gpt-6.1-sol` calls are evidenced: four authoring calls and three student evaluations. This uses the existing deterministic tutor; no R7 agentic acceptance is claimed. |
+
+Development checks retain clearly labeled fictional probe records because published versions and student evidence are intentionally immutable. `publishing:preview` seeds a labeled example for interface review; it is a development command, not an application authoring action.
+
+## Actual-model browser/database walkthrough
+
+This run uses original synthetic Moonlight source material and fictional accounts. It is distinct from the water fixture walkthrough and deterministic database evaluations above. The [saved evidence record](evidence/publishing-live-2026-10-23.json) contains exact source/lesson hashes, operation identities, original answers, evaluation decisions, displayed feedback, and limits. Browser observations are distinguished from the read-only database audit.
+
+| Step                           | Observed result                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Import source                  | Imported and approved source `6a714b0d-b7f5-4d80-8f1b-ef5820bf0e90`, version `1`.                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Generate and review objectives | Actual model request `e3557b0b-1535-4fed-a67c-b85c817f7632` succeeded and stored a proposal. The selected supported objective was applied once to lesson `5d208961-a50e-45c1-9f29-692cd5d82ef8`, revision `2`, then explicitly reviewed/approved at revision `4`.                                                                                                                                                                                                                                         |
+| Generate and review questions  | The real question-bank editor saved preferences at revision `5`. Generation/critique operation `d619afe8-5d8d-4d78-9862-a30b4d5f9e67` completed at revision `6` using prompt `teacher-question-bank-v2`; all four generated questions were reviewed before approval. The objective and question stages together used four `gpt-6.1-sol` calls and recorded 10,367 tokens.                                                                                                                                 |
+| Prepare and publish            | The teacher explicitly prepared the reviewed sequence, approved lesson revision `9`, and published immutable lesson version `1`.                                                                                                                                                                                                                                                                                                                                                                          |
+| Assign and activate            | The teacher created inactive Moonlight assignment `17966c5c-894c-4da0-b6c2-39a5247b562a` and separately activated it at `2026-10-23 03:22:05 UTC`.                                                                                                                                                                                                                                                                                                                                                        |
+| Student reading and tutoring   | The enrolled fictional student opened the correct Moonlight reading and completed three assessed answers in session `58336e23-45f1-4437-854d-c14a5b716d2a`. The actual evaluations were partial, incorrect, then correct. The initial answer had no assistance recorded; the diagnostic prompt did not reveal the answer but was not counted as independent retrieval. The correct retest followed displayed corrective feedback and was stored as assisted.                                              |
+| Teacher evidence               | The selected Moonlight assignment showed one of three enrolled students had answered and one concept correct on its latest evidence. The teacher inspected all three original answers and evaluations, then expanded accepted first evaluation `82690b9d-2e83-41fb-a380-d1af598fc518`. Its citation `p001` showed the actual Moonlight text; question details retained the exact lesson version `1` and source version `1`. Reservation history remained visible separately from the accepted evaluation. |
+
+The run used the OpenAI Responses API with `gpt-6.1-sol`. Saved authoring responses and evaluation start/success records evidence seven logical calls: four for authoring and three for student evaluation. Student evaluation token usage was not available in the captured record, so 10,367 is the authoring subtotal, not a claimed total for all seven calls. Evaluation reservation rows are not counted as extra calls. This observed partial/incorrect/correct progression verifies the existing tutor's approved-content path and evidence persistence; it does not demonstrate R7 live conversation/tool execution or durable learning.
+
+An early browser cookie collision interrupted an objective save. The walkthrough resumed through an isolated Docker production server accessed through IPv6; only subsequently confirmed saves are included above. Local screenshots outside the repository record activation (`publishing-moonlight-activated.jpg`), completed student work (`publishing-moonlight-completed.jpg`), and the teacher's expanded evidence (`publishing-moonlight-teacher-evidence.jpg`).
+
+## Canonical uncertainty follow-up
+
+Merge `d410426` integrates the resolver owner's `4bf2983`/`f298791` fixes without modifying their runtime implementation or existing migrations. The controller keeps the reserved `other_or_uncertain` category uncertain and cannot use it to select a specific distance-error outcome. Analytics represents an uncategorized response with a derived null category while still enforcing approval for every named category. Original responses, accepted evaluations, source/version references, and global-category concept isolation remain intact.
+
+A fresh independent read-only agent review found no additional actionable finding and passed all 19 focused controller/analytics tests. The combined suite passed 199 tests, 293 content checks, lint, TypeScript and formatting. The Docker production build passed. These are deterministic checks, distinct from the seven actual calls in the earlier Moonlight walkthrough.
+
+On a fresh isolated database, all 10 migrations in this branch applied and `lessons:uncertainty:check`, `publishing:check`, and the updated `publishing:http:check` passed against the production app. The authenticated post-check confirmed Demo Student Two owns zero classes and still lands on `/study/assignments`. No models were configured or called; the original Moonlight database was untouched. The earlier 12-migration R4/R7 compatibility result remains separate.
+
+The uncertainty regression runs after the CI restart and before material-import fixtures. The publishing HTTP check also removes only its own fresh, empty foreign permission-probe class on exit, preserving the fictional student's role while retaining immutable assignments and evidence.
+
+## Reviewed importer correction
+
+Normal merge `6d28023` integrates importer `b60e1f1`, including its reconciliation with merged #93, without rewriting dependency history. The eight changed importer files match the reviewed owner commit exactly. No publication, objective/question-bank, uncertainty, migration, or protected-document changes were needed. The three merge conflicts retain the existing #52 authoring gates, commands and CI order.
+
+The importer now validates the complete PDF page tree before extraction and uses preview policy v3. Malformed or understated page counts cannot silently omit material; authentic older preview receipts cannot be saved or renewed. Already saved immutable sources and student evidence remain unchanged. Independent integration review found no additional issue and passed 55 focused extraction/receipt tests. The combined local suite passed 218 tests, 293 content checks, lint, TypeScript and formatting. No actual-model calls were repeated.
+
+A new production build and isolated database passed all 10 migrations plus `lessons:uncertainty:check`, `publishing:check`, `publishing:http:check`, and `materials:check`. The importer probe verified complete flat/nested page trees and both content streams; malformed trees and damaged streams produced no partial preview, approval receipt or saved source. Authentic obsolete versionless/v2 preview receipts failed both save and renewal. These checks used synthetic inputs and no models; the original Moonlight database was untouched. The importer owner separately verified the actual browser rejection and valid two-page save/reload on `b60e1f1`.
+
+## New-version integration
+
+The publishing UI now exposes the revision-checked new-version action described above. Its PostgreSQL regression checks unauthorized actors, stale requests, published-name collisions, saved-title preservation, stable concept/question identities, unchanged source text/provenance, invalidated bank/full approval and immutable v1 assignments/evidence. The authenticated HTTP suite exercises the same endpoint and verifies that an existing student's v1 reading and attempt stay pinned. Record the actual execution result separately; these checks make no model calls.
+
+#51 owns the question-bank tutoring-policy controls. Source version 1 can remain pinned while lesson version 2 adds teacher-reviewed policy through that editor, followed by bank review, sequence assembly, whole-lesson approval/publication and separate assignment activation. The original Moonlight v1 and its model/browser evidence are unaffected by this code change.
+
+## Remaining integration and closure gates
+
+- The canonical fixes for [reserved uncertainty](https://github.com/peterbucci/ai-teaching-platform/pull/93#discussion_r4355782377) and [category-free analytics](https://github.com/peterbucci/ai-teaching-platform/pull/93#discussion_r4355782383) are integrated through `f298791`. Their independent agent review found no additional actionable issue and passed 19 focused tests; the upstream review threads remain for their reviewer to resolve. The original Moonlight walkthrough did not exercise these cases, so the separate uncertainty regression supplies that evidence.
+- Check the commit-specific CI result recorded on PR #102 and reconcile the remaining dependency stack before merge. Earlier successful CI runs are not evidence for a later head. Preserve the separate actual-model record and original Moonlight responses, evaluations and assistance.
+- R7's worker continues to own live conversational routing, adaptive tool execution, and its actual-agent acceptance. The passed schema compatibility check does not complete that separate integration.
+- Keep the actual-model evidence record separate from fixture probes, including the authoring token subtotal and unavailable student token usage. Retain the successful Moonlight version/evidence without rewriting it during later tests.
+- A fresh independent agent review of `7132b88` found no additional actionable #52 findings across publication permissions, idempotency, private projections, assembly and migration guards; its five focused assembly tests passed. It did not independently repeat the model/browser/database journey. Obtain maintainer review of the composed contracts before merging. Do not use `Closes #52` until its real integrated acceptance and important failure cases pass.
+
+## Main reconciliation verification — October 23, 2026
+
+The normal merge with main `4a209ba` preserves the already merged importer,
+objective workflow and question bank exactly. All applied migration files are
+unchanged. Only publishing, version creation and their focused integration paths
+remain in the diff against main.
+
+The reconciled application passed 219 deterministic tests, 293 curated-content
+checks, lint, TypeScript, formatting and Docker production build. Isolated
+PostgreSQL checks passed for publishing, objectives, questions, lesson resolution
+and SQL constraints. Authenticated assignment, reading, class, tutor, metrics,
+patterns, uploaded uncertainty and importer checks passed. Database/application
+restart preserved evidence, sessions and migration/seed counts.
+
+The extended publication HTTP suite passed ownership, confirmation, stale and
+collision gates for the new-version endpoint, plus exact v1 publication,
+assignment, attempt and reading preservation. CI now runs this suite in a fresh
+application process after the other login-heavy probes; authorization and rate
+limits remain unchanged.
+
+In the real teacher UI, the labeled synthetic development lesson was approved
+and published as version 1, then carried into version 2 using the new explicit
+control. Refresh retained draft revision 3, lesson version 2, source version 1,
+required new lesson approval, and the separate published version-1 link. No class
+assignment was created by this browser check. The corresponding lesson is
+`9938a5fc-7397-49f1-b2d6-4e96485b97c6` in the isolated integration database.
+
+All reconciliation checks used synthetic inputs with zero new paid model calls.
+The historical seven-call Moonlight browser record remains separate. Independent
+technical reviews covered the new-version service and resolved canonical store.
+The maintainer authorized bypassing human review; exact-head CI remains required.
