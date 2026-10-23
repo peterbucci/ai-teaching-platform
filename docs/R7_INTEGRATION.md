@@ -181,6 +181,37 @@ those same changes afterward. If any original PR gains commits, merge/reconcile
 that updated head into the integration before claiming it is included. No original
 PR or issue is closed or merged into main automatically by this work.
 
+## Combined authoring and recorded-response recovery verification
+
+On October 23, the local integration at `8044c56` combined the reviewed R7 work
+with question-bank authoring, lesson publication/new-version controls, and the
+Next.js 16.4.3 security patch through normal merges. The merged publication
+validator retains both rejection of runtime controller bindings and typed errors
+for teacher review. Published source/policy checks, canonical draft services,
+assignment instructions, and the existing single-composer UI remain connected.
+All migration files retain their reviewed parent bytes. Teacher hint permission
+is explicitly editable before review; published policies never change implicitly.
+
+Executed on this combined local tree:
+
+- 335 deterministic tests; lint, TypeScript, formatting; 293 content checks.
+- Clean dependency installation and Docker production build, both reporting zero
+  dependency vulnerabilities. The prior Next.js security warning is absent.
+- Isolated PostgreSQL: 19 dialogue groups including authenticated HTTP and a
+  deliberate 45-second fixture timeout; six controller groups; seven recorded-
+  response recovery groups including concurrent HTTP recovery and denied access.
+- Canonical question-bank generation/review persistence with six injected provider
+  calls; publication/new-version PostgreSQL and authenticated HTTP checks. Existing
+  attempts, source pins, instructions, private rubrics and prior versions remain
+  protected. The old dialogue fixture now supplies the required instructions field.
+
+These checks made **zero new paid model calls**. They establish combined code,
+HTTP and database behavior, including finishing durably recorded successful work;
+they do not establish a new model-quality or browser-journey acceptance result.
+The historical live evidence below remains tied to its stated revisions. Final
+actual-main reconciliation, exact-head CI, and the final combined acceptance
+journey must be reported separately when executed.
+
 ## Verification record
 
 The [resolver-phase verification report](../evals/R7_RESOLVER_VERIFICATION.md)
