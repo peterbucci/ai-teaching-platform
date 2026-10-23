@@ -263,6 +263,29 @@ export const ActivityEventSchema = z.discriminatedUnion("type", [
     attempt_number: z.int().min(1).max(VISUAL_LIMITS.followUpAttempts),
     text: text.max(VISUAL_LIMITS.responseCharacters),
   }),
+  z.strictObject({
+    ...eventBase,
+    type: z.literal("proposed"),
+    activity_kind: z.enum([
+      "concept_graph",
+      "sequence_diagram",
+      "packet_experiment",
+    ]),
+  }),
+  z.strictObject({
+    ...eventBase,
+    type: z.literal("accepted"),
+  }),
+  z.strictObject({
+    ...eventBase,
+    type: z.literal("failed"),
+    reason: z.enum([
+      "invalid_activity",
+      "stale_revision",
+      "not_permitted",
+      "display_error",
+    ]),
+  }),
 ]);
 
 export type ActivityEvent = z.infer<typeof ActivityEventSchema>;

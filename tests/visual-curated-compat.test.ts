@@ -1,8 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import {
-  loadApprovedContent,
-} from "../lib/evidence/content.ts";
+import { loadApprovedContent } from "../lib/evidence/content.ts";
 import {
   validConceptGraph,
   validPacketExperiment,
