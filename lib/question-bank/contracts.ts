@@ -60,6 +60,55 @@ export const DEFAULT_QUESTION_BANK_PREFERENCES: QuestionBankPreferences = {
   student_instructions: "",
 };
 
+export const DEFAULT_BANK_SCOPE =
+  "Use only the teacher-approved learning objectives and exact source passages in this lesson version.";
+export const DEFAULT_BANK_TERMINOLOGY_POLICY =
+  "Accept equivalent wording when it preserves the meaning required by the reviewed question criteria. Ask for clarification when meaning is uncertain.";
+export const DEFAULT_BANK_MISCONCEPTION_POLICY =
+  "Record original reasoning and preserve uncertainty. Use only approved misconception identifiers; an incorrect answer alone does not establish a stable misconception.";
+export const DEFAULT_BANK_SCORING_POLICY = {
+  allowed_correctness: [
+    "correct",
+    "partially_correct",
+    "incorrect",
+    "uncertain",
+  ],
+  correct:
+    "The answer meets the reviewed private criteria and explains the reasoning requested in the question.",
+  partially_correct:
+    "Some required reasoning is correct, but at least one relevant part is missing, incomplete or incorrect. Follow the question's partial-answer guidance.",
+  incorrect:
+    "The response clearly contradicts the reviewed answer criteria or the supported relationship being assessed.",
+  uncertain:
+    "There is insufficient clear, relevant reasoning to assess the intended answer. Preserve uncertainty instead of assuming an error.",
+  misconception_handling:
+    "Treat reasoning errors as tentative; use only approved categories and do not diagnose a stable misconception from one response.",
+  terminology_handling:
+    "Accept meaningful equivalent terminology as allowed by the reviewed question and lesson policies.",
+  numeric_handling:
+    "Use reviewed arithmetic and the question's expected numerical result, units and partial-answer guidance. A model's calculation claim is not verification.",
+  assistance_handling:
+    "Use the application's record of assistance actually shown. Keep independent responses distinct from responses following feedback or hints.",
+  example_response_handling:
+    "Examples illustrate criteria only; they are not student evidence or the only acceptable wording.",
+  grounding:
+    "Use the exact approved lesson source version, cited passages and private question criteria. Do not invent unsupported facts or evaluation requirements.",
+};
+
+const QuestionBankScoringPolicyViewSchema = z.object({
+  allowed_correctness: z.array(requiredNote),
+  correct: requiredNote,
+  partially_correct: requiredNote,
+  incorrect: requiredNote,
+  uncertain: requiredNote,
+  misconception_handling: requiredNote,
+  terminology_handling: requiredNote,
+  numeric_handling: requiredNote,
+  assistance_handling: requiredNote,
+  example_response_handling: requiredNote,
+  grounding: requiredNote,
+});
+
 export const QuestionCalculationSchema = z.strictObject({
   operation: z.enum(["add", "subtract", "multiply", "divide"]),
   operands: z.array(z.number().finite()).min(2).max(8),
@@ -135,11 +184,16 @@ export type QuestionBankMetadata = z.infer<typeof QuestionBankMetadataSchema>;
 
 /** Browser display projection only; writes use the full canonical server schemas. */
 export const QuestionBankViewSchema = z.object({
+  has_unknown_outcome: z.boolean().default(false),
   lesson_id: identifier,
   title: requiredNote,
   revision: z.number().int().nonnegative(),
   draft: z.object({
     content_ref: ContentRefSchema.optional(),
+    scope: requiredNote.optional(),
+    terminology_policy: requiredNote.optional(),
+    misconception_policy: requiredNote.optional(),
+    scoring_policy: QuestionBankScoringPolicyViewSchema.optional(),
     concepts: z
       .array(
         z.object({

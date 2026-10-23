@@ -16,6 +16,7 @@ import {
   calculateQuestionAnswer,
   fingerprintQuestionBank,
   getReviewedQuestionBank,
+  matchesQuestionCalculation,
   validateQuestionBank,
 } from "../lib/question-bank/validation.ts";
 import {
@@ -189,6 +190,49 @@ test("unknown misconceptions remain hypotheses and cannot become approved catego
   );
 });
 
+test("diagnostics may narrow a multi-concept assessment but cannot investigate an unrelated approved concept or category", () => {
+  const draft = bank();
+  const diagnostic = draft.questions![2];
+  diagnostic.concept_ids = ["evaporation"];
+  assert.deepEqual(validateQuestionBank(draft), []);
+  draft.misconceptions = [
+    {
+      id: "condensation-reversal",
+      concept_id: "condensation",
+      definition: "A tentative reversal of condensation.",
+    },
+  ];
+  draft.question_guidance![2].misconception_ids = ["condensation-reversal"];
+  assert.match(
+    messages(draft),
+    /out-of-scope misconception: condensation-reversal/,
+  );
+  draft.question_guidance![2].misconception_ids = [];
+  draft.concepts!.push({
+    ...draft.concepts![0],
+    id: "separate-objective",
+    title: "A separate approved objective",
+  });
+  diagnostic.concept_ids = ["separate-objective"];
+  assert.match(
+    messages(draft),
+    /Diagnostic questions must investigate concepts assessed/,
+  );
+});
+
+test("each assessed concept needs quoted criterion support, not an unused valid passage reference", () => {
+  const draft = bank();
+  const item = draft.question_bank!.items[0];
+  item.source_support[1] = {
+    ...item.source_support[0],
+    criterion: draft.questions![0].rubric.criteria[1],
+  };
+  assert.match(
+    messages(draft),
+    /Assessed concept condensation has no answer-criterion support/,
+  );
+});
+
 test("retests require a complete family and meaningful mechanical variation", () => {
   const draft = bank();
   draft.questions![3].prompt_text =
@@ -251,6 +295,16 @@ test("bounded arithmetic computes in code and rejects nonfinite results", () => 
     unit: "L",
   };
   assert.ok(Math.abs(calculateQuestionAnswer(base) - 0.3) < 1e-12);
+  assert.equal(
+    matchesQuestionCalculation(calculateQuestionAnswer(base), 0.3),
+    true,
+  );
+  assert.equal(matchesQuestionCalculation(1e-12, 0), false);
+  assert.equal(matchesQuestionCalculation(1e-12, 2e-12), false);
+  assert.equal(
+    matchesQuestionCalculation(1_000_000_000, 1_000_000_000.01),
+    false,
+  );
   assert.equal(
     calculateQuestionAnswer({
       ...base,
