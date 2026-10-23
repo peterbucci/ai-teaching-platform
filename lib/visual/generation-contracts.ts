@@ -2,11 +2,16 @@ import type { z } from "zod";
 import type { ApprovedContent } from "../evidence/content.ts";
 import type { QuestionSnapshot } from "../evidence/contracts.ts";
 import type { LessonAnchor } from "../dialogue/contracts.ts";
-import type { ConceptGraph, SequenceDiagram } from "./contracts.ts";
+import type {
+  ConceptGraph,
+  PacketDelayExperiment,
+  SequenceDiagram,
+} from "./contracts.ts";
 
 export type VisualKind =
   "concept_graph" | "sequence_diagram" | "packet_experiment";
-export type GeneratedVisual = ConceptGraph | SequenceDiagram;
+export type GeneratedVisual =
+  ConceptGraph | SequenceDiagram | PacketDelayExperiment;
 
 /** IDs/selection only. Actor, permission, source and original evidence come from the server port. */
 export type VisualGenerationRequest = {

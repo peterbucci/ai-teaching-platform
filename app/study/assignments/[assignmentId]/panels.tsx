@@ -18,6 +18,12 @@ export function AssignmentOverview({ lesson }: { lesson: DashboardLesson }) {
       aria-label="Assignment overview"
     >
       <div className="lp-panel assignment-overview-topics">
+        {lesson.instructions && (
+          <section className="assignment-overview-instructions">
+            <h2>Instructions from your teacher</h2>
+            <p>{lesson.instructions}</p>
+          </section>
+        )}
         <h2>Learning topics</h2>
         <div
           className="assignment-learning-topics"

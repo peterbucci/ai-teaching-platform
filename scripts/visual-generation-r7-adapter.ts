@@ -269,7 +269,11 @@ export function createVisualCheckServices(
             ? "evaluated"
             : "unanswered",
           runtime_generation_allowed: true,
-          permitted_kinds: ["concept_graph", "sequence_diagram"],
+          permitted_kinds: [
+            "concept_graph",
+            "sequence_diagram",
+            "packet_experiment",
+          ],
           scope: context.scope,
         };
       },

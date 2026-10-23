@@ -1,7 +1,16 @@
 import { z } from "zod";
-import { ContentRefSchema } from "../evidence/contracts.ts";
+import {
+  ContentRefSchema,
+  QuestionSnapshotSchema,
+} from "../evidence/contracts.ts";
+import {
+  PACKET_DELAY_MODEL_VERSION,
+  PacketDelayParametersSchema,
+  calculatePacketDelay,
+} from "../networking/packet-delay.ts";
 
 export const VISUAL_VERSION = "visual-v1";
+export const PACKET_VISUAL_VERSION = "visual-v2";
 export const VISUAL_LIMITS = {
   titleCharacters: 120,
   promptCharacters: 300,
@@ -31,13 +40,10 @@ const identifier = z
     /^[a-z][a-z0-9-]{0,39}$/,
     "Use lowercase letters, numbers, and dashes",
   );
-// Concept IDs match the approved content package, which uses underscores.
-const conceptIdentifier = z
-  .string()
-  .regex(
-    /^[a-z][a-z0-9_-]{0,79}$/,
-    "Use lowercase letters, numbers, underscores, and dashes",
-  );
+// Reuse content identities, including uploaded lessons' stable UUID concepts.
+// Syntax does not authorize a concept: runtime callers must check membership
+// in the exact lesson/source version resolved for the actor.
+const conceptIdentifier = QuestionSnapshotSchema.shape.concept_ids.element;
 
 const unique = (values: string[]) => new Set(values).size === values.length;
 
@@ -168,7 +174,8 @@ export const SequenceDiagramSchema = z
 
 export type SequenceDiagram = z.infer<typeof SequenceDiagramSchema>;
 
-// Students change only these bounded settings; results are computed elsewhere.
+// Legacy visual-v1 records remain readable. These units are not packet-delay
+// model inputs and must never be inferred or converted into the v2 calculation.
 const experimentParameter = z
   .strictObject({
     id: identifier,
@@ -206,6 +213,86 @@ export const PacketExperimentSchema = z
   });
 
 export type PacketExperiment = z.infer<typeof PacketExperimentSchema>;
+
+const packetControl = z.strictObject({
+  parameter: PacketDelayParametersSchema.keyof(),
+  min: z.number().finite(),
+  max: z.number().finite(),
+});
+
+/** SI input names carry their units. Only packet_bits is restricted to integers. */
+export const PacketDelayExperimentSchema = z
+  .strictObject({
+    ...activityFields,
+    version: z.literal(PACKET_VISUAL_VERSION),
+    kind: z.literal("packet_experiment"),
+    concept_ids: activityFields.concept_ids.min(1),
+    prompt: text.max(VISUAL_LIMITS.promptCharacters),
+    model_version: z.literal(PACKET_DELAY_MODEL_VERSION),
+    parameters: PacketDelayParametersSchema,
+    adjustable_parameters: z.array(packetControl).min(1).max(4),
+  })
+  .superRefine((activity, context) => {
+    if (!activity.controls.includes("adjust_setting"))
+      context.addIssue({
+        code: "custom",
+        path: ["controls"],
+        message: "Packet experiments require the adjust_setting control",
+      });
+    const seen = new Set<string>();
+    activity.adjustable_parameters.forEach((control, index) => {
+      const schema = PacketDelayParametersSchema.shape[control.parameter];
+      if (
+        seen.has(control.parameter) ||
+        !schema.safeParse(control.min).success ||
+        !schema.safeParse(control.max).success ||
+        control.min >= control.max ||
+        activity.parameters[control.parameter] < control.min ||
+        activity.parameters[control.parameter] > control.max
+      )
+        context.addIssue({
+          code: "custom",
+          path: ["adjustable_parameters", index],
+          message:
+            "Controls must be unique, within model bounds, and contain the initial value",
+        });
+      seen.add(control.parameter);
+    });
+  });
+export type PacketDelayExperiment = z.infer<typeof PacketDelayExperimentSchema>;
+
+/** Recorded numeric results are checked with #92's calculator, never a second formula. */
+export const PacketDelayCalculationSchema = z
+  .strictObject({
+    model_version: z.literal(PACKET_DELAY_MODEL_VERSION),
+    parameters: PacketDelayParametersSchema,
+    result: z.strictObject({
+      transmission_delay_seconds: z.number().finite().nonnegative(),
+      propagation_delay_seconds: z.number().finite().nonnegative(),
+      transmission_plus_propagation_seconds: z.number().finite().nonnegative(),
+    }),
+  })
+  .superRefine((calculation, context) => {
+    // A child refinement can fail while Zod still runs this parent refinement.
+    // Keep safeParse safe for invalid model inputs such as sub-millimeter distance.
+    if (!PacketDelayParametersSchema.safeParse(calculation.parameters).success)
+      return;
+    const actual = calculatePacketDelay(
+      calculation.parameters,
+      calculation.model_version,
+    );
+    for (const key of [
+      "transmission_delay_seconds",
+      "propagation_delay_seconds",
+      "transmission_plus_propagation_seconds",
+    ] as const)
+      if (calculation.result[key] !== actual.result[key])
+        context.addIssue({
+          code: "custom",
+          path: ["result", key],
+          message: "Recorded result differs from the versioned calculation",
+        });
+  });
 
 // Links each event to the existing session, episode (root attempt), and attempt.
 const eventBase = {
@@ -254,6 +341,19 @@ export const ActivityEventSchema = z.discriminatedUnion("type", [
   }),
   z.strictObject({
     ...eventBase,
+    version: z.literal(PACKET_VISUAL_VERSION),
+    type: z.literal("packet_state"),
+    model_version: z.literal(PACKET_DELAY_MODEL_VERSION),
+    parameters: PacketDelayParametersSchema,
+  }),
+  z.strictObject({
+    ...eventBase,
+    version: z.literal(PACKET_VISUAL_VERSION),
+    type: z.literal("packet_result"),
+    calculation: PacketDelayCalculationSchema,
+  }),
+  z.strictObject({
+    ...eventBase,
     type: z.literal("explanation"),
     text: text.max(VISUAL_LIMITS.responseCharacters),
   }),
@@ -263,6 +363,29 @@ export const ActivityEventSchema = z.discriminatedUnion("type", [
     attempt_number: z.int().min(1).max(VISUAL_LIMITS.followUpAttempts),
     text: text.max(VISUAL_LIMITS.responseCharacters),
   }),
+  z.strictObject({
+    ...eventBase,
+    type: z.literal("proposed"),
+    activity_kind: z.enum([
+      "concept_graph",
+      "sequence_diagram",
+      "packet_experiment",
+    ]),
+  }),
+  z.strictObject({
+    ...eventBase,
+    type: z.literal("accepted"),
+  }),
+  z.strictObject({
+    ...eventBase,
+    type: z.literal("failed"),
+    reason: z.enum([
+      "invalid_activity",
+      "stale_revision",
+      "not_permitted",
+      "display_error",
+    ]),
+  }),
 ]);
 
 export type ActivityEvent = z.infer<typeof ActivityEventSchema>;
@@ -270,6 +393,8 @@ export type ActivityEvent = z.infer<typeof ActivityEventSchema>;
 // A prediction and a result are each submitted once per activity. Follow-up
 // attempts are numbered once each. Experiment settings may change repeatedly.
 function repeatKey(event: ActivityEvent): string | null {
+  if (event.type === "packet_result")
+    return `${event.activity_id}:experiment_result`;
   if (event.type === "prediction" || event.type === "experiment_result") {
     return `${event.activity_id}:${event.type}`;
   }
@@ -278,6 +403,20 @@ function repeatKey(event: ActivityEvent): string | null {
   }
   return null;
 }
+
+// Teacher-only answer key. Kept separate from student-facing activity schemas,
+// which reject these fields, so it is never sent to students by accident.
+export const TeacherActivityKeySchema = z.strictObject({
+  version: z.literal(VISUAL_VERSION),
+  activity_id: z.uuid(),
+  expected_answer: text.max(VISUAL_LIMITS.responseCharacters),
+  rubric: z
+    .array(text.max(VISUAL_LIMITS.stepCharacters))
+    .min(1)
+    .max(VISUAL_LIMITS.guidedSteps),
+});
+
+export type TeacherActivityKey = z.infer<typeof TeacherActivityKeySchema>;
 
 export const ActivityEventLogSchema = z
   .array(ActivityEventSchema)

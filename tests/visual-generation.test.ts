@@ -22,6 +22,13 @@ import type {
   VisualReservedCall,
 } from "../lib/visual/generation-contracts.ts";
 import { VisualOperationError } from "../lib/visual/generation-contracts.ts";
+import { PacketDelayExperimentSchema } from "../lib/visual/contracts.ts";
+import { calculatePacketDelay } from "../lib/networking/packet-delay.ts";
+import { hydrateLessonContent } from "../lib/lessons/validate.ts";
+import {
+  makeTeacherLesson,
+  makeTeacherSourceReference,
+} from "./fixtures/teacher-lesson.ts";
 
 // Synthetic provider verdicts test the boundary, not educational accuracy or live AI.
 const content = loadApprovedContent();
@@ -76,6 +83,23 @@ const sequence = {
     },
   ],
 };
+const packet = {
+  kind: "packet_experiment",
+  title: "An illustrative link-rate experiment",
+  text_alternative:
+    "Compare transmission and propagation for these illustrative single-link inputs. Packet size, cable length and signal speed stay fixed while link rate changes.",
+  guided_steps: ["Predict which part of the delay changes with the link rate."],
+  prompt: "How will changing only the link rate affect the two delays?",
+  parameters: {
+    packet_bits: 8000,
+    link_rate_bits_per_second: 1000000.5,
+    distance_meters: 200000.25,
+    propagation_speed_meters_per_second: 200000000.5,
+  },
+  adjustable_parameters: [
+    { parameter: "link_rate_bits_per_second", min: 500000.5, max: 1500000.5 },
+  ],
+};
 
 function baseRequest(): VisualGenerationRequest {
   return {
@@ -116,17 +140,28 @@ function baseContext(): VisualGenerationContext {
 
 function reviewedActivity(draft: unknown): GeneratedVisual {
   const parsed = VisualDraftSchema.parse({ activity: draft });
-  return {
-    ...parsed.activity,
-    version: "visual-v1",
+  const binding = {
     source: content.content_ref,
     concept_ids: ["transmission_delay"],
-    controls: ["step_through"],
     provenance: {
-      generated_by: "ai_generated",
+      generated_by: "ai_generated" as const,
       generator_version: "visual-generation-v1",
       reviewed_by_teacher: false,
     },
+  };
+  if (parsed.activity.kind === "packet_experiment")
+    return PacketDelayExperimentSchema.parse({
+      ...parsed.activity,
+      ...binding,
+      version: "visual-v2",
+      model_version: "packet-delay-v1",
+      controls: ["adjust_setting", "step_through"],
+    });
+  return {
+    ...parsed.activity,
+    ...binding,
+    version: "visual-v1",
+    controls: ["step_through"],
   };
 }
 
@@ -356,18 +391,185 @@ test("strict requests reject source and permission claims supplied alongside IDs
   assert.equal(f.calls.length, 0);
 });
 
-test("quantitative packet requests remain explicitly blocked until the shared physical contract is agreed", async () => {
-  const f = harness();
+test("packet generation binds v2 SI inputs and reviews a server calculation without revealing it", async () => {
+  const f = harness({ draft: packet });
   f.request.kind = "packet_experiment";
   f.context.permitted_kinds = ["packet_experiment"];
+  const before = structuredClone(f.context);
   const result = await generateVisualActivity(f.request, f.services);
-  assert.equal(result.ok, false);
-  if (!result.ok) {
-    assert.equal(result.code, "unsupported_contract");
-    assert.equal(result.fallback, "text_tutoring");
+  assert.equal(result.ok, true);
+  if (!result.ok) return;
+  assert.equal(result.activity.kind, "packet_experiment");
+  if (result.activity.kind !== "packet_experiment") return;
+  assert.equal(result.activity.version, "visual-v2");
+  assert.equal(result.activity.model_version, "packet-delay-v1");
+  assert.deepEqual(result.activity.parameters, packet.parameters);
+  assert.deepEqual(result.activity.source, content.content_ref);
+  assert.deepEqual(result.activity.concept_ids, f.request.concept_ids);
+  assert.deepEqual(result.activity.controls, [
+    "adjust_setting",
+    "step_through",
+  ]);
+  assert.equal("result" in result.activity, false);
+  assert.equal("verified_calculation" in result, false);
+  const reviewInput = z
+    .object({ verified_calculation: z.unknown() })
+    .parse(JSON.parse(f.calls[1].input));
+  assert.deepEqual(
+    reviewInput.verified_calculation,
+    calculatePacketDelay(packet.parameters),
+  );
+  assert.ok(
+    result.provenance.factual_review.coverage.some(
+      (item) => item.field === "parameters",
+    ),
+  );
+  assert.ok(
+    result.provenance.factual_review.coverage.some(
+      (item) => item.field === "adjustable_parameters",
+    ),
+  );
+  assert.deepEqual(
+    f.reservations.map((item) => item.prompt_version),
+    ["visual-packet-generate-v2", "visual-packet-review-v2"],
+  );
+  assert.equal(f.calls.length, 2);
+  assert.deepEqual(f.context, before);
+});
+
+test("packet permission, malformed SI bounds and model-supplied authority or results fail safely", async () => {
+  const denied = harness({ draft: packet });
+  denied.request.kind = "packet_experiment";
+  assert.equal(
+    (await generateVisualActivity(denied.request, denied.services)).ok,
+    false,
+  );
+  assert.equal(denied.calls.length, 0);
+  for (const draft of [
+    { ...packet, model_version: "model-chosen" },
+    { ...packet, source: content.content_ref },
+    { ...packet, result: { total_delay: 5 } },
+    { ...packet, parameters: { ...packet.parameters, packet_bits: 1.5 } },
+    {
+      ...packet,
+      parameters: { ...packet.parameters, distance_meters: 0.0001 },
+    },
+    {
+      ...packet,
+      parameters: [
+        { id: "link-delay", unit: "ms", min: 1, max: 5, default: 2 },
+      ],
+    },
+    {
+      ...packet,
+      adjustable_parameters: [
+        { parameter: "link_rate_bits_per_second", min: 2e6, max: 3e6 },
+      ],
+    },
+    {
+      ...packet,
+      adjustable_parameters: [
+        { parameter: "packet_bits", min: 1.5, max: 9000 },
+      ],
+    },
+  ]) {
+    const f = harness({ draft });
+    f.request.kind = "packet_experiment";
+    f.context.permitted_kinds = ["packet_experiment"];
+    const result = await generateVisualActivity(f.request, f.services);
+    assert.equal(result.ok, false);
+    assert.equal(f.calls.length, 1);
   }
-  assert.equal(f.calls.length, 0);
-  assert.equal(f.reservations.length, 0);
+});
+
+test("packet critique must cover settings and reject unsupported or premature-answer content", async () => {
+  for (const review of [
+    (value: Review) => ({ ...value, grounding: "unsupported" }),
+    (value: Review) => ({ ...value, disclosure: "private_guidance" }),
+    (value: Review) => ({ ...value, requires_unverified_calculation: true }),
+    (value: Review) => ({
+      ...value,
+      coverage: value.coverage.filter((item) => item.field !== "parameters"),
+    }),
+  ]) {
+    const f = harness({ draft: packet, review });
+    f.request.kind = "packet_experiment";
+    f.context.permitted_kinds = ["packet_experiment"];
+    const result = await generateVisualActivity(f.request, f.services);
+    assert.equal(result.ok, false);
+    if (!result.ok) assert.equal(result.code, "ungrounded");
+    assert.equal(f.calls.length, 2);
+  }
+});
+
+test("uploaded lesson UUID concepts retain exact ownership/version scope and reject a foreign valid ID", async () => {
+  const lesson = makeTeacherLesson(
+    makeTeacherSourceReference(id(10), id(11), 2),
+    id(12),
+    "teacher-v2",
+  );
+  const conceptIds = [id(13), id(14)];
+  lesson.concepts.forEach((concept, i) => {
+    concept.id = conceptIds[i];
+  });
+  lesson.sequence.concept_ids = conceptIds;
+  lesson.questions.forEach((item) => {
+    item.concept_ids = conceptIds;
+  });
+  const approved = hydrateLessonContent(lesson);
+  const draft = {
+    ...graph,
+    title: "Compare changes of water state",
+    text_alternative:
+      "Evaporation changes liquid water into water vapor, while condensation changes vapor into liquid.",
+    guided_steps: ["Compare the starting and ending states in the reading."],
+    nodes: [
+      { id: "liquid", label: "Liquid water" },
+      { id: "vapor", label: "Water vapor" },
+    ],
+    edges: [{ from: "liquid", to: "vapor", label: "Evaporation" }],
+  };
+  const f = harness({
+    draft,
+    review: (value) => ({
+      ...value,
+      coverage: value.coverage.map((item) => ({
+        ...item,
+        sources: lesson.passages.map((passage) => ({
+          passage_id: passage.id,
+          quote: passage.text.split(".")[0] + ".",
+        })),
+      })),
+    }),
+  });
+  f.request.concept_ids = conceptIds;
+  f.request.source_passage_ids = lesson.passages.map((passage) => passage.id);
+  f.context.content = approved;
+  f.context.lesson.content_ref = approved.content_ref;
+  f.context.question = getCuratedQuestion(approved, "WC-01");
+  f.context.student_text =
+    "I want to compare the starting and ending water states.";
+  f.context.assessment_status = "evaluated";
+  f.context.scope = {
+    concept_ids: approved.concept_ids,
+    passage_ids: approved.passage_ids,
+  };
+  const result = await generateVisualActivity(f.request, f.services);
+  assert.equal(result.ok, true);
+  if (!result.ok) return;
+  assert.deepEqual(result.activity.concept_ids, conceptIds);
+  assert.deepEqual(result.activity.source, approved.content_ref);
+  assert.equal(f.calls.length, 2);
+  f.request.concept_ids = [id(99)];
+  assert.equal((await generateVisualActivity(f.request, f.services)).ok, false);
+  f.request.concept_ids = conceptIds;
+  f.context.lesson.content_ref = { ...lesson.content_ref, source_version: 3 };
+  assert.equal((await generateVisualActivity(f.request, f.services)).ok, false);
+  assert.equal(
+    f.calls.length,
+    2,
+    "Invalid scope must not reserve another call",
+  );
 });
 
 test("generation never receives private criteria or hidden answer guidance", async () => {

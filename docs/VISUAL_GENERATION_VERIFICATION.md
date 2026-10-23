@@ -1,6 +1,19 @@
 # Visual generation verification — October 23, 2026
 
-Issue #41 implements a bounded generator, not complete live visual tutoring. Three actual generated activities passed the final validator and rendered in the existing #39 player: two concept graphs and one sequence. Packet experiments remain blocked by the #38/#40 parameter/result contract. #42 tool selection and #43 visual persistence/display acknowledgement remain unimplemented here.
+Issue #41 implements a bounded generator, not complete live visual tutoring. The original milestone produced three accepted actual generated activities: two concept graphs and one sequence. The original model/browser records below are preserved as historical evidence; they do not verify the later v2 packet integration. #42 tool selection and #43 visual persistence/display acknowledgement remain unimplemented here.
+
+## Packet reconciliation verification
+
+The isolated integration preserves original generator head `806758b6a2081cbe7316e25b6d06438c8a98d584` and normally merges contract integration `a0a43f5`, including upstream #104 snapshots, the unchanged #40 calculator, and main's lesson/security updates. The feature diff remains the ten original generator paths; migrations, protected documentation, the canonical calculator, and the original actual-model evidence file are unchanged by this reconciliation.
+
+- **309/309 deterministic tests**, including **26 generator tests**, passed, along with TypeScript, full lint, formatting, **293 content checks**, and the default production Turbopack build on Next.js **16.4.3**. Dependencies were installed independently in this worktree; no shared dependency junction or security-gate retry was used.
+- New synthetic checks cover v2 SI inputs and fractional non-packet values, narrowed bounds, rejection of model-selected authority/results/old units, server-calculated default values supplied only to critique, required prompt/settings review coverage, and uploaded-source UUID concepts with foreign-ID and version rejection. They preserve original evidence and the two-stage budget.
+- Independent technical review inspected server-owned model/source/control binding and the canonical calculation boundary without finding a blocker. This is technical agent review, not teacher approval of model content.
+- **Zero new model calls**, browser checks, or PostgreSQL checks were performed for this generator reconciliation. The original eight-call evidence remains unchanged. The explicit operator case `distance-packet-experiment` is prepared with a two-dispatch cap but has not been run.
+
+The old packet contract blocker is resolved in code. Actual-model packet quality and rendering, the independent #105 player integration, and the complete #42/#43 authorized execution/evidence loop remain separate acceptance gates.
+
+## Original v1 milestone evidence
 
 ## Revisions and scope
 

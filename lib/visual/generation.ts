@@ -9,9 +9,13 @@ import {
 } from "../evidence/content.ts";
 import {
   ConceptGraphSchema,
+  PACKET_VISUAL_VERSION,
+  PacketDelayExperimentSchema,
   SequenceDiagramSchema,
   VISUAL_VERSION,
 } from "./contracts.ts";
+import { PACKET_DELAY_MODEL_VERSION } from "../networking/packet-delay.ts";
+import { calculatePacketActivity } from "./packet.ts";
 import { validateVisualActivity } from "./validate.ts";
 import { VisualOperationError } from "./generation-contracts.ts";
 import type {
@@ -27,6 +31,9 @@ import type {
 export const VISUAL_GENERATOR_VERSION = "visual-generation-v1";
 const GENERATE_PROMPT = "visual-generate-v1";
 const REVIEW_PROMPT = "visual-review-v1";
+const PACKET_GENERATOR_VERSION = "visual-packet-generation-v2";
+const PACKET_GENERATE_PROMPT = "visual-packet-generate-v2";
+const PACKET_REVIEW_PROMPT = "visual-packet-review-v2";
 const text = z.string().trim().min(1);
 const ids = z
   .array(text.max(200))
@@ -61,6 +68,14 @@ export const VisualDraftSchema = z.strictObject({
       kind: z.literal("sequence_diagram"),
       participants: SequenceDiagramSchema.shape.participants.max(4),
       messages: SequenceDiagramSchema.shape.messages.max(6),
+    }),
+    z.strictObject({
+      ...common,
+      kind: z.literal("packet_experiment"),
+      prompt: PacketDelayExperimentSchema.shape.prompt,
+      parameters: PacketDelayExperimentSchema.shape.parameters,
+      adjustable_parameters:
+        PacketDelayExperimentSchema.shape.adjustable_parameters,
     }),
   ]),
 });
@@ -122,6 +137,26 @@ from passages, never from the candidate or private guidance. Say unsupported or 
 quote does not actually support the relation or an activity asks for unavailable information.
 Reject code, assets, invented processes, guaranteed outcomes and any unverified quantitative result.
 Review is evidence of a bounded model check, not teacher approval or proof of educational efficacy.`;
+const PACKET_GENERATE_INSTRUCTIONS = `${DATA_POLICY}
+Compose a compact packet-experiment draft about this student's exact difficulty using only the reading.
+Use a single-link transmission/propagation experiment, excluding queueing, processing, and round trips.
+Choose illustrative packet_bits (integer), link_rate_bits_per_second, distance_meters, and
+propagation_speed_meters_per_second. The latter three may be fractional. Label the settings as
+illustrative inputs, never as empirical facts quoted from the source. Offer one or two adjustable
+parameters with meaningful narrow min/max bounds containing their defaults; other inputs stay fixed.
+Explain the comparison with a prediction prompt, self-contained text alternative, and at most two
+guided steps. Do not reveal calculated outcomes or an unanswered assessment solution. Server code
+will validate bounds and calculate numerical outcomes after a permitted prediction/experiment step.
+Do not supply source, concepts, controls, version, model_version, provenance, citations, formulas,
+results or permission claims. Unsupported material must not be turned into a network simulation.`;
+const PACKET_REVIEW_INSTRUCTIONS = `${REVIEW_INSTRUCTIONS}
+This is a single-link packet experiment. Its parameters and adjustable bounds are illustrative inputs,
+not claims that the reading states those numerical values. Their instructional relationship and the
+selected comparison still need substantive source support. Reject an unrelated or misleading model,
+unsupported causal claims, unsafe answer disclosure, and text that reveals an outcome before prediction.
+The server has recomputed verified_calculation with its reviewed packet-delay-v1 code. Use it only to
+check candidate claims; it is neither a source quote nor permission. Quantities outside that calculation
+remain unverified. Check the prompt, settings, and bounds as well as every ordinary visible field.`;
 
 type FailureCode = Extract<VisualGenerationResult, { ok: false }>["code"];
 const messages: Record<FailureCode, string> = {
@@ -132,7 +167,7 @@ const messages: Record<FailureCode, string> = {
   stale:
     "The lesson activity changed. Return to the current activity before requesting a visual.",
   unsupported_contract:
-    "Packet experiments await the agreed visual/calculation contract. Text tutoring remains available.",
+    "This experiment is outside the supported visual/calculation contract. Text tutoring remains available.",
   configuration:
     "Visual generation is not configured. Text tutoring remains available.",
   invalid_output:
@@ -269,6 +304,19 @@ export function visualReviewFields(
       })),
     ];
   }
+  if (activity.kind === "packet_experiment")
+    return [
+      ...fields,
+      { field: "prompt", text: activity.prompt },
+      {
+        field: "parameters",
+        text: `Illustrative single-link SI inputs: ${JSON.stringify(activity.parameters)}`,
+      },
+      {
+        field: "adjustable_parameters",
+        text: `Permitted illustrative parameter ranges: ${JSON.stringify(activity.adjustable_parameters)}`,
+      },
+    ];
   const participants = new Map(
     activity.participants.map((p) => [p.id, p.label]),
   );
@@ -373,6 +421,7 @@ function provenance<T>(
   outcome: VisualModelOutcome<T>,
   stage: "generate" | "review",
   input_hash: string,
+  prompt_version: string,
 ): VisualCallProvenance {
   return {
     stage,
@@ -381,7 +430,7 @@ function provenance<T>(
     needs_reconciliation: outcome.needs_reconciliation,
     model: text.max(200).nullable().parse(outcome.model),
     response_id: text.max(200).nullable().parse(outcome.responseId),
-    prompt_version: stage === "generate" ? GENERATE_PROMPT : REVIEW_PROMPT,
+    prompt_version,
     input_hash,
     completed_at: outcome.ok
       ? z.iso.datetime({ offset: true }).parse(outcome.completedAt)
@@ -410,8 +459,10 @@ export async function generateVisualActivity(
   } catch {
     return fail("not_authorized", calls);
   }
-  if (request.kind === "packet_experiment")
-    return fail("unsupported_contract", calls);
+  const packet = request.kind === "packet_experiment";
+  const generatorVersion = packet
+    ? PACKET_GENERATOR_VERSION
+    : VISUAL_GENERATOR_VERSION;
   const model = services.provider.model?.trim();
   if (!model) return fail("configuration", calls);
 
@@ -447,7 +498,13 @@ export async function generateVisualActivity(
     if (inputText.length > 64000)
       throw new VisualOperationError("operation_denied");
     const promptVersion =
-      stage === "generate" ? GENERATE_PROMPT : REVIEW_PROMPT;
+      stage === "generate"
+        ? packet
+          ? PACKET_GENERATE_PROMPT
+          : GENERATE_PROMPT
+        : packet
+          ? PACKET_REVIEW_PROMPT
+          : REVIEW_PROMPT;
     const inputHash = hash({
       contextIdentity,
       instructions,
@@ -474,7 +531,7 @@ export async function generateVisualActivity(
           { signal },
         ),
     );
-    calls.push(provenance(outcome, stage, inputHash));
+    calls.push(provenance(outcome, stage, inputHash, promptVersion));
     return outcome;
   }
   function providerFailure(
@@ -502,7 +559,7 @@ export async function generateVisualActivity(
   try {
     generated = await call(
       "generate",
-      GENERATE_INSTRUCTIONS,
+      packet ? PACKET_GENERATE_INSTRUCTIONS : GENERATE_INSTRUCTIONS,
       projection,
       VisualDraftSchema,
     );
@@ -520,14 +577,18 @@ export async function generateVisualActivity(
     return fail("invalid_output", calls);
   const bound = {
     ...draft.data.activity,
-    version: VISUAL_VERSION,
+    version: packet ? PACKET_VISUAL_VERSION : VISUAL_VERSION,
+    ...(packet ? { model_version: PACKET_DELAY_MODEL_VERSION } : {}),
     source: context.lesson.content_ref,
     concept_ids: [...request.concept_ids],
-    controls:
-      request.kind === "concept_graph" ? ["select_item"] : ["step_through"],
+    controls: packet
+      ? ["adjust_setting", "step_through"]
+      : request.kind === "concept_graph"
+        ? ["select_item"]
+        : ["step_through"],
     provenance: {
       generated_by: "ai_generated",
-      generator_version: VISUAL_GENERATOR_VERSION,
+      generator_version: generatorVersion,
       reviewed_by_teacher: false,
     },
   };
@@ -537,21 +598,43 @@ export async function generateVisualActivity(
   const activity =
     bound.kind === "concept_graph"
       ? ConceptGraphSchema.parse(validated.activity)
-      : SequenceDiagramSchema.parse(validated.activity);
+      : bound.kind === "sequence_diagram"
+        ? SequenceDiagramSchema.parse(validated.activity)
+        : PacketDelayExperimentSchema.parse(validated.activity);
   if (!isDeepStrictEqual(activity.source, context.lesson.content_ref))
     return fail("invalid_output", calls);
   if (!studentSafe(activity, context)) return fail("unsafe_output", calls);
+  // This server-side default calculation supports critique only. It is not a
+  // displayed outcome; the runtime recomputes chosen settings after prediction.
+  let packetCalculation;
+  if (activity.kind === "packet_experiment") {
+    try {
+      packetCalculation = calculatePacketActivity(
+        activity,
+        activity.parameters,
+        {
+          content_ref: context.lesson.content_ref,
+          concept_ids: context.scope.concept_ids,
+        },
+      );
+    } catch {
+      return fail("invalid_output", calls);
+    }
+  }
 
   let reviewed: VisualModelOutcome<z.infer<typeof VisualReviewSchema>>;
   try {
     reviewed = await call(
       "review",
-      REVIEW_INSTRUCTIONS,
+      packet ? PACKET_REVIEW_INSTRUCTIONS : REVIEW_INSTRUCTIONS,
       {
         context: projection,
         candidate: activity,
         fields: visualReviewFields(activity),
         private_disclosure_check_only: context.question.rubric,
+        ...(packetCalculation
+          ? { verified_calculation: packetCalculation }
+          : {}),
       },
       VisualReviewSchema,
     );
@@ -577,7 +660,7 @@ export async function generateVisualActivity(
     ok: true,
     activity,
     provenance: {
-      generator_version: VISUAL_GENERATOR_VERSION,
+      generator_version: generatorVersion,
       session_id: request.session_id,
       operation_id: request.operation_id,
       expected_revision: request.expected_revision,

@@ -1,8 +1,8 @@
 # Grounded visual generation (#41)
 
-`lib/visual/generation.ts` generates and validates a concept graph or sequence diagram in the existing `visual-v1` format. It returns an accepted activity and server-side provenance, or a useful text-tutoring fallback. It does not render an activity, choose the tutor's next action, submit an answer, advance a session, or mark assistance as displayed.
+`lib/visual/generation.ts` generates and validates a concept graph or sequence diagram in `visual-v1`, or a packet experiment in the explicit `visual-v2` SI format. It returns an accepted activity and server-side provenance, or a useful text-tutoring fallback. It does not render an activity, choose the tutor's next action, submit an answer, advance a session, or mark assistance as displayed.
 
-This is a service milestone for #41. #42 owns live visual selection and execution; #43 owns durable visual snapshots, display acknowledgments, evidence and authorized replay. Packet experiments remain blocked by the shared #38/#40 parameter contract. The generator does not introduce another renderer, networking model, provider backend or tutoring controller.
+This is a service milestone for #41. #42 owns live visual selection and execution; #43 owns durable visual snapshots, display acknowledgments, evidence and authorized replay. Packet generation consumes the reviewed shared #38/#40 contract; new packet acceptance remains fixture-tested until an explicitly bounded actual-model check passes. The generator does not introduce another renderer, networking model, provider backend or tutoring controller.
 
 ## Service interface
 
@@ -34,7 +34,7 @@ Every service dependency is mandatory:
 
 The authorized context includes `ApprovedContent`, `LessonAnchor`, the canonical `QuestionSnapshot`, `student_text`, `assessment_status`, `runtime_generation_allowed`, `permitted_kinds`, and the server-owned source/concept scope. The generator verifies those references against the loaded approved content. The existing resolver remains responsible for ownership, assignment access, publication and exact lesson/source-version selection.
 
-The #41 branch is stacked on #38, whose base predates the merged #93 lesson resolver and the unmerged #98 R7 implementation. Production wiring must use a combined checkout containing those dependencies. Do not substitute a browser's reading text or import a second content resolver into this branch. Both the generator and its runtime dependencies must use the same combined checkout's content-reference schemas, including the #93 uploaded-source variant.
+The integration branch preserves the original #41 work and normally merges the current #38 contract, #40 calculator, and main lesson/security dependencies. Production wiring also needs the merged #98 R7 implementation. Do not substitute a browser's reading text or import a second content resolver. Both the generator and its runtime dependencies must use the same checkout's content-reference schemas, including uploaded sources and UUID concept IDs.
 
 ## Generation, validation and factual review
 
@@ -42,12 +42,13 @@ A request can make at most two provider calls: `generate`, then `review`. Both u
 
 The generation prompt receives a bounded projection of the selected approved passages, approved concepts/objectives/boundaries, current question, assessment status and original student text. It does not receive the question rubric, expected-answer guidance or private misconception definitions. All supplied readings and student text are explicitly treated as untrusted data.
 
-The model proposes only visible draft fields: `kind`, `title`, `text_alternative`, `guided_steps`, and graph nodes/edges or sequence participants/messages. Server code binds `version`, the exact authorized `source`, `concept_ids`, family-appropriate controls, and provenance (`ai_generated`, `visual-generation-v1`, `reviewed_by_teacher: false`). A model cannot declare teacher approval or supply calculated results.
+The model proposes only visible draft fields: `kind`, `title`, `text_alternative`, `guided_steps`, and graph nodes/edges, sequence participants/messages, or packet prediction prompt, SI parameters and bounded adjustable ranges. Server code binds `version`, the exact authorized `source`, `concept_ids`, family-appropriate controls, and provenance. Packet code also binds `model_version: packet-delay-v1`. A model cannot declare teacher approval, choose a calculation model, or supply calculated results. Graph/sequence generation retains its v1 prompts; packet generation and critique use distinct `visual-packet-generate-v2` and `visual-packet-review-v2` prompts and `visual-packet-generation-v2` provenance.
 
 Acceptance requires all of the following:
 
 - The requested family is permitted and matches the proposal; concepts and passages exist inside the authorized scope, and each target concept has selected source support.
 - The draft passes its strict schema and the existing `validateVisualActivity` check. Shared schemas verify endpoint references and unique node/participant identities. Explicit kind dispatch also excludes inherited/prototype names before calling the shared validator.
+- Packet SI inputs and ranges pass the canonical #40 schema and #38 activity refinements. The server calls `calculatePacketActivity` with the authorized source/concept scope and default parameters. The calculated seconds result is supplied only to factual critique, never inserted into the generated activity or exposed before prediction. Packet prompt, parameters and adjustable ranges are included in review coverage. Illustrative numeric inputs are distinguished from source facts; their instructional relationships still require supporting passages.
 - The activity passes checks for markup, scripts, links/external assets, instruction-injection patterns, and normalized copies of private answer guidance or criteria. There are no executable formulas, arbitrary HTML/SVG or model-selected behaviors.
 - A separate bounded review evaluates factual grounding, disclosure, relevance and answerability, and rejects any unverified quantitative calculation. It must provide a supported verdict and exact authorized passage quotes for every visible field, including edge endpoints and sequence order implications.
 - Server code verifies complete, unique field coverage, known passage IDs, quote inclusion in the selected reading and source support for every target concept. Quote comparison collapses only ASCII layout whitespace (`[ \t\r\n\f]+`) to a single space and trims the comparison text, so a source line wrap may appear as a space in the quote. It does not change words, case, punctuation or interior Unicode spacing, and performs no fuzzy matching. The original quote remains unchanged in provenance. Unsupported or uncertain verdicts still reject the candidate.
@@ -63,7 +64,7 @@ Student text is limited to 12,000 characters, the question prompt to 6,000, seri
 
 ## Results and failure handling
 
-On success, `result.activity` is a typed graph or sequence using #38's schemas. `result.provenance` records the operation, expected revision, exact lesson anchor, cited passage IDs, activity SHA-256, generator version, actual model-call outcomes and accepted factual-review coverage.
+On success, `result.activity` is a typed graph, sequence, or v2 packet experiment using #38's schemas. It contains no calculated outcome. `result.provenance` records the operation, expected revision, exact lesson anchor, cited passage IDs, activity SHA-256, generator version, actual model-call outcomes and accepted factual-review coverage.
 
 Each call record includes the stage, actual returned model, response identity, prompt version, input hash, latency, usage and reconciliation status. Failed provider responses retain available model/response/usage metadata too; a billed incomplete response must not disappear from usage reporting. Unknown usage stays `null`.
 
@@ -72,7 +73,7 @@ Treat the result envelope as server-side data. Send only `result.activity` throu
 | Failure                                         | Meaning and next step                                                                                                                            |
 | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `invalid_request`, `not_authorized`, `stale`    | Invalid identifiers/scope or changed context. Return to the authorized current activity; do not apply the generated result.                      |
-| `unsupported_contract`                          | Packet experiments lack the agreed physical parameter/result contract. Continue text tutoring.                                                   |
+| `unsupported_contract`                          | Reserved compatibility failure for an unsupported calculation contract. Invalid v2 inputs currently fail schema validation.                      |
 | `configuration`                                 | No configured model is available. No provider call is made.                                                                                      |
 | `invalid_output`, `unsafe_output`, `ungrounded` | Reject the candidate. Do not display it or silently execute another tool.                                                                        |
 | `provider_failure`                              | A known provider failure was returned. Preserve its usage and consult the operation record before any explicit retry.                            |
@@ -91,17 +92,17 @@ The service itself does not change the student's original response, question, as
 
 No production route, visual action registration, persistence migration or display-acknowledgment path is installed by this PR. The current #98 controller's text-generation stages must not accidentally share conflicting stage identities with a visual call. #42/#98 must agree dispatch and reservation-stage ownership before installing the live tool.
 
-## Packet and player integration gates
+## Packet and player integration
 
-#38 currently defines generic `link-delay`/`packet-count` controls with `ms`, `packets` or `percent` units. #40's reviewed `packet-delay-v1` model expects packet bits, link rate, distance and propagation speed, and returns typed component delays. These are not interchangeable inputs, and the current visual result event carries only an outcome string.
+#38 now exposes explicit v2 packet bits, link rate in bits per second, distance in meters, and propagation speed in meters per second. Its adapter uses #40's unchanged `packet-delay-v1` calculator and validates numeric seconds results. See [VISUAL_PACKET_CONTRACT.md](VISUAL_PACKET_CONTRACT.md). Only packet bits are integral; other valid inputs may be fractional. Controls narrow canonical bounds and leave unlisted inputs fixed. The model cannot submit a formula, result, old-unit control array, source permission, or model version.
 
-The generator therefore rejects an otherwise authorized `packet_experiment` request without a provider call. It does not invent a mapping, import a second formula system or present the #39 qualitative fixture as a calculation. [The #38 owner coordination request](https://github.com/peterbucci/ai-teaching-platform/pull/104#issuecomment-6365244518) tracks the needed parameter/result agreement. Once agreed, a separate reviewed integration must validate permitted physical parameters and units and use #40's authoritative calculation output. Three-family live acceptance remains incomplete until that work passes.
+An authorized packet request uses the same two reserved stages as other families. The server computes defaults for critique, but the eventual #42 runtime must reload the accepted snapshot, authorize the exact revision and submitted settings, and recompute the chosen result after prediction. Browser calculation previews do not establish server execution or #43 evidence. Legacy v1 packet payloads remain readable through the shared text fallback and are never silently converted into physical parameters. Three-family live acceptance remains incomplete until the new packet path has actual-model, rendered and runtime verification.
 
-Graph and sequence output use the existing #39 player without copying or replacing its renderer. A disposable integration checkout may embed accepted records in a development-only harness for visual checks. An uploaded-source compatibility gap has been [reported on PR #105](https://github.com/peterbucci/ai-teaching-platform/pull/105#issuecomment-6365408493): the player currently assumes a `source_commit` field while #93 also supports uploaded-source references. Do not claim uploaded-source rendering acceptance until that guard is corrected and verified. This #41 PR does not modify the renderer branch.
+Graph and sequence output use the existing #39 player without copying or replacing its renderer. The independent #105 integration now handles uploaded-source attribution/version and v2 numeric packet playback. This #41 PR does not modify that renderer. Final generated-packet rendering and the live #42/#43 interaction loop remain separate checks.
 
 ## Verification commands and evidence
 
-`tests/visual-generation.test.ts` contains twenty-three deterministic tests, all passing in the focused run. They cover authorization/version mismatches, malformed and injected content, private literals, unsupported relationships/review, quote/coverage checks including the limited layout-whitespace equivalence, blocked packets, stale state, context mutation, budgets, replay denial, unknown outcomes, failed-call usage and oversized private context. The scripted provider/review fixtures are explicitly synthetic; they do not establish actual-model correctness. Final whole-suite counts belong in the verification record below.
+`tests/visual-generation.test.ts` contains twenty-six deterministic tests, all passing in the focused integration run. They cover authorization/version mismatches, malformed and injected content, private literals, unsupported relationships/review, quote/coverage checks including limited layout-whitespace equivalence, packet SI/range/authority validation, uploaded UUID scope, stale state, context mutation, budgets, replay denial, unknown outcomes, failed-call usage and oversized private context. The scripted provider/review fixtures are explicitly synthetic; they do not establish actual-model correctness. Final whole-suite counts belong in the verification record below.
 
 ```sh
 npm test
@@ -116,7 +117,7 @@ Final whole-repository checks, exact revisions, database/browser checks and actu
 
 ### Operator-only R7 check
 
-`scripts/visual-generation-r7-adapter.ts` loads the actual #93/#98 resolver, operation store, structured provider and durable reservation functions from a trusted combined checkout. Its `createVisualCheckServices` helper is restricted to explicitly enabled synthetic checks. Its graph/sequence allowlist is a test selection, not a policy decision installed in the live tutor.
+`scripts/visual-generation-r7-adapter.ts` loads the actual #93/#98 resolver, operation store, structured provider and durable reservation functions from a trusted combined checkout. Its `createVisualCheckServices` helper is restricted to explicitly enabled synthetic checks. Its graph/sequence/packet allowlist is a test selection, not a policy decision installed in the live tutor.
 
 `scripts/check-visual-generation.ts` uses fictional teacher/student identities in a disposable `visual41_*` PostgreSQL database, the existing non-superuser application role, and an approved runtime networking lesson. It prepares original student responses with clearly labeled fixture evaluations, then reserves operations through the existing controller. The evaluations are not new paid model assessments. Its separately selected RTT help case saves an actual student message through the existing conversation operation service and keeps the current assessment unanswered.
 
@@ -126,8 +127,9 @@ An operator must explicitly set `VISUAL_CHECK_SYNTHETIC=1`, configure the existi
 npm run visual:check -- --prepare-only --integration-root=/trusted/combined/checkout --output=/private/new-preparation-report.json
 npm run visual:check -- --live --integration-root=/trusted/combined/checkout --output=/private/new-live-report.json
 npm run visual:check -- --live --case=round-trip-help-sequence --integration-root=/trusted/combined/checkout --output=/private/new-rtt-report.json
+npm run visual:check -- --live --case=distance-packet-experiment --integration-root=/trusted/combined/checkout --output=/private/new-packet-report.json
 ```
 
-Prepare-only creates synthetic records but makes no model calls. The default live command has an additional six-dispatch ceiling: three distinct candidate requests, each with at most one generation and one review. Selecting an explicit `--case` limits that separate invocation to two dispatches. Durable #98 reservations remain the spending authority. The command stops on provider/uncertain failures; a settled content rejection may leave other independently planned cases runnable, but the rejected candidate is never retried automatically. It refuses to overwrite an existing report. Explicit invocations are paid checks and must stay within the operator's approved aggregate scope; the recorded verification used eight calls total.
+Prepare-only creates synthetic records but makes no model calls. The default live command retains its original six-dispatch ceiling and three graph/sequence candidates. The RTT and new packet cases require explicit `--case` selection and each limits that separate invocation to two dispatches. Durable #98 reservations remain the spending authority. The command stops on provider/uncertain failures; a settled content rejection may leave other independently planned cases runnable, but the rejected candidate is never retried automatically. It refuses to overwrite an existing report. Explicit invocations are paid checks and must stay within the operator's approved aggregate scope; the original verification used eight calls total. Adding the packet command does not mean it has been run.
 
 For accepted cases it checks settled replay without new calls, foreign-actor rejection, stale-revision rejection and unchanged original student evidence. Its private report retains accepted specifications, exact usage/provenance and provider-record outcomes without publishing private prompts. Independent manual review must assess the accepted relationships, sequence ordering, guided questions and relevance to each original response. Player rendering requires its separate check. These scripts neither install #42's AI tool choice nor implement #43's saved visual evidence or assistance acknowledgment.

@@ -143,6 +143,13 @@ try {
       "UPDATE assignments SET approved_concept_ids=ARRAY['changed'] WHERE id=$1",
       [id],
     ),
+    /exact authorized published lesson version and scope/,
+  );
+  // A scope-valid edit still must fail after activation, independently of the registry guard.
+  await assert.rejects(
+    db.query("UPDATE assignments SET title=title || ' changed' WHERE id=$1", [
+      id,
+    ]),
     /immutable/,
   );
   await assert.rejects(

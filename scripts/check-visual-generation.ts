@@ -47,6 +47,7 @@ assert.ok(
       "packet-rate-graph",
       "sending-and-travel-sequence",
       "round-trip-help-sequence",
+      "distance-packet-experiment",
     ].includes(selectedCase),
   "Unknown independent case selection.",
 );
@@ -190,10 +191,20 @@ try {
       fixture: "ungraded-reading-help",
       kind: "sequence_diagram",
     },
+    {
+      id: "distance-packet-experiment",
+      fixture: "explicit-distance-confusion",
+      kind: "packet_experiment",
+    },
   ] as const;
   for (const selected of cases) {
     if (selectedCase && selectedCase !== selected.id) continue;
-    if (!selectedCase && selected.id === "round-trip-help-sequence") continue;
+    if (
+      !selectedCase &&
+      (selected.id === "round-trip-help-sequence" ||
+        selected.id === "distance-packet-experiment")
+    )
+      continue;
     const isReadingHelp = selected.id === "round-trip-help-sequence";
     const source = fixture.cases.find(
       (item) => item.caseId === selected.fixture,
