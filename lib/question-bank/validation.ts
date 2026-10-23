@@ -36,6 +36,20 @@ export function calculateQuestionAnswer(input: QuestionCalculation): number {
   return result;
 }
 
+/** Permit floating-point roundoff, without treating small nonzero answers as zero. */
+export function matchesQuestionCalculation(
+  actual: number,
+  expected: number,
+): boolean {
+  return (
+    Number.isFinite(actual) &&
+    Number.isFinite(expected) &&
+    (actual === expected ||
+      Math.abs(actual - expected) <=
+        Math.max(Math.abs(actual), Math.abs(expected)) * Number.EPSILON * 8)
+  );
+}
+
 function normalizedWords(text: string) {
   return text
     .toLocaleLowerCase("en-US")
@@ -219,7 +233,15 @@ export function validateQuestionBank(input: unknown): QuestionBankIssue[] {
     }
     const privateGuidance = id ? guidance.get(id) : undefined;
     if (!privateGuidance) add("Private question guidance is missing.", id);
-    else
+    else {
+      if (
+        new Set(privateGuidance.misconception_ids).size !==
+        privateGuidance.misconception_ids.length
+      )
+        add(
+          "Private guidance contains duplicate misconception references.",
+          id,
+        );
       for (const misconceptionId of privateGuidance.misconception_ids) {
         const misconception = misconceptions.get(misconceptionId);
         if (
@@ -229,6 +251,7 @@ export function validateQuestionBank(input: unknown): QuestionBankIssue[] {
         )
           add(`Unknown or out-of-scope misconception: ${misconceptionId}.`, id);
       }
+    }
     if (!item) {
       add("Question format, package role and review metadata are missing.", id);
       continue;
@@ -263,6 +286,22 @@ export function validateQuestionBank(input: unknown): QuestionBankIssue[] {
           `Answer criterion has no supporting source quote: ${criterion}`,
           id,
         );
+    for (const conceptId of question.concept_ids) {
+      const concept = concepts.get(conceptId);
+      if (
+        concept &&
+        !item.source_support.some(
+          (support) =>
+            concept.source_passage_ids.includes(support.passage_id) &&
+            question.rubric.criteria.includes(support.criterion) &&
+            passages.get(support.passage_id)?.text.includes(support.quote),
+        )
+      )
+        add(
+          `Assessed concept ${conceptId} has no answer-criterion support from its approved passages.`,
+          id,
+        );
+    }
     if (item.format === "multiple_choice") {
       const choices = [
         ...question.prompt_text.matchAll(/(?:^|\n)\s*([A-D])[.)]\s+([^\n]+)/g),
@@ -288,10 +327,7 @@ export function validateQuestionBank(input: unknown): QuestionBankIssue[] {
     if (item.calculation) {
       try {
         const actual = calculateQuestionAnswer(item.calculation);
-        if (
-          Math.abs(actual - item.calculation.expected) >
-          Math.max(1, Math.abs(actual)) * 1e-10
-        )
+        if (!matchesQuestionCalculation(actual, item.calculation.expected))
           add(
             `Incorrect expected calculation result; reviewed arithmetic gives ${actual}.`,
             id,
@@ -342,6 +378,18 @@ export function validateQuestionBank(input: unknown): QuestionBankIssue[] {
     const initialQuestion = questionMap.get(initial[0]?.question_id);
     for (const item of family) {
       const question = questionMap.get(item.question_id);
+      if (
+        question &&
+        initialQuestion &&
+        item.role === "diagnostic" &&
+        question.concept_ids.some(
+          (conceptId) => !initialQuestion.concept_ids.includes(conceptId),
+        )
+      )
+        add(
+          "Diagnostic questions must investigate concepts assessed by their family's initial question.",
+          item.question_id,
+        );
       if (
         question &&
         initialQuestion &&

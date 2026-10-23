@@ -18,6 +18,8 @@
     "materials:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-materials.ts",
     "objectives:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-objectives.ts",
     "lessons:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-lessons.ts",
+    "questions:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-question-bank.ts",
+    "questions:live": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-question-bank-live.ts",
     "assignments:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-assignments.ts",
     "reading:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-reading.ts",
     "metrics:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-metrics.ts",

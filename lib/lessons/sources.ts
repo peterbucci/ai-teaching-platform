@@ -1,6 +1,7 @@
 import "server-only";
 import { createHash, randomUUID } from "node:crypto";
 import { z } from "zod";
+import type { PoolClient } from "pg";
 import { evidenceRow } from "../db.ts";
 import {
   EvidenceError,
@@ -233,19 +234,29 @@ export async function readSourceVersion(
   documentId: string,
   version: number,
 ): Promise<SourceVersion> {
+  return transaction((client) =>
+    readSourceVersionInTransaction(client, access, documentId, version),
+  );
+}
+
+/** Reuse the caller's authoring transaction without opening a second pool client. */
+export async function readSourceVersionInTransaction(
+  client: PoolClient,
+  access: EvidenceAccess,
+  documentId: string,
+  version: number,
+): Promise<SourceVersion> {
   z.uuid().parse(documentId);
   z.number().int().positive().parse(version);
-  return transaction(async (client) => {
-    const result = await client.query(
-      `SELECT ${sourceColumns} FROM source_versions v
+  const result = await client.query(
+    `SELECT ${sourceColumns} FROM source_versions v
        JOIN source_documents d ON d.id=v.document_id
        WHERE v.document_id=$1 AND v.version=$2 AND d.owner_id=$3`,
-      [documentId, version, access.actor.profileId],
-    );
-    if (!result.rows[0])
-      throw new EvidenceError(404, "Source version not found.");
-    return sourceVersion(result.rows[0]);
-  });
+    [documentId, version, access.actor.profileId],
+  );
+  if (!result.rows[0])
+    throw new EvidenceError(404, "Source version not found.");
+  return sourceVersion(result.rows[0]);
 }
 
 export async function listSourceVersions(
