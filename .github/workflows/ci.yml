@@ -74,18 +74,14 @@ jobs:
           docker compose up --wait --wait-timeout 180 --no-build --no-recreate
           docker compose exec -T app npm run db:seed
           docker compose exec -T app npm run db:check -- --verify-restart
-<<<<<<< HEAD
       - name: Check lesson publishing and isolated class evidence
         run: docker compose exec -T app npm run publishing:check
-=======
       # Keep extra demo sign-ins outside the pre-restart checks' rate window.
       - name: Check private material extraction, review and version storage
         run: docker compose exec -T app npm run materials:check
->>>>>>> feature/49-material-import
       - name: Show service status on failure
         if: failure()
         run: docker compose ps --all
       - name: Stop isolated stack
         if: always()
         run: docker compose down --volumes
-
