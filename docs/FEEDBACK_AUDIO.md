@@ -72,6 +72,7 @@ The isolated `lp-integrate84` stack uses PostgreSQL and the production Next.js
 preserved; integration adds the conversation controls and answer-entry stop hooks.
 
 - All 336 deterministic tests, full lint, typecheck, formatting, and the Docker production build passed. Independent integration review found no blockers.
+- A later normal merge of actual main `b06e52f` preserved only the 14 audio paths. All 351 combined deterministic tests, typecheck, lint, and formatting passed; independent merge-boundary review found no blockers. Playback and provider-failure checks above were not repeated for this dependency-only reconciliation.
 - `npm run audio:check` passed against the actual local Piper service on Linux
   x86-64, returning a 380,972-byte WAV and an identical cached replay.
 - The authenticated check rejects anonymous, other-student, teacher, undisplayed

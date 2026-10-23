@@ -7,6 +7,7 @@ import { assignmentStudyHref } from "../../../lib/tutoring/navigation.ts";
 import { Icon } from "../../components/icons.tsx";
 import { Workspace } from "../../components/workspace.tsx";
 import { AssignmentList } from "./list.tsx";
+import { AssignedInterventionList } from "./intervention-list.tsx";
 import { continuingAssignment, practiceStatus } from "./presentation.ts";
 import "./assignments.css";
 
@@ -32,6 +33,7 @@ export default async function StudentAssignmentsPage() {
             Everything you’re working on, all in one place.
           </p>
         </header>
+        {dashboard && <AssignedInterventionList />}
         {continuing?.session && (
           <section
             className="assignment-resume"
