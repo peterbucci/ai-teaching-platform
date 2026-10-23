@@ -94,6 +94,12 @@ jobs:
         run: node scripts/check-isolated.mjs app npm run materials:check
       - name: Check publishing HTTP and new-version authorization
         run: node scripts/check-isolated.mjs app npm run publishing:http:check
+      - name: Check intervention generation and immutable evidence with synthetic providers
+        run: node scripts/check-isolated.mjs -e CHECK_INTERVENTION_REPORT=/tmp/intervention-fixture.json app npm run interventions:check
+      - name: Check uploaded intervention source/version authorization
+        run: node scripts/check-isolated.mjs app npm run interventions:lessons:check
+      - name: Check authenticated private intervention review and invalid generation requests
+        run: node scripts/check-isolated.mjs -e CHECK_INTERVENTION_REPORT=/tmp/intervention-fixture.json app npm run interventions:http
       - name: Show service status on failure
         if: failure()
         run: docker compose ps --all
