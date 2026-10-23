@@ -24,6 +24,7 @@ import {
 const base = z.url().parse(process.env.AUTH_URL);
 const db = getPool();
 const run = randomUUID();
+const foreignClassId = randomUUID();
 
 async function request(
   path: string,
@@ -100,7 +101,6 @@ try {
   const student = await login("DEMO_STUDENT_ONE");
   const other = await login("DEMO_STUDENT_TWO");
   const classId = randomUUID();
-  const foreignClassId = randomUUID();
   for (const [id, owner, name] of [
     [classId, teacher.access.actor.profileId, "owned"],
     [foreignClassId, other.access.actor.profileId, "foreign"],
@@ -378,5 +378,11 @@ try {
     `Retained synthetic HTTP probe ${run} in the configured development environment.`,
   );
 } finally {
-  await db.end();
+  try {
+    // This empty permission-probe class must not turn a demo student into a teacher.
+    // Published assignments and their historical evidence are retained above.
+    await db.query("DELETE FROM classes WHERE id=$1", [foreignClassId]);
+  } finally {
+    await db.end();
+  }
 }
