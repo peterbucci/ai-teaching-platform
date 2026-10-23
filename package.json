@@ -16,6 +16,7 @@
     "db:migrate": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/migrate.ts",
     "db:seed": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/seed-demo.ts",
     "objectives:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-objectives.ts",
+    "lessons:uncertainty:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-lesson-uncertainty.ts",
     "lessons:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-lessons.ts",
     "assignments:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-assignments.ts",
     "reading:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-reading.ts",

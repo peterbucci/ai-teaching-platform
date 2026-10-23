@@ -196,3 +196,28 @@ The checked sources were created through #53's registry, not #49's importer UI.
 Reviewed-import integration, #51 question authoring and #52 publication remain
 separate dependencies. This does not claim full R4 completion or educational
 validation.
+
+## Reconciliation after #93 squash merge
+
+On October 23, 2026, #100 was reconciled with main
+`939c766d5cd82fa1347b731eabbba24331a836a4` using a normal merge into the
+existing feature branch. The original #50 commits remain ancestors; no rebase,
+force-push or replay of the old #93 patches was used. The diff against main keeps
+only the original 29-file objective feature scope. Reviewed #93 diagnostic,
+uncertainty, analytics and source guards are preserved. #101 and #102 branches
+were not changed; they can integrate this descendant without losing their work.
+
+The reconciled tree passed 119 deterministic tests, 293 content checks, lint,
+typecheck, formatting and production Docker build. Fresh isolated PostgreSQL
+passed objectives, expanded lesson resolution, uploaded-lesson uncertainty and
+authenticated teacher pages, SQL constraints, assignments, reading, tutoring,
+metrics, patterns and persistence through application/database restart.
+Independent read-only review found no actionable reconciliation issue and
+separately ran 28 focused objective/lesson tests. These regression checks used
+synthetic fixtures and zero model calls; the earlier three-call model/browser
+record above remains the live acceptance evidence.
+
+The original development database retained a pre-commit checksum for migration
+010 with one extra trailing blank line. It was left untouched, including its
+approved browser draft. Published migration bytes match #100, #101 and #102;
+no migration or stored checksum was rewritten. Fresh-schema checks passed.
