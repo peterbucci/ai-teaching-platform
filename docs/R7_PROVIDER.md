@@ -4,11 +4,13 @@ This server-only service implements model intent proposals and reviewed, grounde
 
 ## Entry points
 
-- `lib/dialogue/service.ts`: `classifyIntent(context, services)` and `generateDialogue({context, request, permitted_by_controller, instructional_strategy?}, services)`.
+- `lib/dialogue/service.ts`: `classifyIntent(context, services)` and `generateDialogue({context, request, permitted_by_controller, instructional_strategy?, selected_source?}, services)`.
 - `lib/dialogue/model-provider.ts`: `requestStructuredProposal<T>({instructions,input,schema,schemaName}, {signal?})` supplies the one-call provider operation that #85 can use for its proposal schema. Always invoke under #75's reservation.
 - `lib/dialogue/generation.ts`: scoped prompt projections, draft schemas and independent review checks. The active rubric is excluded from classification/generation; it is sent only to the private disclosure reviewer.
 
 The context contains the exact original text, active question, lesson anchor/revision, accepted bounded history, prior question snapshots, and server-resolved source scope. Never accept it or `permitted_by_controller` from a client/model. #53's assignment resolver supplies content; the production service never calls the curated global loader. Optional `instructional_strategy` carries #85's validated action/arguments so selected clarification focus, explanation style, diagnostic targets and retest mode reach both generation and review.
+
+`clarify` elicits the student's meaning/reasoning or restates question wording without teaching; it must produce `neutral_clarification`. `explain` teaches content and must use a non-neutral assistance type. Both mismatches fail before the review call, matching #85's dispatch boundary. The service never changes the selected action or relabels the draft. The reviewer still rejects teaching disguised as neutral. Existing R7 types use `hint` for limited cues or explanations, `corrective_feedback` for corrective teaching, and `worked_example` for examples; there is no separate explanation assistance type. Generation v4/review v2 make these distinctions explicit after an integrated check exposed a mismatch; this prompt revision has deterministic coverage but has not been live-tested.
 
 The caller's permission includes #53's `activity_policy.allow_runtime_generation` gate; the legacy curated policy defaults to false. The standalone live checker explicitly uses synthetic controller permission, not a changed production lesson policy. Imported resolver integration is still unverified in this branch.
 

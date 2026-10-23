@@ -387,6 +387,74 @@ test("the permitted explanation strategy reaches both generation and independent
   }
 });
 
+test("clarify rejects teaching labels and explain rejects neutral output before spending on review", async () => {
+  const cases: {
+    strategy: NonNullable<GenerationInput["instructional_strategy"]>;
+    assistance: ReturnType<typeof helpDraft>["assistance_type"];
+  }[] = [
+    ...(["hint", "worked_example", "corrective_feedback"] as const).map(
+      (assistance) => ({
+        strategy: {
+          action: "clarify",
+          arguments: { focus: "terminology" },
+        } as const,
+        assistance,
+      }),
+    ),
+    {
+      strategy: {
+        action: "explain",
+        arguments: { style: "alternative_explanation" },
+      },
+      assistance: "neutral_clarification",
+    },
+  ];
+  for (const { strategy, assistance } of cases) {
+    const draft = { ...helpDraft(), assistance_type: assistance };
+    const args = input({ instructional_strategy: strategy });
+    const h = harness([draft]);
+    const generated = await generateDialogue(args, h.services);
+    assert.equal(generated.ok, false);
+    if (!generated.ok) assert.equal(generated.reason, "invalid_output");
+    assert.deepEqual(
+      h.reservations.map((step) => step.stage),
+      ["generate"],
+    );
+    const direct = harness([]);
+    const reviewed = await reviewDialogueCandidate(
+      args,
+      { ...f.help, ...draft },
+      direct.services,
+    );
+    assert.equal(reviewed.ok, false);
+    assert.equal(direct.reservations.length, 0);
+  }
+});
+
+test("neutral clarification can pass but relabeled teaching still fails semantic review", async () => {
+  const args = input({
+    instructional_strategy: {
+      action: "clarify",
+      arguments: { focus: "reasoning" },
+    },
+  });
+  const neutral = {
+    ...helpDraft(),
+    text: "What do you mean by finishing in your explanation?",
+    assistance_type: "neutral_clarification" as const,
+  };
+  const accepted = harness([neutral, reviewReply()]);
+  assert.equal((await generateDialogue(args, accepted.services)).ok, true);
+  const mislabeled = harness([
+    { ...helpDraft(), assistance_type: "neutral_clarification" },
+    reviewReply((review) => ({ ...review, assistance: "understated" })),
+  ]);
+  const result = await generateDialogue(args, mislabeled.services);
+  assert.equal(result.ok, false);
+  if (!result.ok) assert.equal(result.reason, "invalid_output");
+  assert.equal(mislabeled.reservations.length, 2);
+});
+
 test("a selected transmission diagnostic preserves the full joint-question context in both prompts", async () => {
   const selected_source = {
     concept_ids: ["transmission_delay"],

@@ -41,8 +41,8 @@ import {
 export type { DialogueModelContext } from "./generation.ts";
 export const DIALOGUE_PROMPTS = {
   classify: "r7-intent-v1",
-  generate: "r7-grounded-generation-v3",
-  review: "r7-independent-review-v1",
+  generate: "r7-grounded-generation-v4",
+  review: "r7-independent-review-v2",
 } as const;
 export type ProviderStep = {
   step_id: string;
@@ -271,6 +271,12 @@ export async function generateDialogue(
       : null;
   const instructions = `${UNTRUSTED_DATA_POLICY}
 Generate only the caller's permitted instructional response, addressing the exact student reasoning.
+Respect instructional_strategy without changing its action. For clarify, ask what the student means or how
+they reasoned, or rephrase the question without supplying content knowledge; use neutral_clarification.
+Even focus=terminology does not permit teaching a definition, correcting a concept or adding a relationship.
+For explain, provide the selected content help and never label it neutral_clarification. R7 uses hint for
+limited cues or explanations, corrective_feedback for corrective teaching, and worked_example for examples;
+there is no separate explanation assistance type. Never relabel teaching as neutral to fit clarify.
 If selected_source is provided, assess exactly its concept_ids and cite only its source_passage_ids.
 The broader active-question context is available for understanding and disclosure checks, not expanded output scope.
 Use conceptual questions and explanations only. Do not invent numerical results or require arithmetic;
@@ -405,6 +411,17 @@ export async function reviewDialogueCandidate(
       context,
       input.request,
     );
+    // Match #85's dispatch boundary before spending on a semantic review. Do not
+    // relabel the draft or change the caller's action to make an output fit.
+    if (
+      (strategy?.action === "clarify" &&
+        (candidate.kind !== "help" ||
+          candidate.assistance_type !== "neutral_clarification")) ||
+      (strategy?.action === "explain" &&
+        (candidate.kind !== "help" ||
+          candidate.assistance_type === "neutral_clarification"))
+    )
+      throw new Error("Candidate changed selected instructional action");
     if (
       strategy?.action === "generate_diagnostic" &&
       candidate.kind === "question" &&
@@ -429,6 +446,11 @@ The private active rubric below is only for disclosure checking; never repeat it
 For an unanswered assessment reject direct or paraphrased solutions, even if they are supported by the reading.
 For a new question ensure the prompt does not give away its own private answer. Determine whether embedded
 scaffolding and assistance_type honestly capture content help; explanation/formula must not be neutral.
+R7 has no separate explanation assistance type: hint includes limited cues or explanations,
+corrective_feedback includes corrective teaching, and worked_example denotes an example. An explanation
+is not understated merely because it uses hint. Reject teaching disguised as neutral_clarification.
+For strategy clarify, only eliciting the student's meaning/reasoning or neutral question wording is permitted;
+definitions, corrections and new conceptual relationships are content help, even under focus=terminology.
 Mark requires_unverified_calculation if the candidate asserts a computed numeric result or asks for computation.
 Check every field listed in required_coverage completely, including all factual clauses. Provide exactly one
 coverage entry per field, with exact quotes (preserve whitespace) from the candidate's cited approved passages.
