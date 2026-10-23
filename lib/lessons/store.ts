@@ -23,7 +23,7 @@ import {
   type LessonDraftContent,
 } from "./contracts.ts";
 import { AttributionSchema, SourcePassageSchema } from "./source-contracts.ts";
-import { hydrateLessonContent } from "./validate.ts";
+import { hydrateLessonContent, LessonValidationError } from "./validate.ts";
 import { assembleReviewedLesson } from "./assemble.ts";
 import {
   getReviewedQuestionBank,

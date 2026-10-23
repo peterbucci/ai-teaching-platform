@@ -7,8 +7,10 @@ import {
   type ApprovedContent,
 } from "../evidence/content.ts";
 
+export class LessonValidationError extends Error {}
+
 function requireRule(ok: boolean, message: string): asserts ok {
-  if (!ok) throw new Error(message);
+  if (!ok) throw new LessonValidationError(message);
 }
 function unique<T extends { id: string }>(items: T[], label: string) {
   const map = new Map(items.map((item) => [item.id, item]));
@@ -222,7 +224,7 @@ export function hydrateLessonContent(input: unknown): ApprovedContent {
             !!questions
               .get(option.question_id)
               ?.concept_ids.includes(conceptId)),
-        "A diagnostic must assess the concept of its mapped misconception",
+        "Diagnostic must assess its mapped misconception's concept",
       );
     }
   }
