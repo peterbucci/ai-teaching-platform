@@ -24,6 +24,8 @@ import {
   assertGenerationRequest,
   checkedContext,
   checkedStrategy,
+  checkedSelectedSource,
+  assertSelectedSource,
   HelpDraftSchema,
   QuestionDraftSchema,
   reviewFields,
@@ -33,12 +35,13 @@ import {
   type DialogueModelContext,
   type SemanticReview,
   type InstructionalStrategy,
+  type SelectedSource,
 } from "./generation.ts";
 
 export type { DialogueModelContext } from "./generation.ts";
 export const DIALOGUE_PROMPTS = {
   classify: "r7-intent-v1",
-  generate: "r7-grounded-generation-v2",
+  generate: "r7-grounded-generation-v3",
   review: "r7-independent-review-v1",
 } as const;
 export type ProviderStep = {
@@ -227,6 +230,7 @@ export type GenerationInput = {
   request: DialogueRequest;
   permitted_by_controller: boolean;
   instructional_strategy?: InstructionalStrategy;
+  selected_source?: SelectedSource;
 };
 export type ReviewedDialogue = {
   content: GeneratedDialogue;
@@ -250,11 +254,13 @@ export async function generateDialogue(
   let request: DialogueRequest;
   let projection: ReturnType<typeof checkedContext>;
   let strategy: ReturnType<typeof checkedStrategy>;
+  let selectedSource: ReturnType<typeof checkedSelectedSource>;
   try {
     request = DialogueRequestSchema.parse(input.request);
     projection = checkedContext(context);
     assertGenerationRequest(context, request, input.permitted_by_controller);
     strategy = checkedStrategy(input.instructional_strategy, context, request);
+    selectedSource = checkedSelectedSource(input.selected_source, context);
   } catch {
     return fail("invalid_output", calls);
   }
@@ -265,6 +271,8 @@ export async function generateDialogue(
       : null;
   const instructions = `${UNTRUSTED_DATA_POLICY}
 Generate only the caller's permitted instructional response, addressing the exact student reasoning.
+If selected_source is provided, assess exactly its concept_ids and cite only its source_passage_ids.
+The broader active-question context is available for understanding and disclosure checks, not expanded output scope.
 Use conceptual questions and explanations only. Do not invent numerical results or require arithmetic;
 calculated activities require a separate reviewed calculation tool. Treat misunderstandings as tentative.
 Cite only passages that substantively support your text and every private criterion. Include no external links,
@@ -283,6 +291,7 @@ The server supplies identity, model and timestamps. You cannot choose a transiti
   const modelInput = {
     ...projection,
     instructional_strategy: strategy,
+    selected_source: selectedSource,
     permitted_response: questionIntent ?? "help",
     purpose:
       request.trigger.kind === "student"
@@ -352,6 +361,7 @@ The server supplies identity, model and timestamps. You cannot choose a transiti
       });
     }
     validateCandidate(context, request, candidate);
+    assertSelectedSource(selectedSource, candidate);
   } catch {
     return fail("invalid_output", calls);
   }
@@ -386,6 +396,10 @@ export async function reviewDialogueCandidate(
     );
     candidate = GeneratedDialogueSchema.parse(candidateInput);
     validateCandidate(context, input.request, candidate);
+    assertSelectedSource(
+      checkedSelectedSource(input.selected_source, context),
+      candidate,
+    );
     const strategy = checkedStrategy(
       input.instructional_strategy,
       context,
@@ -425,6 +439,7 @@ Give a concise private reason for the review, not chain of thought.`,
     {
       ...projection,
       instructional_strategy: input.instructional_strategy ?? null,
+      selected_source: input.selected_source ?? null,
       candidate,
       required_coverage: reviewFields(candidate),
       private_active_rubric_for_disclosure_check_only: context.question.rubric,

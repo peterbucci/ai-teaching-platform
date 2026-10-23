@@ -36,6 +36,39 @@ const sourceFields = {
   concept_ids: ids,
   source_passage_ids: ids,
 };
+export const SelectedSourceSchema = z.strictObject({
+  concept_ids: ids,
+  source_passage_ids: ids,
+});
+export type SelectedSource = z.infer<typeof SelectedSourceSchema>;
+export function checkedSelectedSource(
+  selection: SelectedSource | undefined,
+  context: DialogueModelContext,
+) {
+  if (!selection) return null;
+  const parsed = SelectedSourceSchema.parse(selection);
+  if (
+    parsed.concept_ids.some((id) => !context.scope.concept_ids.has(id)) ||
+    parsed.source_passage_ids.some((id) => !context.scope.passage_ids.has(id))
+  )
+    throw new Error("Selected source exceeds authorized scope");
+  return parsed;
+}
+export function assertSelectedSource(
+  selection: SelectedSource | null,
+  candidate: GeneratedDialogue,
+) {
+  if (!selection) return;
+  const source = candidate.kind === "help" ? candidate : candidate.question;
+  if (
+    source.concept_ids.length !== selection.concept_ids.length ||
+    source.concept_ids.some((id) => !selection.concept_ids.includes(id)) ||
+    source.source_passage_ids.some(
+      (id) => !selection.source_passage_ids.includes(id),
+    )
+  )
+    throw new Error("Generated content changed the selected source targets");
+}
 export const HelpDraftSchema = z.strictObject({
   ...sourceFields,
   text: text.max(DIALOGUE_LIMITS.responseCharacters),

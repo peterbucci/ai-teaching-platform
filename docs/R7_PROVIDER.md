@@ -10,6 +10,10 @@ This server-only service implements model intent proposals and reviewed, grounde
 
 The context contains the exact original text, active question, lesson anchor/revision, accepted bounded history, prior question snapshots, and server-resolved source scope. Never accept it or `permitted_by_controller` from a client/model. #53's assignment resolver supplies content; the production service never calls the curated global loader. Optional `instructional_strategy` carries #85's validated action/arguments so selected clarification focus, explanation style, diagnostic targets and retest mode reach both generation and review.
 
+The caller's permission includes #53's `activity_policy.allow_runtime_generation` gate; the legacy curated policy defaults to false. The standalone live checker explicitly uses synthetic controller permission, not a changed production lesson policy. Imported resolver integration is still unverified in this branch.
+
+`selected_source?: {concept_ids, source_passage_ids}` carries #85's narrower response targets while context retains the whole active question for interpretation/disclosure checks. Selection must be inside authorized scope; output concepts must exactly match the selected set and citations must remain inside selected passages. Generation prompt v3 adds this optional restriction; its propagation/rejection checks are deterministic-tested, while the recorded live runs used v1/v2.
+
 `classifyIntent` returns PR #81's unchanged category/rationale proposal. Its `review.answer_intent` stays `uncertain`; only explicit resolution or separately established trusted intent can authorize submission. #75 preserves the original proposal privately and projects an unresolved answer as `AMBIGUOUS`, consistent with PR #81's clarification view. The original message remains unchanged. A help classification over 2,000 characters flags `help_limit_exceeded`; generation refuses it without truncating or grading it.
 
 ## Reservation and failure contract
@@ -37,6 +41,8 @@ Run the checker with the existing Node flags and configured `OPENAI_MODEL`/`OPEN
 ```sh
 node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-dialogue-provider.ts --run-live
 ```
+
+`--diagnostics-only` selects two additional synthetic diagnostic cases (four calls). `--output=...` must name a new file in an existing directory. No flag performs no paid calls. The [verification record](../evals/R7_PROVIDER_VERIFICATION.md) preserves both runs and the original rejection.
 
 Integration remains owned by #73/#75/#85: authenticated conversation transport, explicit intent resolution, durable reservations/outcomes, commit-time checks, display acknowledgement, generated-question controller/evaluator handoff and teacher reconstruction. #53/#52 gate uploaded lesson use. #76 retains real browser/database and observe–act–observe acceptance. Provider checks alone do not close these issues or establish the complete agentic tutoring workflow.
 

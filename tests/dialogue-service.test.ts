@@ -387,6 +387,137 @@ test("the permitted explanation strategy reaches both generation and independent
   }
 });
 
+test("a selected transmission diagnostic preserves the full joint-question context in both prompts", async () => {
+  const selected_source = {
+    concept_ids: ["transmission_delay"],
+    source_passage_ids: ["P07", "P08"],
+  };
+  assert.deepEqual(f.curatedQuestion.concept_ids, [
+    "transmission_delay",
+    "propagation_delay",
+  ]);
+  const h = harness([
+    { ...questionDraft(), source_passage_ids: ["P07"] },
+    reviewReply(),
+  ]);
+  const result = await generateDialogue(
+    input({
+      context: context({ assessment_status: "evaluated" }),
+      request: f.controllerRequests.distance,
+      selected_source,
+    }),
+    h.services,
+  );
+  assert.ok(result.ok);
+  assert.equal(result.value.content.kind, "question");
+  if (result.value.content.kind !== "question")
+    throw new Error("Expected diagnostic");
+  assert.deepEqual(
+    result.value.content.question.concept_ids,
+    selected_source.concept_ids,
+  );
+  assert.deepEqual(result.value.content.question.source_passage_ids, ["P07"]);
+  assert.equal(h.prompts.length, 2);
+  for (const prompt of h.prompts) {
+    const sent = z
+      .object({
+        selected_source: z.object({
+          concept_ids: z.array(z.string()),
+          source_passage_ids: z.array(z.string()),
+        }),
+        active_question: z.object({
+          concept_ids: z.array(z.string()),
+          source_passage_ids: z.array(z.string()),
+          prompt_text: z.string(),
+        }),
+        passages: z.array(z.object({ id: z.string() })),
+      })
+      .parse(JSON.parse(prompt.input));
+    assert.deepEqual(sent.selected_source, selected_source);
+    assert.deepEqual(
+      sent.active_question.concept_ids,
+      f.curatedQuestion.concept_ids,
+    );
+    assert.deepEqual(
+      sent.active_question.source_passage_ids,
+      f.curatedQuestion.source_passage_ids,
+    );
+    assert.equal(
+      sent.active_question.prompt_text,
+      f.curatedQuestion.prompt_text,
+    );
+    assert.deepEqual(
+      sent.passages.map((passage) => passage.id),
+      [...f.scope.passage_ids],
+    );
+  }
+});
+
+test("generated concepts and citations cannot broaden or change the selected source before review", async () => {
+  const selected_source = {
+    concept_ids: ["transmission_delay"],
+    source_passage_ids: ["P07"],
+  };
+  const draft = { ...questionDraft(), source_passage_ids: ["P07"] };
+  for (const candidate of [
+    { ...draft, concept_ids: ["transmission_delay", "propagation_delay"] },
+    {
+      ...draft,
+      concept_ids: ["propagation_delay"],
+      target_misconception_ids: [],
+    },
+    { ...draft, source_passage_ids: ["P07", "P08"] },
+  ]) {
+    const h = harness([candidate]);
+    const result = await generateDialogue(
+      input({
+        context: context({ assessment_status: "evaluated" }),
+        request: f.controllerRequests.distance,
+        selected_source,
+      }),
+      h.services,
+    );
+    assert.equal(result.ok, false);
+    if (!result.ok) assert.equal(result.reason, "invalid_output");
+    assert.deepEqual(
+      h.reservations.map((step) => step.stage),
+      ["generate"],
+    );
+  }
+});
+
+test("source selection outside the authorized concept or passage scope fails before any call", async () => {
+  const outsideConcept = [...content.concept_ids].find(
+    (id) => !f.scope.concept_ids.has(id),
+  );
+  const outsidePassage = [...content.passage_ids].find(
+    (id) => !f.scope.passage_ids.has(id),
+  );
+  assert.ok(outsideConcept);
+  assert.ok(outsidePassage);
+  for (const selected_source of [
+    { concept_ids: [outsideConcept], source_passage_ids: ["P07"] },
+    {
+      concept_ids: ["transmission_delay"],
+      source_passage_ids: [outsidePassage],
+    },
+  ]) {
+    const h = harness([]);
+    const result = await generateDialogue(
+      input({
+        context: context({ assessment_status: "evaluated" }),
+        request: f.controllerRequests.distance,
+        selected_source,
+      }),
+      h.services,
+    );
+    assert.equal(result.ok, false);
+    if (!result.ok) assert.equal(result.reason, "invalid_output");
+    assert.equal(h.reservations.length, 0);
+    assert.equal(h.prompts.length, 0);
+  }
+});
+
 test("an instructional strategy incompatible with the permitted response is rejected before spending", async () => {
   for (const attempt of [
     input({
