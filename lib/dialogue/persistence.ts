@@ -8,6 +8,7 @@ import { validateContentRef } from "../evidence/content.ts";
 import { resolveAssignmentContent } from "../lessons/store.ts";
 import {
   EvidenceError,
+  requireTutoringSession,
   sessionEvidence,
   transaction,
   type EvidenceAccess,
@@ -92,6 +93,7 @@ export async function dialogueContext(
   );
   if (!identity.rowCount) throw new EvidenceError(404, "Session not found.");
   const evidence = await sessionEvidence(client, access, sessionId, role, lock);
+  await requireTutoringSession(client, sessionId);
   const attempt = evidence.attempts.at(-1);
   conflict(attempt, "No current lesson question.");
   const assignmentResult = await client.query(
