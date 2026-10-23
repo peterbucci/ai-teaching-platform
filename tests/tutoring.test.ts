@@ -373,3 +373,71 @@ test("an unrelated diagnostic assessment advances without changing an earlier hy
     );
   }
 });
+
+test("a global category cannot carry a hypothesis instance across assessed concepts", () => {
+  const lesson = structuredClone(content);
+  const evidence = structuredClone(authored);
+  evidence.session.status = "active";
+  evidence.session.ended_at = null;
+  evidence.attempts = evidence.attempts.slice(0, 2);
+  evidence.attempts[0].outcome = null;
+  evidence.interventions = [];
+  evidence.evaluations = evidence.evaluations.filter((evaluation) =>
+    evidence.attempts.some((attempt) => attempt.id === evaluation.attempt_id),
+  );
+  const globalCategory = "variables_confused";
+  lesson.misconception_concepts.set(globalCategory, null);
+  lesson.misconceptions.set(globalCategory, {
+    id: globalCategory,
+    concept_id: null,
+    definition: "Assumes independent variables change together.",
+  });
+  lesson.sequence.diagnostic_options = [
+    { misconception_id: globalCategory, question_id: "D02" },
+  ];
+  const previous = evidence.evaluations[0].applied_result!.hypothesis_events[0];
+  previous.misconception_id = globalCategory;
+  const before = structuredClone(evidence.evaluations[0]);
+  const current = evidence.evaluations.at(-1)!;
+  current.applied_result = null;
+  const attempt = evidence.attempts.at(-1)!;
+  const otherConcept = attempt.question.concept_ids.find(
+    (id) => id !== previous.concept_id,
+  )!;
+  assert.ok(otherConcept);
+  attempt.response_text = "I assume the two delays always change together.";
+  const quote = {
+    response_id: attempt.id,
+    quote: attempt.response_text,
+    start_character: 0,
+    end_character: attempt.response_text.length,
+    interpretation:
+      "Synthetic global-category candidate for the other assessed concept.",
+  };
+  current.result!.evidence_quotes = [quote];
+  current.result!.misconception_candidates = [
+    {
+      concept_id: otherConcept,
+      misconception_id: globalCategory,
+      status: "tentative",
+      uncertainty_reason:
+        "This is a synthetic observation, not an established belief.",
+      evidence_quotes: [quote],
+    },
+  ];
+  validateSessionEvidence(lesson, evidence);
+  const decision = decideTutoring(lesson, evidence, current.id, now);
+  const event = decision.applied.hypothesis_events[0];
+  assert.equal(event.status, "suspected");
+  assert.equal(event.concept_id, otherConcept);
+  assert.notEqual(
+    event.hypothesis_instance_id,
+    previous.hypothesis_instance_id,
+  );
+  assert.equal(event.previous_status, null);
+  assert.deepEqual(event.evidence_evaluation_ids, [current.id]);
+  assert.deepEqual(event.supporting_response_quotes, [quote]);
+  assert.deepEqual(evidence.evaluations[0], before);
+  current.applied_result = decision.applied;
+  assert.doesNotThrow(() => validateSessionEvidence(lesson, evidence));
+});

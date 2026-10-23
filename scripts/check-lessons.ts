@@ -758,6 +758,128 @@ try {
   );
   assert.equal(reconstructed.attempts[0].response_text, originalResponse);
 
+  // A reviewed global category remains valid; its candidate still identifies
+  // the actual assessed concept. Publishing a later version must not strand it.
+  const globalLesson = structuredClone(scopedLesson);
+  const globalMisconceptionId = "reverses_water_state_change";
+  globalLesson.misconceptions = [
+    {
+      ...misconception,
+      id: globalMisconceptionId,
+      concept_id: null,
+      definition:
+        "Reverses the starting and ending states of a water state change.",
+    },
+  ];
+  for (const concept of globalLesson.concepts)
+    concept.common_misconceptions = concept.common_misconceptions.filter(
+      (item) => item.id !== misconceptionId,
+    );
+  globalLesson.sequence.hypothesis_id = globalMisconceptionId;
+  globalLesson.sequence.diagnostic_options[0].misconception_id =
+    globalMisconceptionId;
+  for (const guidance of globalLesson.question_guidance)
+    guidance.misconception_ids = guidance.misconception_ids.map((id) =>
+      id === misconceptionId ? globalMisconceptionId : id,
+    );
+  async function publishGlobalVersion(version: string) {
+    globalLesson.content_ref = {
+      ...globalLesson.content_ref,
+      content_version: version,
+    };
+    for (const question of globalLesson.questions) {
+      question.content_ref = globalLesson.content_ref;
+      question.rubric.version = version;
+    }
+    scopedDraft = await saveLessonDraft(teacher, {
+      lesson_id: scopedDraft.id,
+      expected_revision: scopedDraft.revision,
+      title: "Synthetic global diagnostic category",
+      draft: globalLesson,
+    });
+    await approveLessonDraft(teacher, scopedDraft.id, scopedDraft.revision);
+    return publishLessonVersion(teacher, scopedDraft.id, scopedDraft.revision);
+  }
+  await publishGlobalVersion("2");
+  const globalAssignment = await createLessonAssignment(teacher, {
+    class_id: ownedClass,
+    lesson_id: scopedDraft.id,
+    version: "2",
+    title: "Synthetic global category v2",
+  });
+  await activate(teacher, globalAssignment.id);
+  const globalContent = await readAssignmentContent(
+    student,
+    globalAssignment.id,
+    "student",
+  );
+  assert.equal(
+    globalContent.misconception_concepts.get(globalMisconceptionId),
+    null,
+  );
+  const globalSession = await startSession(
+    student,
+    globalAssignment.id,
+    "synthetic_fixture",
+  );
+  const globalQuestion = getCuratedQuestion(globalContent, "WC-01");
+  const globalAttempt = await presentQuestion(student, globalSession.id, {
+    question: globalQuestion,
+    intent: "initial_retrieval",
+  });
+  await submitAnswer(student, globalSession.id, {
+    attempt_id: globalAttempt.id,
+    submission_key: randomUUID(),
+    response_text: originalResponse,
+  });
+  const globalSubmitted = (
+    await readSession(student, globalSession.id, "student")
+  ).attempts[0];
+  const globalEvaluation = await fixtureEvaluation(
+    student,
+    globalSession.id,
+    globalSubmitted,
+    false,
+    {
+      concept_id: "evaporation",
+      misconception_id: globalMisconceptionId,
+    },
+  );
+  await applyTutoring(student, globalSession.id, globalEvaluation.id);
+  const globalHistorical = await readSession(
+    student,
+    globalSession.id,
+    "student",
+  );
+  assert.equal(
+    globalHistorical.attempts.at(-1)?.question.question_id,
+    "WC-DIAGNOSTIC",
+  );
+  const globalEvents =
+    globalHistorical.evaluations[0].applied_result?.hypothesis_events;
+  assert.equal(globalEvents?.length, 1);
+  assert.equal(globalEvents?.[0].misconception_id, globalMisconceptionId);
+  assert.equal(globalEvents?.[0].concept_id, "evaporation");
+  globalLesson.questions[0].prompt_text +=
+    " State each starting state explicitly.";
+  globalLesson.sequence.nodes[0].prompt = globalLesson.questions[0].prompt_text;
+  await publishGlobalVersion("3");
+  assert.equal(
+    (await readAssignmentContent(student, globalAssignment.id, "student"))
+      .content_ref.content_version,
+    "2",
+  );
+  assert.deepEqual(
+    await readSession(student, globalSession.id, "student"),
+    globalHistorical,
+  );
+  assert.deepEqual(
+    await readSession(teacher, globalSession.id, "teacher"),
+    globalHistorical,
+  );
+  assert.deepEqual(globalHistorical.attempts[0].question, globalQuestion);
+  assert.equal(globalHistorical.attempts[0].response_text, originalResponse);
+
   const curated = loadApprovedContent();
   const curatedAssignment = await createLessonAssignment(teacher, {
     class_id: ownedClass,
@@ -796,7 +918,7 @@ try {
   assert.ok(reader?.readings.some((item) => item.id === curatedAssignment.id));
   await studentStudyHistory(student);
   console.log(
-    "PASS: curated and uploaded resolution; source replay/concurrency/revision controls; draft/source approval gates; teacher/class/enrollment authorization; exact refs/passages and SQL guards; immutable source and lesson versions; shared evaluator/controller/reading paths; private student projections; v1 evidence preserved after v2 publication; invalid diagnostic concept scope blocked at approval; corrected diagnostic hypothesis progression and idempotent reconstruction. No model call was made.",
+    "PASS: curated and uploaded resolution; source replay/concurrency/revision controls; draft/source approval gates; teacher/class/enrollment authorization; exact refs/passages and SQL guards; immutable source and lesson versions; shared evaluator/controller/reading paths; private student projections; v1 evidence preserved after v2 publication; invalid diagnostic concept scope blocked at approval; corrected diagnostic hypothesis progression and idempotent reconstruction; global category publication and historical reconstruction after a newer version. No model call was made.",
   );
   console.log(
     `Retained labeled synthetic probe ${run} in the configured development database.`,
