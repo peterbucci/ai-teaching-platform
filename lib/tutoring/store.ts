@@ -21,7 +21,7 @@ import {
 } from "../evidence/rules.ts";
 import {
   EvidenceError,
-  readSession,
+  readStudentDeliveryContext,
   sessionEvidence,
   transaction,
   type EvidenceAccess,
@@ -156,11 +156,16 @@ export async function studentStudyHistory(
 }
 
 export async function tutorView(access: EvidenceAccess, sessionId: string) {
-  const evidence = await readSession(access, sessionId, "student");
+  const { evidence, controllerInterventions } =
+    await readStudentDeliveryContext(access, sessionId);
+  const studentView = toStudentSessionView({
+    ...evidence,
+    interventions: controllerInterventions,
+  });
   const last = evidence.attempts.at(-1);
   const runs = evidence.evaluations.filter((e) => e.attempt_id === last?.id);
   const recovery = evaluationRecovery(runs, Date.now());
-  const pendingHelp = evidence.interventions.some(
+  const pendingHelp = controllerInterventions.some(
     (i) => i.delivery_status === "created" && i.type !== "reading",
   );
   const phase = pendingHelp
@@ -174,7 +179,7 @@ export async function tutorView(access: EvidenceAccess, sessionId: string) {
           : "evaluate";
   const content = loadApprovedContent();
   return TutorViewSchema.parse({
-    ...toStudentSessionView(evidence),
+    ...studentView,
     session: {
       id: evidence.session.id,
       status: evidence.session.status,
@@ -182,7 +187,7 @@ export async function tutorView(access: EvidenceAccess, sessionId: string) {
       ended_at: evidence.session.ended_at,
     },
     pending_reading: (() => {
-      const pending = evidence.interventions.find(
+      const pending = controllerInterventions.find(
         (item) => item.type === "reading" && item.delivery_status === "created",
       );
       return pending
@@ -192,9 +197,9 @@ export async function tutorView(access: EvidenceAccess, sessionId: string) {
           }
         : null;
     })(),
-    interventions: toStudentSessionView(evidence).interventions.map((i) => ({
+    interventions: studentView.interventions.map((i) => ({
       ...i,
-      related_attempt_id: evidence.interventions.find(
+      related_attempt_id: controllerInterventions.find(
         (stored) => stored.id === i.id,
       )?.related_attempt_id,
     })),
@@ -222,7 +227,7 @@ export async function tutorView(access: EvidenceAccess, sessionId: string) {
                 ? "Your answer is saved and ready for evaluation."
                 : "Explain your thinking in your own words.",
     },
-    citations: evidence.interventions
+    citations: controllerInterventions
       .filter((i) => i.type !== "fallback" && i.type !== "reading")
       .flatMap((i) =>
         i.source_passage_ids.map((id) => {
