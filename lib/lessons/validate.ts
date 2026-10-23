@@ -104,6 +104,10 @@ export function hydrateLessonContent(input: unknown): ApprovedContent {
     if (m.concept_id !== null)
       requireRule(concepts.has(m.concept_id), "Unknown misconception concept");
   for (const question of data.questions) {
+    requireRule(
+      question.controller_node_id === undefined,
+      "Published questions cannot contain runtime controller bindings",
+    );
     try {
       validateQuestionSnapshot(content, question);
     } catch (error) {

@@ -528,6 +528,15 @@
   flex: 1;
   min-height: 220px;
 }
+/* Help is taller than the answer form; keep the question readable above it. */
+.lp-s-assignment-detail
+  .lp-study-embedded
+  .lp-conversation-card:has(.lp-dialogue) {
+  flex: 1 0 auto;
+}
+.lp-s-assignment-detail .lp-study-embedded:has(.lp-dialogue) .lp-turns {
+  min-height: 180px;
+}
 /* Short screens may scroll the page so the answer field remains usable. */
 .lp-s-assignment-detail .lp-study-embedded:has(.lp-composer) {
   min-height: 480px;

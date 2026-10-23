@@ -1,0 +1,62 @@
+{
+  "status": "passed",
+  "scope": "Read-only SQL comparison after operator-managed application/database restart; this helper does not perform or independently attest the restart",
+  "checked_at": "2026-10-23T12:26:06.802Z",
+  "session_id": "21b2831d-e2aa-4cce-ac76-bd498a6a7fb4",
+  "assignment_id": "7f11450b-53dd-46a4-bad3-634356bae03d",
+  "compared_with": "moonlight-v2-http-audit.json",
+  "session_source_and_evidence_unchanged": true,
+  "snapshot_hashes": {
+    "session": {
+      "count": 1,
+      "sha256": "ade9d37d60036140f1f17c52915d441df25e6463de1d88a2d4a3755e2dcf02d1"
+    },
+    "attempts": {
+      "count": 2,
+      "sha256": "5f6873527f0ee5d416226c2f6f9ef1ee7c17acbb76d289bcfa67cc6eb66df961"
+    },
+    "evaluations": {
+      "count": 4,
+      "sha256": "3c1c2797d76dcfa0d0a5ed4d62d1091d383d417b2f9703f5099c76ed7d4be446"
+    },
+    "interventions": {
+      "count": 1,
+      "sha256": "1b6943507ff1dff6d20f4317c3cac8ae3d16e7d04461e1eb57c52fda505cedb5"
+    },
+    "dialogue_sessions": {
+      "count": 1,
+      "sha256": "a700b6118dec5ff0b28ef9f010240404265ae1f077e8bc5d1466203defe42f3f"
+    },
+    "operations": {
+      "count": 8,
+      "sha256": "ef3a6f9b0b0ffaab821c0c2cd16d3609ec2b6cb9fe9859762f3c5d0579bd36e0"
+    },
+    "events": {
+      "count": 74,
+      "sha256": "7661c8fc815aeb1daa005ed81645fa61a4ff6ec5db34f3e1f46445abd7098488"
+    },
+    "provider_calls": {
+      "count": 12,
+      "sha256": "ee8b5898d6de7efaaac71c25fdd416dac87d0ca2466eb608ef3fc334cf2ed294"
+    },
+    "assignment": {
+      "count": 1,
+      "sha256": "828086ff13420dd39451ea3bc5c8f4711951dead62a46c1235fd122edb31340d"
+    },
+    "published_lesson": {
+      "count": 1,
+      "sha256": "bff5e70fc93d2599ce63dc51ecdff22fab65b0d4e555b196cb542388b66a3a3a"
+    },
+    "source_version": {
+      "count": 1,
+      "sha256": "8a0dcaaa86c18a9c877ff42e851f7e9da1df51681f7cd04899c06a87452c4636"
+    }
+  },
+  "v1_baseline_unchanged": true,
+  "http_requests": 0,
+  "logins": 0,
+  "model_calls_dispatched_by_audit": 0,
+  "display_acknowledgements_dispatched": 0,
+  "database_writes": 0,
+  "restart_performed_by_helper": false
+}
