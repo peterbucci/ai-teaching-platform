@@ -6,6 +6,7 @@ import {
   ConceptGraphSchema,
   PacketExperimentSchema,
   SequenceDiagramSchema,
+  TeacherActivityKeySchema,
 } from "../lib/visual/contracts.ts";
 import {
   invalidActivityEvents,
@@ -17,6 +18,7 @@ import {
   validConceptGraph,
   validPacketExperiment,
   validSequenceDiagram,
+  validTeacherActivityKey,
 } from "../lib/visual/examples.ts";
 import { toStudentActivityEvents } from "../lib/visual/rules.ts";
 
@@ -201,6 +203,40 @@ test("a prediction on one activity does not reveal another activity's result", (
   const visible = toStudentActivityEvents(mixed);
   assert.equal(
     visible.some((event) => event.type === "experiment_result"),
+    false,
+  );
+});
+
+test("accepts a teacher-only activity key", () => {
+  assert.equal(
+    TeacherActivityKeySchema.safeParse(validTeacherActivityKey).success,
+    true,
+  );
+});
+
+test("rejects a teacher-only activity key with an empty rubric", () => {
+  assert.equal(
+    TeacherActivityKeySchema.safeParse({
+      ...validTeacherActivityKey,
+      rubric: [],
+    }).success,
+    false,
+  );
+});
+
+test("student activity schemas reject teacher answer-key fields", () => {
+  assert.equal(
+    PacketExperimentSchema.safeParse({
+      ...validPacketExperiment,
+      expected_answer: validTeacherActivityKey.expected_answer,
+    }).success,
+    false,
+  );
+  assert.equal(
+    ConceptGraphSchema.safeParse({
+      ...validConceptGraph,
+      rubric: validTeacherActivityKey.rubric,
+    }).success,
     false,
   );
 });

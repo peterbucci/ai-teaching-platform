@@ -179,6 +179,13 @@ export const invalidActivityEvents = {
   ],
 };
 
+export const validTeacherActivityKey = {
+  version: VISUAL_VERSION,
+  activity_id: "8f1c2a10-0000-4000-8000-0000000000aa",
+  expected_answer: "Higher delay makes packets arrive later.",
+  rubric: ["Names the delay as the cause.", "Predicts a later arrival."],
+};
+
 export const invalidConceptGraphs = {
   tooManyNodes: {
     ...validConceptGraph,
