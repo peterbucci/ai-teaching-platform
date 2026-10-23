@@ -4,10 +4,9 @@ import { z } from "zod";
 import type { PoolClient } from "pg";
 import { evidenceRow } from "../db.ts";
 import { ContentRefSchema } from "../evidence/contracts.ts";
-import {
-  loadApprovedContent,
-  validateContentRef,
-} from "../evidence/content.ts";
+import { validateContentRef } from "../evidence/content.ts";
+import type { ApprovedContent } from "../evidence/content.ts";
+import { resolveAssignmentContent } from "../lessons/store.ts";
 import {
   EvidenceError,
   transaction,
@@ -43,8 +42,10 @@ async function ownedAssignment(
   return AssignmentSchema.parse(evidenceRow(result.rows[0]));
 }
 
-function review(assignment: z.infer<typeof AssignmentSchema>) {
-  const content = loadApprovedContent();
+function review(
+  assignment: z.infer<typeof AssignmentSchema>,
+  content: ApprovedContent,
+) {
   try {
     validateContentRef(content, assignment.content_ref);
   } catch {
@@ -85,9 +86,16 @@ function review(assignment: z.infer<typeof AssignmentSchema>) {
 }
 
 export async function assignmentReview(access: EvidenceAccess, id: string) {
-  return transaction(async (client) =>
-    review(await ownedAssignment(client, access, id)),
-  );
+  return transaction(async (client) => {
+    const assignment = await ownedAssignment(client, access, id);
+    const content = await resolveAssignmentContent(
+      client,
+      access,
+      id,
+      "teacher",
+    );
+    return review(assignment, content);
+  });
 }
 
 export async function approveAssignment(
@@ -99,7 +107,14 @@ export async function approveAssignment(
     .regex(/^[a-f0-9]{64}$/)
     .parse(token);
   return transaction(async (client) => {
-    const current = review(await ownedAssignment(client, access, id));
+    const assignment = await ownedAssignment(client, access, id);
+    const content = await resolveAssignmentContent(
+      client,
+      access,
+      id,
+      "teacher",
+    );
+    const current = review(assignment, content);
     if (token !== current.review_token)
       throw new EvidenceError(
         409,
@@ -110,6 +125,6 @@ export async function approveAssignment(
         "UPDATE assignments SET teacher_approved_by=$2, teacher_approved_at=clock_timestamp() WHERE id=$1",
         [id, access.actor.profileId],
       );
-    return review(await ownedAssignment(client, access, id));
+    return review(await ownedAssignment(client, access, id), content);
   });
 }

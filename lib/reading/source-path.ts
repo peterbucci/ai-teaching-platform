@@ -15,6 +15,7 @@ export function sourcePath(section: string, reference: ContentRef) {
   const selected = heading(section);
   // Never borrow chapter or section metadata from another source/version.
   if (
+    !("source_commit" in reference) ||
     reference.source_id !== "peterson_davie_1_5_1" ||
     reference.source_commit !== "5deec5e741e2b8c0bc44566108a24cb783c2c7de"
   )

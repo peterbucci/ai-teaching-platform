@@ -712,10 +712,12 @@ export function StudentReader({
                   <span className="passage-location">
                     Passage {selectedIndex + 1} of {reading.sections.length}
                   </span>
-                  <a href={selected.url} target="_blank" rel="noreferrer">
-                    <ExternalLink />
-                    View original source
-                  </a>
+                  {selected.url && (
+                    <a href={selected.url} target="_blank" rel="noreferrer">
+                      <ExternalLink />
+                      View original source
+                    </a>
+                  )}
                 </div>
               </div>
             )}
@@ -728,9 +730,13 @@ export function StudentReader({
               <div className="read-source">
                 <span>{source.authors.join(" & ")}</span>
                 <span aria-hidden="true">·</span>
-                <a href={source.license_url} target="_blank" rel="noreferrer">
-                  {source.license}
-                </a>
+                {source.license_url ? (
+                  <a href={source.license_url} target="_blank" rel="noreferrer">
+                    {source.license}
+                  </a>
+                ) : (
+                  <span>{source.license}</span>
+                )}
               </div>
             )}
           </article>
@@ -782,14 +788,18 @@ export function StudentReader({
       <details className="reader-provenance">
         <summary>Source version and reading notes</summary>
         <p>
-          {source.section}. Copyright {source.copyright}. This prepared text
-          preserves the source wording and separately labeled project notes;
-          referenced figures are available in the original source.
+          {source.section}. Copyright {source.copyright}.{" "}
+          {"source_commit" in reading.content_ref
+            ? "This prepared text preserves the source wording and separately labeled project notes; referenced figures are available in the original source."
+            : "This reading uses the reviewed text from your teacher’s approved source version."}
         </p>
         <p>
           Content version: {reading.content_ref.content_version}
           <br />
-          Source revision: {reading.content_ref.source_commit}
+          Source revision:{" "}
+          {"source_commit" in reading.content_ref
+            ? reading.content_ref.source_commit
+            : reading.content_ref.source_version}
         </p>
         {source.cautions.map((note) => (
           <p key={note}>{note}</p>

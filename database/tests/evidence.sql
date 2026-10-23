@@ -37,12 +37,13 @@ insert into public.enrollments values
 insert into public.assignments(id, class_id, title, content_ref, approved_concept_ids,
   approved_passage_ids, approved_misconception_ids, approval)
 select assignment_id::uuid, class_id::uuid, 'SQL integrity fixture',
-  jsonb_build_object('package_id', 'sql-fixture', 'content_version', '1', 'source_id', 'fixture',
-    'source_commit', repeat('a', 40), 'excerpt_sha256', repeat('b', 64)),
-  array['transmission_delay'], array['P07'], array['transmission_depends_on_distance', 'other_or_uncertain'],
+  published.content_ref,
+  published.approved_concept_ids, published.approved_passage_ids, published.approved_misconception_ids,
   '{"status":"approved","approved_by":"SQL fixture","approved_at":"2026-10-15T00:00:00Z"}'::jsonb
 from (values ('00000000-0000-4000-8000-000000000401', '00000000-0000-4000-8000-000000000301'),
-  ('00000000-0000-4000-8000-000000000402', '00000000-0000-4000-8000-000000000302')) v(assignment_id, class_id);
+  ('00000000-0000-4000-8000-000000000402', '00000000-0000-4000-8000-000000000302')) v(assignment_id, class_id)
+cross join public.lesson_versions published
+where published.lesson_id = 'network-performance-v1';
 insert into public.sessions(id, student_id, assignment_id, class_id, data_origin, started_at) values
   ('00000000-0000-4000-8000-000000000501', '00000000-0000-4000-8000-000000000201',
    '00000000-0000-4000-8000-000000000401', '00000000-0000-4000-8000-000000000301', 'synthetic_fixture', clock_timestamp() - interval '10 minutes'),
@@ -148,7 +149,9 @@ select public.issue3_expect_failure($command$
     jsonb_set(question, '{source_passage_ids}', '["NOT-ASSIGNED"]'), 'initial_retrieval'
   from public.attempts where id='00000000-0000-4000-8000-000000000601'
 $command$, 'P0001', 'approved content references');
-select public.issue3_expect_failure('update public.assignments set content_ref=''{}''', 'P0001', 'immutable');
+select public.issue3_expect_failure('update public.assignments set content_ref=''{}''', 'P0001', 'exact authorized published lesson version');
+-- A scope-valid assignment edit still proves history immutability independently.
+select public.issue3_expect_failure('update public.assignments set title=title || '' changed''', 'P0001', 'immutable');
 
 insert into public.interventions(id, session_id, related_attempt_id, related_evaluation_id, type,
   text_shown, concept_ids, source_passage_ids, content_ref)
