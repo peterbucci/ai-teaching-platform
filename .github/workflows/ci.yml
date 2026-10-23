@@ -74,6 +74,8 @@ jobs:
           docker compose up --wait --wait-timeout 180 --no-build --no-recreate
           docker compose exec -T app npm run db:seed
           docker compose exec -T app npm run db:check -- --verify-restart
+      - name: Check uploaded-lesson uncertainty and authorized teacher pages
+        run: docker compose exec -T app npm run lessons:uncertainty:check
       - name: Show service status on failure
         if: failure()
         run: docker compose ps --all
