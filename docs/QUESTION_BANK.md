@@ -2,7 +2,7 @@
 
 This feature generates and reviews initial lesson questions. It consumes #50's
 approved objectives in #53's owned, revisioned draft. It does not publish lessons,
-activate assignments, or add a runtime tutor. The draft PR is stacked on #50;
+activate assignments, or add a runtime tutor. It integrates with #50 on main;
 #52 owns the final publication screen and runtime sequence assembly.
 
 ## Teacher workflow
@@ -21,6 +21,9 @@ reordering, format/difficulty changes, one-question or selected-group regenerati
 source inspection, private criteria, partial answers and review notes. Regeneration
 replaces only selected IDs. Per-question format/difficulty override global defaults.
 Teachers must resolve flags, check each item and explicitly approve the saved bank.
+Teachers can explicitly enable hints/explanations and runtime generation through
+the existing reviewed policy. Changing either permission invalidates bank approval;
+existing fallback actions and other permissions are preserved.
 Feedback guidance is private during assessment, but is a student-facing corrective
 explanation for delivery after an answer. Student preview uses an explicit
 projection excluding answers, criteria, review notes and reasoning hypotheses.
@@ -200,3 +203,22 @@ Independent review found and rechecked fixes for hidden calculation metadata aft
 format changes, recovery of temporarily empty feedback, private-guidance flag
 corrections and generic metadata omission. #52's separate PR owns final integrated
 publication and activation, including the combined SQL metadata projection.
+
+### Main-branch reconciliation (October 23, 2026)
+
+A normal merge incorporates main `d9887f3`, including the squash-merged registry,
+material importer and objective workflow. No applied migration was changed.
+The question editor now exposes explicit hints/explanations permission through
+its existing policy save/review path. A regression test verifies that changing
+permission invalidates approval and survives recovery without changing fallback
+permissions or enabling runtime generation implicitly.
+
+The reconciled tree passed 214 deterministic tests, 293 content checks, lint,
+TypeScript, formatting, a Docker production build, PostgreSQL SQL constraints,
+question/objective/lesson checks, and authenticated assignment, reading, class,
+tutor, metrics and pattern checks. Database/application restart preserved evidence
+and authenticated sessions; repeat migration/seed preserved counts. Uploaded-lesson
+uncertainty and material extraction/review checks also passed. These integration
+checks used injected provider responses only, with zero new paid model calls.
+The ten recorded historical actual-model calls above remain the quality evidence.
+Publication and assignment activation still enter main through #102.

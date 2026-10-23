@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { LessonDraftContent } from "../../../../../lib/lessons/contracts.ts";
 import {
   ActionSchema,
   QuestionSnapshotSchema,
@@ -21,6 +22,19 @@ export function questionFormatChange(
     format,
     calculation: format === "calculation" ? item.calculation : null,
   };
+}
+
+/** Preserve the existing reviewed action policy when changing help permission. */
+export function withHintPermission(
+  policy: NonNullable<LessonDraftContent["activity_policy"]>,
+  enabled: boolean,
+): NonNullable<LessonDraftContent["activity_policy"]> {
+  const allowed_actions = enabled
+    ? policy.allowed_actions.includes("GIVE_HINT")
+      ? policy.allowed_actions
+      : [...policy.allowed_actions, "GIVE_HINT" as const]
+    : policy.allowed_actions.filter((action) => action !== "GIVE_HINT");
+  return { ...policy, allowed_actions };
 }
 
 // Recovery preserves unfinished editable text, including temporarily empty

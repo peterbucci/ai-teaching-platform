@@ -50,7 +50,7 @@ export function Patterns({
       <div className="lp-pattern-list">
         {groups.map((group) => (
           <details
-            key={`${group.concept_id}:${group.misconception_id}`}
+            key={JSON.stringify([group.concept_id, group.misconception_id])}
             className="lp-pattern-detail"
           >
             <summary>
@@ -60,7 +60,8 @@ export function Patterns({
                     group.concept_id}
                 </span>
                 <span className="lp-pattern-title">
-                  {group.misconception_id === "other_or_uncertain"
+                  {group.misconception_id === null ||
+                  group.misconception_id === "other_or_uncertain"
                     ? "Unclear or uncategorized reasoning"
                     : (content.misconceptions.get(group.misconception_id)
                         ?.definition ?? group.misconception_id)}

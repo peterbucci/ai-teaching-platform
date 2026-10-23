@@ -174,13 +174,16 @@ export function decideTutoring(
       !judgments.some((judgment) => judgment.concept_id === conceptId)
     )
       return;
+    // The reserved category records unclassified evidence, never a specific belief.
+    const nextStatus =
+      hypothesisId === "other_or_uncertain" ? "uncertain" : status;
     hypothesisEvents.push({
       id: randomUUID(),
       hypothesis_instance_id: previous?.hypothesis_instance_id ?? randomUUID(),
       concept_id: conceptId,
       misconception_id: hypothesisId,
       previous_status: previous?.status ?? null,
-      status,
+      status: nextStatus,
       evidence_evaluation_ids: [
         ...new Set([
           ...(previous?.evidence_evaluation_ids ?? []),
@@ -190,7 +193,7 @@ export function decideTutoring(
       contradicting_evaluation_ids: [
         ...new Set([
           ...(previous?.contradicting_evaluation_ids ?? []),
-          ...(status === "not_supported" ? [evaluation.id] : []),
+          ...(nextStatus === "not_supported" ? [evaluation.id] : []),
         ]),
       ],
       supporting_response_quotes: [
@@ -198,13 +201,15 @@ export function decideTutoring(
         ...(candidate?.evidence_quotes ?? []),
       ],
       reason:
-        status === "supported"
-          ? "A distinct diagnostic response repeats the target explanation; this is evidence consistent with a possible misconception, not proof of a belief."
-          : status === "not_supported"
-            ? "The diagnostic explanation contradicts the earlier hypothesis before teaching."
-            : status === "uncertain"
-              ? "The follow-up does not clearly support or contradict the earlier explanation."
-              : "Explicit response evidence suggests the lesson's target hypothesis; persistence has not been established.",
+        hypothesisId === "other_or_uncertain"
+          ? "This response remains unclassified; it does not establish a specific misconception."
+          : nextStatus === "supported"
+            ? "A distinct diagnostic response repeats the target explanation; this is evidence consistent with a possible misconception, not proof of a belief."
+            : nextStatus === "not_supported"
+              ? "The diagnostic explanation contradicts the earlier hypothesis before teaching."
+              : nextStatus === "uncertain"
+                ? "The follow-up does not clearly support or contradict the earlier explanation."
+                : "Explicit response evidence suggests the lesson's target hypothesis; persistence has not been established.",
       created_at: now,
     });
   }
@@ -301,7 +306,7 @@ export function decideTutoring(
     );
     const outcome: Outcome = paired.every((j) => j.correctness === "correct")
       ? "correct_after_feedback"
-      : candidate &&
+      : candidate?.misconception_id === "transmission_depends_on_distance" &&
           content.content_ref.package_id === "network-performance-v1" &&
           "source_commit" in content.content_ref
         ? "distance_error_observed_after_feedback"

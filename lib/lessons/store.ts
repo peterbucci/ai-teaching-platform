@@ -337,18 +337,18 @@ export async function approveLessonDraft(
       expectedRevision,
     );
     if (lesson.approved_revision === expectedRevision) return lesson;
-    if (lesson.draft) {
-      try {
-        assertObjectiveReviewForLesson(lesson.draft);
-      } catch (error) {
-        if (error instanceof ObjectiveReviewError)
-          throw new EvidenceError(409, error.message);
-        throw error;
-      }
-      if (lesson.draft.question_bank) getReviewedQuestionBank(lesson.draft);
+    if (!lesson.draft)
+      throw new EvidenceError(409, "The lesson draft is empty.");
+    try {
+      assertObjectiveReviewForLesson(lesson.draft);
+    } catch (error) {
+      if (error instanceof ObjectiveReviewError)
+        throw new EvidenceError(409, error.message);
+      throw error;
     }
+    if (lesson.draft.question_bank) getReviewedQuestionBank(lesson.draft);
     const content = LessonContentSchema.parse({
-      ...projectLessonDraftContent(lesson.draft ?? {}),
+      ...projectLessonDraftContent(lesson.draft),
       approval: {
         status: "approved",
         approved_by: access.actor.profileId,
@@ -394,18 +394,18 @@ export async function publishLessonVersion(
         409,
         "Approve the current draft before publishing.",
       );
-    if (lesson.draft) {
-      try {
-        assertObjectiveReviewForLesson(lesson.draft);
-      } catch (error) {
-        if (error instanceof ObjectiveReviewError)
-          throw new EvidenceError(409, error.message);
-        throw error;
-      }
-      if (lesson.draft.question_bank) getReviewedQuestionBank(lesson.draft);
+    if (!lesson.draft)
+      throw new EvidenceError(409, "The lesson draft is empty.");
+    try {
+      assertObjectiveReviewForLesson(lesson.draft);
+    } catch (error) {
+      if (error instanceof ObjectiveReviewError)
+        throw new EvidenceError(409, error.message);
+      throw error;
     }
+    if (lesson.draft.question_bank) getReviewedQuestionBank(lesson.draft);
     const content = LessonContentSchema.parse(
-      projectLessonDraftContent(lesson.draft ?? {}),
+      projectLessonDraftContent(lesson.draft),
     );
     const approved = await validateOwnedContent(
       client,
