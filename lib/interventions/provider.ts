@@ -1,6 +1,7 @@
 import "server-only";
 import OpenAI from "openai";
 import { zodTextFormat } from "openai/helpers/zod";
+import { omitUnsupportedUriFormat } from "../structured-output.ts";
 import { ModelInterventionSchema } from "./contracts.ts";
 
 export type InterventionUsage = {
@@ -84,6 +85,11 @@ export async function requestIntervention(input: {
   if (!apiKey || !model) return fail("configuration");
 
   try {
+    const format = zodTextFormat(
+      ModelInterventionSchema,
+      "learning_intervention",
+    );
+    omitUnsupportedUriFormat(format.schema);
     const client = new OpenAI({
       apiKey,
       baseURL: "https://api.openai.com/v1",
@@ -96,9 +102,7 @@ export async function requestIntervention(input: {
       model,
       instructions: input.instructions,
       input: input.input,
-      text: {
-        format: zodTextFormat(ModelInterventionSchema, "learning_intervention"),
-      },
+      text: { format },
       reasoning: { effort: "low" },
       max_output_tokens: 5000,
       store: false,
