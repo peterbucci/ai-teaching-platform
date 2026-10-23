@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHmac } from "node:crypto";
 import test from "node:test";
 import { z } from "zod";
 import {
@@ -129,6 +130,37 @@ test("modified extraction, forged signatures, and malformed receipts are rejecte
       ),
     MaterialReviewError,
   );
+});
+
+test("authentic previews from an older extraction policy cannot be saved or renewed", () => {
+  for (const policy of [undefined, "material-extraction-v1"]) {
+    const payload = Buffer.from(
+      JSON.stringify({
+        ...(policy ? { extractionPolicy: policy } : {}),
+        actorId,
+        requestId: "1c176c1f-9f80-4f6d-b67b-27c9701d9824",
+        expiresAt: now + 60_000,
+        preview,
+      }),
+    ).toString("base64url");
+    const token = `${payload}.${createHmac("sha256", secret).update(payload).digest("base64url")}`;
+    assert.throws(
+      () =>
+        verifyPreviewReceipt(token, actorId, preview.contentHash, secret, now),
+      /outdated or invalid extraction check/,
+    );
+    assert.throws(
+      () =>
+        renewPreviewReceipt(
+          token,
+          actorId,
+          preview.contentHash,
+          secret,
+          now + 100_000,
+        ),
+      /outdated or invalid extraction check/,
+    );
+  }
 });
 
 test("renewal keeps an expired preview and retry identity while checking its actor, bytes, and signature", () => {

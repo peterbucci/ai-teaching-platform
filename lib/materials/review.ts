@@ -11,6 +11,8 @@ export class MaterialReviewError extends Error {
 }
 
 const ReceiptSchema = z.strictObject({
+  // Reject previews signed before strict PDF stream validation, including renewal.
+  extractionPolicy: z.literal("material-extraction-v2"),
   actorId: z.uuid(),
   requestId: z.uuid(),
   expiresAt: z.number().int(),
@@ -53,6 +55,7 @@ export function createPreviewReceipt(
   requestId: string = randomUUID(),
 ) {
   const receipt = ReceiptSchema.parse({
+    extractionPolicy: "material-extraction-v2",
     actorId,
     requestId,
     expiresAt: now + 2 * 60 * 60 * 1000,
@@ -89,9 +92,14 @@ export function verifyPreviewReceipt(
       "The extraction receipt is invalid. Preview the source again.",
     );
   }
-  const receipt = ReceiptSchema.parse(
+  const parsed = ReceiptSchema.safeParse(
     JSON.parse(Buffer.from(payload, "base64url").toString("utf8")),
   );
+  if (!parsed.success)
+    throw new MaterialReviewError(
+      "This preview uses an outdated or invalid extraction check. Preview the original source again before saving.",
+    );
+  const receipt = parsed.data;
   if (
     receipt.actorId !== actorId ||
     receipt.preview.contentHash !== contentHash

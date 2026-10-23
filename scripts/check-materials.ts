@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { createHash, randomUUID } from "node:crypto";
+import { createHash, createHmac, randomUUID } from "node:crypto";
 import { z } from "zod";
 import { getPool } from "../lib/db.ts";
 import { DEMO_IDS } from "../lib/evidence/demo.ts";
@@ -9,9 +9,19 @@ import {
   MAX_MATERIAL_BYTES,
 } from "../lib/materials/contracts.ts";
 import { syntheticPdf } from "../tests/fixtures/materials/synthetic-pdf.ts";
+import {
+  contentStreamPdf,
+  CONTENT_STREAM_PARAGRAPHS,
+  INVALID_CONTENT_STREAM_PDF_VARIANTS,
+} from "../tests/fixtures/materials/content-stream-pdf.ts";
 
 const base = process.env.AUTH_URL;
 if (!base) throw new Error("Configure AUTH_URL for the running application.");
+const receiptSecret = process.env.AUTH_SECRET;
+if (!receiptSecret)
+  throw new Error(
+    "Configure AUTH_SECRET for signed-receipt compatibility verification.",
+  );
 const origin = new URL(base).origin;
 const runId = randomUUID();
 const fixtureTitle = `Synthetic material verification ${runId}`;
@@ -203,6 +213,35 @@ async function list(cookie: string) {
     .map(sourceProjection);
 }
 
+async function sourceRowCounts() {
+  const result = await getPool().query(
+    `SELECT (SELECT count(*) FROM source_documents WHERE owner_id=$1) AS documents,
+      (SELECT count(*) FROM source_versions v JOIN source_documents d ON d.id=v.document_id WHERE d.owner_id=$1) AS versions`,
+    [DEMO_IDS.teacher],
+  );
+  return z
+    .object({ documents: z.coerce.number(), versions: z.coerce.number() })
+    .parse(result.rows[0]);
+}
+
+async function rejectedWithoutPreview(response: Response, label: string) {
+  await expectStatus(response, 400, label);
+  const failure = z
+    .strictObject({ error: z.string().min(1) })
+    .parse(await response.json());
+  assert.equal(
+    Object.hasOwn(failure, "preview"),
+    false,
+    `${label}: no partial preview`,
+  );
+  assert.equal(
+    Object.hasOwn(failure, "receipt"),
+    false,
+    `${label}: no approval receipt`,
+  );
+  return failure;
+}
+
 try {
   const teacher = await login("DEMO_TEACHER");
   const student = await login("DEMO_STUDENT_ONE");
@@ -241,6 +280,14 @@ try {
   }
 
   const preview = await previewFor(source, teacher);
+  const [signedPayload, signature] = preview.receipt.split(".");
+  assert.ok(
+    signature ===
+      createHmac("sha256", receiptSecret)
+        .update(signedPayload)
+        .digest("base64url"),
+    "the application and this compatibility check use the same signing key",
+  );
   assert.ok(
     preview.preview.passages.length >= 2,
     "ordered passage review fixture",
@@ -519,6 +566,161 @@ try {
     "uploaded PDF bytes remain byte-for-byte unchanged in private storage",
   );
 
+  const multiStreamPdf: Source = {
+    bytes: contentStreamPdf("valid"),
+    filename: "synthetic-two-content-streams.pdf",
+    type: "application/pdf",
+  };
+  const multiStreamPreview = await previewFor(multiStreamPdf, teacher);
+  const multiStreamText = multiStreamPreview.preview.passages
+    .map((passage) => passage.text)
+    .join("\n")
+    .replace(/\s+/g, " ");
+  const firstStreamOffset = multiStreamText.indexOf(
+    CONTENT_STREAM_PARAGRAPHS[0],
+  );
+  const secondStreamOffset = multiStreamText.indexOf(
+    CONTENT_STREAM_PARAGRAPHS[1],
+  );
+  assert.ok(
+    firstStreamOffset >= 0 && secondStreamOffset > firstStreamOffset,
+    "a valid two-stream PDF retains both streams in order",
+  );
+  const multiStreamSaved = await save(
+    multiStreamPdf,
+    multiStreamPreview,
+    reviewFor(multiStreamPreview, `${fixtureTitle} multi-stream PDF`),
+    teacher,
+  );
+  const multiStreamReloaded = await read(multiStreamSaved, teacher);
+  assert.deepEqual(
+    multiStreamReloaded.extraction,
+    multiStreamPreview.preview.passages,
+    "both original PDF streams survive storage and reload",
+  );
+  assert.deepEqual(
+    multiStreamReloaded.passages,
+    multiStreamPreview.preview.passages,
+    "both approved PDF streams survive storage and reload",
+  );
+  assert.equal(
+    multiStreamReloaded.document_sha256,
+    createHash("sha256").update(multiStreamPdf.bytes).digest("hex"),
+  );
+
+  for (const variant of INVALID_CONTENT_STREAM_PDF_VARIANTS) {
+    const damaged: Source = {
+      bytes: contentStreamPdf(variant),
+      filename: `synthetic-damaged-${variant}.pdf`,
+      type: "application/pdf",
+    };
+    const before = await sourceRowCounts();
+    const failure = await rejectedWithoutPreview(
+      await request(
+        "/api/teacher/materials/preview",
+        teacher,
+        formFor(damaged),
+      ),
+      `${variant}: reject damaged later PDF stream`,
+    );
+    assert.match(
+      failure.error,
+      /damaged|could not be.*read|unreadable/i,
+      `${variant}: unreadable PDF explanation`,
+    );
+    assert.deepEqual(
+      await sourceRowCounts(),
+      before,
+      `${variant}: failed extraction persists no source`,
+    );
+    await rejectedWithoutPreview(
+      await request(
+        "/api/teacher/materials",
+        teacher,
+        saveForm(damaged, multiStreamPreview, reviewFor(multiStreamPreview)),
+      ),
+      `${variant}: another PDF's valid receipt cannot approve damaged bytes`,
+    );
+    assert.deepEqual(
+      await sourceRowCounts(),
+      before,
+      `${variant}: mismatched approval persists no source`,
+    );
+    await rejectedWithoutPreview(
+      await request(
+        "/api/teacher/materials",
+        teacher,
+        saveForm(
+          damaged,
+          {
+            ...multiStreamPreview,
+            receipt: `${multiStreamPreview.receipt}.tampered`,
+          },
+          reviewFor(multiStreamPreview),
+        ),
+      ),
+      `${variant}: forged receipt cannot approve a partial extraction`,
+    );
+    assert.deepEqual(
+      await sourceRowCounts(),
+      before,
+      `${variant}: forged approval persists no source`,
+    );
+
+    // Reproduce a genuinely signed pre-fix receipt, including the damaged file's
+    // correct hash and only its readable first stream. Do not call the current
+    // receipt creator: it would add the new parser-validation policy version.
+    const legacyPreview = MaterialExtractionPreviewSchema.parse({
+      ...multiStreamPreview.preview,
+      originalFilename: damaged.filename,
+      contentHash: createHash("sha256").update(damaged.bytes).digest("hex"),
+      characterCount: CONTENT_STREAM_PARAGRAPHS[0].length,
+      passages: [
+        {
+          passage_id: "p001",
+          text: CONTENT_STREAM_PARAGRAPHS[0],
+          page_number: 1,
+        },
+      ],
+    });
+    const legacyPayload = Buffer.from(
+      JSON.stringify({
+        actorId: DEMO_IDS.teacher,
+        requestId: randomUUID(),
+        expiresAt: Date.now() + 2 * 60 * 60 * 1000,
+        preview: legacyPreview,
+      }),
+    ).toString("base64url");
+    const legacy: Preview = {
+      preview: legacyPreview,
+      receipt: `${legacyPayload}.${createHmac("sha256", receiptSecret).update(legacyPayload).digest("base64url")}`,
+    };
+    await rejectedWithoutPreview(
+      await request(
+        "/api/teacher/materials",
+        teacher,
+        saveForm(damaged, legacy, reviewFor(legacy)),
+      ),
+      `${variant}: authentic old partial preview cannot be approved`,
+    );
+    assert.deepEqual(
+      await sourceRowCounts(),
+      before,
+      `${variant}: legacy approval persists no source`,
+    );
+    const legacyRenewal = formFor(damaged);
+    legacyRenewal.set("receipt", legacy.receipt);
+    await rejectedWithoutPreview(
+      await request("/api/teacher/materials/preview", teacher, legacyRenewal),
+      `${variant}: authentic old partial preview cannot be renewed`,
+    );
+    assert.deepEqual(
+      await sourceRowCounts(),
+      before,
+      `${variant}: legacy renewal persists no source`,
+    );
+  }
+
   const invalidInputs: Array<[string, Source]> = [
     ["empty source", { text: "" }],
     ["whitespace source", { text: " \n\t " }],
@@ -701,7 +903,7 @@ try {
   );
 
   console.log(
-    "PASS: authenticated text/TXT/Markdown/PDF extraction; corrected/excluded passages; private SQL bytes; saved reload/list; immutable versions; idempotent save; stale/replayed/forged request rejection; teacher isolation; unsupported, malformed and over-limit inputs; same-origin enforcement. No model calls or browser automation performed.",
+    "PASS: authenticated text/TXT/Markdown/PDF extraction; complete two-stream PDF storage; damaged later streams rejected without preview, approval receipt, or persisted source; corrected/excluded passages; private SQL bytes; saved reload/list; immutable versions; idempotent save; stale/replayed/forged request rejection; teacher isolation; unsupported, malformed and over-limit inputs; same-origin enforcement. No model calls or browser automation performed.",
   );
 } finally {
   const db = getPool();
