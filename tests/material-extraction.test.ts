@@ -14,6 +14,11 @@ import {
   contentStreamPdf,
   INVALID_CONTENT_STREAM_PDF_VARIANTS,
 } from "./fixtures/materials/content-stream-pdf.ts";
+import {
+  INVALID_PAGE_TREE_PDF_VARIANTS,
+  PAGE_TREE_PARAGRAPHS,
+  pageTreePdf,
+} from "./fixtures/materials/page-tree-pdf.ts";
 
 function file(text: string, filename = "notes.txt", mediaType = "text/plain") {
   return {
@@ -215,6 +220,53 @@ test("real PDF parser extracts ordered text pages with references and original-b
   );
   assert.match(result.warnings[0], /Images and diagrams were not imported/);
 });
+
+for (const variant of [
+  "valid_flat",
+  "valid_nested",
+  "valid_empty_branch",
+] as const) {
+  test(`a ${variant} PDF page tree preserves every page in order with its references`, async () => {
+    const bytes = pageTreePdf(variant);
+    const result = await extractMaterial({
+      kind: "file",
+      bytes,
+      filename: `fictional-page-tree-${variant}.pdf`,
+      mediaType: "application/pdf",
+    });
+    assert.deepEqual(
+      result.passages.map(({ passage_id, page_number, text }) => [
+        passage_id,
+        page_number,
+        text,
+      ]),
+      PAGE_TREE_PARAGRAPHS.map((text, index) => [
+        `p00${index + 1}`,
+        index + 1,
+        text,
+      ]),
+    );
+    assert.equal(
+      result.contentHash,
+      createHash("sha256").update(bytes).digest("hex"),
+    );
+  });
+}
+
+for (const variant of INVALID_PAGE_TREE_PDF_VARIANTS) {
+  test(`PDF ${variant} rejects the entire page tree before returning a partial extraction`, async () => {
+    await assert.rejects(
+      extractMaterial({
+        kind: "file",
+        bytes: pageTreePdf(variant),
+        filename: `fictional-page-tree-${variant}.pdf`,
+        mediaType: "application/pdf",
+      }),
+      hasCode("unreadable_pdf"),
+      "A readable first page must not conceal a malformed or incomplete page tree",
+    );
+  });
+}
 
 for (const variant of ["valid", "valid_ascii85_flate"] as const) {
   test(`a ${variant} page with two content streams preserves both distinct paragraphs in order`, async () => {

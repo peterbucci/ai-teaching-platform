@@ -20,6 +20,9 @@ activate an assignment. It consumes #53's `lib/lessons/sources.ts` and migration
   including supported filter chains and validated TIFF/PNG predictors. Other
   encodings fail closed. Encoded/decoded streams are capped at 8,000,000 bytes
   each, with a 32,000,000-byte cumulative decoded budget per worker.
+- PDF page-tree traversal is bounded to 500 pages, 2,000 nodes and depth 64.
+  The page bound follows the existing 500-passage review limit; node/depth limits
+  bound structural work independently of potentially false declared page counts.
 - No OCR, Word, PowerPoint, PDF rendering, source URL fetch, or model call.
 
 PDF page numbers come from the parser; Markdown section labels come from explicit
@@ -48,8 +51,9 @@ document reads and revision writes to the authenticated owner.
 
 Actual streamed request bytes are capped before multipart decoding. Receipts
 bind the authenticated actor, original-byte hash, extraction/references, expiry,
-save request identity, and extraction-policy version. Receipts from the earlier
-extraction policy cannot be saved or renewed; teachers must preview the original
+save request identity, and extraction-policy version. Current policy v3 includes
+complete page-tree validation. Earlier receipts, including v2 stream-only checks,
+cannot be saved or renewed; teachers must preview the original
 again. Save rehashes the resubmitted original. Passage IDs,
 ordering, and page/section references cannot be replaced by review input. The
 shared store computes authoritative hashes/IDs and preserves immutable versions,
@@ -78,6 +82,13 @@ an additional conservative check, not the primary stream-integrity test. Only
 trusted dependency source and a fixed export shim are loaded as JavaScript;
 uploaded bytes never become executable code.
 
+PDF.js can also trust an understated `/Count` and silently omit later pages without
+a diagnostic. The adapter independently traverses every reachable `/Kids` entry,
+checks page-tree node types, unique references, parents and all subtree counts,
+and compares the validated leaf order and count with the pages actually extracted.
+Missing or duplicated children, cycles and inconsistent counts reject the entire
+source before a preview is signed; no partial page-tree recovery is permitted.
+
 Unused image resources remain undecoded; actually painted images and image-typed
 page content are rejected. The adapter allows only the known bundled standard-font
 substitution diagnostic, while uploaded font inconsistencies still fail. Re-review
@@ -96,9 +107,11 @@ in the production image.
 synthetic PDFs. `npm run materials:check` requires a running configured application
 and fictional demo accounts/database. It verifies actual HTTP extraction, review,
 private bytes, save/reload, access denial, replay, and immutable revision history.
-It also verifies that damaged multi-stream PDFs produce no receipt or persistence,
+It also verifies that damaged multi-stream PDFs and malformed page trees produce
+no receipt or persistence,
 and that authentic receipts from the old extraction policy cannot be saved or
-renewed. Valid two-stream controls must preserve both passages through reload.
+renewed. Valid two-stream and flat/nested page-tree controls must preserve all
+passages and page references through reload.
 It retains clearly labeled synthetic source versions because history is append-only;
 run it only in an isolated fictional test environment. No paid model calls occur.
 

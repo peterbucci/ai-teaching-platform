@@ -14,6 +14,11 @@ import {
   CONTENT_STREAM_PARAGRAPHS,
   INVALID_CONTENT_STREAM_PDF_VARIANTS,
 } from "../tests/fixtures/materials/content-stream-pdf.ts";
+import {
+  INVALID_PAGE_TREE_PDF_VARIANTS,
+  PAGE_TREE_PARAGRAPHS,
+  pageTreePdf,
+} from "../tests/fixtures/materials/page-tree-pdf.ts";
 
 const base = process.env.AUTH_URL;
 if (!base) throw new Error("Configure AUTH_URL for the running application.");
@@ -525,18 +530,19 @@ try {
       );
   }
   const pdf: Source = {
-    bytes: syntheticPdf([
-      "Synthetic PDF reading. A fair comparison changes one condition at a time and records its result.",
-      "Second synthetic PDF page. Students explain their observations using evidence from the classroom trial.",
-    ]),
+    bytes: pageTreePdf("valid_flat"),
     filename: "synthetic-reading.pdf",
     type: "application/pdf",
   };
   const pdfPreview = await previewFor(pdf, teacher);
   assert.equal(pdfPreview.preview.inputKind, "pdf");
   assert.deepEqual(
-    pdfPreview.preview.passages.map((passage) => passage.page_number),
-    [1, 2],
+    pdfPreview.preview.passages.map((passage) => [
+      passage.page_number,
+      passage.text,
+    ]),
+    PAGE_TREE_PARAGRAPHS.map((text, index) => [index + 1, text]),
+    "the flat PDF page tree retains both pages in order",
   );
   const pdfSaved = await save(
     pdf,
@@ -564,6 +570,31 @@ try {
     pdfBytesRow.original_bytes,
     Buffer.from(pdf.bytes),
     "uploaded PDF bytes remain byte-for-byte unchanged in private storage",
+  );
+
+  const nestedPdf: Source = {
+    bytes: pageTreePdf("valid_nested"),
+    filename: "synthetic-nested-page-tree.pdf",
+    type: "application/pdf",
+  };
+  const nestedPreview = await previewFor(nestedPdf, teacher);
+  assert.deepEqual(
+    nestedPreview.preview.passages,
+    pdfPreview.preview.passages,
+    "the nested page tree and inherited page resources preserve every page",
+  );
+  const nestedSaved = await save(
+    nestedPdf,
+    nestedPreview,
+    reviewFor(nestedPreview, `${fixtureTitle} nested PDF`),
+    teacher,
+  );
+  const nestedReloaded = await read(nestedSaved, teacher);
+  assert.deepEqual(nestedReloaded.extraction, nestedPreview.preview.passages);
+  assert.deepEqual(nestedReloaded.passages, nestedPreview.preview.passages);
+  assert.equal(
+    nestedReloaded.document_sha256,
+    createHash("sha256").update(nestedPdf.bytes).digest("hex"),
   );
 
   const multiStreamPdf: Source = {
@@ -608,12 +639,35 @@ try {
     createHash("sha256").update(multiStreamPdf.bytes).digest("hex"),
   );
 
-  for (const variant of INVALID_CONTENT_STREAM_PDF_VARIANTS) {
-    const damaged: Source = {
-      bytes: contentStreamPdf(variant),
-      filename: `synthetic-damaged-${variant}.pdf`,
-      type: "application/pdf",
-    };
+  const invalidPdfs = [
+    ...INVALID_CONTENT_STREAM_PDF_VARIANTS.map((variant) => ({
+      variant,
+      damaged: {
+        bytes: contentStreamPdf(variant),
+        filename: `synthetic-damaged-${variant}.pdf`,
+        type: "application/pdf",
+      },
+      firstParagraph: CONTENT_STREAM_PARAGRAPHS[0],
+      extractionPolicy: undefined,
+    })),
+    ...INVALID_PAGE_TREE_PDF_VARIANTS.map((variant) => ({
+      variant,
+      damaged: {
+        bytes: pageTreePdf(variant),
+        filename: `synthetic-page-tree-${variant}.pdf`,
+        type: "application/pdf",
+      },
+      firstParagraph: PAGE_TREE_PARAGRAPHS[0],
+      // v2 validated content streams but could still trust an understated /Count.
+      extractionPolicy: "material-extraction-v2",
+    })),
+  ];
+  for (const {
+    variant,
+    damaged,
+    firstParagraph,
+    extractionPolicy,
+  } of invalidPdfs) {
     const before = await sourceRowCounts();
     const failure = await rejectedWithoutPreview(
       await request(
@@ -621,7 +675,7 @@ try {
         teacher,
         formFor(damaged),
       ),
-      `${variant}: reject damaged later PDF stream`,
+      `${variant}: reject malformed PDF extraction`,
     );
     assert.match(
       failure.error,
@@ -667,24 +721,25 @@ try {
       `${variant}: forged approval persists no source`,
     );
 
-    // Reproduce a genuinely signed pre-fix receipt, including the damaged file's
-    // correct hash and only its readable first stream. Do not call the current
-    // receipt creator: it would add the new parser-validation policy version.
+    // Reproduce authentic earlier receipts with the exact malformed-file hash
+    // and a partial first stream/page. Versionless receipts predate stream checks;
+    // v2 receipts predate complete page-tree checks. Never use today's creator.
     const legacyPreview = MaterialExtractionPreviewSchema.parse({
       ...multiStreamPreview.preview,
       originalFilename: damaged.filename,
       contentHash: createHash("sha256").update(damaged.bytes).digest("hex"),
-      characterCount: CONTENT_STREAM_PARAGRAPHS[0].length,
+      characterCount: firstParagraph.length,
       passages: [
         {
           passage_id: "p001",
-          text: CONTENT_STREAM_PARAGRAPHS[0],
+          text: firstParagraph,
           page_number: 1,
         },
       ],
     });
     const legacyPayload = Buffer.from(
       JSON.stringify({
+        ...(extractionPolicy ? { extractionPolicy } : {}),
         actorId: DEMO_IDS.teacher,
         requestId: randomUUID(),
         expiresAt: Date.now() + 2 * 60 * 60 * 1000,
@@ -903,7 +958,7 @@ try {
   );
 
   console.log(
-    "PASS: authenticated text/TXT/Markdown/PDF extraction; complete two-stream PDF storage; damaged later streams rejected without preview, approval receipt, or persisted source; corrected/excluded passages; private SQL bytes; saved reload/list; immutable versions; idempotent save; stale/replayed/forged request rejection; teacher isolation; unsupported, malformed and over-limit inputs; same-origin enforcement. No model calls or browser automation performed.",
+    "PASS: authenticated text/TXT/Markdown/PDF extraction; complete flat/nested page trees and two-stream PDF storage; malformed page trees and damaged later streams rejected without preview, approval receipt, or persisted source; obsolete versionless/v2 receipts cannot save or renew partial extraction; corrected/excluded passages; private SQL bytes; saved reload/list; immutable versions; idempotent save; stale/replayed/forged request rejection; teacher isolation; unsupported, malformed and over-limit inputs; same-origin enforcement. No model calls or browser automation performed.",
   );
 } finally {
   const db = getPool();
