@@ -26,10 +26,16 @@ import { AttributionSchema, SourcePassageSchema } from "./source-contracts.ts";
 import { hydrateLessonContent } from "./validate.ts";
 import { getReviewedQuestionBank } from "../question-bank/validation.ts";
 import { assembleReviewedLesson } from "./assemble.ts";
+import {
+  retainObjectiveWorkflow,
+  assertObjectiveReviewForLesson,
+  ObjectiveReviewError,
+} from "../objectives/rules.ts";
 
 /** Shared authoring gate for review, whole-lesson approval and publication. */
 export function validateLessonAuthoringReview(draft: LessonDraftContent) {
   try {
+    assertObjectiveReviewForLesson(draft);
     if (draft.question_bank) getReviewedQuestionBank(draft);
   } catch (error) {
     throw new EvidenceError(
@@ -41,7 +47,7 @@ export function validateLessonAuthoringReview(draft: LessonDraftContent) {
   }
 }
 
-const LessonRowSchema = z.object({
+export const LessonRowSchema = z.object({
   id: z.string(),
   owner_id: z.uuid().nullable(),
   title: z.string(),
@@ -57,7 +63,10 @@ const VersionRowSchema = z.object({
   owner_id: z.uuid().nullable(),
 });
 
-async function teacher(client: PoolClient, access: EvidenceAccess) {
+export async function requireLessonTeacher(
+  client: PoolClient,
+  access: EvidenceAccess,
+) {
   const result = await client.query(
     "SELECT 1 FROM classes WHERE teacher_id=$1 LIMIT 1",
     [access.actor.profileId],
@@ -84,6 +93,8 @@ export async function readLessonDraftInTransaction(
     );
   return lesson;
 }
+/** Shared alias for the objective editor; ownership and revision checks stay identical. */
+export { readLessonDraftInTransaction as ownedLessonDraft };
 export async function validateOwnedContent(
   client: PoolClient,
   owner: string,
@@ -238,8 +249,8 @@ export async function saveLessonDraftInTransaction(
       draft: LessonDraftContentSchema,
     })
     .parse(input);
-  await teacher(client, access);
-  const draft = { ...request.draft };
+  await requireLessonTeacher(client, access);
+  const draft = retainObjectiveWorkflow(null, request.draft);
   delete draft.approval;
   if (!request.lesson_id) {
     if (request.expected_revision !== 0)
@@ -251,18 +262,43 @@ export async function saveLessonDraftInTransaction(
     );
     return LessonRowSchema.parse(evidenceRow(result.rows[0]));
   }
-  await readLessonDraftInTransaction(
+  const previous = await readLessonDraftInTransaction(
     client,
     access,
     request.lesson_id,
     request.expected_revision,
   );
+  let retained: LessonDraftContent;
+  try {
+    retained = retainObjectiveWorkflow(previous.draft, draft);
+  } catch (error) {
+    if (error instanceof ObjectiveReviewError)
+      throw new EvidenceError(409, error.message);
+    throw error;
+  }
+  return writeLessonDraftInTransaction(
+    client,
+    previous.id,
+    request.title,
+    retained,
+  );
+}
+/** Internal authoring primitive. Call only after locking an owned expected revision. */
+export async function writeLessonDraftInTransaction(
+  client: PoolClient,
+  lessonId: string,
+  title: string,
+  draft: LessonDraftContent,
+) {
+  const clean = LessonDraftContentSchema.parse(draft);
+  delete clean.approval;
   const result = await client.query(
     "UPDATE lessons SET title=$2,draft=$3::jsonb,revision=revision+1,approved_revision=NULL WHERE id=$1 RETURNING *",
-    [request.lesson_id, request.title, JSON.stringify(draft)],
+    [lessonId, title, JSON.stringify(clean)],
   );
   return LessonRowSchema.parse(evidenceRow(result.rows[0]));
 }
+
 export async function readLessonDraft(
   access: EvidenceAccess,
   lessonId: string,
@@ -340,6 +376,8 @@ export async function approveLessonDraft(
     );
     validateLessonAuthoringReview(lesson.draft ?? {});
     if (lesson.approved_revision === expectedRevision) return lesson;
+    if (!lesson.draft)
+      throw new EvidenceError(409, "The lesson draft is empty.");
     const content = LessonContentSchema.parse({
       ...projectLessonDraftContent(lesson.draft ?? {}),
       approval: {
