@@ -66,6 +66,8 @@ jobs:
         run: docker compose exec -T app npm run patterns:check
       - name: Check lesson versions, ownership and historical evidence
         run: docker compose exec -T app npm run lessons:check
+      - name: Check question-bank review, selective regeneration and durable requests
+        run: docker compose exec -T app npm run questions:check
       - name: Check objective review, source grounding and proposal recovery
         run: docker compose exec -T app npm run objectives:check
       - name: Check HTTP authentication and evidence persistence
@@ -78,9 +80,16 @@ jobs:
           docker compose exec -T app npm run db:check -- --verify-restart
       - name: Check uploaded-lesson uncertainty and authorized teacher pages
         run: docker compose exec -T app npm run lessons:uncertainty:check
+      - name: Check lesson publishing and isolated class evidence
+        run: docker compose exec -T app npm run publishing:check
       # Keep extra demo sign-ins outside the pre-restart checks' rate window.
       - name: Check private material extraction, review and version storage
         run: docker compose exec -T app npm run materials:check
+      - name: Check publishing HTTP and new-version authorization
+        run: |
+          docker compose restart app
+          docker compose up --wait --wait-timeout 180 --no-build --no-recreate
+          docker compose exec -T app npm run publishing:http:check
       - name: Show service status on failure
         if: failure()
         run: docker compose ps --all

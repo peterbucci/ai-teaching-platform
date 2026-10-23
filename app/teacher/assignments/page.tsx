@@ -59,6 +59,9 @@ export default async function AssignmentsPage({
           Review the source, learning goals, and practice before making them
           available to your class.
         </p>
+        <Link href="/teacher/lessons" className="lp-button">
+          Review and publish lessons
+        </Link>
       </header>
       {assignments.length > 1 && (
         <form action="/teacher/assignments" className="lp-filter-bar">
@@ -85,6 +88,9 @@ export default async function AssignmentsPage({
             <p className="lp-eyebrow">{selected.class_name}</p>
             <h2>{selected.title}</h2>
             <p>
+              Approved lesson version {selected.content_ref.content_version}
+            </p>
+            <p>
               A versioned reading and grounded practice sequence. Students’
               original answers, feedback, and source references stay linked to
               this assignment.
@@ -108,6 +114,13 @@ export default async function AssignmentsPage({
           </section>
           <div className="lp-assignment-layout">
             <div className="lp-assignment-main">
+              <section id="assignment-instructions" className="lp-panel">
+                <h2>Instructions for students</h2>
+                <p className="whitespace-pre-wrap">
+                  {selected.instructions ||
+                    "No additional instructions were provided."}
+                </p>
+              </section>
               <section id="learning-goals" className="lp-panel">
                 <p className="lp-eyebrow">01 · Learning goals</p>
                 <h2>What students will explore</h2>
@@ -226,6 +239,9 @@ export default async function AssignmentsPage({
                 className="lp-assignment-review-list"
                 aria-label="Review assignment sections"
               >
+                <a href="#assignment-instructions">
+                  <Icon name="check" /> Student instructions
+                </a>
                 <a href="#learning-goals">
                   <Icon name="check" /> Learning goals
                 </a>

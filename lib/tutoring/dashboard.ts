@@ -31,6 +31,7 @@ import {
 const LessonRowSchema = z.object({
   id: z.uuid(),
   title: z.string().min(1),
+  instructions: z.string().max(5000),
   class_id: z.uuid(),
   class_name: z.string().min(1),
   teacher_approved_at: z.iso.datetime({ offset: true }),
@@ -65,7 +66,7 @@ export async function readStudentDashboard(
     .object({ display_name: z.string().trim().min(1) })
     .parse(profileRows.rows[0]);
   const lessonRows = await client.query(
-    `SELECT a.id,a.title,a.class_id,a.teacher_approved_at,a.content_ref,a.approved_concept_ids,
+    `SELECT a.id,a.title,a.instructions,a.class_id,a.teacher_approved_at,a.content_ref,a.approved_concept_ids,
       a.approved_passage_ids,c.name AS class_name,
       latest.session,latest.started_at AS session_started_at,completed.last_completed_at
      FROM assignments a
@@ -130,6 +131,7 @@ export async function readStudentDashboard(
     return {
       id: lesson.id,
       title: lesson.title,
+      instructions: lesson.instructions,
       approval_label: "Approved by your teacher",
       session: lesson.session,
       latestSessionStartedAt: lesson.session_started_at,
