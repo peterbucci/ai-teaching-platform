@@ -2,6 +2,8 @@
 
 _Last revised for the agentic product direction: October 22, 2026_
 
+> **October 23 release-priority update:** For the October 25 submission, lead with the teacher journey: overview → original evidence → AI intervention draft → teacher review/edit/approval → delivery → follow-up evidence. UI/UX quality, reliability and presentation are P0 release requirements alongside this integrated R2/evidence path. Preserve implemented R4/R7 foundations; lesson-authoring polish, narrow copilot and visuals are P1 only when dependencies are ready. Broader copilot, voice, new visual types, analytics expansion and speculative infrastructure are P2. This supersedes the capability ordering below; it does not change the architecture or authorize broad implementation. Use the current [demo plan](docs/DEMO_PLAN.md), [roadmap #15](https://github.com/peterbucci/ai-teaching-platform/issues/15), [release #9](https://github.com/peterbucci/ai-teaching-platform/issues/9), and [UX integration issue #114](https://github.com/peterbucci/ai-teaching-platform/issues/114). Historical draft/implementation notes below retain their original date; see the demo plan's October 23 implementation checkpoint before treating them as current. Automated and historical model checks do not replace independent acceptance of the final teacher UI.
+
 These instructions apply to Codex, Claude Code, and other contributors working on the **PEAAII Learning Pulse** repository. The repository is a shared, time-limited hackathon project. Prefer **small, dependable, reviewable changes** over large rewrites.
 
 ## 1. Product goals and sources of truth
@@ -102,7 +104,7 @@ Do not create a parallel insights service merely because a new agent needs to qu
 
 - Track substantive work in [Project #7](https://github.com/users/peterbucci/projects/7) and focused GitHub Issues. Read [roadmap #15](https://github.com/peterbucci/ai-teaching-platform/issues/15), release epic #9, and the active issue before implementation.
 - The revised capability priority is **R4 + R7 critical path; R1 + R2 showcase; narrow R5/Teacher Copilot; R3/R6 later**. Do not erase historical issue completion or blindly relabel an unimplemented feature as done.
-- Keep existing project statuses **Backlog, Todo, In Progress, In Review, Done**. Use explicit owners/dependencies/target dates and distinguish fixture-tested, actual-model-tested and integrated-verified work.
+- Keep existing project statuses **Backlog, Ready, In Progress, In Review, Blocked, Done**. Use explicit owners/dependencies/target dates and distinguish fixture-tested, actual-model-tested and integrated-verified work.
 - Prefer expanding an existing story to creating a duplicate issue. A **single focused orchestration story** and a **Teacher Copilot epic** are reasonable new work if not already present. Create or change issues, fields, assignees, and milestones **only when authorized by the user/task**.
 - Use a feature/fix branch, not direct commits to `main`. Open focused PRs referencing issues. Use `Closes #N` only when all acceptance criteria are actually satisfied; identify unresolved integration gates clearly.
 - Coordinate before editing shared migrations, core contracts, authentication, tutor state, and content-resolution paths. Check current PR branches and worktrees so you do not overwrite other contributors.
