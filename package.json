@@ -26,7 +26,8 @@
     "eval:live": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-evaluation.ts",
     "tutor:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-tutoring.ts",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "interventions:approval": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-intervention-approval.ts"
   },
   "dependencies": {
     "better-auth": "^1.7.9",

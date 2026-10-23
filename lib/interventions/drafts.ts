@@ -32,7 +32,7 @@ export const InterventionDraftSchema = z.strictObject({
   id: z.uuid(),
   assignment_id: z.uuid(),
   revision: z.number().int().positive(),
-  status: z.literal("private_draft"),
+  status: z.enum(["private_draft", "approved", "dismissed"]),
   activity: InterventionActivitySchema,
   evidence: InterventionEvidenceSchema,
   provenance: InterventionProvenanceSchema,

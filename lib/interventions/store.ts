@@ -223,6 +223,14 @@ async function reserve(
       );
     if (
       draft.snapshot !== null &&
+      InterventionDraftSchema.parse(draft.snapshot).status !== "private_draft"
+    )
+      throw new EvidenceError(
+        409,
+        "Approved and dismissed drafts cannot be regenerated.",
+      );
+    if (
+      draft.snapshot !== null &&
       !isDeepStrictEqual(
         InterventionDraftSchema.parse(draft.snapshot).evidence.selection,
         input.selection,
@@ -340,6 +348,10 @@ export async function generateInterventionDraft(
       const current = await currentDraft(client, access, input.draft_id);
       if (
         current?.revision !== input.expected_revision ||
+        (current?.snapshot !== null &&
+          current?.snapshot !== undefined &&
+          InterventionDraftSchema.parse(current.snapshot).status !==
+            "private_draft") ||
         operation.rows[0]?.status !== "pending"
       )
         throw new EvidenceError(
