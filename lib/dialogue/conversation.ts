@@ -159,6 +159,7 @@ export type ConversationTransport = {
   load(): Promise<unknown>;
   act(action: ConversationAction): Promise<unknown>;
   acknowledge(input: DisplayDialogue): Promise<unknown>;
+  recover?(requestId: string, expectedRevision: number): Promise<unknown>;
 };
 
 function requireRule(condition: boolean, message: string): asserts condition {

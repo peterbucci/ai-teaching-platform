@@ -128,12 +128,25 @@ of calls after generation and review have completed.
 
 Interrupted or uncertain provider outcomes remain reserved. A late original
 callback may record a known result, but cannot revive cancelled/stale work.
-Pending controller operations are blocked across refresh rather than restarted.
-A process interruption after provider results are saved but before content commits
-also leaves the operation pending; replay does not resume that commit. There is no
-automatic reconciler or user-facing dialogue retry endpoint. Operator reconciliation
-of an interrupted operation is a remaining integration/reliability gate; never clear
-reservations or invent a fresh request ID to bypass uncertainty.
+GET and refresh remain read-only. A student may explicitly choose **Recover saved
+response**, which posts the original operation ID and expected revision to
+`/api/tutoring/[sessionId]/conversation/operations/[requestId]`. A saved successful
+classification can restore its confirmation step without submitting the answer.
+For controller actions, the existing Evaluate/Continue action can finish saved work.
+
+Recovery is limited to a recorded accepted proposal and dispatch whose required
+provider stages all succeeded. It rechecks actor/session authorization, the exact
+lesson/source, current revision, permitted action, saved output schemas and the
+independent source/disclosure review. Generation/review reads require the original
+model, prompt version and input hash. Existing atomic commits prevent duplicate
+effects; the recovery path does not invoke a provider callback, reserve another
+request, acknowledge display, or rewrite earlier failure evidence. Completed
+recovery appends its execution receipt.
+
+Missing stages, unknown external outcomes, stale/cancelled work and unsupported
+saved output remain blocked. Recovery never generates a replacement or clears a
+reservation. An interruption before an accepted dispatch, or a provider result
+that cannot be established, still needs separately reviewed operator reconciliation.
 
 The existing explicit, bounded evaluation retry remains available after a proven
 terminal provider failure. New failure records link a server-owned settled/unknown
@@ -252,8 +265,9 @@ activated assignment. The Moonlight audit confirms its previous version and
 original responses remained unchanged. Retain migrations 006, 008 and 009
 unchanged and reconcile #102's authoring migrations as their own dependency stack.
 
-Unknown/interrupted operation reconciliation and human educational/security review
-remain #76 acceptance gates. Preserve both display acknowledgment paths and
+Unknown external outcomes and interruptions before a recorded accepted dispatch
+still require operator reconciliation. Human educational/security review remains a
+separate #76 acceptance gate. Preserve both display acknowledgment paths and
 original evidence. Runtime assessed prompts remain unscaffolded; generated retests
 and neutral follow-ups have fixture coverage, not new live selections in this
 phase. The uploaded browser demonstrated a diagnostic followed by an observed

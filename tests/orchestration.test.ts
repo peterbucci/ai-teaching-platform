@@ -27,6 +27,7 @@ import {
 import { OrchestrationError } from "../lib/tutoring/orchestration/errors.ts";
 import {
   runTutorOrchestration,
+  recoverRecordedTool,
   toStudentOrchestrationReceipt,
 } from "../lib/tutoring/orchestration/run.ts";
 
@@ -1179,4 +1180,86 @@ test("a controller-permitted generated retest needs a fresh question and install
     }
     assert.equal(state.calls.generate, variant === "unavailable" ? 0 : 1);
   }
+});
+
+test("recorded recovery revalidates source, actor, revision and action before touching saved output", async () => {
+  const changes: ((context: OrchestrationContext) => void)[] = [
+    (context) => {
+      context.actor_profile_id = "ffffffff-ffff-4fff-8fff-ffffffffffff";
+    },
+    (context) => {
+      context.state.revision++;
+    },
+    (context) => {
+      context.state.active_request_id = null;
+    },
+    (context) => {
+      context.content.content_ref.content_version = "changed";
+    },
+    (context) => {
+      context.lesson_policy = [];
+    },
+  ];
+  for (const change of changes) {
+    const context = structuredClone(studentContext());
+    change(context);
+    let generated = 0,
+      committed = 0;
+    await assert.rejects(
+      recoverRecordedTool(f.studentRequest, explanation(), context, {
+        generate: async () => {
+          generated++;
+          return { content: f.help, review: f.review };
+        },
+        complete: async () => {
+          committed++;
+          throw new Error("Must not commit");
+        },
+      }),
+    );
+    assert.equal(generated, 0);
+    assert.equal(committed, 0);
+  }
+});
+
+test("recorded recovery needs no new proposal or call budget and keeps existing controller decisions", async () => {
+  const sample = controllerFixture();
+  const { state, ports } = fixture(sample.context);
+  state.context.state.provider_requests_used =
+    DIALOGUE_LIMITS.providerRequestsPerSession;
+  state.operations.set(sample.request.request_id, {
+    request: sample.request,
+    receipt: null,
+  });
+  const selected: TutorProposal = {
+    ...proposal(),
+    action: "advance_lesson",
+    arguments: {},
+  };
+  const expected = decideTutoring(
+    state.context.content,
+    state.context.evidence,
+    sample.request.trigger.kind === "controller"
+      ? sample.request.trigger.evaluation_id
+      : "",
+    sample.request.requested_at,
+  ).applied.action;
+  const result = await recoverRecordedTool(
+    sample.request,
+    selected,
+    state.context,
+    ports,
+  );
+  assert.equal(result.status, "executed");
+  assert.ok(
+    result.status === "executed" && result.result.kind === "advance_lesson",
+  );
+  assert.equal(result.result.controller_action, expected);
+  assert.deepEqual(state.calls, {
+    claim: 0,
+    propose: 0,
+    generate: 0,
+    complete: 1,
+    fail: 0,
+  });
 });

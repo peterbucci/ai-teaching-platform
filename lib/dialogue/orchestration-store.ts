@@ -134,10 +134,67 @@ function records(context: DialogueContext, id: string) {
     .map((e) => OrchestrationRecordSchema.parse(e.payload));
 }
 function receipt(context: DialogueContext, id: string) {
-  const stored = context.events.find(
+  const stored = context.events.findLast(
     (e) => e.request_id === id && e.kind === "action_receipt",
   );
   return stored ? OrchestrationReceiptSchema.parse(stored.payload) : null;
+}
+
+/** Only an already validated/dispatched action with an unchanged anchor can finish.
+ * Failed or missing provider stages are checked separately by recorded-only reads. */
+function recoverableAction(context: DialogueContext, request: DialogueRequest) {
+  authorizeRequest(context, request);
+  conflict(
+    context.unresolved_provider_calls === 0,
+    "Provider outcomes remain unresolved.",
+  );
+  const saved = receipt(context, request.request_id);
+  conflict(
+    !saved || (saved.status === "stopped" && saved.reconcile),
+    "The action is already settled.",
+  );
+  const history = records(context, request.request_id);
+  const proposed = history.find((item) => item.phase === "proposed");
+  const validated = history.find((item) => item.phase === "validated");
+  const dispatched = history.find((item) => item.phase === "dispatch_started");
+  conflict(
+    proposed?.phase === "proposed" &&
+      proposed.proposal &&
+      validated?.phase === "validated" &&
+      validated.decision === "accepted" &&
+      dispatched?.phase === "dispatch_started" &&
+      dispatched.tool === proposed.proposal.action &&
+      validated.allowed_actions.includes(dispatched.tool) &&
+      history.every(
+        (item) =>
+          item.phase !== "executed" &&
+          (item.phase !== "failed" ||
+            (item.outcome_unknown &&
+              ["dispatch", "commit"].includes(item.stage))),
+      ),
+    "The saved action has no complete accepted dispatch to recover.",
+  );
+  return { proposal: proposed.proposal, dispatched };
+}
+
+export async function loadRecordedInstruction(
+  access: EvidenceAccess,
+  request: DialogueRequest,
+  approvedTools: AuthorizedTools,
+) {
+  return transaction(async (client) => {
+    const context = await dialogueContext(
+      client,
+      access,
+      request.session_id,
+      true,
+    );
+    const { proposal } = recoverableAction(context, request);
+    return {
+      proposal,
+      context: actionContext(context, access, approvedTools, request),
+    };
+  });
 }
 
 /** Storage half of #85's ports. Provider selection/generation are supplied by #74/#85.
@@ -147,6 +204,7 @@ export function createOrchestrationPersistence(
   access: EvidenceAccess,
   sessionId: string,
   approvedHelpTools: AuthorizedTools = [],
+  options: { recordedRecovery?: boolean } = {},
 ): Pick<OrchestrationPorts, "claim" | "checkpoint" | "complete" | "fail"> {
   return {
     async claim(request) {
@@ -266,7 +324,14 @@ export function createOrchestrationPersistence(
           "Action request or proposal differs from its saved identity.",
         );
         const saved = receipt(context, request.request_id);
-        if (saved) {
+        if (
+          saved &&
+          !(
+            options.recordedRecovery &&
+            saved.status === "stopped" &&
+            saved.reconcile
+          )
+        ) {
           conflict(
             saved.status === "executed" &&
               same(saved.result, result) &&
@@ -282,7 +347,9 @@ export function createOrchestrationPersistence(
         );
         const prior = records(context, request.request_id);
         const proposed = prior.find((r) => r.phase === "proposed");
-        const dispatched = prior.at(-1);
+        const dispatched = options.recordedRecovery
+          ? recoverableAction(context, request).dispatched
+          : prior.at(-1);
         conflict(
           proposed?.phase === "proposed" &&
             same(proposed.proposal, proposal) &&

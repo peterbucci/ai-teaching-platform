@@ -127,6 +127,49 @@ export async function readProviderCall(
   });
 }
 
+/** Read an original successful outcome without dispatching, reserving, or changing history. */
+export async function readSuccessfulProviderCall(
+  access: EvidenceAccess,
+  sessionId: string,
+  requestId: string,
+  stepId: ProviderCallDescriptor["stage"],
+) {
+  const record = await readProviderCall(access, sessionId, requestId, stepId);
+  conflict(
+    record.status === "succeeded",
+    "The saved provider result is not a confirmed success. No request was repeated.",
+  );
+  const outcome = boundedResult(record.result).outcome;
+  conflict(
+    outcome.ok && !outcome.needs_reconciliation,
+    "The saved provider result is not a confirmed success. No request was repeated.",
+  );
+  return record;
+}
+
+/** The callback is intentionally never invoked. Exact descriptors bind cached
+ * output to the original model, prompt version, input, operation and session. */
+export function createRecordedCall(
+  access: EvidenceAccess,
+  sessionId: string,
+  requestId: string,
+): ReservedCall {
+  return async function recorded<T>(input: ProviderCallDescriptor): Promise<T> {
+    const descriptor = ProviderCallDescriptorSchema.parse(input);
+    const record = await readSuccessfulProviderCall(
+      access,
+      sessionId,
+      requestId,
+      descriptor.stage,
+    );
+    conflict(
+      same(record.metadata, descriptor),
+      "Saved provider input differs from the current recovery context.",
+    );
+    return replayResult<T>(record);
+  };
+}
+
 /** Each paid callback has a durable reservation before it starts, and runs outside
  * the database transaction. A known result is reusable even after its operation
  * settles. Content acceptance still requires the caller's current-operation lock. */

@@ -37,6 +37,10 @@ export function createConversationTransport(
     load: () => send(base),
     act: (action) => send(base, action),
     acknowledge: (display) => send(`${base}/display`, display),
+    recover: (requestId, expectedRevision) =>
+      send(`${base}/operations/${z.uuid().parse(requestId)}`, {
+        expected_revision: z.int().nonnegative().parse(expectedRevision),
+      }),
   };
 }
 

@@ -89,7 +89,7 @@ async function executeTool(
   proposal: TutorProposal,
   request: DialogueRequest,
   context: OrchestrationContext,
-  ports: OrchestrationPorts,
+  ports: Pick<OrchestrationPorts, "generate">,
 ): Promise<TutorToolResult> {
   switch (proposal.action) {
     case "retrieve_passages": {
@@ -212,6 +212,32 @@ async function executeTool(
       return { kind: "generated", content };
     }
   }
+}
+
+/** Revalidate and finish an already dispatched tool using recorded-only generation.
+ * This entry point never claims an operation, proposes an action, or starts a provider. */
+export async function recoverRecordedTool(
+  request: DialogueRequest,
+  proposal: TutorProposal,
+  context: OrchestrationContext,
+  ports: Pick<OrchestrationPorts, "generate" | "complete">,
+): Promise<OrchestrationReceipt> {
+  validateProposal(
+    proposal,
+    request,
+    context,
+    availableTools(request, context, {
+      proposalPending: false,
+      completed: true,
+    }),
+    { completed: true },
+  );
+  const result = TutorToolResultSchema.parse(
+    await executeTool(proposal, request, context, ports),
+  );
+  return OrchestrationReceiptSchema.parse(
+    await ports.complete(request, proposal, result),
+  );
 }
 
 /** One proposal, one permitted tool, then stop for the next saved observation.

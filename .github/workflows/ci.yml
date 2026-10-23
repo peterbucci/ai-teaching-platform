@@ -62,6 +62,8 @@ jobs:
         run: node scripts/check-isolated.mjs app npm run tutor:check
       - name: Check durable dialogue and authenticated recovery with synthetic providers
         run: node scripts/check-isolated.mjs -e DIALOGUE_CHECK_SYNTHETIC=1 -e DIALOGUE_CHECK_URL=http://localhost:3000 app npm run dialogue:check
+      - name: Recover only successful saved dialogue outcomes without provider calls
+        run: node scripts/check-isolated.mjs -e DIALOGUE_CHECK_SYNTHETIC=1 -e DIALOGUE_CHECK_URL=http://localhost:3000 app npm run dialogue:recovery:check
       - name: Check generated controller handoffs with synthetic providers
         run: node scripts/check-isolated.mjs -e DIALOGUE_CHECK_SYNTHETIC=1 app npm run r7:controller:check
       - name: Check authorized metrics and evidence refetch
@@ -70,6 +72,8 @@ jobs:
         run: node scripts/check-isolated.mjs app npm run patterns:check
       - name: Check lesson versions, ownership and historical evidence
         run: node scripts/check-isolated.mjs app npm run lessons:check
+      - name: Check objective review, source grounding and proposal recovery
+        run: node scripts/check-isolated.mjs app npm run objectives:check
       - name: Check login limits and forwarding-header resistance
         run: node scripts/check-isolated.mjs app npm run auth:rate-limit:check
       - name: Check HTTP authentication and evidence persistence

@@ -1,3 +1,4 @@
+import { z } from "zod";
 import { evaluateSubmittedAttempt } from "../evaluation/evaluate.ts";
 import { applyTutoring, tutorView } from "../tutoring/store.ts";
 import { TutorStepSchema } from "../tutoring/contracts.ts";
@@ -20,12 +21,21 @@ import {
 } from "./model-provider.ts";
 import {
   conflict,
+  currentOperation,
+  same,
   dialogueContext,
   withDialogueOperation,
   type DialogueContext,
 } from "./persistence.ts";
-import { createReservedCall } from "./provider-store.ts";
-import { createOrchestrationPersistence } from "./orchestration-store.ts";
+import {
+  createReservedCall,
+  createRecordedCall,
+  readSuccessfulProviderCall,
+} from "./provider-store.ts";
+import {
+  createOrchestrationPersistence,
+  loadRecordedInstruction,
+} from "./orchestration-store.ts";
 import {
   actConversation,
   commitConversationIntent,
@@ -44,9 +54,15 @@ import {
   INSTALLED_RUNTIME_TOOLS,
 } from "./runtime-policy.ts";
 import { createProposalService } from "../tutoring/orchestration/provider.ts";
-import { runTutorOrchestration } from "../tutoring/orchestration/run.ts";
+import {
+  runTutorOrchestration,
+  recoverRecordedTool,
+} from "../tutoring/orchestration/run.ts";
 import { OrchestrationError } from "../tutoring/orchestration/errors.ts";
-import type { OrchestrationPorts } from "../tutoring/orchestration/contracts.ts";
+import {
+  TutorProposalSchema,
+  type OrchestrationPorts,
+} from "../tutoring/orchestration/contracts.ts";
 
 function boundedQuestions(context: Pick<DialogueContext, "evidence">) {
   const questions = context.evidence.attempts
@@ -103,26 +119,29 @@ function modelContext(
 
 /** Shared composition: the same reserved provider/generator serves student help
  * and controller-authorized follow-ups. All side effects stay in existing stores. */
-export async function executeInstruction(
+export function instructionPorts(
   access: EvidenceAccess,
   request: DialogueRequest,
   context: DialogueContext,
-) {
-  const model = configuredDialogueModel();
-  if (!model) throw new EvidenceError(503, "Tutor generation is unavailable.");
-  const runReservedCall = createReservedCall(
-    access,
-    request.session_id,
-    request.request_id,
-  );
-  const services: DialogueServices = { runReservedCall };
-  const ports: OrchestrationPorts = {
-    ...createOrchestrationPersistence(access, request.session_id, (current) =>
-      runtimeGenerationEnabled(current.content) ? INSTALLED_RUNTIME_TOOLS : [],
+  services: DialogueServices,
+  model: string,
+  recordedRecovery = false,
+): OrchestrationPorts {
+  const { runReservedCall } = services;
+  return {
+    ...createOrchestrationPersistence(
+      access,
+      request.session_id,
+      (current) =>
+        runtimeGenerationEnabled(current.content)
+          ? INSTALLED_RUNTIME_TOOLS
+          : [],
+      { recordedRecovery },
     ),
     propose: createProposalService({
       model,
-      requestStructuredProposal,
+      requestStructuredProposal:
+        services.provider?.request ?? requestStructuredProposal,
       runReservedCall,
     }),
     async generate({
@@ -183,7 +202,159 @@ export async function executeInstruction(
       return { content: result.value.content, review: result.value.review };
     },
   };
-  return runTutorOrchestration(request, ports);
+}
+
+export async function executeInstruction(
+  access: EvidenceAccess,
+  request: DialogueRequest,
+  context: DialogueContext,
+) {
+  const model = configuredDialogueModel();
+  if (!model) throw new EvidenceError(503, "Tutor generation is unavailable.");
+  const services = {
+    runReservedCall: createReservedCall(
+      access,
+      request.session_id,
+      request.request_id,
+    ),
+  };
+  return runTutorOrchestration(
+    request,
+    instructionPorts(access, request, context, services, model),
+  );
+}
+
+/** Explicit recovery never invokes a provider callback or creates a reservation. */
+const recordedProvider: typeof requestStructuredProposal = async () => {
+  throw new EvidenceError(409, "Recovery cannot dispatch a model request.");
+};
+
+async function recoverInstruction(
+  access: EvidenceAccess,
+  request: DialogueRequest,
+  context: DialogueContext,
+) {
+  const saved = await loadRecordedInstruction(access, request, (current) =>
+    runtimeGenerationEnabled(current.content) ? INSTALLED_RUNTIME_TOOLS : [],
+  );
+  const proposalCall = await readSuccessfulProviderCall(
+    access,
+    request.session_id,
+    request.request_id,
+    "propose",
+  );
+  const proposal = z
+    .object({
+      ok: z.literal(true),
+      result: z.object({ proposal: TutorProposalSchema }),
+    })
+    .parse(proposalCall.result).result.proposal;
+  conflict(
+    same(proposal, saved.proposal),
+    "Recorded action differs from its accepted proposal.",
+  );
+  let model = proposalCall.metadata.model;
+  if (proposal.action !== "advance_lesson") {
+    const generated = await readSuccessfulProviderCall(
+      access,
+      request.session_id,
+      request.request_id,
+      "generate",
+    );
+    await readSuccessfulProviderCall(
+      access,
+      request.session_id,
+      request.request_id,
+      "review",
+    );
+    model = generated.metadata.model;
+  }
+  const services: DialogueServices = {
+    runReservedCall: createRecordedCall(
+      access,
+      request.session_id,
+      request.request_id,
+    ),
+    provider: { model, request: recordedProvider },
+  };
+  return recoverRecordedTool(
+    request,
+    proposal,
+    saved.context,
+    instructionPorts(access, request, context, services, model, true),
+  );
+}
+
+/** An explicit authenticated POST; reads/refresh never route or commit work.
+ * Only the original operation/revision is accepted, and no missing stage is run. */
+export async function recoverApplicationConversation(
+  access: EvidenceAccess,
+  sessionId: string,
+  requestId: string,
+  input: unknown,
+) {
+  const { expected_revision } = z
+    .strictObject({
+      expected_revision: z.int().nonnegative(),
+    })
+    .parse(input);
+  z.uuid().parse(requestId);
+  let context = await transaction((client) =>
+    dialogueContext(client, access, sessionId, false),
+  );
+  const operation = context.operations.find(
+    (item) => item.request_id === requestId,
+  );
+  conflict(
+    operation && operation.message,
+    "No saved conversation operation was found.",
+  );
+  conflict(
+    operation.expected_revision === expected_revision,
+    "Recovery revision differs from the original request.",
+  );
+  if (operation.status !== "pending")
+    return loadConversation(access, sessionId);
+  currentOperation(context, requestId);
+  conflict(
+    context.unresolved_provider_calls === 0,
+    "Provider outcomes remain unresolved. No request was repeated.",
+  );
+  if (!operation.proposed_intent && !operation.dialogue_request) {
+    const call = await readSuccessfulProviderCall(
+      access,
+      sessionId,
+      requestId,
+      "classify",
+    );
+    const classification = await classifyIntent(
+      modelContext(context, operation.message.text),
+      {
+        runReservedCall: createRecordedCall(access, sessionId, requestId),
+        provider: { model: call.metadata.model, request: recordedProvider },
+      },
+    );
+    conflict(
+      classification.ok,
+      "The recorded classification could not be validated.",
+    );
+    await commitConversationIntent(
+      access,
+      sessionId,
+      requestId,
+      classification.value.classification,
+      classification.value.review,
+    );
+    context = await transaction((client) =>
+      dialogueContext(client, access, sessionId, false),
+    );
+  }
+  const current = context.operations.find(
+    (item) => item.request_id === requestId,
+  );
+  if (current?.status === "pending" && current.dialogue_request)
+    await recoverInstruction(access, current.dialogue_request, context);
+  return loadConversation(access, sessionId);
 }
 
 /** Authenticated POST only. GET/replay/cancellation never starts paid work. */
@@ -289,7 +460,11 @@ export async function continueApplicationTutoring(
       operation.payload.action === "controller_action" &&
       operation.payload.evaluation_id === run.evaluation?.id,
   );
-  if (context.unresolved_provider_calls || existing?.status === "pending")
+  if (existing?.status === "pending" && existing.dialogue_request) {
+    await recoverInstruction(access, existing.dialogue_request, context);
+    return tutorView(access, sessionId);
+  }
+  if (context.unresolved_provider_calls)
     throw new EvidenceError(
       409,
       "Your answer is saved. The instructional request is awaiting reconciliation; refreshing will not repeat it.",

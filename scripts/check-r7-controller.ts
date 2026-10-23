@@ -1,3 +1,9 @@
+import {
+  instructionPorts,
+  continueApplicationTutoring,
+} from "../lib/dialogue/application.ts";
+import { dialogueContext } from "../lib/dialogue/persistence.ts";
+import type { requestStructuredProposal } from "../lib/dialogue/model-provider.ts";
 import { createLessonAssignment } from "../lib/lessons/store.ts";
 import {
   assignmentReview,
@@ -405,12 +411,107 @@ async function execute(
   return before;
 }
 
+async function recoverController(template: (typeof recorded.cases)[number]) {
+  const sample = await initial();
+  await answer(sample.sessionId, sample.attempt, template.response);
+  const evaluation = await judged(
+    sample.sessionId,
+    sample.attempt,
+    template.evaluation,
+  );
+  const reserved = await reserveControllerOperation(
+    student,
+    sample.sessionId,
+    evaluation.id,
+  );
+  const context = await inTransaction((client) =>
+    dialogueContext(client, student, sample.sessionId, false),
+  );
+  let providerCallbacks = 0;
+  const model = "synthetic-controller-recovery";
+  const request: typeof requestStructuredProposal = async (prompt) => {
+    providerCallbacks++;
+    return {
+      ok: true,
+      result: prompt.schema.parse({
+        proposal: {
+          version: ORCHESTRATION_VERSION,
+          action: "advance_lesson",
+          arguments: {},
+          content_ref: content.content_ref,
+          concept_ids: sample.attempt.question.concept_ids,
+          source_passage_ids: sample.attempt.question.source_passage_ids,
+          reason_summary:
+            "Synthetic saved choice of the existing authored diagnostic.",
+        },
+      }),
+      model,
+      responseId: "synthetic-recovery",
+      latencyMs: 1,
+      usage: null,
+      needs_reconciliation: false,
+      completedAt: new Date().toISOString(),
+    };
+  };
+  const ports = instructionPorts(
+    student,
+    reserved.request,
+    context,
+    {
+      runReservedCall: createReservedCall(
+        student,
+        sample.sessionId,
+        reserved.request.request_id,
+      ),
+      provider: { model, request },
+    },
+    model,
+  );
+  const interrupted = await runTutorOrchestration(reserved.request, {
+    ...ports,
+    complete: async () => {
+      throw new Error(
+        "Synthetic crash after saved proposal, before atomic commit",
+      );
+    },
+  });
+  assert.ok(interrupted.status === "stopped" && interrupted.reconcile);
+  const before = await readSession(student, sample.sessionId, "student");
+  assert.equal(before.attempts.length, 1);
+  const result = await continueApplicationTutoring(student, sample.sessionId, {
+    attempt_id: sample.attempt.id,
+  });
+  const after = await readSession(student, sample.sessionId, "student");
+  assert.equal(after.attempts.length, 2);
+  assert.deepEqual(
+    after.attempts[1].question,
+    getCuratedQuestion(content, "D02"),
+  );
+  assert.equal(after.attempts[0].response_text, template.response);
+  assert.equal(after.evaluations.length, before.evaluations.length);
+  assert.equal(providerCallbacks, 1);
+  assert.deepEqual(
+    await continueApplicationTutoring(student, sample.sessionId, {
+      attempt_id: sample.attempt.id,
+    }),
+    result,
+  );
+  assert.deepEqual(
+    await readSession(student, sample.sessionId, "student"),
+    after,
+  );
+  pass(
+    "Explicit Continue recovers a known saved controller choice once, preserving the original evaluation and authored activity without any new model call",
+  );
+}
+
 async function main() {
   await seed();
   const { sessionId, attempt } = await initial();
   const initialCase = recorded.cases.find(
     (item) => item.caseId === "explicit-distance-confusion",
   )!;
+  await recoverController(initialCase);
   await answer(sessionId, attempt, initialCase.response);
   const firstEvaluation = await judged(
     sessionId,

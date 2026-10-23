@@ -108,6 +108,10 @@ export function StudyDialogue({
     ) ?? [];
   const needsDisplay = accepted.length > 0;
   const pending = Boolean(view?.dialogue.state.active_request_id);
+  const recoverableMessage = view?.messages.find(
+    (message) =>
+      message.attempt_id === attemptId && message.outcome.status === "pending",
+  );
   const fallbackAvailable = Boolean(view && canUseCuratedAnswer(view));
   const blocked =
     readOnly ||
@@ -289,6 +293,41 @@ export function StudyDialogue({
     },
     [transport, receive, reconcile],
   );
+
+  async function recoverSavedResponse() {
+    if (
+      !transport?.recover ||
+      !recoverableMessage ||
+      inFlight.current ||
+      readOnly
+    )
+      return;
+    const requestEpoch = ++epoch.current;
+    inFlight.current = true;
+    setWorking(true);
+    setError(null);
+    try {
+      const result = await bounded(
+        transport.recover(
+          recoverableMessage.request_id,
+          recoverableMessage.expected_revision,
+        ),
+      );
+      if (!mounted.current || epoch.current !== requestEpoch) return;
+      const confirmed = reconcile(receive(result), unresolved.current);
+      setUncertain(!confirmed);
+    } catch {
+      if (mounted.current && epoch.current === requestEpoch)
+        setError(
+          "This response cannot be recovered yet. Its saved results may be incomplete or uncertain. No new AI request was made.",
+        );
+    } finally {
+      if (mounted.current && epoch.current === requestEpoch) {
+        inFlight.current = false;
+        setWorking(false);
+      }
+    }
+  }
 
   useEffect(() => {
     if (restored && transport && !latest.current) void load();
@@ -636,6 +675,16 @@ export function StudyDialogue({
           }}
         >
           Check saved conversation
+        </button>
+      )}
+      {!readOnly && transport?.recover && recoverableMessage && (
+        <button
+          type="button"
+          className="lp-text-link my-3"
+          disabled={working || locked}
+          onClick={() => void recoverSavedResponse()}
+        >
+          Recover saved response
         </button>
       )}
       {!readOnly && (

@@ -49,6 +49,8 @@ test("authenticated conversation transport preserves exact message and display i
     content_id: "76000000-0000-4000-8000-000000000003",
   };
   await transport.acknowledge(display);
+  assert.ok(transport.recover);
+  await transport.recover(requestId, examples.state.revision);
   assert.equal(calls[0].input, `/api/tutoring/${sessionId}/conversation`);
   assert.equal(calls[0].init?.method, "GET");
   assert.equal(calls[0].init?.body, undefined);
@@ -59,6 +61,15 @@ test("authenticated conversation transport preserves exact message and display i
     `/api/tutoring/${sessionId}/conversation/display`,
   );
   assert.equal(calls[2].init?.body, JSON.stringify(display));
+  assert.equal(
+    calls[3].input,
+    `/api/tutoring/${sessionId}/conversation/operations/${requestId}`,
+  );
+  assert.equal(calls[3].init?.method, "POST");
+  assert.equal(
+    calls[3].init?.body,
+    JSON.stringify({ expected_revision: examples.state.revision }),
+  );
   for (const call of calls) {
     assert.equal(call.init?.credentials, "same-origin");
     assert.equal(call.init?.cache, "no-store");
