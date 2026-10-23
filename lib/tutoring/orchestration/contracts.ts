@@ -15,7 +15,9 @@ import {
 import type { ApprovedContent } from "../../evidence/content.ts";
 
 export const ORCHESTRATION_VERSION = "tutor-orchestration-v1";
-const text = z.string().trim().min(1);
+const text = z
+  .string()
+  .refine((value) => value.trim().length > 0, "Required text");
 const ids = z
   .array(text.max(200))
   .min(1)
@@ -119,7 +121,7 @@ export const TutorToolResultSchema = z.discriminatedUnion("kind", [
     content_ref: ContentRefSchema,
     concept_ids: ids,
     passages: z
-      .array(z.strictObject({ id: text, text: text, url: z.url() }))
+      .array(z.strictObject({ id: text, text: text, url: z.url().nullable() }))
       .min(1)
       .max(12),
     assistance_type: z.literal("reading"),
