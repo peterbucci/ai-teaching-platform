@@ -19,6 +19,8 @@
     "materials:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-materials.ts",
     "lessons:uncertainty:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-lesson-uncertainty.ts",
     "lessons:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-lessons.ts",
+    "questions:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-question-bank.ts",
+    "questions:live": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-question-bank-live.ts",
     "assignments:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-assignments.ts",
     "reading:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-reading.ts",
     "metrics:check": "node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-metrics.ts",

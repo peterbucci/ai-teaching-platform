@@ -1,9 +1,3 @@
-import {
-  retainObjectiveWorkflow,
-  lessonWithoutObjectiveWorkflow,
-  assertObjectiveReviewForLesson,
-  ObjectiveReviewError,
-} from "../objectives/rules.ts";
 import "server-only";
 import { randomUUID } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
@@ -24,11 +18,21 @@ import {
 import {
   LessonContentSchema,
   LessonDraftContentSchema,
+  projectLessonDraftContent,
   type LessonContent,
   type LessonDraftContent,
 } from "./contracts.ts";
 import { AttributionSchema, SourcePassageSchema } from "./source-contracts.ts";
 import { hydrateLessonContent, LessonValidationError } from "./validate.ts";
+import {
+  getReviewedQuestionBank,
+  fingerprintQuestionBank,
+} from "../question-bank/validation.ts";
+import {
+  retainObjectiveWorkflow,
+  assertObjectiveReviewForLesson,
+  ObjectiveReviewError,
+} from "../objectives/rules.ts";
 
 const LessonRowSchema = z.object({
   id: z.string(),
@@ -57,7 +61,7 @@ export async function requireLessonTeacher(
   if (!result.rowCount)
     throw new EvidenceError(403, "Teacher access is required.");
 }
-export async function ownedLessonDraft(
+export async function readLessonDraftInTransaction(
   client: PoolClient,
   access: EvidenceAccess,
   id: string,
@@ -76,6 +80,8 @@ export async function ownedLessonDraft(
     );
   return lesson;
 }
+export const ownedLessonDraft = readLessonDraftInTransaction;
+
 async function validateOwnedContent(
   client: PoolClient,
   owner: string,
@@ -209,6 +215,16 @@ export async function readAssignmentContent(
 
 /** Optimistic authoring API: editing clears approval; publishing never edits this row's old versions. */
 export async function saveLessonDraft(access: EvidenceAccess, input: unknown) {
+  return transaction((client) =>
+    saveLessonDraftInTransaction(client, access, input),
+  );
+}
+/** Same canonical write boundary, composable with a durable generation receipt. */
+export async function saveLessonDraftInTransaction(
+  client: PoolClient,
+  access: EvidenceAccess,
+  input: unknown,
+) {
   const request = z
     .strictObject({
       lesson_id: z.string().min(1).optional(),
@@ -217,41 +233,60 @@ export async function saveLessonDraft(access: EvidenceAccess, input: unknown) {
       draft: LessonDraftContentSchema,
     })
     .parse(input);
-  return transaction(async (client) => {
-    await requireLessonTeacher(client, access);
-    const draft = retainObjectiveWorkflow(null, request.draft);
-    delete draft.approval;
-    if (!request.lesson_id) {
-      if (request.expected_revision !== 0)
-        throw new EvidenceError(409, "A new draft starts at revision zero.");
-      const id = randomUUID();
-      const result = await client.query(
-        "INSERT INTO lessons(id,owner_id,title,draft,revision) VALUES($1,$2,$3,$4::jsonb,1) RETURNING *",
-        [id, access.actor.profileId, request.title, JSON.stringify(draft)],
-      );
-      return LessonRowSchema.parse(evidenceRow(result.rows[0]));
-    }
-    const previous = await ownedLessonDraft(
-      client,
-      access,
-      request.lesson_id,
-      request.expected_revision,
+  await requireLessonTeacher(client, access);
+  const draft = retainObjectiveWorkflow(null, request.draft);
+  if (draft.question_bank)
+    draft.question_bank = { ...draft.question_bank, approval: null };
+  delete draft.approval;
+  if (!request.lesson_id) {
+    if (request.expected_revision !== 0)
+      throw new EvidenceError(409, "A new draft starts at revision zero.");
+    const id = randomUUID();
+    const result = await client.query(
+      "INSERT INTO lessons(id,owner_id,title,draft,revision) VALUES($1,$2,$3,$4::jsonb,1) RETURNING *",
+      [id, access.actor.profileId, request.title, JSON.stringify(draft)],
     );
-    let retained;
-    try {
-      retained = retainObjectiveWorkflow(previous.draft, draft);
-    } catch (error) {
-      if (error instanceof ObjectiveReviewError)
-        throw new EvidenceError(409, error.message);
-      throw error;
-    }
-    return writeLessonDraftInTransaction(
-      client,
-      previous.id,
-      request.title,
-      retained,
-    );
-  });
+    return LessonRowSchema.parse(evidenceRow(result.rows[0]));
+  }
+  const previous = await readLessonDraftInTransaction(
+    client,
+    access,
+    request.lesson_id,
+    request.expected_revision,
+  );
+  let retained: LessonDraftContent;
+  try {
+    retained = retainObjectiveWorkflow(previous.draft, draft);
+  } catch (error) {
+    if (error instanceof ObjectiveReviewError)
+      throw new EvidenceError(409, error.message);
+    throw error;
+  }
+  // Omitting authoring metadata cannot remove an existing question-bank review gate.
+  if (!retained.question_bank && previous.draft?.question_bank) {
+    retained.question_bank = {
+      ...previous.draft.question_bank,
+      approval: null,
+    };
+  }
+  // Generic editors cannot mint bank review receipts. Unchanged content retains the stored receipt.
+  if (
+    retained.question_bank &&
+    previous.draft?.question_bank?.approval &&
+    fingerprintQuestionBank(retained) ===
+      previous.draft.question_bank.approval.content_fingerprint
+  ) {
+    retained.question_bank = {
+      ...retained.question_bank,
+      approval: previous.draft.question_bank.approval,
+    };
+  }
+  return writeLessonDraftInTransaction(
+    client,
+    previous.id,
+    request.title,
+    retained,
+  );
 }
 /** Internal authoring primitive. Call only after locking an owned expected revision. */
 export async function writeLessonDraftInTransaction(
@@ -262,6 +297,17 @@ export async function writeLessonDraftInTransaction(
 ) {
   const clean = LessonDraftContentSchema.parse(draft);
   delete clean.approval;
+  if (
+    clean.question_bank?.approval &&
+    clean.question_bank.approval.content_fingerprint !==
+      fingerprintQuestionBank(clean)
+  ) {
+    clean.question_bank = { ...clean.question_bank, approval: null };
+  }
+  // Reviewed bank edits invalidate the derived tutoring sequence as well as its receipt.
+  // Reapproval requires explicit assembly before whole-lesson approval/publication.
+  if (clean.question_bank && !clean.question_bank.approval)
+    delete clean.sequence;
   const result = await client.query(
     "UPDATE lessons SET title=$2,draft=$3::jsonb,revision=revision+1,approved_revision=NULL WHERE id=$1 RETURNING *",
     [lessonId, title, JSON.stringify(clean)],
@@ -273,7 +319,9 @@ export async function readLessonDraft(
   access: EvidenceAccess,
   lessonId: string,
 ) {
-  return transaction((client) => ownedLessonDraft(client, access, lessonId));
+  return transaction((client) =>
+    readLessonDraftInTransaction(client, access, lessonId),
+  );
 }
 export async function approveLessonDraft(
   access: EvidenceAccess,
@@ -282,7 +330,7 @@ export async function approveLessonDraft(
 ) {
   z.number().int().positive().parse(expectedRevision);
   return transaction(async (client) => {
-    const lesson = await ownedLessonDraft(
+    const lesson = await readLessonDraftInTransaction(
       client,
       access,
       lessonId,
@@ -298,8 +346,9 @@ export async function approveLessonDraft(
         throw new EvidenceError(409, error.message);
       throw error;
     }
+    if (lesson.draft.question_bank) getReviewedQuestionBank(lesson.draft);
     const content = LessonContentSchema.parse({
-      ...lessonWithoutObjectiveWorkflow(lesson.draft),
+      ...projectLessonDraftContent(lesson.draft),
       approval: {
         status: "approved",
         approved_by: access.actor.profileId,
@@ -334,7 +383,7 @@ export async function publishLessonVersion(
 ) {
   z.number().int().positive().parse(expectedRevision);
   return transaction(async (client) => {
-    const lesson = await ownedLessonDraft(
+    const lesson = await readLessonDraftInTransaction(
       client,
       access,
       lessonId,
@@ -347,8 +396,16 @@ export async function publishLessonVersion(
       );
     if (!lesson.draft)
       throw new EvidenceError(409, "The lesson draft is empty.");
+    try {
+      assertObjectiveReviewForLesson(lesson.draft);
+    } catch (error) {
+      if (error instanceof ObjectiveReviewError)
+        throw new EvidenceError(409, error.message);
+      throw error;
+    }
+    if (lesson.draft.question_bank) getReviewedQuestionBank(lesson.draft);
     const content = LessonContentSchema.parse(
-      lessonWithoutObjectiveWorkflow(lesson.draft),
+      projectLessonDraftContent(lesson.draft),
     );
     const approved = await validateOwnedContent(
       client,
