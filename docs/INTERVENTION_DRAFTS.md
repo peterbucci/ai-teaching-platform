@@ -142,3 +142,13 @@ remain qualitative and teacher-reviewable; numerical generation is unsupported.
 #45/#46 must resolve the same assignment content for approval, delivery and
 follow-ups, and preserve nullable source URLs in their projections. This branch
 does not implement those later transitions.
+
+## Integrated main reconciliation, October 23
+
+The normal integration merges preserve the original draft implementation and migration 009 while incorporating main's published lesson workflow and real conversational tutor. The final diff contains only intervention generation, private review, source compatibility and focused verification paths.
+
+Generation and completion now resolve the exact authorized assignment version. Uploaded passages preserve original whitespace and nullable URLs; UUID concept identities and the objective editor's 2,000-character limit are retained. The prompt supports the authorized lesson's subject instead of assuming networking. A narrow historical v1/v2 adapter accepts only source excerpts equal to the canonical text with edge whitespace trimmed; it restores canonical bytes only in a new revision and never rewrites saved history.
+
+The combined tree passed 346 deterministic tests, lint, TypeScript, formatting, production build, curated and uploaded PostgreSQL checks (nine injected provider calls, zero paid), and authenticated private-review HTTP checks. CI now runs those three focused suites in addition to the inherited full application/database/restart checks. The fixture report is explicitly synthetic and does not replace historical actual-model records. Independent technical review found no remaining blockers in the resolver, history adapter or verification changes.
+
+The two historical actual-model drafts remain evidence for their original networking scope. No new actual-model quality claim is made for generic uploaded interventions in this reconciliation. Teacher editing, approval and delivery remain #103; follow-up evidence remains #106. Final actual-main teacher/student acceptance and release preparation remain #35–#37.
