@@ -163,7 +163,7 @@ metadata, silently overwrite newer work, publish or assign. No copilot is added.
 
 ## Recorded verification and remaining work
 
-- 111 deterministic tests and 293 curated content checks passed. Provider tests
+- Initial feature verification passed 111 deterministic tests and 293 curated content checks. Provider tests
   inject results or mock HTTP; they do not establish live-model quality.
 - `objectives:check` passed against isolated PostgreSQL with fictional teachers:
   manual editing/merge/order/review/reload, ownership, stale writes, unsupported
@@ -221,3 +221,7 @@ The original development database retained a pre-commit checksum for migration
 010 with one extra trailing blank line. It was left untouched, including its
 approved browser draft. Published migration bytes match #100, #101 and #102;
 no migration or stored checksum was rewritten. Fresh-schema checks passed.
+
+PR #100 now targets main. Reconciliation commit `1cae90f` preserves both
+parents. Independent repository review was requested; maintainer approval and
+downstream combined integration remain pending. No PR was merged or issue closed.
