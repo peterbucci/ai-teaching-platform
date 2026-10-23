@@ -35,12 +35,23 @@ export default async function QuestionBankPage({
   return (
     <TeacherFrame section="Assignments">
       <header className="lp-page-heading">
-        <Link
-          href={`/teacher/lessons/${encodeURIComponent(lessonId)}`}
-          className="lp-text-link"
+        <nav
+          className="flex flex-wrap gap-5"
+          aria-label="Lesson authoring steps"
         >
-          Back to lesson review
-        </Link>
+          <Link
+            href={`/teacher/objectives/${encodeURIComponent(lessonId)}`}
+            className="lp-text-link"
+          >
+            Back to objectives
+          </Link>
+          <Link
+            href={`/teacher/lessons/${encodeURIComponent(lessonId)}`}
+            className="lp-text-link"
+          >
+            Lesson publication review · separate publishing workflow
+          </Link>
+        </nav>
         <p className="lp-eyebrow mt-5">Prepare learning · Question bank</p>
         <h1 className="lp-title">{view.title}</h1>
         <p className="lp-intro">
