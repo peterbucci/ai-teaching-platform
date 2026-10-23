@@ -169,3 +169,52 @@ for any new model run. A varied response alone does not establish adaptive actio
 selection: #76 still requires materially different justified actions, an observed
 student response that changes the next decision, recovery, and authorized teacher
 inspection in the integrated application.
+
+## CI isolation and the #93 handoff
+
+The initial PR #98 CI failure was accumulated authentication state, not a failed
+password or a persistence error. The single application process admitted four
+logins in the dialogue suite, two in metrics, three in patterns, then the
+persistence suite's teacher login. Its student login was the eleventh request in
+Better Auth's shared ten-login budget. The dialogue timeout check takes 45 seconds;
+the limiter requires 60 seconds without an admitted login to reset, so suite order
+and machine speed exposed the coupling.
+
+`scripts/check-isolated.mjs` gives each CI check a fresh application process and
+waits for its health check. It neither recreates containers nor resets PostgreSQL.
+Authentication settings and trusted-header handling are unchanged. The separate
+`auth:rate-limit:check` deliberately exhausts the real HTTP limit and verifies
+invalid credentials, valid credentials, and both demo roles remain blocked despite
+changing forwarding headers. The persistence check follows it in a fresh process;
+the existing full database/application restart check still reuses saved cookies and
+compares the original evidence and record counts. Do not replace this isolation
+with sleeps, login retries, larger limits, or disabling authentication.
+
+Feature development is paused pending #93's reviewed fixes and merge. The worker
+resuming that integration should:
+
+- Start from this integration branch and merge/reconcile the final merged #93
+  ancestry. Preserve the four original R7 PR histories and avoid applying them
+  twice. Keep #98 a draft until its remaining review and acceptance gates pass.
+- Replace `lib/dialogue/persistence.ts`'s curated context bridge and
+  `lib/dialogue/runtime-policy.ts`'s temporary assignment allowlist with #93's
+  authorized content resolver and exact published `activity_policy`. Recheck
+  permission and source scope at claim, checkpoint and commit; never fall back to
+  curated networking content for an unknown uploaded version.
+- Reconcile both branches' evidence/tutoring store changes explicitly. Keep
+  `applyTutoringInTransaction`, immutable generated question snapshots, and their
+  server-owned `controller_node_id` bindings to existing activity slots. Use the
+  same evaluator/controller for curated and uploaded lessons; preserve private
+  rubric separation, concept coverage, and exact version/passage citations.
+- Retain migrations `008` and `009` alongside #93's lesson-registry migrations.
+  The exact reservation-linked settled/unknown evaluator outcome governs whether
+  an explicit retry is allowed. Unknown calls remain reserved, spent calls still
+  count, and refresh never starts or resumes paid work automatically.
+- Preserve both display receipts: conversation help is acknowledged by dialogue;
+  controller feedback uses the existing intervention acknowledgement only when
+  its text is actually visible. Preserve original answers and accepted evaluations.
+- Verify curated and uploaded assignments end to end, including denied/unpublished
+  sources, stale policy/version, generated assessment snapshots, refresh and teacher
+  evidence. Reuse the recorded 22-call live application evidence; run further paid
+  checks only for newly unverified behavior. Pending provider-operation
+  reconciliation, human review and uploaded-lesson acceptance remain #76 gates.
