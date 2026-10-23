@@ -1,6 +1,12 @@
 import { z } from "zod";
 import { ActionSchema, ContentRefSchema } from "../evidence/contracts.ts";
-import { VISUAL_LIMITS, VISUAL_VERSION } from "./contracts.ts";
+import {
+  ConceptGraphSchema,
+  PacketExperimentSchema,
+  SequenceDiagramSchema,
+  VISUAL_LIMITS,
+  VISUAL_VERSION,
+} from "./contracts.ts";
 
 const revision = z.int().nonnegative();
 const sha256 = z
@@ -20,17 +26,36 @@ export const VisualToolProposalSchema = z.strictObject({
 
 export type VisualToolProposal = z.infer<typeof VisualToolProposalSchema>;
 
+// The full activity the server verified. The hash is computed by the server
+// over this snapshot, so the stored copy can be checked against the hash later.
+export const VisualActivitySnapshotSchema = z.union([
+  ConceptGraphSchema,
+  SequenceDiagramSchema,
+  PacketExperimentSchema,
+]);
+
 // Written by the server after it checks the student's session and eligibility.
-export const VisualToolRequestSchema = z.strictObject({
-  version: z.literal(VISUAL_VERSION),
-  request_id: z.uuid(),
-  session_id: z.uuid(),
-  expected_revision: revision,
-  source: ContentRefSchema,
-  eligible_action: ActionSchema,
-  proposal: VisualToolProposalSchema,
-  activity_sha256: sha256,
-});
+export const VisualToolRequestSchema = z
+  .strictObject({
+    version: z.literal(VISUAL_VERSION),
+    request_id: z.uuid(),
+    session_id: z.uuid(),
+    expected_revision: revision,
+    source: ContentRefSchema,
+    eligible_action: ActionSchema,
+    proposal: VisualToolProposalSchema,
+    activity_snapshot: VisualActivitySnapshotSchema,
+    activity_sha256: sha256,
+  })
+  .superRefine((request, context) => {
+    if (request.activity_snapshot.kind !== request.proposal.activity_kind) {
+      context.addIssue({
+        code: "custom",
+        path: ["activity_snapshot", "kind"],
+        message: "The activity must match the proposed kind",
+      });
+    }
+  });
 
 export type VisualToolRequest = z.infer<typeof VisualToolRequestSchema>;
 
