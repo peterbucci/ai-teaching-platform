@@ -26,7 +26,11 @@ import {
 // Local synthetic regression. --setup-fixtures creates its own injected drafts.
 // No path invokes a live provider, and only fictional actors receive credentials.
 const args = process.argv.slice(2);
-assert.ok(args.length <= 1 && args.every((arg) => arg === "--setup-fixtures"));
+const withFollowups = args.includes("--with-followups");
+assert.ok(
+  args.length <= 2 &&
+    args.every((arg) => ["--setup-fixtures", "--with-followups"].includes(arg)),
+);
 function setupFixture(script: string, idField: "draft_id" | "saved_draft_id") {
   const output = execFileSync(
     process.execPath,
@@ -45,10 +49,10 @@ function setupFixture(script: string, idField: "draft_id" | "saved_draft_id") {
     .parse(JSON.parse(line));
   return z.uuid().parse(report[idField]);
 }
-const uploadedId = args.length
+const uploadedId = args.includes("--setup-fixtures")
   ? setupFixture("scripts/check-intervention-lessons.ts", "draft_id")
   : z.uuid().parse(process.env.CHECK_UPLOADED_INTERVENTION_DRAFT);
-const curatedId = args.length
+const curatedId = args.includes("--setup-fixtures")
   ? setupFixture("scripts/check-interventions.ts", "saved_draft_id")
   : z.uuid().parse(process.env.CHECK_CURATED_INTERVENTION_DRAFT);
 const base = new URL(process.env.CHECK_BASE_URL ?? process.env.AUTH_URL!);
@@ -418,6 +422,38 @@ try {
       },
       409,
     );
+    if (withFollowups) {
+      const { checkInterventionFollowupLessons } =
+        await import("./check-intervention-followup-lessons.ts");
+      checks.push(
+        await checkInterventionFollowupLessons({
+          kind,
+          draftId: draft.id,
+          approvalId: approved.approval.id,
+          teacher,
+          student,
+          outsider,
+          request,
+          createDelivered: async () => {
+            const copy = await clone(source.snapshot, source.teacher_id);
+            const review = (await action(copy.id, teacher.cookie, {
+              action: "approve",
+              request_id: randomUUID(),
+              expected_revision: 1,
+              recipient_ids: [studentId],
+            }))!;
+            assert.ok(review.approval);
+            await action(copy.id, teacher.cookie, {
+              action: "deliver",
+              request_id: randomUUID(),
+              expected_revision: 2,
+              approval_id: review.approval.id,
+            });
+            return { draftId: copy.id, approvalId: review.approval.id };
+          },
+        }),
+      );
+    }
     checks.push(
       `${kind}: exact-source edit/replay/stale/reference checks, explicit approval then delivery, enrollment and private projection, displayed-once, immutable history and unchanged original evidence passed.`,
     );

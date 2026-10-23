@@ -96,3 +96,70 @@
   font-size: 0.85rem;
   margin: 12px 0;
 }
+
+.lp-followup-response {
+  border-top: 1px solid #dce6df;
+  margin-top: 32px;
+  padding-top: 28px;
+  color: #233c30;
+  line-height: 1.7;
+}
+.lp-followup-response h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.lp-followup-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.lp-followup-response > * + *,
+.lp-followup-response form > * + *,
+.lp-followup-saved > * + * {
+  margin-top: 16px;
+}
+.lp-followup-response label {
+  display: block;
+  font-weight: 600;
+  white-space: pre-wrap;
+}
+.lp-followup-response textarea {
+  display: block;
+  width: 100%;
+  border: 1px solid #b8cabf;
+  border-radius: 10px;
+  background: white;
+  color: #233c30;
+  padding: 14px;
+  resize: vertical;
+  font: inherit;
+}
+.lp-followup-response textarea:focus-visible,
+.lp-followup-local summary:focus-visible {
+  outline: 2px solid #478c66;
+  outline-offset: 3px;
+}
+.lp-followup-saved {
+  background: #f5f8f6;
+  border: 1px solid #dce6df;
+  border-radius: 12px;
+  padding: 20px;
+}
+.lp-followup-saved h3 {
+  font-weight: 700;
+}
+.lp-followup-saved blockquote {
+  border-left: 3px solid #8faf9b;
+  padding-left: 14px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.lp-followup-local summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.lp-followup-local > * + * {
+  margin-top: 12px;
+}

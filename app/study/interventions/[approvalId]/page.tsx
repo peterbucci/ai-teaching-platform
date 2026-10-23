@@ -19,12 +19,14 @@ export default async function StudentInterventionPage({
 }) {
   const id = z.uuid().safeParse((await params).approvalId);
   if (!id.success) notFound();
-  const intervention = await (async () => {
+  const loaded = await (async () => {
     try {
-      return await readStudentIntervention(
-        evidenceAccess(await requireActor()),
+      const actor = await requireActor();
+      const intervention = await readStudentIntervention(
+        evidenceAccess(actor),
         id.data,
       );
+      return { intervention, studentId: actor.profileId };
     } catch (error) {
       if (error instanceof AuthError && error.status === 401)
         redirect("/login");
@@ -38,19 +40,22 @@ export default async function StudentInterventionPage({
         <Link href="/study/assignments" className="lp-button">
           Back to assignments
         </Link>
-        {intervention ? (
+        {loaded ? (
           <section className="lp-panel">
             <p className="lp-review-meta">
               Assigned review · Available since{" "}
-              {new Date(intervention.delivered_at).toLocaleDateString("en-US", {
-                timeZone: "America/New_York",
-              })}
+              {new Date(loaded.intervention.delivered_at).toLocaleDateString(
+                "en-US",
+                {
+                  timeZone: "America/New_York",
+                },
+              )}
             </p>
-            <DeliveredActivity intervention={intervention} />
-            <p className="lp-review-meta">
-              Use this review to practice and discuss your reasoning with your
-              teacher. Responses are not collected on this page yet.
-            </p>
+            <DeliveredActivity
+              key={`${loaded.studentId}:${loaded.intervention.approval_id}`}
+              intervention={loaded.intervention}
+              studentId={loaded.studentId}
+            />
           </section>
         ) : (
           <section className="lp-panel" role="alert">
