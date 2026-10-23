@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
+import { ZodError } from "zod";
 import { getPool } from "../lib/db.ts";
 import { getCuratedQuestion } from "../lib/evidence/content.ts";
 import type { Attempt } from "../lib/evidence/contracts.ts";
@@ -291,14 +292,14 @@ try {
     noGenerationProvider,
   );
   bankDraft = await readLessonDraft(teacher, bankDraft.id);
-  const reviewedBank = bankDraft.draft?.question_bank;
+  let reviewedBank = bankDraft.draft?.question_bank;
   assert.equal(reviewedBank?.approval?.reviewed_by, teacher.actor.profileId);
   await denied(
     assembleReviewedLessonDraft(otherTeacher, bankDraft.id, bankDraft.revision),
     404,
   );
   const bankRevision = bankDraft.revision;
-  const assembled = await assembleReviewedLessonDraft(
+  let assembled = await assembleReviewedLessonDraft(
     teacher,
     bankDraft.id,
     bankRevision,
@@ -329,6 +330,86 @@ try {
     publishLessonVersion(teacher, bankDraft.id, assembled.revision),
     409,
   );
+  // Only delivery words change: retaining old routing would silently publish stale feedback.
+  assert.ok(assembled.draft?.question_bank);
+  const changedBank = structuredClone(assembled.draft.question_bank);
+  changedBank.items[0].feedback_guidance =
+    "Compare the liquid and gas states in the assigned passage: evaporation makes vapor, while condensation makes liquid.";
+  changedBank.delivery.closing_feedback.correct_after_feedback =
+    "Your revised explanation is saved. Review the water-state passages before a later independent check.";
+  changedBank.delivery.fallback_message =
+    "Use the water-state reading to explain your current answer. Your saved work is preserved.";
+  await updateQuestionBank(
+    teacher,
+    bankDraft.id,
+    {
+      action: "save",
+      expected_revision: assembled.revision,
+      questions: assembled.draft.questions,
+      question_guidance: assembled.draft.question_guidance,
+      question_bank: changedBank,
+      activity_policy: assembled.draft.activity_policy,
+    },
+    noGenerationProvider,
+  );
+  bankDraft = await readLessonDraft(teacher, bankDraft.id);
+  assert.equal(bankDraft.draft?.question_bank?.approval, null);
+  assert.equal(
+    bankDraft.draft?.sequence,
+    undefined,
+    "Unapproved bank edits must discard derived routing",
+  );
+  await denied(
+    approveLessonDraft(teacher, bankDraft.id, bankDraft.revision),
+    409,
+  );
+  await updateQuestionBank(
+    teacher,
+    bankDraft.id,
+    {
+      action: "approve",
+      expected_revision: bankDraft.revision,
+    },
+    noGenerationProvider,
+  );
+  bankDraft = await readLessonDraft(teacher, bankDraft.id);
+  reviewedBank = bankDraft.draft?.question_bank;
+  assert.ok(reviewedBank?.approval);
+  assert.equal(
+    bankDraft.draft?.sequence,
+    undefined,
+    "Bank approval does not silently reassemble the lesson",
+  );
+  await assert.rejects(
+    approveLessonDraft(teacher, bankDraft.id, bankDraft.revision),
+    (error: unknown) =>
+      error instanceof ZodError &&
+      error.issues.some((issue) => issue.path[0] === "sequence"),
+  );
+  assembled = await assembleReviewedLessonDraft(
+    teacher,
+    bankDraft.id,
+    bankDraft.revision,
+    "water-state",
+  );
+  assert.equal(
+    assembled.draft?.sequence?.nodes.find(
+      (node) => node.kind === "corrective_feedback",
+    )?.feedback,
+    changedBank.items[0].feedback_guidance,
+  );
+  assert.deepEqual(
+    assembled.draft?.sequence?.nodes.find(
+      (node) => node.kind === "closing_feedback_and_review",
+    )?.feedback_variants,
+    changedBank.delivery.closing_feedback,
+  );
+  assert.equal(
+    assembled.draft?.sequence?.nodes.find(
+      (node) => node.kind === "unsupported_input_or_evaluation_fallback",
+    )?.feedback_variants?.unrelated_or_empty,
+    changedBank.delivery.fallback_message,
+  );
   await approveLessonDraft(teacher, bankDraft.id, assembled.revision);
   const bankPublication = await publishLessonVersion(
     teacher,
@@ -347,6 +428,11 @@ try {
   assert.equal("question_bank" in publishedBank, false);
   assert.equal("objective_workflow" in publishedBank, false);
   assert.equal(publishedBank.sequence.initial_question_id, "WC-01");
+  assert.deepEqual(
+    publishedBank.sequence,
+    assembled.draft?.sequence,
+    "Publication uses the newly assembled feedback and delivery",
+  );
   assert.deepEqual(
     (await readLessonDraft(teacher, bankDraft.id)).draft?.question_bank,
     reviewedBank,
@@ -440,6 +526,11 @@ try {
     title: draft.title,
     draft: lessonV1,
   });
+  assert.deepEqual(
+    draft.draft?.sequence,
+    lessonV1.sequence,
+    "Legacy manual packages retain their existing sequence without bank metadata",
+  );
   await approveLessonDraft(teacher, draft.id, draft.revision);
   const previousRevision = draft.revision;
   draft = await saveLessonDraft(teacher, {
@@ -811,7 +902,7 @@ try {
     assert.deepEqual(reader?.reading.content_ref, lessonV1.content_ref);
   }
   console.log(
-    "PASS: real objective/bank approval services with synthetic inputs; reviewed publication and source gates; ownership; stale/concurrent/replayed publication, creation and activation; immutable assignment instructions; two authorized classes with isolated student evidence; exact uploaded reading/evaluator/controller/teacher evidence paths; private rubric protection; prior source/version snapshots preserved after v2. No model call was made.",
+    "PASS: real objective/bank approval services with synthetic inputs; edited feedback requires reassembly; reviewed publication and source gates; ownership; stale/concurrent/replayed publication, creation and activation; immutable assignment instructions; two authorized classes with isolated student evidence; exact uploaded reading/evaluator/controller/teacher evidence paths; private rubric protection; prior source/version snapshots preserved after v2. No model call was made.",
   );
   console.log(
     `Retained labeled synthetic publishing probe ${run} in the configured development database.`,
