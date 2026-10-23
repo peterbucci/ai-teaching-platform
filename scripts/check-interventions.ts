@@ -462,6 +462,17 @@ try {
       "a late model result cannot overwrite a newer teacher draft revision",
     );
     fixtureDraftId = firstDraft.id;
+    if (process.env.CHECK_INTERVENTION_REPORT && !live) {
+      const output = resolve(process.env.CHECK_INTERVENTION_REPORT);
+      await mkdir(dirname(output), { recursive: true });
+      await writeFile(
+        output,
+        JSON.stringify({
+          verification: "Injected-provider fixture only; zero paid calls",
+          request: initialRequest,
+        }),
+      );
+    }
   }
 
   assert.deepEqual(
