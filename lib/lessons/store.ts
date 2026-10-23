@@ -23,7 +23,7 @@ import {
   type LessonDraftContent,
 } from "./contracts.ts";
 import { AttributionSchema, SourcePassageSchema } from "./source-contracts.ts";
-import { hydrateLessonContent } from "./validate.ts";
+import { hydrateLessonContent, LessonValidationError } from "./validate.ts";
 import {
   getReviewedQuestionBank,
   fingerprintQuestionBank,
@@ -135,7 +135,13 @@ async function validateOwnedContent(
       409,
       "Lesson passages differ from the approved source version.",
     );
-  return hydrateLessonContent(content);
+  try {
+    return hydrateLessonContent(content);
+  } catch (error) {
+    if (error instanceof LessonValidationError)
+      throw new EvidenceError(409, error.message);
+    throw error;
+  }
 }
 
 /** Server-only full context. Student responses must use explicit existing projections. */

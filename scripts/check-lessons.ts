@@ -12,7 +12,10 @@ import {
   recordEvaluation,
 } from "../lib/evidence/store.ts";
 import type { EvidenceAccess } from "../lib/evidence/store.ts";
-import type { Attempt } from "../lib/evidence/contracts.ts";
+import type {
+  Attempt,
+  MisconceptionCandidate,
+} from "../lib/evidence/contracts.ts";
 import {
   getCuratedQuestion,
   loadApprovedContent,
@@ -92,8 +95,16 @@ async function fixtureEvaluation(
   sessionId: string,
   attempt: Attempt,
   correct: boolean,
+  candidate?: Pick<MisconceptionCandidate, "concept_id" | "misconception_id">,
 ) {
   assert.ok(attempt.response_text);
+  const quote = {
+    response_id: attempt.id,
+    quote: attempt.response_text,
+    start_character: 0,
+    end_character: Array.from(attempt.response_text).length,
+    interpretation: "Deterministic fixture judgment of these exact words.",
+  };
   const result = await recordEvaluation(access, sessionId, {
     id: randomUUID(),
     attempt_id: attempt.id,
@@ -119,17 +130,18 @@ async function fixtureEvaluation(
           : ["Explains the reviewed relationship"],
       })),
       source_passage_ids: attempt.question.source_passage_ids,
-      evidence_quotes: [
-        {
-          response_id: attempt.id,
-          quote: attempt.response_text,
-          start_character: 0,
-          end_character: Array.from(attempt.response_text).length,
-          interpretation:
-            "Deterministic fixture judgment of these exact words.",
-        },
-      ],
-      misconception_candidates: [],
+      evidence_quotes: [quote],
+      misconception_candidates: candidate
+        ? [
+            {
+              ...candidate,
+              status: "tentative",
+              evidence_quotes: [quote],
+              uncertainty_reason:
+                "This response alone does not establish a persistent misconception.",
+            },
+          ]
+        : [],
       reasoning_observed: "Synthetic fixture judgment; no model was called.",
       uncertainty_reason: null,
       proposed_next_action: correct ? "END_SESSION" : "ASK_DIAGNOSTIC_FOLLOWUP",
@@ -513,6 +525,239 @@ try {
     /immutable/,
   );
 
+  // Review regression: a diagnostic must assess the concept whose hypothesis
+  // it tests. A correct answer about condensation cannot refute evaporation evidence.
+  let scopedDraft = await saveLessonDraft(teacher, {
+    expected_revision: 0,
+    title: "Synthetic diagnostic concept scope regression",
+    draft: {},
+  });
+  const scopedLesson = makeTeacherLesson(
+    source.source_ref,
+    scopedDraft.id,
+    "1",
+  );
+  const misconceptionId = "evaporation_reverses_state_change";
+  const misconception = {
+    id: misconceptionId,
+    definition:
+      "Explains evaporation as gas becoming liquid rather than liquid becoming gas.",
+    evidence_that_may_support:
+      "The original response explicitly states the reversed direction.",
+    diagnostic_caution:
+      "A single answer does not establish a stable misconception.",
+  };
+  scopedLesson.misconceptions.push({
+    ...misconception,
+    concept_id: "evaporation",
+  });
+  const evaporation = scopedLesson.concepts.find(
+    (item) => item.id === "evaporation",
+  );
+  assert.ok(evaporation);
+  evaporation.common_misconceptions.push(misconception);
+  scopedLesson.misconception_policy =
+    "Test a tentative evaporation direction hypothesis using an approved evaporation diagnostic.";
+  scopedLesson.sequence.hypothesis_id = misconceptionId;
+  scopedLesson.sequence.diagnostic_options = [
+    {
+      misconception_id: misconceptionId,
+      question_id: "WC-DIAGNOSTIC",
+    },
+  ];
+  const scopedQuestion = scopedLesson.questions.find(
+    (item) => item.question_id === "WC-DIAGNOSTIC",
+  );
+  assert.ok(scopedQuestion);
+  scopedQuestion.concept_ids = ["condensation"];
+  for (const guidance of scopedLesson.question_guidance) {
+    if (["WC-01", "WC-DIAGNOSTIC"].includes(guidance.question_id))
+      guidance.misconception_ids = [misconceptionId];
+  }
+  scopedDraft = await saveLessonDraft(teacher, {
+    lesson_id: scopedDraft.id,
+    expected_revision: scopedDraft.revision,
+    title: scopedDraft.title,
+    draft: scopedLesson,
+  });
+  await assert.rejects(
+    approveLessonDraft(teacher, scopedDraft.id, scopedDraft.revision),
+    (error: unknown) =>
+      error instanceof EvidenceError &&
+      error.status === 409 &&
+      /Diagnostic must assess its mapped misconception's concept/.test(
+        error.message,
+      ),
+  );
+  const rejectedDraft = await readLessonDraft(teacher, scopedDraft.id);
+  assert.equal(rejectedDraft.approved_revision, null);
+  assert.equal(rejectedDraft.revision, scopedDraft.revision);
+  assert.equal(rejectedDraft.draft?.approval, undefined);
+  await denied(
+    publishLessonVersion(teacher, scopedDraft.id, scopedDraft.revision),
+    409,
+  );
+  // Reproduce a draft approved by the old validator: publishing must recheck
+  // compatibility even when a preexisting approval marker is present.
+  await db.query(
+    "UPDATE lessons SET draft=$2::jsonb,approved_revision=revision WHERE id=$1",
+    [scopedDraft.id, JSON.stringify(scopedLesson)],
+  );
+  await assert.rejects(
+    publishLessonVersion(teacher, scopedDraft.id, scopedDraft.revision),
+    (error: unknown) =>
+      error instanceof EvidenceError &&
+      error.status === 409 &&
+      /Diagnostic must assess its mapped misconception's concept/.test(
+        error.message,
+      ),
+  );
+  assert.equal(
+    (
+      await db.query(
+        "SELECT count(*)::integer AS count FROM lesson_versions WHERE lesson_id=$1",
+        [scopedDraft.id],
+      )
+    ).rows[0].count,
+    0,
+  );
+
+  // Correct the same draft, then run the real storage/controller path with
+  // deterministic judgments. The diagnostic now tests only the relevant concept.
+  scopedQuestion.concept_ids = ["evaporation"];
+  scopedQuestion.source_passage_ids = ["water-01"];
+  scopedQuestion.prompt_text =
+    "Wet cloth dries in air. Explain the starting and ending states of its water and name that change.";
+  scopedQuestion.rubric.answer_guidance =
+    "Liquid water in the cloth becomes water vapor, a gas, by evaporation.";
+  scopedQuestion.rubric.criteria = [
+    "Explain liquid water changing to gas as evaporation.",
+  ];
+  const scopedNode = scopedLesson.sequence.nodes.find(
+    (item) => item.node_id === "WC-DIAGNOSTIC",
+  );
+  assert.ok(scopedNode);
+  scopedNode.prompt = scopedQuestion.prompt_text;
+  scopedNode.expected_answer = scopedQuestion.rubric.answer_guidance;
+  scopedNode.source_passage_ids = scopedQuestion.source_passage_ids;
+  scopedDraft = await saveLessonDraft(teacher, {
+    lesson_id: scopedDraft.id,
+    expected_revision: scopedDraft.revision,
+    title: scopedDraft.title,
+    draft: scopedLesson,
+  });
+  await approveLessonDraft(teacher, scopedDraft.id, scopedDraft.revision);
+  await publishLessonVersion(teacher, scopedDraft.id, scopedDraft.revision);
+  const scopedAssignment = await createLessonAssignment(teacher, {
+    class_id: ownedClass,
+    lesson_id: scopedDraft.id,
+    version: "1",
+    title: "Synthetic diagnostic scope regression",
+  });
+  await activate(teacher, scopedAssignment.id);
+  const scopedContent = await readAssignmentContent(
+    student,
+    scopedAssignment.id,
+    "student",
+  );
+  const scopedSession = await startSession(
+    student,
+    scopedAssignment.id,
+    "synthetic_fixture",
+  );
+  const scopedInitial = await presentQuestion(student, scopedSession.id, {
+    question: getCuratedQuestion(scopedContent, "WC-01"),
+    intent: "initial_retrieval",
+  });
+  await submitAnswer(student, scopedSession.id, {
+    attempt_id: scopedInitial.id,
+    submission_key: randomUUID(),
+    response_text: originalResponse,
+  });
+  const scopedSubmitted = (
+    await readSession(student, scopedSession.id, "student")
+  ).attempts[0];
+  const candidateEvaluation = await fixtureEvaluation(
+    student,
+    scopedSession.id,
+    scopedSubmitted,
+    false,
+    {
+      concept_id: "evaporation",
+      misconception_id: misconceptionId,
+    },
+  );
+  const diagnosticView = await applyTutoring(
+    student,
+    scopedSession.id,
+    candidateEvaluation.id,
+  );
+  assert.deepEqual(
+    await applyTutoring(student, scopedSession.id, candidateEvaluation.id),
+    diagnosticView,
+  );
+  const diagnosticEvidence = await readSession(
+    student,
+    scopedSession.id,
+    "student",
+  );
+  const targetedDiagnostic = diagnosticEvidence.attempts.at(-1)!;
+  assert.equal(
+    diagnosticEvidence.attempts.length,
+    2,
+    "Reapplying cannot create a second diagnostic",
+  );
+  assert.equal(targetedDiagnostic.question.question_id, "WC-DIAGNOSTIC");
+  assert.deepEqual(targetedDiagnostic.question.concept_ids, ["evaporation"]);
+  const suspected =
+    diagnosticEvidence.evaluations[0].applied_result?.hypothesis_events;
+  assert.equal(suspected?.length, 1);
+  assert.equal(suspected?.[0].status, "suspected");
+  assert.equal(suspected?.[0].concept_id, "evaporation");
+  await submitAnswer(student, scopedSession.id, {
+    attempt_id: targetedDiagnostic.id,
+    submission_key: randomUUID(),
+    response_text: "Liquid water in the cloth becomes gas by evaporation.",
+  });
+  const answeredDiagnostic = (
+    await readSession(student, scopedSession.id, "student")
+  ).attempts.at(-1)!;
+  const diagnosticEvaluation = await fixtureEvaluation(
+    student,
+    scopedSession.id,
+    answeredDiagnostic,
+    true,
+  );
+  const completedDiagnostic = await applyTutoring(
+    student,
+    scopedSession.id,
+    diagnosticEvaluation.id,
+  );
+  assert.equal(completedDiagnostic.session.status, "completed");
+  const reconstructed = await readSession(student, scopedSession.id, "student");
+  const resolvedHypothesis = reconstructed.evaluations.find(
+    (item) => item.id === diagnosticEvaluation.id,
+  )?.applied_result?.hypothesis_events;
+  assert.equal(resolvedHypothesis?.length, 1);
+  assert.equal(resolvedHypothesis?.[0].status, "not_supported");
+  assert.equal(resolvedHypothesis?.[0].concept_id, "evaporation");
+  assert.deepEqual(resolvedHypothesis?.[0].contradicting_evaluation_ids, [
+    diagnosticEvaluation.id,
+  ]);
+  assert.deepEqual(
+    await applyTutoring(student, scopedSession.id, diagnosticEvaluation.id),
+    completedDiagnostic,
+  );
+  assert.deepEqual(
+    await readSession(student, scopedSession.id, "student"),
+    reconstructed,
+  );
+  assert.deepEqual(
+    await readSession(teacher, scopedSession.id, "teacher"),
+    reconstructed,
+  );
+  assert.equal(reconstructed.attempts[0].response_text, originalResponse);
+
   const curated = loadApprovedContent();
   const curatedAssignment = await createLessonAssignment(teacher, {
     class_id: ownedClass,
@@ -551,7 +796,7 @@ try {
   assert.ok(reader?.readings.some((item) => item.id === curatedAssignment.id));
   await studentStudyHistory(student);
   console.log(
-    "PASS: curated and uploaded resolution; source replay/concurrency/revision controls; draft/source approval gates; teacher/class/enrollment authorization; exact refs/passages and SQL guards; immutable source and lesson versions; shared evaluator/controller/reading paths; private student projections; v1 evidence preserved after v2 publication. No model call was made.",
+    "PASS: curated and uploaded resolution; source replay/concurrency/revision controls; draft/source approval gates; teacher/class/enrollment authorization; exact refs/passages and SQL guards; immutable source and lesson versions; shared evaluator/controller/reading paths; private student projections; v1 evidence preserved after v2 publication; invalid diagnostic concept scope blocked at approval; corrected diagnostic hypothesis progression and idempotent reconstruction. No model call was made.",
   );
   console.log(
     `Retained labeled synthetic probe ${run} in the configured development database.`,
