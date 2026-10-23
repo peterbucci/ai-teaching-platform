@@ -363,6 +363,29 @@ export const ActivityEventSchema = z.discriminatedUnion("type", [
     attempt_number: z.int().min(1).max(VISUAL_LIMITS.followUpAttempts),
     text: text.max(VISUAL_LIMITS.responseCharacters),
   }),
+  z.strictObject({
+    ...eventBase,
+    type: z.literal("proposed"),
+    activity_kind: z.enum([
+      "concept_graph",
+      "sequence_diagram",
+      "packet_experiment",
+    ]),
+  }),
+  z.strictObject({
+    ...eventBase,
+    type: z.literal("accepted"),
+  }),
+  z.strictObject({
+    ...eventBase,
+    type: z.literal("failed"),
+    reason: z.enum([
+      "invalid_activity",
+      "stale_revision",
+      "not_permitted",
+      "display_error",
+    ]),
+  }),
 ]);
 
 export type ActivityEvent = z.infer<typeof ActivityEventSchema>;
@@ -380,6 +403,20 @@ function repeatKey(event: ActivityEvent): string | null {
   }
   return null;
 }
+
+// Teacher-only answer key. Kept separate from student-facing activity schemas,
+// which reject these fields, so it is never sent to students by accident.
+export const TeacherActivityKeySchema = z.strictObject({
+  version: z.literal(VISUAL_VERSION),
+  activity_id: z.uuid(),
+  expected_answer: text.max(VISUAL_LIMITS.responseCharacters),
+  rubric: z
+    .array(text.max(VISUAL_LIMITS.stepCharacters))
+    .min(1)
+    .max(VISUAL_LIMITS.guidedSteps),
+});
+
+export type TeacherActivityKey = z.infer<typeof TeacherActivityKeySchema>;
 
 export const ActivityEventLogSchema = z
   .array(ActivityEventSchema)

@@ -1,13 +1,16 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
+  ActivityEventSchema,
   ActivityEventLogSchema,
   ConceptGraphSchema,
   PacketExperimentSchema,
   SequenceDiagramSchema,
+  TeacherActivityKeySchema,
 } from "../lib/visual/contracts.ts";
 import {
   invalidActivityEvents,
+  invalidActivityLinks,
   invalidConceptGraphs,
   invalidPacketExperiments,
   invalidSequenceDiagrams,
@@ -15,6 +18,7 @@ import {
   validConceptGraph,
   validPacketExperiment,
   validSequenceDiagram,
+  validTeacherActivityKey,
 } from "../lib/visual/examples.ts";
 import { toStudentActivityEvents } from "../lib/visual/rules.ts";
 import { validateVisualActivity } from "../lib/visual/validate.ts";
@@ -73,6 +77,21 @@ test("rejects duplicate node IDs", () => {
   assert.equal(result.success, false);
   assert.ok(
     result.error?.issues.some((issue) => issue.message.includes("unique")),
+  );
+});
+
+test("rejects a concept graph with an unsupported control", () => {
+  const result = ConceptGraphSchema.safeParse(
+    invalidConceptGraphs.unsupportedControl,
+  );
+  assert.equal(result.success, false);
+});
+
+test("rejects an activity event with no session link", () => {
+  assert.equal(
+    ActivityEventSchema.safeParse(invalidActivityLinks.missingSessionId)
+      .success,
+    false,
   );
 });
 
@@ -218,6 +237,40 @@ test("a prediction on one activity does not reveal another activity's result", (
   const visible = toStudentActivityEvents(mixed);
   assert.equal(
     visible.some((event) => event.type === "experiment_result"),
+    false,
+  );
+});
+
+test("accepts a teacher-only activity key", () => {
+  assert.equal(
+    TeacherActivityKeySchema.safeParse(validTeacherActivityKey).success,
+    true,
+  );
+});
+
+test("rejects a teacher-only activity key with an empty rubric", () => {
+  assert.equal(
+    TeacherActivityKeySchema.safeParse({
+      ...validTeacherActivityKey,
+      rubric: [],
+    }).success,
+    false,
+  );
+});
+
+test("student activity schemas reject teacher answer-key fields", () => {
+  assert.equal(
+    PacketExperimentSchema.safeParse({
+      ...validPacketExperiment,
+      expected_answer: validTeacherActivityKey.expected_answer,
+    }).success,
+    false,
+  );
+  assert.equal(
+    ConceptGraphSchema.safeParse({
+      ...validConceptGraph,
+      rubric: validTeacherActivityKey.rubric,
+    }).success,
     false,
   );
 });

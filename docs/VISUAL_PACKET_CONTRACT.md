@@ -74,6 +74,17 @@ both explicit packet versions; concept graphs and sequence diagrams stay v1.
 `PacketDelayExperimentSchema` for numerical packet experiments, using approved
 source/concept scope, and must not generate results or permissions.
 
+The separately developed #104 lifecycle events and teacher-only answer key are
+preserved. Its tool request now accepts explicit v2 packet requests, while v1
+requests and the original unversioned prose result remain readable.
+`VisualPacketToolResultSchema` adds a v2 result whose `observation` is the checked
+numeric calculation (or null when rejected). `VisualToolResultSchema` reads both
+result formats. The caller must match the original request version and activity
+hash; it must never treat a legacy prose observation as a v2 calculation.
+`display_acknowledged: false` keeps verified calculation separate from actual
+display. These records do not themselves grant any permission or perform a
+state transition.
+
 Shared fixtures are `validPacketDelayExperiment` and `validPacketDelayEvents`;
 the original examples remain compatibility fixtures. Deterministic tests cover
 fractional values, fixed/bounded controls, exact-source membership, tampered
