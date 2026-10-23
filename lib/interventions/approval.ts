@@ -17,6 +17,7 @@ import {
 import { InterventionDraftSchema, type InterventionDraft } from "./drafts.ts";
 import { readInterventionDraft } from "./store.ts";
 import { validateEditedIntervention } from "./approval-validation.ts";
+import { mirrorInterventionDisplay } from "./outcomes.ts";
 import {
   InterventionActionSchema,
   InterventionApprovalSchema,
@@ -423,6 +424,7 @@ export async function markStudentInterventionDisplayed(
         .object({ displayed_at: z.iso.datetime({ offset: true }) })
         .parse(evidenceRow(updated.rows[0])).displayed_at;
     }
+    await mirrorInterventionDisplay(client, approvalId, access.actor.profileId);
     return studentView(row);
   });
 }

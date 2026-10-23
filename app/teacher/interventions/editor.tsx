@@ -17,6 +17,7 @@ import type { InterventionDraft } from "../../../lib/interventions/drafts.ts";
 import { InterventionActivityView } from "../../components/intervention-activity.tsx";
 import { ActivityEditor } from "./activity-editor.tsx";
 import { ActivityReview } from "./review.tsx";
+import { InterventionFollowup } from "./followup.tsx";
 
 // Local recovery accepts unfinished text; only the server accepts saved work.
 const recoveryQuestion =
@@ -659,6 +660,12 @@ export function InterventionEditor({
             {review.delivery ? ` · Delivery: ${review.delivery.id}` : ""}
           </p>
         </section>
+      )}
+      {review?.delivery && review.approval && (
+        <InterventionFollowup
+          draftId={draft.id}
+          approvalId={review.approval.id}
+        />
       )}
       {conflict && (
         <div role="alert" className="lp-intervention-warning">

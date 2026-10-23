@@ -118,6 +118,13 @@ export type EvaluationRun = {
   failure: { code: string; message: string } | null;
 };
 
+/** Trusted adapters can exercise the same evaluator with a deterministic
+ * provider and keep ambiguous transport outcomes pending reconciliation. */
+export type EvaluationOptions = {
+  provider?: typeof requestEvaluation;
+  preserveUncertainProviderOutcome?: boolean;
+};
+
 /** Server/operator-only. There is deliberately no public model-spending endpoint.
  * One explicit call per submitted attempt: existing results (including failures)
  * are reused. A later retry policy is a deliberate tutor decision, not an SDK retry.
@@ -127,6 +134,7 @@ export async function evaluateSubmittedAttempt(
   sessionId: string,
   attemptId: string,
   retryOf?: string,
+  options: EvaluationOptions = {},
 ): Promise<EvaluationRun> {
   z.uuid().parse(attemptId);
   // Authorize before taking any model-work lock or spending credits.
@@ -214,7 +222,7 @@ export async function evaluateSubmittedAttempt(
           "Evaluation request started. If no result arrives, ask your teacher to check it before another paid request.",
       });
     }
-    const provider = await requestEvaluation(prompt);
+    const provider = await (options.provider ?? requestEvaluation)(prompt);
     let result: Evaluation["result"] = null;
     let failure: EvaluationRun["failure"] = provider.ok
       ? null
@@ -234,15 +242,22 @@ export async function evaluateSubmittedAttempt(
     }
     if (!provider.model || (!provider.ok && provider.code === "configuration"))
       return { evaluation: null, reused: false, provider, failure };
+    const uncertainProviderOutcome =
+      options.preserveUncertainProviderOutcome === true &&
+      !provider.ok &&
+      ["timeout", "connection", "provider_error"].includes(provider.code);
     try {
       const evaluation = await recordEvaluation(access, sessionId, {
         id: randomUUID(),
         attempt_id: attemptId,
         validation_status: result
           ? "accepted"
-          : provider.ok || (!provider.ok && provider.code === "invalid_output")
-            ? "rejected"
-            : "evaluation_failed",
+          : uncertainProviderOutcome
+            ? "pending_review"
+            : provider.ok ||
+                (!provider.ok && provider.code === "invalid_output")
+              ? "rejected"
+              : "evaluation_failed",
         evaluator: {
           type: "language_model",
           model: provider.model,
@@ -251,7 +266,9 @@ export async function evaluateSubmittedAttempt(
         supersedes_id: null,
         result,
         applied_result: null,
-        failure_reason: failure?.message ?? null,
+        failure_reason: uncertainProviderOutcome
+          ? "The provider outcome is unknown. Your answer is saved; ask your teacher to reconcile this request before another paid evaluation."
+          : (failure?.message ?? null),
       });
       return { evaluation, reused: false, provider, failure };
     } catch {
