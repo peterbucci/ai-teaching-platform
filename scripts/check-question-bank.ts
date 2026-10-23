@@ -5,21 +5,29 @@ import { evidenceAccess, EvidenceError } from "../lib/evidence/store.ts";
 import { DEMO_IDS } from "../lib/evidence/demo.ts";
 import { createSourceVersion } from "../lib/lessons/sources.ts";
 import { saveLessonDraft, readLessonDraft } from "../lib/lessons/store.ts";
-import type { LessonDraftContent } from "../lib/lessons/contracts.ts";
+import {
+  createObjectiveDraft,
+  saveObjectiveDraft,
+  approveObjectives,
+} from "../lib/objectives/store.ts";
+import { ObjectiveEditSchema } from "../lib/objectives/contracts.ts";
 import {
   readQuestionBank,
   updateQuestionBank,
   bankMetadata,
 } from "../lib/question-bank/store.ts";
-import { getReviewedQuestionBank } from "../lib/question-bank/validation.ts";
+import {
+  getReviewedQuestionBank,
+  fingerprintQuestionBank,
+} from "../lib/question-bank/validation.ts";
 import type { QuestionBankProvider } from "../lib/question-bank/generate.ts";
 import { fixtureQuestionBankProvider } from "../tests/fixtures/question-bank-provider.ts";
 import {
-  makeTeacherLesson,
   teacherSourceAttribution,
   teacherSourceDocument,
   teacherSourcePassages,
 } from "../tests/fixtures/teacher-lesson.ts";
+import { makeQuestionBankObjectiveEdits } from "../tests/fixtures/question-bank-objectives.ts";
 
 // Dedicated disposable DB, synthetic material and injected provider. Zero paid calls.
 const pool = getPool();
@@ -68,28 +76,55 @@ try {
     review_status: "approved",
     permitted_use: true,
   });
-  let row = await saveLessonDraft(teacher, {
-    expected_revision: 0,
+  let row = await createObjectiveDraft(teacher, {
+    request_id: randomUUID(),
     title: "Synthetic #51 database check",
-    draft: {},
+    source_id: source.document_id,
+    source_version: source.version,
   });
-  const seed = makeTeacherLesson(source.source_ref, row.id, "1");
-  const objectives: LessonDraftContent = { ...seed };
-  delete objectives.questions;
-  delete objectives.question_guidance;
-  delete objectives.sequence;
-  delete objectives.approval;
-  row = await saveLessonDraft(teacher, {
+  const objectiveEdits = makeQuestionBankObjectiveEdits(true);
+  row = await saveObjectiveDraft(teacher, {
     lesson_id: row.id,
     expected_revision: row.revision,
     title: row.title,
-    draft: { ...objectives, question_bank: bankMetadata({}) },
+    items: objectiveEdits,
   });
   let calls = 0;
   const provider: QuestionBankProvider = async (request) => {
     calls++;
     return fixtureQuestionBankProvider(request);
   };
+  await denied(
+    updateQuestionBank(
+      teacher,
+      row.id,
+      {
+        action: "generate",
+        expected_revision: row.revision,
+        request_id: randomUUID(),
+        question_ids: [],
+      },
+      provider,
+    ),
+    409,
+  );
+  assert.equal(
+    calls,
+    0,
+    "Unapproved objective workflow cannot incur a provider call",
+  );
+  row = await approveObjectives(teacher, {
+    lesson_id: row.id,
+    expected_revision: row.revision,
+  });
+  assert.ok(row.draft?.objective_workflow?.reviewed);
+  assert.deepEqual(
+    bankMetadata(row.draft!).preferences.emphasized_concept_ids,
+    objectiveEdits
+      .filter((item) => item.emphasis === "essential")
+      .map((item) => item.concept_id),
+    "A new bank consumes #50 essential emphasis without selecting supporting objectives",
+  );
   const generation = {
     action: "generate",
     expected_revision: row.revision,
@@ -190,6 +225,118 @@ try {
     [row.id],
   );
   assert.equal(versionCount.rows[0].count, 0);
+
+  // A generic draft save cannot replace a bank receipt or mint one for edited content.
+  const originalReceipt = structuredClone(view.draft.question_bank.approval);
+  const forgedDraft = structuredClone(view.draft);
+  forgedDraft.question_bank.approval = {
+    ...originalReceipt!,
+    reviewed_by: foreignTeacher.actor.profileId,
+  };
+  row = await saveLessonDraft(teacher, {
+    lesson_id: row.id,
+    expected_revision: view.revision,
+    title: row.title,
+    draft: forgedDraft,
+  });
+  assert.deepEqual(
+    row.draft?.question_bank?.approval,
+    originalReceipt,
+    "Unchanged generic saves retain only the original server receipt",
+  );
+  view = await readQuestionBank(teacher, row.id);
+  const forgedEdit = structuredClone(view.draft);
+  forgedEdit.questions![0].prompt_text += " Include a reason.";
+  forgedEdit.question_bank.approval = {
+    ...originalReceipt!,
+    content_fingerprint: fingerprintQuestionBank(forgedEdit),
+  };
+  row = await saveLessonDraft(teacher, {
+    lesson_id: row.id,
+    expected_revision: view.revision,
+    title: row.title,
+    draft: forgedEdit,
+  });
+  assert.equal(
+    row.draft?.question_bank?.approval,
+    null,
+    "A forged matching fingerprint cannot approve edited question content",
+  );
+  view = await updateQuestionBank(teacher, row.id, {
+    action: "approve",
+    expected_revision: row.revision,
+  });
+
+  // Real #50 edits invalidate objective approval and bank approval immediately.
+  const reviewedQuestions = structuredClone(view.draft.questions);
+  const previousBankReceipt = structuredClone(
+    view.draft.question_bank.approval,
+  );
+  const revisedObjectives = view.draft.objective_workflow!.items.map((item) =>
+    ObjectiveEditSchema.strip().parse(item),
+  );
+  revisedObjectives[0].objective += " Identify the starting and ending states.";
+  row = await saveObjectiveDraft(teacher, {
+    lesson_id: row.id,
+    expected_revision: view.revision,
+    title: row.title,
+    items: revisedObjectives,
+  });
+  assert.equal(row.draft?.objective_workflow?.reviewed, null);
+  assert.equal(
+    row.draft?.question_bank?.approval,
+    null,
+    "Objective edits must clear the question-bank receipt immediately",
+  );
+  assert.deepEqual(row.draft?.questions, reviewedQuestions);
+  const callsBeforeObjectiveCheck = calls;
+  await denied(
+    updateQuestionBank(
+      teacher,
+      row.id,
+      {
+        action: "generate",
+        expected_revision: row.revision,
+        request_id: randomUUID(),
+        question_ids: [selectedId],
+      },
+      provider,
+    ),
+    409,
+  );
+  assert.equal(calls, callsBeforeObjectiveCheck);
+  row = await approveObjectives(teacher, {
+    lesson_id: row.id,
+    expected_revision: row.revision,
+  });
+  assert.equal(
+    row.draft?.question_bank?.approval,
+    null,
+    "Reapproving objectives never silently restores a stale bank approval",
+  );
+  assert.throws(
+    () => getReviewedQuestionBank(row.draft!),
+    /explicit teacher approval/,
+  );
+  const replayedReceipt = {
+    ...row.draft!,
+    question_bank: {
+      ...row.draft!.question_bank!,
+      approval: previousBankReceipt,
+    },
+  };
+  row = await saveLessonDraft(teacher, {
+    lesson_id: row.id,
+    expected_revision: row.revision,
+    title: row.title,
+    draft: replayedReceipt,
+  });
+  assert.equal(row.draft?.question_bank?.approval, null);
+  view = await updateQuestionBank(teacher, row.id, {
+    action: "approve",
+    expected_revision: row.revision,
+  });
+  assert.equal(getReviewedQuestionBank(view.draft).questions.length, 4);
 
   // Reorder/add/delete manual questions through the real transaction and reload.
   const manual = structuredClone(view.draft.questions![1]);
@@ -339,25 +486,14 @@ try {
     ...view.draft,
     content_ref: { ...view.draft.content_ref!, source_version: 999 },
   };
-  row = await saveLessonDraft(teacher, {
-    lesson_id: row.id,
-    expected_revision: view.revision,
-    title: row.title,
-    draft: badDraft,
-  });
   await denied(
-    updateQuestionBank(
-      teacher,
-      row.id,
-      {
-        action: "generate",
-        expected_revision: row.revision,
-        request_id: randomUUID(),
-        question_ids: [selectedId],
-      },
-      provider,
-    ),
-    404,
+    saveLessonDraft(teacher, {
+      lesson_id: row.id,
+      expected_revision: view.revision,
+      title: row.title,
+      draft: badDraft,
+    }),
+    409,
   );
   console.log(
     JSON.stringify({
@@ -367,6 +503,10 @@ try {
       paid_calls: 0,
       checks: [
         "approved-objective generation",
+        "real objective save/approval and essential emphasis",
+        "unreviewed/edited objectives block paid generation",
+        "objective edits immediately invalidate bank approval",
+        "generic bank-receipt forgery rejected",
         "multi-concept/source grounding",
         "selective regeneration",
         "manual edit/add/delete/reorder",
