@@ -208,6 +208,7 @@ async function seed() {
     ] as const) {
       const assignment = {
         ...demo.assignment,
+        instructions: "",
         id,
         class_id,
         title: "Synthetic dialogue integration lesson",
