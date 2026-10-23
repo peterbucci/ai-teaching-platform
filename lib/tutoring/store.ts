@@ -41,6 +41,7 @@ import {
   TutorViewSchema,
 } from "./contracts.ts";
 import { decideTutoring, tutoringOutcome } from "./decide.ts";
+import { tutoringCompletionMessage } from "./completion.ts";
 import { bindGeneratedQuestion, controllerNode } from "./generated-question.ts";
 import {
   GeneratedDialogueSchema,
@@ -245,9 +246,7 @@ export async function tutorView(access: EvidenceAccess, sessionId: string) {
       next_review_at: evidence.attempts[0]?.outcome?.next_review_at ?? null,
       message:
         phase === "completed"
-          ? evidence.session.status === "unevaluated"
-            ? "Your work is saved. Ask your teacher for help before continuing."
-            : "Practice complete. This records today's performance, not lasting mastery."
+          ? tutoringCompletionMessage(evidence)
           : phase === "failed"
             ? recovery.unfinished
               ? "Evaluation is still pending. Check progress shortly. If it stays pending, ask your teacher to check the service; another paid request will not be sent automatically."

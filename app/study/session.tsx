@@ -92,6 +92,7 @@ export function StudySession({
   const [error, setError] = useState<string | null>(null);
   const currentStep = useRef<HTMLHeadingElement>(null);
   const feedbackStep = useRef<HTMLHeadingElement>(null);
+  const completionStep = useRef<HTMLParagraphElement>(null);
   const acknowledgingHelp = useRef(new Set<string>());
   const focusedAttempt = useRef<string | null>(null);
   const pendingReading = view?.pending_reading;
@@ -268,7 +269,7 @@ export function StudySession({
       phase === "feedback"
         ? feedbackStep.current
         : phase === "completed"
-          ? (feedbackStep.current ?? currentStep.current)
+          ? completionStep.current
           : currentStep.current;
     target?.focus({ preventScroll: true });
     target?.scrollIntoView({ block: "nearest" });
@@ -659,12 +660,16 @@ export function StudySession({
               />
             )}
           </div>
-          {((phase !== "answer" && view.session.status !== "completed") ||
-            pendingReading ||
-            (phase !== "answer" && error)) && (
+          {(phase !== "answer" || pendingReading) && (
             <div className="lp-session-actions">
-              {phase !== "answer" && view.session.status !== "completed" && (
-                <p className="lp-study-session-state">{progressMessage}</p>
+              {phase !== "answer" && (
+                <p
+                  className="lp-study-session-state"
+                  ref={phase === "completed" ? completionStep : undefined}
+                  tabIndex={phase === "completed" ? -1 : undefined}
+                >
+                  {progressMessage}
+                </p>
               )}
               {pendingReading && (
                 <p className="lp-study-session-state" role="status">
