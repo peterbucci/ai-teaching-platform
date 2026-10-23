@@ -101,7 +101,11 @@ export function decideTutoring(
     (item) => item.misconception_id === hypothesisId,
   );
   const previous = events
-    .filter((item) => item.misconception_id === hypothesisId)
+    .filter(
+      (item) =>
+        item.misconception_id === hypothesisId &&
+        (!candidate || item.concept_id === candidate.concept_id),
+    )
     .at(-1);
   const hypothesisEvents: AppliedResult["hypothesis_events"] = [];
   const count = (kind: string) =>

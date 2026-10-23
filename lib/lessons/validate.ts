@@ -221,9 +221,9 @@ export function hydrateLessonContent(input: unknown): ApprovedContent {
       requireRule(
         conceptId === null ||
           (conceptId !== undefined &&
-            !!questions
+            questions
               .get(option.question_id)
-              ?.concept_ids.includes(conceptId)),
+              ?.concept_ids.includes(conceptId) === true),
         "Diagnostic must assess its mapped misconception's concept",
       );
     }

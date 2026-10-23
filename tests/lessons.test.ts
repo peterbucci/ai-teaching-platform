@@ -142,9 +142,10 @@ test("diagnostic mappings must assess their misconception's concrete concept", (
   diagnostic.concept_ids.push("condensation");
   assert.doesNotThrow(() => hydrateLessonContent(data));
   data.misconceptions[0].concept_id = null;
-  assert.doesNotThrow(
-    () => hydrateLessonContent(data),
-    "Global categories are valid historical content and do not claim a concrete concept",
+  assert.deepEqual(
+    serializeLessonContent(hydrateLessonContent(data)),
+    data,
+    "Global category mappings remain readable without changing saved content",
   );
   data.sequence.diagnostic_options[0].misconception_id = null;
   assert.doesNotThrow(() => hydrateLessonContent(data));
