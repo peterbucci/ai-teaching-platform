@@ -369,10 +369,14 @@ try {
     );
     item.stale_denied = !stale.ok;
     assert.equal(item.stale_denied, true);
-    const denied = await dependencies.generate(
+    const foreignServices = createVisualCheckServices(
+      dependencies,
+      foreign,
       request,
-      createVisualCheckServices(dependencies, foreign, request),
     );
+    // Even an authorization regression must stay inside this run's paid cap.
+    foreignServices.provider.request = services.provider.request;
+    const denied = await dependencies.generate(request, foreignServices);
     item.foreign_denied = !denied.ok;
     assert.equal(item.foreign_denied, true);
     assert.equal(report.actual_provider_dispatches, count);
