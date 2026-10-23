@@ -1,0 +1,1502 @@
+{
+  "version": "orchestration-live-evidence-v1",
+  "synthetic": true,
+  "scope": "Actual model and PostgreSQL service composition; no production routing or browser proof.",
+  "limitations": [
+    "Both clarify and explain are installed by an explicit synthetic test policy; production policy is unchanged.",
+    "Display acknowledgements and student observations are scripted by the harness.",
+    "No answer submission, evaluation, generated assessment handoff, uploaded source or human classroom validation.",
+    "Published record omits raw prompts, source passages, private assessment criteria, provider reasoning and credentials.",
+    "Failed batches and strict action-label gates are retained; semantic interpretation is documented separately."
+  ],
+  "actual_provider_requests": 16,
+  "batches": [
+    {
+      "started_at": "2026-10-23T01:03:36.933Z",
+      "finished_at": "2026-10-23T01:03:59.04Z",
+      "model": "gpt-6.1-sol",
+      "code": {
+        "ORCHESTRATION_CODE_SHA": "9ec09e96968d42ad59a53f0ed252cc79e7cfcb7e",
+        "DIALOGUE_PROVIDER_CODE_SHA": "13c8a51a583ca91b076f77361d7d872a5caa43a3",
+        "DIALOGUE_PERSISTENCE_CODE_SHA": "00f618b2a1816ffab2d59591afa8b76a5c8adb95",
+        "verification_head": "3b1003d920c28433d0e8d22fd1ff57fdd75d038d"
+      },
+      "raw_report_sha256": "95762f213de594ab32ff328e29e2efdf86060401edbc04603e5a98704048e7f2",
+      "source": {
+        "package_id": "network-performance-v1",
+        "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+        "source_id": "peterson_davie_1_5_1",
+        "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+        "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+      },
+      "database": "orchestration85_check",
+      "limits": {
+        "turns": 3,
+        "actual_provider_requests": 12,
+        "timeout_ms_per_call": 45000,
+        "automatic_retries": 0
+      },
+      "test_policy": {
+        "allowedHelpTools": ["clarify", "explain"],
+        "production_enabled": false
+      },
+      "actual_provider_requests": 4,
+      "overall_status": "incomplete_or_failed",
+      "stopped_because": {
+        "case_id": "bit-rate-first",
+        "name": "Error",
+        "code": "validated_tool_executed"
+      },
+      "summary_gates": [],
+      "educational_comparison": {
+        "status": "pending_review",
+        "note": "Structural action differences require post-run review of educational meaning; no automatic semantic acceptance is claimed."
+      },
+      "cases": [
+        {
+          "id": "bit-rate-first",
+          "kind": "initial_synthetic_misunderstanding",
+          "input": "Before I answer the lesson question, I need help understanding a term. I have been reading a link's bits per second as packets per second, so I think each packet is one unit of that rate. Could you clarify what that rate counts without solving the active question? This is a request for help.",
+          "status": "failed",
+          "session_id": "c36c1257-ca17-41c3-99b0-23ec2370da88",
+          "request_id": "29c05807-2bb5-4bad-8e46-6602b4a417bd",
+          "receipt": {
+            "status": "stopped",
+            "request_id": "29c05807-2bb5-4bad-8e46-6602b4a417bd",
+            "reason": "invalid_output",
+            "reconcile": false,
+            "fallback": {
+              "kind": "fallback",
+              "reason": "invalid_output",
+              "text": "That response couldn't be checked. You can return to the lesson or use the reading.",
+              "next": "return_to_lesson"
+            }
+          },
+          "assistance_before": null,
+          "assistance_after": null,
+          "gates": [
+            {
+              "name": "new_request_reserved",
+              "passed": true
+            },
+            {
+              "name": "actual_model_classified_help",
+              "passed": true,
+              "observed": "QUESTION_OR_HELP"
+            },
+            {
+              "name": "validated_tool_executed",
+              "passed": false,
+              "observed": "stopped"
+            }
+          ],
+          "failure": {
+            "name": "Error",
+            "code": "validated_tool_executed"
+          },
+          "action_trace": [
+            {
+              "sequence": 9,
+              "event_id": "532a4a56-f5b5-40fa-88fb-61e9aa856d54",
+              "request_id": "29c05807-2bb5-4bad-8e46-6602b4a417bd",
+              "kind": "action",
+              "payload": {
+                "phase": "proposed",
+                "proposal": {
+                  "action": "clarify",
+                  "version": "tutor-orchestration-v1",
+                  "arguments": {
+                    "focus": "terminology"
+                  },
+                  "concept_ids": ["transmission_delay"],
+                  "content_ref": {
+                    "source_id": "peterson_davie_1_5_1",
+                    "package_id": "network-performance-v1",
+                    "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                    "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+                    "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+                  },
+                  "reason_summary": "The student explicitly requests clarification of what bits per second counts and reports reading it as packets per second. Clarify the rate's units and the distinction between bits and packets without resolving the active question. No accepted evaluation or prior displayed assistance is available.",
+                  "source_passage_ids": ["P05", "P08"]
+                },
+                "action_id": "29c05807-2bb5-4bad-8e46-6602b4a417bd",
+                "invalid_proposal": false
+              },
+              "at": "2026-10-23T01:03:46.178Z"
+            },
+            {
+              "sequence": 10,
+              "event_id": "de0e0940-9c22-41e7-a4e1-792575ee4476",
+              "request_id": "29c05807-2bb5-4bad-8e46-6602b4a417bd",
+              "kind": "action",
+              "payload": {
+                "phase": "validated",
+                "reason": null,
+                "decision": "accepted",
+                "action_id": "29c05807-2bb5-4bad-8e46-6602b4a417bd",
+                "allowed_actions": ["clarify", "explain"]
+              },
+              "at": "2026-10-23T01:03:46.207Z"
+            },
+            {
+              "sequence": 11,
+              "event_id": "15ade596-8708-4731-8f1b-c4020f519e7e",
+              "request_id": "29c05807-2bb5-4bad-8e46-6602b4a417bd",
+              "kind": "action",
+              "payload": {
+                "tool": "clarify",
+                "phase": "dispatch_started",
+                "action_id": "29c05807-2bb5-4bad-8e46-6602b4a417bd"
+              },
+              "at": "2026-10-23T01:03:46.236Z"
+            },
+            {
+              "sequence": 16,
+              "event_id": "0f314d0f-6a43-4215-9989-a07042816e0f",
+              "request_id": "29c05807-2bb5-4bad-8e46-6602b4a417bd",
+              "kind": "action",
+              "payload": {
+                "phase": "failed",
+                "stage": "dispatch",
+                "reason": "invalid_output",
+                "action_id": "29c05807-2bb5-4bad-8e46-6602b4a417bd",
+                "outcome_unknown": false
+              },
+              "at": "2026-10-23T01:03:59.015Z"
+            }
+          ],
+          "provider_outputs": [
+            {
+              "stage": "classify",
+              "status": 200,
+              "transport_error": null,
+              "response_id": "resp_06342724d275d1c2016adab268835c87d280dec03091483caf",
+              "model": "gpt-6.1-sol",
+              "created_at": 1792717416,
+              "usage": {
+                "input_tokens": 3619,
+                "input_tokens_details": {
+                  "cache_write_tokens": 3616,
+                  "cached_tokens": 0
+                },
+                "output_tokens": 45,
+                "output_tokens_details": {
+                  "reasoning_tokens": 0
+                },
+                "total_tokens": 3664
+              },
+              "output": [
+                {
+                  "category": "QUESTION_OR_HELP",
+                  "rationale": "The student requests clarification of what the link rate counts before attempting the assessment, explicitly asking not to solve the active question."
+                }
+              ]
+            },
+            {
+              "stage": "propose",
+              "status": 200,
+              "transport_error": null,
+              "response_id": "resp_019ee2504a65c9c4016adab26bd9f487d2a917d9bbbf1e3087",
+              "model": "gpt-6.1-sol",
+              "created_at": 1792717419,
+              "usage": {
+                "input_tokens": 2848,
+                "input_tokens_details": {
+                  "cache_write_tokens": 2845,
+                  "cached_tokens": 0
+                },
+                "output_tokens": 230,
+                "output_tokens_details": {
+                  "reasoning_tokens": 0
+                },
+                "total_tokens": 3078
+              },
+              "output": [
+                {
+                  "proposal": {
+                    "version": "tutor-orchestration-v1",
+                    "content_ref": {
+                      "package_id": "network-performance-v1",
+                      "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                      "source_id": "peterson_davie_1_5_1",
+                      "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                      "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+                    },
+                    "concept_ids": ["transmission_delay"],
+                    "source_passage_ids": ["P05", "P08"],
+                    "reason_summary": "The student explicitly requests clarification of what bits per second counts and reports reading it as packets per second. Clarify the rate's units and the distinction between bits and packets without resolving the active question. No accepted evaluation or prior displayed assistance is available.",
+                    "action": "clarify",
+                    "arguments": {
+                      "focus": "terminology"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "stage": "generate",
+              "status": 200,
+              "transport_error": null,
+              "response_id": "resp_03e756a102e32881016adab271712087d2805bf1ed7408908f",
+              "model": "gpt-6.1-sol",
+              "created_at": 1792717425,
+              "usage": {
+                "input_tokens": 4017,
+                "input_tokens_details": {
+                  "cache_write_tokens": 4014,
+                  "cached_tokens": 0
+                },
+                "output_tokens": 216,
+                "output_tokens_details": {
+                  "reasoning_tokens": 0
+                },
+                "total_tokens": 4233
+              },
+              "output": [
+                {
+                  "content_ref": {
+                    "package_id": "network-performance-v1",
+                    "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                    "source_id": "peterson_davie_1_5_1",
+                    "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                    "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+                  },
+                  "concept_ids": ["transmission_delay"],
+                  "source_passage_ids": ["P05", "P08"],
+                  "text": "Bits per second counts individual bits transmitted each second, not whole packets. A packet contains multiple bits, so one packet is not one unit of a bits-per-second rate. Think of the packet as a group of bits and the link rate as how quickly those bits are placed onto the link.",
+                  "assistance_type": "hint"
+                }
+              ]
+            },
+            {
+              "stage": "review",
+              "status": 200,
+              "transport_error": null,
+              "response_id": "resp_0cd5a88c2347a936016adab27651ac87d29c146a4f47f89ca9",
+              "model": "gpt-6.1-sol",
+              "created_at": 1792717430,
+              "usage": {
+                "input_tokens": 4516,
+                "input_tokens_details": {
+                  "cache_write_tokens": 4513,
+                  "cached_tokens": 0
+                },
+                "output_tokens": 398,
+                "output_tokens_details": {
+                  "reasoning_tokens": 32
+                },
+                "total_tokens": 4914
+              },
+              "output": [
+                {
+                  "grounding": "unsupported",
+                  "disclosure": "safe_scaffolding",
+                  "relevance": "relevant",
+                  "answerability": "not_applicable",
+                  "novelty": "not_applicable",
+                  "assistance": "understated",
+                  "requires_unverified_calculation": false,
+                  "coverage": [
+                    {
+                      "field": "text",
+                      "support": "unsupported",
+                      "sources": [
+                        {
+                          "passage_id": "P05",
+                          "quote": "Intuitively, if you think of a second of time as a\ndistance you could measure with a ruler and bandwidth as how many bits\nfit in that distance, then you can think of each bit as a pulse of some\nwidth."
+                        },
+                        {
+                          "passage_id": "P08",
+                          "quote": "``Size`` is the size of the packet, and ``Bandwidth`` is the bandwidth\nat which the packet is transmitted."
+                        },
+                        {
+                          "passage_id": "P08",
+                          "quote": "Note that if the message contains\nonly one bit and we are talking about a single link (as opposed to a\nwhole network), then the ``Transmit`` and ``Queue`` terms are not\nrelevant, and latency corresponds to the propagation delay only."
+                        }
+                      ]
+                    }
+                  ],
+                  "reason": "The clarification addresses the student's rate-unit confusion without solving the active assessment. However, the categorical claim that a packet contains multiple bits is not established by the cited passages; the reading even considers a one-bit message. The response provides a terminology explanation, so labeling its assistance merely as a hint understates the content help."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bit-rate-followup",
+          "kind": "scripted_synthetic_observation",
+          "depends_on": "bit-rate-first",
+          "input": "After that help, here is the next part of my reasoning to examine: I can distinguish a count of bits from a count of packets, but I still do not see why a packet with more bits would occupy the sender for longer at a fixed bit rate. Could you give a different, non-numerical way to think about that interval without answering the current cable-length question? I am asking for help, not submitting an answer.",
+          "status": "unrun",
+          "assistance_before": null,
+          "assistance_after": null,
+          "gates": [],
+          "action_trace": [],
+          "provider_outputs": []
+        },
+        {
+          "id": "simultaneous-bits-first",
+          "kind": "initial_synthetic_misunderstanding",
+          "input": "Before answering the lesson question, I want help examining my mental picture. I imagine that all the bits of a packet are placed on the link at the same instant, and then the whole packet travels together. I cannot tell what the transmission interval is measuring in that picture. Please help me inspect it without solving the active question; this is not an assessed answer.",
+          "status": "unrun",
+          "assistance_before": null,
+          "assistance_after": null,
+          "gates": [],
+          "action_trace": [],
+          "provider_outputs": []
+        }
+      ]
+    },
+    {
+      "started_at": "2026-10-23T01:09:56.553Z",
+      "finished_at": "2026-10-23T01:10:59.505Z",
+      "model": "gpt-6.1-sol",
+      "code": {
+        "ORCHESTRATION_CODE_SHA": "5fd0b61621c66abb3bdfee8e5514c7d74eec9070",
+        "DIALOGUE_PROVIDER_CODE_SHA": "3db5c2252f0de9595cef0728c8caa0c2c24f21ad",
+        "DIALOGUE_PERSISTENCE_CODE_SHA": "00f618b2a1816ffab2d59591afa8b76a5c8adb95",
+        "verification_head": "cbd4459a393851056b7cb5ec4ab5eecc0340d688"
+      },
+      "raw_report_sha256": "69d43b4e013e98833efb54af0108568fa1d37eda0fbaf5f631a1782cff610df1",
+      "source": {
+        "package_id": "network-performance-v1",
+        "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+        "source_id": "peterson_davie_1_5_1",
+        "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+        "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+      },
+      "database": "orchestration85_check",
+      "limits": {
+        "turns": 3,
+        "actual_provider_requests": 12,
+        "timeout_ms_per_call": 45000,
+        "automatic_retries": 0
+      },
+      "test_policy": {
+        "allowedHelpTools": ["clarify", "explain"],
+        "production_enabled": false
+      },
+      "actual_provider_requests": 12,
+      "overall_status": "incomplete_or_failed",
+      "stopped_because": null,
+      "summary_gates": [
+        {
+          "name": "two_distinct_misunderstandings_executed",
+          "passed": true,
+          "observed": {
+            "first": {
+              "action": "explain",
+              "arguments": {
+                "style": "alternative_explanation"
+              },
+              "concept_ids": ["transmission_delay"]
+            },
+            "other": {
+              "action": "explain",
+              "arguments": {
+                "style": "alternative_explanation"
+              },
+              "concept_ids": ["transmission_delay"]
+            }
+          }
+        },
+        {
+          "name": "both_misunderstandings_target_transmission",
+          "passed": true
+        },
+        {
+          "name": "structurally_different_action_or_arguments_for_distinct_misunderstandings",
+          "passed": false,
+          "observed": {
+            "first": {
+              "action": "explain",
+              "arguments": {
+                "style": "alternative_explanation"
+              },
+              "concept_ids": ["transmission_delay"]
+            },
+            "other": {
+              "action": "explain",
+              "arguments": {
+                "style": "alternative_explanation"
+              },
+              "concept_ids": ["transmission_delay"]
+            }
+          }
+        },
+        {
+          "name": "changed_strategy_after_scripted_observation",
+          "passed": false,
+          "observed": {
+            "before": {
+              "action": "explain",
+              "arguments": {
+                "style": "alternative_explanation"
+              },
+              "concept_ids": ["transmission_delay"]
+            },
+            "after": {
+              "action": "explain",
+              "arguments": {
+                "style": "alternative_explanation"
+              },
+              "concept_ids": ["transmission_delay"]
+            }
+          }
+        },
+        {
+          "name": "changed_action_after_scripted_observation",
+          "passed": false,
+          "observed": {
+            "before": {
+              "action": "explain",
+              "arguments": {
+                "style": "alternative_explanation"
+              },
+              "concept_ids": ["transmission_delay"]
+            },
+            "after": {
+              "action": "explain",
+              "arguments": {
+                "style": "alternative_explanation"
+              },
+              "concept_ids": ["transmission_delay"]
+            }
+          }
+        },
+        {
+          "name": "paid_budget_respected",
+          "passed": true
+        }
+      ],
+      "educational_comparison": {
+        "status": "pending_review",
+        "note": "Structural action differences require post-run review of educational meaning; no automatic semantic acceptance is claimed."
+      },
+      "cases": [
+        {
+          "id": "bit-rate-first",
+          "kind": "initial_synthetic_misunderstanding",
+          "input": "Before I answer the lesson question, I need help understanding a term. I have been reading a link's bits per second as packets per second, so I think each packet is one unit of that rate. Could you clarify what that rate counts without solving the active question? This is a request for help.",
+          "status": "passed",
+          "session_id": "9ddc9103-e828-4aac-8085-5e532cf95127",
+          "request_id": "650109b9-acea-4f88-8407-8231ca2f3ecb",
+          "receipt": {
+            "status": "executed",
+            "request_id": "650109b9-acea-4f88-8407-8231ca2f3ecb",
+            "action": "explain",
+            "result": {
+              "kind": "generated",
+              "content": {
+                "kind": "help",
+                "content_id": "650109b9-acea-4f88-8407-8231ca2f3ecb",
+                "text": "Bits per second counts individual bits placed onto the link each second—not whole packets. Think of a packet as a group of bits sent in sequence: each bit counts toward that rate, rather than the entire packet counting as one unit.",
+                "assistance_type": "corrective_feedback",
+                "content_ref": {
+                  "package_id": "network-performance-v1",
+                  "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                  "source_id": "peterson_davie_1_5_1",
+                  "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                  "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+                },
+                "concept_ids": ["transmission_delay"],
+                "source_passage_ids": ["P05", "P08"],
+                "generation": {
+                  "model": "gpt-6.1-sol",
+                  "prompt_template_version": "r7-grounded-generation-v4",
+                  "generated_at": "2026-10-23T01:10:10.138Z"
+                }
+              }
+            }
+          },
+          "assistance_before": {
+            "id": "15a1ef97-0e22-4c42-8ba7-4899f3fce22b",
+            "type": "corrective_feedback",
+            "delivery_status": "created",
+            "visible_at": null
+          },
+          "assistance_after": {
+            "id": "15a1ef97-0e22-4c42-8ba7-4899f3fce22b",
+            "type": "corrective_feedback",
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-23T01:10:18.118Z"
+          },
+          "gates": [
+            {
+              "name": "new_request_reserved",
+              "passed": true
+            },
+            {
+              "name": "actual_model_classified_help",
+              "passed": true,
+              "observed": "QUESTION_OR_HELP"
+            },
+            {
+              "name": "validated_tool_executed",
+              "passed": true,
+              "observed": "executed"
+            },
+            {
+              "name": "exact_approved_source",
+              "passed": true
+            },
+            {
+              "name": "generated_help_not_yet_displayed",
+              "passed": true
+            },
+            {
+              "name": "duplicate_dispatch_reuses_saved_receipt",
+              "passed": true
+            },
+            {
+              "name": "simulated_display_recorded",
+              "passed": true
+            },
+            {
+              "name": "no_answer_submitted_or_evaluated",
+              "passed": true
+            },
+            {
+              "name": "teacher_reconstructs_original_proposal_validation_and_execution",
+              "passed": true
+            },
+            {
+              "name": "student_projection_excludes_private_fields",
+              "passed": true
+            }
+          ],
+          "action_trace": [
+            {
+              "sequence": 28,
+              "event_id": "d9b2edf3-483c-43b1-981b-845872b68c02",
+              "request_id": "650109b9-acea-4f88-8407-8231ca2f3ecb",
+              "kind": "action",
+              "payload": {
+                "phase": "proposed",
+                "proposal": {
+                  "action": "explain",
+                  "version": "tutor-orchestration-v1",
+                  "arguments": {
+                    "style": "alternative_explanation"
+                  },
+                  "concept_ids": ["transmission_delay"],
+                  "content_ref": {
+                    "source_id": "peterson_davie_1_5_1",
+                    "package_id": "network-performance-v1",
+                    "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                    "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+                    "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+                  },
+                  "reason_summary": "The student explicitly requests content help distinguishing bits per second from packets per second, without solving the active question. Use a focused alternative explanation of what link rate counts and how packet size relates to that rate, supported by P05 and P08. No prior assistance or accepted evaluation is present; do not infer a diagnosed misconception or reveal the cable-length answer.",
+                  "source_passage_ids": ["P05", "P08"]
+                },
+                "action_id": "650109b9-acea-4f88-8407-8231ca2f3ecb",
+                "invalid_proposal": false
+              },
+              "at": "2026-10-23T01:10:05.644Z"
+            },
+            {
+              "sequence": 29,
+              "event_id": "19f55e14-bcab-4873-a638-8d4c8aac8ca2",
+              "request_id": "650109b9-acea-4f88-8407-8231ca2f3ecb",
+              "kind": "action",
+              "payload": {
+                "phase": "validated",
+                "reason": null,
+                "decision": "accepted",
+                "action_id": "650109b9-acea-4f88-8407-8231ca2f3ecb",
+                "allowed_actions": ["clarify", "explain"]
+              },
+              "at": "2026-10-23T01:10:05.68Z"
+            },
+            {
+              "sequence": 30,
+              "event_id": "971a509d-6f34-4e07-91ae-a5df5281b3bb",
+              "request_id": "650109b9-acea-4f88-8407-8231ca2f3ecb",
+              "kind": "action",
+              "payload": {
+                "tool": "explain",
+                "phase": "dispatch_started",
+                "action_id": "650109b9-acea-4f88-8407-8231ca2f3ecb"
+              },
+              "at": "2026-10-23T01:10:05.715Z"
+            },
+            {
+              "sequence": 37,
+              "event_id": "917b480d-b362-4243-aa85-4ddca98cb012",
+              "request_id": "650109b9-acea-4f88-8407-8231ca2f3ecb",
+              "kind": "action",
+              "payload": {
+                "tool": "explain",
+                "phase": "executed",
+                "result": {
+                  "kind": "generated",
+                  "content": {
+                    "kind": "help",
+                    "text": "Bits per second counts individual bits placed onto the link each second—not whole packets. Think of a packet as a group of bits sent in sequence: each bit counts toward that rate, rather than the entire packet counting as one unit.",
+                    "content_id": "650109b9-acea-4f88-8407-8231ca2f3ecb",
+                    "generation": {
+                      "model": "gpt-6.1-sol",
+                      "generated_at": "2026-10-23T01:10:10.138Z",
+                      "prompt_template_version": "r7-grounded-generation-v4"
+                    },
+                    "concept_ids": ["transmission_delay"],
+                    "content_ref": {
+                      "source_id": "peterson_davie_1_5_1",
+                      "package_id": "network-performance-v1",
+                      "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                      "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+                      "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+                    },
+                    "assistance_type": "corrective_feedback",
+                    "source_passage_ids": ["P05", "P08"]
+                  }
+                },
+                "action_id": "650109b9-acea-4f88-8407-8231ca2f3ecb"
+              },
+              "at": "2026-10-23T01:10:17.955Z"
+            }
+          ],
+          "provider_outputs": [
+            {
+              "stage": "classify",
+              "status": 200,
+              "transport_error": null,
+              "response_id": "resp_0fbdbb50016af03e016adab3e41dbc87d2ad4c6a9a5da2fdc9",
+              "model": "gpt-6.1-sol",
+              "created_at": 1792717796,
+              "usage": {
+                "input_tokens": 3619,
+                "input_tokens_details": {
+                  "cache_write_tokens": 0,
+                  "cached_tokens": 3616
+                },
+                "output_tokens": 46,
+                "output_tokens_details": {
+                  "reasoning_tokens": 0
+                },
+                "total_tokens": 3665
+              },
+              "output": [
+                {
+                  "category": "QUESTION_OR_HELP",
+                  "rationale": "The student requests clarification of what a link’s rate counts before attempting the assessment, explicitly asking not to solve the active question."
+                }
+              ]
+            },
+            {
+              "stage": "propose",
+              "status": 200,
+              "transport_error": null,
+              "response_id": "resp_0d5cc42712a02dd3016adab3e6d25887d287d2d46a7389286f",
+              "model": "gpt-6.1-sol",
+              "created_at": 1792717798,
+              "usage": {
+                "input_tokens": 2945,
+                "input_tokens_details": {
+                  "cache_write_tokens": 2942,
+                  "cached_tokens": 0
+                },
+                "output_tokens": 252,
+                "output_tokens_details": {
+                  "reasoning_tokens": 0
+                },
+                "total_tokens": 3197
+              },
+              "output": [
+                {
+                  "proposal": {
+                    "version": "tutor-orchestration-v1",
+                    "content_ref": {
+                      "package_id": "network-performance-v1",
+                      "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                      "source_id": "peterson_davie_1_5_1",
+                      "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                      "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+                    },
+                    "concept_ids": ["transmission_delay"],
+                    "source_passage_ids": ["P05", "P08"],
+                    "reason_summary": "The student explicitly requests content help distinguishing bits per second from packets per second, without solving the active question. Use a focused alternative explanation of what link rate counts and how packet size relates to that rate, supported by P05 and P08. No prior assistance or accepted evaluation is present; do not infer a diagnosed misconception or reveal the cable-length answer.",
+                    "action": "explain",
+                    "arguments": {
+                      "style": "alternative_explanation"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "stage": "generate",
+              "status": 200,
+              "transport_error": null,
+              "response_id": "resp_0228550afa6a7285016adab3ecec7087d28b579444e75c887e",
+              "model": "gpt-6.1-sol",
+              "created_at": 1792717804,
+              "usage": {
+                "input_tokens": 4135,
+                "input_tokens_details": {
+                  "cache_write_tokens": 4132,
+                  "cached_tokens": 0
+                },
+                "output_tokens": 206,
+                "output_tokens_details": {
+                  "reasoning_tokens": 0
+                },
+                "total_tokens": 4341
+              },
+              "output": [
+                {
+                  "content_ref": {
+                    "package_id": "network-performance-v1",
+                    "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                    "source_id": "peterson_davie_1_5_1",
+                    "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                    "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+                  },
+                  "concept_ids": ["transmission_delay"],
+                  "source_passage_ids": ["P05", "P08"],
+                  "text": "Bits per second counts individual bits placed onto the link each second—not whole packets. Think of a packet as a group of bits sent in sequence: each bit counts toward that rate, rather than the entire packet counting as one unit.",
+                  "assistance_type": "corrective_feedback"
+                }
+              ]
+            },
+            {
+              "stage": "review",
+              "status": 200,
+              "transport_error": null,
+              "response_id": "resp_040f04af3b5a6fa8016adab3f176b487d28e664b0348599f2e",
+              "model": "gpt-6.1-sol",
+              "created_at": 1792717809,
+              "usage": {
+                "input_tokens": 4583,
+                "input_tokens_details": {
+                  "cache_write_tokens": 4580,
+                  "cached_tokens": 0
+                },
+                "output_tokens": 360,
+                "output_tokens_details": {
+                  "reasoning_tokens": 29
+                },
+                "total_tokens": 4943
+              },
+              "output": [
+                {
+                  "grounding": "supported",
+                  "disclosure": "safe_scaffolding",
+                  "relevance": "relevant",
+                  "answerability": "not_applicable",
+                  "novelty": "not_applicable",
+                  "assistance": "accurate",
+                  "requires_unverified_calculation": false,
+                  "coverage": [
+                    {
+                      "field": "text",
+                      "support": "supported",
+                      "sources": [
+                        {
+                          "passage_id": "P05",
+                          "quote": "Intuitively, if you think of a second of time as a\ndistance you could measure with a ruler and bandwidth as how many bits\nfit in that distance, then you can think of each bit as a pulse of some\nwidth."
+                        },
+                        {
+                          "passage_id": "P08",
+                          "quote": "   Transmit = Size/Bandwidth\n\nwhere ``Distance`` is the length of the wire over which the data will\ntravel, ``SpeedOfLight`` is the effective speed of light over that wire,\n``Size`` is the size of the packet, and ``Bandwidth`` is the bandwidth\nat which the packet is transmitted."
+                        }
+                      ]
+                    }
+                  ],
+                  "reason": "The cited passages support counting individual bits at the link rate and treating a packet as data transmitted over time, rather than as one rate unit. The response directly corrects the student's stated interpretation without revealing either effect asked about in the unanswered assessment. Corrective_feedback accurately describes the assistance."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bit-rate-followup",
+          "kind": "scripted_synthetic_observation",
+          "depends_on": "bit-rate-first",
+          "input": "After that help, here is the next part of my reasoning to examine: I can distinguish a count of bits from a count of packets, but I still do not see why a packet with more bits would occupy the sender for longer at a fixed bit rate. Could you give a different, non-numerical way to think about that interval without answering the current cable-length question? I am asking for help, not submitting an answer.",
+          "status": "passed",
+          "session_id": "9ddc9103-e828-4aac-8085-5e532cf95127",
+          "request_id": "8cd71fe8-7872-4607-a38f-6a2db07a9df7",
+          "receipt": {
+            "status": "executed",
+            "request_id": "8cd71fe8-7872-4607-a38f-6a2db07a9df7",
+            "action": "explain",
+            "result": {
+              "kind": "generated",
+              "content": {
+                "kind": "help",
+                "content_id": "8cd71fe8-7872-4607-a38f-6a2db07a9df7",
+                "text": "Imagine a strip of time at the sender, with each bit occupying an equal-width slot. A fixed bit rate keeps those slots the same width. A packet with more bits needs more slots, so its strip extends longer before the sender has placed its last bit onto the link. That first-to-last-bit sending interval is transmission delay.",
+                "assistance_type": "hint",
+                "content_ref": {
+                  "package_id": "network-performance-v1",
+                  "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                  "source_id": "peterson_davie_1_5_1",
+                  "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                  "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+                },
+                "concept_ids": ["transmission_delay"],
+                "source_passage_ids": ["P05", "P08"],
+                "generation": {
+                  "model": "gpt-6.1-sol",
+                  "prompt_template_version": "r7-grounded-generation-v4",
+                  "generated_at": "2026-10-23T01:10:30.908Z"
+                }
+              }
+            }
+          },
+          "assistance_before": {
+            "id": "f5359673-e3c4-4707-a124-cf8c6c7552bf",
+            "type": "hint",
+            "delivery_status": "created",
+            "visible_at": null
+          },
+          "assistance_after": {
+            "id": "f5359673-e3c4-4707-a124-cf8c6c7552bf",
+            "type": "hint",
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-23T01:10:37.875Z"
+          },
+          "gates": [
+            {
+              "name": "new_request_reserved",
+              "passed": true
+            },
+            {
+              "name": "actual_model_classified_help",
+              "passed": true,
+              "observed": "QUESTION_OR_HELP"
+            },
+            {
+              "name": "validated_tool_executed",
+              "passed": true,
+              "observed": "executed"
+            },
+            {
+              "name": "exact_approved_source",
+              "passed": true
+            },
+            {
+              "name": "generated_help_not_yet_displayed",
+              "passed": true
+            },
+            {
+              "name": "duplicate_dispatch_reuses_saved_receipt",
+              "passed": true
+            },
+            {
+              "name": "simulated_display_recorded",
+              "passed": true
+            },
+            {
+              "name": "no_answer_submitted_or_evaluated",
+              "passed": true
+            },
+            {
+              "name": "teacher_reconstructs_original_proposal_validation_and_execution",
+              "passed": true
+            },
+            {
+              "name": "student_projection_excludes_private_fields",
+              "passed": true
+            }
+          ],
+          "action_trace": [
+            {
+              "sequence": 48,
+              "event_id": "341a386f-4bf1-463d-98af-1a72eed4e613",
+              "request_id": "8cd71fe8-7872-4607-a38f-6a2db07a9df7",
+              "kind": "action",
+              "payload": {
+                "phase": "proposed",
+                "proposal": {
+                  "action": "explain",
+                  "version": "tutor-orchestration-v1",
+                  "arguments": {
+                    "style": "alternative_explanation"
+                  },
+                  "concept_ids": ["transmission_delay"],
+                  "content_ref": {
+                    "source_id": "peterson_davie_1_5_1",
+                    "package_id": "network-performance-v1",
+                    "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                    "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+                    "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+                  },
+                  "reason_summary": "The student requests a different, non-numerical explanation of why more bits require a longer sending interval at a fixed bit rate. Prior displayed help addressed bits versus packets; use the passages' bit-width perspective and size/rate relationship for an alternative explanation, without resolving the active cable-length question or inferring an evaluated misconception.",
+                  "source_passage_ids": ["P05", "P08"]
+                },
+                "action_id": "8cd71fe8-7872-4607-a38f-6a2db07a9df7",
+                "invalid_proposal": false
+              },
+              "at": "2026-10-23T01:10:25.881Z"
+            },
+            {
+              "sequence": 49,
+              "event_id": "02fb6748-a992-45d2-ab0a-58c36c1d7517",
+              "request_id": "8cd71fe8-7872-4607-a38f-6a2db07a9df7",
+              "kind": "action",
+              "payload": {
+                "phase": "validated",
+                "reason": null,
+                "decision": "accepted",
+                "action_id": "8cd71fe8-7872-4607-a38f-6a2db07a9df7",
+                "allowed_actions": ["clarify", "explain"]
+              },
+              "at": "2026-10-23T01:10:25.908Z"
+            },
+            {
+              "sequence": 50,
+              "event_id": "18378ced-29cc-43f3-b4ac-631b28f76130",
+              "request_id": "8cd71fe8-7872-4607-a38f-6a2db07a9df7",
+              "kind": "action",
+              "payload": {
+                "tool": "explain",
+                "phase": "dispatch_started",
+                "action_id": "8cd71fe8-7872-4607-a38f-6a2db07a9df7"
+              },
+              "at": "2026-10-23T01:10:25.94Z"
+            },
+            {
+              "sequence": 57,
+              "event_id": "ee7e638a-a106-4b79-a98c-a4ab3a393e55",
+              "request_id": "8cd71fe8-7872-4607-a38f-6a2db07a9df7",
+              "kind": "action",
+              "payload": {
+                "tool": "explain",
+                "phase": "executed",
+                "result": {
+                  "kind": "generated",
+                  "content": {
+                    "kind": "help",
+                    "text": "Imagine a strip of time at the sender, with each bit occupying an equal-width slot. A fixed bit rate keeps those slots the same width. A packet with more bits needs more slots, so its strip extends longer before the sender has placed its last bit onto the link. That first-to-last-bit sending interval is transmission delay.",
+                    "content_id": "8cd71fe8-7872-4607-a38f-6a2db07a9df7",
+                    "generation": {
+                      "model": "gpt-6.1-sol",
+                      "generated_at": "2026-10-23T01:10:30.908Z",
+                      "prompt_template_version": "r7-grounded-generation-v4"
+                    },
+                    "concept_ids": ["transmission_delay"],
+                    "content_ref": {
+                      "source_id": "peterson_davie_1_5_1",
+                      "package_id": "network-performance-v1",
+                      "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                      "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+                      "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+                    },
+                    "assistance_type": "hint",
+                    "source_passage_ids": ["P05", "P08"]
+                  }
+                },
+                "action_id": "8cd71fe8-7872-4607-a38f-6a2db07a9df7"
+              },
+              "at": "2026-10-23T01:10:37.763Z"
+            }
+          ],
+          "provider_outputs": [
+            {
+              "stage": "classify",
+              "status": 200,
+              "transport_error": null,
+              "response_id": "resp_09b8dfc5181501d7016adab3f9772087d2be86bc62f06c3263",
+              "model": "gpt-6.1-sol",
+              "created_at": 1792717817,
+              "usage": {
+                "input_tokens": 3768,
+                "input_tokens_details": {
+                  "cache_write_tokens": 3765,
+                  "cached_tokens": 0
+                },
+                "output_tokens": 54,
+                "output_tokens_details": {
+                  "reasoning_tokens": 0
+                },
+                "total_tokens": 3822
+              },
+              "output": [
+                {
+                  "category": "QUESTION_OR_HELP",
+                  "rationale": "The student requests a non-numerical explanation of transmission time at a fixed bit rate, continuing the prior clarification rather than offering an answer to the cable-length question."
+                }
+              ]
+            },
+            {
+              "stage": "propose",
+              "status": 200,
+              "transport_error": null,
+              "response_id": "resp_0397038e2b4c077f016adab3fc1dac87d29210cc42980385d0",
+              "model": "gpt-6.1-sol",
+              "created_at": 1792717820,
+              "usage": {
+                "input_tokens": 3220,
+                "input_tokens_details": {
+                  "cache_write_tokens": 1777,
+                  "cached_tokens": 1440
+                },
+                "output_tokens": 247,
+                "output_tokens_details": {
+                  "reasoning_tokens": 0
+                },
+                "total_tokens": 3467
+              },
+              "output": [
+                {
+                  "proposal": {
+                    "version": "tutor-orchestration-v1",
+                    "content_ref": {
+                      "package_id": "network-performance-v1",
+                      "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                      "source_id": "peterson_davie_1_5_1",
+                      "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                      "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+                    },
+                    "concept_ids": ["transmission_delay"],
+                    "source_passage_ids": ["P05", "P08"],
+                    "reason_summary": "The student requests a different, non-numerical explanation of why more bits require a longer sending interval at a fixed bit rate. Prior displayed help addressed bits versus packets; use the passages' bit-width perspective and size/rate relationship for an alternative explanation, without resolving the active cable-length question or inferring an evaluated misconception.",
+                    "action": "explain",
+                    "arguments": {
+                      "style": "alternative_explanation"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "stage": "generate",
+              "status": 200,
+              "transport_error": null,
+              "response_id": "resp_0a0c93964e2cdf3e016adab4011f3c87d2bbcbc0c06adb9b4c",
+              "model": "gpt-6.1-sol",
+              "created_at": 1792717825,
+              "usage": {
+                "input_tokens": 4284,
+                "input_tokens_details": {
+                  "cache_write_tokens": 4281,
+                  "cached_tokens": 0
+                },
+                "output_tokens": 224,
+                "output_tokens_details": {
+                  "reasoning_tokens": 0
+                },
+                "total_tokens": 4508
+              },
+              "output": [
+                {
+                  "content_ref": {
+                    "package_id": "network-performance-v1",
+                    "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                    "source_id": "peterson_davie_1_5_1",
+                    "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                    "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+                  },
+                  "concept_ids": ["transmission_delay"],
+                  "source_passage_ids": ["P05", "P08"],
+                  "text": "Imagine a strip of time at the sender, with each bit occupying an equal-width slot. A fixed bit rate keeps those slots the same width. A packet with more bits needs more slots, so its strip extends longer before the sender has placed its last bit onto the link. That first-to-last-bit sending interval is transmission delay.",
+                  "assistance_type": "hint"
+                }
+              ]
+            },
+            {
+              "stage": "review",
+              "status": 200,
+              "transport_error": null,
+              "response_id": "resp_060cf141b806a88b016adab4062b5487d2814d0586a749274d",
+              "model": "gpt-6.1-sol",
+              "created_at": 1792717830,
+              "usage": {
+                "input_tokens": 4772,
+                "input_tokens_details": {
+                  "cache_write_tokens": 4769,
+                  "cached_tokens": 0
+                },
+                "output_tokens": 326,
+                "output_tokens_details": {
+                  "reasoning_tokens": 20
+                },
+                "total_tokens": 5098
+              },
+              "output": [
+                {
+                  "grounding": "supported",
+                  "disclosure": "safe_scaffolding",
+                  "relevance": "relevant",
+                  "answerability": "not_applicable",
+                  "novelty": "not_applicable",
+                  "assistance": "accurate",
+                  "requires_unverified_calculation": false,
+                  "coverage": [
+                    {
+                      "field": "text",
+                      "support": "supported",
+                      "sources": [
+                        {
+                          "passage_id": "P05",
+                          "quote": "Intuitively, if you think of a second of time as a\ndistance you could measure with a ruler and bandwidth as how many bits\nfit in that distance, then you can think of each bit as a pulse of some\nwidth."
+                        },
+                        {
+                          "passage_id": "P08",
+                          "quote": "   Transmit = Size/Bandwidth"
+                        },
+                        {
+                          "passage_id": "P08",
+                          "quote": "``Size`` is the size of the packet, and ``Bandwidth`` is the bandwidth\nat which the packet is transmitted."
+                        }
+                      ]
+                    }
+                  ],
+                  "reason": "The time-slot analogy is supported by P05, and its packet-size relationship follows from P08. It addresses the student's specific remaining difficulty without stating either effect of changing cable length. The explanation is appropriately labeled hint and requests no calculation."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "simultaneous-bits-first",
+          "kind": "initial_synthetic_misunderstanding",
+          "input": "Before answering the lesson question, I want help examining my mental picture. I imagine that all the bits of a packet are placed on the link at the same instant, and then the whole packet travels together. I cannot tell what the transmission interval is measuring in that picture. Please help me inspect it without solving the active question; this is not an assessed answer.",
+          "status": "passed",
+          "session_id": "9979c438-842f-4ae3-b58a-8d9dccefef45",
+          "request_id": "b956f34c-75cd-47e0-ae80-87de9a9e475e",
+          "receipt": {
+            "status": "executed",
+            "request_id": "b956f34c-75cd-47e0-ae80-87de9a9e475e",
+            "action": "explain",
+            "result": {
+              "kind": "generated",
+              "content": {
+                "kind": "help",
+                "content_id": "b956f34c-75cd-47e0-ae80-87de9a9e475e",
+                "text": "To inspect your picture, focus just on the sending end. Picture a timeline with each bit occupying a small interval, rather than all bits being placed on the link at once. The transmission interval measures the time needed to put the packet’s bits onto the link—from beginning the first bit to finishing the last. It is not timing the packet’s journey along the cable. Try marking those two endpoints on your mental timeline, leaving the cable-length question aside.",
+                "assistance_type": "corrective_feedback",
+                "content_ref": {
+                  "package_id": "network-performance-v1",
+                  "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                  "source_id": "peterson_davie_1_5_1",
+                  "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                  "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+                },
+                "concept_ids": ["transmission_delay"],
+                "source_passage_ids": ["P05", "P07", "P08"],
+                "generation": {
+                  "model": "gpt-6.1-sol",
+                  "prompt_template_version": "r7-grounded-generation-v4",
+                  "generated_at": "2026-10-23T01:10:53.133Z"
+                }
+              }
+            }
+          },
+          "assistance_before": {
+            "id": "d0375a4b-7657-460d-a188-25867823be4d",
+            "type": "corrective_feedback",
+            "delivery_status": "created",
+            "visible_at": null
+          },
+          "assistance_after": {
+            "id": "d0375a4b-7657-460d-a188-25867823be4d",
+            "type": "corrective_feedback",
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-23T01:10:59.437Z"
+          },
+          "gates": [
+            {
+              "name": "new_request_reserved",
+              "passed": true
+            },
+            {
+              "name": "actual_model_classified_help",
+              "passed": true,
+              "observed": "QUESTION_OR_HELP"
+            },
+            {
+              "name": "validated_tool_executed",
+              "passed": true,
+              "observed": "executed"
+            },
+            {
+              "name": "exact_approved_source",
+              "passed": true
+            },
+            {
+              "name": "generated_help_not_yet_displayed",
+              "passed": true
+            },
+            {
+              "name": "duplicate_dispatch_reuses_saved_receipt",
+              "passed": true
+            },
+            {
+              "name": "simulated_display_recorded",
+              "passed": true
+            },
+            {
+              "name": "no_answer_submitted_or_evaluated",
+              "passed": true
+            },
+            {
+              "name": "teacher_reconstructs_original_proposal_validation_and_execution",
+              "passed": true
+            },
+            {
+              "name": "student_projection_excludes_private_fields",
+              "passed": true
+            }
+          ],
+          "action_trace": [
+            {
+              "sequence": 68,
+              "event_id": "04cfd185-e25b-4cac-8822-01dda119b669",
+              "request_id": "b956f34c-75cd-47e0-ae80-87de9a9e475e",
+              "kind": "action",
+              "payload": {
+                "phase": "proposed",
+                "proposal": {
+                  "action": "explain",
+                  "version": "tutor-orchestration-v1",
+                  "arguments": {
+                    "style": "alternative_explanation"
+                  },
+                  "concept_ids": ["transmission_delay"],
+                  "content_ref": {
+                    "source_id": "peterson_davie_1_5_1",
+                    "package_id": "network-performance-v1",
+                    "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                    "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+                    "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+                  },
+                  "reason_summary": "The student requests help inspecting their simultaneous-bit mental picture, not an assessment or the active question's answer. No accepted evaluation or prior help is present. An alternative explanation grounded in bit duration and packet transmission time can distinguish placing bits onto a link from subsequent travel without revealing the cable-length outcome.",
+                  "source_passage_ids": ["P05", "P07", "P08"]
+                },
+                "action_id": "b956f34c-75cd-47e0-ae80-87de9a9e475e",
+                "invalid_proposal": false
+              },
+              "at": "2026-10-23T01:10:45.423Z"
+            },
+            {
+              "sequence": 69,
+              "event_id": "a2ce3594-1e4f-4a35-a90a-56c271806212",
+              "request_id": "b956f34c-75cd-47e0-ae80-87de9a9e475e",
+              "kind": "action",
+              "payload": {
+                "phase": "validated",
+                "reason": null,
+                "decision": "accepted",
+                "action_id": "b956f34c-75cd-47e0-ae80-87de9a9e475e",
+                "allowed_actions": ["clarify", "explain"]
+              },
+              "at": "2026-10-23T01:10:45.445Z"
+            },
+            {
+              "sequence": 70,
+              "event_id": "8deef017-b80d-4f44-98bf-8e263e26e958",
+              "request_id": "b956f34c-75cd-47e0-ae80-87de9a9e475e",
+              "kind": "action",
+              "payload": {
+                "tool": "explain",
+                "phase": "dispatch_started",
+                "action_id": "b956f34c-75cd-47e0-ae80-87de9a9e475e"
+              },
+              "at": "2026-10-23T01:10:45.469Z"
+            },
+            {
+              "sequence": 77,
+              "event_id": "e2352794-653f-4330-860f-d850d85f7b24",
+              "request_id": "b956f34c-75cd-47e0-ae80-87de9a9e475e",
+              "kind": "action",
+              "payload": {
+                "tool": "explain",
+                "phase": "executed",
+                "result": {
+                  "kind": "generated",
+                  "content": {
+                    "kind": "help",
+                    "text": "To inspect your picture, focus just on the sending end. Picture a timeline with each bit occupying a small interval, rather than all bits being placed on the link at once. The transmission interval measures the time needed to put the packet’s bits onto the link—from beginning the first bit to finishing the last. It is not timing the packet’s journey along the cable. Try marking those two endpoints on your mental timeline, leaving the cable-length question aside.",
+                    "content_id": "b956f34c-75cd-47e0-ae80-87de9a9e475e",
+                    "generation": {
+                      "model": "gpt-6.1-sol",
+                      "generated_at": "2026-10-23T01:10:53.133Z",
+                      "prompt_template_version": "r7-grounded-generation-v4"
+                    },
+                    "concept_ids": ["transmission_delay"],
+                    "content_ref": {
+                      "source_id": "peterson_davie_1_5_1",
+                      "package_id": "network-performance-v1",
+                      "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                      "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+                      "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+                    },
+                    "assistance_type": "corrective_feedback",
+                    "source_passage_ids": ["P05", "P07", "P08"]
+                  }
+                },
+                "action_id": "b956f34c-75cd-47e0-ae80-87de9a9e475e"
+              },
+              "at": "2026-10-23T01:10:59.331Z"
+            }
+          ],
+          "provider_outputs": [
+            {
+              "stage": "classify",
+              "status": 200,
+              "transport_error": null,
+              "response_id": "resp_021a1dfa9db2a13e016adab40d401087d2bf91b5232c23cce5",
+              "model": "gpt-6.1-sol",
+              "created_at": 1792717837,
+              "usage": {
+                "input_tokens": 3630,
+                "input_tokens_details": {
+                  "cache_write_tokens": 3627,
+                  "cached_tokens": 0
+                },
+                "output_tokens": 45,
+                "output_tokens_details": {
+                  "reasoning_tokens": 0
+                },
+                "total_tokens": 3675
+              },
+              "output": [
+                {
+                  "category": "QUESTION_OR_HELP",
+                  "rationale": "The student requests help examining their mental model and understanding the transmission interval, rather than offering an answer to the active question."
+                }
+              ]
+            },
+            {
+              "stage": "propose",
+              "status": 200,
+              "transport_error": null,
+              "response_id": "resp_0a768d63625e8f1b016adab40f8bb487d2b6063d19166e3023",
+              "model": "gpt-6.1-sol",
+              "created_at": 1792717839,
+              "usage": {
+                "input_tokens": 2960,
+                "input_tokens_details": {
+                  "cache_write_tokens": 1517,
+                  "cached_tokens": 1440
+                },
+                "output_tokens": 243,
+                "output_tokens_details": {
+                  "reasoning_tokens": 0
+                },
+                "total_tokens": 3203
+              },
+              "output": [
+                {
+                  "proposal": {
+                    "version": "tutor-orchestration-v1",
+                    "content_ref": {
+                      "package_id": "network-performance-v1",
+                      "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                      "source_id": "peterson_davie_1_5_1",
+                      "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                      "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+                    },
+                    "concept_ids": ["transmission_delay"],
+                    "source_passage_ids": ["P05", "P07", "P08"],
+                    "reason_summary": "The student requests help inspecting their simultaneous-bit mental picture, not an assessment or the active question's answer. No accepted evaluation or prior help is present. An alternative explanation grounded in bit duration and packet transmission time can distinguish placing bits onto a link from subsequent travel without revealing the cable-length outcome.",
+                    "action": "explain",
+                    "arguments": {
+                      "style": "alternative_explanation"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "stage": "generate",
+              "status": 200,
+              "transport_error": null,
+              "response_id": "resp_018e9ae47aa531f0016adab414a6e087d29bc202387db878cb",
+              "model": "gpt-6.1-sol",
+              "created_at": 1792717844,
+              "usage": {
+                "input_tokens": 4149,
+                "input_tokens_details": {
+                  "cache_write_tokens": 4146,
+                  "cached_tokens": 0
+                },
+                "output_tokens": 316,
+                "output_tokens_details": {
+                  "reasoning_tokens": 61
+                },
+                "total_tokens": 4465
+              },
+              "output": [
+                {
+                  "content_ref": {
+                    "package_id": "network-performance-v1",
+                    "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                    "source_id": "peterson_davie_1_5_1",
+                    "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                    "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+                  },
+                  "concept_ids": ["transmission_delay"],
+                  "source_passage_ids": ["P05", "P07", "P08"],
+                  "text": "To inspect your picture, focus just on the sending end. Picture a timeline with each bit occupying a small interval, rather than all bits being placed on the link at once. The transmission interval measures the time needed to put the packet’s bits onto the link—from beginning the first bit to finishing the last. It is not timing the packet’s journey along the cable. Try marking those two endpoints on your mental timeline, leaving the cable-length question aside.",
+                  "assistance_type": "corrective_feedback"
+                }
+              ]
+            },
+            {
+              "stage": "review",
+              "status": 200,
+              "transport_error": null,
+              "response_id": "resp_0599ebec442398b6016adab41c5ca087d2b4f9822263d70723",
+              "model": "gpt-6.1-sol",
+              "created_at": 1792717852,
+              "usage": {
+                "input_tokens": 4690,
+                "input_tokens_details": {
+                  "cache_write_tokens": 4687,
+                  "cached_tokens": 0
+                },
+                "output_tokens": 266,
+                "output_tokens_details": {
+                  "reasoning_tokens": 0
+                },
+                "total_tokens": 4956
+              },
+              "output": [
+                {
+                  "grounding": "supported",
+                  "disclosure": "safe_scaffolding",
+                  "relevance": "relevant",
+                  "answerability": "not_applicable",
+                  "novelty": "not_applicable",
+                  "assistance": "accurate",
+                  "requires_unverified_calculation": false,
+                  "coverage": [
+                    {
+                      "field": "text",
+                      "support": "supported",
+                      "sources": [
+                        {
+                          "passage_id": "P05",
+                          "quote": "Intuitively, if you think of a second of time as a\ndistance you could measure with a ruler and bandwidth as how many bits\nfit in that distance, then you can think of each bit as a pulse of some\nwidth."
+                        },
+                        {
+                          "passage_id": "P07",
+                          "quote": "Second, there is the amount of time it takes to transmit a unit of data.\nThis is a function of the network bandwidth and the size of the packet in\nwhich the data is carried."
+                        },
+                        {
+                          "passage_id": "P08",
+                          "quote": "   Propagation =  Distance/SpeedOfLight\n   Transmit = Size/Bandwidth"
+                        }
+                      ]
+                    }
+                  ],
+                  "reason": "The response directly addresses the student's simultaneous-bit picture with a supported temporal explanation of transmission. It leaves the effects of doubling cable length unanswered and does not disclose the assessment solution. Corrective_feedback accurately labels the conceptual correction; no calculation is asserted or requested."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "independent_agent_review": {
+    "content_fit_and_grounding": "Supported by P05/P07/P08; no explicit active cable-length answer or private rubric disclosure found.",
+    "changed_action_gate": "Unmet: all three proposals selected explain with alternative_explanation.",
+    "limitations": "Agent review, not human educational validation. Synthetic observations and display acknowledgements."
+  }
+}
