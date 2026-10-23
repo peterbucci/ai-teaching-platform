@@ -1,3 +1,9 @@
+import {
+  retainObjectiveWorkflow,
+  lessonWithoutObjectiveWorkflow,
+  assertObjectiveReviewForLesson,
+  ObjectiveReviewError,
+} from "../objectives/rules.ts";
 import "server-only";
 import { randomUUID } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
@@ -23,14 +29,8 @@ import {
 } from "./contracts.ts";
 import { AttributionSchema, SourcePassageSchema } from "./source-contracts.ts";
 import { hydrateLessonContent } from "./validate.ts";
-import {
-  retainObjectiveWorkflow,
-  lessonWithoutObjectiveWorkflow,
-  assertObjectiveReviewForLesson,
-  ObjectiveReviewError,
-} from "../objectives/rules.ts";
 
-export const LessonRowSchema = z.object({
+const LessonRowSchema = z.object({
   id: z.string(),
   owner_id: z.uuid().nullable(),
   title: z.string(),
@@ -449,3 +449,5 @@ export async function createLessonAssignment(
     };
   });
 }
+
+export { LessonRowSchema };
