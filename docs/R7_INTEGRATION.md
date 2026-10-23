@@ -170,14 +170,52 @@ PR or issue is closed or merged into main automatically by this work.
 
 ## Verification record
 
-Record executed deterministic checks, database/service checks, real-model calls,
-and authenticated browser checks separately in the integration PR/report. Preserve
-the earlier provider and persistence reports rather than presenting them as new
-application runs. Record bounded call counts, inputs, observed tools and failures
-for any new model run. A varied response alone does not establish adaptive action
-selection: #76 still requires materially different justified actions, an observed
-student response that changes the next decision, recovery, and authorized teacher
-inspection in the integrated application.
+The [resolver-phase verification report](../evals/R7_RESOLVER_VERIFICATION.md)
+records the approved uploaded Moonlight workflow separately from the
+[initial application run](../evals/R7_APPLICATION_VERIFICATION.md). Final PR #98
+implementation `9ffdec6` passed [CI 39951459851](https://github.com/peterbucci/ai-teaching-platform/actions/runs/39951459851)
+with 211 unit tests and all configured checks. Resolver PostgreSQL checks passed
+18 dialogue groups and five controller groups, using deterministic providers.
+
+A separate temporary checkout combined that exact R7 implementation with #102's
+reviewed authoring workflow for actual browser verification. The teacher reviewed,
+approved, published and activated Moonlight version 2. Its version/policy editing
+required an explicit existing-service preparation step because #102 has no UI
+controls for those fields. That preparation was not a browser result or an
+additional authoring model run; the canonical save invalidated earlier approvals.
+
+The student browser received real grounded help, confirmed an intended answer,
+received and refreshed a generated diagnostic, submitted a new observation, and
+completed through the existing controller. The model selected the diagnostic from
+`[generate_diagnostic, advance_lesson]`; after the new correct response the
+controller permitted only advancement. The authorized teacher inspected the full
+trace. Database evidence confirms exactly one accepted evaluation per original
+answer and assistance recorded after display. HTTP replay and cross-user checks
+passed without changing evidence, and published v1's original evidence stayed
+unchanged. After an application/database restart, teacher reload and student
+Review session recovered the completed conversation; all 11 saved snapshot hashes
+and the v1 baseline stayed identical, with no extra model calls. This uploaded case
+supplements the earlier two distinct networking
+misunderstandings; it does not claim a new two-case comparison.
+
+The new phase records 14 successful model calls (12 dialogue and two evaluator)
+and one additional settled failed proposal reservation. Dialogue usage is 33,054
+tokens; legacy evaluator usage is not persisted. The first uploaded proposal
+failed; investigation found unsupported URI formats in its wire schema. The narrow
+adapter fix removes only that wire annotation while retaining canonical URL and
+exact source validation. Local SDK conversion had succeeded; the failed record
+alone does not prove network dispatch or paid usage. The later explicit browser
+request passed. Original reservations, zero automatic retries and call budgets
+are preserved.
+
+The curated control retained runtime generation disabled and used one classifier
+call only. Its original fallback misleadingly reported a usage limit; corrected
+unavailable-policy wording has deterministic coverage. Browser recovery showed the
+saved historical message, so corrected wording is not claimed as a fresh browser
+result. Keep successful calls, known failed reservations, synthetic checks and
+browser observations distinct. The prior 22-call R7 run and seven-call #102
+authoring/student workflow (four authoring calls and three evaluations) were not
+rerun or counted again.
 
 ## CI isolation and the #93 handoff
 
@@ -201,21 +239,31 @@ with sleeps, login retries, larger limits, or disabling authentication.
 
 ## Remaining R4/R7 integration gates
 
-#102 owns the importer/objective/question-bank/publishing UI. Reuse that reviewed
-implementation for the final imported-lesson workflow; do not recreate it here or
-claim its existing seven-call authoring demonstration was rerun. Any combined
-verification checkout is a test artifact, not a dependency merge into this PR.
+#93 is merged and reconciled; the resolver/temporary-allowlist gate is complete on
+this branch. The uploaded Moonlight workflow has actual student and teacher
+browser evidence. #102 remains a separate dependency: the temporary combined
+checkout proves the reviewed authoring/publication workflow but does not land
+#102 in this PR. Its UI still lacks content-version/full action-policy controls,
+so the documented service preparation must not be presented as UI editing.
 
-A generation-disabled published lesson stays disabled. For a live uploaded R7 run,
-review a new version with explicit generation and relevant activity permissions,
-then create and activate its own assignment through the existing services. Verify
-the previous version and its original responses remain unchanged.
+A generation-disabled publication stays disabled. Enable runtime generation only
+through a reviewed new version with explicit activity permissions and its own
+activated assignment. The Moonlight audit confirms its previous version and
+original responses remained unchanged. Retain migrations 006, 008 and 009
+unchanged and reconcile #102's authoring migrations as their own dependency stack.
 
-Retain migrations 006, 008 and 009 unchanged; later #102 authoring migrations must
-be reconciled as their own dependency stack. Preserve provider uncertainty, both
-display acknowledgement paths and original evidence. Unknown/interrupted operation
-reconciliation and human educational/security review remain #76 acceptance gates.
+Unknown/interrupted operation reconciliation and human educational/security review
+remain #76 acceptance gates. Preserve both display acknowledgment paths and
+original evidence. Runtime assessed prompts remain unscaffolded; generated retests
+and neutral follow-ups have fixture coverage, not new live selections in this
+phase. The uploaded browser demonstrated a diagnostic followed by an observed
+response and changed next decision; the broader two-misunderstanding evidence
+remains in the initial application report. No bounded run establishes durable
+mastery or general educational effectiveness.
 
-The initial application evidence remains in `evals/R7_APPLICATION_VERIFICATION.md`.
-Record resolver-phase fixture, PostgreSQL, browser and actual-model checks separately
-so earlier curated live results are not presented as newly verified uploaded behavior.
+Use [the resolver report](../evals/R7_RESOLVER_VERIFICATION.md) for current CI,
+provider, PostgreSQL, browser, authorization and application/database restart
+recovery evidence. Preserve historical reports as records of
+their actual revisions rather than relabeling earlier curated runs as newly
+verified uploaded behavior. Keep PR #98 draft and coordinate the original four
+PRs' landing strategy; do not merge any PR automatically.
