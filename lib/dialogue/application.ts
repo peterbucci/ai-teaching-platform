@@ -7,6 +7,7 @@ import "server-only";
 import {
   EvidenceError,
   transaction,
+  requireTutoringSession,
   type EvidenceAccess,
 } from "../evidence/store.ts";
 import { ConversationActionSchema } from "./conversation.ts";
@@ -435,6 +436,7 @@ export async function continueApplicationTutoring(
   input: unknown,
 ) {
   const step = TutorStepSchema.parse(input);
+  await transaction((client) => requireTutoringSession(client, sessionId));
   const run = await evaluateSubmittedAttempt(
     access,
     sessionId,
