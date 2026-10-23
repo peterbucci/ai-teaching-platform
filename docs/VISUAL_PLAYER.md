@@ -104,7 +104,18 @@ For a browser walkthrough:
 10. Run the production build/server and confirm `/dev/visual-player` returns 404. Report fixture checks separately from later authorized server, database, and model integration checks.
 11. Inspect the uploaded-source sample's version and attribution, and the legacy packet's text-only fallback with zero new callbacks.
 
-## Verification recorded October 23, 2026
+## Packet/source integration verification — October 23, 2026
+
+The isolated integration preserves original player head `1cc2b701465448313be977365ba09984708a2784`, normally merges the reviewed v2 contract, upstream #104 activity snapshots, and main/security updates, and retains the original eleven player paths. The production tree was checked at `d296f2a`.
+
+- **294/294 deterministic tests**, including eleven player tests, passed with TypeScript, full lint, formatting and the Next.js **16.4.3** production build. **293 content checks** passed before the subsequent dependency-only merge. Independently installed locked dependencies reported zero vulnerabilities.
+- A real production HTTP check returned **404** for `/dev/visual-player` and contained no playground content.
+- An independent browser walkthrough of the development preview verified that a prediction is required before calculation. At **400,000 meters**, the preview showed **0.008 seconds transmission**, **0.002 seconds propagation**, and **0.01 seconds total**. Explanation submission and Reset view preserved the submitted prediction, result and response.
+- The fractional-rate sample accepted **500,000.5 bits/second** and showed **0.015999984000016 seconds transmission** plus **0.001 seconds propagation**. The legacy v1 sample showed only its text fallback with **zero events**. The uploaded-source graph displayed **source version 2** and its attribution title.
+
+These are synthetic browser previews using the reviewed local calculator, not persisted classroom evidence or an authenticated visual runtime. No model calls or new PostgreSQL verification were performed for this renderer integration. Actual model-selected execution and durable display/evidence remain #42/#43 integration gates. The earlier mobile and broader accessibility observations below were not repeated for this change.
+
+## Original v1 verification recorded October 23, 2026
 
 The following records the original v1 player milestone. It predates the v2 packet and uploaded-source integration and does not establish verification of those changes.
 
