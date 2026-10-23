@@ -9,13 +9,20 @@ import {
   evidenceAccess,
 } from "../../../../lib/evidence/store.ts";
 import { readTeacherSession } from "../../../../lib/teacher/store.ts";
+import { readTeacherConversation } from "../../../../lib/dialogue/store.ts";
+import { ConversationEvidence } from "../conversation-evidence.tsx";
 import { TeacherFrame, date, label, originLabel } from "../../presentation.tsx";
 import { EvidenceAnchor } from "../evidence-anchor.tsx";
 
 export const dynamic = "force-dynamic";
 async function load(id: string) {
   try {
-    return await readTeacherSession(evidenceAccess(await requireActor()), id);
+    const access = evidenceAccess(await requireActor());
+    const [detail, conversation] = await Promise.all([
+      readTeacherSession(access, id),
+      readTeacherConversation(access, id),
+    ]);
+    return { ...detail, conversation };
   } catch (error) {
     if (error instanceof AuthError && error.status === 401) redirect("/login");
     if (
@@ -31,7 +38,7 @@ export default async function SessionPage({
 }: {
   params: Promise<{ sessionId: string }>;
 }) {
-  const { evidence, display_name, title } = await load(
+  const { evidence, display_name, title, conversation } = await load(
     (await params).sessionId,
   );
   const content = loadApprovedContent();
@@ -120,6 +127,11 @@ export default async function SessionPage({
             mastery. Synthetic histories are not measured educational outcomes.
           </p>
         </details>
+        <ConversationEvidence
+          operations={conversation.operations}
+          events={conversation.events}
+          renderPassages={passages}
+        />
         <ol className="lp-evidence-steps">
           {attempts.map((a) => {
             const history = evaluations.filter((e) => e.attempt_id === a.id);
