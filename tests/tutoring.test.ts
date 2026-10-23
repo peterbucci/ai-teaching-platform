@@ -8,6 +8,10 @@ import {
   EvaluationSchema,
   type SessionEvidence,
 } from "../lib/evidence/contracts.ts";
+import {
+  deriveAssistance,
+  validateSessionEvidence,
+} from "../lib/evidence/rules.ts";
 import { decideTutoring } from "../lib/tutoring/decide.ts";
 
 const content = loadApprovedContent();
@@ -303,4 +307,69 @@ test("arithmetic feedback does not assume the lesson is about networking", () =>
     decision.help.text_shown,
     /Your reasoning separates the two delays/,
   );
+});
+
+test("an unrelated diagnostic assessment advances without changing an earlier hypothesis", () => {
+  for (const correctness of ["correct", "incorrect", "uncertain"] as const) {
+    // Reproduce an already loaded legacy mapping that predates publication validation.
+    const lesson = structuredClone(content);
+    const evidence = structuredClone(authored);
+    evidence.session.status = "active";
+    evidence.session.ended_at = null;
+    evidence.attempts = evidence.attempts.slice(0, 2);
+    evidence.attempts[0].outcome = null;
+    evidence.interventions = [];
+    evidence.evaluations = evidence.evaluations.filter((evaluation) =>
+      evidence.attempts.some((attempt) => attempt.id === evaluation.attempt_id),
+    );
+    const previous = structuredClone(evidence.evaluations[0]);
+    const hypothesis = previous.applied_result!.hypothesis_events[0];
+    const current = evidence.evaluations.at(-1)!;
+    current.applied_result = null;
+    const attempt = evidence.attempts.at(-1)!;
+    const unrelatedConcept = attempt.question.concept_ids.find(
+      (id) => id !== hypothesis.concept_id,
+    )!;
+    assert.ok(unrelatedConcept);
+    attempt.question.concept_ids = [unrelatedConcept];
+    lesson.questions.set(
+      attempt.question.question_id!,
+      structuredClone(attempt.question),
+    );
+    attempt.assistance = deriveAssistance(
+      attempt.question,
+      attempt.intent,
+      attempt.presented_at,
+      attempt.submitted_at!,
+      [],
+    );
+    current.result!.per_concept_results = current
+      .result!.per_concept_results.filter(
+        (judgment) => judgment.concept_id === unrelatedConcept,
+      )
+      .map((judgment) => ({
+        ...judgment,
+        correctness,
+        error_type: correctness === "correct" ? null : "conceptual",
+      }));
+    current.result!.uncertainty_reason =
+      correctness === "uncertain"
+        ? "The unrelated explanation is unclear."
+        : null;
+    current.result!.misconception_candidates = [];
+    validateSessionEvidence(lesson, evidence);
+    const decision = decideTutoring(lesson, evidence, current.id, now);
+    current.applied_result = decision.applied;
+    assert.doesNotThrow(() => validateSessionEvidence(lesson, evidence));
+    assert.deepEqual(decision.applied.hypothesis_events, []);
+    assert.deepEqual(
+      evidence.evaluations[0],
+      previous,
+      "Original hypothesis evidence stays unchanged",
+    );
+    assert.equal(
+      decision.applied.action,
+      correctness === "correct" ? "END_SESSION" : "GIVE_CORRECTIVE_FEEDBACK",
+    );
+  }
 });

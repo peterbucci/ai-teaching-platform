@@ -163,6 +163,13 @@ export function decideTutoring(
     if (hypothesisId === null || (!candidate && !previous)) return;
     const conceptId = candidate?.concept_id ?? previous?.concept_id;
     if (!conceptId) throw new Error("Hypothesis requires an assessed concept");
+    // Earlier evidence is not evidence about this response. Preserve its hypothesis
+    // unchanged when the current question/evaluation did not assess that concept.
+    if (
+      !attempt.question.concept_ids.includes(conceptId) ||
+      !judgments.some((judgment) => judgment.concept_id === conceptId)
+    )
+      return;
     hypothesisEvents.push({
       id: randomUUID(),
       hypothesis_instance_id: previous?.hypothesis_instance_id ?? randomUUID(),
