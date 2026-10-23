@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Icon } from "../components/icons.tsx";
+import { FeedbackAudio, stopFeedbackAudio } from "./feedback-audio.tsx";
 import {
   canUseCuratedAnswer,
   CONVERSATION_OPERATION_TIMEOUT_MS,
@@ -354,6 +355,7 @@ export function StudyDialogue({
   }, [newestTurn?.request_id, newestTurn?.response.status]);
 
   async function act(action: ConversationAction) {
+    stopFeedbackAudio();
     if (
       !transport ||
       inFlight.current ||
@@ -427,6 +429,7 @@ export function StudyDialogue({
   }
 
   async function submitFallbackAnswer() {
+    stopFeedbackAudio();
     // Confirmation is separate from Send. The existing server answer path still
     // checks pending operations, displayed assistance and the current attempt.
     if (
@@ -525,6 +528,7 @@ export function StudyDialogue({
                 </div>
                 {help && (
                   <TutorHelp
+                    sessionId={sessionId}
                     turn={help}
                     preview={preview}
                     onCitation={onCitation}
@@ -752,7 +756,9 @@ export function StudyDialogue({
               uncertain ||
               needsDisplay
             }
+            onFocus={stopFeedbackAudio}
             onChange={(event) => {
+              stopFeedbackAudio();
               onTextChange(event.target.value);
               if (!event.target.value) setPurpose(undefined);
               setUnavailable(false);
@@ -791,11 +797,13 @@ export function StudyDialogue({
 }
 
 function TutorHelp({
+  sessionId,
   turn,
   preview,
   onCitation,
   disabled,
 }: {
+  sessionId: string;
   turn: StudentDialogueTurn;
   preview: boolean;
   disabled: boolean;
@@ -816,6 +824,15 @@ function TutorHelp({
         {preview ? "Example tutor · Fixture, not live AI" : "Learning Pulse"}
       </h3>
       <p className="whitespace-pre-wrap">{response.content.text}</p>
+      {!preview && response.status === "displayed" && (
+        <FeedbackAudio
+          key={response.intervention_id}
+          source={{
+            session_id: sessionId,
+            intervention_id: response.intervention_id,
+          }}
+        />
+      )}
       {response.citations.map((citation) => (
         <button
           key={citation.passage_id}
