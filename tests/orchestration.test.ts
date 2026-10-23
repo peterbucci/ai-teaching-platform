@@ -309,6 +309,55 @@ test("model-selected tools cannot bypass teacher policy, installed capabilities 
   }
 });
 
+test("unavailable policy or adapters stop help without claiming the budget was spent", async () => {
+  for (const unavailable of ["policy", "installation", "generator"] as const) {
+    const { state, ports } = fixture();
+    if (unavailable === "policy") state.context.lesson_policy = [];
+    if (unavailable === "installation") state.context.installed_tools = [];
+    if (unavailable === "generator") {
+      state.context.lesson_policy = ["explain"];
+      ports.generate = undefined;
+    }
+    const before = structuredClone(state.context.evidence);
+    const receipt = assertStopped(
+      await runTutorOrchestration(f.studentRequest, ports),
+      "disabled",
+    );
+    assert.equal(receipt.fallback.reason, "disabled");
+    assert.match(receipt.fallback.text, /unavailable/);
+    assert.equal(receipt.reconcile, false);
+    assert.deepEqual(state.context.evidence, before);
+    assert.equal(state.calls.propose, 0);
+    assert.equal(state.calls.generate, 0);
+    assert.equal(state.calls.complete, 0);
+    assert.deepEqual(
+      state.records.map((record) => record.phase),
+      ["failed"],
+    );
+    assert.deepEqual(
+      await runTutorOrchestration(f.studentRequest, ports),
+      receipt,
+    );
+  }
+});
+
+test("permitted help with too little remaining budget retains the limit fallback", async () => {
+  const { state, ports } = fixture();
+  state.context.lesson_policy = ["explain"];
+  state.context.installed_tools = ["explain"];
+  state.context.state.provider_requests_used =
+    DIALOGUE_LIMITS.providerRequestsPerSession - 2;
+  const receipt = assertStopped(
+    await runTutorOrchestration(f.studentRequest, ports),
+    "limit_reached",
+  );
+  assert.equal(receipt.fallback.reason, "limit_reached");
+  assert.match(receipt.fallback.text, /extra-help limit/);
+  assert.equal(state.calls.propose, 0);
+  assert.equal(state.calls.generate, 0);
+  assert.equal(state.calls.complete, 0);
+});
+
 test("strict arguments reject injected permissions, malformed values and duplicate references", async () => {
   for (const candidate of [
     { ...proposal(), arguments: { teacher_approved: true } },

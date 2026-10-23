@@ -252,8 +252,9 @@ export async function runTutorOrchestration(
     claimed = true;
     let context = reservation.context;
     validateContext(request, context);
-    const allowed = availableTools(request, context, {
+    const executable = availableTools(request, context, {
       proposalPending: true,
+      completed: true,
     }).filter(
       (tool) =>
         ports.generate ||
@@ -265,7 +266,14 @@ export async function runTutorOrchestration(
           "generate_retest",
         ].includes(tool),
     );
-    if (!allowed.length) throw new OrchestrationError("limit_reached");
+    // A disabled policy or missing adapter is different from a spent call budget.
+    const allowed = availableTools(request, context, {
+      proposalPending: true,
+    }).filter((tool) => executable.includes(tool));
+    if (!allowed.length)
+      throw new OrchestrationError(
+        executable.length ? "limit_reached" : "disabled",
+      );
     stage = "proposal";
     const raw = await bounded((signal) =>
       ports.propose(

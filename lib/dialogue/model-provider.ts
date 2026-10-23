@@ -62,6 +62,21 @@ export function configuredDialogueModel(): string | null {
     : null;
 }
 
+/** Only adapt the provider wire schema; canonical Zod validation stays unchanged. */
+function omitUnsupportedUriFormat(value: unknown): void {
+  if (!value || typeof value !== "object") return;
+  if (Array.isArray(value)) {
+    for (const child of value) omitUnsupportedUriFormat(child);
+    return;
+  }
+  // This is SDK-generated JSON Schema, never model output or source data.
+  const schema = value as Record<string, unknown>;
+  // Structured Outputs supports UUID and other formats, but not URI. Uploaded
+  // attribution URLs are still checked by input.schema.safeParse after transport.
+  if (schema.type === "string" && schema.format === "uri") delete schema.format;
+  for (const child of Object.values(schema)) omitUnsupportedUriFormat(child);
+}
+
 /**
  * Exactly one provider call under the caller's reservation. This does not reserve
  * usage, authorize an action, persist a result, dispatch tools, or retry failures.
@@ -103,6 +118,7 @@ export async function requestStructuredProposal<T>(
     // Build the schema before starting transport so unsupported local schemas
     // cannot be confused with a provider request whose outcome is unknown.
     const format = zodTextFormat(input.schema, input.schemaName);
+    omitUnsupportedUriFormat(format.schema);
     const client = new OpenAI({
       apiKey,
       baseURL: "https://api.openai.com/v1",

@@ -3,6 +3,17 @@ import test, { type TestContext } from "node:test";
 import { z } from "zod";
 import { DIALOGUE_LIMITS } from "../lib/dialogue/contracts.ts";
 import {
+  HelpDraftSchema,
+  QuestionDraftSchema,
+} from "../lib/dialogue/generation.ts";
+import { validateContentRef } from "../lib/evidence/content.ts";
+import { hydrateLessonContent } from "../lib/lessons/validate.ts";
+import { TutorProposalSchema } from "../lib/tutoring/orchestration/contracts.ts";
+import {
+  makeTeacherLesson,
+  makeTeacherSourceReference,
+} from "./fixtures/teacher-lesson.ts";
+import {
   configuredDialogueModel,
   requestStructuredProposal,
   type ModelFailureCode,
@@ -359,4 +370,154 @@ test("cancellation is forwarded to transport and requires reconciliation only af
   }
   assert.equal(calls, 1);
   assertSanitized(pending);
+});
+
+function uploadedProviderFixture() {
+  const source = makeTeacherSourceReference(
+    "10000000-0000-4000-8000-000000000001",
+    "20000000-0000-4000-8000-000000000001",
+  );
+  source.attribution = {
+    ...source.attribution,
+    url: "https://example.com/synthetic-water-reading",
+    license_url: "https://example.com/synthetic-license",
+  };
+  const lesson = makeTeacherLesson(source, "water-lesson", "2");
+  assert.ok("source_kind" in lesson.content_ref);
+  const question = lesson.questions[0];
+  const fields = {
+    content_ref: lesson.content_ref,
+    concept_ids: question.concept_ids,
+    source_passage_ids: question.source_passage_ids,
+  };
+  const help = {
+    ...fields,
+    text: "Compare the starting and ending states of the water.",
+    assistance_type: "hint",
+  };
+  return { lesson, question, fields, help };
+}
+
+function assertSupportedWireSchema(value: unknown, formats: string[] = []) {
+  if (!value || typeof value !== "object") return formats;
+  if (Array.isArray(value)) {
+    for (const child of value) assertSupportedWireSchema(child, formats);
+    return formats;
+  }
+  const schema = z.record(z.string(), z.unknown()).parse(value);
+  assert.notEqual(schema.format, "uri", "URI is not a supported wire format");
+  if (typeof schema.format === "string") formats.push(schema.format);
+  if (schema.type === "object") {
+    assert.equal(schema.additionalProperties, false);
+    assert.deepEqual(
+      [...z.array(z.string()).parse(schema.required)].sort(),
+      Object.keys(
+        z.record(z.string(), z.unknown()).parse(schema.properties),
+      ).sort(),
+      "Every strict object property remains required",
+    );
+  }
+  for (const child of Object.values(schema))
+    assertSupportedWireSchema(child, formats);
+  return formats;
+}
+
+test("uploaded proposal, help and question schemas omit URI only on the provider wire", async (t) => {
+  configure(t);
+  const { question, fields, help } = uploadedProviderFixture();
+  const cases: { name: string; schema: z.ZodType; value: unknown }[] = [
+    {
+      name: "tutor_instructional_proposal",
+      schema: z.strictObject({ proposal: TutorProposalSchema }),
+      value: {
+        proposal: {
+          ...fields,
+          version: "tutor-orchestration-v1",
+          action: "explain",
+          arguments: { style: "hint" },
+          reason_summary:
+            "A source-grounded cue addresses the student's question.",
+        },
+      },
+    },
+    { name: "dialogue_help", schema: HelpDraftSchema, value: help },
+    {
+      name: "dialogue_question",
+      schema: QuestionDraftSchema,
+      value: {
+        ...fields,
+        prompt_text: question.prompt_text,
+        rubric: question.rubric,
+        embedded_scaffolding: [],
+        target_misconception_ids: [],
+      },
+    },
+  ];
+  for (const example of cases) {
+    const canonicalBefore = z.toJSONSchema(example.schema);
+    assert.ok(JSON.stringify(canonicalBefore).includes('"format":"uri"'));
+    let calls = 0;
+    const result = await requestStructuredProposal(
+      { ...input, schema: example.schema, schemaName: example.name },
+      {
+        fetch: async (url, init) => {
+          calls++;
+          const request = new Request(url, init);
+          const body = z
+            .object({
+              text: z.object({
+                format: z.object({
+                  strict: z.literal(true),
+                  schema: z.unknown(),
+                }),
+              }),
+            })
+            .parse(await request.json());
+          const formats = assertSupportedWireSchema(body.text.format.schema);
+          assert.ok(
+            formats.includes("uuid"),
+            "Supported identity formats stay intact",
+          );
+          return Response.json(responseEnvelope(JSON.stringify(example.value)));
+        },
+      },
+    );
+    assert.equal(calls, 1);
+    assert.ok(result.ok, `${example.name} should retain canonical output`);
+    assert.deepEqual(result.result, example.value);
+    assert.deepEqual(z.toJSONSchema(example.schema), canonicalBefore);
+  }
+});
+
+test("wire compatibility preserves canonical URL checks and exact approved source authority", async (t) => {
+  configure(t);
+  const { lesson, help } = uploadedProviderFixture();
+  const content = hydrateLessonContent(lesson);
+  const request = (value: unknown) =>
+    requestStructuredProposal(
+      { ...input, schema: HelpDraftSchema },
+      {
+        fetch: async () =>
+          Response.json(responseEnvelope(JSON.stringify(value))),
+      },
+    );
+  for (const field of ["url", "license_url"] as const) {
+    const altered = structuredClone(help);
+    altered.content_ref.attribution[field] = "not a URL";
+    const result = await request(altered);
+    assert.equal(result.ok, false);
+    if (!result.ok) assert.equal(result.code, "invalid_output");
+  }
+  for (const change of [
+    { content_version: "3" },
+    { source_id: "10000000-0000-4000-8000-000000000002" },
+    { source_version: 2 },
+  ]) {
+    const altered = structuredClone(help);
+    Object.assign(altered.content_ref, change);
+    const result = await request(altered);
+    // A structurally valid provider proposal still has no source authority.
+    assert.ok(result.ok);
+    assert.throws(() => validateContentRef(content, result.result.content_ref));
+  }
 });
