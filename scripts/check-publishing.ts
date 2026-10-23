@@ -30,12 +30,17 @@ import {
   saveLessonDraft,
 } from "../lib/lessons/store.ts";
 import { createSourceVersion } from "../lib/lessons/sources.ts";
-import type { LessonDraftContent } from "../lib/lessons/contracts.ts";
+import {
+  createObjectiveDraft,
+  saveObjectiveDraft,
+  approveObjectives,
+} from "../lib/objectives/store.ts";
+import { updateQuestionBank } from "../lib/question-bank/store.ts";
+import { makeQuestionBankObjectiveEdits } from "../tests/fixtures/question-bank-objectives.ts";
 import {
   DEFAULT_QUESTION_BANK_PREFERENCES,
   QuestionBankMetadataSchema,
 } from "../lib/question-bank/contracts.ts";
-import { fingerprintQuestionBank } from "../lib/question-bank/validation.ts";
 import { studentReader } from "../lib/reading/student-reader.ts";
 import { studentDashboard } from "../lib/tutoring/dashboard.ts";
 import {
@@ -174,22 +179,38 @@ try {
   };
   const source = await createSourceVersion(teacher, sourceInput);
 
-  // Exercise the actual #51 reviewed-bank handoff. These source-backed examples
-  // are deliberate fixtures; no objective editor or question generator is faked.
-  let bankDraft = await saveLessonDraft(teacher, {
-    expected_revision: 0,
+  // Exercise real #50 objective save/approval and #51 bank save/approval services.
+  // Inputs are source-backed synthetic teacher edits, not generated model output.
+  let bankDraft = await createObjectiveDraft(teacher, {
+    request_id: randomUUID(),
     title: "Synthetic reviewed-bank assembly check",
-    draft: {},
+    source_id: source.document_id,
+    source_version: source.version,
   });
-  const bank: LessonDraftContent = makeTeacherLesson(
-    source.source_ref,
-    bankDraft.id,
-    "1",
+  const objectiveEdits = makeQuestionBankObjectiveEdits();
+  bankDraft = await saveObjectiveDraft(teacher, {
+    lesson_id: bankDraft.id,
+    expected_revision: bankDraft.revision,
+    title: bankDraft.title,
+    items: objectiveEdits,
+  });
+  bankDraft = await approveObjectives(teacher, {
+    lesson_id: bankDraft.id,
+    expected_revision: bankDraft.revision,
+  });
+  assert.equal(
+    bankDraft.draft?.objective_workflow?.reviewed?.reviewed_by,
+    teacher.actor.profileId,
   );
+  const bank = makeTeacherLesson(source.source_ref, bankDraft.id, "1");
+  const questions = bank.questions.map((question) => ({
+    ...question,
+    concept_ids: objectiveEdits.map((item) => item.concept_id),
+  }));
   const roles = ["initial", "alternative", "diagnostic", "retest", "retest"];
-  bank.question_bank = QuestionBankMetadataSchema.parse({
+  const metadata = QuestionBankMetadataSchema.parse({
     preferences: DEFAULT_QUESTION_BANK_PREFERENCES,
-    items: bank.questions!.map((question, index) => ({
+    items: questions.map((question, index) => ({
       question_id: question.question_id,
       family_id: "water-state",
       role: roles[index],
@@ -200,8 +221,8 @@ try {
       reasoning_error: null,
       source_support: question.rubric.criteria.map(
         (criterion, criterionIndex) => ({
-          passage_id: bank.passages![criterionIndex].id,
-          quote: bank.passages![criterionIndex].text.split(". ")[0] + ".",
+          passage_id: bank.passages[criterionIndex].id,
+          quote: bank.passages[criterionIndex].text.split(". ")[0] + ".",
           criterion,
         }),
       ),
@@ -212,29 +233,66 @@ try {
     })),
     approval: null,
   });
-  delete bank.sequence;
-  delete bank.approval;
-  bankDraft = await saveLessonDraft(teacher, {
-    lesson_id: bankDraft.id,
-    expected_revision: bankDraft.revision,
-    title: bankDraft.title,
-    draft: bank,
-  });
+  const noGenerationProvider = async () => {
+    throw new Error(
+      "Publishing service check must not call a generation provider.",
+    );
+  };
+  await updateQuestionBank(
+    teacher,
+    bankDraft.id,
+    {
+      action: "save",
+      expected_revision: bankDraft.revision,
+      questions,
+      question_guidance: bank.question_guidance,
+      question_bank: metadata,
+      activity_policy: bank.activity_policy,
+    },
+    noGenerationProvider,
+  );
+  bankDraft = await readLessonDraft(teacher, bankDraft.id);
+  assert.equal(bankDraft.draft?.question_bank?.approval, null);
   await denied(
     assembleReviewedLessonDraft(teacher, bankDraft.id, bankDraft.revision),
     409,
   );
-  bank.question_bank.approval = {
-    reviewed_by: teacher.actor.profileId,
-    reviewed_at: new Date().toISOString(),
-    content_fingerprint: fingerprintQuestionBank(bank),
-  };
-  bankDraft = await saveLessonDraft(teacher, {
-    lesson_id: bankDraft.id,
-    expected_revision: bankDraft.revision,
-    title: bankDraft.title,
-    draft: bank,
-  });
+  await denied(
+    updateQuestionBank(
+      otherTeacher,
+      bankDraft.id,
+      {
+        action: "approve",
+        expected_revision: bankDraft.revision,
+      },
+      noGenerationProvider,
+    ),
+    404,
+  );
+  await denied(
+    updateQuestionBank(
+      teacher,
+      bankDraft.id,
+      {
+        action: "approve",
+        expected_revision: bankDraft.revision - 1,
+      },
+      noGenerationProvider,
+    ),
+    409,
+  );
+  await updateQuestionBank(
+    teacher,
+    bankDraft.id,
+    {
+      action: "approve",
+      expected_revision: bankDraft.revision,
+    },
+    noGenerationProvider,
+  );
+  bankDraft = await readLessonDraft(teacher, bankDraft.id);
+  const reviewedBank = bankDraft.draft?.question_bank;
+  assert.equal(reviewedBank?.approval?.reviewed_by, teacher.actor.profileId);
   await denied(
     assembleReviewedLessonDraft(otherTeacher, bankDraft.id, bankDraft.revision),
     404,
@@ -252,7 +310,7 @@ try {
     null,
     "Assembly does not approve the lesson",
   );
-  assert.deepEqual(assembled.draft?.question_bank, bank.question_bank);
+  assert.deepEqual(assembled.draft?.question_bank, reviewedBank);
   assert.ok(assembled.draft?.sequence);
   await denied(
     assembleReviewedLessonDraft(
@@ -291,7 +349,7 @@ try {
   assert.equal(publishedBank.sequence.initial_question_id, "WC-01");
   assert.deepEqual(
     (await readLessonDraft(teacher, bankDraft.id)).draft?.question_bank,
-    bank.question_bank,
+    reviewedBank,
   );
   let draft = await saveLessonDraft(teacher, {
     expected_revision: 0,
@@ -369,8 +427,10 @@ try {
   const invalidScopeReview = await lessonPublishingReview(teacher, draft.id);
   assert.equal(invalidScopeReview.validation.valid, false);
   assert.ok(
-    invalidScopeReview.validation.issues.some((issue) =>
-      issue.message.includes("review"),
+    invalidScopeReview.validation.issues.some(
+      (issue) =>
+        issue.path === "content" &&
+        issue.message === "Unknown question passage ID",
     ),
   );
   await denied(approveLessonDraft(teacher, draft.id, draft.revision), 409);
@@ -751,7 +811,7 @@ try {
     assert.deepEqual(reader?.reading.content_ref, lessonV1.content_ref);
   }
   console.log(
-    "PASS: reviewed publication and source gates; ownership; stale/concurrent/replayed publication, creation and activation; immutable assignment instructions; two authorized classes with isolated student evidence; exact uploaded reading/evaluator/controller/teacher evidence paths; private rubric protection; prior source/version snapshots preserved after v2. No model call was made.",
+    "PASS: real objective/bank approval services with synthetic inputs; reviewed publication and source gates; ownership; stale/concurrent/replayed publication, creation and activation; immutable assignment instructions; two authorized classes with isolated student evidence; exact uploaded reading/evaluator/controller/teacher evidence paths; private rubric protection; prior source/version snapshots preserved after v2. No model call was made.",
   );
   console.log(
     `Retained labeled synthetic publishing probe ${run} in the configured development database.`,

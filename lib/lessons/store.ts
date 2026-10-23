@@ -313,6 +313,9 @@ export async function writeLessonDraftInTransaction(
   ) {
     clean.question_bank = { ...clean.question_bank, approval: null };
   }
+  // Reviewed bank edits invalidate the derived tutoring sequence as well as its receipt.
+  // Reapproval requires explicit assembly before whole-lesson approval/publication.
+  if (clean.question_bank && !clean.question_bank.approval) delete clean.sequence;
   const result = await client.query(
     "UPDATE lessons SET title=$2,draft=$3::jsonb,revision=revision+1,approved_revision=NULL WHERE id=$1 RETURNING *",
     [lessonId, title, JSON.stringify(clean)],

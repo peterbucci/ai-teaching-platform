@@ -6,6 +6,12 @@ import {
   type LessonDraftContent,
 } from "../lib/lessons/contracts.ts";
 import { hydrateLessonContent } from "../lib/lessons/validate.ts";
+import { ObjectiveWorkflowSchema } from "../lib/objectives/contracts.ts";
+import {
+  deriveObjectiveConcepts,
+  prepareObjectiveEdits,
+} from "../lib/objectives/rules.ts";
+import { makeQuestionBankObjectiveEdits } from "./fixtures/question-bank-objectives.ts";
 import {
   DEFAULT_QUESTION_BANK_PREFERENCES,
   QuestionBankMetadataSchema,
@@ -14,11 +20,14 @@ import { fingerprintQuestionBank } from "../lib/question-bank/validation.ts";
 import {
   makeTeacherLesson,
   makeTeacherSourceReference,
+  teacherSourcePassages,
 } from "./fixtures/teacher-lesson.ts";
 
 const teacherId = "11111111-1111-4111-8111-111111111111";
 const lessonId = "22222222-2222-4222-8222-222222222222";
 const sourceId = "33333333-3333-4333-8333-333333333333";
+const evaporationId = "44444444-4444-4444-8444-444444444444";
+const condensationId = "55555555-5555-4555-8555-555555555555";
 const approval = {
   status: "approved",
   approved_by: teacherId,
@@ -26,7 +35,8 @@ const approval = {
   approval_type: "synthetic_fixture",
   approval_note: "Deterministic fixture; no model call.",
 };
-function approveBank(draft: LessonDraftContent) {
+// Unit-only review receipt. The database probe obtains receipts from real services.
+function approveFixtureBank(draft: LessonDraftContent) {
   draft.question_bank!.approval = {
     reviewed_by: teacherId,
     reviewed_at: approval.approved_at,
@@ -39,6 +49,36 @@ function bank(): LessonDraftContent {
     lessonId,
     "1",
   );
+  // Synthetic, schema-valid #50 reviewed workflow; no database/model claim.
+  const conceptIds = [evaporationId, condensationId];
+  const edits = makeQuestionBankObjectiveEdits().map((item, index) => ({
+    ...item,
+    concept_id: conceptIds[index],
+  }));
+  draft.objective_workflow = ObjectiveWorkflowSchema.parse({
+    source_ref: makeTeacherSourceReference(sourceId, teacherId),
+    creation: {
+      request_id: lessonId,
+      title: "Synthetic assembly unit fixture",
+    },
+    items: prepareObjectiveEdits(
+      edits,
+      [],
+      teacherSourcePassages,
+      teacherId,
+      approval.approved_at,
+    ),
+    reviewed: {
+      reviewed_by: teacherId,
+      reviewed_at: approval.approved_at,
+      revision: 1,
+    },
+  });
+  draft.concepts = deriveObjectiveConcepts(draft.objective_workflow);
+  draft.questions = draft.questions!.map((question) => ({
+    ...question,
+    concept_ids: conceptIds,
+  }));
   const roles = ["initial", "alternative", "diagnostic", "retest", "retest"];
   draft.question_bank = QuestionBankMetadataSchema.parse({
     preferences: DEFAULT_QUESTION_BANK_PREFERENCES,
@@ -67,7 +107,7 @@ function bank(): LessonDraftContent {
   });
   delete draft.sequence;
   delete draft.approval;
-  approveBank(draft);
+  approveFixtureBank(draft);
   return draft;
 }
 function published(draft: LessonDraftContent) {
@@ -141,6 +181,14 @@ test("assembly requires a reviewed unchanged bank, explicit scoring policy and t
     () => assembleReviewedLesson(unapproved),
     /explicit teacher approval/,
   );
+  const unreviewedObjectives = bank();
+  unreviewedObjectives.objective_workflow!.reviewed = null;
+  approveFixtureBank(unreviewedObjectives);
+  assert.throws(
+    () => assembleReviewedLesson(unreviewedObjectives),
+    /learning objectives need approval/,
+    "A bank receipt cannot substitute for objective approval",
+  );
   const changed = bank();
   changed.questions![0].prompt_text += " A new unreviewed request.";
   assert.throws(
@@ -149,11 +197,11 @@ test("assembly requires a reviewed unchanged bank, explicit scoring policy and t
   );
   const noPolicy = bank();
   delete noPolicy.scoring_policy;
-  approveBank(noPolicy);
+  approveFixtureBank(noPolicy);
   assert.throws(() => assembleReviewedLesson(noPolicy), /scoring policy/);
   const noFeedback = bank();
   noFeedback.question_bank!.items[0].feedback_guidance = "";
-  approveBank(noFeedback);
+  approveFixtureBank(noFeedback);
   assert.throws(() => assembleReviewedLesson(noFeedback), /feedback guidance/);
   assert.throws(
     () => assembleReviewedLesson(bank(), "missing-family"),
@@ -182,7 +230,7 @@ test("a selected family changes routing without rewriting the other reviewed fam
       question_id: `${item.question_id}-second`,
     })),
   );
-  approveBank(draft);
+  approveFixtureBank(draft);
   const assembled = assembleReviewedLesson(draft, "second");
   const content = published(assembled);
   assert.equal(content.sequence.initial_question_id, "WC-01-second");
@@ -194,13 +242,13 @@ test("publication rejects a misconception mapped to a diagnostic that does not a
   const reviewed = bank();
   reviewed.misconceptions!.push({
     id: "reversed-evaporation",
-    concept_id: "evaporation",
+    concept_id: evaporationId,
     definition: "Reverses evaporation's states.",
   });
   reviewed.question_guidance!.find(
     (item) => item.question_id === "WC-DIAGNOSTIC",
   )!.misconception_ids = ["reversed-evaporation"];
-  approveBank(reviewed);
+  approveFixtureBank(reviewed);
   assert.equal(
     assembleReviewedLesson(reviewed).sequence!.diagnostic_options[0]
       .misconception_id,
@@ -209,18 +257,18 @@ test("publication rejects a misconception mapped to a diagnostic that does not a
   const assembled = assembleReviewedLesson(bank());
   assembled.misconceptions!.push({
     id: "reversed-evaporation",
-    concept_id: "evaporation",
+    concept_id: evaporationId,
     definition: "Reverses evaporation's states.",
   });
   const diagnostic = assembled.questions!.find(
     (question) => question.question_id === "WC-DIAGNOSTIC",
   )!;
-  diagnostic.concept_ids = ["condensation"];
+  diagnostic.concept_ids = [condensationId];
   assembled.sequence!.diagnostic_options[0].misconception_id =
     "reversed-evaporation";
   assert.throws(
     () => published(assembled),
-    /diagnostic must assess the concept/,
+    /Diagnostic must assess its mapped misconception's concept/,
   );
   assembled.sequence!.diagnostic_options[0].misconception_id = null;
   assert.doesNotThrow(
