@@ -24,6 +24,7 @@ import {
 } from "./contracts.ts";
 import { AttributionSchema, SourcePassageSchema } from "./source-contracts.ts";
 import { hydrateLessonContent, LessonValidationError } from "./validate.ts";
+import { assembleReviewedLesson } from "./assemble.ts";
 import {
   getReviewedQuestionBank,
   fingerprintQuestionBank,
@@ -34,7 +35,22 @@ import {
   ObjectiveReviewError,
 } from "../objectives/rules.ts";
 
-const LessonRowSchema = z.object({
+/** Shared authoring gate for review, whole-lesson approval and publication. */
+export function validateLessonAuthoringReview(draft: LessonDraftContent) {
+  try {
+    assertObjectiveReviewForLesson(draft);
+    if (draft.question_bank) getReviewedQuestionBank(draft);
+  } catch (error) {
+    throw new EvidenceError(
+      409,
+      error instanceof Error
+        ? error.message
+        : "Review the lesson's authoring requirements.",
+    );
+  }
+}
+
+export const LessonRowSchema = z.object({
   id: z.string(),
   owner_id: z.uuid().nullable(),
   title: z.string(),
@@ -80,9 +96,9 @@ export async function readLessonDraftInTransaction(
     );
   return lesson;
 }
-export const ownedLessonDraft = readLessonDraftInTransaction;
-
-async function validateOwnedContent(
+/** Shared alias for the objective editor; ownership and revision checks stay identical. */
+export { readLessonDraftInTransaction as ownedLessonDraft };
+export async function validateOwnedContent(
   client: PoolClient,
   owner: string,
   content: LessonContent,
@@ -323,6 +339,60 @@ export async function readLessonDraft(
     readLessonDraftInTransaction(client, access, lessonId),
   );
 }
+
+/** A confirmed authoring step, with the same ownership/revision gate as editors.
+ * It saves routing only; lesson approval and publication remain separate. */
+export async function assembleReviewedLessonDraft(
+  access: EvidenceAccess,
+  lessonId: string,
+  expectedRevision: number,
+  familyId?: string,
+) {
+  z.number().int().positive().parse(expectedRevision);
+  if (familyId !== undefined) z.string().min(1).max(160).parse(familyId);
+  return transaction(async (client) => {
+    const lesson = await readLessonDraftInTransaction(
+      client,
+      access,
+      lessonId,
+      expectedRevision,
+    );
+    if (!lesson.draft)
+      throw new EvidenceError(409, "The lesson draft is empty.");
+    validateLessonAuthoringReview(lesson.draft);
+    let assembled: LessonDraftContent;
+    try {
+      assembled = assembleReviewedLesson(lesson.draft, familyId);
+    } catch (error) {
+      throw new EvidenceError(
+        409,
+        error instanceof Error
+          ? error.message
+          : "Review this lesson before assembling practice.",
+      );
+    }
+    const content = LessonContentSchema.parse({
+      ...projectLessonDraftContent(assembled),
+      approval: {
+        status: "approved",
+        approved_by: access.actor.profileId,
+        approved_at: new Date().toISOString(),
+        approval_type: "validation_preview",
+        approval_note:
+          "Assembly validation only; teacher lesson approval is still required.",
+      },
+    });
+    if (content.content_ref.package_id !== lesson.id)
+      throw new EvidenceError(409, "Draft belongs to a different lesson.");
+    await validateOwnedContent(client, access.actor.profileId, content);
+    return saveLessonDraftInTransaction(client, access, {
+      lesson_id: lesson.id,
+      expected_revision: lesson.revision,
+      title: lesson.title,
+      draft: assembled,
+    });
+  });
+}
 export async function approveLessonDraft(
   access: EvidenceAccess,
   lessonId: string,
@@ -336,17 +406,10 @@ export async function approveLessonDraft(
       lessonId,
       expectedRevision,
     );
-    if (lesson.approved_revision === expectedRevision) return lesson;
     if (!lesson.draft)
       throw new EvidenceError(409, "The lesson draft is empty.");
-    try {
-      assertObjectiveReviewForLesson(lesson.draft);
-    } catch (error) {
-      if (error instanceof ObjectiveReviewError)
-        throw new EvidenceError(409, error.message);
-      throw error;
-    }
-    if (lesson.draft.question_bank) getReviewedQuestionBank(lesson.draft);
+    validateLessonAuthoringReview(lesson.draft);
+    if (lesson.approved_revision === expectedRevision) return lesson;
     const content = LessonContentSchema.parse({
       ...projectLessonDraftContent(lesson.draft),
       approval: {
@@ -396,14 +459,7 @@ export async function publishLessonVersion(
       );
     if (!lesson.draft)
       throw new EvidenceError(409, "The lesson draft is empty.");
-    try {
-      assertObjectiveReviewForLesson(lesson.draft);
-    } catch (error) {
-      if (error instanceof ObjectiveReviewError)
-        throw new EvidenceError(409, error.message);
-      throw error;
-    }
-    if (lesson.draft.question_bank) getReviewedQuestionBank(lesson.draft);
+    validateLessonAuthoringReview(lesson.draft);
     const content = LessonContentSchema.parse(
       projectLessonDraftContent(lesson.draft),
     );
@@ -459,10 +515,12 @@ export async function createLessonAssignment(
 ) {
   const request = z
     .strictObject({
+      request_id: z.uuid().optional(),
       class_id: z.uuid(),
       lesson_id: z.string().min(1),
       version: z.string().min(1),
       title: z.string().trim().min(1).max(300),
+      instructions: z.string().trim().max(5000).default(""),
     })
     .parse(input);
   return transaction(async (client) => {
@@ -471,6 +529,50 @@ export async function createLessonAssignment(
       [request.class_id, access.actor.profileId],
     );
     if (!owned.rowCount) throw new EvidenceError(404, "Class not found.");
+    if (request.request_id) {
+      // Serialize matching requests across server processes; the unique database
+      // key remains the final guard. The request never activates its assignment.
+      await client.query("SELECT pg_advisory_xact_lock(hashtext($1))", [
+        `lesson-assignment:${request.request_id}`,
+      ]);
+      const prior = await client.query(
+        `SELECT a.id,a.class_id,a.lesson_id,a.lesson_version,a.title,a.instructions,c.teacher_id
+         FROM assignments a JOIN classes c ON c.id=a.class_id
+         WHERE a.creation_request_id=$1`,
+        [request.request_id],
+      );
+      if (prior.rows[0]) {
+        const saved = z
+          .object({
+            id: z.uuid(),
+            class_id: z.uuid(),
+            lesson_id: z.string(),
+            lesson_version: z.string(),
+            title: z.string(),
+            instructions: z.string(),
+            teacher_id: z.uuid(),
+          })
+          .parse(prior.rows[0]);
+        if (
+          saved.teacher_id !== access.actor.profileId ||
+          saved.class_id !== request.class_id ||
+          saved.lesson_id !== request.lesson_id ||
+          saved.lesson_version !== request.version ||
+          saved.title !== request.title ||
+          saved.instructions !== request.instructions
+        )
+          throw new EvidenceError(
+            409,
+            "This assignment request was already used with different details. Review the existing assignment or start a new request.",
+          );
+        return {
+          id: saved.id,
+          class_id: saved.class_id,
+          lesson_id: saved.lesson_id,
+          lesson_version: saved.lesson_version,
+        };
+      }
+    }
     const version = await client.query(
       `SELECT v.*,l.owner_id FROM lesson_versions v JOIN lessons l ON l.id=v.lesson_id WHERE v.lesson_id=$1 AND v.version=$2 AND (l.owner_id=$3 OR l.owner_id IS NULL)`,
       [request.lesson_id, request.version, access.actor.profileId],
@@ -489,8 +591,8 @@ export async function createLessonAssignment(
     validateContentRef(content, row.content_ref);
     const id = randomUUID();
     await client.query(
-      `INSERT INTO assignments(id,class_id,title,content_ref,approved_concept_ids,approved_passage_ids,approved_misconception_ids,approval,lesson_id,lesson_version)
-      VALUES($1,$2,$3,$4::jsonb,$5,$6,$7,$8::jsonb,$9,$10)`,
+      `INSERT INTO assignments(id,class_id,title,content_ref,approved_concept_ids,approved_passage_ids,approved_misconception_ids,approval,lesson_id,lesson_version,instructions,creation_request_id)
+      VALUES($1,$2,$3,$4::jsonb,$5,$6,$7,$8::jsonb,$9,$10,$11,$12)`,
       [
         id,
         request.class_id,
@@ -502,6 +604,8 @@ export async function createLessonAssignment(
         JSON.stringify(content.approval),
         row.lesson_id,
         row.version,
+        request.instructions,
+        request.request_id ?? null,
       ],
     );
     return {
@@ -512,5 +616,3 @@ export async function createLessonAssignment(
     };
   });
 }
-
-export { LessonRowSchema };
