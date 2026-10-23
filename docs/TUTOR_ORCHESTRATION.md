@@ -53,15 +53,15 @@ One tool result ends the function. A later saved student response/evaluation pro
 
 ## Integration gates and verification scope
 
-This focused PR runs against merged `r7-v1` contracts plus #74's coordinated retest enum. It is **not a live connected tutoring endpoint**. Its deterministic tests simulate persistence/provider services; they do not prove database durability, real model quality, or browser delivery.
+This focused PR runs against merged `r7-v1` contracts plus #74's coordinated retest enum. It is **not a live connected tutoring endpoint**. Its deterministic tests simulate persistence/provider services; they do not prove database durability, real model quality, or browser delivery. A separate combined check with draft #95/#96 ran 16 actual calls against disposable PostgreSQL: three corrected help turns committed and replayed safely, but every proposal chose the same action/style. The changed-action gate remains unmet. See [the integration evidence and limitations](../evals/R7_ORCHESTRATION_VERIFICATION.md).
 
 Before enabling production:
 
-- Connect #75's reservation/checkpoint/commit/failure adapter and #74's reviewed generation. The first #75 adapter is limited to student help; evaluated controller operations need their own reviewed reservation gate. Keep generated assessment tools out of `installed_tools` until the controller handoff exists.
+- Wire the #75 reservation/checkpoint/commit/failure adapter from draft #95 and #74 reviewed generation from draft #96 into production routing after policy review. Their text-help composition was service-tested as described above. The first #75 adapter is limited to student help; evaluated controller operations need their own reviewed reservation gate. Keep generated assessment tools out of `installed_tools` until the controller handoff exists.
 - Resolve the generated-question continuation gate: `decideTutoring` currently looks up authored question IDs, while generated snapshots use immutable UUIDs. A generated Attempt alone will not make subsequent controller decisions work. Agree an approved activity-slot mapping without a second state machine.
 - Preserve #74's additive `immediate_retest` contract when integrating its provider branch. Retest generation remains unavailable without the controller handoff.
 - Resolve actual assignment content and policy through #53; retain curated behavior as a regression path. Uploaded sources require that branch's content-reference extension.
 - Connect safe results and actual display acknowledgements to #73/#81, including reading assistance. Reconstruct the full trace in authorized teacher evidence.
 - Run the #76 live gate using two held-out misunderstandings and one complete reasoning → actual model proposal → permitted execution → next student observation → changed decision cycle. Record model/configuration, source/version, database IDs, failures and educational review separately from simulated tests.
 
-No issue/epic should close from these deterministic checks alone. No live model or browser/database proof is implied by the interface.
+No issue/epic should close from deterministic checks or the partial live service result. The changed-action, production policy, controller handoff and browser gates remain open.
