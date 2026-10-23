@@ -108,11 +108,11 @@ independent performance or retention.
   approval identity, approved recipient insertion and exact delivery membership.
   It preserves the already-applied 014 migration.
 
-The numbers were allocated after the current R4/R7 migration ranges, including
-010–013. Existing applied migrations were not renamed or rewritten. An existing
-009 numbering collision on another workstream remains a repository integration
-matter; this change does not try to repair its history. Review the combined
-migration order with those workstream owners before merging branches.
+The numbers were allocated after the R4/R7 migration ranges, including 010–013.
+Existing applied migrations were not renamed or rewritten. The reconciled tree
+preserves both independently allocated 009 files under their distinct existing
+filenames, followed by the unchanged 014/015 approval migrations. The combined
+migration sequence has been exercised against isolated PostgreSQL.
 
 ## Integration handoff and review gates
 
@@ -178,3 +178,30 @@ evidence for an uploaded lesson and a legacy trimmed curated snapshot. It makes
 zero model calls. Set `CHECK_INTERVENTION_APPROVAL_OUTPUT` to an ignored local
 path to retain the result. This establishes HTTP/database integration and server
 rendering, not visual browser interaction or actual-model quality.
+
+### Release preparation after R4/R7 reconciliation
+
+The October 23 integration preserves the original #45 teacher editor, approval and
+separate delivery flow while resolving both curated and uploaded assignments
+through the canonical lesson registry. Original 014/015 migration bytes, private
+student projections, source/evidence snapshots and teacher revision checks remain
+unchanged. This preparation includes the reviewed #99 head `5d70aa2` and main's
+published R4/R7/security implementation through `38af6be`.
+
+After the clean normal merge, all 15 focused generation/approval contract tests,
+TypeScript, and lint/format checks on the incoming verification files passed.
+The self-contained uploaded/curated approval suite passed again against isolated
+PostgreSQL and the production application: edit/replay/stale/reference checks,
+explicit approval then delivery, recipient enrollment/privacy, first display,
+immutable history, and unchanged original evidence. All new provider output was
+injected fixture data; zero paid model calls were made. The application code was
+unchanged by this final dependency merge, so its existing production build was
+reused. This rerun does not claim a new visual browser or actual-model walkthrough.
+
+CI retains the dedicated fresh `intervention-approval` job and #99's generation,
+uploaded-source and private-review HTTP checks. The earlier curated browser
+walkthrough and actual-model source draft remain historical evidence in
+`evals/INTERVENTION_APPROVAL_VERIFICATION.md`; uploaded actual-model quality and
+final release walkthroughs are separate gates. #106 owns fresh-check responses,
+evaluation and outcome comparisons. This branch does not claim those follow-ups
+or the complete R2/agentic teaching pipeline are finished.
