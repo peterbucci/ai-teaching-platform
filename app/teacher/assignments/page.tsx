@@ -3,7 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { z } from "zod";
 import { AuthError, requireActor } from "../../../lib/auth.ts";
 import { EvidenceError, evidenceAccess } from "../../../lib/evidence/store.ts";
-import { loadApprovedContent } from "../../../lib/evidence/content.ts";
+import { readAssignmentContent } from "../../../lib/lessons/store.ts";
 import { teacherAssignments } from "../../../lib/teacher/store.ts";
 import { assignmentReview } from "../../../lib/assignments/store.ts";
 import { assignedReading } from "../../../lib/assignments/reading.ts";
@@ -21,6 +21,9 @@ async function load(id?: string) {
     return {
       assignments,
       selected: selected ? await assignmentReview(access, selected) : null,
+      content: selected
+        ? await readAssignmentContent(access, selected, "teacher")
+        : null,
     };
   } catch (error) {
     if (error instanceof AuthError && error.status === 401) redirect("/login");
@@ -37,11 +40,16 @@ export default async function AssignmentsPage({
 }: {
   searchParams: Promise<{ assignment?: string }>;
 }) {
-  const { assignments, selected } = await load((await searchParams).assignment);
-  const content = loadApprovedContent();
-  const questions = [...content.questions.values()].filter((question) =>
-    question.question_id?.startsWith("NP-"),
+  const { assignments, selected, content } = await load(
+    (await searchParams).assignment,
   );
+  const questions = content
+    ? [...content.questions.values()].filter(
+        (question) =>
+          !question.sequence_id ||
+          question.question_id === content.sequence.initial_question_id,
+      )
+    : [];
   return (
     <TeacherFrame section="Assignments">
       <header className="lp-page-heading">
@@ -71,7 +79,7 @@ export default async function AssignmentsPage({
           <button className="lp-button">Open assignment</button>
         </form>
       )}
-      {selected ? (
+      {selected && content ? (
         <>
           <section className="lp-assignment-summary">
             <p className="lp-eyebrow">{selected.class_name}</p>
@@ -126,8 +134,8 @@ export default async function AssignmentsPage({
                 <p className="lp-eyebrow">02 · Guided practice</p>
                 <h2>Prepared practice</h2>
                 <p className="lp-panel-description mb-4">
-                  {questions.length} prepared questions, with one complete
-                  guided sequence for transmission and propagation delay.
+                  {questions.length} prepared questions and an approved guided
+                  sequence for this lesson.
                 </p>
                 <details className="lp-evidence-details">
                   <summary>Questions and answer guidance</summary>
@@ -147,9 +155,7 @@ export default async function AssignmentsPage({
                   ))}
                 </details>
                 <details className="lp-evidence-details">
-                  <summary>
-                    Guided transmission and propagation sequence
-                  </summary>
+                  <summary>Guided practice sequence</summary>
                   <p className="my-3">
                     Initial question → clarification or diagnostic follow-up →
                     grounded feedback → fresh retests. Only the permitted steps
@@ -170,7 +176,9 @@ export default async function AssignmentsPage({
               <section id="assigned-reading" className="lp-panel">
                 <p className="lp-eyebrow">03 · Approved source</p>
                 <h2>Assigned reading</h2>
-                <Reading reading={assignedReading(selected.content_ref)} />
+                <Reading
+                  reading={assignedReading(selected.content_ref, content)}
+                />
               </section>
             </div>
             <aside
@@ -205,8 +213,8 @@ export default async function AssignmentsPage({
               ) : (
                 <>
                   <p>
-                    The team approved this material for the hackathon.
-                    Activating it records your separate classroom review.
+                    This lesson version is approved. Activating it records your
+                    separate classroom review.
                   </p>
                   <ApproveAssignment
                     id={selected.id}

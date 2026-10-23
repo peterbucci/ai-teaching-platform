@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { z } from "zod";
 import { requireActor } from "../../../lib/auth.ts";
-import { loadApprovedContent } from "../../../lib/evidence/content.ts";
+import { readAssignmentContent } from "../../../lib/lessons/store.ts";
 import { EvidenceError, evidenceAccess } from "../../../lib/evidence/store.ts";
 import type { InterventionEvidence } from "../../../lib/interventions/contracts.ts";
 import { buildInterventionEvidence } from "../../../lib/interventions/evidence.ts";
@@ -11,7 +11,10 @@ import {
   readInterventionDraft,
   readInterventionDrafts,
 } from "../../../lib/interventions/store.ts";
-import { calculatePatterns } from "../../../lib/teacher/patterns.ts";
+import {
+  calculatePatterns,
+  type PatternGroup,
+} from "../../../lib/teacher/patterns.ts";
 import { evidenceDescription, loadTeacherView } from "../data.ts";
 import { TeacherFiltersForm } from "../filters.tsx";
 import { TeacherFrame } from "../presentation.tsx";
@@ -67,7 +70,11 @@ export default async function TeacherInterventionsPage({
     review = await readInterventionReview(access, draft.id);
     draft = review.draft;
   }
-  const content = loadApprovedContent();
+  const content = await readAssignmentContent(
+    access,
+    data.assignment_id,
+    "teacher",
+  );
   const conceptId =
     draft?.evidence.selection.concept_id ??
     params.concept ??
@@ -78,7 +85,10 @@ export default async function TeacherInterventionsPage({
     data.students.map((student) => student.student_id),
     new Set(data.approved_misconception_ids),
     data.evidence,
-  ).filter((group) => group.concept_id === conceptId);
+  ).filter(
+    (group): group is PatternGroup & { misconception_id: string } =>
+      group.concept_id === conceptId && group.misconception_id !== null,
+  );
   let evidence: InterventionEvidence | null = draft?.evidence ?? null;
   let evidenceError: string | null = null;
   if (!draft && conceptId) {

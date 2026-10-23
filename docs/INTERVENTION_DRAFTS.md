@@ -1,11 +1,12 @@
 # Private intervention drafts — #44 / #45 handoff
 
-This is a private teacher review workflow, not an assignment publisher. It starts
-from the approved curated networking lesson and recorded fictional evidence.
+This is a private teacher review workflow, not an assignment publisher. It uses
+the exact approved lesson pinned to the assignment, including teacher-owned
+uploaded sources, and recorded fictional evidence.
 No student endpoint, grade write, enrollment change, message, approval or delivery
 is exposed. #45 owns editing, approval, final recipients and delivery; #46 owns
-linked follow-up comparisons. #53 / PR #93 owns imported-lesson resolution and is
-not copied into this branch.
+linked follow-up comparisons. Imported and curated lessons use #53 / PR #93's
+canonical authorized content resolver; no parallel content registry is introduced.
 
 ## Service and HTTP contract
 
@@ -36,9 +37,17 @@ contract. They are plain data; provider and persistence modules are server-only.
 
 ## Evidence and grounding
 
-The service reuses `assignmentReview` for ownership and exact approved curated
-scope, then `readAssignmentEvidence`, `calculateClassMetrics` and
-`calculatePatterns`. A selected response expands to the same student's accepted
+The service reuses `assignmentReview` and `readAssignmentContent` for ownership
+and the exact approved source/lesson version, then `readAssignmentEvidence`,
+`calculateClassMetrics` and `calculatePatterns`. It resolves and checks that same
+source again under the assignment lock before provider dispatch and before saving.
+Historical v1/v2 drafts used trimmed source text. Regeneration verifies their
+exact source reference and passage contents before restoring canonical whitespace
+in the new revision only; old draft and request snapshots remain unchanged.
+Current v3 snapshots require exact source bytes.
+Private uploaded passages retain `url: null`; their exact excerpts are shown in
+the review without inventing a public source link. Concept labels and UUID
+identities come from the assigned lesson. A selected response expands to the same student's accepted
 responses for the concept, including contrary follow-ups. All original text,
 question snapshots, accepted evaluation identities, source references, assistance
 and uncertainties are preserved in the saved draft. Class metrics retain their
@@ -116,3 +125,20 @@ injected-provider scenarios. `CHECK_INTERVENTION_REPORT` chooses the output file
 `npm run interventions:http` verifies authenticated reads and rejected requests
 against `CHECK_BASE_URL`/`AUTH_URL` with zero model calls; it can inspect the chosen
 live report through the same environment variable.
+
+### Uploaded-lesson integration regression
+
+`npm run interventions:lessons:check` uses canonical source approval, lesson
+publication, assignment activation and accepted synthetic student evidence in an
+isolated PostgreSQL database. It verifies a non-networking lesson with UUID
+concept IDs and private source passages, injected draft generation, owner-only
+access, replay/stale revisions, wrong-version rejection, immutable source pins,
+and preservation of the curated baseline. It retains labeled synthetic records
+and makes zero paid calls. This proves service/database integration, not actual
+model quality on newly uploaded lessons. The prompt version advances to
+`teacher-intervention-v3`; existing draft provenance is unchanged. Activities
+remain qualitative and teacher-reviewable; numerical generation is unsupported.
+
+#45/#46 must resolve the same assignment content for approval, delivery and
+follow-ups, and preserve nullable source URLs in their projections. This branch
+does not implement those later transitions.

@@ -5,10 +5,9 @@ import type { PoolClient } from "pg";
 import { z } from "zod";
 import { evidenceRow } from "../db.ts";
 import { ContentRefSchema } from "../evidence/contracts.ts";
-import {
-  loadApprovedContent,
-  validateContentRef,
-} from "../evidence/content.ts";
+import { validateContentRef } from "../evidence/content.ts";
+import { resolveAssignmentContent } from "../lessons/store.ts";
+import { interventionRevisionEvidence } from "./evidence.ts";
 import {
   EvidenceError,
   transaction,
@@ -60,11 +59,26 @@ async function ownedDraft(
   return ScopeSchema.parse(evidenceRow(result.rows[0]));
 }
 
-function validateScope(scope: Scope, requireActivation: boolean) {
+async function validateScope(
+  client: PoolClient,
+  access: EvidenceAccess,
+  scope: Scope,
+  requireActivation: boolean,
+) {
   const draft = scope.snapshot;
-  const content = loadApprovedContent();
+  const content = await resolveAssignmentContent(
+    client,
+    access,
+    scope.assignment_id,
+    "teacher",
+  );
   try {
     validateContentRef(content, scope.content_ref);
+    interventionRevisionEvidence(
+      content,
+      draft.evidence,
+      draft.provenance.prompt_template_version,
+    );
   } catch {
     throw new EvidenceError(
       409,
@@ -78,9 +92,7 @@ function validateScope(scope: Scope, requireActivation: boolean) {
     scope.approval.status !== "approved" ||
     !scope.approved_concept_ids.includes(draft.evidence.concept.id) ||
     draft.evidence.sources.some(
-      (source) =>
-        !scope.approved_passage_ids.includes(source.passage_id) ||
-        content.passages.get(source.passage_id)?.text.trim() !== source.text,
+      (source) => !scope.approved_passage_ids.includes(source.passage_id),
     )
   )
     throw new EvidenceError(
@@ -214,7 +226,7 @@ export async function applyInterventionAction(
           409,
           "Only the explicitly approved version can be delivered.",
         );
-      validateScope(scope, true);
+      await validateScope(client, access, scope, true);
       editedActivity(current.approval.activity, prior);
       validateRecipients(current.approval.recipient_ids, current);
       if (!current.delivery) {
@@ -244,13 +256,18 @@ export async function applyInterventionAction(
           "Approved and dismissed drafts cannot be edited or approved again.",
         );
       if (input.action !== "dismiss")
-        validateScope(scope, input.action === "approve");
+        await validateScope(client, access, scope, input.action === "approve");
       const activity =
         input.action === "save"
           ? editedActivity(input.activity, prior)
           : prior.activity;
       if (input.action === "save")
-        validateScope({ ...scope, snapshot: { ...prior, activity } }, false);
+        await validateScope(
+          client,
+          access,
+          { ...scope, snapshot: { ...prior, activity } },
+          false,
+        );
       if (input.action === "approve") {
         editedActivity(activity, prior);
         validateRecipients(input.recipient_ids, current);
@@ -341,6 +358,25 @@ const StudentRowSchema = z.object({
   delivered_at: z.iso.datetime({ offset: true }),
   displayed_at: z.iso.datetime({ offset: true }).nullable(),
 });
+async function validateStudentSource(
+  client: PoolClient,
+  access: EvidenceAccess,
+  row: z.infer<typeof StudentRowSchema>,
+) {
+  const approval = row.snapshot;
+  const content = await resolveAssignmentContent(
+    client,
+    access,
+    approval.assignment_id,
+    "student",
+  );
+  validateContentRef(content, approval.content_ref);
+  interventionRevisionEvidence(
+    content,
+    approval.evidence,
+    approval.provenance.prompt_template_version,
+  );
+}
 function studentView(row: z.infer<typeof StudentRowSchema>) {
   const approval: InterventionApproval = row.snapshot;
   return StudentInterventionSchema.parse({
@@ -376,9 +412,13 @@ export async function listStudentInterventions(
         ? [access.actor.profileId, access.actor.userId, assignmentId]
         : [access.actor.profileId, access.actor.userId],
     );
-    return rows.rows.map((row) =>
-      studentView(StudentRowSchema.parse(evidenceRow(row))),
-    );
+    const interventions = [];
+    for (const result of rows.rows) {
+      const row = StudentRowSchema.parse(evidenceRow(result));
+      await validateStudentSource(client, access, row);
+      interventions.push(studentView(row));
+    }
+    return interventions;
   });
 }
 
@@ -395,7 +435,9 @@ export async function readStudentIntervention(
     ]);
     if (!rows.rows[0])
       throw new EvidenceError(404, "Assigned intervention not found.");
-    return studentView(StudentRowSchema.parse(evidenceRow(rows.rows[0])));
+    const row = StudentRowSchema.parse(evidenceRow(rows.rows[0]));
+    await validateStudentSource(client, access, row);
+    return studentView(row);
   });
 }
 
@@ -413,6 +455,7 @@ export async function markStudentInterventionDisplayed(
     if (!rows.rows[0])
       throw new EvidenceError(404, "Assigned intervention not found.");
     const row = StudentRowSchema.parse(evidenceRow(rows.rows[0]));
+    await validateStudentSource(client, access, row);
     if (!row.displayed_at) {
       const updated = await client.query(
         `UPDATE teacher_intervention_recipients SET displayed_at=clock_timestamp()
