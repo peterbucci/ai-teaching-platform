@@ -154,12 +154,9 @@ export async function validateOwnedContent(
   try {
     return hydrateLessonContent(content);
   } catch (error) {
-    throw new EvidenceError(
-      409,
-      error instanceof Error
-        ? `Lesson content needs review: ${error.message}`
-        : "Lesson content needs review before publication.",
-    );
+    if (error instanceof LessonValidationError)
+      throw new EvidenceError(409, error.message);
+    throw error;
   }
 }
 
