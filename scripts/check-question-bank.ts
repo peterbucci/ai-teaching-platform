@@ -4,7 +4,13 @@ import { getPool } from "../lib/db.ts";
 import { evidenceAccess, EvidenceError } from "../lib/evidence/store.ts";
 import { DEMO_IDS } from "../lib/evidence/demo.ts";
 import { createSourceVersion } from "../lib/lessons/sources.ts";
-import { saveLessonDraft, readLessonDraft } from "../lib/lessons/store.ts";
+import {
+  saveLessonDraft,
+  readLessonDraft,
+  approveLessonDraft,
+  publishLessonVersion,
+} from "../lib/lessons/store.ts";
+import type { LessonDraftContent } from "../lib/lessons/contracts.ts";
 import {
   createObjectiveDraft,
   saveObjectiveDraft,
@@ -263,6 +269,50 @@ try {
     undefined,
     "Bank reapproval cannot resurrect stale feedback; #52 must assemble again",
   );
+  const receiptBeforeOmission = structuredClone(
+    view.draft.question_bank.approval,
+  );
+  const omittedMetadata: LessonDraftContent = structuredClone(view.draft);
+  delete omittedMetadata.question_bank;
+  row = await saveLessonDraft(teacher, {
+    lesson_id: row.id,
+    expected_revision: view.revision,
+    title: row.title,
+    draft: omittedMetadata,
+  });
+  assert.deepEqual(
+    row.draft?.question_bank?.approval,
+    receiptBeforeOmission,
+    "A generic editor omitting bank metadata preserves the existing reviewed bank",
+  );
+  const editedWithoutMetadata: LessonDraftContent = structuredClone(row.draft!);
+  delete editedWithoutMetadata.question_bank;
+  editedWithoutMetadata.questions![0].prompt_text += " Name both states.";
+  row = await saveLessonDraft(teacher, {
+    lesson_id: row.id,
+    expected_revision: row.revision,
+    title: row.title,
+    draft: editedWithoutMetadata,
+  });
+  assert.ok(
+    row.draft?.question_bank,
+    "Omission cannot delete the bank review gate",
+  );
+  assert.equal(row.draft.question_bank.approval, null);
+  assert.throws(
+    () => getReviewedQuestionBank(row.draft!),
+    /explicit teacher approval/,
+  );
+  await assert.rejects(approveLessonDraft(teacher, row.id, row.revision));
+  await denied(publishLessonVersion(teacher, row.id, row.revision), 409);
+  assert.equal(
+    (await readLessonDraft(teacher, row.id)).approved_revision,
+    null,
+  );
+  view = await updateQuestionBank(teacher, row.id, {
+    action: "approve",
+    expected_revision: row.revision,
+  });
   const originalReceipt = structuredClone(view.draft.question_bank.approval);
   const forgedDraft = structuredClone(view.draft);
   forgedDraft.question_bank.approval = {
@@ -373,6 +423,99 @@ try {
     expected_revision: row.revision,
   });
   assert.equal(getReviewedQuestionBank(view.draft).questions.length, 4);
+
+  // Persist synthetic reviewer findings, then correct only the field each finding concerns.
+  // Notes or a client-cleared issue list alone must not erase an unresolved finding.
+  const flaggedId = view.draft.questions![0].question_id!;
+  const flaggedSnapshot = structuredClone(view.draft.questions![0]);
+  async function persistReviewFixture(
+    change: (draft: typeof view.draft) => void,
+  ) {
+    const draft = structuredClone(view.draft);
+    change(draft);
+    const stored = await saveLessonDraft(teacher, {
+      lesson_id: row.id,
+      expected_revision: view.revision,
+      title: row.title,
+      draft,
+    });
+    view = await readQuestionBank(teacher, stored.id);
+  }
+  await persistReviewFixture((draft) => {
+    const item = draft.question_bank.items.find(
+      (item) => item.question_id === flaggedId,
+    )!;
+    item.format = "multiple_choice";
+    item.quality_issues = [
+      "format_mismatch: A multiple-choice question needs answer options.",
+    ];
+    item.review_notes = "";
+  });
+  const flaggedItem = view.draft.question_bank.items.find(
+    (item) => item.question_id === flaggedId,
+  )!;
+  flaggedItem.review_notes = "I reviewed this finding.";
+  flaggedItem.quality_issues = [];
+  view = await updateQuestionBank(teacher, row.id, save(view));
+  assert.equal(
+    view.draft.question_bank.items.find(
+      (item) => item.question_id === flaggedId,
+    )!.quality_issues.length,
+    1,
+  );
+  const correctedFormat = view.draft.question_bank.items.find(
+    (item) => item.question_id === flaggedId,
+  )!;
+  correctedFormat.format = "short_answer";
+  correctedFormat.review_notes =
+    "Corrected the format to match the open-response prompt.";
+  view = await updateQuestionBank(teacher, row.id, save(view));
+  assert.deepEqual(
+    view.draft.question_bank.items.find(
+      (item) => item.question_id === flaggedId,
+    )!.quality_issues,
+    [],
+  );
+
+  for (const field of ["assumptions", "misconception_ids"] as const) {
+    await persistReviewFixture((draft) => {
+      const guidance = draft.question_guidance!.find(
+        (item) => item.question_id === flaggedId,
+      )!;
+      guidance[field] =
+        field === "assumptions"
+          ? ["Evaporation requires boiling."]
+          : ["unsupported-confirmed-misconception"];
+      const item = draft.question_bank.items.find(
+        (item) => item.question_id === flaggedId,
+      )!;
+      item.quality_issues = [
+        `unsupported_${field}: Remove unsupported private guidance.`,
+      ];
+      item.review_notes = "";
+    });
+    view.draft.question_guidance!.find(
+      (item) => item.question_id === flaggedId,
+    )![field] = [];
+    view.draft.question_bank.items.find(
+      (item) => item.question_id === flaggedId,
+    )!.review_notes = `Removed unsupported ${field} after checking the source.`;
+    view = await updateQuestionBank(teacher, row.id, save(view));
+    assert.deepEqual(
+      view.draft.question_bank.items.find(
+        (item) => item.question_id === flaggedId,
+      )!.quality_issues,
+      [],
+      `Correcting only private ${field} with review notes resolves its reviewer finding`,
+    );
+  }
+  assert.deepEqual(
+    view.draft.questions!.find(
+      (question) => question.question_id === flaggedId,
+    ),
+    flaggedSnapshot,
+  );
+  assert.deepEqual(view.issues, []);
 
   // Reorder/add/delete manual questions through the real transaction and reload.
   const manual = structuredClone(view.draft.questions![1]);
@@ -543,6 +686,9 @@ try {
         "unreviewed/edited objectives block paid generation",
         "objective edits immediately invalidate bank approval",
         "generic bank-receipt forgery rejected",
+        "omitted bank metadata cannot bypass approval or publication",
+        "format and private-guidance corrections resolve reviewer flags",
+        "review notes alone preserve unresolved reviewer flags",
         "multi-concept/source grounding",
         "selective regeneration",
         "manual edit/add/delete/reorder",

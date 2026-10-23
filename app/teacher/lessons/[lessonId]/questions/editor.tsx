@@ -16,8 +16,6 @@ import {
   DEFAULT_BANK_TERMINOLOGY_POLICY,
   DEFAULT_BANK_MISCONCEPTION_POLICY,
   QuestionBankMetadataSchema,
-  QuestionBankItemSchema,
-  QuestionBankPreferencesSchema,
   QuestionBankViewSchema,
   QuestionDifficultySchema,
   QuestionFormatSchema,
@@ -26,6 +24,7 @@ import {
   type QuestionBankMetadata,
   type QuestionBankPreferences,
 } from "../../../../../lib/question-bank/contracts.ts";
+import { parseRecovery, questionFormatChange } from "./editor-state.ts";
 import "./questions.css";
 
 type View = z.infer<typeof QuestionBankViewSchema>;
@@ -44,83 +43,6 @@ const PendingSchema = z.object({
 });
 type PendingGeneration = z.infer<typeof PendingSchema>;
 const errorSchema = z.object({ error: z.string() });
-// Recovery accepts incomplete form text while preserving the exact field types.
-// The normal canonical schemas still validate every server write.
-const RecoverySchema = z.object({
-  lesson_id: z.string(),
-  revision: z.number().int(),
-  bank: z.object({
-    questions: z.array(
-      QuestionSnapshotSchema.safeExtend({
-        prompt_text: z.string(),
-        concept_ids: z.array(z.string()),
-        source_passage_ids: z.array(z.string()),
-        rubric: z.object({
-          ...QuestionSnapshotSchema.shape.rubric.shape,
-          answer_guidance: z.string(),
-          criteria: z.array(z.string()),
-          acceptable_variations: z.array(z.string()),
-        }),
-      }),
-    ),
-    question_guidance: z.array(
-      z.object({
-        question_id: z.string(),
-        assumptions: z.array(z.string()),
-        misconception_ids: z.array(z.string()),
-      }),
-    ),
-    question_bank: QuestionBankMetadataSchema.safeExtend({
-      preferences: QuestionBankPreferencesSchema.safeExtend({
-        priorities: z.array(
-          z.enum(["explanation", "application", "comparison", "calculation"]),
-        ),
-        reasoning_errors: z.array(z.string()),
-        student_instructions: z.string(),
-      }),
-      items: z.array(
-        QuestionBankItemSchema.safeExtend({
-          family_id: z.string(),
-          feedback_guidance: z.string(),
-          reasoning_error: z.string().nullable(),
-          source_support: z.array(
-            z.object({
-              passage_id: z.string(),
-              quote: z.string(),
-              criterion: z.string(),
-            }),
-          ),
-          review_notes: z.string(),
-        }),
-      ),
-    }),
-    activity_policy: z.object({
-      allowed_actions: z.array(
-        z.enum([
-          "ASK_RETRIEVAL_QUESTION",
-          "ASK_SELF_EXPLANATION",
-          "ASK_DIAGNOSTIC_FOLLOWUP",
-          "GIVE_HINT",
-          "GIVE_CORRECTIVE_FEEDBACK",
-          "RETEST_CONCEPT",
-          "MOVE_TO_NEXT_CONCEPT",
-          "SCHEDULE_REVIEW",
-          "END_SESSION",
-        ]),
-      ),
-      allow_runtime_generation: z.boolean(),
-    }),
-  }),
-});
-function parseRecovery(value: string | null) {
-  if (!value) return null;
-  try {
-    const parsed = RecoverySchema.safeParse(JSON.parse(value));
-    return parsed.success ? parsed.data : null;
-  } catch {
-    return null;
-  }
-}
 const formats = QuestionFormatSchema.options;
 const difficulties = QuestionDifficultySchema.options;
 const priorities = [
@@ -1211,11 +1133,15 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
                             className="lp-input"
                             value={metadata.format}
                             onChange={(event) =>
-                              item(id, {
-                                format: QuestionFormatSchema.parse(
-                                  event.target.value,
+                              item(
+                                id,
+                                questionFormatChange(
+                                  metadata,
+                                  QuestionFormatSchema.parse(
+                                    event.target.value,
+                                  ),
                                 ),
-                              })
+                              )
                             }
                           >
                             {formats.map((format) => (
