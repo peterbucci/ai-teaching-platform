@@ -1,0 +1,44 @@
+import { requireActor } from "../../../lib/auth.ts";
+import { evidenceAccess } from "../../../lib/evidence/store.ts";
+import { studentReader } from "../../../lib/reading/student-reader.ts";
+import { ReaderVisibilityCheck } from "./wrapper.tsx";
+import "../reading/reader.css";
+
+export const dynamic = "force-dynamic";
+
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    session?: string;
+    passage?: string;
+    active?: string;
+    baseline?: string;
+    offscreen?: string;
+  }>;
+}) {
+  if (
+    process.env.AUTH_URL !== __EXPECTED_ORIGIN__ ||
+    process.env.PGDATABASE !== __EXPECTED_DATABASE__ ||
+    !["localhost", "127.0.0.1", "::1"].includes(
+      process.env.PGHOST || "127.0.0.1",
+    ) ||
+    process.env.OPENAI_API_KEY ||
+    process.env.OPENAI_MODEL
+  )
+    throw new Error("Isolated reader verification route only");
+  const query = await searchParams;
+  const view = await studentReader(evidenceAccess(await requireActor()), {
+    sessionId: query.session,
+    passageId: query.passage,
+  });
+  if (!view) throw new Error("Fictional reader required");
+  return (
+    <ReaderVisibilityCheck
+      view={view}
+      initialActive={query.active === "true"}
+      baseline={query.baseline === "true"}
+      offscreen={query.offscreen === "true"}
+    />
+  );
+}
