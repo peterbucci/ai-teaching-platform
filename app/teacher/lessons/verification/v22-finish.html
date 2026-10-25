@@ -146,20 +146,22 @@
           >PR #122</a
         >. This appendix covers the finishing changes after
         <code>9c44fe8eb1b122c0e7c1181e1f937ab4b3044445</code>.
-        <strong id="final-source">Exact final code commit: pending.</strong>
+        <strong id="final-source"
+          >Application source: d4ebfd123b4eaccd57ae082a4a58525263ecdf36.</strong
+        >
       </p>
       <div class="notice" role="note">
         <p><strong>Implementation is ahead of runtime verification.</strong></p>
         <p>
           The first quality run passed 466 unit tests, 21 authoring-focused
-          tests, 6 question-focused tests and lint. Typecheck found an
-          unavailable objective-view attribution field; that reference has been
-          removed and the rerun is pending. Full formatting and content checks
-          are pending.
+          tests, 6 question-focused tests and lint. CI then passed the corrected
+          typecheck and content checks on d4ebfd1. CI caught formatting in this
+          appendix; it is corrected here, with a fresh full check pending.
         </p>
         <p>
-          Docker startup currently blocks the new production build, populated
-          browser workflow, fresh screenshots and actual 200% browser zoom.
+          Docker recovered at 13:26 UTC with 45.46 GiB host space free. The new
+          production build, populated browser workflow, fresh screenshots and
+          actual 200% browser zoom are queued for the shared verification slot.
           Prior passing captures and tests remain historical evidence, not proof
           of these finishing changes. PR #118 remains draft and unmerged.
         </p>
@@ -255,27 +257,28 @@
             </tr>
             <tr>
               <td>Typecheck</td>
-              <td><span class="status failed">Failed; rerun pending</span></td>
+              <td><span class="status pass">Passed after correction</span></td>
               <td>
                 <code>05-typecheck.log</code>: the objective-view attribution
                 contract does not expose <code>license</code>. The unsupported
-                field reference is removed; that edit has not yet passed a
-                rerun.
+                field reference is removed. CI run 40197458245 passed typecheck
+                on d4ebfd1 before reaching the appendix formatting failure.
               </td>
             </tr>
             <tr>
               <td>Full formatting / content / final diff checks</td>
               <td><span class="status pending">Pending</span></td>
               <td>
-                Not reached after the typecheck failure. Formatting this
-                appendix alone does not establish a full formatting pass.
+                Content passed in CI; diff whitespace passed locally. CI
+                formatting identified only this appendix, now formatted. A fresh
+                full formatting pass remains pending.
               </td>
             </tr>
             <tr>
               <td>Production build</td>
-              <td><span class="status pending">Blocked</span></td>
+              <td><span class="status pending">Queued</span></td>
               <td>
-                Docker startup must recover before the guarded build can run.
+                Docker is recovered. The shared guarded build slot is queued.
                 The prior image does not contain this finishing pass.
               </td>
             </tr>
@@ -314,10 +317,11 @@
         <code
           >c853369da1250adf24a741a38c3d94d3c97a976c012c352732cf4dd8d924cb54</code
         >. Existing prototype captures below were rendered from that reference.
-        The prototype example has four objectives and twelve questions; the
-        saved fictional Water, heat and changing state fixture has three
-        concepts and four questions. This is a comparison of the authoring
-        relationships and layout, not an identical-text pixel comparison.
+        The historical captures below use the earlier
+        four-objective/twelve-question prototype state and the saved Water, heat
+        and changing state fixture with three concepts and four questions. The
+        new dense acceptance reference has five concepts, thirteen passages and
+        fifteen bank questions; new equivalent-data comparisons remain pending.
       </p>
       <p>
         <a href="report.html">Previous PR #118 fidelity report</a> is preserved
@@ -426,9 +430,9 @@
           The approved dense example has five concepts, thirteen passages and
           fifteen bank questions. Combined acceptance's immutable fixture has
           nineteen question snapshots including its prepared sequence. This is
-          distinct from the earlier four-question water-cycle fixture.
-          Existing tutoring services still prepare one question family; this
-          page does not introduce a new runtime controller.
+          distinct from the earlier four-question water-cycle fixture. Existing
+          tutoring services still prepare one question family; this page does
+          not introduce a new runtime controller.
         </li>
         <li>
           Fresh visual/keyboard/zoom acceptance, independent combined review,
