@@ -3,6 +3,7 @@ import test from "node:test";
 import {
   resolveWorkspaceSelection,
   switchedAssignmentHref,
+  workspaceAuthoringMode,
   workspaceDestination,
   workspaceNavigationHref,
 } from "../app/teacher/workspace-model.ts";
@@ -281,6 +282,40 @@ test("returning to course Assignments after switching assignment clears every se
   assert.equal(context.assignment, secondId);
   assert.deepEqual(context.seedAttempt, [attemptId]);
   assert.equal(switched.get("view"), "progress");
+});
+
+test("lesson libraries retain tools while only exact authoring routes use the focused shell", () => {
+  for (const path of [
+    "/teacher/lessons",
+    "/teacher/materials",
+    "/teacher/objectives",
+  ])
+    assert.equal(workspaceAuthoringMode(path), "library", path);
+  for (const path of [
+    `/teacher/lessons/${firstId}`,
+    `/teacher/lessons/${firstId}/questions`,
+    `/teacher/objectives/${firstId}`,
+    `/teacher/materials/${secondId}`,
+  ]) {
+    assert.equal(workspaceAuthoringMode(path), "focused", path);
+    assert.equal(workspaceDestination(path), "Lessons", path);
+  }
+  for (const path of [
+    "/teacher",
+    "/teacher/assignments",
+    "/teacher/evidence",
+    "/teacher/lessons/",
+    `/teacher/lessons/${firstId}/questions/extra`,
+    `/teacher/lessons/${firstId}/preview`,
+    `/teacher/materials/${secondId}/extra`,
+    `/teacher/objectives/${firstId}/extra`,
+  ])
+    assert.equal(workspaceAuthoringMode(path), undefined, path);
+  assert.equal(
+    workspaceNavigationHref("/teacher/lessons", { assignment: firstId }),
+    "/teacher/lessons",
+    "the ordinary Back to Lessons link cannot carry assignment scope",
+  );
 });
 
 test("approved course and assignment hierarchy retains all existing teacher destinations", () => {

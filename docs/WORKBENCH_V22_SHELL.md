@@ -88,13 +88,13 @@ detail receiver. The agreed session URL fields are:
 | Field                                         | Meaning / allowlist                                                                                                                |
 | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | `returnTo`                                    | `progress` selects this contract; other existing return destinations are unchanged                                                 |
-| `assignment`, `origin`                        | Actual assignment UUID and `all                                                                                                    | synthetic_fixture                         | live_demo` evidence filter |
+| `assignment`, `origin`                        | Actual assignment UUID and `all`, `synthetic_fixture` or `live_demo` evidence filter                                               |
 | `session`, `attempt`, `evaluation`, `student` | Optional target record identities; if supplied they must match the authorized session/evidence                                     |
 | `progressStudent`                             | Optional original selection UUID, validated against that assignment's current roster; may differ from the opened session's student |
 | `progressConcept`                             | Optional original concept selection, validated against the assignment's pinned content                                             |
-| `progressView`                                | `grid                                                                                                                              | concepts                                  | questions                  | sessions`; defaults to `grid` when omitted |
-| `pane`                                        | `grid                                                                                                                              | details`; defaults to `grid` when omitted |
-| `class`, `status`                             | Optional UUID matching the authorized session's class; status is `all                                                              | active                                    | inactive                   | unavailable`                               |
+| `progressView`                                | `grid`, `concepts`, `questions` or `sessions`; defaults to `grid` when omitted                                                     |
+| `pane`                                        | `grid` or `details`; defaults to `grid` when omitted                                                                               |
+| `class`, `status`                             | Optional UUID matching the authorized session's class; status is `all`, `active`, `inactive` or `unavailable`                      |
 
 The `progress*`, `pane`, `class` and `status` fields above are parsed only for
 `returnTo=progress`. Other pages retain their own query contracts. Original
@@ -107,7 +107,7 @@ The receiver first uses existing teacher session and pinned-content services.
 When a valid `progressStudent` UUID is supplied, it reuses the existing
 `readAssignmentEvidence` service for that session's assignment to obtain the
 authorized roster. This adds a bounded read for selected-student returns; it
-adds no service, database query, mutation or permission grant. Malformed or
+adds no service, query implementation, mutation or permission grant. Malformed or
 cross-scope identities return the existing not-found response.
 
 The return builder emits only `/teacher/assignments`, fixed `view=progress`,
@@ -130,7 +130,7 @@ browser acceptance.
 
 For page-owned edge-to-edge progress frames, the existing shell inset is
 `24px 28px 56px` desktop, `18px 14px 32px` at phone widths, with `12px` inline
-at widths up to360px. A page may cancel those insets like `.tw-panes` and supply
+at widths up to 360px. A page may cancel those insets like `.tw-panes` and supply
 one internal heading gutter. Its page controller and record layout stay owned
 by that page; no second pane controller is required.
 
@@ -147,6 +147,16 @@ repair a page that overwrites the original entry's row intent before leaving.
 No Evidence files or shared restoration behavior are changed by S1/C2.
 
 ### Contextual panes
+
+The coordinated Lessons integration distinguishes exact library routes
+(`/teacher/lessons`, `/teacher/materials`, `/teacher/objectives`) from focused
+lesson, question, objective and source detail routes. Libraries retain Lesson
+tools navigation. Focused editing uses a desktop Back to Lessons/path row and
+hides that row on phones, leaving the compact header and page-owned pane controls.
+The ordinary return link uses the existing editor's unsaved-work guard.
+`--tw-authoring-top` exposes the shared top inset: `103px` desktop and `57px`
+at phone widths. The desktop value includes the 44px path control and its 1px
+divider. Agent E owns full-width editor geometry and local reading behavior.
 
 Import `TeacherWorkspacePanes` from `app/teacher/presentation.tsx` or directly
 from `app/teacher/workspace-panes.tsx`. Mount at most one per page inside
@@ -259,7 +269,8 @@ the branches are integrated. That combined check has not been run here.
    history arrows; browser Back/Forward is verified separately.
 3. Existing Insights anchors supply By idea/Concerns. Dedicated Patterns content
    remains with its page owner; the shell does not fabricate a second page.
-4. PR #116's page-local content remains unchanged. Its stacked filters/cards and
+4. Apart from the explicitly assigned session return correction, PR #116's
+   page-local content remains unchanged. Its stacked filters/cards and
    Evidence reading layout are not accepted as full v2.2 page fidelity. The new
    optional pane/metric/row contracts are available for those owners to adopt.
 5. Progress uses PR #117's existing explicit `view=progress` contract. On the

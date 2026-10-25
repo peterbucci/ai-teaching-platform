@@ -1,6 +1,7 @@
 /* Teaching Workbench v2.2. Teacher-only geometry; student workspace is unchanged. */
 .tw-shell {
   --tw-header-height: 58px;
+  --tw-authoring-top: calc(var(--tw-header-height) + 45px);
   --tw-bottom-height: 65px;
   color: var(--ink);
   min-height: 100dvh;
@@ -300,6 +301,15 @@
 .tw-path .tw-resume-assignment {
   margin-left: auto;
 }
+.tw-authoring-path a {
+  flex-shrink: 0;
+}
+.tw-authoring-path > span {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .tw-main {
   padding: 24px 28px 56px;
   min-width: 0;
@@ -542,6 +552,7 @@
 @media (max-width: 800px) {
   .tw-shell {
     --tw-header-height: 57px;
+    --tw-authoring-top: var(--tw-header-height);
     padding-bottom: calc(var(--tw-bottom-height) + env(safe-area-inset-bottom));
   }
   .tw-header {
@@ -635,6 +646,9 @@
     font-size: 12px;
   }
   .tw-path > span {
+    display: none;
+  }
+  .tw-authoring-path {
     display: none;
   }
   .tw-path .tw-resume-assignment {

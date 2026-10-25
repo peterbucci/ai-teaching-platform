@@ -19,6 +19,7 @@ import { useWorkspaceAssignments } from "./workspace-context.tsx";
 import {
   resolveWorkspaceSelection,
   switchedAssignmentHref,
+  workspaceAuthoringMode,
   workspaceDestination,
   workspaceNavigationHref,
 } from "./workspace-model.ts";
@@ -128,6 +129,7 @@ export function TeacherWorkspace({
   const selected = selection?.context ?? {};
   const assignment = selection?.assignment;
   const active = workspaceDestination(pathname, search.get("view"));
+  const authoringMode = workspaceAuthoringMode(pathname);
   const assignmentArea = assignmentLinks.some((item) => item.text === active);
   const evidenceView =
     pathname.startsWith("/teacher/evidence") || hash === "#responses"
@@ -167,6 +169,7 @@ export function TeacherWorkspace({
     <div
       className="tw-shell"
       data-scope={assignmentArea ? "assignment" : "course"}
+      data-authoring={authoringMode === "focused" ? "focused" : undefined}
     >
       <a className="lp-skip" href="#main-content">
         Skip to content
@@ -298,7 +301,7 @@ export function TeacherWorkspace({
           </nav>
         </section>
       )}
-      {active === "Lessons" && (
+      {authoringMode === "library" && (
         <nav className="tw-section-nav" aria-label="Lesson tools">
           {[
             ["Lessons", "/teacher/lessons"],
@@ -308,11 +311,23 @@ export function TeacherWorkspace({
             <Link
               key={path}
               href={href(path)}
-              aria-current={pathname.startsWith(path) ? "page" : undefined}
+              aria-current={pathname === path ? "page" : undefined}
             >
               {text}
             </Link>
           ))}
+        </nav>
+      )}
+      {authoringMode === "focused" && (
+        <nav
+          className="tw-path tw-authoring-path"
+          aria-label="Lesson workspace path"
+        >
+          <Link href={href("/teacher/lessons")} aria-label="Back to Lessons">
+            <Icon name="back" />
+            Back to Lessons
+          </Link>
+          <span>{section}</span>
         </nav>
       )}
       {active === "Student work" && (

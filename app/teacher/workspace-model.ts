@@ -19,6 +19,24 @@ export type WorkspaceAssignment = {
   availability?: "active" | "inactive" | "unavailable";
 };
 
+/** Library tools stay outside focused, page-owned authoring workspaces. */
+export function workspaceAuthoringMode(
+  path: string,
+): "library" | "focused" | undefined {
+  if (
+    ["/teacher/lessons", "/teacher/materials", "/teacher/objectives"].includes(
+      path,
+    )
+  )
+    return "library";
+  if (
+    /^\/teacher\/(?:lessons\/[^/]+(?:\/questions)?|objectives\/[^/]+|materials\/[^/]+)$/.test(
+      path,
+    )
+  )
+    return "focused";
+}
+
 export function workspaceDestination(path: string, view?: string | null) {
   if (
     path === "/teacher/assignments" &&
