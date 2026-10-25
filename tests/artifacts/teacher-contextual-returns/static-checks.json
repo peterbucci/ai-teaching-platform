@@ -1,0 +1,11 @@
+{
+  "applicationSourceSha": "56e49151504bd831a4437ed5cde172f8dd751be6",
+  "date": "2026-10-25",
+  "checks": [
+    { "command": "npm run lint", "exitCode": 0 },
+    { "command": "npm run typecheck", "exitCode": 0 },
+    { "command": "npm run format:check", "exitCode": 0 },
+    { "command": "git diff --check", "exitCode": 0 }
+  ],
+  "note": "Run after adding browser helpers and the evidence bundle. Builds and 640 unit tests have separate full receipts. No application changes followed the tested source revision."
+}

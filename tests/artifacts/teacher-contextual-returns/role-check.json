@@ -1,0 +1,48 @@
+{
+  "sourceSha": "87e92ed3a0bca307101b02851428334224d5409e",
+  "origin": "http://localhost:3409",
+  "checks": [
+    {
+      "role": "anonymous",
+      "returnTo": "students",
+      "apiStatus": 401,
+      "redirect": "/login",
+      "status": "passed"
+    },
+    {
+      "role": "anonymous",
+      "returnTo": "insights",
+      "apiStatus": 401,
+      "redirect": "/login",
+      "status": "passed"
+    },
+    {
+      "role": "anonymous",
+      "returnTo": "patterns",
+      "apiStatus": 401,
+      "redirect": "/login",
+      "status": "passed"
+    },
+    {
+      "role": "student",
+      "returnTo": "students",
+      "apiStatus": 404,
+      "redirect": "/teacher/sessions/c619a811-af67-4aeb-9348-686fe439db98",
+      "status": "passed"
+    },
+    {
+      "role": "student",
+      "returnTo": "insights",
+      "apiStatus": 404,
+      "redirect": "/teacher/sessions/c619a811-af67-4aeb-9348-686fe439db98",
+      "status": "passed"
+    },
+    {
+      "role": "student",
+      "returnTo": "patterns",
+      "apiStatus": 404,
+      "redirect": "/teacher/sessions/c619a811-af67-4aeb-9348-686fe439db98",
+      "status": "passed"
+    }
+  ]
+}
