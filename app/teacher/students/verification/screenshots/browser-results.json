@@ -1,0 +1,20 @@
+{
+  "base": "http://127.0.0.1:3417",
+  "receiver": false,
+  "checks": [
+    "Authenticated populated 24-student roster",
+    "Search, participation, student selection, concept, reload and Back/Forward",
+    "Exact-session navigation and baseline Back verified; full return requires Agent K receiver. Baseline Back href: /teacher/students?assignment=30000000-0000-4000-8000-000000000001&origin=all&concept=transmission_delay&student=10000000-0000-4000-8000-000000000002&session=40000000-0000-4000-8000-000000000001&attempt=50000000-0000-4000-8000-000000000001&evaluation=60000000-0000-4000-8000-000000000001&q=Student+One&returnTo=students",
+    "Viewport 1440×1000: populated grid, log, no page overflow, pane controls",
+    "Viewport 1024×768: populated grid, log, no page overflow, pane controls",
+    "Viewport 390×844: populated grid, log, no page overflow, pane controls",
+    "Viewport 320×844: populated grid, log, no page overflow, pane controls",
+    "Empty filtered roster",
+    "Student with no work",
+    "Non-enrolled profile rejected",
+    "Existing foreign-owned assignment exposes no class or student data",
+    "Foreign class student and session rejected within owned assignment",
+    "Student account cannot retrieve teacher roster"
+  ],
+  "nativeZoom": "See separate native-zoom.json receipt"
+}
