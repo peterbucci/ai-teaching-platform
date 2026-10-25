@@ -53,50 +53,53 @@ export function TeacherReviewSummary({
         ? "Open review and feedback"
         : "Open review";
   return (
-    <article
-      className={`sn-reviews sn-review-row${intervention.displayed_at === null ? " sn-review-new" : ""}`}
-    >
-      <div className="sn-review-stack">
-        <div className="sn-review-inline">
-          <span className="sn-review-badge sn-review-warning">
-            Teacher review
-          </span>
-          <span className="sn-review-small">
-            Delivered ·{" "}
-            <time dateTime={intervention.delivered_at}>
-              {reviewTime(intervention.delivered_at)}
-            </time>
-          </span>
-        </div>
-        <h3 className="sn-review-title">{intervention.activity.title}</h3>
-        <p className="sn-review-prose">
-          <span className="sn-review-label">Learning objective</span>
-          {intervention.activity.learning_objective}
-        </p>
-        <p className="sn-review-small">
-          {intervention.displayed_at ? (
-            <>
-              Viewing recorded ·{" "}
-              <time dateTime={intervention.displayed_at}>
-                {reviewTime(intervention.displayed_at)}
+    <div className="sn-reviews sn-review-card">
+      <article
+        className={`sn-reviews sn-review-row${intervention.displayed_at === null ? " sn-review-new" : ""}`}
+      >
+        <div className="sn-review-stack">
+          <div className="sn-review-inline">
+            <span className="sn-review-kind">Teacher review</span>
+            <span className="sn-review-small">
+              Delivered ·{" "}
+              <time dateTime={intervention.delivered_at}>
+                {reviewTime(intervention.delivered_at)}
               </time>
-            </>
-          ) : (
-            "Viewing not yet recorded"
-          )}
-        </p>
-        <ReviewActivityStatus intervention={intervention} followup={followup} />
-      </div>
-      <div className="sn-review-actions">
-        <a
-          className="sn-review-button"
-          href={reviewHref(intervention)}
-          aria-label={`${label}: ${intervention.activity.title}`}
-        >
-          {label}
-        </a>
-      </div>
-    </article>
+            </span>
+          </div>
+          <h3 className="sn-review-title">{intervention.activity.title}</h3>
+          <p className="sn-review-prose">
+            <span className="sn-review-label">Learning objective</span>
+            {intervention.activity.learning_objective}
+          </p>
+          <p className="sn-review-small">
+            {intervention.displayed_at ? (
+              <>
+                Viewing recorded ·{" "}
+                <time dateTime={intervention.displayed_at}>
+                  {reviewTime(intervention.displayed_at)}
+                </time>
+              </>
+            ) : (
+              "Viewing not yet recorded"
+            )}
+          </p>
+          <ReviewActivityStatus
+            intervention={intervention}
+            followup={followup}
+          />
+        </div>
+        <div className="sn-review-actions">
+          <a
+            className="sn-review-button"
+            href={reviewHref(intervention)}
+            aria-label={`${label}: ${intervention.activity.title}`}
+          >
+            {label}
+          </a>
+        </div>
+      </article>
+    </div>
   );
 }
 
@@ -233,7 +236,11 @@ export function ReviewFeedback({
           {saved.results.map((result) => (
             <li key={result.concept_id}>
               <span>{result.concept_id}</span>
-              <strong>{resultLabels[result.correctness]}</strong>
+              <strong
+                className={`sn-review-result sn-review-result-${result.correctness}`}
+              >
+                {resultLabels[result.correctness]}
+              </strong>
             </li>
           ))}
         </ul>

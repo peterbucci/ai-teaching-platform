@@ -117,7 +117,7 @@ export function reviewStatus(
           ? "Evaluation accepted · uncertain"
           : "Evaluation accepted",
         description: "Your saved answer has an accepted evaluation.",
-        tone: followup.uncertain ? "warning" : "success",
+        tone: followup.uncertain ? "warning" : "info",
       };
     case "not_submitted":
       return {

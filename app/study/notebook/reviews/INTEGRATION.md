@@ -34,7 +34,7 @@ recorded; it does not claim an unread count or incomplete activity.
 <TeacherReviewList interventions={authorizedInterventions} />
 ```
 
-N0's provisional `NotebookReviewCard` projection can also feed the narrow summary
+PR #125's `NotebookReviewCard` projection can also feed the narrow summary
 input without adding a dependency on the unmerged N0 package:
 
 ```tsx
@@ -113,5 +113,22 @@ versions remain distinct. Dates are explicitly labeled UTC.
 
 N0 owns route mounting and shared contracts/barrel. N5 does not edit N0, N2,
 PR #113, the shared intervention renderer, teacher files, services, API handlers,
-or the lifecycle. The final corrected Claude export remains a later alignment
-gate; teacher-approved content always wins over prototype copy.
+or the lifecycle. N0 was notified of this final-reference pass and its unchanged
+review seam; no shared contract change was required. The read-only review
+contracts were checked against PR #125 head `6ad1709` during this pass.
+
+The authoritative final prototype archive is
+`Student-Notebook-Final-Prototype-fa69c2d0.zip`, SHA-256
+`fa69c2d0262b0be684b5e9d21b2131d7c02a5bf9577c1586df07950c6394c570`.
+The review row now uses its heading hierarchy, teacher tag, status/result marks
+and 819px stacking rule. The summary's container query also stacks a narrow card
+inside a desktop parent. Typography/link rules target N5 elements and do not
+reset the controller's headings or paragraphs.
+
+`Main.dc.html` was rendered for home/review reference; the specific corrected
+`V1440-HelpMsg.dc.html` was inspected as reference only. Its single-composer
+help/confirmation behavior belongs to PR #113's owner, not these presenters.
+Teacher-approved runtime activity content remains authoritative. No prototype
+instructional text, objective numbering, teacher name, due date, opening-as-display
+shortcut, or new lifecycle is copied into production components. Combined route
+mounting and actual fresh-check recovery still require the existing owner.

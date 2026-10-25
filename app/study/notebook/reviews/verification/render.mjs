@@ -30,9 +30,10 @@ const requests = JSON.parse(readFileSync(0, "utf8"));
 const rendered = requests.map(({ component, props, controllerSlot }) => {
   if (controllerSlot)
     props.children = createElement(
-      "div",
+      "section",
       { "data-controller-slot": "existing" },
-      "Existing fresh-check controller",
+      createElement("h2", null, "Existing fresh-check controller"),
+      createElement("p", null, "Controller-owned content"),
     );
   return renderToStaticMarkup(createElement(presenters[component], props));
 });

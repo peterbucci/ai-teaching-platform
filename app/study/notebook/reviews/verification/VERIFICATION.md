@@ -1,5 +1,10 @@
 # N5 component verification — October 25, 2026
 
+**Historical pre-final record.** Superseded by
+[final-prototype verification](FINAL_VERIFICATION.md), which uses the verified
+authoritative `fa69c2d0…c570` archive. Pending-export statements below describe
+the earlier pass only.
+
 Base: `723ed6fea41138b604a9d333ebcd4a07b2202c36` (`main`).
 Fictional approved canal activities are used throughout; no model or database
 calls were made for this package.

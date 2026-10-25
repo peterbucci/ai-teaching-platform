@@ -64,6 +64,7 @@ test("pending and failed/rejected evaluations are not incorrect answers", () => 
 
 test("accepted feedback requires the linked submitted attempt and evaluation", () => {
   assert.equal(reviewStatus(review, ready(accepted)).key, "accepted");
+  assert.equal(reviewStatus(review, ready(accepted)).tone, "info");
   for (const patch of [
     { evaluation_id: null },
     { attempt_id: null },
@@ -253,6 +254,13 @@ test("accepted results keep partial, incorrect and uncertainty distinct", () => 
     "This evaluation has uncertainty",
   ])
     assert.ok(html.includes(label));
+  for (const result of [
+    "correct",
+    "partially_correct",
+    "incorrect",
+    "uncertain",
+  ])
+    assert.ok(html.includes(`sn-review-result-${result}`));
 });
 
 test("another review cannot supply a response or feedback; separate student renders share no state", () => {
