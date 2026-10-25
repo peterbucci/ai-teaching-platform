@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>PR 118 · Authoring fidelity verification</title>
+    <style>
+      body {
+        margin: 0;
+        background: #f7faf7;
+        color: #17302d;
+        font:
+          15px/1.6 system-ui,
+          sans-serif;
+      }
+      main {
+        max-width: 1600px;
+        margin: auto;
+        padding: 32px;
+      }
+      h1 {
+        font-size: 30px;
+        line-height: 1.2;
+      }
+      h2 {
+        font-size: 21px;
+        margin-top: 36px;
+      }
+      h3 {
+        font-size: 17px;
+      }
+      a {
+        color: #176d58;
+      }
+      p,
+      li {
+        max-width: 110ch;
+      }
+      .note {
+        background: #fff5df;
+        border-left: 4px solid #b88632;
+        padding: 14px 18px;
+      }
+      .compare {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+      figure {
+        margin: 0;
+      }
+      figcaption {
+        font-weight: 650;
+        margin: 8px 0;
+      }
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border: 1px solid #dce5df;
+        background: #fff;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        background: #fff;
+      }
+      td,
+      th {
+        text-align: left;
+        vertical-align: top;
+        border-bottom: 1px solid #dce5df;
+        padding: 12px;
+      }
+      code {
+        overflow-wrap: anywhere;
+        font-size: 12px;
+      }
+      .extras {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .extras a {
+        padding: 8px;
+        border: 1px solid #dce5df;
+        background: white;
+      }
+      @media (max-width: 800px) {
+        main {
+          padding: 16px;
+        }
+        .compare {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p>
+        Learning Pulse · October 25, 2026 · fictional fixtures · providers
+        disabled
+      </p>
+      <h1>Lessons: persistent outline, focused editor, contextual reading</h1>
+      <p>
+        <a href="https://github.com/peterbucci/ai-teaching-platform/pull/118"
+          >Draft PR #118</a
+        >
+        · Refs #114, #20, #49, #50. This report supersedes the earlier
+        staged-workspace report. PR remains draft and unmerged.
+      </p>
+      <p>
+        The horizontal seven-stage rail is removed. The lesson outline remains
+        beside each focused editing surface, with exact-version reading, linked
+        passages and private criteria. Approval and publication remain separate
+        server actions within one review node.
+      </p>
+      <div class="note">
+        <strong>Final build gate remains open.</strong> Two production builds
+        passed during this correction, including the compact question editor.
+        The last small change adds the objectives version menu using the
+        existing authorized publication review service; lint, typecheck and
+        formatting passed after it. Its production rebuild was stopped after
+        TypeScript/page-data collection when a shared-host storage incident left
+        only 2.62 GiB free. Screenshots use the last successful production
+        image, before that final menu addition. No new database acceptance was
+        run after the storage warning.
+      </div>
+      <h2>Visual comparison</h2>
+      <p>
+        The approved prototype was rendered from its supplied Main.dc.html and
+        runtime. Its example is Delay × Bandwidth Product (4 objectives, 12
+        questions). Before/after implementation captures use the same saved
+        Water, heat and changing state lesson (3 concepts, 4 questions,
+        multi-concept support, private criteria, source v1, draft v2 revision 15
+        and immutable publication v1). These compare equivalent authoring
+        controls and source relationships; they are not a pixel diff with
+        identical wording or question counts. The current shared sidebar remains
+        visible and reduces editor width; that shell is owned by another agent.
+      </p>
+      <section>
+        <h2>1440 × 1000</h2>
+        <div class="compare">
+          <figure>
+            <figcaption>Approved v2.2 prototype</figcaption>
+            <a href="prototype-question-1440.png"
+              ><img
+                src="prototype-question-1440.png"
+                alt="Approved v2.2 prototype, 1440 pixels"
+            /></a>
+          </figure>
+          <figure>
+            <figcaption>Before · PR #118 d2dca51</figcaption>
+            <a href="before-questions-1440.png"
+              ><img
+                src="before-questions-1440.png"
+                alt="Before · PR #118 d2dca51, 1440 pixels"
+            /></a>
+          </figure>
+          <figure>
+            <figcaption>After · persistent authoring workspace</figcaption>
+            <a href="after-questions-1440.png"
+              ><img
+                src="after-questions-1440.png"
+                alt="After · persistent authoring workspace, 1440 pixels"
+            /></a>
+          </figure>
+        </div>
+      </section>
+      <section>
+        <h2>1024 × 768</h2>
+        <div class="compare">
+          <figure>
+            <figcaption>Approved v2.2 prototype</figcaption>
+            <a href="prototype-question-1024.png"
+              ><img
+                src="prototype-question-1024.png"
+                alt="Approved v2.2 prototype, 1024 pixels"
+            /></a>
+          </figure>
+          <figure>
+            <figcaption>Before · PR #118 d2dca51</figcaption>
+            <a href="before-questions-1024.png"
+              ><img
+                src="before-questions-1024.png"
+                alt="Before · PR #118 d2dca51, 1024 pixels"
+            /></a>
+          </figure>
+          <figure>
+            <figcaption>After · persistent authoring workspace</figcaption>
+            <a href="after-questions-1024.png"
+              ><img
+                src="after-questions-1024.png"
+                alt="After · persistent authoring workspace, 1024 pixels"
+            /></a>
+          </figure>
+        </div>
+      </section>
+      <section>
+        <h2>390 × 844</h2>
+        <div class="compare">
+          <figure>
+            <figcaption>Approved v2.2 prototype</figcaption>
+            <a href="prototype-question-390.png"
+              ><img
+                src="prototype-question-390.png"
+                alt="Approved v2.2 prototype, 390 pixels"
+            /></a>
+          </figure>
+          <figure>
+            <figcaption>Before · PR #118 d2dca51</figcaption>
+            <a href="before-questions-390.png"
+              ><img
+                src="before-questions-390.png"
+                alt="Before · PR #118 d2dca51, 390 pixels"
+            /></a>
+          </figure>
+          <figure>
+            <figcaption>After · persistent authoring workspace</figcaption>
+            <a href="after-questions-390.png"
+              ><img
+                src="after-questions-390.png"
+                alt="After · persistent authoring workspace, 390 pixels"
+            /></a>
+          </figure>
+        </div>
+      </section>
+      <section>
+        <h2>320 × 844</h2>
+        <div class="compare">
+          <figure>
+            <figcaption>Approved v2.2 prototype</figcaption>
+            <a href="prototype-question-320.png"
+              ><img
+                src="prototype-question-320.png"
+                alt="Approved v2.2 prototype, 320 pixels"
+            /></a>
+          </figure>
+          <figure>
+            <figcaption>Before · PR #118 d2dca51</figcaption>
+            <a href="before-questions-320.png"
+              ><img
+                src="before-questions-320.png"
+                alt="Before · PR #118 d2dca51, 320 pixels"
+            /></a>
+          </figure>
+          <figure>
+            <figcaption>After · persistent authoring workspace</figcaption>
+            <a href="after-questions-320.png"
+              ><img
+                src="after-questions-320.png"
+                alt="After · persistent authoring workspace, 320 pixels"
+            /></a>
+          </figure>
+        </div>
+      </section>
+      <h2>Behavior and measurements</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Viewport</th>
+            <th>Observed layout</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1440 × 1000</td>
+            <td>
+              330px outline / 419px editor / 360px reading inside existing shell
+            </td>
+            <td>Three independent scroll panes; no page overflow.</td>
+          </tr>
+          <tr>
+            <td>1024 × 768</td>
+            <td>300px outline / 456px editor; contextual reading drawer</td>
+            <td>Drawer opens; Escape closes and restores focus to Reading.</td>
+          </tr>
+          <tr>
+            <td>390 × 844</td>
+            <td>Single editor pane; Outline / Editor / Reading switch</td>
+            <td>
+              Question selection opens editor; unsaved edits survive pane and
+              question changes.
+            </td>
+          </tr>
+          <tr>
+            <td>320 × 844</td>
+            <td>Single editor pane; narrow fields wrap</td>
+            <td>
+              Arrow-key pane switching and private student-preview boundary
+              verified; no page overflow.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <a href="viewport-measurements.json"
+          >Measured viewport/pane dimensions</a
+        >. Screenshots show the rendered page area; native scrollbars may reduce
+        the captured pixel area.
+      </p>
+      <div class="extras">
+        <a href="after-reading-1024.png">Tablet reading drawer</a
+        ><a href="after-outline-390.png">Mobile outline</a
+        ><a href="after-reading-320.png">Narrow reading</a
+        ><a href="after-student-preview-320.png"
+          >Student preview excludes criteria</a
+        ><a href="after-objectives-1440.png">Objective editing</a
+        ><a href="after-source-1440.png"
+          >Original and corrected source comparison</a
+        ><a href="after-review-1440.png">Publication readiness</a
+        ><a href="after-review-320.png">Narrow readiness</a>
+      </div>
+      <h2>Feature parity and regression results</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Area</th>
+            <th>Preserved service / corrected presentation</th>
+            <th>Evidence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Material import/versioning</td>
+            <td>
+              Existing preview/import/version APIs, original and corrected
+              extraction, attribution and stable passage identities. Compact
+              pre-lesson import; saved source has its own
+              outline/editor/original-reading context.
+            </td>
+            <td>
+              materials:check passed, including PDF and unsupported formats;
+              stable pairing tests; browser selected water-02 without changing
+              source v1.
+            </td>
+          </tr>
+          <tr>
+            <td>Objectives</td>
+            <td>
+              Manual/AI suggestions, source review, reordering/merging, approval
+              and recovery retained. Persistent objective outline; supporting
+              exact quotes highlighted. Final version-menu addition uses
+              existing publication review.
+            </td>
+            <td>
+              objectives:check; 7 objective recovery/highlight tests; exact
+              source handoff selected in inline creation form; browser objective
+              selection.
+            </td>
+          </tr>
+          <tr>
+            <td>Question bank/private criteria</td>
+            <td>
+              Stable saved question IDs, generation, multi-concept grouping,
+              source evidence, private answer guidance and review preserved. Q1
+              labels are presentation only. Overview/draft/review live in the
+              outline; selected question is a focused editor.
+            </td>
+            <td>
+              questions:check; 6 question state/grounding tests; unsaved private
+              criterion survived reading toggle; its unique marker was absent
+              from student preview.
+            </td>
+          </tr>
+          <tr>
+            <td>Tutoring preparation</td>
+            <td>
+              Existing policy, assembly and controller boundaries preserved.
+              Available actions are not presented as a fixed linear run or a
+              guarantee that every bank question is shown.
+            </td>
+            <td>
+              lessons:check; coverage tests; published sequence outline retained
+              ?version=1 and expanded its read-only disclosure.
+            </td>
+          </tr>
+          <tr>
+            <td>Approval/publication</td>
+            <td>
+              One review node; separate explicit approval and publication
+              actions. Saved draft revision validation and immutable published
+              service unchanged.
+            </td>
+            <td>
+              publishing:check; legacy/version readiness tests; browser
+              published reading remained source v1 / lesson v1 while draft is
+              v2.
+            </td>
+          </tr>
+          <tr>
+            <td>Recovery/failures/authorization</td>
+            <td>
+              Existing expected-revision guards, retries, browser recovery
+              copies and server ownership checks retained.
+            </td>
+            <td>
+              lessons:uncertainty:check and source/objective/question recovery
+              tests passed. Six service/HTTP suites exercised exact
+              ownership/version boundaries with fixture providers.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>Passed:</strong> npm test (466); focused authoring tests (24
+        total: 18 root/material/objective plus 6 question tests run from their
+        literal directory); npm run lint; npm run typecheck; npm run
+        format:check; content verification (293 checks); git diff --check. Six
+        provider-disabled integration suites passed: materials, objectives,
+        questions, lessons, publishing and lesson uncertainty. Their run
+        occurred before the shared storage incident. Production build status is
+        qualified above. Zero paid model calls; no live-model or
+        educational-validity claim.
+      </p>
+      <h2>PR #117 integration contract</h2>
+      <p>
+        Current authoring-side handoff: choose an exact published snapshot at
+        <code>/teacher/lessons/:lessonId?version=:version</code>, expand
+        “Prepare a class assignment from version …”, and submit the existing
+        CreateClassAssignment control. It posts the selected immutable version
+        through the existing assignment service and creates an
+        <strong>inactive</strong> assignment. Class assignments owns subsequent
+        review and activation.
+      </p>
+      <p>
+        PR #117 provides
+        <code
+          >/teacher/assignments/new?lesson=&lt;lesson-id&gt;&amp;version=&lt;published-version&gt;&amp;class=&lt;optional-owned-class-id&gt;</code
+        >. Both lesson and version are required for the pinned handoff; optional
+        class must be teacher-owned. That route is absent from this branch's
+        main base. Keep the existing working inline handoff until #117 is
+        integrated; then the authoring owner can link to that route while the
+        assignment owner retains review/activation. No assignment files changed
+        here.
+      </p>
+      <h2>Remaining deviations and integration gates</h2>
+      <ul>
+        <li>
+          The shared shell/sidebar and its outer spacing remain from main;
+          consume the shell owner's corrected #116 contract after integration
+          and repeat the four-width comparison.
+        </li>
+        <li>
+          The final objectives version-menu addition is statically verified but
+          awaits a production rebuild/browser capture when storage is safe. No
+          declaration of final integrated visual acceptance.
+        </li>
+        <li>
+          The real prepared tutor currently uses one question family.
+          Multi-family runtime sequencing is not implemented by this UI.
+        </li>
+        <li>
+          Library material usage aggregation is not fabricated; existing
+          approved material listing is retained. Prototype simulated live
+          suggestions and class activation are not implemented as fake controls.
+        </li>
+        <li>
+          The reference uses a denser 12-question example while the equivalent
+          before/after fixture has four multi-concept questions. Repeat density
+          acceptance with a genuine larger reviewed lesson during integration.
+        </li>
+        <li>
+          All parent issues stay open; independent integration review and
+          deployment/live-model acceptance remain outside this UI correction.
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>
