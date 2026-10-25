@@ -33,6 +33,12 @@ import { readingIsActive, scheduleReadingPresentation } from "./visibility.ts";
 
 type Delivery = z.infer<typeof PassageDeliverySchema>;
 
+export type ReadingDeliveryState = {
+  busy: boolean;
+  error: string | null;
+  confirmedId: string | null;
+};
+
 function subscribeVisibility(onChange: () => void) {
   document.addEventListener("visibilitychange", onChange);
   window.addEventListener("focus", onChange);
@@ -72,12 +78,19 @@ export function StudentReader({
   citation,
   returnToSession,
   active,
+  onPassageChange,
+  onReturn,
+  onDeliveryState,
 }: {
   view: StudentReaderView;
   citation?: { id: string; passageId: string };
   returnToSession: boolean;
   /** True only when the owner actually exposes this pane, including breakpoints. */
   active: boolean;
+  /** Optional Notebook presentation seams; this reader still owns all receipts. */
+  onPassageChange?: (passageId: string) => void;
+  onReturn?: () => void;
+  onDeliveryState?: (state: ReadingDeliveryState) => void;
 }) {
   const router = useRouter();
   const { reading, assignment, session } = view;
@@ -119,6 +132,7 @@ export function StudentReader({
   const lastServerPending = useRef(session?.pendingPassageId ?? null);
   const mounted = useRef(true);
   const article = useRef<HTMLElement>(null);
+  const surface = useRef<HTMLDivElement>(null);
   const passageBody = useRef<HTMLDivElement>(null);
   const nav = useRef<HTMLElement>(null);
   const focusOnSelect = useRef(false);
@@ -179,6 +193,17 @@ export function StudentReader({
         // The owner or browser can hide the pane between the effect and request.
         if (
           !mounted.current ||
+          !surface.current?.checkVisibility({
+            checkOpacity: true,
+            checkVisibilityCSS: true,
+          }) ||
+          Boolean(
+            surface.current
+              .closest("[data-active-study]")
+              ?.querySelector(
+                "details.lp-account-menu[open], details[data-notebook-prompt][open], dialog[open]",
+              ),
+          ) ||
           !readingIsActive(
             activeRef.current,
             document.visibilityState,
@@ -270,6 +295,13 @@ export function StudentReader({
         ) ||
         !intersecting ||
         !body.isConnected ||
+        Boolean(
+          surface.current
+            ?.closest("[data-active-study]")
+            ?.querySelector(
+              "details.lp-account-menu[open], details[data-notebook-prompt][open], dialog[open]",
+            ),
+        ) ||
         body.dataset.deliveryId !== delivery.intervention_id ||
         !body.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true })
       )
@@ -385,6 +417,9 @@ export function StudentReader({
       delivery.passage.id !== view.selectedPassageId ||
       !!pendingPassage);
   const previous = reading.sections[selectedIndex - 1];
+  useEffect(() => {
+    onDeliveryState?.({ busy, error: deliveryError, confirmedId: confirmed });
+  }, [busy, deliveryError, confirmed, onDeliveryState]);
   const next = reading.sections[selectedIndex + 1];
   const returnHref =
     session && returnToSession
@@ -439,10 +474,12 @@ export function StudentReader({
     selectedLink?.scrollIntoView({ block: "nearest" });
     if (focusOnSelect.current && (!session || delivery)) {
       article.current?.focus({ preventScroll: true });
-      article.current?.scrollIntoView({ block: "start" });
+      article.current?.scrollIntoView({
+        block: onPassageChange ? "nearest" : "start",
+      });
       focusOnSelect.current = false;
     }
-  }, [visible, activeId, expanded, session, delivery]);
+  }, [visible, activeId, expanded, session, delivery, onPassageChange]);
 
   function passageClick(event: MouseEvent<HTMLAnchorElement>) {
     if (busy) {
@@ -453,6 +490,15 @@ export function StudentReader({
       return;
     focusOnSelect.current = true;
     setMobileContents(false);
+    if (onPassageChange && event.button === 0) {
+      const passage = new URL(event.currentTarget.href).searchParams.get(
+        "passage",
+      );
+      if (passage) {
+        event.preventDefault();
+        onPassageChange(passage);
+      }
+    }
   }
   function blockBusy(event: MouseEvent<HTMLAnchorElement>) {
     if (busy) event.preventDefault();
@@ -492,6 +538,7 @@ export function StudentReader({
 
   return (
     <div
+      ref={surface}
       hidden={!active}
       data-reading-state={
         !visible
@@ -519,7 +566,21 @@ export function StudentReader({
           <Link
             href={returnHref}
             prefetch={false}
-            onClick={blockBusy}
+            onClick={(event) => {
+              blockBusy(event);
+              if (
+                !event.defaultPrevented &&
+                onReturn &&
+                event.button === 0 &&
+                !event.ctrlKey &&
+                !event.metaKey &&
+                !event.shiftKey &&
+                !event.altKey
+              ) {
+                event.preventDefault();
+                onReturn();
+              }
+            }}
             aria-disabled={busy || undefined}
             className="reader-button hero-link"
           >

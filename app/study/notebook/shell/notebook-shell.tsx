@@ -15,6 +15,7 @@ import {
   type StudentDestination,
 } from "./navigation.tsx";
 import styles from "./notebook-shell.module.css";
+import { NotebookSurfaceContext } from "./surface.tsx";
 
 type Pane = "page" | "pages" | "context" | "navigation";
 
@@ -40,8 +41,16 @@ function ControlIcon({
 export type NotebookShellProps = {
   /** Use focus for active practice and delivered teacher reviews. */
   mode?: "browse" | "focus";
+  /** Active study opts into persistent recovery placement and pane visibility. */
+  activeStudy?: boolean;
   destinations: readonly StudentDestination[];
+  backDestination?: StudentDestination;
+  /** Existing owner supplies truthful save status and the exact selected prompt. */
+  headerStatus?: string;
+  selectedPrompt?: string;
+  hideContextHeading?: boolean;
   title: string;
+  shortTitle?: string;
   eyebrow?: string;
   subtitle?: string;
   /** Existing owner renders account controls; the shell invents no identity. */
@@ -67,8 +76,14 @@ export type NotebookShellProps = {
 /** Presentation only. No route parsing, transport, assessment or display receipts. */
 export function NotebookShell({
   mode = "browse",
+  activeStudy = false,
   destinations,
+  backDestination,
+  headerStatus,
+  selectedPrompt,
+  hideContextHeading = false,
   title,
+  shortTitle,
   eyebrow,
   subtitle,
   account,
@@ -81,8 +96,12 @@ export function NotebookShell({
   children,
 }: NotebookShellProps) {
   const id = useId();
+  const back = backDestination ?? destinations[0];
   const [pane, setPane] = useState<Pane>("page");
   const [wide, setWide] = useState(false);
+  const [width, setWidth] = useState(0);
+  const [covered, setCovered] = useState(false);
+  const [noticeHost, setNoticeHost] = useState<HTMLDivElement | null>(null);
   const root = useRef<HTMLDivElement>(null);
   const page = useRef<HTMLDivElement>(null);
   const pageRail = useRef<HTMLElement>(null);
@@ -90,6 +109,7 @@ export function NotebookShell({
   const navigation = useRef<HTMLDivElement>(null);
   const returnFocus = useRef<HTMLButtonElement | null>(null);
   const focusFrame = useRef<number | null>(null);
+  const savedPageScroll = useRef<{ x: number; y: number } | null>(null);
   const activePane =
     (pane === "context" && !context) || (pane === "pages" && !pages)
       ? "page"
@@ -100,15 +120,21 @@ export function NotebookShell({
     focusFrame.current = requestAnimationFrame(() => {
       const element = target();
       if (element?.isConnected && element.getClientRects().length > 0)
-        element.focus();
+        element.focus({ preventScroll: true });
     });
   }
 
   function closePane(restoreTrigger = true) {
     setPane("page");
-    focusAfterLayout(() =>
-      restoreTrigger ? (returnFocus.current ?? page.current) : page.current,
-    );
+    focusAfterLayout(() => {
+      if (activeStudy && savedPageScroll.current) {
+        window.scrollTo(savedPageScroll.current.x, savedPageScroll.current.y);
+        savedPageScroll.current = null;
+      }
+      return restoreTrigger
+        ? (returnFocus.current ?? page.current)
+        : page.current;
+    });
   }
 
   function closeAfterCustomLink(event: MouseEvent<HTMLElement>) {
@@ -130,6 +156,8 @@ export function NotebookShell({
       return;
     }
     returnFocus.current = trigger;
+    if (activeStudy && activePane === "page")
+      savedPageScroll.current = { x: window.scrollX, y: window.scrollY };
     setPane(next);
     focusAfterLayout(() =>
       next === "pages"
@@ -144,7 +172,10 @@ export function NotebookShell({
     // If resizing/zoom hides the focused rail or nav, return focus to the page.
     const observer = new ResizeObserver((entries) => {
       const width = entries[0]?.contentRect.width;
-      if (width !== undefined) setWide(width >= 1280);
+      if (width !== undefined) {
+        setWide(width >= 1280);
+        setWidth(width);
+      }
       const focused = document.activeElement;
       if (
         focused instanceof HTMLElement &&
@@ -161,203 +192,322 @@ export function NotebookShell({
     };
   }, []);
 
+  useEffect(() => {
+    const container = root.current;
+    if (!container || !activeStudy) return;
+    const update = () =>
+      setCovered(
+        Boolean(
+          container.querySelector(
+            "details.lp-account-menu[open], details[data-notebook-prompt][open], dialog[open]",
+          ),
+        ),
+      );
+    const observer = new MutationObserver(update);
+    observer.observe(container, {
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["open"],
+    });
+    return () => observer.disconnect();
+  }, [activeStudy]);
+
   return (
-    <div
-      ref={root}
-      className={styles.shell}
-      data-mode={mode}
-      data-pane={activePane}
-      data-has-pages={Boolean(pages)}
-      data-has-context={Boolean(context)}
-      onKeyDown={(event) => {
-        if (
-          event.key === "Escape" &&
-          !event.defaultPrevented &&
-          activePane !== "page"
-        ) {
-          event.preventDefault();
-          closePane();
-        }
+    <NotebookSurfaceContext.Provider
+      value={{
+        pageVisible:
+          !covered &&
+          (width >= 820 ||
+            (activePane !== "context" && activePane !== "navigation")),
+        contextVisible:
+          !covered &&
+          activePane !== "navigation" &&
+          (wide || activePane === "context"),
+        noticeHost,
+        paperScroll: activeStudy,
+        showPage: () => closePane(false),
+        showContext: () => {
+          if (activeStudy && activePane === "page")
+            savedPageScroll.current = { x: window.scrollX, y: window.scrollY };
+          const focused = document.activeElement;
+          if (focused instanceof HTMLButtonElement)
+            returnFocus.current = focused;
+          setPane("context");
+          focusAfterLayout(() => facing.current);
+        },
       }}
     >
-      <a
-        className={styles.skip}
-        href={`#${id}-page`}
-        onClick={() => closePane(false)}
+      <div
+        ref={root}
+        className={styles.shell}
+        data-mode={mode}
+        data-active-study={activeStudy || undefined}
+        data-pane={activePane}
+        data-has-pages={Boolean(pages)}
+        data-has-context={Boolean(context)}
+        onKeyDown={(event) => {
+          const prompt = root.current?.querySelector<HTMLDetailsElement>(
+            "details[data-notebook-prompt][open]",
+          );
+          if (event.key === "Escape" && !event.defaultPrevented && prompt) {
+            event.preventDefault();
+            prompt.open = false;
+            prompt.querySelector("summary")?.focus({ preventScroll: true });
+            return;
+          }
+          if (
+            event.key === "Escape" &&
+            !event.defaultPrevented &&
+            activePane !== "page"
+          ) {
+            event.preventDefault();
+            closePane();
+          }
+        }}
       >
-        Skip to learning content
-      </a>
-      <header className={styles.header}>
-        {headerContent ?? (
-          <>
-            {mode === "focus" && destinations[0] ? (
-              <a
-                className={`${styles.headerButton} ${styles.backLink}`}
-                href={destinations[0].href}
-                onClick={destinations[0].onClick}
-                aria-label={`Back to ${destinations[0].label}`}
-              >
-                <ControlIcon kind="back" />
-                <span className={styles.controlLabel}>
-                  {destinations[0].label}
+        <a
+          className={styles.skip}
+          href={`#${id}-page`}
+          onClick={() => closePane(false)}
+        >
+          Skip to learning content
+        </a>
+        <header className={styles.header}>
+          {headerContent ?? (
+            <>
+              {mode === "focus" && back ? (
+                <a
+                  className={`${styles.headerButton} ${styles.backLink}`}
+                  href={back.href}
+                  onClick={back.onClick}
+                  aria-label={`Back to ${back.label}`}
+                >
+                  <ControlIcon kind="back" />
+                  <span className={styles.controlLabel}>{back.label}</span>
+                </a>
+              ) : null}
+              <div className={styles.brand}>
+                <svg
+                  className={styles.brandMark}
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="M3 12h4l2.5-6 5 12 2.5-6h4" />
+                </svg>
+                <span className={styles.brandText}>
+                  Learning Pulse<small>Student</small>
                 </span>
-              </a>
-            ) : null}
-            <div className={styles.brand}>
-              <svg
-                className={styles.brandMark}
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path d="M3 12h4l2.5-6 5 12 2.5-6h4" />
-              </svg>
-              <span className={styles.brandText}>
-                Learning Pulse<small>Student</small>
-              </span>
-            </div>
-            <div className={styles.focusTitle}>
-              <strong>{title}</strong>
-              {subtitle ? <small>{subtitle}</small> : null}
-            </div>
-          </>
-        )}
-        <button
-          type="button"
-          className={`${styles.headerButton} ${styles.navigationToggle}`}
-          aria-expanded={activePane === "navigation"}
-          aria-label="Menu"
-          aria-controls={`${id}-navigation`}
-          onClick={(event) => openPane("navigation", event.currentTarget)}
-        >
-          <ControlIcon kind="menu" />
-          <span className={styles.controlLabel}>Menu</span>
-        </button>
-        <div
-          id={`${id}-navigation`}
-          ref={navigation}
-          tabIndex={-1}
-          role="region"
-          aria-label="Student navigation menu"
-          className={styles.navigationPanel}
-          onClick={navigationContent == null ? undefined : closeAfterCustomLink}
-        >
-          {navigationContent ?? (
-            <StudentNavigation
-              destinations={destinations}
-              onNavigate={() => closePane(false)}
-            />
+              </div>
+              <div className={styles.focusTitle}>
+                {selectedPrompt ? (
+                  <details
+                    className={styles.focusPrompt}
+                    data-notebook-prompt
+                    onKeyDown={(event) => {
+                      if (event.key === "Escape" && event.currentTarget.open) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        event.currentTarget.open = false;
+                        event.currentTarget
+                          .querySelector("summary")
+                          ?.focus({ preventScroll: true });
+                      }
+                    }}
+                  >
+                    <summary
+                      aria-label="Show selected question"
+                      aria-description={title}
+                    >
+                      <strong title={title}>
+                        <span
+                          className={shortTitle ? styles.fullTitle : undefined}
+                        >
+                          {title}
+                        </span>
+                        {shortTitle && (
+                          <span
+                            className={styles.shortTitle}
+                            aria-hidden="true"
+                          >
+                            {shortTitle}
+                          </span>
+                        )}
+                      </strong>
+                      <span aria-hidden="true">⌄</span>
+                    </summary>
+                    <div className={styles.promptText}>
+                      <p>{selectedPrompt}</p>
+                      <button
+                        type="button"
+                        onClick={(event) => {
+                          const details =
+                            event.currentTarget.closest("details");
+                          if (details) details.open = false;
+                          closePane(false);
+                        }}
+                      >
+                        Return to page
+                      </button>
+                    </div>
+                  </details>
+                ) : (
+                  <strong>{title}</strong>
+                )}
+                {subtitle ? <small>{subtitle}</small> : null}
+                {headerStatus ? (
+                  <span className={styles.headerStatus} title={headerStatus}>
+                    {headerStatus}
+                  </span>
+                ) : null}
+              </div>
+            </>
           )}
           <button
             type="button"
-            className={styles.navigationClose}
-            onClick={() => closePane()}
+            className={`${styles.headerButton} ${styles.navigationToggle}`}
+            aria-expanded={activePane === "navigation"}
+            aria-label="Menu"
+            aria-controls={`${id}-navigation`}
+            onClick={(event) => openPane("navigation", event.currentTarget)}
           >
-            Back to page
+            <ControlIcon kind="menu" />
+            <span className={styles.controlLabel}>Menu</span>
           </button>
-        </div>
-        <div className={styles.toolbar}>
-          {pages ? (
-            <button
-              type="button"
-              className={`${styles.headerButton} ${styles.pagesToggle}`}
-              aria-expanded={wide || activePane === "pages"}
-              aria-label="Pages"
-              aria-controls={`${id}-pages`}
-              onClick={(event) => openPane("pages", event.currentTarget)}
-            >
-              <ControlIcon kind="pages" />
-              <span className={styles.controlLabel}>Pages</span>
-            </button>
-          ) : null}
-          {context ? (
-            <button
-              type="button"
-              className={styles.headerButton}
-              aria-expanded={wide || activePane === "context"}
-              aria-label={context.title}
-              aria-controls={`${id}-context`}
-              onClick={(event) => openPane("context", event.currentTarget)}
-            >
-              <ControlIcon kind="reading" />
-              <span className={styles.controlLabel}>{context.title}</span>
-            </button>
-          ) : null}
-          {account ? <div className={styles.account}>{account}</div> : null}
-        </div>
-      </header>
-      {notices ? <div className={styles.notices}>{notices}</div> : null}
-      <div className={styles.layout}>
-        {pages ? (
-          <aside
-            id={`${id}-pages`}
-            ref={pageRail}
+          <div
+            id={`${id}-navigation`}
+            ref={navigation}
             tabIndex={-1}
-            aria-label={pages.title}
-            className={styles.rail}
-            onClick={pages.content == null ? undefined : closeAfterCustomLink}
+            role="region"
+            aria-label="Student navigation menu"
+            className={styles.navigationPanel}
+            onClick={
+              navigationContent == null ? undefined : closeAfterCustomLink
+            }
           >
-            <div className={styles.paneHeading}>
-              <h2>{pages.title}</h2>
-              <button
-                type="button"
-                onClick={() => closePane()}
-                className={styles.railClose}
-              >
-                Back to page
-              </button>
-            </div>
-            {pages.description ? (
-              <p className={styles.muted}>{pages.description}</p>
-            ) : null}
-            {pages.content ?? (
-              <NotebookPageNavigation
-                groups={pages.groups}
+            {navigationContent ?? (
+              <StudentNavigation
+                destinations={destinations}
                 onNavigate={() => closePane(false)}
               />
             )}
-          </aside>
-        ) : null}
-        <div
-          id={`${id}-page`}
-          ref={page}
-          tabIndex={-1}
-          role="region"
-          aria-label={title}
-          className={styles.learning}
-        >
-          <div className={styles.pageHeading}>
-            {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
-            <h1>{title}</h1>
-            {subtitle ? <p className={styles.muted}>{subtitle}</p> : null}
+            <button
+              type="button"
+              className={styles.navigationClose}
+              onClick={() => closePane()}
+            >
+              Back to page
+            </button>
           </div>
-          {questionContext ? (
-            <div className={styles.questionContext}>{questionContext}</div>
-          ) : null}
-          <div className={styles.content}>{children}</div>
-        </div>
-        {context ? (
-          <aside
-            id={`${id}-context`}
-            ref={facing}
-            tabIndex={-1}
-            aria-label={context.title}
-            className={styles.facing}
-          >
-            <div className={styles.paneHeading}>
-              <h2>{context.title}</h2>
+          <div className={styles.toolbar}>
+            {pages ? (
               <button
                 type="button"
-                onClick={() => closePane()}
-                className={styles.contextClose}
+                className={`${styles.headerButton} ${styles.pagesToggle}`}
+                aria-expanded={wide || activePane === "pages"}
+                aria-label="Pages"
+                aria-controls={`${id}-pages`}
+                onClick={(event) => openPane("pages", event.currentTarget)}
               >
-                Back to page
+                <ControlIcon kind="pages" />
+                <span className={styles.controlLabel}>Pages</span>
               </button>
-            </div>
-            {context.content}
-          </aside>
+            ) : null}
+            {context ? (
+              <button
+                type="button"
+                className={styles.headerButton}
+                aria-expanded={wide || activePane === "context"}
+                aria-label={context.title}
+                aria-controls={`${id}-context`}
+                onClick={(event) => openPane("context", event.currentTarget)}
+              >
+                <ControlIcon kind="reading" />
+                <span className={styles.controlLabel}>{context.title}</span>
+              </button>
+            ) : null}
+            {account ? <div className={styles.account}>{account}</div> : null}
+          </div>
+        </header>
+        {notices || activeStudy ? (
+          <div className={styles.notices}>
+            {notices}
+            <div ref={setNoticeHost} data-notebook-recovery />
+          </div>
         ) : null}
+        <div className={styles.layout}>
+          {pages ? (
+            <aside
+              id={`${id}-pages`}
+              ref={pageRail}
+              tabIndex={-1}
+              aria-label={pages.title}
+              className={styles.rail}
+              onClick={pages.content == null ? undefined : closeAfterCustomLink}
+            >
+              <div className={styles.paneHeading}>
+                <h2>{pages.title}</h2>
+                <button
+                  type="button"
+                  onClick={() => closePane()}
+                  className={styles.railClose}
+                >
+                  Back to page
+                </button>
+              </div>
+              {pages.description ? (
+                <p className={styles.muted}>{pages.description}</p>
+              ) : null}
+              {pages.content ?? (
+                <NotebookPageNavigation
+                  groups={pages.groups}
+                  onNavigate={() => closePane(false)}
+                />
+              )}
+            </aside>
+          ) : null}
+          <div
+            id={`${id}-page`}
+            ref={page}
+            tabIndex={-1}
+            role="region"
+            aria-label={title}
+            className={styles.learning}
+          >
+            <div className={styles.pageHeading}>
+              {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
+              <h1>{title}</h1>
+              {subtitle ? <p className={styles.muted}>{subtitle}</p> : null}
+            </div>
+            {questionContext ? (
+              <div className={styles.questionContext}>{questionContext}</div>
+            ) : null}
+            <div className={styles.content}>{children}</div>
+          </div>
+          {context ? (
+            <aside
+              id={`${id}-context`}
+              ref={facing}
+              tabIndex={-1}
+              aria-label={context.title}
+              className={styles.facing}
+              data-heading-hidden={hideContextHeading || undefined}
+            >
+              <div className={styles.paneHeading}>
+                {!hideContextHeading && <h2>{context.title}</h2>}
+                <button
+                  type="button"
+                  onClick={() => closePane()}
+                  className={styles.contextClose}
+                >
+                  Back to page
+                </button>
+              </div>
+              {context.content}
+            </aside>
+          ) : null}
+        </div>
       </div>
-    </div>
+    </NotebookSurfaceContext.Provider>
   );
 }
 

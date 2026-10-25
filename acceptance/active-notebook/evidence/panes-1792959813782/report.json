@@ -1,0 +1,45 @@
+{
+  "source": "1810d48b0a1c00c121698aee0b4fbe7dda01733d",
+  "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "runtime": "production",
+  "buildId": "PTknx65ZnNlJU3iUUBhPw",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "cases": [
+    {
+      "name": "hidden reader and pane navigation make zero reading/answer writes; one composer and exact draft survive",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=38fd2dd1-f83c-4142-a9fc-a3dde1b62e1d"
+    },
+    {
+      "name": "in-flight reading keeps delivery identity while hidden; exposure acknowledges exactly once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=eab54408-695c-4f98-83c2-07356e56b7e9"
+    },
+    {
+      "name": "failed reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=d29fec74-5bba-4815-995d-4df98175c76a"
+    },
+    {
+      "name": "unknown reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=537dc1ee-2170-4ebf-988e-66ca3366310d"
+    },
+    {
+      "name": "accepted help arriving in hidden page neither acknowledges nor steals context focus",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/615d44b9-d3a8-473a-905d-5e8c90a4b3f0?tab=study&session=78799c95-22f9-40a2-b81b-461ab562c34b"
+    },
+    {
+      "name": "feedback loaded while page hidden is acknowledged only after return",
+      "status": "FAIL",
+      "error": "locator.click: Error: strict mode violation: locator('a[href=\"#question-f3df77f7-b3ee-4b47-83d5-11101b16901d\"]') resolved to 2 elements:\n    1) <a class=\"notebook-shell_pageLink__8yWw5\" href=\"#question-f3df77f7-b3ee-4b47-83d5-11101b16901d\">…</a> aka getByRole('link', { name: 'Retrieval practice Original' })\n    2) <a class=\"nb-folded-page\" href=\"#question-f3df77f7-b3ee-4b47-83d5-11101b16901d\">…</a> aka getByRole('link', { name: 'Page 1 · Retrieval practice A' })\n\nCall log:\n\u001b[2m  - waiting for locator('a[href=\"#question-f3df77f7-b3ee-4b47-83d5-11101b16901d\"]')\u001b[22m\n\n    at C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-active\\LearningPlatform\\acceptance\\active-notebook\\panes.mjs:498:64\n    at async check (C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-active\\LearningPlatform\\acceptance\\active-notebook\\panes.mjs:127:5)\n    at async file:///C:/Users/sb128/.codex/worktrees/student-notebook-active/LearningPlatform/acceptance/active-notebook/panes.mjs:447:3",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=97e3adb4-e50a-429c-ad70-a82694986b3b"
+    }
+  ],
+  "result": "FAIL",
+  "error": "locator.click: Error: strict mode violation: locator('a[href=\"#question-f3df77f7-b3ee-4b47-83d5-11101b16901d\"]') resolved to 2 elements:\n    1) <a class=\"notebook-shell_pageLink__8yWw5\" href=\"#question-f3df77f7-b3ee-4b47-83d5-11101b16901d\">…</a> aka getByRole('link', { name: 'Retrieval practice Original' })\n    2) <a class=\"nb-folded-page\" href=\"#question-f3df77f7-b3ee-4b47-83d5-11101b16901d\">…</a> aka getByRole('link', { name: 'Page 1 · Retrieval practice A' })\n\nCall log:\n\u001b[2m  - waiting for locator('a[href=\"#question-f3df77f7-b3ee-4b47-83d5-11101b16901d\"]')\u001b[22m\n",
+  "diffAfterSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sourceUnchanged": true
+}

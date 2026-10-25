@@ -1,0 +1,40 @@
+{
+  "source": "446bffe50d3964ee9022df0e788f80f085d06e6f",
+  "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "runtime": "production",
+  "buildId": "mZZKnEd2ExlMkhVdtEGS6",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "cases": [
+    {
+      "name": "hidden reader and pane navigation make zero reading/answer writes; one composer and exact draft survive",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=67ee622a-ae75-41c0-be42-974078d9f541"
+    },
+    {
+      "name": "in-flight reading keeps delivery identity while hidden; exposure acknowledges exactly once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=979defea-8b92-46d0-ba35-e06689ea2a56"
+    },
+    {
+      "name": "failed reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=d2572f06-a725-4629-9074-59a3d6788c94"
+    },
+    {
+      "name": "unknown reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=93d37f1d-8b9b-4318-84dd-430b6ad0763d"
+    },
+    {
+      "name": "accepted help arriving in hidden page neither acknowledges nor steals context focus",
+      "status": "FAIL",
+      "error": "TypeError: Cannot read properties of undefined (reading 'delivery_status')\n    at file:///C:/Users/sb128/.codex/worktrees/student-notebook-active/LearningPlatform/acceptance/active-notebook/panes.mjs:402:39\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async check (file:///C:/Users/sb128/.codex/worktrees/student-notebook-active/LearningPlatform/acceptance/active-notebook/panes.mjs:127:5)\n    at async file:///C:/Users/sb128/.codex/worktrees/student-notebook-active/LearningPlatform/acceptance/active-notebook/panes.mjs:381:3",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=ea2373a5-9466-4ac1-9fa8-3c3f227216d8"
+    }
+  ],
+  "result": "FAIL",
+  "error": "Cannot read properties of undefined (reading 'delivery_status')",
+  "diffAfterSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sourceUnchanged": true
+}

@@ -13,7 +13,17 @@ import { NotebookShell, type NotebookShellProps } from "./notebook-shell.tsx";
 export type N0NotebookShellProps = ContractProps & {
   presentation?: Pick<
     NotebookShellProps,
-    "title" | "subtitle" | "eyebrow" | "account" | "questionContext"
+    | "title"
+    | "shortTitle"
+    | "subtitle"
+    | "eyebrow"
+    | "account"
+    | "questionContext"
+    | "activeStudy"
+    | "backDestination"
+    | "headerStatus"
+    | "selectedPrompt"
+    | "hideContextHeading"
   > & {
     indexTitle?: string;
     contextTitle?: string;
@@ -61,7 +71,13 @@ export function N0NotebookShell({
   return (
     <NotebookShell
       mode={focused ? "focus" : "browse"}
+      activeStudy={presentation?.activeStudy}
+      backDestination={presentation?.backDestination}
+      headerStatus={presentation?.headerStatus}
+      selectedPrompt={presentation?.selectedPrompt}
+      hideContextHeading={presentation?.hideContextHeading}
       title={presentation?.title ?? titles[navigation.section]}
+      shortTitle={presentation?.shortTitle}
       subtitle={presentation?.subtitle}
       eyebrow={presentation?.eyebrow}
       account={presentation?.account}

@@ -1,0 +1,417 @@
+{
+  "source_sha": "273551bb48287dd38843256d22c26b4bc8f449fd",
+  "base": "http://127.0.0.1:3427",
+  "started_at": "2026-10-25T21:08:27.473Z",
+  "original_answer": "  Original café 🌱 answer.\nKeep  all spacing.  ",
+  "category": "Provider-disabled real browser/auth/database with explicit precommit/postcommit fault injection",
+  "actual_model_calls": 0,
+  "cases": [
+    {
+      "id": "R1-initial-save-401",
+      "status": "PASS",
+      "started_at": "2026-10-25T21:08:27.474Z",
+      "session_id": "bb4ecd3a-598a-4d7a-b22e-4006e9e0aed3",
+      "attempt_id": "c606e212-7cfe-4bff-9598-755e494957ec",
+      "quiet_refresh": {
+        "answers": 1,
+        "evaluations": 0,
+        "text_preserved": true
+      },
+      "reconciliation": {
+        "confirmed": "absent",
+        "answer_writes": 0,
+        "evaluation_writes": 0
+      },
+      "automatic_retries": 0,
+      "original_identity_preserved_after_refresh": true,
+      "answer_posts": [
+        {
+          "attempt_id": "c606e212-7cfe-4bff-9598-755e494957ec",
+          "submission_key": "88dd1b3f-08f1-4645-a3d1-c3da26896f6f",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        },
+        {
+          "attempt_id": "c606e212-7cfe-4bff-9598-755e494957ec",
+          "submission_key": "88dd1b3f-08f1-4645-a3d1-c3da26896f6f",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [
+        {
+          "status": 401
+        },
+        {
+          "status": 200
+        }
+      ],
+      "evaluation_posts": [
+        {
+          "attempt_id": "c606e212-7cfe-4bff-9598-755e494957ec"
+        }
+      ],
+      "finished_at": "2026-10-25T21:08:32.219Z"
+    },
+    {
+      "id": "R2-offline-save",
+      "status": "PASS",
+      "started_at": "2026-10-25T21:08:32.241Z",
+      "session_id": "24f71172-c497-45f9-be2f-bf41e48f5dc3",
+      "attempt_id": "c5d6c06a-157c-45a0-843a-8dcd42996c14",
+      "quiet_refresh": {
+        "answers": 1,
+        "evaluations": 0,
+        "text_preserved": true
+      },
+      "reconciliation": {
+        "confirmed": "absent",
+        "answer_writes": 0,
+        "evaluation_writes": 0
+      },
+      "automatic_retries": 0,
+      "original_identity_preserved_after_refresh": true,
+      "answer_posts": [
+        {
+          "attempt_id": "c5d6c06a-157c-45a0-843a-8dcd42996c14",
+          "submission_key": "9fb65564-8e2d-41d2-977e-c429f04e7995",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        },
+        {
+          "attempt_id": "c5d6c06a-157c-45a0-843a-8dcd42996c14",
+          "submission_key": "9fb65564-8e2d-41d2-977e-c429f04e7995",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [
+        {
+          "status": 200
+        }
+      ],
+      "evaluation_posts": [
+        {
+          "attempt_id": "c5d6c06a-157c-45a0-843a-8dcd42996c14"
+        }
+      ],
+      "finished_at": "2026-10-25T21:08:37.103Z"
+    },
+    {
+      "id": "R3-committed-response-lost",
+      "status": "PASS",
+      "started_at": "2026-10-25T21:08:37.121Z",
+      "session_id": "711587ea-ae4e-4bda-a744-b9c54271f5c7",
+      "attempt_id": "0cc4b1de-9ed4-4c48-a4d0-8691759f415f",
+      "quiet_refresh": {
+        "answers": 1,
+        "evaluations": 0,
+        "text_preserved": false
+      },
+      "fault": "Real server answer 200 discarded before the page received it",
+      "read_only_reconciliation": true,
+      "answer_posts": [
+        {
+          "attempt_id": "0cc4b1de-9ed4-4c48-a4d0-8691759f415f",
+          "submission_key": "906a7401-7534-40e8-9303-efdf97e36a7a",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [],
+      "evaluation_posts": [],
+      "finished_at": "2026-10-25T21:08:41.347Z"
+    },
+    {
+      "id": "R4-acknowledged-save-evaluation-401",
+      "status": "PASS",
+      "started_at": "2026-10-25T21:08:41.362Z",
+      "session_id": "849f4afd-e413-4c56-85e7-45decedbe08c",
+      "attempt_id": "a0787b9e-dee1-4c3e-a71b-d785357f82b3",
+      "quiet_refresh": {
+        "answers": 1,
+        "evaluations": 1,
+        "text_preserved": false
+      },
+      "server_save_acknowledged": true,
+      "evaluation_fault": "401 intercepted before server/provider execution",
+      "answer_posts": [
+        {
+          "attempt_id": "a0787b9e-dee1-4c3e-a71b-d785357f82b3",
+          "submission_key": "034cf584-b678-478f-a285-f374bbef502a",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [
+        {
+          "status": 200
+        }
+      ],
+      "evaluation_posts": [
+        {
+          "attempt_id": "a0787b9e-dee1-4c3e-a71b-d785357f82b3"
+        }
+      ],
+      "finished_at": "2026-10-25T21:08:45.336Z"
+    },
+    {
+      "id": "R5-real-auth-expiry-safe-return",
+      "status": "FAIL",
+      "started_at": "2026-10-25T21:08:45.347Z",
+      "session_id": "fbac54b7-b11d-45b9-beb8-903bb1ac83d5",
+      "attempt_id": "b3dee464-8fde-4943-8274-36c1a717cb4e",
+      "expired_auth_session": {
+        "auth_session_id": "PF1gBeECeIAYhPySfZwPwO20fp8EYpup",
+        "expires_at": "2026-10-25T21:07:47.820Z"
+      },
+      "error": "Fixture sign-in returned HTTP 429; no recovery assertion has run for this fixture.\n\n429 !== 200\n",
+      "answer_posts": [
+        {
+          "attempt_id": "b3dee464-8fde-4943-8274-36c1a717cb4e",
+          "submission_key": "e3250f57-021a-49fa-9168-c69d7316922d",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [
+        {
+          "status": 401
+        }
+      ],
+      "evaluation_posts": [],
+      "finished_at": "2026-10-25T21:08:48.530Z"
+    },
+    {
+      "id": "R6-duplicate-and-original-identity",
+      "status": "FAIL",
+      "started_at": "2026-10-25T21:08:48.556Z",
+      "error": "Fixture sign-in returned HTTP 429; no recovery assertion has run for this fixture.\n\n429 !== 200\n",
+      "finished_at": "2026-10-25T21:08:49.353Z"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "R1-initial-save-401-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R1-initial-save-401-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R1-initial-save-401-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R1-initial-save-401-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    },
+    {
+      "file": "R2-offline-save-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R2-offline-save-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R2-offline-save-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R2-offline-save-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    },
+    {
+      "file": "R3-unknown-before-check-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R3-unknown-before-check-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R3-unknown-before-check-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R3-unknown-before-check-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    },
+    {
+      "file": "R4-acknowledged-save-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R4-acknowledged-save-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R4-acknowledged-save-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R4-acknowledged-save-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    },
+    {
+      "file": "R5-expired-auth-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R5-expired-auth-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R5-expired-auth-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R5-expired-auth-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    },
+    {
+      "file": "R5-real-auth-expiry-safe-return-failure.png",
+      "failure": true
+    }
+  ],
+  "limitations": [
+    "Viewport emulation is not native zoom, mobile keyboard or screen-reader verification."
+  ],
+  "finished_at": "2026-10-25T21:08:49.353Z",
+  "result": "INCOMPLETE_OR_FAILED"
+}

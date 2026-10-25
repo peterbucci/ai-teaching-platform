@@ -1,0 +1,30 @@
+PASS: Explicit Continue recovers a known saved controller choice once, preserving the original evaluation and authored activity without any new model call
+PASS: Generated diagnostic commits through the existing controller once; duplicate operations and controller application do not create another attempt or paid stage
+PASS: New generated-question response uses its private snapshot in the existing evaluator; controller explanation remains unassisted until actual display acknowledgment
+PASS: Generated retest completes the same authored sequence, preserves assisted outcome, recovers read-only, and is inspectable only by the authorized teacher
+PASS: Invalid generated source leaves the original answer/evaluation intact; explicit authored continuation works and stale replay starts no extra stage
+PASS: Final controller commit reloads published runtime policy despite a forged caller context; denial preserves evidence and the authored fallback remains available
+{
+  "fixture_only": true,
+  "model_calls": 0,
+  "sessions": [
+    "de042fa6-80fe-4915-b919-a3f48551171a",
+    "ca1e6209-ef2d-4a2b-a7f9-0265bb61e499",
+    "4b64821e-5a5a-4742-b035-06b35eb08a07",
+    "588841f4-ec0c-40e2-a270-ca53ee5b9cde"
+  ],
+  "checks": [
+    "Explicit Continue recovers a known saved controller choice once, preserving the original evaluation and authored activity without any new model call",
+    "Generated diagnostic commits through the existing controller once; duplicate operations and controller application do not create another attempt or paid stage",
+    "New generated-question response uses its private snapshot in the existing evaluator; controller explanation remains unassisted until actual display acknowledgment",
+    "Generated retest completes the same authored sequence, preserves assisted outcome, recovers read-only, and is inspectable only by the authorized teacher",
+    "Invalid generated source leaves the original answer/evaluation intact; explicit authored continuation works and stale replay starts no extra stage",
+    "Final controller commit reloads published runtime policy despite a forged caller context; denial preserves evidence and the authored fallback remains available"
+  ]
+}
+
+(node:136928) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:136928) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/student-notebook-active/LearningPlatform/scripts/check-r7-controller.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\sb128\.codex\worktrees\student-notebook-active\LearningPlatform\package.json.
