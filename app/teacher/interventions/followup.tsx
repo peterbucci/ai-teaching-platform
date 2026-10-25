@@ -11,6 +11,7 @@ import type {
   QuestionSnapshot,
 } from "../../../lib/evidence/contracts.ts";
 import { followupConceptLabel } from "./concept-label.ts";
+import { interventionTimestamp } from "./timestamp.ts";
 
 const statusLabels = {
   not_submitted: "No response yet",
@@ -180,7 +181,7 @@ export function InterventionFollowup({
       aria-busy={busy}
     >
       <div className="lp-followup-heading">
-        <h2 id="intervention-followup-title">Before and after the activity</h2>
+        <h2 id="intervention-followup-title">Saved follow-up</h2>
         <button
           type="button"
           className="lp-button"
@@ -190,12 +191,6 @@ export function InterventionFollowup({
           Refresh follow-up
         </button>
       </div>
-      <p>
-        Compare the original supporting work with each recipient’s saved
-        fresh-check response. Missing responses are not failures. A correct
-        answer after assistance does not establish independent learning or
-        long-term retention.
-      </p>
       {busy && <p role="status">Loading saved follow-up evidence…</p>}
       {error && (
         <p role="alert" className="lp-intervention-warning">
@@ -204,288 +199,316 @@ export function InterventionFollowup({
       )}
       {comparison && (
         <>
-          <dl className="lp-followup-counts">
-            {(
-              [
-                ["Intended recipients", comparison.counts.intended],
-                ["Started", comparison.counts.started],
-                ["Submitted", comparison.counts.submitted],
-                ["Missing follow-up", comparison.counts.missing],
-                ["Accepted evaluations", comparison.counts.accepted],
-                ["Pending evaluations", comparison.counts.pending],
-                ["Failed evaluations", comparison.counts.failed],
-                ["Uncertain judgments", comparison.counts.uncertain],
-              ] as const
-            ).map(([label, count]) => (
-              <div key={label}>
-                <dt>{label}</dt>
-                <dd>{count}</dd>
-              </div>
-            ))}
-          </dl>
-          <p className="lp-intervention-meta">
-            All counts are distinct recipients out of{" "}
-            {comparison.counts.intended}. Uncertain accepted judgments also
-            appear in accepted evaluations. These observations do not show that
-            the activity caused a change.
+          <p>
+            {comparison.counts.submitted} of {comparison.counts.intended}{" "}
+            responded · {comparison.counts.missing} missing
           </p>
-          <details className="lp-intervention-section">
-            <summary>Exact approved activity and source version</summary>
-            <dl className="lp-followup-identities">
-              <div>
-                <dt>Approved revision</dt>
-                <dd>{comparison.approved_revision}</dd>
-              </div>
-              <div>
-                <dt>Approval</dt>
-                <dd>{comparison.approval_id}</dd>
-              </div>
-              <div>
-                <dt>Draft</dt>
-                <dd>{comparison.draft_id}</dd>
-              </div>
-              <div>
-                <dt>Assignment</dt>
-                <dd>{comparison.assignment_id}</dd>
-              </div>
-              <div>
-                <dt>Package</dt>
-                <dd>{comparison.content_ref.package_id}</dd>
-              </div>
-              <div>
-                <dt>Lesson version</dt>
-                <dd>{comparison.content_ref.content_version}</dd>
-              </div>
-              <div>
-                <dt>Source</dt>
-                <dd>{comparison.content_ref.source_id}</dd>
-              </div>
-              <div>
-                <dt>Source revision</dt>
-                <dd>
-                  {"source_commit" in comparison.content_ref
-                    ? comparison.content_ref.source_commit
-                    : comparison.content_ref.source_version}
-                </dd>
-              </div>
-              <div>
-                <dt>Excerpt SHA-256</dt>
-                <dd>{comparison.content_ref.excerpt_sha256}</dd>
-              </div>
+          {(comparison.counts.pending > 0 ||
+            comparison.counts.failed > 0 ||
+            comparison.counts.uncertain > 0) && (
+            <p role="status">
+              {comparison.counts.pending} evaluations pending ·{" "}
+              {comparison.counts.failed} failed · {comparison.counts.uncertain}{" "}
+              uncertain
+            </p>
+          )}
+          <p className="lp-intervention-meta">
+            Missing responses are not failures. Assisted success is not
+            independent learning or long-term retention.
+          </p>
+          <details className="lp-intervention-step-details">
+            <summary>Compare original and follow-up work</summary>
+            <dl className="lp-followup-counts">
+              {(
+                [
+                  ["Intended recipients", comparison.counts.intended],
+                  ["Started", comparison.counts.started],
+                  ["Submitted", comparison.counts.submitted],
+                  ["Missing follow-up", comparison.counts.missing],
+                  ["Accepted evaluations", comparison.counts.accepted],
+                  ["Pending evaluations", comparison.counts.pending],
+                  ["Failed evaluations", comparison.counts.failed],
+                  ["Uncertain judgments", comparison.counts.uncertain],
+                ] as const
+              ).map(([label, count]) => (
+                <div key={label}>
+                  <dt>{label}</dt>
+                  <dd>{count}</dd>
+                </div>
+              ))}
             </dl>
-            {comparison.original_evidence.sources.map((source) =>
-              source.url ? (
-                <a
-                  key={source.passage_id}
-                  className="lp-text-link mr-3"
-                  href={source.url}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {source.passage_id}
-                </a>
-              ) : (
-                <span key={source.passage_id} className="mr-3">
-                  {source.passage_id} - private approved source
-                </span>
-              ),
-            )}
-          </details>
-          {comparison.recipients.map((recipient) => {
-            const originals = comparison.original_evidence.observations.filter(
-              (observation) => observation.student_id === recipient.student_id,
-            );
-            const state = recipient.followup;
-            return (
-              <details
-                className="lp-followup-recipient"
-                key={recipient.student_id}
-              >
-                <summary>
-                  <strong>{recipient.display_name}</strong>
-                  <span className="lp-badge lp-badge-neutral">
-                    {statusLabels[state.evaluation_status]}
+            <p className="lp-intervention-meta">
+              All counts are distinct recipients out of{" "}
+              {comparison.counts.intended}. Uncertain accepted judgments also
+              appear in accepted evaluations. These observations do not show
+              that the activity caused a change.
+            </p>
+            <details className="lp-intervention-section">
+              <summary>Exact approved activity and source version</summary>
+              <dl className="lp-followup-identities">
+                <div>
+                  <dt>Approved revision</dt>
+                  <dd>{comparison.approved_revision}</dd>
+                </div>
+                <div>
+                  <dt>Approval</dt>
+                  <dd>{comparison.approval_id}</dd>
+                </div>
+                <div>
+                  <dt>Draft</dt>
+                  <dd>{comparison.draft_id}</dd>
+                </div>
+                <div>
+                  <dt>Assignment</dt>
+                  <dd>{comparison.assignment_id}</dd>
+                </div>
+                <div>
+                  <dt>Package</dt>
+                  <dd>{comparison.content_ref.package_id}</dd>
+                </div>
+                <div>
+                  <dt>Lesson version</dt>
+                  <dd>{comparison.content_ref.content_version}</dd>
+                </div>
+                <div>
+                  <dt>Source</dt>
+                  <dd>{comparison.content_ref.source_id}</dd>
+                </div>
+                <div>
+                  <dt>Source revision</dt>
+                  <dd>
+                    {"source_commit" in comparison.content_ref
+                      ? comparison.content_ref.source_commit
+                      : comparison.content_ref.source_version}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Excerpt SHA-256</dt>
+                  <dd>{comparison.content_ref.excerpt_sha256}</dd>
+                </div>
+              </dl>
+              {comparison.original_evidence.sources.map((source) =>
+                source.url ? (
+                  <a
+                    key={source.passage_id}
+                    className="lp-text-link mr-3"
+                    href={source.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {source.passage_id}
+                  </a>
+                ) : (
+                  <span key={source.passage_id} className="mr-3">
+                    {source.passage_id} - private approved source
                   </span>
-                  {state.uncertain && (
-                    <span className="lp-badge lp-badge-neutral">Uncertain</span>
-                  )}
-                </summary>
-                <dl className="lp-followup-identities">
-                  <div>
-                    <dt>Explanation / source excerpts displayed</dt>
-                    <dd>
-                      {recipient.displayed_at
-                        ? new Date(recipient.displayed_at).toLocaleString()
-                        : "No display recorded"}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>Started</dt>
-                    <dd>
-                      {state.started_at
-                        ? new Date(state.started_at).toLocaleString()
-                        : "Not started"}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>Submitted</dt>
-                    <dd>
-                      {state.submitted_at
-                        ? new Date(state.submitted_at).toLocaleString()
-                        : "No response yet"}
-                    </dd>
-                  </div>
-                </dl>
-                <section className="lp-followup-before">
-                  <h3>Before · original evidence</h3>
-                  {originals.length === 0 && (
-                    <p>
-                      No response from this recipient was included in the
-                      approved draft’s original evidence snapshot.
-                    </p>
-                  )}
-                  {originals.map(
-                    ({
-                      attempt,
-                      evaluation,
-                      role,
-                      session_id,
-                      data_origin,
-                    }) => (
-                      <details
-                        key={attempt.id}
-                        className="lp-followup-original"
-                      >
-                        <summary>
-                          {roleLabels[role]} ·{" "}
-                          {attempt.question.question_id ?? "Recorded question"}
-                        </summary>
+                ),
+              )}
+            </details>
+            {comparison.recipients.map((recipient) => {
+              const originals =
+                comparison.original_evidence.observations.filter(
+                  (observation) =>
+                    observation.student_id === recipient.student_id,
+                );
+              const state = recipient.followup;
+              return (
+                <details
+                  className="lp-followup-recipient"
+                  key={recipient.student_id}
+                >
+                  <summary>
+                    <strong>{recipient.display_name}</strong>
+                    <span className="lp-badge lp-badge-neutral">
+                      {statusLabels[state.evaluation_status]}
+                    </span>
+                    {state.uncertain && (
+                      <span className="lp-badge lp-badge-neutral">
+                        Uncertain
+                      </span>
+                    )}
+                  </summary>
+                  <dl className="lp-followup-identities">
+                    <div>
+                      <dt>Explanation / source excerpts displayed</dt>
+                      <dd>
+                        {recipient.displayed_at
+                          ? interventionTimestamp(recipient.displayed_at)
+                          : "No display recorded"}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>Started</dt>
+                      <dd>
+                        {state.started_at
+                          ? interventionTimestamp(state.started_at)
+                          : "Not started"}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>Submitted</dt>
+                      <dd>
+                        {state.submitted_at
+                          ? interventionTimestamp(state.submitted_at)
+                          : "No response yet"}
+                      </dd>
+                    </div>
+                  </dl>
+                  <section className="lp-followup-before">
+                    <h3>Before · original evidence</h3>
+                    {originals.length === 0 && (
+                      <p>
+                        No response from this recipient was included in the
+                        approved draft’s original evidence snapshot.
+                      </p>
+                    )}
+                    {originals.map(
+                      ({
+                        attempt,
+                        evaluation,
+                        role,
+                        session_id,
+                        data_origin,
+                      }) => (
+                        <details
+                          key={attempt.id}
+                          className="lp-followup-original"
+                        >
+                          <summary>
+                            {roleLabels[role]} ·{" "}
+                            {attempt.question.question_id ??
+                              "Recorded question"}
+                          </summary>
+                          <p className="lp-intervention-meta">
+                            {data_origin === "synthetic_fixture"
+                              ? "Prepared fictional history"
+                              : "Live fictional-student session"}
+                          </p>
+                          <h4>Original question</h4>
+                          <p className="whitespace-pre-wrap">
+                            {attempt.question.prompt_text}
+                          </p>
+                          <h4>Original response</h4>
+                          <blockquote>{attempt.response_text}</blockquote>
+                          <EvaluationDetails
+                            evaluation={evaluation}
+                            comparison={comparison}
+                            question={attempt.question}
+                          />
+                          <p className="lp-intervention-meta">
+                            Assistance before this response:{" "}
+                            {attempt.assistance?.assistance_level.replaceAll(
+                              "_",
+                              " ",
+                            ) ?? "Unknown"}
+                            .
+                          </p>
+                          <p className="lp-intervention-meta">
+                            Lesson{" "}
+                            {attempt.question.content_ref.content_version} ·
+                            Source revision{" "}
+                            {"source_commit" in attempt.question.content_ref
+                              ? attempt.question.content_ref.source_commit
+                              : attempt.question.content_ref
+                                  .source_version}{" "}
+                            · Passages{" "}
+                            {attempt.question.source_passage_ids.join(", ")}
+                          </p>
+                          <Link
+                            className="lp-text-link"
+                            href={`/teacher/sessions/${session_id}#evaluation-${evaluation.id}`}
+                          >
+                            Inspect original session and assistance
+                          </Link>
+                        </details>
+                      ),
+                    )}
+                  </section>
+                  <section className="lp-followup-after">
+                    <h3>After · approved fresh check</h3>
+                    {recipient.attempt && (
+                      <p className="whitespace-pre-wrap">
+                        {recipient.attempt.question.prompt_text}
+                      </p>
+                    )}
+                    {state.submitted_at ? (
+                      <>
+                        <blockquote>{state.response_text}</blockquote>
                         <p className="lp-intervention-meta">
-                          {data_origin === "synthetic_fixture"
-                            ? "Prepared fictional history"
-                            : "Live fictional-student session"}
-                        </p>
-                        <h4>Original question</h4>
-                        <p className="whitespace-pre-wrap">
-                          {attempt.question.prompt_text}
-                        </p>
-                        <h4>Original response</h4>
-                        <blockquote>{attempt.response_text}</blockquote>
-                        <EvaluationDetails
-                          evaluation={evaluation}
-                          comparison={comparison}
-                          question={attempt.question}
-                        />
-                        <p className="lp-intervention-meta">
-                          Assistance before this response:{" "}
-                          {attempt.assistance?.assistance_level.replaceAll(
+                          Assistance recorded before submission:{" "}
+                          {state.assistance?.assistance_level.replaceAll(
                             "_",
                             " ",
                           ) ?? "Unknown"}
-                          .
+                          . Display recorded later is shown separately above.
                         </p>
-                        <p className="lp-intervention-meta">
-                          Lesson {attempt.question.content_ref.content_version}{" "}
-                          · Source revision{" "}
-                          {"source_commit" in attempt.question.content_ref
-                            ? attempt.question.content_ref.source_commit
-                            : attempt.question.content_ref.source_version}{" "}
-                          · Passages{" "}
-                          {attempt.question.source_passage_ids.join(", ")}
-                        </p>
-                        <Link
-                          className="lp-text-link"
-                          href={`/teacher/sessions/${session_id}#evaluation-${evaluation.id}`}
-                        >
-                          Inspect original session and assistance
-                        </Link>
-                      </details>
-                    ),
-                  )}
-                </section>
-                <section className="lp-followup-after">
-                  <h3>After · approved fresh check</h3>
-                  {recipient.attempt && (
-                    <p className="whitespace-pre-wrap">
-                      {recipient.attempt.question.prompt_text}
-                    </p>
-                  )}
-                  {state.submitted_at ? (
-                    <>
-                      <blockquote>{state.response_text}</blockquote>
-                      <p className="lp-intervention-meta">
-                        Assistance recorded before submission:{" "}
-                        {state.assistance?.assistance_level.replaceAll(
-                          "_",
-                          " ",
-                        ) ?? "Unknown"}
-                        . Display recorded later is shown separately above.
+                        <h4>{statusLabels[state.evaluation_status]}</h4>
+                        <EvaluationDetails
+                          evaluation={recipient.evaluation}
+                          provenance={state.evaluation_provenance}
+                          comparison={comparison}
+                          question={recipient.attempt?.question ?? null}
+                        />
+                        {state.feedback && <p>{state.feedback}</p>}
+                        {recipient.attempt && (
+                          <p className="lp-intervention-meta">
+                            Question {recipient.attempt.question.question_id} ·
+                            Lesson{" "}
+                            {
+                              recipient.attempt.question.content_ref
+                                .content_version
+                            }{" "}
+                            · Passages{" "}
+                            {recipient.attempt.question.source_passage_ids.join(
+                              ", ",
+                            )}
+                          </p>
+                        )}
+                        {recipient.session_id && recipient.attempt && (
+                          <Link
+                            className="lp-text-link"
+                            href={`/teacher/sessions/${recipient.session_id}#attempt-${recipient.attempt.id}`}
+                          >
+                            Inspect saved follow-up session
+                          </Link>
+                        )}
+                        {recipient.evaluations.length > 1 && (
+                          <details className="lp-intervention-section">
+                            <summary>
+                              Evaluation history ({recipient.evaluations.length}
+                              )
+                            </summary>
+                            {recipient.evaluations.map((evaluation) => (
+                              <div key={evaluation.id}>
+                                <p className="lp-intervention-meta">
+                                  {interventionTimestamp(
+                                    evaluation.evaluated_at,
+                                  )}{" "}
+                                  · {evaluation.id}
+                                </p>
+                                <EvaluationDetails
+                                  evaluation={evaluation}
+                                  comparison={comparison}
+                                  question={recipient.attempt?.question ?? null}
+                                />
+                              </div>
+                            ))}
+                          </details>
+                        )}
+                      </>
+                    ) : (
+                      <p>
+                        {state.started_at
+                          ? "This student started the check and has not submitted a response."
+                          : "This student has not started the check."}{" "}
+                        No learning outcome is inferred.
                       </p>
-                      <h4>{statusLabels[state.evaluation_status]}</h4>
-                      <EvaluationDetails
-                        evaluation={recipient.evaluation}
-                        provenance={state.evaluation_provenance}
-                        comparison={comparison}
-                        question={recipient.attempt?.question ?? null}
-                      />
-                      {state.feedback && <p>{state.feedback}</p>}
-                      {recipient.attempt && (
-                        <p className="lp-intervention-meta">
-                          Question {recipient.attempt.question.question_id} ·
-                          Lesson{" "}
-                          {
-                            recipient.attempt.question.content_ref
-                              .content_version
-                          }{" "}
-                          · Passages{" "}
-                          {recipient.attempt.question.source_passage_ids.join(
-                            ", ",
-                          )}
-                        </p>
-                      )}
-                      {recipient.session_id && recipient.attempt && (
-                        <Link
-                          className="lp-text-link"
-                          href={`/teacher/sessions/${recipient.session_id}#attempt-${recipient.attempt.id}`}
-                        >
-                          Inspect saved follow-up session
-                        </Link>
-                      )}
-                      {recipient.evaluations.length > 1 && (
-                        <details className="lp-intervention-section">
-                          <summary>
-                            Evaluation history ({recipient.evaluations.length})
-                          </summary>
-                          {recipient.evaluations.map((evaluation) => (
-                            <div key={evaluation.id}>
-                              <p className="lp-intervention-meta">
-                                {new Date(
-                                  evaluation.evaluated_at,
-                                ).toLocaleString()}{" "}
-                                · {evaluation.id}
-                              </p>
-                              <EvaluationDetails
-                                evaluation={evaluation}
-                                comparison={comparison}
-                                question={recipient.attempt?.question ?? null}
-                              />
-                            </div>
-                          ))}
-                        </details>
-                      )}
-                    </>
-                  ) : (
-                    <p>
-                      {state.started_at
-                        ? "This student started the check and has not submitted a response."
-                        : "This student has not started the check."}{" "}
-                      No learning outcome is inferred.
-                    </p>
-                  )}
-                </section>
-              </details>
-            );
-          })}
+                    )}
+                  </section>
+                </details>
+              );
+            })}
+          </details>
         </>
       )}
     </section>

@@ -67,16 +67,16 @@
 .lp-intervention-steps > li {
   counter-increment: intervention-step;
   border-bottom: 1px solid var(--line);
-  padding: 18px 0 18px 30px;
+  padding: 8px 0 8px 30px;
   position: relative;
   font-size: 13px;
-  line-height: 1.6;
+  line-height: 1.4;
 }
 .lp-intervention-steps > li::before {
   content: counter(intervention-step);
   position: absolute;
   left: 0;
-  top: 18px;
+  top: 8px;
   display: grid;
   place-items: center;
   width: 22px;
@@ -89,7 +89,18 @@
 .lp-intervention-steps > li > h3 {
   font-size: 14px;
   font-weight: 650;
-  margin-bottom: 8px;
+  margin-bottom: 2px;
+}
+.lp-intervention-step-details > summary {
+  cursor: pointer;
+  padding-block: 5px;
+}
+.lp-intervention-step-details[open] > summary {
+  margin-bottom: 6px;
+}
+.lp-intervention-steps .lp-text-link {
+  text-align: left;
+  padding-block: 5px;
 }
 .lp-intervention-steps .lp-intervention-approval-summary,
 .lp-intervention-steps .lp-intervention-section {

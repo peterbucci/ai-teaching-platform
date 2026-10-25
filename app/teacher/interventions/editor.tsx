@@ -19,6 +19,7 @@ import { ActivityEditor } from "./activity-editor.tsx";
 import { ActivityReview } from "./review.tsx";
 import { InterventionFollowup } from "./followup.tsx";
 import { blockInterventionNavigation } from "./navigation-block.ts";
+import { interventionTimestamp } from "./timestamp.ts";
 
 // Local recovery accepts unfinished text; only the server accepts saved work.
 const recoveryQuestion =
@@ -627,27 +628,34 @@ export function InterventionEditor({
       <ol className="lp-intervention-steps">
         <li>
           <h3>Choose answers</h3>
-          <p>
-            Saved selection: {currentDraft.evidence.counts.selected_responses}{" "}
-            responses from {currentDraft.evidence.counts.selected_students}{" "}
-            students. Related and contrary answers remain in the saved evidence
-            where recorded.
-          </p>
           <button
             type="button"
             className="lp-text-link"
             onClick={() => onNavigationBlocked("intervention-evidence-title")}
           >
-            Inspect saved evidence
+            Inspect saved evidence ·{" "}
+            {currentDraft.evidence.counts.selected_responses} responses ·{" "}
+            {currentDraft.evidence.counts.selected_students} students
           </button>
         </li>
         <li aria-labelledby="intervention-save-title">
           <h3 id="intervention-save-title">Write and save draft</h3>
           <p>
             {dirty
-              ? "Your edits are kept in this tab. Save a private revision before approval."
-              : "Review the student preview and teacher-only guidance in Activity before approving this saved revision."}
+              ? "Unsaved edits. Save a private revision before approval."
+              : editable
+                ? "Review student preview and private guidance before approval."
+                : "Saved activity locked by approval."}
           </p>
+          {!editable && (
+            <button
+              type="button"
+              className="lp-text-link"
+              onClick={() => onNavigationBlocked("intervention-draft-title")}
+            >
+              Review in Activity
+            </button>
+          )}
           {editable && (
             <div
               className="lp-intervention-actions"
@@ -795,13 +803,19 @@ export function InterventionEditor({
               )}
             </details>
           ) : review?.approval ? (
-            <p>
-              {review.approval.recipient_ids.length} approved recipients
-              {recipientNames.length
-                ? `: ${recipientNames.map((student) => student.display_name).join(", ")}`
-                : ""}
-              . The approved recipient list is fixed.
-            </p>
+            <details className="lp-intervention-step-details">
+              <summary>
+                {review.approval.recipient_ids.length} approved recipients ·
+                fixed
+              </summary>
+              <p>
+                {recipientNames.length
+                  ? recipientNames
+                      .map((student) => student.display_name)
+                      .join(", ")
+                  : "Recipient names unavailable."}
+              </p>
+            </details>
           ) : (
             <p>This draft is dismissed. No students will receive it.</p>
           )}
@@ -843,15 +857,21 @@ export function InterventionEditor({
               </button>
             </div>
           ) : review?.approval ? (
-            <>
+            <details className="lp-intervention-step-details">
+              <summary>
+                Revision {review.approval.approved_revision} approved
+              </summary>
               <p>
-                Revision {review.approval.approved_revision} approved on{" "}
-                {new Date(review.approval.approved_at).toLocaleString()}.
+                Approved on{" "}
+                <time dateTime={review.approval.approved_at}>
+                  {interventionTimestamp(review.approval.approved_at)}
+                </time>
+                .
               </p>
               <p className="lp-intervention-meta">
                 Approval: {review.approval.id}
               </p>
-            </>
+            </details>
           ) : (
             <p>No approval is recorded.</p>
           )}
@@ -860,16 +880,21 @@ export function InterventionEditor({
           <h3>{review?.delivery ? "Delivery recorded" : "Deliver activity"}</h3>
           {review?.approval ? (
             review.delivery ? (
-              <>
-                <p role="status">
+              <details className="lp-intervention-step-details">
+                <summary>
+                  Delivered to {review.approval.recipient_ids.length} students
+                </summary>
+                <p>
                   Delivered on{" "}
-                  {new Date(review.delivery.delivered_at).toLocaleString()}.
-                  Refreshing will not create another delivery.
+                  <time dateTime={review.delivery.delivered_at}>
+                    {interventionTimestamp(review.delivery.delivered_at)}
+                  </time>
+                  . Refreshing will not create another delivery.
                 </p>
                 <p className="lp-intervention-meta">
                   Delivery: {review.delivery.id}
                 </p>
-              </>
+              </details>
             ) : (
               <>
                 <p>
