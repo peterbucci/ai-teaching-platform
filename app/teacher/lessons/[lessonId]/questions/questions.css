@@ -265,3 +265,328 @@
     flex: 1 1 180px;
   }
 }
+
+/* Page-local records within the shared outline/editor/reading panes. */
+.la-workspace .qb-editor {
+  --ink: #17302d;
+  --muted: #4f6359;
+  --line: #e1e9e4;
+  --green: #176d58;
+  gap: 16px;
+  min-width: 0;
+  padding: 0;
+}
+.qb-editor [hidden] {
+  display: none !important;
+}
+.la-workspace .qb-editor h2 {
+  font-size: 22px;
+  font-weight: 650;
+  line-height: 1.25;
+  margin: 0;
+}
+.la-workspace .qb-editor h3 {
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.4;
+}
+.la-workspace .qb-editor p {
+  line-height: 1.55;
+}
+.la-workspace .qb-editor .qb-help {
+  font-size: 13px;
+  line-height: 1.45;
+}
+.la-workspace .qb-editor .lp-input {
+  min-width: 0;
+  max-width: 100%;
+  font-size: 14px;
+}
+.la-workspace .qb-toolbar {
+  position: static;
+  padding: 0 0 10px;
+  border-radius: 0;
+  box-shadow: none;
+  border-bottom: 1px solid #e1e9e4;
+  gap: 8px;
+}
+.qb-save-status {
+  color: #4f6359;
+  font-size: 13px;
+}
+.qb-record-heading {
+  display: grid;
+  gap: 4px;
+}
+.qb-record-heading h2 {
+  margin: 0;
+}
+.qb-bank-layout {
+  display: block;
+  min-width: 0;
+}
+.la-workspace .qb-question {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  min-width: 0;
+}
+.qb-current-heading {
+  overflow-wrap: anywhere;
+}
+.qb-question-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0;
+}
+.qb-question-fields {
+  margin-top: 16px;
+}
+.qb-field {
+  margin: 14px 0;
+}
+.qb-grid {
+  gap: 12px;
+}
+.qb-choices {
+  margin: 14px 0;
+}
+.qb-choices label {
+  margin-top: 6px;
+}
+.qb-disclosure {
+  border: 1px solid #e1e9e4;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-top: 16px;
+  background: #f6f8f7;
+}
+.qb-disclosure > summary {
+  font-size: 14px;
+  font-weight: 600;
+  color: #176d58;
+  cursor: pointer;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+}
+.qb-disclosure[open] > summary {
+  margin-bottom: 12px;
+}
+.qb-disclosure.qb-source {
+  background: white;
+}
+.qb-question-review {
+  border-top: 2px solid #17302d;
+  margin-top: 22px;
+  padding-top: 12px;
+}
+.qb-editor-step-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: space-between;
+  border-top: 1px solid #e1e9e4;
+  padding-top: 12px;
+  margin-top: 18px;
+}
+.qb-manage-question {
+  margin-top: 14px;
+}
+.qb-manage-question summary {
+  cursor: pointer;
+  color: #176d58;
+  min-height: 32px;
+  font-size: 14px;
+}
+.qb-manage-question .qb-help {
+  margin-top: 8px;
+}
+.qb-outline-action {
+  display: block;
+  text-align: left;
+  width: 100%;
+  padding: 7px 16px 7px 30px;
+  min-height: 38px;
+  font-size: 14px;
+  color: #17302d;
+  background: transparent;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+.qb-outline-action:hover,
+.qb-outline-question:hover {
+  background: #f6faf8;
+}
+.qb-outline-action[aria-current],
+.qb-outline-question[aria-current] {
+  background: #eaf6ef;
+  box-shadow: inset 3px 0 0 #176d58;
+}
+.qb-outline-action:disabled {
+  color: #728177;
+  cursor: default;
+}
+.qb-group-heading {
+  padding: 8px 16px 2px 22px !important;
+  font-size: 13px !important;
+  font-weight: 650;
+  margin: 0 !important;
+  color: #2b4b42;
+}
+.qb-outline-question {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  gap: 8px;
+  padding: 7px 16px 7px 30px;
+  min-height: 38px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: #17302d;
+  font-size: 14px;
+}
+.qb-outline-question strong {
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+.qb-outline-question small {
+  font-size: 12px;
+  line-height: 1.4;
+  color: #4f6359;
+}
+.qb-outline-question .qb-mark-reviewed {
+  color: #176d58;
+}
+.qb-outline-question .qb-mark-review {
+  color: #895c0f;
+}
+.qb-outline-readiness {
+  padding: 14px 16px;
+  border-block: 1px solid #e1e9e4;
+  font-size: 13px;
+}
+.qb-outline-readiness p {
+  margin-top: 4px;
+  color: #4f6359;
+}
+.qb-overview > section {
+  margin-top: 20px;
+}
+.qb-overview h3 {
+  border-bottom: 2px solid #17302d;
+  padding-bottom: 6px;
+}
+.qb-overview .qb-actions {
+  margin-top: 14px;
+}
+.qb-overview-row {
+  display: grid;
+  gap: 4px;
+  text-align: left;
+  width: 100%;
+  padding: 10px 0;
+  border-bottom: 1px solid #e1e9e4;
+  cursor: pointer;
+  font-size: 14px;
+  background: none;
+}
+.qb-overview-row strong {
+  font-size: 13px;
+  color: #176d58;
+  overflow-wrap: anywhere;
+}
+.qb-overview-row span {
+  overflow-wrap: anywhere;
+}
+.qb-reading {
+  color: #17302d;
+  min-width: 0;
+}
+.aw-reading-content:has(> .qb-reading) {
+  padding: 0;
+}
+.qb-reading-credit {
+  font-size: 13px;
+  color: #4f6359;
+}
+.qb-reading-credit {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e1e9e4;
+}
+.qb-reading-credit a {
+  color: #176d58;
+  text-decoration: underline;
+}
+.qb-reading-passage {
+  padding: 10px 16px;
+  border-bottom: 1px solid #e1e9e4;
+}
+.qb-reading-passage h3 {
+  font-size: 13px !important;
+  font-weight: 650;
+}
+.qb-reading-passage .qb-help {
+  font-size: 12px;
+  color: #4f6359;
+  margin-top: 4px;
+}
+.qb-reading-cited {
+  background: #fffaf0;
+  box-shadow: inset 3px 0 0 #d39a2e;
+}
+.qb-text-action {
+  color: #176d58;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.qb-citation-link {
+  display: block;
+  color: #176d58;
+  text-decoration: underline;
+  font-size: 14px;
+  text-align: left;
+  min-height: 44px;
+  padding: 6px 0;
+  cursor: pointer;
+}
+.qb-reading-passage:focus-visible {
+  outline: 3px solid #2f8a6b;
+  outline-offset: -3px;
+}
+.qb-editor button:focus-visible,
+.qb-editor a:focus-visible,
+.qb-editor summary:focus-visible,
+.qb-outline-action:focus-visible,
+.qb-outline-question:focus-visible {
+  outline: 3px solid #2f8a6b;
+  outline-offset: 2px;
+}
+@media (max-width: 800px) {
+  .la-workspace .qb-editor h2 {
+    font-size: 20px;
+  }
+  .qb-outline-action,
+  .qb-outline-question {
+    min-height: 44px;
+  }
+  .qb-grid {
+    grid-template-columns: 1fr;
+  }
+  .qb-toolbar .lp-button {
+    flex: 1 1 140px;
+  }
+  .qb-editor .lp-button {
+    white-space: normal;
+    max-width: 100%;
+  }
+  .qb-select {
+    flex-basis: 100%;
+  }
+}

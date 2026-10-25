@@ -1,0 +1,91 @@
+{
+  "applicationHead": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+  "applicationTree": "466b42f5b70a33400115d9df5f876f65f3d9289f",
+  "buildSourceHead": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+  "buildId": "c3-z5ci6U8BgOEWk6IZj8",
+  "readyAt": "2026-10-25T14:34:07.179Z",
+  "inspectedAt": "2026-10-25T14:35:55.8479482Z",
+  "sourceCheckout": "C:/Users/sb128/.codex/worktrees/assignments-context-integration/LearningPlatform",
+  "origin": "http://127.0.0.1:3317",
+  "evidenceKind": "Direct inspection of current native combined report.json, ready.json and logs; no runtime actions performed during this inspection.",
+  "steps": [
+    {
+      "name": "combined-tests",
+      "exitCode": 0
+    },
+    {
+      "name": "combined-build",
+      "exitCode": 0
+    },
+    {
+      "name": "assignment-http",
+      "exitCode": 0
+    },
+    {
+      "name": "publishing-http",
+      "exitCode": 0
+    }
+  ],
+  "tests": {
+    "total": 625,
+    "passed": 625,
+    "failed": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "assignmentHttp": "passed",
+  "publishingHttp": "passed",
+  "httpScope": [
+    "Assignment read-only preview, private-guidance exclusion, context preservation, evidence/replay and separate activation/enrollment gates.",
+    "Authenticated publication, exact source/version preservation, new-version ownership/revision/idempotency boundaries and private-guidance exclusion."
+  ],
+  "limitations": [
+    "Native combined evidence is separate from PR118 standalone CI on ff16f12.",
+    "HTTP and test passes do not establish browser rendering, focus, native zoom, populated authoring UI actions or visual acceptance.",
+    "Both HTTP logs explicitly report no model calls. No live-model acceptance is claimed.",
+    "Only current report.json, ready.json and matching logs were inspected; older result files were excluded.",
+    "Runtime environment files, credentials, process identifiers and lease tokens are not copied into this receipt."
+  ],
+  "provenance": [
+    {
+      "file": "report.json",
+      "sourcePath": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a170fa-5b14-70e1-a097-397527a77a9b/assignment-combined-runtime/report.json",
+      "sha256": "21deb0e31ecda009a26ed8621ce140bcb0133879cfb16acee1df02077c5b51b9"
+    },
+    {
+      "file": "ready.json",
+      "sourcePath": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a170fa-5b14-70e1-a097-397527a77a9b/assignment-combined-runtime/ready.json",
+      "sha256": "702abbf96c3c803dd492fe06c9a83b247143eb00c3328b26b591259db0d30199"
+    },
+    {
+      "file": "combined-tests.log",
+      "sourcePath": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a170fa-5b14-70e1-a097-397527a77a9b/assignment-combined-runtime/combined-tests.log",
+      "sha256": "962be7f8865b1ef6096ed298a80392bea7a902a3fd1e04b9f9d7f1d8a4d0b0f0"
+    },
+    {
+      "file": "combined-build.log",
+      "sourcePath": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a170fa-5b14-70e1-a097-397527a77a9b/assignment-combined-runtime/combined-build.log",
+      "sha256": "bff49d56d14f1c149db404176df1d9cea920f100640b4cf95efd2c8b4080b7f0"
+    },
+    {
+      "file": "assignment-http.log",
+      "sourcePath": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a170fa-5b14-70e1-a097-397527a77a9b/assignment-combined-runtime/assignment-http.log",
+      "sha256": "b4b2a92ec8d3c4265b86c259adfaac88866e2d37222ffc1d0a57f5b7d7546cfc"
+    },
+    {
+      "file": "publishing-http.log",
+      "sourcePath": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a170fa-5b14-70e1-a097-397527a77a9b/assignment-combined-runtime/publishing-http.log",
+      "sha256": "c04d1eb83b49d99ce6071a6144f3f77c935632a84c3cefc5001333f58acdf310"
+    }
+  ],
+  "authoringSourceEquivalence": {
+    "head": "ff16f1201865f54676db30c24251fe29ceb1b5b1",
+    "paths": [
+      "app/teacher/lessons",
+      "app/teacher/materials",
+      "app/teacher/objectives"
+    ],
+    "gitDiffExitCode": 0
+  }
+}

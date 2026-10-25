@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "purpose": "Retained dense prototype and combined-before comparison for PR #118 V06/V07/V08; no new capture or current-head acceptance claim.",
+  "copied_at_utc": "2026-10-25T13:33:02.2365507Z",
+  "capture_method": "Existing unmodified PNGs copied byte-for-byte. Original reports, fixtures and screenshots remain unchanged.",
+  "combined_source_commit": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "combined_source_tree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "lessons_base_commit": "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445",
+  "lessons_base_is_ancestor_of_combined": true,
+  "ancestry_verification": "git merge-base --is-ancestor 9c44fe8eb1b122c0e7c1181e1f937ab4b3044445 462cfb1b31d9108cec70d18b6553bd45048d2eed returned 0 in the retained shell-reproduction checkout.",
+  "prototype": {
+    "fixture": "prototype-v22-networking",
+    "title": "Bandwidth and Latency",
+    "concepts": 5,
+    "passages": 13,
+    "questions": 15,
+    "source_version": 1,
+    "published_version": "3",
+    "assignment_rows": 4,
+    "active_assignments": 3,
+    "inactive_assignments": 1,
+    "class_enrollments": [18, 14, 46, 12],
+    "html_sha256": "c853369da1250adf24a741a38c3d94d3c97a976c012c352732cf4dd8d924cb54",
+    "archive_sha256": "74bc909dffba839d6850823b35b8c8fc3c67adf1a64b14d67f245560fb87768f",
+    "captured_from_utc": "2026-10-25T04:14:25.74Z",
+    "captured_until_utc": "2026-10-25T04:14:56.662Z",
+    "origin": "http://127.0.0.1:3349/Main.dc.html",
+    "source_commit": null
+  },
+  "before": {
+    "fixture": "combined-density-networking",
+    "title": "Bandwidth and Latency · density 44842225",
+    "lesson_id": "d9c5d9f4-5f3a-4556-b880-fdffa91dc6ec",
+    "source_id": "92422089-7e62-4036-bb01-871bfb3a9708",
+    "source_version": 1,
+    "published_version": "1",
+    "concepts": 5,
+    "passages": 13,
+    "questions": 19,
+    "assignment_rows": 4,
+    "active_assignments": 0,
+    "inactive_assignments": 4,
+    "class_enrollments": [0, 0, 0, 0],
+    "project": "lp-v22-shell5",
+    "origin": "http://localhost:3350",
+    "route": "/teacher/lessons/d9c5d9f4-5f3a-4556-b880-fdffa91dc6ec?version=1",
+    "captured_from_utc": "2026-10-25T07:10:51.683Z",
+    "captured_until_utc": "2026-10-25T07:11:03.734Z"
+  },
+  "comparison": {
+    "same_record": false,
+    "same_question_count": false,
+    "same_publication_version": false,
+    "same_assignment_states": false,
+    "same_enrollment": false,
+    "editable_r4_bank_equivalence": false,
+    "same_outline_scroll": false,
+    "source_topic_and_attribution_match": true,
+    "concept_and_passage_counts_match": true,
+    "notes": [
+      "Prototype has 15 bank questions; retained implementation has 15 base questions plus mandatory sequence snapshots D01, D02, D05, D06. No approved content was removed to force equivalence.",
+      "Prototype v3 and historical versions differ from the owned implementation v1.",
+      "Four class rows reproduce density only: prototype has 3 active populated classes plus 1 inactive; implementation has 4 inactive empty classes.",
+      "Implementation is an attributed approved-content service fixture, not the separate sparse R4 browser-authoring journey. It does not demonstrate editable five-concept bank approval.",
+      "Prototype outline is scrolled to the publication selection; implementation outline starts at the top. Editor panes show their publication top in both.",
+      "CSS viewport captures at device scale 1; these files do not prove native 200% zoom, screen-reader operation, live models or the updated PR #118 layout."
+    ]
+  },
+  "provenance": [
+    {
+      "path": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/prototype-verification/screenshots/report.json",
+      "sha256": "859e288ce5128a0a96369afc52a645b7b6cdc5aecefd96614885c35fe6dcd525"
+    },
+    {
+      "path": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/final-verification/published-density-01/report.json",
+      "sha256": "a9ae684502b3afdb6003a9d7f3c945d9a7ee7ff3cb699fc7faa256a4b53581b5"
+    },
+    {
+      "path": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/final-verification/PUBLISHED_DENSITY_VISUAL_REPORT.md",
+      "sha256": "6139bc8b33b9a56da834116ad89a9920947c6b393145805506ad3908b7ecccea"
+    }
+  ],
+  "captures": [
+    {
+      "file": "prototype-published-1440x1000.png",
+      "kind": "prototype",
+      "state": "published-top",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "ba8ddfe98aa496522a14ec98b01ca9a7394592b92b165c5633027064ff65de1d",
+      "bytes": 288389,
+      "source_path": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/prototype-verification/screenshots/lesson-published-1440x1000.png",
+      "fixture": "prototype-v22-networking",
+      "source_commit": null
+    },
+    {
+      "file": "before-published-1440x1000.png",
+      "kind": "before",
+      "state": "published-top",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "db6f8caad7a2b30648ebdfbac938d81698350682b8825dccbfbf193a5ee030eb",
+      "bytes": 119947,
+      "source_path": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/final-verification/published-density-01/published-top-1440x1000.png",
+      "fixture": "combined-density-networking",
+      "source_commit": "462cfb1b31d9108cec70d18b6553bd45048d2eed"
+    },
+    {
+      "file": "prototype-published-1024x768.png",
+      "kind": "prototype",
+      "state": "published-top",
+      "width": 1024,
+      "height": 768,
+      "sha256": "7e037de88f32d41a7f56810dd1b6c140045ef739530a5361e8ec921640d89f79",
+      "bytes": 129932,
+      "source_path": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/prototype-verification/screenshots/lesson-published-1024x768.png",
+      "fixture": "prototype-v22-networking",
+      "source_commit": null
+    },
+    {
+      "file": "before-published-1024x768.png",
+      "kind": "before",
+      "state": "published-top",
+      "width": 1024,
+      "height": 768,
+      "sha256": "a46874be67f902c83bfa23817610faf45f0d5064c6d20131582ffa94e4b51db6",
+      "bytes": 55075,
+      "source_path": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/final-verification/published-density-01/published-top-1024x768.png",
+      "fixture": "combined-density-networking",
+      "source_commit": "462cfb1b31d9108cec70d18b6553bd45048d2eed"
+    },
+    {
+      "file": "prototype-published-390x844.png",
+      "kind": "prototype",
+      "state": "published-top",
+      "width": 390,
+      "height": 844,
+      "sha256": "a1487fdcdf41aafbb07e40f9344851acc3d9158ce141a8fae0c21610df6a0bb4",
+      "bytes": 71136,
+      "source_path": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/prototype-verification/screenshots/lesson-published-390x844.png",
+      "fixture": "prototype-v22-networking",
+      "source_commit": null
+    },
+    {
+      "file": "before-published-390x844.png",
+      "kind": "before",
+      "state": "published-top",
+      "width": 390,
+      "height": 844,
+      "sha256": "184f7b202ff790abb9d74482d2f2aa5bb69aa394da7efe71fe8983e345ead165",
+      "bytes": 33069,
+      "source_path": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/final-verification/published-density-01/published-top-390x844.png",
+      "fixture": "combined-density-networking",
+      "source_commit": "462cfb1b31d9108cec70d18b6553bd45048d2eed"
+    },
+    {
+      "file": "prototype-published-320x844.png",
+      "kind": "prototype",
+      "state": "published-top",
+      "width": 320,
+      "height": 844,
+      "sha256": "bcfbf9a4f90d71959b014770bc7540fcd42b71c876680005d138f9c09117e59e",
+      "bytes": 65192,
+      "source_path": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/prototype-verification/screenshots/lesson-published-320x844.png",
+      "fixture": "prototype-v22-networking",
+      "source_commit": null
+    },
+    {
+      "file": "before-published-320x844.png",
+      "kind": "before",
+      "state": "published-top",
+      "width": 320,
+      "height": 844,
+      "sha256": "cee19280c849996f01f8fba24b6fb2d4103cae0dce5c89e707e7c2015579ca98",
+      "bytes": 26826,
+      "source_path": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/final-verification/published-density-01/published-top-320x844.png",
+      "fixture": "combined-density-networking",
+      "source_commit": "462cfb1b31d9108cec70d18b6553bd45048d2eed"
+    }
+  ]
+}
