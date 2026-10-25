@@ -1,0 +1,51 @@
+{
+  "buildId": "HtaS4giOIyQwXjoRhr4V8",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "checks": [
+    "delivered summary has no display/start/submit mutation; another student cannot list, read or open the assigned review"
+  ],
+  "states": [],
+  "errors": [],
+  "requests": [
+    {
+      "path": "/api/student/interventions/afb9dfeb-1f46-477d-8969-edd1e0a9e9ec",
+      "action": "displayed"
+    }
+  ],
+  "snapshots": [],
+  "fixture": {
+    "approvalId": "afb9dfeb-1f46-477d-8969-edd1e0a9e9ec",
+    "draftId": "84ad906b-378e-4ecc-b3a6-97cfd4deef38",
+    "assignmentId": "53261f6a-13b8-4cc6-abe6-eabb6fd2fdac",
+    "conceptId": "11e79040-8707-49d7-9492-b31499dd5d88",
+    "conceptName": "Evaporation",
+    "contentRef": {
+      "source_kind": "uploaded",
+      "source_id": "353bfde4-04bb-43ba-ba0e-edf049647dd4",
+      "source_version": 1,
+      "document_sha256": "8b1962d35bca66984155f1416a6dd6ee226b70be4510f0a4ae532b3b317fb4c1",
+      "excerpt_sha256": "85e9bfd7dea721f766279eb9f3085ac45bd7bec6b071a015cc76ebe9caf3b51c",
+      "attribution": {
+        "title": "Water changing state",
+        "authors": ["Fictional demo teacher"],
+        "copyright": "2026 Fictional demo teacher",
+        "section": "Evaporation and condensation",
+        "url": null,
+        "license": "Original synthetic material; permitted for this demo",
+        "license_url": null,
+        "cautions": [
+          "This short reading does not cover boiling, freezing, or weather prediction."
+        ]
+      },
+      "access_scope": {
+        "teacher_id": "10000000-0000-4000-8000-000000000001"
+      },
+      "package_id": "2c9fe4f6-90dc-4b96-9301-e0ddf87b8ec1",
+      "content_version": "1"
+    },
+    "originalAttemptId": "75e55fe7-604e-489d-85e8-d191adf7abe3",
+    "originalSessionId": "c06257be-b855-4289-9bac-b95b0390e9a9"
+  },
+  "failure": "AssertionError [ERR_ASSERTION]: null == true\n    at file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a1749b-290b-7f00-8f38-54a3194c6481/s3-review/app/study/notebook/reviews/verification/s3/workflow.mjs:252:10\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)"
+}

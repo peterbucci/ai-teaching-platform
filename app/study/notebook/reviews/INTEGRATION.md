@@ -1,5 +1,23 @@
 # N5 teacher-review presentation
 
+**S3 integration update:** The authenticated review route now mounts N1's existing
+`NotebookShell` around one unchanged `DeliveredActivity`, using page-local
+`ReviewWorkspace`/`ReviewSectionLink` presentation. The frame's optional `embedded`
+flag delegates the visible title to N1. Summary status metadata is disclosed rather
+than repeated on every row; saved results remain unknown until the owner loads them.
+Optional read-only feedback presenters accept pinned public `conceptNames` and
+use “Concept name unavailable” when absent, never a raw ID.
+
+The review route accepts an optional bounded `returnTo` for Notebook/My Learning/
+assignment saved-work navigation. It is never authorization input. Source context
+contains links and identity only; original excerpts stay under the controller's
+observer. The generic missing/unauthorized route reveals no activity identity.
+See [S3 results and deviations](verification/s3/REPORT.md) and
+[N6 handoff](verification/s3/N6_HANDOFF.md). Independent acceptance is pending.
+
+The original N5-only package description below is preserved as implementation
+history; its unmounted status is superseded by N7 and this S3 integration.
+
 These components consume the existing public `StudentIntervention` and
 `StudentInterventionFollowup` types. They have no loaders, mutations, state,
 storage, model calls, display acknowledgments, or ordinary tutoring composer.

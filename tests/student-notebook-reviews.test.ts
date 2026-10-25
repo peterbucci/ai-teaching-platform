@@ -17,6 +17,7 @@ import {
   acceptedFixture as accepted,
 } from "../app/study/notebook/reviews/verification/fixtures.ts";
 import type { StudentInterventionFollowup } from "../lib/interventions/outcomes-contracts.ts";
+import { reviewReturnContext } from "../app/study/notebook/reviews/return-context.ts";
 
 const ready = (followup: StudentInterventionFollowup) => ({
   status: "ready" as const,
@@ -356,4 +357,62 @@ test("presenters own no mutations, storage, display receipts or ordinary tutor c
     source,
     /\bfetch\s*\(|\buseEffect\b|\bsessionStorage\b|\blocalStorage\b|IntersectionObserver|StudyDialogue|onExplanationDisplayed/,
   );
+});
+
+test("review return preserves bounded Notebook filters and rejects external or action routes", () => {
+  const notebook = "/study/history?search=water&origin=synthetic_fixture";
+  assert.deepEqual(reviewReturnContext(notebook), {
+    href: notebook,
+    label: "Your notebook",
+  });
+  const work = `/study/assignments/${review.assignment_id}?tab=work&session=aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa`;
+  assert.equal(reviewReturnContext(work).href, work);
+  for (const value of [
+    undefined,
+    "https://example.com",
+    "//example.com",
+    "/study/../teacher",
+    "/study%2fhistory",
+    "/study/history?x=" + "x".repeat(4096),
+    `/study/interventions/${review.approval_id}`,
+    `/study/assignments/${review.assignment_id}?tab=study`,
+    "/study/history\n",
+  ]) {
+    assert.equal(reviewReturnContext(value).href, "/study/assignments");
+  }
+});
+
+test("read-only review feedback uses supplied public names and never prints raw concept IDs", () => {
+  const conceptId = "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa";
+  const props = {
+    intervention: review,
+    followup: ready({
+      ...accepted,
+      results: [{ concept_id: conceptId, correctness: "correct" as const }],
+    }),
+  };
+  const [named, absent] = render([
+    {
+      component: "ReviewFeedback",
+      props: { ...props, conceptNames: { [conceptId]: "Evaporation" } },
+    },
+    { component: "ReviewFeedback", props },
+  ]);
+  assert.match(named, /Evaporation/);
+  assert.match(absent, /Concept name unavailable/);
+  assert.equal(named.includes(conceptId), false);
+  assert.equal(absent.includes(conceptId), false);
+});
+
+test("embedded frame delegates its visible title and mounts one stable controller target", () => {
+  const [html] = render([
+    {
+      component: "TeacherReviewFrame",
+      props: { intervention: review, embedded: true },
+      controllerSlot: true,
+    },
+  ]);
+  assert.equal(html.includes("<h1"), false);
+  assert.equal(html.match(/data-controller-slot/g)?.length, 1);
+  assert.match(html, /id="review-activity" tabindex="-1"/);
 });
