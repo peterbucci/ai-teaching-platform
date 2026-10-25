@@ -1,0 +1,152 @@
+{
+  "sourceAcceptanceCommit": "b4bba034bf92583c28cd277d73787eb6ad36a812",
+  "sourceBundle": "C:/Users/sb128/.codex/worktrees/workbench-v22-final-acceptance-report/LearningPlatform/acceptance/v22/snapshots/2026-10-25-final-07efb7f8/final-bundle",
+  "destination": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a174be-f6b2-7012-b723-c460b8858df5/verification",
+  "createdAt": "2026-10-25T20:30:56.9138232Z",
+  "files": [
+    {
+      "file": "runner.mjs",
+      "sourcePath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-acceptance-report\\LearningPlatform\\acceptance\\v22\\snapshots\\2026-10-25-final-07efb7f8\\final-bundle\\runner.mjs",
+      "sourceSha256": "ee0710ea8db7955f29ac2059d129f08fa787831e447ad9f7f76c60a6f4fda892",
+      "destinationSha256": "b7e98f18be739997935617728180e6e9894bb939a8aaf70f5d9018f28bcfc683"
+    },
+    {
+      "file": "safety.mjs",
+      "sourcePath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-acceptance-report\\LearningPlatform\\acceptance\\v22\\snapshots\\2026-10-25-final-07efb7f8\\final-bundle\\safety.mjs",
+      "sourceSha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+      "destinationSha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485"
+    },
+    {
+      "file": "safety.test.mjs",
+      "sourcePath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-acceptance-report\\LearningPlatform\\acceptance\\v22\\snapshots\\2026-10-25-final-07efb7f8\\final-bundle\\safety.test.mjs",
+      "sourceSha256": "819efd0de539780581236109fcbe72cde23352748942c77c80392eb235dd30d3",
+      "destinationSha256": "819efd0de539780581236109fcbe72cde23352748942c77c80392eb235dd30d3"
+    },
+    {
+      "file": "authoring-tests.mjs",
+      "sourcePath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-acceptance-report\\LearningPlatform\\acceptance\\v22\\snapshots\\2026-10-25-final-07efb7f8\\final-bundle\\authoring-tests.mjs",
+      "sourceSha256": "4a0d32571f990213896739974e272901299582a4fc4d31621118fda51c793954",
+      "destinationSha256": "409609814a0babb81e19f08eeafef7af8bdb215acecc95a9d12da162109c26b5"
+    }
+  ],
+  "adaptations": [
+    {
+      "to": "teacher-workbench-combined-01a174be-v1",
+      "from": "workbench-v22-final-integration-01a173d6-v1"
+    },
+    {
+      "to": "shell: 3417",
+      "from": "shell: 3396"
+    },
+    {
+      "to": "shell: \"lp-teacher-combined-01a174be\"",
+      "from": "shell: \"lp-v22-final-01a173d6\""
+    },
+    {
+      "to": "ee0710ea8db7955f29ac2059d129f08fa787831e447ad9f7f76c60a6f4fda892",
+      "from": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d"
+    },
+    {
+      "file": "authoring-tests.mjs",
+      "change": "Root added app/teacher/overview/overview.test.ts to the explicit import list; retains all seven existing authoring test paths",
+      "sourceSha256": "4a0d32571f990213896739974e272901299582a4fc4d31621118fda51c793954",
+      "destinationSha256": "409609814a0babb81e19f08eeafef7af8bdb215acecc95a9d12da162109c26b5"
+    }
+  ],
+  "target": "shell",
+  "project": "lp-teacher-combined-01a174be",
+  "port": 3449,
+  "proposedInternalSubnet": "10.234.91.0/24",
+  "proposedBrowserSubnet": "10.234.90.0/24",
+  "subnetStatus": "must be checked unused by init and parent",
+  "applicationPin": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8",
+  "providers": "disabled by unchanged runner",
+  "executionStatus": "prepared only; no runtime, DB, build or browser execution",
+  "unchangedGuard": true,
+  "validation": {
+    "runnerSyntax": "pass",
+    "authoringLauncherSyntax": "pass",
+    "safetyTests": {
+      "command": "node --test safety.test.mjs",
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "log": "safety-tests.log",
+      "sha256": "4a00d1da156fad83584a6d60ed330803cb1e78d5f41eb35214eda3c82afc536d"
+    },
+    "applicationChecks": "unrun",
+    "databaseChecks": "unrun",
+    "browserChecks": "unrun"
+  },
+  "preparedClone": {
+    "file": "clone-original-fixture.mjs",
+    "sha256": "cd1b6a94b46a109500a4015a32002a681f44052e47b483fa848cd565fcef660d",
+    "syntax": "pass",
+    "execution": "not executed by preparer",
+    "sourceProject": "lp-v22-final-01a173d6",
+    "targetProject": "lp-teacher-combined-01a174be",
+    "sourceApplicationSha": "07efb7f821339538800f150f57b298eb2e606be3",
+    "targetApplicationSha": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8",
+    "targetTree": "333b73e1cae1daddf6edd61300655d0b4825ed67",
+    "runtimeAuthority": "Explicit --execute; parent review required before execution",
+    "sourceAccess": "pg_dump/psql forced read-only, fingerprints before/after",
+    "targetWrite": "Restore scoped exclusively to new owned target DB in one transaction; backup retained",
+    "credentials": "Copy only six demo identity/login fields; keep target auth/DB secrets and blank providers",
+    "privateArtifacts": "Raw DB dumps and environment backups remain inside private runtime; exclude from publication",
+    "ownershipGate": "Read-only target assertion requires database owner learning_app, public schema owner learning_app/pg_database_owner, schema access, and no differently owned public tables before restore.",
+    "jsonParsingCorrection": {
+      "reason": "Original composite json_agg returned multiline JSON; taking its first line failed before any mutation",
+      "preservedHelper": "clone-original-fixture-before-json-fix.mjs",
+      "preservedHelperSha256": "c09c313b26b7ec8fa3e612cead79d7d36fb6669b116f5b9b6e34b15064242433",
+      "change": "Single read-only SELECT uses jsonb_agg and parses complete bounded response with table-count assertion",
+      "runtime": "not reexecuted by preparer",
+      "syntax": "pass"
+    }
+  },
+  "runtimeCorrections": [
+    {
+      "oldPort": 3417,
+      "newPort": 3449,
+      "reason": "Root verified 3417 occupied by unrelated PID101696; 3449 bind probe succeeded",
+      "previousCopies": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime\\port-correction-2026-10-25T20-39-36-137Z",
+      "correctedAt": "2026-10-25T20:39:36.14Z",
+      "scope": "owned runtime files only; prior run receipts unchanged"
+    }
+  ],
+  "persistenceHelper": {
+    "file": "verify-final-persistence.mjs",
+    "sha256": "3b99216bd56bdaea66bc298cfc2761995ba8c861942b21d5117f858abf42c5b7",
+    "syntax": "pass",
+    "execution": "prepared, not executed",
+    "restartScope": "Only owned lp-teacher-combined-01a174be-db-1 once; all public row fingerprints and exact runtime identity verified",
+    "reconcile": "Separate read-only mode; no repeat restart; checks preserved owner token before releasing retained lock",
+    "browserGate": "Caller must pass --browsers-closed after finishing browser jobs"
+  },
+  "cloneDiagnosis": {
+    "file": "inspect-clone-auth-delta.mjs",
+    "sha256": "81a66817f2f17a343f2a94f060850171a4324664b0763cfef8fdbb3c2c0ee45b",
+    "execution": "Read-only inspection executed successfully under retained owned lock",
+    "receipt": "runtime/clone-original-2026-10-25T20-41-48-928Z/auth-delta-inspection.json",
+    "result": "Original source unchanged; all 31 non-auth_session public tables and all 89 original auth-session rows retained; one new fictional teacher session retained; request origin unattributed"
+  },
+  "cloneFinalization": {
+    "file": "finalize-clone-reconciliation.mjs",
+    "sha256": "fce4088582197c50a988bc505c9070efb4e044d4a9797490e1cc65822b57b08f",
+    "execution": "prepared, not executed",
+    "action": "Record qualified clone completion with preserved auth delta and release exact verified own lock; no DB/Docker mutation"
+  },
+  "publicationPreparation": {
+    "wrapper": "publish-evidence.mjs",
+    "wrapperSha256": "30598a4e34623a6de625cb9f7965c8a4559c90d9af0c656164dcb4d7bcc5faf1",
+    "packager": "package-evidence.py",
+    "packagerSha256": "e573cd24170266bae3fa002c91a8b51d8911e674b5ebd5aa46e1c55d4b092942",
+    "syntax": "pass",
+    "execution": "prepared only; not run",
+    "destination": "C:/Users/sb128/.codex/worktrees/teacher-workbench-combined/LearningPlatform/acceptance/teacher-workbench-combined",
+    "policy": "Explicit artifact families only; scripts/SQL/patches/raw logs archived only. Published MD/JSON/HTML are formatted with existing repo Prettier before final hashes. Screenshots and selected human-readable TXT stay byte-identical. No CI exclusions.",
+    "redactions": "Only ended coordination lock token fields, explicit source/output hashes; any other secret or credential finding stops publication",
+    "checks": "Known-secret exact bytes; sensitive JSON keys; key material; PNG signatures/dimensions; complete gallery and Markdown report local links; stable source hashes; deterministic ZIP member hashes; no executable scripts outside archive",
+    "limitations": "Image visual/privacy judgment remains reviewer work; counts will reflect final execution, not current partial inventory",
+    "hashes": "Separate original source hashes, raw archive member hashes and published formatted derivative hashes; screenshot bytes unchanged"
+  }
+}

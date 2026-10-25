@@ -1,0 +1,405 @@
+{
+  "category": "Authorized stopped-owner reconciliation",
+  "startedAt": "2026-10-25T20:58:11.851Z",
+  "owner": {
+    "mode": "guarded-fixture-prepare",
+    "source": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+    "state": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+    "project": "lp-teacher-combined-01a174be",
+    "sourceSha": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8",
+    "token": "[REDACTED local coordination lock token]",
+    "pid": 144392,
+    "startedAt": "2026-10-25T20:53:50.428Z"
+  },
+  "originalWrapperSha256": "69a53caeff5fd58cac6b32c4bf254797657b81c6724b94317eef8f6ddd1c801b",
+  "checks": [
+    {
+      "label": "reconciliation-identity",
+      "gate": {
+        "observedAt": "2026-10-25T20:58:11.853Z",
+        "minimumGiB": 10,
+        "host": [
+          {
+            "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+            "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+            "availableBytes": 27203940352,
+            "availableGiB": 25.335643768310547,
+            "minimumGiB": 10,
+            "pass": true
+          },
+          {
+            "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+            "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+            "availableBytes": 27203940352,
+            "availableGiB": 25.335643768310547,
+            "minimumGiB": 10,
+            "pass": true
+          },
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+            "availableBytes": 27203940352,
+            "availableGiB": 25.335643768310547,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ],
+        "engine": {
+          "status": "healthy",
+          "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+          "name": "docker-desktop",
+          "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+          "root": "/var/lib/docker",
+          "storage": {
+            "status": "verified",
+            "method": "read-only df on explicitly selected existing container volume",
+            "container": "lp-v22-final-01a173d6-db-1",
+            "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+            "destination": "/var/lib/postgresql/data",
+            "availableBytes": 897584136192,
+            "availableGiB": 835.9403686523438,
+            "pass": true
+          }
+        },
+        "backingStorage": {
+          "provenance": "explicit owner-verified Docker storage path",
+          "disks": [
+            {
+              "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+              "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+              "availableBytes": 27203891200,
+              "availableGiB": 25.33559799194336,
+              "minimumGiB": 10,
+              "pass": true
+            }
+          ]
+        },
+        "pass": true
+      }
+    },
+    {
+      "label": "reconciliation-processes-before",
+      "gate": {
+        "observedAt": "2026-10-25T20:58:14.088Z",
+        "minimumGiB": 10,
+        "host": [
+          {
+            "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+            "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+            "availableBytes": 27201925120,
+            "availableGiB": 25.33376693725586,
+            "minimumGiB": 10,
+            "pass": true
+          },
+          {
+            "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+            "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+            "availableBytes": 27201925120,
+            "availableGiB": 25.33376693725586,
+            "minimumGiB": 10,
+            "pass": true
+          },
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+            "availableBytes": 27201925120,
+            "availableGiB": 25.33376693725586,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ],
+        "engine": {
+          "status": "healthy",
+          "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+          "name": "docker-desktop",
+          "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+          "root": "/var/lib/docker",
+          "storage": {
+            "status": "verified",
+            "method": "read-only df on explicitly selected existing container volume",
+            "container": "lp-v22-final-01a173d6-db-1",
+            "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+            "destination": "/var/lib/postgresql/data",
+            "availableBytes": 897584136192,
+            "availableGiB": 835.9403686523438,
+            "pass": true
+          }
+        },
+        "backingStorage": {
+          "provenance": "explicit owner-verified Docker storage path",
+          "disks": [
+            {
+              "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+              "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+              "availableBytes": 27203334144,
+              "availableGiB": 25.335079193115234,
+              "minimumGiB": 10,
+              "pass": true
+            }
+          ]
+        },
+        "pass": true
+      }
+    },
+    {
+      "label": "reconciliation-copy-helper",
+      "gate": {
+        "observedAt": "2026-10-25T20:58:16.267Z",
+        "minimumGiB": 10,
+        "host": [
+          {
+            "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+            "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+            "availableBytes": 27203104768,
+            "availableGiB": 25.33486557006836,
+            "minimumGiB": 10,
+            "pass": true
+          },
+          {
+            "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+            "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+            "availableBytes": 27203104768,
+            "availableGiB": 25.33486557006836,
+            "minimumGiB": 10,
+            "pass": true
+          },
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+            "availableBytes": 27203022848,
+            "availableGiB": 25.334789276123047,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ],
+        "engine": {
+          "status": "healthy",
+          "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+          "name": "docker-desktop",
+          "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+          "root": "/var/lib/docker",
+          "storage": {
+            "status": "verified",
+            "method": "read-only df on explicitly selected existing container volume",
+            "container": "lp-v22-final-01a173d6-db-1",
+            "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+            "destination": "/var/lib/postgresql/data",
+            "availableBytes": 897584132096,
+            "availableGiB": 835.9403648376465,
+            "pass": true
+          }
+        },
+        "backingStorage": {
+          "provenance": "explicit owner-verified Docker storage path",
+          "disks": [
+            {
+              "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+              "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+              "availableBytes": 27202592768,
+              "availableGiB": 25.334388732910156,
+              "minimumGiB": 10,
+              "pass": true
+            }
+          ]
+        },
+        "pass": true
+      }
+    },
+    {
+      "label": "reconciliation-read-only",
+      "gate": {
+        "observedAt": "2026-10-25T20:58:18.031Z",
+        "minimumGiB": 10,
+        "host": [
+          {
+            "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+            "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+            "availableBytes": 27202473984,
+            "availableGiB": 25.334278106689453,
+            "minimumGiB": 10,
+            "pass": true
+          },
+          {
+            "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+            "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+            "availableBytes": 27202473984,
+            "availableGiB": 25.334278106689453,
+            "minimumGiB": 10,
+            "pass": true
+          },
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+            "availableBytes": 27202473984,
+            "availableGiB": 25.334278106689453,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ],
+        "engine": {
+          "status": "healthy",
+          "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+          "name": "docker-desktop",
+          "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+          "root": "/var/lib/docker",
+          "storage": {
+            "status": "verified",
+            "method": "read-only df on explicitly selected existing container volume",
+            "container": "lp-v22-final-01a173d6-db-1",
+            "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+            "destination": "/var/lib/postgresql/data",
+            "availableBytes": 897584123904,
+            "availableGiB": 835.940357208252,
+            "pass": true
+          }
+        },
+        "backingStorage": {
+          "provenance": "explicit owner-verified Docker storage path",
+          "disks": [
+            {
+              "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+              "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+              "availableBytes": 27202392064,
+              "availableGiB": 25.33420181274414,
+              "minimumGiB": 10,
+              "pass": true
+            }
+          ]
+        },
+        "pass": true
+      }
+    },
+    {
+      "label": "reconciliation-copy-receipt",
+      "gate": {
+        "observedAt": "2026-10-25T20:58:19.947Z",
+        "minimumGiB": 10,
+        "host": [
+          {
+            "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+            "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+            "availableBytes": 27201572864,
+            "availableGiB": 25.333438873291016,
+            "minimumGiB": 10,
+            "pass": true
+          },
+          {
+            "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+            "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+            "availableBytes": 27201572864,
+            "availableGiB": 25.333438873291016,
+            "minimumGiB": 10,
+            "pass": true
+          },
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+            "availableBytes": 27201572864,
+            "availableGiB": 25.333438873291016,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ],
+        "engine": {
+          "status": "healthy",
+          "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+          "name": "docker-desktop",
+          "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+          "root": "/var/lib/docker",
+          "storage": {
+            "status": "verified",
+            "method": "read-only df on explicitly selected existing container volume",
+            "container": "lp-v22-final-01a173d6-db-1",
+            "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+            "destination": "/var/lib/postgresql/data",
+            "availableBytes": 897584119808,
+            "availableGiB": 835.9403533935547,
+            "pass": true
+          }
+        },
+        "backingStorage": {
+          "provenance": "explicit owner-verified Docker storage path",
+          "disks": [
+            {
+              "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+              "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+              "availableBytes": 27201437696,
+              "availableGiB": 25.33331298828125,
+              "minimumGiB": 10,
+              "pass": true
+            }
+          ]
+        },
+        "pass": true
+      }
+    },
+    {
+      "label": "reconciliation-processes-after",
+      "gate": {
+        "observedAt": "2026-10-25T20:58:21.549Z",
+        "minimumGiB": 10,
+        "host": [
+          {
+            "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+            "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+            "availableBytes": 27202166784,
+            "availableGiB": 25.33399200439453,
+            "minimumGiB": 10,
+            "pass": true
+          },
+          {
+            "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+            "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+            "availableBytes": 27202166784,
+            "availableGiB": 25.33399200439453,
+            "minimumGiB": 10,
+            "pass": true
+          },
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+            "availableBytes": 27202166784,
+            "availableGiB": 25.33399200439453,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ],
+        "engine": {
+          "status": "healthy",
+          "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+          "name": "docker-desktop",
+          "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+          "root": "/var/lib/docker",
+          "storage": {
+            "status": "verified",
+            "method": "read-only df on explicitly selected existing container volume",
+            "container": "lp-v22-final-01a173d6-db-1",
+            "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+            "destination": "/var/lib/postgresql/data",
+            "availableBytes": 897584119808,
+            "availableGiB": 835.9403533935547,
+            "pass": true
+          }
+        },
+        "backingStorage": {
+          "provenance": "explicit owner-verified Docker storage path",
+          "disks": [
+            {
+              "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+              "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+              "availableBytes": 27202068480,
+              "availableGiB": 25.333900451660156,
+              "minimumGiB": 10,
+              "pass": true
+            }
+          ]
+        },
+        "pass": true
+      }
+    }
+  ],
+  "lockReleased": true,
+  "status": "terminal-failure-reconciled",
+  "dataReceiptSha256": "ec1a20d9835801b328e63de2700cc9b6422148bda68d2d398c0db73d0ba4f3a5",
+  "finishedAt": "2026-10-25T20:58:23.143Z"
+}

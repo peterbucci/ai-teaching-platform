@@ -1,0 +1,18 @@
+Prepared-only supplementary check; do not run while another acceptance guard owner is active.
+
+$v = 'C:/Users/sb128/.codex/visualizations/2026/10/25/01a174be-f6b2-7012-b723-c460b8858df5/verification'
+$state = 'C:/Users/sb128/.codex/visualizations/2026/10/25/01a174be-f6b2-7012-b723-c460b8858df5/runtime'
+$pw = 'C:/Users/sb128/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright'
+$env:BROWSER_EXECUTABLE = 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'
+node "$v/journey-bundle/combined-structure-handoffs.mjs" $state "$v/structure-handoffs-01" $pw "$v/journey-bundle/safety.mjs"
+
+The existing unchanged runtime wrapper pins combined commit c26664e49b7cc15fa7c63828f5c582c9b8cac2d8, tree333b73e1cae1daddf6edd61300655d0b4825ed67, projectlp-teacher-combined-01a174be and originhttp://localhost:3449. It acquires/releases PR121's guard, performs storage preflight, serializes one fictional teacher login, and blocks every request method except GET/HEAD thereafter. Explicit API inspections use GET only.
+
+Four bounded functional checks at1440 (responsive visual matrix is separate):
+R04-decision: click a real Needs a decision exact-record link; compare displayed original question/response, assignment/session/attempt/evaluation/source identity and read-only session before/after.
+R04-assignment: click a real all-assignment rail item; verify authorized metrics identity, destination scope and displayed assignment title.
+R04-resume: open the exact inherited unfinished evaporation lesson and one discovered existing private intervention; verify exact saved identity/title/revision plus API snapshots unchanged. Missing existing private work fails visibly; this helper never creates replacement fixtures.
+R06-prepare: open the actual populated curated concern, follow Prepare an intervention, verify every seed identity/scope key and checked starting selection in a bounded preview, preserved related/contrary rows, source/version details and contextual return. It never invokes generation, changes checkboxes, selects recipients or saves.
+
+Source selectors were inspected at the pinned combined commit: app/teacher/page.tsx and overview/model.ts/load.ts; insights/model.ts/page.tsx; interventions/page.tsx/workspace.tsx/review.tsx; lessons/workbench.tsx; teacher/workspace-contracts.ts. Browser readiness follows actual owner DOM; no replacement markup or receiver mode.
+Missing fixtures, page errors, unexpected requests and failed invariants remain explicit failures with actual screenshots. Passing this supplement does not establish visual or independent acceptance.

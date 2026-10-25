@@ -1,0 +1,168 @@
+{
+  "mode": "prepare",
+  "status": "failed",
+  "source_sha": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8",
+  "source_tree": "333b73e1cae1daddf6edd61300655d0b4825ed67",
+  "project": "lp-teacher-combined-01a174be",
+  "origin": "http://localhost:3449",
+  "input_sha256": "ec8adca3c3bc7b7ee5fc478a5df9b339c3d67983d42f951d7987f844db89673f",
+  "harness_sha256": "fbb7969dec4ae62efe8dad1872edabe91d84161b6eda19403aaf81292c8563ba",
+  "started_at": "2026-10-25T20:53:58.635Z",
+  "actual_model_calls": 0,
+  "injected_evaluation_calls": 0,
+  "injected_draft_calls": 1,
+  "seams": [
+    {
+      "kind": "inherited-original-answer",
+      "read_only": true,
+      "evaluation_id": "2531aac6-c71d-400a-948d-4bb29ac79535",
+      "model": "synthetic-same-browser-journey",
+      "reevaluated": false
+    }
+  ],
+  "authoring": {
+    "status": "passed",
+    "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+    "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+    "sha": "07efb7f821339538800f150f57b298eb2e606be3",
+    "tree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+    "origin": "http://localhost:3396",
+    "student_id": "10000000-0000-4000-8000-000000000002",
+    "lesson_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+    "assignment_id": "382f0724-3800-4e6c-8a15-40b4813cb4ab",
+    "student_session_id": "c619a811-af67-4aeb-9348-686fe439db98",
+    "presented_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+    "content_ref": {
+      "source_kind": "uploaded",
+      "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+      "source_version": 1,
+      "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+      "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+      "attribution": {
+        "title": "Water changing state · verification 1792946023062",
+        "authors": ["Fictional acceptance teacher"],
+        "copyright": "2026 fictional acceptance fixture",
+        "section": "Imported source",
+        "url": null,
+        "license": "Original synthetic material; permitted for this test",
+        "license_url": null,
+        "cautions": []
+      },
+      "access_scope": {
+        "teacher_id": "10000000-0000-4000-8000-000000000001"
+      },
+      "package_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+      "content_version": "1"
+    },
+    "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+    "source_version": 1,
+    "published_version": "1",
+    "original_response": "  I think evaporation makes liquid water stop existing rather than changing its state.\nThis is an original fictional acceptance response.  ",
+    "class_id": "20000000-0000-4000-8000-000000000001",
+    "run_id": "Water changing state · verification 1792946023062",
+    "functional_completed_through": "teacher-original-evidence",
+    "target": "shell",
+    "paid_calls": 0
+  },
+  "request_namespace": "00bd6f75-2e4a-41e5-889b-a264b513449c",
+  "fixture_scope": "Original lesson/answer/accepted evaluation inherited from the explicitly cloned fictional baseline; no new authoring or original evaluation/controller execution is claimed. New private draft and subsequent browser lifecycle run on the current candidate.",
+  "original_attempt_snapshot": {
+    "id": "ae652658-924b-485d-9a87-7281a7501099",
+    "session_id": "c619a811-af67-4aeb-9348-686fe439db98",
+    "sequence_index": 0,
+    "parent_attempt_id": null,
+    "root_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+    "review_of_attempt_id": null,
+    "question": {
+      "origin": "curated",
+      "question_id": "teacher-251fda60-a4de-49ce-b6cb-7334ee4eaeb1",
+      "sequence_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad:teacher-251fda60-a4de-49ce-b6cb-7334ee4eaeb1:practice",
+      "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+      "content_ref": {
+        "source_kind": "uploaded",
+        "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+        "source_version": 1,
+        "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+        "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+        "attribution": {
+          "title": "Water changing state · verification 1792946023062",
+          "authors": ["Fictional acceptance teacher"],
+          "copyright": "2026 fictional acceptance fixture",
+          "section": "Imported source",
+          "url": null,
+          "license": "Original synthetic material; permitted for this test",
+          "license_url": null,
+          "cautions": []
+        },
+        "access_scope": {
+          "teacher_id": "10000000-0000-4000-8000-000000000001"
+        },
+        "package_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+        "content_version": "1"
+      },
+      "concept_ids": ["d1edb362-fa58-4e34-b8af-08c1f685e583"],
+      "source_passage_ids": ["p001"],
+      "rubric": {
+        "version": "teacher-review-v1",
+        "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+        "criteria": [
+          "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+        ],
+        "acceptable_variations": [
+          "Water becomes a gas in the air; the material still exists."
+        ],
+        "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+      },
+      "embedded_scaffolding": [],
+      "generation": null
+    },
+    "intent": "initial_retrieval",
+    "presented_at": "2026-10-25T16:33:59.557Z",
+    "submitted_at": "2026-10-25T16:41:03.424Z",
+    "response_text": "  I think evaporation makes liquid water stop existing rather than changing its state.\nThis is an original fictional acceptance response.  ",
+    "submission_key": "12482ec6-7609-464e-8b71-c803921b4d51",
+    "assistance": {
+      "intervention_ids": [],
+      "assistance_level": "none_recorded",
+      "scaffolding_types": [],
+      "independent_retrieval_eligible_by_concept": {
+        "d1edb362-fa58-4e34-b8af-08c1f685e583": true
+      },
+      "most_recent_content_assistance_at": null,
+      "elapsed_since_content_assistance_seconds": null
+    },
+    "current_evaluation_id": "2531aac6-c71d-400a-948d-4bb29ac79535",
+    "outcome": {
+      "root_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+      "concept_ids": ["d1edb362-fa58-4e34-b8af-08c1f685e583"],
+      "hypothesis_instance_id": null,
+      "latest_hypothesis_status": null,
+      "outcome": "correct_diagnostic_without_content_assistance",
+      "supporting_attempt_ids": [
+        "ae652658-924b-485d-9a87-7281a7501099",
+        "c3290bd2-1da9-42c2-9b2a-43c1840ad2bd"
+      ],
+      "intervention_ids": [],
+      "recorded_at": "2026-10-25T16:49:38.206215+00:00",
+      "next_review_at": "2026-10-26T16:49:38.198Z",
+      "review_policy_version": "approved-sequence-v1",
+      "review_reason": "Illustrative 24-hour review after this session. Immediate success after assistance does not establish lasting retention."
+    }
+  },
+  "original_answer_sha256": "a007b66ac2172e2e772eb65b872dbd343b106cc8c802b6d19325d4bb302564a1",
+  "concept_id": "d1edb362-fa58-4e34-b8af-08c1f685e583",
+  "original_evaluation_id": "2531aac6-c71d-400a-948d-4bb29ac79535",
+  "original_evaluation_and_controller_read_only": true,
+  "controller": {
+    "evaluation_id": "2531aac6-c71d-400a-948d-4bb29ac79535",
+    "applied_result": {
+      "action": "ASK_DIAGNOSTIC_FOLLOWUP",
+      "hypothesis_events": []
+    },
+    "reapplied": false
+  },
+  "draft_request_id": "10781145-f3ab-4983-8aa8-13e12eaccc49",
+  "draft_id": "ffe032b3-526a-44fd-8e2c-d5678b254ff3",
+  "error": "A generated question repeats an original or practice question. The previous draft is intact.\n+ actual - expected\n\n+ 'failed'\n- 'completed'\n",
+  "finished_at": "2026-10-25T20:53:58.793Z"
+}

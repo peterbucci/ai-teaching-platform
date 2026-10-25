@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "dockerDataPath": "C:/Users/sb128/AppData/Local/Docker/wsl/disk/docker_data.vhdx",
+  "storageProbeContainer": "lp-v22-final-01a173d6-db-1",
+  "safetyPolicy": {
+    "buildMinimumGiB": 20,
+    "runtimeMinimumGiB": 10,
+    "sharedLock": "C:\\Users\\sb128\\AppData\\Local\\learning-pulse-acceptance.lock"
+  },
+  "initializedAt": "2026-10-25T20:31:41.740Z",
+  "verificationTargetKind": "synthetic proposed integration composition; not a PR head or hosted release",
+  "browserNetwork": "lp-teacher-combined-01a174be_browser",
+  "internalSubnet": "10.234.91.0/24",
+  "browserSubnet": "10.234.90.0/24",
+  "freshProjectVerification": "Docker project-labelled containers, networks, volumes and expected unlabelled network/volume names checked absent at initialization",
+  "target": "shell",
+  "project": "lp-teacher-combined-01a174be",
+  "source": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+  "sourceSha": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8",
+  "sourceTree": "333b73e1cae1daddf6edd61300655d0b4825ed67",
+  "harness": {
+    "version": "teacher-workbench-combined-01a174be-v1",
+    "sha256": "b7e98f18be739997935617728180e6e9894bb939a8aaf70f5d9018f28bcfc683",
+    "authoringTestsSha256": "409609814a0babb81e19f08eeafef7af8bdb215acecc95a9d12da162109c26b5",
+    "storageGuard": {
+      "pullRequest": "https://github.com/peterbucci/ai-teaching-platform/pull/121",
+      "commit": "fe8323ae8406e4d6415e4486849317fb48a91821",
+      "sha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+      "testsSha256": "819efd0de539780581236109fcbe72cde23352748942c77c80392eb235dd30d3",
+      "revision": "reviewed-PR121-byte-identical-copy"
+    },
+    "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+    "upstreamSha256": "ee0710ea8db7955f29ac2059d129f08fa787831e447ad9f7f76c60a6f4fda892",
+    "ignoredSourceAllowlist": [
+      "node_modules/",
+      ".next/",
+      "next-env.d.ts",
+      "*.tsbuildinfo"
+    ]
+  },
+  "origin": "http://localhost:3449",
+  "configurationCategory": "provider-disabled; synthetic fixtures; loopback gateway; app/database isolated internal Docker network",
+  "database": "disposable project-owned PostgreSQL 17.11 volume; no host database port",
+  "node": "v22.13.0",
+  "platform": "win32",
+  "architecture": "x64",
+  "hashes": {
+    "Dockerfile": "9234df0cf2b45eff67b27bf293db1a87852249db91f849489f0483c625e25530",
+    "compose.yaml": "df2e88b8389804c9e7591a319b147773b892adaad3c0fddad1e260335a1f3ff6",
+    "package.json": "9c67fbec75ef8db20adeed717291751479fe6b83b92ff6384f918db42cf1a147",
+    "package-lock.json": "eba6237900204f79433f27f73f20861c2401b820cbebedb2d4554d9b3567027d",
+    ".github/workflows/ci.yml": "337a07150615d929ce81d495ca40ba0be72e4cfc8c378a93eddae45107e76ccc"
+  },
+  "productionSourceVerification": "git HEAD, tree, tracked production cleanliness, untracked and ignored files checked; generated node_modules/.next/next-env.d.ts/*.tsbuildinfo are explicit exceptions",
+  "secrets": "generated locally; not included in reports; outside source/build context",
+  "paidModelCallsAuthorized": false,
+  "runtimeCorrection": {
+    "oldPort": 3417,
+    "newPort": 3449,
+    "reason": "Root verified 3417 occupied by unrelated PID101696; 3449 bind probe succeeded",
+    "previousCopies": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime\\port-correction-2026-10-25T20-39-36-137Z",
+    "correctedAt": "2026-10-25T20:39:36.140Z",
+    "scope": "owned runtime files only; prior run receipts unchanged"
+  }
+}
