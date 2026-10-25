@@ -3,7 +3,6 @@ import test from "node:test";
 import { loadApprovedContent } from "../lib/evidence/content.ts";
 import type { ContentRef } from "../lib/evidence/contracts.ts";
 import { freshCheckConceptNames } from "../lib/interventions/student-concept-names.ts";
-import { followupConceptLabel } from "../app/teacher/interventions/concept-label.ts";
 
 const curated = loadApprovedContent().content_ref;
 const uploaded: ContentRef = {
@@ -67,14 +66,10 @@ function fixture(content_ref: ContentRef) {
         [related.id, related],
       ]),
     },
-    comparison: {
-      content_ref,
-      original_evidence: { content_ref, concept, related_concepts: [related] },
-    },
   };
 }
 
-test("the same accepted follow-up has matching teacher/student names without changing evidence", () => {
+test("the accepted follow-up uses pinned public names without changing evidence", () => {
   for (const ref of [curated, uploaded]) {
     const f = fixture(ref);
     const saved = {
@@ -92,16 +87,9 @@ test("the same accepted follow-up has matching teacher/student names without cha
     };
     const before = JSON.stringify({ saved, intervention: f.intervention });
     const names = freshCheckConceptNames(f.content, f.intervention);
-    for (const result of saved.results) {
-      assert.equal(
-        names[result.concept_id],
-        followupConceptLabel(
-          f.comparison,
-          { ...f.question, content_ref: ref },
-          result.concept_id,
-        ),
-      );
-    }
+    // N7 does not include the teacher Workbench helper from the source PR base.
+    // Assert the public names directly; combined browser checks compare the
+    // authenticated teacher and student views of the same accepted evaluation.
     assert.equal(names[f.concept.id], "Evaporation");
     assert.equal(names[f.related.id], "Condensation");
     assert.equal(
