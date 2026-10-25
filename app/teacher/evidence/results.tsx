@@ -57,7 +57,7 @@ export function EvidenceResults({
     [attemptIdsKey],
   );
   const remember = useCallback(
-    (attemptId?: string) => {
+    (attemptId?: string, preservePaneAnchor = false) => {
       const list = listRef.current;
       const scroller = list?.closest<HTMLElement>(".tw-panes-body") ?? list;
       // A route transition can begin before its new results have rendered.
@@ -84,16 +84,16 @@ export function EvidenceResults({
         : Array.from(
             list.querySelectorAll<HTMLElement>("[data-evidence-attempt]"),
           ).find(visible);
-      const paneControl = document.activeElement?.closest(
-        ".tw-panes-switcher, .tw-panes-context-trigger",
-      );
+      const paneControl =
+        preservePaneAnchor &&
+        document.activeElement?.closest(
+          ".tw-panes-switcher, .tw-panes-context-trigger",
+        );
       const memory = {
         scope,
         attemptId:
           attemptId ??
-          (focusedRow
-            ? focused.dataset.evidenceAttempt
-            : lastListMemory.current?.attemptId) ??
+          (paneControl ? lastListMemory.current?.attemptId : undefined) ??
           anchor?.dataset.evidenceAttempt,
         scrollTop: scroller.scrollTop,
         focusRow: paneControl
@@ -185,7 +185,8 @@ export function EvidenceResults({
       if (target?.getClientRects().length) focusEvidenceResultsTarget(target);
       restoring.current = false;
     });
-    const save = () => remember();
+    const save = (event: Event) =>
+      remember(undefined, event.type === "focusin");
     const scroller =
       listRef.current?.closest<HTMLElement>(".tw-panes-body") ??
       listRef.current;
