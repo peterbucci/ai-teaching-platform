@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { AccountMenu } from "../../../components/account-menu.tsx";
 import type { StudentIntervention } from "../../../../lib/interventions/approval-contracts.ts";
 import { NOTEBOOK_PRIMARY_NAVIGATION } from "../contracts.ts";
@@ -68,7 +69,9 @@ export function ReviewWorkspace({
                   </a>
                 </>
               )}
-              <a href="/study/history">All your pages in the Notebook</a>
+              <Link href="/study/history" prefetch={false}>
+                All your pages in the Notebook
+              </Link>
             </nav>
           ),
         }}
