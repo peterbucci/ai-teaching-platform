@@ -5,6 +5,46 @@ complete active-Notebook integration remains gated.** This is an independent
 agent review and evidence handoff, not human approval, permission to merge,
 deployment approval or closure of any parent issue.
 
+## R03 addendum
+
+The later R03 application is `35b21a2908cfc42d02a21651fc337826e8e73c16`,
+production build `OSi94hZSaMmZ8UE2it5pB`. It cherry-picks only implementation
+`9b4f5e357146338e6d0b99dadc1a0104714ba406` from #134. The Workbench base
+`07efb7f821339538800f150f57b298eb2e606be3` is not an ancestor. A tests-only
+adaptation replaces the absent Workbench helper comparison with explicit public
+name assertions. See [R03 combined verification](R03_INTEGRATION.md) and
+[quality results](quality/r03/checks.json). All earlier results below retain
+their original revision bindings; they are not new runs on R03.
+
+Independent review of the exact four-file application/test diff found no
+blocking defect. All ten #113 owner files remain identical to `71898a8` and
+the prior N7 candidate. `TeacherReviewFrame`, the single `DeliveredActivity`,
+its student/approval key, navigation and recovery logic remain intact. The
+activity changes only its public-title prop and accepted-result label. The
+source and candidate activity blob is
+`d46e346cbc5dfeef8eacea2067716a77029b400d`; the helper blob is
+`86e4915a0fbd1d446ebf25a77c6d0f522d44fee7`. No teacher production file, schema,
+store or evaluator changed. Independent focused concept-name/N5 tests passed
+18/18. Root's combined suite passed 547/547 and the rebuilt authenticated
+journey passed 13/13.
+
+Independent review of the combined R03 script, result and all three screenshots
+accepts the **bounded R03 update**. Seven focused browser/database checks and
+six identical canonical fingerprints support recovery and unchanged saved
+evidence. All six reported source-file hashes match the tested application.
+The new evidence is at
+[`r03-fresh-check-1792955650134`](evidence/r03-fresh-check-1792955650134/r03-fresh-check.json).
+The independent reviewer audited the evidence and did not rerun the browser.
+Synthetic fixture creation and evaluation occur before the immutable baseline;
+one start, one submission and zero retries describe the browser's follow-up
+writes, not all fixture setup writes.
+
+The N7 teacher follow-up view still prints concept IDs. Compare the same
+accepted evaluation, correctness and original response across authorized
+views; do not claim matching human-readable teacher/student labels or import
+the Workbench base to obtain them. Full Notebook visual acceptance remains
+**NOT_ACCEPTED** and the original ownership/reader/chronology gates remain.
+
 ## Candidate and evidence identity
 
 - Final corrected application commit: `32de9a6175348a30aedc61478d5c3d870fece218`.

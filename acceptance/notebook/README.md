@@ -11,10 +11,14 @@ functional checks, not proof of prototype fidelity.
 
 ## Exact source
 
-- Current application: `32de9a6175348a30aedc61478d5c3d870fece218`.
-- Production build: `zNNbymqsGD9WxvdnO-vvQ`.
+- Current application: `35b21a2908cfc42d02a21651fc337826e8e73c16`.
+- Production build: `OSi94hZSaMmZ8UE2it5pB`.
 - Application source-tree SHA-256:
-  `05c03fc0f41b1d3693c470b51699ce3a1c67bf54a57652542aab56a33f38e8f2`.
+  `a946338deaf74aa7e10a56aba3339ec65849f69976cbea2ea1db905c9519d965`.
+- R03: source implementation `9b4f5e357146338e6d0b99dadc1a0104714ba406`
+  from #134, cherry-picked without its teacher Workbench base. A tests-only
+  adaptation removes the absent Workbench label-helper dependency. See the
+  [combined R03 report](R03_INTEGRATION.md) and [check record](quality/r03/checks.json).
 - Ancestry-preserving composition: `e7cbf3d6930e892e91f4170ed2aa08c9b8649e67`,
   based on main `723ed6fea41138b604a9d333ebcd4a07b2202c36`.
 - Branch: `codex/student-notebook-integration`.
@@ -38,7 +42,7 @@ providers and zero paid calls. Other runtime locks and resources were untouched.
 | `/study/history`        | N1/N3 index, restored class/source/section/search/date/session filters, supplied-idea filter and failed-load retry. Exact session links and server order retained.                  |
 | Assignment saved work   | N3 exact original answers through N0 current-data mode; unavailable assessment/history remains explicit.                                                                            |
 | Standalone reading      | N1/N4 with one unchanged #132 reader. Pane exposure and navigation/account overlays control `active`; source/session/citation identity and pending receipts remain with the reader. |
-| Teacher-assigned review | N5 around one unchanged DeliveredActivity, retaining approval, display, fresh checks and draft recovery.                                                                            |
+| Teacher-assigned review | N5 around one DeliveredActivity, retaining approval, display, fresh checks and draft recovery. R03 adds pinned public concept titles to accepted results.                           |
 | Active study            | Existing #113 StudySession/StudyDialogue and Workspace remain intact. Full Notebook mounting awaits the explicit owner handoff.                                                     |
 
 No schema, evaluator, classifier, provider, reader controller, alternate composer
@@ -48,8 +52,12 @@ restored under the user's explicit authorization.
 
 ## Executed checks
 
-[Corrected check record](quality/corrected-checks.json) binds the final runs below
-to the current application commit and build.
+[Corrected check record](quality/corrected-checks.json) binds the earlier visual
+correction runs below to application `32de9a6` and build `zNNbymqsGD9WxvdnO-vvQ`.
+The later [R03 checks](quality/r03/checks.json) record 547 passing unit tests,
+lint, explicit typecheck, production build, 293 content checks and a new 13/13
+authenticated journey on `35b21a2`. Earlier screenshot and recovery runs are not
+relabeled as executions against this newer application.
 
 | Check                                                                                             | Result and scope                                                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
