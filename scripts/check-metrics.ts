@@ -52,6 +52,12 @@ async function login(prefix: string) {
     .map((c) => c.split(";", 1)[0])
     .join("; ");
 }
+function renderedLinks(html: string) {
+  // Inspect rendered anchors, not URLs serialized into React's data scripts.
+  return [...html.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)].map(
+    (match) => new URL(match[1].replaceAll("&amp;", "&"), base),
+  );
+}
 const path = `/api/teacher/assignments/${DEMO_IDS.assignmentId}/metrics`;
 try {
   const teacher = await login("DEMO_TEACHER"),
@@ -149,8 +155,9 @@ try {
     200,
   );
   const pending = await metrics();
+  const evaluationId = randomUUID();
   await recordEvaluation(access, session.id, {
-    id: randomUUID(),
+    id: evaluationId,
     attempt_id: attempt.id,
     validation_status: "accepted",
     evaluator: {
@@ -250,19 +257,80 @@ try {
     evidenceMarkup.includes(detailPath),
     "Evidence view omitted the full-session drill-down",
   );
-  for (const [pagePath, name] of [
-    [insightsPath, "learning insights"],
-    [studentsPath, "student directory"],
-  ]) {
-    const page = await request(pagePath, teacher);
-    assert.equal(page.status, 200);
-    assert.ok(
-      (await page.text()).includes(detailPath),
-      `Refreshed ${name} omitted new evidence link`,
-    );
-  }
   const concept = (m: typeof after) =>
     m.concepts.find((c) => c.concept_id === "bandwidth_throughput")!;
+  // The correct response has no concern. Follow the actual Concerns -> By idea
+  // -> selected idea navigation instead of requiring every response on Concerns.
+  const insights = await request(insightsPath, teacher);
+  assert.equal(insights.status, 200);
+  const ideasLink = renderedLinks(await insights.text()).find(
+    (url) =>
+      url.pathname === "/teacher/insights" &&
+      url.searchParams.get("view") === "ideas",
+  );
+  assert.ok(ideasLink, "Learning Insights omitted navigation to By idea");
+  async function readLinkedPage(url: URL) {
+    assert.equal(url.origin, new URL(base!).origin);
+    assert.equal(url.searchParams.get("assignment"), DEMO_IDS.assignmentId);
+    const linkedPath = url.pathname + url.search;
+    await deniedPage(linkedPath);
+    await anonymousDeniedPage(linkedPath);
+    const response = await request(linkedPath, teacher);
+    assert.equal(response.status, 200);
+    return response.text();
+  }
+  const ideasMarkup = await readLinkedPage(ideasLink);
+  const conceptLink = renderedLinks(ideasMarkup).find(
+    (url) =>
+      url.pathname === "/teacher/insights" &&
+      url.searchParams.get("view") === "ideas" &&
+      url.searchParams.get("concept") === "bandwidth_throughput",
+  );
+  assert.ok(conceptLink, "By idea omitted the response's concept navigation");
+  const conceptMarkup = await readLinkedPage(conceptLink);
+  const exactLinks = renderedLinks(conceptMarkup).filter(
+    (url) =>
+      url.searchParams.get("session") === session.id &&
+      url.searchParams.get("attempt") === attempt.id &&
+      url.searchParams.get("evaluation") === evaluationId,
+  );
+  for (const destination of ["/teacher/evidence", detailPath]) {
+    const original = exactLinks.find((url) => url.pathname === destination);
+    assert.ok(
+      original,
+      `By idea omitted the exact new response: ${destination}`,
+    );
+    const originalMarkup = await readLinkedPage(original);
+    assert.ok(
+      originalMarkup.includes(escapedAnswer),
+      "By idea drill-down omitted the exact original answer",
+    );
+    assert.ok(originalMarkup.includes("metrics-http-probe-v1"));
+    assert.ok(originalMarkup.includes(question.content_ref.source_commit));
+  }
+  const latestSection = conceptMarkup.match(
+    /<section\b[^>]*>\s*<h2>Latest answers[\s\S]*?<\/section>/,
+  )?.[0];
+  assert.ok(latestSection, "By idea omitted the latest-answer metrics");
+  for (const [label, count] of [
+    ["Correct", concept(after).latest.correct],
+    ["Awaiting evaluation", concept(after).latest.pending],
+  ] as const) {
+    const displayed: RegExpMatchArray | null = latestSection.match(
+      new RegExp(`<dt>${label}</dt>\\s*<dd>(\\d+)</dd>`),
+    );
+    assert.equal(
+      displayed ? Number(displayed[1]) : 0,
+      count,
+      `By idea displayed stale ${label} metrics`,
+    );
+  }
+  const studentsPage = await request(studentsPath, teacher);
+  assert.equal(studentsPage.status, 200);
+  assert.ok(
+    (await studentsPage.text()).includes(detailPath),
+    "Refreshed student directory omitted new evidence link",
+  );
   assert.equal(
     concept(after).latest.pending,
     concept(pending).latest.pending - 1,
@@ -306,7 +374,8 @@ try {
         "unrelated concepts unchanged",
         "duplicate answer unchanged",
         "origin filtering",
-        "Teaching Desk links the exact new Evidence response and full session; learning insights and student directory retain drill-down",
+        "Teaching Desk links the exact new Evidence response and full session; student directory retains drill-down",
+        "Learning Insights rendered By idea/concept links reach the exact authorized new response and session with refreshed displayed metrics",
         "exact response drill-down",
         "student/anonymous/unrelated-owner page and projection boundaries",
       ],

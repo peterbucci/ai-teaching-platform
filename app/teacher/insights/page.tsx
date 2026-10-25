@@ -1,347 +1,630 @@
 import Link from "next/link";
-import { Icon } from "../../components/icons.tsx";
-
+import { notFound } from "next/navigation";
+import { z } from "zod";
 import { calculatePatterns } from "../../../lib/teacher/patterns.ts";
-import { Patterns } from "../patterns.tsx";
-import { loadTeacherView } from "../data.ts";
-import { TeacherFiltersForm } from "../filters.tsx";
 import {
-  TeacherFrame,
-  ResultSummary,
-  date,
-  label,
-  originLabel,
-} from "../presentation.tsx";
+  parseTeacherWorkspaceContext,
+  teacherWorkspaceHref,
+  type TeacherWorkspaceParams,
+} from "../../../lib/teacher/workspace-contracts.ts";
+import { teacherEvidenceRows, evidenceResult } from "../evidence/model.ts";
+import { Patterns, ResponseExcerpt } from "../patterns.tsx";
+import { loadTeacherView, evidenceDescription } from "../data.ts";
+import { TeacherFrame, ResultSummary } from "../presentation.tsx";
+import { ConcernWorkspace } from "./workspace.tsx";
+import {
+  concernPreparation,
+  concernResponses,
+  evaluationRows,
+  investigationContext,
+  originalEvidenceHref,
+  patternStatusLabels,
+} from "./model.ts";
+import "./concerns.css";
 
 export const dynamic = "force-dynamic";
 export default async function TeacherInsightsPage({
   searchParams,
 }: {
-  searchParams: Promise<{
-    assignment?: string;
-    origin?: string;
-    concept?: string;
-  }>;
+  searchParams: Promise<TeacherWorkspaceParams>;
 }) {
   const params = await searchParams;
-  const { assignments, origin, data } = await loadTeacherView(params);
+  let parsed;
+  let view: "ideas" | "concerns";
+  try {
+    parsed = parseTeacherWorkspaceContext({
+      ...params,
+      concept: params.concept === "" ? undefined : params.concept,
+    });
+    view = z
+      .enum(["ideas", "concerns"])
+      .parse(
+        params.view ?? (params.returnTo === "insights" ? "ideas" : "concerns"),
+      );
+  } catch (error) {
+    if (error instanceof z.ZodError) notFound();
+    throw error;
+  }
+  const { assignments, origin, data } = await loadTeacherView(parsed);
   if (!data)
     return (
-      <TeacherFrame section="Learning insights">
-        <h1 className="text-3xl font-semibold">No teaching assignments yet</h1>
-        <p className="mt-4">
-          This account has no class assignments to inspect. Check that you’re
-          signed in with your teacher account.
+      <TeacherFrame section="Learning insights" context={parsed}>
+        <h1>No teaching assignments yet</h1>
+        <p>
+          Saved student work will appear here when an authorized assignment is
+          available.
         </p>
       </TeacherFrame>
     );
-  const { content } = data;
-  const { metrics } = data;
-  const href = (concept?: string) =>
-    `/teacher/insights?${new URLSearchParams({ assignment: data.assignment_id, origin, ...(concept ? { concept } : {}) })}`;
-  const students = data.students.map((student) => ({
-    ...student,
-    sessions: data.evidence
-      .filter(
-        (e) =>
-          e.session.student_id === student.student_id &&
-          (!params.concept ||
-            e.attempts.some((a) =>
-              a.question.concept_ids.includes(params.concept!),
-            )),
-      )
-      .sort((a, b) => b.session.started_at.localeCompare(a.session.started_at)),
-  }));
-  const withSessions = students.filter(
-    (student) => student.sessions.length > 0,
-  );
-  const withoutSessions = students.filter(
-    (student) => student.sessions.length === 0,
-  );
-  const assessedConcepts = metrics.concepts.filter(
-    (c) => c.latest.accepted_students > 0,
-  ).length;
-  const conceptResults = [...metrics.concepts].sort(
-    (a, b) =>
-      Number(b.latest.no_response < metrics.enrolled_students) -
-      Number(a.latest.no_response < metrics.enrolled_students),
-  );
-  const sourceDescription =
-    origin === "live_demo"
-      ? "Showing live test sessions from fictional student accounts."
-      : origin === "synthetic_fixture"
-        ? "Showing prepared class examples and software-test histories."
-        : "Showing live test sessions and prepared class examples together.";
-  function sessionLink({
-    session,
-    attempts,
-  }: (typeof withSessions)[number]["sessions"][number]) {
-    return (
-      <li key={session.id} className="lp-session-row">
-        <div>
-          <span
-            className={`lp-badge${session.data_origin === "synthetic_fixture" ? " lp-badge-neutral" : ""}`}
-          >
-            {originLabel(session.data_origin)}
-          </span>
-          <small>
-            {label(session.status)} ·{" "}
-            {attempts.filter((a) => a.submitted_at).length} responses ·{" "}
-            {date(session.started_at)}
-          </small>
-        </div>
-        <Link href={`/teacher/sessions/${session.id}`} className="lp-text-link">
-          Inspect session
-          <Icon name="arrow" />
-        </Link>
-      </li>
+  const { content, metrics } = data;
+  const rows = teacherEvidenceRows(data);
+  const references = evaluationRows(rows, data.evidence);
+  const groups = calculatePatterns(
+    data.students.map((s) => s.student_id),
+    new Set(data.approved_misconception_ids),
+    data.evidence,
+  )
+    .filter((group) => !parsed.concept || group.concept_id === parsed.concept)
+    .sort(
+      (a, b) =>
+        b.counts.supported - a.counts.supported ||
+        b.counts.suspected - a.counts.suspected ||
+        b.students.length - a.students.length ||
+        a.concept_id.localeCompare(b.concept_id),
     );
-  }
+  if (
+    parsed.misconception &&
+    !groups.some((g) => g.misconception_id === parsed.misconception)
+  )
+    notFound();
+  const selected = parsed.misconception
+    ? groups.find((g) => g.misconception_id === parsed.misconception)
+    : parsed.returnTo === "patterns" && parsed.concept
+      ? (groups.find((g) => g.misconception_id === null) ?? groups[0])
+      : groups[0];
+  const concept =
+    view === "ideas"
+      ? (parsed.concept ?? metrics.concepts[0]?.concept_id)
+      : (selected?.concept_id ?? parsed.concept);
+  const metric = metrics.concepts.find((c) => c.concept_id === concept);
+  const conceptInfo = content.concepts.get(concept ?? "");
+  const relatedRows = rows.filter((row) =>
+    row.attempt.question.concept_ids.includes(concept ?? ""),
+  );
+  const context = {
+    ...investigationContext(parsed),
+    assignment: data.assignment_id,
+    origin,
+    concept,
+    misconception:
+      view === "concerns"
+        ? (selected?.misconception_id ?? undefined)
+        : undefined,
+    returnTo:
+      view === "concerns" ? ("patterns" as const) : ("insights" as const),
+  };
+  const href = (
+    nextView: "ideas" | "concerns",
+    nextConcept?: string,
+    misconception?: string,
+  ) => {
+    const url = teacherWorkspaceHref("/teacher/insights", context, {
+      concept: nextConcept,
+      misconception,
+      returnTo: nextView === "ideas" ? "insights" : "patterns",
+    });
+    return `${url}&view=${nextView}&workspacePane=main#${nextView === "concerns" ? "patterns" : nextConcept ? `concept-${encodeURIComponent(nextConcept)}` : "concepts"}`;
+  };
+  const preparation =
+    selected && view === "concerns"
+      ? concernPreparation(selected, rows, context)
+      : null;
+  const category = selected?.misconception_id
+    ? content.misconceptions.get(selected.misconception_id)
+    : undefined;
+  const title =
+    view === "ideas"
+      ? (conceptInfo?.title ?? "Choose an idea")
+      : (category?.definition ??
+        (selected
+          ? "Unclear or uncategorized reasoning"
+          : "No concerns recorded"));
+  const latestByStudent = new Map<string, (typeof rows)[number]>();
+  relatedRows.forEach((row) => {
+    if (!latestByStudent.has(row.student_id))
+      latestByStudent.set(row.student_id, row);
+  });
   return (
-    <TeacherFrame section="Learning insights">
-      <header className="lp-page-heading">
-        <p className="lp-eyebrow">Classroom evidence</p>
-        <h1 className="lp-title">Learning insights</h1>
-        <p className="lp-intro">
-          Explore how students reason about the material, and the work behind
-          each result.
-        </p>
-      </header>
-      <TeacherFiltersForm
-        action="/teacher/insights"
-        assignments={assignments}
-        assignment={data.assignment_id}
-        origin={origin}
-      />
-      <p className="lp-view-context">{sourceDescription}</p>
-      <nav
-        className="lp-insight-sections"
-        aria-label="Learning insights sections"
-      >
-        <a href="#concepts">Concept results</a>
-        <a href="#patterns">Reasoning patterns</a>
-        <a href="#responses">Student responses</a>
-        <Link
-          href={`/teacher/interventions?${new URLSearchParams({ assignment: data.assignment_id, origin, ...(params.concept ? { concept: params.concept } : {}) })}`}
-        >
-          Intervention drafts
-        </Link>
-      </nav>
-      <div className="lp-panel lp-overview-summary">
-        <div>
-          <span className="lp-summary-value">
-            {metrics.participation.numerator}{" "}
-            <span>of {metrics.enrolled_students}</span>
-          </span>
-          <h2>Students answered</h2>
-          <p>{metrics.no_activity_students} without answers in this view</p>
-        </div>
-        <div>
-          <span className="lp-summary-value">
-            {assessedConcepts} <span>of {metrics.concepts.length}</span>
-          </span>
-          <h2>Concepts assessed</h2>
-          <p>Based on the latest answers</p>
-        </div>
-      </div>
-      <section id="concepts" className="lp-panel lp-concept-overview">
-        <div className="lp-panel-heading">
-          <h2>Results by concept</h2>
-          <span className="lp-badge lp-badge-neutral">Latest answers</span>
-        </div>
-        <p className="lp-panel-description">
-          Includes answers after help. Open a concept to compare.
-        </p>
-        <div className="lp-concept-list">
-          {conceptResults.map((c) => {
-            const result = c.latest;
-            const assessed = result.correct_rate.denominator;
-            const waiting =
-              result.pending + result.evaluation_failed + result.rejected;
-            return (
-              <details
-                key={c.concept_id}
-                id={`concept-${c.concept_id}`}
-                className="lp-concept-detail"
-                open={params.concept === c.concept_id}
+    <TeacherFrame section="Learning insights" context={context}>
+      <div className="ci-workspace" data-workspace-restoration="page">
+        <ConcernWorkspace
+          selection={context}
+          initialPane={
+            parsed.concept || parsed.misconception ? "main" : "navigation"
+          }
+          navigation={{
+            label: view === "ideas" ? "By idea" : "Concerns",
+            children: (
+              <>
+                <form action="/teacher/insights" className="ci-filters">
+                  <input type="hidden" name="view" value={view} />
+                  <input
+                    type="hidden"
+                    name="returnTo"
+                    value={view === "ideas" ? "insights" : "patterns"}
+                  />
+                  <label>
+                    Assignment and class
+                    <select
+                      name="assignment"
+                      className="lp-input"
+                      defaultValue={data.assignment_id}
+                    >
+                      {assignments.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.title} — {item.class_name}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <label>
+                    Evidence source
+                    <select
+                      name="origin"
+                      className="lp-input"
+                      defaultValue={origin}
+                    >
+                      <option value="all">All records</option>
+                      <option value="live_demo">Live test sessions</option>
+                      <option value="synthetic_fixture">
+                        Prepared class examples
+                      </option>
+                    </select>
+                  </label>
+                  <label>
+                    Idea
+                    <select
+                      name="concept"
+                      className="lp-input"
+                      defaultValue={parsed.concept ?? ""}
+                    >
+                      <option value="">All ideas</option>
+                      {metrics.concepts.map((c) => (
+                        <option key={c.concept_id} value={c.concept_id}>
+                          {content.concepts.get(c.concept_id)?.title ??
+                            c.concept_id}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <button className="lp-button">Update view</button>
+                </form>
+                <p className="ci-meta" style={{ padding: "8px 18px" }}>
+                  {view === "concerns"
+                    ? "Saved interpretations to investigate. Follow-up support first; these are not student traits."
+                    : "Explore the objectives and original work for each idea."}
+                </p>
+                <ul className="ci-list">
+                  {view === "concerns"
+                    ? groups.map((group) => (
+                        <li
+                          key={`${group.concept_id}:${group.misconception_id}`}
+                        >
+                          <Link
+                            href={href(
+                              "concerns",
+                              group.concept_id,
+                              group.misconception_id ?? undefined,
+                            )}
+                            aria-current={
+                              selected === group ? "true" : undefined
+                            }
+                          >
+                            <small>
+                              {content.concepts.get(group.concept_id)?.title ??
+                                group.concept_id}
+                            </small>
+                            <strong>
+                              {group.misconception_id
+                                ? (content.misconceptions.get(
+                                    group.misconception_id,
+                                  )?.definition ?? group.misconception_id)
+                                : "Unclear or uncategorized reasoning"}
+                            </strong>
+                            <small>
+                              {group.students.length} of {group.denominator}{" "}
+                              enrolled students ·{" "}
+                              {concernResponses(group, references)} linked
+                              responses
+                            </small>
+                            <small>
+                              {group.counts.supported} supported ·{" "}
+                              {group.counts.uncertain} unclear ·{" "}
+                              {group.counts.not_supported} evidence against
+                            </small>
+                          </Link>
+                        </li>
+                      ))
+                    : metrics.concepts.map((c) => (
+                        <li key={c.concept_id}>
+                          <Link
+                            href={href("ideas", c.concept_id)}
+                            aria-current={
+                              concept === c.concept_id ? "true" : undefined
+                            }
+                          >
+                            <strong>
+                              {content.concepts.get(c.concept_id)?.title ??
+                                c.concept_id}
+                            </strong>
+                            <small>
+                              {c.latest.accepted_students} assessed students of{" "}
+                              {metrics.enrolled_students} enrolled ·{" "}
+                              {
+                                rows.filter((row) =>
+                                  row.attempt.question.concept_ids.includes(
+                                    c.concept_id,
+                                  ),
+                                ).length
+                              }{" "}
+                              responses
+                            </small>
+                          </Link>
+                        </li>
+                      ))}
+                </ul>
+                {view === "concerns" && !groups.length && (
+                  <p className="ci-empty" style={{ padding: 18 }}>
+                    No recorded concerns in this scope. This is not evidence
+                    that every student understands the material.{" "}
+                    <Link href={href("ideas", parsed.concept)}>
+                      Inspect work by idea
+                    </Link>
+                    .
+                  </p>
+                )}
+              </>
+            ),
+          }}
+          main={{
+            label: "Investigation",
+            children: (
+              <article
+                className="ci-record"
+                id={view === "concerns" ? "patterns" : "concepts"}
+                tabIndex={-1}
               >
-                <summary>
-                  <span className="lp-concept-name">
-                    {content.concepts.get(c.concept_id)?.title ?? c.concept_id}
-                  </span>
-                  <span className="lp-concept-score">
-                    {assessed > 0 ? (
-                      <>
-                        <strong>
-                          {result.correct_rate.numerator} of {assessed} correct
-                        </strong>
-                        <progress
-                          className="lp-progress"
-                          aria-label={`${content.concepts.get(c.concept_id)?.title ?? c.concept_id}: correct among assessed students`}
-                          value={result.correct_rate.numerator}
-                          max={assessed}
-                        />
-                      </>
-                    ) : (
-                      <span className="lp-unassessed">
-                        {waiting > 0
-                          ? "Awaiting a valid result"
-                          : "Not assessed"}
-                      </span>
-                    )}
-                    {result.uncertain > 0 && (
-                      <span className="lp-result-flag">
-                        {result.uncertain} uncertain
-                      </span>
-                    )}
-                    {result.pending > 0 && (
-                      <span className="lp-result-flag">
-                        {result.pending} awaiting evaluation
-                      </span>
-                    )}
-                    {result.evaluation_failed > 0 && (
-                      <span className="lp-result-flag">
-                        {result.evaluation_failed} evaluation failed
-                      </span>
-                    )}
-                    {result.rejected > 0 && (
-                      <span className="lp-result-flag">
-                        {result.rejected} evaluation rejected
-                      </span>
-                    )}
-                  </span>
-                  <span className="lp-expand-icon" aria-hidden="true">
-                    +
-                  </span>
-                </summary>
-                <div className="lp-concept-breakdown">
-                  <h3>Latest answers</h3>
-                  <ResultSummary results={result} />
-                  {c.repeated_difficulty.denominator > 0 && (
-                    <p className="lp-result-note">
-                      {c.repeated_difficulty.numerator} of{" "}
-                      {c.repeated_difficulty.denominator} assessed students had
-                      repeated partial or incorrect answers.
-                    </p>
-                  )}
-                  <div className="lp-comparison-grid">
-                    {(
-                      [
-                        ["Without help", c.independent],
-                        ["After help", c.content_assisted],
-                        ["Immediate retest", c.immediate_retest],
-                        ["Later review", c.delayed_review],
-                      ] as const
-                    ).map(([name, result]) => (
-                      <section key={name}>
-                        <h4>{name}</h4>
-                        <ResultSummary results={result} />
-                      </section>
+                <p className="lp-eyebrow">
+                  {view === "concerns" ? "Concern" : "Idea in this lesson"} ·{" "}
+                  {conceptInfo?.title ?? "Student work"}
+                </p>
+                <h1
+                  id={concept ? `concept-${concept}` : "investigation-title"}
+                  tabIndex={-1}
+                >
+                  {title}
+                </h1>
+                {view === "concerns" ? (
+                  <p>
+                    Read the reasoning behind this possible concern, check
+                    evidence for and against it, then decide whether a teacher
+                    review would help.
+                  </p>
+                ) : (
+                  <ul>
+                    {conceptInfo?.objectives.map((objective) => (
+                      <li key={objective}>{objective}</li>
                     ))}
-                  </div>
-                  <a
-                    href={href(c.concept_id) + "#responses"}
-                    className="lp-text-link"
-                  >
-                    See student responses
-                    <Icon name="arrow" />
-                  </a>
+                  </ul>
+                )}
+                {category?.diagnostic_caution && (
+                  <p className="ci-note">
+                    <strong>Interpret with care:</strong>{" "}
+                    {category.diagnostic_caution}
+                  </p>
+                )}
+                <div className="ci-actions">
+                  {preparation && (
+                    <Link
+                      className="lp-button lp-button-primary"
+                      href={preparation}
+                    >
+                      Prepare an intervention →
+                    </Link>
+                  )}
                   <Link
-                    href={`/teacher/interventions?${new URLSearchParams({ assignment: data.assignment_id, origin, concept: c.concept_id })}`}
-                    className="lp-text-link mt-3"
+                    className="lp-text-link"
+                    href={teacherWorkspaceHref("/teacher/evidence", context)}
                   >
-                    Draft a review activity
-                    <Icon name="arrow" />
+                    All answers on this idea →
                   </Link>
+                  {view === "concerns" && concept && (
+                    <Link
+                      className="lp-text-link"
+                      href={href("ideas", concept)}
+                    >
+                      About this idea →
+                    </Link>
+                  )}
                 </div>
-              </details>
-            );
-          })}
-        </div>
-        <details className="lp-results-help">
-          <summary>How to read these results</summary>
-          <p>
-            Each concept uses the latest submitted answer per student. “Correct”
-            is out of students with an assessed answer, including uncertain
-            results. Pending, failed, and rejected evaluations are listed
-            separately. Missing answers are not incorrect answers.
-          </p>
-          <p>
-            Answers after help and immediate retests do not establish lasting
-            understanding. Later reviews in prepared examples are illustrative.
-          </p>
-          <p>
-            This view includes {metrics.origins.live_demo} students with live
-            test responses and {metrics.origins.synthetic_fixture} with prepared
-            histories. These groups can overlap. Prepared histories are invented
-            or replayed examples, not measured learning outcomes.
-          </p>
-        </details>
-      </section>
-      <Patterns
-        groups={calculatePatterns(
-          data.students.map((s) => s.student_id),
-          new Set(data.approved_misconception_ids),
-          data.evidence,
-        )}
-        students={data.students}
-        content={content}
-      />
-      <section id="responses" className="lp-panel lp-responses">
-        <h2>Student responses</h2>
-        <p className="lp-panel-description mb-5">
-          {params.concept
-            ? `Showing ${content.concepts.get(params.concept)?.title ?? params.concept}. `
-            : "Open a session to see the student's answers and feedback. "}
-          {params.concept && (
-            <a href={href() + "#responses"} className="underline">
-              Show all concepts
-            </a>
-          )}
-        </p>
-        {withSessions.length === 0 && (
-          <p className="lp-empty-results">No sessions in this view yet.</p>
-        )}
-        <ul>
-          {withSessions.map((student) => (
-            <li key={student.student_id} className="lp-student-row">
-              <h3 className="lp-student-name">
-                <span className="lp-avatar" aria-hidden="true">
-                  {student.display_name
-                    .split(/\s+/)
-                    .map((part) => part[0])
-                    .slice(0, 2)
-                    .join("")}
-                </span>
-                <span>{student.display_name}</span>
-              </h3>
-              <div>
-                <ul>{sessionLink(student.sessions[0])}</ul>
-                {student.sessions.length > 1 && (
-                  <details className="lp-previous-sessions">
-                    <summary>
-                      {student.sessions.length - 1} earlier sessions
-                    </summary>
-                    <ul>{student.sessions.slice(1).map(sessionLink)}</ul>
-                  </details>
+                {view === "concerns" && selected ? (
+                  <>
+                    <dl className="ci-counts">
+                      <div>
+                        <dd>
+                          {selected.students.length} / {selected.denominator}
+                        </dd>
+                        <dt>linked / enrolled students</dt>
+                      </div>
+                      <div>
+                        <dd>{concernResponses(selected, references)}</dd>
+                        <dt>distinct linked responses</dt>
+                      </div>
+                      {(
+                        Object.keys(
+                          patternStatusLabels,
+                        ) as (keyof typeof patternStatusLabels)[]
+                      ).map((status) => (
+                        <div key={status}>
+                          <dd>{selected.counts[status]}</dd>
+                          <dt>{patternStatusLabels[status]}</dt>
+                        </div>
+                      ))}
+                    </dl>
+                    <p className="ci-meta">
+                      Each student is counted once by their latest saved
+                      observation in this category. Earlier evidence stays
+                      available. Counts describe recorded evidence, not
+                      diagnoses.
+                    </p>
+                    {!preparation && (
+                      <p className="ci-note">
+                        Review the original responses first. A named concern
+                        with current accepted supporting responses is needed for
+                        a concern-wide handoff. You can select eligible
+                        responses individually in Evidence.
+                      </p>
+                    )}
+                    <Patterns
+                      group={selected}
+                      rows={rows}
+                      references={references}
+                      content={content}
+                      context={context}
+                    />
+                  </>
+                ) : view === "ideas" && metric ? (
+                  <>
+                    <section className="ci-section">
+                      <h2>
+                        Latest answers{" "}
+                        <small>
+                          {metric.latest.accepted_students} assessed /{" "}
+                          {metrics.enrolled_students} enrolled students
+                        </small>
+                      </h2>
+                      <ResultSummary results={metric.latest} />
+                    </section>
+                    <section className="ci-section">
+                      <h2>By situation</h2>
+                      <p className="ci-meta">
+                        Existing metrics: latest submitted answer per student
+                        within each situation. Groups may overlap. Reading-only
+                        assistance is disclosed on each original response; these
+                        aggregates do not supply a separate reading-only group.
+                      </p>
+                      <div className="ci-situations">
+                        {(
+                          [
+                            ["Independent retrieval", metric.independent],
+                            ["After content help", metric.content_assisted],
+                            ["Immediate retest", metric.immediate_retest],
+                            ["Later review", metric.delayed_review],
+                          ] as const
+                        ).map(([name, result]) => (
+                          <section key={name}>
+                            <h3>{name}</h3>
+                            <ResultSummary results={result} />
+                          </section>
+                        ))}
+                      </div>
+                    </section>
+                    <section className="ci-section">
+                      <h2>Concerns on this idea</h2>
+                      {groups
+                        .filter((group) => group.concept_id === concept)
+                        .map((group) => (
+                          <p key={group.misconception_id ?? "uncategorized"}>
+                            <Link
+                              className="lp-text-link"
+                              href={href(
+                                "concerns",
+                                concept,
+                                group.misconception_id ?? undefined,
+                              )}
+                            >
+                              {group.misconception_id
+                                ? content.misconceptions.get(
+                                    group.misconception_id,
+                                  )?.definition
+                                : "Unclear reasoning"}{" "}
+                              →
+                            </Link>
+                          </p>
+                        ))}
+                    </section>
+                    <section className="ci-section">
+                      <h2>
+                        Whole class{" "}
+                        <small>Latest submitted response per student</small>
+                      </h2>
+                      <p className="ci-meta">
+                        Missing answers are missing evidence. Correct work after
+                        help and immediate retests do not establish lasting
+                        understanding.
+                      </p>
+                      {data.students.map((student) => {
+                        const row = latestByStudent.get(student.student_id);
+                        const earlier = relatedRows.filter(
+                          (item) =>
+                            item.student_id === student.student_id &&
+                            item.attempt.id !== row?.attempt.id,
+                        );
+                        return (
+                          <div className="ci-student" key={student.student_id}>
+                            {row ? (
+                              <ResponseExcerpt
+                                row={row}
+                                concept={concept!}
+                                context={context}
+                              />
+                            ) : (
+                              <p>
+                                {student.display_name} · No submitted response
+                                for this idea
+                              </p>
+                            )}
+                            {earlier.length > 0 && (
+                              <details className="ci-history">
+                                <summary>
+                                  Earlier responses · {earlier.length}
+                                </summary>
+                                <p className="ci-meta">
+                                  Original reasoning remains available across
+                                  sessions. The latest answer does not replace
+                                  this history.
+                                </p>
+                                {earlier.map((item) => (
+                                  <ResponseExcerpt
+                                    key={item.attempt.id}
+                                    row={item}
+                                    concept={concept!}
+                                    context={context}
+                                  />
+                                ))}
+                              </details>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </section>
+                  </>
+                ) : (
+                  <p className="ci-empty">
+                    Choose an idea or return after students submit work. No
+                    misunderstanding has been inferred from missing evidence.
+                  </p>
+                )}
+              </article>
+            ),
+          }}
+          context={{
+            label: "Context",
+            children: (
+              <div className="ci-context">
+                <section>
+                  <h2>Scope of this investigation</h2>
+                  <p>
+                    {
+                      assignments.find((a) => a.id === data.assignment_id)
+                        ?.title
+                    }
+                  </p>
+                  <p className="ci-meta">{evidenceDescription(origin)}</p>
+                  <p className="ci-meta">
+                    {relatedRows.length} submitted responses from{" "}
+                    {new Set(relatedRows.map((r) => r.student_id)).size}{" "}
+                    distinct students on this idea.
+                  </p>
+                </section>
+                <section>
+                  <h2>Approved lesson and source</h2>
+                  {conceptInfo?.boundaries.map((boundary) => (
+                    <p className="ci-meta" key={boundary}>
+                      {boundary}
+                    </p>
+                  ))}
+                  {[
+                    ...new Map(
+                      relatedRows.map((row) => [
+                        JSON.stringify(row.attempt.question.content_ref),
+                        row.attempt.question.content_ref,
+                      ]),
+                    ).values(),
+                  ].map((ref) => (
+                    <p className="ci-meta" key={JSON.stringify(ref)}>
+                      Lesson version {ref.content_version}
+                      <br />
+                      Source {ref.source_id}
+                      <br />
+                      Revision{" "}
+                      {"source_commit" in ref
+                        ? ref.source_commit
+                        : ref.source_version}
+                    </p>
+                  ))}
+                  {conceptInfo?.source_passage_ids.map((id) => {
+                    const passage = content.passages.get(id);
+                    return (
+                      <details key={id}>
+                        <summary>{id} · approved passage</summary>
+                        <blockquote>
+                          {passage?.text ??
+                            "Passage unavailable for this lesson version."}
+                        </blockquote>
+                        {passage?.url && (
+                          <a
+                            href={passage.url}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            Open attributed source
+                          </a>
+                        )}
+                      </details>
+                    );
+                  })}
+                  <p className="ci-meta">
+                    Open an original response for its exact question, source
+                    citations and displayed assistance.
+                  </p>
+                </section>
+                <section>
+                  <h2>Check before acting</h2>
+                  <p>
+                    Uncertain is a valid evaluation outcome. Pending, failed and
+                    rejected evaluations are not incorrect answers.
+                  </p>
+                  <p className="ci-meta">
+                    Preparing an intervention opens a private review workspace.
+                    It does not generate, assign or deliver anything. Recipients
+                    remain the teacher’s choice.
+                  </p>
+                </section>
+                {relatedRows.some(
+                  (row) => row.evaluation?.validation_status !== "accepted",
+                ) && (
+                  <section>
+                    <h2>Evaluations to check</h2>
+                    {relatedRows
+                      .filter(
+                        (row) =>
+                          row.evaluation?.validation_status !== "accepted",
+                      )
+                      .map((row) => (
+                        <p key={row.attempt.id}>
+                          <Link href={originalEvidenceHref(context, row)}>
+                            {row.student_name} · {evidenceResult(row, concept)}
+                          </Link>
+                        </p>
+                      ))}
+                  </section>
                 )}
               </div>
-            </li>
-          ))}
-        </ul>
-        {withoutSessions.length > 0 && (
-          <details className="lp-results-help">
-            <summary>
-              {withoutSessions.length} students without sessions in this view
-            </summary>
-            <ul className="lp-no-sessions">
-              {withoutSessions.map((student) => (
-                <li key={student.student_id}>{student.display_name}</li>
-              ))}
-            </ul>
-          </details>
-        )}
-      </section>
+            ),
+          }}
+        />
+      </div>
     </TeacherFrame>
   );
 }

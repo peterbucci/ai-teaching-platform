@@ -646,8 +646,24 @@ try {
       }
       if (page === "/teacher/insights") {
         assert.match(text, /Unclear or uncategorized reasoning/);
-        assert.match(text, /1 of 2 students/);
-        assert.match(text, /No named pattern/);
+        assert.match(text, /1 of 2 (?:enrolled )?students/);
+        assert.match(text, /No named pattern|uncategorized response/);
+        assert.ok(text.includes("I cannot explain these changes yet."));
+        const originalLinks = [
+          ...html.matchAll(/<a\b[^>]*href="([^"]+)"/g),
+        ].map((match) => new URL(match[1].replaceAll("&amp;", "&"), base));
+        for (const evidence of data.evidence) {
+          for (const evaluation of evidence.evaluations) {
+            assert.ok(
+              originalLinks.some(
+                (url) =>
+                  url.pathname === `/teacher/sessions/${evidence.session.id}` &&
+                  url.hash === `#evaluation-${evaluation.id}`,
+              ),
+              "Uncategorized uncertainty must retain each exact original observation",
+            );
+          }
+        }
       }
     }
     for (const account of [student, otherTeacher]) {
