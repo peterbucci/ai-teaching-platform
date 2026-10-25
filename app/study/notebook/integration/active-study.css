@@ -157,9 +157,9 @@
   > .lp-question
   > p:not(.nb-question-time):not(.nb-next-step) {
   color: #17302d;
-  font-size: 21px;
-  line-height: 1.45;
-  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.5;
+  font-weight: 500;
 }
 .nb-active-study .nb-question-time {
   font-size: 11px;
@@ -492,6 +492,20 @@
   min-height: 44px;
 }
 @container notebook (max-width: 700px) {
+  .nb-active-study .lp-ask-composer > .lp-dialogue-suggestions {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    min-width: 0;
+    max-width: 100%;
+    padding-block: 2px 4px;
+    scrollbar-width: none;
+  }
+  .nb-active-study
+    .lp-ask-composer
+    > .lp-dialogue-suggestions
+    .lp-dialogue-chip {
+    flex: 0 0 auto;
+  }
   .nb-folded-page {
     grid-template-columns: 40px minmax(0, 1fr);
   }
