@@ -1,0 +1,22 @@
+{
+  "createdAt": "2026-10-25T17:08:39.6361987Z",
+  "status": "prepared-not-executed-by-this-agent",
+  "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "helper": "intervention-continuation-fixture.mjs",
+  "sha256": "f6df14f6c7582ef3e77e363c243a65661df29619888aa36e03de02bb3bad5880",
+  "syntax": "passed",
+  "scope": "prepare-draft only: strengthen original immutable evidence/full accepted evaluation comparison; recognize separately derived completed diagnostic outcome",
+  "reviewedOriginalPartialSha256": "78b8bbb419209e2789024e5f69fe879d59f2b7f09af6556d524e9de491044c49",
+  "baselineApiEvidence": "../study-step-02/api-evidence.json",
+  "baselineApiSha256": "f54422eff7d21254e88d4849f9f8a6296605c10ee1cf534fbd11dc99578ffea7",
+  "fullOriginalAcceptedEvaluationCanonicalSha256": "78f4ffa5678299732d09ee3494a1eafc3218f266df1e0e3732a7e12860fd67c7",
+  "assertions": [
+    "All original attempt fields except derived outcome exactly match original snapshot with accepted evaluation pointer",
+    "Full original accepted evaluation matches pinned reviewed canonical hash",
+    "Legitimate existing diagnostic outcome is recorded explicitly with exact root/supportingattempt IDs and approved policy",
+    "Draft-only phase never evaluates or reapplies tutoring",
+    "After draft generation, original attempt and interventions match phase-start snapshot and full original accepted evaluation remains equal"
+  ],
+  "priorSnapshotsPreserved": true,
+  "quotaOrTimestampModified": false
+}

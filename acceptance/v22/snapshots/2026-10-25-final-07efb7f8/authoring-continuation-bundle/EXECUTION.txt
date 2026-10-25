@@ -1,0 +1,48 @@
+Narrow authoring-01 continuation — prepared, not executed
+
+Run only after the root releases the shared runtime window:
+node <bundle>/continue-authoring.mjs <runtime-final> <authoring-01/report.json> <fresh-out> <playwright-package-directory> <final-bundle/safety.mjs>
+
+All arguments must be absolute. OUT parent must exist; OUT must not exist.
+Do not wrap in another lock-owning utility. This helper owns the exact unchanged
+PR121 global lock and 10GiB runtime preflight.
+
+Pinned original report SHA256:
+d0e934029f6666f2b5945697c296b959efb7a610a6dcefbf15b3e79c5eda202e
+Pinned original api-evidence SHA256:
+ffbf7b95b3d39c33504d809547a2627d693b706ff054728437e966641e39f46b
+Source: 07efb7f821339538800f150f57b298eb2e606be3
+Tree: 948b9a6005a056c97f10d181c589b5352d6221f3
+Origin: http://localhost:3396 / project lp-v22-final-01a173d6
+
+First verifies exact checkout/build-tag/runtime provider configuration. Then logs
+in as original fictional teacher/student. All reads precede domain mutations:
+- Existing draft v2 revision7 and source/version.
+- Existing published-v1 page and exact assignment handoff.
+- Existing active assignment's immutable content_ref.
+- Same earlier public session byte-equivalent, exact original unanswered attempt.
+- Authorized teacher original-question snapshot, empty conversation, zero provider use.
+Only after those checks may new actions run: help message, explicit help intent,
+one explicit original answer. Each conversation operation is bounded and reconciled
+by read-only session/conversation reads before the next action. The automatic
+provider-disabled evaluation response is observed; no retry is performed.
+
+Allowed domain writes are only POST to that exact conversation endpoint (once
+per explicit help action), that exact answer endpoint (once), and the application's
+single automatic evaluation endpoint. Teacher/source/objective/question/lesson/
+publishing/assignment/version writes are blocked, as are external requests.
+
+Final read-only reload and teacher original-evidence checks retain exact answer,
+submission key, attempt, source version, zero-provider conversation and recorded
+assistance. Screenshots at all four required viewports are newly captured. A
+successful report exposes functional_completed_through=teacher-original-evidence
+for the existing synthetic continuation adapter.
+
+The new report links every inherited check to the unchanged failed report and its
+hash. Earlier screenshots are referenced separately; nothing is overwritten or
+relabeled. New checks and captures are attributed only to this continuation.
+
+Any uncertain explicit mutation or failed browser close retains the owned lock.
+Preserve output and reconcile saved state before any further mutation or release.
+No blind rerun: after any successful help/answer action, the original empty-state
+preconditions deliberately refuse replay. Syntax passed; runtime remains UNRUN.

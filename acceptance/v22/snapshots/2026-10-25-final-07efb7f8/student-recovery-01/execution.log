@@ -1,0 +1,50 @@
+{
+  "result": "INCOMPLETE_OR_FAILED",
+  "cases": [
+    {
+      "id": "R1-initial-save-401",
+      "status": "PASS"
+    },
+    {
+      "id": "R2-offline-save",
+      "status": "PASS"
+    },
+    {
+      "id": "R3-committed-response-lost",
+      "status": "PASS"
+    },
+    {
+      "id": "R4-acknowledged-save-evaluation-401",
+      "status": "PASS"
+    },
+    {
+      "id": "R5-real-auth-expiry-safe-return",
+      "status": "UNRUN",
+      "error": "Missing isolated auth-expiry operator hook; real expiry is UNRUN."
+    },
+    {
+      "id": "R6-duplicate-and-original-identity",
+      "status": "PASS"
+    }
+  ]
+}
+
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'INCOMPLETE_OR_FAILED'
+- 'PASS'
+
+    at file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a173d6-e789-7233-92d2-b0b55d4559ed/student-bundle/run-browser.mjs:303:12 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'INCOMPLETE_OR_FAILED',
+  expected: 'PASS',
+  operator: 'strictEqual'
+}
+
+Node.js v22.13.0

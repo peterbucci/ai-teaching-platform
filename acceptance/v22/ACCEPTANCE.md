@@ -1,3 +1,11 @@
+## Latest independent snapshot — October 25, 2026
+
+**CHANGES REQUIRED.** [Final combined acceptance](snapshots/2026-10-25-final-07efb7f8/ACCEPTANCE.md) tests combined application `07efb7f821339538800f150f57b298eb2e606be3` / tree `948b9a6005a056c97f10d181c589b5352d6221f3`. The new snapshot contains exact inputs, connected workflow evidence, all required visual sizes, recovery results and actionable owners.
+
+The historical report below is preserved verbatim and applies to its original application snapshots, not this new candidate.
+
+---
+
 # Learning Pulse Workbench v2.2 acceptance
 
 **The current combined application is not accepted for merge.** Its offline, production and combined service checks passed, and the requested same-record browser verification completed with explicit synthetic seams. Actual prototype comparison still shows P1 Evidence and intervention layout gaps and confirmed navigation/focus defects. This PR contains only acceptance tests, fixtures, utilities and reports.

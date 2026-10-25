@@ -1,0 +1,26 @@
+{
+  "createdAt": "2026-10-25T17:28:45.7229033Z",
+  "status": "prepared-not-executed",
+  "helper": "v09-private-draft-browser.mjs",
+  "sha256": "96433d97aa26f25e8d598429d81d94901186563e3ac79e45c3ba5166b3bef95e",
+  "syntax": "passed",
+  "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "scope": "V09 only, same connected private draft before approval",
+  "sourceReviewed": [
+    "workspace.tsx Evidence/Activity/Steps shared pane slots",
+    "workspace-panes.tsx hydrated layout/native modal and opener restoration",
+    "editor.tsx private editor tab and derived dirty flag; Save disabled for unchanged work",
+    "activity-editor.tsx Activity title field and120character limit"
+  ],
+  "checks": [
+    "All panes at four CSS viewports and measured native200",
+    "Tablet Steps native modal, keyboard containment, Escape and Close focus restoration",
+    "Exact original saved evidence shown",
+    "Actual local Activity title survives pane/view changes and appears in unsaved Student preview",
+    "Restore exact original title without Save",
+    "Before/after authenticated saved review JSON identical"
+  ],
+  "persistentLifecycle": "Not established by local edit checks; separate actual browser save/approve/deliver/follow-up required",
+  "currentlyRunningNavigationSupplementUntouched": true,
+  "applicationAndSharedRuntimeUnchanged": true
+}

@@ -1,0 +1,299 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-25T18:02:29.570Z",
+  "reviewer": "independent_composition",
+  "reviewType": "Independent report truthfulness, receipt-count, lineage, ownership attribution and virtual publication-link review; not new runtime execution",
+  "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+  "runtimeExecuted": false,
+  "status": "passed-no-outstanding-actionable-report-issues",
+  "reportCount": 14,
+  "localLinksChecked": 109,
+  "documents": [
+    {
+      "file": "ACCEPTANCE.md",
+      "sha256": "43bb4dcc51eef6e95bf18f53717b4775d9d9527a6e844b9711ea2998c4cf19dc",
+      "bytes": 2730,
+      "localLinks": 14
+    },
+    {
+      "file": "ACCESSIBILITY_RECOVERY.md",
+      "sha256": "4526dd551db873d560920f3beadbb4ec0d5f75abe32a0d0b241bb9c3fac5bb2f",
+      "bytes": 9979,
+      "localLinks": 1
+    },
+    {
+      "file": "DEFECTS.md",
+      "sha256": "d0f15638a3719d2bf40f51e235a5139b8a956a58f04e22840f6241836d7aa761",
+      "bytes": 10152,
+      "localLinks": 6
+    },
+    {
+      "file": "END_TO_END_EVIDENCE.md",
+      "sha256": "1ca0e5abc536ea182cadc0730ac44e545fa56a2679942916e7dc95fe5237fb15",
+      "bytes": 15092,
+      "localLinks": 10
+    },
+    {
+      "file": "EXECUTIVE_SUMMARY.md",
+      "sha256": "f9b993900ce0e2e4b76eae3a6277865b4d4486a2b0a8872cc7828c4c87698e26",
+      "bytes": 2557,
+      "localLinks": 4
+    },
+    {
+      "file": "FINAL_RUNNER.md",
+      "sha256": "aeee1273acc6b3d18ccda53e7db8f794a9da5194aef9c292d16a4b81287d3c37",
+      "bytes": 8199,
+      "localLinks": 0
+    },
+    {
+      "file": "FUNCTIONAL_REPORT.md",
+      "sha256": "71bdc05f883fff687bf95e71b4e033d074231ddecc9f09e5187723b13a443603",
+      "bytes": 21741,
+      "localLinks": 23
+    },
+    {
+      "file": "INTEGRATION_MATRIX.md",
+      "sha256": "faeefcf09a3be946aeab79f0427d051b52616217cc82b051ccc7feb32fc5f547",
+      "bytes": 7067,
+      "localLinks": 13
+    },
+    {
+      "file": "LEGACY_OUTCOMES_PREREQUISITE.md",
+      "sha256": "5639f971591eb7c384881bf3a9b563e094e8b442f58c7954fd82b1ee24695f75",
+      "bytes": 5429,
+      "localLinks": 0
+    },
+    {
+      "file": "MERGE_READINESS.md",
+      "sha256": "e1d73e1237bba72a7aa7f83880338a4c34d16794ca5de5761598bd892cfef663",
+      "bytes": 4766,
+      "localLinks": 1
+    },
+    {
+      "file": "NAVIGATION_EVIDENCE.md",
+      "sha256": "198d6af19f37184ae0753c865f22955df3e7712e5279f6727a4802b95d45a7f0",
+      "bytes": 12943,
+      "localLinks": 27
+    },
+    {
+      "file": "ORIGINAL_BLOCKERS.md",
+      "sha256": "b9b2bd0980c0657e24a64e71d7b2ee97299844bee5f19370286de308b6192feb",
+      "bytes": 6731,
+      "localLinks": 0
+    },
+    {
+      "file": "PUBLICATION_ALLOWLIST.md",
+      "sha256": "16de98aaaaa9248922130b0f80c30f04510349f408216829351b181c3f5e0d82",
+      "bytes": 3960,
+      "localLinks": 3
+    },
+    {
+      "file": "VISUAL_REPORT.md",
+      "sha256": "6379402bb3435d8f6f929286ea5afd0159562254bf33c15b34420b5cbc1e3c36",
+      "bytes": 17655,
+      "localLinks": 7
+    }
+  ],
+  "verifiedCounts": {
+    "unit": 632,
+    "authoring": 27,
+    "content": 293,
+    "integrationCommands": 89,
+    "integrationPreflights": 89,
+    "approvalCommands": 5,
+    "approvalPreflights": 5,
+    "sixBlockers": {
+      "passed": 94,
+      "unrun": 6,
+      "failed": 8
+    },
+    "navigationSupplement": 21,
+    "populatedV09": 60,
+    "shell02": {
+      "passed": 47,
+      "failed": 1
+    },
+    "authored04": 4,
+    "studentCore": 6,
+    "studentOutcomeAssertions": 20,
+    "studentRecovery": {
+      "passed": 5,
+      "unrun": 1
+    },
+    "finalJourneySteps": 16,
+    "journeyPersistenceGroups": 17,
+    "applicationCaptureStates": 60,
+    "interventionHydrationErrorStates": 5
+  },
+  "claimBoundaries": [
+    "Five original functional findings resolved; V09 functional journey passes but required visual finding remains open",
+    "Original answer assistance remains none_recorded; nonzero corrective_feedback belongs to the later same-journey fresh check and separate-student reading remains separate",
+    "All16 steps rely on actual authenticated browser persistence plus explicitly synthetic service seams; no actual-model claim",
+    "Final journey restart affected only owned DB; app process/image stayed unchanged; no restart replay;17 groups identical",
+    "Raw failed/unrun receipts remain failed/unrun and subsequent narrow verifier corrections are separately attributed",
+    "Known missing teacher capabilities and visual differences remain CHANGES REQUIRED; inherited files are not falsely labeled integration regressions",
+    "Real auth expiry, valid-source-later-loss, screen readers, physical devices, optional absent speech, legacy prerequisites and actual providers remain explicit gaps"
+  ],
+  "resolvedReviewIssues": [
+    {
+      "id": "REPORT-DB-ONLY",
+      "finding": "Functional narrative incorrectly described final restart as database/application",
+      "resolution": "Now database-only, application process unchanged"
+    },
+    {
+      "id": "REPORT-V02-ZOOM",
+      "finding": "Original-body initial visibility overstated at native200",
+      "resolution": "Record pane/title immediate; original body requires pane scrolling,390/320body initially visible"
+    },
+    {
+      "id": "PUBLICATION-SNAPSHOT-POLICY",
+      "finding": "Exports labeled secret-bearing without detected credential fields",
+      "resolution": "Now intentionally private scoped exports; no populated credential fields detected"
+    },
+    {
+      "id": "PUBLICATION-GUARD-ID",
+      "finding": "Released guard identifier retained in pinned helper/instructions while JSONtokens removed",
+      "resolution": "Explicitly documented as historical nonauthentication provenance; source remains hash-pinned"
+    },
+    {
+      "id": "PUBLICATION-SEED-METADATA",
+      "finding": "Seed receipt described as containing password value",
+      "resolution": "Correctly distinguishes credential environment-setting name from private password value"
+    }
+  ],
+  "publicationReview": {
+    "virtualLinks": "all109 selected/generated destinations resolve",
+    "credentialScanBoundary": "Bounded known-secret/sensitive-field scan belongs to publication tooling; this review verifies report consistency, not a universal secret-free guarantee",
+    "historicalGuardIdentifier": "Released control metadata retained in pinned source and explicitly disclosed; not an authentication credential",
+    "rawDatabaseExports": "Excluded by policy with original hashes retained; public17group comparison and scope IDs remain",
+    "copyValidationRequired": true
+  },
+  "remainingActionableIssues": [],
+  "evidence": [
+    {
+      "path": "integration/github-baseline.json",
+      "sha256": "00862f2434bcd9bc678c69161c0a1f0b7b37f5d2826902d01c58ff8c0b7f2182"
+    },
+    {
+      "path": "integration/final-github-heads.json",
+      "sha256": "40432d85df9bd134462b8ee930480c61fee6254f8217fd88e7075f2a90ddabeb"
+    },
+    {
+      "path": "independent-audit/composition.json",
+      "sha256": "6b8ac8abe4a677047b786e37d1170ef78c6ba79a85bd60ffd100d39e2ee6b700"
+    },
+    {
+      "path": "independent-audit/preservation.json",
+      "sha256": "9da71c5ba95d9b914455869c9ee36d08268b7318be11f1b0f62bd965658654ba"
+    },
+    {
+      "path": "runtime-final/runs/2026-10-25T16-22-46-507Z-quality/04-test.log",
+      "sha256": "1d158f3ae36dfbff657db809c759711e6a6539aae66bff0c8b38b01417f63f7b"
+    },
+    {
+      "path": "runtime-final/runs/2026-10-25T16-22-46-507Z-quality/14-authoring-tests.log",
+      "sha256": "00888e41e4cd17cf00f606ade180c78c78004fd79b4a1b20af333aa1e711ea01"
+    },
+    {
+      "path": "runtime-final/runs/2026-10-25T16-22-46-507Z-quality/16-content-check.log",
+      "sha256": "24ca75cedc808ea6504db496af4171213c7c787aba61396136740e05e61a61ed"
+    },
+    {
+      "path": "runtime-final/runs/2026-10-25T16-25-16-529Z-integration/results.json",
+      "sha256": "007869dd4bc72cb00d367b22c080d79a99e65df40a392584f5460ad346bd1a6f"
+    },
+    {
+      "path": "runtime-final/runs/2026-10-25T16-33-03-562Z-approval/results.json",
+      "sha256": "7b0a8566a5d12295c36c52a6ee1e99a97f65121d1c875f301582bd3c4e85ec26"
+    },
+    {
+      "path": "six-blockers-01/report.json",
+      "sha256": "8917ce12253ea8d4ff17f339aad40181dce907591fdbae175b19ba74f1d2d5f7"
+    },
+    {
+      "path": "navigation-supplement-01/report.json",
+      "sha256": "dff7856581f5e4c2aba098ca4eb7ebac6b715affd5c1803f33426044c03e4e19"
+    },
+    {
+      "path": "v09-private-01/report.json",
+      "sha256": "ac7915ca04e22e8749c5eadbb15192d2c0c36fd05e51b5b4a9d80d6e6640e53c"
+    },
+    {
+      "path": "shell-accessibility-02/report.json",
+      "sha256": "9eb165c2b973c643f549d10eb4c51acb18af9ce62964cc0836810d19848944b4"
+    },
+    {
+      "path": "authored-pane-retention-04/report.json",
+      "sha256": "34282bb719085a90cfb035c5f8b69bd4d967e3f8f57960d84ad321865b2dcbc4"
+    },
+    {
+      "path": "student-core-01/report.json",
+      "sha256": "da475102515acad6c25386f09efdb9d9f8c656159898199937dac650a966389a"
+    },
+    {
+      "path": "student-recovery-01/independent-recovery-report.json",
+      "sha256": "1caabc23a2bbad14b5bf8417c0b0d8741a5de43a9358774f928e0cdd137aa2dc"
+    },
+    {
+      "path": "intervention-browser-01/report.json",
+      "sha256": "168d54da035e08222e64d480ca177109428060b1ee5abb346a2fc1fa03833f5c"
+    },
+    {
+      "path": "intervention-reconciled-01/report.json",
+      "sha256": "849c0b4b4b514776c8186f4a73bcf66e2acc5348a28c5f3526380bfbb765ec0a"
+    },
+    {
+      "path": "intervention-followup-evaluation-01/fixture.json",
+      "sha256": "1a81a9422a996a22172edbdca69abcf942195392c8c89e2fe85b712f303d75a4"
+    },
+    {
+      "path": "intervention-followup-browser-01/report.json",
+      "sha256": "0ead4b22183138eb4be5216dd29f7f11fefa5d16fe3abfcef8143dc2facb920c"
+    },
+    {
+      "path": "journey-persistence-01/report.json",
+      "sha256": "5968c4545087b076a6498d29e40d38d335a7959a7e2444f6f682a9b51e32d804"
+    },
+    {
+      "path": "journey-persistence-reconciled-01/report.json",
+      "sha256": "6ff863a589c2385e927c498376fea1c48292532b38c4abd34bd5d5de8b648e28"
+    },
+    {
+      "path": "journey-persistence-reconciled-01/guard-release.json",
+      "sha256": "f1f2739bd4950589f19f9ec44a10ebf7e30ec289ffb5534eac341c8d7c24e370"
+    },
+    {
+      "path": "application-captures-03/report.json",
+      "sha256": "7870b85af2361ce7461e955fe1dbecd3716c0c55cdba6ec7bb82b39248f59dc9"
+    },
+    {
+      "path": "application-aggregate-04.json",
+      "sha256": "4656bdb34271c5ba965352110ec1871bb48b59ae557b4b939a91fd2581eea71f"
+    },
+    {
+      "path": "prototype-aggregate-03.json",
+      "sha256": "0ebf52d4f27091c2a3c3797e1b4a92cc520293d9286c49e6cd613afd69c0f3d9"
+    },
+    {
+      "path": "visual-bundle/final-visual-review.json",
+      "sha256": "6a396d3262eca63fd280e0539f24683559843596e1b538d3177dc3f8a598eda4"
+    },
+    {
+      "path": "student-results-01/correct-result-report.json",
+      "sha256": "717a7ead30ccbe369f3852ea0364d4e360c21ded37fb47032fbc270dba8a18ff"
+    },
+    {
+      "path": "student-results-01/partially_correct-result-report.json",
+      "sha256": "1ec05d9d8a1c03029c3d9a8e58cf405dcd18105e5e0a1d14548841d54aa64e18"
+    },
+    {
+      "path": "student-results-01/incorrect-result-report.json",
+      "sha256": "91d880320ca874d94a17e20ec6df5c47edbb5528962d6d9f9c84653642dc5d5c"
+    },
+    {
+      "path": "student-results-01/uncertain-result-report.json",
+      "sha256": "51cb0e093ea21a7f38baa3f251b3291622e2cc73785a2300b45026392019fc39"
+    }
+  ]
+}

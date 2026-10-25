@@ -1,0 +1,87 @@
+{
+  "status": "failed",
+  "startedAt": "2026-10-25T16:21:35.376Z",
+  "target": "shell",
+  "helper": "capture-shell",
+  "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+  "state": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+  "manifestPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final\\manifest.json",
+  "out": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\default-captures",
+  "origin": "http://localhost:3396",
+  "project": "lp-v22-final-01a173d6",
+  "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+  "wrapperSha256": "470465b5bd865fefc95f946d916e5faf16b960ad191c8b3499aae20761139bfd",
+  "safetyPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\final-bundle\\safety.mjs",
+  "safetySha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+  "script": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\final-bundle\\final-verification\\capture-shell.mjs",
+  "scriptSha256": "cda1ae8c4983dec885113c6a53045b4239fbf62480f5a57ba21f1561bb206e75",
+  "fixtureSha256": null,
+  "minimumGiB": 10,
+  "paidModelCallsAuthorized": false,
+  "preflight": {
+    "observedAt": "2026-10-25T16:21:35.815Z",
+    "minimumGiB": 10,
+    "host": [
+      {
+        "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+        "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+        "availableBytes": 46304002048,
+        "availableGiB": 43.12396240234375,
+        "minimumGiB": 10,
+        "pass": true
+      },
+      {
+        "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+        "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+        "availableBytes": 46304002048,
+        "availableGiB": 43.12396240234375,
+        "minimumGiB": 10,
+        "pass": true
+      },
+      {
+        "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+        "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+        "availableBytes": 46304002048,
+        "availableGiB": 43.12396240234375,
+        "minimumGiB": 10,
+        "pass": true
+      }
+    ],
+    "engine": {
+      "status": "healthy",
+      "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+      "name": "docker-desktop",
+      "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+      "root": "/var/lib/docker",
+      "storage": {
+        "status": "unavailable",
+        "reason": "wsl.exe --distribution probe failed (exit 1): df: /var/lib/docker: can't find mount point\n"
+      }
+    },
+    "backingStorage": {
+      "provenance": "existing virtual disks under Docker Desktop configured/default data locations",
+      "disks": [
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+          "availableBytes": 46069063680,
+          "availableGiB": 42.90515899658203,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\main\\ext4.vhdx",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\main\\ext4.vhdx",
+          "availableBytes": 46069063680,
+          "availableGiB": 42.90515899658203,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ]
+    },
+    "pass": false
+  },
+  "error": "Reviewed 10 GiB storage/engine preflight did not pass; no child was started.",
+  "finishedAt": "2026-10-25T16:21:36.781Z"
+}

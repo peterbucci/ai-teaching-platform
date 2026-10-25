@@ -1,0 +1,42 @@
+Prepared only. No browser, Docker, database or build command has run from this bundle.
+Source PR #122 head: a82b90864b9d87153ba88128eb2282ac60f6dbeb
+Application: 07efb7f821339538800f150f57b298eb2e606be3
+Tree: 948b9a6005a056c97f10d181c589b5352d6221f3
+Project: lp-v22-final-01a173d6
+Origin: http://localhost:3396
+State: ../runtime-final
+Safety: safety.mjs byte-identical SHA256 af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485
+
+Run only after root grants an exclusive runtime window. Each script owns the same existing host lock; do not hold a second parent lock while invoking these scripts. Every output must be fresh; never overwrite earlier failures. No timestamp/quota manipulation, no blind retries. A nonzero fixture execution or uncertain browser mutation retains its own lock and requires read-only reconciliation before any retry/release.
+
+PowerShell command templates (set $root to this turn's visualization directory and $playwright to installed Playwright package):
+$work = "$root/journey-bundle"
+$state = "$root/runtime-final"
+$guard = "$work/safety.mjs"
+$env:BROWSER_EXECUTABLE = 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'
+node "$work/guarded-container-fixture.mjs" prepare $state "$root/authoring-01/report.json" "$root/intervention-prepare-01" $guard
+node "$work/intervention-continuation-browser.mjs" review-and-submit $state "$root/intervention-prepare-01/fixture.json" "$root/intervention-submit-01" $playwright $guard
+Read and respect the real followup.retry_after timestamp. Do not immediately invoke the next command unless retry eligibility is actually established.
+node "$work/guarded-container-fixture.mjs" evaluate-followup $state "$root/intervention-submit-01/report.json" "$root/intervention-evaluate-01" $guard
+node "$work/intervention-continuation-browser.mjs" inspect-followup $state "$root/intervention-evaluate-01/fixture.json" "$root/intervention-inspect-01" $playwright $guard
+node "$work/shell-accessibility-browser.mjs" $state "$root/accessibility-01" $playwright $guard "$root/authoring-01/report.json"
+
+Preparation evidence:
+All 7 .mjs syntax checks passed (see syntax-check.json).
+7 synthetic adapter/action-boundary unit tests passed on 2026-10-25. These mock process/filesystem/guard boundaries and do not acquire the real lock or call Docker/browser/database.
+- Docker timeout, timeout-log failure, and transport-failure preserve the owned lock.
+- Unfinished body, error responses and malformed/nonacknowledging HTTP200 retain uncertainty with no retry.
+- Completed acknowledgement remains latched even if receipt writing fails.
+
+Static locator changes:
+Recipient selection now requires opening details.lp-intervention-recipient-selection.
+Approved-undelivered uses the actual status “Approved · awaiting delivery”; the original heading was removed.
+Teacher follow-up is in Steps; responsive captures select the real Steps tab/modal. Evidence and Activity retain their own panes.
+No image alterations, screenshot rescaling or application assertion relaxation.
+Unadapted old context-checks, curated-activation and hardcoded resume phases are excluded from the runnable phase allowlist. Separate tests/receipts are needed if later required.
+
+Residual coverage caveats:
+The existing authored help path is provider-disabled fallback, not supplied synthetic tutoring help; assistance should therefore be checked as the actual stored zero/unavailable result.
+Original-answer evaluation is accepted by the explicit prepare seam after the authoring report. Add a read-only student visit to that same session afterward to verify displayed assessment scope; the old continuation only verifies the later follow-up UI.
+Native zoom script retains original isolated Edge Preferences method and only claims measured zoom. Screenshots still require visual inspection; historical scripts had cropped captures.
+Run-time failures are evidence, not permission to loosen assertions or change application behavior.

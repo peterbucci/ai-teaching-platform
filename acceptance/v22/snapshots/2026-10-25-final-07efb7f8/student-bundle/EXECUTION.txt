@@ -1,0 +1,70 @@
+Student combined acceptance — prepared, not executed
+
+Candidate 07efb7f821339538800f150f57b298eb2e606be3
+Tree 948b9a6005a056c97f10d181c589b5352d6221f3
+Origin http://localhost:3396; project lp-v22-final-01a173d6
+All files are verification-only. COPY_PROVENANCE.json links PR122 and PR113 sources
+and current hashes. All 10 .mjs files pass node --check; no runtime was launched.
+
+Prerequisite:
+Use normal teacher Review and Approve and activate for the fictional curated
+assignment 30000000-0000-4000-8000-000000000001. Do not bypass its approval in SQL.
+The journey-bundle owner is preparing the normal curated-activation browser phase.
+The seed below refuses an inactive assignment and never activates it.
+
+Variables:
+$bundle = 'C:/Users/sb128/.codex/visualizations/2026/10/25/01a173d6-e789-7233-92d2-b0b55d4559ed/student-bundle'
+$state = <root-created runtime-final private directory>
+$guard = 'C:/Users/sb128/.codex/visualizations/2026/10/25/01a173d6-e789-7233-92d2-b0b55d4559ed/final-bundle/safety.mjs'
+$seedOut = <fresh absolute outside-source output directory>
+$browserOut = <another fresh absolute outside-source output directory>
+
+1. Create three new fictional accounts and ordinary service sessions once:
+node "$bundle/guarded-container-fixture.mjs" student-regression $state unused $seedOut $guard
+
+On a successful receipt, use $fixture = "$seedOut/fixture.json". Never rerun a
+failed seed blindly. This adapter retains its owned lock after uncertain/nonzero
+Docker outcome; inspect container process, output and database read-only first.
+
+2. PR122 core browser regression (accepted result, original exact answer/reload,
+cross-student denial, long-response wheel/Jump, normal reading display accounting,
+help fallback not graded, initial401/read-only reconciliation/same-identity retry):
+node "$bundle/guarded-browser.mjs" --target shell --helper student-regression-browser --state $state --safety $guard --fixture $fixture --out $browserOut --docker-data-path <verified backing path> --storage-probe-container <verified running probe>
+
+Use only student-regression-browser from this copied wrapper. Its other historical
+allowlist entries were not copied. Explicit --state/--safety are required. Its
+browser filter environment ACCEPTANCE_REGRESSION_CASE must be absent for full run.
+
+3. Separate four-outcome matrix (correct, partial, incorrect, uncertain; exact
+accepted identity, assistance, private criteria, completed reload, four viewports):
+node "$bundle/guarded-matrix.mjs" results $state $fixture <fresh-output> $guard
+
+4. Separate recovery matrix (initial401, offline, committed response lost,
+acknowledged save then evaluator401, duplicate answer/evaluation replay):
+node "$bundle/guarded-matrix.mjs" recovery $state $fixture <fresh-output> $guard
+
+Each matrix operation creates fresh sessions belonging to the seed's new fictional
+recovery actor. Existing demo student histories are not used or overwritten.
+Accepted evaluations are explicitly synthetic_fixture through existing services.
+Models/credentials remain blank; actual-model behavior is not claimed. Database
+and app persistence, authentication, browser navigation and display are real.
+
+R5 actual session expiry is deliberately UNRUN. The original PR113 fixture edited
+expiresAt; that mode is removed because this assignment prohibits saved timestamp
+alteration. The original recovery assertion module is retained and reaches its
+existing missing-hook UNRUN path. Do not treat the whole matrix as PASS. If the
+other five groups pass and R5 alone is UNRUN, guarded-matrix records
+completed-with-unrun and exits2 after releasing its own lock. Any other unsuccessful
+or uncertain child retains the owned lock and requires read-only reconciliation.
+No assertion is suppressed or reclassified as a pass.
+
+The copied PR113 matrix tests save-pending and failed evaluation wording. It does
+not create a real asynchronous evaluation_pending server operation; that specific
+state requires a separate safe fixture or must remain UNRUN. Physical devices,
+screen readers, native zoom and actual model calls are outside this student helper.
+Native200 belongs to the independently prepared teacher accessibility check.
+
+Parent directories must exist. Outputs must be fresh and outside the application.
+Keep .env, browser profiles, auth storage and setup files private. Run sequentially
+with all other database/browser/build work. No quota, rate limit or timestamp is
+changed. Normal services and the existing recorded retry conditions remain intact.

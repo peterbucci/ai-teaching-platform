@@ -1,0 +1,49 @@
+All commands are coordinator-owned and serialized by the unchanged safety.mjs guard.
+No helper may run while another guarded browser, DB, build, or resource suite owns the shared lock.
+All outputs must be fresh; never overwrite prior reports or blindly retry uncertain writes.
+
+From the visualization root in PowerShell:
+$j = Join-Path (Get-Location) 'journey-bundle'
+$s = Join-Path (Get-Location) 'runtime-final'
+$pw = 'C:/Users/sb128/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright'
+$safe = Join-Path $j 'safety.mjs'
+$partial = Join-Path (Get-Location) 'intervention-prepare-01/reconciled-fixture.json'
+
+1. Real next diagnostic answer from reconciled original evaluation/controller:
+node "$j/study-step-browser.mjs" $s study-step-01 $pw $safe $partial
+
+2. Only if step report status=passed and saved_attempt exists:
+node "$j/guarded-container-fixture.mjs" evaluate-study $s study-step-01/report.json study-eval-01 $safe
+
+3. Read study-eval-01/fixture.json before deciding next step. Existing applyTutoring decides naturally.
+If session_completed=false, run study-step-browser with study-eval-01/fixture.json as input and a fresh step-02 output,
+then evaluate-study against that browser report. Maximum four actual additional answer submissions is enforced.
+If session_completed=true, run study-step-browser once with its fixture receipt to expose and actually acknowledge
+any pending visible feedback. It submits no additional answer in a completed session.
+
+4. Verify latest scoped result separately from original intervention evidence and exact assistance:
+node "$j/original-result-browser.mjs" $s original-result-01 $pw $safe $partial
+
+5. After natural quota expiry ONLY, and after coordinator read-only reconciliation confirms no draft request
+with the recorded ID is pending/failed, create private draft without evaluating or applying tutoring again:
+$env:ACCEPTANCE_REVIEWED_PREPARATION_SHA256 = '78b8bbb419209e2789024e5f69fe879d59f2b7f09af6556d524e9de491044c49'
+node "$j/guarded-container-fixture.mjs" prepare-draft $s $partial intervention-draft-02 $safe
+Remove-Item Env:ACCEPTANCE_REVIEWED_PREPARATION_SHA256
+
+6. Separate normal UI edit/save, approval, delivery, fresh student submission:
+node "$j/intervention-continuation-browser.mjs" review-and-submit $s intervention-draft-02/fixture.json intervention-browser-01 $pw $safe
+node "$j/guarded-container-fixture.mjs" evaluate-followup $s intervention-browser-01/report.json intervention-followup-01 $safe
+node "$j/intervention-continuation-browser.mjs" inspect-followup $s intervention-followup-01/fixture.json intervention-linked-01 $pw $safe
+
+7. Six original regression blockers and additional teacher recovery cases:
+node "$j/six-blocker-browser.mjs" $s six-blockers-01 $pw $safe intervention-draft-02/fixture.json
+node "$j/teacher-recovery-browser.mjs" $s teacher-recovery-01 $pw $safe authoring-01/report.json
+
+8. Separate existing curated assignment normal review/activation prerequisite for student regression:
+$env:ACCEPTANCE_REVIEWED_AUTHORING_SHA256 = (Get-FileHash authoring-01/report.json -Algorithm SHA256).Hash.ToLower()
+node "$j/intervention-continuation-browser.mjs" curated-activation $s authoring-01/report.json curated-activation-01 $pw $safe
+Remove-Item Env:ACCEPTANCE_REVIEWED_AUTHORING_SHA256
+
+No altered quotas/timestamps, SQL writes, fake display acknowledgments, forced completion, paid provider calls,
+application modifications, or replay of an unresolved request are used. The study evaluator and draft generator
+are explicitly synthetic provider adapters; all business transitions use existing application services.

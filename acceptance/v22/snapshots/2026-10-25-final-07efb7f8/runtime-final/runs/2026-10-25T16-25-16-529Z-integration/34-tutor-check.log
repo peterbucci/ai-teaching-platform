@@ -1,0 +1,22 @@
+
+> ai-teaching-platform@0.1.0 tutor:check
+> node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-tutoring.ts
+
+Recovery fixture: observing the real 60-second cooldown; no paid requests.
+{
+  "live": false,
+  "checks": [
+    "NP-TX-01: saved, evaluated, applied once, reconstructed, private evidence denied",
+    "D02: saved, evaluated, applied once, reconstructed, private evidence denied",
+    "D05: saved, evaluated, applied once, reconstructed, private evidence denied",
+    "D06: saved, evaluated, applied once, reconstructed, private evidence denied",
+    "Complete approved sequence, assistance, historical hypothesis and review date retained",
+    "Provider fixture: failure, cooldown, concurrent explicit retry, immutable answer, both histories, accepted reuse; zero paid calls"
+  ],
+  "sessionId": "92b53748-27dc-432c-8084-2283d83f219e"
+}
+.env not found. Continuing without it.
+(node:88) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///app/scripts/check-tutoring.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)

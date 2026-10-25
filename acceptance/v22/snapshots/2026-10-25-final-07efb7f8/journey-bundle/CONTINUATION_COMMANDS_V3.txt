@@ -1,0 +1,30 @@
+Prepared only; the child agent executed syntax checks and offline receipt comparisons, not any runtime phase.
+Each runtime command below acquires the unchanged shared guard and requires the documented 10 GiB storage preflight. Do not run while another guard owner is active. Use fresh output directories. No prior save, approval, delivery, start or answer submission is replayed.
+
+PowerShell setup (contains no secrets):
+
+$vr = 'C:/Users/sb128/.codex/visualizations/2026/10/25/01a173d6-e789-7233-92d2-b0b55d4559ed'
+$playwright = 'C:/Users/sb128/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright'
+$safety = "$vr/journey-bundle/safety.mjs"
+$env:BROWSER_EXECUTABLE = 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'
+
+1. Read-only reconciliation of exact failed report SHA 168d54da035e08222e64d480ca177109428060b1ee5abb346a2fc1fa03833f5c:
+
+node "$vr/journey-bundle/intervention-continuation-browser-v2.mjs" inspect-submitted "$vr/runtime-final" "$vr/intervention-browser-01/report.json" "$vr/intervention-reconciled-01" $playwright $safety
+
+This logs in normally, then rejects browser writes. It requires the five original action acknowledgements and reads the current saved revision, approval, delivery, enrollment, original answer/evaluation, same submitted follow-up and assistance. It opens only the exact original disclosure identified by original session/evaluation link and verifies the original question ID. Diagnostic counterevidence remains separate. Saved review must remain unchanged. It emits a new passed receipt only after these checks, preserving the failed run.
+
+2. Review intervention-reconciled-01/report.json: require status passed, phase inspect-submitted, functional_completed_through teacher-inspected-provider-disabled-followup, lock_retained false, mutations empty, blocked_context_writes empty, and read-only-reconciliation check passed. Only then record its exact reviewed hash and execute the existing synthetic evaluation pathway for the already saved follow-up:
+
+$env:ACCEPTANCE_REVIEWED_CONTINUATION_SHA256 = (Get-FileHash -Algorithm SHA256 -LiteralPath "$vr/intervention-reconciled-01/report.json").Hash.ToLower()
+node "$vr/journey-bundle/guarded-container-fixture-v2.mjs" evaluate-followup "$vr/runtime-final" "$vr/intervention-reconciled-01/report.json" "$vr/intervention-followup-evaluation-01" $safety
+
+The wrapper and container fixture both verify that hash, candidate/tree/project and failed-run lineage. The fixture reads the stored follow-up first. Existing accepted evaluations are reused. Otherwise it requires evaluation_status failed and the normal retry_allowed true, then uses applyStudentInterventionFollowup with an explicit synthetic provider. Original answer, source, approval, delivery and submitted answer are not replayed. The original recorded retry_after was 2026-10-25T17:36:39.99Z; stored current retry_allowed is authoritative. Quotas, saved timestamps and authorization remain unchanged. External provider HTTP is disabled.
+
+3. Only after the evaluation fixture reports completed, inspect the accepted result and linked original evidence through the browser:
+
+node "$vr/journey-bundle/intervention-continuation-browser-v2.mjs" inspect-followup "$vr/runtime-final" "$vr/intervention-followup-evaluation-01/fixture.json" "$vr/intervention-followup-browser-01" $playwright $safety
+
+This phase is read-only after login. Original evidence selection and focused screenshots use the same exact session/evaluation selector. The original answer and fresh-check response remain distinct. Original and revised helper SHA-256 values are preserved in PREPARATION_REV11.json.
+
+Do not retry a failed or uncertain mutation receipt. Reconcile its actual stored state and owned process/lock first. Never delete another workstream's lock, restart a daemon, clean volumes or change application behavior.

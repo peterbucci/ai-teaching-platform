@@ -1,0 +1,72 @@
+Final integration verification bundle — prepared, runtime unrun by this agent
+
+Source application: 07efb7f821339538800f150f57b298eb2e606be3
+Tree: 948b9a6005a056c97f10d181c589b5352d6221f3
+Target: shell; project lp-v22-final-01a173d6; origin http://localhost:3396
+Original acceptance source: PR122 a82b90864b9d87153ba88128eb2282ac60f6dbeb
+COPY_PROVENANCE.json records original and prepared hashes. Its original source hashes
+remain unchanged when final output hashes are refreshed.
+
+Ready copied tools:
+- runner.mjs: only shell port/project/harnessVersion changed. Other targets remain
+  historical; do not use them for this run.
+- safety.mjs and safety.test.mjs: byte-identical reviewed PR121 helpers.
+- authoring-tests.mjs: original six tests plus current seventh
+  app/teacher/lessons/published-assignment-href.test.ts. Literal imports avoid
+  Next.js bracket-directory glob omission.
+- runner-final/guarded-browser.mjs: updated exact application/runtime identity.
+- final-verification/capture-shell.mjs: updated exact identity, unchanged 36
+  default captures (nine surfaces x four CSS viewports).
+- runner-final/shell-authoring-browser.mjs: updated identity, publication status
+  paragraph locator, and real direct exact-version published-assignment handoff.
+  The outgoing URL and receiving selected option must match the published record;
+  the helper no longer manually selects a version to conceal a handoff error.
+
+No preflight, shared lock, browser, database, build, or application test was run
+by the preparation agent. node --check passed all five adapted/importer scripts.
+
+Generic runner invocation:
+node <bundle>/runner.mjs <mode> --target shell --source <candidate> --sha 07efb7f821339538800f150f57b298eb2e606be3 --state <fresh-private-state> [mode options]
+
+Read-only default capture after root build/seed readiness:
+node <bundle>/runner-final/guarded-browser.mjs --target shell --helper capture-shell --state <runtime-state> --safety <bundle>/safety.mjs --out <fresh-output> --docker-data-path <verified-backing> --storage-probe-container <verified-running-probe>
+
+Authoring:
+node <bundle>/runner-final/guarded-browser.mjs --target shell --helper shell-authoring-browser --state <runtime-state> --safety <bundle>/safety.mjs --out <fresh-output> --docker-data-path <verified-backing> --storage-probe-container <verified-running-probe>
+
+Important execution restrictions:
+- Parent of OUT must already exist; OUT and its sibling .guard.json must not exist.
+- All output/state remains outside source/build context. Providers must be blank.
+- Explicitly pass --state and --safety. Historical defaults do not select the new
+  state automatically. Safety hash must remain
+  af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485.
+- Only capture-shell and shell-authoring-browser helpers were copied. Other old
+  wrapper allowlist entries lack their matching scripts here and must not run.
+- ACCEPTANCE_AUTHORING_RESUME_REPORT must be absent for a fresh journey. Old
+  specific resume hashes remain preserved and cannot match this new manifest.
+- If authoring fails after a mutation, preserve receipt and logs. Read saved
+  records before preparing a narrow explicit continuation; never rerun the whole
+  authoring journey to hide an uncertain result.
+- Authoring intentionally uses manual question creation and provider-disabled
+  help fallback. It does not itself establish actual synthetic help generation,
+  an accepted assessment, or the intervention chain; declare those seams later.
+- Old continuation/accessibility helpers need their own SHA/tree/project/origin,
+  receipt-pin and current-locator review. Independent composition agent owns
+  that adaptation in journey-bundle; do not overwrite its files.
+
+Coverage additions still needed:
+- Default capture lacks Learning Insights and populated Objectives/Questions,
+  published lesson and intervention. Use a separately labeled populated
+  scenario after actual authoring. capture-shell accepts --fixture via wrapper:
+  { phase: "populated", fixtureLabel: <honest state description>,
+    states: [[<lowercase-state-name>, <exact /teacher GET route>], ...] }.
+  Wrapper expects four captures for each declared state. Do not substitute
+  historical IDs or pixel-equivalent claims.
+- Actual exported prototype remains private at prior task prototype-verification/
+  export/Main.dc.html; HTML hash c853369da1250adf24a741a38c3d94d3c97a976c012c352732cf4dd8d924cb54.
+- Native 200% needs the separate accessibility/native helper plus visual pixel
+  inspection. Older cropped/blank screenshots are not complete visual proof.
+- Source-unavailable, raw student concept IDs, Overview/Roster/Insights, and
+  intervention tablet Steps priority require independent current review.
+
+All original PR122 failing/passing snapshots remain untouched.

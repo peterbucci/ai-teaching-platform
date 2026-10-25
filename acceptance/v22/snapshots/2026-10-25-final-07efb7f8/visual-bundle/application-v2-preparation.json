@@ -1,0 +1,38 @@
+{
+  "purpose": "Readiness-only separate application capture helper; no runtime executed during preparation.",
+  "candidateSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "candidateTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+  "parentScript": "capture-application.mjs",
+  "parentSha256": "397d17d08197f0bb76c8f6889f6bb7b689d32f1ca73c2c40fd085dbd050ffea2",
+  "script": "capture-application-v2.mjs",
+  "sha256": "d73dbb1b15f78d1bdffd8580ac8a23e5364dec9a7bc9e03ced1df412fa17bc0e",
+  "unchangedSharedUtilitySha256": "4505d1d22b3bd66483f1b6b7c8335a1639e9267d913169df008e2a1aef82bbdc",
+  "unchangedScenarioSha256": "99229dad0c5388998f65c13fc004969d4fbbef8359d44cad8a5e413d23bf9936",
+  "validation": {
+    "syntax": "node --check passed",
+    "browserExecuted": false
+  },
+  "observedHarnessFailure": "Original .tw-shell waitFor strict mode matched streamed hidden actual shells and Suspense loading fallbacks. Captures failing at this wait are harness failures, not verified application defects.",
+  "readiness": [
+    "Exactly one visible .tw-shell[data-scope], as emitted by TeacherWorkspace at app/teacher/navigation.tsx:178-181.",
+    "Suspense fallback at app/teacher/presentation.tsx:56 has no data-scope and remains excluded.",
+    "Exactly one visible main, not aria-busy=true, with a visible nonempty h1 or h2.",
+    "Shell switcher carries an attached React onClick function, read only, before treating client shell as hydrated; this is bounded to current pinned React implementation.",
+    "Same shell element, scope, heading text, geometry and visible text length across three animation frames.",
+    "Expected state text is still required, scoped to visible main innerText; no arbitrary first match.",
+    "Scenario actions, if supplied later, require exactly one visible matching control inside the shell."
+  ],
+  "sourceTextChecks": {
+    "Class progress": "app/teacher/assignments/page.tsx:58,71",
+    "Emphasis": "app/teacher/objectives/editor.tsx:1469",
+    "Question wording": "app/teacher/lessons/[lessonId]/questions/editor.tsx:1560",
+    "Published version": "app/teacher/lessons/[lessonId]/page.tsx:432",
+    "Saved responses": "app/teacher/evidence/results.tsx:272",
+    "Original response": "app/teacher/evidence/page.tsx:265"
+  },
+  "preservation": "Original script, shared utility, safety guard, scenario, application source and application-captures-01 remain unchanged. Fresh output directory application-captures-02 required.",
+  "limitations": [
+    "Three stable frames and attached shell handler establish capture readiness, not every possible asynchronous child operation or a separate functional interaction pass.",
+    "All captured states remain independently inspectable; a successful capture alone does not grant visual acceptance."
+  ]
+}

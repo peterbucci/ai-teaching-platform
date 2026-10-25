@@ -1,0 +1,217 @@
+Lessons
+
+Learning Pulse
+NET 210 · Fall 2026
+Overview
+Assignments
+Lessons
+Find
+PROTOTYPE
+JR
+Jamie Rivera
+Instructor
+Your path
+Lesson: Bandwidth and Latency
+Link
+
+LESSON · WHOLE COURSE
+
+Bandwidth and Latency
+Version 3 · published
+
+Published versions can’t be edited. Each class keeps the exact version it was given.
+
+Name for the next version must be unused
+Start a new draft version
+
+Carries this version’s content forward as a draft. The question set and the tutor’s order need approving again; classes keep their version.
+
+READING
+
+Source and passages
+Reading version 1
+
+LEARNING OBJECTIVES
+
+All objectives and suggestions
+Approved
+Bandwidth & throughput O1
+Reviewed
+Latency & RTT O2
+Reviewed
+Transmission delay O3
+Reviewed
+Propagation delay O4
+Reviewed
+Queuing delay O5
+Reviewed
+
+QUESTIONS · 15 questions · 5 objectives
+
+All questions: draft, add, approve
+
+Bandwidth & throughput · O1
+
+NP-BW-01 First question
+Done
+NP-BW-02 Follow-up question
+Done
+NP-BW-03 Fresh check
+Done
+
+Latency & RTT · O2
+
+NP-RTT-01 First question
+Done
+NP-RTT-02 Fresh check
+Done
+NP-RTT-03 Follow-up question
+Done
+
+Transmission delay · O3
+
+NP-TX-01 First question
+Done
+NP-TX-02 Alternative
+Done
+NP-TX-03 Fresh check
+Done
+
+Propagation delay · O4
+
+NP-PROP-01 Alternative
+Done
+NP-PROP-02 Follow-up question
+Done
+NP-PROP-03 Follow-up question
+Done
+
+Queuing delay · O5
+
+NP-QUEUE-01 First question
+Done
+NP-QUEUE-02 Follow-up question
+Done
+NP-QUEUE-03 Fresh check
+Done
+
+DELIVERY
+
+Order the tutor follows
+Approve, publish and assign
+
+APPROVE, PUBLISH AND ASSIGN
+
+Bandwidth and Latency
+
+Latest published: version 3 · Oct 18, 4:05 PM.
+
+Assigned
+
+Section A · version 3
+Active
+
+Section B · version 3
+Active
+
+Online section · version 3
+Active
+
+Section C · version 3
+Not active yet
+
+Assign version 3 to a class
+Class
+NET 210 · Section A
+NET 210 · Section B
+NET 210 · Section C (evening)
+NET 210 · Online section
+18 students
+Version
+
+Bandwidth and Latency, version 3
+
+Assignment title students see it in My Learning
+Instructions students see
+Save assignment (not active yet)
+Students see nothing until you activate it.
+Reading
+Reading version 1
+
+P01 · Two fundamental measures
+
+Network performance is measured in two fundamental ways: bandwidth (also called throughput) and latency (also called delay). The bandwidth of a network is given by the number of bits that can be transmitted over the network in a certain period of time.
+
+Used by O1, NP-BW-01, NP-BW-02
+
+P02 · Bandwidth in hertz
+
+Bandwidth and throughput are subtly different terms. First of all, bandwidth is literally a measure of the width of a frequency band.
+
+Not used yet
+
+P03 · Data rate versus measured performance
+
+When we talk about the bandwidth of a communication link, we normally refer to the number of bits per second that can be transmitted on the link. … A useful distinction can also be made, however, between the maximum data rate that is available on the link and the number of bits per second that we can actually transmit over the link in practice.
+
+Used by O1, NP-BW-01, NP-BW-02
+
+P04 · Application bandwidth requirements
+
+Finally, we often talk about the bandwidth requirements of an application. This is the number of bits per second that it needs to transmit over the network to perform acceptably.
+
+Not used yet
+
+P05 · Bandwidth of a single link
+
+While you can talk about the bandwidth of the network as a whole, sometimes you want to be more precise, focusing, for example, on the bandwidth of a single physical link or of a logical process-to-process channel.
+
+Used by NP-TX-03, NP-BW-01
+
+P06 · Latency is measured in time
+
+The second performance metric, latency, corresponds to how long it takes a message to travel from one end of a network to the other. … Latency is measured strictly in terms of time.
+
+Used by O2, NP-RTT-01, NP-RTT-02, NP-RTT-03
+
+P07 · Three components of latency
+
+We often think of latency as having three components. First, there is the speed-of-light propagation delay. … Second, there is the amount of time it takes to transmit a unit of data. This is a function of the network bandwidth and the size of the packet in which the data is carried. Third, there may be queuing delays inside the network.
+
+Used by O3, O4, O5, NP-TX-01, NP-TX-02, NP-TX-03 and 6 more
+
+P08 · Latency = Propagation + Transmit + Queue
+
+Latency = Propagation + Transmit + Queue; Propagation = Distance / SpeedOfLight; Transmit = Size / Bandwidth — where Distance is the length of the wire over which the data will travel, SpeedOfLight is the effective speed of light over that wire, Size is the size of the packet, and Bandwidth is the bandwidth at which the packet is transmitted.
+
+Used by O3, O4, O5, NP-TX-01, NP-TX-02, NP-TX-03 and 6 more
+
+P09 · Latency-bound applications
+
+Bandwidth and latency combine to define the performance characteristics of a given link or channel. Their relative importance, however, depends on the application. For some applications, latency dominates bandwidth.
+
+Used by NP-BW-03
+
+P10 · Bandwidth-bound applications
+
+In contrast, consider a digital library program that is being asked to fetch a 25-megabyte (MB) image — the more bandwidth that is available, the faster it will be able to return the image to the user.
+
+Used by NP-BW-03
+
+P11 · When each dominates
+
+Figure 1.21 gives you a sense of how latency or bandwidth can dominate performance in different circumstances. [Figure omitted in the readable view; caption not reproduced.]
+
+Used by NP-BW-03
+
+P12 · Latency, delay and one-way vs round trip
+
+When we are referring to the specific amount of time it takes a signal to propagate from one end of a link to another, we use the term propagation delay. Also, we make it clear in the context of the discussion whether we are referring to the one-way latency or the round-trip time.
+
+Used by O2, NP-TX-01, NP-PROP-01, NP-PROP-03, NP-RTT-01, NP-RTT-02 and 1 more
+
+P13 · Aside: bits as fast as computers
+
+As an aside, computers are becoming so fast that when we connect them to networks, it is sometimes useful to think, at least figuratively, in terms of instructions per mile.
+
+Not used yet

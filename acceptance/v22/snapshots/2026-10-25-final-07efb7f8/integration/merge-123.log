@@ -1,0 +1,316 @@
+Merge made by the 'ort' strategy.
+ app/teacher/evidence/context-link.tsx              |   49 +-
+ app/teacher/evidence/page.tsx                      |  838 +--
+ app/teacher/evidence/results-navigation.ts         |   51 +
+ app/teacher/evidence/results.tsx                   |  178 +-
+ .../evidence/verification/quality/build.txt        |   89 +
+ .../verification/quality/evidence-after.json       |   87 +
+ .../verification/quality/evidence-before.json      |   87 +
+ .../evidence/verification/quality/format-check.txt |    6 +
+ .../verification/quality/history/15443c4/build.txt |   89 +
+ .../quality/history/15443c4/format-check.txt       |    6 +
+ .../verification/quality/history/15443c4/lint.txt  |    4 +
+ .../quality/history/15443c4/report.json            |   58 +
+ .../verification/quality/history/15443c4/test.txt  | 3167 +++++++++
+ .../quality/history/15443c4/typecheck.txt          |    6 +
+ app/teacher/evidence/verification/quality/lint.txt |    4 +
+ .../verification/quality/native-runtime-setup.json |   31 +
+ .../evidence/verification/quality/report.json      |  104 +
+ app/teacher/evidence/verification/quality/test.txt | 3167 +++++++++
+ .../evidence/verification/quality/typecheck.txt    |    6 +
+ app/teacher/evidence/workbench.css                 |  145 +
+ app/teacher/evidence/workspace.tsx                 |  145 +
+ tests/artifacts/evidence-workspace/PROVENANCE.md   |   33 +
+ tests/artifacts/evidence-workspace/VERIFICATION.md |   56 +
+ .../evidence-workspace/capture-prototype.mjs       |  153 +
+ .../evidence-workspace/comparison-gallery.html     |  189 +
+ .../corrected/accepted-1024x768.png                |  Bin 0 -> 69257 bytes
+ .../corrected/accepted-1440x1000.png               |  Bin 0 -> 147924 bytes
+ .../corrected/accepted-320x844.png                 |  Bin 0 -> 38672 bytes
+ .../corrected/accepted-390x844.png                 |  Bin 0 -> 39678 bytes
+ .../evidence-workspace/corrected/back-1024x768.png |  Bin 0 -> 67540 bytes
+ .../corrected/back-1440x1000.png                   |  Bin 0 -> 146718 bytes
+ .../evidence-workspace/corrected/back-320x844.png  |  Bin 0 -> 34354 bytes
+ .../evidence-workspace/corrected/back-390x844.png  |  Bin 0 -> 36622 bytes
+ .../corrected/context-1024x768.png                 |  Bin 0 -> 111663 bytes
+ .../corrected/context-1440x1000.png                |  Bin 0 -> 149964 bytes
+ .../corrected/context-320x844.png                  |  Bin 0 -> 41421 bytes
+ .../corrected/context-390x844.png                  |  Bin 0 -> 43810 bytes
+ .../corrected/empty-1024x768.png                   |  Bin 0 -> 45110 bytes
+ .../corrected/empty-1440x1000.png                  |  Bin 0 -> 72560 bytes
+ .../evidence-workspace/corrected/empty-320x844.png |  Bin 0 -> 21612 bytes
+ .../evidence-workspace/corrected/empty-390x844.png |  Bin 0 -> 22517 bytes
+ .../corrected/empty-context-1024x768.png           |  Bin 0 -> 56558 bytes
+ .../corrected/empty-context-1440x1000.png          |  Bin 0 -> 72560 bytes
+ .../corrected/empty-context-320x844.png            |  Bin 0 -> 25624 bytes
+ .../corrected/empty-context-390x844.png            |  Bin 0 -> 26356 bytes
+ .../corrected/evaluation_failed-1024x768.png       |  Bin 0 -> 83439 bytes
+ .../corrected/evaluation_failed-1440x1000.png      |  Bin 0 -> 165024 bytes
+ .../corrected/evaluation_failed-320x844.png        |  Bin 0 -> 39149 bytes
+ .../corrected/evaluation_failed-390x844.png        |  Bin 0 -> 44544 bytes
+ .../corrected/evidence-after.json                  |   87 +
+ .../corrected/evidence-before.json                 |   87 +
+ .../corrected/hash-only-list-1024x768.png          |  Bin 0 -> 67436 bytes
+ .../corrected/hash-only-list-1440x1000.png         |  Bin 0 -> 146721 bytes
+ .../corrected/hash-only-list-320x844.png           |  Bin 0 -> 34284 bytes
+ .../corrected/hash-only-list-390x844.png           |  Bin 0 -> 36565 bytes
+ .../evidence-workspace/corrected/list-1024x768.png |  Bin 0 -> 68202 bytes
+ .../corrected/list-1440x1000.png                   |  Bin 0 -> 146650 bytes
+ .../evidence-workspace/corrected/list-320x844.png  |  Bin 0 -> 34265 bytes
+ .../evidence-workspace/corrected/list-390x844.png  |  Bin 0 -> 36548 bytes
+ .../corrected/longest-original-1024x768.png        |  Bin 0 -> 80095 bytes
+ .../corrected/longest-original-1440x1000.png       |  Bin 0 -> 162514 bytes
+ .../corrected/longest-original-320x844.png         |  Bin 0 -> 37421 bytes
+ .../corrected/longest-original-390x844.png         |  Bin 0 -> 42516 bytes
+ .../corrected/manual-scroll-return-1024x768.png    |  Bin 0 -> 66158 bytes
+ .../corrected/manual-scroll-return-320x844.png     |  Bin 0 -> 32078 bytes
+ .../corrected/manual-scroll-return-390x844.png     |  Bin 0 -> 36434 bytes
+ .../corrected/native100-answer.png                 |  Bin 0 -> 133747 bytes
+ .../evidence-workspace/corrected/native100.png     |  Bin 0 -> 133747 bytes
+ .../corrected/native200-answer.png                 |  Bin 0 -> 33234 bytes
+ .../evidence-workspace/corrected/native200.png     |  Bin 0 -> 28384 bytes
+ .../corrected/pending_review-1024x768.png          |  Bin 0 -> 81236 bytes
+ .../corrected/pending_review-1440x1000.png         |  Bin 0 -> 163426 bytes
+ .../corrected/pending_review-320x844.png           |  Bin 0 -> 39376 bytes
+ .../corrected/pending_review-390x844.png           |  Bin 0 -> 44936 bytes
+ .../evidence-workspace/corrected/report.json       | 6688 ++++++++++++++++++++
+ .../corrected/screenshot-hashes.json               |  206 +
+ .../corrected/selected-1024x768.png                |  Bin 0 -> 67508 bytes
+ .../corrected/selected-1440x1000.png               |  Bin 0 -> 146710 bytes
+ .../corrected/selected-320x844.png                 |  Bin 0 -> 36948 bytes
+ .../corrected/selected-390x844.png                 |  Bin 0 -> 39880 bytes
+ .../prototype-fresh/EXECUTION.md                   |   14 +
+ .../prototype-fresh/list-1024x768.png              |  Bin 0 -> 168127 bytes
+ .../prototype-fresh/list-1440x1000.png             |  Bin 0 -> 353982 bytes
+ .../prototype-fresh/list-320x844.png               |  Bin 0 -> 61152 bytes
+ .../prototype-fresh/list-390x844.png               |  Bin 0 -> 65580 bytes
+ .../evidence-workspace/prototype-fresh/report.json |  375 ++
+ .../prototype-fresh/selected-1024x768.png          |  Bin 0 -> 160968 bytes
+ .../prototype-fresh/selected-1440x1000.png         |  Bin 0 -> 334478 bytes
+ .../prototype-fresh/selected-320x844.png           |  Bin 0 -> 68037 bytes
+ .../prototype-fresh/selected-390x844.png           |  Bin 0 -> 74684 bytes
+ .../reference/combined/list-1024x768.png           |  Bin 0 -> 59063 bytes
+ .../reference/combined/list-1440x1000.png          |  Bin 0 -> 99475 bytes
+ .../reference/combined/list-320x844.png            |  Bin 0 -> 34440 bytes
+ .../reference/combined/list-390x844.png            |  Bin 0 -> 38035 bytes
+ .../reference/combined/selected-1024x768.png       |  Bin 0 -> 38886 bytes
+ .../reference/combined/selected-1440x1000.png      |  Bin 0 -> 55131 bytes
+ .../reference/combined/selected-320x844.png        |  Bin 0 -> 32116 bytes
+ .../reference/combined/selected-390x844.png        |  Bin 0 -> 37798 bytes
+ .../evidence-workspace/reference/hashes.json       |   66 +
+ .../reference/prototype/list-1024x768.png          |  Bin 0 -> 168127 bytes
+ .../reference/prototype/list-1440x1000.png         |  Bin 0 -> 353982 bytes
+ .../reference/prototype/list-320x844.png           |  Bin 0 -> 61152 bytes
+ .../reference/prototype/list-390x844.png           |  Bin 0 -> 65580 bytes
+ .../reference/prototype/selected-1024x768.png      |  Bin 0 -> 160968 bytes
+ .../reference/prototype/selected-1440x1000.png     |  Bin 0 -> 334478 bytes
+ .../reference/prototype/selected-320x844.png       |  Bin 0 -> 68037 bytes
+ .../reference/prototype/selected-390x844.png       |  Bin 0 -> 74684 bytes
+ .../artifacts/evidence-workspace/run-01/README.md  |   17 +
+ .../run-01/accepted-1024x768.png                   |  Bin 0 -> 71868 bytes
+ .../run-01/accepted-1440x1000.png                  |  Bin 0 -> 148891 bytes
+ .../evidence-workspace/run-01/accepted-320x844.png |  Bin 0 -> 36740 bytes
+ .../evidence-workspace/run-01/accepted-390x844.png |  Bin 0 -> 39511 bytes
+ .../evidence-workspace/run-01/back-1024x768.png    |  Bin 0 -> 68649 bytes
+ .../evidence-workspace/run-01/back-1440x1000.png   |  Bin 0 -> 147010 bytes
+ .../evidence-workspace/run-01/back-320x844.png     |  Bin 0 -> 31632 bytes
+ .../evidence-workspace/run-01/back-390x844.png     |  Bin 0 -> 36077 bytes
+ .../evidence-workspace/run-01/context-1024x768.png |  Bin 0 -> 113048 bytes
+ .../run-01/context-1440x1000.png                   |  Bin 0 -> 150624 bytes
+ .../evidence-workspace/run-01/context-320x844.png  |  Bin 0 -> 39823 bytes
+ .../evidence-workspace/run-01/context-390x844.png  |  Bin 0 -> 42298 bytes
+ .../run-01/empty-context-1024x768.png              |  Bin 0 -> 56552 bytes
+ .../run-01/empty-context-1440x1000.png             |  Bin 0 -> 72560 bytes
+ .../run-01/empty-context-320x844.png               |  Bin 0 -> 26190 bytes
+ .../run-01/empty-context-390x844.png               |  Bin 0 -> 26932 bytes
+ .../run-01/evaluation_failed-1024x768.png          |  Bin 0 -> 84082 bytes
+ .../run-01/evaluation_failed-1440x1000.png         |  Bin 0 -> 165030 bytes
+ .../run-01/evaluation_failed-320x844.png           |  Bin 0 -> 37385 bytes
+ .../run-01/evaluation_failed-390x844.png           |  Bin 0 -> 42527 bytes
+ .../evidence-workspace/run-01/evidence-after.json  |   87 +
+ .../evidence-workspace/run-01/evidence-before.json |   87 +
+ .../run-01/execution-provenance.json               |   13 +
+ .../run-01/follow-up-diagnostic.json               |  293 +
+ .../run-01/hash-only-list-1024x768.png             |  Bin 0 -> 68620 bytes
+ .../run-01/hash-only-list-1440x1000.png            |  Bin 0 -> 147769 bytes
+ .../run-01/hash-only-list-320x844.png              |  Bin 0 -> 35339 bytes
+ .../run-01/hash-only-list-390x844.png              |  Bin 0 -> 38539 bytes
+ .../evidence-workspace/run-01/list-1024x768.png    |  Bin 0 -> 68230 bytes
+ .../evidence-workspace/run-01/list-1440x1000.png   |  Bin 0 -> 146943 bytes
+ .../evidence-workspace/run-01/list-320x844.png     |  Bin 0 -> 31541 bytes
+ .../evidence-workspace/run-01/list-390x844.png     |  Bin 0 -> 36003 bytes
+ .../run-01/longest-original-1024x768.png           |  Bin 0 -> 85471 bytes
+ .../run-01/longest-original-1440x1000.png          |  Bin 0 -> 164353 bytes
+ .../run-01/longest-original-320x844.png            |  Bin 0 -> 36869 bytes
+ .../run-01/longest-original-390x844.png            |  Bin 0 -> 40833 bytes
+ .../run-01/manual-scroll-return-1024x768.png       |  Bin 0 -> 66754 bytes
+ .../run-01/manual-scroll-return-320x844.png        |  Bin 0 -> 31543 bytes
+ .../run-01/manual-scroll-return-390x844.png        |  Bin 0 -> 33662 bytes
+ .../evidence-workspace/run-01/native100.png        |  Bin 0 -> 133678 bytes
+ .../evidence-workspace/run-01/native200.png        |  Bin 0 -> 25829 bytes
+ .../run-01/pending_review-1024x768.png             |  Bin 0 -> 81552 bytes
+ .../run-01/pending_review-1440x1000.png            |  Bin 0 -> 164126 bytes
+ .../run-01/pending_review-320x844.png              |  Bin 0 -> 37087 bytes
+ .../run-01/pending_review-390x844.png              |  Bin 0 -> 41614 bytes
+ .../evidence-workspace/run-01/report.json          | 5340 ++++++++++++++++
+ .../run-01/selected-1024x768.png                   |  Bin 0 -> 68601 bytes
+ .../run-01/selected-1440x1000.png                  |  Bin 0 -> 147002 bytes
+ .../evidence-workspace/run-01/selected-320x844.png |  Bin 0 -> 35405 bytes
+ .../evidence-workspace/run-01/selected-390x844.png |  Bin 0 -> 38612 bytes
+ tests/evidence-workspace-browser.mjs               | 1038 +++
+ tests/teacher-evidence-results-navigation.test.ts  |   88 +
+ 160 files changed, 22798 insertions(+), 436 deletions(-)
+ create mode 100644 app/teacher/evidence/verification/quality/build.txt
+ create mode 100644 app/teacher/evidence/verification/quality/evidence-after.json
+ create mode 100644 app/teacher/evidence/verification/quality/evidence-before.json
+ create mode 100644 app/teacher/evidence/verification/quality/format-check.txt
+ create mode 100644 app/teacher/evidence/verification/quality/history/15443c4/build.txt
+ create mode 100644 app/teacher/evidence/verification/quality/history/15443c4/format-check.txt
+ create mode 100644 app/teacher/evidence/verification/quality/history/15443c4/lint.txt
+ create mode 100644 app/teacher/evidence/verification/quality/history/15443c4/report.json
+ create mode 100644 app/teacher/evidence/verification/quality/history/15443c4/test.txt
+ create mode 100644 app/teacher/evidence/verification/quality/history/15443c4/typecheck.txt
+ create mode 100644 app/teacher/evidence/verification/quality/lint.txt
+ create mode 100644 app/teacher/evidence/verification/quality/native-runtime-setup.json
+ create mode 100644 app/teacher/evidence/verification/quality/report.json
+ create mode 100644 app/teacher/evidence/verification/quality/test.txt
+ create mode 100644 app/teacher/evidence/verification/quality/typecheck.txt
+ create mode 100644 app/teacher/evidence/workspace.tsx
+ create mode 100644 tests/artifacts/evidence-workspace/PROVENANCE.md
+ create mode 100644 tests/artifacts/evidence-workspace/VERIFICATION.md
+ create mode 100644 tests/artifacts/evidence-workspace/capture-prototype.mjs
+ create mode 100644 tests/artifacts/evidence-workspace/comparison-gallery.html
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/accepted-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/accepted-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/accepted-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/accepted-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/back-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/back-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/back-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/back-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/context-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/context-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/context-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/context-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/empty-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/empty-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/empty-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/empty-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/empty-context-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/empty-context-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/empty-context-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/empty-context-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/evaluation_failed-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/evaluation_failed-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/evaluation_failed-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/evaluation_failed-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/evidence-after.json
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/evidence-before.json
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/hash-only-list-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/hash-only-list-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/hash-only-list-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/hash-only-list-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/list-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/list-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/list-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/list-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/longest-original-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/longest-original-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/longest-original-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/longest-original-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/manual-scroll-return-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/manual-scroll-return-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/manual-scroll-return-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/native100-answer.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/native100.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/native200-answer.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/native200.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/pending_review-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/pending_review-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/pending_review-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/pending_review-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/report.json
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/screenshot-hashes.json
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/selected-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/selected-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/selected-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/corrected/selected-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/prototype-fresh/EXECUTION.md
+ create mode 100644 tests/artifacts/evidence-workspace/prototype-fresh/list-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/prototype-fresh/list-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/prototype-fresh/list-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/prototype-fresh/list-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/prototype-fresh/report.json
+ create mode 100644 tests/artifacts/evidence-workspace/prototype-fresh/selected-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/prototype-fresh/selected-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/prototype-fresh/selected-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/prototype-fresh/selected-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/reference/combined/list-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/reference/combined/list-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/reference/combined/list-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/reference/combined/list-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/reference/combined/selected-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/reference/combined/selected-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/reference/combined/selected-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/reference/combined/selected-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/reference/hashes.json
+ create mode 100644 tests/artifacts/evidence-workspace/reference/prototype/list-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/reference/prototype/list-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/reference/prototype/list-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/reference/prototype/list-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/reference/prototype/selected-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/reference/prototype/selected-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/reference/prototype/selected-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/reference/prototype/selected-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/README.md
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/accepted-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/accepted-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/accepted-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/accepted-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/back-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/back-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/back-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/back-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/context-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/context-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/context-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/context-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/empty-context-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/empty-context-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/empty-context-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/empty-context-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/evaluation_failed-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/evaluation_failed-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/evaluation_failed-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/evaluation_failed-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/evidence-after.json
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/evidence-before.json
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/execution-provenance.json
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/follow-up-diagnostic.json
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/hash-only-list-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/hash-only-list-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/hash-only-list-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/hash-only-list-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/list-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/list-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/list-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/list-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/longest-original-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/longest-original-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/longest-original-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/longest-original-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/manual-scroll-return-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/manual-scroll-return-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/manual-scroll-return-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/native100.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/native200.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/pending_review-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/pending_review-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/pending_review-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/pending_review-390x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/report.json
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/selected-1024x768.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/selected-1440x1000.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/selected-320x844.png
+ create mode 100644 tests/artifacts/evidence-workspace/run-01/selected-390x844.png
+ create mode 100644 tests/evidence-workspace-browser.mjs

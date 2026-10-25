@@ -1,0 +1,25 @@
+{
+  "createdAt": "2026-10-25T17:24:19.8211088Z",
+  "status": "prepared-not-executed",
+  "helper": "navigation-supplement-browser.mjs",
+  "sha256": "2658ae4b0afe8f4a22cc2aebb8b772a147e70c3e51b2f58a7d8056b2591d2c06",
+  "syntax": "passed",
+  "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "originalFullRun": "six-blockers-01 remains running and untouched",
+  "sourceEvidence": "app/teacher/assignments/progress-pane.tsx renders #cell-evidence Details aside and data-pane=details; main Class progress is intentionally hidden at tablet/mobile",
+  "correction": "Wait visible Details source-defined pane instead of hidden Class progress heading before navigation, displayed return and reload",
+  "assertionsPreserved": [
+    "S1 assignment discovery without previous assignment",
+    "C2 exact assignment/student/concept/progressView=grid/pane=details",
+    "C2 appropriate visible #cell-evidence focus",
+    "C2 reload preserves contextual URL"
+  ],
+  "viewports": [
+    "1440x1000",
+    "1024x768",
+    "390x844",
+    "320x844",
+    "measured native200"
+  ],
+  "runtimeOrApplicationChanged": false
+}

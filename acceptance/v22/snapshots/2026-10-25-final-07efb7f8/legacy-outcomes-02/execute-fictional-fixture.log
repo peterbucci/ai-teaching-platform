@@ -1,0 +1,21 @@
+(node:10911) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///app/lib/db.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Configure fictional DEMO_STUDENT_THREE credentials.
+    at login (file:///app/scripts/acceptance-acceptance-output-de1d36f1-16a0-44e0-8778-ecbe17456998-json.ts:110:10)
+    at file:///app/scripts/acceptance-acceptance-output-de1d36f1-16a0-44e0-8778-ecbe17456998-json.ts:291:23
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v22.23.2

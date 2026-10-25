@@ -1,0 +1,207 @@
+DBP-11
+
+Learning Pulse
+NET 210 · Fall 2026
+Overview
+Assignments
+Lessons
+Find
+PROTOTYPE
+JR
+Jamie Rivera
+Instructor
+Your path
+Lesson: Delay × Bandwidth Product
+Link
+
+LESSON · WHOLE COURSE
+
+Delay × Bandwidth Product
+Draft · revision 6
+
+Draft. Each save makes a new revision and clears later approvals.
+
+Ready to publish?
+1
+Reading
+Version 2
+2
+Learning objectives
+Approved
+3
+Questions
+2 to review
+4
+Order the tutor follows
+Not prepared
+5
+Approve and publish
+Not yet
+
+READING
+
+Source and passages
+Reading version 2
+
+LEARNING OBJECTIVES
+
+All objectives and suggestions
+Approved
+Computing the product D1
+Reviewed
+Bits in flight D2
+Reviewed
+Keeping the pipe full D3
+Reviewed
+High-speed links D4
+Reviewed
++ Add an objective
+
+QUESTIONS · 12 questions · 4 objectives
+
+All questions: draft, add, approve
+
+Computing the product · D1
+
+DBP-01 First question
+Done
+DBP-02 Follow-up question
+Done
+DBP-03 Fresh check
+Done
+
+Bits in flight · D2
+
+DBP-04 First question
+Done
+DBP-05 Follow-up question
+Done
+DBP-06 Fresh check
+Done
+
+Keeping the pipe full · D3
+
+DBP-07 First question
+Review
+DBP-08 Follow-up question
+Done
+DBP-09 Fresh check
+Done
+
+High-speed links · D4
+
+DBP-10 First question
+Done
+DBP-11 Follow-up question
+Review
+DBP-12 Fresh check
+Done
+
+DELIVERY
+
+Order the tutor follows
+Approve, publish and assign
+
+QUESTION · HIGH-SPEED LINKS · OBJECTIVE D4
+
+DBP-11
+Follow-up question
+Needs review
+What students see
+
+Drafted, then edited by you · Short answer · Intermediate
+
+Review note. Source support: N06 does not state a 30 ms figure. Remove the parenthetical claim, and ground the criterion in what N06 does say.
+
+Suggested wording: “If the link speed rises to 10 Gbps, how much does the request’s total time change? Explain using the scenario above.”
+
+Use the suggested wording
+Question students see this
+Kind of question
+First question
+Follow-up question
+Fresh check
+Alternative
+Format
+Short answer
+Calculation
+Multiple choice
+Difficulty
+Foundational
+Intermediate
+Advanced
+Approved hint shown only when the tutor gives a hint
+
+Marking guide only you and the evaluator see this — never students
+
+Model answer
+Other answers to accept one per line
+What a full answer includes each point backed by exact words from the reading
+1
+Passage backing point 1
+N01 · What the product measures
+N02 · Computing the product
+N03 · The pipe picture
+N04 · A worked example
+N05 · Keeping the pipe full
+N06 · High-speed links
+Exact words backing point 1
+Not found
+“about 30 ms” isn’t in passage N06. A point can only be backed by words the passage contains.
+Words the passage does contain:
+“transmission time shrinks but propagation does not”
+“so latency increasingly dominates small transfers”
+“On very high-speed links”
+Add a point
+Partial credit
+Assumptions one per line; anything essential must also be in the question
+Reasoning errors worth looking for tentative; they never become a named concern on their own
+Feedback after answering students see this once their answer is assessed
+Review note only you; say what you corrected and why it’s usable now
+Some points aren’t backed yet
+Mark reviewed
+Back every point with words from the reading first.
+Move up
+Move down
+Remove question
+
+Saving makes a new lesson revision, marks this question for review again and clears approval of the question set and the tutor’s order. Nothing is saved to a server in this prototype.
+
+Reading · this question’s passages first
+Reading version 2
+
+N06 · High-speed links
+
+On very high-speed links, transmission time shrinks but propagation does not, so latency increasingly dominates small transfers.
+
+Used by D4, DBP-10, DBP-11, DBP-12
+
+N01 · What the product measures
+
+The delay × bandwidth product describes how many bits a link holds while the first bit is still travelling from sender to receiver.
+
+Used by D2, DBP-05, DBP-06
+
+N02 · Computing the product
+
+Multiply one-way latency (seconds) by bandwidth (bits per second) to get bits. Example: 50 ms × 45 Mbps = 2.25 × 10^6 bits, about 280 KB.
+
+Used by D1, DBP-01, DBP-02, DBP-03
+
+N03 · The pipe picture
+
+Picture the channel as a hollow pipe: latency is the pipe’s length, bandwidth is its diameter, and the delay × bandwidth product is its volume.
+
+Used by D2, DBP-04, DBP-05, DBP-06
+
+N04 · A worked example
+
+A 10 Mbps link with 20 ms one-way latency holds 200,000 bits (25,000 bytes) in transit.
+
+Used by D1, DBP-03
+
+N05 · Keeping the pipe full
+
+A sender may need to send up to RTT × bandwidth bits before it hears anything back; that amount keeps the pipe full until the first reply arrives.
+
+Used by D3, DBP-07, DBP-08, DBP-09

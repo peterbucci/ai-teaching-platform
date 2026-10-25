@@ -1,0 +1,61 @@
+{
+  "observedAt": "2026-10-25T16:55:40.488Z",
+  "minimumGiB": 10,
+  "host": [
+    {
+      "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+      "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+      "availableBytes": 43209842688,
+      "availableGiB": 40.24230194091797,
+      "minimumGiB": 10,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+      "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+      "availableBytes": 43209842688,
+      "availableGiB": 40.24230194091797,
+      "minimumGiB": 10,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+      "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+      "availableBytes": 43209842688,
+      "availableGiB": 40.24230194091797,
+      "minimumGiB": 10,
+      "pass": true
+    }
+  ],
+  "engine": {
+    "status": "healthy",
+    "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+    "name": "docker-desktop",
+    "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+    "root": "/var/lib/docker",
+    "storage": {
+      "status": "verified",
+      "method": "read-only df on explicitly selected existing container volume",
+      "container": "learningplatform-db-1",
+      "source": "/var/lib/docker/volumes/learningplatform_postgres_data/_data",
+      "destination": "/var/lib/postgresql/data",
+      "availableBytes": 898954153984,
+      "availableGiB": 837.2162971496582,
+      "pass": true
+    }
+  },
+  "backingStorage": {
+    "provenance": "explicit owner-verified Docker storage path",
+    "disks": [
+      {
+        "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+        "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+        "availableBytes": 43209842688,
+        "availableGiB": 40.24230194091797,
+        "minimumGiB": 10,
+        "pass": true
+      }
+    ]
+  },
+  "pass": true
+}

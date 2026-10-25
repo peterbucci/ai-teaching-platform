@@ -1,0 +1,251 @@
+Merge made by the 'ort' strategy.
+ app/teacher/filters.tsx                            |    2 +-
+ app/teacher/layout.tsx                             |   35 +
+ app/teacher/navigation.tsx                         |  490 +-
+ app/teacher/presentation.tsx                       |   45 +-
+ app/teacher/sessions/[sessionId]/page.tsx          |   84 +-
+ app/teacher/workspace-assignment.tsx               |   30 +
+ app/teacher/workspace-context.tsx                  |   22 +
+ app/teacher/workspace-metadata.ts                  |   35 +
+ app/teacher/workspace-model.ts                     |  120 +
+ app/teacher/workspace-panes-model.ts               |   53 +
+ app/teacher/workspace-panes.tsx                    |  352 ++
+ app/teacher/workspace-restoration.tsx              |  304 ++
+ app/teacher/workspace-session-context.ts           |   45 +
+ app/teacher/workspace-shell.css                    |  783 +++
+ docs/TEACHER_WORKBENCH_CONTRACTS.md                |    8 +
+ docs/WORKBENCH_V22_SHELL.md                        |  366 ++
+ docs/WORKBENCH_V22_SHELL_VERIFICATION.md           |  231 +
+ lib/teacher/workspace-contracts.ts                 |   70 +-
+ scripts/check-lesson-uncertainty.ts                |    2 +-
+ .../workbench-navigation-return/ci-receipt.json    |   29 +
+ .../combined-build-receipt.json                    |   43 +
+ .../component-results.json                         |  717 +++
+ .../continuation-results.json                      |  245 +
+ .../focused-runtime-results.json                   |  343 ++
+ .../historical-ci-receipts.json                    |   66 +
+ .../workbench-navigation-return/index.html         | 5430 ++++++++++++++++++++
+ .../workbench-navigation-return/manifest.json      |  161 +
+ .../continuation-0-authoring-focused-1024x768.png  |  Bin 0 -> 68373 bytes
+ .../continuation-0-authoring-focused-1440x1000.png |  Bin 0 -> 126967 bytes
+ .../continuation-0-authoring-focused-320x844.png   |  Bin 0 -> 34398 bytes
+ .../continuation-0-authoring-focused-390x844.png   |  Bin 0 -> 36103 bytes
+ .../focused-C2-grid-details-390x844.png            |  Bin 0 -> 34941 bytes
+ .../focused-targeted-details-escape-1024x768.png   |  Bin 0 -> 83257 bytes
+ .../focused-targeted-details-escape-320x844.png    |  Bin 0 -> 46324 bytes
+ .../focused-targeted-switcher-escape-1024x768.png  |  Bin 0 -> 42024 bytes
+ .../focused-targeted-switcher-escape-1440x1000.png |  Bin 0 -> 129837 bytes
+ .../focused-targeted-switcher-escape-390x844.png   |  Bin 0 -> 34982 bytes
+ .../original-C2-grid-details-1440x1000.png         |  Bin 0 -> 125355 bytes
+ .../original-C2-grid-details-390x844.png           |  Bin 0 -> 34941 bytes
+ .../screenshots/original-S1-discovery-1024x768.png |  Bin 0 -> 71705 bytes
+ .../original-S1-discovery-1440x1000.png            |  Bin 0 -> 99271 bytes
+ .../screenshots/original-S1-discovery-320x844.png  |  Bin 0 -> 45083 bytes
+ .../screenshots/original-S1-discovery-390x844.png  |  Bin 0 -> 48671 bytes
+ ...ng-geometry-and-exact-library-tools-failure.png |  Bin 0 -> 126967 bytes
+ .../original-native200-progress-return.png         |  Bin 0 -> 28977 bytes
+ .../original-scope-and-keyboard-1024-failure.png   |  Bin 0 -> 104741 bytes
+ .../original-unsaved-objective-recovered.png       |  Bin 0 -> 39790 bytes
+ .../original-unsaved-real-form-cancelled-leave.png |  Bin 0 -> 42766 bytes
+ .../workbench-navigation-return/summary.json       | 4084 +++++++++++++++
+ .../switcher-component-results.json                |  229 +
+ .../workbench-shell/actual-browser-200-percent.png |  Bin 0 -> 54435 bytes
+ .../workbench-shell/after-overview-1024x768.png    |  Bin 0 -> 57810 bytes
+ .../workbench-shell/after-overview-1440x1000.png   |  Bin 0 -> 101218 bytes
+ .../workbench-shell/after-overview-320x844.png     |  Bin 0 -> 38115 bytes
+ .../workbench-shell/after-overview-390x844.png     |  Bin 0 -> 43302 bytes
+ .../workbench-shell/after-progress-1024x768.png    |  Bin 0 -> 106302 bytes
+ .../workbench-shell/after-progress-1440x1000.png   |  Bin 0 -> 144115 bytes
+ .../workbench-shell/after-progress-320x844.png     |  Bin 0 -> 77930 bytes
+ .../workbench-shell/after-progress-390x844.png     |  Bin 0 -> 93612 bytes
+ tests/artifacts/workbench-shell/after-report.json  | 1065 ++++
+ .../after-student-work-1024x768.png                |  Bin 0 -> 62849 bytes
+ .../after-student-work-1440x1000.png               |  Bin 0 -> 105553 bytes
+ .../workbench-shell/after-student-work-320x844.png |  Bin 0 -> 37254 bytes
+ .../workbench-shell/after-student-work-390x844.png |  Bin 0 -> 41568 bytes
+ .../workbench-shell/before-overview-1024x768.png   |  Bin 0 -> 71391 bytes
+ .../workbench-shell/before-overview-1440x1000.png  |  Bin 0 -> 111545 bytes
+ .../workbench-shell/before-overview-320x844.png    |  Bin 0 -> 34920 bytes
+ .../workbench-shell/before-overview-390x844.png    |  Bin 0 -> 38800 bytes
+ .../workbench-shell/before-progress-1024x768.png   |  Bin 0 -> 131240 bytes
+ .../workbench-shell/before-progress-1440x1000.png  |  Bin 0 -> 163122 bytes
+ .../workbench-shell/before-progress-320x844.png    |  Bin 0 -> 82988 bytes
+ .../workbench-shell/before-progress-390x844.png    |  Bin 0 -> 89128 bytes
+ tests/artifacts/workbench-shell/before-report.json |  617 +++
+ .../before-student-work-1024x768.png               |  Bin 0 -> 83284 bytes
+ .../before-student-work-1440x1000.png              |  Bin 0 -> 127312 bytes
+ .../before-student-work-320x844.png                |  Bin 0 -> 35691 bytes
+ .../before-student-work-390x844.png                |  Bin 0 -> 38698 bytes
+ tests/artifacts/workbench-shell/comparison.html    |  359 ++
+ .../workbench-shell/dependency-verification.json   |   99 +
+ .../artifacts/workbench-shell/evidence-after.json  |   29 +
+ .../artifacts/workbench-shell/evidence-before.json |   29 +
+ .../artifacts/workbench-shell/history-report.json  |   66 +
+ tests/artifacts/workbench-shell/manifest.json      |  411 ++
+ .../workbench-shell/navigation-report.json         |  341 ++
+ .../workbench-shell/pane-component-report.json     |  322 ++
+ .../workbench-shell/panes-1024x768-modal.png       |  Bin 0 -> 70823 bytes
+ tests/artifacts/workbench-shell/panes-1024x768.png |  Bin 0 -> 39237 bytes
+ .../workbench-shell/panes-1440x1000-two.png        |  Bin 0 -> 67673 bytes
+ .../artifacts/workbench-shell/panes-1440x1000.png  |  Bin 0 -> 85130 bytes
+ .../workbench-shell/panes-320x844-context.png      |  Bin 0 -> 32699 bytes
+ tests/artifacts/workbench-shell/panes-320x844.png  |  Bin 0 -> 29391 bytes
+ .../workbench-shell/panes-390x844-context.png      |  Bin 0 -> 33258 bytes
+ tests/artifacts/workbench-shell/panes-390x844.png  |  Bin 0 -> 29900 bytes
+ .../workbench-shell/post-capture-verification.json |   91 +
+ .../workbench-shell/prototype-measurements.json    |  302 ++
+ .../prototype-overview-1024x768.png                |  Bin 0 -> 104881 bytes
+ .../prototype-overview-1440x1000.png               |  Bin 0 -> 269845 bytes
+ .../workbench-shell/prototype-overview-320x844.png |  Bin 0 -> 68171 bytes
+ .../workbench-shell/prototype-overview-390x844.png |  Bin 0 -> 73050 bytes
+ .../prototype-progress-1024x768.png                |  Bin 0 -> 126792 bytes
+ .../prototype-progress-1440x1000.png               |  Bin 0 -> 171460 bytes
+ .../workbench-shell/prototype-progress-320x844.png |  Bin 0 -> 68827 bytes
+ .../workbench-shell/prototype-progress-390x844.png |  Bin 0 -> 74879 bytes
+ .../prototype-student-work-1024x768.png            |  Bin 0 -> 82470 bytes
+ .../prototype-student-work-1440x1000.png           |  Bin 0 -> 133504 bytes
+ .../prototype-student-work-320x844.png             |  Bin 0 -> 59305 bytes
+ .../prototype-student-work-390x844.png             |  Bin 0 -> 71525 bytes
+ .../restoration-browser-report.json                |  746 +++
+ .../workbench-shell/restoration-verification.json  |  106 +
+ tests/artifacts/workbench-shell/scope-report.json  |   83 +
+ .../workbench-shell/subnavigation-report.json      |   54 +
+ .../switcher-guard/1440-mount-guard-dirty.png      |  Bin 0 -> 38324 bytes
+ .../switcher-guard/1440-mount-guard-pending.png    |  Bin 0 -> 37508 bytes
+ .../switcher-guard/1440-remount-guard-dirty.png    |  Bin 0 -> 38324 bytes
+ .../switcher-guard/1440-remount-guard-pending.png  |  Bin 0 -> 37508 bytes
+ .../switcher-guard/390-mount-guard-dirty.png       |  Bin 0 -> 26698 bytes
+ .../switcher-guard/390-mount-guard-pending.png     |  Bin 0 -> 25864 bytes
+ .../switcher-guard/390-remount-guard-dirty.png     |  Bin 0 -> 26698 bytes
+ .../switcher-guard/390-remount-guard-pending.png   |  Bin 0 -> 25864 bytes
+ .../preinstalled-guard-order-report.json           |  110 +
+ .../switcher-guard/report-development.json         |  171 +
+ .../switcher-guard/report-production.json          |  171 +
+ .../workbench-shell/switcher-guard/report.json     |   10 +
+ tests/teacher-progress-return.test.ts              |  251 +
+ tests/teacher-shell-metadata.test.ts               |   67 +
+ tests/teacher-shell-switcher-browser.mjs           |  398 ++
+ tests/teacher-shell.test.ts                        |  370 ++
+ tests/teacher-workspace-panes.test.ts              |  121 +
+ 128 files changed, 20720 insertions(+), 93 deletions(-)
+ create mode 100644 app/teacher/layout.tsx
+ create mode 100644 app/teacher/workspace-assignment.tsx
+ create mode 100644 app/teacher/workspace-context.tsx
+ create mode 100644 app/teacher/workspace-metadata.ts
+ create mode 100644 app/teacher/workspace-model.ts
+ create mode 100644 app/teacher/workspace-panes-model.ts
+ create mode 100644 app/teacher/workspace-panes.tsx
+ create mode 100644 app/teacher/workspace-restoration.tsx
+ create mode 100644 app/teacher/workspace-session-context.ts
+ create mode 100644 app/teacher/workspace-shell.css
+ create mode 100644 docs/WORKBENCH_V22_SHELL.md
+ create mode 100644 docs/WORKBENCH_V22_SHELL_VERIFICATION.md
+ create mode 100644 tests/artifacts/workbench-navigation-return/ci-receipt.json
+ create mode 100644 tests/artifacts/workbench-navigation-return/combined-build-receipt.json
+ create mode 100644 tests/artifacts/workbench-navigation-return/component-results.json
+ create mode 100644 tests/artifacts/workbench-navigation-return/continuation-results.json
+ create mode 100644 tests/artifacts/workbench-navigation-return/focused-runtime-results.json
+ create mode 100644 tests/artifacts/workbench-navigation-return/historical-ci-receipts.json
+ create mode 100644 tests/artifacts/workbench-navigation-return/index.html
+ create mode 100644 tests/artifacts/workbench-navigation-return/manifest.json
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/continuation-0-authoring-focused-1024x768.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/continuation-0-authoring-focused-1440x1000.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/continuation-0-authoring-focused-320x844.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/continuation-0-authoring-focused-390x844.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/focused-C2-grid-details-390x844.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/focused-targeted-details-escape-1024x768.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/focused-targeted-details-escape-320x844.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/focused-targeted-switcher-escape-1024x768.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/focused-targeted-switcher-escape-1440x1000.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/focused-targeted-switcher-escape-390x844.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/original-C2-grid-details-1440x1000.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/original-C2-grid-details-390x844.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/original-S1-discovery-1024x768.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/original-S1-discovery-1440x1000.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/original-S1-discovery-320x844.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/original-S1-discovery-390x844.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/original-focused-authoring-geometry-and-exact-library-tools-failure.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/original-native200-progress-return.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/original-scope-and-keyboard-1024-failure.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/original-unsaved-objective-recovered.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/screenshots/original-unsaved-real-form-cancelled-leave.png
+ create mode 100644 tests/artifacts/workbench-navigation-return/summary.json
+ create mode 100644 tests/artifacts/workbench-navigation-return/switcher-component-results.json
+ create mode 100644 tests/artifacts/workbench-shell/actual-browser-200-percent.png
+ create mode 100644 tests/artifacts/workbench-shell/after-overview-1024x768.png
+ create mode 100644 tests/artifacts/workbench-shell/after-overview-1440x1000.png
+ create mode 100644 tests/artifacts/workbench-shell/after-overview-320x844.png
+ create mode 100644 tests/artifacts/workbench-shell/after-overview-390x844.png
+ create mode 100644 tests/artifacts/workbench-shell/after-progress-1024x768.png
+ create mode 100644 tests/artifacts/workbench-shell/after-progress-1440x1000.png
+ create mode 100644 tests/artifacts/workbench-shell/after-progress-320x844.png
+ create mode 100644 tests/artifacts/workbench-shell/after-progress-390x844.png
+ create mode 100644 tests/artifacts/workbench-shell/after-report.json
+ create mode 100644 tests/artifacts/workbench-shell/after-student-work-1024x768.png
+ create mode 100644 tests/artifacts/workbench-shell/after-student-work-1440x1000.png
+ create mode 100644 tests/artifacts/workbench-shell/after-student-work-320x844.png
+ create mode 100644 tests/artifacts/workbench-shell/after-student-work-390x844.png
+ create mode 100644 tests/artifacts/workbench-shell/before-overview-1024x768.png
+ create mode 100644 tests/artifacts/workbench-shell/before-overview-1440x1000.png
+ create mode 100644 tests/artifacts/workbench-shell/before-overview-320x844.png
+ create mode 100644 tests/artifacts/workbench-shell/before-overview-390x844.png
+ create mode 100644 tests/artifacts/workbench-shell/before-progress-1024x768.png
+ create mode 100644 tests/artifacts/workbench-shell/before-progress-1440x1000.png
+ create mode 100644 tests/artifacts/workbench-shell/before-progress-320x844.png
+ create mode 100644 tests/artifacts/workbench-shell/before-progress-390x844.png
+ create mode 100644 tests/artifacts/workbench-shell/before-report.json
+ create mode 100644 tests/artifacts/workbench-shell/before-student-work-1024x768.png
+ create mode 100644 tests/artifacts/workbench-shell/before-student-work-1440x1000.png
+ create mode 100644 tests/artifacts/workbench-shell/before-student-work-320x844.png
+ create mode 100644 tests/artifacts/workbench-shell/before-student-work-390x844.png
+ create mode 100644 tests/artifacts/workbench-shell/comparison.html
+ create mode 100644 tests/artifacts/workbench-shell/dependency-verification.json
+ create mode 100644 tests/artifacts/workbench-shell/evidence-after.json
+ create mode 100644 tests/artifacts/workbench-shell/evidence-before.json
+ create mode 100644 tests/artifacts/workbench-shell/history-report.json
+ create mode 100644 tests/artifacts/workbench-shell/manifest.json
+ create mode 100644 tests/artifacts/workbench-shell/navigation-report.json
+ create mode 100644 tests/artifacts/workbench-shell/pane-component-report.json
+ create mode 100644 tests/artifacts/workbench-shell/panes-1024x768-modal.png
+ create mode 100644 tests/artifacts/workbench-shell/panes-1024x768.png
+ create mode 100644 tests/artifacts/workbench-shell/panes-1440x1000-two.png
+ create mode 100644 tests/artifacts/workbench-shell/panes-1440x1000.png
+ create mode 100644 tests/artifacts/workbench-shell/panes-320x844-context.png
+ create mode 100644 tests/artifacts/workbench-shell/panes-320x844.png
+ create mode 100644 tests/artifacts/workbench-shell/panes-390x844-context.png
+ create mode 100644 tests/artifacts/workbench-shell/panes-390x844.png
+ create mode 100644 tests/artifacts/workbench-shell/post-capture-verification.json
+ create mode 100644 tests/artifacts/workbench-shell/prototype-measurements.json
+ create mode 100644 tests/artifacts/workbench-shell/prototype-overview-1024x768.png
+ create mode 100644 tests/artifacts/workbench-shell/prototype-overview-1440x1000.png
+ create mode 100644 tests/artifacts/workbench-shell/prototype-overview-320x844.png
+ create mode 100644 tests/artifacts/workbench-shell/prototype-overview-390x844.png
+ create mode 100644 tests/artifacts/workbench-shell/prototype-progress-1024x768.png
+ create mode 100644 tests/artifacts/workbench-shell/prototype-progress-1440x1000.png
+ create mode 100644 tests/artifacts/workbench-shell/prototype-progress-320x844.png
+ create mode 100644 tests/artifacts/workbench-shell/prototype-progress-390x844.png
+ create mode 100644 tests/artifacts/workbench-shell/prototype-student-work-1024x768.png
+ create mode 100644 tests/artifacts/workbench-shell/prototype-student-work-1440x1000.png
+ create mode 100644 tests/artifacts/workbench-shell/prototype-student-work-320x844.png
+ create mode 100644 tests/artifacts/workbench-shell/prototype-student-work-390x844.png
+ create mode 100644 tests/artifacts/workbench-shell/restoration-browser-report.json
+ create mode 100644 tests/artifacts/workbench-shell/restoration-verification.json
+ create mode 100644 tests/artifacts/workbench-shell/scope-report.json
+ create mode 100644 tests/artifacts/workbench-shell/subnavigation-report.json
+ create mode 100644 tests/artifacts/workbench-shell/switcher-guard/1440-mount-guard-dirty.png
+ create mode 100644 tests/artifacts/workbench-shell/switcher-guard/1440-mount-guard-pending.png
+ create mode 100644 tests/artifacts/workbench-shell/switcher-guard/1440-remount-guard-dirty.png
+ create mode 100644 tests/artifacts/workbench-shell/switcher-guard/1440-remount-guard-pending.png
+ create mode 100644 tests/artifacts/workbench-shell/switcher-guard/390-mount-guard-dirty.png
+ create mode 100644 tests/artifacts/workbench-shell/switcher-guard/390-mount-guard-pending.png
+ create mode 100644 tests/artifacts/workbench-shell/switcher-guard/390-remount-guard-dirty.png
+ create mode 100644 tests/artifacts/workbench-shell/switcher-guard/390-remount-guard-pending.png
+ create mode 100644 tests/artifacts/workbench-shell/switcher-guard/preinstalled-guard-order-report.json
+ create mode 100644 tests/artifacts/workbench-shell/switcher-guard/report-development.json
+ create mode 100644 tests/artifacts/workbench-shell/switcher-guard/report-production.json
+ create mode 100644 tests/artifacts/workbench-shell/switcher-guard/report.json
+ create mode 100644 tests/teacher-progress-return.test.ts
+ create mode 100644 tests/teacher-shell-metadata.test.ts
+ create mode 100644 tests/teacher-shell-switcher-browser.mjs
+ create mode 100644 tests/teacher-shell.test.ts
+ create mode 100644 tests/teacher-workspace-panes.test.ts

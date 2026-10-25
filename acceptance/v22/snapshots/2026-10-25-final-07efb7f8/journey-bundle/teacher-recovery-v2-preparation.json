@@ -1,0 +1,23 @@
+{
+  "status": "syntax-checked-not-executed",
+  "helper": "teacher-recovery-browser-v2.mjs",
+  "helperSha256": "41a6718ec09c4bcb3d5a443d9570263cbaa253ed331afc7701b527a803c2c750",
+  "priorHelperSha256": "0e59dc6ce9284115304121ea567d996e5c556be2848077067f817a23defac1a8",
+  "priorReportSha256": "0ab3dc522271e154e8ce65a3ee257565069d061f8d71002064c0b4aea0e57a03",
+  "commonSha256": "8ad52a1724481f7315eb57b0db96d4251520f761c0849c93cc545d169a69d647",
+  "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "narrowedScope": "Question baseline/navigation/reload/restore/persistence; native Emphasis selection and saved-objective reconciliation; valid/missing source/version GETs. Known contextual-return findings not repeated.",
+  "inspectedOriginals": [
+    "teacher-recovery-01/l-read-scenario-unrun.png",
+    "teacher-recovery-01/l-emphasis-scenario-unrun.png",
+    "teacher-recovery-01/src-version-unavailable.png"
+  ],
+  "corrections": [
+    "Wait for streamed/hydrated controls before cardinality checks",
+    "Refuse local text edit until saved bank baseline matches UI",
+    "Read-only persistence reconciliation independent of local UI cleanup",
+    "Use httpStatus detail field instead of overwriting result status",
+    "Use actual not-found heading from app/teacher/not-found.tsx"
+  ],
+  "outputs": "Fresh directory required by unchanged shared runtime guard; prior reports/captures remain unchanged"
+}

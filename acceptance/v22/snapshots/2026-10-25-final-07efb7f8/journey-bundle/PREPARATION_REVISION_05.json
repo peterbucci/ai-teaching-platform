@@ -1,0 +1,37 @@
+{
+  "createdAt": "2026-10-25T17:06:54.7215634Z",
+  "status": "prepared-not-executed-by-this-agent",
+  "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "files": [
+    {
+      "file": "six-blocker-browser.mjs",
+      "sha256": "4c3fabab6416889e4d7c532717e0110c90b06e1f21226d87c81b04e7c4a5622a",
+      "syntax": "passed"
+    },
+    {
+      "file": "shell-accessibility-browser.mjs",
+      "sha256": "41a0e9f5d531bb6b1d94830e12e6357325ce66479972fb69adb8952b41e6a01f",
+      "syntax": "passed"
+    }
+  ],
+  "sourceReviewed": [
+    "app/teacher/evidence/results.tsx:59 current .tw-panes-body scroller",
+    "app/teacher/evidence/results-navigation.ts:138 history traversal restores saved originating response row even when entry retains older detail hash",
+    "app/teacher/workspace-panes.tsx:255 hydrated wide/medium/compact layout",
+    "app/teacher/lessons/workbench.tsx:208 Authoring panes remains supported",
+    "app/teacher/assignments/progress-pane.tsx:132 cell-evidence return focus"
+  ],
+  "corrections": [
+    "Wait hydrated layout and URL-selected response DOM before sampling",
+    "Measure current pane scroller rather than old ul overflow element",
+    "Use actual keyboard departure focus and scroll for repeated-url history expectations",
+    "Verify intended originating row visible independently of selected record identity",
+    "Preserve exact selected response text and recorded scroll comparisons",
+    "Wait destination headings before discovery/session-return assertions",
+    "C2 explicitly carries progressView=grid and pane=details"
+  ],
+  "longList": "If actual scroller does not overflow, explicitly unrun; no record creation or seed replay",
+  "applicationModified": false,
+  "sharedRuntimeChanged": false,
+  "safetyUnchanged": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485"
+}

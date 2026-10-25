@@ -1,0 +1,487 @@
+{
+  "commands": [
+    "git merge-base --is-ancestor <left> <right>",
+    "git merge-base <left> <right>",
+    "git merge-tree --write-tree <left> <right>",
+    "git commit-tree <tree> -p <combined> -p <input> -m <audit-message>"
+  ],
+  "main": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+  "steps": [
+    {
+      "tree": "a965e4febd5918318eaaa75ce840b1d2ad92463e",
+      "output": [
+        "a965e4febd5918318eaaa75ce840b1d2ad92463e"
+      ],
+      "commit": "d42deb09461e7ca2e48beaf237cbdffbf5dd2f6e",
+      "before": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "input": "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+      "pr": 116,
+      "exitCode": 0
+    },
+    {
+      "tree": "663578a3d8b250de5ba7fd3356112d6e071158e9",
+      "output": [
+        "663578a3d8b250de5ba7fd3356112d6e071158e9"
+      ],
+      "commit": "6a4dbd70217574909e5ab8afa55e563fc7730a6d",
+      "before": "d42deb09461e7ca2e48beaf237cbdffbf5dd2f6e",
+      "input": "435ccbc94c42a59993568e0252c777c5acb42c53",
+      "pr": 120,
+      "exitCode": 0
+    },
+    {
+      "tree": "310ecd2c3255f9cd4dd593e9d37f0d444e28c929",
+      "output": [
+        "310ecd2c3255f9cd4dd593e9d37f0d444e28c929"
+      ],
+      "commit": "99efefe9fd6aaedd6adf803325cece8e081e80f8",
+      "before": "6a4dbd70217574909e5ab8afa55e563fc7730a6d",
+      "input": "a615b9743a0b4e08562428771e2c84f62c97888f",
+      "pr": 117,
+      "exitCode": 0
+    },
+    {
+      "tree": "9a6d13c36174aac494fea8411582235817589258",
+      "output": [
+        "9a6d13c36174aac494fea8411582235817589258"
+      ],
+      "commit": "28a3044006cdb4dec0e5cb03a68816716710307f",
+      "before": "99efefe9fd6aaedd6adf803325cece8e081e80f8",
+      "input": "1bad60ce76b4d1a11f044f1edb020f07ee3ab22f",
+      "pr": 118,
+      "exitCode": 0
+    },
+    {
+      "tree": "907bc1fde73133d5667f9068400037ee78ad462c",
+      "output": [
+        "907bc1fde73133d5667f9068400037ee78ad462c"
+      ],
+      "commit": "89756fe7ffc2afd8154dddd11e12afeea98093ce",
+      "before": "28a3044006cdb4dec0e5cb03a68816716710307f",
+      "input": "76ae36bbf32383d3794d54591c0bfe33013e031d",
+      "pr": 123,
+      "exitCode": 0
+    },
+    {
+      "tree": "54fb06248e89969b448324b26950da6484837565",
+      "output": [
+        "54fb06248e89969b448324b26950da6484837565"
+      ],
+      "commit": "5d2058ee7c6513742ddccc6935f143885ee3e0f6",
+      "before": "89756fe7ffc2afd8154dddd11e12afeea98093ce",
+      "input": "1cd41adf53a81bab6bf0491eb0d6aee7488f19cf",
+      "pr": 124,
+      "exitCode": 0
+    },
+    {
+      "tree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+      "output": [
+        "948b9a6005a056c97f10d181c589b5352d6221f3"
+      ],
+      "commit": "b160a1405d7d9f0213b1cccfedcb803ef894c582",
+      "before": "5d2058ee7c6513742ddccc6935f143885ee3e0f6",
+      "input": "71898a8a72908577065bcc7c7fb9035d6cc29ebf",
+      "pr": 113,
+      "exitCode": 0
+    }
+  ],
+  "ancestry": [
+    {
+      "isAncestor": true,
+      "ancestor": "main",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 116
+    },
+    {
+      "isAncestor": true,
+      "ancestor": 116,
+      "mergeBase": "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+      "descendant": 120
+    },
+    {
+      "isAncestor": false,
+      "ancestor": 116,
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 117
+    },
+    {
+      "isAncestor": false,
+      "ancestor": 116,
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 118
+    },
+    {
+      "isAncestor": true,
+      "ancestor": 116,
+      "mergeBase": "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+      "descendant": 123
+    },
+    {
+      "isAncestor": true,
+      "ancestor": 116,
+      "mergeBase": "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+      "descendant": 124
+    },
+    {
+      "isAncestor": false,
+      "ancestor": 116,
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 113
+    },
+    {
+      "isAncestor": true,
+      "ancestor": "main",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 120
+    },
+    {
+      "isAncestor": false,
+      "ancestor": 120,
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 117
+    },
+    {
+      "isAncestor": false,
+      "ancestor": 120,
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 118
+    },
+    {
+      "isAncestor": false,
+      "ancestor": 120,
+      "mergeBase": "dd7401edcabe80b8308da30431ae06f05f0f1a9b",
+      "descendant": 123
+    },
+    {
+      "isAncestor": false,
+      "ancestor": 120,
+      "mergeBase": "dd7401edcabe80b8308da30431ae06f05f0f1a9b",
+      "descendant": 124
+    },
+    {
+      "isAncestor": false,
+      "ancestor": 120,
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 113
+    },
+    {
+      "isAncestor": true,
+      "ancestor": "main",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 117
+    },
+    {
+      "isAncestor": false,
+      "ancestor": 117,
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 118
+    },
+    {
+      "isAncestor": false,
+      "ancestor": 117,
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 123
+    },
+    {
+      "isAncestor": false,
+      "ancestor": 117,
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 124
+    },
+    {
+      "isAncestor": false,
+      "ancestor": 117,
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 113
+    },
+    {
+      "isAncestor": true,
+      "ancestor": "main",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 118
+    },
+    {
+      "isAncestor": false,
+      "ancestor": 118,
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 123
+    },
+    {
+      "isAncestor": false,
+      "ancestor": 118,
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 124
+    },
+    {
+      "isAncestor": false,
+      "ancestor": 118,
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 113
+    },
+    {
+      "isAncestor": true,
+      "ancestor": "main",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 123
+    },
+    {
+      "isAncestor": false,
+      "ancestor": 123,
+      "mergeBase": "dd7401edcabe80b8308da30431ae06f05f0f1a9b",
+      "descendant": 124
+    },
+    {
+      "isAncestor": false,
+      "ancestor": 123,
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 113
+    },
+    {
+      "isAncestor": true,
+      "ancestor": "main",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 124
+    },
+    {
+      "isAncestor": false,
+      "ancestor": 124,
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 113
+    },
+    {
+      "isAncestor": true,
+      "ancestor": "main",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "descendant": 113
+    }
+  ],
+  "isolation": {
+    "refsModified": false,
+    "alternateObjects": "C:/Users/sb128/Desktop/LearningPlatform/.git/objects",
+    "objectDirectory": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a173d6-e789-7233-92d2-b0b55d4559ed/independent-audit/objects",
+    "worktreeModified": false
+  },
+  "finalCommit": "b160a1405d7d9f0213b1cccfedcb803ef894c582",
+  "finalTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+  "pairs": [
+    {
+      "exitCode": 0,
+      "right": 120,
+      "output": [
+        "663578a3d8b250de5ba7fd3356112d6e071158e9"
+      ],
+      "tree": "663578a3d8b250de5ba7fd3356112d6e071158e9",
+      "left": 116
+    },
+    {
+      "exitCode": 0,
+      "right": 117,
+      "output": [
+        "e8d89e2cd34940351db35b05bdc7bc847f1d5e68"
+      ],
+      "tree": "e8d89e2cd34940351db35b05bdc7bc847f1d5e68",
+      "left": 116
+    },
+    {
+      "exitCode": 0,
+      "right": 118,
+      "output": [
+        "3feded4748eb9be2abbed7512c9f757cab10c7e0"
+      ],
+      "tree": "3feded4748eb9be2abbed7512c9f757cab10c7e0",
+      "left": 116
+    },
+    {
+      "exitCode": 0,
+      "right": 123,
+      "output": [
+        "025a41cb30f310c30285672cf8bafc4ae1e8b9ed"
+      ],
+      "tree": "025a41cb30f310c30285672cf8bafc4ae1e8b9ed",
+      "left": 116
+    },
+    {
+      "exitCode": 0,
+      "right": 124,
+      "output": [
+        "165cc66e1d3f435efa525c0cb0a3c0c47092fb2d"
+      ],
+      "tree": "165cc66e1d3f435efa525c0cb0a3c0c47092fb2d",
+      "left": 116
+    },
+    {
+      "exitCode": 0,
+      "right": 113,
+      "output": [
+        "40350d50d0831a555f459acec1b9d25f7cb9376c"
+      ],
+      "tree": "40350d50d0831a555f459acec1b9d25f7cb9376c",
+      "left": 116
+    },
+    {
+      "exitCode": 0,
+      "right": 117,
+      "output": [
+        "310ecd2c3255f9cd4dd593e9d37f0d444e28c929"
+      ],
+      "tree": "310ecd2c3255f9cd4dd593e9d37f0d444e28c929",
+      "left": 120
+    },
+    {
+      "exitCode": 0,
+      "right": 118,
+      "output": [
+        "a0a80d0a505147faa6f18d80bd51d4d245b2cdda"
+      ],
+      "tree": "a0a80d0a505147faa6f18d80bd51d4d245b2cdda",
+      "left": 120
+    },
+    {
+      "exitCode": 0,
+      "right": 123,
+      "output": [
+        "cbf71128eda60a465cddbe34a2120c543ce68373"
+      ],
+      "tree": "cbf71128eda60a465cddbe34a2120c543ce68373",
+      "left": 120
+    },
+    {
+      "exitCode": 0,
+      "right": 124,
+      "output": [
+        "296e731fadc3dc5ac019556769a2e6a447b39158"
+      ],
+      "tree": "296e731fadc3dc5ac019556769a2e6a447b39158",
+      "left": 120
+    },
+    {
+      "exitCode": 0,
+      "right": 113,
+      "output": [
+        "7f5bd87fe877290deaa176953175c9ebde36068c"
+      ],
+      "tree": "7f5bd87fe877290deaa176953175c9ebde36068c",
+      "left": 120
+    },
+    {
+      "exitCode": 0,
+      "right": 118,
+      "output": [
+        "e2d825c475115c793011565f6468d37f080547c7"
+      ],
+      "tree": "e2d825c475115c793011565f6468d37f080547c7",
+      "left": 117
+    },
+    {
+      "exitCode": 0,
+      "right": 123,
+      "output": [
+        "c663dc03dcfeca5a093016aff60d8b36ba300b6c"
+      ],
+      "tree": "c663dc03dcfeca5a093016aff60d8b36ba300b6c",
+      "left": 117
+    },
+    {
+      "exitCode": 0,
+      "right": 124,
+      "output": [
+        "2cf501f12c8afda22c3e59fc784bad7df0fe58d7"
+      ],
+      "tree": "2cf501f12c8afda22c3e59fc784bad7df0fe58d7",
+      "left": 117
+    },
+    {
+      "exitCode": 0,
+      "right": 113,
+      "output": [
+        "7056b99dbf5452c67476196bde7e1a2ec3618d97"
+      ],
+      "tree": "7056b99dbf5452c67476196bde7e1a2ec3618d97",
+      "left": 117
+    },
+    {
+      "exitCode": 0,
+      "right": 123,
+      "output": [
+        "fde1d95e83e9ebe0215437b75635d0b0420e84a1"
+      ],
+      "tree": "fde1d95e83e9ebe0215437b75635d0b0420e84a1",
+      "left": 118
+    },
+    {
+      "exitCode": 0,
+      "right": 124,
+      "output": [
+        "292548c2310b9e1b549eae5f5a51ddda87140a33"
+      ],
+      "tree": "292548c2310b9e1b549eae5f5a51ddda87140a33",
+      "left": 118
+    },
+    {
+      "exitCode": 0,
+      "right": 113,
+      "output": [
+        "37df5b4e201f0f1b6d92d82f1ee648fa4d569934"
+      ],
+      "tree": "37df5b4e201f0f1b6d92d82f1ee648fa4d569934",
+      "left": 118
+    },
+    {
+      "exitCode": 0,
+      "right": 124,
+      "output": [
+        "6bd77c23d1154f92fe454eb47999efe815f69626"
+      ],
+      "tree": "6bd77c23d1154f92fe454eb47999efe815f69626",
+      "left": 123
+    },
+    {
+      "exitCode": 0,
+      "right": 113,
+      "output": [
+        "e90a609ba2e6ec9f11d2302c57c7462f1f722779"
+      ],
+      "tree": "e90a609ba2e6ec9f11d2302c57c7462f1f722779",
+      "left": 123
+    },
+    {
+      "exitCode": 0,
+      "right": 113,
+      "output": [
+        "5317059cf32191fc42d766f74f9d46fa778524b9"
+      ],
+      "tree": "5317059cf32191fc42d766f74f9d46fa778524b9",
+      "left": 124
+    }
+  ],
+  "inputs": [
+    {
+      "sha": "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+      "pr": 116
+    },
+    {
+      "sha": "435ccbc94c42a59993568e0252c777c5acb42c53",
+      "pr": 120
+    },
+    {
+      "sha": "a615b9743a0b4e08562428771e2c84f62c97888f",
+      "pr": 117
+    },
+    {
+      "sha": "1bad60ce76b4d1a11f044f1edb020f07ee3ab22f",
+      "pr": 118
+    },
+    {
+      "sha": "76ae36bbf32383d3794d54591c0bfe33013e031d",
+      "pr": 123
+    },
+    {
+      "sha": "1cd41adf53a81bab6bf0491eb0d6aee7488f19cf",
+      "pr": 124
+    },
+    {
+      "sha": "71898a8a72908577065bcc7c7fb9035d6cc29ebf",
+      "pr": 113
+    }
+  ]
+}

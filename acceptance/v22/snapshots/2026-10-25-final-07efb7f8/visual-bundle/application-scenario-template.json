@@ -1,0 +1,17 @@
+{
+  "fixtureLabel": "Default fictional curated assignment plus exact authored journey IDs, to be filled from this candidate's receipts before execution",
+  "states": [
+    {"name":"overview","path":"/teacher","fixtureLabel":"Default selected assignment Teaching Desk; prototype Overview is whole course"},
+    {"name":"assignments","path":"/teacher/assignments","fixtureLabel":"Actual current lesson/version/class counts; not pixel-equivalent to prototype"},
+    {"name":"class-progress","path":"/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture","fixtureLabel":"Default fictional curated assignment and prepared histories"},
+    {"name":"lessons","path":"/teacher/lessons","fixtureLabel":"Actual authored lesson library counts"},
+    {"name":"objectives","path":null,"fixtureLabel":"Requires exact journey lesson ID and authoring revision","unrunReason":"Fill /teacher/objectives/<lessonId> from successful journey receipt"},
+    {"name":"questions","path":null,"fixtureLabel":"Requires exact journey lesson ID and question bank state","unrunReason":"Fill /teacher/lessons/<lessonId>/questions from successful journey receipt"},
+    {"name":"published-lesson","path":null,"fixtureLabel":"Requires exact saved published lesson/version; record actual objective/question/passage counts","unrunReason":"Fill /teacher/lessons/<lessonId>?... from successful journey receipt"},
+    {"name":"evidence","path":"/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay","fixtureLabel":"Default curated prepared responses; counts and names differ from prototype"},
+    {"name":"original-response","path":"/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=40000000-0000-4000-8000-000000000001&attempt=50000000-0000-4000-8000-000000000001&evaluation=60000000-0000-4000-8000-000000000001","fixtureLabel":"Default exact prepared response; not same fictional response as prototype"},
+    {"name":"interventions","path":null,"fixtureLabel":"Requires exact journey saved intervention draft; declare private/approved/delivered state","unrunReason":"Fill exact saved-draft URL from journey receipt; no generation in visual capture"},
+    {"name":"roster","path":"/teacher/students?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture","fixtureLabel":"Inherited Students directory; lacks prototype Roster matrix/work log"},
+    {"name":"learning-insights","path":"/teacher/insights?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture","fixtureLabel":"Inherited Learning insights. Prototype comparison uses corresponding concern workspace; no exact prototype route exists"}
+  ]
+}

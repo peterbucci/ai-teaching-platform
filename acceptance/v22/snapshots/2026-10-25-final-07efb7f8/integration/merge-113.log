@@ -1,0 +1,165 @@
+Merge made by the 'ort' strategy.
+ acceptance/student-blockers/RESULTS.md             |  74 ++
+ .../R5-real-auth-expiry-safe-return-failure.png    | Bin 0 -> 61663 bytes
+ .../independent-recovery-report.json               | 453 ++++++++++++
+ .../evidence/after-2fc0d49a/run-identity.json      |  17 +
+ .../R1-initial-save-401-1024x768.png               | Bin 0 -> 53289 bytes
+ .../R1-initial-save-401-1440x900.png               | Bin 0 -> 61664 bytes
+ .../after-83114efd/R1-initial-save-401-320x844.png | Bin 0 -> 35765 bytes
+ .../after-83114efd/R1-initial-save-401-390x844.png | Bin 0 -> 41481 bytes
+ .../after-83114efd/R2-offline-save-1024x768.png    | Bin 0 -> 54639 bytes
+ .../after-83114efd/R2-offline-save-1440x900.png    | Bin 0 -> 62718 bytes
+ .../after-83114efd/R2-offline-save-320x844.png     | Bin 0 -> 37631 bytes
+ .../after-83114efd/R2-offline-save-390x844.png     | Bin 0 -> 42530 bytes
+ .../R3-unknown-before-check-1024x768.png           | Bin 0 -> 54639 bytes
+ .../R3-unknown-before-check-1440x900.png           | Bin 0 -> 62720 bytes
+ .../R3-unknown-before-check-320x844.png            | Bin 0 -> 37631 bytes
+ .../R3-unknown-before-check-390x844.png            | Bin 0 -> 42530 bytes
+ .../R4-acknowledged-save-1024x768.png              | Bin 0 -> 50061 bytes
+ .../R4-acknowledged-save-1440x900.png              | Bin 0 -> 57204 bytes
+ .../R4-acknowledged-save-320x844.png               | Bin 0 -> 34388 bytes
+ .../R4-acknowledged-save-390x844.png               | Bin 0 -> 38454 bytes
+ .../after-83114efd/R5-expired-auth-1024x768.png    | Bin 0 -> 53289 bytes
+ .../after-83114efd/R5-expired-auth-1440x900.png    | Bin 0 -> 61664 bytes
+ .../after-83114efd/R5-expired-auth-320x844.png     | Bin 0 -> 35765 bytes
+ .../after-83114efd/R5-expired-auth-390x844.png     | Bin 0 -> 41481 bytes
+ .../R6-preserved-answer-1024x768.png               | Bin 0 -> 50061 bytes
+ .../R6-preserved-answer-1440x900.png               | Bin 0 -> 57203 bytes
+ .../after-83114efd/R6-preserved-answer-320x844.png | Bin 0 -> 34388 bytes
+ .../after-83114efd/R6-preserved-answer-390x844.png | Bin 0 -> 38454 bytes
+ .../evidence/after-83114efd/correct-1024x768.png   | Bin 0 -> 55109 bytes
+ .../evidence/after-83114efd/correct-1440x900.png   | Bin 0 -> 60953 bytes
+ .../evidence/after-83114efd/correct-320x844.png    | Bin 0 -> 36757 bytes
+ .../evidence/after-83114efd/correct-390x844.png    | Bin 0 -> 41712 bytes
+ .../after-83114efd/correct-result-report.json      |  85 +++
+ .../evidence/after-83114efd/incorrect-1024x768.png | Bin 0 -> 50402 bytes
+ .../evidence/after-83114efd/incorrect-1440x900.png | Bin 0 -> 57770 bytes
+ .../evidence/after-83114efd/incorrect-320x844.png  | Bin 0 -> 36756 bytes
+ .../evidence/after-83114efd/incorrect-390x844.png  | Bin 0 -> 39834 bytes
+ .../after-83114efd/incorrect-result-report.json    |  85 +++
+ .../independent-recovery-report.json               | 514 +++++++++++++
+ .../after-83114efd/partially_correct-1024x768.png  | Bin 0 -> 49818 bytes
+ .../after-83114efd/partially_correct-1440x900.png  | Bin 0 -> 57817 bytes
+ .../after-83114efd/partially_correct-320x844.png   | Bin 0 -> 37563 bytes
+ .../after-83114efd/partially_correct-390x844.png   | Bin 0 -> 40388 bytes
+ .../partially_correct-result-report.json           |  85 +++
+ .../evidence/after-83114efd/run-identity.json      |  17 +
+ .../evidence/after-83114efd/uncertain-1024x768.png | Bin 0 -> 49215 bytes
+ .../evidence/after-83114efd/uncertain-1440x900.png | Bin 0 -> 58202 bytes
+ .../evidence/after-83114efd/uncertain-320x844.png  | Bin 0 -> 36086 bytes
+ .../evidence/after-83114efd/uncertain-390x844.png  | Bin 0 -> 40316 bytes
+ .../after-83114efd/uncertain-result-report.json    |  85 +++
+ .../before-2b490863/active-top-1024x768.png        | Bin 0 -> 51036 bytes
+ .../before-2b490863/active-top-1440x900.png        | Bin 0 -> 65729 bytes
+ .../before-2b490863/active-top-320x844.png         | Bin 0 -> 35217 bytes
+ .../before-2b490863/active-top-390x844.png         | Bin 0 -> 40371 bytes
+ .../before-2b490863/answer-save-401-preserved.png  | Bin 0 -> 57359 bytes
+ .../answer-save-offline-preserved.png              | Bin 0 -> 58301 bytes
+ .../evidence/before-2b490863/composer-1024x768.png | Bin 0 -> 51429 bytes
+ .../evidence/before-2b490863/composer-1440x900.png | Bin 0 -> 65729 bytes
+ .../evidence/before-2b490863/composer-320x844.png  | Bin 0 -> 35217 bytes
+ .../evidence/before-2b490863/composer-390x844.png  | Bin 0 -> 40371 bytes
+ .../before-2b490863/correct-result-1024x768.png    | Bin 0 -> 55109 bytes
+ .../before-2b490863/correct-result-1440x900.png    | Bin 0 -> 60953 bytes
+ .../before-2b490863/correct-result-320x844.png     | Bin 0 -> 36757 bytes
+ .../before-2b490863/correct-result-390x844.png     | Bin 0 -> 41712 bytes
+ .../correct-result-visible-text.txt                |  38 +
+ .../before-2b490863/help-fallback-ungraded.png     | Bin 0 -> 60549 bytes
+ .../evidence/before-2b490863/reading-1440x900.png  | Bin 0 -> 86607 bytes
+ .../before-2b490863/student-browser-report.json    | 400 +++++++++++
+ .../before-2b490863/student-result-report.json     | 116 +++
+ .../student-blockers/recovery-browser-check.mjs    | 798 +++++++++++++++++++++
+ acceptance/student-blockers/recovery-fixture.mjs   | 115 +++
+ .../student-blockers/result-browser-check.mjs      | 267 +++++++
+ .../student-blockers/result-fixture-step.mjs       | 252 +++++++
+ acceptance/student-blockers/run-browser.mjs        | 287 ++++++++
+ app/study/answer-recovery.ts                       | 196 +++++
+ app/study/assignments/[assignmentId]/detail.css    |  19 +-
+ app/study/conversation-scroll.tsx                  | 132 ++++
+ app/study/dialogue.tsx                             | 432 ++++++-----
+ app/study/session.tsx                              | 541 ++++++++------
+ app/study/study.css                                |  69 +-
+ lib/tutoring/completion.ts                         |  68 ++
+ lib/tutoring/store.ts                              |   5 +-
+ tests/answer-recovery.test.ts                      | 261 +++++++
+ tests/tutoring-completion.test.ts                  | 151 ++++
+ 84 files changed, 5126 insertions(+), 436 deletions(-)
+ create mode 100644 acceptance/student-blockers/RESULTS.md
+ create mode 100644 acceptance/student-blockers/evidence/after-2fc0d49a/R5-real-auth-expiry-safe-return-failure.png
+ create mode 100644 acceptance/student-blockers/evidence/after-2fc0d49a/independent-recovery-report.json
+ create mode 100644 acceptance/student-blockers/evidence/after-2fc0d49a/run-identity.json
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R1-initial-save-401-1024x768.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R1-initial-save-401-1440x900.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R1-initial-save-401-320x844.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R1-initial-save-401-390x844.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R2-offline-save-1024x768.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R2-offline-save-1440x900.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R2-offline-save-320x844.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R2-offline-save-390x844.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R3-unknown-before-check-1024x768.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R3-unknown-before-check-1440x900.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R3-unknown-before-check-320x844.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R3-unknown-before-check-390x844.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R4-acknowledged-save-1024x768.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R4-acknowledged-save-1440x900.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R4-acknowledged-save-320x844.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R4-acknowledged-save-390x844.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R5-expired-auth-1024x768.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R5-expired-auth-1440x900.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R5-expired-auth-320x844.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R5-expired-auth-390x844.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R6-preserved-answer-1024x768.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R6-preserved-answer-1440x900.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R6-preserved-answer-320x844.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/R6-preserved-answer-390x844.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/correct-1024x768.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/correct-1440x900.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/correct-320x844.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/correct-390x844.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/correct-result-report.json
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/incorrect-1024x768.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/incorrect-1440x900.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/incorrect-320x844.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/incorrect-390x844.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/incorrect-result-report.json
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/independent-recovery-report.json
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/partially_correct-1024x768.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/partially_correct-1440x900.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/partially_correct-320x844.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/partially_correct-390x844.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/partially_correct-result-report.json
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/run-identity.json
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/uncertain-1024x768.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/uncertain-1440x900.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/uncertain-320x844.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/uncertain-390x844.png
+ create mode 100644 acceptance/student-blockers/evidence/after-83114efd/uncertain-result-report.json
+ create mode 100644 acceptance/student-blockers/evidence/before-2b490863/active-top-1024x768.png
+ create mode 100644 acceptance/student-blockers/evidence/before-2b490863/active-top-1440x900.png
+ create mode 100644 acceptance/student-blockers/evidence/before-2b490863/active-top-320x844.png
+ create mode 100644 acceptance/student-blockers/evidence/before-2b490863/active-top-390x844.png
+ create mode 100644 acceptance/student-blockers/evidence/before-2b490863/answer-save-401-preserved.png
+ create mode 100644 acceptance/student-blockers/evidence/before-2b490863/answer-save-offline-preserved.png
+ create mode 100644 acceptance/student-blockers/evidence/before-2b490863/composer-1024x768.png
+ create mode 100644 acceptance/student-blockers/evidence/before-2b490863/composer-1440x900.png
+ create mode 100644 acceptance/student-blockers/evidence/before-2b490863/composer-320x844.png
+ create mode 100644 acceptance/student-blockers/evidence/before-2b490863/composer-390x844.png
+ create mode 100644 acceptance/student-blockers/evidence/before-2b490863/correct-result-1024x768.png
+ create mode 100644 acceptance/student-blockers/evidence/before-2b490863/correct-result-1440x900.png
+ create mode 100644 acceptance/student-blockers/evidence/before-2b490863/correct-result-320x844.png
+ create mode 100644 acceptance/student-blockers/evidence/before-2b490863/correct-result-390x844.png
+ create mode 100644 acceptance/student-blockers/evidence/before-2b490863/correct-result-visible-text.txt
+ create mode 100644 acceptance/student-blockers/evidence/before-2b490863/help-fallback-ungraded.png
+ create mode 100644 acceptance/student-blockers/evidence/before-2b490863/reading-1440x900.png
+ create mode 100644 acceptance/student-blockers/evidence/before-2b490863/student-browser-report.json
+ create mode 100644 acceptance/student-blockers/evidence/before-2b490863/student-result-report.json
+ create mode 100644 acceptance/student-blockers/recovery-browser-check.mjs
+ create mode 100644 acceptance/student-blockers/recovery-fixture.mjs
+ create mode 100644 acceptance/student-blockers/result-browser-check.mjs
+ create mode 100644 acceptance/student-blockers/result-fixture-step.mjs
+ create mode 100644 acceptance/student-blockers/run-browser.mjs
+ create mode 100644 app/study/answer-recovery.ts
+ create mode 100644 app/study/conversation-scroll.tsx
+ create mode 100644 lib/tutoring/completion.ts
+ create mode 100644 tests/answer-recovery.test.ts
+ create mode 100644 tests/tutoring-completion.test.ts

@@ -1,0 +1,27 @@
+# Legacy outcomes prerequisite audit
+
+Application: `07efb7f821339538800f150f57b298eb2e606be3`; tree `948b9a6005a056c97f10d181c589b5352d6221f3`. This is a read-only source/receipt audit. No helper was changed or rerun for this audit.
+
+`legacy-outcomes-02/execute-fictional-fixture.log` records `Configure fictional DEMO_STUDENT_THREE credentials.` at legacy checker line 110, called by the fourth login at line 291. The wrapper had already completed its read-only source/provenance reconciliation. The checker sequentially logged in teacher, student One and student Two before asserting the absent fourth credential. The clone and follow-up mutation code occurs later and was not reached. Normal authentication session effects occurred; this is not described as a wholly read-only run. Raw host status remains `uncertain` and is preserved.
+
+The subsequent `read-only-reconciliation.json` proves the exact source draft remains at revision 3 with identical before/after SHA-256 `0dcbaa7fb5ce0d681e0bf413595974141162b9863481768ff2b1069a1a96c1ed` and zero newly created learning drafts. `guard-release.json` records that both wrapper and fixture worker were absent and the coordinator released only its own guard at 2026-10-25 17:42:42 UTC after read-only reconciliation. The retained ownership incident was preserved; no learning mutation was replayed.
+
+The current normal provisioning command cannot provide the fourth account. `scripts/provision-demo.ts:18` lists only teacher, student One and student Two. `lib/evidence/demo.ts:457` maps only those three identities; `DEMO_IDS.inactiveStudent` (`10000000-0000-4000-8000-000000000004`) deliberately retains a null auth-user link. The name “inactiveStudent” means the fictional no-history profile here: the default fixture still enrolls that profile in the class. It is not proof of a disabled authentication account.
+
+The existing operator-only Better Auth pattern can support a narrowly scoped additional test fixture if explicitly chosen. Both the normal provisioning script and the legacy outcomes checker use `getAuthOptions()` with `signUpEmail()` on a local instance whose signup endpoint is never mounted. The application HTTP configuration keeps `disableSignUp: true`. A bounded setup would first reconcile the exact no-history profile and its null auth link, create one new fictional account through that operator-only API, conditionally link only that profile, and supply its private credentials to the checker. It must stop on any existing unexpected link or ownership/history mismatch; it must never replace a password, change other accounts, alter quotas/timestamps, or enable public signup.
+
+That setup is not an existing one-command provision service for Student Three. It requires a new verification-only adapter and an explicit policy for its own created account/link. Leaving the new link attached makes the current standard reseeder reject conflicting fixture ownership, because it expects this profile's auth link to remain null. Safely restoring only the exact newly created link/account after sign-out would need separate read-only reconciliation and checks for new evidence references; it must never be attempted after an uncertain run until reconciliation is complete. The restricted `interventions:approval:lessons` credential helper cannot be reused by broadening its allowlist: it intentionally permits only `intervention-lesson-*` synthetic users.
+
+The coordinator decided to preserve baseline authentication and **not** provision/link the no-history actor merely to extend this optional legacy suite. Accordingly the legacy outcomes suite is **attempted / UNRUN due to missing fourth-account prerequisite**, with the failed prerequisite attempt and reconciliation preserved. Current uploaded/curated `interventions:approval:lessons --with-followups` still passes its own assertions, but it does not establish all omitted legacy cases. The optional mechanism above is a source-audit finding, not a recommended next mutation or authorization to perform it.
+
+Legacy cases not independently completed by this attempt include:
+
+- Accepted-but-uncertain follow-up judgment counts (`accepted=1`, `uncertain=1`, `failed=0`) distinct from unavailable/failed evaluation.
+- Known failed evaluation rejecting early retry, then explicit retry after the real cooldown, preserving the same answer and all failed/accepted history.
+- Concurrent start/submission and recipient-denominator assertions in the legacy two-recipient scenario, including missing-not-failed semantics and assisted versus independent concept counts.
+- The exact legacy nonrecipient/no-history actor authorization matrix.
+- Its broad before/after fingerprint of all pre-existing sessions, original answers, evaluations, assistance, source draft and generation count.
+- Its specific PostgreSQL immutable follow-up/dispatch negative checks and Migration017 completion/result constraints. The timestamp UPDATE statements are expected-rejection assertions, not authorized timestamp alterations.
+- Its separately invoked `--verify-persistence` and `--verify-integrity` modes; neither mode is included by the prepared main-mode adapter.
+
+The modern approval/follow-up suite does cover overlapping source pinning, approval/delivery, ordinary tutor isolation, accepted synthetic evaluation and unresolved-provider reservation safety. Those overlaps must remain distinct from unrun legacy assertions.

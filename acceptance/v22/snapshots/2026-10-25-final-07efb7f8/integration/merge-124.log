@@ -1,0 +1,447 @@
+Merge made by the 'ort' strategy.
+ app/teacher/interventions/concept-label.ts         |   44 +
+ app/teacher/interventions/editor.tsx               |  602 ++-
+ app/teacher/interventions/followup.tsx             |   33 +-
+ app/teacher/interventions/interventions.css        |  187 +-
+ app/teacher/interventions/page.tsx                 |  347 +-
+ app/teacher/interventions/review.tsx               |   99 +-
+ app/teacher/interventions/workspace.tsx            |  638 +--
+ scripts/check-intervention-http.ts                 |   18 +-
+ .../intervention-workspace/.gitattributes          |    2 +
+ .../COMPONENT_VERIFICATION.md                      |  201 +
+ .../intervention-workspace/INDEPENDENT_REVIEW.md   |  183 +
+ .../PUBLICATION_AUDIT.json.raw.txt                 |  Bin 0 -> 332 bytes
+ .../intervention-workspace/SCREENSHOTS.md          |   46 +
+ .../intervention-workspace/SHA256SUMS.txt          |  216 +
+ .../intervention-workspace/VERIFICATION.md         |   74 +
+ .../component-1024-steps-modal.png                 |  Bin 0 -> 94533 bytes
+ .../component-320-steps-preserved.png              |  Bin 0 -> 30950 bytes
+ ...on-recovery-and-generation-read-only-failed.png |  Bin 0 -> 34151 bytes
+ .../component-390-steps-preserved.png              |  Bin 0 -> 35310 bytes
+ .../intervention-workspace/component-auth.js       |   16 +
+ .../intervention-workspace/component-browser.mjs   |  881 ++++
+ .../intervention-workspace/component-build.mjs     |   96 +
+ .../component-css-loader.mjs                       |    3 +
+ .../intervention-workspace/component-fixture.json  | 4907 ++++++++++++++++++++
+ .../component-guarded-receipt-b060.raw.txt         |  Bin 0 -> 10583 bytes
+ .../component-guarded-receipt.json                 |  257 +
+ .../component-guarded-receipt.raw.txt              |  Bin 0 -> 9998 bytes
+ .../intervention-workspace/component-harness.txt   |  153 +
+ .../intervention-workspace/component-link.js       |   29 +
+ .../component-native200-real-components.png        |  Bin 0 -> 19955 bytes
+ .../intervention-workspace/component-navigation.js |   87 +
+ .../component-original-receipts.json               |   50 +
+ .../component-report-4882.raw.txt                  |  Bin 0 -> 8829 bytes
+ .../component-report-5f2d.raw.txt                  |  Bin 0 -> 9639 bytes
+ .../component-report-b060.raw.txt                  |  Bin 0 -> 10276 bytes
+ .../component-report-initial.json                  |  174 +
+ .../component-report-initial.json.raw.txt          |  Bin 0 -> 6698 bytes
+ .../component-report-pre4882.raw.txt               |  Bin 0 -> 8256 bytes
+ .../component-report-recovery.json                 |   66 +
+ .../component-report-recovery.json.raw.txt         |  Bin 0 -> 2379 bytes
+ .../intervention-workspace/component-report.json   |  289 ++
+ .../component-source-manifest-4882.raw.txt         |  Bin 0 -> 1521 bytes
+ .../component-source-manifest-5f2d.raw.txt         |  Bin 0 -> 1738 bytes
+ .../component-source-manifest-b060.raw.txt         |  Bin 0 -> 1738 bytes
+ .../component-source-manifest-pre4882.raw.txt      |  Bin 0 -> 1520 bytes
+ .../component-source-manifest.json                 |   48 +
+ .../component-tsx-loader.mjs                       |   14 +
+ .../followup-label-check.mjs                       |  142 +
+ .../intervention-workspace/native/EXECUTION.md     |   59 +
+ .../native/copy-provenance.json.raw.txt            |  Bin 0 -> 39969 bytes
+ .../followup-original-expanded-1024x768.png        |  Bin 0 -> 94942 bytes
+ .../followup-original-expanded-1440x1000.png       |  Bin 0 -> 129279 bytes
+ .../followup-original-expanded-320x844.png         |  Bin 0 -> 33916 bytes
+ .../followup-original-expanded-390x844.png         |  Bin 0 -> 38433 bytes
+ .../native/followup/followup-page-top-1024x768.png |  Bin 0 -> 98433 bytes
+ .../followup/followup-page-top-1440x1000.png       |  Bin 0 -> 133162 bytes
+ .../native/followup/followup-page-top-320x844.png  |  Bin 0 -> 34379 bytes
+ .../native/followup/followup-page-top-390x844.png  |  Bin 0 -> 39233 bytes
+ .../followup-response-expanded-1024x768.png        |  Bin 0 -> 99451 bytes
+ .../followup-response-expanded-1440x1000.png       |  Bin 0 -> 133406 bytes
+ .../followup-response-expanded-320x844.png         |  Bin 0 -> 32341 bytes
+ .../followup-response-expanded-390x844.png         |  Bin 0 -> 38837 bytes
+ .../native/followup/report.json.raw.txt            |  Bin 0 -> 30467 bytes
+ .../approved-undelivered-activity-320x844.png      |  Bin 0 -> 39652 bytes
+ .../approved-undelivered-activity-390x844.png      |  Bin 0 -> 42158 bytes
+ .../approved-undelivered-context-open-1024x768.png |  Bin 0 -> 101883 bytes
+ .../approved-undelivered-evidence-320x844.png      |  Bin 0 -> 39907 bytes
+ .../approved-undelivered-evidence-390x844.png      |  Bin 0 -> 42656 bytes
+ .../approved-undelivered-page-top-1024x768.png     |  Bin 0 -> 74023 bytes
+ .../approved-undelivered-page-top-1440x1000.png    |  Bin 0 -> 169425 bytes
+ .../approved-undelivered-page-top-320x844.png      |  Bin 0 -> 35583 bytes
+ .../approved-undelivered-page-top-390x844.png      |  Bin 0 -> 42158 bytes
+ .../journey/approved-undelivered-steps-320x844.png |  Bin 0 -> 35583 bytes
+ .../journey/approved-undelivered-steps-390x844.png |  Bin 0 -> 40335 bytes
+ .../journey/citation-exact-original-390x844.png    |  Bin 0 -> 43970 bytes
+ .../native/journey/delivered-activity-320x844.png  |  Bin 0 -> 37648 bytes
+ .../native/journey/delivered-activity-390x844.png  |  Bin 0 -> 42223 bytes
+ .../journey/delivered-context-open-1024x768.png    |  Bin 0 -> 103746 bytes
+ .../native/journey/delivered-evidence-320x844.png  |  Bin 0 -> 39907 bytes
+ .../native/journey/delivered-evidence-390x844.png  |  Bin 0 -> 42656 bytes
+ .../native/journey/delivered-page-top-1024x768.png |  Bin 0 -> 75995 bytes
+ .../journey/delivered-page-top-1440x1000.png       |  Bin 0 -> 163558 bytes
+ .../native/journey/delivered-page-top-320x844.png  |  Bin 0 -> 34273 bytes
+ .../native/journey/delivered-page-top-390x844.png  |  Bin 0 -> 42223 bytes
+ .../native/journey/delivered-steps-320x844.png     |  Bin 0 -> 34273 bytes
+ .../native/journey/delivered-steps-390x844.png     |  Bin 0 -> 39346 bytes
+ .../edited-saved-draft-activity-320x844.png        |  Bin 0 -> 39520 bytes
+ .../edited-saved-draft-activity-390x844.png        |  Bin 0 -> 43017 bytes
+ .../edited-saved-draft-context-open-1024x768.png   |  Bin 0 -> 99299 bytes
+ .../edited-saved-draft-evidence-320x844.png        |  Bin 0 -> 39907 bytes
+ .../edited-saved-draft-evidence-390x844.png        |  Bin 0 -> 42656 bytes
+ .../edited-saved-draft-page-top-1024x768.png       |  Bin 0 -> 74928 bytes
+ .../edited-saved-draft-page-top-1440x1000.png      |  Bin 0 -> 166564 bytes
+ .../edited-saved-draft-page-top-320x844.png        |  Bin 0 -> 32781 bytes
+ .../edited-saved-draft-page-top-390x844.png        |  Bin 0 -> 43017 bytes
+ .../journey/edited-saved-draft-steps-320x844.png   |  Bin 0 -> 32781 bytes
+ .../journey/edited-saved-draft-steps-390x844.png   |  Bin 0 -> 35365 bytes
+ ...alid-save-reveals-teacher-guidance-1024x768.png |  Bin 0 -> 82919 bytes
+ ...valid-save-reveals-teacher-guidance-320x844.png |  Bin 0 -> 43165 bytes
+ .../journey/private-draft-activity-320x844.png     |  Bin 0 -> 39828 bytes
+ .../journey/private-draft-activity-390x844.png     |  Bin 0 -> 43315 bytes
+ .../private-draft-context-open-1024x768.png        |  Bin 0 -> 99435 bytes
+ .../journey/private-draft-evidence-320x844.png     |  Bin 0 -> 39907 bytes
+ .../journey/private-draft-evidence-390x844.png     |  Bin 0 -> 42656 bytes
+ .../journey/private-draft-page-top-1024x768.png    |  Bin 0 -> 74324 bytes
+ .../journey/private-draft-page-top-1440x1000.png   |  Bin 0 -> 166076 bytes
+ .../journey/private-draft-page-top-320x844.png     |  Bin 0 -> 32849 bytes
+ .../journey/private-draft-page-top-390x844.png     |  Bin 0 -> 43315 bytes
+ .../native/journey/private-draft-steps-320x844.png |  Bin 0 -> 32849 bytes
+ .../native/journey/private-draft-steps-390x844.png |  Bin 0 -> 35435 bytes
+ .../journey/recovered-unsaved-draft-320x844.png    |  Bin 0 -> 40828 bytes
+ .../native/journey/report.json.raw.txt             |  Bin 0 -> 99925 bytes
+ .../steps-inspect-saved-evidence-1024x768.png      |  Bin 0 -> 71002 bytes
+ .../steps-inspect-saved-evidence-320x844.png       |  Bin 0 -> 41541 bytes
+ .../journey/unsaved-student-preview-320x844.png    |  Bin 0 -> 38838 bytes
+ .../preserved-fixture.json.raw.txt                 |  Bin 0 -> 1104 bytes
+ .../report.json.raw.txt                            |  Bin 0 -> 5440 bytes
+ .../report.json.raw.txt                            |  Bin 0 -> 5241 bytes
+ .../report.json.raw.txt                            |  Bin 0 -> 5349 bytes
+ .../fixture.json.raw.txt                           |  Bin 0 -> 3252 bytes
+ .../report.json.raw.txt                            |  Bin 0 -> 4238 bytes
+ .../intervention-http.json.raw.txt                 |  Bin 0 -> 934 bytes
+ .../report.json.raw.txt                            |  Bin 0 -> 5521 bytes
+ .../approval.json.raw.txt                          |  Bin 0 -> 1622 bytes
+ .../report.json.raw.txt                            |  Bin 0 -> 5746 bytes
+ .../fixture.json.raw.txt                           |  Bin 0 -> 1883 bytes
+ .../report.json.raw.txt                            |  Bin 0 -> 5581 bytes
+ .../report.json.raw.txt                            |  Bin 0 -> 11838 bytes
+ .../report.json.raw.txt                            |  Bin 0 -> 1938 bytes
+ .../report.json.raw.txt                            |  Bin 0 -> 5349 bytes
+ .../report.json.raw.txt                            |  Bin 0 -> 1942 bytes
+ .../steps-top/delivered-steps-top-1024x768.png     |  Bin 0 -> 101992 bytes
+ .../steps-top/delivered-steps-top-1440x1000.png    |  Bin 0 -> 169751 bytes
+ .../steps-top/delivered-steps-top-320x844.png      |  Bin 0 -> 34273 bytes
+ .../steps-top/delivered-steps-top-390x844.png      |  Bin 0 -> 39346 bytes
+ .../actual-native-zoom-200-cdp-1-1416x908.png      |  Bin 0 -> 38046 bytes
+ .../report.json.raw.txt                            |  Bin 0 -> 5327 bytes
+ .../actual-native-zoom-100-1416x908.png            |  Bin 0 -> 147452 bytes
+ .../zoom-prior-failed-login/failure-zoom.png       |  Bin 0 -> 147452 bytes
+ .../zoom-prior-failed-login/report.json.raw.txt    |  Bin 0 -> 10495 bytes
+ .../zoom/actual-native-zoom-100-1416x908.png       |  Bin 0 -> 147452 bytes
+ .../native/zoom/actual-native-zoom-200-708x454.png |  Bin 0 -> 21259 bytes
+ .../native/zoom/report.json.raw.txt                |  Bin 0 -> 16877 bytes
+ .../2026-10-25T13-49-43-275Z-init.raw.txt          |  Bin 0 -> 8458 bytes
+ ...-25T13-55-18-607Z-resume-initialization.raw.txt |  Bin 0 -> 13709 bytes
+ .../2026-10-25T13-55-32-901Z-adopt-build.raw.txt   |  Bin 0 -> 2246 bytes
+ .../2026-10-25T13-55-37-169Z-start.raw.txt         |  Bin 0 -> 5349 bytes
+ .../2026-10-25T13-55-47-456Z-prepare.raw.txt       |  Bin 0 -> 5700 bytes
+ .../2026-10-25T13-55-55-229Z-integration.raw.txt   |  Bin 0 -> 5518 bytes
+ .../prior-native/CHECKPOINT.md                     |   32 +
+ .../activation-lock-release.json.raw.txt           |  Bin 0 -> 989 bytes
+ .../activation-reconciliation.json.raw.txt         |  Bin 0 -> 2394 bytes
+ .../prior-native/authenticated-http.raw.txt        |  Bin 0 -> 934 bytes
+ .../browser.core-save-run05.mjs.raw.txt            |  Bin 0 -> 38248 bytes
+ .../prior-native/browser.first-journey.mjs.raw.txt |  Bin 0 -> 35196 bytes
+ .../browser.initial-activation.mjs.raw.txt         |  Bin 0 -> 34952 bytes
+ .../browser.invalid-field-diagnostic.mjs.raw.txt   |  Bin 0 -> 36740 bytes
+ .../browser.tablet-diagnostic.mjs.raw.txt          |  Bin 0 -> 35648 bytes
+ .../browser.tablet-reveal-diagnostic.mjs.raw.txt   |  Bin 0 -> 36802 bytes
+ .../intervention-native-activation-01.raw.txt      |  Bin 0 -> 6317 bytes
+ ...ervention-native-browser-01-failure-journey.png |  Bin 0 -> 97184 bytes
+ ...-browser-01-private-draft-page-top-1024x768.png |  Bin 0 -> 75721 bytes
+ ...browser-01-private-draft-page-top-1440x1000.png |  Bin 0 -> 157457 bytes
+ .../intervention-native-browser-01.raw.txt         |  Bin 0 -> 5624 bytes
+ .../intervention-native-browser-02.raw.txt         |  Bin 0 -> 6722 bytes
+ ...e-browser-03-private-draft-activity-320x844.png |  Bin 0 -> 40494 bytes
+ ...e-browser-03-private-draft-evidence-320x844.png |  Bin 0 -> 35263 bytes
+ ...tive-browser-03-private-draft-steps-390x844.png |  Bin 0 -> 35432 bytes
+ .../intervention-native-browser-03.raw.txt         |  Bin 0 -> 17277 bytes
+ .../intervention-native-browser-04.raw.txt         |  Bin 0 -> 18027 bytes
+ .../intervention-native-browser-05.raw.txt         |  Bin 0 -> 39205 bytes
+ .../native-runner.initial-start.mjs.raw.txt        |  Bin 0 -> 24694 bytes
+ .../prior-native/original-fixture.raw.txt          |  Bin 0 -> 1601 bytes
+ .../prior-native/startup-lock-release.json.raw.txt |  Bin 0 -> 315 bytes
+ .../startup-reconciliation.json.raw.txt            |  Bin 0 -> 2322 bytes
+ .../artifact-publication-checks.json.raw.txt       |  Bin 0 -> 647 bytes
+ .../quality/build-01-results.raw.txt               |  Bin 0 -> 561 bytes
+ .../quality/build-02-build.raw.txt                 |  Bin 0 -> 1661 bytes
+ .../quality/build-02-results.raw.txt               |  Bin 0 -> 1903 bytes
+ .../quality/build-03-results.raw.txt               |  Bin 0 -> 561 bytes
+ .../quality/build-04-results.raw.txt               |  Bin 0 -> 1807 bytes
+ .../quality/final-b060-build.log.raw.txt           |  Bin 0 -> 3082 bytes
+ .../quality/final-b060-content-check.log.raw.txt   |  Bin 0 -> 200 bytes
+ .../quality/final-b060-format-check.log.raw.txt    |  Bin 0 -> 131 bytes
+ .../quality/final-b060-lint.log.raw.txt            |  Bin 0 -> 64 bytes
+ .../quality/final-b060-results.json.raw.txt        |  Bin 0 -> 9097 bytes
+ .../quality/final-b060-test.log.raw.txt            |  Bin 0 -> 171841 bytes
+ .../quality/final-b060-typecheck.log.raw.txt       |  Bin 0 -> 131 bytes
+ .../quality/final-build.log.raw.txt                |  Bin 0 -> 3082 bytes
+ .../quality/final-content-check.log.raw.txt        |  Bin 0 -> 200 bytes
+ .../quality/final-format-check.log.raw.txt         |  Bin 0 -> 131 bytes
+ .../quality/final-lint.log.raw.txt                 |  Bin 0 -> 64 bytes
+ .../quality/final-results.json.raw.txt             |  Bin 0 -> 9070 bytes
+ .../quality/final-test.log.raw.txt                 |  Bin 0 -> 171855 bytes
+ .../quality/final-typecheck.log.raw.txt            |  Bin 0 -> 131 bytes
+ .../quality/github-b060-checks.json.raw.txt        |  Bin 0 -> 4330 bytes
+ .../reference/pr122-before-delivered-1024x768.png  |  Bin 0 -> 51840 bytes
+ .../reference/pr122-before-delivered-1440x1000.png |  Bin 0 -> 89083 bytes
+ .../reference/pr122-before-delivered-320x844.png   |  Bin 0 -> 34650 bytes
+ .../reference/pr122-before-delivered-390x844.png   |  Bin 0 -> 39632 bytes
+ .../prototype-approved-undelivered-1024x768.png    |  Bin 0 -> 140940 bytes
+ .../prototype-approved-undelivered-1440x1000.png   |  Bin 0 -> 216272 bytes
+ .../prototype-approved-undelivered-320x844.png     |  Bin 0 -> 49262 bytes
+ .../prototype-approved-undelivered-390x844.png     |  Bin 0 -> 51852 bytes
+ .../reference/provenance.json                      |   50 +
+ .../runtime/NATIVE_RUNTIME.md                      |   65 +
+ .../runtime/NATIVE_RUNTIME.md.raw.txt              |  Bin 0 -> 9469 bytes
+ .../runtime/PUBLISH_ALLOWLIST.md                   |   35 +
+ ...owser.final-journey-followup-zoom01.mjs.raw.txt |  Bin 0 -> 40797 bytes
+ .../runtime/browser.final-zoom02.mjs.raw.txt       |  Bin 0 -> 42548 bytes
+ .../intervention-workspace/runtime/browser.mjs     | 1379 ++++++
+ .../runtime/browser.mjs.raw.txt                    |  Bin 0 -> 46079 bytes
+ .../runtime/component-guarded.mjs                  |  211 +
+ .../runtime/component-guarded.mjs.raw.txt          |  Bin 0 -> 5680 bytes
+ .../runtime/followup-label-check.mjs               |  146 +
+ .../runtime/followup-label-check.mjs.raw.txt       |  Bin 0 -> 5262 bytes
+ .../runtime/native-postgres-provenance.json        |   10 +
+ .../runtime/native-quality.mjs                     |  122 +
+ .../runtime/native-quality.mjs.raw.txt             |  Bin 0 -> 2609 bytes
+ .../runtime/native-runner.mjs                      | 1163 +++++
+ .../runtime/native-runner.mjs.raw.txt              |  Bin 0 -> 36481 bytes
+ .../intervention-workspace/runtime/safety.mjs      |  393 ++
+ .../intervention-workspace/runtime/safety.test.mjs |  305 ++
+ .../runtime/stop-owned-runtime.mjs                 |  179 +
+ .../runtime/stop-owned-runtime.mjs.raw.txt         |  Bin 0 -> 5455 bytes
+ tests/teacher-intervention-concept-label.test.ts   |  170 +
+ 226 files changed, 13480 insertions(+), 741 deletions(-)
+ create mode 100644 app/teacher/interventions/concept-label.ts
+ create mode 100644 tests/artifacts/intervention-workspace/.gitattributes
+ create mode 100644 tests/artifacts/intervention-workspace/COMPONENT_VERIFICATION.md
+ create mode 100644 tests/artifacts/intervention-workspace/INDEPENDENT_REVIEW.md
+ create mode 100644 tests/artifacts/intervention-workspace/PUBLICATION_AUDIT.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/SCREENSHOTS.md
+ create mode 100644 tests/artifacts/intervention-workspace/SHA256SUMS.txt
+ create mode 100644 tests/artifacts/intervention-workspace/VERIFICATION.md
+ create mode 100644 tests/artifacts/intervention-workspace/component-1024-steps-modal.png
+ create mode 100644 tests/artifacts/intervention-workspace/component-320-steps-preserved.png
+ create mode 100644 tests/artifacts/intervention-workspace/component-390-preparation-direction-recovery-and-generation-read-only-failed.png
+ create mode 100644 tests/artifacts/intervention-workspace/component-390-steps-preserved.png
+ create mode 100644 tests/artifacts/intervention-workspace/component-auth.js
+ create mode 100644 tests/artifacts/intervention-workspace/component-browser.mjs
+ create mode 100644 tests/artifacts/intervention-workspace/component-build.mjs
+ create mode 100644 tests/artifacts/intervention-workspace/component-css-loader.mjs
+ create mode 100644 tests/artifacts/intervention-workspace/component-fixture.json
+ create mode 100644 tests/artifacts/intervention-workspace/component-guarded-receipt-b060.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/component-guarded-receipt.json
+ create mode 100644 tests/artifacts/intervention-workspace/component-guarded-receipt.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/component-harness.txt
+ create mode 100644 tests/artifacts/intervention-workspace/component-link.js
+ create mode 100644 tests/artifacts/intervention-workspace/component-native200-real-components.png
+ create mode 100644 tests/artifacts/intervention-workspace/component-navigation.js
+ create mode 100644 tests/artifacts/intervention-workspace/component-original-receipts.json
+ create mode 100644 tests/artifacts/intervention-workspace/component-report-4882.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/component-report-5f2d.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/component-report-b060.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/component-report-initial.json
+ create mode 100644 tests/artifacts/intervention-workspace/component-report-initial.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/component-report-pre4882.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/component-report-recovery.json
+ create mode 100644 tests/artifacts/intervention-workspace/component-report-recovery.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/component-report.json
+ create mode 100644 tests/artifacts/intervention-workspace/component-source-manifest-4882.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/component-source-manifest-5f2d.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/component-source-manifest-b060.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/component-source-manifest-pre4882.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/component-source-manifest.json
+ create mode 100644 tests/artifacts/intervention-workspace/component-tsx-loader.mjs
+ create mode 100644 tests/artifacts/intervention-workspace/followup-label-check.mjs
+ create mode 100644 tests/artifacts/intervention-workspace/native/EXECUTION.md
+ create mode 100644 tests/artifacts/intervention-workspace/native/copy-provenance.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/followup/followup-original-expanded-1024x768.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/followup/followup-original-expanded-1440x1000.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/followup/followup-original-expanded-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/followup/followup-original-expanded-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/followup/followup-page-top-1024x768.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/followup/followup-page-top-1440x1000.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/followup/followup-page-top-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/followup/followup-page-top-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/followup/followup-response-expanded-1024x768.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/followup/followup-response-expanded-1440x1000.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/followup/followup-response-expanded-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/followup/followup-response-expanded-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/followup/report.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/approved-undelivered-activity-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/approved-undelivered-activity-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/approved-undelivered-context-open-1024x768.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/approved-undelivered-evidence-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/approved-undelivered-evidence-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/approved-undelivered-page-top-1024x768.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/approved-undelivered-page-top-1440x1000.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/approved-undelivered-page-top-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/approved-undelivered-page-top-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/approved-undelivered-steps-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/approved-undelivered-steps-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/citation-exact-original-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/delivered-activity-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/delivered-activity-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/delivered-context-open-1024x768.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/delivered-evidence-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/delivered-evidence-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/delivered-page-top-1024x768.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/delivered-page-top-1440x1000.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/delivered-page-top-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/delivered-page-top-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/delivered-steps-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/delivered-steps-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/edited-saved-draft-activity-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/edited-saved-draft-activity-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/edited-saved-draft-context-open-1024x768.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/edited-saved-draft-evidence-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/edited-saved-draft-evidence-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/edited-saved-draft-page-top-1024x768.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/edited-saved-draft-page-top-1440x1000.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/edited-saved-draft-page-top-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/edited-saved-draft-page-top-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/edited-saved-draft-steps-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/edited-saved-draft-steps-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/invalid-save-reveals-teacher-guidance-1024x768.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/invalid-save-reveals-teacher-guidance-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/private-draft-activity-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/private-draft-activity-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/private-draft-context-open-1024x768.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/private-draft-evidence-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/private-draft-evidence-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/private-draft-page-top-1024x768.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/private-draft-page-top-1440x1000.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/private-draft-page-top-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/private-draft-page-top-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/private-draft-steps-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/private-draft-steps-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/recovered-unsaved-draft-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/report.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/steps-inspect-saved-evidence-1024x768.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/steps-inspect-saved-evidence-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/journey/unsaved-student-preview-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/phases/2026-10-25T14-59-35-378Z-stop-for-upgrade/preserved-fixture.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/phases/2026-10-25T14-59-35-378Z-stop-for-upgrade/report.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/phases/2026-10-25T15-03-26-167Z-adopt-build/report.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/phases/2026-10-25T15-03-29-264Z-start/report.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/phases/2026-10-25T15-03-34-569Z-upgrade-fixture/fixture.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/phases/2026-10-25T15-03-34-569Z-upgrade-fixture/report.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/phases/2026-10-25T15-03-56-015Z-integration/intervention-http.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/phases/2026-10-25T15-03-56-015Z-integration/report.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/phases/2026-10-25T15-04-58-537Z-approval/approval.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/phases/2026-10-25T15-04-58-537Z-approval/report.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/phases/2026-10-25T15-05-15-339Z-followup-fixture/fixture.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/phases/2026-10-25T15-05-15-339Z-followup-fixture/report.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/phases/2026-10-25T15-10-19-278Z-durability/report.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/phases/2026-10-25T15-11-22-669Z-stop-owned/report.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/phases/2026-10-25T15-14-48-069Z-start/report.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/phases/2026-10-25T15-15-16-243Z-stop-owned/report.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/steps-top/delivered-steps-top-1024x768.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/steps-top/delivered-steps-top-1440x1000.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/steps-top/delivered-steps-top-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/steps-top/delivered-steps-top-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/zoom-appendix-capture-failed/actual-native-zoom-200-cdp-1-1416x908.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/zoom-appendix-capture-failed/report.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/zoom-prior-failed-login/actual-native-zoom-100-1416x908.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/zoom-prior-failed-login/failure-zoom.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/zoom-prior-failed-login/report.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/native/zoom/actual-native-zoom-100-1416x908.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/zoom/actual-native-zoom-200-708x454.png
+ create mode 100644 tests/artifacts/intervention-workspace/native/zoom/report.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/2026-10-25T13-49-43-275Z-init.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/2026-10-25T13-55-18-607Z-resume-initialization.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/2026-10-25T13-55-32-901Z-adopt-build.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/2026-10-25T13-55-37-169Z-start.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/2026-10-25T13-55-47-456Z-prepare.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/2026-10-25T13-55-55-229Z-integration.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/CHECKPOINT.md
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/activation-lock-release.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/activation-reconciliation.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/authenticated-http.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/browser.core-save-run05.mjs.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/browser.first-journey.mjs.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/browser.initial-activation.mjs.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/browser.invalid-field-diagnostic.mjs.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/browser.tablet-diagnostic.mjs.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/browser.tablet-reveal-diagnostic.mjs.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/intervention-native-activation-01.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/intervention-native-browser-01-failure-journey.png
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/intervention-native-browser-01-private-draft-page-top-1024x768.png
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/intervention-native-browser-01-private-draft-page-top-1440x1000.png
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/intervention-native-browser-01.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/intervention-native-browser-02.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/intervention-native-browser-03-private-draft-activity-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/intervention-native-browser-03-private-draft-evidence-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/intervention-native-browser-03-private-draft-steps-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/intervention-native-browser-03.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/intervention-native-browser-04.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/intervention-native-browser-05.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/native-runner.initial-start.mjs.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/original-fixture.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/startup-lock-release.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/prior-native/startup-reconciliation.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/artifact-publication-checks.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/build-01-results.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/build-02-build.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/build-02-results.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/build-03-results.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/build-04-results.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/final-b060-build.log.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/final-b060-content-check.log.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/final-b060-format-check.log.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/final-b060-lint.log.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/final-b060-results.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/final-b060-test.log.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/final-b060-typecheck.log.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/final-build.log.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/final-content-check.log.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/final-format-check.log.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/final-lint.log.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/final-results.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/final-test.log.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/final-typecheck.log.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/quality/github-b060-checks.json.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/reference/pr122-before-delivered-1024x768.png
+ create mode 100644 tests/artifacts/intervention-workspace/reference/pr122-before-delivered-1440x1000.png
+ create mode 100644 tests/artifacts/intervention-workspace/reference/pr122-before-delivered-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/reference/pr122-before-delivered-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/reference/prototype-approved-undelivered-1024x768.png
+ create mode 100644 tests/artifacts/intervention-workspace/reference/prototype-approved-undelivered-1440x1000.png
+ create mode 100644 tests/artifacts/intervention-workspace/reference/prototype-approved-undelivered-320x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/reference/prototype-approved-undelivered-390x844.png
+ create mode 100644 tests/artifacts/intervention-workspace/reference/provenance.json
+ create mode 100644 tests/artifacts/intervention-workspace/runtime/NATIVE_RUNTIME.md
+ create mode 100644 tests/artifacts/intervention-workspace/runtime/NATIVE_RUNTIME.md.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/runtime/PUBLISH_ALLOWLIST.md
+ create mode 100644 tests/artifacts/intervention-workspace/runtime/browser.final-journey-followup-zoom01.mjs.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/runtime/browser.final-zoom02.mjs.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/runtime/browser.mjs
+ create mode 100644 tests/artifacts/intervention-workspace/runtime/browser.mjs.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/runtime/component-guarded.mjs
+ create mode 100644 tests/artifacts/intervention-workspace/runtime/component-guarded.mjs.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/runtime/followup-label-check.mjs
+ create mode 100644 tests/artifacts/intervention-workspace/runtime/followup-label-check.mjs.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/runtime/native-postgres-provenance.json
+ create mode 100644 tests/artifacts/intervention-workspace/runtime/native-quality.mjs
+ create mode 100644 tests/artifacts/intervention-workspace/runtime/native-quality.mjs.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/runtime/native-runner.mjs
+ create mode 100644 tests/artifacts/intervention-workspace/runtime/native-runner.mjs.raw.txt
+ create mode 100644 tests/artifacts/intervention-workspace/runtime/safety.mjs
+ create mode 100644 tests/artifacts/intervention-workspace/runtime/safety.test.mjs
+ create mode 100644 tests/artifacts/intervention-workspace/runtime/stop-owned-runtime.mjs
+ create mode 100644 tests/artifacts/intervention-workspace/runtime/stop-owned-runtime.mjs.raw.txt
+ create mode 100644 tests/teacher-intervention-concept-label.test.ts

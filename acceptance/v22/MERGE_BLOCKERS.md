@@ -1,3 +1,11 @@
+## Latest independent snapshot — October 25, 2026
+
+**CHANGES REQUIRED.** [Current merge readiness](snapshots/2026-10-25-final-07efb7f8/MERGE_READINESS.md) tests combined application `07efb7f821339538800f150f57b298eb2e606be3` / tree `948b9a6005a056c97f10d181c589b5352d6221f3`. The new snapshot contains exact inputs, connected workflow evidence, all required visual sizes, recovery results and actionable owners.
+
+The historical report below is preserved verbatim and applies to its original application snapshots, not this new candidate.
+
+---
+
 # Remaining combined acceptance gates
 
 The fifth composition **462cfb1b31d9108cec70d18b6553bd45048d2eed**, tree **03cca1fed3900a122e689c4a512afadd9052e5af**, composes cleanly and passes offline, production and combined service checks. The requested verification pass is complete, including the connected browser journey with explicit synthetic seams. **The application is not accepted for the complete Workbench v2.2 refactor.**

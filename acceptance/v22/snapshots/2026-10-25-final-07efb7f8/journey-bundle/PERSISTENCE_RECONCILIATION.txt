@@ -1,0 +1,23 @@
+READ-ONLY continuation after the one completed private database restart.
+Prepared and syntax/offline checked only; the child agent has not executed this against Docker/database.
+
+The prior helper successfully restarted lp-v22-final-01a173d6-db-1 and observed it healthy. Its next assertion compared an unordered Docker Mounts array positionally. The full two mount objects match after sorting by Destination. Preserve journey-persistence-01/report.json, before.json, all command logs and the retained owner guard.
+
+Run once under the coordinator's unchanged retained owner lock:
+
+$vr = 'C:/Users/sb128/.codex/visualizations/2026/10/25/01a173d6-e789-7233-92d2-b0b55d4559ed'
+node "$vr/journey-bundle/reconcile-journey-persistence.mjs" "$vr/runtime-final" "$vr/journey-persistence-reconciled-01" "$vr/journey-persistence-01/report.json" "$vr/journey-persistence-01/before.json" "$vr/journey-bundle/safety.mjs"
+
+The new helper verifies the pinned failed report, baseline file, healthy-after-restart log, unchanged source/tree/private project, and exact retained owner token 18b4376c-1a15-4446-8b9b-3a78f1f41f72. Original helper PID88056 must no longer exist. The shared 10GiB preflight remains required before every Docker command. The helper never creates/replaces/removes a guard.
+
+It checks the same healthy private DB container and full mount SET, preserving every mount field; the original restarted StartedAt must still match the historical healthy log, so a second intervening restart is rejected. The application container, process StartedAt and pinned image remain identical. It then executes exactly the prior 17-group repeatable-read READ ONLY SQL and compares every scoped stored field using canonical object-key ordering. Arrays/records are not dropped, reordered or filtered to hide differences. Both containers are rechecked after the snapshot. There is no restart or mutation path.
+
+Release protocol — coordinator only, after reviewing the new output:
+
+1. Confirm the read-only helper process exited successfully, new report status is passed, all17 comparisons equal true, checks IDENTITY/PERSISTENCE/NO_RESTART_REPLAY passed, restartPerformed false and restartCommands0. The old report remains failed-after-restart and must not be rewritten.
+2. Confirm the old helper PID88056 is absent and no new helper/process is still running. Compare current owner.json to the exact original owner object in both reports. Its token must still be 18b4376c-1a15-4446-8b9b-3a78f1f41f72, mode same-journey-private-db-persistence, project lp-v22-final-01a173d6 and source commit07efb7f821339538800f150f57b298eb2e606be3.
+3. The exact guard directory from unchanged safety.mjs is C:/Users/sb128/AppData/Local/learning-pulse-acceptance.lock. Verify its resolved path and that owner.json is its only entry. Record the passing reconciliation report SHA-256 and owner token in a separate coordinator release receipt.
+4. Only the coordinator that owns this retained lock may remove that exact owner.json and then the empty guard directory, nonrecursively. Never delete a directory containing unexpected entries or a changed owner. The helper deliberately leaves lockRetained true even on success; it does not claim release occurred.
+5. If any identity, health, storage, exact record comparison or owner check fails, preserve the guard and both runs. Reconcile read-only; never replay the restart, rewrite records or remove a different workstream's lock.
+
+No authenticated post-restart UI navigation is claimed by this direct database check. The preserved completed browser journey plus these unchanged post-restart IDs prove separate parts of the acceptance evidence.
