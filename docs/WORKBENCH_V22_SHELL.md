@@ -26,6 +26,14 @@ service, permission rule or persistence model. The existing bounded demo roster
 is the supported scope; larger libraries may later need a reviewed metadata
 projection to avoid repeated content review reads.
 
+Combined HTTP verification also exposed a malformed owned assignment whose
+pinned approval record raised a schema error during shell metadata loading.
+`workspaceAssignmentMetadata` now projects that already-authorized item as
+unavailable, preserving its identity without inventing a usable version. It
+retains the previous unavailable-record fallbacks; unexpected errors and service
+failures still propagate. The assignment page and all destination authorization
+checks remain responsible for access and content validity.
+
 Assignment URLs remain selection inputs, not authorization. Every destination
 retains its existing authenticated loader. The shell reuses PR #116's
 `resolveTeacherNavigationContext`. With `contextIsAuthoritative={true}`, a
@@ -145,6 +153,18 @@ only when the full destination URL already equals the current URL. Otherwise
 post-navigation/hash placement owns the detail target. A boundary alone cannot
 repair a page that overwrites the original entry's row intent before leaving.
 No Evidence files or shared restoration behavior are changed by S1/C2.
+
+Agent A verified this boundary on Evidence implementation
+`4ce513c81d2f2fc9450cffb4085c8d40a8a6e617`: its corrected browser report passes
+230 checks, including Tab/Enter, native Back to the originating row and list
+position, and Forward to the record at all four target sizes. All 20 evidence
+and workflow table fingerprints remained unchanged. The shared restoration
+blob is `7601f59e35268957eea8cbea6d5d4df4980879d8` in both that candidate and
+shell `aff34337c7a49c2bfeb9912d39c919ca3e8bc00d`. The
+[exact F1 receipt](https://github.com/peterbucci/ai-teaching-platform/blob/76ae36bbf32383d3794d54591c0bfe33013e031d/tests/artifacts/evidence-workspace/corrected/report.json)
+and [Evidence report](https://github.com/peterbucci/ai-teaching-platform/blob/76ae36bbf32383d3794d54591c0bfe33013e031d/tests/artifacts/evidence-workspace/VERIFICATION.md)
+record the execution and limits. This is separate Evidence acceptance; it does
+not stand in for combined S1/C2 acceptance.
 
 ### Contextual panes
 
