@@ -71,6 +71,16 @@ export function ProgressPanes({
     }
     scheduleRestoration();
     function escape(event: KeyboardEvent) {
+      const target = event.target;
+      if (
+        event.defaultPrevented ||
+        !(target instanceof Node) ||
+        (!mainRef.current?.contains(target) &&
+          !detailsRef.current?.contains(target)) ||
+        (target instanceof Element &&
+          target.closest('dialog[open], [role="dialog"][aria-modal="true"]'))
+      )
+        return;
       if (
         event.key === "Escape" &&
         pane === "details" &&
