@@ -155,6 +155,10 @@ export function EvidenceResults({
         window.location.hash === "#response-detail-title"
           ? "#evidence-results"
           : window.location.hash;
+      // Local memory keeps the mounted list's position across pane changes.
+      // Only this arriving history entry may override its explicit detail hash
+      // with row focus; otherwise Forward would reuse the row left by Back.
+      const targetMemory = historyTraversal && !saved && !hash ? null : memory;
       const targetId =
         pane === "context" && window.innerWidth <= 1240
           ? null
@@ -162,8 +166,8 @@ export function EvidenceResults({
               hash,
               attemptIds,
               selectedAttempt,
-              memory,
-              historyTraversal,
+              targetMemory,
+              historyTraversal && saved !== null,
             );
       const target = targetId ? document.getElementById(targetId) : null;
       const rowAnchor =
