@@ -116,7 +116,7 @@ of architecture research or new presentation schema is needed.
 | Owner/scope                     | Decision                                                | Exact boundary / gate                                                                                                                                                                                                                                                                                                                                                                |
 | ------------------------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | N3 saved records                | **GO — current-data presentation**                      | Implement under `records/**` with `NotebookRecordsProps`, existing history/work DTOs and the N0 adapters. Do not wait for D1 to render original submitted work and supported session filters.                                                                                                                                                                                        |
-| N3 complete recorded chronology | **NO-GO — runtime data unavailable**                    | D1's implementation-ready proposal is not an implemented, reviewed endpoint. Import its eventual approved public type and add a reviewed N0 adapter only after authorization, privacy, ordering, snapshot and no-side-effect tests pass. No stub timeline or browser joins.                                                                                                          |
+| N3 complete recorded chronology | **NO-GO — review/integration pending**                  | D1 draft #131 implements the endpoint, but independent review and combined frontend adoption remain open. Import its eventual approved public type and add a reviewed N0 adapter only after authorization, privacy, ordering, snapshot and no-side-effect tests pass. No stub timeline or browser joins.                                                                             |
 | N4 reading presentation         | **GO — isolated presentation and existing-route links** | Implement under `reading/**` with `NotebookReadingProps` / `NotebookReadingContext`; use fixtures for an inert composed reader in leaf checks. Exact source/passage links and existing return semantics do not depend on D1.                                                                                                                                                         |
 | N4 live facing-pane composition | **NO-GO — display-owner review required**               | Existing session-linked `StudentReader` opens a passage on mount/target change and acknowledges committed delivery in effects without checking pane visibility. CSS hiding does not suppress those effects. The reader owner must supply/review visibility-aware behavior and test hidden/visible transitions before any live shell composition. N0/N4 do not patch that controller. |
 | N3/N4 production integration    | **NO-GO in this PR**                                    | Existing routes and #113 remain untouched. A pinned combined head needs authenticated draft/return/receipt/recovery checks, keyboard/mobile/zoom acceptance and relevant D1 integration tests before claiming integrated Notebook behavior.                                                                                                                                          |
@@ -332,8 +332,9 @@ to the requested authorized assignment before calling the adapter. A UI adapter
 cannot verify database ownership or infer review exclusions; keep the existing
 ordinary-history/work service filters that exclude intervention fresh checks.
 
-The separate D1 investigation owns the final additive server projection. This is
-a requirements request, **not an implemented DTO, API or migration**:
+The separate D1 owner implements the additive server projection in draft #131.
+This table describes gaps in **N0's current-data inputs**, not a claim that the
+independent backend draft is still unimplemented. N0 imports none of it yet:
 
 | Required student-safe field / relationship                                                | What current public data supplies and what is missing                                                                                                                                                                                                                                                   |
 | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -357,28 +358,71 @@ fetching every full session or by accessing teacher comparison endpoints.
 
 ### D1 investigation handoff — October 25
 
-D1's completed design supports this current-data boundary. Its proposed
-`GET /api/student/notebook/sessions/[sessionId]`, public DTO names, bounds and
-future recorded-chronology mode remain provisional pending R7/evidence-owner
-review. N0 adds none of those APIs or schemas. Import the eventual reviewed
-public type instead of cloning the proposal into presentation contracts.
+D1's completed design supports this current-data boundary. Its independent
+implementation is now published as [draft #131](https://github.com/peterbucci/ai-teaching-platform/pull/131)
+at verified head `884dfb08de31c457a3eb618ad063fcbf701ac5f3`, based on
+`723ed6fea41138b604a9d333ebcd4a07b2202c36`. Its public schema and
+[implementation handoff](https://github.com/peterbucci/ai-teaching-platform/blob/884dfb08de31c457a3eb618ad063fcbf701ac5f3/docs/STUDENT_NOTEBOOK_PROJECTION.md)
+were read for compatibility. This is not independent approval of the backend
+implementation or adoption into N0. The N3 runtime gate is now **review and
+integration pending**, not absence of backend code. N0 adds none of those APIs
+or schemas; import the approved public type in a subsequent adapter change.
 
 Re-read against the completed implementation-ready proposal: its `current_data`
 spelling is conceptual; the frozen N0 literal remains **`"current-data"`**.
-`recorded_chronology` is a proposed future mode, not a member of the current
-contract. D1 has since reported beginning a separately authorized implementation;
-that progress does not open the N3 runtime gate. N0 adds no speculative events,
+`recorded_chronology` exists in #131's independent DTO, not in the current N0
+contract. Publishing the draft does not open the N3 runtime gate. N0 adds no speculative events,
 snapshot fields, endpoint calls, DTO clones or automatic fallback to demo data.
 
-The future adapter gate requires the backend owner to publish a pinned reviewed
-DTO/endpoint version and D1-01–20 evidence: exact actor/session/attempt and source
+The pinned implementation has these concrete compatibility details/deviations:
+
+- Public imports live in `lib/evidence/student-notebook-contracts.ts`:
+  `StudentNotebookSchema`, `StudentNotebook`, `NotebookPage`, `NotebookEvent`,
+  `NotebookQuerySchema`. Do not import server projection/read-service modules.
+  DTO `version` is `student-notebook-v1`, separate from N0 presentation version 1.
+- GET `/api/student/notebook/sessions/[sessionId]` supports `limit` 1–25/default 10
+  and `cursor` **or** `attempt_id`. These are backend query parameters; they do
+  not introduce new browser route-state parameters or a mounted Notebook route.
+- Pages/events use supplied attempt/event identities and order. The draft uses
+  recorded microsecond timestamps and stable ties, **not the proposal's causal
+  topological sort**. There is no `undated_events` field: undated information stays
+  in current `messages` statuses and explicit `gaps`. Do not invent dated events
+  or require a proposal-only field in the future adapter.
+- `messages.execution` is status-only: pending, outcome_unknown, settled or
+  not_recorded. No evaluation is `not_recorded`, not proof of no evaluation
+  request. Accepted results follow `current_evaluation_id` and explicit
+  supersession; later failure is not a replacement result.
+- `source.title` is the current assignment label, not a historical title event;
+  exact source/version identity remains pinned. Do not label that title immutable.
+- A 409 `SNAPSHOT_CHANGED` response has no pages and invalidates the accumulated
+  list/cursor. Never append from the new snapshot to it. A prior rendering may
+  remain visibly stale for the same still-authorized scope while a fresh read
+  replaces it atomically; it cannot remain an appendable cache or be reused after
+  access/scope changes. Hashes are snapshot identities, not ordered revisions.
+- Resume links use existing `assignmentStudyHref` or the teacher approval route.
+  Endpoint attempt selection is distinct from resume navigation. Preserve N0's
+  existing attempt anchors; never infer a new page URL from the endpoint selector.
+
+D1 reports 479 unit tests (13 focused), PostgreSQL/authenticated HTTP ownership,
+source/version, no-write fingerprints and restart checks, plus existing R7
+regressions. Its production build preceded the final resume-helper correction;
+final type/focused checks cover that correction. These are linked owner-reported
+results, **not tests rerun by N0**. D1-19/20 combined DOM/privacy, fallback,
+saved-link, reader visibility and #113 browser acceptance remain open. N4's
+visibility gate is unchanged by this read-only backend.
+
+The future adapter implementation gate requires independent review of the pinned
+DTO/endpoint version and backend D1-01–18 evidence: exact actor/session/attempt and source
 authorization; strict private-field exclusion; accepted-evaluation-pointer
 selection; original message/submission deduplication by stored identity; recorded
 display before help replay; saved submission-time assistance; deterministic
-server order and separate undated events; consistent whole-attempt pagination;
+server order and explicit undated status/gaps; consistent whole-attempt pagination;
 snapshot-change handling; explicit review-recipient linkage; bounded reads and
-zero writes/provider calls. N0 then imports that public type in a separately
-reviewed extension. D1's acceptance wording about accepted results/displayed help
+zero writes/provider calls. N0 can then import that public type in a separately
+reviewed extension. Enabling runtime chronology additionally requires combined
+D1-19/20 browser/privacy/fallback/recovery checks after that adapter and N3 are
+composed; those checks are not a prerequisite for writing the adapter itself.
+D1's acceptance wording about accepted results/displayed help
 must not be used to describe today's current-data mode.
 
 - The proposed consistent read uses whole-attempt pagination and a hash of the
