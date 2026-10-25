@@ -1,0 +1,65 @@
+{
+  "source_sha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "source_tree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "harness_sha256": "6da9970bd64cba3530dcaebd0f8c143985ba1b05f984bc17ad51f8125dc0f776",
+  "fixture_sha256": "91d91617085af50d8fcbe732db279008618cfa62e7bbd3db9a4ee28ac4fe0657",
+  "origin": "http://localhost:3350",
+  "project": "lp-v22-shell5",
+  "browser": "156.0.4314.42",
+  "started_at": "2026-10-25T06:23:32.063Z",
+  "status": "aborted",
+  "cases": [
+    {
+      "id": "S01-accepted-result-visible",
+      "status": "unrun-filtered"
+    },
+    {
+      "id": "accepted-reload-and-other-student-isolation",
+      "status": "unrun-filtered"
+    },
+    {
+      "id": "long-response-manual-scroll-and-jump",
+      "status": "unrun-filtered"
+    },
+    {
+      "id": "long-response-reading-back-and-reload",
+      "status": "fail",
+      "error": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('article.reading-article[aria-busy=false]') to be visible\u001b[22m\n"
+    },
+    {
+      "id": "help-fallback-never-grades",
+      "status": "unrun-filtered"
+    },
+    {
+      "id": "S02-precommit-401-durability-message",
+      "status": "unrun-filtered"
+    }
+  ],
+  "case_filter": "long-response-reading-back-and-reload",
+  "screenshots": [
+    {
+      "file": "long-response-reading-back-and-reload-failure.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "url": "http://localhost:3350/study/reading?session=3356554c-bbd0-4c1b-9bac-c8e07183fa5e"
+    }
+  ],
+  "category": "real provider-disabled browser with explicitly synthetic accepted evaluation; no model-quality claim",
+  "actual_model_calls": 0,
+  "blocked_off_origin_requests": [],
+  "blocked_mutation_attempts": [
+    "read-only:POST:http://localhost:3350/api/tutoring/3356554c-bbd0-4c1b-9bac-c8e07183fa5e/reading"
+  ],
+  "unrun": [
+    "Actual-model verification",
+    "Screen reader",
+    "Native 200% zoom",
+    "Real session expiry (401 is a browser injection)",
+    "Multi-turn generated conversation (long case is one original authored response)",
+    "Hosted release"
+  ],
+  "error": "Read-only rerun attempted a mutation; do not hide it behind route blocking.\n+ actual - expected\n\n+ [\n+   'read-only:POST:http://localhost:3350/api/tutoring/3356554c-bbd0-4c1b-9bac-c8e07183fa5e/reading'\n+ ]\n- []\n",
+  "finished_at": "2026-10-25T06:23:50.132Z"
+}

@@ -1,0 +1,18 @@
+
+> ai-teaching-platform@0.1.0 interventions:approval:lessons
+> node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-intervention-approval-lessons.ts --setup-fixtures --with-followups
+
+{"status":"passed","verification":"PostgreSQL, authenticated HTTP and server-rendered UI; injected fixtures, no live model acceptance or visual browser interaction","paid_calls":0,"completed":[{"kind":"uploaded","draft_id":"dea5500a-f487-4273-96a7-1c1c7cc8f708","approval_id":"b0e10f71-73e5-463c-b3af-cb8e4f6b82c5","assignment_id":"e0f3bd1e-e069-48f7-86fb-8c1b6405564c"},{"kind":"curated","draft_id":"3c09aab1-d890-4df3-85dc-07b2ec9cddcb","approval_id":"ddbcebd2-3f45-4f76-886f-b66c750a34b2","assignment_id":"30000000-0000-4000-8000-000000000001"}],"checks":["uploaded: HTTP start/reload, private accepted evaluation and teacher comparison; ordinary answer/controller/R7 routes denied; unknown outcome retains one spent unresolved reservation, exact answer and no replay/retry. Six injected evaluations; zero paid calls.","uploaded: exact-source edit/replay/stale/reference checks, explicit approval then delivery, enrollment and private projection, displayed-once, immutable history and unchanged original evidence passed.","curated: HTTP start/reload, private accepted evaluation and teacher comparison; ordinary answer/controller/R7 routes denied; unknown outcome retains one spent unresolved reservation, exact answer and no replay/retry. Six injected evaluations; zero paid calls.","curated: exact-source edit/replay/stale/reference checks, explicit approval then delivery, enrollment and private projection, displayed-once, immutable history and unchanged original evidence passed."]}
+.env not found. Continuing without it.
+(node:79) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///app/scripts/check-intervention-lessons.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:91) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///app/scripts/check-interventions.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:72) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///app/scripts/check-intervention-approval-lessons.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)

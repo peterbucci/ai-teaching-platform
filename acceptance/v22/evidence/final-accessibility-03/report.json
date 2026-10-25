@@ -1,0 +1,1024 @@
+{
+  "sourceSha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "sourceTree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "project": "lp-v22-shell5",
+  "origin": "http://localhost:3350",
+  "harness_sha256": "0901613974c4e2623e571fd717a181d0c5675a00351bd8b193562640ddbfb9d1",
+  "authoring_report_sha256": "7e99672e7cf7e6689d1bcc53d57a68f1a052eecd6b09ee77ea7a8d9de3970051",
+  "started_at": "2026-10-25T06:42:20.440Z",
+  "status": "completed-with-failures",
+  "checks": [
+    {
+      "label": "desktop-scope-keyboard",
+      "status": "harness-or-runtime-error",
+      "error": "Keyboard target not reached: Desktop scope dialog trigger"
+    },
+    {
+      "label": "focused-originating-row-confirmation",
+      "status": "unrun-filtered",
+      "reason": "Preserved completed coverage from prior runs; callback not executed."
+    },
+    {
+      "label": "S1-mobile",
+      "status": "unrun-filtered",
+      "reason": "Preserved completed coverage from prior runs; callback not executed."
+    },
+    {
+      "label": "390 CSS viewport scope dialog keyboard focus remains inside dialog",
+      "status": "pass",
+      "owner": "#120",
+      "sequence": [
+        {
+          "tag": "A",
+          "id": "",
+          "className": "",
+          "text": "Overview",
+          "href": "/teacher?assignment=30000000-0000-4000-8000-000000000001&origin=all",
+          "controls": null,
+          "name": null,
+          "inDialog": true,
+          "rendered": true,
+          "visible": true,
+          "outline": "rgb(47, 138, 107) solid 3px",
+          "scrollY": 0
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "className": "",
+          "text": "Assignments",
+          "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001",
+          "controls": null,
+          "name": null,
+          "inDialog": true,
+          "rendered": true,
+          "visible": true,
+          "outline": "rgb(47, 138, 107) solid 3px",
+          "scrollY": 0
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "className": "",
+          "text": "Overview",
+          "href": "/teacher?assignment=30000000-0000-4000-8000-000000000001&origin=all",
+          "controls": null,
+          "name": null,
+          "inDialog": true,
+          "rendered": true,
+          "visible": true,
+          "outline": "rgb(47, 138, 107) solid 3px",
+          "scrollY": 0
+        }
+      ]
+    },
+    {
+      "label": "390 CSS viewport scope dialog Escape restores opener",
+      "status": "pass",
+      "owner": "#120",
+      "before": {
+        "tag": "BUTTON",
+        "id": "",
+        "className": "tw-scope-switch",
+        "text": "Networking demo — synthetic classNetworking demo — synthetic classLessons",
+        "href": null,
+        "controls": "teacher-workspace-switcher",
+        "name": null,
+        "inDialog": false,
+        "rendered": true,
+        "visible": true,
+        "outline": "rgb(47, 138, 107) solid 3px",
+        "scrollY": 0
+      },
+      "after": {
+        "tag": "BUTTON",
+        "id": "",
+        "className": "tw-scope-switch",
+        "text": "Networking demo — synthetic classNetworking demo — synthetic classLessons",
+        "href": null,
+        "controls": "teacher-workspace-switcher",
+        "name": null,
+        "inDialog": false,
+        "rendered": true,
+        "visible": true,
+        "outline": "rgb(47, 138, 107) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "320 CSS viewport scope dialog keyboard focus remains inside dialog",
+      "status": "pass",
+      "owner": "#120",
+      "sequence": [
+        {
+          "tag": "A",
+          "id": "",
+          "className": "",
+          "text": "Overview",
+          "href": "/teacher?assignment=30000000-0000-4000-8000-000000000001&origin=all",
+          "controls": null,
+          "name": null,
+          "inDialog": true,
+          "rendered": true,
+          "visible": true,
+          "outline": "rgb(47, 138, 107) solid 3px",
+          "scrollY": 0
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "className": "",
+          "text": "Assignments",
+          "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001",
+          "controls": null,
+          "name": null,
+          "inDialog": true,
+          "rendered": true,
+          "visible": true,
+          "outline": "rgb(47, 138, 107) solid 3px",
+          "scrollY": 0
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "className": "",
+          "text": "Overview",
+          "href": "/teacher?assignment=30000000-0000-4000-8000-000000000001&origin=all",
+          "controls": null,
+          "name": null,
+          "inDialog": true,
+          "rendered": true,
+          "visible": true,
+          "outline": "rgb(47, 138, 107) solid 3px",
+          "scrollY": 0
+        }
+      ]
+    },
+    {
+      "label": "320 CSS viewport scope dialog Escape restores opener",
+      "status": "pass",
+      "owner": "#120",
+      "before": {
+        "tag": "BUTTON",
+        "id": "",
+        "className": "tw-scope-switch",
+        "text": "Networking demo — synthetic classNetworking demo — synthetic classLessons",
+        "href": null,
+        "controls": "teacher-workspace-switcher",
+        "name": null,
+        "inDialog": false,
+        "rendered": true,
+        "visible": true,
+        "outline": "rgb(47, 138, 107) solid 3px",
+        "scrollY": 0
+      },
+      "after": {
+        "tag": "BUTTON",
+        "id": "",
+        "className": "tw-scope-switch",
+        "text": "Networking demo — synthetic classNetworking demo — synthetic classLessons",
+        "href": null,
+        "controls": "teacher-workspace-switcher",
+        "name": null,
+        "inDialog": false,
+        "rendered": true,
+        "visible": true,
+        "outline": "rgb(47, 138, 107) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "authored-pane-retention",
+      "status": "unrun-filtered",
+      "reason": "Preserved completed coverage from prior runs; callback not executed."
+    },
+    {
+      "label": "authored-reload-and-navigation-recovery",
+      "status": "unrun-filtered",
+      "reason": "Preserved completed coverage from prior runs; callback not executed."
+    },
+    {
+      "label": "Actual native200 browser zoom measurement",
+      "status": "pass",
+      "baseline": {
+        "dpr": 1,
+        "innerWidth": 1416,
+        "innerHeight": 908,
+        "outerWidth": 1440,
+        "outerHeight": 1000,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 1416,
+        "overflow": false
+      },
+      "zoom": {
+        "dpr": 2,
+        "innerWidth": 708,
+        "innerHeight": 454,
+        "outerWidth": 1440,
+        "outerHeight": 1000,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 708,
+        "overflow": false
+      }
+    },
+    {
+      "label": "Native200 scope dialog keyboard focus remains inside dialog",
+      "status": "pass",
+      "owner": "#120",
+      "sequence": [
+        {
+          "tag": "A",
+          "id": "",
+          "className": "",
+          "text": "Overview",
+          "href": "/teacher?assignment=30000000-0000-4000-8000-000000000001&origin=all",
+          "controls": null,
+          "name": null,
+          "inDialog": true,
+          "rendered": true,
+          "visible": true,
+          "outline": "rgb(47, 138, 107) solid 3px",
+          "scrollY": 0
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "className": "",
+          "text": "Assignments",
+          "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001",
+          "controls": null,
+          "name": null,
+          "inDialog": true,
+          "rendered": true,
+          "visible": true,
+          "outline": "rgb(47, 138, 107) solid 3px",
+          "scrollY": 0
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "className": "",
+          "text": "Overview",
+          "href": "/teacher?assignment=30000000-0000-4000-8000-000000000001&origin=all",
+          "controls": null,
+          "name": null,
+          "inDialog": true,
+          "rendered": true,
+          "visible": true,
+          "outline": "rgb(47, 138, 107) solid 3px",
+          "scrollY": 0
+        }
+      ]
+    },
+    {
+      "label": "Native200 scope dialog Escape restores opener",
+      "status": "pass",
+      "owner": "#120",
+      "before": {
+        "tag": "BUTTON",
+        "id": "",
+        "className": "tw-scope-switch",
+        "text": "Networking demo — synthetic classNetworking demo — synthetic classLessons",
+        "href": null,
+        "controls": "teacher-workspace-switcher",
+        "name": null,
+        "inDialog": false,
+        "rendered": true,
+        "visible": true,
+        "outline": "rgb(47, 138, 107) solid 3px",
+        "scrollY": 0
+      },
+      "after": {
+        "tag": "BUTTON",
+        "id": "",
+        "className": "tw-scope-switch",
+        "text": "Networking demo — synthetic classNetworking demo — synthetic classLessons",
+        "href": null,
+        "controls": "teacher-workspace-switcher",
+        "name": null,
+        "inDialog": false,
+        "rendered": true,
+        "visible": true,
+        "outline": "rgb(47, 138, 107) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "Native200 authored source reading",
+      "status": "pass",
+      "source_id": "48bae4f7-63a2-4876-bc6d-b5b2d99a6b9f",
+      "source_version": 1
+    },
+    {
+      "label": "No application mutation was attempted after fictional login",
+      "status": "pass",
+      "blocked_mutation_attempts": []
+    }
+  ],
+  "observations": [
+    {
+      "label": "native100 keyboard login",
+      "key": "Tab",
+      "tabs": 3,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "className": "lp-button",
+        "text": "Demo teacher",
+        "href": null,
+        "controls": null,
+        "name": null,
+        "inDialog": false,
+        "rendered": true,
+        "visible": true,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "390 CSS viewport scope dialog trigger",
+      "key": "Tab",
+      "tabs": 2,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "className": "tw-scope-switch",
+        "text": "Networking demo — synthetic classNetworking demo — synthetic classLessons",
+        "href": null,
+        "controls": "teacher-workspace-switcher",
+        "name": null,
+        "inDialog": false,
+        "rendered": true,
+        "visible": true,
+        "outline": "rgb(47, 138, 107) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "320 CSS viewport scope dialog trigger",
+      "key": "Tab",
+      "tabs": 2,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "className": "tw-scope-switch",
+        "text": "Networking demo — synthetic classNetworking demo — synthetic classLessons",
+        "href": null,
+        "controls": "teacher-workspace-switcher",
+        "name": null,
+        "inDialog": false,
+        "rendered": true,
+        "visible": true,
+        "outline": "rgb(47, 138, 107) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "native200 keyboard login",
+      "key": "Tab",
+      "tabs": 3,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "className": "lp-button",
+        "text": "Demo teacher",
+        "href": null,
+        "controls": null,
+        "name": null,
+        "inDialog": false,
+        "rendered": true,
+        "visible": true,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "Native200 scope dialog trigger",
+      "key": "Tab",
+      "tabs": 2,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "className": "tw-scope-switch",
+        "text": "Networking demo — synthetic classNetworking demo — synthetic classLessons",
+        "href": null,
+        "controls": "teacher-workspace-switcher",
+        "name": null,
+        "inDialog": false,
+        "rendered": true,
+        "visible": true,
+        "outline": "rgb(47, 138, 107) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "Native200 original full-session link",
+      "key": "Tab",
+      "tabs": 4,
+      "focus": {
+        "tag": "A",
+        "id": "",
+        "className": "ap-link",
+        "text": "Read in full",
+        "href": "/teacher/sessions/40000000-0000-4000-8000-000000000001?assignment=30000000-0000-4000-8000-000000000001&origin=all&student=10000000-0000-4000-8000-000000000002&concept=transmission_delay#attempt-50000000-0000-4000-8000-000000000001",
+        "controls": null,
+        "name": null,
+        "inDialog": false,
+        "rendered": true,
+        "visible": true,
+        "outline": "rgb(47, 138, 107) solid 3px",
+        "scrollY": 83
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "native100-login.png",
+      "stage": "guard",
+      "url": "http://localhost:3350/login",
+      "dpr": 1,
+      "innerWidth": 1416,
+      "innerHeight": 908,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 1416,
+      "overflow": false
+    },
+    {
+      "file": "failure-desktop-scope-keyboard.png",
+      "stage": "desktop-scope-keyboard",
+      "url": "http://localhost:3350/teacher/lessons",
+      "dpr": 1,
+      "innerWidth": 1416,
+      "innerHeight": 908,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 1416,
+      "overflow": false
+    },
+    {
+      "file": "mobile390-scope.png",
+      "stage": "mobile-scope-390",
+      "url": "http://localhost:3350/teacher/lessons",
+      "dpr": 1,
+      "innerWidth": 390,
+      "innerHeight": 844,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 390,
+      "overflow": false
+    },
+    {
+      "file": "mobile320-scope.png",
+      "stage": "mobile-scope-320",
+      "url": "http://localhost:3350/teacher/lessons",
+      "dpr": 1,
+      "innerWidth": 320,
+      "innerHeight": 844,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 320,
+      "overflow": false
+    },
+    {
+      "file": "native200-login.png",
+      "stage": "mobile-scope-320",
+      "url": "http://localhost:3350/login",
+      "dpr": 2,
+      "innerWidth": 708,
+      "innerHeight": 454,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 708,
+      "overflow": false
+    },
+    {
+      "file": "native200-progress.png",
+      "stage": "native200-scope-and-reading",
+      "url": "http://localhost:3350/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=all&student=10000000-0000-4000-8000-000000000002&concept=transmission_delay&status=all&pane=details#cell-evidence",
+      "dpr": 2,
+      "innerWidth": 708,
+      "innerHeight": 454,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 708,
+      "overflow": false
+    },
+    {
+      "file": "native200-original-session.png",
+      "stage": "native200-scope-and-reading",
+      "url": "http://localhost:3350/teacher/sessions/40000000-0000-4000-8000-000000000001?assignment=30000000-0000-4000-8000-000000000001&origin=all&student=10000000-0000-4000-8000-000000000002&concept=transmission_delay#attempt-50000000-0000-4000-8000-000000000001",
+      "dpr": 2,
+      "innerWidth": 708,
+      "innerHeight": 454,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 708,
+      "overflow": false
+    },
+    {
+      "file": "native200-authored-source.png",
+      "stage": "native200-scope-and-reading",
+      "url": "http://localhost:3350/teacher/materials/48bae4f7-63a2-4876-bc6d-b5b2d99a6b9f?version=1&passage=p001",
+      "dpr": 2,
+      "innerWidth": 708,
+      "innerHeight": 454,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 708,
+      "overflow": false
+    }
+  ],
+  "safety": [
+    {
+      "before": "initial",
+      "observedAt": "2026-10-25T06:42:20.443Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50450497536,
+          "availableGiB": 46.985687255859375,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50450497536,
+          "availableGiB": 46.985687255859375,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50450497536,
+          "availableGiB": 46.985687255859375,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899317850112,
+          "availableGiB": 837.5550155639648,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50450497536,
+            "availableGiB": 46.985687255859375,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "launch-native100",
+      "observedAt": "2026-10-25T06:42:21.608Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50450366464,
+          "availableGiB": 46.985565185546875,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50450366464,
+          "availableGiB": 46.985565185546875,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50450366464,
+          "availableGiB": 46.985565185546875,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899317850112,
+          "availableGiB": 837.5550155639648,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50450366464,
+            "availableGiB": 46.985565185546875,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "desktop-scope-keyboard",
+      "observedAt": "2026-10-25T06:42:23.599Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50434252800,
+          "availableGiB": 46.970558166503906,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50434252800,
+          "availableGiB": 46.970558166503906,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50434252800,
+          "availableGiB": 46.970558166503906,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899317829632,
+          "availableGiB": 837.5549964904785,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50433949696,
+            "availableGiB": 46.97027587890625,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "mobile-scope-390",
+      "observedAt": "2026-10-25T06:42:25.306Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50433486848,
+          "availableGiB": 46.969844818115234,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50433486848,
+          "availableGiB": 46.969844818115234,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50433486848,
+          "availableGiB": 46.969844818115234,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899317796864,
+          "availableGiB": 837.5549659729004,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50433454080,
+            "availableGiB": 46.96981430053711,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "mobile-scope-320",
+      "observedAt": "2026-10-25T06:42:26.961Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50433404928,
+          "availableGiB": 46.96976852416992,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50433404928,
+          "availableGiB": 46.96976852416992,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50433404928,
+          "availableGiB": 46.96976852416992,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899317788672,
+          "availableGiB": 837.5549583435059,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50433404928,
+            "availableGiB": 46.96976852416992,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "launch-native200",
+      "observedAt": "2026-10-25T06:42:29.107Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50434260992,
+          "availableGiB": 46.97056579589844,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50434260992,
+          "availableGiB": 46.97056579589844,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50434260992,
+          "availableGiB": 46.97056579589844,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899317772288,
+          "availableGiB": 837.5549430847168,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50434146304,
+            "availableGiB": 46.970458984375,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "native200-scope-and-reading",
+      "observedAt": "2026-10-25T06:42:31.157Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50416541696,
+          "availableGiB": 46.954063415527344,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50416541696,
+          "availableGiB": 46.954063415527344,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50416541696,
+          "availableGiB": 46.954063415527344,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899317764096,
+          "availableGiB": 837.5549354553223,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50416291840,
+            "availableGiB": 46.95383071899414,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    }
+  ],
+  "blocked_requests": [],
+  "method": "Filtered follow-up only: desktop/390/320 keyboard scope and native200 scope/reading. Ready means exactly one visible course-scoped destination shell, excluding the temporary unscoped loading shell. Already completed Evidence, assignment routing and authored recovery cases are unrun-filtered and their callbacks never execute. Raw runs 01/02 are unchanged. GET/HEAD only after demo login.",
+  "prior_run": "final-accessibility-02/report.json",
+  "prior_harness_sha256": "d200de27bb64ccf74672e58a4667574b8a19680f416991f82c6ef549cb395b64",
+  "native_200_percent_verified": true,
+  "actual_model_verification": "unrun",
+  "screen_reader": "unrun",
+  "unrun": [
+    "Comprehensive keyboard/WCAG audit",
+    "Student composer long-response stress",
+    "Unsaved work on browser close or loss of browser storage",
+    "Pending/failed mutation recovery"
+  ],
+  "native100": {
+    "dpr": 1,
+    "innerWidth": 1416,
+    "innerHeight": 908,
+    "outerWidth": 1440,
+    "outerHeight": 1000,
+    "visualViewportScale": 1,
+    "rootZoom": "1",
+    "scrollWidth": 1416,
+    "overflow": false
+  },
+  "native200": {
+    "dpr": 2,
+    "innerWidth": 708,
+    "innerHeight": 454,
+    "outerWidth": 1440,
+    "outerHeight": 1000,
+    "visualViewportScale": 1,
+    "rootZoom": "1",
+    "scrollWidth": 708,
+    "overflow": false
+  },
+  "finished_at": "2026-10-25T06:42:34.504Z",
+  "horizontal_overflow_observations": [],
+  "blocked_mutation_attempts": []
+}

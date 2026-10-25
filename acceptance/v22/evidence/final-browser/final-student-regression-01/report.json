@@ -1,0 +1,160 @@
+{
+  "source_sha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "source_tree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "harness_sha256": "e11f138011af1a5c3eb8bebcfb844dd680b082d1c7c9cd93fe76d6b8ae3c51f7",
+  "fixture_sha256": "91d91617085af50d8fcbe732db279008618cfa62e7bbd3db9a4ee28ac4fe0657",
+  "origin": "http://localhost:3350",
+  "project": "lp-v22-shell5",
+  "browser": "156.0.4314.42",
+  "started_at": "2026-10-25T06:19:46.502Z",
+  "status": "fail",
+  "cases": [
+    {
+      "id": "S01-accepted-result-visible",
+      "status": "pass",
+      "detail": {
+        "evaluation_id": "076e2ed0-864f-4136-87b4-3a38622894f3",
+        "original_text_visible": true,
+        "evaluation_provenance": "synthetic_fixture"
+      }
+    },
+    {
+      "id": "accepted-reload-and-other-student-isolation",
+      "status": "pass",
+      "detail": {
+        "unchanged_on_reload": true,
+        "cross_student_status": 404
+      }
+    },
+    {
+      "id": "long-response-manual-scroll-and-jump",
+      "status": "pass",
+      "detail": {
+        "initial": {
+          "top": 78,
+          "height": 480,
+          "total": 3846
+        },
+        "afterManual": 0,
+        "afterJump": {
+          "top": 78,
+          "focused": true
+        },
+        "method": "Actual pointer wheel and Jump to latest button; no direct DOM scroll mutation."
+      }
+    },
+    {
+      "id": "long-response-reading-back-and-reload",
+      "status": "fail",
+      "error": "locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('link', { name: 'Open reading', exact: true })\u001b[22m\n"
+    },
+    {
+      "id": "help-fallback-never-grades",
+      "status": "pass",
+      "detail": {
+        "ungraded": true,
+        "provider_requests": 0,
+        "classification": "Explicit no-provider clarification; no model interpretation claimed."
+      }
+    },
+    {
+      "id": "S02-precommit-401-durability-message",
+      "status": "pass",
+      "detail": {
+        "exact_local_text_preserved": true,
+        "server_response": null,
+        "automatic_retries": 0,
+        "explicit_authorized_check": true,
+        "explicit_retries": 1,
+        "original_submission_key_preserved": true,
+        "fault": "Injected browser401 before server; real session expiry unrun"
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "accepted-1440x1000.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "url": "http://localhost:3350/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=87625bdd-8a11-4cdc-a9db-7bf4a99bea8a"
+    },
+    {
+      "file": "accepted-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "url": "http://localhost:3350/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=87625bdd-8a11-4cdc-a9db-7bf4a99bea8a"
+    },
+    {
+      "file": "accepted-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "url": "http://localhost:3350/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=87625bdd-8a11-4cdc-a9db-7bf4a99bea8a"
+    },
+    {
+      "file": "accepted-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "url": "http://localhost:3350/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=87625bdd-8a11-4cdc-a9db-7bf4a99bea8a"
+    },
+    {
+      "file": "long-response-earlier-text.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "url": "http://localhost:3350/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=3356554c-bbd0-4c1b-9bac-c8e07183fa5e"
+    },
+    {
+      "file": "long-response-jump-restores-region-focus.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "url": "http://localhost:3350/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=3356554c-bbd0-4c1b-9bac-c8e07183fa5e"
+    },
+    {
+      "file": "long-response-reading-back-and-reload-failure.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "url": "http://localhost:3350/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=3356554c-bbd0-4c1b-9bac-c8e07183fa5e"
+    },
+    {
+      "file": "precommit-401-local-text-preserved.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "url": "http://localhost:3350/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=06b127d0-32fb-4ec9-aa83-8380b99e4dcf"
+    },
+    {
+      "file": "precommit-401-explicit-same-identity-retry.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "url": "http://localhost:3350/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=06b127d0-32fb-4ec9-aa83-8380b99e4dcf"
+    }
+  ],
+  "category": "real provider-disabled browser with explicitly synthetic accepted evaluation; no model-quality claim",
+  "actual_model_calls": 0,
+  "blocked_off_origin_requests": [],
+  "unrun": [
+    "Actual-model verification",
+    "Screen reader",
+    "Native 200% zoom",
+    "Real session expiry (401 is a browser injection)",
+    "Multi-turn generated conversation (long case is one original authored response)",
+    "Hosted release"
+  ],
+  "finished_at": "2026-10-25T06:20:05.881Z"
+}

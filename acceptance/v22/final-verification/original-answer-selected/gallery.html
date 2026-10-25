@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Original answer: capture framing comparison</title>
+    <style>
+      body {
+        margin: 20px;
+        font: 16px/1.5 system-ui;
+        color: #18332c;
+        background: #f4f7f5;
+      }
+      h1 {
+        font-size: 24px;
+      }
+      h2 {
+        font-size: 18px;
+      }
+      select {
+        font: inherit;
+        padding: 8px;
+      }
+      main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      article {
+        min-width: 0;
+        background: white;
+        padding: 14px;
+        border: 1px solid #c8d8d1;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        border: 1px solid #bacbc3;
+      }
+      a {
+        color: #075c47;
+      }
+      @media (max-width: 800px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Original answer: capture gap closed</h1>
+    <p>
+      Both are actual screenshots on the same application commit. The new
+      capture scrolls to the original answer. A synthetic judgment was injected
+      between captures; the displayed AI-evaluation label is not an actual model
+      result. This is not a before/after application fix.
+    </p>
+    <label
+      >Viewport
+      <select id="size">
+        <option>1440x1000</option>
+        <option>1024x768</option>
+        <option>390x844</option>
+        <option>320x844</option>
+      </select></label
+    >
+    <main>
+      <article>
+        <h2>Earlier retained page-top capture</h2>
+        <p>
+          Run05: help conversation at the top; assessed answer below the
+          viewport.
+        </p>
+        <a id="earlier-link"
+          ><img id="earlier" alt="Earlier actual teacher page-top capture"
+        /></a>
+      </article>
+      <article>
+        <h2>New exact-answer capture</h2>
+        <p>
+          Exact original text verified; full answer scrolled into view. Later
+          synthetic fixture judgment is visible.
+        </p>
+        <a id="selected-link"
+          ><img
+            id="selected"
+            alt="Actual teacher original question and response in view"
+        /></a>
+      </article>
+    </main>
+    <p>
+      <a href="../ORIGINAL_ANSWER_VISUAL_ADDENDUM.md"
+        >Execution, provenance and limitations</a
+      >
+      · <a href="report.json">Raw capture report</a>
+    </p>
+    <script>
+      const size = document.querySelector("#size");
+      function render() {
+        const earlier =
+          "../populated-continuation/17-teacher-original-evidence-" +
+          size.value +
+          ".png";
+        const selected =
+          "teacher-original-answer-selected-" + size.value + ".png";
+        document.querySelector("#earlier").src = earlier;
+        document.querySelector("#earlier-link").href = earlier;
+        document.querySelector("#selected").src = selected;
+        document.querySelector("#selected-link").href = selected;
+      }
+      size.addEventListener("change", render);
+      render();
+    </script>
+  </body>
+</html>

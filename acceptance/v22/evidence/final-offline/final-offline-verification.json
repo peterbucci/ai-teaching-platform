@@ -1,0 +1,104 @@
+{
+  "source": "C:/Users/sb128/.codex/worktrees/workbench-final-verification/LearningPlatform",
+  "sourceSha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "sourceTree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "completedAt": "2026-10-25T05:52:25.5175069Z",
+  "status": "passed",
+  "sourceCleanBeforeObserved": true,
+  "sourceCleanAfter": true,
+  "nodeVersion": "v22.13.0",
+  "dependencyJunction": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\node_modules",
+  "checks": [
+    {
+      "name": "unit",
+      "exitCode": 0,
+      "receipt": "final-unit-receipt.json",
+      "receiptSha256": "2de57a56ab7c63fc4ed628c24ce7a1c9aa7bc0ee83059671d9e6c13b8aa74b49",
+      "log": "final-unit.log",
+      "logSha256": "e0bd1e08622e9d3f38de5b3b0b89721cbfac4fd7e96841f32f2566b6529faf16"
+    },
+    {
+      "name": "authoring-all",
+      "exitCode": 0,
+      "receipt": "final-authoring-all-receipt.json",
+      "receiptSha256": "566097ae48c847a80551b73bb62c721a123fa0d4d7f8e65fd4936b5b124c74aa",
+      "log": "final-authoring-all.log",
+      "logSha256": "14e1d5cc4711137c52b97cde5f35035de31b6dd230abadfa80374107c11cfbdd"
+    },
+    {
+      "name": "lint",
+      "exitCode": 0,
+      "receipt": "final-lint-receipt.json",
+      "receiptSha256": "4fc0646f9745cb126e62b58d3ad0e12d4a5039330c97036f9bc85cc273c8558c",
+      "log": "final-lint.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "typegen",
+      "exitCode": 0,
+      "receipt": "final-typegen-receipt.json",
+      "receiptSha256": "43a278c6b7cdb64672147263e3c6cd33eadbff070381e93c1cc1edaf79181e7c",
+      "log": "final-typegen.log",
+      "logSha256": "adba4af9194e10e47dda75ff0fd0f8c2b756474896d0eba5612799c527ff372a"
+    },
+    {
+      "name": "typecheck",
+      "exitCode": 0,
+      "receipt": "final-typecheck-receipt.json",
+      "receiptSha256": "5b23afe294aa99382f7ff3b528a3ad068a3603ea6e026fa328f916ac18c8e7d3",
+      "log": "final-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "format",
+      "exitCode": 0,
+      "receipt": "final-format-receipt.json",
+      "receiptSha256": "804b3fb305b8e7220e31fd3f1cb6b503e4202049b67746d228879c24ae8fe9f4",
+      "log": "final-format.log",
+      "logSha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+    },
+    {
+      "name": "content",
+      "exitCode": 0,
+      "receipt": "final-content-receipt.json",
+      "receiptSha256": "702e78f6e6cf33c1d8e085f37ed020ba178071c8285f0262018779ffaaa75e33",
+      "log": "final-content.log",
+      "logSha256": "24ca75cedc808ea6504db496af4171213c7c787aba61396136740e05e61a61ed"
+    }
+  ],
+  "tests": {
+    "unitPassed": 601,
+    "authoringFailed": 0,
+    "authoringSkipped": 0,
+    "authoringPassed": 24,
+    "unitFailed": 0,
+    "unitSkipped": 0,
+    "contentChecks": 293,
+    "authoringFiles": 6
+  },
+  "pairwise": {
+    "receiptSha256": "42577bc71aa79c7f761b21b7936efb017122b169390438da262d1f13e0761976",
+    "receipt": "final-pairwise.json",
+    "conflicts": 0,
+    "clean": 10,
+    "errors": 0
+  },
+  "reproduction": {
+    "exitCode": 0,
+    "status": "same-pinned-content",
+    "commit": "6ef9bd9e7aed13fca34d4475beee28293b318cb0",
+    "tree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+    "expectedTree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+    "harnessSha256": "ec54e0294db8fe3d13a189c3ee7a6f25ac9008d2a4e1d0c76ab1ee1610b7f725",
+    "receiptSha256": "f9988fb2e5acec224749e3b9ac34a5b7315b04673aabd28f50eec54ab87f69d4",
+    "logSha256": "50666365812965437b74d3b1345cfea394d4e09035a7b5083e35fbf34a4a1b05"
+  },
+  "scope": "Fifth exact snapshot; offline tests and textual Git composition only. Root handles production/runtime separately.",
+  "unrunByThisReviewer": [
+    "Production build",
+    "Docker/database suites",
+    "Browser journeys",
+    "Actual model",
+    "Screen reader"
+  ]
+}

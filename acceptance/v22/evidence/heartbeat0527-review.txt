@@ -1,0 +1,43 @@
+05:27 intake — independent static contract review
+Reviewed 2026-10-25. No application file was edited. No browser, database, Docker, build or model call was made. This report does not transfer any old combined runtime results to these heads.
+
+Exact intake
+main 723ed6fea41138b604a9d333ebcd4a07b2202c36
+PR113 83114efdb2a5c7deb5238a0b28756429b1952b21
+PR116 94e4e534ea4d68d86ea0810067497bf07258e6d2
+PR117 9f300ce6e975ab460328a8aa4428c26d441ee0ab
+PR118 9c44fe8eb1b122c0e7c1181e1f937ab4b3044445
+PR120 a045defe11712b5c8f7ef88c7dae991ef9a33506
+
+Scope and ancestry
+PR120 a045def is a merge of shell correction add4115 and PR116 94e4e534. Git merge-base(94e4e534,a045def) equals the full PR116 head, establishing ancestry. The shell-only dd97767→add4115 change makes supplied context complete and changes native-dialog navigation dismissal. The subsequent owner-approved dependency merge refines that approach to the explicit contextIsAuthoritative flag and the foundation's shared navigation-context helper. Do not attribute the foundation's evidence/intervention repairs to a competing shell implementation.
+Diff 94e4e534→a045def is empty for app/teacher/evidence, app/teacher/interventions and app/teacher/navigation-context.ts. Those application changes are preserved verbatim. The contracts document adds a successor note; shared presentation forwards the new flag. The existing shared layout/metadata boundary and server-authorized loaders remain intact.
+
+M01: prior #116/#120 conflict addressed in source ancestry. The incoming foundation is now included in the shell head, and the owner resolved shared navigation rather than leaving two incompatible implementations. This review did not perform a composition or runtime run. A separate new combined commit and its checks are still required; prior conflict receipts remain historical evidence.
+
+T01: corrected in source; execution unrun here. scripts/check-lesson-uncertainty.ts:620 now checks /Teaching Desk/ rather than the removed /Class overview/ label. The diff changes only that expression; authorization, uncertainty and evidence-preservation checks remain. This source repair is not a claim that the current independent or combined workflow passed.
+
+C3: addressed in source; fresh combined browser verification required. app/teacher/interventions/page.tsx:81,170 supplies contextIsAuthoritative for an authorized saved draft. presentation forwards it; navigation.tsx:123 and workspace-model.ts:48 reuse resolveTeacherNavigationContext. navigation-context.ts:25 replaces the entire scope, so omitted student/session/attempt/evaluation/q fields cannot refill from stale URL values. The acknowledged-generation path at interventions/workspace.tsx:297 validates expected draft identity and snapshot scope, and lines60/323 replace the full URL before ordinary shell navigation reads it. Ordinary investigations deliberately remain URL-driven; tests must not require all supplied contexts to ignore later checkbox/URL changes.
+
+S1: remains P2, owners #120 plus #117. The new destination filter drops unrelated filters but still preserves assignment for course Assignments (navigation-context.ts:61-62; workspace-model.ts:83). The mobile Back link at navigation.tsx:178-180 uses the same helper. Current #117 load.ts:126 selects a detail whenever assignment is present; workspace-model.ts:11 defaults missing view to review. Reproduce from selected assignment progress: click course Assignments or phone Back to course assignments. The generated /teacher/assignments?assignment=<id> loads selected review instead of course discovery. Expected course discovery requires no selected assignment or an agreed explicit discovery contract. The existing shell test explicitly expects assignment to remain, so an independent passing shell test cannot resolve this integration mismatch. No runtime reproduction is claimed for this intake.
+
+Other unchanged integration concerns
+C2 progress→full-session displayed Back lacks assignment-progress return context; no touched route fixes it. C4 Lessons title-search q can still reach Evidence because the Lessons page has no authoritative context and Evidence retains investigation q. Clearing investigation parameters when entering authoring pages is useful but does not scope a newly entered Lessons search when leaving. C5 exact-version handoff is unchanged because latest #118 adds verification artifacts only. Earlier C1's implicit assignment selection was removed by current #117; do not carry its original reproduction forward unchanged.
+
+Dialog and evidence recovery changes
+The shell's layout-effect window capture closes the workspace dialog before existing passive page guards focus dirty/pending recovery feedback and suppresses opener restoration for navigation dismissal. Escape/backdrop/explicit close still restore the opener. Foundation guards independently close their containing dialog and expose focusable navigation/status/save-discard targets. Actual editor dirty/pending tests are needed; the owner's component fixtures mock routing/metadata and are not combined browser acceptance. Preinstalled or layout-effect guards outside the documented order remain an explicit coordination limitation.
+Foundation Evidence now keeps response anchors, filter-scoped list scroll/history memory, stable list mounts, and page-owned detail/row focus. Checkbox URL updates preserve the current record/hash without treating selection changes as route focus changes. Helper expectations should distinguish row/detail hash restoration from the shell's no-hash restoration. These repairs do not adopt the optional shared pane component or establish visual fidelity.
+
+PR113 delta
+2fc0d49a63f046a99e62805398b83cdada01a87a→83114ef changes only acceptance/student-blockers/recovery-browser-check.mjs, adding eight lines that await the exact answer POST, assert HTTP401 and await response completion before recovery-state inspection. No production code, schemas or artifacts changed in that delta. Earlier 2b49086→2fc0d49 contains the substantive answer-recovery implementation and still needs new combined verification. Owner-provided evidence is not an independently executed current combined result.
+
+Required helper adaptation before current-combination runs
+1. The prepared shell-authoring, shell-accessibility, continuation fixture/browser and guarded host adapter are hard-pinned to the older combined SHA/tree. Create explicit new variants or update recorded pins and hashes only after the new combination is established. Do not reuse old runtime evidence or weaken identity assertions to accept arbitrary heads.
+2. student-regression-browser.mjs:361 waits for removed “Retry sending saved answer”. New #113 shows “Check answer save” and “Retry original answer”; retry remains disabled until an authorized read confirms the exact original attempt is unsaved. Await the intercepted401 response before inspecting state. Verify original text, no unsupported saved claim, no automatic retry, and same request/attempt identity on any explicit retry. Actual session expiry is distinct from an injected401.
+3. Authoritative saved-draft cases must set/use contextIsAuthoritative and assert omitted identities stay absent. Ordinary investigations must still follow URL selection changes. Canonical acknowledged-draft URL replacement and unexpected-draft rejection are separate cases.
+4. Evidence Back-to-results now targets evidence-response-<attempt>, with response-detail-title still the detail heading. Adjust row/history focus expectations while retaining exact response/source identity assertions.
+5. Blocked intervention navigation should inspect #intervention-navigation-notice, #intervention-edit-actions, #intervention-pending-action or #intervention-generation-status as appropriate. Assert dialog closed, feedback focused, dirty/pending identity preserved, and no save/approval/delivery replay. Existing approval/delivery button labels and service boundary remain unchanged.
+6. Keep S1's discovery expectation; do not change the verifier to accept retained detail merely because the shell's unit assertion expects assignment. Fresh runtime should confirm the mismatch or a later owner fix.
+
+Current-owner evidence boundary
+PR120 documentation separates captures at dd97767 from post-capture corrections and dependency receipts, and explicitly says application/database journeys were not repeated after merge under the hold. Its reported 559 deterministic passes are owner evidence, not tests executed by this reviewer. Latest #118 differs from7b82197 only in ten verification files under app/teacher/lessons/verification. Screen reader and actual-model verification remain unrun.

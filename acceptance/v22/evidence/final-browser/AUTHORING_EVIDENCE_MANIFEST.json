@@ -1,0 +1,244 @@
+{
+  "category": "Offline authoring evidence publication; failed provenance preserved",
+  "source_sha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "source_tree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "runs": [
+    {
+      "run": "final-authoring-01",
+      "status": "failed",
+      "failure_stage": "manual objective",
+      "source_id": "65a4f4ff-4dee-4f4c-8bc3-1474708b9c8e",
+      "lesson_id": null,
+      "assignment_id": null,
+      "full_journey": "unrun",
+      "raw_report_sha256": "998fa9a2df239ada17ee8f8f9c3e23e06ed78995b0152b826c8c9c4338920b13",
+      "raw_api_sha256": "fda16d5a2ed8929435858ff378cacf41055549e35a1ef1677a4722267527af9b",
+      "retained_raw_files": 4
+    },
+    {
+      "run": "final-authoring-02",
+      "status": "failed",
+      "failure_stage": "manual objective",
+      "source_id": "bc27968c-64e1-4121-8bfb-2b1ac12191a4",
+      "lesson_id": "8a7d5b65-e8fe-46cb-811d-be94facc4f9c",
+      "assignment_id": null,
+      "full_journey": "unrun",
+      "raw_report_sha256": "5cb76609f1ea369db59cad4b6617c4400cc98946403500470385f4ff06c5d047",
+      "raw_api_sha256": "e371709ec27c82e3b822a7d42c39ced39b2545fc4106d06f7474b30f90437086",
+      "retained_raw_files": 4
+    },
+    {
+      "run": "final-authoring-03",
+      "status": "failed",
+      "failure_stage": "inactive assignment",
+      "source_id": "48bae4f7-63a2-4876-bc6d-b5b2d99a6b9f",
+      "lesson_id": "d1468c98-b268-4566-9301-114be6f836da",
+      "assignment_id": null,
+      "full_journey": "unrun",
+      "raw_report_sha256": "b99dbdb38d3b1cfb5efb29fb29c6bf30f5f87b8f9bf3eef71d78383f287e17b9",
+      "raw_api_sha256": "51f5e1214991efcaab338caa8c1bccd6bc22929be2178a4688f0d07ef9fed524",
+      "retained_raw_files": 4
+    },
+    {
+      "run": "final-authoring-04",
+      "status": "failed",
+      "failure_stage": "explicit answer submission and original evidence",
+      "source_id": "48bae4f7-63a2-4876-bc6d-b5b2d99a6b9f",
+      "lesson_id": "d1468c98-b268-4566-9301-114be6f836da",
+      "assignment_id": "ebc4eb03-22ba-409b-b1c4-10bc54a86967",
+      "full_journey": "unrun",
+      "raw_report_sha256": "5eb2b980af7eae48ae736ce7a9162b62ba459aee0bb324f128de5ba352b9c94f",
+      "raw_api_sha256": "36cd81968dd19522e362568df8eeca874f09ed305c6c6bb9a80b546530a0c75e",
+      "retained_raw_files": 4
+    },
+    {
+      "run": "final-authoring-05",
+      "status": "passed",
+      "failure_stage": null,
+      "source_id": "48bae4f7-63a2-4876-bc6d-b5b2d99a6b9f",
+      "lesson_id": "d1468c98-b268-4566-9301-114be6f836da",
+      "assignment_id": "ebc4eb03-22ba-409b-b1c4-10bc54a86967",
+      "full_journey": "incomplete: same source→lesson→inactive assignment→activation→student→help fallback→original answer→teacher evidence; no accepted model evaluation or same-session intervention/follow-up is claimed",
+      "raw_report_sha256": "7e99672e7cf7e6689d1bcc53d57a68f1a052eecd6b09ee77ea7a8d9de3970051",
+      "raw_api_sha256": "29f1f46a0618685b29d9106f80520c398669c74d248a83de93fd19ae1a36864d",
+      "retained_raw_files": 2
+    }
+  ],
+  "files": [
+    {
+      "source": "final-authoring-01/failure-student.txt",
+      "destination": "authoring-01/failure-student.txt",
+      "kind": "exact retained bytes",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "final-authoring-01/failure-teacher.txt",
+      "destination": "authoring-01/failure-teacher.txt",
+      "kind": "exact retained bytes",
+      "bytes": 3436,
+      "sha256": "a89d512bfea6e90db048f8d67c3a3d98d919917e5d434982034ee58863de7c10"
+    },
+    {
+      "source": "final-authoring-01/report.json",
+      "destination": "authoring-01/report.json",
+      "kind": "exact retained bytes",
+      "bytes": 3286,
+      "sha256": "998fa9a2df239ada17ee8f8f9c3e23e06ed78995b0152b826c8c9c4338920b13"
+    },
+    {
+      "source": "final-authoring-01.guard.json",
+      "destination": "authoring-01/guard.json",
+      "kind": "exact retained bytes",
+      "bytes": 3893,
+      "sha256": "72c64bb779c9fefeb11214b34ed3a09f620a51d2ed25e0dbd208e61542eec673"
+    },
+    {
+      "source": "final-authoring-02/failure-student.txt",
+      "destination": "authoring-02/failure-student.txt",
+      "kind": "exact retained bytes",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "final-authoring-02/failure-teacher.txt",
+      "destination": "authoring-02/failure-teacher.txt",
+      "kind": "exact retained bytes",
+      "bytes": 2693,
+      "sha256": "e2692df0785453c8a551e66a493f9f4588015a8ede52176ae91fb2c7d7cb0a9b"
+    },
+    {
+      "source": "final-authoring-02/report.json",
+      "destination": "authoring-02/report.json",
+      "kind": "exact retained bytes",
+      "bytes": 3332,
+      "sha256": "5cb76609f1ea369db59cad4b6617c4400cc98946403500470385f4ff06c5d047"
+    },
+    {
+      "source": "final-authoring-02.guard.json",
+      "destination": "authoring-02/guard.json",
+      "kind": "exact retained bytes",
+      "bytes": 3898,
+      "sha256": "8bbfafd4f373f33404b62012429774e47fb3e335237182e80372c90c2bd69a6e"
+    },
+    {
+      "source": "final-authoring-03/failure-student.txt",
+      "destination": "authoring-03/failure-student.txt",
+      "kind": "exact retained bytes",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "final-authoring-03/failure-teacher.txt",
+      "destination": "authoring-03/failure-teacher.txt",
+      "kind": "exact retained bytes",
+      "bytes": 36,
+      "sha256": "35425063acbd185f7734fc7ba02b75dc7afb956dd36cab0e80b7d9b345756a06"
+    },
+    {
+      "source": "final-authoring-03/report.json",
+      "destination": "authoring-03/report.json",
+      "kind": "exact retained bytes",
+      "bytes": 8098,
+      "sha256": "b99dbdb38d3b1cfb5efb29fb29c6bf30f5f87b8f9bf3eef71d78383f287e17b9"
+    },
+    {
+      "source": "final-authoring-03.guard.json",
+      "destination": "authoring-03/guard.json",
+      "kind": "exact retained bytes",
+      "bytes": 3896,
+      "sha256": "41d6996c60dcacf9cf8a8514947532d3bd86b4bf3b59ddcd44c1b60d815eeac3"
+    },
+    {
+      "source": "final-authoring-04/failure-student.txt",
+      "destination": "authoring-04/failure-student.txt",
+      "kind": "exact retained bytes",
+      "bytes": 1157,
+      "sha256": "4522582c915d6aa3b8e8ca48f2342727a7e7913099438115b2ff3ce38cec510d"
+    },
+    {
+      "source": "final-authoring-04/failure-teacher.txt",
+      "destination": "authoring-04/failure-teacher.txt",
+      "kind": "exact retained bytes",
+      "bytes": 1937,
+      "sha256": "eadbb4ceeb85321c158e6e197931fce3cb7b7a93db005ffe98f1c9c92924adf7"
+    },
+    {
+      "source": "final-authoring-04/report.json",
+      "destination": "authoring-04/report.json",
+      "kind": "exact retained bytes",
+      "bytes": 8450,
+      "sha256": "5eb2b980af7eae48ae736ce7a9162b62ba459aee0bb324f128de5ba352b9c94f"
+    },
+    {
+      "source": "final-authoring-04.guard.json",
+      "destination": "authoring-04/guard.json",
+      "kind": "exact retained bytes",
+      "bytes": 3894,
+      "sha256": "57316a411baaf704de7caecffa1308f7289524f6e5608615bde864e728bcd515"
+    },
+    {
+      "source": "final-authoring-05/report.json",
+      "destination": "authoring-05/report.json",
+      "kind": "exact retained bytes",
+      "bytes": 7281,
+      "sha256": "7e99672e7cf7e6689d1bcc53d57a68f1a052eecd6b09ee77ea7a8d9de3970051"
+    },
+    {
+      "source": "final-authoring-05.guard.json",
+      "destination": "authoring-05/guard.json",
+      "kind": "exact retained bytes",
+      "bytes": 3804,
+      "sha256": "82ff77765468b56fd393471a3b60b5e85248d937e27444b56ad1429ff2e4236b"
+    },
+    {
+      "destination": "authoring-01/api-evidence-selected.json",
+      "kind": "explicit projection; source hash retained",
+      "bytes": 767,
+      "sha256": "1dd0042254c2d39f4cf92d940f86cd38ada2daf4d3b9a8ccae0def5705e12acd"
+    },
+    {
+      "destination": "authoring-02/api-evidence-selected.json",
+      "kind": "explicit projection; source hash retained",
+      "bytes": 767,
+      "sha256": "a183856dac7154464b357b07275812dd96446d66041ef0ae8ee105f586f38f1a"
+    },
+    {
+      "destination": "authoring-03/api-evidence-selected.json",
+      "kind": "explicit projection; source hash retained",
+      "bytes": 7409,
+      "sha256": "c599d6aa8f7ffc684174af1ddb2e0053a47ecc5c5476d9579377439a44c311c4"
+    },
+    {
+      "destination": "authoring-04/api-evidence-selected.json",
+      "kind": "explicit projection; source hash retained",
+      "bytes": 5423,
+      "sha256": "a04b8d031423273f022ed89c6c800e6802b38f71c75e85e1fb4cce0d1dcbef38"
+    },
+    {
+      "destination": "authoring-05/api-evidence-selected.json",
+      "kind": "explicit projection; source hash retained",
+      "bytes": 4296,
+      "sha256": "cbdd43820e2914cf2ef4f451a3824878be6385e91c2cbce17e8f3b5b9ab89427"
+    }
+  ],
+  "credential_scan": {
+    "status": "no matches in publication set",
+    "scope": "All raw reports, guard receipts, text/log diagnostics and selected API excerpts before writing",
+    "checks": "Known provider/GitHub/JWT/bearer/private-key/credential-URL patterns and nonempty sensitive JSON field names",
+    "matching_values_printed": false
+  },
+  "raw_api_payloads_published": false,
+  "screenshots_modified": false,
+  "existing_visual_packages_modified": false,
+  "excluded": [
+    "unselected API payload fields",
+    "submission/request keys",
+    "private answer criteria",
+    "profiles",
+    "environment",
+    "cookies",
+    "runtime state",
+    "duplicate screenshots"
+  ]
+}

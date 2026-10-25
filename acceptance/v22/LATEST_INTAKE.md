@@ -1,4 +1,4 @@
-# Latest-head intake: merge conflict, no accepted combined candidate
+# Third snapshot: historical merge-conflict intake
 
 Observed October 25, 2026 at approximately 05:10–05:13 UTC. This is a third intake, separate from the executed first combination and the compatible second shared-shell snapshot. No results are transferred between them.
 

@@ -1,49 +1,39 @@
 # Learning Pulse Workbench v2.2 acceptance
 
-**Do not treat this candidate as accepted for merge.** The pinned combination passed its executed database/service checks, but the continuous cross-role browser journey is incomplete and the captured layout does not meet the v2.2 reference. This package changes verification assets only.
+**The current combined application is not accepted for merge.** Its executed offline, production and service checks pass, but the actual screenshots still show two P1 Evidence layout gaps. The same-record browser journey reaches original evidence; its intervention continuation awaits the normal draft allowance. Scoped student recovery, keyboard, actual 200% zoom and unsaved-work recovery have completed, with confirmed navigation/focus defects. This PR contains only acceptance tests, fixtures, utilities and reports.
 
-Coordination: [#35](https://github.com/peterbucci/ai-teaching-platform/issues/35), [#76](https://github.com/peterbucci/ai-teaching-platform/issues/76), [#114](https://github.com/peterbucci/ai-teaching-platform/issues/114). Capture date: October 25, 2026. Accounts and records are fictional. Providers were disabled; no paid calls were made. Screen-reader and actual-model verification remain unrun.
+Current snapshot: `462cfb1b31d9108cec70d18b6553bd45048d2eed`, tree `03cca1fed3900a122e689c4a512afadd9052e5af`. It combines main `723ed6f` with #116 `94e4e534`, #117 `9f300ce`, #118 `9c44fe8`, #113 `71898a8` and shared shell #120 `dd7401e`. [Full commits and provenance](FINAL_INTAKE.md). No implementation branch or main was changed.
 
-The shared shell and newer assignment/lesson heads arrived during packaging. See [second-snapshot intake](SHELL_INTAKE.md); it is separate from the completed first-snapshot results below. A third [latest-head intake](LATEST_INTAKE.md) now proves a #116/#120 navigation merge conflict and records the shell CI stale-label failure. The local composition runner stopped with that conflict intact. No latest combined candidate is accepted.
+## Review the current result
 
-## Review entry points
+- [Integration matrix and snapshot history](INTEGRATION_MATRIX.md)
+- [Combined functional/service and browser report](FINAL_FUNCTIONAL_REPORT.md)
+- [Actual prototype/main/first/current screenshot gallery](final-verification/comparison-gallery.html) and [measured visual acceptance](final-verification/FINAL_ACCEPTANCE_REPORT.md)
+- [Populated authoring comparison](final-verification/POPULATED_AUTHORING_VISUAL_REPORT.md), [same-record continuation](final-verification/POPULATED_CONTINUATION_VISUAL_REPORT.md), and [visible original answer](final-verification/ORIGINAL_ANSWER_VISUAL_ADDENDUM.md)
+- [Scoped accessibility and recovery report](independent-review/FINAL_ACCESSIBILITY_REPORT.txt), [student regression](runner-final/STUDENT_REGRESSION_REPORT.md)
+- [Defects with owners and reproduction steps](DEFECTS.md), [remaining merge blockers](MERGE_BLOCKERS.md)
+- [Reproducible runner sequence](FINAL_RUNNER.md), [browser execution readiness](SHELL_BROWSER_READINESS.md)
 
-- [Integration matrix and exact commits](INTEGRATION_MATRIX.md)
-- [Functional coverage and its limits](FUNCTIONAL_REPORT.md)
-- [Visual acceptance report](implementation-verification/VISUAL_ACCEPTANCE_REPORT.md) and [actual prototype/main/combined comparison gallery](implementation-verification/comparison-gallery.html)
-- [Severity-ranked defects and owners](DEFECTS.md)
-- [Remaining merge blockers](MERGE_BLOCKERS.md)
-- [Runner instructions](RUNNER.md), [harness execution status](HARNESS_STATUS.md), and [raw evidence index](evidence/INDEX.md)
+## Completed current verification
 
-## What actually ran
+| Category                                       | Actual result                                                                                                                        | Evidence boundary                                                                                                     |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| Text composition                               | Ten pairwise merges clean; independent composition reproduced the exact tree                                                         | Textual compatibility only                                                                                            |
+| Offline checks                                 | 601 repository tests, 24 authoring tests, lint, route types, TypeScript, formatting and 293 content checks passed                    | No browser/model implication                                                                                          |
+| Production runtime                             | Exact pinned build, fresh database seed and healthy app/gateway passed                                                               | Separate private project and volume                                                                                   |
+| Combined service checks                        | 89 command phases plus 89 storage preflights passed; includes 21 repository checks, SQL constraints and database restart/persistence | Infrastructure phases are not unique application test cases                                                           |
+| Approval/delivery/follow-up                    | Five command phases plus five preflights passed for uploaded and curated synthetic lesson chains                                     | Authenticated HTTP/server-rendered evidence, not continuous browser proof                                             |
+| Default screenshots                            | 36 current images at 1440×1000,1024×768,390×844,320×844; HTTP200, no page JavaScript errors or document overflow                     | Actual visual acceptance still fails Evidence pane geometry/mobile selection; prefetch aborts are separately recorded |
+| Same-record browser and recovery/accessibility | In progress; use the detailed report for completed stages and retained failures                                                      | No blanket pass from services or screenshots                                                                          |
 
-| Verification                                 | Result                                                                                                                                    | Boundary                                                                     |
-| -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| Four pinned PR heads                         | Both existing GitHub check jobs successful on each                                                                                        | Branch CI is not combined application proof                                  |
-| Six pairwise merges and four-way composition | Clean; independently recomposed identical Git tree                                                                                        | Textual compatibility only                                                   |
-| Combined deterministic checks                | 541 repository tests plus 17 colocated authoring tests passed; lint, typecheck, format, content checks and production Docker build passed | No model or continuous browser claim                                         |
-| Combined database/service/HTTP checks        | 89 passing command phases, including 21 repository checks, SQL, restart and persistence; approval run added five passing phases           | Counts include infrastructure phases, not 94 unique application test cases   |
-| Main before baseline                         | 466 repository tests, production Docker build and default fictional seed completed                                                        | Main is a separate runtime and database                                      |
-| Visual capture                               | 41 prototype + 36 main + 36 combined images at four required sizes                                                                        | Main/combined data match; populated prototype data parity remains incomplete |
-| Browser context and accessibility            | Assignment return defect reproduced; keyboard login, Escape focus return, evidence selection and native 200% zoom exercised               | Bounded run; reload/remaining mobile/recovery cases incomplete               |
-| Complete cross-role browser journey          | **Unrun**                                                                                                                                 | Storage hold interrupted planned further work                                |
+All accounts and data are fictional. Providers were disabled and zero paid calls were made. Synthetic evaluator/private-draft seams are explicit. Approval, activation and delivery remain distinct. Actual-model and screen-reader verification remain unrun.
 
-The combined commit is `eba2fba3eee223bb43c0eea5fe197e9569285ea9`, with tree `016e8aeebd3b1f584cc7bd5a1036afcfeb8eac5c`. It merges main → repaired #116 → #117 → #118 → #113. No implementation branch or main was changed. The separate verification branch is based on main and contains only `acceptance/v22/` assets, not these application merges.
+## Earlier snapshots remain separate
 
-## Reproduce the composition
+The first composition `eba2fba` passed 541+17 tests and its own service/persistence run; it has 36 actual screenshots plus 36 main screenshots and 41 actual exported-prototype images. [First functional report](FUNCTIONAL_REPORT.md), [first visual report](implementation-verification/VISUAL_ACCEPTANCE_REPORT.md), [first defect record](FIRST_SNAPSHOT_DEFECTS.md).
 
-Obtain the five commits recorded in [baselines.json](baselines.json) in a local clone. This utility creates a new local `codex/verification-combined-*` branch and disposable worktree. It stops at conflicts without resolving or discarding them, records the merge order, and verifies the resulting tree. Commit IDs can differ because merge timestamps differ; tree equality is the content check.
+The second `1a9d95b3` passed 557+24 offline tests but never had a runtime initialized. The third intake actually conflicted at #116 `94e4e534` plus #120 `dd97767`; that failed worktree and CI assertion failure remain preserved. The fourth `e6126016` passed 601+24 offline tests but was superseded before runtime by the current shell restoration correction. [Second intake](SHELL_INTAKE.md), [third conflict intake](LATEST_INTAKE.md), [fourth intake](CURRENT_INTAKE.md). No earlier passing results are attributed to newer application commits.
 
-```powershell
-node C:/path/to/acceptance/v22/compose-candidate.mjs C:/path/to/clone C:/path/to/new-worktree C:/path/to/new-receipt.json
-```
+The reviewed storage guard serializes runtime phases, checks 20 GiB for build and 10 GiB for runtime, and never removes another lock or volume. The recovery workstream explicitly released its window; fresh guards passed for this run. Earlier incident volumes and failed verification attempts remain retained. Credentials, environment files, browser profiles/cookies and exported prototype vendor runtime are excluded from publication.
 
-The successful second composition is recorded in [reproduction-receipt.json](evidence/reproduction-receipt.json). Follow [RUNNER.md](RUNNER.md) for fresh isolated database/runtime setup, checks and browser utilities. Read the current storage-recovery clearance before starting any build or database/browser mutation; this bundle does not supersede that hold. Do not reuse or delete the older failed `lp-accept-combined_postgres_data` volume.
-
-## Evidence interpretation
-
-The original exported v2.2 prototype is the visual authority, identified by archive and HTML hashes in [PROTOTYPE_BASELINE.md](prototype-verification/PROTOTYPE_BASELINE.md). The bundle includes actual captures, not generated reconstructions. Main and combined use equivalent default fictional data. The prototype contains populated lessons, interventions and multiple classes that the default application seed lacks; those density/state comparisons are explicitly unaccepted rather than scored as passing empty pages.
-
-The earlier [verification PR #119](https://github.com/peterbucci/ai-teaching-platform/pull/119) covers a different, older combination and a storage incident. Its results are not reused as proof of this repaired combination. This run used fresh `lp-v22-integration5_postgres_data` and `lp-v22-main5_postgres_data` volumes. Passing their completed persistence checks does not establish that the earlier damaged volume recovered.
-
-Raw logs retain failed setup attempts and later successful reruns. Some early run manifests predate the runner's explicit `runCompleted` field; completion here is based on all recorded phases, final exit and the preserved logs. Subsequent harness improvements are identified separately and are not retroactively attributed to earlier runs. No environment files, cookies, browser profiles, provider secrets or exported vendor runtime are published.
+Coordination: [#35](https://github.com/peterbucci/ai-teaching-platform/issues/35), [#76](https://github.com/peterbucci/ai-teaching-platform/issues/76), [#114](https://github.com/peterbucci/ai-teaching-platform/issues/114). Verification draft: [#122](https://github.com/peterbucci/ai-teaching-platform/pull/122). No merge, deployment or release approval is granted by this report.

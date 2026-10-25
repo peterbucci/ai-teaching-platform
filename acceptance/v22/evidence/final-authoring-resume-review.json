@@ -1,0 +1,14 @@
+{
+  "reviewedAt": "2026-10-25T06:05:01.2557094Z",
+  "sourceSha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "helperSha256": "bfba95f7f495ff467dda18fbf45d958f29c74ac0299a8d95b0cc024ef5377687",
+  "priorReportSha256": "b99dbdb38d3b1cfb5efb29fb29c6bf30f5f87b8f9bf3eef71d78383f287e17b9",
+  "scope": "Static review of authoring resume and navigation readiness delta only. No runtime action.",
+  "status": "resolved-static-review-complete",
+  "finding": "Generic failed/inactive-assignment/no-recorded-ID condition can also occur after an uncertain assignment create POST. Bind resume to the specifically reviewed prior report hash and its pre-create version-choice assertion.",
+  "reviewedPriorEvidence": "run03 API evidence ends at successful publication; no assignment create POST. Prior report records same source/lesson/version1 and 28 no-overflow observations.",
+  "otherFindings": "No consequential blocker in same-record identity, skipped approval/publication, explicit subsequent builder choices or route-readiness waits.",
+  "followupReviewedAt": "2026-10-25T06:05:21.4228713Z",
+  "acceptedHelperSha256": "bfba95f7f495ff467dda18fbf45d958f29c74ac0299a8d95b0cc024ef5377687",
+  "resolution": "Exact independently reviewed run03 SHA and pre-create assertion are now checked before browser startup. No remaining consequential static blocker in this delta; runtime unrun by reviewer."
+}

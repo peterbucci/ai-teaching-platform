@@ -1,0 +1,95 @@
+{
+  "prepared_at": "2026-10-25T05:46:05.819995Z",
+  "source_sha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "source_tree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "source": "C:/Users/sb128/.codex/worktrees/workbench-final-verification/LearningPlatform",
+  "state": "runtime-final",
+  "project": "lp-v22-shell5",
+  "origin": "http://localhost:3350",
+  "runtime": "Authoring executed in retained runs01–05; runs03→04→05 complete original-evidence chain through guarded exact resumes. Other phases have separate receipts; see AUTHORING_EXECUTION.md.",
+  "checks": {
+    "syntax": "8 owned JavaScript files passed",
+    "eslint": "8 owned JavaScript files passed repository ESLint",
+    "formatting": "owned code/Markdown/JSON formatted or checked",
+    "authoring_launcher": "Six explicit files; exact byte match to previously reviewed published launcher 30693ed1",
+    "continuation_delta": "Five fixture/recovery scripts remain pin-only; continuation browser adds separately reported context-checks and curated-activation phases, independently reviewed against final source.",
+    "mock_adapter_tests": {
+      "passed": 3,
+      "failed": 0,
+      "log": "guarded-container-fixture-test.log",
+      "log_sha256": "547bffbe0c76601da20fa4edc0e2807f54586fabed320f4726a6daeadc66edd6",
+      "docker_calls": 0,
+      "real_shared_lock": "not acquired"
+    }
+  },
+  "files": [
+    {
+      "file": "shell-authoring-browser.mjs",
+      "sha256": "cf1c72d53b01999bcbaf0c8a49f08ef1ca3e6aff5f48abe4ec2461cc68084e62"
+    },
+    {
+      "file": "authoring-tests.mjs",
+      "sha256": "30693ed1cc75f93cde5e0c579b6bf56042832c3a6bcd120d1f1d17ac3770f372"
+    },
+    {
+      "file": "intervention-continuation-fixture.mjs",
+      "sha256": "73339c1a74649ef46d77902d30bc9afe707881a0878f35e3e601ff933efd251d"
+    },
+    {
+      "file": "intervention-continuation-browser.mjs",
+      "sha256": "c488f413328300b4e464d5c75ef28d8531634b208097ec74ba36ec355258f28e"
+    },
+    {
+      "file": "seed-student-regression.mjs",
+      "sha256": "7e0a79b66b1f628c078401b7f40140e5effc2ebe162a531340b734bad6d4dd2b"
+    },
+    {
+      "file": "student-regression-browser.mjs",
+      "sha256": "aeb205251b80b7b807467d66a49413bc6f959f89885aeaf501af42747e774ef7"
+    },
+    {
+      "file": "guarded-container-fixture.mjs",
+      "sha256": "461ee1e929685d03c81af7116fae3f5499d2585a83245a38b0ca14b558a1e70d"
+    },
+    {
+      "file": "guarded-container-fixture.test.mjs",
+      "sha256": "e73dbe90cb39e850606f82017ba68a57e7a449c798f41b8dc49049341126b90c"
+    },
+    {
+      "file": "INTERVENTION_CONTINUATION.md",
+      "sha256": "8408a4035231d0770474c647e00fe8569be322ab383ecb54f6a13c22601f4dbd"
+    },
+    {
+      "file": "SHELL_AUTHORING_STATUS.txt",
+      "sha256": "f29b8a49958dd4739ce3709eaa8f5dc574edc7ff4f539c64884c784132854f6e"
+    },
+    {
+      "file": "FINAL_HELPERS.md",
+      "sha256": "5418df8c2da0b802fe0d21ad14cf55cf66bb7f57d0f0ba52eee7ee3cf623fc47"
+    }
+  ],
+  "historical_preparation_mismatch": "Documented in COPY_PROVENANCE.json and FINAL_HELPERS.md; old four-file current copy was not the launcher used for the true 24-test current run.",
+  "separately_owned": [
+    "guarded-browser.mjs",
+    "GUARDED_BROWSER_PLACEMENT.md",
+    "shell-accessibility-browser.mjs",
+    "SHELL_ACCESSIBILITY_STATUS.txt"
+  ],
+  "supplemental_review": {
+    "observed_at": "2026-10-25T05:56:16.1945455Z",
+    "helper_sha256": "dad71d0bdfe53da13989961d695895cfe7c029389c7fe0825bcbdb6e1ba678f7",
+    "result": "Independent static review accepted with no consequential blocker; syntax, repository ESLint and formatting passed. Runtime unrun at this checkpoint."
+  },
+  "authoring_execution": "AUTHORING_EXECUTION.md",
+  "curated_input_review": {
+    "result": "Independent static review accepted; only exact passed run05 may supply the separate curated activation phase. Runtime remains separately reported.",
+    "helper_sha256": "c488f413328300b4e464d5c75ef28d8531634b208097ec74ba36ec355258f28e"
+  },
+  "student_execution": {
+    "review": "Bounded follow-up helper independently reviewed; focused reading04 passed on the same fixture, with the five other cases explicitly unrun-filtered. Earlier failures remain retained.",
+    "latest_helper": "aeb205251b80b7b807467d66a49413bc6f959f89885aeaf501af42747e774ef7",
+    "historical_sources": "executed-student-helpers/manifest.json",
+    "report": "STUDENT_REGRESSION_REPORT.md",
+    "latest_run": "../evidence/final-browser/final-student-regression-04/report.json"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "preparedAt": "2026-10-25T06:35:12.5436383Z",
+  "sourceSha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "sourceTree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "file": "focused-accessibility-browser.mjs",
+  "sha256": "d200de27bb64ccf74672e58a4667574b8a19680f416991f82c6ef549cb395b64",
+  "scope": "Only remaining/harness cases from final-accessibility-01 and originating-row focus confirmation; prior raw report and helper preserved.",
+  "corrections": [
+    "Wait for visible selected progress details pane, not intentionally hidden mobile Class progress heading.",
+    "Use actual objective textarea placeholder to locate the existing field.",
+    "Start scope keyboard traversal from a freshly loaded compact Lessons page using forward Tab.",
+    "Confirm originating-row focus with actual Tab and Enter, native Back, selected-row readiness and 500ms settled sample; no focus/scroll write after Back."
+  ],
+  "checks": {
+    "syntax": 0,
+    "prettier": 0,
+    "repositoryEslint": 0
+  },
+  "runtime": "unrun-awaiting-coordinator-GO",
+  "directSharedLock": true,
+  "screenReader": "unrun",
+  "actualModel": "unrun",
+  "peerReview": "locate_reference independently reviewed final exact d200de27 reload/navigation extension and earlier visibility/mutation corrections; no consequential blocker in scoped static review.",
+  "unsavedRecovery": "Actual reload and mobile course-link/native Back; original full objective state restored through application GET reload, no Save. Pre-existing recovery preserved."
+}

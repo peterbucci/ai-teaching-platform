@@ -1,0 +1,26 @@
+Final accessibility/context verifier — October 25, 2026
+
+Execution: UNRUN. Syntax, repository ESLint and Prettier passed. Preparation performed no browser, Docker, database or build action.
+Utility: shell-accessibility-browser.mjs
+SHA256: 5d46286a6d0631f89a7b3c6cc1a62b76cd404b9f0dec2f00eacd718d9ff3abdc
+Application: 462cfb1b31d9108cec70d18b6553bd45048d2eed / tree 03cca1fed3900a122e689c4a512afadd9052e5af
+Runtime: runtime-final, lp-v22-shell5 at http://localhost:3350, empty provider configuration.
+
+Run only after the coordinator releases other runtime work. This utility acquires the shared lock itself; never nest it inside guarded-browser.mjs or another external lock.
+
+Exact invocation (use a fresh output directory; optional completed authoring receipt last):
+node C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/runner-final/shell-accessibility-browser.mjs C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/runtime-final C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/final-accessibility C:/Users/sb128/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright C:/Users/sb128/.codex/worktrees/workbench-verification-report/LearningPlatform/acceptance/v22/safety.mjs
+
+The default browser is C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe. The safety helper must match SHA256 af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485. Host/Docker/backing-storage preflight must pass before launch and each case. The source SHA/tree and source cleanliness are checked before launch. After fictional demo login, requests are restricted to local GET/HEAD; all further mutations and off-origin traffic are blocked.
+
+Focused checks
+- Actual Evidence page links produce A/B/A repeated URLs. Native Back/Forward, originating row and reload assertions wait for route and selected response rendering before reading focus, list position, visible selected row and exact original response text. Opaque history tokens are diagnostic only. Reload does not claim preservation of old in-memory position. Anonymous filter focus must not restore an old response row. No manual focus/scroll assignment is used during restoration assertions.
+- S1 course Assignments and 390px mobile Back must reach discovery; route defects remain failures, independently of visual screenshots.
+- C2 selected-assignment progress -> Read in full -> displayed Back destination; Back/Forward/reload route equality is distinguished from focus acceptance.
+- Keyboard-only login and scope dialog trigger; Tab/Shift+Tab focus stays in dialog; Escape returns to opener. Desktop, 390px, 320px and native200 contexts.
+- Actual 200% native Edge zoom uses isolated profile Preferences, viewport:null and a 1440x1000 window. DPR ratio2, CSS width ratio0.5, visualViewportScale1, root CSS zoom1 and fixed outer width must be measured. Mobile CSS viewport checks are labelled separately.
+- With a completed authored fixture receipt: reading source words at390/native200, local unsaved objective edit survives Reading/Outline/Editor panes and is restored without saving. Without that receipt the case remains explicitly unrun.
+
+Failed assertions, overflow and harness/runtime errors yield a nonzero exit; independent cases continue unless storage preflight fails. Screen reader, actual model, comprehensive WCAG, long student response stress, unsaved reload/navigation-away and pending/failed mutation recovery remain unrun in this utility.
+
+Publication: only inspected report.json and PNGs may be copied after execution. Never publish private-profile-* folders, which contain browser authentication. The utility and this status are prepared for REPORT/acceptance/v22/runner-final; runtime results do not yet exist.

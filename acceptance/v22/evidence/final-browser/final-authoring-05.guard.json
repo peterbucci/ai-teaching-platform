@@ -1,0 +1,86 @@
+{
+  "status": "passed",
+  "startedAt": "2026-10-25T06:08:36.276Z",
+  "target": "shell",
+  "helper": "shell-authoring-browser",
+  "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+  "state": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+  "manifestPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final\\manifest.json",
+  "out": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\final-authoring-05",
+  "origin": "http://localhost:3350",
+  "project": "lp-v22-shell5",
+  "sourceSha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "sourceTree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "wrapperSha256": "0d2016be66272a93a4c1899f99342afd28e7ae48e8b19a6a58332fc9022604c8",
+  "safetyPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform\\acceptance\\v22\\safety.mjs",
+  "safetySha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+  "script": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runner-final\\shell-authoring-browser.mjs",
+  "scriptSha256": "cf1c72d53b01999bcbaf0c8a49f08ef1ca3e6aff5f48abe4ec2461cc68084e62",
+  "fixtureSha256": null,
+  "minimumGiB": 10,
+  "paidModelCallsAuthorized": false,
+  "preflight": {
+    "observedAt": "2026-10-25T06:08:36.482Z",
+    "minimumGiB": 10,
+    "host": [
+      {
+        "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+        "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+        "availableBytes": 50515410944,
+        "availableGiB": 47.046142578125,
+        "minimumGiB": 10,
+        "pass": true
+      },
+      {
+        "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+        "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+        "availableBytes": 50515410944,
+        "availableGiB": 47.046142578125,
+        "minimumGiB": 10,
+        "pass": true
+      },
+      {
+        "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+        "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+        "availableBytes": 50515410944,
+        "availableGiB": 47.046142578125,
+        "minimumGiB": 10,
+        "pass": true
+      }
+    ],
+    "engine": {
+      "status": "healthy",
+      "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+      "name": "docker-desktop",
+      "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+      "root": "/var/lib/docker",
+      "storage": {
+        "status": "verified",
+        "method": "read-only df on explicitly selected existing container volume",
+        "container": "lp-v22-integration5-db-1",
+        "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+        "destination": "/var/lib/postgresql/data",
+        "availableBytes": 899319005184,
+        "availableGiB": 837.5560913085938,
+        "pass": true
+      }
+    },
+    "backingStorage": {
+      "provenance": "explicit owner-verified Docker storage path",
+      "disks": [
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+          "availableBytes": 50515410944,
+          "availableGiB": 47.046142578125,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ]
+    },
+    "pass": true
+  },
+  "childExitCode": 0,
+  "childSignal": null,
+  "finishedAt": "2026-10-25T06:08:41.038Z"
+}

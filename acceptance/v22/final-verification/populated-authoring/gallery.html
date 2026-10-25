@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Populated authoring — actual capture comparison</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        font: 16px/1.5 system-ui;
+        color: #18332c;
+        background: #f4f7f5;
+      }
+      h1 {
+        font-size: 24px;
+      }
+      label {
+        display: inline-block;
+        margin: 0 20px 16px 0;
+      }
+      select {
+        font: inherit;
+        padding: 8px;
+      }
+      main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      article {
+        min-width: 0;
+        background: white;
+        padding: 14px;
+        border: 1px solid #c8d8d1;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        border: 1px solid #bacbc3;
+      }
+      h2 {
+        font-size: 18px;
+      }
+      small {
+        display: block;
+      }
+      a {
+        color: #075c47;
+      }
+      @media (max-width: 800px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Populated authoring: actual screenshots</h1>
+    <p>
+      Exact implementation
+      <code>462cfb1b31d9108cec70d18b6553bd45048d2eed</code>. The run captured
+      publication, then stopped at assignment preparation. This gallery is not a
+      full-journey pass. Original screenshot pixels and scroll positions are
+      preserved.
+    </p>
+    <p>
+      The prototype has five objectives, fifteen questions, thirteen passages
+      and four assigned classes; implementation has one objective, four
+      questions and one passage. For stages before publication, the published
+      prototype is a structural reference only, not an equivalent stage.
+    </p>
+    <label
+      >Implementation stage
+      <select id="stage">
+        <option value="01-extraction-review">01-extraction-review</option>
+        <option value="02-source-saved">02-source-saved</option>
+        <option value="03-objectives-approved">03-objectives-approved</option>
+        <option value="04-student-preview">04-student-preview</option>
+        <option value="05-bank-approved">05-bank-approved</option>
+        <option value="06-lesson-approved">06-lesson-approved</option>
+        <option value="07-published-v1" selected>07-published-v1</option>
+      </select></label
+    ><label
+      >Viewport
+      <select id="size">
+        <option value="1440x1000">1440 × 1000</option>
+        <option value="1024x768">1024 × 768</option>
+        <option value="390x844">390 × 844</option>
+        <option value="320x844">320 × 844</option>
+      </select></label
+    >
+    <main>
+      <article>
+        <h2>Actual Workbench v2.2 prototype — published lesson</h2>
+        <small
+          >Structural reference; richer fictional data, lesson v3 / reading
+          v1.</small
+        ><a id="prototype-link"
+          ><img id="prototype" alt="Actual exported prototype published lesson"
+        /></a>
+      </article>
+      <article>
+        <h2 id="implementation-title"></h2>
+        <small
+          >Actual manually authored fixture, lesson v1 / source v1. Click for
+          original pixels.</small
+        ><a id="implementation-link"
+          ><img id="implementation" alt="Actual implementation authoring stage"
+        /></a>
+      </article>
+    </main>
+    <p>
+      <a href="../POPULATED_AUTHORING_VISUAL_REPORT.md"
+        >Visual findings and limitations</a
+      >
+      ·
+      <a href="visual-evidence.json"
+        >Dimensions, hashes and capture provenance</a
+      >
+    </p>
+    <script>
+      const refs = {
+        "1440x1000":
+          "../../prototype-verification/screenshots/lesson-published-1440x1000.png",
+        "1024x768":
+          "../../prototype-verification/screenshots/lesson-published-1024x768.png",
+        "390x844":
+          "../../prototype-verification/screenshots/lesson-published-390x844.png",
+        "320x844":
+          "../../prototype-verification/screenshots/lesson-published-320x844.png",
+      };
+      const stage = document.querySelector("#stage"),
+        size = document.querySelector("#size");
+      function render() {
+        const current = stage.value + "-" + size.value + ".png";
+        document.querySelector("#prototype").src = refs[size.value];
+        document.querySelector("#prototype-link").href = refs[size.value];
+        document.querySelector("#implementation").src = current;
+        document.querySelector("#implementation-link").href = current;
+        document.querySelector("#implementation-title").textContent =
+          "Actual implementation — " + stage.value;
+      }
+      stage.addEventListener("change", render);
+      size.addEventListener("change", render);
+      render();
+    </script>
+  </body>
+</html>

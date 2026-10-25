@@ -1,0 +1,99 @@
+{
+  "category": "Selected consequential fictional API evidence; not the original whole API payload",
+  "original_api_sha256": "29f1f46a0618685b29d9106f80520c398669c74d248a83de93fd19ae1a36864d",
+  "report_sha256": "7e99672e7cf7e6689d1bcc53d57a68f1a052eecd6b09ee77ea7a8d9de3970051",
+  "selection": "Source/revision/publication/assignment identity and exact original question/response only. Private criteria, generation/operation payloads, submission keys, request keys, auth data and unrelated intervention records are omitted.",
+  "teacher": [],
+  "student": [],
+  "submitted_session": {
+    "session": {
+      "id": "07c3336c-108a-4e79-bca3-02c382b3756a",
+      "status": "active",
+      "started_at": "2026-10-25T06:05:25.325Z",
+      "ended_at": null
+    },
+    "attempts": [
+      {
+        "id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+        "sequence_index": 0,
+        "intent": "initial_retrieval",
+        "presented_at": "2026-10-25T06:05:25.331Z",
+        "submitted_at": "2026-10-25T06:05:28.226Z",
+        "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+        "concept_ids": [
+          "94d2ba56-7792-499e-a7d1-57849660864d"
+        ],
+        "response_text": "  I think evaporation makes liquid water stop existing rather than changing its state.\nThis is an original fictional acceptance response.  "
+      }
+    ],
+    "progress": {
+      "phase": "evaluate",
+      "current_attempt_id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+      "failed_evaluation_id": null,
+      "retry_allowed": false,
+      "retry_after": null,
+      "message": "Your answer is saved and ready for evaluation."
+    }
+  },
+  "teacher_original_session": {
+    "session": {
+      "id": "07c3336c-108a-4e79-bca3-02c382b3756a",
+      "student_id": "10000000-0000-4000-8000-000000000002",
+      "assignment_id": "ebc4eb03-22ba-409b-b1c4-10bc54a86967",
+      "class_id": "20000000-0000-4000-8000-000000000001",
+      "status": "active",
+      "data_origin": "live_demo",
+      "started_at": "2026-10-25T06:05:25.325Z",
+      "ended_at": null
+    },
+    "attempts": [
+      {
+        "id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+        "session_id": "07c3336c-108a-4e79-bca3-02c382b3756a",
+        "sequence_index": 0,
+        "intent": "initial_retrieval",
+        "presented_at": "2026-10-25T06:05:25.331Z",
+        "submitted_at": "2026-10-25T06:05:28.226Z",
+        "response_text": "  I think evaporation makes liquid water stop existing rather than changing its state.\nThis is an original fictional acceptance response.  ",
+        "current_evaluation_id": null,
+        "question": {
+          "origin": "curated",
+          "question_id": "teacher-7d193f0a-6213-4e80-bb37-eafd5664cfd8",
+          "sequence_id": "d1468c98-b268-4566-9301-114be6f836da:teacher-7d193f0a-6213-4e80-bb37-eafd5664cfd8:practice",
+          "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+          "content_ref": {
+            "source_kind": "uploaded",
+            "source_id": "48bae4f7-63a2-4876-bc6d-b5b2d99a6b9f",
+            "source_version": 1,
+            "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+            "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+            "attribution": {
+              "title": "Water changing state · verification 1792908096868",
+              "authors": [
+                "Fictional acceptance teacher"
+              ],
+              "copyright": "2026 fictional acceptance fixture",
+              "section": "Imported source",
+              "url": null,
+              "license": "Original synthetic material; permitted for this test",
+              "license_url": null,
+              "cautions": []
+            },
+            "access_scope": {
+              "teacher_id": "10000000-0000-4000-8000-000000000001"
+            },
+            "package_id": "d1468c98-b268-4566-9301-114be6f836da",
+            "content_version": "1"
+          },
+          "concept_ids": [
+            "94d2ba56-7792-499e-a7d1-57849660864d"
+          ],
+          "source_passage_ids": [
+            "p001"
+          ]
+        }
+      }
+    ],
+    "evaluation_count": 0
+  }
+}

@@ -1,5 +1,7 @@
 # Second snapshot: shared-shell intake
 
+> Historical second snapshot: runtime was never initialized; the fifth snapshot in FINAL_INTAKE.md supersedes the queued work below.
+
 The shared shell became available while the first verification package was being prepared. **Earlier application results remain valid only for their recorded first snapshot.** The old heads in `baselines.json` are intentionally unchanged.
 
 At 2026-10-25 04:46 UTC, GitHub listed these current heads:

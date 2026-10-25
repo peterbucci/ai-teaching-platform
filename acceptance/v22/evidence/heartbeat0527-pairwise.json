@@ -1,0 +1,616 @@
+{
+  "schemaVersion": 1,
+  "snapshot": "heartbeat0527",
+  "startedAt": "2026-10-25T05:29:00.612Z",
+  "category": "Static object-only compatibility; no runtime, browser, database, build or provider calls",
+  "repository": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+  "main": {
+    "ref": "refs/verification/v22/intake0527-main",
+    "sha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+    "tree": "4600f912667a5b034f78459121b079b17d12c762",
+    "identityReceipt": {
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "rev-parse",
+        "refs/verification/v22/intake0527-main^{commit}"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "723ed6fea41138b604a9d333ebcd4a07b2202c36\n",
+      "stderr": "",
+      "error": null
+    },
+    "treeReceipt": {
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "rev-parse",
+        "723ed6fea41138b604a9d333ebcd4a07b2202c36^{tree}"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "4600f912667a5b034f78459121b079b17d12c762\n",
+      "stderr": "",
+      "error": null
+    }
+  },
+  "sourceHeads": [
+    {
+      "pr": 113,
+      "sha": "83114efdb2a5c7deb5238a0b28756429b1952b21",
+      "commitReceipt": {
+        "argv": [
+          "git",
+          "-C",
+          "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+          "show",
+          "--no-patch",
+          "--format=%H%n%T%n%P%n%s",
+          "83114efdb2a5c7deb5238a0b28756429b1952b21"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "stdout": "83114efdb2a5c7deb5238a0b28756429b1952b21\n199104365436486e46009e8bf5711c0252fc16a7\n2fc0d49a63f046a99e62805398b83cdada01a87a\nAwait real expired-auth answer response in acceptance check\n",
+        "stderr": "",
+        "error": null
+      },
+      "tree": "199104365436486e46009e8bf5711c0252fc16a7",
+      "parents": [
+        "2fc0d49a63f046a99e62805398b83cdada01a87a"
+      ],
+      "subject": "Await real expired-auth answer response in acceptance check"
+    },
+    {
+      "pr": 116,
+      "sha": "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+      "commitReceipt": {
+        "argv": [
+          "git",
+          "-C",
+          "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+          "show",
+          "--no-patch",
+          "--format=%H%n%T%n%P%n%s",
+          "94e4e534ea4d68d86ea0810067497bf07258e6d2"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "stdout": "94e4e534ea4d68d86ea0810067497bf07258e6d2\na965e4febd5918318eaaa75ce840b1d2ad92463e\n76b11ddfa0ce784f70290c0746efd94c7042f6fc\nFix saved draft scope, evaluation wording, and navigation recovery\n",
+        "stderr": "",
+        "error": null
+      },
+      "tree": "a965e4febd5918318eaaa75ce840b1d2ad92463e",
+      "parents": [
+        "76b11ddfa0ce784f70290c0746efd94c7042f6fc"
+      ],
+      "subject": "Fix saved draft scope, evaluation wording, and navigation recovery"
+    },
+    {
+      "pr": 117,
+      "sha": "9f300ce6e975ab460328a8aa4428c26d441ee0ab",
+      "commitReceipt": {
+        "argv": [
+          "git",
+          "-C",
+          "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+          "show",
+          "--no-patch",
+          "--format=%H%n%T%n%P%n%s",
+          "9f300ce6e975ab460328a8aa4428c26d441ee0ab"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "stdout": "9f300ce6e975ab460328a8aa4428c26d441ee0ab\n3359c1975902b6ba1bdb7818d061ca1a584f4aa1\n6f9dd8991abef5efa8108e50b2274dc3bdc13ce6\nAlign assignment workspace with Workbench v2.2 structure\n",
+        "stderr": "",
+        "error": null
+      },
+      "tree": "3359c1975902b6ba1bdb7818d061ca1a584f4aa1",
+      "parents": [
+        "6f9dd8991abef5efa8108e50b2274dc3bdc13ce6"
+      ],
+      "subject": "Align assignment workspace with Workbench v2.2 structure"
+    },
+    {
+      "pr": 118,
+      "sha": "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445",
+      "commitReceipt": {
+        "argv": [
+          "git",
+          "-C",
+          "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+          "show",
+          "--no-patch",
+          "--format=%H%n%T%n%P%n%s",
+          "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "stdout": "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445\nfe076e9d9a2fe3fd3527b402b577cd812e8c8333\n7b82197f5c0b665a955d5dc47a07e13d8a19627a\nVerify final objectives menu after storage recovery\n",
+        "stderr": "",
+        "error": null
+      },
+      "tree": "fe076e9d9a2fe3fd3527b402b577cd812e8c8333",
+      "parents": [
+        "7b82197f5c0b665a955d5dc47a07e13d8a19627a"
+      ],
+      "subject": "Verify final objectives menu after storage recovery"
+    },
+    {
+      "pr": 120,
+      "sha": "a045defe11712b5c8f7ef88c7dae991ef9a33506",
+      "commitReceipt": {
+        "argv": [
+          "git",
+          "-C",
+          "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+          "show",
+          "--no-patch",
+          "--format=%H%n%T%n%P%n%s",
+          "a045defe11712b5c8f7ef88c7dae991ef9a33506"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "stdout": "a045defe11712b5c8f7ef88c7dae991ef9a33506\n0f571e37628a3baef606cc34c55c694e995700d7\nadd411571348dfcb32ab14623f22d7279a1d78ca 94e4e534ea4d68d86ea0810067497bf07258e6d2\nMerge approved PR116 repairs into Workbench shell\n",
+        "stderr": "",
+        "error": null
+      },
+      "tree": "0f571e37628a3baef606cc34c55c694e995700d7",
+      "parents": [
+        "add411571348dfcb32ab14623f22d7279a1d78ca",
+        "94e4e534ea4d68d86ea0810067497bf07258e6d2"
+      ],
+      "subject": "Merge approved PR116 repairs into Workbench shell"
+    }
+  ],
+  "pairs": [
+    {
+      "prs": [
+        113,
+        116
+      ],
+      "left": "83114efdb2a5c7deb5238a0b28756429b1952b21",
+      "right": "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "outcome": "clean-object-only-merge",
+      "generatedPairTreeObject": "77f94871549af5cd968fcfa556692ac6bea480bf",
+      "unmergedPaths": [],
+      "conflictMessages": [],
+      "mergeBaseReceipt": {
+        "argv": [
+          "git",
+          "-C",
+          "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+          "merge-base",
+          "83114efdb2a5c7deb5238a0b28756429b1952b21",
+          "94e4e534ea4d68d86ea0810067497bf07258e6d2"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "stdout": "723ed6fea41138b604a9d333ebcd4a07b2202c36\n",
+        "stderr": "",
+        "error": null
+      },
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "83114efdb2a5c7deb5238a0b28756429b1952b21",
+        "94e4e534ea4d68d86ea0810067497bf07258e6d2"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "77f94871549af5cd968fcfa556692ac6bea480bf\n\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "prs": [
+        113,
+        117
+      ],
+      "left": "83114efdb2a5c7deb5238a0b28756429b1952b21",
+      "right": "9f300ce6e975ab460328a8aa4428c26d441ee0ab",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "outcome": "clean-object-only-merge",
+      "generatedPairTreeObject": "35d3cc585bb820ec4b11a5d161e243e8ad63b726",
+      "unmergedPaths": [],
+      "conflictMessages": [],
+      "mergeBaseReceipt": {
+        "argv": [
+          "git",
+          "-C",
+          "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+          "merge-base",
+          "83114efdb2a5c7deb5238a0b28756429b1952b21",
+          "9f300ce6e975ab460328a8aa4428c26d441ee0ab"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "stdout": "723ed6fea41138b604a9d333ebcd4a07b2202c36\n",
+        "stderr": "",
+        "error": null
+      },
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "83114efdb2a5c7deb5238a0b28756429b1952b21",
+        "9f300ce6e975ab460328a8aa4428c26d441ee0ab"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "35d3cc585bb820ec4b11a5d161e243e8ad63b726\n\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "prs": [
+        113,
+        118
+      ],
+      "left": "83114efdb2a5c7deb5238a0b28756429b1952b21",
+      "right": "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "outcome": "clean-object-only-merge",
+      "generatedPairTreeObject": "4b2bf916990e4ff16242b7d0c67013b951ab02a2",
+      "unmergedPaths": [],
+      "conflictMessages": [],
+      "mergeBaseReceipt": {
+        "argv": [
+          "git",
+          "-C",
+          "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+          "merge-base",
+          "83114efdb2a5c7deb5238a0b28756429b1952b21",
+          "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "stdout": "723ed6fea41138b604a9d333ebcd4a07b2202c36\n",
+        "stderr": "",
+        "error": null
+      },
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "83114efdb2a5c7deb5238a0b28756429b1952b21",
+        "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "4b2bf916990e4ff16242b7d0c67013b951ab02a2\n\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "prs": [
+        113,
+        120
+      ],
+      "left": "83114efdb2a5c7deb5238a0b28756429b1952b21",
+      "right": "a045defe11712b5c8f7ef88c7dae991ef9a33506",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "outcome": "clean-object-only-merge",
+      "generatedPairTreeObject": "f9f9ffc96e09f00eb9301d2859c63738ebac3943",
+      "unmergedPaths": [],
+      "conflictMessages": [],
+      "mergeBaseReceipt": {
+        "argv": [
+          "git",
+          "-C",
+          "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+          "merge-base",
+          "83114efdb2a5c7deb5238a0b28756429b1952b21",
+          "a045defe11712b5c8f7ef88c7dae991ef9a33506"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "stdout": "723ed6fea41138b604a9d333ebcd4a07b2202c36\n",
+        "stderr": "",
+        "error": null
+      },
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "83114efdb2a5c7deb5238a0b28756429b1952b21",
+        "a045defe11712b5c8f7ef88c7dae991ef9a33506"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "f9f9ffc96e09f00eb9301d2859c63738ebac3943\n\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "prs": [
+        116,
+        117
+      ],
+      "left": "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+      "right": "9f300ce6e975ab460328a8aa4428c26d441ee0ab",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "outcome": "clean-object-only-merge",
+      "generatedPairTreeObject": "fc0480d8e4a839cf13685e9881385230dcf113c9",
+      "unmergedPaths": [],
+      "conflictMessages": [],
+      "mergeBaseReceipt": {
+        "argv": [
+          "git",
+          "-C",
+          "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+          "merge-base",
+          "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+          "9f300ce6e975ab460328a8aa4428c26d441ee0ab"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "stdout": "723ed6fea41138b604a9d333ebcd4a07b2202c36\n",
+        "stderr": "",
+        "error": null
+      },
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+        "9f300ce6e975ab460328a8aa4428c26d441ee0ab"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "fc0480d8e4a839cf13685e9881385230dcf113c9\n\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "prs": [
+        116,
+        118
+      ],
+      "left": "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+      "right": "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "outcome": "clean-object-only-merge",
+      "generatedPairTreeObject": "ce871638c0a703ab464aeff04e9f4932b69735a4",
+      "unmergedPaths": [],
+      "conflictMessages": [],
+      "mergeBaseReceipt": {
+        "argv": [
+          "git",
+          "-C",
+          "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+          "merge-base",
+          "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+          "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "stdout": "723ed6fea41138b604a9d333ebcd4a07b2202c36\n",
+        "stderr": "",
+        "error": null
+      },
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+        "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "ce871638c0a703ab464aeff04e9f4932b69735a4\n\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "prs": [
+        116,
+        120
+      ],
+      "left": "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+      "right": "a045defe11712b5c8f7ef88c7dae991ef9a33506",
+      "mergeBase": "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+      "outcome": "clean-object-only-merge",
+      "generatedPairTreeObject": "0f571e37628a3baef606cc34c55c694e995700d7",
+      "unmergedPaths": [],
+      "conflictMessages": [],
+      "mergeBaseReceipt": {
+        "argv": [
+          "git",
+          "-C",
+          "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+          "merge-base",
+          "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+          "a045defe11712b5c8f7ef88c7dae991ef9a33506"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "stdout": "94e4e534ea4d68d86ea0810067497bf07258e6d2\n",
+        "stderr": "",
+        "error": null
+      },
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+        "a045defe11712b5c8f7ef88c7dae991ef9a33506"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "0f571e37628a3baef606cc34c55c694e995700d7\n\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "prs": [
+        117,
+        118
+      ],
+      "left": "9f300ce6e975ab460328a8aa4428c26d441ee0ab",
+      "right": "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "outcome": "clean-object-only-merge",
+      "generatedPairTreeObject": "22f5cb90a69466fb252dc9372b322559fa4766e0",
+      "unmergedPaths": [],
+      "conflictMessages": [],
+      "mergeBaseReceipt": {
+        "argv": [
+          "git",
+          "-C",
+          "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+          "merge-base",
+          "9f300ce6e975ab460328a8aa4428c26d441ee0ab",
+          "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "stdout": "723ed6fea41138b604a9d333ebcd4a07b2202c36\n",
+        "stderr": "",
+        "error": null
+      },
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "9f300ce6e975ab460328a8aa4428c26d441ee0ab",
+        "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "22f5cb90a69466fb252dc9372b322559fa4766e0\n\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "prs": [
+        117,
+        120
+      ],
+      "left": "9f300ce6e975ab460328a8aa4428c26d441ee0ab",
+      "right": "a045defe11712b5c8f7ef88c7dae991ef9a33506",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "outcome": "clean-object-only-merge",
+      "generatedPairTreeObject": "70c2d558bce49140ab83d4b21e910a9508d69a2f",
+      "unmergedPaths": [],
+      "conflictMessages": [],
+      "mergeBaseReceipt": {
+        "argv": [
+          "git",
+          "-C",
+          "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+          "merge-base",
+          "9f300ce6e975ab460328a8aa4428c26d441ee0ab",
+          "a045defe11712b5c8f7ef88c7dae991ef9a33506"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "stdout": "723ed6fea41138b604a9d333ebcd4a07b2202c36\n",
+        "stderr": "",
+        "error": null
+      },
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "9f300ce6e975ab460328a8aa4428c26d441ee0ab",
+        "a045defe11712b5c8f7ef88c7dae991ef9a33506"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "70c2d558bce49140ab83d4b21e910a9508d69a2f\n\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "prs": [
+        118,
+        120
+      ],
+      "left": "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445",
+      "right": "a045defe11712b5c8f7ef88c7dae991ef9a33506",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "outcome": "clean-object-only-merge",
+      "generatedPairTreeObject": "0c8a591276e73e8db078f045c16ae8c6002f3110",
+      "unmergedPaths": [],
+      "conflictMessages": [],
+      "mergeBaseReceipt": {
+        "argv": [
+          "git",
+          "-C",
+          "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+          "merge-base",
+          "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445",
+          "a045defe11712b5c8f7ef88c7dae991ef9a33506"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "stdout": "723ed6fea41138b604a9d333ebcd4a07b2202c36\n",
+        "stderr": "",
+        "error": null
+      },
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445",
+        "a045defe11712b5c8f7ef88c7dae991ef9a33506"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "0c8a591276e73e8db078f045c16ae8c6002f3110\n\n",
+      "stderr": "",
+      "error": null
+    }
+  ],
+  "harnessSha256": "a6b784d405dd2ce9a8e6ef73a8ca225969d7b05bd7b721b1fcb5bfcdc9176dad",
+  "method": "git merge-tree --write-tree --messages creates unreachable merge tree/blob objects only. No worktree, index, ref or application file is changed. Pairwise clean output is not combined acceptance.",
+  "priorReceipts": "latest-intake-review.json and latest-intake-review.txt remain unchanged and describe the earlier snapshot.",
+  "acceptedCombinedTree": null,
+  "runnableCandidateCreated": false,
+  "branchCiMetadata": {
+    "status": "not queried in this static Git pass; separate CI evidence required"
+  },
+  "finishedAt": "2026-10-25T05:29:01.885Z",
+  "summary": {
+    "total": 10,
+    "clean": 10,
+    "conflicts": 0,
+    "commandFailures": 0
+  },
+  "disposition": "All pairs merge cleanly at the recorded heads. A fresh full composition and its independent runtime checks are still required."
+}

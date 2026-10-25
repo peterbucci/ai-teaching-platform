@@ -1,0 +1,126 @@
+Final combined snapshot accessibility and recovery acceptance
+
+Source: 462cfb1b31d9108cec70d18b6553bd45048d2eed
+Tree: 03cca1fed3900a122e689c4a512afadd9052e5af
+Runtime: lp-v22-shell5, http://localhost:3350, disposable fictional data,
+provider disabled. No paid model calls or screen-reader test was performed.
+
+The tested application has confirmed navigation/focus defects. This is a
+bounded browser acceptance report, not a complete accessibility certification.
+Independent branch tests are not used as evidence for these combined results.
+
+Run 01 (06:13:02–06:14:42 UTC, 2026-10-25): 50 passed assertions,
+3 failed assertions and 6 verifier readiness errors. Run 02 (06:36:56–
+06:37:16 UTC): 8 passed assertions, 2 failed assertions and 4 verifier
+readiness errors. Both exited with failure and retained their raw reports.
+Counts are assertions within each run, not unique capabilities or a combined
+pass percentage. The run 02 helper SHA-256 is
+d200de27bb64ccf74672e58a4667574b8a19680f416991f82c6ef549cb395b64.
+
+Confirmed defects, ranked P2 (functional, separate from visual differences)
+
+F1 — Evidence Back does not restore the originating response's keyboard focus.
+Primary owner: PR #116; integration owner: PR #120. Confirmed in run 02 with
+actual Tab, Enter and browser Back, not a programmatically focused row after
+return. Open /teacher/evidence with assignment=30000000-0000-4000-8000-
+000000000001, origin=synthetic_fixture and concept=transmission_delay.
+From the search field, Tab to response 7a7d38e4-d960-4f01-bf3d-099077c5b540
+and press Enter. After the selected detail heading receives focus, press
+browser Back. The exact list URL and selected row return, but focus remains
+on response-detail-title instead of evidence-response-7a7d38e4-d960-4f01-
+bf3d-099077c5b540. The result remained after two animation frames and 500 ms.
+History memory changed focusRow from true to false. The verifier performed
+no focus or scroll write after Back. This establishes the observed failure;
+the precise production cause has not been proven or repaired here.
+Evidence: final-accessibility-02/report.json and the two focused-evidence PNGs.
+
+S1 — Course Assignments / mobile Back opens Review assignment, not discovery.
+Owners: PR #120 (navigation) and PR #117 (assignment route). Desktop failed in
+run 01; mobile at 390x844 failed in run 02. Open the seeded assignment progress
+details, then activate Back to course assignments. Its href retains assignment
+30000000-0000-4000-8000-000000000001. The resulting page is Review assignment;
+the discovery heading is absent. The retained assignment is observable in
+the rendered href and destination URL. Evidence: S1-mobile-back.png and both
+raw reports. The verifier did not rewrite the link or route.
+
+C2 — A full-session return leaves the originating progress selection.
+Owners: PR #117 (handoff), PR #116 (session return), PR #120 (integration).
+In run 01, open the selected student's transmission_delay progress details,
+choose Read in full, then use the page's rendered return link. It says Back
+to learning insights and navigates to /teacher/insights?...&returnTo=insights
+#responses, rather than the original assignments progress pane. Native
+browser history navigation was tested separately and must not be confused
+with this failing application-provided return link.
+
+Recovery and zoom that actually passed
+
+At 390x844, authored lesson d1468c98-b268-4566-9301-114be6f836da draft revision
+7 retained exact unsaved objective text through Reading/Outline/Editor pane
+changes. Actual reload offered unfinished-edit recovery; Restore unfinished
+edits restored the exact text, including whitespace. Navigating with the
+mobile Lessons link and browser Back also offered recovery and restored the
+exact local text. The approved source words were visible in the reading pane.
+The server draft remained byte-equivalent as parsed data throughout. Cleanup
+used the application's normal discard/reload confirmation and GET response,
+restoring the full original draft and review state, not only textarea text.
+There were zero attempted application mutations after fictional login in
+run 02. Private browser profiles and authentication are not published.
+
+Actual native browser 200% zoom was measured in both runs: devicePixelRatio
+1 to 2, CSS viewport 1416x908 to 708x454, outer window unchanged at 1440x1000,
+visualViewport.scale=1 and root CSS zoom=1. This is native zoom, not a narrow
+viewport presented as zoom. No captured page had horizontal root overflow.
+These measurements alone do not prove readable or usable content at zoom.
+Run 03 subsequently exercised native200 keyboard scope/Escape, keyboard
+navigation through Read in full to the exact session, and the authored source
+version/passage. The actual PNGs show the original response and source prose
+reflowed within the viewport; the source text assertion passed. These are
+bounded reading observations, not a complete zoom accessibility audit.
+
+Run 01 also exercised actual repeated-URL Evidence selection and browser
+Back/Forward/reload. Its passing selected-record/list-position observations
+remain separate from the failed originating-row focus assertion. Run 02
+confirmed that focus failure with the exact keyboard-originating row.
+
+Verifier errors and remaining scope
+
+Run 02's four readiness errors are desktop, 390px and 320px scope keyboard,
+and native200 scope/reading. The verifier used the generic .tw-shell locator
+while both a loading shell and the completed course shell existed. This is
+a harness ambiguity, not evidence of an application defect. Run 03 corrected
+readiness to exactly one visible course-scoped shell and excluded completed
+Evidence/routing/recovery callbacks. It ran 06:42:20–06:42:34 UTC and recorded
+9 passed assertions, 1 verifier target-not-reached error, 4 unrun-filtered
+cases and no failed assertion. Its exit remained 1. Mobile 390/320 dialog
+Tab traversal and Escape restoration passed, as did the native200 scope and
+reading observations. There were zero application mutation attempts.
+
+The remaining run 03 desktop error came from searching for a scope opener
+on Lessons, where the desktop course shell intentionally offers none.
+The CSS hides the mobile scope opener above the phone breakpoint, and the
+desktop assignment-band opener exists only in an assignment workspace.
+This was the wrong verifier surface, not a confirmed application defect.
+
+Run 04 used the selected assignment's exact view=review URL and asserted one
+visible assignment shell/control before keyboard traversal. It ran
+06:46:42–06:46:47 UTC: 3 passed assertions, 6 unrun-filtered cases, no failed
+assertion or verifier error, exit 0. Seven real Tabs reached the desktop
+assignment switcher; Enter opened the dialog, Tab/Shift+Tab stayed inside,
+and Escape restored the visible originating button with its focus outline.
+Native200 and all earlier cases were intentionally omitted. The two scoped
+follow-up helpers were independently reviewed before execution. Their
+results do not erase the confirmed F1/S1/C2 failures or earlier raw errors.
+
+All four runs closed their owned browsers and released their own shared
+guards normally. No run performed a model call, saved an authored draft,
+or modified production application source. Run 02's recovery cleanup facts
+are preserved; later runs did not replay those local edits.
+
+Screen-reader testing, comprehensive WCAG coverage, browser-close/storage-
+loss recovery and actual-model behavior remain unrun. Other agents' student
+pending/failed-operation checks and intervention results are separate reports.
+
+Published raw evidence is under ../evidence/final-accessibility-01 through
+../evidence/final-accessibility-04 relative to this report's directory.
+Each contains its unchanged report.json and actual PNG captures only:
+14, 14, 8 and 3 images respectively. Private profiles are excluded.

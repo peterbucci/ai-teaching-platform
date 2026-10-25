@@ -1,0 +1,100 @@
+{
+  "target": "shell",
+  "project": "lp-v22-shell5",
+  "sha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "tree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "sourceSha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "sourceTree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "harness_sha256": "66946a48de0bc7e3b341ee3c0fc3915fe2b1168e3e5fa7d6da2e1a247f313efd",
+  "harness_upstream_sha256": "e39f6a361586ea09a8a6062bf03b2ee95852a3d967270dde08d1f11ee67003c8",
+  "origin": "http://localhost:3350",
+  "environment_manifest": "../manifest.json",
+  "configuration": "provider-disabled; synthetic fixtures; loopback gateway; app/database isolated internal Docker network",
+  "verification": "Provider-disabled browser manual authoring and cross-role assignment using original synthetic material",
+  "run_id": "Water changing state · verification 1792907811370",
+  "started_at_utc": "2026-10-25T05:56:51.371Z",
+  "status": "failed",
+  "paid_calls": 0,
+  "blocked_off_origin_requests": [],
+  "full_journey": "unrun",
+  "functional_completed_through": null,
+  "fixture_scope": "One original fictional source, one objective and four manually authored questions; not a count-equivalent prototype dataset.",
+  "checks": [
+    "Manual pasted source import, exact extraction review, attribution and private source save"
+  ],
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "page": "01-extraction-review",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "01-extraction-review",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "01-extraction-review",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 844,
+      "page": "01-extraction-review",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "page": "02-source-saved",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "02-source-saved",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "02-source-saved",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 844,
+      "page": "02-source-saved",
+      "overflow": false
+    }
+  ],
+  "unrun": [
+    "File-upload browser variants",
+    "Fresh model generation/evaluation",
+    "Accepted model evaluation and same-journey intervention delivery/follow-up (provider disabled)",
+    "200% zoom, keyboard-only journey and screen-reader verification"
+  ],
+  "source_id": "65a4f4ff-4dee-4f4c-8bc3-1474708b9c8e",
+  "source_version": 1,
+  "failure_stage": "manual objective",
+  "error": "locator.selectOption: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('Approved material', { exact: true })\u001b[22m\n",
+  "checked_at_utc": "2026-10-25T05:57:09.469Z",
+  "screenshots": [
+    "01-extraction-review.png",
+    "01-extraction-review-1440x1000.png",
+    "01-extraction-review-1024x768.png",
+    "01-extraction-review-390x844.png",
+    "01-extraction-review-320x844.png",
+    "02-source-saved.png",
+    "02-source-saved-1440x1000.png",
+    "02-source-saved-1024x768.png",
+    "02-source-saved-390x844.png",
+    "02-source-saved-320x844.png",
+    "failure-teacher.png",
+    "failure-student.png"
+  ]
+}

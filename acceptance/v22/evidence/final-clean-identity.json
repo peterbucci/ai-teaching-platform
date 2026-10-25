@@ -1,0 +1,15 @@
+{
+  "recordedAt": "2026-10-25T06:33:27.2848299Z",
+  "kind": "Read-only Git identity observation",
+  "remoteMain": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+  "candidateHead": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "candidateTree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "candidateStatusPorcelain": "",
+  "commands": [
+    "git ls-remote origin refs/heads/main",
+    "git status --porcelain",
+    "git rev-parse HEAD",
+    "git rev-parse 'HEAD^{tree}'"
+  ],
+  "note": "Initial PowerShell invocation left tree braces unquoted and failed; quoted read-only retry returned the expected tree. No application mutation."
+}
