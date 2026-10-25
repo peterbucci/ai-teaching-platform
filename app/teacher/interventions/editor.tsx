@@ -90,6 +90,28 @@ function savedWork(actorId: string, draftId: string) {
 const sameActivity = (a: InterventionActivity, b: InterventionActivity) =>
   JSON.stringify(a) === JSON.stringify(b);
 
+function CompletedStage({
+  title,
+  status,
+  headingId,
+  children,
+}: {
+  title: string;
+  status: string;
+  headingId?: string;
+  children: ReactNode;
+}) {
+  return (
+    <details className="lp-intervention-completed-stage">
+      <summary>
+        <h3 id={headingId}>{title}</h3>
+        <span>{status}</span>
+      </summary>
+      <div>{children}</div>
+    </details>
+  );
+}
+
 export function InterventionEditor({
   actorId,
   draft,
@@ -627,34 +649,63 @@ export function InterventionEditor({
       </div>
       <ol className="lp-intervention-steps">
         <li>
-          <h3>Choose answers</h3>
-          <button
-            type="button"
-            className="lp-text-link"
-            onClick={() => onNavigationBlocked("intervention-evidence-title")}
+          <CompletedStage
+            title="Choose answers"
+            status={`${currentDraft.evidence.counts.selected_responses} saved`}
           >
-            Inspect saved evidence ·{" "}
-            {currentDraft.evidence.counts.selected_responses} responses ·{" "}
-            {currentDraft.evidence.counts.selected_students} students
-          </button>
-        </li>
-        <li aria-labelledby="intervention-save-title">
-          <h3 id="intervention-save-title">Write and save draft</h3>
-          <p>
-            {dirty
-              ? "Unsaved edits. Save a private revision before approval."
-              : editable
-                ? "Review student preview and private guidance before approval."
-                : "Saved activity locked by approval."}
-          </p>
-          {!editable && (
+            <p>
+              {currentDraft.evidence.counts.selected_responses} responses from{" "}
+              {currentDraft.evidence.counts.selected_students} students. Related
+              and contrary answers remain in the saved evidence.
+            </p>
             <button
               type="button"
               className="lp-text-link"
-              onClick={() => onNavigationBlocked("intervention-draft-title")}
+              aria-label="Inspect saved evidence"
+              onClick={() => onNavigationBlocked("intervention-evidence-title")}
             >
-              Review in Activity
+              Inspect saved evidence
             </button>
+          </CompletedStage>
+        </li>
+        <li aria-labelledby="intervention-save-title">
+          {!editable && review?.approval ? (
+            <CompletedStage
+              title="Write and save draft"
+              status="Saved"
+              headingId="intervention-save-title"
+            >
+              <p>Saved activity locked by approval.</p>
+              <button
+                type="button"
+                className="lp-text-link"
+                onClick={() => onNavigationBlocked("intervention-draft-title")}
+              >
+                Review in Activity
+              </button>
+            </CompletedStage>
+          ) : (
+            <>
+              <h3 id="intervention-save-title">Write and save draft</h3>
+              <p>
+                {dirty
+                  ? "Unsaved edits. Save a private revision before approval."
+                  : editable
+                    ? "Review student preview and private guidance before approval."
+                    : "Saved activity locked by approval."}
+              </p>
+              {!editable && (
+                <button
+                  type="button"
+                  className="lp-text-link"
+                  onClick={() =>
+                    onNavigationBlocked("intervention-draft-title")
+                  }
+                >
+                  Review in Activity
+                </button>
+              )}
+            </>
           )}
           {editable && (
             <div
@@ -711,7 +762,9 @@ export function InterventionEditor({
           )}
         </li>
         <li aria-labelledby="intervention-recipients-title">
-          <h3 id="intervention-recipients-title">Choose recipients</h3>
+          {!review?.approval && (
+            <h3 id="intervention-recipients-title">Choose recipients</h3>
+          )}
           {editable ? (
             <details className="lp-intervention-recipient-selection">
               <summary>{recipients.length} selected · Choose students</summary>
@@ -803,11 +856,12 @@ export function InterventionEditor({
               )}
             </details>
           ) : review?.approval ? (
-            <details className="lp-intervention-step-details">
-              <summary>
-                {review.approval.recipient_ids.length} approved recipients ·
-                fixed
-              </summary>
+            <CompletedStage
+              title="Choose recipients"
+              status={`${review.approval.recipient_ids.length} approved`}
+              headingId="intervention-recipients-title"
+            >
+              <p>The approved recipient list is fixed.</p>
               <p>
                 {recipientNames.length
                   ? recipientNames
@@ -815,13 +869,13 @@ export function InterventionEditor({
                       .join(", ")
                   : "Recipient names unavailable."}
               </p>
-            </details>
+            </CompletedStage>
           ) : (
             <p>This draft is dismissed. No students will receive it.</p>
           )}
         </li>
         <li>
-          <h3>Approve saved revision</h3>
+          {!review?.approval && <h3>Approve saved revision</h3>}
           {editable ? (
             <div className="lp-intervention-approval-summary">
               <p>
@@ -857,10 +911,10 @@ export function InterventionEditor({
               </button>
             </div>
           ) : review?.approval ? (
-            <details className="lp-intervention-step-details">
-              <summary>
-                Revision {review.approval.approved_revision} approved
-              </summary>
+            <CompletedStage
+              title="Approve"
+              status={`Revision ${review.approval.approved_revision} approved`}
+            >
               <p>
                 Approved on{" "}
                 <time dateTime={review.approval.approved_at}>
@@ -871,19 +925,19 @@ export function InterventionEditor({
               <p className="lp-intervention-meta">
                 Approval: {review.approval.id}
               </p>
-            </details>
+            </CompletedStage>
           ) : (
             <p>No approval is recorded.</p>
           )}
         </li>
         <li>
-          <h3>{review?.delivery ? "Delivery recorded" : "Deliver activity"}</h3>
+          {!review?.delivery && <h3>Deliver activity</h3>}
           {review?.approval ? (
             review.delivery ? (
-              <details className="lp-intervention-step-details">
-                <summary>
-                  Delivered to {review.approval.recipient_ids.length} students
-                </summary>
+              <CompletedStage title="Delivery recorded" status="Delivered">
+                <p>
+                  Delivered to {review.approval.recipient_ids.length} students.
+                </p>
                 <p>
                   Delivered on{" "}
                   <time dateTime={review.delivery.delivered_at}>
@@ -894,7 +948,7 @@ export function InterventionEditor({
                 <p className="lp-intervention-meta">
                   Delivery: {review.delivery.id}
                 </p>
-              </details>
+              </CompletedStage>
             ) : (
               <>
                 <p>

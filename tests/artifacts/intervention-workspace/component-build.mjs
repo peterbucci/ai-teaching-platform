@@ -88,7 +88,7 @@ webpack(
       bytes: fs.statSync(path.join(output, "component.bundle.js")).size,
     };
     fs.writeFileSync(
-      path.join(__dirname, "component-source-manifest.json"),
+      path.join(output, "component-source-manifest.json"),
       JSON.stringify(manifest, null, 2),
     );
     console.log(JSON.stringify(manifest));
