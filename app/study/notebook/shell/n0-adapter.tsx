@@ -20,6 +20,9 @@ export type N0NotebookShellProps = ContractProps & {
     | "questionContext"
     | "activeStudy"
     | "backDestination"
+    | "headerStatus"
+    | "selectedPrompt"
+    | "hideContextHeading"
   > & {
     indexTitle?: string;
     contextTitle?: string;
@@ -69,6 +72,9 @@ export function N0NotebookShell({
       mode={focused ? "focus" : "browse"}
       activeStudy={presentation?.activeStudy}
       backDestination={presentation?.backDestination}
+      headerStatus={presentation?.headerStatus}
+      selectedPrompt={presentation?.selectedPrompt}
+      hideContextHeading={presentation?.hideContextHeading}
       title={presentation?.title ?? titles[navigation.section]}
       subtitle={presentation?.subtitle}
       eyebrow={presentation?.eyebrow}

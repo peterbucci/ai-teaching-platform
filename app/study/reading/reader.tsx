@@ -200,7 +200,9 @@ export function StudentReader({
           Boolean(
             surface.current
               .closest("[data-active-study]")
-              ?.querySelector("details.lp-account-menu[open], dialog[open]"),
+              ?.querySelector(
+                "details.lp-account-menu[open], details[data-notebook-prompt][open], dialog[open]",
+              ),
           ) ||
           !readingIsActive(
             activeRef.current,
@@ -296,7 +298,9 @@ export function StudentReader({
         Boolean(
           surface.current
             ?.closest("[data-active-study]")
-            ?.querySelector("details.lp-account-menu[open], dialog[open]"),
+            ?.querySelector(
+              "details.lp-account-menu[open], details[data-notebook-prompt][open], dialog[open]",
+            ),
         ) ||
         body.dataset.deliveryId !== delivery.intervention_id ||
         !body.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true })

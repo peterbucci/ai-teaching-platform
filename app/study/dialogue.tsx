@@ -78,6 +78,7 @@ export function StudyDialogue({
   lessonHistory,
   lessonOutcome,
   savedAnswerText,
+  draftStatus,
   feedbackAnchorId,
   historyOnly = false,
   selectedAnchorId,
@@ -103,6 +104,7 @@ export function StudyDialogue({
   lessonHistory?: ReactNode;
   lessonOutcome?: ReactNode;
   savedAnswerText?: string;
+  draftStatus?: string;
   feedbackAnchorId?: string;
   historyOnly?: boolean;
   selectedAnchorId?: string;
@@ -532,7 +534,9 @@ export function StudyDialogue({
           }) ||
           element
             .closest("[data-active-study]")
-            ?.querySelector("details.lp-account-menu[open], dialog[open]")
+            ?.querySelector(
+              "details.lp-account-menu[open], details[data-notebook-prompt][open], dialog[open]",
+            )
         )
           continue;
         if (!visible.has(element.id)) continue;
@@ -835,6 +839,23 @@ export function StudyDialogue({
             onSubmit={(event) => void send(event)}
             className="lp-ask-composer"
           >
+            <div className="nb-composer-heading">
+              <label htmlFor={`tutor-message-${attemptId}`} className="sr-only">
+                Message your tutor
+              </label>
+              {notebookSurface.paperScroll && (
+                <span className="nb-draft-status" role="status">
+                  {uncertain || unconfirmed
+                    ? "Message not confirmed"
+                    : working || pending
+                      ? "Checking your message"
+                      : (draftStatus ??
+                        (text.length > 0
+                          ? "Unsent text in this tab"
+                          : "Ready for your message"))}
+                </span>
+              )}
+            </div>
             <div
               className="lp-dialogue-suggestions"
               role="group"
@@ -875,9 +896,6 @@ export function StudyDialogue({
                 </button>
               )}
             </div>
-            <label htmlFor={`tutor-message-${attemptId}`} className="sr-only">
-              Message your tutor
-            </label>
             <textarea
               id={`tutor-message-${attemptId}`}
               ref={input}
@@ -904,32 +922,47 @@ export function StudyDialogue({
               }}
             />
             <div className="lp-composer-footer">
-              <p>Your lesson question stays above.</p>
-              {locked ? (
-                <button
-                  type="button"
-                  className="lp-button lp-button-primary"
-                  disabled={
-                    disabled || working || uncertain || !answerRetryAllowed
-                  }
-                  onClick={() => void submitFallbackAnswer()}
-                >
-                  Retry original answer <Icon name="send" />
-                </button>
-              ) : (
-                <button
-                  type="submit"
-                  className="lp-button lp-button-primary"
-                  disabled={
-                    blocked ||
-                    (Boolean(transport) && !view) ||
-                    !restored ||
-                    !text.trim()
-                  }
-                >
-                  {working ? "Please wait…" : "Send"} <Icon name="send" />
-                </button>
-              )}
+              <div className="lp-composer-actions">
+                {locked ? (
+                  <button
+                    type="button"
+                    className="lp-button lp-button-primary"
+                    disabled={
+                      disabled || working || uncertain || !answerRetryAllowed
+                    }
+                    onClick={() => void submitFallbackAnswer()}
+                  >
+                    Retry original answer <Icon name="send" />
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    className="lp-button lp-button-primary"
+                    disabled={
+                      blocked ||
+                      (Boolean(transport) && !view) ||
+                      !restored ||
+                      !text.trim()
+                    }
+                  >
+                    {working ? "Please wait…" : "Send"} <Icon name="send" />
+                  </button>
+                )}
+                {notebookSurface.paperScroll && (
+                  <button
+                    type="button"
+                    className="lp-button lp-button-secondary"
+                    onClick={notebookSurface.showContext}
+                  >
+                    <Icon name="book" /> Open the reading
+                  </button>
+                )}
+              </div>
+              <p>
+                {notebookSurface.paperScroll
+                  ? "Answer or ask for help in the same box. Help is not graded. If your intent is unclear, we’ll ask before submitting."
+                  : "Your lesson question stays above."}
+              </p>
             </div>
           </form>
         )}

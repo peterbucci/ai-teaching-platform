@@ -45,6 +45,10 @@ export type NotebookShellProps = {
   activeStudy?: boolean;
   destinations: readonly StudentDestination[];
   backDestination?: StudentDestination;
+  /** Existing owner supplies truthful save status and the exact selected prompt. */
+  headerStatus?: string;
+  selectedPrompt?: string;
+  hideContextHeading?: boolean;
   title: string;
   eyebrow?: string;
   subtitle?: string;
@@ -74,6 +78,9 @@ export function NotebookShell({
   activeStudy = false,
   destinations,
   backDestination,
+  headerStatus,
+  selectedPrompt,
+  hideContextHeading = false,
   title,
   eyebrow,
   subtitle,
@@ -190,7 +197,7 @@ export function NotebookShell({
       setCovered(
         Boolean(
           container.querySelector(
-            "details.lp-account-menu[open], dialog[open]",
+            "details.lp-account-menu[open], details[data-notebook-prompt][open], dialog[open]",
           ),
         ),
       );
@@ -237,6 +244,15 @@ export function NotebookShell({
         data-has-pages={Boolean(pages)}
         data-has-context={Boolean(context)}
         onKeyDown={(event) => {
+          const prompt = root.current?.querySelector<HTMLDetailsElement>(
+            "details[data-notebook-prompt][open]",
+          );
+          if (event.key === "Escape" && !event.defaultPrevented && prompt) {
+            event.preventDefault();
+            prompt.open = false;
+            prompt.querySelector("summary")?.focus({ preventScroll: true });
+            return;
+          }
           if (
             event.key === "Escape" &&
             !event.defaultPrevented &&
@@ -281,8 +297,49 @@ export function NotebookShell({
                 </span>
               </div>
               <div className={styles.focusTitle}>
-                <strong>{title}</strong>
+                {selectedPrompt ? (
+                  <details
+                    className={styles.focusPrompt}
+                    data-notebook-prompt
+                    onKeyDown={(event) => {
+                      if (event.key === "Escape" && event.currentTarget.open) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        event.currentTarget.open = false;
+                        event.currentTarget
+                          .querySelector("summary")
+                          ?.focus({ preventScroll: true });
+                      }
+                    }}
+                  >
+                    <summary aria-label="Show selected question">
+                      <strong>{title}</strong>
+                      <span aria-hidden="true">⌄</span>
+                    </summary>
+                    <div className={styles.promptText}>
+                      <p>{selectedPrompt}</p>
+                      <button
+                        type="button"
+                        onClick={(event) => {
+                          const details =
+                            event.currentTarget.closest("details");
+                          if (details) details.open = false;
+                          closePane(false);
+                        }}
+                      >
+                        Return to page
+                      </button>
+                    </div>
+                  </details>
+                ) : (
+                  <strong>{title}</strong>
+                )}
                 {subtitle ? <small>{subtitle}</small> : null}
+                {headerStatus ? (
+                  <span className={styles.headerStatus} title={headerStatus}>
+                    {headerStatus}
+                  </span>
+                ) : null}
               </div>
             </>
           )}
@@ -414,9 +471,10 @@ export function NotebookShell({
               tabIndex={-1}
               aria-label={context.title}
               className={styles.facing}
+              data-heading-hidden={hideContextHeading || undefined}
             >
               <div className={styles.paneHeading}>
-                <h2>{context.title}</h2>
+                {!hideContextHeading && <h2>{context.title}</h2>}
                 <button
                   type="button"
                   onClick={() => closePane()}

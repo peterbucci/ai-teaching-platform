@@ -124,6 +124,59 @@
   display: block;
   color: #a9c7bb;
 }
+.headerStatus {
+  display: block;
+  font-size: 0.6875rem;
+  color: #c4decf;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.focusPrompt summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  min-height: 24px;
+  list-style: none;
+}
+.focusPrompt summary::-webkit-details-marker {
+  display: none;
+}
+.focusPrompt summary strong {
+  min-width: 0;
+}
+.focusPrompt summary > span {
+  flex: none;
+}
+.promptText {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: calc(100% + 4px);
+  max-height: 50dvh;
+  overflow-y: auto;
+  padding: 18px 20px;
+  border: 1px solid #b9cec1;
+  border-radius: 10px;
+  background: white;
+  color: var(--notebook-ink);
+  box-shadow: 0 8px 22px rgb(17 55 47 / 15%);
+  white-space: pre-wrap;
+  z-index: 10;
+}
+.promptText button {
+  display: block;
+  margin-top: 12px;
+  padding: 8px 12px;
+  border: 1px solid #b9cec1;
+  border-radius: 6px;
+  background: #f2f8f4;
+  color: var(--notebook-green);
+}
+.promptText :focus-visible {
+  outline-color: #176d58;
+}
 .toolbar {
   margin-left: auto;
   display: flex;
@@ -426,6 +479,10 @@
   background: white;
   z-index: 1;
 }
+.facing[data-heading-hidden] > .paneHeading {
+  margin-bottom: 0;
+  padding-block: 0;
+}
 .shell[data-pane="context"] .contextClose {
   display: inline-block;
 }
@@ -455,6 +512,31 @@
 }
 .shell[data-mode="focus"] .focusTitle {
   display: block;
+}
+.shell[data-mode="focus"][data-active-study] .focusTitle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 12px;
+  align-items: center;
+}
+.shell[data-active-study] .focusTitle > .focusPrompt,
+.shell[data-active-study] .focusTitle > strong {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+}
+.shell[data-active-study] .focusTitle > small {
+  grid-column: 1;
+  grid-row: 2;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.shell[data-active-study] .focusTitle > .headerStatus {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  max-width: 220px;
 }
 .shell[data-mode="focus"] .pageHeading h1 {
   font-size: 1.3125rem;
@@ -512,6 +594,12 @@
 }
 
 @container notebook (max-width: 819px) {
+  .shell[data-mode="focus"][data-active-study] .focusTitle {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .shell[data-active-study] .focusTitle > .headerStatus {
+    display: none;
+  }
   .shell[data-active-study][data-pane="pages"] .learning {
     display: block;
   }

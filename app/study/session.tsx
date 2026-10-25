@@ -155,6 +155,19 @@ export function StudySession({
   const selectedIndex =
     view?.attempts.findIndex((attempt) => attempt.id === selectedId) ?? 0;
   const showingCurrent = selectedId === lastId;
+  const currentDraftStatus =
+    answerRecovery && answerRecovery.state !== "acknowledged"
+      ? "Save not confirmed"
+      : last?.submitted_at || answerRecovery?.state === "acknowledged"
+        ? "Original answer saved"
+        : draft.length > 0
+          ? "Text kept in this tab"
+          : "No submitted answer";
+  const headerStatus = showingCurrent
+    ? currentDraftStatus
+    : view?.attempts.find((attempt) => attempt.id === selectedId)?.submitted_at
+      ? `Page ${selectedIndex + 1} · Original answer saved`
+      : `Page ${selectedIndex + 1} · No submitted answer`;
   const effectiveReadingSelection =
     readingAttempt === lastId ? readingSelection : null;
   const readingBlocksCurrent = readingAttempt === lastId && readingBlocked;
@@ -444,7 +457,15 @@ export function StudySession({
     )
       return;
     if (
-      !target?.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true })
+      !target?.checkVisibility({
+        checkOpacity: true,
+        checkVisibilityCSS: true,
+      }) ||
+      target
+        .closest("[data-active-study]")
+        ?.querySelector(
+          "details.lp-account-menu[open], details[data-notebook-prompt][open], dialog[open]",
+        )
     )
       return;
     target?.focus({ preventScroll: true });
@@ -472,7 +493,9 @@ export function StudySession({
           }) ||
           element
             .closest("[data-active-study]")
-            ?.querySelector("details.lp-account-menu[open], dialog[open]")
+            ?.querySelector(
+              "details.lp-account-menu[open], details[data-notebook-prompt][open], dialog[open]",
+            )
         )
           return false;
         const rect = element.getBoundingClientRect();
@@ -515,11 +538,13 @@ export function StudySession({
       if (element) observer.observe(element);
     }
     document.addEventListener("visibilitychange", confirm);
+    document.addEventListener("toggle", confirm, true);
     return () => {
       cancelled = true;
       delivery.stop();
       observer.disconnect();
       document.removeEventListener("visibilitychange", confirm);
+      document.removeEventListener("toggle", confirm, true);
     };
   }, [pendingHelp, sessionId, displayRetry, setView]);
   async function start(id: string) {
@@ -670,7 +695,7 @@ export function StudySession({
                   </h2>
                   {notebook && (
                     <p className="nb-question-time">
-                      <LocalTime value={attempt.presented_at} />
+                      <LocalTime value={attempt.presented_at} includeTime />
                     </p>
                   )}
                   <p className="whitespace-pre-wrap leading-7">
@@ -796,6 +821,15 @@ export function StudySession({
                       </div>
                     </article>
                   ))}
+                {notebook && phase === "completed" && attempt.id === lastId && (
+                  <p
+                    className="lp-study-session-state nb-completion-result"
+                    ref={completionStep}
+                    tabIndex={-1}
+                  >
+                    {progressMessage}
+                  </p>
+                )}
               </>
             )}
           </li>
@@ -918,6 +952,7 @@ export function StudySession({
                     : undefined
                 }
                 sessionId={view.session.id}
+                draftStatus={currentDraftStatus}
                 attemptId={last.id}
                 disabled={
                   busy || Boolean(pendingReading) || readingBlocksCurrent
@@ -1011,10 +1046,13 @@ export function StudySession({
               />
             )}
           </div>
-          {(phase !== "answer" || pendingReading || readingBlocksCurrent) && (
+          {((phase !== "answer" &&
+            (!notebook || phase !== "completed" || error)) ||
+            pendingReading ||
+            readingBlocksCurrent) && (
             <NotebookNotices>
               <div className="lp-session-actions">
-                {phase !== "answer" && (
+                {phase !== "answer" && (!notebook || phase !== "completed") && (
                   <p
                     className="lp-study-session-state"
                     ref={phase === "completed" ? completionStep : undefined}
@@ -1103,6 +1141,7 @@ export function StudySession({
       className={className}
       reader={notebookReader}
       selectedAttemptId={selectedId ?? ""}
+      headerStatus={headerStatus}
       onSelectAttempt={selectAttempt}
       readingSelection={effectiveReadingSelection}
       onSelectReading={selectReading}

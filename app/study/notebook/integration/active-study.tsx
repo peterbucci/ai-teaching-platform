@@ -17,7 +17,10 @@ import {
   type ReadingDeliveryState,
 } from "../../reading/reader.tsx";
 import { N0NotebookShell } from "../shell/index.ts";
-import { NotebookPageNavigation } from "../shell/navigation.tsx";
+import {
+  NotebookPageNavigation,
+  type NotebookPageLink,
+} from "../shell/navigation.tsx";
 import { NotebookNotices, useNotebookSurface } from "../shell/surface.tsx";
 import { notebookHref } from "../route-state.ts";
 import "./active-study.css";
@@ -85,6 +88,7 @@ function FacingReading({
   onClose,
   onState,
   selectedAttempt,
+  pageNumber,
 }: {
   reader: StudentReaderView | null;
   selection: NotebookReadingSelection | null;
@@ -92,6 +96,7 @@ function FacingReading({
   onClose: () => void;
   onState: (state: ReadingDeliveryState) => void;
   selectedAttempt: TutorView["attempts"][number] | undefined;
+  pageNumber: number;
 }) {
   const surface = useNotebookSurface();
   const [state, setState] = useState<ReadingDeliveryState>({
@@ -124,7 +129,7 @@ function FacingReading({
   return (
     <>
       <div className="nb-context-summary" hidden={Boolean(selection)}>
-        <h3>Reading for this page</h3>
+        <h3>Reading for page {pageNumber}</h3>
         <p>
           Open a passage when you need it. Reading during your current question
           is recorded as help.
@@ -261,6 +266,7 @@ export function ActiveStudyNotebook({
   className,
   reader,
   selectedAttemptId,
+  headerStatus,
   onSelectAttempt,
   readingSelection,
   onSelectReading,
@@ -275,6 +281,7 @@ export function ActiveStudyNotebook({
   className?: string;
   reader: StudentReaderView | null;
   selectedAttemptId: string;
+  headerStatus: string;
   onSelectAttempt: (id: string) => void;
   readingSelection: NotebookReadingSelection | null;
   onSelectReading: (selection: NotebookReadingSelection) => void;
@@ -289,6 +296,50 @@ export function ActiveStudyNotebook({
   );
   const pageNumber =
     view.attempts.findIndex((attempt) => attempt.id === selectedAttemptId) + 1;
+  const groups: { id: string; label: string; pages: NotebookPageLink[] }[] = [];
+  let group: (typeof groups)[number] | undefined;
+  let previousConcepts: string | undefined;
+  for (const [index, attempt] of view.attempts.entries()) {
+    const concepts = [...new Set(attempt.concept_ids)].sort();
+    const conceptKey = JSON.stringify(concepts);
+    if (!group || conceptKey !== previousConcepts) {
+      group = {
+        id: `${view.session.id}:concepts:${index}`,
+        label: concepts
+          .map(
+            (id) =>
+              reader?.reading.concepts.find((concept) => concept.id === id)
+                ?.title ?? id,
+          )
+          .join(" + "),
+        pages: [],
+      };
+      groups.push(group);
+      previousConcepts = conceptKey;
+    }
+    group.pages.push({
+      id: attempt.id,
+      marker: String(index + 1),
+      label: notebookQuestionKind(attempt.intent),
+      detail: attempt.submitted_at
+        ? "Original answer saved"
+        : "Current question",
+      current: attempt.id === selectedAttemptId,
+      href: `#question-${attempt.id}`,
+      onClick: (event) => {
+        if (
+          event.button === 0 &&
+          !event.ctrlKey &&
+          !event.metaKey &&
+          !event.shiftKey &&
+          !event.altKey
+        ) {
+          event.preventDefault();
+          onSelectAttempt(attempt.id);
+        }
+      },
+    });
+  }
   return (
     <main className="nb-active-study" data-active-notebook>
       <N0NotebookShell
@@ -307,6 +358,9 @@ export function ActiveStudyNotebook({
           subtitle: title,
           account: <AccountMenu area="student" />,
           activeStudy: true,
+          headerStatus,
+          selectedPrompt: selected?.prompt_text,
+          hideContextHeading: true,
           backDestination: {
             id: "assignment",
             label: title,
@@ -318,36 +372,7 @@ export function ActiveStudyNotebook({
           index: (
             <>
               <p className="nb-rail-title">{title}</p>
-              <NotebookPageNavigation
-                groups={[
-                  {
-                    id: view.session.id,
-                    label: "This session",
-                    pages: view.attempts.map((attempt, index) => ({
-                      id: attempt.id,
-                      marker: String(index + 1),
-                      label: notebookQuestionKind(attempt.intent),
-                      detail: attempt.submitted_at
-                        ? "Original answer saved"
-                        : "Current question",
-                      current: attempt.id === selectedAttemptId,
-                      href: `#question-${attempt.id}`,
-                      onClick: (event) => {
-                        if (
-                          event.button === 0 &&
-                          !event.ctrlKey &&
-                          !event.metaKey &&
-                          !event.shiftKey &&
-                          !event.altKey
-                        ) {
-                          event.preventDefault();
-                          onSelectAttempt(attempt.id);
-                        }
-                      },
-                    })),
-                  },
-                ]}
-              />
+              <NotebookPageNavigation groups={groups} />
               <a
                 className="nb-saved-link"
                 href={`/study/assignments/${assignmentId}?tab=work&session=${view.session.id}`}
@@ -365,7 +390,8 @@ export function ActiveStudyNotebook({
                 </p>
                 <h1>Study session</h1>
                 <span>
-                  Started <LocalTime value={view.session.started_at} /> ·{" "}
+                  Started{" "}
+                  <LocalTime value={view.session.started_at} includeTime /> ·{" "}
                   {view.attempts.length}{" "}
                   {view.attempts.length === 1 ? "page" : "pages"}
                 </span>
@@ -399,6 +425,7 @@ export function ActiveStudyNotebook({
               onClose={onCloseReading}
               onState={onReadingState}
               selectedAttempt={selected}
+              pageNumber={pageNumber}
             />
           ),
           notice: notices,
