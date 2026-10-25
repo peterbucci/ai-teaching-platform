@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useId, useState } from "react";
 import { SlidersHorizontal } from "lucide-react";
 import type { StudentHistoryEntry } from "../../../../lib/tutoring/history-model.ts";
@@ -90,9 +91,13 @@ export function NotebookHistory({
         <>
           <NotebookRecordIndex history={history} />
           {history.status === "unavailable" && (
-            <a className={styles.clear} href="/study/history">
+            <Link
+              className={styles.clear}
+              href="/study/history"
+              prefetch={false}
+            >
               Try again
-            </a>
+            </Link>
           )}
         </>
       )}
