@@ -92,6 +92,7 @@ export function StudySession({
   const [error, setError] = useState<string | null>(null);
   const currentStep = useRef<HTMLHeadingElement>(null);
   const feedbackStep = useRef<HTMLHeadingElement>(null);
+  const completionStep = useRef<HTMLParagraphElement>(null);
   const acknowledgingHelp = useRef(new Set<string>());
   const focusedAttempt = useRef<string | null>(null);
   const pendingReading = view?.pending_reading;
@@ -268,8 +269,14 @@ export function StudySession({
       phase === "feedback"
         ? feedbackStep.current
         : phase === "completed"
-          ? (feedbackStep.current ?? currentStep.current)
+          ? completionStep.current
           : currentStep.current;
+    if (
+      target
+        ?.closest("[data-conversation-scroll]")
+        ?.getAttribute("data-follow-latest") === "false"
+    )
+      return;
     target?.focus({ preventScroll: true });
     target?.scrollIntoView({ block: "nearest" });
     // A delivery acknowledgement must not jump past feedback to the next question.
@@ -495,55 +502,22 @@ export function StudySession({
                 />
               </div>
             </div>
-            <ol
-              className="lp-turns"
-              aria-label="Your saved learning conversation"
-              tabIndex={0}
-            >
-              {view.attempts.map((attempt, index) => (
-                <li key={attempt.id} className="lp-turn">
-                  <div className="lp-message-label">
-                    <span className="lp-tutor-mark">
-                      <Icon name="pulse" />
-                    </span>
-                    Learning Pulse
-                  </div>
-                  <div className="lp-question">
-                    <h2
-                      id={`question-${attempt.id}`}
-                      ref={attempt.id === lastId ? currentStep : undefined}
-                      tabIndex={-1}
-                    >
-                      {attempt.intent === "diagnostic_followup"
-                        ? "Let’s check your reasoning"
-                        : attempt.intent === "immediate_retest"
-                          ? "Try a fresh question"
-                          : attempt.intent === "neutral_clarification"
-                            ? "Tell us a little more"
-                            : `Question ${index + 1}`}
-                    </h2>
-                    <p className="whitespace-pre-wrap leading-7">
-                      {attempt.prompt_text}
-                    </p>
-                  </div>
-                  {attempt.submitted_at && (
-                    <div className="lp-student-message">
-                      <h3 className="lp-message-label">
-                        Your answer — saved <Icon name="check" />
-                      </h3>
-                      <p className="lp-answer">
-                        {attempt.response_text || "No response entered."}
-                      </p>
-                    </div>
-                  )}
-                  {view.interventions
-                    .filter(
-                      (help) =>
-                        help.related_attempt_id === attempt.id &&
-                        help.type !== "reading",
-                    )
-                    .map((help) => (
-                      <article key={help.id} className="lp-feedback">
+
+            {last && (
+              <StudyDialogue
+                key={last.id}
+                feedbackAnchorId={
+                  pendingHelp
+                    ? `feedback-${pendingHelp.split(",")[0]}`
+                    : undefined
+                }
+                lessonHistory={
+                  <ol
+                    className="lp-turns"
+                    aria-label="Your saved learning conversation"
+                  >
+                    {view.attempts.map((attempt, index) => (
+                      <li key={attempt.id} className="lp-turn">
                         <div className="lp-message-label">
                           <span className="lp-tutor-mark">
                             <Icon name="pulse" />
@@ -552,69 +526,113 @@ export function StudySession({
                         </div>
                         <div className="lp-question">
                           <h2
+                            id={`question-${attempt.id}`}
                             ref={
-                              help.id === latestFeedback
-                                ? feedbackStep
-                                : undefined
+                              attempt.id === lastId ? currentStep : undefined
                             }
                             tabIndex={-1}
                           >
-                            {help.type === "fallback"
-                              ? "Let’s return to the question"
-                              : "Feedback"}
+                            {attempt.intent === "diagnostic_followup"
+                              ? "Let’s check your reasoning"
+                              : attempt.intent === "immediate_retest"
+                                ? "Try a fresh question"
+                                : attempt.intent === "neutral_clarification"
+                                  ? "Tell us a little more"
+                                  : `Question ${index + 1}`}
                           </h2>
-                          <p
-                            id={`feedback-${help.id}`}
-                            className="mt-2 whitespace-pre-wrap leading-7"
-                          >
-                            {help.text_shown}
+                          <p className="whitespace-pre-wrap leading-7">
+                            {attempt.prompt_text}
                           </p>
-                          {help.delivery_status === "displayed" && (
-                            <FeedbackAudio
-                              key={`${help.id}:${last?.id}:${view.session.status}`}
-                              source={{
-                                session_id: view.session.id,
-                                intervention_id: help.id,
-                              }}
-                            />
-                          )}
-                          {view.citations
-                            .filter((c) => c.intervention_id === help.id)
-                            .map((citation) => (
-                              <Link
-                                key={citation.passage_id}
-                                className="lp-citation"
-                                href={`/study/reading?${new URLSearchParams({
-                                  ...(assignmentId
-                                    ? { assignment: assignmentId }
-                                    : {}),
-                                  session: view.session.id,
-                                  version: citation.content_version,
-                                  passage: citation.passage_id,
-                                  citation: citation.intervention_id,
-                                })}`}
-                                prefetch={false}
-                                aria-disabled={busy || undefined}
-                                onClick={(event) => {
-                                  if (busy) event.preventDefault();
-                                }}
-                              >
-                                <Icon name="book" /> Reading ·{" "}
-                                {citation.passage_id}
-                                <span className="lp-study-citation-version">
-                                  {citation.content_version}
-                                </span>
-                              </Link>
-                            ))}
                         </div>
-                      </article>
+                        {attempt.submitted_at && (
+                          <div className="lp-student-message">
+                            <h3 className="lp-message-label">
+                              Your answer — saved <Icon name="check" />
+                            </h3>
+                            <p className="lp-answer">
+                              {attempt.response_text || "No response entered."}
+                            </p>
+                          </div>
+                        )}
+                        {view.interventions
+                          .filter(
+                            (help) =>
+                              help.related_attempt_id === attempt.id &&
+                              help.type !== "reading",
+                          )
+                          .map((help) => (
+                            <article key={help.id} className="lp-feedback">
+                              <div className="lp-message-label">
+                                <span className="lp-tutor-mark">
+                                  <Icon name="pulse" />
+                                </span>
+                                Learning Pulse
+                              </div>
+                              <div className="lp-question">
+                                <h2
+                                  ref={
+                                    help.id === latestFeedback
+                                      ? feedbackStep
+                                      : undefined
+                                  }
+                                  tabIndex={-1}
+                                >
+                                  {help.type === "fallback"
+                                    ? "Let’s return to the question"
+                                    : "Feedback"}
+                                </h2>
+                                <p
+                                  id={`feedback-${help.id}`}
+                                  className="mt-2 whitespace-pre-wrap leading-7"
+                                >
+                                  {help.text_shown}
+                                </p>
+                                {help.delivery_status === "displayed" && (
+                                  <FeedbackAudio
+                                    key={`${help.id}:${last?.id}:${view.session.status}`}
+                                    source={{
+                                      session_id: view.session.id,
+                                      intervention_id: help.id,
+                                    }}
+                                  />
+                                )}
+                                {view.citations
+                                  .filter((c) => c.intervention_id === help.id)
+                                  .map((citation) => (
+                                    <Link
+                                      key={citation.passage_id}
+                                      className="lp-citation"
+                                      href={`/study/reading?${new URLSearchParams(
+                                        {
+                                          ...(assignmentId
+                                            ? { assignment: assignmentId }
+                                            : {}),
+                                          session: view.session.id,
+                                          version: citation.content_version,
+                                          passage: citation.passage_id,
+                                          citation: citation.intervention_id,
+                                        },
+                                      )}`}
+                                      prefetch={false}
+                                      aria-disabled={busy || undefined}
+                                      onClick={(event) => {
+                                        if (busy) event.preventDefault();
+                                      }}
+                                    >
+                                      <Icon name="book" /> Reading ·{" "}
+                                      {citation.passage_id}
+                                      <span className="lp-study-citation-version">
+                                        {citation.content_version}
+                                      </span>
+                                    </Link>
+                                  ))}
+                              </div>
+                            </article>
+                          ))}
+                      </li>
                     ))}
-                </li>
-              ))}
-            </ol>
-            {last && (
-              <StudyDialogue
-                key={last.id}
+                  </ol>
+                }
                 sessionId={view.session.id}
                 attemptId={last.id}
                 disabled={busy || Boolean(pendingReading)}
@@ -659,12 +677,16 @@ export function StudySession({
               />
             )}
           </div>
-          {((phase !== "answer" && view.session.status !== "completed") ||
-            pendingReading ||
-            (phase !== "answer" && error)) && (
+          {(phase !== "answer" || pendingReading) && (
             <div className="lp-session-actions">
-              {phase !== "answer" && view.session.status !== "completed" && (
-                <p className="lp-study-session-state">{progressMessage}</p>
+              {phase !== "answer" && (
+                <p
+                  className="lp-study-session-state"
+                  ref={phase === "completed" ? completionStep : undefined}
+                  tabIndex={phase === "completed" ? -1 : undefined}
+                >
+                  {progressMessage}
+                </p>
               )}
               {pendingReading && (
                 <p className="lp-study-session-state" role="status">
