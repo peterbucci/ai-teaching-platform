@@ -286,12 +286,36 @@ try {
   await anonymousDeniedPage(workLogPath);
   const workLog = await request(workLogPath, teacher);
   assert.equal(workLog.status, 200);
-  const responseCard = (await workLog.text()).match(
+  const workLogMarkup = await workLog.text();
+  const initialCard = workLogMarkup.match(
     new RegExp(
       `<article\\b[^>]*id="roster-attempt-${attempt.id}"[^>]*>([\\s\\S]*?)</article>`,
     ),
   )?.[1];
-  assert.ok(responseCard, "Refreshed work log omitted the exact new attempt");
+  assert.ok(initialCard, "Refreshed work log omitted the exact new attempt");
+  let responseCard: string = initialCard;
+  // Larger histories can stream card children into React's later $RS segments.
+  // Resolve only their explicit placeholder links, never execute response scripts
+  // or accept another card's source/version merely because it appears elsewhere.
+  const segments = new Map(
+    [
+      ...workLogMarkup.matchAll(
+        /<div hidden id="(S:[^"]+)">([\s\S]*?)<\/div><script>\$RS\("\1","(P:[^"]+)"\)<\/script>/g,
+      ),
+    ].map((match) => [match[3], match[2]]),
+  );
+  for (let pass = 0; pass < segments.size; pass++) {
+    const expanded = responseCard.replace(
+      /<template id="(P:[^"]+)"><\/template>/g,
+      (placeholder: string, id: string) => segments.get(id) ?? placeholder,
+    );
+    if (expanded === responseCard) break;
+    responseCard = expanded;
+  }
+  assert.ok(
+    !responseCard.includes('<template id="P:'),
+    "Exact work-log response contains unresolved streamed evidence",
+  );
   assert.ok(
     responseCard.includes(escapedAnswer),
     "Work log omitted the exact original answer",
