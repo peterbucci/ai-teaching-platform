@@ -71,6 +71,7 @@ export default async function ReadingPage({
     >
       {view ? (
         <StudentReader
+          active
           key={`${view.assignment.id}:${view.session?.id ?? "independent"}:${query.citation ?? "reading"}:${query.citation ? query.passage : ""}`}
           view={view}
           returnToSession={

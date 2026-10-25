@@ -1,0 +1,77 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import type { StudentReaderView } from "../../../lib/reading/model.ts";
+import { StudentReader } from "../reading/reader.tsx";
+import { StudentReader as BaselineReader } from "../../../.setup/reader-visibility-portable/baseline-reader.tsx";
+
+export function ReaderVisibilityCheck({
+  view,
+  initialActive,
+  baseline,
+  offscreen,
+}: {
+  view: StudentReaderView;
+  initialActive: boolean;
+  baseline: boolean;
+  offscreen: boolean;
+}) {
+  const router = useRouter();
+  const [active, setActive] = useState(initialActive);
+  const [draft, setDraft] = useState("");
+  const [selected, setSelected] = useState(view.selectedPassageId);
+  const readerView = { ...view, selectedPassageId: selected };
+  return (
+    <main>
+      <h1>Reader visibility verification</h1>
+      <button type="button" onClick={() => setActive(true)}>
+        Show reading
+      </button>
+      <button type="button" onClick={() => setActive(false)}>
+        Hide reading
+      </button>
+      <button type="button" onClick={() => router.refresh()}>
+        Refresh context
+      </button>
+      <label>
+        Requested passage
+        <select
+          aria-label="Requested passage"
+          value={selected}
+          onChange={(event) => setSelected(event.target.value)}
+        >
+          {view.reading.sections.map((section) => (
+            <option key={section.id} value={section.id}>
+              {section.id}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label>
+        Unsent harness draft
+        <input
+          value={draft}
+          onChange={(event) => setDraft(event.target.value)}
+        />
+      </label>
+      <p role="status">Pane {active ? "active" : "hidden"}</p>
+      <div
+        style={{
+          display: active ? "block" : "none",
+          paddingTop: offscreen ? 1200 : 0,
+        }}
+      >
+        {baseline ? (
+          <BaselineReader view={readerView} returnToSession={false} />
+        ) : (
+          <StudentReader
+            view={readerView}
+            returnToSession={false}
+            active={active}
+          />
+        )}
+      </div>
+    </main>
+  );
+}
