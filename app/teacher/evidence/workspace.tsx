@@ -24,6 +24,7 @@ const initialLocation: EvidenceLocation = {
   revision: 0,
 };
 let observedLocation = initialLocation;
+let lastPop: { href: string; hadState: boolean } | undefined;
 const subscribers = new Set<() => void>();
 let observing = false;
 
@@ -45,6 +46,10 @@ function subscribe(notify: () => void) {
     window.addEventListener(
       "popstate",
       (event) => {
+        lastPop = {
+          href: window.location.href,
+          hadState: event.state !== null,
+        };
         // A native anchor/location.hash write emits popstate as well as
         // hashchange. Its new null-state entry is not a Back/Forward traversal.
         // A preceding subscriber may already have sampled the arriving URL.
@@ -68,17 +73,28 @@ function subscribe(notify: () => void) {
       },
       true,
     );
-    window.addEventListener("hashchange", () => {
-      // Native traversal emits both events. Do not erase its restoration intent.
-      if (observedLocation.href !== window.location.href) {
+    window.addEventListener("hashchange", (event) => {
+      // Pane normalization may already have replaced the URL. Do not apply an
+      // older fragment event to that newer presentation state.
+      if (event.newURL !== window.location.href) return;
+      const traversed = lastPop?.href === event.newURL && lastPop.hadState;
+      const freshHash = isNewEvidenceHashNavigation(
+        event.oldURL,
+        event.newURL,
+        traversed ? true : null,
+      );
+      // Read the immutable event URLs: another pop subscriber may have sampled
+      // the arriving URL and stamped router/shell state before hashchange.
+      if (freshHash || traversed || observedLocation.href !== event.newURL) {
         observedLocation = {
-          href: window.location.href,
-          previousHref: observedLocation.href,
-          kind: "hash",
+          href: event.newURL,
+          previousHref: event.oldURL,
+          kind: traversed ? "history" : "hash",
           revision: observedLocation.revision + 1,
         };
         subscribers.forEach((subscriber) => subscriber());
       }
+      lastPop = undefined;
     });
     observing = true;
   }

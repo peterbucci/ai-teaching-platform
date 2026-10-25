@@ -565,3 +565,46 @@
     padding: 14px;
   }
 }
+
+/* Account for this page's shared Student work bar and tablet context trigger.
+   The list and record scroll inside their pane, above the shell's bottom nav. */
+.wb-evidence-workspace .tw-panes-body {
+  max-height: calc(100dvh - 255px);
+}
+@media (min-width: 801px) and (max-width: 1240px) {
+  .wb-evidence-workspace .tw-panes-context .tw-panes-body {
+    max-height: calc(100dvh - 62px);
+  }
+  .wb-evidence-workspace .tw-panes-panel:not(.tw-panes-context) .tw-panes-body {
+    max-height: calc(100dvh - 300px);
+  }
+}
+@media (max-width: 800px) {
+  /* The visible tabs already name each phone pane. Keep their associated
+     headings available to assistive technology and shell focus restoration. */
+  .wb-evidence-workspace .tw-panes-heading-row {
+    height: 0;
+    border: 0;
+  }
+  .wb-evidence-workspace .tw-panes-heading {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    min-height: 0;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .wb-evidence-workspace .tw-panes-panel:has(.tw-panes-heading:focus-visible) {
+    outline: 3px solid #176d58;
+    outline-offset: -3px;
+  }
+  .wb-evidence-workspace .tw-panes-body,
+  .wb-evidence-workspace .tw-panes-context .tw-panes-body {
+    max-height: calc(
+      100dvh - 146px - var(--tw-bottom-height) - env(safe-area-inset-bottom)
+    );
+  }
+}

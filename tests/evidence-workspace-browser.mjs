@@ -21,12 +21,8 @@ assert(
   "Loopback runtime required",
 );
 assert(options.out, "A fresh private output directory is required");
-assert.equal(
-  process.env.OPENAI_API_KEY ?? "",
-  "",
-  "Providers must be disabled",
-);
-assert.equal(process.env.OPENAI_MODEL ?? "", "", "Providers must be disabled");
+assert((process.env.OPENAI_API_KEY ?? "") === "", "Providers must be disabled");
+assert((process.env.OPENAI_MODEL ?? "") === "", "Providers must be disabled");
 const output = path.resolve(options.out);
 await mkdir(output);
 const { chromium } = createRequire(import.meta.url)(
@@ -36,7 +32,8 @@ const { chromium } = createRequire(import.meta.url)(
 const executablePath =
   process.env.BROWSER_EXECUTABLE ??
   "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe";
-const fixture = buildClassFixture(loadApprovedContent());
+const approvedContent = loadApprovedContent();
+const fixture = buildClassFixture(approvedContent);
 const records = fixture.sessions.flatMap((session) =>
   session.attempts
     .filter((attempt) => attempt.response_text !== null)
@@ -61,6 +58,16 @@ const report = {
   category:
     "Fictional class fixture; browser against application; zero model calls",
   seed: "buildClassFixture(loadApprovedContent()), npm run db:seed -- --class",
+  fixtureSummary: {
+    students: fixture.enrollments.length,
+    submittedResponses: records.length,
+    longestResponseCharacters: Math.max(
+      ...records.map((item) => item.attempt.response_text.length),
+    ),
+    transmissionDelayResponses: records.filter((item) =>
+      item.attempt.question.concept_ids.includes("transmission_delay"),
+    ).length,
+  },
   checks: [],
   observations: [],
   blockedRequests: [],
@@ -85,8 +92,76 @@ async function run(label, task) {
   }
   await saveReport();
 }
-async function settle(page) {
-  await page.locator(".tw-panes").waitFor();
+async function settle(page, expectedURL) {
+  if (expectedURL) await page.waitForURL(expectedURL);
+  const url = new URL(page.url());
+  const query = (url.searchParams.get("q") ?? "").toLocaleLowerCase();
+  const concept = url.searchParams.get("concept");
+  const student = url.searchParams.get("student");
+  const expectedRows = records
+    .filter((record) => {
+      const name =
+        fixture.profiles.find(
+          (profile) => profile.id === record.session.student_id,
+        )?.display_name ?? "";
+      return (
+        (!concept || record.attempt.question.concept_ids.includes(concept)) &&
+        (!student || record.session.student_id === student) &&
+        (!query ||
+          (
+            name +
+            " " +
+            record.attempt.question.prompt_text +
+            " " +
+            record.attempt.response_text
+          )
+            .toLocaleLowerCase()
+            .includes(query))
+      );
+    })
+    .map((record) => record.attempt.id)
+    .sort();
+  const expectedAttempt = url.searchParams.get("attempt");
+  const expectedAnswer = expectedAttempt
+    ? recordMap.get(expectedAttempt)?.attempt.response_text
+    : undefined;
+  await page.waitForFunction(
+    ({ expectedRows, expectedAttempt, expectedAnswer, query }) => {
+      if (document.querySelectorAll(".tw-panes").length !== 1) return false;
+      const requestedPane = new URL(location.href).searchParams.get(
+        "workspacePane",
+      );
+      if (
+        requestedPane &&
+        document.querySelector(".tw-panes").dataset.activePane !== requestedPane
+      )
+        return false;
+      const rows = [
+        ...document.querySelectorAll(
+          ".wb-response-list [data-evidence-attempt]",
+        ),
+      ]
+        .map((row) => row.dataset.evidenceAttempt)
+        .sort();
+      if (JSON.stringify(rows) !== JSON.stringify(expectedRows)) return false;
+      if (
+        (
+          document.querySelector('form[role="search"] input[name="q"]')
+            ?.value ?? ""
+        ).toLocaleLowerCase() !== query
+      )
+        return false;
+      if (
+        expectedAttempt &&
+        document.querySelector(".wb-original-response")?.textContent !==
+          expectedAnswer
+      )
+        return false;
+      return true;
+    },
+    { expectedRows, expectedAttempt, expectedAnswer, query },
+  );
+  // Observe focus only after matching route content; never focus or wait for a preferred focus result.
   await page.waitForTimeout(550);
 }
 async function capture(page, name) {
@@ -110,6 +185,7 @@ async function observe(page) {
       url: location.href,
       activeId: document.activeElement?.id,
       activeTag: document.activeElement?.tagName,
+      activeClass: document.activeElement?.className,
       activePane: root?.dataset.activePane,
       layout: root?.dataset.layout,
       listScrollTop: scroller?.scrollTop,
@@ -128,6 +204,16 @@ async function observe(page) {
       originalAnswer: rect(document.querySelector(".wb-original-response")),
       navigation: rect(document.querySelector(".tw-panes-panel--navigation")),
       main: rect(document.querySelector(".tw-panes-panel--main")),
+      mainBody: rect(
+        document.querySelector(".tw-panes-panel--main .tw-panes-body"),
+      ),
+      navigationBody: rect(
+        document.querySelector(".tw-panes-panel--navigation .tw-panes-body"),
+      ),
+      contextBody: rect(
+        document.querySelector(".tw-panes-context .tw-panes-body"),
+      ),
+      bottomNav: rect(document.querySelector(".tw-bottom-nav")),
       context: rect(document.querySelector(".tw-panes-context")),
       answer: document.querySelector(".wb-original-response")?.textContent,
       overflow: document.documentElement.scrollWidth > innerWidth + 1,
@@ -249,6 +335,9 @@ async function showNavigation(page) {
     (await page.locator(".tw-panes").getAttribute("data-layout")) === "compact"
   ) {
     await page.locator(".tw-panes-tab").first().click();
+    await page.waitForURL(
+      (url) => url.searchParams.get("workspacePane") === "navigation",
+    );
     await settle(page);
   }
 }
@@ -275,6 +364,20 @@ async function testViewport(viewport) {
       },
     );
     check(suffix + " list no horizontal overflow", !before.overflow);
+    if (viewport.width <= 800)
+      check(
+        suffix + " persistent mobile bottom navigation visible",
+        await page.locator(".tw-bottom-nav").evaluate((element) => {
+          const rect = element.getBoundingClientRect();
+          return (
+            rect.width > 0 &&
+            rect.height > 0 &&
+            rect.bottom <= innerHeight + 1 &&
+            rect.top >= 0 &&
+            getComputedStyle(element).position === "fixed"
+          );
+        }),
+      );
     await capture(page, "list-" + suffix);
     const first = page
       .locator(".wb-response-list [data-evidence-attempt] a[id]")
@@ -300,6 +403,18 @@ async function testViewport(viewport) {
       suffix + " selected record appears near page top",
       selected.record?.y >= 0 && selected.record.y < 600,
       { record: selected.record },
+    );
+    const contentBottom = selected.bottomNav?.y ?? selected.innerHeight;
+    check(
+      suffix + " record pane stays above viewport or bottom navigation",
+      selected.mainBody &&
+        selected.mainBody.y + selected.mainBody.height <= contentBottom + 1,
+      { body: selected.mainBody, contentBottom },
+    );
+    check(
+      suffix + " selecting record does not scroll outer workspace",
+      selected.scrollY === 0,
+      { scrollY: selected.scrollY },
     );
     await expectExact(page, recordMap.get(attempt), suffix + " selected");
     await capture(page, "selected-" + suffix);
@@ -329,6 +444,13 @@ async function testViewport(viewport) {
         (viewport.width > 800 || forward.activePane === "main"),
       forward,
     );
+    check(
+      suffix + " Forward focuses visible record heading",
+      forward.activeId === "response-detail-title" &&
+        forward.record?.y >= 0 &&
+        forward.record.y < forward.innerHeight,
+      forward,
+    );
     await expectExact(page, recordMap.get(attempt), suffix + " forward");
     await page.reload();
     await settle(page);
@@ -338,48 +460,142 @@ async function testViewport(viewport) {
     );
   });
   await run(suffix + " list position and context", async () => {
-    await page.goto(baseHref());
-    await settle(page);
+    const startURL = baseHref();
+    await page.goto(startURL);
+    await settle(page, startURL);
     const last = page
       .locator(".wb-response-list [data-evidence-attempt] a[id]")
       .last();
     await last.scrollIntoViewIfNeeded();
-    const scroll = (await observe(page)).listScrollTop;
     const id = await last.getAttribute("id");
+    const lastAttempt = await last
+      .locator("..")
+      .getAttribute("data-evidence-attempt");
     const target = new URL(await last.getAttribute("href"), origin).href;
+    const before = await observe(page);
+    assert(
+      before.listScrollTop > 0,
+      "The last-row Back test requires a nonzero list position",
+    );
     await last.click();
-    await page.waitForURL(target);
-    await settle(page);
-    await showNavigation(page);
-    const returned = await observe(page);
+    await settle(page, target);
     check(
-      suffix + " list tab retains selected response and position",
-      returned.selected && Math.abs(returned.listScrollTop - scroll) <= 4,
-      {
-        expectedScroll: scroll,
-        actualScroll: returned.listScrollTop,
-        rowId: id,
-        selected: returned.selected,
-      },
+      suffix + " last-row click selects exact record",
+      (await observe(page)).selected === lastAttempt,
+      { attempt: lastAttempt },
+    );
+    await page.goBack();
+    await settle(page, startURL);
+    const back = await observe(page);
+    check(
+      suffix +
+        " native Back restores exact nonzero list position and originating row focus",
+      back.activeId === id &&
+        Math.abs(back.listScrollTop - before.listScrollTop) <= 4 &&
+        back.selected === before.selected,
+      { expectedFocus: id, before, after: back },
+    );
+    await page.goForward();
+    await settle(page, target);
+    check(
+      suffix + " native Forward restores last selected record",
+      (await observe(page)).selected === lastAttempt,
+      { expectedAttempt: lastAttempt },
+    );
+    const forwardLast = await observe(page);
+    check(
+      suffix + " last-row Forward focuses visible record heading",
+      forwardLast.activeId === "response-detail-title" &&
+        forwardLast.record?.y >= 0 &&
+        forwardLast.record.y < forwardLast.innerHeight,
+      forwardLast,
     );
     if (viewport.width <= 800) {
-      await page.locator(".tw-panes-tab").nth(2).click();
-    } else if (viewport.width <= 1240) {
-      await page.locator(".tw-panes-context-trigger").click();
+      const backLink = page.getByRole("link", {
+        name: "Back to responses",
+        exact: true,
+      });
+      const returnURL = new URL(await backLink.getAttribute("href"), origin)
+        .href;
+      await backLink.click();
+      await settle(page, returnURL);
+      const returned = await observe(page);
+      check(
+        suffix +
+          " page Back to responses retains exact selection position and row focus",
+        returned.selected === lastAttempt &&
+          returned.activePane === "navigation" &&
+          returned.activeId === id &&
+          Math.abs(returned.listScrollTop - before.listScrollTop) <= 4,
+        {
+          expectedAttempt: lastAttempt,
+          expectedFocus: id,
+          expectedScroll: before.listScrollTop,
+          ...returned,
+        },
+      );
+      await page.locator(".tw-panes-tab").nth(1).click();
+      await page.waitForURL(
+        (url) => url.searchParams.get("workspacePane") === "main",
+      );
+      await settle(page);
+      await showNavigation(page);
+      const tabReturn = await observe(page);
+      check(
+        suffix + " response tab preserves exact selection and scroll",
+        tabReturn.selected === lastAttempt &&
+          Math.abs(tabReturn.listScrollTop - before.listScrollTop) <= 4,
+        {
+          expectedAttempt: lastAttempt,
+          expectedScroll: before.listScrollTop,
+          ...tabReturn,
+        },
+      );
     }
+    if (viewport.width <= 800)
+      await page.locator(".tw-panes-tab").nth(2).click();
+    else if (viewport.width <= 1240)
+      await page.locator(".tw-panes-context-trigger").click();
+    if (viewport.width <= 1240)
+      await page.waitForURL(
+        (url) => url.searchParams.get("workspacePane") === "context",
+      );
     await settle(page);
     const source = page.locator(".tw-panes-context");
     check(
       suffix + " source context separately accessible",
       await source.isVisible(),
     );
+    const selectedRecord = recordMap.get(lastAttempt);
+    const sourceText = await source.textContent();
     check(
-      suffix + " source version preserved",
-      (await source.textContent()).includes("Lesson version"),
+      suffix + " exact source version preserved",
+      sourceText.includes(
+        selectedRecord.attempt.question.content_ref.content_version,
+      ) &&
+        sourceText.includes(
+          selectedRecord.attempt.question.content_ref.source_id,
+        ),
     );
+    const expectedPassages =
+      selectedRecord.attempt.question.source_passage_ids.map(
+        (id) => approvedContent.passages.get(id).text,
+      );
+    const shownPassages = await source
+      .locator(".wb-source-text")
+      .evaluateAll((elements) =>
+        elements
+          .filter((element) => element.getClientRects().length)
+          .map((element) => element.textContent),
+      );
     check(
-      suffix + " source text available",
-      (await source.locator(".wb-source-text").count()) > 0,
+      suffix + " approved passages actually expanded with exact text",
+      expectedPassages.length > 0 &&
+        expectedPassages.every((text) => shownPassages.includes(text)),
+      {
+        expectedPassageIds: selectedRecord.attempt.question.source_passage_ids,
+        visiblePassages: shownPassages.length,
+      },
     );
     await capture(page, "context-" + suffix);
     if (viewport.width > 800 && viewport.width <= 1240) {
@@ -388,6 +604,9 @@ async function testViewport(viewport) {
         await source.evaluate((element) => element.matches(":modal")),
       );
       await page.keyboard.press("Escape");
+      await page.waitForURL(
+        (url) => url.searchParams.get("workspacePane") !== "context",
+      );
       await settle(page);
       check(
         suffix + " Escape closes reversible drawer",
@@ -398,35 +617,103 @@ async function testViewport(viewport) {
         await page
           .locator(".tw-panes-context-trigger")
           .evaluate((element) => element === document.activeElement),
+        await observe(page),
       );
     }
   });
+  if (viewport.width <= 1240)
+    await run(suffix + " manual scroll survives pane round trip", async () => {
+      await page.goto(baseHref());
+      await settle(page);
+      const first = page
+        .locator(".wb-response-list [data-evidence-attempt] a[id]")
+        .first();
+      const firstId = await first.getAttribute("id");
+      await tabToRow(page, firstId);
+      const body = page.locator(".tw-panes-panel--navigation .tw-panes-body");
+      const bounds = await body.boundingBox();
+      await page.mouse.move(
+        bounds.x + bounds.width / 2,
+        bounds.y + bounds.height / 2,
+      );
+      await page.mouse.wheel(0, 1400);
+      await page.waitForTimeout(300);
+      const scrolled = await observe(page);
+      assert(
+        scrolled.listScrollTop > 200,
+        "Wheel must actually scroll the response list",
+      );
+      const oldFocusOffscreen = await first.evaluate((element) => {
+        const row = element.getBoundingClientRect(),
+          pane = element.closest(".tw-panes-body").getBoundingClientRect();
+        return row.bottom <= pane.top || row.top >= pane.bottom;
+      });
+      assert(
+        oldFocusOffscreen,
+        "Previously focused row must be outside the pane viewport",
+      );
+      if (viewport.width <= 800)
+        await page.locator(".tw-panes-tab").nth(2).click();
+      else await page.locator(".tw-panes-context-trigger").click();
+      await page.waitForURL(
+        (url) => url.searchParams.get("workspacePane") === "context",
+      );
+      await settle(page);
+      if (viewport.width <= 800)
+        await page.locator(".tw-panes-tab").first().click();
+      else await page.keyboard.press("Escape");
+      await page.waitForURL(
+        (url) => url.searchParams.get("workspacePane") !== "context",
+      );
+      await settle(page);
+      const returned = await observe(page);
+      check(
+        suffix + " manual scroll does not jump to stale focus row",
+        Math.abs(returned.listScrollTop - scrolled.listScrollTop) <= 4 &&
+          returned.selected === scrolled.selected,
+        { oldFocus: firstId, before: scrolled, after: returned },
+      );
+      await capture(page, "manual-scroll-return-" + suffix);
+    });
   await run(suffix + " search/filter and unavailable selection", async () => {
     await page.goto(baseHref());
     await settle(page);
-    await page.locator('input[name="q"]').fill("fictional");
+    const matchingName = fixture.profiles.find(
+      (profile) => profile.id === "10000000-0000-4000-8000-000000000002",
+    ).display_name;
+    await page
+      .getByRole("searchbox", { name: "Find a response", exact: true })
+      .fill(matchingName);
     await page.locator('form[role="search"] button').click();
+    await page.waitForURL((url) => url.searchParams.get("q") === matchingName);
     await settle(page);
     const searchURL = page.url();
     check(
       suffix + " scoped search preserves concept",
-      new URL(searchURL).searchParams.get("q") === "fictional" &&
+      new URL(searchURL).searchParams.get("q") === matchingName &&
         new URL(searchURL).searchParams.get("concept") === "transmission_delay",
     );
-    const first = page
-      .locator(".wb-response-list [data-evidence-attempt] a[id]")
-      .first();
-    if (await first.count()) {
-      await first.click();
-      await settle(page);
-      await page.goBack();
-      await settle(page);
-      check(
-        suffix + " Back preserves search and concept filters",
-        new URL(page.url()).searchParams.get("q") === "fictional" &&
-          (await page.locator('input[name="q"]').inputValue()) === "fictional",
-      );
-    }
+    const matches = page.locator(
+      ".wb-response-list [data-evidence-attempt] a[id]",
+    );
+    assert(
+      (await matches.count()) >= 1,
+      "Known fixture student must produce at least one response",
+    );
+    const first = matches.first();
+    const selectedURL = new URL(await first.getAttribute("href"), origin).href;
+    await first.click();
+    await settle(page, selectedURL);
+    await page.goBack();
+    await settle(page, searchURL);
+    check(
+      suffix + " Back preserves search and concept filters",
+      new URL(page.url()).searchParams.get("q") === matchingName &&
+        (await page
+          .getByRole("searchbox", { name: "Find a response", exact: true })
+          .inputValue()) === matchingName &&
+        (await matches.count()) >= 1,
+    );
     await page.goto(
       baseHref("transmission_delay", "no-matching-fictional-response-7f31"),
     );
@@ -686,6 +973,24 @@ try {
         observation,
       );
       await capture(page, "native" + zoom * 100);
+      await page.locator(".wb-original-response").scrollIntoViewIfNeeded();
+      const reading = await observe(page);
+      const readingBottom = reading.bottomNav?.y ?? reading.innerHeight;
+      check(
+        `native${zoom * 100} complete answer can be read above persistent navigation`,
+        Boolean(reading.originalAnswer && reading.mainBody) &&
+          reading.originalAnswer.y >= reading.mainBody.y - 1 &&
+          reading.originalAnswer.y + reading.originalAnswer.height <=
+            Math.min(
+              reading.mainBody.y + reading.mainBody.height,
+              readingBottom,
+            ) +
+              1 &&
+          reading.scrollY === 0 &&
+          !reading.overflow,
+        reading,
+      );
+      await capture(page, "native" + zoom * 100 + "-answer");
       await context.close();
     }
     const [normal, doubled] = observations;
@@ -705,9 +1010,7 @@ try {
     { blockedRequests: report.blockedRequests },
   );
   report.limitations.push(
-    "The class fixture's longest original response is " +
-      Math.max(...records.map((item) => item.attempt.response_text.length)) +
-      " characters. This does not verify a 10,000-character answer.",
+    "Rejected and historical accepted-pointer combinations are not supplied by this browser fixture; deterministic coverage is reported separately.",
   );
   report.limitations.push(
     "No valid class fixture has missing approved passage content; empty/unselected source context is checked, unavailable passage fallback remains separately reported.",

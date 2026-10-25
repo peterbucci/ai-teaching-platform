@@ -116,79 +116,100 @@ export function EvidenceResults({
     [locationRevision, navigationKey, scope],
   );
   useLayoutEffect(() => {
-    restoring.current = true;
-    const frame = window.requestAnimationFrame(() => {
-      const list = listRef.current;
-      const scroller = list?.closest<HTMLElement>(".tw-panes-body") ?? list;
-      if (
-        !list ||
-        !scroller ||
-        evidenceResultsNavigationKey(window.location.search) !== navigationKey
-      )
-        return;
-      const historyTraversal = isEvidenceHistoryTraversal();
-      const saved = readEvidenceResultsMemory(
-        window.history.state,
-        scope,
-        attemptIds,
-      );
-      const local = lastListMemory.current;
-      const memory =
-        saved ??
-        (local
-          ? readEvidenceResultsMemory(
-              withEvidenceResultsMemory(null, local),
-              scope,
-              attemptIds,
-            )
-          : null);
-      if (memory) lastListMemory.current = memory;
-      const pane = list.closest<HTMLElement>(".tw-panes")?.dataset.activePane;
-      const compact = window.matchMedia("(max-width: 800px)").matches;
-      const listVisible = Boolean(list.getClientRects().length);
-      if (memory && listVisible) scroller.scrollTop = memory.scrollTop;
-      // Shell tabs retain the URL hash. Only a visible Evidence pane can receive
-      // its target; the shell alone places focus in the context drawer.
-      const hash =
-        compact &&
-        pane === "navigation" &&
-        window.location.hash === "#response-detail-title"
-          ? "#evidence-results"
-          : window.location.hash;
-      // Local memory keeps the mounted list's position across pane changes.
-      // Only this arriving history entry may override its explicit detail hash
-      // with row focus; otherwise Forward would reuse the row left by Back.
-      const targetMemory = historyTraversal && !saved && !hash ? null : memory;
-      const targetId =
-        pane === "context" && window.innerWidth <= 1240
-          ? null
-          : evidenceResultsTarget(
-              hash,
-              attemptIds,
-              selectedAttempt,
-              targetMemory,
-              historyTraversal && saved !== null,
-            );
-      const target = targetId ? document.getElementById(targetId) : null;
-      const rowAnchor =
-        targetId === "response-detail-title"
-          ? document.getElementById(evidenceResponseAnchor(selectedAttempt))
-          : target;
-      const row = rowAnchor?.closest<HTMLElement>("[data-evidence-attempt]");
-      if (row && list.contains(row) && listVisible) {
-        const bounds = scroller.getBoundingClientRect();
-        const rowBounds = row.getBoundingClientRect();
-        scroller.scrollTop = responseVisibleScrollTop({
-          scrollTop: scroller.scrollTop,
-          viewportHeight: scroller.clientHeight,
-          scrollHeight: scroller.scrollHeight,
-          rowTop: rowBounds.top - bounds.top + scroller.scrollTop,
-          rowHeight: rowBounds.height,
-        });
-      }
-      if (target?.getClientRects().length) focusEvidenceResultsTarget(target);
-      restoring.current = false;
-    });
+    let frame = 0;
+    function restore() {
+      window.cancelAnimationFrame(frame);
+      restoring.current = true;
+      frame = window.requestAnimationFrame(() => {
+        const list = listRef.current;
+        const scroller = list?.closest<HTMLElement>(".tw-panes-body") ?? list;
+        if (
+          !list ||
+          !scroller ||
+          evidenceResultsNavigationKey(window.location.search) !== navigationKey
+        )
+          return;
+        const historyTraversal = isEvidenceHistoryTraversal();
+        const saved = readEvidenceResultsMemory(
+          window.history.state,
+          scope,
+          attemptIds,
+        );
+        const local = lastListMemory.current;
+        const memory =
+          saved ??
+          (local
+            ? readEvidenceResultsMemory(
+                withEvidenceResultsMemory(null, local),
+                scope,
+                attemptIds,
+              )
+            : null);
+        if (memory) lastListMemory.current = memory;
+        const pane = list.closest<HTMLElement>(".tw-panes")?.dataset.activePane;
+        const compact = window.matchMedia("(max-width: 800px)").matches;
+        const listVisible = Boolean(list.getClientRects().length);
+        if (memory && listVisible) scroller.scrollTop = memory.scrollTop;
+        // Shell tabs retain the URL hash. Only a visible Evidence pane can receive
+        // its target; the shell alone places focus in the context drawer.
+        const hash =
+          compact &&
+          pane === "navigation" &&
+          window.location.hash === "#response-detail-title"
+            ? "#evidence-results"
+            : window.location.hash;
+        // Local memory keeps the mounted list's position across pane changes.
+        // Only this arriving history entry may override its explicit detail hash
+        // with row focus; otherwise Forward would reuse the row left by Back.
+        const targetMemory =
+          historyTraversal && !saved && !hash ? null : memory;
+        const opener = document.activeElement?.closest<HTMLElement>(
+          ".tw-panes-context-trigger",
+        );
+        // Escape/Close belongs to the shared drawer. Its restored opener focus
+        // must not be replaced by the detail hash retained in the URL.
+        const targetId =
+          opener?.getClientRects().length ||
+          (pane === "context" && window.innerWidth <= 1240)
+            ? null
+            : evidenceResultsTarget(
+                hash,
+                attemptIds,
+                selectedAttempt,
+                targetMemory,
+                historyTraversal && saved !== null,
+              );
+        const target = targetId ? document.getElementById(targetId) : null;
+        const rowAnchor =
+          targetId === "response-detail-title"
+            ? document.getElementById(evidenceResponseAnchor(selectedAttempt))
+            : target;
+        const row = rowAnchor?.closest<HTMLElement>("[data-evidence-attempt]");
+        if (row && list.contains(row) && listVisible) {
+          const bounds = scroller.getBoundingClientRect();
+          const rowBounds = row.getBoundingClientRect();
+          scroller.scrollTop = responseVisibleScrollTop({
+            scrollTop: scroller.scrollTop,
+            viewportHeight: scroller.clientHeight,
+            scrollHeight: scroller.scrollHeight,
+            rowTop: rowBounds.top - bounds.top + scroller.scrollTop,
+            rowHeight: rowBounds.height,
+          });
+        }
+        if (target?.getClientRects().length) focusEvidenceResultsTarget(target);
+        restoring.current = false;
+      });
+    }
+    // Responsive hydration can reveal a hash target after the first placement.
+    // Reuse this one page-owned routine once the shared pane DOM is ready.
+    const panes = listRef.current?.closest(".tw-panes");
+    const observer = new MutationObserver(restore);
+    if (panes)
+      observer.observe(panes, {
+        attributes: true,
+        attributeFilter: ["data-active-pane", "data-layout"],
+      });
+    restore();
     const save = (event: Event) =>
       remember(undefined, event.type === "focusin");
     const scroller =
@@ -205,6 +226,7 @@ export function EvidenceResults({
     window.addEventListener("pagehide", save);
     document.addEventListener("focusin", save);
     return () => {
+      observer.disconnect();
       window.cancelAnimationFrame(frame);
       if (scrollFrame.current !== null) {
         window.cancelAnimationFrame(scrollFrame.current);
