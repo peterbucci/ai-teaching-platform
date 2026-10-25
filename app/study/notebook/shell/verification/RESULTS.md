@@ -2,12 +2,11 @@
 
 **Reviewable isolated package; not integrated application acceptance.**
 
-- Tested source: `a0c3ec6552fac31390d600a9d6b25332c392f140`.
-- Repository regressions/build ran on application source
-  `f92877f3eb77454b96b3a39aa9317d158ac7ea5e`; the only subsequent source change
-  fixes the native-zoom screenshot harness. Lint and the full browser matrix
-  were rerun on `a0c3ec6`; application code is identical.
-- N0 base: PR #125, `00929bca7d7072a683940b5485d55b4442dd9514`.
+- Tested source: `1a5efc2f92001c616fabad597344e84cf707d932`.
+- N0 base: PR #125, frozen v1 `8bca4d3554ae02a909b93f1a7b95ed033b62a718`.
+  The original `00929bca7d7072a683940b5485d55b4442dd9514` handoff was
+  superseded during finalization. The published N0 changes were inherited
+  unchanged; all checks were rerun against the frozen version.
 - Existing branch: `codex/student-notebook-shell`; stacked PR base:
   `codex/student-notebook-contracts`.
 - Authoritative design: `Student-Notebook-Final-Prototype-fa69c2d0.zip`.
@@ -20,8 +19,8 @@
 
 | Check                                         | Result                | Scope                                                                                                                                                 |
 | --------------------------------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Focused shell tests                           | PASS, 7 cases         | Five surfaces, single child/input, notices, exact links/text, empty/loading/pending/unavailable, N0 slots and click intent. Included in the full run. |
-| Full `npm test`                               | PASS, 481 tests       | Deterministic regressions; no model or database integration.                                                                                          |
+| Focused shell tests                           | PASS, 8 cases         | Five surfaces, single child/input, notices, exact links/text, empty/loading/pending/unavailable, N0 slots and click intent. Included in the full run. |
+| Full `npm test`                               | PASS, 483 tests       | Deterministic regressions; no model or database integration.                                                                                          |
 | `npm run lint`                                | PASS                  | Full repository.                                                                                                                                      |
 | `npm run typecheck`                           | PASS                  | Next route type generation and strict TypeScript. N0 types imported directly.                                                                         |
 | `npm run format:check`                        | PASS                  | Source and documentation.                                                                                                                             |
@@ -87,6 +86,8 @@ Corrected within N1: compact icon controls with accessible names; focus-mode
 return link; phone page padding and 40px/32px gutters; stable three-region layout;
 single-pane reading/navigation; persistent notices; optional-pane width failure.
 The final source preserves the existing one-slot composition and N0 adapter.
+The final N0 handoff also corrected legacy `/study` focus-mode handling and
+replaced equivalent local navigation labels with N0's frozen descriptors.
 
 Differences still requiring integrated review:
 
