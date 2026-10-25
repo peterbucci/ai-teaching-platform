@@ -1,136 +1,117 @@
 # N7 Student Notebook integration candidate
 
-This draft composes the approved presentation packages into authenticated student
-routes while retaining the existing tutoring and review controllers. It is a
-**safe integration candidate, not complete Notebook or release acceptance**.
-No merge, deployment, main change, parent-issue closure, or paid model call occurred.
+**Full Notebook integration and visual acceptance are not complete.** This draft
+mounts safe authenticated routes and preserves the verified tutoring controllers.
+After the user's screenshot review, avoidable presentation regressions were
+corrected and matching destinations were recaptured. Viewport/zoom checks are
+functional checks, not proof of prototype fidelity.
 
-## Exact source and scope
+[Corrected comparison gallery](evidence/visual-1792954086544/COMPARISON.html) ·
+[Correction record](VISUAL_CORRECTIONS.md) · [Independent N6 handoff](N6_HANDOFF.md)
 
-- Main: `723ed6fea41138b604a9d333ebcd4a07b2202c36`.
-- Ancestry-preserving composition: `e7cbf3d6930e892e91f4170ed2aa08c9b8649e67`.
-- Application mounts: `1726c9c12f171095fed8c327b8a5852e8057c924`.
-- Production build ID: `UkrMmCmcVA8hwLEP9-iHL`.
+## Exact source
+
+- Current application: `32de9a6175348a30aedc61478d5c3d870fece218`.
+- Production build: `zNNbymqsGD9WxvdnO-vvQ`.
+- Application source-tree SHA-256:
+  `05c03fc0f41b1d3693c470b51699ce3a1c67bf54a57652542aab56a33f38e8f2`.
+- Ancestry-preserving composition: `e7cbf3d6930e892e91f4170ed2aa08c9b8649e67`,
+  based on main `723ed6fea41138b604a9d333ebcd4a07b2202c36`.
 - Branch: `codex/student-notebook-integration`.
-- [Exact source matrix](SOURCE_MATRIX.json). All nine GitHub heads were fetched
-  and rechecked. N4 advanced from the supplied `509cfdf` to `3632c11`; the latest
-  head changes its visibility fixture/handoff. N0 ancestry inherited by N1/N3/N4
-  is merged once, with no cherry-picked duplicate history. No merge conflicted.
+- [Exact source matrix](SOURCE_MATRIX.json): all nine requested heads verified;
+  eight composed without duplicate cherry-picked ancestry. N4 advanced from
+  supplied `509cfdf` to verified `3632c11`. #131 is reviewed but excluded.
 - Approved prototype ZIP SHA-256:
   `fa69c2d0262b0be684b5e9d21b2131d7c02a5bf9577c1586df07950c6394c570`.
-  Main and corrected-help hashes were also checked. The archive/source remain
-  outside the repository; only comparison evidence is included.
+  Prototype source remains outside the repository.
 
-| Destination                                | Integrated behavior                                                                                                                                                                 |
-| ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/study/assignments`                       | N1 shell, N2 My Learning, N5 safe delivered-review summaries. No instructional review body is sent through the home slot.                                                           |
-| Assignment `tab=overview`                  | N2 approved overview, existing AssignmentAction and native deep links.                                                                                                              |
-| `/study/history` and assignment `tab=work` | N3 authorized session index and exact submitted originals through N0's frozen `current-data` adapter. Assessment absence stays explicitly unavailable.                              |
-| `/study/reading`                           | N4 around one unchanged #132 reader in the existing standalone Workspace. Actor/source/session/citation keys retained; actual pane exposure and covering overlays control `active`. |
-| `/study/interventions/[approvalId]`        | N5 frame around one unchanged DeliveredActivity. The existing owner retains display, fresh-check submission, feedback and recovery.                                                 |
-| Assignment `tab=study`, legacy `/study`    | Existing #113 StudySession/StudyDialogue and Workspace remain intact. Notebook active-study shell mounting is deferred to its explicit owner handoff.                               |
+Later evidence-only commits do not represent new application test runs. The
+private isolated runtime uses ports 3407/5907, fictional accounts, disabled model
+providers and zero paid calls. Other runtime locks and resources were untouched.
 
-N7 adds no schema, endpoint, evaluator, classifier, conversation store, reader
-receipt, or alternate composer. Original authorization loaders and exact saved
-links remain authoritative. Protected project documents and all #113-owned
-controller/style/store files are unchanged. Next dev's generated AGENTS addition
-was removed under the user's explicit restoration authorization.
+## Mounted routes
 
-## Verification
+| Destination             | Behavior                                                                                                                                                                            |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| My Learning             | N1/N2 with N5 safe teacher-review summaries; instructional bodies are not sent through the home slot.                                                                               |
+| Assignment overview     | N2 and existing AssignmentAction/native deep links.                                                                                                                                 |
+| `/study/history`        | N1/N3 index, restored class/source/section/search/date/session filters, supplied-idea filter and failed-load retry. Exact session links and server order retained.                  |
+| Assignment saved work   | N3 exact original answers through N0 current-data mode; unavailable assessment/history remains explicit.                                                                            |
+| Standalone reading      | N1/N4 with one unchanged #132 reader. Pane exposure and navigation/account overlays control `active`; source/session/citation identity and pending receipts remain with the reader. |
+| Teacher-assigned review | N5 around one unchanged DeliveredActivity, retaining approval, display, fresh checks and draft recovery.                                                                            |
+| Active study            | Existing #113 StudySession/StudyDialogue and Workspace remain intact. Full Notebook mounting awaits the explicit owner handoff.                                                     |
 
-The separately authorized runtime uses PostgreSQL on loopback port 5907 and the
-application on 3407, with fresh fictional accounts and explicit empty model/key
-settings. Other worktrees, the existing acceptance lock, and other containers
-were not modified. The final build uses `next build --webpack`; initial browser
-runs used development mode and are identified separately.
+No schema, evaluator, classifier, provider, reader controller, alternate composer
+or tutoring state machine was added. Protected documents and #113-owned
+controller/style/store files remain unchanged. The generated AGENTS addition was
+restored under the user's explicit authorization.
 
-| Evidence                                                                                                       | Observed result                                                                                                                                                                                                                    |
-| -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Deterministic tests](quality/unit.txt)                                                                        | 543/543 pass at the application commit.                                                                                                                                                                                            |
-| [Production build](quality/build.txt)                                                                          | Pass, including TypeScript. Existing material-import `createRequire` warning remains.                                                                                                                                              |
-| [Repository lint](quality/lint.txt)                                                                            | Pass.                                                                                                                                                                                                                              |
-| Approved content validation                                                                                    | 293/293 pass.                                                                                                                                                                                                                      |
-| [Production authenticated journey](evidence/journey-1792951916781/journey.json)                                | 13 checks pass: home/overview, help and explicit answer fallback, exact Unicode/whitespace, accepted synthetic feedback, saved record, Back/Forward, reading return, teacher-approved review/fresh check and cross-student denial. |
-| [Production mounted reader](evidence/mounted-reader-1792951909176/report.json)                                 | 3 compound checks pass: covered delayed delivery has zero receipts, reveal records the original delivery once, failed receipt requires explicit retry with the same identity.                                                      |
-| [Independent reader/HTTP/database report](reader/RESULTS.md)                                                   | Full 17-case reader browser matrix, reading HTTP, 7 dialogue recovery groups and 6 controller groups pass. These source-hashed reader tests ran in development mode.                                                               |
-| [Independent production recovery](evidence/recovery-2026-10-25T18-15-11-310Z/independent-recovery-report.json) | All six original #113 cases pass, including interrupted/unknown saves, 401, refresh, and real expiry/new-tab sign-in recovery. All four correct/partial/incorrect/uncertain result matrices also pass at four widths.              |
-| [Production comparison gallery](evidence/visual-1792951898180/COMPARISON.html)                                 | 31 pairs / 63 PNGs. Six actual destinations at 1440, 1024, 390 and 320px; native 200% Edge zoom. No horizontal page overflow or browser errors.                                                                                    |
-| [Independent N6 handoff](N6_HANDOFF.md)                                                                        | Independent outcome/recovery evidence, remaining gates and owner-specific next steps.                                                                                                                                              |
+## Executed checks
 
-Native zoom was measured, not simulated by resizing: DPR changed from 1 to 2,
-CSS viewport from 1416 to 708, while visual viewport scale and CSS zoom stayed 1.
-The existing composer remained reachable. External prototype fonts were blocked;
-the gallery labels font fallback and differences in actual authorized content.
+[Corrected check record](quality/corrected-checks.json) binds the final runs below
+to the current application commit and build.
 
-Synthetic evaluation/activity fixtures exercise real services, authentication,
-persistence and UI; they do not establish actual-model behavior. Help classification
-with disabled providers is explicitly the clarification/confirmation fallback.
-No real student records or secrets are included.
+| Check                                                                                             | Result and scope                                                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Production build/TypeScript](quality/corrected-build.txt) and [lint](quality/corrected-lint.txt) | Passed on the final corrected source. Inherited material-import createRequire warning remains.                                                                                                                      |
+| [Deterministic suite](quality/corrected-unit.txt)                                                 | 543/543 passed after the route/filter corrections, before final reading CSS/heading adjustments.                                                                                                                    |
+| Content validation                                                                                | 293/293 passed in the initial integration; content is unchanged.                                                                                                                                                    |
+| [Production journey](evidence/journey-1792954205408/journey.json)                                 | 13/13 passed on the final build: exact text, help/ambiguity fallback, explicit answer, accepted synthetic feedback, saved work, Back/Forward, reading return, approved review/fresh check and cross-student denial. |
+| [Production mounted reader](evidence/mounted-reader-1792954171307/report.json)                    | 3/3 compound browser/database checks passed: hidden delivery has no receipt, reveal records the same delivery once, failed receipt requires explicit retry.                                                         |
+| [Corrected comparison](evidence/visual-1792954086544/visual-results.json)                         | 31 matching pairs/63 PNGs; 15 functional checks; 1440, 1024, 390, 320px and native 200% Edge zoom; no horizontal page overflow or browser errors. Visual acceptance remains NOT_ACCEPTED.                           |
+| [Independent recovery/outcomes](evidence/recovery-2026-10-25T18-15-11-310Z/run-identity.json)     | Four outcome matrices at four widths and all six original #113 recovery cases passed on the earlier application `1726c9c`. Protected owner files remain identical; this is not represented as a new run.            |
+| [Independent reader/HTTP/database checks](reader/RESULTS.md)                                      | Supplemental earlier development evidence: 17-case reader matrix, reading HTTP, 7 dialogue recovery groups and 6 controller groups passed.                                                                          |
 
-The [final check record](quality/final-checks.json) binds production results to
-the application commit and build. Final repository lint and formatting passed;
-the evidence scan found no configured credentials or unredacted session cookies.
+The revised visual checks verify exact links, zero filter requests, responsive
+filter controls, one retained reader, keyboard overlays, source-preserving native
+reading links, style precedence and toolbar placement. Native zoom changed DPR
+from 1 to 2 and CSS viewport from 1416 to 708 with CSS zoom and visual viewport
+scale remaining 1. These do not establish full visual fidelity.
 
-## Chronology and visibility gates
+Synthetic evaluations and activities exercise real authentication, authorization,
+services, persistence and UI. They do not demonstrate live AI behavior. External
+prototype fonts were blocked; fallback and authoritative content differences are
+labeled.
 
-#131 `884dfb08de31c457a3eb618ad063fcbf701ac5f3` was independently reviewed and its
-13 focused tests rerun. No blocking defect was found in the reviewed DTO privacy,
-actor authorization, accepted-result pointer, displayed-help or snapshot-conflict
-scope. It remains draft with no submitted GitHub review. **Its code is excluded**
-from this candidate. N0 has not approved a chronology adapter; no backend mode,
-new browser joins, schema clone or teacher-evidence endpoint is used. Current-data
-fallback is the only enabled saved-work mode.
+## Remaining work, ranked
 
-#132 is composed for standalone reading, but its live facing-pane gate remains
-closed. The N7 route wrapper was independently reviewed; a bootstrap deadlock
-found during implementation was fixed before final build/acceptance. It deactivates
-the retained reader synchronously before account/navigation overlays and measures
-the independently rendered pane rather than its initially hidden child. The reader
-still owns all actual delivery and acknowledgment logic. No facing reader is
-mounted behind the tutor.
+1. **P1:** Active-study Notebook mounting requires the coordinated #113 handoff
+   for one composer, persistent notices, scrolling, hidden-pane help receipts and
+   draft/recovery behavior.
+2. **P1 activation:** Facing reading remains disabled pending #132 review/CI and
+   acceptance of the actual combined facing pane. Standalone success is insufficient.
+3. **P2:** The current-data index shows sessions, not the prototype's combined
+   question/original-answer/accepted-feedback/displayed-help records. #131
+   `884dfb0` passed independent review and 13 focused tests but is excluded. An
+   adapter requires N0 approval, with current-data fallback retained.
+4. **P2 verification:** Native mobile software keyboard and screen-reader checks
+   remain unrun.
+5. **P3 visual:** Reading retains extra gutter at 1024px, source-tree/heading
+   density and mobile Menu instead of the prototype's compact tabs. Review and
+   active-study presentation still retain their original controller frames.
 
-## Retained failures and limits
-
-- The first synthetic activity setup used a title with a digit; the existing
-  qualitative-content validator rejected it. Only fixture wording was corrected.
-- A development journey timed out before save confirmation; diagnostic rerun and
-  final production journey passed. No controller was modified to force success.
-- Reader run A stalled at an unbounded wait. A bounded copy with identical
-  assertions passed the remaining cases, then all 17 in one run. A transient
-  development reading HTTP 500 passed an unchanged retry after recompilation.
-- Initial production build encountered stale generated types for the removed
-  temporary reader test route. Only the verified candidate `.next` cache was
-  cleared; the [clean build](quality/build.txt) passed.
-- Development recovery encountered reload/network errors. An initial production
-  rerun reached the real sign-in limiter during concurrent suites; setup could
-  not enter its last three cases. After the cooldown and competing runs ended,
-  a complete quiet production rerun passed all four result matrices and all six
-  recovery cases without changing application code or weakening the limiter.
-  Failed evidence remains present and credentials are redacted.
-- Native mobile keyboards, assistive screen readers, a human teammate rehearsal,
-  active-study Notebook parity, live facing reading, and recorded chronology are
-  not claimed complete. See the ranked handoff gates.
+The initial gallery incorrectly compared the global Notebook prototype with an
+assignment work-detail route. It also failed to distinguish functional checks
+from fidelity. Its evidence remains historical and is superseded by the corrected
+gallery. Earlier fixture-validation failures, development reloads, stale generated
+types, sign-in-rate-limit setup failures and one incorrect search-role test locator
+are retained; none was fixed by weakening application behavior or assertions.
 
 ## Local reproduction
 
-The retained private `.setup/runtime/` holds fresh fictional credentials and
-explicit isolation guards. It is ignored and must never be committed. On this
-machine, with this candidate and its dedicated database running:
+Private `.setup/runtime/` contains disposable credentials and isolation guards.
+It is ignored and must not be committed. With the dedicated production runtime:
 
 ```text
-node .setup/runtime/run.cjs acceptance/notebook/journey.mjs
-node .setup/runtime/run.cjs acceptance/notebook/reader-mounted.mjs
-node .setup/runtime/run.cjs acceptance/notebook/run-recovery.mjs --production
-node .setup/runtime/run.cjs acceptance/notebook/visual.mjs
+N7_JOURNEY_RUNTIME=production node .setup/runtime/run.cjs acceptance/notebook/journey.mjs
+N7_READER_RUNTIME=production node .setup/runtime/run.cjs acceptance/notebook/reader-mounted.mjs
+N7_VISUAL_RUNTIME=production node .setup/runtime/run.cjs acceptance/notebook/visual.mjs
 ```
 
-Run login-heavy suites sequentially; the real 10-sign-in/60-second limiter remains
-enabled. Each run creates new output and preserves previous results. The recovery
-host adapter verifies pinned #113 operator hashes and changes only exact Docker
-environment/import paths to the guarded local equivalent; original browser
-assertions are imported unchanged. A fresh machine must explicitly configure its
-own disposable runtime rather than weakening these local guards. The portable
-reader harness and its cleanup instructions remain under
-`tests/browser/reader-visibility/`.
+Set the environment variables using the host shell's syntax. Run login-heavy
+suites sequentially; the real sign-in limiter remains enabled. The recovery host
+adapter verifies original #113 operator hashes and imports its unchanged browser
+assertions. Fresh machines need their own explicitly configured disposable runtime.
 
-Refs #73, #114, #35 and #76. This package closes none of them.
+Refs #73, #114, #35 and #76. No merge, deployment, main change or parent-issue
+closure occurred. Independent agent review is not represented as human sign-off.

@@ -1,0 +1,189 @@
+{
+  "source": "56f70ef4f52b38f39b4c384b0da21ede158eb74c",
+  "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "productionSourceManifestSha256": "7f201fd150ce0da76cb57121f2b358784b399ac6bb758ab081e9a3ad7ce7569e",
+  "productionSourceManifestEncoding": "UTF-8 JSON.stringify of ordered file/hash entries; formatting-independent",
+  "base": "http://127.0.0.1:3407",
+  "runtime": "production",
+  "journey": "acceptance\\notebook\\evidence\\journey-1792953489720\\journey.json",
+  "session": "0be6a573-26cb-4365-909a-a50d88f50aab",
+  "approval": "b05fa297-f298-47be-a92e-0187380d6b5b",
+  "prototypeZipSha256": "fa69c2d0262b0be684b5e9d21b2131d7c02a5bf9577c1586df07950c6394c570",
+  "prototypeMainSha256": "70fd02f83f6352a988d6deeadfb6b2243b61298c0c13ad0bb2c139b5baac72a4",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "fontNote": "External prototype fonts blocked; screenshots use available local fallback fonts.",
+  "visualAcceptance": {
+    "status": "NOT_ACCEPTED",
+    "reason": "Viewport, overflow and zoom assertions are functional layout checks, not prototype fidelity acceptance. Active-study presentation remains gated and current-data records cannot reproduce the prototype's full chronology."
+  },
+  "checks": [
+    {
+      "check": "Review summary action follows actual column width",
+      "size": "1440x1000",
+      "cards": [
+        {
+          "width": 780,
+          "actionBesideText": true
+        },
+        {
+          "width": 780,
+          "actionBesideText": true
+        },
+        {
+          "width": 780,
+          "actionBesideText": true
+        },
+        {
+          "width": 780,
+          "actionBesideText": true
+        }
+      ]
+    },
+    {
+      "check": "Notebook history filters / exact links / no writes",
+      "size": "1440x1000",
+      "width": 1440,
+      "supportedControls": [
+        "Search",
+        "Class",
+        "Source",
+        "Chapter / section",
+        "Idea",
+        "Session status",
+        "When started"
+      ],
+      "sessionCount": 9,
+      "exactLinksAndOrderPreserved": true,
+      "filterRequests": 0,
+      "phoneDisclosure": false,
+      "geometry": {
+        "railWidth": 270,
+        "cardLeft": 454,
+        "railRight": 422
+      },
+      "noOverflow": true
+    }
+  ],
+  "pairs": [
+    {
+      "surface": "learning",
+      "title": "My Learning",
+      "size": "1440x1000",
+      "application": "application-learning-1440x1000.png",
+      "prototype": "prototype-learning-1440x1000.png",
+      "note": "Mounted N1/N2/N5; factual assignment/review content differs from prototype fixtures."
+    },
+    {
+      "surface": "overview",
+      "title": "Assignment overview",
+      "size": "1440x1000",
+      "application": "application-overview-1440x1000.png",
+      "prototype": "prototype-overview-1440x1000.png",
+      "note": "Mounted N1/N2; approved objectives and available current data remain authoritative."
+    },
+    {
+      "surface": "notebook",
+      "title": "Notebook index",
+      "size": "1440x1000",
+      "application": "application-notebook-1440x1000.png",
+      "prototype": "prototype-notebook-1440x1000.png",
+      "note": "Global Notebook index compared with the same prototype destination. Current-data cards and supported session filters only; per-answer results, help and chronology remain unavailable."
+    }
+  ],
+  "geometry": [
+    {
+      "surface": "learning",
+      "variant": "application",
+      "size": "1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "scrollWidth": 1440,
+      "dpr": 1,
+      "scale": 1,
+      "cssZoom": "1",
+      "overflowElements": []
+    },
+    {
+      "surface": "learning",
+      "variant": "prototype",
+      "size": "1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "scrollWidth": 1440,
+      "dpr": 1,
+      "scale": 1,
+      "cssZoom": "1",
+      "overflowElements": []
+    },
+    {
+      "surface": "overview",
+      "variant": "application",
+      "size": "1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "scrollWidth": 1440,
+      "dpr": 1,
+      "scale": 1,
+      "cssZoom": "1",
+      "overflowElements": []
+    },
+    {
+      "surface": "overview",
+      "variant": "prototype",
+      "size": "1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "scrollWidth": 1440,
+      "dpr": 1,
+      "scale": 1,
+      "cssZoom": "1",
+      "overflowElements": []
+    },
+    {
+      "surface": "notebook",
+      "variant": "application",
+      "size": "1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "scrollWidth": 1440,
+      "dpr": 1,
+      "scale": 1,
+      "cssZoom": "1",
+      "overflowElements": []
+    },
+    {
+      "surface": "notebook",
+      "variant": "prototype",
+      "size": "1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "scrollWidth": 1440,
+      "dpr": 1,
+      "scale": 1,
+      "cssZoom": "1",
+      "overflowElements": []
+    },
+    {
+      "surface": "reading",
+      "variant": "application",
+      "size": "1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "scrollWidth": 1440,
+      "dpr": 1,
+      "scale": 1,
+      "cssZoom": "1",
+      "overflowElements": []
+    }
+  ],
+  "defects": [],
+  "visualDifferences": [],
+  "errors": [],
+  "blockedExternalRequests": ["https://fonts.googleapis.com"],
+  "nativeZoom": {
+    "status": "UNRUN",
+    "metrics": []
+  },
+  "failure": "locator.inputValue: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-n7-standalone-reader]').locator('.lp-s-reader-refined').getByRole('textbox', { name: 'Search this reading' })\u001b[22m\n\n    at checkStandaloneReadingExposure (C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-integration\\LearningPlatform\\tests\\browser\\notebook-integration\\standalone-reading.mjs:77:39)\n    at async file:///C:/Users/sb128/.codex/worktrees/student-notebook-integration/LearningPlatform/acceptance/notebook/visual.mjs:347:26"
+}
