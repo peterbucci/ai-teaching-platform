@@ -200,7 +200,9 @@ export function InterventionWorkspace({
         interventionAnchorTarget(next.hash, attemptIds)
       ) {
         event.preventDefault();
-        window.history.pushState(window.history.state, "", next);
+        // A new citation is a new history entry; let the shared shell mint
+        // its own restoration identity instead of copying the prior one.
+        window.history.pushState(null, "", next);
         previousHash = next.hash;
         navigate(next.hash);
       }
