@@ -166,14 +166,21 @@ export function ConversationScroll({
 
     let frame = 0;
     let firstMeasurement = true;
+    let previousWidth: number | null = null;
     const followLatest = () => {
+      const width = content.getBoundingClientRect().width;
+      const widthChanged =
+        previousWidth !== null && Math.abs(width - previousWidth) > 0.5;
+      previousWidth = width;
+      cancelAnimationFrame(frame);
       // A visible paper opens at its natural position. Returning from a hidden
       // pane must not turn its first layout measurement into a scroll command.
-      if (paper && firstMeasurement) {
+      // A facing column also reflows the paper without adding conversation;
+      // preserve the owner's pane-return position instead of following it.
+      if (paper && (firstMeasurement || widthChanged)) {
         firstMeasurement = false;
         return;
       }
-      cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
         if (followLatestRef.current) {
           scrollToLatest();
