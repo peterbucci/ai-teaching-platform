@@ -6,7 +6,11 @@ import {
   type InterventionComparison,
   type StudentInterventionFollowup,
 } from "../../../lib/interventions/outcomes-contracts.ts";
-import type { Evaluation } from "../../../lib/evidence/contracts.ts";
+import type {
+  Evaluation,
+  QuestionSnapshot,
+} from "../../../lib/evidence/contracts.ts";
+import { followupConceptLabel } from "./concept-label.ts";
 
 const statusLabels = {
   not_submitted: "No response yet",
@@ -22,9 +26,13 @@ const roleLabels = {
 function EvaluationDetails({
   evaluation,
   provenance,
+  comparison,
+  question,
 }: {
   evaluation: Evaluation | null;
   provenance?: StudentInterventionFollowup["evaluation_provenance"];
+  comparison: InterventionComparison;
+  question: QuestionSnapshot | null;
 }) {
   if (!evaluation) return <p>No evaluation has been recorded.</p>;
   return (
@@ -47,7 +55,14 @@ function EvaluationDetails({
           <ul>
             {evaluation.result.per_concept_results.map((result) => (
               <li key={result.concept_id}>
-                <strong>{result.concept_id}:</strong>{" "}
+                <strong>
+                  {followupConceptLabel(
+                    comparison,
+                    question,
+                    result.concept_id,
+                  )}
+                  :
+                </strong>{" "}
                 {result.correctness.replaceAll("_", " ")}
               </li>
             ))}
@@ -356,7 +371,11 @@ export function InterventionFollowup({
                         </p>
                         <h4>Original response</h4>
                         <blockquote>{attempt.response_text}</blockquote>
-                        <EvaluationDetails evaluation={evaluation} />
+                        <EvaluationDetails
+                          evaluation={evaluation}
+                          comparison={comparison}
+                          question={attempt.question}
+                        />
                         <p className="lp-intervention-meta">
                           Assistance before this response:{" "}
                           {attempt.assistance?.assistance_level.replaceAll(
@@ -406,6 +425,8 @@ export function InterventionFollowup({
                       <EvaluationDetails
                         evaluation={recipient.evaluation}
                         provenance={state.evaluation_provenance}
+                        comparison={comparison}
+                        question={recipient.attempt?.question ?? null}
                       />
                       {state.feedback && <p>{state.feedback}</p>}
                       {recipient.attempt && (
@@ -443,7 +464,11 @@ export function InterventionFollowup({
                                 ).toLocaleString()}{" "}
                                 · {evaluation.id}
                               </p>
-                              <EvaluationDetails evaluation={evaluation} />
+                              <EvaluationDetails
+                                evaluation={evaluation}
+                                comparison={comparison}
+                                question={recipient.attempt?.question ?? null}
+                              />
                             </div>
                           ))}
                         </details>

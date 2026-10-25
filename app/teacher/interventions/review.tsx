@@ -94,6 +94,38 @@ export function EvidenceReview({
           </p>
         </div>
       )}
+      <details className="lp-intervention-section">
+        <summary>Approved source and lesson identity</summary>
+        <p className="lp-intervention-meta">
+          Package: {evidence.content_ref.package_id}
+          <br />
+          Lesson version: {evidence.content_ref.content_version}
+          <br />
+          Source: {evidence.content_ref.source_id}
+          <br />
+          Source revision:{" "}
+          {"source_commit" in evidence.content_ref
+            ? evidence.content_ref.source_commit
+            : evidence.content_ref.source_version}
+        </p>
+        {evidence.sources.map((source) => (
+          <div className="lp-intervention-source" key={source.passage_id}>
+            {source.url ? (
+              <a
+                className="lp-text-link"
+                href={source.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {source.passage_id}
+              </a>
+            ) : (
+              <span>{source.passage_id}</span>
+            )}
+            <blockquote>{source.text}</blockquote>
+          </div>
+        ))}
+      </details>
       {evidence.observations.map((observation) => {
         const { attempt, evaluation } = observation;
         const judgment = evaluation.result?.per_concept_results.find(
@@ -198,38 +230,6 @@ export function EvidenceReview({
           </div>
         );
       })}
-      <details className="lp-intervention-section">
-        <summary>Approved source and lesson identity</summary>
-        <p className="lp-intervention-meta">
-          Package: {evidence.content_ref.package_id}
-          <br />
-          Lesson version: {evidence.content_ref.content_version}
-          <br />
-          Source: {evidence.content_ref.source_id}
-          <br />
-          Source revision:{" "}
-          {"source_commit" in evidence.content_ref
-            ? evidence.content_ref.source_commit
-            : evidence.content_ref.source_version}
-        </p>
-        {evidence.sources.map((source) => (
-          <div className="lp-intervention-source" key={source.passage_id}>
-            {source.url ? (
-              <a
-                className="lp-text-link"
-                href={source.url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {source.passage_id}
-              </a>
-            ) : (
-              <span>{source.passage_id}</span>
-            )}
-            <blockquote>{source.text}</blockquote>
-          </div>
-        ))}
-      </details>
     </section>
   );
 }
