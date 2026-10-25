@@ -123,6 +123,12 @@ async function inspect(page, name, expectError) {
     return e && Object.keys(e).some((k) => k.startsWith("__reactProps$"));
   });
   await page.evaluate(() => document.fonts.ready);
+  await page.waitForFunction(
+    () =>
+      document
+        .querySelector(".lp-intervention-followup")
+        ?.getAttribute("aria-busy") === "false",
+  );
   await page.evaluate(
     () =>
       new Promise((done) =>
