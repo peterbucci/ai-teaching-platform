@@ -520,6 +520,39 @@ after later failure, body-free undisplayed help, stale responses and no writes.
 No model calls or merge approval is included. N4 facing-pane activation is a
 separate owner gate and is not opened by a GET-only records adapter.
 
+#### S2 actual-source review checkpoint
+
+N0 reviewed local S2 commit `1bfaa340692f7b1bf4a9fb7444d84d7dbf9adfe8`
+on its declared N7/D1 base. **GO for the scoped adapter/loader/route contract
+and continued isolated acceptance testing; no remaining blocker found in that
+source review. NO-GO for default enablement/release pending final combined
+evidence.** This is not approval of later source changes or full prototype parity.
+
+An earlier uncommitted candidate failed when the second page batch rendered:
+the view checked every page against the first DTO's membership. N0 reproduced
+that failure. The pinned fix uses `recordedQuestions(batches)` to retain each
+page's owning validated batch and href, preserving the identity guard. N0
+independently reran the D1/S2 focused suite at this commit: **24/24 passed**,
+including the view mapper's multi-batch regression. Missing/foreign session
+error handling and exact disabled-mode fallback were also corrected in source.
+
+Reviewed boundaries include strict DTO/selection and canonical link checks,
+ordinary versus teacher-session handoff, accepted-pointer use, body-free pending
+help, precise timestamp preservation, bounded read timeout, snapshot-conflict
+replacement, access-loss clearing and aborted-response suppression. Frozen N0
+files and all ten #113 owner files were verified unchanged against the N7 base.
+No S2 files were edited by N0.
+
+The new `ExactText` leaf assigns only `textContent` after hydration; it does not
+interpret original student text as HTML. Its CRLF/Unicode/copy behavior needs
+the rebuilt candidate's browser evidence, including existing current-data
+originals affected by that leaf. S2's earlier full-suite and browser reports
+predate that final correction and are not represented here as final-head proof.
+The final build, combined browser/privacy/authority/snapshot/fallback checks and
+applicable #113/reader regressions remain separate acceptance evidence. Default
+`NOTEBOOK_RECORDED_HISTORY` stays off; isolated synthetic/provider-disabled
+diagnostic testing is permitted under the existing S2 test scope.
+
 ## Explicit PR #113 handoff
 
 Verified open draft head: `71898a8a72908577065bcc7c7fb9035d6cc29ebf`.
