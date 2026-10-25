@@ -84,6 +84,7 @@ export function StudySession({
   const [startingNew, setStartingNew] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [locked, setLocked] = useState(false);
+  const [teachBack, setTeachBack] = useState(false);
   const [displayRetry, setDisplayRetry] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const currentStep = useRef<HTMLHeadingElement>(null);
@@ -552,51 +553,62 @@ export function StudySession({
               ))}
             </ol>
             {view.progress.phase === "answer" && (
-              <form onSubmit={(e) => void answer(e)} className="lp-composer">
-                <label htmlFor="response" className="block font-semibold">
-                  Your answer and reasoning
+              <>
+                <label className="mb-3 flex items-center gap-2 font-semibold">
+                  <input
+                    type="checkbox"
+                    checked={teachBack}
+                    disabled={busy || Boolean(pendingReading)}
+                    onChange={(event) => setTeachBack(event.target.checked)}
+                  />
+                  Practice explaining to a fictional learner (AI)
                 </label>
-                <textarea
-                  id="response"
-                  value={draft}
-                  onChange={(e) => {
-                    setDraft(e.target.value);
-                    if (last && !submission.current)
-                      saveDraft(last.id, {
-                        key: crypto.randomUUID(),
-                        response: e.target.value,
-                      });
-                  }}
-                  maxLength={12000}
-                  required
-                  disabled={busy || locked || Boolean(pendingReading)}
-                  rows={3}
-                  placeholder="Write what you think, and why…"
-                  className="lp-input"
-                  aria-describedby="response-help"
-                />
-                <div className="lp-composer-footer">
-                  <p id="response-help">
-                    It’s okay to be unsure. Explain what you’re thinking.
-                  </p>
-                  <div className="lp-composer-actions">
-                    {refreshButton}
-                    <button
-                      className={button}
-                      disabled={
-                        busy || Boolean(pendingReading) || !draft.trim()
-                      }
-                    >
-                      {busy && !refreshing
-                        ? "Checking…"
-                        : locked
-                          ? "Retry sending saved answer"
-                          : "Submit answer"}
-                      <Icon name="send" />
-                    </button>
+                <form onSubmit={(e) => void answer(e)} className="lp-composer">
+                  <label htmlFor="response" className="block font-semibold">
+                    Your answer and reasoning
+                  </label>
+                  <textarea
+                    id="response"
+                    value={draft}
+                    onChange={(e) => {
+                      setDraft(e.target.value);
+                      if (last && !submission.current)
+                        saveDraft(last.id, {
+                          key: crypto.randomUUID(),
+                          response: e.target.value,
+                        });
+                    }}
+                    maxLength={12000}
+                    required
+                    disabled={busy || locked || Boolean(pendingReading)}
+                    rows={3}
+                    placeholder="Write what you think, and why…"
+                    className="lp-input"
+                    aria-describedby="response-help"
+                  />
+                  <div className="lp-composer-footer">
+                    <p id="response-help">
+                      It’s okay to be unsure. Explain what you’re thinking.
+                    </p>
+                    <div className="lp-composer-actions">
+                      {refreshButton}
+                      <button
+                        className={button}
+                        disabled={
+                          busy || Boolean(pendingReading) || !draft.trim()
+                        }
+                      >
+                        {busy && !refreshing
+                          ? "Checking…"
+                          : locked
+                            ? "Retry sending saved answer"
+                            : "Submit answer"}
+                        <Icon name="send" />
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </form>
+                </form>
+              </>
             )}
           </div>
           {((phase !== "answer" && view.session.status !== "completed") ||
