@@ -53,6 +53,36 @@
   overflow-wrap: anywhere;
   margin-top: 8px !important;
 }
+.awa-workspace .awa-compact-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+.awa-title-details {
+  min-width: 0;
+  color: #4f6359;
+  font-size: 12px;
+  line-height: 1.45;
+}
+.awa-title-details summary {
+  cursor: pointer;
+  min-height: 32px;
+  padding-block: 6px;
+}
+.awa-title-details :is(p, dd) {
+  overflow-wrap: anywhere;
+}
+.awa-title-details dl > div {
+  margin-block: 6px;
+}
+.awa-title-details dt {
+  font-weight: 650;
+}
+.awa-title-details dd {
+  margin: 0;
+}
 .awa-instructions {
   font-size: 13px;
   color: #4f6359;

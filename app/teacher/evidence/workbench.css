@@ -475,11 +475,17 @@
 }
 .wb-evidence-workspace .wb-evidence-filters {
   display: grid;
-  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 8px;
   margin: 0;
-  padding: 16px;
+  padding: 12px;
   border-bottom: 1px solid #e1e9e4;
   background: #f6f8f7;
+}
+.wb-evidence-workspace .wb-filter-options {
+  grid-column: 1 / -1;
+  min-width: 0;
 }
 .wb-evidence-workspace .wb-filter-options summary {
   color: #176d58;
@@ -489,7 +495,7 @@
   min-height: 30px;
 }
 .wb-evidence-workspace .wb-filter-options .lp-field {
-  margin-top: 12px;
+  margin-top: 8px;
 }
 .wb-evidence-workspace .wb-evidence-filters .lp-field {
   font-size: 12px;
@@ -501,6 +507,9 @@
 }
 .wb-evidence-workspace .wb-evidence-filters .lp-button {
   justify-content: center;
+  width: auto;
+  padding-inline: 10px;
+  font-size: 13px;
 }
 .wb-evidence-workspace .wb-evidence-results {
   border: 0;

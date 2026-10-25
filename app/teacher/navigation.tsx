@@ -60,11 +60,13 @@ export function TeacherWorkspace({
   section,
   context,
   contextIsAuthoritative = false,
+  pending = false,
 }: {
   children: ReactNode;
   section: string;
   context?: TeacherWorkspaceContext;
   contextIsAuthoritative?: boolean;
+  pending?: boolean;
 }) {
   const search = useSearchParams();
   const pathname = usePathname();
@@ -183,7 +185,7 @@ export function TeacherWorkspace({
       <a className="lp-skip" href="#main-content">
         Skip to content
       </a>
-      <WorkspaceNavigationRestoration label={active} />
+      <WorkspaceNavigationRestoration label={active} pending={pending} />
       <header className="tw-header">
         {assignmentArea && (
           <Link
@@ -385,6 +387,8 @@ export function TeacherWorkspace({
         tabIndex={-1}
         className="tw-main"
         aria-label={section}
+        aria-busy={pending || undefined}
+        data-workspace-pending={pending || undefined}
       >
         {children}
       </main>

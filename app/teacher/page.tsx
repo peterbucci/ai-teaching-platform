@@ -39,7 +39,12 @@ export default async function TeacherPage({
     <TeacherFrame section="Overview" context={context}>
       <Suspense
         fallback={
-          <div className="ov-loading" role="status" aria-busy="true">
+          <div
+            className="ov-loading"
+            role="status"
+            aria-busy="true"
+            data-workspace-pending="true"
+          >
             <h1>Overview</h1>
             <p>Loading authorized assignments and saved teaching work…</p>
           </div>
@@ -243,12 +248,24 @@ async function OverviewContent({
                 <li key={item.id}>
                   <Link href={item.href}>
                     <strong>{item.title}</strong>
-                    <span>{item.where}</span>
+                    <span
+                      className={
+                        item.where.length > 90 ? "ov-compact-title" : undefined
+                      }
+                    >
+                      {item.where}
+                    </span>
                     <small>
                       {originLabel(item.origin)} ·{" "}
                       <time dateTime={item.at}>{date(item.at)}</time>
                     </small>
                   </Link>
+                  {item.where.length > 90 && (
+                    <details className="ov-title-details">
+                      <summary>Full assignment title</summary>
+                      <p>{item.where}</p>
+                    </details>
+                  )}
                 </li>
               ))}
             </ul>
@@ -317,29 +334,36 @@ async function OverviewContent({
                     </Link>
                     <details className="ov-assignment-details">
                       <summary>Details and links</summary>
+                      <p>
+                        <strong>{assignment.class_name}</strong>
+                        <br />
+                        {assignment.title}
+                      </p>
                       {assignment.version && (
                         <p>
                           Fixed lesson version <code>{assignment.version}</code>
                         </p>
                       )}
-                      <Link
-                        href={assignmentHref(
-                          "/teacher/evidence",
-                          assignment.id,
-                          context.origin,
-                        )}
-                      >
-                        Evidence
-                      </Link>
-                      <Link
-                        href={assignmentHref(
-                          "/teacher/interventions",
-                          assignment.id,
-                          context.origin,
-                        )}
-                      >
-                        Interventions
-                      </Link>
+                      <div className="ov-assignment-detail-links">
+                        <Link
+                          href={assignmentHref(
+                            "/teacher/evidence",
+                            assignment.id,
+                            context.origin,
+                          )}
+                        >
+                          Evidence
+                        </Link>
+                        <Link
+                          href={assignmentHref(
+                            "/teacher/interventions",
+                            assignment.id,
+                            context.origin,
+                          )}
+                        >
+                          Interventions
+                        </Link>
+                      </div>
                     </details>
                   </nav>
                 </li>
@@ -358,7 +382,19 @@ async function OverviewContent({
             <ul className="ov-resume-list">
               {unfinished.map((item) => (
                 <li key={item.id}>
-                  <strong>{item.title}</strong>
+                  <strong
+                    className={
+                      item.title.length > 90 ? "ov-compact-title" : undefined
+                    }
+                  >
+                    {item.title}
+                  </strong>
+                  {item.title.length > 90 && (
+                    <details className="ov-title-details">
+                      <summary>Full title</summary>
+                      <p>{item.title}</p>
+                    </details>
+                  )}
                   <p className="ov-muted">{item.detail}</p>
                   <Link className="lp-button" href={item.href}>
                     {item.action} →
@@ -410,10 +446,23 @@ function PriorityRow({
         {number}
       </span>
       <div>
-        <p className="ov-meta">
+        <p
+          className={
+            "ov-meta" + (item.where.length > 90 ? " ov-compact-title" : "")
+          }
+        >
           <b>{item.kind}</b> · {item.where}
         </p>
-        <h3>{item.title}</h3>
+        <h3 className={item.title.length > 90 ? "ov-compact-title" : undefined}>
+          {item.title}
+        </h3>
+        {(item.where.length > 90 || item.title.length > 90) && (
+          <details className="ov-title-details">
+            <summary>Full titles</summary>
+            <p>{item.where}</p>
+            <p>{item.title}</p>
+          </details>
+        )}
         <p>{item.detail}</p>
         {item.note && <p className="ov-muted">{item.note}</p>}
       </div>

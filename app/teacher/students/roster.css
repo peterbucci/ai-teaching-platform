@@ -4,9 +4,10 @@
   --roster-muted: #59665e;
   color: #26372e;
   min-width: 0;
-  padding: 24px 30px 40px;
-  max-width: 1500px;
-  margin: auto;
+  /* The shared teacher shell owns the page gutter. */
+  padding: 0;
+  max-width: none;
+  margin: 0;
   font-size: 14px;
   line-height: 1.55;
 }
@@ -283,7 +284,7 @@
 }
 .roster--selected {
   max-width: none;
-  padding: 18px 22px 30px;
+  padding: 0;
 }
 .roster--selected .roster-heading {
   margin-bottom: 15px;
@@ -497,7 +498,7 @@
   }
   .roster,
   .roster--selected {
-    padding: 16px 12px 26px;
+    padding: 0;
   }
   .roster h1 {
     font-size: 30px;

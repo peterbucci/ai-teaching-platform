@@ -35,6 +35,10 @@ export default async function AssignmentsPage({
   } = await loadAssignments(await searchParams);
   const selection = { ...context, assignment: selected?.id };
   const review = selected?.review;
+  const compactContextTitles =
+    selected &&
+    (selected.class_name.length + selected.title.length > 90 ||
+      selected.lesson_title.length > 90);
   const lessons = assignmentTree(visible, catalog, {
     includeUnassigned: !context.class && context.status === "all",
   });
@@ -63,7 +67,11 @@ export default async function AssignmentsPage({
     <header className="awa-page-heading">
       <div className="awa-heading-line">
         <div>
-          <p className="awa-eyebrow">
+          <p
+            className={
+              "awa-eyebrow" + (compactContextTitles ? " awa-compact-title" : "")
+            }
+          >
             {selected.class_name} · {selected.title}
           </p>
           <h1>
@@ -83,14 +91,37 @@ export default async function AssignmentsPage({
         </p>
       )}
       <p className="awa-chain">
-        From the lesson <strong>{selected.lesson_title}</strong>, published
-        version{" "}
+        <span
+          className={compactContextTitles ? "awa-compact-title" : undefined}
+        >
+          From the lesson <strong>{selected.lesson_title}</strong>,
+        </span>{" "}
+        published version{" "}
         <code className="awa-version-id">{selected.lesson_version}</code> ·{" "}
         {selected.enrolled} {selected.enrolled === 1 ? "student" : "students"} ·{" "}
         <span className={"awa-status awa-status-" + selected.status}>
           {stateLabel(selected.status)}
         </span>
       </p>
+      {compactContextTitles && (
+        <details className="awa-title-details">
+          <summary>Full assignment and lesson titles</summary>
+          <dl>
+            <div>
+              <dt>Class</dt>
+              <dd>{selected.class_name}</dd>
+            </div>
+            <div>
+              <dt>Assignment</dt>
+              <dd>{selected.title}</dd>
+            </div>
+            <div>
+              <dt>Lesson</dt>
+              <dd>{selected.lesson_title}</dd>
+            </div>
+          </dl>
+        </details>
+      )}
       {review && (
         <p className="awa-instructions">
           <strong>Instructions students see.</strong>{" "}
@@ -202,7 +233,21 @@ export default async function AssignmentsPage({
                 <section className="awa-tree-lesson" key={lesson.id}>
                   <header className="awa-tree-heading">
                     <div>
-                      <h2>{lesson.title}</h2>
+                      <h2
+                        className={
+                          lesson.title.length > 90
+                            ? "awa-compact-title"
+                            : undefined
+                        }
+                      >
+                        {lesson.title}
+                      </h2>
+                      {lesson.title.length > 90 && (
+                        <details className="awa-title-details">
+                          <summary>Full lesson title</summary>
+                          <p>{lesson.title}</p>
+                        </details>
+                      )}
                       <p className="awa-note">
                         {lesson.owned
                           ? "Teacher-provided lesson"
@@ -256,9 +301,22 @@ export default async function AssignmentsPage({
                                 <Link className="awa-text-link" href={href}>
                                   {item.class_name}
                                 </Link>
-                                <span className="awa-assignment-title">
+                                <span
+                                  className={
+                                    "awa-assignment-title" +
+                                    (item.title.length > 90
+                                      ? " awa-compact-title"
+                                      : "")
+                                  }
+                                >
                                   {item.title}
                                 </span>
+                                {item.title.length > 90 && (
+                                  <details className="awa-title-details">
+                                    <summary>Full assignment title</summary>
+                                    <p>{item.title}</p>
+                                  </details>
+                                )}
                               </div>
                               <span className="awa-note">
                                 {item.enrolled}{" "}

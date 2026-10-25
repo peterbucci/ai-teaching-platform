@@ -146,7 +146,13 @@ function scrollPanes() {
   ].filter((pane) => !pageManagedControl(pane));
 }
 
-export function WorkspaceNavigationRestoration({ label }: { label: string }) {
+export function WorkspaceNavigationRestoration({
+  label,
+  pending = false,
+}: {
+  label: string;
+  pending?: boolean;
+}) {
   const pathname = usePathname();
   const query = useSearchParams().toString();
   const revision = useSyncExternalStore(
@@ -159,7 +165,7 @@ export function WorkspaceNavigationRestoration({ label }: { label: string }) {
   useEffect(() => {
     const key = `${pathname}?${query}`;
     // A pop observer can notify before Next updates its hook values.
-    if (locationKey() !== key) return;
+    if (locationKey() !== key || pending) return;
     let entry = ensureEntryToken();
     let metadataWritable = Boolean(entry);
     const saved = entry ? positions.get(entry) : undefined;
@@ -234,7 +240,9 @@ export function WorkspaceNavigationRestoration({ label }: { label: string }) {
     document.addEventListener("focusin", save);
     document.addEventListener("scroll", save, true);
 
-    const frame = requestAnimationFrame(() => {
+    let frame = 0;
+    let readinessObserver: MutationObserver | undefined;
+    function placeWhenReady() {
       // A router can commit during popstate before our observer is reached.
       // Recheck live identity and sample intent only after dispatch completes.
       if (
@@ -244,6 +252,30 @@ export function WorkspaceNavigationRestoration({ label }: { label: string }) {
         historyRevision !== revision
       )
         return;
+      // A streamed fallback can mount this shell before the destination body.
+      // Keep the history intent and saved position until that body is present;
+      // otherwise a short fallback clamps the scroll and consumes the return.
+      const main = document.getElementById("main-content");
+      if (
+        main?.matches('[data-workspace-pending="true"]') ||
+        main?.querySelector('[data-workspace-pending="true"]')
+      ) {
+        if (!readinessObserver && main) {
+          readinessObserver = new MutationObserver(() => {
+            cancelAnimationFrame(frame);
+            frame = requestAnimationFrame(placeWhenReady);
+          });
+          readinessObserver.observe(main, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ["data-workspace-pending"],
+          });
+        }
+        return;
+      }
+      readinessObserver?.disconnect();
+      readinessObserver = undefined;
       const restoring =
         returningTo?.location === key &&
         returningTo.entry === entry &&
@@ -285,16 +317,18 @@ export function WorkspaceNavigationRestoration({ label }: { label: string }) {
       if (returningTo?.revision === revision) returningTo = undefined;
       placing = false;
       announce(`${label} workspace`);
-    });
+    }
+    frame = requestAnimationFrame(placeWhenReady);
 
     return () => {
       cancelled = true;
       cancelAnimationFrame(frame);
+      readinessObserver?.disconnect();
       document.removeEventListener("click", save, true);
       document.removeEventListener("focusin", save);
       document.removeEventListener("scroll", save, true);
     };
-  }, [pathname, query, label, revision]);
+  }, [pathname, query, label, revision, pending]);
 
   return (
     <span className="tw-sr-only" role="status" aria-live="polite">

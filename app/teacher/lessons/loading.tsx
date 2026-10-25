@@ -1,3 +1,9 @@
+import { TeacherFrame } from "../presentation.tsx";
+
 export default function LessonsLoading() {
-  return <p role="status">Loading your saved lessons and source versions…</p>;
+  return (
+    <TeacherFrame section="Lessons" pending>
+      <p role="status">Loading your saved lessons and source versions…</p>
+    </TeacherFrame>
+  );
 }
