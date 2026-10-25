@@ -553,6 +553,36 @@ applicable #113/reader regressions remain separate acceptance evidence. Default
 `NOTEBOOK_RECORDED_HISTORY` stays off; isolated synthetic/provider-disabled
 diagnostic testing is permitted under the existing S2 test scope.
 
+#### S2 implementation handoff after rebuilt recorded-mode checks
+
+**GO: N0 approves the additive adapter/loader/route implementation contract at
+`1bfaa340692f7b1bf4a9fb7444d84d7dbf9adfe8` for handoff to combined acceptance.**
+This closes the N0 implementation-review gate, not the default-enable or release
+gate. Frozen presentation v1 and the current-data boundary are unchanged.
+
+N0 inspected S2's saved `acceptance/notebook-s2/evidence/recorded-1792959627516/results.json`
+and its executable assertions. The report identifies that source and build
+`He02eAnZzfLetybVR8Lwj`, matching the local build. Only the evidence helper was
+modified after the reviewed commit to add source/build metadata; application
+source remained unchanged. S2 executed these browser checks; N0 inspected the
+report and assertions rather than independently rerunning that browser suite.
+
+The passing report covers real second-batch DOM/deep links, Back/Forward/reload,
+exact saved originals against D1 DTO strings (including the corrected CRLF case),
+displayed-only help, historical versions, missing/failed/uncertain assessments,
+teacher approval handoff, 13-table navigation fingerprints, real display-only
+409 atomic replacement, denied selectors/actors, and zero non-GET API requests
+or page errors. Providers were disabled and the report records zero paid calls.
+
+**NO-GO for default enablement or release remains.** The earlier flag-off fallback
+report is not pinned to the rebuilt source/build and predates the exact-text fix;
+rerun it with CRLF/Unicode originals through the affected current-data presenters.
+The inspected assertions compare DOM text, not actual clipboard copy behavior.
+Visual comparison and independent combined N6 acceptance, including applicable
+#113/reader regressions, remain separate. No complete chronology, full prototype
+parity, production acceptance or merge approval is implied. Later application
+changes require review; helper-only evidence updates do not change this source pin.
+
 ## Explicit PR #113 handoff
 
 Verified open draft head: `71898a8a72908577065bcc7c7fb9035d6cc29ebf`.
