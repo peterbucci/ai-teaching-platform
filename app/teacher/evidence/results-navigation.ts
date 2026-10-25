@@ -1,4 +1,8 @@
 import type { TeacherWorkspaceContext } from "../../../lib/teacher/workspace-contracts.ts";
+import {
+  teacherWorkspacePaneHref,
+  type TeacherWorkspacePaneId,
+} from "../workspace-panes-model.ts";
 
 const memoryKey = "learningPulseEvidenceList";
 
@@ -36,6 +40,43 @@ export function evidenceSeedSelectionHref(
   url.searchParams.delete("seedAttempt");
   for (const id of attemptIds) url.searchParams.append("seedAttempt", id);
   return `${url.pathname}${url.search}${url.hash}`;
+}
+
+/** Presentation only: preserve the authorized record, filters and starting set. */
+export function evidencePaneHref(
+  href: string,
+  pane: TeacherWorkspacePaneId,
+  hash = pane === "navigation" ? "evidence-results" : "response-detail-title",
+) {
+  const target = new URL(href, "https://learning-pulse.invalid");
+  target.hash = hash;
+  return teacherWorkspacePaneHref(target, pane);
+}
+
+export function evidenceHashPane(hash: string): TeacherWorkspacePaneId | null {
+  if (hash === "#response-detail-title") return "main";
+  return hash === "#evidence-results" ||
+    /^#evidence-response-[\w-]+$/.test(hash)
+    ? "navigation"
+    : null;
+}
+
+/** A new native fragment entry has null state; settled Next history entries do not. */
+export function isNewEvidenceHashNavigation(
+  previousHref: string,
+  currentHref: string,
+  state: unknown,
+): boolean {
+  if (state !== null || !previousHref) return false;
+  const previous = new URL(previousHref);
+  const current = new URL(currentHref);
+  return (
+    previous.origin === current.origin &&
+    previous.pathname === current.pathname &&
+    previous.search === current.search &&
+    previous.hash !== current.hash &&
+    evidenceHashPane(current.hash) !== null
+  );
 }
 
 export type EvidenceResultsMemory = {
@@ -95,7 +136,17 @@ export function evidenceResultsTarget(
   attemptIds: readonly string[],
   selectedAttempt?: string,
   memory?: EvidenceResultsMemory | null,
+  historyTraversal = false,
 ): string | null {
+  // Back returns to the teacher's row, even when that history entry retains a
+  // detail hash from an earlier selection. Fresh links still honor their hash.
+  if (
+    historyTraversal &&
+    memory?.focusRow &&
+    memory.attemptId &&
+    attemptIds.includes(memory.attemptId)
+  )
+    return evidenceResponseAnchor(memory.attemptId);
   let anchor: string;
   try {
     anchor = decodeURIComponent(hash.replace(/^#/, ""));

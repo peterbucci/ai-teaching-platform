@@ -463,3 +463,105 @@
     min-height: 44px;
   }
 }
+
+/* Evidence uses the shared shell's panes and drawer; scope overrides so the
+   Teaching Desk's existing cards keep their own layout. */
+.wb-evidence-workspace {
+  min-width: 0;
+  color: #17302d;
+}
+.wb-evidence-workspace .tw-panes-panel--navigation .tw-panes-body {
+  padding: 0;
+}
+.wb-evidence-workspace .wb-evidence-filters {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 16px;
+  border-bottom: 1px solid #e1e9e4;
+  background: #f6f8f7;
+}
+.wb-evidence-workspace .wb-filter-options summary {
+  color: #176d58;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+  min-height: 30px;
+}
+.wb-evidence-workspace .wb-filter-options .lp-field {
+  margin-top: 12px;
+}
+.wb-evidence-workspace .wb-evidence-filters .lp-field {
+  font-size: 12px;
+  min-width: 0;
+}
+.wb-evidence-workspace .wb-evidence-filters .lp-input {
+  min-height: 40px;
+  font-size: 13px;
+}
+.wb-evidence-workspace .wb-evidence-filters .lp-button {
+  justify-content: center;
+}
+.wb-evidence-workspace .wb-evidence-results {
+  border: 0;
+}
+.wb-evidence-workspace .wb-results-heading {
+  padding: 14px 16px;
+}
+.wb-evidence-workspace .wb-results-heading h2 {
+  font-size: 14px;
+}
+.wb-evidence-workspace .wb-response-list {
+  max-height: none;
+  overflow: visible;
+}
+.wb-evidence-workspace .wb-evidence-detail {
+  padding: 0 12px;
+}
+.wb-evidence-workspace .wb-detail-heading h2 {
+  font-size: 23px;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+}
+.wb-evidence-workspace .wb-detail-section {
+  padding: 20px 0;
+}
+.wb-evidence-workspace .wb-original-response {
+  border: 1px solid #dce7e1;
+  border-radius: 8px;
+  background: #fafcfb;
+  font-size: 19px;
+}
+.wb-evidence-workspace .wb-evidence-context .wb-detail-section:first-child {
+  padding-top: 0;
+}
+.wb-evidence-workspace .wb-source-text {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+.wb-evidence-workspace .wb-evidence-context details {
+  background: white;
+}
+.wb-evidence-workspace .wb-concept-context {
+  padding: 16px;
+}
+.wb-evidence-workspace :focus-visible {
+  outline: 3px solid #176d58;
+  outline-offset: 3px;
+}
+@media (max-width: 800px) {
+  .wb-evidence-workspace .wb-evidence-detail {
+    padding: 0;
+  }
+  .wb-evidence-workspace .wb-mobile-back {
+    margin-bottom: 16px;
+  }
+  .wb-evidence-workspace .wb-detail-heading h2 {
+    font-size: 22px;
+  }
+  .wb-evidence-workspace .wb-original-response {
+    font-size: 18px;
+    padding: 14px;
+  }
+}
