@@ -520,6 +520,65 @@ try {
       check(
         "loaded-question text/result/assistance filters preserve identity and explicit empty state",
       );
+      for (const width of [1440, 1024, 390, 320]) {
+        await page.setViewportSize({ width, height: 1000 });
+        await page.goto(detail);
+        await page.locator("[data-recorded-question]").waitFor();
+        const origin = page.getByText(
+          /Recorded demonstration work · 1 of 12 questions loaded/,
+        );
+        assert.ok(
+          await origin.isVisible(),
+          `origin and coverage visible at ${width}`,
+        );
+        let failedReads = 0;
+        const pattern = "**/api/student/notebook/sessions/**";
+        await page.route(pattern, (route) => {
+          failedReads++;
+          return route.fulfill({
+            status: failedReads === 1 ? 409 : 503,
+            contentType: "application/json",
+            body: JSON.stringify({
+              code: failedReads === 1 ? "SNAPSHOT_CHANGED" : "UNAVAILABLE",
+            }),
+          });
+        });
+        await page.getByRole("button", { name: "Refresh history" }).click();
+        const notice = page.locator('[data-history-status="stale"]');
+        await notice.getByText(/replacement could not be loaded/).waitFor();
+        const noticeBox = await notice.boundingBox();
+        const paperBox = await page
+          .locator("[data-recorded-question]")
+          .boundingBox();
+        assert.ok(
+          noticeBox &&
+            paperBox &&
+            noticeBox.y < paperBox.y &&
+            noticeBox.y < 700,
+          `stale notice precedes paper at ${width}`,
+        );
+        assert.equal(failedReads, 2, "one bounded replacement attempt");
+        assert.equal(
+          await page
+            .getByRole("button", { name: "Load more recorded questions" })
+            .count(),
+          0,
+        );
+        assert.equal(
+          await page.locator("[data-original-response]").textContent(),
+          original,
+        );
+        await page.screenshot({
+          path: path.join(out, `stale-question-${width}.png`),
+        });
+        report.screenshots.push(`stale-question-${width}.png`);
+        await page.unroute(pattern);
+        await page.getByRole("button", { name: "Refresh history" }).click();
+        await notice.waitFor({ state: "detached" });
+      }
+      check(
+        "injected transport conflict/replacement failure keeps a visible stale notice above real saved evidence at 1440/1024/390/320; mobile origin/coverage stays visible and explicit refresh recovers",
+      );
       assert.equal(await fingerprint(), firstFingerprint);
       check(
         "all 13 evidence-table fingerprints unchanged across saved-history navigation",
