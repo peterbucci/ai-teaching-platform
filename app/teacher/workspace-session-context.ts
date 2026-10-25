@@ -12,10 +12,11 @@ export function resolveTeacherSessionContext(
   evidence: Pick<SessionEvidence, "session" | "attempts" | "evaluations">,
   conceptIds: ReadonlySet<string>,
   rosterStudentIds: ReadonlySet<string>,
+  misconceptionIds: ReadonlySet<string> = new Set(),
 ) {
   const context = parseTeacherWorkspaceContext({
     ...params,
-    // Existing direct, Insights and roster links retain their historic default.
+    // A bare deep link has no originating view to restore.
     returnTo: params.returnTo ?? "insights",
   });
   const { session, attempts, evaluations } = evidence;
@@ -24,6 +25,10 @@ export function resolveTeacherSessionContext(
     (context.student && context.student !== session.student_id) ||
     (context.session && context.session !== session.id) ||
     (context.origin !== "all" && context.origin !== session.data_origin) ||
+    (["students", "insights", "patterns"].includes(context.returnTo) &&
+      ((context.concept && !conceptIds.has(context.concept)) ||
+        (context.misconception &&
+          !misconceptionIds.has(context.misconception)))) ||
     (context.attempt &&
       !attempts.some((attempt) => attempt.id === context.attempt)) ||
     (context.evaluation &&
