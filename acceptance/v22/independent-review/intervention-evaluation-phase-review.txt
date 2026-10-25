@@ -1,0 +1,29 @@
+Independent narrow evaluation-input compatibility review — 2026-10-25
+
+Fixture SHA-256:
+627fe9a67436e4701048a24afbe517aca06033e520019a86707d5318ac7db0f7
+Exact accepted read-only browser receipt SHA-256:
+c699ff32b9298b48c8f71e9ca4650528e821d42314a3b092a376e3a03d90c781
+
+No consequential issue found in this delta. Static/file review only, no
+runtime or application modifications by this reviewer.
+
+The prior evaluate01 invocation rejected inspect-submitted because the old
+fixture accepted only review-and-submit. Its failed receipt must be retained;
+it is not a successful evaluation or an application defect. The corrected
+fixture adds only the exact reviewed read-only completion receipt, checks
+its passed status and completed teacher inspection, released lock, zero
+mutation/blocked-write arrays, and prior064d3a54 receipt identity with explicit
+no-mutation-replay. The actual receipt bytes and hash were inspected.
+
+Existing original answer/evaluation, authorized class/assignment/immutable
+source content, intended recipient, and submitted follow-up attempt/text
+checks remain. Exact delivery ID and submitted timestamp checks are added.
+Normal retry availability still gates the explicit synthetic evaluator seam;
+pending or unknown outcomes cannot be replayed. Accepted evaluations are
+reused. The source answer/session/intervention comparisons remain at the
+end. No approval, delivery, start or answer submission is added by this delta.
+
+This approval establishes utility contract compatibility only. The synthetic
+evaluation runtime, later teacher inspection and any actual-model behavior
+require their own separately retained results.

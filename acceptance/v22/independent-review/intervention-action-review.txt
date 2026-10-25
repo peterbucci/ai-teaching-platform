@@ -1,0 +1,51 @@
+Independent continuation verifier review — 2026-10-25
+
+Reviewed current helper SHA-256:
+f527329be01d23a6aff3196d8cb2b68639f007796ac6d6907b92598c0b90078e
+Source application pin: 462cfb1b31d9108cec70d18b6553bd45048d2eed
+Tree: 03cca1fed3900a122e689c4a512afadd9052e5af
+Review scope: static verification-only utility and its pure boundary tests.
+No browser, database, Docker, model call, or application change in this review.
+
+The earlier static approval of helper 358874f3f1b67b18969a6cfce331910591543db3
+12ca470a81b89825bfa04432 is superseded on one consequential point. It cleared
+mutation uncertainty on any fully received HTTP response. The parent review
+correctly identified that a completed HTTP500 or malformed/nonacknowledging
+HTTP200 does not establish the action's outcome. This independent reviewer
+had checked body timeout and receipt I/O ordering but missed that distinction.
+The exact historical helper and executed receipt must remain unchanged.
+
+The corrected helper retains the latch for non200, malformed JSON, and
+nonacknowledging JSON. A success clears it only after scoped state checks:
+draft ID/revision/activity or approval/recipient/delivery identity for teacher
+actions, approval/attempt/start/submitted original text for student follow-up,
+and assignment/approval presence for curated activation. Its request matcher
+still requires the exact endpoint and explicit UI action, or exact current
+curated review token. The latch clears before later receipt I/O only after
+those acknowledgement checks succeed. A late body cannot clear a timed-out
+operation. No retry or replay is introduced. Finally retains the owned shared
+lock if mutation acknowledgement or owned-browser closure is unestablished.
+
+The four pure VM tests execute the helper functions without real browser or
+lock operations. The inspected v3 log reports four passes: unfinished/late
+body, complete409/500, malformed/empty200, and acknowledged response followed
+by receipt I/O failure. These tests and finally's static control flow support
+the scoped safety claim; they are not a new runtime application result.
+
+The inspect-submitted phase is a bounded read-only completion for exactly
+receipt SHA064d3a54fe7089a771a7c0b34939a0faa6f435f8884c143fee72a107470996a7.
+It checks the exact earlier failure stage/error, final source pins, released
+guard, and the five historical successful write receipts. After authorized
+fictional logins it blocks all application mutations. It cannot enter the
+save/approve/deliver/start/submit branches. Authorized GETs reconcile approval,
+delivery, recipient, immutable content identity, original session/attempt and
+exact original answer, plus the already submitted follow-up ID/text/status.
+The teacher comparison now waits for aria-busy=false and the recipient before
+asserting its count, instead of assuming a heading implies loaded data.
+Any blocked mutation causes failure. Original and follow-up captures are
+separate. The earlier receipt and decisions are preserved, not relabeled as
+an uninterrupted browser run.
+
+No consequential blocker found in this corrected, narrowly scoped delta.
+This is static approval for the exact hash above; execution remains separately
+authorized and must retain its own result, uncertainty and failure evidence.

@@ -1,0 +1,180 @@
+Skip to content
+Lessons workspace
+Networking demo — synthetic class
+Lessons
+Lessons
+Materials
+Objectives
+Outline
+Editor
+Reading
+Published version 1
+
+Immutable snapshot. Later draft edits leave this version, its assignments and student evidence unchanged.
+
+Open class assignments
+Return to draft
+Published reading
+Published objectives
+Published question bank and private criteria
+
+QUESTION BANK
+
+Student questions and private guidance
+
+Students receive questions as the tutor selects them. Answer guidance below is visible only in this teacher review.
+
+Question 1 · Student-visible
+
+A link can transmit at up to 12 Mbps, but a measurement shows an application's transfer rate is 7 Mbps. In the more precise distinction used in the reading, which number describes available link bandwidth and which describes measured throughput? Explain why the two numbers can differ.
+
+Concepts: bandwidth_throughput · Passages: P01, P03, P05
+
+Teacher-only answer guidance
+Question 2 · Student-visible
+
+During a 5-second observation, an application transfers 20 million bits over a link whose available data rate is 10 Mbps. Calculate the observed throughput in Mbps. Does that observation establish that the link's available data rate is only your calculated value? Explain.
+
+Concepts: bandwidth_throughput · Passages: P01, P03
+
+Teacher-only answer guidance
+Question 3 · Student-visible
+
+Consider two applications. In A, sending a tiny request and reply takes negligible transmission time compared with waiting for the round trip. In B, sending one large object takes 8 seconds, while all other delay totals 0.02 seconds. For each application, would reducing round-trip waiting or increasing the effective transfer rate offer the larger opportunity for improvement under these conditions? Explain without claiming either choice always wins.
+
+Concepts: bandwidth_throughput · Passages: P09, P10, P11
+
+Teacher-only answer guidance
+Question 4 · Student-visible
+
+An observer times one message from host A to host B. A second measurement starts when A sends a request and ends when a reply reaches A. Assume the reply is generated immediately. What does each measurement describe, and what units would you use? Explain the difference in the journeys included.
+
+Concepts: latency_rtt · Passages: P06, P12
+
+Teacher-only answer guidance
+Question 5 · Student-visible
+
+A request takes 18 ms to reach a server, and its reply takes 27 ms to get back. The server replies immediately, and each stated time already includes all delay on that direction's journey. What is the round-trip time? Would doubling 18 ms give the correct RTT here? Explain.
+
+Concepts: latency_rtt · Passages: P06, P12
+
+Teacher-only answer guidance
+Question 6 · Student-visible
+
+A message's one-way delay from A to B is 12 ms. Nothing is known about the reply's delay from B to A; reply processing is negligible. Can you determine a unique RTT? Explain what additional fact or explicit assumption would make an RTT calculation possible.
+
+Concepts: latency_rtt · Passages: P06, P12
+
+Teacher-only answer guidance
+Question 7 · Student-visible
+
+A single cable becomes twice as long. Packet size, link transmission rate, and propagation speed stay unchanged. What happens to transmission delay and propagation delay? Explain why.
+
+Concepts: transmission_delay, propagation_delay · Passages: P07, P08, P12
+
+Teacher-only answer guidance
+Question 8 · Student-visible
+
+A complete packet is 1,500 bytes long, including any overhead to be counted. It is placed onto one link at 6 Mbps. Use 8 bits per byte and 1 Mbps = 1,000,000 bits/s. What is its transmission delay in milliseconds? Show the size conversion and calculation. Is cable length needed to calculate this component? Explain why or why not.
+
+Concepts: transmission_delay · Passages: P07, P08
+
+Teacher-only answer guidance
+Question 9 · Student-visible
+
+The same packet is sent along the same single cable twice. For the second send, the link transmission rate is halved. Cable length and signal propagation speed stay fixed, and there is no queue wait. Compare the second send's transmission delay and propagation delay with the first. Explain the two results separately.
+
+Concepts: transmission_delay · Passages: P05, P07, P08
+
+Teacher-only answer guidance
+Question 10 · Student-visible
+
+A signal travels along a 600 km cable at an effective propagation speed of 2.0 × 10^8 m/s. Calculate propagation delay in milliseconds and describe what interval your answer measures. Do not calculate the time to place a whole packet onto the cable.
+
+Concepts: propagation_delay · Passages: P07, P08, P12
+
+Teacher-only answer guidance
+Question 11 · Student-visible
+
+Two hypothetical links have the same cable length and the same transmission rate. The same packet is sent over each. Link B's effective signal propagation speed is twice Link A's. How do propagation delay and transmission delay on B compare with A? Explain using the quantities that determine each delay.
+
+Concepts: propagation_delay · Passages: P07, P08
+
+Teacher-only answer guidance
+Question 12 · Student-visible
+
+A 1,000-byte packet and a 2,000-byte packet are sent separately over the same single cable at the same transmission rate. Cable length and propagation speed are fixed, with no queue wait. Compare their propagation delays and their transmission delays. Does a larger packet finishing later show that its signals propagated more slowly? Explain.
+
+Concepts: propagation_delay · Passages: P07, P08, P12
+
+Teacher-only answer guidance
+Question 13 · Student-visible
+
+A packet is stored inside a switch for 4 ms before forwarding on its outbound link begins. What delay component is that waiting interval, and how is it different from transmission delay? In a separate case where forwarding can begin immediately and the stated waiting interval is 0 ms, must you still add a positive queue wait? Explain.
+
+Concepts: queuing_delay · Passages: P07, P08
+
+Teacher-only answer guidance
+Question 14 · Student-visible
+
+For one measured delivery, use the reading's simplified model: total latency = propagation + transmission + queue. The complete contributions for this delivery are 3 ms propagation, 2 ms transmission, and 5 ms queue waiting, with no other delay included. What is the total latency? Explain why the queue interval must be counted separately from transmission.
+
+Concepts: queuing_delay · Passages: P07, P08
+
+Teacher-only answer guidance
+Question 15 · Student-visible
+
+Under the reading's simplified model with propagation, transmission, and queue waiting as the only components, a delivery's total latency is 14 ms. Its complete propagation contribution is 4 ms and transmission contribution is 3 ms. What queue waiting time is implied? Explain your calculation and what the result represents.
+
+Concepts: queuing_delay · Passages: P07, P08
+
+Teacher-only answer guidance
+Question 16 · Student-visible
+
+Please separate the two parts of your answer: what happens to transmission delay, and what happens to propagation delay? For each, explain what you think determines it.
+
+Concepts: transmission_delay, propagation_delay · Passages: P07, P08
+
+Teacher-only answer guidance
+Question 17 · Student-visible
+
+Compare two single optical-fiber links. Link A is 200 km long and link B is 600 km long. Each sends the same 1,000-byte packet at 8 Mbps, and propagation speed is 200,000,000 m/s on both. Ignore queuing and processing. For each link, find transmission delay and propagation delay. Which delay changes between the links, and why?
+
+Concepts: transmission_delay, propagation_delay · Passages: P07, P08
+
+Teacher-only answer guidance
+Question 18 · Student-visible
+
+On a 600 km optical-fiber link, the rate is 8 Mbps and propagation speed is 200,000,000 m/s. Compare sending a 1,000-byte packet with sending a 2,000-byte packet. Only packet size changes. What are transmission delay and propagation delay in each case? Explain which quantity changes.
+
+Concepts: transmission_delay, propagation_delay · Passages: P07, P08
+
+Teacher-only answer guidance
+Question 19 · Student-visible
+
+Now send a 3,000-byte packet at 12 Mbps over a single optical-fiber link. Compare a 100 km link with a 400 km link, both with propagation speed 200,000,000 m/s. Only distance changes. Find transmission delay and propagation delay in each case, and explain your comparison.
+
+Concepts: transmission_delay, propagation_delay · Passages: P07, P08
+
+Teacher-only answer guidance
+Published tutoring sequence and policy
+Prepare a class assignment from version 1
+Start a new lesson version
+
+Carry your current saved draft of version 1 into a new version. Its questions and lesson will need review again. Published versions, assignments, and student work stay unchanged.
+
+New version name
+Start from the current saved draft and review the new version before publishing.
+Start new version
+Class assignments
+Bandwidth and Latency · density 44842225 · Online · density fixture
+Version 1 · Awaiting activation
+Bandwidth and Latency · density 44842225 · Section A · density fixture
+Version 1 · Awaiting activation
+Bandwidth and Latency · density 44842225 · Section B · density fixture
+Version 1 · Awaiting activation
+Bandwidth and Latency · density 44842225 · Section C · density fixture
+Version 1 · Awaiting activation
+Overview
+Assignments
+Lessons

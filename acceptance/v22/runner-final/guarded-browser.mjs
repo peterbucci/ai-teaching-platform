@@ -45,6 +45,10 @@ const helpers = {
     script: "../final-verification/capture-original-answer.mjs",
     targets: ["shell"],
   },
+  "capture-published-density": {
+    script: "../final-verification/capture-published-density.mjs",
+    targets: ["shell"],
+  },
   "shell-authoring-browser": {
     script: "shell-authoring-browser.mjs",
     targets: ["shell"],
@@ -97,6 +101,10 @@ if (options.helper === "student-regression-browser" && !options.fixture)
 if (options.helper === "capture-original-answer" && !options.fixture)
   throw new Error(
     "Original-answer capture requires its hash-pinned run05 report as --fixture.",
+  );
+if (options.helper === "capture-published-density" && !options.fixture)
+  throw new Error(
+    "Density capture requires its completed density-assignment receipt as --fixture.",
   );
 if (options.helper === "shell-authoring-browser" && options.fixture)
   throw new Error("Shell authoring does not accept a fixture argument.");
@@ -193,9 +201,11 @@ if (!isAbsolute(browserExecutable) || !statSync(browserExecutable).isFile())
   throw new Error(
     "BROWSER_EXECUTABLE must identify an existing absolute browser executable.",
   );
-const childArgs = ["capture-shell", "capture-original-answer"].includes(
-  options.helper,
-)
+const childArgs = [
+  "capture-shell",
+  "capture-original-answer",
+  "capture-published-density",
+].includes(options.helper)
   ? [out, ...(fixture ? [fixture] : [])]
   : options.helper === "shell-authoring-browser"
     ? [state, join(state, "unused-browser-endpoint.txt"), playwright]

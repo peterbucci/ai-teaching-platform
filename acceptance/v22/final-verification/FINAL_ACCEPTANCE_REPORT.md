@@ -83,3 +83,7 @@ Typography is only partly aligned: the final assignment title now uses 26px, mat
 No new functional defect is established solely by these read-only screenshots. All layout defects above remain distinct from the parent's service/browser findings. This pass did not exercise keyboard navigation, focus restoration, Back/Forward, unsaved work, pending/failed operations, native 200% browser zoom, screen readers, cross-role/class isolation, student conversation or the full lesson/intervention journey. Those results must come from their actual executed suites, not these images. Screen-reader verification remains **unrun** unless a later report records a real test.
 
 Provider-disabled capture makes no actual-model claim and made no paid call. Populated source/lesson/intervention/follow-up captures require a separate GO after authorized fixture preparation. The P1 Evidence pane findings remain visual merge blockers for full Workbench v2.2 fidelity.
+
+## Later populated evidence
+
+The later [same-record intervention](INTERVENTION_VISUAL_REPORT.md) and [published-density comparison](PUBLISHED_DENSITY_VISUAL_REPORT.md) completed under separate guarded states. They supplement this unchanged-default capture record; their count/state differences and synthetic seams are explicit. They do not retroactively alter these default screenshots or remove the P1 Evidence findings.

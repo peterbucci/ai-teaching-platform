@@ -1,4 +1,4 @@
-/** Only the three fixed fictional fixtures below may run; no stack startup or cleanup. */
+/** Only the fixed fictional fixture phases below may run; no stack startup or cleanup. */
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { createHash, randomUUID } from "node:crypto";
@@ -7,7 +7,15 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 const [mode, stateArg, inputArg, outArg, safetyArg] = process.argv.slice(2);
 assert.ok(
-  ["prepare", "evaluate-followup", "student-regression"].includes(mode),
+  [
+    "prepare",
+    "evaluate-followup",
+    "student-regression",
+    "density-prepare",
+    "density-approve",
+    "density-publish",
+    "density-assignment",
+  ].includes(mode),
 );
 for (const value of [stateArg, inputArg, outArg, safetyArg]) assert.ok(value);
 const state = resolve(stateArg),
@@ -68,7 +76,9 @@ const fixture = resolve(
   dirname(fileURLToPath(import.meta.url)),
   mode === "student-regression"
     ? "seed-student-regression.mjs"
-    : "intervention-continuation-fixture.mjs",
+    : mode.startsWith("density-")
+      ? "published-density-fixture.mjs"
+      : "intervention-continuation-fixture.mjs",
 );
 const id = randomUUID();
 const paths = {

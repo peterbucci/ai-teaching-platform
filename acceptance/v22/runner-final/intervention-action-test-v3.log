@@ -1,0 +1,30 @@
+TAP version 13
+# Subtest: unfinished response body preserves uncertainty and never retries the click
+ok 1 - unfinished response body preserves uncertainty and never retries the click
+  ---
+  duration_ms: 25.9126
+  ...
+# Subtest: complete error responses still require mutation reconciliation
+ok 2 - complete error responses still require mutation reconciliation
+  ---
+  duration_ms: 2.2478
+  ...
+# Subtest: malformed or nonacknowledging HTTP200 does not release uncertainty
+ok 3 - malformed or nonacknowledging HTTP200 does not release uncertainty
+  ---
+  duration_ms: 1.549
+  ...
+# Subtest: response completion is latched before a receipt-write failure
+ok 4 - response completion is latched before a receipt-write failure
+  ---
+  duration_ms: 1.2828
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 104.5202

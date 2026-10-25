@@ -1,0 +1,77 @@
+{
+  "recorded_at": "2026-10-25T07:01:39.9743034Z",
+  "status": "prepared-runtime-unrun",
+  "source_sha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "source_tree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "expected_counts": {
+    "concepts": 5,
+    "published_questions": 19,
+    "base_bank": 15,
+    "required_sequence": 4,
+    "passages": 13,
+    "new_classes": 4,
+    "inactive_assignments": 4,
+    "enrollments": 0
+  },
+  "captured_images": 0,
+  "expected_images": 24,
+  "checks": {
+    "node_syntax": "pass",
+    "prettier": "pass",
+    "eslint": "pass-zero-warnings",
+    "pure_schema_resolver": "pass",
+    "mismatched_question_source": "rejected",
+    "guard_uncertainty_mock_tests": "3-pass",
+    "database": "unrun",
+    "browser": "unrun",
+    "model": "unrun",
+    "independent_review": "pass-scoped-static-review-by-compatibility-agent"
+  },
+  "preparation_findings": [
+    "Initial15question assumption rejected by real resolver check:19serialized snapshots. Preserved all19 instead of weakening validation.",
+    "Native sandbox Git read denied; pure contract check rerun with read-only escalation passed.",
+    "Adapter mocks require --experimental-vm-modules; initial invocation withoutflag did not run tests, correct invocation3passed."
+  ],
+  "files": [
+    {
+      "path": "runner-final/published-density-fixture.mjs",
+      "bytes": 18726,
+      "sha256": "6c92688288adf7b3a517cf1d6c87356b8e78b8ff53966e90ccae1ce5c593614a"
+    },
+    {
+      "path": "runner-final/check-published-density.mjs",
+      "bytes": 4503,
+      "sha256": "0f75d1d4b73d608217e02b1fcc56897519bcb63673c9c10f809b7d6dda1e366b"
+    },
+    {
+      "path": "final-verification/capture-published-density.mjs",
+      "bytes": 14815,
+      "sha256": "2846ec9cae1bc7417715027cda865235a7f0e1b8f3e280e43839c27cd6ccdd05"
+    },
+    {
+      "path": "runner-final/guarded-browser.mjs",
+      "bytes": 12792,
+      "sha256": "2287f0b8c047d82cb9c3a296ba03c6eac03557352dcbaeb4294ccbcf335f9b3a"
+    },
+    {
+      "path": "runner-final/guarded-container-fixture.mjs",
+      "bytes": 8466,
+      "sha256": "d1b4245fbe17f4a159a9aa66b00a2d03a078bf077ed1acc2b7cd59f1ed5c2e2a"
+    },
+    {
+      "path": "runner-final/PUBLISHED_DENSITY_EXECUTION.md",
+      "bytes": 7085,
+      "sha256": "58816733c9422e42b2a16a59f7f1638ab6c43033e440c3a62716820ae5eea070"
+    },
+    {
+      "path": "runner-final/GUARDED_BROWSER_PLACEMENT.md",
+      "bytes": 5101,
+      "sha256": "e8aebe7401471d4f70beab1bb1133c4eda12508752eedd9ea5f42755ecd69d06"
+    },
+    {
+      "path": "final-verification/DATA_PARITY_PLAN.md",
+      "bytes": 14133,
+      "sha256": "1037299af6cc8ca93b2e7aeb5012f9c4468cc419eafecd47009effa55afd434a"
+    }
+  ]
+}

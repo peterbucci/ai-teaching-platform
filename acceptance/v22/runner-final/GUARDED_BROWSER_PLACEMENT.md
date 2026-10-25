@@ -9,12 +9,17 @@ acceptance/v22/
   safety.mjs
   runner-final/
     guarded-browser.mjs
+    guarded-container-fixture.mjs
+    published-density-fixture.mjs
+    check-published-density.mjs
+    PUBLISHED_DENSITY_EXECUTION.md
     shell-authoring-browser.mjs
     student-regression-browser.mjs
     GUARDED_BROWSER_PLACEMENT.md
   final-verification/
     capture-shell.mjs
     capture-original-answer.mjs
+    capture-published-density.mjs
     comparison-gallery.html
     FINAL_ACCEPTANCE_REPORT.md
 ```
@@ -41,5 +46,7 @@ Optional `--fixture` supplies an actual populated scenario for capture or the sy
 The additional `capture-original-answer` helper is read-only after its single authorized teacher login. It requires `--fixture` to point to the retained `final-authoring-05/report.json`, SHA256 `7e99672e7cf7e6689d1bcc53d57a68f1a052eecd6b09ee77ea7a8d9de3970051`. It verifies the exact session/assignment/attempt, scrolls the existing response into view at all four sizes, checks the exact rendered response text and saves new screenshots. It never submits, evaluates or replays the answer. Invoke with the same state/safety/storage options, `--helper capture-original-answer`, the pinned receipt as `--fixture`, and a fresh output such as `final-verification/original-answer-selected`. Runtime GO is still required from the coordinator. Earlier captures and their executed wrapper hashes remain historical records; changing this allowlist does not rewrite them.
 
 Keep runtime state, `.env.acceptance`, browser profiles, cookies and endpoint files private and outside published assets. Do not copy `runtime-final` into the report worktree. Captures and guard receipts record execution provenance only after a real run.
+
+The `capture-published-density` helper requires the completed final density phase receipt. It captures a separate attributed published-content copy and four inactive assignment rows at all four sizes, with GET/HEAD only after one demo teacher login. Its nineteen-question snapshot count (fifteen base items plus four required sequence snapshots) is explicitly different from the prototype's fifteen. The fixture hash check resolves `../runner-final/published-density-fixture.mjs` from the capture directory; preserve both siblings. See [PUBLISHED_DENSITY_EXECUTION.md](PUBLISHED_DENSITY_EXECUTION.md) for the four separate service-fixture phases, capture command and limitations. No fixture runs implicitly with this browser wrapper.
 
 Preparation validation is limited to syntax, formatting and static checks. No browser, database, Docker, build, preflight or lock acquisition ran as part of this preparation.

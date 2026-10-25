@@ -21,14 +21,14 @@ Merge order main→116→117→118→113→120 produced local commit `462cfb1b31
 
 ## Combined execution matrix
 
-| Relationship             | Combined evidence                                                                                     | Limit / remaining gate                                                                                       |
-| ------------------------ | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| Shell + assignment page  | Production build, assignment/auth checks and all four-size screenshots                                | Course return/selected-cell context and double-padding findings require their own browser/visual disposition |
-| Shell + Lessons          | Production build, authoring/source/version suites and actual library/authoring screenshots            | Populated pane/unsaved/focus results are separately recorded; count parity is limited                        |
-| Lesson → assignment      | Exact-version inactive creation and separate activation service checks; same-record browser stages    | Generic published-page handoff may require explicit teacher re-selection; no version corruption inferred     |
-| Evidence → intervention  | Original/counterevidence/source/draft/authorization suites and approval/follow-up fixtures            | Saved-context browser regression and Evidence layout acceptance remain distinct                              |
-| Student conversation     | Deterministic and synthetic-provider conversation/controller/recovery services                        | These do not prove live-model behavior or browser focus/scroll by themselves                                 |
-| Authorization + identity | Class/enrollment/role checks, private projections, immutable source/version, SQL evidence constraints | Tested cases only; no blanket security certification                                                         |
+| Relationship             | Combined evidence                                                                                                        | Limit / remaining gate                                                                                           |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| Shell + assignment page  | Production build, assignment/auth checks and all four-size screenshots                                                   | Course return/selected-cell context and double-padding findings require their own browser/visual disposition     |
+| Shell + Lessons          | Production build, authoring/source/version suites and actual library/authoring screenshots                               | Populated pane/unsaved/focus results are separately recorded; count parity is limited                            |
+| Lesson → assignment      | Exact-version inactive creation and separate activation service checks; same-record browser stages                       | Generic published-page handoff may require explicit teacher re-selection; no version corruption inferred         |
+| Evidence → intervention  | Original/counterevidence/source/draft/authorization suites and approval/follow-up fixtures                               | Saved-context C3 and connected intervention browser chain passed scoped checks; Evidence layout fails separately |
+| Student conversation     | Deterministic/synthetic services plus actual four-size results, long-response reading and scoped recovery browser checks | These do not prove live-model behavior or browser focus/scroll by themselves                                     |
+| Authorization + identity | Class/enrollment/role checks, private projections, immutable source/version, SQL evidence constraints                    | Tested cases only; no blanket security certification                                                             |
 
 Use [FINAL_FUNCTIONAL_REPORT.md](FINAL_FUNCTIONAL_REPORT.md) and the current visual/accessibility reports for actual browser results and defect reproduction.
 

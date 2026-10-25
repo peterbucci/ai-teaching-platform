@@ -33,11 +33,11 @@
     },
     {
       "file": "intervention-continuation-fixture.mjs",
-      "sha256": "73339c1a74649ef46d77902d30bc9afe707881a0878f35e3e601ff933efd251d"
+      "sha256": "627fe9a67436e4701048a24afbe517aca06033e520019a86707d5318ac7db0f7"
     },
     {
       "file": "intervention-continuation-browser.mjs",
-      "sha256": "c488f413328300b4e464d5c75ef28d8531634b208097ec74ba36ec355258f28e"
+      "sha256": "ffa4e2f2fe4562db82d6f8da30f494b1a37159e26a24065204b9ab6af43cb87a"
     },
     {
       "file": "seed-student-regression.mjs",
@@ -49,7 +49,7 @@
     },
     {
       "file": "guarded-container-fixture.mjs",
-      "sha256": "461ee1e929685d03c81af7116fae3f5499d2585a83245a38b0ca14b558a1e70d"
+      "sha256": "d1b4245fbe17f4a159a9aa66b00a2d03a078bf077ed1acc2b7cd59f1ed5c2e2a"
     },
     {
       "file": "guarded-container-fixture.test.mjs",
@@ -57,7 +57,7 @@
     },
     {
       "file": "INTERVENTION_CONTINUATION.md",
-      "sha256": "8408a4035231d0770474c647e00fe8569be322ab383ecb54f6a13c22601f4dbd"
+      "sha256": "32bf14d902e77f20f808e9675dbf0245c0b0aa68d24882dd76e084a8342a85d5"
     },
     {
       "file": "SHELL_AUTHORING_STATUS.txt",
@@ -66,6 +66,14 @@
     {
       "file": "FINAL_HELPERS.md",
       "sha256": "5418df8c2da0b802fe0d21ad14cf55cf66bb7f57d0f0ba52eee7ee3cf623fc47"
+    },
+    {
+      "file": "intervention-action.test.mjs",
+      "sha256": "bb76fcc282ffe410d636a037d3cb25e7e9fde734eb5012d129cee4ffdb2808c0"
+    },
+    {
+      "file": "INTERVENTION_EXECUTION.md",
+      "sha256": "6917c86c8e084e8d3de933e243b23fc7b1792e58021a35a80d13644eb0ddbecd"
     }
   ],
   "historical_preparation_mismatch": "Documented in COPY_PROVENANCE.json and FINAL_HELPERS.md; old four-file current copy was not the launcher used for the true 24-test current run.",
@@ -91,5 +99,20 @@
     "historical_sources": "executed-student-helpers/manifest.json",
     "report": "STUDENT_REGRESSION_REPORT.md",
     "latest_run": "../evidence/final-browser/final-student-regression-04/report.json"
+  },
+  "action_boundary_review": {
+    "helper_sha256": "ffa4e2f2fe4562db82d6f8da30f494b1a37159e26a24065204b9ab6af43cb87a",
+    "result": "Independent review accepted corrected acknowledgement retention and focused capture visibility. Final read-only runtime passed; mutation-error policy covered by isolated tests only.",
+    "tests": "intervention-action-test-v3.log",
+    "tests_sha256": "b9a735ca5024fb21fe1e0f3c5b131b219a6be387495bc9ced7a431e29d250ab9",
+    "passed": 4,
+    "failed": 0,
+    "historical_sources": "executed-intervention-helpers/phase-manifest.json"
+  },
+  "intervention_execution": {
+    "report": "INTERVENTION_EXECUTION.md",
+    "final_receipt": "../evidence/final-browser/final-intervention-inspect-01/report.json",
+    "final_receipt_sha256": "106259bf28b260eeb006a5af4c8450273361e7ea6c63424b444e0f707183308b",
+    "status": "Passed same-record provider-disabled continuation with preserved failures and hash-pinned read-only resumes. Explicit synthetic results, no actual-model claim."
   }
 }

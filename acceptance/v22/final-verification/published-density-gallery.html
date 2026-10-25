@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  /><title>Published lesson density: actual reference and implementation</title
+  ><style>
+    body {
+      font:
+        16px/1.5 system-ui,
+        sans-serif;
+      max-width: 1800px;
+      margin: auto;
+      padding: 24px;
+      color: #152d29;
+      background: #f8faf9;
+    }
+    h1 {
+      font-size: 28px;
+    }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+    figure {
+      margin: 0;
+      background: white;
+      border: 1px solid #b6c9c2;
+      padding: 10px;
+    }
+    figcaption {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    section {
+      margin: 32px 0;
+    }
+    a {
+      color: #086d58;
+    }
+    .note {
+      border-left: 4px solid #ac7626;
+      padding: 10px 16px;
+      background: #fff8e9;
+    }
+    @media (max-width: 760px) {
+      .pair {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <h1>Published lesson density: actual reference and implementation</h1>
+  <p class="note">
+    Capture checks passed; visual acceptance remains incomplete. Preserve all19
+    required snapshots. Version, activation, enrollment and question counts
+    differ. No model or paid calls.
+  </p>
+  <p>
+    <a href="PUBLISHED_DENSITY_VISUAL_REPORT.md">Visual report and limits</a>
+  </p>
+  <section>
+    <h2>Published top — 1440x1000</h2>
+    <div class="pair">
+      <figure>
+        <figcaption>
+          Prototype: 5 concepts / 15 questions / 13 passages; v3; 3 active + 1
+          inactive class
+        </figcaption>
+        <a
+          href="../prototype-verification/screenshots/lesson-published-1440x1000.png"
+          ><img
+            loading="lazy"
+            src="../prototype-verification/screenshots/lesson-published-1440x1000.png"
+            alt="Prototype: 5 concepts / 15 questions / 13 passages; v3; 3 active + 1 inactive class"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>
+          Implementation: 5 / 19 / 13; v1; 4 inactive empty classes, initial
+          pane position
+        </figcaption>
+        <a href="published-density-01/published-top-1440x1000.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/published-top-1440x1000.png"
+            alt="Implementation: 5 / 19 / 13; v1; 4 inactive empty classes, initial pane position"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Assignment context — 1440x1000</h2>
+    <div class="pair">
+      <figure>
+        <figcaption>Prototype: assignments precede creation form</figcaption>
+        <a
+          href="../prototype-verification/screenshots/lesson-published-1440x1000.png"
+          ><img
+            loading="lazy"
+            src="../prototype-verification/screenshots/lesson-published-1440x1000.png"
+            alt="Prototype: assignments precede creation form"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>
+          Implementation: editor deliberately scrolled to the four verified
+          assignment rows
+        </figcaption>
+        <a
+          href="published-density-01/published-assignment-context-1440x1000.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/published-assignment-context-1440x1000.png"
+            alt="Implementation: editor deliberately scrolled to the four verified assignment rows"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Inactive review — 1440x1000</h2>
+    <div class="pair">
+      <figure>
+        <figcaption>Prototype: inactive Section C with 12 students</figcaption>
+        <a
+          href="../prototype-verification/screenshots/assignment-inactive-section-c-1440x1000.png"
+          ><img
+            loading="lazy"
+            src="../prototype-verification/screenshots/assignment-inactive-section-c-1440x1000.png"
+            alt="Prototype: inactive Section C with 12 students"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>
+          Implementation: inactive Section A density fixture, zero enrollments
+        </figcaption>
+        <a href="published-density-01/inactive-assignment-review-1440x1000.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/inactive-assignment-review-1440x1000.png"
+            alt="Implementation: inactive Section A density fixture, zero enrollments"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Additional actual implementation panes — 1440x1000</h2>
+    <p>
+      These compare responsive behavior; no additional matching prototype pane
+      state was captured for this run.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>published-outline; actual 1440x1000</figcaption>
+        <a href="published-density-01/published-outline-1440x1000.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/published-outline-1440x1000.png"
+            alt="published-outline; actual 1440x1000"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>published-question-list; actual 1440x1000</figcaption>
+        <a href="published-density-01/published-question-list-1440x1000.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/published-question-list-1440x1000.png"
+            alt="published-question-list; actual 1440x1000"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>published-reading; actual 1440x1000</figcaption>
+        <a href="published-density-01/published-reading-1440x1000.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/published-reading-1440x1000.png"
+            alt="published-reading; actual 1440x1000"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Published top — 1024x768</h2>
+    <div class="pair">
+      <figure>
+        <figcaption>
+          Prototype: 5 concepts / 15 questions / 13 passages; v3; 3 active + 1
+          inactive class
+        </figcaption>
+        <a
+          href="../prototype-verification/screenshots/lesson-published-1024x768.png"
+          ><img
+            loading="lazy"
+            src="../prototype-verification/screenshots/lesson-published-1024x768.png"
+            alt="Prototype: 5 concepts / 15 questions / 13 passages; v3; 3 active + 1 inactive class"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>
+          Implementation: 5 / 19 / 13; v1; 4 inactive empty classes, initial
+          pane position
+        </figcaption>
+        <a href="published-density-01/published-top-1024x768.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/published-top-1024x768.png"
+            alt="Implementation: 5 / 19 / 13; v1; 4 inactive empty classes, initial pane position"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Assignment context — 1024x768</h2>
+    <div class="pair">
+      <figure>
+        <figcaption>Prototype: assignments precede creation form</figcaption>
+        <a
+          href="../prototype-verification/screenshots/lesson-published-1024x768.png"
+          ><img
+            loading="lazy"
+            src="../prototype-verification/screenshots/lesson-published-1024x768.png"
+            alt="Prototype: assignments precede creation form"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>
+          Implementation: editor deliberately scrolled to the four verified
+          assignment rows
+        </figcaption>
+        <a href="published-density-01/published-assignment-context-1024x768.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/published-assignment-context-1024x768.png"
+            alt="Implementation: editor deliberately scrolled to the four verified assignment rows"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Inactive review — 1024x768</h2>
+    <div class="pair">
+      <figure>
+        <figcaption>Prototype: inactive Section C with 12 students</figcaption>
+        <a
+          href="../prototype-verification/screenshots/assignment-inactive-section-c-1024x768.png"
+          ><img
+            loading="lazy"
+            src="../prototype-verification/screenshots/assignment-inactive-section-c-1024x768.png"
+            alt="Prototype: inactive Section C with 12 students"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>
+          Implementation: inactive Section A density fixture, zero enrollments
+        </figcaption>
+        <a href="published-density-01/inactive-assignment-review-1024x768.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/inactive-assignment-review-1024x768.png"
+            alt="Implementation: inactive Section A density fixture, zero enrollments"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Additional actual implementation panes — 1024x768</h2>
+    <p>
+      These compare responsive behavior; no additional matching prototype pane
+      state was captured for this run.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>published-outline; actual 1024x768</figcaption>
+        <a href="published-density-01/published-outline-1024x768.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/published-outline-1024x768.png"
+            alt="published-outline; actual 1024x768"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>published-question-list; actual 1024x768</figcaption>
+        <a href="published-density-01/published-question-list-1024x768.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/published-question-list-1024x768.png"
+            alt="published-question-list; actual 1024x768"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>published-reading; actual 1024x768</figcaption>
+        <a href="published-density-01/published-reading-1024x768.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/published-reading-1024x768.png"
+            alt="published-reading; actual 1024x768"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Published top — 390x844</h2>
+    <div class="pair">
+      <figure>
+        <figcaption>
+          Prototype: 5 concepts / 15 questions / 13 passages; v3; 3 active + 1
+          inactive class
+        </figcaption>
+        <a
+          href="../prototype-verification/screenshots/lesson-published-390x844.png"
+          ><img
+            loading="lazy"
+            src="../prototype-verification/screenshots/lesson-published-390x844.png"
+            alt="Prototype: 5 concepts / 15 questions / 13 passages; v3; 3 active + 1 inactive class"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>
+          Implementation: 5 / 19 / 13; v1; 4 inactive empty classes, initial
+          pane position
+        </figcaption>
+        <a href="published-density-01/published-top-390x844.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/published-top-390x844.png"
+            alt="Implementation: 5 / 19 / 13; v1; 4 inactive empty classes, initial pane position"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Assignment context — 390x844</h2>
+    <div class="pair">
+      <figure>
+        <figcaption>Prototype: assignments precede creation form</figcaption>
+        <a
+          href="../prototype-verification/screenshots/lesson-published-390x844.png"
+          ><img
+            loading="lazy"
+            src="../prototype-verification/screenshots/lesson-published-390x844.png"
+            alt="Prototype: assignments precede creation form"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>
+          Implementation: editor deliberately scrolled to the four verified
+          assignment rows
+        </figcaption>
+        <a href="published-density-01/published-assignment-context-390x844.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/published-assignment-context-390x844.png"
+            alt="Implementation: editor deliberately scrolled to the four verified assignment rows"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Inactive review — 390x844</h2>
+    <div class="pair">
+      <figure>
+        <figcaption>Prototype: inactive Section C with 12 students</figcaption>
+        <a
+          href="../prototype-verification/screenshots/assignment-inactive-section-c-390x844.png"
+          ><img
+            loading="lazy"
+            src="../prototype-verification/screenshots/assignment-inactive-section-c-390x844.png"
+            alt="Prototype: inactive Section C with 12 students"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>
+          Implementation: inactive Section A density fixture, zero enrollments
+        </figcaption>
+        <a href="published-density-01/inactive-assignment-review-390x844.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/inactive-assignment-review-390x844.png"
+            alt="Implementation: inactive Section A density fixture, zero enrollments"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Additional actual implementation panes — 390x844</h2>
+    <p>
+      These compare responsive behavior; no additional matching prototype pane
+      state was captured for this run.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>published-outline; actual 390x844</figcaption>
+        <a href="published-density-01/published-outline-390x844.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/published-outline-390x844.png"
+            alt="published-outline; actual 390x844"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>published-question-list; actual 390x844</figcaption>
+        <a href="published-density-01/published-question-list-390x844.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/published-question-list-390x844.png"
+            alt="published-question-list; actual 390x844"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>published-reading; actual 390x844</figcaption>
+        <a href="published-density-01/published-reading-390x844.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/published-reading-390x844.png"
+            alt="published-reading; actual 390x844"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Published top — 320x844</h2>
+    <div class="pair">
+      <figure>
+        <figcaption>
+          Prototype: 5 concepts / 15 questions / 13 passages; v3; 3 active + 1
+          inactive class
+        </figcaption>
+        <a
+          href="../prototype-verification/screenshots/lesson-published-320x844.png"
+          ><img
+            loading="lazy"
+            src="../prototype-verification/screenshots/lesson-published-320x844.png"
+            alt="Prototype: 5 concepts / 15 questions / 13 passages; v3; 3 active + 1 inactive class"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>
+          Implementation: 5 / 19 / 13; v1; 4 inactive empty classes, initial
+          pane position
+        </figcaption>
+        <a href="published-density-01/published-top-320x844.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/published-top-320x844.png"
+            alt="Implementation: 5 / 19 / 13; v1; 4 inactive empty classes, initial pane position"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Assignment context — 320x844</h2>
+    <div class="pair">
+      <figure>
+        <figcaption>Prototype: assignments precede creation form</figcaption>
+        <a
+          href="../prototype-verification/screenshots/lesson-published-320x844.png"
+          ><img
+            loading="lazy"
+            src="../prototype-verification/screenshots/lesson-published-320x844.png"
+            alt="Prototype: assignments precede creation form"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>
+          Implementation: editor deliberately scrolled to the four verified
+          assignment rows
+        </figcaption>
+        <a href="published-density-01/published-assignment-context-320x844.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/published-assignment-context-320x844.png"
+            alt="Implementation: editor deliberately scrolled to the four verified assignment rows"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Inactive review — 320x844</h2>
+    <div class="pair">
+      <figure>
+        <figcaption>Prototype: inactive Section C with 12 students</figcaption>
+        <a
+          href="../prototype-verification/screenshots/assignment-inactive-section-c-320x844.png"
+          ><img
+            loading="lazy"
+            src="../prototype-verification/screenshots/assignment-inactive-section-c-320x844.png"
+            alt="Prototype: inactive Section C with 12 students"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>
+          Implementation: inactive Section A density fixture, zero enrollments
+        </figcaption>
+        <a href="published-density-01/inactive-assignment-review-320x844.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/inactive-assignment-review-320x844.png"
+            alt="Implementation: inactive Section A density fixture, zero enrollments"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Additional actual implementation panes — 320x844</h2>
+    <p>
+      These compare responsive behavior; no additional matching prototype pane
+      state was captured for this run.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>published-outline; actual 320x844</figcaption>
+        <a href="published-density-01/published-outline-320x844.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/published-outline-320x844.png"
+            alt="published-outline; actual 320x844"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>published-question-list; actual 320x844</figcaption>
+        <a href="published-density-01/published-question-list-320x844.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/published-question-list-320x844.png"
+            alt="published-question-list; actual 320x844"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>published-reading; actual 320x844</figcaption>
+        <a href="published-density-01/published-reading-320x844.png"
+          ><img
+            loading="lazy"
+            src="published-density-01/published-reading-320x844.png"
+            alt="published-reading; actual 320x844"
+        /></a>
+      </figure>
+    </div>
+  </section>
+</html>

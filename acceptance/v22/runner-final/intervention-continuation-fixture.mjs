@@ -407,7 +407,25 @@ try {
     report.followup_response =
       "The water can evaporate from the soil and become water vapor, a gas. It remains water in a different state rather than stopping existing.";
   } else {
-    assert.equal(input.phase, "review-and-submit");
+    if (input.phase === "inspect-submitted") {
+      assert.equal(
+        hash(bytes),
+        "c699ff32b9298b48c8f71e9ca4650528e821d42314a3b092a376e3a03d90c781",
+        "Only the exact reviewed read-only completion receipt may continue this saved submission.",
+      );
+      assert.equal(input.status, "passed");
+      assert.equal(input.lock_retained, false);
+      assert.deepEqual(input.mutations, []);
+      assert.deepEqual(input.blocked_context_writes, []);
+      assert.equal(
+        input.prior_submission?.report_sha256,
+        "064d3a54fe7089a771a7c0b34939a0faa6f435f8884c143fee72a107470996a7",
+      );
+      assert.equal(input.prior_submission.no_mutation_replay, true);
+      report.completed_read_only_resume_sha256 = hash(bytes);
+    } else {
+      assert.equal(input.phase, "review-and-submit");
+    }
     assert.ok(
       ["passed", "failed-responsive"].includes(input.status),
       "Do not continue after a functional browser failure.",
@@ -429,6 +447,7 @@ try {
     const review = await readInterventionReview(teacher, preparation.draft_id);
     assert.equal(review.approval?.id, input.approval_id);
     assert.ok(review.delivery);
+    assert.equal(review.delivery.id, input.delivery_id);
     assert.deepEqual(review.approval.recipient_ids, [authoring.student_id]);
     assert.deepEqual(review.approval.content_ref, authoring.content_ref);
     const before = await readStudentInterventionFollowup(
@@ -438,6 +457,7 @@ try {
     assert.equal(before.response_text, preparation.followup_response);
     assert.equal(before.attempt_id, input.followup.attempt_id);
     assert.ok(before.submitted_at);
+    assert.equal(before.submitted_at, input.followup.submitted_at);
     report.preparation = preparation;
     report.approval_id = input.approval_id;
     report.draft_id = preparation.draft_id;

@@ -14,6 +14,7 @@ assert.ok(
   [
     "review-and-submit",
     "inspect-followup",
+    "inspect-submitted",
     "context-checks",
     "curated-activation",
   ].includes(phase),
@@ -36,7 +37,7 @@ const directAuthoring =
   seam.functional_completed_through === "teacher-original-evidence";
 const preparation = directAuthoring
   ? { authoring: seam }
-  : phase === "inspect-followup"
+  : ["inspect-followup", "inspect-submitted"].includes(phase)
     ? seam.preparation
     : seam;
 const authoring = preparation.authoring;
@@ -55,6 +56,32 @@ if (directAuthoring) {
   assert.equal(seam.sourceSha, manifest.sourceSha);
   assert.equal(seam.sourceTree, manifest.sourceTree);
   assert.equal(seam.paid_calls, 0);
+} else if (phase === "inspect-submitted") {
+  assert.equal(
+    hash(seamBytes),
+    "064d3a54fe7089a771a7c0b34939a0faa6f435f8884c143fee72a107470996a7",
+    "Resume only the independently reviewed completed-write/readiness-failure receipt.",
+  );
+  assert.equal(seam.status, "failed");
+  assert.equal(
+    seam.failure_stage,
+    "teacher-inspects-linked-provider-disabled-followup",
+  );
+  assert.equal(
+    seam.error,
+    "Expected values to be strictly equal:\n\n0 !== 1\n",
+  );
+  assert.equal(seam.lock_retained, false);
+  assert.deepEqual(
+    seam.mutations.map((item) => [item.action, item.http_status, item.status]),
+    ["save", "approve", "deliver", "start", "submit"].map((action) => [
+      action,
+      200,
+      "response-completed",
+    ]),
+  );
+  assert.equal(seam.source_sha, manifest.sourceSha);
+  assert.equal(seam.source_tree, manifest.sourceTree);
 } else {
   assert.equal(seam.status, "completed");
   assert.equal(seam.source_sha, manifest.sourceSha);
@@ -83,7 +110,7 @@ assert.equal(
   hash(readFileSync(resolve(safetyArg))),
   "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
 );
-const { acquireLock, preflight, MIN_RUNTIME_GIB } = await import(
+const { acquireLock, preflight, MIN_RUNTIME_GIB, LOCK_PATH } = await import(
   pathToFileURL(resolve(safetyArg)).href
 );
 assert.ok(
@@ -107,6 +134,8 @@ const report = {
   preparation,
   started_at: new Date().toISOString(),
   checks: [],
+  progress: [],
+  mutations: [],
   screenshots: [],
   safety: [],
   blocked_off_origin_requests: [],
@@ -123,6 +152,8 @@ let release,
   teacher,
   student,
   contextReadOnly = false,
+  mutationUncertain = false,
+  browserCloseUncertain = false,
   stage = "guard";
 const save = () =>
   writeFile(resolve(out, "report.json"), JSON.stringify(report, null, 2));
@@ -141,37 +172,162 @@ function guard(before) {
     "Shared storage preflight failed; stop without cleanup or restart.",
   );
 }
+async function bounded(label, operation, observed = () => {}) {
+  report.progress.push({
+    label,
+    status: "waiting",
+    at: new Date().toISOString(),
+  });
+  await save();
+  let timer;
+  try {
+    const result = await Promise.race([
+      operation(),
+      new Promise((_, reject) => {
+        timer = setTimeout(
+          () => reject(new Error(label + " exceeded 20 seconds")),
+          20_000,
+        );
+      }),
+    ]);
+    observed(result);
+    report.progress.push({
+      label,
+      status: "completed",
+      at: new Date().toISOString(),
+    });
+    await save();
+    return result;
+  } finally {
+    clearTimeout(timer);
+  }
+}
 async function read(context, path, status = 200) {
-  const response = await context.request.get(
-    new URL(path, manifest.origin).href,
+  const response = await bounded("GET " + path, () =>
+    context.request.get(new URL(path, manifest.origin).href, {
+      timeout: 20_000,
+    }),
   );
   assert.equal(response.status(), status, path);
-  return status === 200 ? response.json() : null;
+  return status === 200
+    ? bounded("GET JSON " + path, () => response.json())
+    : null;
 }
-async function action(page, path, expectedAction, click) {
+function acknowledgeMutation(body, path, actionName, request) {
+  assert.ok(
+    body && typeof body === "object" && !body.error,
+    "Missing mutation acknowledgement.",
+  );
+  const id = path.split("/").at(-1);
+  if (["save", "approve", "deliver"].includes(actionName)) {
+    assert.equal(body.draft?.id, id);
+    assert.equal(
+      body.draft.revision,
+      request.expected_revision + (actionName === "deliver" ? 0 : 1),
+    );
+    if (actionName === "save") {
+      assert.equal(body.draft.status, "private_draft");
+      assert.equal(body.approval, null);
+      assert.deepEqual(body.draft.activity, request.activity);
+    } else {
+      assert.equal(body.draft.status, "approved");
+      assert.equal(body.approval?.draft_id, id);
+      assert.ok(body.approval.id);
+      if (actionName === "approve") {
+        assert.equal(
+          body.approval.approved_revision,
+          request.expected_revision,
+        );
+        assert.deepEqual(body.approval.recipient_ids, request.recipient_ids);
+        assert.equal(body.delivery, null);
+      } else {
+        assert.equal(body.approval.id, request.approval_id);
+        assert.equal(body.delivery?.approval_id, request.approval_id);
+        assert.ok(body.delivery.id);
+      }
+    }
+  } else if (["start", "submit"].includes(actionName)) {
+    assert.equal(body.approval_id, path.split("/").at(-2));
+    assert.ok(body.started_at && body.attempt_id);
+    if (actionName === "submit") {
+      assert.ok(body.submitted_at);
+      assert.equal(body.response_text, request.response_text);
+    }
+  } else {
+    assert.equal(actionName, "curated-assignment-explicit-activation");
+    assert.equal(body.id, path.split("/").at(-2));
+    assert.ok(body.teacher_approved_at && body.content_ref);
+  }
+}
+async function action(
+  page,
+  path,
+  expectedAction,
+  click,
+  matchesRequest = (request) =>
+    request.postDataJSON()?.action === expectedAction,
+) {
   guard(expectedAction);
+  const intent = {
+    action: expectedAction,
+    path,
+    status: "intent-recorded",
+    at: new Date().toISOString(),
+  };
+  report.mutations.push(intent);
+  await save();
   const promise = page.waitForResponse(
     (response) =>
       new URL(response.url()).pathname === path &&
       response.request().method() === "POST" &&
-      response.request().postDataJSON()?.action === expectedAction,
+      matchesRequest(response.request()),
+    { timeout: 20_000 },
   );
-  await click();
-  const response = await promise;
-  assert.equal(
-    response.status(),
-    200,
-    expectedAction + ": " + (await response.text()),
+  // A rejected response wait may settle while click is pending. Its error is
+  // still consumed below; suppress only an unhandled-promise notification.
+  promise.catch(() => {});
+  mutationUncertain = true;
+  intent.status = "outcome-unestablished";
+  await bounded("click " + expectedAction, click);
+  const response = await bounded(
+    "response headers " + expectedAction,
+    () => promise,
   );
-  const body = await response.json();
+  intent.http_status = response.status();
+  intent.request_identity_sha256 = hash(response.request().postData() || "");
+  let body;
+  await bounded(
+    "response body " + expectedAction,
+    () => response.text(),
+    (text) => {
+      intent.response_sha256 = hash(text);
+      intent.response_received_at = new Date().toISOString();
+      intent.status = "response-requires-reconciliation";
+      assert.equal(response.status(), 200, expectedAction + ": " + text);
+      body = JSON.parse(text);
+      acknowledgeMutation(
+        body,
+        path,
+        expectedAction,
+        response.request().postDataJSON(),
+      );
+      // Only a valid, scoped success acknowledgement establishes the result.
+      // Errors and malformed/nonacknowledging 200s retain the uncertainty latch.
+      mutationUncertain = false;
+      intent.status = "acknowledged";
+      intent.completed_at = new Date().toISOString();
+    },
+  );
+  await save();
   report.checks.push({
     action: expectedAction,
     at: new Date().toISOString(),
     http_status: response.status(),
   });
+  await save();
   return body;
 }
-async function capture(page, name, allSizes = false) {
+async function capture(page, name, allSizes = false, focus = null) {
   const sizes = allSizes
     ? [
         [1440, 1000],
@@ -182,7 +338,60 @@ async function capture(page, name, allSizes = false) {
     : [[1440, 1000]];
   for (const [width, height] of sizes) {
     await page.setViewportSize({ width, height });
-    await page.evaluate(() => document.fonts.ready);
+    await bounded("fonts for " + name, () =>
+      page.evaluate(() => document.fonts.ready),
+    );
+    let focusedEvidence = null;
+    if (focus) {
+      const text = page.locator(focus.selector);
+      assert.equal(await text.count(), 1);
+      assert.equal(await text.textContent(), focus.expected);
+      await text.evaluate((element) =>
+        element.scrollIntoView({
+          block: "center",
+          inline: "nearest",
+          behavior: "instant",
+        }),
+      );
+      focusedEvidence = await text.evaluate((element) => {
+        const rect = element.getBoundingClientRect();
+        const hitPoints = [
+          rect.top + Math.min(2, rect.height / 4),
+          rect.top + rect.height / 2,
+          rect.bottom - Math.min(2, rect.height / 4),
+        ].map((y) => {
+          const hit = document.elementFromPoint(rect.x + rect.width / 2, y);
+          return {
+            x: rect.x + rect.width / 2,
+            y,
+            unobscured: hit === element || element.contains(hit),
+          };
+        });
+        return {
+          top: rect.top,
+          bottom: rect.bottom,
+          left: rect.left,
+          right: rect.right,
+          width: rect.width,
+          height: rect.height,
+          scroll_y: window.scrollY,
+          viewport_height: innerHeight,
+          viewport_width: innerWidth,
+          hit_points: hitPoints,
+          all_sampled_points_unobscured: hitPoints.every(
+            (point) => point.unobscured,
+          ),
+        };
+      });
+      assert.ok(
+        focusedEvidence.top >= 0 &&
+          focusedEvidence.bottom <= height &&
+          focusedEvidence.left >= 0 &&
+          focusedEvidence.right <= width &&
+          focusedEvidence.all_sampled_points_unobscured,
+        "Exact evidence text must be inside the captured viewport.",
+      );
+    }
     const file = name + "-" + width + "x" + height + ".png";
     await page.screenshot({ path: resolve(out, file), fullPage: false });
     report.screenshots.push({
@@ -191,6 +400,15 @@ async function capture(page, name, allSizes = false) {
       width,
       height,
       url: page.url(),
+      ...(focusedEvidence
+        ? {
+            focused_evidence: {
+              ...focusedEvidence,
+              selector: focus.selector,
+              text_sha256: hash(focus.expected),
+            },
+          }
+        : {}),
       overflow: await page.evaluate(
         () => document.documentElement.scrollWidth > innerWidth + 1,
       ),
@@ -227,7 +445,7 @@ function sameOriginal(comparison) {
   );
 }
 async function showTeacherComparison() {
-  await teacher.reload();
+  await bounded("reload teacher comparison", () => teacher.reload());
   await teacher
     .getByRole("heading", {
       name: "Before and after the activity",
@@ -235,6 +453,10 @@ async function showTeacherComparison() {
     })
     .waitFor();
   const recipient = teacher.locator("details.lp-followup-recipient");
+  await teacher
+    .locator('.lp-intervention-followup[aria-busy="false"]')
+    .waitFor();
+  await recipient.first().waitFor();
   assert.equal(await recipient.count(), 1);
   await recipient.locator("summary").first().click();
   await recipient.locator("details.lp-followup-original > summary").click();
@@ -496,26 +718,20 @@ async function reviewCuratedAssignment(context) {
     await teacher
       .getByLabel("I have reviewed this reading, its learning goals")
       .check();
-    guard("curated-assignment-explicit-activation");
-    const pending = teacher.waitForResponse(
-      (response) =>
-        new URL(response.url()).pathname === endpoint &&
-        response.request().method() === "POST",
-    );
-    await teacher
-      .getByRole("button", { name: "Approve and activate", exact: true })
-      .click();
-    const response = await pending;
-    await response.finished();
-    assert.equal(response.status(), 200);
-    assert.equal(
-      response.request().postDataJSON().review_token,
-      before.review_token,
+    await action(
+      teacher,
+      endpoint,
+      "curated-assignment-explicit-activation",
+      () =>
+        teacher
+          .getByRole("button", { name: "Approve and activate", exact: true })
+          .click(),
+      (request) => request.postDataJSON()?.review_token === before.review_token,
     );
     report.checks.push({
       action: "separate-curated-assignment-activation",
       at: new Date().toISOString(),
-      http_status: response.status(),
+      http_status: 200,
       review_identity_sha256: hash(before.review_token),
     });
   }
@@ -539,6 +755,10 @@ try {
     project: manifest.project,
     sourceSha: manifest.sourceSha,
   });
+  report.lock_owner = JSON.parse(
+    readFileSync(resolve(LOCK_PATH, "owner.json"), "utf8"),
+  );
+  await save();
   guard("browser-launch");
   browser = await chromium.launch({
     executablePath: process.env.BROWSER_EXECUTABLE,
@@ -576,9 +796,17 @@ try {
   );
   for (const page of [teacher, student]) page.setDefaultTimeout(20000);
   await login(teacher, "teacher");
-  if (["review-and-submit", "inspect-followup"].includes(phase))
+  if (
+    ["review-and-submit", "inspect-followup", "inspect-submitted"].includes(
+      phase,
+    )
+  )
     await login(student, "student");
-  contextReadOnly = phase === "context-checks";
+  contextReadOnly = [
+    "context-checks",
+    "inspect-submitted",
+    "inspect-followup",
+  ].includes(phase);
   const endpoint = "/api/teacher/interventions/" + preparation.draft_id;
   let review;
   if (phase !== "curated-activation") {
@@ -596,6 +824,52 @@ try {
     await checkSavedContext(contexts[0], endpoint, review);
   } else if (phase === "curated-activation") {
     await reviewCuratedAssignment(contexts[0]);
+  } else if (phase === "inspect-submitted") {
+    stage =
+      "read-only-resume-teacher-inspects-linked-provider-disabled-followup";
+    assert.equal(review.approval?.id, seam.approval_id);
+    assert.equal(review.delivery?.id, seam.delivery_id);
+    assert.deepEqual(review.approval.content_ref, authoring.content_ref);
+    assert.deepEqual(review.approval.recipient_ids, [authoring.student_id]);
+    report.approval_id = seam.approval_id;
+    report.delivery_id = seam.delivery_id;
+    report.prior_submission = {
+      report_sha256: hash(seamBytes),
+      action_receipts: seam.mutations,
+      no_mutation_replay: true,
+    };
+    report.followup = await read(
+      contexts[1],
+      "/api/student/interventions/" + seam.approval_id + "/followup",
+    );
+    for (const key of [
+      "approval_id",
+      "attempt_id",
+      "submitted_at",
+      "response_text",
+      "evaluation_status",
+      "evaluation_id",
+    ])
+      assert.deepEqual(report.followup[key], seam.followup[key]);
+    assert.equal(report.followup.evaluation_status, "failed");
+    report.comparison = await read(contexts[0], endpoint + "/followup");
+    const linked = sameOriginal(report.comparison);
+    assert.equal(linked.followup.attempt_id, seam.followup.attempt_id);
+    assert.equal(linked.followup.response_text, preparation.followup_response);
+    assert.equal(linked.followup.evaluation_status, "failed");
+    const recipient = await showTeacherComparison();
+    await recipient
+      .locator(".lp-followup-before blockquote")
+      .scrollIntoViewIfNeeded();
+    await capture(teacher, "06a-teacher-original-before-followup");
+    await recipient
+      .locator(".lp-followup-after blockquote")
+      .scrollIntoViewIfNeeded();
+    await capture(teacher, "06b-teacher-linked-provider-disabled-followup");
+    report.functional_completed_through =
+      "teacher-inspected-provider-disabled-followup";
+    report.next_step =
+      "Use the explicit evaluate-followup seam only after the normal retry_after; original approval, delivery and answer must not be replayed.";
   } else if (phase === "review-and-submit") {
     assert.equal(
       review.approval,
@@ -782,7 +1056,10 @@ try {
     await student
       .getByRole("heading", { name: "Saved response", exact: true })
       .scrollIntoViewIfNeeded();
-    await capture(student, "07-student-accepted-fixture", true);
+    await capture(student, "07-student-accepted-fixture", true, {
+      selector: ".lp-followup-saved blockquote",
+      expected: preparation.followup_response,
+    });
     stage = "teacher-inspects-original-and-accepted-linked-followup";
     report.comparison = await read(contexts[0], endpoint + "/followup");
     const linked = sameOriginal(report.comparison);
@@ -796,12 +1073,22 @@ try {
         "Fixture evaluation for testing",
       ),
     );
-    await capture(teacher, "08-teacher-original-and-followup", true);
+    await teacher.evaluate(() => window.scrollTo(0, 0));
+    await capture(teacher, "08-teacher-followup-page-geometry", true);
+    await capture(teacher, "09-teacher-original-response", true, {
+      selector: ".lp-followup-before blockquote",
+      expected: authoring.original_response,
+    });
+    await capture(teacher, "10-teacher-linked-followup-response", true, {
+      selector: ".lp-followup-after blockquote",
+      expected: preparation.followup_response,
+    });
     report.functional_completed_through =
       "teacher-inspected-accepted-linked-followup-with-explicit-synthetic-seams";
     report.continuity =
       "Same source, immutable lesson version, assignment, student, original answer, approved intervention and linked follow-up across recorded browser stages. Synthetic evaluation/private-draft seams remain explicit; no actual-model claim.";
   }
+  if (contextReadOnly) assert.deepEqual(report.blocked_context_writes, []);
   report.status = report.context_checks.some(
     (value) => value.status === "failed",
   )
@@ -810,14 +1097,14 @@ try {
       ? "failed-responsive"
       : "passed";
 } catch (error) {
-  report.status = "failed";
+  report.status = mutationUncertain ? "uncertain" : "failed";
   report.failure_stage = stage;
   report.error = error.message;
   for (const [name, page] of [
     ["teacher", teacher],
     ["student", student],
   ])
-    if (page) {
+    if (page && !mutationUncertain) {
       try {
         await capture(page, "failure-" + name);
       } catch {
@@ -826,15 +1113,38 @@ try {
     }
   process.exitCode = 1;
 } finally {
-  report.finished_at = new Date().toISOString();
-  await browser?.close();
+  if (browser) {
+    let closed = false;
+    try {
+      await bounded(
+        "close owned browser",
+        () => browser.close(),
+        () => {
+          closed = true;
+        },
+      );
+    } catch (error) {
+      browserCloseUncertain = !closed;
+      report.browser_close_error = error.message;
+    }
+  }
   try {
-    release?.();
+    if (release && (mutationUncertain || browserCloseUncertain)) {
+      report.status = "uncertain";
+      report.lock_retained = true;
+      report.reconciliation_required =
+        "Reconcile the recorded request and owned browser/process state before retrying or releasing this exact owned lock. No automatic retry, restart or lock removal.";
+      process.exitCode = 1;
+    } else {
+      release?.();
+      report.lock_retained = false;
+    }
   } catch (error) {
     report.status = "failed";
     report.lock_release_error = error.message;
     process.exitCode = 1;
   }
+  report.finished_at = new Date().toISOString();
   await save();
   if (report.status !== "passed") process.exitCode = 1;
   console.log(
