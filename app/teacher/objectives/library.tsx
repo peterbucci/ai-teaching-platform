@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
+import { AuthoringSteps } from "../lessons/workbench.tsx";
+import { requestedApprovedSource } from "./draft-recovery.ts";
 import {
   ObjectiveLibrarySchema,
   ObjectiveEditorSchema,
@@ -12,7 +14,19 @@ import {
   errorMessage,
 } from "./client-contracts.ts";
 
-export function ObjectiveLibrary() {
+const PendingCreationSchema = z.strictObject({
+  requestId: z.uuid(),
+  title: z.string().min(1).max(300),
+  sourceKey: z.string().min(1),
+});
+
+export function ObjectiveLibrary({
+  sourceId,
+  sourceVersion,
+}: {
+  sourceId?: string;
+  sourceVersion?: string;
+}) {
   const [library, setLibrary] = useState<z.infer<
     typeof ObjectiveLibrarySchema
   > | null>(null);
@@ -22,6 +36,7 @@ export function ObjectiveLibrary() {
   const [sourceKey, setSourceKey] = useState("");
   const requestId = useRef<string | null>(null);
   const [retrying, setRetrying] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -33,12 +48,53 @@ export function ObjectiveLibrary() {
       undefined,
       controller.signal,
     )
-      .then(setLibrary)
+      .then((loaded) => {
+        if (controller.signal.aborted) return;
+        setLibrary(loaded);
+        const requested = requestedApprovedSource(
+          loaded.sources,
+          sourceId,
+          sourceVersion,
+        );
+        if (requested) {
+          setSourceKey(`${requested.document_id}:${requested.version}`);
+          setTitle(requested.attribution.title);
+        } else if (sourceId || sourceVersion) {
+          setNotice(
+            "The linked source version is not available as approved material. Choose an approved source below or return to material review.",
+          );
+        }
+        try {
+          const raw = sessionStorage.getItem("objective-pending-creation");
+          const pending = raw
+            ? PendingCreationSchema.safeParse(JSON.parse(raw))
+            : null;
+          if (
+            pending?.success &&
+            loaded.sources.some(
+              (source) =>
+                source.review_status === "approved" &&
+                `${source.document_id}:${source.version}` ===
+                  pending.data.sourceKey,
+            )
+          ) {
+            requestId.current = pending.data.requestId;
+            setTitle(pending.data.title);
+            setSourceKey(pending.data.sourceKey);
+            setRetrying(true);
+            setNotice(
+              "An earlier draft creation has an unconfirmed result. Retry the same request to safely recover it before starting another draft.",
+            );
+          }
+        } catch {
+          /* No usable recovery copy; available sources still load. */
+        }
+      })
       .catch((err: unknown) => {
         if (!controller.signal.aborted) setError(errorMessage(err));
       });
     return () => controller.abort();
-  }, []);
+  }, [sourceId, sourceVersion]);
 
   const sources =
     library?.sources.filter((source) => source.review_status === "approved") ??
@@ -53,6 +109,16 @@ export function ObjectiveLibrary() {
     setError(null);
     requestId.current ??= crypto.randomUUID();
     try {
+      sessionStorage.setItem(
+        "objective-pending-creation",
+        JSON.stringify({ requestId: requestId.current, title, sourceKey }),
+      );
+    } catch {
+      setNotice(
+        "This browser cannot preserve a pending request after refresh. Keep this page open until creation is confirmed.",
+      );
+    }
+    try {
       const state = await objectiveRequest(
         "/api/teacher/objectives",
         ObjectiveEditorSchema,
@@ -64,12 +130,24 @@ export function ObjectiveLibrary() {
           source_version: selected.version,
         },
       );
+      try {
+        sessionStorage.removeItem("objective-pending-creation");
+      } catch {
+        /* The server confirmed the draft. */
+      }
       router.push(`/teacher/objectives/${state.lesson.id}`);
     } catch (err) {
       const uncertain =
         !(err instanceof ObjectiveRequestError) || err.status >= 500;
       setRetrying(uncertain);
-      if (!uncertain) requestId.current = null;
+      if (!uncertain) {
+        requestId.current = null;
+        try {
+          sessionStorage.removeItem("objective-pending-creation");
+        } catch {
+          /* Keep visible error. */
+        }
+      }
       setError(errorMessage(err));
     } finally {
       setBusy(false);
@@ -77,7 +155,20 @@ export function ObjectiveLibrary() {
   }
 
   return (
-    <div className="lp-objectives">
+    <div className="lp-objectives la-workspace">
+      <AuthoringSteps
+        active="objectives"
+        sourceHref={
+          selected
+            ? `/teacher/materials/${encodeURIComponent(selected.document_id)}?version=${selected.version}`
+            : undefined
+        }
+      />
+      {notice && (
+        <p className="lo-notice" role="status">
+          {notice}
+        </p>
+      )}
       {error && (
         <p role="alert" className="lo-notice lo-warning">
           {error}{" "}
@@ -99,8 +190,9 @@ export function ObjectiveLibrary() {
               <p className="lp-eyebrow">Start a lesson draft</p>
               <h2 id="new-objectives-heading">Choose the material</h2>
               <p className="lp-panel-description">
-                Use an approved source version. You can write all objectives
-                yourself.
+                Start with reviewed material and define what students should be
+                able to do. This creates a reusable lesson, ready for multiple
+                objectives and questions.
               </p>
             </div>
             {sources.length ? (
@@ -146,6 +238,12 @@ export function ObjectiveLibrary() {
                   <p className="lo-muted">
                     {selected.passages.length} reviewed passages ·{" "}
                     {selected.file_name}
+                    {" · "}
+                    <Link
+                      href={`/teacher/materials/${encodeURIComponent(selected.document_id)}?version=${selected.version}`}
+                    >
+                      Review this source version
+                    </Link>
                   </p>
                 )}
                 <button
@@ -157,7 +255,7 @@ export function ObjectiveLibrary() {
                     ? "Creating draft…"
                     : retrying
                       ? "Retry creating this draft"
-                      : "Create objectives draft"}
+                      : "Create lesson and write objectives"}
                 </button>
                 {retrying && (
                   <p className="lo-muted">
@@ -169,13 +267,14 @@ export function ObjectiveLibrary() {
             ) : (
               <p className="lo-notice">
                 No approved source material is available yet. Import and review
-                your material first; then return here to write objectives.
+                your material first; then return here to write objectives.{" "}
+                <Link href="/teacher/materials">Open teaching material</Link>
               </p>
             )}
           </section>
           <section className="lo-library" aria-labelledby="drafts-heading">
             <div className="lo-section-heading">
-              <h2 id="drafts-heading">Your lesson drafts</h2>
+              <h2 id="drafts-heading">Resume objective review</h2>
               <span className="lo-muted">{library.drafts.length} drafts</span>
             </div>
             {library.drafts.length ? (
@@ -190,7 +289,7 @@ export function ObjectiveLibrary() {
                       <h3>{lesson.title}</h3>
                       <p className="lo-muted">
                         {lesson.draft.objective_workflow?.items.length ?? 0}{" "}
-                        objectives · revision {lesson.revision}
+                        objectives · draft revision {lesson.revision}
                       </p>
                     </div>
                     <span

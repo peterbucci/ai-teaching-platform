@@ -11,7 +11,7 @@ export default async function ObjectivePage({
 }) {
   const { lessonId } = await params;
   return (
-    <TeacherFrame section="Objectives">
+    <TeacherFrame section="Lessons">
       <ObjectiveEditor lessonId={lessonId} />
     </TeacherFrame>
   );

@@ -7,6 +7,7 @@ import {
 } from "../../../../../lib/evidence/store.ts";
 import { readQuestionBank } from "../../../../../lib/question-bank/store.ts";
 import { TeacherFrame } from "../../../presentation.tsx";
+import { AuthoringSteps } from "../../workbench.tsx";
 import { QuestionBankEditor } from "./editor.tsx";
 
 export const dynamic = "force-dynamic";
@@ -33,33 +34,37 @@ export default async function QuestionBankPage({
   const { lessonId } = await params;
   const view = await load(lessonId);
   return (
-    <TeacherFrame section="Assignments">
-      <header className="lp-page-heading">
-        <nav
-          className="flex flex-wrap gap-5"
-          aria-label="Lesson authoring steps"
-        >
-          <Link
-            href={`/teacher/objectives/${encodeURIComponent(lessonId)}`}
-            className="lp-text-link"
+    <TeacherFrame section="Lessons">
+      <div className="la-workspace">
+        <header className="lp-page-heading">
+          <nav
+            className="flex flex-wrap gap-5"
+            aria-label="Lesson authoring steps"
           >
-            Back to objectives
-          </Link>
-          <Link
-            href={`/teacher/lessons/${encodeURIComponent(lessonId)}`}
-            className="lp-text-link"
-          >
-            Lesson publication review · separate publishing workflow
-          </Link>
-        </nav>
-        <p className="lp-eyebrow mt-5">Prepare learning · Question bank</p>
-        <h1 className="lp-title">{view.title}</h1>
-        <p className="lp-intro">
-          Generate grounded practice, refine the questions and private answer
-          guidance, then approve the bank for lesson review.
-        </p>
-      </header>
-      <QuestionBankEditor key={lessonId} initialView={view} />
+            <Link
+              href={`/teacher/objectives/${encodeURIComponent(lessonId)}`}
+              className="lp-text-link"
+            >
+              Back to objectives
+            </Link>
+            <Link
+              href={`/teacher/lessons/${encodeURIComponent(lessonId)}`}
+              className="lp-text-link"
+            >
+              Return to lesson
+            </Link>
+          </nav>
+          <p className="lp-eyebrow mt-5">Lesson authoring · Question bank</p>
+          <h1 className="lp-title">{view.title}</h1>
+          <p className="lp-intro">
+            Review one question at a time, with its private criteria and exact
+            source passages. The bank can cover several concepts; the prepared
+            tutoring sequence determines which family students practise.
+          </p>
+        </header>
+        <AuthoringSteps active="questions" lessonId={lessonId} />
+        <QuestionBankEditor key={lessonId} initialView={view} />
+      </div>
     </TeacherFrame>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { z } from "zod";
 import {
   QuestionSnapshotSchema,
@@ -29,6 +29,12 @@ import {
   questionFormatChange,
   withHintPermission,
 } from "./editor-state.ts";
+import {
+  bankNavigationWarning,
+  currentBankQuestion,
+  groupBankQuestions,
+  shouldGuardBankNavigation,
+} from "./workbench-state.ts";
 import "./questions.css";
 
 type View = z.infer<typeof QuestionBankViewSchema>;
@@ -163,8 +169,17 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
   >(undefined);
   const [policyReviewed, setPolicyReviewed] = useState(false);
   const [preview, setPreview] = useState(false);
+  const [panel, setPanel] = useState<"bank" | "generation" | "review">("bank");
+  const [questionPanel, setQuestionPanel] = useState<
+    "wording" | "criteria" | "sources" | "review"
+  >("wording");
+  const [activeQuestionId, setActiveQuestionId] = useState<string | null>(null);
+  const [showOutline, setShowOutline] = useState(true);
+  const [sourceOpen, setSourceOpen] = useState(false);
   const [acknowledgeUnknown, setAcknowledgeUnknown] = useState(false);
   const [recoveryDismissed, setRecoveryDismissed] = useState(false);
+  const [storageUnavailable, setStorageUnavailable] = useState(false);
+  const recoveryStored = useRef(false);
   const dirty = JSON.stringify(bank) !== JSON.stringify(editable(view));
   const key = `question-bank-request:${view.lesson_id}`;
   const recoveryKey = `question-bank-local-edits:${view.lesson_id}`;
@@ -189,6 +204,16 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
   const endpoint = `/api/teacher/lessons/${encodeURIComponent(view.lesson_id)}/question-bank`;
   const concepts = view.draft.concepts ?? [];
   const passages = view.draft.passages ?? [];
+  const activeQuestion = currentBankQuestion(bank.questions, activeQuestionId);
+  const questionGroups = groupBankQuestions(bank.questions, concepts);
+  const sourceReference =
+    view.draft.content_ref && "source_kind" in view.draft.content_ref
+      ? view.draft.content_ref
+      : null;
+  const sourceVersion =
+    view.draft.content_ref && "source_version" in view.draft.content_ref
+      ? view.draft.content_ref.source_version
+      : null;
   const prerequisites = Boolean(
     view.draft.content_ref &&
     concepts.length &&
@@ -246,15 +271,46 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
           bank,
         }),
       );
+      recoveryStored.current = true;
+      queueMicrotask(() => setStorageUnavailable(false));
     } catch {
-      /* beforeunload still guards work when browser storage is unavailable. */
+      recoveryStored.current = false;
+      queueMicrotask(() => setStorageUnavailable(true));
     }
     const preventLoss = (event: BeforeUnloadEvent) => {
       event.preventDefault();
       event.returnValue = "";
     };
     window.addEventListener("beforeunload", preventLoss);
-    return () => window.removeEventListener("beforeunload", preventLoss);
+    const guardNavigation = (event: MouseEvent) => {
+      const target =
+        event.target instanceof Element
+          ? event.target.closest("a[href]")
+          : null;
+      if (
+        !(target instanceof HTMLAnchorElement) ||
+        event.defaultPrevented ||
+        !shouldGuardBankNavigation({
+          href: target.href,
+          currentHref: window.location.href,
+          target: target.target,
+          download: target.hasAttribute("download"),
+          modified:
+            event.metaKey || event.ctrlKey || event.shiftKey || event.altKey,
+          button: event.button,
+        })
+      )
+        return;
+      if (!window.confirm(bankNavigationWarning(recoveryStored.current))) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    };
+    document.addEventListener("click", guardNavigation, true);
+    return () => {
+      window.removeEventListener("beforeunload", preventLoss);
+      document.removeEventListener("click", guardNavigation, true);
+    };
   }, [
     dirty,
     recoveryDismissed,
@@ -554,6 +610,10 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
     const ref = view.draft.content_ref;
     if (!ref || !concepts[0] || !passages[0]) return;
     const id = `teacher-${crypto.randomUUID()}`;
+    setActiveQuestionId(id);
+    setPanel("bank");
+    setQuestionPanel("wording");
+    setShowOutline(false);
     edit((current) => ({
       ...current,
       questions: [
@@ -636,6 +696,17 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
     });
   }
 
+  function openQuestion(id: string, section: typeof questionPanel = "wording") {
+    setActiveQuestionId(id);
+    setQuestionPanel(section);
+    setPanel("bank");
+    setSourceOpen(false);
+    setShowOutline(false);
+    requestAnimationFrame(() =>
+      document.getElementById("qb-current-heading")?.focus(),
+    );
+  }
+
   return (
     <div className="qb-editor">
       <div className="qb-toolbar lp-panel" aria-label="Question bank actions">
@@ -643,13 +714,14 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
           <strong>{bank.questions.length} questions</strong>
           <span className="qb-help">
             {dirty ? "Unsaved edits" : `Saved revision ${view.revision}`} ·{" "}
-            {reviewedCount} reviewed
+            {reviewedCount} reviewed · {concepts.length} approved concepts
           </span>
         </div>
         <button
           className="lp-button"
           type="button"
           onClick={() => setPreview(!preview)}
+          aria-pressed={preview}
         >
           {preview ? "Return to teacher editor" : "Student question preview"}
         </button>
@@ -662,10 +734,46 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
           {busy === "save" ? "Saving…" : "Save draft"}
         </button>
       </div>
+      {!preview && (
+        <nav className="qb-workspace-nav" aria-label="Question bank workspace">
+          {(
+            [
+              ["bank", "Questions"],
+              ["generation", "Draft and generate"],
+              ["review", "Review and approve"],
+            ] as const
+          ).map(([value, title]) => (
+            <button
+              key={value}
+              type="button"
+              aria-pressed={panel === value}
+              onClick={() => setPanel(value)}
+            >
+              {title}
+            </button>
+          ))}
+        </nav>
+      )}
       {error && (
         <div role="alert" className="qb-notice qb-error">
           {error}
         </div>
+      )}
+      {storageUnavailable && dirty && (
+        <section className="qb-notice qb-error" role="status">
+          <strong>Browser recovery is unavailable.</strong>
+          <p>
+            Keep this page open until you save. Download a copy before leaving
+            if the server is unavailable.
+          </p>
+          <button
+            type="button"
+            className="lp-button"
+            onClick={() => download(bank, "question-bank-local-edits.json")}
+          >
+            Download my edits
+          </button>
+        </section>
       )}
       {message && (
         <p role="status" className="qb-notice">
@@ -817,7 +925,8 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
           <p className="qb-help">
             This preview shows question wording and instructions. Private
             criteria, expected answers, review notes, and reasoning hypotheses
-            are excluded.
+            are excluded. These are the available bank questions, not a promise
+            that every question will appear in one tutoring session.
           </p>
           {bank.question_bank.preferences.student_instructions && (
             <p className="qb-preview-text">
@@ -842,217 +951,230 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
         </section>
       ) : (
         <>
-          <fieldset disabled={locked} className="qb-fieldset">
-            <details
-              className="lp-panel qb-section"
-              open={!bank.questions.length}
-            >
-              <summary>
-                <strong>Generation preferences</strong>
-                <span className="qb-help">
-                  Saved with this draft and used for initial generation and
-                  regeneration
-                </span>
-              </summary>
-              <div className="qb-grid mt-5">
-                <label className="lp-field">
-                  Question format
-                  <select
-                    className="lp-input"
-                    value={bank.question_bank.preferences.format}
-                    onChange={(event) =>
-                      preferences({
-                        format: QuestionFormatSchema.parse(event.target.value),
-                      })
-                    }
-                  >
-                    {formats.map((format) => (
-                      <option key={format} value={format}>
-                        {label(format)}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <label className="lp-field">
-                  Difficulty
-                  <select
-                    className="lp-input"
-                    value={bank.question_bank.preferences.difficulty}
-                    onChange={(event) =>
-                      preferences({
-                        difficulty: QuestionDifficultySchema.parse(
-                          event.target.value,
-                        ),
-                      })
-                    }
-                  >
-                    {difficulties.map((difficulty) => (
-                      <option key={difficulty} value={difficulty}>
-                        {label(difficulty)}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              </div>
-              <fieldset className="qb-choices">
-                <legend>Emphasize these approved concepts</legend>
-                <p className="qb-help">
-                  Leave unselected to cover the approved objectives without a
-                  special emphasis.
-                </p>
-                {concepts.map((concept) => (
-                  <label key={concept.id}>
-                    <input
-                      type="checkbox"
-                      checked={bank.question_bank.preferences.emphasized_concept_ids.includes(
-                        concept.id,
-                      )}
-                      onChange={() =>
+          <div hidden={panel !== "generation"} className="qb-generation">
+            <fieldset disabled={locked} className="qb-fieldset">
+              <details
+                className="lp-panel qb-section"
+                open={!bank.questions.length}
+              >
+                <summary>
+                  <strong>Generation preferences</strong>
+                  <span className="qb-help">
+                    Saved with this draft and used for initial generation and
+                    regeneration
+                  </span>
+                </summary>
+                <div className="qb-grid mt-5">
+                  <label className="lp-field">
+                    Question format
+                    <select
+                      className="lp-input"
+                      value={bank.question_bank.preferences.format}
+                      onChange={(event) =>
                         preferences({
-                          emphasized_concept_ids: toggle(
-                            bank.question_bank.preferences
-                              .emphasized_concept_ids,
-                            concept.id,
+                          format: QuestionFormatSchema.parse(
+                            event.target.value,
                           ),
                         })
                       }
-                    />
-                    <span>{concept.title}</span>
+                    >
+                      {formats.map((format) => (
+                        <option key={format} value={format}>
+                          {label(format)}
+                        </option>
+                      ))}
+                    </select>
                   </label>
-                ))}
-              </fieldset>
-              <fieldset className="qb-choices qb-inline">
-                <legend>Prioritize student reasoning</legend>
-                {priorities.map((priority) => (
-                  <label key={priority}>
-                    <input
-                      type="checkbox"
-                      checked={bank.question_bank.preferences.priorities.includes(
-                        priority,
-                      )}
-                      onChange={() =>
+                  <label className="lp-field">
+                    Difficulty
+                    <select
+                      className="lp-input"
+                      value={bank.question_bank.preferences.difficulty}
+                      onChange={(event) =>
                         preferences({
-                          priorities:
-                            bank.question_bank.preferences.priorities.includes(
-                              priority,
-                            )
-                              ? bank.question_bank.preferences.priorities.filter(
-                                  (entry) => entry !== priority,
-                                )
-                              : [
-                                  ...bank.question_bank.preferences.priorities,
-                                  priority,
-                                ],
-                        })
-                      }
-                    />
-                    {label(priority)}
-                  </label>
-                ))}
-              </fieldset>
-              <fieldset className="qb-choices">
-                <legend>Known misconceptions worth investigating</legend>
-                {(view.draft.misconceptions ?? []).map((misconception) => (
-                  <label key={misconception.id}>
-                    <input
-                      type="checkbox"
-                      checked={bank.question_bank.preferences.misconception_ids.includes(
-                        misconception.id,
-                      )}
-                      onChange={() =>
-                        preferences({
-                          misconception_ids: toggle(
-                            bank.question_bank.preferences.misconception_ids,
-                            misconception.id,
+                          difficulty: QuestionDifficultySchema.parse(
+                            event.target.value,
                           ),
                         })
                       }
-                    />
-                    <span>{misconception.definition}</span>
+                    >
+                      {difficulties.map((difficulty) => (
+                        <option key={difficulty} value={difficulty}>
+                          {label(difficulty)}
+                        </option>
+                      ))}
+                    </select>
                   </label>
-                ))}
-                {!view.draft.misconceptions?.length && (
+                </div>
+                <fieldset className="qb-choices">
+                  <legend>Emphasize these approved concepts</legend>
                   <p className="qb-help">
-                    No approved misconception categories are defined for this
-                    lesson.
+                    Leave unselected to cover the approved objectives without a
+                    special emphasis.
                   </p>
-                )}
-              </fieldset>
-              <TextField
-                title="Other reasoning errors to investigate"
-                hint="One hypothesis per line. These remain uncertain; they do not create confirmed misconception categories."
-                value={bank.question_bank.preferences.reasoning_errors.join(
-                  "\n",
-                )}
-                onChange={(value) =>
-                  preferences({ reasoning_errors: lines(value) })
+                  {concepts.map((concept) => (
+                    <label key={concept.id}>
+                      <input
+                        type="checkbox"
+                        checked={bank.question_bank.preferences.emphasized_concept_ids.includes(
+                          concept.id,
+                        )}
+                        onChange={() =>
+                          preferences({
+                            emphasized_concept_ids: toggle(
+                              bank.question_bank.preferences
+                                .emphasized_concept_ids,
+                              concept.id,
+                            ),
+                          })
+                        }
+                      />
+                      <span>{concept.title}</span>
+                    </label>
+                  ))}
+                </fieldset>
+                <fieldset className="qb-choices qb-inline">
+                  <legend>Prioritize student reasoning</legend>
+                  {priorities.map((priority) => (
+                    <label key={priority}>
+                      <input
+                        type="checkbox"
+                        checked={bank.question_bank.preferences.priorities.includes(
+                          priority,
+                        )}
+                        onChange={() =>
+                          preferences({
+                            priorities:
+                              bank.question_bank.preferences.priorities.includes(
+                                priority,
+                              )
+                                ? bank.question_bank.preferences.priorities.filter(
+                                    (entry) => entry !== priority,
+                                  )
+                                : [
+                                    ...bank.question_bank.preferences
+                                      .priorities,
+                                    priority,
+                                  ],
+                          })
+                        }
+                      />
+                      {label(priority)}
+                    </label>
+                  ))}
+                </fieldset>
+                <fieldset className="qb-choices">
+                  <legend>Known misconceptions worth investigating</legend>
+                  {(view.draft.misconceptions ?? []).map((misconception) => (
+                    <label key={misconception.id}>
+                      <input
+                        type="checkbox"
+                        checked={bank.question_bank.preferences.misconception_ids.includes(
+                          misconception.id,
+                        )}
+                        onChange={() =>
+                          preferences({
+                            misconception_ids: toggle(
+                              bank.question_bank.preferences.misconception_ids,
+                              misconception.id,
+                            ),
+                          })
+                        }
+                      />
+                      <span>{misconception.definition}</span>
+                    </label>
+                  ))}
+                  {!view.draft.misconceptions?.length && (
+                    <p className="qb-help">
+                      No approved misconception categories are defined for this
+                      lesson.
+                    </p>
+                  )}
+                </fieldset>
+                <TextField
+                  title="Other reasoning errors to investigate"
+                  hint="One hypothesis per line. These remain uncertain; they do not create confirmed misconception categories."
+                  value={bank.question_bank.preferences.reasoning_errors.join(
+                    "\n",
+                  )}
+                  onChange={(value) =>
+                    preferences({ reasoning_errors: lines(value) })
+                  }
+                />
+                <TextField
+                  title="Instructions for students"
+                  value={bank.question_bank.preferences.student_instructions}
+                  onChange={(value) =>
+                    preferences({ student_instructions: value })
+                  }
+                />
+              </details>
+            </fieldset>
+            <div className="qb-actions">
+              <button
+                className="lp-button lp-button-primary"
+                disabled={
+                  !prerequisites ||
+                  generationBlocked ||
+                  Boolean(bank.questions.length)
                 }
-              />
-              <TextField
-                title="Instructions for students"
-                value={bank.question_bank.preferences.student_instructions}
-                onChange={(value) =>
-                  preferences({ student_instructions: value })
+                onClick={() => generate([])}
+              >
+                Generate question packages
+              </button>
+              <button
+                className="lp-button"
+                disabled={
+                  !selected.length || selected.length > 8 || generationBlocked
                 }
-              />
-            </details>
-          </fieldset>
-          <div className="qb-actions">
-            <button
-              className="lp-button lp-button-primary"
-              disabled={
-                !prerequisites ||
-                generationBlocked ||
-                Boolean(bank.questions.length)
-              }
-              onClick={() => generate([])}
-            >
-              Generate question packages
-            </button>
-            <button
-              className="lp-button"
-              disabled={
-                !selected.length || selected.length > 8 || generationBlocked
-              }
-              onClick={() => generate(selected)}
-            >
-              Regenerate selected ({selected.length})
-            </button>
-            <button
-              className="lp-button"
-              disabled={!prerequisites || locked}
-              onClick={addQuestion}
-            >
-              Add a manual question
-            </button>
+                onClick={() => generate(selected)}
+              >
+                Regenerate selected ({selected.length})
+              </button>
+              <button
+                className="lp-button"
+                disabled={!prerequisites || locked}
+                onClick={addQuestion}
+              >
+                Add a manual question
+              </button>
+            </div>
+            <p className="qb-help">
+              Save edits before generation. Regeneration replaces only the
+              selected questions; other teacher edits remain in place. Generated
+              content always needs review. Select at most eight questions per
+              request.
+            </p>
+            {!bank.questions.length && prerequisites && (
+              <section className="lp-panel qb-section">
+                <h2>Build the first question bank</h2>
+                <p>
+                  Choose the preferences above and save them, then generate
+                  initial, alternative, diagnostic, and retest questions from
+                  the approved material. You can also start with manually
+                  authored questions.
+                </p>
+              </section>
+            )}
           </div>
-          <p className="qb-help">
-            Save edits before generation. Regeneration replaces only the
-            selected questions; other teacher edits remain in place. Generated
-            content always needs review. Select at most eight questions per
-            request.
-          </p>
-          {!bank.questions.length && prerequisites && (
-            <section className="lp-panel qb-section">
-              <h2>Build the first question bank</h2>
-              <p>
-                Choose the preferences above and save them, then generate
-                initial, alternative, diagnostic, and retest questions from the
-                approved material. You can also start with manually authored
-                questions.
-              </p>
-            </section>
-          )}
           {view.issues.length > 0 && (
-            <section className="qb-notice qb-error">
-              <h2>Review flags from the saved draft</h2>
+            <details className="qb-notice qb-error">
+              <summary>
+                {view.issues.length} review flags in the saved draft
+              </summary>
               <ul>
                 {view.issues.map((issue, index) => (
                   <li key={index}>
                     {issue.question_id ? (
-                      <a href={`#question-${issue.question_id}`}>
-                        {issue.question_id}
-                      </a>
+                      <button
+                        type="button"
+                        className="qb-text-action"
+                        onClick={() =>
+                          openQuestion(issue.question_id!, "review")
+                        }
+                      >
+                        Open question
+                      </button>
                     ) : (
                       "Question bank"
                     )}
@@ -1061,189 +1183,364 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
                 ))}
               </ul>
               {dirty && <p>Save your changes to recheck these flags.</p>}
-            </section>
+            </details>
           )}
-          <div className="qb-question-list">
-            {bank.questions.map((entry, index) => {
-              const id = entry.question_id;
-              const metadata = bank.question_bank.items.find(
-                (candidate) => candidate.question_id === id,
-              );
-              if (!id || !metadata)
-                return (
-                  <div className="qb-notice qb-error" key={id ?? index}>
-                    Question {index + 1} is missing its authoring metadata. This
-                    question must be repaired before approval.
-                  </div>
-                );
-              const privateGuidance = bank.question_guidance.find(
-                (candidate) => candidate.question_id === id,
-              );
-              const updateRubric = (
-                patch: Partial<QuestionSnapshot["rubric"]>,
-              ) => question(id, { rubric: { ...entry.rubric, ...patch } });
-              return (
-                <article
-                  className="lp-panel qb-question"
-                  key={id}
-                  id={`question-${id}`}
+          <div
+            hidden={panel !== "bank"}
+            className={`qb-bank-layout${showOutline ? " qb-show-outline" : ""}${sourceOpen ? " qb-show-source" : ""}`}
+          >
+            <aside className="qb-outline" aria-label="Questions by concept">
+              <div className="qb-outline-heading">
+                <h2>Question bank</h2>
+                <p className="qb-help">
+                  Multi-concept questions appear once, under their first
+                  matching concept.
+                </p>
+              </div>
+              {!bank.questions.length && (
+                <div className="qb-outline-empty">
+                  <p>No questions yet.</p>
+                  <button
+                    type="button"
+                    className="lp-button"
+                    onClick={() => setPanel("generation")}
+                  >
+                    Prepare questions
+                  </button>
+                </div>
+              )}
+              {questionGroups.map((group) => (
+                <section key={group.id}>
+                  <h3 className="qb-group-heading">
+                    {group.title} <span>{group.questions.length}</span>
+                  </h3>
+                  {group.questions.map(({ question: entry, index }) => {
+                    const metadata = bank.question_bank.items.find(
+                      (item) => item.question_id === entry.question_id,
+                    );
+                    return (
+                      <button
+                        type="button"
+                        key={entry.question_id ?? index}
+                        className="qb-outline-question"
+                        aria-current={
+                          activeQuestion?.question_id === entry.question_id
+                            ? "true"
+                            : undefined
+                        }
+                        onClick={() =>
+                          entry.question_id && openQuestion(entry.question_id)
+                        }
+                      >
+                        <span className="qb-outline-number">{index + 1}</span>
+                        <span>
+                          <strong>
+                            {entry.prompt_text || "New question — add wording"}
+                          </strong>
+                          <span className="qb-help">
+                            {metadata ? label(metadata.role) : "Needs repair"} ·{" "}
+                            {metadata?.review_status === "reviewed"
+                              ? "Reviewed"
+                              : "Needs review"}
+                            {entry.concept_ids.length > 1
+                              ? ` · ${entry.concept_ids.length} concepts`
+                              : ""}
+                          </span>
+                        </span>
+                      </button>
+                    );
+                  })}
+                </section>
+              ))}
+              <div className="qb-outline-footer">
+                <button
+                  type="button"
+                  className="lp-button"
+                  disabled={!prerequisites || locked}
+                  onClick={addQuestion}
                 >
-                  <div className="qb-question-heading">
-                    <label className="qb-select">
-                      <input
-                        type="checkbox"
-                        disabled={locked}
-                        checked={selected.includes(id)}
-                        onChange={() => setSelected(toggle(selected, id))}
-                      />
-                      <span>Select question {index + 1}</span>
-                    </label>
-                    <span className="lp-badge lp-badge-neutral">
-                      {label(metadata.role)}
-                    </span>
-                    <span
-                      className={`lp-badge${metadata.review_status === "reviewed" ? "" : " lp-badge-neutral"}`}
+                  Add a question
+                </button>
+              </div>
+            </aside>
+            <div className="qb-question-list">
+              {!bank.questions.length && (
+                <section className="qb-question-empty">
+                  <h2>Build a bank for your learning objectives</h2>
+                  <p>
+                    Add a question manually or use the existing generator after
+                    reviewing its preferences. Every question keeps its own
+                    criteria and source references.
+                  </p>
+                  <button
+                    type="button"
+                    className="lp-button lp-button-primary"
+                    onClick={() => setPanel("generation")}
+                  >
+                    Prepare questions
+                  </button>
+                </section>
+              )}
+              {bank.questions.map((entry, index) => {
+                const id = entry.question_id;
+                const metadata = bank.question_bank.items.find(
+                  (candidate) => candidate.question_id === id,
+                );
+                if (!id || !metadata)
+                  return (
+                    <div className="qb-notice qb-error" key={id ?? index}>
+                      Question {index + 1} is missing its authoring metadata.
+                      This question must be repaired before approval.
+                    </div>
+                  );
+                if (id !== activeQuestion?.question_id) return null;
+                const privateGuidance = bank.question_guidance.find(
+                  (candidate) => candidate.question_id === id,
+                );
+                const updateRubric = (
+                  patch: Partial<QuestionSnapshot["rubric"]>,
+                ) => question(id, { rubric: { ...entry.rubric, ...patch } });
+                return (
+                  <article
+                    className="lp-panel qb-question"
+                    key={id}
+                    id={`question-${id}`}
+                  >
+                    <div className="qb-detail-navigation">
+                      <button
+                        type="button"
+                        className="lp-button qb-small qb-mobile-outline"
+                        onClick={() => {
+                          setShowOutline(true);
+                          setSourceOpen(false);
+                          requestAnimationFrame(() =>
+                            document
+                              .querySelector<HTMLButtonElement>(
+                                ".qb-outline-question[aria-current]",
+                              )
+                              ?.focus(),
+                          );
+                        }}
+                      >
+                        ← All questions
+                      </button>
+                      <button
+                        type="button"
+                        id="qb-reading-toggle"
+                        className="lp-button qb-small"
+                        aria-expanded={sourceOpen}
+                        aria-controls="qb-source-reading"
+                        onClick={() => {
+                          setSourceOpen(!sourceOpen);
+                          requestAnimationFrame(() =>
+                            document
+                              .getElementById("qb-source-heading")
+                              ?.focus(),
+                          );
+                        }}
+                      >
+                        Source reading
+                      </button>
+                    </div>
+                    <p className="lp-eyebrow">
+                      Question {index + 1} of {bank.questions.length}
+                    </p>
+                    <h2
+                      id="qb-current-heading"
+                      tabIndex={-1}
+                      className="qb-current-heading"
                     >
-                      {metadata.review_status === "reviewed"
-                        ? "Reviewed"
-                        : "Needs review"}
-                    </span>
-                  </div>
-                  <details open={!entry.prompt_text || index === 0}>
-                    <summary className="qb-question-summary">
                       {entry.prompt_text || "Write your new question"}
-                    </summary>
+                    </h2>
+                    <p className="qb-help">
+                      {concepts
+                        .filter((concept) =>
+                          entry.concept_ids.includes(concept.id),
+                        )
+                        .map((concept) => concept.title)
+                        .join(" · ") ||
+                        "Choose the concepts this question assesses"}
+                    </p>
+                    <div className="qb-question-heading">
+                      <label className="qb-select">
+                        <input
+                          type="checkbox"
+                          disabled={locked}
+                          checked={selected.includes(id)}
+                          onChange={() => setSelected(toggle(selected, id))}
+                        />
+                        <span>Select for regeneration</span>
+                      </label>
+                      <span className="lp-badge lp-badge-neutral">
+                        {label(metadata.role)}
+                      </span>
+                      <span
+                        className={`lp-badge${metadata.review_status === "reviewed" ? "" : " lp-badge-neutral"}`}
+                      >
+                        {metadata.review_status === "reviewed"
+                          ? "Reviewed"
+                          : "Needs review"}
+                      </span>
+                    </div>
+                    <nav
+                      className="qb-question-nav"
+                      aria-label="Question editing sections"
+                    >
+                      {(
+                        [
+                          ["wording", "Question"],
+                          ["criteria", "Private criteria"],
+                          ["sources", "Source support"],
+                          ["review", "Review"],
+                        ] as const
+                      ).map(([value, title]) => (
+                        <button
+                          type="button"
+                          key={value}
+                          aria-pressed={questionPanel === value}
+                          onClick={() => setQuestionPanel(value)}
+                        >
+                          {title}
+                        </button>
+                      ))}
+                    </nav>
                     <fieldset
                       disabled={locked}
                       className="qb-fieldset qb-question-fields"
                     >
-                      <TextField
-                        title="Question wording · student visible"
-                        hint={
-                          metadata.format === "multiple_choice"
-                            ? "Include all answer options in the prompt, without identifying the correct option."
-                            : undefined
-                        }
-                        value={entry.prompt_text}
-                        onChange={(value) =>
-                          question(id, { prompt_text: value })
-                        }
-                        rows={4}
-                      />
-                      <div className="qb-grid">
-                        <label className="lp-field">
-                          Format
-                          <select
-                            className="lp-input"
-                            value={metadata.format}
-                            onChange={(event) =>
-                              item(
-                                id,
-                                questionFormatChange(
-                                  metadata,
-                                  QuestionFormatSchema.parse(
-                                    event.target.value,
+                      <div hidden={questionPanel !== "wording"}>
+                        <TextField
+                          title="Question wording · student visible"
+                          hint={
+                            metadata.format === "multiple_choice"
+                              ? "Include all answer options in the prompt, without identifying the correct option."
+                              : undefined
+                          }
+                          value={entry.prompt_text}
+                          onChange={(value) =>
+                            question(id, { prompt_text: value })
+                          }
+                          rows={4}
+                        />
+                        <div className="qb-grid">
+                          <label className="lp-field">
+                            Format
+                            <select
+                              className="lp-input"
+                              value={metadata.format}
+                              onChange={(event) =>
+                                item(
+                                  id,
+                                  questionFormatChange(
+                                    metadata,
+                                    QuestionFormatSchema.parse(
+                                      event.target.value,
+                                    ),
                                   ),
-                                ),
-                              )
-                            }
-                          >
-                            {formats.map((format) => (
-                              <option key={format} value={format}>
-                                {label(format)}
-                              </option>
-                            ))}
-                          </select>
-                        </label>
-                        <label className="lp-field">
-                          Difficulty
-                          <select
-                            className="lp-input"
-                            value={metadata.difficulty}
-                            onChange={(event) =>
-                              item(id, {
-                                difficulty: QuestionDifficultySchema.parse(
-                                  event.target.value,
-                                ),
-                              })
-                            }
-                          >
-                            {difficulties.map((difficulty) => (
-                              <option key={difficulty} value={difficulty}>
-                                {label(difficulty)}
-                              </option>
-                            ))}
-                          </select>
-                        </label>
-                        <label className="lp-field">
-                          Purpose
-                          <select
-                            className="lp-input"
-                            value={metadata.role}
-                            onChange={(event) => {
-                              const role = roles.find(
-                                (candidate) => candidate === event.target.value,
-                              );
-                              if (role) item(id, { role });
-                            }}
-                          >
-                            {roles.map((role) => (
-                              <option key={role} value={role}>
-                                {label(role)}
-                              </option>
-                            ))}
-                          </select>
-                        </label>
-                        <label className="lp-field">
-                          Question family
-                          <select
-                            className="lp-input"
-                            value={metadata.family_id}
-                            onChange={(event) =>
-                              item(id, {
-                                family_id:
-                                  event.target.value || crypto.randomUUID(),
-                              })
-                            }
-                          >
-                            {families.map((family) => (
-                              <option key={family.id} value={family.id}>
-                                {family.title}
-                              </option>
-                            ))}
-                            <option value="">
-                              Start a new question family
-                            </option>
-                          </select>
-                          <span className="qb-help">
-                            Use the same family for an initial question and its
-                            alternatives, diagnostic, and retest.
-                          </span>
-                        </label>
-                      </div>
-                      <fieldset className="qb-choices">
-                        <legend>
-                          Concepts assessed · select all that apply
-                        </legend>
-                        {concepts.map((concept) => (
-                          <label key={concept.id}>
-                            <input
-                              type="checkbox"
-                              checked={entry.concept_ids.includes(concept.id)}
-                              onChange={() =>
-                                question(id, {
-                                  concept_ids: toggle(
-                                    entry.concept_ids,
-                                    concept.id,
+                                )
+                              }
+                            >
+                              {formats.map((format) => (
+                                <option key={format} value={format}>
+                                  {label(format)}
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                          <label className="lp-field">
+                            Difficulty
+                            <select
+                              className="lp-input"
+                              value={metadata.difficulty}
+                              onChange={(event) =>
+                                item(id, {
+                                  difficulty: QuestionDifficultySchema.parse(
+                                    event.target.value,
                                   ),
                                 })
                               }
-                            />
-                            {concept.title}
+                            >
+                              {difficulties.map((difficulty) => (
+                                <option key={difficulty} value={difficulty}>
+                                  {label(difficulty)}
+                                </option>
+                              ))}
+                            </select>
                           </label>
-                        ))}
-                      </fieldset>
-                      <section className="qb-private">
+                          <label className="lp-field">
+                            Purpose
+                            <select
+                              className="lp-input"
+                              value={metadata.role}
+                              onChange={(event) => {
+                                const role = roles.find(
+                                  (candidate) =>
+                                    candidate === event.target.value,
+                                );
+                                if (role) item(id, { role });
+                              }}
+                            >
+                              {roles.map((role) => (
+                                <option key={role} value={role}>
+                                  {label(role)}
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                          <label className="lp-field">
+                            Question family
+                            <select
+                              className="lp-input"
+                              value={metadata.family_id}
+                              onChange={(event) =>
+                                item(id, {
+                                  family_id:
+                                    event.target.value || crypto.randomUUID(),
+                                })
+                              }
+                            >
+                              {families.map((family) => (
+                                <option key={family.id} value={family.id}>
+                                  {family.title}
+                                </option>
+                              ))}
+                              <option value="">
+                                Start a new question family
+                              </option>
+                            </select>
+                            <span className="qb-help">
+                              Use the same family for an initial question and
+                              its alternatives, diagnostic, and retest.
+                            </span>
+                          </label>
+                        </div>
+                        <fieldset className="qb-choices">
+                          <legend>
+                            Concepts assessed · select all that apply
+                          </legend>
+                          {concepts.map((concept) => (
+                            <label key={concept.id}>
+                              <input
+                                type="checkbox"
+                                checked={entry.concept_ids.includes(concept.id)}
+                                onChange={() =>
+                                  question(id, {
+                                    concept_ids: toggle(
+                                      entry.concept_ids,
+                                      concept.id,
+                                    ),
+                                  })
+                                }
+                              />
+                              {concept.title}
+                            </label>
+                          ))}
+                        </fieldset>
+                      </div>
+                      <section
+                        className="qb-private"
+                        hidden={questionPanel !== "criteria"}
+                      >
                         <p className="lp-eyebrow">
                           Teacher only · Private answer guidance
                         </p>
@@ -1341,7 +1638,10 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
                           />
                         )}
                       </section>
-                      <section className="qb-source">
+                      <section
+                        className="qb-source"
+                        hidden={questionPanel !== "sources"}
+                      >
                         <h3>Source references and answer support</h3>
                         <p className="qb-help">
                           Inspect the actual passage, copy a relevant exact
@@ -1520,88 +1820,212 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
                           Add supporting citation
                         </button>
                       </section>
-                      {metadata.quality_issues.length > 0 && (
-                        <div className="qb-notice qb-error">
-                          <strong>Educational quality flags</strong>
-                          <ul>
-                            {metadata.quality_issues.map((issue, n) => (
-                              <li key={n}>{issue}</li>
-                            ))}
-                          </ul>
-                          <p>
-                            Correct unsupported or incorrect content and
-                            describe your review below.
-                          </p>
-                        </div>
-                      )}
-                      <TextField
-                        title="Teacher review notes"
-                        hint="Record any factual correction, unsupported wording, or reason a flagged question is now usable."
-                        value={metadata.review_notes}
-                        onChange={(value) => item(id, { review_notes: value })}
-                        rows={2}
-                      />
-                      <label className="lp-approval-confirmation">
-                        <input
-                          type="checkbox"
-                          checked={metadata.review_status === "reviewed"}
-                          onChange={(event) =>
-                            item(
-                              id,
-                              {
-                                review_status: event.target.checked
-                                  ? "reviewed"
-                                  : "needs_review",
-                              },
-                              true,
-                            )
+                      <div hidden={questionPanel !== "review"}>
+                        <h3>Review this question</h3>
+                        <p className="qb-help">
+                          Check the question, private criteria, and source
+                          support before marking it reviewed. Saving a changed
+                          question clears the bank approval and prepared
+                          tutoring sequence.
+                        </p>
+                        {view.issues
+                          .filter((issue) => issue.question_id === id)
+                          .map((issue, issueIndex) => (
+                            <p className="qb-notice qb-error" key={issueIndex}>
+                              {issue.message}
+                            </p>
+                          ))}
+                        {metadata.quality_issues.length > 0 && (
+                          <div className="qb-notice qb-error">
+                            <strong>Educational quality flags</strong>
+                            <ul>
+                              {metadata.quality_issues.map((issue, n) => (
+                                <li key={n}>{issue}</li>
+                              ))}
+                            </ul>
+                            <p>
+                              Correct unsupported or incorrect content and
+                              describe your review below.
+                            </p>
+                          </div>
+                        )}
+                        <TextField
+                          title="Teacher review notes"
+                          hint="Record any factual correction, unsupported wording, or reason a flagged question is now usable."
+                          value={metadata.review_notes}
+                          onChange={(value) =>
+                            item(id, { review_notes: value })
                           }
+                          rows={2}
                         />
-                        <span>
-                          I checked answer correctness, answerability, source
-                          support, and the distinction from other questions in
-                          this family.
-                        </span>
-                      </label>
+                        <label className="lp-approval-confirmation">
+                          <input
+                            type="checkbox"
+                            checked={metadata.review_status === "reviewed"}
+                            onChange={(event) =>
+                              item(
+                                id,
+                                {
+                                  review_status: event.target.checked
+                                    ? "reviewed"
+                                    : "needs_review",
+                                },
+                                true,
+                              )
+                            }
+                          />
+                          <span>
+                            I checked answer correctness, answerability, source
+                            support, and the distinction from other questions in
+                            this family.
+                          </span>
+                        </label>
+                      </div>
                     </fieldset>
-                  </details>
-                  <div className="qb-actions qb-question-actions">
-                    <button
-                      className="lp-button qb-small"
-                      disabled={locked || index === 0}
-                      onClick={() => moveQuestion(index, -1)}
-                      aria-label={`Move question ${index + 1} up`}
-                    >
-                      Move up
-                    </button>
-                    <button
-                      className="lp-button qb-small"
-                      disabled={locked || index === bank.questions.length - 1}
-                      onClick={() => moveQuestion(index, 1)}
-                      aria-label={`Move question ${index + 1} down`}
-                    >
-                      Move down
-                    </button>
-                    <button
-                      className="lp-button qb-small"
-                      disabled={generationBlocked}
-                      onClick={() => generate([id])}
-                    >
-                      Regenerate this question
-                    </button>
-                    <button
-                      className="lp-button qb-small"
-                      disabled={locked}
-                      onClick={() => removeQuestion(id)}
-                    >
-                      Delete question
-                    </button>
-                  </div>
+                    <div className="qb-editor-step-actions">
+                      <button
+                        type="button"
+                        className="lp-button"
+                        disabled={index === 0}
+                        onClick={() => {
+                          const previous =
+                            bank.questions[index - 1]?.question_id;
+                          if (previous) openQuestion(previous);
+                        }}
+                      >
+                        ← Previous question
+                      </button>
+                      <button
+                        type="button"
+                        className="lp-button"
+                        disabled={index === bank.questions.length - 1}
+                        onClick={() => {
+                          const next = bank.questions[index + 1]?.question_id;
+                          if (next) openQuestion(next);
+                        }}
+                      >
+                        Next question →
+                      </button>
+                    </div>
+                    <details className="qb-manage-question">
+                      <summary>Question identity and other actions</summary>
+                      <p className="qb-help">
+                        Question ID: {id}. Moving or editing retains this
+                        identity.
+                      </p>
+                      <div className="qb-actions qb-question-actions">
+                        <button
+                          className="lp-button qb-small"
+                          disabled={locked || index === 0}
+                          onClick={() => moveQuestion(index, -1)}
+                          aria-label={`Move question ${index + 1} up`}
+                        >
+                          Move up
+                        </button>
+                        <button
+                          className="lp-button qb-small"
+                          disabled={
+                            locked || index === bank.questions.length - 1
+                          }
+                          onClick={() => moveQuestion(index, 1)}
+                          aria-label={`Move question ${index + 1} down`}
+                        >
+                          Move down
+                        </button>
+                        <button
+                          className="lp-button qb-small"
+                          disabled={generationBlocked}
+                          onClick={() => generate([id])}
+                        >
+                          Regenerate this question
+                        </button>
+                        <button
+                          className="lp-button qb-small"
+                          disabled={locked}
+                          onClick={() => {
+                            if (
+                              window.confirm(
+                                "Remove this question from the draft? Published versions and earlier student work keep their existing question.",
+                              )
+                            )
+                              removeQuestion(id);
+                          }}
+                        >
+                          Delete question
+                        </button>
+                      </div>
+                    </details>
+                  </article>
+                );
+              })}
+            </div>
+            <aside
+              id="qb-source-reading"
+              className="qb-source-reading"
+              hidden={!sourceOpen}
+              aria-label="Exact source reading"
+            >
+              <div className="qb-source-top">
+                <h2 id="qb-source-heading" tabIndex={-1}>
+                  Source reading
+                </h2>
+                <button
+                  type="button"
+                  className="lp-button qb-small"
+                  onClick={() => {
+                    setSourceOpen(false);
+                    requestAnimationFrame(() =>
+                      document.getElementById("qb-reading-toggle")?.focus(),
+                    );
+                  }}
+                >
+                  Close reading
+                </button>
+              </div>
+              <p className="qb-help">
+                {sourceVersion
+                  ? `Source version ${sourceVersion}`
+                  : "Pinned lesson source"}{" "}
+                · Exact passages retained with this lesson.
+              </p>
+              {sourceReference && (
+                <p className="qb-help">
+                  {sourceReference.attribution.title} ·{" "}
+                  {sourceReference.attribution.authors.join(", ")}
+                  {" · "}
+                  <Link
+                    href={`/teacher/materials/${encodeURIComponent(sourceReference.source_id)}?version=${sourceReference.source_version}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Open this source version in a new tab
+                  </Link>
+                </p>
+              )}
+              {passages.map((passage, index) => (
+                <article
+                  className={`qb-reading-passage${activeQuestion?.source_passage_ids.includes(passage.id) ? " qb-reading-cited" : ""}`}
+                  key={passage.id}
+                >
+                  <h3>
+                    Passage {index + 1}
+                    {activeQuestion?.source_passage_ids.includes(passage.id)
+                      ? " · Cited"
+                      : ""}
+                  </h3>
+                  <p className="qb-help">
+                    {passage.id}
+                    {passage.page_number
+                      ? ` · Page ${passage.page_number}`
+                      : ""}
+                    {passage.section ? ` · ${passage.section}` : ""}
+                  </p>
+                  <p className="qb-reading-text">{passage.text}</p>
                 </article>
-              );
-            })}
+              ))}
+            </aside>
           </div>
-          <section className="lp-panel qb-section">
+          <section className="lp-panel qb-section" hidden={panel !== "review"}>
             <p className="lp-eyebrow">Final review</p>
             <h2>Approve this question bank</h2>
             <p>
@@ -1683,55 +2107,61 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
                 ))}
               </dl>
             </details>
-            <fieldset className="qb-fieldset" disabled={locked}>
-              <label className="lp-approval-confirmation">
-                <input
-                  type="checkbox"
-                  checked={bank.activity_policy.allow_runtime_generation}
-                  onChange={(event) =>
-                    edit((current) => ({
-                      ...current,
-                      activity_policy: {
-                        ...current.activity_policy,
-                        allow_runtime_generation: event.target.checked,
-                      },
-                    }))
-                  }
-                />
-                <span>
-                  Allow the tutor to generate questions and help under this
-                  lesson’s reviewed policy. Save and review this policy before
-                  publishing.
-                </span>
-              </label>
-              <label className="lp-approval-confirmation">
-                <input
-                  type="checkbox"
-                  checked={bank.activity_policy.allowed_actions.includes(
-                    "GIVE_HINT",
-                  )}
-                  onChange={(event) =>
-                    edit((current) => ({
-                      ...current,
-                      activity_policy: withHintPermission(
-                        current.activity_policy,
-                        event.target.checked,
-                      ),
-                    }))
-                  }
-                />
-                <span>
-                  Hints and explanations. Allow source-grounded help before a
-                  student answers, without revealing the assessed answer.
-                  Generated help also requires the permission above.
-                </span>
-              </label>
-            </fieldset>
-            <p className="qb-help">
-              Permitted tutoring actions:{" "}
-              {bank.activity_policy.allowed_actions.map(label).join(", ")}.
-            </p>
-            <label className="lp-approval-confirmation">
+            <details className="lp-evidence-details">
+              <summary>Review or change tutoring permissions</summary>
+              <fieldset className="qb-fieldset" disabled={locked}>
+                <label className="lp-approval-confirmation">
+                  <input
+                    type="checkbox"
+                    checked={bank.activity_policy.allow_runtime_generation}
+                    onChange={(event) =>
+                      edit((current) => ({
+                        ...current,
+                        activity_policy: {
+                          ...current.activity_policy,
+                          allow_runtime_generation: event.target.checked,
+                        },
+                      }))
+                    }
+                  />
+                  <span>
+                    Allow the tutor to generate questions and help under this
+                    lesson’s reviewed policy. Save and review this policy before
+                    publishing.
+                  </span>
+                </label>
+                <label className="lp-approval-confirmation">
+                  <input
+                    type="checkbox"
+                    checked={bank.activity_policy.allowed_actions.includes(
+                      "GIVE_HINT",
+                    )}
+                    onChange={(event) =>
+                      edit((current) => ({
+                        ...current,
+                        activity_policy: withHintPermission(
+                          current.activity_policy,
+                          event.target.checked,
+                        ),
+                      }))
+                    }
+                  />
+                  <span>
+                    Hints and explanations. Allow source-grounded help before a
+                    student answers, without revealing the assessed answer.
+                    Generated help also requires the permission above.
+                  </span>
+                </label>
+              </fieldset>
+              <p className="qb-help">
+                Permitted tutoring actions:{" "}
+                {bank.activity_policy.allowed_actions.map(label).join(", ")}.
+              </p>
+            </details>
+            <label
+              className="lp-approval-confirmation"
+              hidden={Boolean(bank.question_bank.approval && !dirty)}
+            >
               <input
                 type="checkbox"
                 disabled={locked || dirty}
@@ -1749,9 +2179,9 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
               <p role="status" className="qb-notice">
                 Question bank approved.{" "}
                 <Link
-                  href={`/teacher/lessons/${encodeURIComponent(view.lesson_id)}`}
+                  href={`/teacher/lessons/${encodeURIComponent(view.lesson_id)}?step=sequence`}
                 >
-                  Continue to lesson review
+                  Continue to tutoring sequence
                 </Link>
                 .
               </p>
@@ -1812,6 +2242,23 @@ export function QuestionBankEditor({ initialView }: { initialView: View }) {
           ))}
         </details>
       )}
+      <nav
+        className="qb-workspace-return"
+        aria-label="Continue lesson authoring"
+      >
+        <Link
+          className="lp-button"
+          href={`/teacher/objectives/${encodeURIComponent(view.lesson_id)}`}
+        >
+          ← Previous: objectives
+        </Link>
+        <Link
+          className="lp-button"
+          href={`/teacher/lessons/${encodeURIComponent(view.lesson_id)}?step=sequence`}
+        >
+          Next: tutoring sequence →
+        </Link>
+      </nav>
     </div>
   );
 }

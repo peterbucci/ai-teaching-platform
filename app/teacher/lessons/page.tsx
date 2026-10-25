@@ -1,71 +1,264 @@
 import Link from "next/link";
 import { listTeacherLessons } from "../../../lib/lessons/publishing.ts";
+import { readLessonDraft } from "../../../lib/lessons/store.ts";
+import { listSourceVersions } from "../../../lib/lessons/sources.ts";
 import { TeacherFrame } from "../presentation.tsx";
 import { loadTeacherLesson } from "./load.ts";
+import { lessonStepHref, resumeLessonStep } from "./authoring-state.ts";
+import "./authoring.css";
 
 export const dynamic = "force-dynamic";
 
-export default async function LessonsPage() {
-  const lessons = await loadTeacherLesson(listTeacherLessons);
+export default async function LessonsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string; page?: string }>;
+}) {
+  const query = await searchParams;
+  const search = typeof query.q === "string" ? query.q.slice(0, 200) : "";
+  const requestedPage = Number(query.page ?? 1);
+  const { lessons, sources, count, page } = await loadTeacherLesson(
+    async (access) => {
+      const [summaries, versions] = await Promise.all([
+        listTeacherLessons(access),
+        listSourceVersions(access),
+      ]);
+      const filtered = summaries.filter((lesson) =>
+        lesson.title.toLowerCase().includes(search.toLowerCase()),
+      );
+      const page = Math.min(
+        Math.max(1, Number.isSafeInteger(requestedPage) ? requestedPage : 1),
+        Math.max(1, Math.ceil(filtered.length / 12)),
+      );
+      // Existing owned draft reads, bounded to the visible page.
+      const lessons = await Promise.all(
+        filtered.slice((page - 1) * 12, page * 12).map(async (summary) => ({
+          ...summary,
+          draft: (await readLessonDraft(access, summary.id)).draft,
+        })),
+      );
+      return {
+        lessons,
+        sources: versions.filter(
+          (source) => source.version === source.latest_version,
+        ),
+        count: filtered.length,
+        page,
+      };
+    },
+  );
+  const pageHref = (value: number) =>
+    `/teacher/lessons?${new URLSearchParams({ q: search, page: String(value) })}`;
   return (
     <TeacherFrame section="Lessons">
-      <header className="lp-page-heading">
-        <p className="lp-eyebrow">Prepare learning</p>
-        <h1 className="lp-title">Your lessons</h1>
-        <p className="lp-intro">
-          Review your material, learning goals, and questions. Publish an
-          approved version, then choose a class and activate its assignment.
-        </p>
-        <div className="flex flex-wrap gap-3">
-          <Link
-            href="/teacher/objectives"
-            className="lp-button lp-button-primary"
-          >
-            Create a lesson draft
-          </Link>
-          <Link href="/teacher/materials" className="lp-button">
-            Import material
-          </Link>
-          <Link href="/teacher/assignments" className="lp-button">
-            Class assignments
-          </Link>
-        </div>
-      </header>
-      {lessons.length ? (
-        <div className="space-y-4">
-          {lessons.map((lesson) => (
-            <article key={lesson.id} className="lp-panel">
-              <h2>{lesson.title}</h2>
+      <div className="la-workspace">
+        <header className="lp-page-heading">
+          <p className="lp-eyebrow">Your teaching library</p>
+          <h1 className="lp-title">Lessons</h1>
+          <p className="lp-intro">
+            Turn your teaching material into a coherent lesson: learning
+            objectives, a reviewed question bank, and a prepared tutoring
+            sequence. Publish a reusable version when you’re ready.
+          </p>
+          <div className="la-actions">
+            <Link
+              href="/teacher/objectives"
+              className="lp-button lp-button-primary"
+            >
+              New lesson
+            </Link>
+            <Link href="/teacher/materials" className="lp-button">
+              Add teaching material
+            </Link>
+            <Link href="/teacher/assignments" className="lp-text-link">
+              Class assignments →
+            </Link>
+          </div>
+        </header>
+        <form className="la-search" action="/teacher/lessons">
+          <label className="lp-field">
+            Find a lesson
+            <input
+              className="lp-input"
+              name="q"
+              defaultValue={search}
+              maxLength={200}
+              placeholder="Search lesson titles"
+            />
+          </label>
+          <button className="lp-button">Search</button>
+          {search && (
+            <Link className="lp-button" href="/teacher/lessons">
+              Clear
+            </Link>
+          )}
+        </form>
+        <section aria-labelledby="lesson-library-heading">
+          <div className="la-section-heading">
+            <h2 id="lesson-library-heading">Lesson library</h2>
+            <p className="la-muted">
+              {count} {count === 1 ? "lesson" : "lessons"}
+            </p>
+          </div>
+          {lessons.length ? (
+            <table className="la-library">
+              <thead>
+                <tr>
+                  <th>Lesson / source</th>
+                  <th>Content</th>
+                  <th>Draft</th>
+                  <th>Published versions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {lessons.map((lesson) => {
+                  const approved = lesson.approved_revision === lesson.revision;
+                  const step = resumeLessonStep(lesson.draft, approved);
+                  const ref = lesson.draft?.content_ref;
+                  return (
+                    <tr key={lesson.id}>
+                      <td>
+                        <Link
+                          className="la-lesson-name"
+                          href={lessonStepHref(lesson.id, step)}
+                        >
+                          {lesson.title}
+                        </Link>
+                        <span className="la-muted">
+                          {lesson.draft?.attribution?.title ??
+                            "Source not yet prepared"}
+                          {ref && "source_version" in ref
+                            ? ` · source v${ref.source_version}`
+                            : ""}
+                        </span>
+                      </td>
+                      <td data-label="Content">
+                        {lesson.draft?.objective_workflow?.items.length ??
+                          lesson.draft?.concepts?.length ??
+                          0}{" "}
+                        objectives
+                        <small>
+                          {lesson.draft?.questions?.length ?? 0} questions
+                        </small>
+                      </td>
+                      <td data-label="Draft">
+                        <span
+                          className={`la-tag ${approved ? "la-tag-approved" : ""}`}
+                        >
+                          {approved ? "Approved" : "In progress"}
+                        </span>
+                        <small>
+                          Revision {lesson.revision} · lesson v
+                          {lesson.content_version ?? "—"}
+                        </small>
+                        <Link
+                          className="lp-text-link"
+                          href={lessonStepHref(lesson.id, step)}
+                        >
+                          Continue{" "}
+                          {step === "questions" ? "question bank" : step}
+                        </Link>
+                      </td>
+                      <td data-label="Published">
+                        {lesson.published_versions.length ? (
+                          lesson.published_versions.map((version) => (
+                            <div key={version}>
+                              <Link
+                                className="lp-text-link"
+                                href={`/teacher/lessons/${encodeURIComponent(lesson.id)}?version=${encodeURIComponent(version)}`}
+                              >
+                                Version {version}
+                              </Link>
+                            </div>
+                          ))
+                        ) : (
+                          <span className="la-muted">Not published</span>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          ) : (
+            <div className="la-empty">
+              <h3>
+                {search
+                  ? "No lessons match this search"
+                  : "Your first lesson starts with teaching material"}
+              </h3>
               <p>
-                Revision {lesson.revision} ·{" "}
-                {lesson.approved_revision === lesson.revision
-                  ? "Approved draft"
-                  : "Review required"}
-              </p>
-              <p>
-                {lesson.published_versions.length
-                  ? `Published versions: ${lesson.published_versions.join(", ")}`
-                  : "No published version yet"}
+                {search
+                  ? "Try another title or clear the search to browse your drafts."
+                  : "Import a permitted reading or choose an approved source. Build objectives and questions manually, and return to unfinished work here."}
               </p>
               <Link
-                className="lp-button lp-button-primary mt-4"
-                href={`/teacher/lessons/${encodeURIComponent(lesson.id)}`}
+                className="lp-button"
+                href={search ? "/teacher/lessons" : "/teacher/materials"}
               >
-                Review lesson
+                {search ? "Show all lessons" : "Add teaching material"}
               </Link>
-            </article>
-          ))}
-        </div>
-      ) : (
-        <section className="lp-panel">
-          <h2>No lesson drafts yet</h2>
-          <p>
-            Start a lesson draft from your approved material, then review its
-            objectives and question bank. A complete reviewed lesson is required
-            before publication.
-          </p>
+            </div>
+          )}
+          {count > 12 && (
+            <nav className="la-bottom-nav" aria-label="Lesson pages">
+              {page > 1 && <Link href={pageHref(page - 1)}>← Previous</Link>}
+              <span>
+                Page {page} of {Math.ceil(count / 12)}
+              </span>
+              {page * 12 < count && (
+                <Link href={pageHref(page + 1)}>Next →</Link>
+              )}
+            </nav>
+          )}
         </section>
-      )}
+        <section
+          className="la-section"
+          aria-labelledby="material-library-heading"
+        >
+          <div className="la-section-heading">
+            <h2 id="material-library-heading">Teaching material</h2>
+            <Link className="lp-text-link" href="/teacher/materials">
+              Manage material →
+            </Link>
+          </div>
+          <p className="la-muted">
+            Private to you. Each lesson keeps its exact source version.
+            Classroom assignments are managed separately.
+          </p>
+          {sources.length ? (
+            <ul className="la-source-list">
+              {sources.map((source) => (
+                <li key={source.document_id}>
+                  <div>
+                    <Link
+                      href={`/teacher/materials/${source.document_id}?version=${source.version}`}
+                    >
+                      {source.attribution.title}
+                    </Link>
+                    <p className="la-muted">
+                      {source.attribution.authors.join(", ")} ·{" "}
+                      {source.attribution.license}
+                    </p>
+                  </div>
+                  <div className="la-muted">
+                    Version {source.version} · {source.passages.length} passages
+                    <br />
+                    {source.review_status === "approved"
+                      ? "Reviewed source"
+                      : "Review required"}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="la-notice">
+              No teaching material has been saved yet. Supported imports: pasted
+              text, UTF-8 text/Markdown and text-only PDFs.
+            </p>
+          )}
+        </section>
+      </div>
     </TeacherFrame>
   );
 }
