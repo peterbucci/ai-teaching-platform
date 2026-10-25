@@ -126,6 +126,7 @@ export function StandaloneNotebookReading({
       <NotebookRouteShell
         section="reading"
         title="Reading"
+        leafHeading
         route={{
           kind: "reading",
           location: {
@@ -144,6 +145,13 @@ export function StandaloneNotebookReading({
           data-n7-reader-surface
           style={{ minHeight: active ? undefined : visibleHeight }}
         >
+          <h1 className={styles.breadcrumb}>
+            <span>Reading</span>
+            <span aria-hidden="true">›</span>
+            <span>
+              {view.reading.attribution.section} · {view.selectedPassageId}
+            </span>
+          </h1>
           {!view.session && (
             <aside className={styles.independent}>
               <strong>Reading on your own</strong>

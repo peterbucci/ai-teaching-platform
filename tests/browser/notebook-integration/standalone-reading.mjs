@@ -55,6 +55,11 @@ export async function checkStandaloneReadingExposure(page) {
     const grid = getComputedStyle(workspace);
     const body = getComputedStyle(article);
     const controls = getComputedStyle(tools);
+    const search = tools.querySelector("input[type=search]");
+    const sizes = tools.querySelector(".text-buttons");
+    const toolsBox = tools.getBoundingClientRect();
+    const searchBox = search.getBoundingClientRect();
+    const sizeBox = sizes.getBoundingClientRect();
     return {
       display: grid.display,
       columns: grid.gridTemplateColumns,
@@ -63,6 +68,8 @@ export async function checkStandaloneReadingExposure(page) {
       minHeight: grid.minHeight,
       articlePadding: [body.paddingTop, body.paddingRight, body.paddingLeft],
       toolsPadding: [controls.paddingTop, controls.paddingRight],
+      searchWidthRatio: searchBox.width / toolsBox.width,
+      sizeControlsBelowSearch: sizeBox.top >= searchBox.bottom,
     };
   });
   assert.equal(presentation.border, "0px", "N4's unboxed reading layout wins");
@@ -70,6 +77,11 @@ export async function checkStandaloneReadingExposure(page) {
   assert.equal(presentation.minHeight, "0px");
   assert.deepEqual(presentation.articlePadding, ["12px", "0px", "0px"]);
   assert.deepEqual(presentation.toolsPadding, ["0px", "0px"]);
+  assert.ok(
+    presentation.searchWidthRatio > 0.9,
+    "Search uses the reading column",
+  );
+  assert.equal(presentation.sizeControlsBelowSearch, true);
   if (presentation.display === "grid")
     assert.match(presentation.columns, /^270px /, "N4's contents width wins");
 

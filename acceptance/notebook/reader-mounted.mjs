@@ -3,6 +3,8 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
+import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { getPool } from "../../lib/db.ts";
 import { DEMO_IDS } from "../../lib/evidence/demo.ts";
 import {
@@ -32,7 +34,22 @@ const out = path.join(
   `mounted-reader-${Date.now()}`,
 );
 fs.mkdirSync(out, { recursive: true });
-const report = { paidCalls: 0, checks: [], result: "RUNNING" };
+const report = {
+  source: execFileSync("git", ["rev-parse", "HEAD"], {
+    encoding: "utf8",
+  }).trim(),
+  diffSha256: createHash("sha256")
+    .update(execFileSync("git", ["diff", "HEAD"]))
+    .digest("hex"),
+  runtime: process.env.N7_READER_RUNTIME || "unspecified",
+  buildId:
+    process.env.N7_READER_RUNTIME === "production"
+      ? fs.readFileSync(".next/BUILD_ID", "utf8").trim()
+      : null,
+  paidCalls: 0,
+  checks: [],
+  result: "RUNNING",
+};
 const actor = (
   await pool.query("SELECT id,auth_user_id FROM profiles WHERE id=$1", [
     DEMO_IDS.studentOne,

@@ -55,6 +55,11 @@ const report = {
     .update(execFileSync("git", ["diff", "HEAD"]))
     .digest("hex"),
   base,
+  runtime: process.env.N7_JOURNEY_RUNTIME || "unspecified",
+  buildId:
+    process.env.N7_JOURNEY_RUNTIME === "production"
+      ? fs.readFileSync(path.join(root, ".next/BUILD_ID"), "utf8").trim()
+      : null,
   providersDisabled: true,
   paidCalls: 0,
   checks: [],

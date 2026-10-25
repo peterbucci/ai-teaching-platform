@@ -129,6 +129,10 @@ const report = {
     "UTF-8 JSON.stringify of ordered file/hash entries; formatting-independent",
   base,
   runtime: process.env.N7_VISUAL_RUNTIME || "development",
+  buildId:
+    process.env.N7_VISUAL_RUNTIME === "production"
+      ? fs.readFileSync(path.join(root, ".next/BUILD_ID"), "utf8").trim()
+      : null,
   journey: path.relative(root, journeys[0].file),
   session: journey.session,
   approval: journey.approval,
