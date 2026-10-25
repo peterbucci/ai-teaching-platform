@@ -107,8 +107,10 @@ export function InterventionWorkspace({
   const [focusRequest, setFocusRequest] = useState<{ id: string } | null>(null);
   const handledFocus = useRef<{ id: string } | null>(null);
   const revealActivity = useCallback((id = "intervention-draft-title") => {
+    // Follow the shared pane contract: forwarding Next's internal state would
+    // bypass its URL-to-useSearchParams synchronization.
     window.history.replaceState(
-      window.history.state,
+      null,
       "",
       teacherWorkspacePaneHref(
         new URL(window.location.href),
@@ -163,7 +165,7 @@ export function InterventionWorkspace({
       )
         return;
       window.history.replaceState(
-        window.history.state,
+        null,
         "",
         teacherWorkspacePaneHref(new URL(window.location.href), pane),
       );
