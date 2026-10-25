@@ -114,6 +114,33 @@
       .changes p {
         margin-bottom: 0;
       }
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+      }
+      .gallery figure {
+        min-width: 0;
+        margin: 0;
+        background: white;
+        border: 1px solid #dce5df;
+      }
+      .gallery img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .gallery figcaption {
+        padding: 12px 16px;
+      }
+      .comparison img {
+        display: block;
+        width: 100%;
+        min-width: 120px;
+        max-width: 240px;
+        height: auto;
+        margin-bottom: 8px;
+      }
       @media (max-width: 700px) {
         main {
           padding: 20px 16px;
@@ -121,7 +148,8 @@
         h1 {
           font-size: 25px;
         }
-        .changes {
+        .changes,
+        .gallery {
           grid-template-columns: 1fr;
         }
         th,
@@ -147,23 +175,52 @@
         >. This appendix covers the finishing changes after
         <code>9c44fe8eb1b122c0e7c1181e1f937ab4b3044445</code>.
         <strong id="final-source"
-          >Application source: d4ebfd123b4eaccd57ae082a4a58525263ecdf36.</strong
+          >Latest application source:
+          53e494a639d82bd8daa9dfb7655a23ebca3aa9c4.</strong
         >
       </p>
       <div class="notice" role="note">
-        <p><strong>Implementation is ahead of runtime verification.</strong></p>
         <p>
-          The first quality run passed 466 unit tests, 21 authoring-focused
-          tests, 6 question-focused tests and lint. CI then passed the corrected
-          typecheck and content checks on d4ebfd1. CI caught formatting in this
-          appendix; it is corrected here, with a fresh full check pending.
+          <strong
+            >Latest-source CI and combined build passed. The final browser pass
+            verified the authoring workflow, with three acceptance limits still
+            open.</strong
+          >
         </p>
         <p>
-          Docker recovered at 13:26 UTC with 45.46 GiB host space free. The new
-          production build, populated browser workflow, fresh screenshots and
-          actual 200% browser zoom are queued for the shared verification slot.
-          Prior passing captures and tests remain historical evidence, not proof
-          of these finishing changes. PR #118 remains draft and unmerged.
+          <a
+            href="https://github.com/peterbucci/ai-teaching-platform/actions/runs/40204762365"
+            >CI run 40204762365</a
+          >
+          completed both jobs successfully on 0b75a61. The latest
+          <a
+            href="https://github.com/peterbucci/ai-teaching-platform/actions/runs/40205329950"
+            >53e494a run 40205329950</a
+          >
+          completed both jobs successfully: quality at 15:13:17 UTC and
+          intervention-approval at 15:07:47 UTC. Content, unit, lint, typecheck,
+          formatting, production build and required service checks passed. The
+          <a href="v22-ci-results.json">latest 53e494a CI receipt</a> records
+          every step; the
+          <a href="v22-ci-results-ff16f12.json">older ff16f12 receipt</a>
+          remains separate historical evidence.
+        </p>
+        <p>
+          Recovery cleared at 13:26 UTC with 45.46 GiB host space free. The
+          coordinator's pre-build storage check reported 42.41 GiB free and no
+          shared lock. Final combined candidate <code>9ca10189</code> passed its
+          production build, 625 tests and assignment/publication HTTP checks
+          passed with a fictional database. The current reports and matching
+          logs were directly inspected; their
+          <a href="v22-native-results.json">curated native receipt</a>
+          records source identity and hashes. The final browser pass on this
+          combined build covers all four published/question viewports, source
+          review, objectives, private criteria, sequence, separate approval and
+          publication, draft readiness invalidation and immutable version
+          preservation. Actual 200% browser zoom, native Emphasis-menu expansion
+          and question reload recovery remain unverified. The runtime and shared
+          guard were released after verification. PR #118 remains draft and
+          unmerged.
         </p>
       </div>
 
@@ -175,10 +232,13 @@
             Removed the extra local canvas border and padding. The persistent
             lesson outline, focused editor and reading context remain mounted.
             Desktop geometry follows 330px / flexible / 360px; tablet uses a
-            300px outline and contextual reading. Focused headings use 22px on
-            desktop and 20px on phones. Shared-shell navigation stays outside
-            the page-owned lesson outline. Final content start positions and
-            pane transitions require the new browser pass.
+            300px outline and contextual reading. Objective, question and lesson
+            record headings use 22px on desktop and 20px on phones. Shared-shell
+            navigation stays outside the page-owned lesson outline. Content
+            start positions were measured again in the final 9ca pass. Latest
+            source also hides the duplicate local library link above 800px while
+            preserving the phone return link. Final captures show the corrected
+            desktop framing and phone editor start.
           </p>
         </article>
         <article>
@@ -189,7 +249,16 @@
             review and publication. Exact approved passage text and optional
             supporting-quote marks are preserved. Context labels identify the
             selected objective/question and source version; passage IDs,
-            attribution and version references remain attached to the reading.
+            attribution and version references remain attached to the reading. A
+            compact <strong>Source and attribution</strong> disclosure retains
+            the available metadata and exact-source links while bringing the
+            passage body forward. It changes presentation, not source content.
+            Final source declares
+            <code>"Source Serif 4", Georgia, serif</code> explicitly. This
+            avoids the Tailwind <code>--font-serif</code>
+            variable selecting a different generic stack, as observed in b8. No
+            font download was added: available installed fallbacks apply, and
+            this report does not claim Source Serif 4 was loaded.
           </p>
         </article>
         <article>
@@ -200,7 +269,11 @@
             the selected published version. Class-assignment rows are scoped to
             that version. The existing quick-create control remains in a
             secondary disclosure; creation is inactive and classroom activation
-            remains a separate teacher action.
+            remains a separate teacher action. Latest source puts the lesson
+            title in the published editor and the exact published version in its
+            status line. The title is current authoritative lesson metadata:
+            there is no separate immutable title snapshot field. Published
+            content and version identity stay immutable.
           </p>
         </article>
         <article>
@@ -212,19 +285,49 @@
             >. The outgoing action uses the selected authorized publication's
             version, with no substitution from the current draft or latest
             version. Assignments owns receiving-form validation, review,
-            creation and activation. The direct receiving route is a PR #117
-            integration dependency.
+            creation and activation. PR #117's receiving contract was introduced
+            at <code>4cb9</code>; final owner runtime source
+            <code>42896da</code> is included in tested combined 9ca10189. This
+            Lessons browser pass also followed version 1 while version 2 existed
+            and confirmed the receiving form retained version 1. The screenshot
+            also contains an existing inactive-assignment confirmation from
+            Agent D's earlier check. This Lessons pass did not save or activate
+            an assignment.
           </p>
         </article>
       </div>
 
       <h2>Executed checks and current limits</h2>
       <p>
-        Local guarded run:
+        Both jobs completed successfully for <code>0b75a61</code> in
+        <a
+          href="https://github.com/peterbucci/ai-teaching-platform/actions/runs/40204762365"
+          >run 40204762365</a
+        >
+        (quality 121203244511; intervention-approval 121203244133). For final
+        source <code>53e494a</code>,
+        <a
+          href="https://github.com/peterbucci/ai-teaching-platform/actions/runs/40205329950"
+          >run 40205329950</a
+        >
+        has quality job 121204912986 and intervention-approval job 121204913112
+        completed successfully. The
+        <a href="v22-ci-results.json">current CI results</a>
+        pin final source 53e494a to tree
+        <code>268152c2adddf1ee4d6d9eeb1e6e3718041b0ac8</code>. The
+        <a href="v22-ci-results-ff16f12.json">prior ff16f12 receipt</a> is
+        preserved unchanged.
+      </p>
+      <p>
+        The earlier local guarded run is retained at
         <code
           >.setup/verification/v22-finish/2026-10-25T13-16-00-690Z-quality/</code
-        >. The run stops at its first failure. Its results apply to the worktree
-        at that run, before removal of the unavailable attribution field.
+        >. It passed 466 unit tests and 27 focused tests before stopping at the
+        unsupported attribution-field type error. That field was corrected
+        before d4ebfd1. Those logs remain prior-source local evidence. A final
+        local rerun on 53e494a passed all 21 authoring and 6 question tests;
+        <a href="v22-authoring-tests.json">the final focused-test receipt</a>
+        records the separate runs and exact source.
       </p>
       <div class="table-scroll">
         <table>
@@ -237,65 +340,157 @@
           </thead>
           <tbody>
             <tr>
+              <td>Latest 53e494a verification</td>
+              <td>
+                <span class="status pass">Both CI jobs passed</span>
+              </td>
+              <td>
+                Unit, content, lint, typecheck, formatting and build steps
+                passed. Quality and intervention-approval both completed
+                successfully. The final combined build, tests and HTTP checks
+                also passed. Final browser evidence is recorded below, with
+                zoom, native-menu expansion and question recovery still open.
+              </td>
+            </tr>
+            <tr>
               <td>Full unit suite</td>
-              <td><span class="status pass">Passed · 466</span></td>
-              <td><code>01-unit.log</code></td>
+              <td><span class="status pass">Passed · CI</span></td>
+              <td>
+                Latest 53e494a quality job: <code>npm test</code>. Earlier local
+                <code>01-unit.log</code> recorded 466 passing tests.
+              </td>
             </tr>
             <tr>
               <td>Focused authoring tests</td>
-              <td><span class="status pass">Passed · 21 + 6</span></td>
               <td>
-                <code>02-authoring-focused.log</code> and
-                <code>03-question-focused.log</code>. Includes the outgoing
-                handoff URL contract tests.
+                <span class="status pass">Passed · final local 21 + 6</span>
+              </td>
+              <td>
+                All 27 focused tests passed on final 53e494a, including the
+                outgoing handoff URL contract tests. The
+                <a href="v22-authoring-tests.json">current local receipt</a>
+                distinguishes these results from the older 27-test logs and the
+                separate 625-test combined suite.
               </td>
             </tr>
             <tr>
               <td>Lint</td>
-              <td><span class="status pass">Passed</span></td>
-              <td><code>04-lint.log</code></td>
+              <td><span class="status pass">Passed · CI</span></td>
+              <td>Latest 53e494a quality job: <code>npm run lint</code>.</td>
             </tr>
             <tr>
               <td>Typecheck</td>
-              <td><span class="status pass">Passed after correction</span></td>
+              <td><span class="status pass">Passed · CI</span></td>
               <td>
-                <code>05-typecheck.log</code>: the objective-view attribution
-                contract does not expose <code>license</code>. The unsupported
-                field reference is removed. CI run 40197458245 passed typecheck
-                on d4ebfd1 before reaching the appendix formatting failure.
+                Latest 53e494a quality job: <code>npm run typecheck</code>. The
+                earlier unavailable objective-attribution field is corrected.
               </td>
             </tr>
             <tr>
-              <td>Full formatting / content / final diff checks</td>
-              <td><span class="status pending">Pending</span></td>
+              <td>Formatting and content checks</td>
+              <td><span class="status pass">Passed · CI</span></td>
               <td>
-                Content passed in CI; diff whitespace passed locally. CI
-                formatting identified only this appendix, now formatted. A fresh
-                full formatting pass remains pending.
+                Latest 53e494a quality job passed
+                <code>npm run format:check</code> and
+                <code>npm run content:check</code>. The earlier appendix
+                formatting failure is corrected. This status update itself is a
+                subsequent report-only edit.
               </td>
             </tr>
             <tr>
               <td>Production build</td>
-              <td><span class="status pending">Queued</span></td>
+              <td><span class="status pass">Passed · CI</span></td>
               <td>
-                Docker is recovered. The shared guarded build slot is queued.
-                The prior image does not contain this finishing pass.
+                Latest 53e494a quality job completed <code>npm run build</code>
+                with paid providers disabled. This CI result is separate from
+                the successful native combined build below.
               </td>
             </tr>
             <tr>
-              <td>New browser workflow and screenshots</td>
-              <td><span class="status pending">Blocked</span></td>
+              <td>Quality service checks</td>
               <td>
-                Requires the new running application and populated fictional
-                fixture.
+                <span class="status pass">Passed · latest CI</span>
+              </td>
+              <td>
+                Final 53e494a quality job 121204912986 completed successfully at
+                15:13:17 UTC. All required service checks passed; only the
+                failure-diagnostic step was skipped. The current receipt retains
+                each step's status and timestamps.
+              </td>
+            </tr>
+            <tr>
+              <td>Intervention approval job</td>
+              <td><span class="status pass">Passed · CI</span></td>
+              <td>
+                Final-source job 121204913112 completed successfully, including
+                its isolated uploaded/curated approval, delivery and follow-up
+                checks.
+              </td>
+            </tr>
+            <tr>
+              <td>Native combined build, tests and HTTP</td>
+              <td>
+                <span class="status pass">Passed · native 625 tests</span>
+              </td>
+              <td>
+                Directly inspected current reports and logs confirm build,
+                625/625 tests and assignment/publication HTTP checks on
+                <code>9ca10189</code>, whose authoring files match final source
+                53e494a. The
+                <a href="v22-native-results.json">native receipt</a>
+                is separate from standalone CI evidence and does not establish
+                browser verification.
+              </td>
+            </tr>
+            <tr>
+              <td>Intermediate b8 browser checks</td>
+              <td>
+                <span class="status pending">Partial · ff16f12 only</span>
+              </td>
+              <td>
+                Four published viewports, tablet/phone reading, desktop
+                questions and private-marker exclusion were checked. Unsaved
+                navigation stalled; the complete workflow and latest-source
+                retest were incomplete in that historical pass. Final-source
+                evidence is recorded separately below.
+                <a href="v22-after/b8-browser-metrics.json"
+                  >Recorded metrics and limits</a
+                >.
+              </td>
+            </tr>
+            <tr>
+              <td>Final authoring browser workflow</td>
+              <td>
+                <span class="status pass">Passed · bounded final cases</span>
+              </td>
+              <td>
+                Final 53e494a authoring files in combined 9ca10189. Four
+                published/question viewports, reading focus return, source
+                identity, private preview, sequence, separate approval and
+                publication, objective draft invalidation, immutable v1 and
+                exact-version assignment handoff passed. See the
+                <a href="v22-final/browser-metrics.json">final metrics</a> and
+                <a href="v22-final/workflow-results.json">workflow results</a>.
               </td>
             </tr>
             <tr>
               <td>Actual 200% browser zoom</td>
-              <td><span class="status pending">Blocked</span></td>
+              <td><span class="status pending">Unverified</span></td>
               <td>
-                No new native-zoom capture. Viewport resizing is not a
-                substitute for browser zoom.
+                Native Chrome permission prompt timed out. No permission or
+                security bypass was attempted. Viewport resizing does not prove
+                actual browser zoom.
+              </td>
+            </tr>
+            <tr>
+              <td>Native Emphasis menu and question reload recovery</td>
+              <td><span class="status pending">Unverified</span></td>
+              <td>
+                Emphasis received focus, but native menu expansion was not
+                visible in the in-app browser. Earlier question
+                reload/navigation stalled at the browser control connection.
+                Neither is claimed as passing; objective switching and earlier
+                objective recovery are distinct checks.
               </td>
             </tr>
             <tr>
@@ -310,121 +505,540 @@
         </table>
       </div>
 
-      <h2>Prototype, before and pending after comparison</h2>
+      <h2>Prototype, before and final after comparison</h2>
       <p>
         The approved reference is the supplied Workbench v2.2
         <code>Main.dc.html</code> and runtime, with export SHA-256
         <code
           >c853369da1250adf24a741a38c3d94d3c97a976c012c352732cf4dd8d924cb54</code
-        >. Existing prototype captures below were rendered from that reference.
-        The historical captures below use the earlier
-        four-objective/twelve-question prototype state and the saved Water, heat
-        and changing state fixture with three concepts and four questions. The
-        new dense acceptance reference has five concepts, thirteen passages and
-        fifteen bank questions; new equivalent-data comparisons remain pending.
+        >. The eight retained images below compare the actual dense published
+        prototype with the combined application before this pass. Both have five
+        concepts and thirteen passages. The prototype has fifteen bank questions
+        and published version 3; the implementation has nineteen immutable
+        question snapshots and published version 1. Its four extra snapshots are
+        mandatory prepared sequence content and were preserved.
+      </p>
+      <p>
+        The prototype's four classes include three active populated classes and
+        one inactive class. The before implementation has four inactive empty
+        classes. The prototype outline is scrolled to publication while the
+        before outline starts at the top. These are density comparisons, not
+        identical records, editable-bank acceptance or equivalent assignment
+        progress.
+        <a href="v22-before/manifest.json">Capture manifest</a> records original
+        paths, fixture IDs, dimensions, timestamps and verified SHA-256 hashes.
       </p>
       <p>
         <a href="report.html">Previous PR #118 fidelity report</a> is preserved
-        as historical evidence. Its after-question captures represent the
-        application before this finishing pass and retain the earlier shell. The
-        new after column will require captures with the agreed PR #120 shared
-        shell. None of the links below is labelled as a new after result.
+        as historical evidence, including its sparse question-workspace images.
+        The dense before captures below use combined source
+        <code>462cfb1b31d9108cec70d18b6553bd45048d2eed</code>, which contains
+        Lessons base <code>9c44fe8</code>. They were captured at 07:10–07:11
+        UTC. The intermediate after column uses b8 with Lessons ff16f12. It
+        remains historical. The final after column uses final 53e494a authoring
+        files in combined 9ca10189 and includes the title/navigation and font
+        stack corrections.
+      </p>
+      <p>
+        The intermediate and final publication captures use new owned lesson
+        <code>def20065-8cb1-4486-8f68-f2189ffadbe0</code> version 1 and displays
+        one active assignment for that version. This differs from both earlier
+        four-row fixtures. Its source text retains original hard line breaks and
+        literal emphasis markers; those differences must not be edited to
+        imitate the prototype's normalized prose.
       </p>
       <div class="table-scroll">
-        <table>
+        <table class="comparison">
           <thead>
             <tr>
               <th>Viewport</th>
               <th>Approved prototype</th>
               <th>Before this pass</th>
-              <th>New after</th>
+              <th>Intermediate after · b8 / ff16f12</th>
+              <th>Final after · 53e494a</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>1440 × 1000</td>
               <td>
-                <a href="prototype-question-1440.png">Reference capture</a>
-              </td>
-              <td>
-                <a href="after-questions-1440.png"
-                  >Historical question workspace</a
+                <a href="v22-before/prototype-published-1440x1000.png"
+                  ><img
+                    src="v22-before/prototype-published-1440x1000.png"
+                    alt="Approved published prototype at 1440 by 1000"
+                    loading="lazy"
+                  />Dense published prototype</a
                 >
               </td>
-              <td><span class="status pending">Pending</span></td>
+              <td>
+                <a href="v22-before/before-published-1440x1000.png"
+                  ><img
+                    src="v22-before/before-published-1440x1000.png"
+                    alt="Published workspace before corrections at 1440 by 1000"
+                    loading="lazy"
+                  />Combined published workspace</a
+                >
+              </td>
+              <td>
+                <a href="v22-after/published-1440x1000.png"
+                  >Published workspace</a
+                >
+              </td>
+              <td>
+                <a href="v22-final/published-1440x1000.jpg"
+                  ><img
+                    src="v22-final/published-1440x1000.jpg"
+                    alt="Final published workspace at 1440 by 1000"
+                    loading="lazy"
+                  />Final published workspace</a
+                >
+              </td>
             </tr>
             <tr>
               <td>1024 × 768</td>
               <td>
-                <a href="prototype-question-1024.png">Reference capture</a>
-              </td>
-              <td>
-                <a href="after-questions-1024.png"
-                  >Historical question workspace</a
+                <a href="v22-before/prototype-published-1024x768.png"
+                  ><img
+                    src="v22-before/prototype-published-1024x768.png"
+                    alt="Approved published prototype at 1024 by 768"
+                    loading="lazy"
+                  />Dense published prototype</a
                 >
               </td>
-              <td><span class="status pending">Pending</span></td>
+              <td>
+                <a href="v22-before/before-published-1024x768.png"
+                  ><img
+                    src="v22-before/before-published-1024x768.png"
+                    alt="Published workspace before corrections at 1024 by 768"
+                    loading="lazy"
+                  />Combined published workspace</a
+                >
+              </td>
+              <td>
+                <a href="v22-after/published-1024x768.png"
+                  >Published workspace</a
+                >
+              </td>
+              <td>
+                <a href="v22-final/published-1024x768.jpg"
+                  ><img
+                    src="v22-final/published-1024x768.jpg"
+                    alt="Final published workspace at 1024 by 768"
+                    loading="lazy"
+                  />Final published workspace</a
+                >
+              </td>
             </tr>
             <tr>
               <td>390 × 844</td>
               <td>
-                <a href="prototype-question-390.png">Reference capture</a>
-              </td>
-              <td>
-                <a href="after-questions-390.png"
-                  >Historical question workspace</a
+                <a href="v22-before/prototype-published-390x844.png"
+                  ><img
+                    src="v22-before/prototype-published-390x844.png"
+                    alt="Approved published prototype at 390 by 844"
+                    loading="lazy"
+                  />Dense published prototype</a
                 >
               </td>
-              <td><span class="status pending">Pending</span></td>
+              <td>
+                <a href="v22-before/before-published-390x844.png"
+                  ><img
+                    src="v22-before/before-published-390x844.png"
+                    alt="Published workspace before corrections at 390 by 844"
+                    loading="lazy"
+                  />Combined published workspace</a
+                >
+              </td>
+              <td>
+                <a href="v22-after/published-390x844.png"
+                  >Published workspace</a
+                >
+              </td>
+              <td>
+                <a href="v22-final/published-390x844.jpg"
+                  ><img
+                    src="v22-final/published-390x844.jpg"
+                    alt="Final published workspace at 390 by 844"
+                    loading="lazy"
+                  />Final published workspace</a
+                >
+              </td>
             </tr>
             <tr>
               <td>320 × 844</td>
               <td>
-                <a href="prototype-question-320.png">Reference capture</a>
-              </td>
-              <td>
-                <a href="after-questions-320.png"
-                  >Historical question workspace</a
+                <a href="v22-before/prototype-published-320x844.png"
+                  ><img
+                    src="v22-before/prototype-published-320x844.png"
+                    alt="Approved published prototype at 320 by 844"
+                    loading="lazy"
+                  />Dense published prototype</a
                 >
               </td>
-              <td><span class="status pending">Pending</span></td>
+              <td>
+                <a href="v22-before/before-published-320x844.png"
+                  ><img
+                    src="v22-before/before-published-320x844.png"
+                    alt="Published workspace before corrections at 320 by 844"
+                    loading="lazy"
+                  />Combined published workspace</a
+                >
+              </td>
+              <td>
+                <a href="v22-after/published-320x844.png"
+                  >Published workspace</a
+                >
+              </td>
+              <td>
+                <a href="v22-final/published-320x844.jpg"
+                  ><img
+                    src="v22-final/published-320x844.jpg"
+                    alt="Final published workspace at 320 by 844"
+                    loading="lazy"
+                  />Final published workspace</a
+                >
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <h2>Populated functional journey still to verify</h2>
+      <h2>Final browser results · 53e494a in combined 9ca10189</h2>
       <p>
-        The new application must exercise source review, objective editing, the
-        multi-concept question bank and private criteria, tutoring preparation,
-        separate approval and publication, and the published assignment handoff.
-        Check stable source references and attribution; reading across all
-        stages; pane focus restoration; unsaved field preservation and
-        navigation recovery; immutable published versions; and arrival at
-        Assignments with the exact selected version. Repeat the four viewport
-        sizes and actual 200% zoom. These new end-to-end results are currently
-        unrun.
+        The
+        <a href="v22-final/browser-metrics.json">final browser metrics</a>
+        record 330 / 750 / 360px panes at 1440 × 1000, beginning at x=0, y=103.
+        At 1024 × 768, the outline/editor are 300 / 724px; reading opens as a
+        400px drawer at x=624, y=103. At both phone widths the canvas begins at
+        y=57 and the full-width editor at y=116. These follow the prototype's
+        pane widths and phone start; desktop/tablet begin 1px lower because the
+        shared shell's contract is 103px. No document horizontal overflow was
+        recorded for the four published and question layouts, objectives at 1440
+        and 320, or the recorded reading/review states. Source text consistently
+        measures 15px / 23.25px with the declared
+        <code>"Source Serif 4", Georgia, serif</code> stack; the physical loaded
+        font face is not proven by that CSS measurement.
+      </p>
+      <ul>
+        <li>
+          <a href="v22-final/questions-reading-1024x768.jpg"
+            >Tablet question reading</a
+          >
+          closed with Escape and returned focus to Open reading.
+          <a href="v22-final/objectives-reading-320x844.jpg"
+            >Phone objective reading</a
+          >
+          closed to the editor and returned focus to the Reading toggle. These
+          are targeted focus-return checks, not a complete keyboard
+          accessibility audit.
+        </li>
+        <li>
+          The fictional water lesson retained passage <code>water-01</code>, its
+          exact text and source version 1. Original extraction comparison
+          remained accessible. Question expected answers were preserved and
+          student preview excluded private criteria. The prepared sequence
+          exposed three questions from one family and its uncovered concept.
+        </li>
+        <li>
+          Whole-lesson approval and immutable publication were separate actions.
+          Water lesson version 1 was published with no class assignment. A new
+          named draft, <strong>Fictional follow-up draft</strong>, preserved
+          objective/question identities. Unsaved O1 text survived Next/Previous
+          objective switching. Saving O1 at revision 9 reset that objective's
+          source-support review and approval; published v1 retained its old
+          wording.
+        </li>
+        <li>
+          On the separate dense lesson, Prepare assignment from version 1 opened
+          the receiving form with version 1 retained while version 2 existed.
+          This pass only inspected that handoff; it did not save or activate an
+          assignment. The existing inactive-assignment confirmation in its
+          screenshot belongs to Agent D's earlier lifecycle check.
+        </li>
+      </ul>
+      <p class="notice">
+        <strong>Final acceptance is partial.</strong> Native Chrome's permission
+        prompt timed out, so actual 200% zoom is unverified and no bypass was
+        attempted. The Emphasis control received focus, but its native expanded
+        menu was not visibly verified. Earlier question reload/navigation
+        recovery remains unverified. Import-format, stale-save and authorization
+        cases were checked through authenticated service suites, not all
+        repeated through the final UI journey. See
+        <a href="v22-final/workflow-results.json">bounded workflow results</a>.
+      </p>
+      <p>
+        Agent C separately verified objective reload/Back recovery and a
+        denied-storage navigation guard on
+        <strong>earlier combined b8d0eb55</strong>. Its final 9ca10189 run
+        covered eight shared-shell checks, including switcher/Details Escape and
+        read-only boundaries. The
+        <a href="v22-cross-agent-results.json">independent evidence receipt</a>
+        keeps those sources distinct; neither proves final question recovery or
+        native zoom. It also records the coordinator's runtime release: zero
+        port-3317 listeners, shared guard absent and 43.20 GiB free.
+      </p>
+
+      <h2>Final workflow gallery</h2>
+      <p>
+        These screenshots come from final combined 9ca10189 with authoring
+        source 53e494a. Capture bytes were JPEG despite their original .png
+        filenames; final filenames now use .jpg, with unchanged SHA-256 hashes.
+        The <a href="v22-final/capture-manifest.json">final capture manifest</a>
+        records exact dimensions, format and hashes. The material-passage
+        capture is 1425 × 990 and assignment handoff is 305 × 804 despite their
+        nominal filename dimensions; both are workflow evidence, not
+        exact-viewport acceptance.
+      </p>
+      <div class="gallery">
+        <figure>
+          <a href="v22-final/source-review-1440x1000.jpg"
+            ><img
+              src="v22-final/source-review-1440x1000.jpg"
+              alt="Source review with stable passage references and contextual reading"
+              loading="lazy"
+          /></a>
+          <figcaption>
+            Source review · 1440 × 1000.
+            <a href="v22-final/material-passage-1440x1000.jpg"
+              >Exact passage and original extraction access</a
+            >
+            (1425 × 990).
+          </figcaption>
+        </figure>
+        <figure>
+          <a href="v22-final/objectives-1440x1000.jpg"
+            ><img
+              src="v22-final/objectives-1440x1000.jpg"
+              alt="Objective editor with selected concept and supporting source passage"
+              loading="lazy"
+          /></a>
+          <figcaption>
+            Objectives · 1440 × 1000.
+            <a href="v22-final/objectives-320x844.jpg">320px editor</a> ·
+            <a href="v22-final/objectives-reading-320x844.jpg">320px reading</a>
+            ·
+            <a href="v22-final/objectives-emphasis-menu-1440x1000.jpg"
+              >Emphasis focus only; expansion unverified</a
+            >.
+          </figcaption>
+        </figure>
+        <figure>
+          <a href="v22-final/questions-1440x1000.jpg"
+            ><img
+              src="v22-final/questions-1440x1000.jpg"
+              alt="Question bank outline beside focused question editor and reading"
+              loading="lazy"
+          /></a>
+          <figcaption>
+            Question bank ·
+            <a href="v22-final/questions-1024x768.jpg">1024 × 768</a> ·
+            <a href="v22-final/questions-390x844.jpg">390 × 844</a> ·
+            <a href="v22-final/questions-320x844.jpg">320 × 844</a> ·
+            <a href="v22-final/questions-reading-1024x768.jpg">tablet reading</a
+            >.
+          </figcaption>
+        </figure>
+        <figure>
+          <a href="v22-final/questions-private-criteria-1440x1000.jpg"
+            ><img
+              src="v22-final/questions-private-criteria-1440x1000.jpg"
+              alt="Private question criteria in the teacher editor"
+              loading="lazy"
+          /></a>
+          <figcaption>
+            Teacher-only criteria · 1440 × 1000.
+            <a href="v22-final/questions-student-preview-1440x1000.jpg"
+              >Student preview excludes private criteria</a
+            >.
+          </figcaption>
+        </figure>
+        <figure>
+          <a href="v22-final/sequence-1440x1000.jpg"
+            ><img
+              src="v22-final/sequence-1440x1000.jpg"
+              alt="Prepared tutoring sequence and coverage information"
+              loading="lazy"
+          /></a>
+          <figcaption>
+            Tutoring preparation · 1440 × 1000. Existing family and
+            uncovered-concept information remain explicit.
+          </figcaption>
+        </figure>
+        <figure>
+          <a href="v22-final/approval-complete-before-publication-1440x1000.jpg"
+            ><img
+              src="v22-final/approval-complete-before-publication-1440x1000.jpg"
+              alt="Approved saved revision with a separate publication confirmation and button"
+              loading="lazy"
+          /></a>
+          <figcaption>
+            Approved revision before the separate Publish action.
+            <a href="v22-final/approval-before-1440x1000.jpg"
+              >Before approval</a
+            >
+            ·
+            <a href="v22-final/review-reading-1440x1000.jpg">review reading</a>.
+          </figcaption>
+        </figure>
+        <figure>
+          <a href="v22-final/water-published-1440x1000.jpg"
+            ><img
+              src="v22-final/water-published-1440x1000.jpg"
+              alt="Published water lesson with no class assignment and new-draft controls"
+              loading="lazy"
+          /></a>
+          <figcaption>
+            Water version 1 published with no assignment.
+            <a href="v22-final/assignment-handoff-version1-320x844.jpg"
+              >Separate dense-lesson v1 handoff</a
+            >
+            (305 × 804; existing inactive confirmation from Agent D).
+          </figcaption>
+        </figure>
+        <figure>
+          <a href="v22-final/objectives-saved-review-invalidated-1440x1000.jpg"
+            ><img
+              src="v22-final/objectives-saved-review-invalidated-1440x1000.jpg"
+              alt="Saved revision 9 objective marked Needs Review with source support uncertain"
+              loading="lazy"
+          /></a>
+          <figcaption>
+            New named draft: saved O1 change invalidates its review at revision
+            9.
+            <a href="v22-final/objectives-unsaved-1440x1000.jpg"
+              >Unsaved state</a
+            >
+            ·
+            <a href="v22-final/published-objectives-unchanged-1440x1000.jpg"
+              >Published v1 retains original objective</a
+            >.
+          </figcaption>
+        </figure>
+      </div>
+
+      <h2>Historical intermediate browser results and limits</h2>
+      <p>
+        <a href="v22-after/b8-browser-metrics.json">The b8 metrics</a> pin these
+        observations to combined source b8d0eb55 and Lessons ff16f12. At 1440 ×
+        1000, the canvas is x=0, y=103 with 330 / 750 / 360px panes. At 1024 ×
+        768, outline/editor widths are 300 / 724px; the reading drawer is 400px
+        wide at x=624, y=103. At 390 × 844 and 320 × 844, the canvas starts at
+        y=57 and the selected editor at y=116, using the full viewport width. No
+        horizontal overflow was recorded in the four published layouts or the
+        desktop question layout. Source prose measures 15px with 23.25px line
+        height and a serif font stack; exact loaded prototype font-face
+        equivalence is not claimed.
+      </p>
+      <ul>
+        <li>
+          <a href="v22-after/published-reading-1024x768.png">Tablet reading</a>:
+          Escape closed the drawer and restored its opener. Tab samples include
+          one BODY focus result outside the reading pane, so complete keyboard
+          containment is not established by this partial pass.
+        </li>
+        <li>
+          <a href="v22-after/published-reading-320x844.png">Phone reading</a>:
+          Outline → Reading → Close returned to the prior pane.
+        </li>
+        <li>
+          <a href="v22-after/questions-1440x1000.png"
+            >Desktop question editing</a
+          >
+          uses the separate Water, heat and changing state fixture: three
+          concepts and four questions, not the dense published networking bank.
+          The
+          <a href="v22-after/student-preview-private-hidden-1440x1000.png"
+            >student preview</a
+          >
+          excluded the known private-criteria marker entered as an unsaved local
+          edit. This is a targeted preview check, not proof of every possible
+          private-content path.
+        </li>
+      </ul>
+      <p class="notice">
+        <strong
+          >Question recovery was not verified in this historical pass.</strong
+        >
+        Reload did not visibly complete. A later unsaved-navigation confirmation
+        click stalled the in-app browser control connection with a CDP focus
+        timeout; no JavaScript dialog was exposed. No save was sent and this
+        browser pass executed zero server writes. A fresh second tab showed
+        saved revision 7, not the first tab's local edits. Do not interpret the
+        stalled sequence as successful recovery or as a confirmed application
+        data-loss defect.
+      </p>
+      <p>
+        Source import/review, objective editing, tutoring sequence, approval,
+        publication actions and native 200% zoom were not completed by that b8
+        Lessons pass. The final source's separate results and captures appear
+        above. Agent C's objective recovery on b8 is independently recorded; it
+        does not convert the stalled question check into a pass.
       </p>
 
       <h2>Integration dependencies and remaining deviations</h2>
+      <p>
+        Final combined candidate
+        <code>9ca101893a07910539a9e9efe12bc955bf4a08ba</code>, tree
+        <code>fff9c0716e85702e5d205c15766a4cfb6d7f9423</code>, passed 625 tests,
+        production build and both HTTP check suites. Current
+        <code>report.json</code>, <code>ready.json</code> and matching logs were
+        directly inspected. Build ID is <code>64b_tEa9pg31ghh0nCWvq</code>;
+        readiness was recorded at 15:25:08 UTC on local port 3317. An
+        independent Git comparison found no differences in Lessons, Materials or
+        Objectives against final source 53e494a. The
+        <a href="v22-native-results.json">current native receipt</a>
+        records that evidence. The final Lessons browser pass used this exact
+        build. Its bounded successes and remaining zoom/menu/question-recovery
+        limits are recorded above; the runtime has since been released.
+      </p>
+      <p>
+        The inspected intermediate combined native candidate is
+        <code>b8d0eb55e793905e78452980cc4e92ac178644ab</code>, tree
+        <code>466b42f5b70a33400115d9df5f876f65f3d9289f</code>, verified from the
+        retained Git objects. It includes shared-shell correction
+        <code>932a446</code>, current Assignments changes and Lessons
+        <code>ff16f12</code>, plus the Assignment-only scroll correction
+        <code>03255a5</code>. Lessons, Materials and Objectives files match
+        ff16f12 exactly; it does not include 0b75a61. Inspected
+        <code>report.json</code>, <code>ready.json</code> and matching logs
+        confirm 625 tests, production build and assignment/publication HTTP
+        checks passed. Build identity is <code>c3-z5ci6U8BgOEWk6IZj8</code>;
+        readiness was recorded at 14:34:07 UTC. The
+        <a href="v22-native-results-b8.json">historical b8 native receipt</a>
+        excludes runtime secrets and older result files. The b8 screenshots and
+        receipts remain valid intermediate evidence and must not be relabelled
+        as final.
+      </p>
       <ul>
         <li>
           <a href="https://github.com/peterbucci/ai-teaching-platform/pull/120"
             >PR #120</a
           >
-          owns the shared course navigation, authoring navigation row and outer
-          workspace. Lessons only owns its outline, editor and contextual
-          reading. Final geometry needs the shared-shell integration; shared
-          files are outside this change's ownership.
+          owns the shared course navigation and outer workspace. Its focused
+          authoring navigation contract was introduced at <code>aff3433</code>,
+          with a 103px desktop/tablet and 57px phone authoring-top contract.
+          Lessons owns its outline, editor and contextual reading. Final-source
+          measurements confirm these boundaries at all four requested sizes.
+          Shared files are outside this change's ownership.
+        </li>
+        <li>
+          Material-review record headings retain their existing 24px desktop /
+          21px small-screen sizes. The objective, question and lesson headings
+          now follow the prototype's 22px / 20px sizes. This remains a local
+          typography difference, separate from the corrected passage treatment.
         </li>
         <li>
           <a href="https://github.com/peterbucci/ai-teaching-platform/pull/117"
             >PR #117</a
           >
-          owns the receiving assignment form. Its rejection of unavailable or
-          mismatched versions and its separate creation/activation flow need the
-          combined C5 browser journey. No Assignments files are changed by
-          Lessons.
+          owns the receiving assignment form. Final runtime source is
+          <code>42896da</code>, with verification artifacts at
+          <code>a615b974</code>; the tested combined application is 9ca10189.
+          Agent D owns its lifecycle verification. This final Lessons pass
+          verified only the outgoing selected-v1 link and receiving-form v1
+          identity while v2 existed; it did not save or activate. Direct HTTP
+          evidence separately covers publication and assignment boundaries. No
+          Assignments files are changed by Lessons.
         </li>
         <li>
           The approved dense example has five concepts, thirteen passages and
@@ -435,8 +1049,12 @@
           not introduce a new runtime controller.
         </li>
         <li>
-          Fresh visual/keyboard/zoom acceptance, independent combined review,
-          live-model and hosted deployment acceptance remain open. No merge,
+          Actual 200% zoom, expanded native Emphasis-menu verification and
+          question reload recovery remain open. The recorded reading
+          focus-return checks do not constitute a complete keyboard audit.
+          Source Serif 4 loading is not proven; the declared stack may use an
+          installed fallback. Live-model and hosted deployment acceptance are
+          outside this provider-disabled UI verification scope. No merge,
           automatic assignment activation or parent-issue closure is implied.
         </li>
       </ul>

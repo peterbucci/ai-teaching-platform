@@ -1,0 +1,391 @@
+{
+  "schemaVersion": 1,
+  "evidenceType": "executed-authoring-service-fixtures",
+  "status": "passed",
+  "scope": "Seven separate operator-invoked service phases against the handed-off isolated database. This is service-fixture evidence, not browser acceptance, live AI validation or assignment activation evidence.",
+  "startedAt": "2026-10-25T14:27:23.668Z",
+  "finishedAt": "2026-10-25T14:29:43.756Z",
+  "provenance": {
+    "authoringServiceCheckoutHead": "ff16f1201865f54676db30c24251fe29ceb1b5b1",
+    "combinedRuntimeCheckoutHead": "ba74dc1b09a571726f9a904c2626dde955378aa2",
+    "fixtureHelperSha256": "ed519a54cfdc563f1a4866cbe629040d693312dc279ec0a153738714b62ee311",
+    "retainedReceiptCount": 7,
+    "codeIdentityNote": "The helper imports existing services from the Lessons checkout. The guarded wrapper runs with the combined checkout as its working directory. These are recorded checkout HEADs, not a browser-verification claim or production-build identity."
+  },
+  "storage": {
+    "minimumRequiredGiB": 20,
+    "allRecordedChecksPassed": true,
+    "minimumRecordedAvailableGiB": 43.014976501464844,
+    "checks": "Wrapper checks before/after each invocation; helper checks before every mutating service call and validates the existing lease each time.",
+    "engineRequirement": "Native database; Docker not required for these fixture phases.",
+    "privacy": "Machine paths, process identifiers, credentials and lease tokens are omitted."
+  },
+  "fixtures": {
+    "dense": {
+      "title": "Lessons fidelity v22 — Bandwidth and Latency · 5d76a782",
+      "lessonId": "def20065-8cb1-4486-8f68-f2189ffadbe0",
+      "sourceId": "ff5e2920-aac0-4f24-ad66-58176ac95eb2",
+      "sourceVersion": 1,
+      "finalDraftRevision": 3,
+      "publishedVersions": [
+        {
+          "version": "1",
+          "sha256": "950890b13623f1fb9dc57d725275bf5021ae127db8d5e018a799c80b694f0825"
+        },
+        {
+          "version": "2",
+          "sha256": "b4de29a332a1b7b4d1067f93b3b741b50443b4ab0b2d1ee15587faff4ae42ec0"
+        }
+      ],
+      "counts": {
+        "concepts": 5,
+        "passages": 13,
+        "questionSnapshots": 19,
+        "authoredBankQuestions": 15,
+        "sequenceAddedSnapshots": 4
+      },
+      "curatedProvenance": {
+        "contentRef": {
+          "package_id": "network-performance-v1",
+          "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+          "source_id": "peterson_davie_1_5_1",
+          "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+          "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+        },
+        "attribution": {
+          "title": "Computer Networks: A Systems Approach",
+          "authors": ["Larry Peterson", "Bruce Davie"],
+          "copyright": "Elsevier, 2012",
+          "section": "1.5.1 Bandwidth and Latency",
+          "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst",
+          "license": "CC-BY-4.0",
+          "license_url": "https://creativecommons.org/licenses/by/4.0/",
+          "cautions": [
+            "The upstream README sentence about derivative works conflicts with the CC BY 4.0 LICENSE adaptation grant. Both source files are retained; this package does not settle that legal inconsistency.",
+            "The source initially uses bandwidth/throughput loosely before distinguishing available rate from measured performance. Accept accurate explanations rather than penalizing synonyms alone.",
+            "The source uses latency generically. Every assessment specifies one-way latency or RTT explicitly.",
+            "The one-bit simplification in P08 is not assessed. Use finite packets and stated assumptions.",
+            "P10 contains a dimensional typo in the original displayed calculation: its denominator says 10 x 10^6 Mbps where 10 x 10^6 bits/s is intended. The 20-second result is correct. Preserve the source but use dimensionally correct arithmetic in assessment.",
+            "The source uses a simplified three-component delay model. Processing, multi-hop aggregation and advanced queuing models are outside assessment scope.",
+            "Queuing is introduced briefly. Questions use given waiting times, basic definition and delay arithmetic; traffic-dependent queue theory is not inferred from this excerpt."
+          ]
+        },
+        "serializedContentSha256": "c9ca71f7a5daec39b021d9e49bcaf55635de1cc77306928ad6777f51ed4690dd",
+        "authoredBankQuestionIds": [
+          "NP-BW-01",
+          "NP-BW-02",
+          "NP-BW-03",
+          "NP-RTT-01",
+          "NP-RTT-02",
+          "NP-RTT-03",
+          "NP-TX-01",
+          "NP-TX-02",
+          "NP-TX-03",
+          "NP-PROP-01",
+          "NP-PROP-02",
+          "NP-PROP-03",
+          "NP-QUEUE-01",
+          "NP-QUEUE-02",
+          "NP-QUEUE-03"
+        ],
+        "sequenceAddedQuestionIds": ["D01", "D02", "D05", "D06"]
+      },
+      "authoringMetadata": "Exact curated content copied into a newly owned attributed source. No R4 objective or question-bank review metadata was invented; use water for authoring-editor acceptance."
+    },
+    "water": {
+      "title": "Lessons fidelity v22 — Water, heat and changing state · 117b8bc3",
+      "lessonId": "0bff1f7e-7c75-405c-adb8-55033477d785",
+      "sourceId": "89049cc5-5784-4465-bfc8-80229847a629",
+      "sourceVersion": 1,
+      "contentVersion": "1",
+      "draftRevision": 7,
+      "counts": {
+        "concepts": 3,
+        "passages": 2,
+        "questionSnapshots": 4
+      },
+      "stateAtFixtureCompletion": {
+        "objectivesApproved": true,
+        "questionBankApproved": true,
+        "sequencePrepared": true,
+        "lessonApproved": false,
+        "publishedVersions": []
+      },
+      "purpose": "Editable R4 workflow left for browser review, whole-lesson approval and publication. Later browser actions may change this draft; this is its state at fixture completion."
+    }
+  },
+  "assertions": {
+    "separatePreparationApprovalPublication": {
+      "passed": true,
+      "evidence": "Versions 1 and 2 each have separate prepared, approved and published receipts. Starting version 2 cleared whole-lesson approval before its separate approval invocation."
+    },
+    "immutableVersion1Preserved": {
+      "passed": true,
+      "sha256": "950890b13623f1fb9dc57d725275bf5021ae127db8d5e018a799c80b694f0825",
+      "checkedAfter": [
+        "density-v2-prepared",
+        "density-v2-approved",
+        "density-v2-published"
+      ],
+      "method": "Each later phase re-read the exact published snapshot through readPublishedLessonForReview and compared SHA-256 before and after the service action."
+    },
+    "approvalDoesNotChangeInstructionalContent": {
+      "passed": true,
+      "method": "Draft fingerprints exclude only top-level approval provenance and match within each version across preparation, approval and publication."
+    },
+    "sourceVersionAndQuestionIdentity": {
+      "passed": true,
+      "evidence": "Every question retained the lesson content reference. Every passage retained its owned source ID/version and a SHA-256 matching its exact text. Snapshot counts and unique question IDs were checked in every phase."
+    },
+    "waterLeftUnapprovedAndUnpublished": {
+      "passed": true
+    },
+    "noAssignmentsFromHelper": {
+      "created": false,
+      "activated": false,
+      "scope": "These seven helper invocations only; separate Assignments-agent testing is outside this receipt."
+    }
+  },
+  "providerCalls": {
+    "injectedDeterministic": 2,
+    "actualModel": 0,
+    "httpCalls": "Blocked by the fixture helper",
+    "scope": "Injected calls belong only to water preparation."
+  },
+  "phases": [
+    {
+      "receipt": "density-prepared.json",
+      "receiptSha256": "7e4bb1cd671ad61834bf35a726d376a1289dc23f9ff51cc79bf689a39b249ef6",
+      "status": "completed",
+      "stage": "prepared",
+      "mode": "density-prepare",
+      "startedAt": "2026-10-25T14:27:23.668Z",
+      "finishedAt": "2026-10-25T14:27:23.790Z",
+      "fixtureKind": "density",
+      "lessonId": "def20065-8cb1-4486-8f68-f2189ffadbe0",
+      "contentVersion": "1",
+      "draftRevision": 2,
+      "lessonApproved": false,
+      "publishedSnapshots": [],
+      "contentFingerprint": "ed346d162fdfe78435f0628b03867e81a941255e9edc69cbb1ad6ffd34deeac4",
+      "operations": [
+        {
+          "action": "create-attributed-density-source",
+          "completedAt": "2026-10-25T14:27:23.764Z"
+        },
+        {
+          "action": "create-empty-density-draft",
+          "completedAt": "2026-10-25T14:27:23.769Z"
+        },
+        {
+          "action": "save-density-draft",
+          "completedAt": "2026-10-25T14:27:23.785Z"
+        }
+      ],
+      "wrapperExitCode": 0,
+      "minimumRecordedAvailableGiB": 43.025638580322266
+    },
+    {
+      "receipt": "density-approved.json",
+      "receiptSha256": "08a03ee903431e4fda37f267a2d1d486220b1fc6b2fe89e53e873fa2a8fb7b10",
+      "status": "completed",
+      "stage": "approved",
+      "mode": "approve",
+      "startedAt": "2026-10-25T14:27:44.084Z",
+      "finishedAt": "2026-10-25T14:27:44.212Z",
+      "fixtureKind": "density",
+      "lessonId": "def20065-8cb1-4486-8f68-f2189ffadbe0",
+      "contentVersion": "1",
+      "draftRevision": 2,
+      "lessonApproved": true,
+      "publishedSnapshots": [],
+      "contentFingerprint": "ed346d162fdfe78435f0628b03867e81a941255e9edc69cbb1ad6ffd34deeac4",
+      "operations": [
+        {
+          "action": "approve-whole-lesson-through-service",
+          "completedAt": "2026-10-25T14:27:44.207Z"
+        }
+      ],
+      "wrapperExitCode": 0,
+      "minimumRecordedAvailableGiB": 43.02496337890625
+    },
+    {
+      "receipt": "density-published.json",
+      "receiptSha256": "f68e048cdf297895ad278d5de21e90882c5ce2874e5387d0d7689ab3c3d3ad1d",
+      "status": "completed",
+      "stage": "published",
+      "mode": "publish",
+      "startedAt": "2026-10-25T14:28:03.628Z",
+      "finishedAt": "2026-10-25T14:28:03.755Z",
+      "fixtureKind": "density",
+      "lessonId": "def20065-8cb1-4486-8f68-f2189ffadbe0",
+      "contentVersion": "1",
+      "draftRevision": 2,
+      "lessonApproved": true,
+      "publishedSnapshots": [
+        {
+          "version": "1",
+          "sha256": "950890b13623f1fb9dc57d725275bf5021ae127db8d5e018a799c80b694f0825"
+        }
+      ],
+      "contentFingerprint": "ed346d162fdfe78435f0628b03867e81a941255e9edc69cbb1ad6ffd34deeac4",
+      "operations": [
+        {
+          "action": "publish-approved-version-through-service",
+          "completedAt": "2026-10-25T14:28:03.738Z"
+        }
+      ],
+      "wrapperExitCode": 0,
+      "minimumRecordedAvailableGiB": 43.02173614501953
+    },
+    {
+      "receipt": "density-v2-prepared.json",
+      "receiptSha256": "8ac5dfb501957feab884d4819dd11679efccc4c16571e78998a6da1d653fe486",
+      "status": "completed",
+      "stage": "prepared",
+      "mode": "next-version",
+      "startedAt": "2026-10-25T14:28:31.652Z",
+      "finishedAt": "2026-10-25T14:28:31.789Z",
+      "fixtureKind": "density",
+      "lessonId": "def20065-8cb1-4486-8f68-f2189ffadbe0",
+      "contentVersion": "2",
+      "draftRevision": 3,
+      "lessonApproved": false,
+      "publishedSnapshots": [
+        {
+          "version": "1",
+          "sha256": "950890b13623f1fb9dc57d725275bf5021ae127db8d5e018a799c80b694f0825"
+        }
+      ],
+      "contentFingerprint": "ca6e58a76004fb677a328a14181d62e31c37e7f2c288bde21c5b3569352da80c",
+      "operations": [
+        {
+          "action": "start-explicit-next-version-through-service",
+          "completedAt": "2026-10-25T14:28:31.774Z"
+        }
+      ],
+      "wrapperExitCode": 0,
+      "minimumRecordedAvailableGiB": 43.020233154296875
+    },
+    {
+      "receipt": "density-v2-approved.json",
+      "receiptSha256": "b5587dd1476a4490f4f22412339c5605524e33bffdf7259e98d65f804c31e01f",
+      "status": "completed",
+      "stage": "approved",
+      "mode": "approve",
+      "startedAt": "2026-10-25T14:28:52.788Z",
+      "finishedAt": "2026-10-25T14:28:52.931Z",
+      "fixtureKind": "density",
+      "lessonId": "def20065-8cb1-4486-8f68-f2189ffadbe0",
+      "contentVersion": "2",
+      "draftRevision": 3,
+      "lessonApproved": true,
+      "publishedSnapshots": [
+        {
+          "version": "1",
+          "sha256": "950890b13623f1fb9dc57d725275bf5021ae127db8d5e018a799c80b694f0825"
+        }
+      ],
+      "contentFingerprint": "ca6e58a76004fb677a328a14181d62e31c37e7f2c288bde21c5b3569352da80c",
+      "operations": [
+        {
+          "action": "approve-whole-lesson-through-service",
+          "completedAt": "2026-10-25T14:28:52.919Z"
+        }
+      ],
+      "wrapperExitCode": 0,
+      "minimumRecordedAvailableGiB": 43.01930618286133
+    },
+    {
+      "receipt": "density-v2-published.json",
+      "receiptSha256": "a21c928edc7d5a5701d10cd7171284771e0268e45eff09101fc4e0792c64c379",
+      "status": "completed",
+      "stage": "published",
+      "mode": "publish",
+      "startedAt": "2026-10-25T14:29:13.606Z",
+      "finishedAt": "2026-10-25T14:29:13.777Z",
+      "fixtureKind": "density",
+      "lessonId": "def20065-8cb1-4486-8f68-f2189ffadbe0",
+      "contentVersion": "2",
+      "draftRevision": 3,
+      "lessonApproved": true,
+      "publishedSnapshots": [
+        {
+          "version": "1",
+          "sha256": "950890b13623f1fb9dc57d725275bf5021ae127db8d5e018a799c80b694f0825"
+        },
+        {
+          "version": "2",
+          "sha256": "b4de29a332a1b7b4d1067f93b3b741b50443b4ab0b2d1ee15587faff4ae42ec0"
+        }
+      ],
+      "contentFingerprint": "ca6e58a76004fb677a328a14181d62e31c37e7f2c288bde21c5b3569352da80c",
+      "operations": [
+        {
+          "action": "publish-approved-version-through-service",
+          "completedAt": "2026-10-25T14:29:13.749Z"
+        }
+      ],
+      "wrapperExitCode": 0,
+      "minimumRecordedAvailableGiB": 43.01631164550781
+    },
+    {
+      "receipt": "water-prepared.json",
+      "receiptSha256": "e105752f2988f9e6d7321774868664cac4538ef4b435e3fa41e95478ca38c64c",
+      "status": "completed",
+      "stage": "prepared",
+      "mode": "water-prepare",
+      "startedAt": "2026-10-25T14:29:43.568Z",
+      "finishedAt": "2026-10-25T14:29:43.756Z",
+      "fixtureKind": "water",
+      "lessonId": "0bff1f7e-7c75-405c-adb8-55033477d785",
+      "contentVersion": "1",
+      "draftRevision": 7,
+      "lessonApproved": false,
+      "publishedSnapshots": [],
+      "contentFingerprint": "07cd60cdadadbede4d8c15a3bd23e612ff525eec399d80841c515e018b2c1244",
+      "operations": [
+        {
+          "action": "create-synthetic-water-source",
+          "completedAt": "2026-10-25T14:29:43.633Z"
+        },
+        {
+          "action": "create-water-objective-draft",
+          "completedAt": "2026-10-25T14:29:43.644Z"
+        },
+        {
+          "action": "save-three-reviewed-objectives",
+          "completedAt": "2026-10-25T14:29:43.654Z"
+        },
+        {
+          "action": "approve-objectives-through-service",
+          "completedAt": "2026-10-25T14:29:43.660Z"
+        },
+        {
+          "action": "generate-four-questions-with-injected-fixture",
+          "completedAt": "2026-10-25T14:29:43.698Z"
+        },
+        {
+          "action": "save-question-review-through-service",
+          "completedAt": "2026-10-25T14:29:43.711Z"
+        },
+        {
+          "action": "approve-question-bank-through-service",
+          "completedAt": "2026-10-25T14:29:43.733Z"
+        },
+        {
+          "action": "prepare-reviewed-tutoring-sequence",
+          "completedAt": "2026-10-25T14:29:43.754Z"
+        }
+      ],
+      "wrapperExitCode": 0,
+      "minimumRecordedAvailableGiB": 43.014976501464844
+    }
+  ],
+  "boundaries": [
+    "All authoring writes used existing source, draft, objective, question-bank, sequence, approval and publication services. SQL in the helper was read-only identity/database checking.",
+    "These phases created no identities, classes, assignments or student activity and did not reset existing records.",
+    "Curated attribution and cautions are preserved. The second dense publication changes version identity and approval provenance; its instructional text was not changed.",
+    "The older-version URL is available for C5 browser testing. This receipt does not prove receiving-form version retention, navigation, editing, keyboard behavior, responsive layouts or zoom."
+  ]
+}
