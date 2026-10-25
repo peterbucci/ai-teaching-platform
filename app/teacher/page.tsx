@@ -1,296 +1,320 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { z } from "zod";
 import { Icon } from "../components/icons.tsx";
-import { calculatePatterns } from "../../lib/teacher/patterns.ts";
 import {
-  loadTeacherView,
-  evidenceDescription,
-  teacherViewHref,
-  type TeacherFilters,
-} from "./data.ts";
+  parseTeacherWorkspaceContext,
+  teacherWorkspaceHref,
+  type TeacherWorkspaceParams,
+} from "../../lib/teacher/workspace-contracts.ts";
+import { loadTeacherView, evidenceDescription } from "./data.ts";
 import { TeacherFiltersForm } from "./filters.tsx";
-import { TeacherFrame, date, originLabel } from "./presentation.tsx";
+import { TeacherFrame, originLabel } from "./presentation.tsx";
+import {
+  teachingPriorities,
+  teacherEvidenceRows,
+  type TeachingPriority,
+} from "./evidence/model.ts";
+import "./evidence/workbench.css";
 
 export const dynamic = "force-dynamic";
 
 export default async function TeacherPage({
   searchParams,
 }: {
-  searchParams: Promise<TeacherFilters>;
+  searchParams: Promise<TeacherWorkspaceParams>;
 }) {
-  const { assignments, origin, data } = await loadTeacherView(
-    await searchParams,
-  );
+  let context;
+  try {
+    context = parseTeacherWorkspaceContext(await searchParams);
+  } catch (error) {
+    if (error instanceof z.ZodError) notFound();
+    throw error;
+  }
+  const { assignments, origin, data } = await loadTeacherView(context);
+  const resolved = { ...context, assignment: data?.assignment_id };
+  const href = (path: string) => teacherWorkspaceHref(path, resolved);
   if (!data)
     return (
-      <TeacherFrame>
+      <TeacherFrame section="Teaching Desk" context={resolved}>
         <header className="lp-page-heading">
           <p className="lp-eyebrow">Your classroom</p>
-          <h1 className="lp-title">Class overview</h1>
+          <h1 className="lp-title">Teaching Desk</h1>
+          <p className="lp-intro">
+            A place to review learning and decide what comes next.
+          </p>
         </header>
         <section className="lp-panel">
           <h2>No teaching assignments yet</h2>
-          <p>This teacher account has no class assignments to inspect.</p>
+          <p>Create and publish a lesson, then review its class assignment.</p>
+          <Link className="lp-button" href="/teacher/lessons">
+            Open lessons
+          </Link>
         </section>
       </TeacherFrame>
     );
-  const { content } = data;
-  const { metrics } = data;
-  const insights = teacherViewHref(
-    "/teacher/insights",
-    data.assignment_id,
-    origin,
-  );
-  const directory = teacherViewHref(
-    "/teacher/students",
-    data.assignment_id,
-    origin,
-  );
-  const assignment = `/teacher/assignments?assignment=${data.assignment_id}`;
-  const patterns = calculatePatterns(
-    data.students.map((s) => s.student_id),
-    new Set(data.approved_misconception_ids),
-    data.evidence,
-  );
-  const studentsWithPatterns = new Set(
-    patterns.flatMap((group) =>
-      group.students.map((student) => student.student_id),
-    ),
-  ).size;
-  const recentWork = data.evidence
-    .map((item) => ({
-      ...item,
-      submitted: item.attempts.filter((a) => a.submitted_at !== null),
-    }))
-    .filter((item) => item.submitted.length > 0)
-    .sort((a, b) =>
-      b.submitted
-        .at(-1)!
-        .submitted_at!.localeCompare(a.submitted.at(-1)!.submitted_at!),
-    )
-    .slice(0, 5);
-  const assessedConcepts = metrics.concepts.filter(
-    (c) => c.latest.accepted_students > 0,
-  ).length;
-
-  return (
-    <TeacherFrame>
-      <header className="lp-page-heading lp-teacher-title-row">
-        <div>
-          <p className="lp-eyebrow">Your classroom</p>
-          <h1 className="lp-title">Class overview</h1>
-          <p className="lp-intro">
-            Pick the next teaching action, then inspect the evidence behind it.
-          </p>
-        </div>
-        <Link className="lp-button" href={assignment}>
-          <Icon name="book" /> Review assignment
-        </Link>
-      </header>
-      <TeacherFiltersForm
-        action="/teacher"
-        assignments={assignments}
-        assignment={data.assignment_id}
-        origin={origin}
-      />
-      <div className="lp-teacher-context">
-        <strong>{data.class_name}</strong>
-        <span>{data.title}</span>
-        <span className="lp-badge lp-badge-neutral">
-          {origin === "all"
-            ? "Mixed demo evidence"
-            : origin === "live_demo"
-              ? "Live demo evidence"
-              : "Synthetic histories"}
+  const priorities = teachingPriorities(data);
+  const decisions = priorities.filter((item) => item.kind !== "evaluation");
+  const evaluations = priorities.filter((item) => item.kind === "evaluation");
+  const recent = teacherEvidenceRows(data).slice(0, 3);
+  function priority(item: TeachingPriority) {
+    const index =
+      item.kind === "evaluation"
+        ? decisions.length + evaluations.indexOf(item) + 1
+        : decisions.indexOf(item) + 1;
+    const concept =
+      data!.content.concepts.get(item.concept_id)?.title ?? item.concept_id;
+    const detail = teacherWorkspaceHref("/teacher/evidence", resolved, {
+      concept: item.concept_id,
+      misconception: undefined,
+      attempt: item.row?.attempt.id,
+      evaluation: item.row?.evaluation?.id,
+      session: item.row?.session_id,
+      student: undefined,
+      q: undefined,
+      seedAttempt: [],
+      returnTo: "desk",
+    });
+    return (
+      <li className="wb-priority" key={item.concept_id}>
+        <span className="wb-priority-number" aria-hidden="true">
+          {index.toString().padStart(2, "0")}
         </span>
-      </div>
-      <section
-        className="lp-teacher-focus"
-        aria-labelledby="teacher-focus-title"
-      >
-        <div className="lp-teacher-section-heading">
-          <div>
-            <p className="lp-eyebrow">Start here</p>
-            <h2 id="teacher-focus-title">What needs your attention</h2>
-          </div>
-        </div>
-        <div className="lp-teacher-task-grid">
-          <article className="lp-teacher-task lp-teacher-task-highlight">
-            <p className="lp-eyebrow">Review student reasoning</p>
-            <h3>
-              {patterns.length
-                ? "What do students’ explanations tell us?"
-                : "Start with the student evidence"}
-            </h3>
-            <p>
-              {patterns.length
-                ? `${studentsWithPatterns} distinct students have recorded evidence across ${patterns.length} possible reasoning patterns. Read their explanations before deciding what to revisit.`
-                : "No possible patterns are recorded in this view yet. Look at individual responses and feedback as students work through the assignment."}
-            </p>
-            <div className="lp-teacher-task-footer">
-              <span>Observations to inspect, not fixed student labels</span>
-              <Link
-                href={`${insights}#${patterns.length ? "patterns" : "responses"}`}
-                className="lp-text-link"
-              >
-                Review explanations <Icon name="arrow" />
-              </Link>
-            </div>
-          </article>
-          <article className="lp-teacher-task">
-            <p className="lp-eyebrow">Prepare learning</p>
-            <h3>{data.title}</h3>
-            <p>
-              Review the assigned reading, learning goals, and prepared
-              practice. Your classroom approval controls when students can
-              begin.
-            </p>
-            <div className="lp-teacher-task-footer">
-              <Link className="lp-text-link" href={assignment}>
-                Review assignment <Icon name="arrow" />
-              </Link>
-            </div>
-          </article>
-        </div>
-      </section>
-      <section
-        className="lp-panel lp-teacher-snapshot"
-        aria-labelledby="snapshot-title"
-      >
-        <div className="lp-teacher-section-heading">
-          <div>
-            <p className="lp-eyebrow">At a glance</p>
-            <h2 id="snapshot-title">Your class, in context</h2>
-            <p>Use the learning evidence to decide where to look next.</p>
-          </div>
-          <Link className="lp-text-link" href={insights}>
-            Explore learning insights <Icon name="arrow" />
+        <div className="wb-priority-body">
+          <p className="wb-meta">
+            {concept} <span aria-hidden="true">·</span> {data!.title}
+          </p>
+          <h3>
+            {item.kind === "review"
+              ? "Take a closer look at students’ reasoning"
+              : item.kind === "uncertain"
+                ? "Clarify what these responses tell you"
+                : item.kind === "evaluation"
+                  ? "Check responses awaiting a valid result"
+                  : "Compare earlier difficulty with later work"}
+          </h3>
+          <p>
+            {item.count} of {item.denominator}{" "}
+            {item.kind === "review"
+              ? "students have a partial or incorrect latest answer."
+              : item.kind === "uncertain"
+                ? "students have an uncertain latest evaluation."
+                : item.kind === "evaluation"
+                  ? "students have a pending, failed or rejected latest evaluation."
+                  : "assessed students have at least two earlier partial or incorrect responses."}
+          </p>
+          <p className="wb-meta">
+            {item.kind === "followup"
+              ? "Historical difficulty may be followed by a correct response. Review the full sequence."
+              : "Recorded evidence, including answers after help. Review before deciding what to teach."}
+          </p>
+          <Link
+            className="lp-text-link"
+            href={`${detail}#response-detail-title`}
+          >
+            Review evidence <Icon name="arrow" />
           </Link>
         </div>
-        <div className="lp-teacher-stat-strip">
+      </li>
+    );
+  }
+  return (
+    <TeacherFrame section="Teaching Desk" context={resolved}>
+      <div className="wb-desk">
+        <header className="lp-page-heading wb-title-row">
           <div>
-            <span className="lp-teacher-stat-icon">
-              <Icon name="users" />
-            </span>
-            <div>
-              <strong>
-                {metrics.participation.numerator}{" "}
-                <small>of {metrics.enrolled_students}</small>
-              </strong>
-              <span>Students with submitted answers</span>
-            </div>
+            <p className="lp-eyebrow">Your classroom</p>
+            <h1 className="lp-title">Teaching Desk</h1>
+            <p className="lp-intro">
+              Review the reasoning. Choose the next teaching step.
+            </p>
           </div>
-          <div>
-            <span className="lp-teacher-stat-icon">
-              <Icon name="book" />
-            </span>
-            <div>
-              <strong>
-                {assessedConcepts} <small>of {metrics.concepts.length}</small>
-              </strong>
-              <span>Concepts with assessed answers</span>
-            </div>
-          </div>
+          <Link className="lp-button" href={href("/teacher/lessons")}>
+            Open lessons <Icon name="arrow" />
+          </Link>
+        </header>
+        <TeacherFiltersForm
+          action="/teacher"
+          assignments={assignments}
+          assignment={data.assignment_id}
+          origin={origin}
+        />
+        <div className="wb-context-line">
+          <strong>{data.class_name}</strong>
+          <span>{data.title}</span>
+          <span className="lp-badge lp-badge-neutral">
+            {origin === "all"
+              ? "Mixed demo evidence"
+              : origin === "live_demo"
+                ? "Live demo evidence"
+                : "Prepared histories"}
+          </span>
         </div>
-        <div className="lp-teacher-snapshot-columns">
-          <section>
-            <h3>Latest concept results</h3>
-            <p className="lp-panel-description">
-              Correct among assessed students; includes answers after help.
-            </p>
-            <div className="lp-teacher-concept-list">
-              {metrics.concepts.map((concept) => (
-                <Link
-                  key={concept.concept_id}
-                  className="lp-teacher-concept-link"
-                  href={`${insights}&concept=${encodeURIComponent(concept.concept_id)}#concept-${concept.concept_id}`}
-                >
-                  <div>
-                    <strong>
-                      {content.concepts.get(concept.concept_id)?.title ??
-                        concept.concept_id}
-                    </strong>
-                    <small>
-                      {concept.latest.correct_rate.denominator
-                        ? `${concept.latest.correct_rate.numerator} of ${concept.latest.correct_rate.denominator} correct · ${concept.latest.uncertain} uncertain`
-                        : "No assessed answers yet"}
-                    </small>
-                    {concept.latest.correct_rate.denominator > 0 && (
-                      <progress
-                        className="lp-progress"
-                        aria-label={`${content.concepts.get(concept.concept_id)?.title ?? concept.concept_id}: correct among assessed students`}
-                        max={concept.latest.correct_rate.denominator}
-                        value={concept.latest.correct_rate.numerator}
-                      />
-                    )}
-                  </div>
-                  <Icon name="arrow" />
+        <div className="wb-desk-columns">
+          <div className="wb-desk-main">
+            <section aria-labelledby="priorities-title">
+              <div className="wb-section-heading">
+                <div>
+                  <p className="lp-eyebrow">Your priorities</p>
+                  <h2 id="priorities-title">Needs a decision</h2>
+                </div>
+                <Link className="lp-text-link" href={href("/teacher/evidence")}>
+                  All evidence <Icon name="arrow" />
                 </Link>
-              ))}
-            </div>
-          </section>
-          <section>
-            <h3>Recent student work</h3>
-            <p className="lp-panel-description">
-              Open a session to read the original responses and feedback.
-            </p>
-            {recentWork.length ? (
-              <ul className="lp-teacher-recent-list">
-                {recentWork.map(({ session, submitted }) => {
-                  const student = data.students.find(
-                    (s) => s.student_id === session.student_id,
-                  );
-                  const name = student?.display_name ?? "Enrolled student";
-                  return (
-                    <li key={session.id}>
+              </div>
+              <p className="wb-meta">
+                Ordered by the kind of recorded concern, then distinct student
+                count. These are prompts for your review.
+              </p>
+              {decisions.length ? (
+                <ol className="wb-priority-list">{decisions.map(priority)}</ol>
+              ) : (
+                <div className="wb-empty">
+                  <h3>No review priorities in this view</h3>
+                  <p>
+                    That does not establish mastery. You can still inspect the
+                    saved responses and assistance.
+                  </p>
+                  <Link
+                    className="lp-text-link"
+                    href={href("/teacher/evidence")}
+                  >
+                    Review recorded evidence
+                  </Link>
+                </div>
+              )}
+            </section>
+            <section
+              aria-labelledby="evaluation-title"
+              className="wb-desk-section"
+            >
+              <div className="wb-section-heading">
+                <h2 id="evaluation-title">Evaluations to check</h2>
+                <span className="wb-count">{evaluations.length}</span>
+              </div>
+              {evaluations.length ? (
+                <ol className="wb-priority-list">
+                  {evaluations.map(priority)}
+                </ol>
+              ) : (
+                <p className="wb-meta">
+                  No concepts have unresolved latest evaluations in this view.
+                </p>
+              )}
+            </section>
+            <section
+              aria-labelledby="participation-title"
+              className="wb-desk-section"
+            >
+              <div className="wb-section-heading">
+                <h2 id="participation-title">Participation to review</h2>
+                <Link className="lp-text-link" href={href("/teacher/students")}>
+                  View students
+                </Link>
+              </div>
+              <p>
+                <strong>
+                  {data.metrics.no_activity_students} of{" "}
+                  {data.metrics.enrolled_students}
+                </strong>{" "}
+                students have no submitted answers in this view.
+              </p>
+              <p className="wb-meta">
+                Missing work is not an incorrect answer. Check the assignment
+                and class context before following up.
+              </p>
+            </section>
+          </div>
+          <aside
+            className="wb-desk-rail"
+            aria-label="Assignment context and recent work"
+          >
+            <section>
+              <p className="lp-eyebrow">In context</p>
+              <h2>{data.title}</h2>
+              <dl className="wb-context-counts">
+                <div>
+                  <dt>Students with responses</dt>
+                  <dd>
+                    {data.metrics.participation.numerator} /{" "}
+                    {data.metrics.enrolled_students}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Concepts with assessed answers</dt>
+                  <dd>
+                    {
+                      data.metrics.concepts.filter(
+                        (concept) => concept.latest.accepted_students > 0,
+                      ).length
+                    }{" "}
+                    / {data.metrics.concepts.length}
+                  </dd>
+                </div>
+              </dl>
+              <Link
+                className="lp-text-link"
+                href={href("/teacher/assignments")}
+              >
+                Review assignment <Icon name="arrow" />
+              </Link>
+            </section>
+            <section>
+              <p className="lp-eyebrow">Continue reviewing</p>
+              <h2>Recent student work</h2>
+              {recent.length ? (
+                <ul className="wb-resume-list">
+                  {recent.map((row) => (
+                    <li key={row.attempt.id}>
                       <Link
-                        className="lp-teacher-work-link"
-                        href={`/teacher/sessions/${session.id}`}
+                        href={`${teacherWorkspaceHref(
+                          "/teacher/evidence",
+                          resolved,
+                          {
+                            attempt: row.attempt.id,
+                            evaluation: row.evaluation?.id,
+                            session: row.session_id,
+                            concept: row.attempt.question.concept_ids[0],
+                            misconception: undefined,
+                            student: undefined,
+                            q: undefined,
+                            seedAttempt: [],
+                            returnTo: "desk",
+                          },
+                        )}#response-detail-title`}
                       >
-                        <span className="lp-avatar" aria-hidden="true">
-                          {name
-                            .split(/\s+/)
-                            .map((part) => part[0])
-                            .slice(0, 2)
-                            .join("")}
-                        </span>
+                        <strong>{row.student_name}</strong>
                         <span>
-                          <strong>{name}</strong>
-                          <small>
-                            {submitted.length} responses ·{" "}
-                            {originLabel(session.data_origin)}
-                          </small>
-                          <small>{date(submitted.at(-1)!.submitted_at!)}</small>
+                          {data.content.concepts.get(
+                            row.attempt.question.concept_ids[0],
+                          )?.title ?? row.attempt.question.concept_ids[0]}
                         </span>
-                        <Icon name="arrow" />
+                        <small>{originLabel(row.data_origin)}</small>
                       </Link>
                     </li>
-                  );
-                })}
-              </ul>
-            ) : (
-              <p className="lp-empty-results">
-                No submitted responses in this view yet.
+                  ))}
+                </ul>
+              ) : (
+                <p>No submitted work yet.</p>
+              )}
+            </section>
+            <section>
+              <h2>Explore the full picture</h2>
+              <p className="wb-meta">
+                Concept comparisons, reasoning patterns and complete session
+                histories remain available.
               </p>
-            )}
-            <Link
-              className="lp-text-link lp-teacher-directory-link"
-              href={directory}
-            >
-              View students <Icon name="arrow" />
-            </Link>
-          </section>
+              <Link className="lp-text-link" href={href("/teacher/insights")}>
+                Open learning insights <Icon name="arrow" />
+              </Link>
+            </section>
+          </aside>
         </div>
-        <p className="lp-teacher-snapshot-note">
-          {evidenceDescription(origin)} {metrics.no_activity_students} students
-          have no submitted answers in this view. Missing answers are not
-          incorrect answers.
+        <p className="wb-footnote">
+          {evidenceDescription(origin)} Immediate success after feedback does
+          not establish lasting understanding.
         </p>
-      </section>
-      <p className="lp-teacher-footnote">
-        Immediate success after feedback does not establish lasting
-        understanding. Prepared histories are illustrative, not measured
-        classroom outcomes.
-      </p>
+      </div>
     </TeacherFrame>
   );
 }

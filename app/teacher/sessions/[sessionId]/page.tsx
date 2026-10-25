@@ -13,6 +13,11 @@ import { readTeacherConversation } from "../../../../lib/dialogue/store.ts";
 import { ConversationEvidence } from "../conversation-evidence.tsx";
 import { TeacherFrame, date, label, originLabel } from "../../presentation.tsx";
 import { EvidenceAnchor } from "../evidence-anchor.tsx";
+import {
+  parseTeacherWorkspaceContext,
+  teacherWorkspaceHref,
+  type TeacherWorkspaceParams,
+} from "../../../../lib/teacher/workspace-contracts.ts";
 
 export const dynamic = "force-dynamic";
 async function load(id: string) {
@@ -40,13 +45,65 @@ async function load(id: string) {
 }
 export default async function SessionPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ sessionId: string }>;
+  searchParams: Promise<TeacherWorkspaceParams>;
 }) {
   const { evidence, display_name, title, conversation, content } = await load(
     (await params).sessionId,
   );
   const { session, attempts, evaluations, interventions } = evidence;
+  let context;
+  try {
+    const raw = await searchParams;
+    context = parseTeacherWorkspaceContext({
+      ...raw,
+      // Existing Insights, patterns and roster links predate workspace context.
+      // Preserve their original Back destination rather than choosing an answer.
+      returnTo: raw.returnTo ?? "insights",
+    });
+  } catch (error) {
+    if (error instanceof z.ZodError) notFound();
+    throw error;
+  }
+  if (
+    (context.assignment && context.assignment !== session.assignment_id) ||
+    (context.student && context.student !== session.student_id) ||
+    (context.session && context.session !== session.id) ||
+    (context.origin !== "all" && context.origin !== session.data_origin) ||
+    (context.attempt &&
+      !attempts.some((attempt) => attempt.id === context.attempt)) ||
+    (context.evaluation &&
+      !evaluations.some(
+        (evaluation) =>
+          evaluation.id === context.evaluation &&
+          (!context.attempt || evaluation.attempt_id === context.attempt),
+      ))
+  )
+    notFound();
+  const resolved = { ...context, assignment: session.assignment_id };
+  const returnPaths = {
+    desk: "/teacher",
+    evidence: "/teacher/evidence",
+    insights: "/teacher/insights",
+    patterns: "/teacher/insights",
+    students: "/teacher/students",
+  };
+  const returnLabels = {
+    desk: "Teaching Desk",
+    evidence: "Evidence",
+    insights: "learning insights",
+    patterns: "reasoning patterns",
+    students: "Students",
+  };
+  const returnHref =
+    teacherWorkspaceHref(returnPaths[context.returnTo], resolved) +
+    (context.returnTo === "patterns"
+      ? "#patterns"
+      : context.returnTo === "insights"
+        ? "#responses"
+        : "");
   const conceptName = (id: string) => content.concepts.get(id)?.title ?? id;
   const stepNames = {
     initial_retrieval: "First answer",
@@ -102,15 +159,12 @@ export default async function SessionPage({
     );
   }
   return (
-    <TeacherFrame section="Student evidence">
+    <TeacherFrame section="Student evidence" context={resolved}>
       <EvidenceAnchor key={session.id} />
       <div className="lp-evidence-page">
-        <Link
-          href={`/teacher/insights?assignment=${session.assignment_id}#responses`}
-          className="lp-text-link"
-        >
+        <Link href={returnHref} className="lp-text-link">
           <Icon name="back" />
-          Back to learning insights
+          Back to {returnLabels[context.returnTo]}
         </Link>
         <h1 className="lp-title mt-4">{display_name}</h1>
         <p className="lp-evidence-subtitle">{title}</p>

@@ -4,6 +4,11 @@ import type {
   InterventionActivity,
   InterventionEvidence,
 } from "../../../lib/interventions/contracts.ts";
+import {
+  teacherWorkspaceHref,
+  type TeacherWorkspaceContext,
+} from "../../../lib/teacher/workspace-contracts.ts";
+import { evidenceScopeCounts } from "./handoff.ts";
 
 const roleLabels = {
   supporting: "Reason to review",
@@ -16,34 +21,59 @@ export function EvidenceReview({
   selectedIds,
   onToggle,
   locked = false,
+  context,
+  previewCurrent,
+  reviewHref,
 }: {
   evidence: InterventionEvidence;
   selectedIds: string[];
   onToggle?: (id: string) => void;
   locked?: boolean;
+  context: TeacherWorkspaceContext;
+  previewCurrent: boolean;
+  reviewHref: string;
 }) {
+  const counts = evidenceScopeCounts(evidence);
   return (
     <section
       className="lp-panel lp-intervention-panel"
       aria-labelledby="intervention-evidence-title"
     >
-      <h2 id="intervention-evidence-title">Recorded learning evidence</h2>
+      <h2 id="intervention-evidence-title">Evidence used</h2>
+      <p className="lp-intervention-scope-title">
+        {counts.starting
+          ? "Selected starting responses"
+          : "All eligible responses"}
+        {!previewCurrent && " · previous reviewed scope"}
+      </p>
       <p>
         {evidence.counts.selected_students} distinct students ·{" "}
         {evidence.counts.selected_responses} responses ·{" "}
         {evidence.counts.enrolled_students} enrolled
       </p>
-      <p className="lp-intervention-meta">{evidence.scope_note}</p>
+      <p className="lp-intervention-meta">
+        {counts.starting > 0 &&
+          `${counts.starting} starting responses expanded to include related answers. `}
+        {counts.supporting} supporting · {counts.contrary} contrary ·{" "}
+        {counts.context} context responses.
+      </p>
+      <details className="lp-intervention-section">
+        <summary>How this evidence is counted</summary>
+        <p className="lp-intervention-meta">{evidence.scope_note}</p>
+      </details>
       {onToggle && (
         <p className="lp-intervention-note">
-          Use all evidence for this concept, or choose responses below. Related
-          answers by the same students remain included so that later success and
-          contradictory evidence are preserved.
-          {selectedIds.length > 0 && (
+          {selectedIds.length
+            ? `${selectedIds.length} starting responses selected.`
+            : "No starting responses selected: use all eligible evidence."}{" "}
+          Selecting a response also includes that student’s related and contrary
+          answers. This never chooses recipients.
+          {!previewCurrent && (
             <>
-              {" "}
-              You selected {selectedIds.length} starting responses; the saved
-              draft shows its final evidence scope.
+              <br />
+              <a className="lp-button mt-3" href={reviewHref}>
+                Review selected evidence
+              </a>
             </>
           )}
         </p>
@@ -83,7 +113,11 @@ export function EvidenceReview({
                 <input
                   type="checkbox"
                   checked={selectedIds.includes(attempt.id)}
-                  disabled={locked}
+                  disabled={
+                    locked ||
+                    (selectedIds.length >= 60 &&
+                      !selectedIds.includes(attempt.id))
+                  }
                   onChange={() => onToggle(attempt.id)}
                 />
                 <span>Use this response from {observation.student_name}</span>
@@ -94,6 +128,18 @@ export function EvidenceReview({
                 {observation.student_name}
                 <span className="lp-badge lp-badge-neutral">
                   {roleLabels[observation.role]}
+                </span>
+                <span className="lp-intervention-question-preview">
+                  {attempt.question.prompt_text}
+                </span>
+                <span className="lp-intervention-answer-preview">
+                  {attempt.response_text}
+                </span>
+                <span className="lp-intervention-meta">
+                  {independent
+                    ? "No recorded help · independent"
+                    : "Not an independent retrieval"}{" "}
+                  · {judgment?.correctness.replaceAll("_", " ")}
                 </span>
               </summary>
               <p className="lp-intervention-meta">
@@ -146,7 +192,7 @@ export function EvidenceReview({
               </p>
               <Link
                 className="lp-text-link"
-                href={`/teacher/sessions/${observation.session_id}#evaluation-${evaluation.id}`}
+                href={`${teacherWorkspaceHref(`/teacher/sessions/${observation.session_id}`, context, { student: observation.student_id, session: observation.session_id, attempt: attempt.id, evaluation: evaluation.id })}#evaluation-${evaluation.id}`}
               >
                 Inspect full session and assistance
               </Link>

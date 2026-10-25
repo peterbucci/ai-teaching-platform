@@ -1,6 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { z } from "zod";
 import type { InterventionReview } from "../../../lib/interventions/approval-contracts.ts";
 import type { InterventionEvidence } from "../../../lib/interventions/contracts.ts";
@@ -12,6 +18,19 @@ import {
 } from "../../../lib/interventions/drafts.ts";
 import { EvidenceReview } from "./review.tsx";
 import { InterventionEditor } from "./editor.tsx";
+import {
+  teacherWorkspaceHref,
+  type TeacherWorkspaceContext,
+} from "../../../lib/teacher/workspace-contracts.ts";
+import {
+  interventionPreviewHref,
+  matchesReviewedSelection,
+} from "./handoff.ts";
+
+function subscribeToDirection(listener: () => void) {
+  window.addEventListener("storage", listener);
+  return () => window.removeEventListener("storage", listener);
+}
 
 function requestUrl(
   requestId: string | null,
@@ -39,6 +58,8 @@ function requestUrl(
 
 export function InterventionWorkspace({
   assignmentId,
+  actorId,
+  context,
   initialEvidence,
   initialDraft,
   initialRequestId,
@@ -46,6 +67,8 @@ export function InterventionWorkspace({
   initialReview,
 }: {
   assignmentId: string;
+  actorId: string;
+  context: TeacherWorkspaceContext;
   initialEvidence: InterventionEvidence | null;
   initialDraft: InterventionDraft | null;
   initialRequestId: string | null;
@@ -53,13 +76,19 @@ export function InterventionWorkspace({
   initialReview: InterventionReview | null;
 }) {
   const [draft, setDraft] = useState(initialDraft);
+  const [mobilePane, setMobilePane] = useState<"evidence" | "activity">(
+    initialDraft ? "activity" : "evidence",
+  );
+  const revealActivity = useCallback(() => setMobilePane("activity"), []);
   const [review, setReview] = useState(initialReview);
   const [editorState, setEditorState] = useState({
     dirty: false,
     busy: Boolean(initialDraft),
   });
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const [instructions, setInstructions] = useState("");
+  const [selectedIds, setSelectedIds] = useState<string[]>(
+    initialEvidence?.selection.attempt_ids ?? [],
+  );
+  const [editedInstructions, setInstructions] = useState<string | null>(null);
   const [pendingId, setPendingId] = useState(initialRequestId);
   const [busy, setBusy] = useState(Boolean(initialRequestId));
   const [notice, setNotice] = useState<string | null>(
@@ -69,12 +98,72 @@ export function InterventionWorkspace({
   const inFlight = useRef(false);
   const draftId = useRef(initialDraft?.id ?? initialDraftId);
   const evidence = draft?.evidence ?? initialEvidence;
+  const previewCurrent =
+    Boolean(draft) ||
+    matchesReviewedSelection(
+      selectedIds,
+      initialEvidence?.selection.attempt_ids ?? [],
+    );
+  const directionKey = `learning-pulse:intervention-direction:${actorId}:${assignmentId}:${context.concept ?? ""}`;
+  const recoveredDirection = useSyncExternalStore(
+    subscribeToDirection,
+    () => {
+      try {
+        return sessionStorage.getItem(directionKey) ?? "";
+      } catch {
+        return "";
+      }
+    },
+    () => "",
+  );
+  const instructions =
+    editedInstructions ?? (initialDraft ? "" : recoveredDirection);
   const locked = busy || pendingId !== null;
   const generationLocked =
     locked ||
+    !previewCurrent ||
     editorState.dirty ||
     editorState.busy ||
     (draft !== null && draft.status !== "private_draft");
+
+  useEffect(() => {
+    if (!pendingId) return;
+    const preventLoss = (event: BeforeUnloadEvent) => event.preventDefault();
+    const guardLink = (event: MouseEvent) => {
+      if (
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      )
+        return;
+      const link =
+        event.target instanceof Element
+          ? event.target.closest<HTMLAnchorElement>("a[href]")
+          : null;
+      if (!link || link.target === "_blank" || link.hasAttribute("download"))
+        return;
+      const next = new URL(link.href, window.location.href);
+      if (
+        next.pathname === window.location.pathname &&
+        next.search === window.location.search
+      )
+        return;
+      event.preventDefault();
+      event.stopPropagation();
+      setMobilePane("activity");
+      setNotice(
+        "Check this generation request before leaving. Its outcome is still unconfirmed; opening another page must not start it again.",
+      );
+    };
+    window.addEventListener("beforeunload", preventLoss);
+    window.addEventListener("click", guardLink, true);
+    return () => {
+      window.removeEventListener("beforeunload", preventLoss);
+      window.removeEventListener("click", guardLink, true);
+    };
+  }, [pendingId]);
 
   const acceptReview = useCallback((next: InterventionReview) => {
     setReview(next);
@@ -113,6 +202,15 @@ export function InterventionWorkspace({
       setNotice(null);
     }
   }, []);
+
+  useEffect(() => {
+    if (!draft) return;
+    try {
+      sessionStorage.removeItem(directionKey);
+    } catch {
+      /* Recovery is optional. */
+    }
+  }, [directionKey, draft]);
 
   const missingRequest = useCallback(() => {
     setPendingId(null);
@@ -259,11 +357,9 @@ export function InterventionWorkspace({
         requestUrl(null);
         setNotice(null);
         setError(
-          response.status === 409
-            ? "This draft changed elsewhere. Reload and review the latest saved revision before requesting changes."
-            : message.success
-              ? message.data.error
-              : "The request was rejected. Review the selected evidence and try again.",
+          message.success
+            ? message.data.error
+            : "The request was rejected. Review the selected evidence and current saved revision before trying again.",
         );
       } else {
         throw new Error(
@@ -290,23 +386,56 @@ export function InterventionWorkspace({
 
   return (
     <div className="lp-intervention-layout">
-      <EvidenceReview
-        evidence={evidence}
-        selectedIds={selectedIds}
-        locked={locked}
-        onToggle={
-          draft
-            ? undefined
-            : (id) =>
-                setSelectedIds((current) =>
-                  current.includes(id)
-                    ? current.filter((item) => item !== id)
-                    : [...current, id],
-                )
-        }
-      />
+      <div
+        className="lp-intervention-mobile-tabs"
+        role="group"
+        aria-label="Intervention workspace"
+      >
+        <button
+          type="button"
+          className="lp-button"
+          aria-pressed={mobilePane === "evidence"}
+          onClick={() => setMobilePane("evidence")}
+        >
+          Evidence used
+        </button>
+        <button
+          type="button"
+          className="lp-button"
+          aria-pressed={mobilePane === "activity"}
+          onClick={() => setMobilePane("activity")}
+        >
+          Activity
+        </button>
+      </div>
+      <div
+        className="lp-intervention-evidence-pane"
+        data-active={mobilePane === "evidence"}
+      >
+        <EvidenceReview
+          evidence={evidence}
+          context={context}
+          selectedIds={selectedIds}
+          locked={locked}
+          previewCurrent={previewCurrent}
+          reviewHref={interventionPreviewHref(context, selectedIds)}
+          onToggle={
+            draft
+              ? undefined
+              : (id) =>
+                  setSelectedIds((current) =>
+                    current.includes(id)
+                      ? current.filter((item) => item !== id)
+                      : current.length < 60
+                        ? [...current, id]
+                        : current,
+                  )
+          }
+        />
+      </div>
       <section
-        className="lp-panel lp-intervention-panel"
+        className="lp-panel lp-intervention-panel lp-intervention-activity-pane"
+        data-active={mobilePane === "activity"}
         aria-labelledby="intervention-draft-title"
       >
         <div className="flex flex-wrap items-center gap-3">
@@ -322,14 +451,35 @@ export function InterventionWorkspace({
             ? "Review the evidence, refine the activity, and choose who should receive it. Approval and delivery are separate teacher decisions."
             : "Ask AI to create a source-grounded explanation, targeted practice, and a fresh check from this recorded reasoning."}
         </p>
+        {!draft && (
+          <p className="lp-intervention-note">
+            This stays private. Generating does not select recipients, approve
+            the activity, or deliver anything.
+          </p>
+        )}
+        {draft && initialEvidence && (
+          <p className="lp-intervention-meta">
+            Saved evidence: {draft.evidence.counts.selected_responses} responses
+            from {draft.evidence.counts.selected_students} students.
+            {draft.evidence.observations.filter(
+              (item) =>
+                !initialEvidence.observations.some(
+                  (previous) => previous.attempt.id === item.attempt.id,
+                ),
+            ).length > 0 &&
+              " New accepted responses were included when generation rechecked the evidence. Review the saved scope alongside the activity."}
+          </p>
+        )}
         {draft && (
           <InterventionEditor
             key={`${draft.id}:${draft.revision}`}
+            actorId={actorId}
             draft={draft}
             initialReview={review}
             disabled={locked}
             onReview={acceptReview}
             onStateChange={setEditorState}
+            onNavigationBlocked={revealActivity}
           />
         )}
         {(!draft || draft.status === "private_draft") && (
@@ -346,7 +496,16 @@ export function InterventionWorkspace({
               <textarea
                 className="lp-input"
                 value={instructions}
-                onChange={(event) => setInstructions(event.target.value)}
+                onChange={(event) => {
+                  setInstructions(event.target.value);
+                  if (!draft) {
+                    try {
+                      sessionStorage.setItem(directionKey, event.target.value);
+                    } catch {
+                      /* Recovery is optional. */
+                    }
+                  }
+                }}
                 maxLength={1500}
                 required={Boolean(draft)}
                 disabled={generationLocked}
@@ -357,6 +516,13 @@ export function InterventionWorkspace({
               Revisions keep the same recorded evidence and source version. A
               failed generation preserves the previous saved draft.
             </p>
+            {!previewCurrent && (
+              <p className="lp-intervention-warning" role="status">
+                Your starting responses changed. Review selected evidence before
+                generating; the server includes related and contrary answers.
+                Your teaching direction is kept in this tab.
+              </p>
+            )}
             {editorState.dirty && (
               <p className="lp-intervention-meta">
                 Save or discard your edits before requesting an AI revision.
@@ -389,7 +555,15 @@ export function InterventionWorkspace({
               {draft && !locked && (
                 <a
                   className="lp-text-link"
-                  href={`/teacher/interventions?${new URLSearchParams({ assignment: assignmentId, origin: evidence.selection.origin, concept: evidence.selection.concept_id })}`}
+                  href={teacherWorkspaceHref(
+                    "/teacher/interventions",
+                    context,
+                    {
+                      origin: evidence.selection.origin,
+                      concept: evidence.selection.concept_id,
+                      seedAttempt: [],
+                    },
+                  )}
                 >
                   Start a separate draft
                 </a>

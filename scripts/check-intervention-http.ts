@@ -164,7 +164,7 @@ try {
   assert.match(html, /<h1\b[^>]*>Interventions<\/h1>/);
   for (const marker of [
     "Private draft",
-    "Recorded learning evidence",
+    "Evidence used",
     "Review the proposed activity",
     "Student preview",
     "Teacher-only review",

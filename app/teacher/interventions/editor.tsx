@@ -55,9 +55,9 @@ const RecoverySchema = z.object({
 });
 type Recovery = z.infer<typeof RecoverySchema>;
 
-function remember(draftId: string, value: Recovery | null) {
+function remember(actorId: string, draftId: string, value: Recovery | null) {
   try {
-    const key = `learning-pulse:intervention:${draftId}`;
+    const key = `learning-pulse:intervention:${actorId}:${draftId}`;
     if (value) sessionStorage.setItem(key, JSON.stringify(value));
     else sessionStorage.removeItem(key);
   } catch {
@@ -65,13 +65,20 @@ function remember(draftId: string, value: Recovery | null) {
   }
 }
 
-function savedWork(draftId: string) {
+function savedWork(actorId: string, draftId: string) {
   try {
-    const raw = sessionStorage.getItem(
-      `learning-pulse:intervention:${draftId}`,
-    );
+    const key = `learning-pulse:intervention:${actorId}:${draftId}`;
+    const legacyKey = `learning-pulse:intervention:${draftId}`;
+    // Called only after the server confirms this actor owns the saved draft.
+    // Preserve an older recovery copy while moving it into the actor scope.
+    const raw =
+      sessionStorage.getItem(key) ?? sessionStorage.getItem(legacyKey);
     if (!raw) return null;
     const parsed = RecoverySchema.safeParse(JSON.parse(raw));
+    if (parsed.success) {
+      sessionStorage.setItem(key, raw);
+      sessionStorage.removeItem(legacyKey);
+    }
     return parsed.success ? parsed.data : null;
   } catch {
     return null;
@@ -82,17 +89,21 @@ const sameActivity = (a: InterventionActivity, b: InterventionActivity) =>
   JSON.stringify(a) === JSON.stringify(b);
 
 export function InterventionEditor({
+  actorId,
   draft,
   initialReview,
   disabled,
   onReview,
   onStateChange,
+  onNavigationBlocked,
 }: {
+  actorId: string;
   draft: InterventionDraft;
   initialReview: InterventionReview | null;
   disabled: boolean;
   onReview: (review: InterventionReview) => void;
   onStateChange: (state: { dirty: boolean; busy: boolean }) => void;
+  onNavigationBlocked: () => void;
 }) {
   const [review, setReview] = useState(initialReview);
   const [activity, setActivity] = useState(draft.activity);
@@ -120,9 +131,43 @@ export function InterventionEditor({
   useEffect(() => {
     if (!dirty && !pending) return;
     const preventLoss = (event: BeforeUnloadEvent) => event.preventDefault();
+    const guardLink = (event: MouseEvent) => {
+      if (
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      )
+        return;
+      const link =
+        event.target instanceof Element
+          ? event.target.closest<HTMLAnchorElement>("a[href]")
+          : null;
+      if (!link || link.target === "_blank" || link.hasAttribute("download"))
+        return;
+      const next = new URL(link.href, window.location.href);
+      if (
+        next.pathname === window.location.pathname &&
+        next.search === window.location.search
+      )
+        return;
+      event.preventDefault();
+      event.stopPropagation();
+      onNavigationBlocked();
+      setNotice(
+        pending
+          ? "Check the pending action before leaving. Its request identity is kept in this tab; approval or delivery must not be repeated as a new action."
+          : "Save or discard your changes before leaving this activity. Your unsaved text is kept in this tab.",
+      );
+    };
     window.addEventListener("beforeunload", preventLoss);
-    return () => window.removeEventListener("beforeunload", preventLoss);
-  }, [dirty, pending]);
+    window.addEventListener("click", guardLink, true);
+    return () => {
+      window.removeEventListener("beforeunload", preventLoss);
+      window.removeEventListener("click", guardLink, true);
+    };
+  }, [dirty, onNavigationBlocked, pending]);
 
   useEffect(() => {
     let active = true;
@@ -136,7 +181,7 @@ export function InterventionEditor({
           throw new Error("The current saved revision could not be loaded.");
         const latest = InterventionReviewSchema.parse(await response.json());
         if (!active) return;
-        const local = savedWork(draft.id);
+        const local = savedWork(actorId, draft.id);
         setReview(latest);
         if (
           local &&
@@ -180,12 +225,12 @@ export function InterventionEditor({
     return () => {
       active = false;
     };
-  }, [draft.id, onReview]);
+  }, [actorId, draft.id, onReview]);
 
   function edit(next: InterventionActivity) {
     if (!dirty) editBaseRevision.current = currentDraft.revision;
     setActivity(next);
-    remember(draft.id, {
+    remember(actorId, draft.id, {
       revision: editBaseRevision.current,
       activity: next,
       recipients,
@@ -196,7 +241,7 @@ export function InterventionEditor({
 
   function select(next: string[]) {
     setRecipients(next);
-    remember(draft.id, {
+    remember(actorId, draft.id, {
       revision: dirty ? editBaseRevision.current : currentDraft.revision,
       activity,
       recipients: next,
@@ -246,7 +291,7 @@ export function InterventionEditor({
     setBusy(true);
     setError(null);
     setPending(action);
-    remember(draft.id, {
+    remember(actorId, draft.id, {
       revision: action.expected_revision,
       activity,
       recipients,
@@ -264,7 +309,7 @@ export function InterventionEditor({
         const failure = z.object({ error: z.string() }).safeParse(payload);
         if (response.status >= 400 && response.status < 500) {
           setPending(null);
-          remember(draft.id, {
+          remember(actorId, draft.id, {
             revision: action.expected_revision,
             activity,
             recipients,
@@ -286,6 +331,7 @@ export function InterventionEditor({
       setConflict(false);
       setRecipients(next.approval?.recipient_ids ?? recipients);
       remember(
+        actorId,
         draft.id,
         action.action === "save"
           ? {
@@ -334,7 +380,7 @@ export function InterventionEditor({
     setRecipients(review.approval?.recipient_ids ?? []);
     setConflict(false);
     setError(null);
-    remember(draft.id, null);
+    remember(actorId, draft.id, null);
     setNotice(
       "Unsaved edits discarded. You are viewing the latest loaded saved revision.",
     );
