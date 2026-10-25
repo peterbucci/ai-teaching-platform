@@ -75,6 +75,12 @@ export function TeacherWorkspace({
   const restoreSwitcherFocus = useRef(true);
 
   useLayoutEffect(() => {
+    const dialog = switcher.current;
+    const containEscape = (event: KeyboardEvent) => {
+      // Next delegates React events on document. Stop the native event at the
+      // dialog before page document handlers, retaining native cancellation.
+      if (dialog?.open && event.key === "Escape") event.stopPropagation();
+    };
     const dismissForNavigation = (event: MouseEvent) => {
       const dialog = switcher.current;
       if (
@@ -107,8 +113,11 @@ export function TeacherWorkspace({
     // synchronously focus feedback when they block a click, so the dialog
     // must already be closed before their handlers run.
     window.addEventListener("click", dismissForNavigation, true);
-    return () =>
+    dialog?.addEventListener("keydown", containEscape);
+    return () => {
       window.removeEventListener("click", dismissForNavigation, true);
+      dialog?.removeEventListener("keydown", containEscape);
+    };
   }, []);
   const params: TeacherWorkspaceParams = {};
   for (const key of new Set(search.keys())) {

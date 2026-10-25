@@ -132,7 +132,11 @@ focus fragment is computed, never caller-selected:
 Fragments are encoded from validated identities. Agent D owns resolving these
 fixed targets after authorized rendering, including desktop focus, hidden-pane
 fallbacks and direct/reloaded URLs. The shell leaves nonempty hash placement to
-that page controller. Actual integration requires a disposable composition of
+that page controller. Hashless Questions/Sessions browser Back/Forward uses the
+same allowlisted `progress-main` view target while preserving the selected
+student, concept, subview and pane. The Evidence originating-row restoration
+contract is specified separately below.
+Actual integration requires a disposable composition of
 the pinned Agent C and Agent D commits; standalone fixture tests are not that
 browser acceptance.
 
@@ -255,6 +259,12 @@ navigation dismissal does not refocus the switcher opener. Escape/backdrop/close
 still restore the opener. Keep page guards in passive effects and let them own
 their visible recovery target. Preinstalled or layout-effect guards need explicit
 coordination rather than assuming the shell can recover an unknown focus target.
+
+Escape inside the native workspace dialog stops propagation to page-owned pane
+handlers while preserving the browser's dialog cancellation and opener focus.
+Page Escape handlers must independently check that the event belongs to their
+own pane and has not already been handled. An open workspace switcher must close
+without changing the assignment's pane, selection or URL underneath it.
 
 ## Ownership and integration
 
