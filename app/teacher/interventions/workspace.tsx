@@ -1,6 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { z } from "zod";
 import type { InterventionReview } from "../../../lib/interventions/approval-contracts.ts";
 import type { InterventionEvidence } from "../../../lib/interventions/contracts.ts";
@@ -12,6 +18,30 @@ import {
 } from "../../../lib/interventions/drafts.ts";
 import { EvidenceReview } from "./review.tsx";
 import { InterventionEditor } from "./editor.tsx";
+import {
+  teacherWorkspaceHref,
+  type TeacherWorkspaceContext,
+} from "../../../lib/teacher/workspace-contracts.ts";
+import {
+  interventionPreviewHref,
+  matchesReviewedSelection,
+} from "./handoff.ts";
+import {
+  browserDirectionStorage,
+  clearAcknowledgedDirection,
+  directionRecoveryKey,
+  readDirection,
+  rememberDirection,
+} from "./direction-recovery.ts";
+import {
+  focusInterventionAnchor,
+  interventionAnchorTarget,
+} from "./evidence-navigation.ts";
+
+function subscribeToDirection(listener: () => void) {
+  window.addEventListener("storage", listener);
+  return () => window.removeEventListener("storage", listener);
+}
 
 function requestUrl(
   requestId: string | null,
@@ -39,6 +69,8 @@ function requestUrl(
 
 export function InterventionWorkspace({
   assignmentId,
+  actorId,
+  context,
   initialEvidence,
   initialDraft,
   initialRequestId,
@@ -46,6 +78,8 @@ export function InterventionWorkspace({
   initialReview,
 }: {
   assignmentId: string;
+  actorId: string;
+  context: TeacherWorkspaceContext;
   initialEvidence: InterventionEvidence | null;
   initialDraft: InterventionDraft | null;
   initialRequestId: string | null;
@@ -53,13 +87,27 @@ export function InterventionWorkspace({
   initialReview: InterventionReview | null;
 }) {
   const [draft, setDraft] = useState(initialDraft);
+  const [mobilePane, setMobilePane] = useState<"evidence" | "activity">(
+    initialDraft ? "activity" : "evidence",
+  );
+  const layout = useRef<HTMLDivElement>(null);
+  const [focusRequest, setFocusRequest] = useState<{ id: string } | null>(null);
+  const revealActivity = useCallback(() => {
+    setMobilePane("activity");
+    setFocusRequest({ id: "intervention-draft-title" });
+  }, []);
   const [review, setReview] = useState(initialReview);
   const [editorState, setEditorState] = useState({
     dirty: false,
     busy: Boolean(initialDraft),
   });
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const [instructions, setInstructions] = useState("");
+  const [selectedIds, setSelectedIds] = useState<string[]>(
+    initialEvidence?.selection.attempt_ids ?? [],
+  );
+  const [editedInstructions, setInstructions] = useState<{
+    key: string;
+    text: string;
+  } | null>(null);
   const [pendingId, setPendingId] = useState(initialRequestId);
   const [busy, setBusy] = useState(Boolean(initialRequestId));
   const [notice, setNotice] = useState<string | null>(
@@ -69,50 +117,215 @@ export function InterventionWorkspace({
   const inFlight = useRef(false);
   const draftId = useRef(initialDraft?.id ?? initialDraftId);
   const evidence = draft?.evidence ?? initialEvidence;
+
+  useEffect(() => {
+    const attemptIds =
+      evidence?.observations.map((item) => item.attempt.id) ?? [];
+    const navigate = (hash: string, initial = false) => {
+      const id = interventionAnchorTarget(hash, attemptIds);
+      if (!id) {
+        setFocusRequest(
+          initial
+            ? null
+            : {
+                id: initialDraft
+                  ? "intervention-draft-title"
+                  : "intervention-evidence-title",
+              },
+        );
+        setMobilePane(initialDraft ? "activity" : "evidence");
+        return;
+      }
+      setMobilePane(
+        id === "intervention-draft-title" ? "activity" : "evidence",
+      );
+      // A fresh request also handles clicking the currently bookmarked hash.
+      setFocusRequest({ id });
+    };
+    const restore = () => navigate(window.location.hash);
+    const follow = (event: MouseEvent) => {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      )
+        return;
+      const link =
+        event.target instanceof Element
+          ? event.target.closest<HTMLAnchorElement>("a[href]")
+          : null;
+      if (!link || link.target === "_blank" || link.hasAttribute("download"))
+        return;
+      const next = new URL(link.href, window.location.href);
+      if (
+        next.origin === window.location.origin &&
+        next.pathname === window.location.pathname &&
+        next.search === window.location.search &&
+        interventionAnchorTarget(next.hash, attemptIds)
+      )
+        navigate(next.hash);
+    };
+    const root = layout.current;
+    root?.addEventListener("click", follow);
+    window.addEventListener("hashchange", restore);
+    window.addEventListener("popstate", restore);
+    navigate(window.location.hash, true);
+    return () => {
+      root?.removeEventListener("click", follow);
+      window.removeEventListener("hashchange", restore);
+      window.removeEventListener("popstate", restore);
+    };
+  }, [evidence, initialDraft]);
+
+  useEffect(() => {
+    if (!focusRequest) return;
+    if (
+      (focusRequest.id === "intervention-draft-title") !==
+      (mobilePane === "activity")
+    )
+      return;
+    const target = document.getElementById(focusRequest.id);
+    if (!target || !layout.current?.contains(target)) return;
+    focusInterventionAnchor(
+      target,
+      target.querySelector<HTMLDetailsElement>(":scope > details"),
+    );
+  }, [focusRequest, mobilePane]);
+
+  function selectPane(pane: "evidence" | "activity") {
+    const id =
+      pane === "evidence"
+        ? "intervention-evidence-title"
+        : "intervention-draft-title";
+    window.location.hash = id;
+    setMobilePane(pane);
+    setFocusRequest({ id });
+  }
+  const previewCurrent =
+    Boolean(draft) ||
+    matchesReviewedSelection(
+      selectedIds,
+      initialEvidence?.selection.attempt_ids ?? [],
+    );
+  const directionKey = directionRecoveryKey(actorId, {
+    assignment_id: assignmentId,
+    concept_id: context.concept ?? "",
+    origin: context.origin,
+    misconception_id: context.misconception ?? null,
+    attempt_ids: selectedIds,
+  });
+  const recoveredDirection = useSyncExternalStore(
+    subscribeToDirection,
+    () => {
+      try {
+        return readDirection(browserDirectionStorage(), directionKey);
+      } catch {
+        return "";
+      }
+    },
+    () => "",
+  );
+  const instructions =
+    editedInstructions?.key === directionKey
+      ? editedInstructions.text
+      : initialDraft
+        ? ""
+        : recoveredDirection;
   const locked = busy || pendingId !== null;
   const generationLocked =
     locked ||
+    !previewCurrent ||
     editorState.dirty ||
     editorState.busy ||
     (draft !== null && draft.status !== "private_draft");
+
+  useEffect(() => {
+    if (!pendingId) return;
+    const preventLoss = (event: BeforeUnloadEvent) => event.preventDefault();
+    const guardLink = (event: MouseEvent) => {
+      if (
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      )
+        return;
+      const link =
+        event.target instanceof Element
+          ? event.target.closest<HTMLAnchorElement>("a[href]")
+          : null;
+      if (!link || link.target === "_blank" || link.hasAttribute("download"))
+        return;
+      const next = new URL(link.href, window.location.href);
+      if (
+        next.pathname === window.location.pathname &&
+        next.search === window.location.search
+      )
+        return;
+      event.preventDefault();
+      event.stopPropagation();
+      revealActivity();
+      setNotice(
+        "Check this generation request before leaving. Its outcome is still unconfirmed; opening another page must not start it again.",
+      );
+    };
+    window.addEventListener("beforeunload", preventLoss);
+    window.addEventListener("click", guardLink, true);
+    return () => {
+      window.removeEventListener("beforeunload", preventLoss);
+      window.removeEventListener("click", guardLink, true);
+    };
+  }, [pendingId, revealActivity]);
 
   const acceptReview = useCallback((next: InterventionReview) => {
     setReview(next);
     setDraft(next.draft);
   }, []);
 
-  const acceptResult = useCallback((result: InterventionGenerationResponse) => {
-    if (result.draft) {
-      const next = result.draft;
-      setReview(null);
-      setDraft((current) =>
-        !current || next.revision > current.revision ? next : current,
-      );
-      draftId.current = next.id;
-    }
-    if (result.status === "pending") {
-      setPendingId(result.request_id);
-      setNotice(
-        "Generation is still pending. Check its status to retrieve the result; checking does not ask AI to generate again.",
-      );
-      return;
-    }
-    setPendingId(null);
-    requestUrl(null, result.draft ?? undefined);
-    if (result.status === "completed") {
-      setInstructions("");
-      setNotice(
-        "AI-generated draft saved privately. Review the activity, source support, and answer guidance.",
-      );
-      setError(null);
-    } else {
-      setError(
-        result.error ??
-          "Generation did not produce a valid draft. Your previous valid draft is unchanged.",
-      );
-      setNotice(null);
-    }
-  }, []);
+  const acceptResult = useCallback(
+    (result: InterventionGenerationResponse) => {
+      if (result.draft) {
+        const next = result.draft;
+        setReview(null);
+        setDraft((current) =>
+          !current || next.revision > current.revision ? next : current,
+        );
+        draftId.current = next.id;
+      }
+      if (result.status === "pending") {
+        setPendingId(result.request_id);
+        setNotice(
+          "Generation is still pending. Check its status to retrieve the result; checking does not ask AI to generate again.",
+        );
+        return;
+      }
+      setPendingId(null);
+      requestUrl(null, result.draft ?? undefined);
+      if (result.status === "completed" && result.draft) {
+        clearAcknowledgedDirection(
+          browserDirectionStorage(),
+          directionKey,
+          result.request_id,
+        );
+        setInstructions({ key: directionKey, text: "" });
+        setNotice(
+          "AI-generated draft saved privately. Review the activity, source support, and answer guidance.",
+        );
+        setError(null);
+      } else {
+        setError(
+          result.error ??
+            "Generation did not produce a valid draft. Your previous valid draft is unchanged.",
+        );
+        setNotice(null);
+      }
+    },
+    [directionKey],
+  );
 
   const missingRequest = useCallback(() => {
     setPendingId(null);
@@ -241,6 +454,13 @@ export function InterventionWorkspace({
       },
       revision_instructions: instructions,
     };
+    if (!draft)
+      rememberDirection(
+        browserDirectionStorage(),
+        directionKey,
+        instructions,
+        requestId,
+      );
     setPendingId(requestId);
     requestUrl(requestId, undefined, draftId.current);
     try {
@@ -259,11 +479,9 @@ export function InterventionWorkspace({
         requestUrl(null);
         setNotice(null);
         setError(
-          response.status === 409
-            ? "This draft changed elsewhere. Reload and review the latest saved revision before requesting changes."
-            : message.success
-              ? message.data.error
-              : "The request was rejected. Review the selected evidence and try again.",
+          message.success
+            ? message.data.error
+            : "The request was rejected. Review the selected evidence and current saved revision before trying again.",
         );
       } else {
         throw new Error(
@@ -289,24 +507,57 @@ export function InterventionWorkspace({
     );
 
   return (
-    <div className="lp-intervention-layout">
-      <EvidenceReview
-        evidence={evidence}
-        selectedIds={selectedIds}
-        locked={locked}
-        onToggle={
-          draft
-            ? undefined
-            : (id) =>
-                setSelectedIds((current) =>
-                  current.includes(id)
-                    ? current.filter((item) => item !== id)
-                    : [...current, id],
-                )
-        }
-      />
+    <div className="lp-intervention-layout" ref={layout}>
+      <div
+        className="lp-intervention-mobile-tabs"
+        role="group"
+        aria-label="Intervention workspace"
+      >
+        <button
+          type="button"
+          className="lp-button"
+          aria-pressed={mobilePane === "evidence"}
+          onClick={() => selectPane("evidence")}
+        >
+          Evidence used
+        </button>
+        <button
+          type="button"
+          className="lp-button"
+          aria-pressed={mobilePane === "activity"}
+          onClick={() => selectPane("activity")}
+        >
+          Activity
+        </button>
+      </div>
+      <div
+        className="lp-intervention-evidence-pane"
+        data-active={mobilePane === "evidence"}
+      >
+        <EvidenceReview
+          evidence={evidence}
+          context={context}
+          selectedIds={selectedIds}
+          locked={locked}
+          previewCurrent={previewCurrent}
+          reviewHref={interventionPreviewHref(context, selectedIds)}
+          onToggle={
+            draft
+              ? undefined
+              : (id) =>
+                  setSelectedIds((current) =>
+                    current.includes(id)
+                      ? current.filter((item) => item !== id)
+                      : current.length < 60
+                        ? [...current, id]
+                        : current,
+                  )
+          }
+        />
+      </div>
       <section
-        className="lp-panel lp-intervention-panel"
+        className="lp-panel lp-intervention-panel lp-intervention-activity-pane"
+        data-active={mobilePane === "activity"}
         aria-labelledby="intervention-draft-title"
       >
         <div className="flex flex-wrap items-center gap-3">
@@ -314,7 +565,7 @@ export function InterventionWorkspace({
             Teacher-controlled intervention
           </span>
         </div>
-        <h2 id="intervention-draft-title">
+        <h2 id="intervention-draft-title" tabIndex={-1}>
           {draft ? "Review the proposed activity" : "Prepare a review activity"}
         </h2>
         <p>
@@ -322,14 +573,35 @@ export function InterventionWorkspace({
             ? "Review the evidence, refine the activity, and choose who should receive it. Approval and delivery are separate teacher decisions."
             : "Ask AI to create a source-grounded explanation, targeted practice, and a fresh check from this recorded reasoning."}
         </p>
+        {!draft && (
+          <p className="lp-intervention-note">
+            This stays private. Generating does not select recipients, approve
+            the activity, or deliver anything.
+          </p>
+        )}
+        {draft && initialEvidence && (
+          <p className="lp-intervention-meta">
+            Saved evidence: {draft.evidence.counts.selected_responses} responses
+            from {draft.evidence.counts.selected_students} students.
+            {draft.evidence.observations.filter(
+              (item) =>
+                !initialEvidence.observations.some(
+                  (previous) => previous.attempt.id === item.attempt.id,
+                ),
+            ).length > 0 &&
+              " New accepted responses were included when generation rechecked the evidence. Review the saved scope alongside the activity."}
+          </p>
+        )}
         {draft && (
           <InterventionEditor
             key={`${draft.id}:${draft.revision}`}
+            actorId={actorId}
             draft={draft}
             initialReview={review}
             disabled={locked}
             onReview={acceptReview}
             onStateChange={setEditorState}
+            onNavigationBlocked={revealActivity}
           />
         )}
         {(!draft || draft.status === "private_draft") && (
@@ -346,7 +618,19 @@ export function InterventionWorkspace({
               <textarea
                 className="lp-input"
                 value={instructions}
-                onChange={(event) => setInstructions(event.target.value)}
+                onChange={(event) => {
+                  setInstructions({
+                    key: directionKey,
+                    text: event.target.value,
+                  });
+                  if (!draft) {
+                    rememberDirection(
+                      browserDirectionStorage(),
+                      directionKey,
+                      event.target.value,
+                    );
+                  }
+                }}
                 maxLength={1500}
                 required={Boolean(draft)}
                 disabled={generationLocked}
@@ -357,6 +641,14 @@ export function InterventionWorkspace({
               Revisions keep the same recorded evidence and source version. A
               failed generation preserves the previous saved draft.
             </p>
+            {!previewCurrent && (
+              <p className="lp-intervention-warning" role="status">
+                Your starting responses changed. Review selected evidence before
+                generating; the server includes related and contrary answers.
+                Each starting selection keeps its own teaching direction in this
+                tab.
+              </p>
+            )}
             {editorState.dirty && (
               <p className="lp-intervention-meta">
                 Save or discard your edits before requesting an AI revision.
@@ -389,7 +681,15 @@ export function InterventionWorkspace({
               {draft && !locked && (
                 <a
                   className="lp-text-link"
-                  href={`/teacher/interventions?${new URLSearchParams({ assignment: assignmentId, origin: evidence.selection.origin, concept: evidence.selection.concept_id })}`}
+                  href={teacherWorkspaceHref(
+                    "/teacher/interventions",
+                    context,
+                    {
+                      origin: evidence.selection.origin,
+                      concept: evidence.selection.concept_id,
+                      seedAttempt: [],
+                    },
+                  )}
                 >
                   Start a separate draft
                 </a>

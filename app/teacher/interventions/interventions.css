@@ -1,9 +1,43 @@
 .lp-intervention-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 22px;
+  grid-template-columns: minmax(300px, 0.8fr) minmax(0, 1.2fr);
+  gap: 18px;
   align-items: start;
   margin-top: 24px;
+}
+.lp-intervention-evidence-pane {
+  min-width: 0;
+}
+.lp-intervention-mobile-tabs {
+  display: none;
+}
+.lp-intervention-scope-title {
+  font-weight: 650;
+  color: var(--ink);
+}
+.lp-intervention-question-preview,
+.lp-intervention-answer-preview {
+  display: block;
+  margin-top: 6px;
+  overflow-wrap: anywhere;
+  font-weight: 400;
+}
+.lp-intervention-answer-preview {
+  color: var(--muted);
+  font-family: Georgia, serif;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.lp-intervention-narrowing {
+  border-block: 1px solid var(--line);
+  padding: 20px 0;
+  margin-top: 20px;
+}
+.lp-intervention-narrowing .lp-intervention-choice {
+  padding-block: 8px;
+  border-bottom: 1px solid var(--line);
 }
 .lp-intervention-panel {
   padding: 24px;
@@ -20,8 +54,8 @@
 }
 .lp-intervention-panel p,
 .lp-intervention-panel li {
-  font-size: 13px;
-  line-height: 1.75;
+  font-size: 14px;
+  line-height: 1.6;
 }
 .lp-intervention-section {
   border-top: 1px solid var(--line);
@@ -31,6 +65,11 @@
 .lp-intervention-evidence {
   border-top: 1px solid var(--line);
   padding: 15px 0;
+  scroll-margin-top: 16px;
+}
+.lp-intervention-evidence:focus-visible {
+  outline: 2px solid #176d58;
+  outline-offset: 4px;
 }
 .lp-intervention-evidence summary {
   cursor: pointer;
@@ -53,7 +92,7 @@
 }
 .lp-intervention-meta {
   color: var(--muted);
-  font-size: 11px !important;
+  font-size: 13px !important;
 }
 .lp-intervention-note {
   border: 1px solid #d6e7da;
@@ -227,9 +266,30 @@
 .lp-intervention-student-preview {
   padding-top: 16px;
 }
-@media (max-width: 950px) {
+@media (max-width: 800px) {
   .lp-intervention-layout {
     grid-template-columns: 1fr;
+  }
+  .lp-intervention-mobile-tabs {
+    display: flex;
+    gap: 8px;
+  }
+  .lp-intervention-mobile-tabs .lp-button {
+    flex: 1;
+    min-height: 44px;
+  }
+  .lp-intervention-mobile-tabs [aria-pressed="true"] {
+    background: #eaf6ef;
+    border-color: #176d58;
+    color: #176d58;
+  }
+  .lp-intervention-evidence-pane[data-active="false"],
+  .lp-intervention-activity-pane[data-active="false"] {
+    display: none;
+  }
+  .lp-intervention-choice {
+    min-height: 44px;
+    align-items: center;
   }
 }
 @media (max-width: 560px) {

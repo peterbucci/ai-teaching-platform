@@ -1,19 +1,31 @@
-import type { ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 import type { ClassMetrics } from "../../lib/teacher/metrics.ts";
+import type { TeacherWorkspaceContext } from "../../lib/teacher/workspace-contracts.ts";
 import { Workspace } from "../components/workspace.tsx";
+import { TeacherWorkspace } from "./navigation.tsx";
 import "./teacher.css";
 
 export function TeacherFrame({
   children,
-  section = "Class overview",
+  section = "Teaching Desk",
+  context,
 }: {
   children: ReactNode;
   section?: string;
+  context?: TeacherWorkspaceContext;
 }) {
   return (
-    <Workspace area="teacher" section={section}>
-      <div className="lp-teacher">{children}</div>
-    </Workspace>
+    <Suspense
+      fallback={
+        <Workspace area="teacher" section={section}>
+          <div className="lp-teacher">{children}</div>
+        </Workspace>
+      }
+    >
+      <TeacherWorkspace section={section} context={context}>
+        <div className="lp-teacher">{children}</div>
+      </TeacherWorkspace>
+    </Suspense>
   );
 }
 

@@ -223,9 +223,32 @@ try {
   assert.ok("source_commit" in question.content_ref);
   assert.ok(markup.includes(question.content_ref.source_commit));
   const refreshed = await request(overviewPath, teacher);
+  const overviewMarkup = await refreshed.text();
+  const evidenceLink = [...overviewMarkup.matchAll(/href="([^"]+)"/g)]
+    .map((match) => new URL(match[1].replaceAll("&amp;", "&"), base))
+    .find(
+      (url) =>
+        url.pathname === "/teacher/evidence" &&
+        url.searchParams.get("session") === session.id &&
+        url.searchParams.get("attempt") === attempt.id,
+    );
   assert.ok(
-    (await refreshed.text()).includes(detailPath),
-    "Refreshed overview omitted new evidence link",
+    evidenceLink,
+    "Refreshed Teaching Desk omitted the new response's Evidence link",
+  );
+  const evidencePath = evidenceLink.pathname + evidenceLink.search;
+  await deniedPage(evidencePath);
+  await anonymousDeniedPage(evidencePath);
+  const evidencePage = await request(evidencePath, teacher);
+  assert.equal(evidencePage.status, 200);
+  const evidenceMarkup = await evidencePage.text();
+  assert.ok(
+    evidenceMarkup.includes(escapedAnswer),
+    "Evidence view omitted the exact original answer",
+  );
+  assert.ok(
+    evidenceMarkup.includes(detailPath),
+    "Evidence view omitted the full-session drill-down",
   );
   for (const [pagePath, name] of [
     [insightsPath, "learning insights"],
@@ -283,7 +306,7 @@ try {
         "unrelated concepts unchanged",
         "duplicate answer unchanged",
         "origin filtering",
-        "overview, learning insights, and student directory link new evidence",
+        "Teaching Desk links the exact new Evidence response and full session; learning insights and student directory retain drill-down",
         "exact response drill-down",
         "student/anonymous/unrelated-owner page and projection boundaries",
       ],

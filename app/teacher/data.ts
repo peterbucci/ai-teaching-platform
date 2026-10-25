@@ -5,6 +5,7 @@ import { AuthError, requireActor } from "../../lib/auth.ts";
 import { EvidenceError, evidenceAccess } from "../../lib/evidence/store.ts";
 import { readAssignmentContent } from "../../lib/lessons/store.ts";
 import { OriginFilterSchema } from "../../lib/teacher/metrics.ts";
+import { parseTeacherWorkspaceContext } from "../../lib/teacher/workspace-contracts.ts";
 import {
   readAssignmentEvidence,
   teacherAssignments,
@@ -19,10 +20,11 @@ export type TeacherFilters = {
 // Every teacher view uses the same authorized, origin-filtered evidence snapshot.
 export async function loadTeacherView(params: TeacherFilters) {
   try {
+    const context = parseTeacherWorkspaceContext(params);
     const access = evidenceAccess(await requireActor());
     const assignments = await teacherAssignments(access);
-    const origin = OriginFilterSchema.parse(params.origin ?? "all");
-    const assignmentId = params.assignment ?? assignments[0]?.id;
+    const origin = OriginFilterSchema.parse(context.origin);
+    const assignmentId = context.assignment ?? assignments[0]?.id;
     const data = assignmentId
       ? {
           ...(await readAssignmentEvidence(access, assignmentId, origin)),
