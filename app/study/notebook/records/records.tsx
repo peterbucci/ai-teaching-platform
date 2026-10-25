@@ -9,6 +9,7 @@ import type {
   NotebookState,
 } from "../contracts.ts";
 import { notebookHref } from "../route-state.ts";
+import { recordedHistoryHref } from "../recorded-history.ts";
 import {
   assistanceLabels,
   availableData,
@@ -19,6 +20,7 @@ import {
   sessionLabels,
 } from "./presentation.ts";
 import "./records.css";
+import { ExactText } from "./exact-text.tsx";
 
 const historyHref = notebookHref({ kind: "history" });
 const learningHref = notebookHref({ kind: "learning" });
@@ -139,6 +141,12 @@ export function NotebookRecordIndex({
                 >
                   View saved work <ArrowUpRight aria-hidden="true" />
                 </a>
+                <a
+                  className="nr-recorded-link"
+                  href={recordedHistoryHref(entry.id)}
+                >
+                  Recorded history
+                </a>
               </div>
             </li>
           ))}
@@ -216,7 +224,7 @@ function OriginalQuestion({
             </span>
           </div>
           <h3 id={heading} className="nr-prompt" data-original-prompt>
-            {response.promptText}
+            <ExactText value={response.promptText} />
           </h3>
           {response.promptText === "" && (
             <p className="nr-small">The saved question text is empty.</p>
@@ -230,7 +238,7 @@ function OriginalQuestion({
         <section className="nr-stack" aria-label="Original response">
           <h4>Your original answer</h4>
           <div className="nr-answer" data-original-response>
-            {response.responseText}
+            <ExactText value={response.responseText} />
           </div>
           {response.responseText === "" && (
             <p className="nr-small">
@@ -292,6 +300,15 @@ function OriginalQuestion({
           </p>
         </details>
         <div className="nr-row">
+          <a
+            className="nr-button"
+            href={recordedHistoryHref(
+              question.identity.sessionId,
+              question.identity.attemptId,
+            )}
+          >
+            Recorded history for this question
+          </a>
           <a className="nr-button" href={question.href}>
             Open this question in study <ArrowUpRight aria-hidden="true" />
           </a>

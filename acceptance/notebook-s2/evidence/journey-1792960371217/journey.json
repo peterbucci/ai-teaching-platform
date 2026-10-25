@@ -1,0 +1,148 @@
+{
+  "source": "6aa2ce680d6ccea1f615e104e4f1792bcd502f38",
+  "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "base": "http://127.0.0.1:3412",
+  "runtime": "production",
+  "buildId": "GoinJqtqB2OaFL0DyOFbJ",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "checks": [
+    "fictional teacher approves and separately delivers validated authored review",
+    "authenticated My Learning mounts N1/N2/N5 without review body disclosure or writes",
+    "My Learning four viewport widths have no horizontal page overflow",
+    "authenticated assignment overview mounted without starting or evaluating",
+    "help/ambiguous fallback preserves question and requires explicit answer confirmation",
+    "explicitly intended answer saves exact original Unicode whitespace and immutable source snapshot",
+    "accepted synthetic evaluation resumes through the existing tutoring owner",
+    "N3 current-data saved record preserves original response and does not invent per-attempt assessment",
+    "browser Back/Forward and exact saved-question fragment",
+    "standalone N4 bootstraps and deactivates for account and mobile navigation overlays",
+    "reading return preserves original attempt and source identity",
+    "dedicated teacher-approved review retains draft across refresh and saves fresh check with provider disabled",
+    "cross-student session and review authorization rejects foreign identities"
+  ],
+  "screenshots": [
+    "application-learning-1440.png",
+    "application-learning-1024.png",
+    "application-learning-390.png",
+    "application-learning-320.png"
+  ],
+  "errors": [],
+  "session": "81647a95-cade-4fa7-870f-f2fbdd836539",
+  "attempt": "654ec614-14f0-4520-a146-cbbcdd6afa2c",
+  "approval": "3df3d402-ca91-4400-a1cd-9483a52f5677",
+  "writes": [
+    {
+      "url": "/api/tutoring/81647a95-cade-4fa7-870f-f2fbdd836539/conversation",
+      "body": {
+        "version": "r7-conversation-v1",
+        "request_id": "346f2921-1fc8-4b21-8ed2-d160dbfdcafd",
+        "session_id": "81647a95-cade-4fa7-870f-f2fbdd836539",
+        "attempt_id": "654ec614-14f0-4520-a146-cbbcdd6afa2c",
+        "expected_revision": 0,
+        "action": "send_message",
+        "text": "What do you mean by packet size?"
+      }
+    },
+    {
+      "url": "/api/tutoring/81647a95-cade-4fa7-870f-f2fbdd836539/conversation",
+      "body": {
+        "version": "r7-conversation-v1",
+        "request_id": "f604f8f9-29a8-4c8a-9cfa-0c2c6007e64d",
+        "session_id": "81647a95-cade-4fa7-870f-f2fbdd836539",
+        "attempt_id": "654ec614-14f0-4520-a146-cbbcdd6afa2c",
+        "expected_revision": 0,
+        "action": "resolve_intent",
+        "message_request_id": "346f2921-1fc8-4b21-8ed2-d160dbfdcafd",
+        "choice": "help"
+      }
+    },
+    {
+      "url": "/api/sessions/81647a95-cade-4fa7-870f-f2fbdd836539/answers",
+      "body": {
+        "attempt_id": "654ec614-14f0-4520-a146-cbbcdd6afa2c",
+        "submission_key": "e8e8d5b8-0a70-4ca8-9248-9223370802f4",
+        "response_text": "  My original café 🌱 reasoning.\nKeep  two spaces and line breaks.  "
+      }
+    },
+    {
+      "url": "/api/tutoring/81647a95-cade-4fa7-870f-f2fbdd836539",
+      "body": {
+        "attempt_id": "654ec614-14f0-4520-a146-cbbcdd6afa2c"
+      }
+    },
+    {
+      "url": "/api/sessions/81647a95-cade-4fa7-870f-f2fbdd836539/interventions/aaa83215-c3b1-4bb6-b241-d9d86004c7fe",
+      "body": {}
+    },
+    {
+      "url": "/api/tutoring/81647a95-cade-4fa7-870f-f2fbdd836539/reading",
+      "body": {
+        "passage_id": "P07"
+      }
+    },
+    {
+      "url": "/api/sessions/81647a95-cade-4fa7-870f-f2fbdd836539/interventions/b5462002-8ade-4838-a1bc-77b0132815c9",
+      "body": {}
+    },
+    {
+      "url": "/api/student/interventions/3df3d402-ca91-4400-a1cd-9483a52f5677",
+      "body": {
+        "action": "displayed"
+      }
+    },
+    {
+      "url": "/api/student/interventions/3df3d402-ca91-4400-a1cd-9483a52f5677/followup",
+      "body": {
+        "action": "start"
+      }
+    },
+    {
+      "url": "/api/student/interventions/3df3d402-ca91-4400-a1cd-9483a52f5677/followup",
+      "body": {
+        "action": "submit",
+        "request_id": "c4f9baf0-d92d-4727-ab03-87e8b4ec78c1",
+        "response_text": "  Fresh check original\nwith exact spacing.  "
+      }
+    }
+  ],
+  "responses": [
+    {
+      "url": "/api/tutoring/81647a95-cade-4fa7-870f-f2fbdd836539/conversation",
+      "status": 200
+    },
+    {
+      "url": "/api/tutoring/81647a95-cade-4fa7-870f-f2fbdd836539/conversation",
+      "status": 200
+    },
+    {
+      "url": "/api/sessions/81647a95-cade-4fa7-870f-f2fbdd836539/answers",
+      "status": 200
+    },
+    {
+      "url": "/api/tutoring/81647a95-cade-4fa7-870f-f2fbdd836539",
+      "status": 503
+    },
+    {
+      "url": "/api/tutoring/81647a95-cade-4fa7-870f-f2fbdd836539/reading",
+      "status": 200
+    },
+    {
+      "url": "/api/sessions/81647a95-cade-4fa7-870f-f2fbdd836539/interventions/b5462002-8ade-4838-a1bc-77b0132815c9",
+      "status": 200
+    },
+    {
+      "url": "/api/student/interventions/3df3d402-ca91-4400-a1cd-9483a52f5677",
+      "status": 200
+    },
+    {
+      "url": "/api/student/interventions/3df3d402-ca91-4400-a1cd-9483a52f5677/followup",
+      "status": 200
+    },
+    {
+      "url": "/api/student/interventions/3df3d402-ca91-4400-a1cd-9483a52f5677/followup",
+      "status": 200
+    }
+  ],
+  "result": "PASS"
+}
