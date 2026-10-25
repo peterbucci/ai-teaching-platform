@@ -1,0 +1,14 @@
+(node:110976) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:110976) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a1749b-290b-7f00-8f38-54a3194c6481/s3-review/lib/db.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\sb128\.codex\visualizations\2026\10\25\01a1749b-290b-7f00-8f38-54a3194c6481\s3-review\package.json.
+EvidenceError: The hourly limit of 10 draft requests has been reached. Review saved drafts or try later.
+    at file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a1749b-290b-7f00-8f38-54a3194c6481/s3-review/lib/interventions/store.ts:231:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async inTransaction (file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a1749b-290b-7f00-8f38-54a3194c6481/s3-review/lib/db.ts:51:20)
+    at async transaction (file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a1749b-290b-7f00-8f38-54a3194c6481/s3-review/lib/evidence/store.ts:50:12)
+    at async generateInterventionDraft (file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a1749b-290b-7f00-8f38-54a3194c6481/s3-review/lib/interventions/store.ts:319:20)
+    at async makeFixture (file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a1749b-290b-7f00-8f38-54a3194c6481/s3-review/.setup/s3-fixture-kit.mjs:260:21)
+    at async file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a1749b-290b-7f00-8f38-54a3194c6481/s3-review/app/study/notebook/reviews/verification/s3/workflow.mjs:156:19
+REPORT app\study\notebook\reviews\verification\s3\workflow-1792958956653

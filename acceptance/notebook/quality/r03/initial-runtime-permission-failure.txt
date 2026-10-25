@@ -1,0 +1,22 @@
+(node:145472) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:145472) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/student-notebook-integration/LearningPlatform/lib/db.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\sb128\.codex\worktrees\student-notebook-integration\LearningPlatform\package.json.
+C:\Users\sb128\.codex\worktrees\student-notebook-integration\LearningPlatform\node_modules\pg-pool\index.js:45
+    Error.captureStackTrace(err)
+          ^
+
+Error: connect EACCES 127.0.0.1:5907
+    at C:\Users\sb128\.codex\worktrees\student-notebook-integration\LearningPlatform\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async actor (file:///C:/Users/sb128/.codex/worktrees/student-notebook-integration/LearningPlatform/acceptance/notebook/journey.mjs:81:5)
+    at async file:///C:/Users/sb128/.codex/worktrees/student-notebook-integration/LearningPlatform/acceptance/notebook/journey.mjs:86:17 {
+  errno: -4092,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '127.0.0.1',
+  port: 5907
+}
+
+Node.js v22.13.0

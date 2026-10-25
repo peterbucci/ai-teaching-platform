@@ -1,0 +1,146 @@
+{
+  "buildId": "HtaS4giOIyQwXjoRhr4V8",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "checks": [
+    "delivered summary has no display/start/submit mutation; another student cannot list, read or open the assigned review",
+    "offscreen and hidden-pane source links produce no help receipt; actual explanation visibility records display once without answering",
+    "mobile page navigation focuses the fresh-check heading, keeps one composer and preserves its exact draft",
+    "genuine fictional session expiry and sign-in recover the same-tab draft without resubmission",
+    "native Notebook return preserves originating filters and browser Back restores draft",
+    "lost submit response recovers one saved original answer and explicit failed status, without an evaluation retry"
+  ],
+  "states": [],
+  "errors": [],
+  "requests": [
+    {
+      "path": "/api/student/interventions/9e9579c9-9e4b-4f00-aa07-0ae7ec08f0d5",
+      "action": "displayed"
+    },
+    {
+      "path": "/api/student/interventions/9e9579c9-9e4b-4f00-aa07-0ae7ec08f0d5/followup",
+      "action": "start"
+    },
+    {
+      "path": "/api/student/interventions/9e9579c9-9e4b-4f00-aa07-0ae7ec08f0d5/followup",
+      "action": "submit"
+    },
+    {
+      "path": "/api/student/interventions/d7c194fb-19c5-47f3-a171-d67f8665a65c",
+      "action": "displayed"
+    }
+  ],
+  "snapshots": [],
+  "fixture": {
+    "approvalId": "9e9579c9-9e4b-4f00-aa07-0ae7ec08f0d5",
+    "draftId": "4f568c86-000d-4f0e-a644-a61ae6be3699",
+    "assignmentId": "82c79bf6-3381-4c1d-b1a7-dcdc9407167f",
+    "conceptId": "10311efd-ef21-41b3-a8e6-905d46c45d85",
+    "conceptName": "Evaporation",
+    "contentRef": {
+      "source_kind": "uploaded",
+      "source_id": "dec68eaa-d042-4c3f-87bf-a8346e273718",
+      "source_version": 1,
+      "document_sha256": "8b1962d35bca66984155f1416a6dd6ee226b70be4510f0a4ae532b3b317fb4c1",
+      "excerpt_sha256": "85e9bfd7dea721f766279eb9f3085ac45bd7bec6b071a015cc76ebe9caf3b51c",
+      "attribution": {
+        "title": "Water changing state",
+        "authors": ["Fictional demo teacher"],
+        "copyright": "2026 Fictional demo teacher",
+        "section": "Evaporation and condensation",
+        "url": null,
+        "license": "Original synthetic material; permitted for this demo",
+        "license_url": null,
+        "cautions": [
+          "This short reading does not cover boiling, freezing, or weather prediction."
+        ]
+      },
+      "access_scope": {
+        "teacher_id": "10000000-0000-4000-8000-000000000001"
+      },
+      "package_id": "dcc5728f-b909-4e8c-bf40-59dc64b1fc8e",
+      "content_version": "1"
+    },
+    "originalAttemptId": "01eb0e87-2ee5-4d5a-b221-3c8355b48bb0",
+    "originalSessionId": "f0f05c5e-424e-43b3-b5f0-d8e5350ce2fa"
+  },
+  "displayDiagnostic": {
+    "api": {
+      "approval_id": "9e9579c9-9e4b-4f00-aa07-0ae7ec08f0d5",
+      "draft_id": "4f568c86-000d-4f0e-a644-a61ae6be3699",
+      "assignment_id": "82c79bf6-3381-4c1d-b1a7-dcdc9407167f",
+      "delivered_at": "2026-10-25T20:07:23.351Z",
+      "displayed_at": null,
+      "content_ref": {
+        "source_kind": "uploaded",
+        "source_id": "dec68eaa-d042-4c3f-87bf-a8346e273718",
+        "source_version": 1,
+        "document_sha256": "8b1962d35bca66984155f1416a6dd6ee226b70be4510f0a4ae532b3b317fb4c1",
+        "excerpt_sha256": "85e9bfd7dea721f766279eb9f3085ac45bd7bec6b071a015cc76ebe9caf3b51c",
+        "attribution": {
+          "title": "Water changing state",
+          "authors": ["Fictional demo teacher"],
+          "copyright": "2026 Fictional demo teacher",
+          "section": "Evaporation and condensation",
+          "url": null,
+          "license": "Original synthetic material; permitted for this demo",
+          "license_url": null,
+          "cautions": [
+            "This short reading does not cover boiling, freezing, or weather prediction."
+          ]
+        },
+        "access_scope": {
+          "teacher_id": "10000000-0000-4000-8000-000000000001"
+        },
+        "package_id": "dcc5728f-b909-4e8c-bf40-59dc64b1fc8e",
+        "content_version": "1"
+      },
+      "activity": {
+        "title": "Following water as it changes state",
+        "learning_objective": "Explain liquid water changing to water vapor.",
+        "explanation": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared.",
+        "exercise_text": "Read the passage about evaporation, then explain how liquid water becomes water vapor.",
+        "practice_questions": [
+          {
+            "question_id": "75225048-25aa-47b6-b186-c84813174b5a",
+            "prompt_text": "Describe the water's starting and ending states during evaporation.",
+            "concept_ids": ["10311efd-ef21-41b3-a8e6-905d46c45d85"],
+            "source_passage_ids": ["water-01"]
+          }
+        ],
+        "fresh_check": {
+          "question_id": "35e7fb97-95fa-49c3-8445-918070474147",
+          "prompt_text": "A learner says evaporation makes water disappear. Explain how liquid water and water vapor describe the same water in different states.",
+          "concept_ids": ["10311efd-ef21-41b3-a8e6-905d46c45d85"],
+          "source_passage_ids": ["water-01"]
+        },
+        "source_references": [
+          {
+            "passage_id": "water-01",
+            "quote": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared."
+          }
+        ]
+      }
+    },
+    "database": "2026-10-25T20:07:26.605Z",
+    "requests": [
+      {
+        "path": "/api/student/interventions/9e9579c9-9e4b-4f00-aa07-0ae7ec08f0d5",
+        "action": "displayed"
+      },
+      {
+        "path": "/api/student/interventions/9e9579c9-9e4b-4f00-aa07-0ae7ec08f0d5/followup",
+        "action": "start"
+      },
+      {
+        "path": "/api/student/interventions/9e9579c9-9e4b-4f00-aa07-0ae7ec08f0d5/followup",
+        "action": "submit"
+      },
+      {
+        "path": "/api/student/interventions/d7c194fb-19c5-47f3-a171-d67f8665a65c",
+        "action": "displayed"
+      }
+    ]
+  },
+  "failure": "error: column \"session_id\" does not exist\n    at C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-integration\\LearningPlatform\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async fingerprint (file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a1749b-290b-7f00-8f38-54a3194c6481/s3-review/app/study/notebook/reviews/verification/s3/workflow.mjs:70:7)\n    at async file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a1749b-290b-7f00-8f38-54a3194c6481/s3-review/app/study/notebook/reviews/verification/s3/workflow.mjs:401:20"
+}

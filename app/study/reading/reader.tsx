@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
+  useSyncExternalStore,
   type CSSProperties,
   type MouseEvent,
 } from "react";
@@ -27,8 +29,34 @@ import {
   readingMatches,
   sourceHeading,
 } from "./presentation.ts";
+import { readingIsActive, scheduleReadingPresentation } from "./visibility.ts";
 
 type Delivery = z.infer<typeof PassageDeliverySchema>;
+
+export type ReadingDeliveryState = {
+  busy: boolean;
+  error: string | null;
+  confirmedId: string | null;
+};
+
+function subscribeVisibility(onChange: () => void) {
+  document.addEventListener("visibilitychange", onChange);
+  window.addEventListener("focus", onChange);
+  window.addEventListener("blur", onChange);
+  return () => {
+    document.removeEventListener("visibilitychange", onChange);
+    window.removeEventListener("focus", onChange);
+    window.removeEventListener("blur", onChange);
+  };
+}
+
+function browserVisibility() {
+  return readingIsActive(true, document.visibilityState, document.hasFocus());
+}
+
+function serverVisibility() {
+  return false;
+}
 
 function passageGroups(view: StudentReaderView) {
   // Passage labels are navigation aids within the actual source section, not
@@ -49,10 +77,20 @@ export function StudentReader({
   view,
   citation,
   returnToSession,
+  active,
+  onPassageChange,
+  onReturn,
+  onDeliveryState,
 }: {
   view: StudentReaderView;
   citation?: { id: string; passageId: string };
   returnToSession: boolean;
+  /** True only when the owner actually exposes this pane, including breakpoints. */
+  active: boolean;
+  /** Optional Notebook presentation seams; this reader still owns all receipts. */
+  onPassageChange?: (passageId: string) => void;
+  onReturn?: () => void;
+  onDeliveryState?: (state: ReadingDeliveryState) => void;
 }) {
   const router = useRouter();
   const { reading, assignment, session } = view;
@@ -78,6 +116,10 @@ export function StudentReader({
   const [bookmarkError, setBookmarkError] = useState<string | null>(null);
   const [delivery, setDelivery] = useState<Delivery | null>(null);
   const [confirmed, setConfirmed] = useState<string | null>(null);
+  const [presented, setPresented] = useState<string | null>(null);
+  const [failedAcknowledgment, setFailedAcknowledgment] = useState<
+    string | null
+  >(null);
   const [pendingPassage, setPendingPassage] = useState(
     session?.pendingPassageId ?? null,
   );
@@ -90,10 +132,24 @@ export function StudentReader({
   const lastServerPending = useRef(session?.pendingPassageId ?? null);
   const mounted = useRef(true);
   const article = useRef<HTMLElement>(null);
+  const surface = useRef<HTMLDivElement>(null);
+  const passageBody = useRef<HTMLDivElement>(null);
   const nav = useRef<HTMLElement>(null);
   const focusOnSelect = useRef(false);
+  const activeRef = useRef(active);
+  const visibility = useSyncExternalStore(
+    subscribeVisibility,
+    browserVisibility,
+    serverVisibility,
+  );
+  const visible = active && visibility;
 
-  useEffect(() => {
+  // Update before asynchronous work can observe a committed pane switch.
+  useLayoutEffect(() => {
+    activeRef.current = active;
+  }, [active]);
+
+  useLayoutEffect(() => {
     mounted.current = true;
     return () => {
       mounted.current = false;
@@ -110,7 +166,8 @@ export function StudentReader({
       void Promise.resolve().then(() => {
         setPendingPassage(serverPending);
         setFailedTarget(null);
-        setDeliveryError(null);
+        // A refreshed pending value must not erase an acknowledgment failure's
+        // retry control. Opening or successfully saving clears its own error.
       });
   }, [session?.pendingPassageId]);
   const targetPassage = pendingPassage ?? view.selectedPassageId;
@@ -120,16 +177,42 @@ export function StudentReader({
   // Deliver one passage at a time. A browser Back/Forward request waits until
   // the currently rendered delivery is acknowledged, including refresh recovery.
   useEffect(() => {
-    if (!session || requestInFlight.current || failedTarget === targetPassage)
+    if (
+      !visible ||
+      !session ||
+      requestInFlight.current ||
+      failedTarget === targetPassage
+    )
       return;
     if (delivery && confirmed !== delivery.intervention_id) return;
     if (delivery?.passage.id === targetPassage) return;
     requestInFlight.current = true;
     void (async () => {
       await Promise.resolve();
-      setLoading(true);
-      setDeliveryError(null);
       try {
+        // The owner or browser can hide the pane between the effect and request.
+        if (
+          !mounted.current ||
+          !surface.current?.checkVisibility({
+            checkOpacity: true,
+            checkVisibilityCSS: true,
+          }) ||
+          Boolean(
+            surface.current
+              .closest("[data-active-study]")
+              ?.querySelector(
+                "details.lp-account-menu[open], details[data-notebook-prompt][open], dialog[open]",
+              ),
+          ) ||
+          !readingIsActive(
+            activeRef.current,
+            document.visibilityState,
+            document.hasFocus(),
+          )
+        )
+          return;
+        setLoading(true);
+        setDeliveryError(null);
         const response = await fetch(`/api/tutoring/${session.id}/reading`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -156,6 +239,8 @@ export function StudentReader({
         if (mounted.current) {
           setDelivery(result);
           setConfirmed(null);
+          setPresented(null);
+          setFailedAcknowledgment(null);
         }
       } catch (error) {
         if (mounted.current) {
@@ -172,6 +257,7 @@ export function StudentReader({
       }
     })();
   }, [
+    visible,
     session,
     targetPassage,
     citationId,
@@ -183,18 +269,62 @@ export function StudentReader({
     router,
   ]);
 
-  // This effect runs only after the delivered text has been committed to the
-  // article. Merely fetching, searching or prefetching never records assistance.
+  // A delivered body needs a visible rendering opportunity before its existing
+  // receipt can be sent. Hidden mounts, fetches and DOM commits are insufficient.
   useEffect(() => {
     if (
+      !visible ||
       !session ||
       !delivery ||
       confirmed === delivery.intervention_id ||
+      failedAcknowledgment === delivery.intervention_id ||
       ackInFlight.current
     )
       return;
-    ackInFlight.current = true;
-    void (async () => {
+    const body = passageBody.current;
+    if (!body) return;
+    let intersecting = false;
+    let attempted = false;
+    let cancelPresentation = () => {};
+    const isVisible = () => {
+      if (
+        !mounted.current ||
+        !readingIsActive(
+          activeRef.current,
+          document.visibilityState,
+          document.hasFocus(),
+        ) ||
+        !intersecting ||
+        !body.isConnected ||
+        Boolean(
+          surface.current
+            ?.closest("[data-active-study]")
+            ?.querySelector(
+              "details.lp-account-menu[open], details[data-notebook-prompt][open], dialog[open]",
+            ),
+        ) ||
+        body.dataset.deliveryId !== delivery.intervention_id ||
+        !body.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true })
+      )
+        return false;
+      const rect = body.getBoundingClientRect();
+      return (
+        rect.width > 0 &&
+        rect.height > 0 &&
+        rect.bottom > 0 &&
+        rect.right > 0 &&
+        rect.top < window.innerHeight &&
+        rect.left < window.innerWidth
+      );
+    };
+    const acknowledge = async () => {
+      // A scroll/frame callback can outlive the resolved request until React
+      // cleans up this observer. Only explicit retry creates a fresh attempt.
+      if (attempted || ackInFlight.current || !isVisible()) return;
+      attempted = true;
+      ackInFlight.current = true;
+      observer.disconnect();
+      setPresented(delivery.intervention_id);
       try {
         const response = await fetch(
           `/api/sessions/${session.id}/interventions/${delivery.intervention_id}`,
@@ -206,7 +336,7 @@ export function StudentReader({
         );
         if (!response.ok)
           throw new Error(
-            "The passage is visible, but its reading record could not be saved. Retry saving before you return to your question.",
+            "The passage was displayed, but its reading record could not be saved. Retry saving before you return to your question.",
           );
         if (mounted.current) {
           setConfirmed(delivery.intervention_id);
@@ -217,17 +347,58 @@ export function StudentReader({
           router.refresh();
         }
       } catch (error) {
-        if (mounted.current)
+        if (mounted.current) {
+          setFailedAcknowledgment(delivery.intervention_id);
           setDeliveryError(
             error instanceof Error
               ? error.message
               : "Please retry saving the reading record.",
           );
+        }
       } finally {
         ackInFlight.current = false;
       }
-    })();
-  }, [session, delivery, confirmed, retry, router]);
+    };
+    const check = () => {
+      cancelPresentation();
+      cancelPresentation = scheduleReadingPresentation({
+        isVisible,
+        requestFrame: (callback) => requestAnimationFrame(callback),
+        cancelFrame: cancelAnimationFrame,
+        onPresented: () => void acknowledge(),
+      });
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      intersecting = entry.isIntersecting && entry.intersectionRatio > 0;
+      check();
+    });
+    observer.observe(body);
+    // Recheck after scrolling/resizing; intersection notifications alone need
+    // not fire when a clipped body stays within the same observer threshold.
+    window.addEventListener("scroll", check, true);
+    window.addEventListener("resize", check);
+    window.addEventListener("pagehide", cancelPresentationOnHide);
+    window.addEventListener("pageshow", check);
+    function cancelPresentationOnHide() {
+      cancelPresentation();
+    }
+    return () => {
+      cancelPresentation();
+      observer.disconnect();
+      window.removeEventListener("scroll", check, true);
+      window.removeEventListener("resize", check);
+      window.removeEventListener("pagehide", cancelPresentationOnHide);
+      window.removeEventListener("pageshow", check);
+    };
+  }, [
+    visible,
+    session,
+    delivery,
+    confirmed,
+    failedAcknowledgment,
+    retry,
+    router,
+  ]);
 
   const activeId = session
     ? (delivery?.passage.id ?? targetPassage)
@@ -250,6 +421,9 @@ export function StudentReader({
       delivery.passage.id !== view.selectedPassageId ||
       !!pendingPassage);
   const previous = reading.sections[selectedIndex - 1];
+  useEffect(() => {
+    onDeliveryState?.({ busy, error: deliveryError, confirmedId: confirmed });
+  }, [busy, deliveryError, confirmed, onDeliveryState]);
   const next = reading.sections[selectedIndex + 1];
   const returnHref =
     session && returnToSession
@@ -297,16 +471,19 @@ export function StudentReader({
     });
   }, [activeGroupId]);
   useEffect(() => {
+    if (!visible) return;
     const selectedLink = nav.current?.querySelector<HTMLElement>(
       '[aria-current="location"]',
     );
     selectedLink?.scrollIntoView({ block: "nearest" });
     if (focusOnSelect.current && (!session || delivery)) {
       article.current?.focus({ preventScroll: true });
-      article.current?.scrollIntoView({ block: "start" });
+      article.current?.scrollIntoView({
+        block: onPassageChange ? "nearest" : "start",
+      });
       focusOnSelect.current = false;
     }
-  }, [activeId, expanded, session, delivery]);
+  }, [visible, activeId, expanded, session, delivery, onPassageChange]);
 
   function passageClick(event: MouseEvent<HTMLAnchorElement>) {
     if (busy) {
@@ -317,6 +494,15 @@ export function StudentReader({
       return;
     focusOnSelect.current = true;
     setMobileContents(false);
+    if (onPassageChange && event.button === 0) {
+      const passage = new URL(event.currentTarget.href).searchParams.get(
+        "passage",
+      );
+      if (passage) {
+        event.preventDefault();
+        onPassageChange(passage);
+      }
+    }
   }
   function blockBusy(event: MouseEvent<HTMLAnchorElement>) {
     if (busy) event.preventDefault();
@@ -356,6 +542,25 @@ export function StudentReader({
 
   return (
     <div
+      ref={surface}
+      hidden={!active}
+      data-reading-state={
+        !visible
+          ? "hidden"
+          : !session
+            ? "independent"
+            : failedTarget
+              ? "open-failed"
+              : !delivery
+                ? "requested"
+                : confirmed === delivery.intervention_id
+                  ? "acknowledged"
+                  : failedAcknowledgment === delivery.intervention_id
+                    ? "acknowledgment-failed"
+                    : presented === delivery.intervention_id
+                      ? "acknowledgment-pending"
+                      : "awaiting-presentation"
+      }
       className="lp-s-reader-refined"
       style={{ "--reader-size": `${fontSize}px` } as CSSProperties}
     >
@@ -365,7 +570,21 @@ export function StudentReader({
           <Link
             href={returnHref}
             prefetch={false}
-            onClick={blockBusy}
+            onClick={(event) => {
+              blockBusy(event);
+              if (
+                !event.defaultPrevented &&
+                onReturn &&
+                event.button === 0 &&
+                !event.ctrlKey &&
+                !event.metaKey &&
+                !event.shiftKey &&
+                !event.altKey
+              ) {
+                event.preventDefault();
+                onReturn();
+              }
+            }}
             aria-disabled={busy || undefined}
             className="reader-button hero-link"
           >
@@ -670,6 +889,7 @@ export function StudentReader({
                 onClick={() => {
                   setFailedTarget(null);
                   setDeliveryError(null);
+                  setFailedAcknowledgment(null);
                   setRetry((value) => value + 1);
                 }}
               >
@@ -698,7 +918,11 @@ export function StudentReader({
             {session && !delivery ? (
               <p role="status">Opening the approved passage…</p>
             ) : (
-              <div className="reading-body">
+              <div
+                className="reading-body"
+                ref={passageBody}
+                data-delivery-id={delivery?.intervention_id}
+              >
                 <ReadingBody
                   text={readerPassageText(
                     session && delivery ? delivery.passage.text : selected.text,
@@ -721,9 +945,13 @@ export function StudentReader({
                 </div>
               </div>
             )}
-            {session && busy && (
+            {session && busy && delivery && (
               <p className="search-note" role="status">
-                Saving the displayed reading for this question…
+                {presented === delivery.intervention_id
+                  ? failedAcknowledgment
+                    ? "The reading record needs to be saved. Use Retry saving reading."
+                    : "Saving the displayed reading for this question…"
+                  : "Show the passage to record the reading for this question."}
               </p>
             )}
             {(!session || delivery) && (

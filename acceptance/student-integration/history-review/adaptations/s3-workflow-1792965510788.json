@@ -1,0 +1,86 @@
+{
+  "mode": "s3-workflow",
+  "assertionsChanged": false,
+  "adaptations": [
+    {
+      "file": "app/study/notebook/reviews/verification/s3/replay-r03.mjs",
+      "from": "reader_visibility_n7_01a1742c",
+      "to": "student_notebook_final_01a17503",
+      "count": 1
+    },
+    {
+      "file": "app/study/notebook/reviews/verification/s3/replay-r03.mjs",
+      "from": "lp_s3_review_01a1749b",
+      "to": "student_notebook_final_01a17503",
+      "count": 2
+    },
+    {
+      "file": "app/study/notebook/reviews/verification/s3/replay-r03.mjs",
+      "from": "http://127.0.0.1:3407",
+      "to": "http://127.0.0.1:3431",
+      "count": 1
+    },
+    {
+      "file": "app/study/notebook/reviews/verification/s3/replay-r03.mjs",
+      "from": "http://127.0.0.1:3413",
+      "to": "http://127.0.0.1:3431",
+      "count": 2
+    },
+    {
+      "file": "app/study/notebook/reviews/verification/s3/replay-r03.mjs",
+      "from": ".setup/s3-fixture-kit.mjs",
+      "to": ".setup/student-integration/history-review/s3-fixture-kit.mjs",
+      "count": 1
+    },
+    {
+      "file": "app/study/notebook/reviews/verification/s3/replay-r03.mjs",
+      "from": "\"app/study/notebook/reviews/verification/s3\"",
+      "to": "\"acceptance/student-integration/history-review/s3\"",
+      "count": 1
+    },
+    {
+      "file": "app/study/notebook/reviews/verification/s3/replay-r03.mjs",
+      "from": "acceptance/notebook/evidence",
+      "to": "acceptance/student-integration/history-review/r03",
+      "count": 1
+    },
+    {
+      "file": "app/study/notebook/reviews/verification/s3/workflow.mjs",
+      "from": "lp_s3_review_01a1749b",
+      "to": "student_notebook_final_01a17503",
+      "count": 1
+    },
+    {
+      "file": "app/study/notebook/reviews/verification/s3/workflow.mjs",
+      "from": "http://127.0.0.1:3413",
+      "to": "http://127.0.0.1:3431",
+      "count": 1
+    },
+    {
+      "file": "app/study/notebook/reviews/verification/s3/workflow.mjs",
+      "from": ".setup/workflow-fixtures.json",
+      "to": ".setup/student-integration/history-review/workflow-fixtures.json",
+      "count": 2
+    },
+    {
+      "file": "app/study/notebook/reviews/verification/s3/workflow.mjs",
+      "from": "\"app/study/notebook/reviews/verification/s3\"",
+      "to": "\"acceptance/student-integration/history-review/s3\"",
+      "count": 1
+    }
+  ],
+  "files": [
+    {
+      "original": "app/study/notebook/reviews/verification/s3/replay-r03.mjs",
+      "originalSha256": "2beb92faf5cebb95509e143f8642edb2ccb7c2f9354885f8d84318df80cb2bdc",
+      "adapted": ".setup\\student-integration\\history-review\\s3-helper.mjs",
+      "adaptedSha256": "5f4516464375ad3296763b86e7efe58969cab35638fe63206dd4198bb5374e2d"
+    },
+    {
+      "original": "app/study/notebook/reviews/verification/s3/workflow.mjs",
+      "originalSha256": "491a9ac37578d63e2f6e22142367ace68d638ff0c892eeecb368856f7f7e155a",
+      "adapted": ".setup\\student-integration\\history-review\\s3-workflow.mjs",
+      "adaptedSha256": "e521f5b718094baabd8e46ad396d880a076ab437ad005ac730ce391eeeb63f66"
+    }
+  ]
+}

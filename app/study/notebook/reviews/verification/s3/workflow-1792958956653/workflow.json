@@ -1,0 +1,11 @@
+{
+  "buildId": "HtaS4giOIyQwXjoRhr4V8",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "checks": [],
+  "states": [],
+  "errors": [],
+  "requests": [],
+  "snapshots": [],
+  "failure": "EvidenceError: The hourly limit of 10 draft requests has been reached. Review saved drafts or try later.\n    at file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a1749b-290b-7f00-8f38-54a3194c6481/s3-review/lib/interventions/store.ts:231:13\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async inTransaction (file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a1749b-290b-7f00-8f38-54a3194c6481/s3-review/lib/db.ts:51:20)\n    at async transaction (file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a1749b-290b-7f00-8f38-54a3194c6481/s3-review/lib/evidence/store.ts:50:12)\n    at async generateInterventionDraft (file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a1749b-290b-7f00-8f38-54a3194c6481/s3-review/lib/interventions/store.ts:319:20)\n    at async makeFixture (file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a1749b-290b-7f00-8f38-54a3194c6481/s3-review/.setup/s3-fixture-kit.mjs:260:21)\n    at async file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a1749b-290b-7f00-8f38-54a3194c6481/s3-review/app/study/notebook/reviews/verification/s3/workflow.mjs:156:19"
+}

@@ -1,0 +1,48 @@
+{
+  "applicationSource": "273551bb48287dd38843256d22c26b4bc8f449fd",
+  "buildId": "kzvgmL197lNEtYn7qD7Kk",
+  "checks": [
+    {
+      "command": "npm test",
+      "status": "PASS",
+      "passed": 547,
+      "failed": 0,
+      "log": "unit-final.txt",
+      "source": "273551bb48287dd38843256d22c26b4bc8f449fd"
+    },
+    {
+      "command": "npm run lint",
+      "status": "PASS",
+      "log": "lint-final.txt",
+      "source": "273551bb48287dd38843256d22c26b4bc8f449fd"
+    },
+    {
+      "command": "npm run typecheck",
+      "status": "PASS",
+      "log": "typecheck-final.txt",
+      "source": "273551bb48287dd38843256d22c26b4bc8f449fd"
+    },
+    {
+      "command": "next build --webpack (isolated provider-disabled environment)",
+      "status": "PASS",
+      "log": "build.txt",
+      "source": "273551bb48287dd38843256d22c26b4bc8f449fd"
+    },
+    {
+      "command": "npm run content:check",
+      "status": "PASS",
+      "passed": 293,
+      "log": "content.txt",
+      "note": "Content unchanged between the recorded check and final application revision.",
+      "source": "1810d48b0a1c00c121698aee0b4fbe7dda01733d"
+    },
+    {
+      "command": "npm run format:check",
+      "status": "PASS",
+      "log": "format-final.txt",
+      "source": "273551bb48287dd38843256d22c26b4bc8f449fd"
+    }
+  ],
+  "warning": "Existing lib/materials/extract.ts module.createRequire parsing warning remains; build succeeds.",
+  "scopeNote": "The final committed application passed unit tests, lint, explicit typecheck and production build. The content-check receipt is from the unchanged approved content. Final browser/layout receipts identify the same application source and build."
+}

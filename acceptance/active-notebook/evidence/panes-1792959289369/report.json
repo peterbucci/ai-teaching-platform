@@ -1,0 +1,35 @@
+{
+  "source": "446bffe50d3964ee9022df0e788f80f085d06e6f",
+  "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "runtime": "production",
+  "buildId": "mZZKnEd2ExlMkhVdtEGS6",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "cases": [
+    {
+      "name": "hidden reader and pane navigation make zero reading/answer writes; one composer and exact draft survive",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=953e0628-5d04-4a69-8a3a-103969036f7c"
+    },
+    {
+      "name": "in-flight reading keeps delivery identity while hidden; exposure acknowledges exactly once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=aed3f21a-f18f-4cc7-b06c-505276ce1656"
+    },
+    {
+      "name": "failed reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=01273001-a078-497b-aef2-dec4ec81a9a9"
+    },
+    {
+      "name": "unknown reading receipt preserves notice and retries original identity once",
+      "status": "FAIL",
+      "error": "locator.waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-active-notebook-reader] [data-reading-state=\"acknowledged\"]') to be visible\u001b[22m\n\n    at C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-active\\LearningPlatform\\acceptance\\active-notebook\\panes.mjs:368:12\n    at async check (C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-active\\LearningPlatform\\acceptance\\active-notebook\\panes.mjs:127:5)\n    at async file:///C:/Users/sb128/.codex/worktrees/student-notebook-active/LearningPlatform/acceptance/active-notebook/panes.mjs:294:5",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=2c6afffc-ffa5-4a44-86f4-248efcb8aa4c"
+    }
+  ],
+  "result": "FAIL",
+  "error": "locator.waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-active-notebook-reader] [data-reading-state=\"acknowledged\"]') to be visible\u001b[22m\n",
+  "diffAfterSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sourceUnchanged": true
+}

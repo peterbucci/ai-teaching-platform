@@ -1,0 +1,78 @@
+{
+  "source": "273551bb48287dd38843256d22c26b4bc8f449fd",
+  "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "runtime": "production",
+  "buildId": "kzvgmL197lNEtYn7qD7Kk",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "cases": [
+    {
+      "name": "hidden reader and pane navigation make zero reading/answer writes; one composer and exact draft survive",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=a3f1feca-9946-481d-9350-f187592691ff"
+    },
+    {
+      "name": "in-flight reading keeps delivery identity while hidden; exposure acknowledges exactly once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=c5445b13-0bee-4ce6-bc3a-6394780df4a2"
+    },
+    {
+      "name": "failed reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=2f379496-3af4-4c5a-b2ea-b65d316d9ba5"
+    },
+    {
+      "name": "unknown reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=ccbd98af-ea35-4b75-8027-52e2c34f55bd"
+    },
+    {
+      "name": "question disclosure hides delayed accepted help until explicit return without stealing focus or draft",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/6a94fb14-a6e2-4c00-aa06-106ad77243c3?tab=study&session=ed034b13-36a4-4ffa-9f49-8641834d6482"
+    },
+    {
+      "name": "accepted help arriving in hidden page neither acknowledges nor steals context focus",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/6a94fb14-a6e2-4c00-aa06-106ad77243c3?tab=study&session=ebb1122c-a8e3-46c5-a1e0-443f19d0b11b"
+    },
+    {
+      "name": "feedback loaded while page hidden is acknowledged only after return",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=2c41eeab-dd29-46cf-ae81-0d902b3e4c44#question-294f0708-d6c9-45e7-832c-28476ca45bf9"
+    },
+    {
+      "name": "confirmed reading with failed progress reload keeps blocker until explicit recovery",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=c6d7372b-c0d6-4b38-97ca-0c0e567e4504"
+    },
+    {
+      "name": "earlier page selection retains current draft and pending help identity without hidden acknowledgement",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/6a94fb14-a6e2-4c00-aa06-106ad77243c3?tab=study&session=48a312ee-cfa1-428b-be25-e8f65f9d9f1b#question-adf5b39d-9141-403e-8707-f723f483edb3"
+    },
+    {
+      "name": "late first-reading progress response cannot unblock a newer pending passage",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=c0a64c01-ba84-498b-ae72-50e8e2e215d3"
+    },
+    {
+      "name": "late reading snapshot after second passage and original save cannot roll the page back",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=620909ed-284c-414e-8b31-2d46431257c1"
+    },
+    {
+      "name": "late reading snapshot after manual saved-progress refresh and original save cannot roll the page back",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=d858bdf1-09c5-4bde-90de-13995d8c0e4c"
+    },
+    {
+      "name": "phone quick suggestions stay in one row and keyboard focus reveals the final pill without page overflow",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=41c9c416-8e72-4c4c-9602-e4bb344c7f59"
+    }
+  ],
+  "result": "PASS",
+  "diffAfterSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sourceUnchanged": true
+}

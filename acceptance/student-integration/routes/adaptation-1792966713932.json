@@ -1,0 +1,43 @@
+{
+  "originalSha256": "6a604c3ef1fbc93b105285a37041be4b423b6cf4d2388d20659e4173ff8992c6",
+  "adaptedSha256": "1d853b9c7e5b1dea35f520abf893fdb9c0cb4e8d2aeb71aa0262f48a0c6c55de",
+  "selectedSurfaces": [
+    "learning",
+    "overview",
+    "reading"
+  ],
+  "replacements": [
+    [
+      "\"5907\"",
+      "\"5931\""
+    ],
+    [
+      "reader_visibility_n7_01a1742c",
+      "student_notebook_final_01a17503"
+    ],
+    [
+      "http://127.0.0.1:3407",
+      "http://127.0.0.1:3431"
+    ],
+    [
+      "path.join(root, \"acceptance/notebook/evidence\", run)",
+      "path.join(root, \"acceptance/student-integration/routes\", run)"
+    ],
+    [
+      "acceptance/notebook/evidence",
+      "acceptance/student-integration/active"
+    ],
+    [
+      "path.join(root, \".setup/prototype\")",
+      "\"C:/Users/sb128/.codex/worktrees/student-notebook-integration/LearningPlatform/.setup/prototype\""
+    ],
+    [
+      "const scenarios = new Set(surfaces.map((s) => s.scenario));",
+      "surfaces.splice(0, surfaces.length, ...surfaces.filter((s) => [\"learning\", \"overview\", \"reading\"].includes(s.id)));\nconst scenarios = new Set(surfaces.map((s) => s.scenario));"
+    ],
+    [
+      "Viewport, overflow and zoom assertions are functional layout checks, not prototype fidelity acceptance. Active-study presentation remains gated and current-data records cannot reproduce the prototype's full chronology.",
+      "Supplemental combined My Learning, assignment overview and standalone reading captures. S1/S2/S3 galleries cover other states. Functional checks do not replace visual review. Fictional content differs from prototype examples."
+    ]
+  ]
+}

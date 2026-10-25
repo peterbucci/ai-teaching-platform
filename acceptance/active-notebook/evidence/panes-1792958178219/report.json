@@ -1,0 +1,27 @@
+{
+  "source": "d486fc029941567f81257d7b8717b1cb3dab09d4",
+  "diffSha256": "c54602cc98b393d96695b0c7d9551ce321b95b74e117d81416746304d3c112be",
+  "runtime": "development",
+  "buildId": null,
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "cases": [
+    {
+      "name": "hidden reader and pane navigation make zero reading/answer writes; one composer and exact draft survive",
+      "status": "PASS"
+    },
+    {
+      "name": "in-flight reading keeps delivery identity while hidden; exposure acknowledges exactly once",
+      "status": "PASS"
+    },
+    {
+      "name": "failed reading receipt preserves notice and retries original identity once",
+      "status": "FAIL",
+      "error": "locator.waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Retry saving reading', exact: true }) to be visible\u001b[22m\n\u001b[2m    - waiting for \"http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=8d235a56-3feb-4bbf-92b5-b56e93a31eb6\" navigation to finish...\u001b[22m\n\u001b[2m    - navigated to \"http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=8d235a56-3feb-4bbf-92b5-b56e93a31eb6\"\u001b[22m\n\n    at C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-active\\LearningPlatform\\acceptance\\active-notebook\\panes.mjs:261:12\n    at async check (C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-active\\LearningPlatform\\acceptance\\active-notebook\\panes.mjs:126:5)\n    at async file:///C:/Users/sb128/.codex/worktrees/student-notebook-active/LearningPlatform/acceptance/active-notebook/panes.mjs:236:5"
+    }
+  ],
+  "result": "FAIL",
+  "error": "locator.waitFor: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Retry saving reading', exact: true }) to be visible\u001b[22m\n\u001b[2m    - waiting for \"http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=8d235a56-3feb-4bbf-92b5-b56e93a31eb6\" navigation to finish...\u001b[22m\n\u001b[2m    - navigated to \"http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=8d235a56-3feb-4bbf-92b5-b56e93a31eb6\"\u001b[22m\n",
+  "diffAfterSha256": "d565b992dc1555ed7d3d66fb1ad3e977e02b9328804014eb0e6b146a54546a40",
+  "sourceUnchanged": false
+}

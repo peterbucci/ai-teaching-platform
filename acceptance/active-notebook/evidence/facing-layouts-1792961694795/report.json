@@ -1,0 +1,152 @@
+{
+  "source": "b3609ddb7670ab6edbeae0807da057a6ee5730d9",
+  "appSourceSha256": "c9b3ac065d7c1a634642f272dbe553626a9e411454c47afcdddb554c32ef7cf8",
+  "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "runtime": "production",
+  "buildId": "FD5ZgImYPTUFNGbhvNM7N",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "cases": [
+    {
+      "name": "facing reading 1440x1000",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "sessionId": "ef732e23-b328-431c-8641-e772a08691ef",
+      "attemptId": "be6afb0e-8e37-45e5-ae9d-40781a6767d9",
+      "status": "FAIL",
+      "screenshots": [
+        "1440x1000-summary.png",
+        "1440x1000-question-disclosure.png",
+        "1440x1000-held-response-hidden.png",
+        "1440x1000-failure.png"
+      ],
+      "before": {
+        "width": 1440,
+        "height": 1000,
+        "outerScrollWidth": 1440,
+        "scrollY": 0,
+        "maxScroll": 0
+      },
+      "summaryZeroWrites": true,
+      "deliveryId": "1c85cc68-0a3c-40bd-b7e0-0d7aca5ba801",
+      "contentVersion": "3bd292c1476f5becb658418b70ee36153cfce830",
+      "desktopPageAndReaderVisible": true,
+      "questionDisclosureSuppressesReceipt": true,
+      "questionEscapeRestoresFocus": true,
+      "hiddenResponseNoReceipt": true,
+      "hiddenBy": "Menu",
+      "error": "AssertionError [ERR_ASSERTION]: genuinely exposed passage acknowledged\n    at until (file:///C:/Users/sb128/.codex/worktrees/student-notebook-active/LearningPlatform/acceptance/active-notebook/facing-layouts.mjs:82:10)\n    at async file:///C:/Users/sb128/.codex/worktrees/student-notebook-active/LearningPlatform/acceptance/active-notebook/facing-layouts.mjs:269:7"
+    },
+    {
+      "name": "facing reading 1024x768",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "sessionId": "087ed068-aed5-45f0-835b-dcdb06c2198f",
+      "attemptId": "845dedd1-d21c-45af-8002-ba169cffd381",
+      "status": "FAIL",
+      "screenshots": [
+        "1024x768-summary.png",
+        "1024x768-held-response-hidden.png",
+        "1024x768-failure.png"
+      ],
+      "before": {
+        "width": 1024,
+        "height": 768,
+        "outerScrollWidth": 1024,
+        "scrollY": 160,
+        "maxScroll": 175
+      },
+      "summaryZeroWrites": true,
+      "deliveryId": "8c4bbf3f-0dbd-4ef0-b095-5b40b3787036",
+      "contentVersion": "3bd292c1476f5becb658418b70ee36153cfce830",
+      "hiddenResponseNoReceipt": true,
+      "hiddenBy": "Back to page",
+      "error": "AssertionError [ERR_ASSERTION]: genuinely exposed passage acknowledged\n    at until (file:///C:/Users/sb128/.codex/worktrees/student-notebook-active/LearningPlatform/acceptance/active-notebook/facing-layouts.mjs:82:10)\n    at async file:///C:/Users/sb128/.codex/worktrees/student-notebook-active/LearningPlatform/acceptance/active-notebook/facing-layouts.mjs:269:7"
+    },
+    {
+      "name": "facing reading 390x844",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sessionId": "9ad52786-13a0-4469-90d7-e9403f741aa6",
+      "attemptId": "e4ceb9a2-fd2f-4c63-9e49-206356c5d985",
+      "status": "FAIL",
+      "screenshots": [
+        "390x844-summary.png",
+        "390x844-held-response-hidden.png",
+        "390x844-displayed-reading.png",
+        "390x844-failure.png"
+      ],
+      "before": {
+        "width": 390,
+        "height": 844,
+        "outerScrollWidth": 390,
+        "scrollY": 160,
+        "maxScroll": 205
+      },
+      "summaryZeroWrites": true,
+      "deliveryId": "1952f3b3-3c37-4890-8c3d-b1bc2f3dff78",
+      "contentVersion": "3bd292c1476f5becb658418b70ee36153cfce830",
+      "hiddenResponseNoReceipt": true,
+      "hiddenBy": "Back to page",
+      "actualPassageReceiptOnce": true,
+      "after": {
+        "width": 390,
+        "height": 844,
+        "outerScrollWidth": 390,
+        "scrollY": 0,
+        "maxScroll": 261
+      },
+      "error": "AssertionError [ERR_ASSERTION]: reading return preserves document scroll subject to final document bounds\n    at file:///C:/Users/sb128/.codex/worktrees/student-notebook-active/LearningPlatform/acceptance/active-notebook/facing-layouts.mjs:309:14"
+    },
+    {
+      "name": "facing reading 320x844",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "sessionId": "9e9db4fb-341c-4f0f-a655-c0ba29c183ca",
+      "attemptId": "f0c9d7a0-fdd2-4295-bbc5-7f708e579759",
+      "status": "FAIL",
+      "screenshots": [
+        "320x844-summary.png",
+        "320x844-held-response-hidden.png",
+        "320x844-displayed-reading.png",
+        "320x844-failure.png"
+      ],
+      "before": {
+        "width": 320,
+        "height": 844,
+        "outerScrollWidth": 320,
+        "scrollY": 160,
+        "maxScroll": 348
+      },
+      "summaryZeroWrites": true,
+      "deliveryId": "c461591c-01a2-49b9-984f-703c15d0782a",
+      "contentVersion": "3bd292c1476f5becb658418b70ee36153cfce830",
+      "hiddenResponseNoReceipt": true,
+      "hiddenBy": "Back to page",
+      "actualPassageReceiptOnce": true,
+      "after": {
+        "width": 320,
+        "height": 844,
+        "outerScrollWidth": 320,
+        "scrollY": 0,
+        "maxScroll": 404
+      },
+      "error": "AssertionError [ERR_ASSERTION]: reading return preserves document scroll subject to final document bounds\n    at file:///C:/Users/sb128/.codex/worktrees/student-notebook-active/LearningPlatform/acceptance/active-notebook/facing-layouts.mjs:309:14"
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "blockedExternal": [],
+  "result": "FAIL",
+  "sourceAfter": "b3609ddb7670ab6edbeae0807da057a6ee5730d9",
+  "appSourceAfterSha256": "c9b3ac065d7c1a634642f272dbe553626a9e411454c47afcdddb554c32ef7cf8",
+  "sourceUnchanged": true
+}

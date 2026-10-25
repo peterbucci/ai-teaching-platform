@@ -1,0 +1,219 @@
+{
+  "schema": "student-blockers-fixture-v1",
+  "project": "lp-accept-notebook-n7",
+  "source_sha": "e7cbf3d6930e892e91f4170ed2aa08c9b8649e67",
+  "kind": "uncertain",
+  "session_id": "6eae9a69-e9bb-45f9-9313-e0eef412b93f",
+  "assignment_id": "30000000-0000-4000-8000-000000000001",
+  "student_id": "10000000-0000-4000-8000-000000000003",
+  "private_canary": "PRIVATE_STUDENT_ACCEPTANCE_CANARY_20261025",
+  "created_at": "2026-10-25T18:03:49.698Z",
+  "actual_model_calls": 0,
+  "provenance": "Fresh ordinary session, synthetic evaluator; outcomes are authored acceptance states, not actual model judgments. Feedback may be acknowledged only by normal browser display.",
+  "steps": [
+    {
+      "attempt_id": "512fdb62-a1e4-4c6d-8497-a1a1d76d56d0",
+      "submission_key": "1dc41b01-919e-4e1d-b376-41a351af9854",
+      "response_text": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "evaluation_id": "5a212b7b-ea4a-474f-b124-766068b9daa1",
+      "final": false,
+      "at": "2026-10-25T18:03:50.522Z"
+    },
+    {
+      "attempt_id": "ae2ac757-242f-4777-b4ad-c7fd2b79eab2",
+      "submission_key": "75ba4f65-7adc-483c-8674-7b559d59fc98",
+      "response_text": "On A, transmission and propagation are each 1 ms. On B, both are 3 ms, because transmitting across three times the distance takes three times as long.",
+      "evaluation_id": "2e57e144-5927-448c-9314-bc63dca9573b",
+      "final": false,
+      "at": "2026-10-25T18:03:51.364Z"
+    },
+    {
+      "attempt_id": "9963cb3f-1587-45cf-bc07-b829cac4f2ee",
+      "submission_key": "eb22b7d0-7703-446d-960f-5d055eabd498",
+      "response_text": "Transmission is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes. Propagation is 3 ms for both. More bits take longer to put onto the link, but the distance and propagation speed stay the same.",
+      "evaluation_id": "894da9a7-7ca2-4cc3-ac93-587c8458717c",
+      "final": false,
+      "at": "2026-10-25T18:03:55.262Z"
+    },
+    {
+      "attempt_id": "e87d8f1f-9f63-43ad-9b6d-4ff14784091e",
+      "submission_key": "d1c07383-d43e-4a7d-888f-7f7776f4465d",
+      "response_text": "Transmission is 2 ms for each: 24,000 divided by 12,000,000 seconds. Propagation is 0.5 ms for 100 km and 2 ms for 400 km. Only propagation changes with the distance.",
+      "evaluation_id": "51988bf3-cac3-40f2-90d1-431df4533224",
+      "final": true,
+      "at": "2026-10-25T18:03:55.984Z"
+    }
+  ],
+  "url": "/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=6eae9a69-e9bb-45f9-9313-e0eef412b93f",
+  "receipt": {
+    "status": "completed",
+    "attempt_id": "e87d8f1f-9f63-43ad-9b6d-4ff14784091e",
+    "response_text": "Transmission is 2 ms for each: 24,000 divided by 12,000,000 seconds. Propagation is 0.5 ms for 100 km and 2 ms for 400 km. Only propagation changes with the distance.",
+    "submission_key": "d1c07383-d43e-4a7d-888f-7f7776f4465d",
+    "evaluation_id": "51988bf3-cac3-40f2-90d1-431df4533224",
+    "correctness": [
+      {
+        "concept_id": "transmission_delay",
+        "correctness": "uncertain",
+        "error_type": "other_or_uncertain",
+        "rubric_criteria_met": [],
+        "rubric_criteria_missing": [
+          "PRIVATE_STUDENT_ACCEPTANCE_CANARY_20261025"
+        ]
+      },
+      {
+        "concept_id": "propagation_delay",
+        "correctness": "uncertain",
+        "error_type": "other_or_uncertain",
+        "rubric_criteria_met": [],
+        "rubric_criteria_missing": [
+          "PRIVATE_STUDENT_ACCEPTANCE_CANARY_20261025"
+        ]
+      }
+    ],
+    "uncertainty_reason": "Synthetic uncertain acceptance outcome; no confident assessment claimed.",
+    "assistance": {
+      "intervention_ids": ["26d185dc-29b4-4488-a64b-fd8aa8759472"],
+      "assistance_level": "corrective_feedback",
+      "scaffolding_types": [],
+      "independent_retrieval_eligible_by_concept": {
+        "propagation_delay": false,
+        "transmission_delay": false
+      },
+      "most_recent_content_assistance_at": "2026-10-25T18:03:53.316Z",
+      "elapsed_since_content_assistance_seconds": 2.563
+    },
+    "content_ref": {
+      "package_id": "network-performance-v1",
+      "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+      "source_id": "peterson_davie_1_5_1",
+      "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+      "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+    },
+    "attempts": 4,
+    "evaluations": 4,
+    "pending_feedback_ids": [],
+    "student_view": {
+      "session": {
+        "id": "6eae9a69-e9bb-45f9-9313-e0eef412b93f",
+        "status": "completed",
+        "started_at": "2026-10-25T18:03:49.644Z",
+        "ended_at": "2026-10-25T18:03:55.955Z"
+      },
+      "attempts": [
+        {
+          "id": "512fdb62-a1e4-4c6d-8497-a1a1d76d56d0",
+          "sequence_index": 0,
+          "intent": "initial_retrieval",
+          "prompt_text": "A single cable becomes twice as long. Packet size, link transmission rate, and propagation speed stay unchanged. What happens to transmission delay and propagation delay? Explain why.",
+          "concept_ids": ["transmission_delay", "propagation_delay"],
+          "presented_at": "2026-10-25T18:03:49.690Z",
+          "submitted_at": "2026-10-25T18:03:50.413Z",
+          "response_text": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance."
+        },
+        {
+          "id": "ae2ac757-242f-4777-b4ad-c7fd2b79eab2",
+          "sequence_index": 1,
+          "intent": "diagnostic_followup",
+          "prompt_text": "Compare two single optical-fiber links. Link A is 200 km long and link B is 600 km long. Each sends the same 1,000-byte packet at 8 Mbps, and propagation speed is 200,000,000 m/s on both. Ignore queuing and processing. For each link, find transmission delay and propagation delay. Which delay changes between the links, and why?",
+          "concept_ids": ["transmission_delay", "propagation_delay"],
+          "presented_at": "2026-10-25T18:03:50.475Z",
+          "submitted_at": "2026-10-25T18:03:51.237Z",
+          "response_text": "On A, transmission and propagation are each 1 ms. On B, both are 3 ms, because transmitting across three times the distance takes three times as long."
+        },
+        {
+          "id": "9963cb3f-1587-45cf-bc07-b829cac4f2ee",
+          "sequence_index": 2,
+          "intent": "immediate_retest",
+          "prompt_text": "On a 600 km optical-fiber link, the rate is 8 Mbps and propagation speed is 200,000,000 m/s. Compare sending a 1,000-byte packet with sending a 2,000-byte packet. Only packet size changes. What are transmission delay and propagation delay in each case? Explain which quantity changes.",
+          "concept_ids": ["transmission_delay", "propagation_delay"],
+          "presented_at": "2026-10-25T18:03:51.304Z",
+          "submitted_at": "2026-10-25T18:03:55.153Z",
+          "response_text": "Transmission is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes. Propagation is 3 ms for both. More bits take longer to put onto the link, but the distance and propagation speed stay the same."
+        },
+        {
+          "id": "e87d8f1f-9f63-43ad-9b6d-4ff14784091e",
+          "sequence_index": 3,
+          "intent": "immediate_retest",
+          "prompt_text": "Now send a 3,000-byte packet at 12 Mbps over a single optical-fiber link. Compare a 100 km link with a 400 km link, both with propagation speed 200,000,000 m/s. Only distance changes. Find transmission delay and propagation delay in each case, and explain your comparison.",
+          "concept_ids": ["transmission_delay", "propagation_delay"],
+          "presented_at": "2026-10-25T18:03:55.219Z",
+          "submitted_at": "2026-10-25T18:03:55.879Z",
+          "response_text": "Transmission is 2 ms for each: 24,000 divided by 12,000,000 seconds. Propagation is 0.5 ms for 100 km and 2 ms for 400 km. Only propagation changes with the distance."
+        }
+      ],
+      "interventions": [
+        {
+          "id": "26d185dc-29b4-4488-a64b-fd8aa8759472",
+          "type": "corrective_feedback",
+          "text_shown": "Your explanation of Propagation delay was correct. Transmission delay is the time needed to put the packet's bits onto the link: packet size in bits divided by link rate in bits per second. Propagation delay is the time for a signal to travel along the link: distance divided by propagation speed. Changing distance alone changes propagation delay, while transmission delay stays the same. These are separate components of one-way delay.",
+          "delivery_status": "displayed",
+          "visible_at": "2026-10-25T18:03:53.316Z",
+          "related_attempt_id": "ae2ac757-242f-4777-b4ad-c7fd2b79eab2"
+        },
+        {
+          "id": "e54dcc71-3845-4a6b-b67f-855b944fcbcd",
+          "type": "corrective_feedback",
+          "text_shown": "I do not have enough clear evidence from these responses to assess the distinction yet. We will keep that uncertainty visible and revisit it.",
+          "delivery_status": "displayed",
+          "visible_at": "2026-10-25T18:03:57.414Z",
+          "related_attempt_id": "e87d8f1f-9f63-43ad-9b6d-4ff14784091e"
+        }
+      ],
+      "pending_reading": null,
+      "progress": {
+        "phase": "completed",
+        "current_attempt_id": "e87d8f1f-9f63-43ad-9b6d-4ff14784091e",
+        "failed_evaluation_id": null,
+        "retry_allowed": false,
+        "retry_after": null,
+        "message": "Your latest answer could not be assessed with confidence. Practice complete. This answer followed help. This records today's performance, not lasting mastery.",
+        "next_review_at": "2026-10-26T18:03:55.942Z"
+      },
+      "citations": [
+        {
+          "intervention_id": "26d185dc-29b4-4488-a64b-fd8aa8759472",
+          "passage_id": "P07",
+          "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+          "text": "We often think of latency as having three components. First, there is\nthe speed-of-light propagation delay. This delay occurs because nothing,\nincluding a bit on a wire, can travel faster than the speed of light. If\nyou know the distance between two points, you can calculate the\nspeed-of-light latency, although you have to be careful because light\ntravels across different media at different speeds: It travels at\n3.0 × 10\\ :sup:`8` m/s in a vacuum, 2.3 × 10\\ :sup:`8` m/s\nin a copper cable, and 2.0 × 10\\ :sup:`8` m/s in an optical fiber.\nSecond, there is the amount of time it takes to transmit a unit of data.\nThis is a function of the network bandwidth and the size of the packet in\nwhich the data is carried. Third, there may be queuing delays inside the\nnetwork, since packet switches generally need to store packets for some\ntime before forwarding them on an outbound link. So, we could define the\ntotal latency as\n",
+          "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst#L94-L107"
+        },
+        {
+          "intervention_id": "26d185dc-29b4-4488-a64b-fd8aa8759472",
+          "passage_id": "P08",
+          "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+          "text": "::\n\n   Latency = Propagation + Transmit + Queue\n   Propagation =  Distance/SpeedOfLight\n   Transmit = Size/Bandwidth\n\nwhere ``Distance`` is the length of the wire over which the data will\ntravel, ``SpeedOfLight`` is the effective speed of light over that wire,\n``Size`` is the size of the packet, and ``Bandwidth`` is the bandwidth\nat which the packet is transmitted. Note that if the message contains\nonly one bit and we are talking about a single link (as opposed to a\nwhole network), then the ``Transmit`` and ``Queue`` terms are not\nrelevant, and latency corresponds to the propagation delay only.\n",
+          "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst#L109-L121"
+        },
+        {
+          "intervention_id": "26d185dc-29b4-4488-a64b-fd8aa8759472",
+          "passage_id": "P12",
+          "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+          "text": "Note that throughout this book we use the terms *latency* and *delay* in\na generic way to denote how long it takes to perform a particular\nfunction, such as delivering a message or moving an object. When we are\nreferring to the specific amount of time it takes a signal to propagate\nfrom one end of a link to another, we use the term *propagation delay*.\nAlso, we make it clear in the context of the discussion whether we are\nreferring to the one-way latency or the round-trip time.\n",
+          "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst#L169-L175"
+        },
+        {
+          "intervention_id": "e54dcc71-3845-4a6b-b67f-855b944fcbcd",
+          "passage_id": "P07",
+          "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+          "text": "We often think of latency as having three components. First, there is\nthe speed-of-light propagation delay. This delay occurs because nothing,\nincluding a bit on a wire, can travel faster than the speed of light. If\nyou know the distance between two points, you can calculate the\nspeed-of-light latency, although you have to be careful because light\ntravels across different media at different speeds: It travels at\n3.0 × 10\\ :sup:`8` m/s in a vacuum, 2.3 × 10\\ :sup:`8` m/s\nin a copper cable, and 2.0 × 10\\ :sup:`8` m/s in an optical fiber.\nSecond, there is the amount of time it takes to transmit a unit of data.\nThis is a function of the network bandwidth and the size of the packet in\nwhich the data is carried. Third, there may be queuing delays inside the\nnetwork, since packet switches generally need to store packets for some\ntime before forwarding them on an outbound link. So, we could define the\ntotal latency as\n",
+          "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst#L94-L107"
+        },
+        {
+          "intervention_id": "e54dcc71-3845-4a6b-b67f-855b944fcbcd",
+          "passage_id": "P08",
+          "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+          "text": "::\n\n   Latency = Propagation + Transmit + Queue\n   Propagation =  Distance/SpeedOfLight\n   Transmit = Size/Bandwidth\n\nwhere ``Distance`` is the length of the wire over which the data will\ntravel, ``SpeedOfLight`` is the effective speed of light over that wire,\n``Size`` is the size of the packet, and ``Bandwidth`` is the bandwidth\nat which the packet is transmitted. Note that if the message contains\nonly one bit and we are talking about a single link (as opposed to a\nwhole network), then the ``Transmit`` and ``Queue`` terms are not\nrelevant, and latency corresponds to the propagation delay only.\n",
+          "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst#L109-L121"
+        },
+        {
+          "intervention_id": "e54dcc71-3845-4a6b-b67f-855b944fcbcd",
+          "passage_id": "P12",
+          "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+          "text": "Note that throughout this book we use the terms *latency* and *delay* in\na generic way to denote how long it takes to perform a particular\nfunction, such as delivering a message or moving an object. When we are\nreferring to the specific amount of time it takes a signal to propagate\nfrom one end of a link to another, we use the term *propagation delay*.\nAlso, we make it clear in the context of the discussion whether we are\nreferring to the one-way latency or the round-trip time.\n",
+          "url": "https://github.com/SystemsApproach/book/blob/5deec5e741e2b8c0bc44566108a24cb783c2c7de/foundation/performance.rst#L169-L175"
+        }
+      ]
+    }
+  }
+}

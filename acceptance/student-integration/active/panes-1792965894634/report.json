@@ -1,0 +1,135 @@
+{
+  "source": "c7bff74a4be9012599fa7c90074d462068fab446",
+  "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "runtime": "production",
+  "buildId": "qbmHrdDM-8fIAyrTY4f0T",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "cases": [
+    {
+      "name": "hidden reader and pane navigation make zero reading/answer writes; one composer and exact draft survive",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3431/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=43a64b63-c0d3-4d39-8a3e-5f7107303df7"
+    },
+    {
+      "name": "in-flight reading keeps delivery identity while hidden; exposure acknowledges exactly once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3431/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=bdd3ec8e-0b54-4684-b2c8-4778ec48bffc"
+    },
+    {
+      "name": "failed reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3431/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=f7b5ebc9-a6cc-4c63-9cac-1c719ab16520"
+    },
+    {
+      "name": "unknown reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3431/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=bd1eb34e-0a70-42eb-b6ec-bd23ef6ca911"
+    },
+    {
+      "name": "question disclosure hides delayed accepted help until explicit return without stealing focus or draft",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3431/study/assignments/53804e49-a0ad-433c-9bd7-d0c83520f402?tab=study&session=0376ddad-eef1-4a89-83fa-9820f4edc935"
+    },
+    {
+      "name": "accepted help arriving in hidden page neither acknowledges nor steals context focus",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3431/study/assignments/53804e49-a0ad-433c-9bd7-d0c83520f402?tab=study&session=b596657a-044d-45de-be8e-ef0ae572e744"
+    },
+    {
+      "name": "feedback loaded while page hidden is acknowledged only after return",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3431/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=74d71b11-e475-4621-b72a-0b9345b7fdd6#question-b159c8ea-9df1-4f68-bad9-75e92e800ace"
+    }
+  ],
+  "result": "RUNNING",
+  "requests": [
+    {
+      "url": "http://127.0.0.1:3431/api/tutoring/bdd3ec8e-0b54-4684-b2c8-4778ec48bffc/reading",
+      "body": {
+        "passage_id": "P07"
+      },
+      "at": 1792965898899
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/bdd3ec8e-0b54-4684-b2c8-4778ec48bffc/interventions/b68b7b21-f3d9-4a4f-b156-152c8a84fbe8",
+      "body": {},
+      "at": 1792965899472
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/tutoring/f7b5ebc9-a6cc-4c63-9cac-1c719ab16520/reading",
+      "body": {
+        "passage_id": "P07"
+      },
+      "at": 1792965900801
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/f7b5ebc9-a6cc-4c63-9cac-1c719ab16520/interventions/22822a58-939c-4f1f-8638-a6b90b9b8b0b",
+      "body": {},
+      "at": 1792965900845
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/f7b5ebc9-a6cc-4c63-9cac-1c719ab16520/interventions/22822a58-939c-4f1f-8638-a6b90b9b8b0b",
+      "body": {},
+      "at": 1792965901174
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/tutoring/bd1eb34e-0a70-42eb-b6ec-bd23ef6ca911/reading",
+      "body": {
+        "passage_id": "P07"
+      },
+      "at": 1792965901780
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/bd1eb34e-0a70-42eb-b6ec-bd23ef6ca911/interventions/8e19965e-9961-40d4-ad8e-8e5bc760739c",
+      "body": {},
+      "at": 1792965901837
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/bd1eb34e-0a70-42eb-b6ec-bd23ef6ca911/interventions/8e19965e-9961-40d4-ad8e-8e5bc760739c",
+      "body": {},
+      "at": 1792965902190
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/tutoring/0376ddad-eef1-4a89-83fa-9820f4edc935/conversation/display",
+      "body": {
+        "version": "r7-v1",
+        "request_id": "09eeb567-8572-457e-9303-934d400594df",
+        "session_id": "0376ddad-eef1-4a89-83fa-9820f4edc935",
+        "expected_revision": 0,
+        "accepted_event_id": "43320a1b-a15b-4195-be13-488b4fdd9c91",
+        "content_id": "4a747e2b-c1e0-4c27-b948-25c909d434ee"
+      },
+      "at": 1792965904273
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/tutoring/b596657a-044d-45de-be8e-ef0ae572e744/conversation/display",
+      "body": {
+        "version": "r7-v1",
+        "request_id": "1d3a24ed-57de-49b4-a5dd-c6c5e4b88574",
+        "session_id": "b596657a-044d-45de-be8e-ef0ae572e744",
+        "expected_revision": 0,
+        "accepted_event_id": "164c3496-b506-4c81-99cf-5ccc54745fa1",
+        "content_id": "0b588306-1107-416b-8d69-dfb51ae439e6"
+      },
+      "at": 1792965905876
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/tutoring/74d71b11-e475-4621-b72a-0b9345b7fdd6/reading",
+      "body": {
+        "passage_id": "P07"
+      },
+      "at": 1792965906989
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/74d71b11-e475-4621-b72a-0b9345b7fdd6/interventions/cfc7ea20-8e22-461f-b3a6-476fb0e58430",
+      "body": {},
+      "at": 1792965907048
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/74d71b11-e475-4621-b72a-0b9345b7fdd6/interventions/065b268c-c424-474a-8159-e91773391fbb",
+      "body": {},
+      "at": 1792965907829
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "source": "446bffe50d3964ee9022df0e788f80f085d06e6f",
+  "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "runtime": "production",
+  "buildId": "mZZKnEd2ExlMkhVdtEGS6",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "cases": [
+    {
+      "name": "hidden reader and pane navigation make zero reading/answer writes; one composer and exact draft survive",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=9bb5c032-6bc6-4bf7-abd6-d8fd271b6748"
+    },
+    {
+      "name": "in-flight reading keeps delivery identity while hidden; exposure acknowledges exactly once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=8d660209-2ab5-4497-a3a8-0f50785deca5"
+    },
+    {
+      "name": "failed reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=c07ac22e-5337-4361-934b-be5abd18b5b3"
+    },
+    {
+      "name": "unknown reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=d63beb16-113e-4ecf-a882-25a81d232460"
+    },
+    {
+      "name": "accepted help arriving in hidden page neither acknowledges nor steals context focus",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/1fb1e37e-bcf1-4e3e-b51d-f1cca8feb892?tab=study&session=72e5018f-bca6-42b2-af55-7bfa41382d94"
+    },
+    {
+      "name": "feedback loaded while page hidden is acknowledged only after return",
+      "status": "FAIL",
+      "error": "locator.click: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Refresh saved progress', exact: true })\u001b[22m\n\n    at C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-active\\LearningPlatform\\acceptance\\active-notebook\\panes.mjs:466:10\n    at async check (C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-active\\LearningPlatform\\acceptance\\active-notebook\\panes.mjs:127:5)\n    at async file:///C:/Users/sb128/.codex/worktrees/student-notebook-active/LearningPlatform/acceptance/active-notebook/panes.mjs:447:3",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=438cdcd3-c80a-4a9f-bf6f-37799aaeb2cf"
+    }
+  ],
+  "result": "FAIL",
+  "error": "locator.click: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Refresh saved progress', exact: true })\u001b[22m\n",
+  "diffAfterSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sourceUnchanged": true
+}
