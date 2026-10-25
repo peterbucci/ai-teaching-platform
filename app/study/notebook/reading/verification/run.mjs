@@ -338,6 +338,10 @@ async function main() {
       await capture(`reading-long-${width}.png`);
       await page.goto(`${base}/study/reading?fixture=pane`);
       await page
+        .locator('.fixture-reading[data-fixture-reader-active="false"]')
+        .waitFor({ state: "attached" });
+      check(`${width}: closed fixture supplies active=false`);
+      await page
         .getByLabel("Unsent answer")
         .fill("  My unfinished explanation\nkeeps its exact words.  ");
       const draft = await page.getByLabel("Unsent answer").inputValue();
@@ -347,6 +351,12 @@ async function main() {
       await page
         .getByRole("button", { name: "Return to question", exact: true })
         .waitFor();
+      check(
+        `${width}: exposed fixture supplies active=true`,
+        (await page
+          .locator(".fixture-reading")
+          .getAttribute("data-fixture-reader-active")) === "true",
+      );
       check(
         `${width}: exactly one composed reader`,
         (await page.locator(".lp-s-reader-refined").count()) === 1,
@@ -361,6 +371,12 @@ async function main() {
       await page
         .getByRole("button", { name: "Return to question", exact: true })
         .click();
+      check(
+        `${width}: return deactivates retained reader`,
+        (await page
+          .locator(".fixture-reading")
+          .getAttribute("data-fixture-reader-active")) === "false",
+      );
       check(
         `${width}: exact draft survives pane switch`,
         (await page.getByLabel("Unsent answer").inputValue()) === draft,

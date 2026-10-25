@@ -96,6 +96,23 @@ route for live session reading. Do not clear session context, invent receipts or
 patch the controller inside this package. An independently reported owner fix is
 not combined acceptance; it is not included in this branch.
 
+The owner has now published [visibility PR #132](https://github.com/peterbucci/ai-teaching-platform/pull/132)
+at `22990f2e47ea15b72af47245ea2d14da04f3e0b9`. Its required `StudentReader.active`
+input leaves N4's reader-slot contract unchanged. N7 must derive it from actual
+pane exposure, breakpoints and covering overlays; the reader additionally checks
+document visibility/focus and actual passage presentation. Preserve one instance
+within the same authorized scope and change its active signal with the visual
+switch. Re-key only when actor/assignment/session/source scope changes, as the
+reader-owner contract specifies. Do not set a hidden instance permanently active.
+
+N4's direct verification fixture now supplies `active: !pane || open` alongside
+its existing props, using a spread compatible with both reader versions. Its pane
+test exposes no covering overlays and makes the open reading visible at all tested
+widths; a production shell needs its own full exposure calculation. This is fixture
+compatibility, not a new production visibility owner. A read-only compiler overlay
+against the clean PR #132 checkout passed; no controller source was copied, changed
+or merged. See the verification report for the exact check and remaining gates.
+
 N1 owns the responsive grid: 268px rail / flexible page / 384px facing context at
 1280+, 372px facing context below 1280, and full-width reading replacing the visible
 question below 820. Keep the question/conversation/composer mounted and inaccessible

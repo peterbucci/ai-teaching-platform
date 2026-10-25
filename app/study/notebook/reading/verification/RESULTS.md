@@ -16,7 +16,7 @@ operation, application route change or merge was performed.
 - Full repository lint, route type generation, TypeScript and production Webpack
   build passed. N4 formatting and final diff checks passed. The build does not mount
   this isolated package into a production route or prove authenticated acceptance.
-- **95 component-browser assertions passed** at 1440×1000, 1024×768, 390×844 and
+- **107 component-browser assertions passed** at 1440×1000, 1024×768, 390×844 and
   320×844. The executed [runner](run.mjs) writes [browser-report.json](browser-report.json).
 - At every width: ready/loading/empty/unavailable/mismatched views have no horizontal
   document overflow; unresolved views do not mount the reader; exact source commit
@@ -28,6 +28,8 @@ operation, application route change or merge was performed.
 - The component fixture preserves exact unsent textarea text, one mounted reader,
   conversation markup and restored focus while switching its local reading pane.
   At 390/320 the reading replaces the visible question without unmounting it.
+  The updated fixture also checks `active=false` before opening, `active=true`
+  while exposed, and `active=false` after returning at every width.
 - Rendering, navigation and the hidden **session-free fixture** made zero writes.
   An explicit bookmark click made one fixture-only `PUT /api/study/reading/bookmarks`,
   rejected with 401. The existing bookmark error appeared while text remained visible.
@@ -38,6 +40,33 @@ The browser harness bundles the actual React components and existing standalone
 isolated loopback server. CSS module names are mapped for this fixture; selectors
 are retained. All external browser requests are blocked, including external fonts.
 These are component results, not signed-in browser/database evidence.
+
+### Reader-owner visibility compatibility follow-up
+
+[PR #132](https://github.com/peterbucci/ai-teaching-platform/pull/132) publishes
+the separate visibility-aware reader at `22990f2e47ea15b72af47245ea2d14da04f3e0b9`.
+GitHub metadata and its clean local checkout HEAD were verified. N4's direct fixture
+now supplies its required `active` input from fixture pane exposure. The fixture
+retains its session-free reading data and its existing source/return contracts.
+
+The latest N4 fixture, browser runner and compatibility checker pass focused lint,
+formatting and the current repository TypeScript check. A second, **type-only**
+compiler run overlays PR #132's reader, visibility helper and standalone callsite
+in memory; it passes with N4's fixture and existing repository inputs. No repository
+controller file is changed, copied or merged, and the owner source is not executed
+by that check. Reproduce with `N4_READER_CHECKOUT` pointing to the inspected clean
+PR #132 checkout, then run:
+
+```sh
+node app/study/notebook/reading/verification/check-reader-compatibility.mjs
+```
+
+The final 107-case browser run uses N4's pinned reader, checking the supplied
+activation signal rather than PR #132's real receipt behavior. PR #132's reported
+473 tests and 17 application/browser/database cases are separate owner evidence;
+they were not rerun or counted as N4 results. Combined N7 runtime acceptance is
+still required. This follow-up changes fixture/handoff files only; the production
+presentation, seven unit regressions and earlier build result remain unchanged.
 
 ## Final reference and visual review
 

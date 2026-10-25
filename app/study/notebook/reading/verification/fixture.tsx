@@ -26,6 +26,9 @@ function Fixture({ initial }: { initial: StudentReaderView }) {
     selectedPassageId:
       url.searchParams.get("passage") ?? initial.selectedPassageId,
   };
+  // PR #132 requires this owner signal. A spread keeps the fixture compatible
+  // with both the pinned N0 reader and that independently reviewed reader.
+  const readerProps = { view, returnToSession: false, active: !pane || open };
   const context = notebookReadingContext(view, false);
   const state: NotebookState<StudentReaderView> =
     scenario === "loading"
@@ -94,7 +97,11 @@ function Fixture({ initial }: { initial: StudentReaderView }) {
             Open contextual reading
           </button>
         </section>
-        <div className="fixture-reading" hidden={pane && !open}>
+        <div
+          className="fixture-reading"
+          hidden={pane && !open}
+          data-fixture-reader-active={readerProps.active}
+        >
           {pane && (
             <button
               className="pane-return"
@@ -118,7 +125,7 @@ function Fixture({ initial }: { initial: StudentReaderView }) {
           <NotebookReading
             state={state}
             context={{ status: "ready", data: suppliedContext }}
-            reader={<StudentReader view={view} returnToSession={false} />}
+            reader={<StudentReader {...readerProps} />}
           />
         </div>
       </div>
