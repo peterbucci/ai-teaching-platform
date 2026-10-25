@@ -658,6 +658,21 @@ concept titles/quote spans, and no facing reader. The frozen contract does not
 invent these fields. No production Notebook acceptance, merge or model call is
 claimed; provider-disabled test reports record zero paid calls.
 
+#### Published S2 handoff
+
+Verified [draft PR #143](https://github.com/peterbucci/ai-teaching-platform/pull/143)
+at `fa70d523972db9304d782e5f32363da4d4ba6ab9`, targeting N7's
+`codex/student-notebook-integration` at `d486fc029941567f81257d7b8717b1cb3dab09d4`.
+N0 checked the publication delta from reviewed application source `6aa2ce6`:
+acceptance artifacts/documentation only, with no changes under `app`, `lib` or
+`tests`. The source/build evidence pin above remains applicable.
+
+The committed [N6 handoff](https://github.com/peterbucci/ai-teaching-platform/blob/fa70d523972db9304d782e5f32363da4d4ba6ab9/acceptance/notebook-s2/N6_HANDOFF.md)
+is the downstream review entry point, with comparison captures and retained
+failed runs. Publication does not change the decision: scoped implementation GO,
+default enablement/release NO-GO pending independent acceptance. Both PRs remain
+draft and unmerged; no production acceptance is implied.
+
 ## Explicit PR #113 handoff
 
 Verified open draft head: `71898a8a72908577065bcc7c7fb9035d6cc29ebf`.
