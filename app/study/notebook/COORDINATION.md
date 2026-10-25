@@ -126,12 +126,17 @@ Those leaves are still evolving; this is a handoff, not acceptance of their head
   dashboard schema or backend projection is required by this export. Its leaf
   verification is separate from N0's checks and combined acceptance.
 - **N5 / #126:** preserve approved wording and approval-only review navigation;
-  keep its documented safe-card mapping to `NotebookReviewCard`. Align typography,
-  badges and source/result presentation to Main under `reviews/**`. Loading,
+  keep its documented safe-card mapping to `NotebookReviewCard`. Final alignment
+  is now published at `09b2a7399b384c588606277a8766f58c82868d32`
+  (head/draft status verified): typography, badges, result markers, 819px/container
+  stacking and controller-style isolation remain inside `reviews/**`. Loading,
   unknown, submitted, pending, failed and accepted states must remain distinct;
   never infer follow-up completion from `displayed_at`. The owner reports no
   shared-contract incompatibility. Do not duplicate the live controller's feedback
-  or expose its explanation in a home card. Update its final-export reference.
+  or expose its explanation in a home card. Its final-export reference is updated.
+  See its `verification/FINAL_VERIFICATION.md` for leaf evidence and the
+  prototype's phone overflow observation. N5 fixture checks are not combined
+  controller/recovery or authenticated cross-role acceptance; those remain open.
 
 ### Unresolved ambiguities and explicit exclusions
 
