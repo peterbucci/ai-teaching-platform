@@ -307,7 +307,6 @@
   margin-top: 16px;
 }
 .la-sequence {
-  counter-reset: step;
   list-style: none;
   padding: 0;
   margin: 20px 0;
@@ -320,8 +319,7 @@
   border-bottom: 1px solid #e1e9e4;
 }
 .la-sequence > li::before {
-  counter-increment: step;
-  content: counter(step);
+  content: "•";
   width: 26px;
   height: 26px;
   border-radius: 50%;
