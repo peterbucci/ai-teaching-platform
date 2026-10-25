@@ -1,0 +1,62 @@
+[
+  {
+    "area": "Whole-workspace priorities",
+    "prototype": "Whole course; 3 active assignments across 3 sections, plus 1 inactive.",
+    "application": "All teacher-authorized assignments, including multiple owned classes. Selected assignment on return never narrows the Overview.",
+    "assessment": "Structure implemented; teacher authority is narrower than the fictional course. Three application assignments vs four prototype assignments is a fixture difference."
+  },
+  {
+    "area": "Teaching decisions",
+    "prototype": "Named concern hypotheses, repeated/contrary evidence, draft/delivery/follow-up status.",
+    "application": "Existing teachingPriorities metrics, exact original response actions; separate approved and delivered workflow rows. Missing work stays separate from assessed reasoning.",
+    "assessment": "Bounded deviation: concept-level review prompts and deterministic count ordering, not named pattern hypotheses or repeat/contrary ranking. No automatic link between a concept concern and a saved draft."
+  },
+  {
+    "area": "Assignment rail",
+    "prototype": "Active/inactive assignments, participation, evaluation summaries; open assignment.",
+    "application": "All authorized titles open their own review. Progress is direct; disclosure holds exact fixed version and Evidence/Interventions links. Inactive rows explicitly say students cannot open them.",
+    "assessment": "Implemented navigation and status. Rail evaluation subtotals omitted to reduce density; checks remain in the main queue. Exact version is available without dominating the rail."
+  },
+  {
+    "area": "Available teaching work",
+    "prototype": "Course navigation and resume pathways.",
+    "application": "Prepare lesson, lesson library and assignment review links; jump links near the first decision.",
+    "assessment": "Implemented. Available-work section is requested scope, not a literal extra panel in the supplied prototype Overview."
+  },
+  {
+    "area": "Resume lesson and intervention",
+    "prototype": "Private intervention, two lesson drafts, and inactive assignment review.",
+    "application": "Existing private intervention and unfinished current lesson versions resume exact saved identity/editor step; published current versions and dismissed/approved/delivered interventions excluded from unfinished list.",
+    "assessment": "Implemented for saved server work. Number/titles of drafts differ by fixture. Inactive work is reviewed through the rail. Browser-only unsaved recovery is not indexed."
+  },
+  {
+    "area": "Recent activity",
+    "prototype": "No distinct recent-activity section in this supplied Overview.",
+    "application": "Five latest saved submitted answers across authorized assignments, exact response links and evidence origin.",
+    "assessment": "Implemented requested extension. Not a teacher-action audit trail and not inferred student behavior."
+  },
+  {
+    "area": "Empty, loading, error",
+    "prototype": "Empty priority group for a selected section; prototype has no real service failures.",
+    "application": "Empty teacher and filtered evidence tested; foreign/missing assignment rejected; failed pinned record stays visible with counts excluded. Page-local loading and overall-unavailable fallback exist.",
+    "assessment": "Empty and partial failure browser checks pass. Loading probe timed out before document commit; visible loading fallback remains unverified. Whole-database outage not tested."
+  },
+  {
+    "area": "Desktop organization",
+    "prototype": "Decision list left, assignments and unfinished work right.",
+    "application": "Same organization at 1440 and 1024. Shared shell unchanged. Repeated cautions consolidated; identifiers disclosed on demand.",
+    "assessment": "Implemented structure, not pixel identity. Baseline shared breadcrumb/context band adds height; primary action still visible without scrolling."
+  },
+  {
+    "area": "Mobile and native zoom",
+    "prototype": "Single column at compact widths; priority actions before lower rail.",
+    "application": "Single column at 390 and 320; early Resume/Assignments/Activity jumps. Short-height spacing at real 200% keeps first action clear of fixed navigation.",
+    "assessment": "Four viewport checks and native 200% pass. Native Chrome content viewport was 712×452 CSS px at DPR 2 (100% was 1424×905 at DPR 1)."
+  },
+  {
+    "area": "Filtering and returns",
+    "prototype": "Section filter chips; context-specific decisions and navigation.",
+    "application": "Existing evidence-origin filter; all authorized assignments remain visible. Exact assignment/origin/attempt/session/evaluation and returnTo=desk on evidence links.",
+    "assessment": "Section chips are a remaining interaction deviation, not a fixture difference. Agent K owns shared return behavior; browser Back/Forward/reload and generated contexts verified here."
+  }
+]

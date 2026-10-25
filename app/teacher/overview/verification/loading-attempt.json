@@ -1,0 +1,7 @@
+{
+  "status": "browser loading fallback not verified",
+  "method": "Temporarily hold an ACCESS EXCLUSIVE lock on lessons in the isolated overview_f database, then navigate to /teacher and wait for the Suspense fallback.",
+  "observed": "page.goto: Timeout 30000ms exceeded while waiting until commit. No loading fallback was observed.",
+  "cleanup": "The finally block rolled back the lock and released the connection. Subsequent navigation and final table hashes verify recovery.",
+  "scope": "A page-local Suspense fallback exists in source; this probe does not establish its visible behavior while shared route reads are blocked. A whole-database outage was not tested."
+}

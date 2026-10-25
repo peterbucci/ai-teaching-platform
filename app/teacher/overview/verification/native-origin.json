@@ -1,0 +1,29 @@
+{
+  "httpStatus": 200,
+  "debugPort": 9516,
+  "initial": {
+    "url": "http://127.0.0.1:3516/teacher",
+    "title": "Learning Pulse | PEAAII Hackathon",
+    "width": 1424,
+    "height": 905,
+    "dpr": 1,
+    "assignments": 3
+  },
+  "targets": [
+    {
+      "type": "page",
+      "url": "http://127.0.0.1:3516/teacher",
+      "title": "Learning Pulse | PEAAII Hackathon"
+    },
+    {
+      "type": "browser_ui",
+      "url": "chrome://omnibox-popup.top-chrome/",
+      "title": "Omnibox Popup"
+    },
+    {
+      "type": "browser_ui",
+      "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html",
+      "title": "Omnibox Popup"
+    }
+  ]
+}
