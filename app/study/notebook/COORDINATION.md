@@ -583,6 +583,31 @@ Visual comparison and independent combined N6 acceptance, including applicable
 parity, production acceptance or merge approval is implied. Later application
 changes require review; helper-only evidence updates do not change this source pin.
 
+#### S2 presentation correction review
+
+**GO: extend the scoped implementation handoff to
+`e18b833d3494595d775936f21df5550bca3d8919`.** Its application delta from the
+approved `1bfaa34` touches only the recorded-history view, saved-page presentation
+and their scoped CSS. Adapter, loader, route and exact-text authority are unchanged.
+
+N0 found two regressions in intermediate `c553774`: desktop/tablet stale notices
+were placed below the entire saved page, and mobile CSS hid origin/coverage.
+Both are corrected at this pin. N0 inspected the CSS, executable assertions and
+S2 report `recorded-1792960114231/results.json`, pinned to this source and matching
+build `bCoFJwgJhZmBoP14jAXCP`, plus the 1024px and 320px stale-page screenshots.
+The notice appears before saved evidence and mobile origin/coverage stays visible.
+
+S2's browser assertions cover 1440/1024/390/320 widths with an explicitly injected
+409 then failed replacement GET: exactly two reads, preserved original text,
+no append, visible stale notice, and successful explicit refresh. This injected
+transport case is separate from the passing real PostgreSQL display-only
+snapshot-conflict test. N0 inspected this evidence; it did not rerun the browser
+suite. No full visual-parity approval is implied by these two screenshot checks.
+
+Default enablement/release remains **NO-GO**. Rebuilt fallback/clipboard evidence
+and combined N6/#113/reader acceptance remain separate gates. No shared contract,
+existing controller or backend change is authorized by this presentation review.
+
 ## Explicit PR #113 handoff
 
 Verified open draft head: `71898a8a72908577065bcc7c7fb9035d6cc29ebf`.
