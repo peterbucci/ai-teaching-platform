@@ -67,13 +67,17 @@ try {
   const overviewPath = `/teacher?assignment=${DEMO_IDS.assignmentId}`;
   const insightsPath = `/teacher/insights?assignment=${DEMO_IDS.assignmentId}`;
   const studentsPath = `/teacher/students?assignment=${DEMO_IDS.assignmentId}`;
+  const deniedEvidence = [
+    "Original student response",
+    "What needs your attention",
+    "Possible reasoning patterns",
+    "Class directory",
+    "roster-table",
+    "roster-answer",
+    "Every saved session",
+  ];
   function noPrivateEvidence(html: string) {
-    for (const text of [
-      "Original student response",
-      "What needs your attention",
-      "Possible reasoning patterns",
-      "Class directory",
-    ])
+    for (const text of deniedEvidence)
       assert.ok(!html.includes(text), `Denied page exposed ${text}`);
   }
   async function deniedPage(url: string) {
@@ -138,6 +142,13 @@ try {
     intent: "initial_retrieval",
   });
   const answer = question.rubric.answer_guidance;
+  const escapedAnswer = answer
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#x27;");
+  deniedEvidence.push(answer, escapedAnswer);
   const submission = {
     attempt_id: attempt.id,
     submission_key: randomUUID(),
@@ -149,8 +160,9 @@ try {
     200,
   );
   const pending = await metrics();
+  const evaluationId = randomUUID();
   await recordEvaluation(access, session.id, {
-    id: randomUUID(),
+    id: evaluationId,
     attempt_id: attempt.id,
     validation_status: "accepted",
     evaluator: {
@@ -208,12 +220,6 @@ try {
   const detail = await request(detailPath, teacher);
   assert.equal(detail.status, 200);
   const markup = await detail.text();
-  const escapedAnswer = answer
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#x27;");
   assert.ok(
     markup.includes(escapedAnswer),
     "Teacher detail omitted the exact original answer",
@@ -250,17 +256,89 @@ try {
     evidenceMarkup.includes(detailPath),
     "Evidence view omitted the full-session drill-down",
   );
-  for (const [pagePath, name] of [
-    [insightsPath, "learning insights"],
-    [studentsPath, "student directory"],
-  ]) {
-    const page = await request(pagePath, teacher);
-    assert.equal(page.status, 200);
-    assert.ok(
-      (await page.text()).includes(detailPath),
-      `Refreshed ${name} omitted new evidence link`,
+  const insights = await request(insightsPath, teacher);
+  assert.equal(insights.status, 200);
+  assert.ok(
+    (await insights.text()).includes(detailPath),
+    "Refreshed learning insights omitted new evidence link",
+  );
+  // The v2.2 overview links student-by-concept trails, not individual sessions.
+  // Follow emitted links and require this exact new attempt in the cross-session
+  // log; an older response with identical text must not satisfy this regression.
+  const roster = await request(studentsPath, teacher);
+  assert.equal(roster.status, 200);
+  const workLogLink = [...(await roster.text()).matchAll(/href="([^"]+)"/g)]
+    .map((match) => new URL(match[1].replaceAll("&amp;", "&"), base))
+    .find(
+      (url) =>
+        url.pathname === "/teacher/students" &&
+        url.searchParams.get("assignment") === DEMO_IDS.assignmentId &&
+        url.searchParams.get("student") === actor.profileId &&
+        url.searchParams.get("concept") === "bandwidth_throughput",
     );
-  }
+  assert.ok(
+    workLogLink,
+    "Refreshed Roster omitted the student's concept trail",
+  );
+  assert.equal(workLogLink.origin, new URL(base).origin);
+  const workLogPath = workLogLink.pathname + workLogLink.search;
+  await deniedPage(workLogPath);
+  await anonymousDeniedPage(workLogPath);
+  const workLog = await request(workLogPath, teacher);
+  assert.equal(workLog.status, 200);
+  const responseCard = (await workLog.text()).match(
+    new RegExp(
+      `<article\\b[^>]*id="roster-attempt-${attempt.id}"[^>]*>([\\s\\S]*?)</article>`,
+    ),
+  )?.[1];
+  assert.ok(responseCard, "Refreshed work log omitted the exact new attempt");
+  assert.ok(
+    responseCard.includes(escapedAnswer),
+    "Work log omitted the exact original answer",
+  );
+  assert.ok(
+    responseCard.includes(evaluationId),
+    "Work log omitted the accepted evaluation identity",
+  );
+  assert.ok(
+    responseCard.includes(question.content_ref.source_commit),
+    "Work log omitted the exact content version",
+  );
+  const sessionLink = [...responseCard.matchAll(/href="([^"]+)"/g)]
+    .map((match) => new URL(match[1].replaceAll("&amp;", "&"), base))
+    .find((url) => url.pathname === detailPath);
+  assert.ok(
+    sessionLink,
+    "New work-log response omitted its exact session link",
+  );
+  assert.equal(sessionLink.origin, new URL(base).origin);
+  for (const [key, value] of Object.entries({
+    assignment: DEMO_IDS.assignmentId,
+    student: actor.profileId,
+    concept: "bandwidth_throughput",
+    origin: "all",
+    returnTo: "students",
+    participation: "all",
+    rosterPane: "main",
+    session: session.id,
+    attempt: attempt.id,
+    evaluation: evaluationId,
+  }))
+    assert.equal(
+      sessionLink.searchParams.get(key),
+      value,
+      `Roster session link lost ${key}`,
+    );
+  assert.equal(sessionLink.hash, `#attempt-${attempt.id}`);
+  const linkedSessionPath = sessionLink.pathname + sessionLink.search;
+  await deniedPage(linkedSessionPath);
+  await anonymousDeniedPage(linkedSessionPath);
+  const linkedSession = await request(linkedSessionPath, teacher);
+  assert.equal(linkedSession.status, 200);
+  assert.ok(
+    (await linkedSession.text()).includes(escapedAnswer),
+    "Roster session link did not expose the exact original answer to its teacher",
+  );
   const concept = (m: typeof after) =>
     m.concepts.find((c) => c.concept_id === "bandwidth_throughput")!;
   assert.equal(
@@ -306,7 +384,10 @@ try {
         "unrelated concepts unchanged",
         "duplicate answer unchanged",
         "origin filtering",
-        "Teaching Desk links the exact new Evidence response and full session; learning insights and student directory retain drill-down",
+        "Teaching Desk links the exact new Evidence response and full session; learning insights retains drill-down",
+        "Roster concept trail discovers the exact new work-log attempt, original answer, accepted evaluation and content version",
+        "work-log session link preserves exact identities and the shared Roster return contract",
+        "student and anonymous denied on discovered work-log and exact-session links without leaking original response text",
         "exact response drill-down",
         "student/anonymous/unrelated-owner page and projection boundaries",
       ],
