@@ -81,7 +81,8 @@ export async function requestEvaluation(input: {
   try {
     const client = new OpenAI({
       apiKey,
-      baseURL: "https://api.openai.com/v1",
+      baseURL:
+      process.env.OPENAI_BASE_URL?.trim() || "https://api.openai.com/v1",
       timeout: 45_000,
       maxRetries: 0,
       // Do not let SDK debugging expose student text or credentials through logs.

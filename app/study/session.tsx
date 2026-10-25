@@ -298,16 +298,22 @@ export function StudySession({
   async function evaluate(retry = false) {
     if (!view || !last) return;
     await perform(async () => {
-      setView(
-        TutorViewSchema.parse(
-          await request(`/api/tutoring/${view.session.id}`, {
+      const isFictionalLearnerTurn = last.prompt_text.startsWith(
+        "Fictional learner (AI): ",
+      );
+      const useTeachBackRoute = teachBack && !isFictionalLearnerTurn;
+      const evaluated = TutorViewSchema.parse(
+        await request(
+          `/api/tutoring/${view.session.id}${useTeachBackRoute ? "/teach-back" : ""}`,
+          {
             attempt_id: last.id,
             ...(retry && view.progress.failed_evaluation_id
               ? { retry_of: view.progress.failed_evaluation_id }
               : {}),
-          }),
+          },
         ),
       );
+      setView(evaluated);
     });
   }
   async function startNewSession() {
@@ -348,11 +354,16 @@ export function StudySession({
       setDraft("");
       submission.current = null;
       setLocked(false);
+      const isFictionalLearnerTurn = last.prompt_text.startsWith(
+        "Fictional learner (AI): ",
+      );
+      const useTeachBackRoute = teachBack && !isFictionalLearnerTurn;
       setView(
         TutorViewSchema.parse(
-          await request(`/api/tutoring/${view.session.id}`, {
-            attempt_id: last.id,
-          }),
+          await request(
+            `/api/tutoring/${view.session.id}${useTeachBackRoute ? "/teach-back" : ""}`,
+            { attempt_id: last.id },
+          ),
         ),
       );
     });
@@ -458,7 +469,9 @@ export function StudySession({
                     <span className="lp-tutor-mark">
                       <Icon name="pulse" />
                     </span>
-                    Learning Pulse
+                    {attempt.prompt_text.startsWith("Fictional learner (AI): ")
+                      ? "Fictional learner (AI)"
+                      : "Learning Pulse"}
                   </div>
                   <div className="lp-question">
                     <h2
@@ -466,7 +479,9 @@ export function StudySession({
                       ref={attempt.id === lastId ? currentStep : undefined}
                       tabIndex={-1}
                     >
-                      {attempt.intent === "diagnostic_followup"
+                      {attempt.prompt_text.startsWith("Fictional learner (AI): ")
+                        ? "The fictional learner asks"
+                        : attempt.intent === "diagnostic_followup"
                         ? "Let’s check your reasoning"
                         : attempt.intent === "immediate_retest"
                           ? "Try a fresh question"
@@ -488,6 +503,40 @@ export function StudySession({
                       </p>
                     </div>
                   )}
+                  {teachBack && attempt.id === lastId && (
+                    <aside className="lp-notice mb-4" aria-label="Teach-back mode">
+                      <strong>Teach-back mode · fictional AI learner</strong>
+                      <p className="mt-1">
+                        The AI is role-playing a fictional learner. Explain the
+                        approved concept in your own words using the assigned
+                        reading. If your explanation leaves a gap, the learner
+                        will ask one question and wait for your reply.
+                      </p>
+                      <details className="mt-3">
+                        <summary className="cursor-pointer font-semibold">
+                          Optional flawed-explanation exercise
+                        </summary>
+                        <p className="mt-2">
+                          <strong>Exercise — intentionally flawed:</strong> “A
+                          longer cable increases transmission delay because each
+                          bit takes longer to travel along it.”
+                        </p>
+                        <details className="mt-2">
+                          <summary className="cursor-pointer font-semibold">
+                            Show correction and debrief
+                          </summary>
+                          <p className="mt-2">
+                            <strong>Correction:</strong> Transmission delay is
+                            the time to put a packet’s bits onto the link and
+                            depends on packet size and link rate. Cable length
+                            affects propagation delay, the time for the signal
+                            to travel. The assigned reading treats these as
+                            separate components.
+                          </p>
+                        </details>
+                      </details>
+                    </aside>
+                  )}
                   {view.interventions
                     .filter(
                       (help) =>
@@ -500,7 +549,9 @@ export function StudySession({
                           <span className="lp-tutor-mark">
                             <Icon name="pulse" />
                           </span>
-                          Learning Pulse
+                          {help.text_shown.startsWith("Fictional learner (AI): ")
+                            ? "Fictional learner (AI)"
+                            : "Learning Pulse"}
                         </div>
                         <div className="lp-question">
                           <h2
@@ -554,60 +605,60 @@ export function StudySession({
             </ol>
             {view.progress.phase === "answer" && (
               <>
-                <label className="mb-3 flex items-center gap-2 font-semibold">
-                  <input
-                    type="checkbox"
-                    checked={teachBack}
-                    disabled={busy || Boolean(pendingReading)}
-                    onChange={(event) => setTeachBack(event.target.checked)}
-                  />
-                  Practice explaining to a fictional learner (AI)
+              <label className="mb-3 flex items-center gap-2 font-semibold">
+                <input
+                  type="checkbox"
+                  checked={teachBack}
+                  disabled={busy || Boolean(pendingReading)}
+                  onChange={(event) => setTeachBack(event.target.checked)}
+                />
+                Practice explaining to a fictional learner (AI)
+              </label>
+              <form onSubmit={(e) => void answer(e)} className="lp-composer">
+                <label htmlFor="response" className="block font-semibold">
+                  Your answer and reasoning
                 </label>
-                <form onSubmit={(e) => void answer(e)} className="lp-composer">
-                  <label htmlFor="response" className="block font-semibold">
-                    Your answer and reasoning
-                  </label>
-                  <textarea
-                    id="response"
-                    value={draft}
-                    onChange={(e) => {
-                      setDraft(e.target.value);
-                      if (last && !submission.current)
-                        saveDraft(last.id, {
-                          key: crypto.randomUUID(),
-                          response: e.target.value,
-                        });
-                    }}
-                    maxLength={12000}
-                    required
-                    disabled={busy || locked || Boolean(pendingReading)}
-                    rows={3}
-                    placeholder="Write what you think, and why…"
-                    className="lp-input"
-                    aria-describedby="response-help"
-                  />
-                  <div className="lp-composer-footer">
-                    <p id="response-help">
-                      It’s okay to be unsure. Explain what you’re thinking.
-                    </p>
-                    <div className="lp-composer-actions">
-                      {refreshButton}
-                      <button
-                        className={button}
-                        disabled={
-                          busy || Boolean(pendingReading) || !draft.trim()
-                        }
-                      >
-                        {busy && !refreshing
-                          ? "Checking…"
-                          : locked
-                            ? "Retry sending saved answer"
-                            : "Submit answer"}
-                        <Icon name="send" />
-                      </button>
-                    </div>
+                <textarea
+                  id="response"
+                  value={draft}
+                  onChange={(e) => {
+                    setDraft(e.target.value);
+                    if (last && !submission.current)
+                      saveDraft(last.id, {
+                        key: crypto.randomUUID(),
+                        response: e.target.value,
+                      });
+                  }}
+                  maxLength={12000}
+                  required
+                  disabled={busy || locked || Boolean(pendingReading)}
+                  rows={3}
+                  placeholder="Write what you think, and why…"
+                  className="lp-input"
+                  aria-describedby="response-help"
+                />
+                <div className="lp-composer-footer">
+                  <p id="response-help">
+                    It’s okay to be unsure. Explain what you’re thinking.
+                  </p>
+                  <div className="lp-composer-actions">
+                    {refreshButton}
+                    <button
+                      className={button}
+                      disabled={
+                        busy || Boolean(pendingReading) || !draft.trim()
+                      }
+                    >
+                      {busy && !refreshing
+                        ? "Checking…"
+                        : locked
+                          ? "Retry sending saved answer"
+                          : "Submit answer"}
+                      <Icon name="send" />
+                    </button>
                   </div>
-                </form>
+                </div>
+              </form>
               </>
             )}
           </div>
