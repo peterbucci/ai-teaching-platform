@@ -29,8 +29,28 @@ version label; the app uses its real immutable curated content hash. These
 counts and states are deliberately not edited to mimic the prototype.
 
 The manifest records image hashes and the exact source-file hashes used for
-the corrected shell. Browser: Edge 156.0.4314.42. No provider was enabled.
+the capture commit, `dd97767`. Browser: Edge 156.0.4314.42. No provider was enabled.
 The dev-server indicator in app captures is not product navigation.
+
+### Post-capture compatibility corrections
+
+Coordination review then identified that a supplied server snapshot must replace
+the complete URL context, including deliberate omissions. A focused regression
+now proves that unmatched student/session/attempt/evaluation/search fields do
+not reappear in shell links. Pages without a supplied context still use URLs.
+The related modal correction dismisses the workspace switcher when a page-owned
+guard blocks a link, allowing the page's recovery feedback to receive focus.
+Neither correction changes layout or screenshot pixels. The manifest separately
+records the post-capture source hashes; the original capture hashes are retained.
+
+The first remote CI run for `dd97767` passed the production build, unit/static
+checks and intervention-approval job. Its quality job then failed an old HTTP
+assertion that searched for the removed sidebar label `Class overview`.
+That assertion now checks the unchanged page heading `Teaching Desk`; all
+authorization, uncertainty and evidence-preservation assertions are retained.
+See [PR #120's checks](https://github.com/peterbucci/ai-teaching-platform/pull/120/checks)
+for the current remote result after these corrections. This report distinguishes
+the captured browser evidence from the later focused fixes.
 
 ## Geometry and visual findings
 
@@ -58,8 +78,8 @@ explicit integration gap.
 
 ## Executed checks
 
-- Full deterministic suite: **522 passed**. The 9 dedicated shell/pane tests
-  cover invalid or duplicate assignment context, server-resolved scope,
+- Full deterministic suite after the context correction: **523 passed**. The 10 dedicated shell/pane tests
+  cover invalid or duplicate assignment context, complete server-resolved scope,
   cross-assignment clearing, safe links, destination mapping and pane URLs.
 - Full ESLint, formatting and TypeScript checks passed during implementation.
   Final focused tests and targeted ESLint passed after the pane history fix.

@@ -25,7 +25,11 @@ projection to avoid repeated content review reads.
 Assignment URLs remain selection inputs, not authorization. Every destination
 retains its existing authenticated loader. A page's server-resolved `context`
 takes precedence over stale URL context, including saved intervention scope.
-An explicit invalid or unknown assignment never silently selects the first.
+The supplied `context` is a complete authoritative selection, not a partial
+patch: fields omitted from it stay cleared rather than falling back to URL
+student/session/attempt/evaluation/search values. Only pages that omit `context`
+use the URL selection. An explicit invalid or unknown assignment never silently
+selects the first.
 Missing context uses the same ordered default as the existing teacher loader.
 No client course store, copied lesson resolver or model call is introduced.
 
@@ -114,6 +118,15 @@ actor/revision/request contracts. The shell does not promise to save unsaved
 forms or replay mutations. The pane component preserves mounts; moving to a
 different page still uses that editor's existing recovery. Consumers must verify
 their own unsaved-work journey when adopting it.
+
+The switcher dismisses an ordinary navigation link during native window capture
+without cancelling, replaying or routing the click. Its listener is installed in
+a layout effect before the existing page guards' passive effects. This releases
+modal inertness before the page guard presents and focuses recovery feedback;
+navigation dismissal does not refocus the switcher opener. Escape/backdrop/close
+still restore the opener. Keep page guards in passive effects and let them own
+their visible recovery target. Preinstalled or layout-effect guards need explicit
+coordination rather than assuming the shell can recover an unknown focus target.
 
 ## Ownership and integration
 

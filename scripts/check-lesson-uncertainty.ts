@@ -617,7 +617,7 @@ try {
       assert.match(
         text,
         page === "/teacher"
-          ? /Class overview/
+          ? /Teaching Desk/
           : /Unclear or uncategorized reasoning/,
       );
       if (page === "/teacher/insights") {

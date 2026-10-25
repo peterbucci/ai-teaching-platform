@@ -98,6 +98,52 @@ test("switching assignment starts Progress with only the new scope and origin", 
     );
 });
 
+test("authoritative snapshot omissions clear stale URL response identities and search", () => {
+  // Saved intervention snapshots intentionally omit identities that were not
+  // matched to their persisted evidence; omissions are not URL fallback slots.
+  const saved = {
+    assignment: secondId,
+    origin: "synthetic_fixture" as const,
+    concept: "latency",
+    seedAttempt: [attemptId],
+    returnTo: "evidence" as const,
+  };
+  const selected = resolveWorkspaceSelection(
+    {
+      assignment: firstId,
+      origin: "live_demo",
+      concept: "unrelated-concept",
+      misconception: "unrelated-pattern",
+      student: "unrelated-student",
+      session: sessionId,
+      attempt: unknownId,
+      evaluation: firstId,
+      q: "unrelated search",
+      seedAttempt: [unknownId],
+    },
+    saved,
+    assignments,
+  );
+  assert.equal(selected.assignment?.id, secondId);
+  assert.equal(selected.context.concept, "latency");
+  assert.equal(selected.context.origin, "synthetic_fixture");
+  assert.deepEqual(selected.context.seedAttempt, [attemptId]);
+  const navigation = query(
+    workspaceNavigationHref("/teacher/evidence", selected.context),
+  );
+  for (const field of [
+    "misconception",
+    "student",
+    "session",
+    "attempt",
+    "evaluation",
+    "q",
+  ] as const) {
+    assert.equal(selected.context[field], undefined, field);
+    assert.equal(navigation.has(field), false, field);
+  }
+});
+
 test("shared navigation preserves investigation scope while removing mutation and intervention seed state", () => {
   const context = {
     ...parseTeacherWorkspaceContext({

@@ -35,9 +35,10 @@ export function resolveWorkspaceSelection(
   context: TeacherWorkspaceContext | undefined,
   assignments: WorkspaceAssignment[],
 ) {
-  // A page's server-resolved context wins over a stale URL (e.g. a saved draft's
-  // actual assignment). An explicit unknown ID never becomes the first item.
-  const parsed = parseTeacherWorkspaceContext({ ...params, ...context });
+  // A page's server-resolved context is the complete selection, including fields
+  // deliberately omitted from a saved snapshot. Never refill those from a stale
+  // URL. An explicit unknown assignment never becomes the first item.
+  const parsed = parseTeacherWorkspaceContext(context ?? params);
   const assignment = assignments.find(
     (item) => item.id === (parsed.assignment ?? assignments[0]?.id),
   );

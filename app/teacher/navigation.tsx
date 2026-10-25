@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import {
+  useLayoutEffect,
   useRef,
   useSyncExternalStore,
   type ReactNode,
-  type MouseEvent,
+  type MouseEvent as ReactMouseEvent,
 } from "react";
 import type {
   TeacherWorkspaceContext,
@@ -68,6 +69,44 @@ export function TeacherWorkspace({
   const assignments = useWorkspaceAssignments();
   const switcher = useRef<HTMLDialogElement>(null);
   const opener = useRef<HTMLElement | null>(null);
+  const restoreSwitcherFocus = useRef(true);
+
+  useLayoutEffect(() => {
+    const dismissForNavigation = (event: MouseEvent) => {
+      const dialog = switcher.current;
+      if (
+        !dialog?.open ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      )
+        return;
+      const link =
+        event.target instanceof Element
+          ? event.target.closest<HTMLAnchorElement>("a[href]")
+          : null;
+      if (
+        !link ||
+        !dialog.contains(link) ||
+        link.target === "_blank" ||
+        link.hasAttribute("download")
+      )
+        return;
+      // A page-owned capture guard may stop this click before Link's handler.
+      // Release modal inertness now; the page alone decides whether to leave
+      // and where to focus its recovery feedback. Never cancel or route here.
+      restoreSwitcherFocus.current = false;
+      dialog.close();
+    };
+    // Install before child pages' passive navigation guards. Those guards can
+    // synchronously focus feedback when they block a click, so the dialog
+    // must already be closed before their handlers run.
+    window.addEventListener("click", dismissForNavigation, true);
+    return () =>
+      window.removeEventListener("click", dismissForNavigation, true);
+  }, []);
   const params: TeacherWorkspaceParams = {};
   for (const key of new Set(search.keys())) {
     const values = search.getAll(key);
@@ -94,8 +133,9 @@ export function TeacherWorkspace({
   const navigation = assignmentArea ? assignmentLinks : courseLinks;
   const href = (path: string, view?: "progress" | "review" | "preview") =>
     workspaceNavigationHref(path, selected, view);
-  function openSwitcher(event: MouseEvent<HTMLButtonElement>) {
+  function openSwitcher(event: ReactMouseEvent<HTMLButtonElement>) {
     opener.current = event.currentTarget;
+    restoreSwitcherFocus.current = true;
     switcher.current?.showModal();
   }
   function closeSwitcher() {
@@ -332,7 +372,9 @@ export function TeacherWorkspace({
         id="teacher-workspace-switcher"
         className="tw-switcher"
         aria-labelledby="tw-switcher-title"
-        onClose={() => opener.current?.focus()}
+        onClose={() => {
+          if (restoreSwitcherFocus.current) opener.current?.focus();
+        }}
         onClick={(event) => {
           if (event.target === event.currentTarget) closeSwitcher();
         }}
@@ -350,11 +392,7 @@ export function TeacherWorkspace({
         </div>
         <nav aria-label="Course destinations" className="tw-switcher-course">
           {courseLinks.map((item) => (
-            <Link
-              key={item.text}
-              href={href(item.path)}
-              onClick={closeSwitcher}
-            >
+            <Link key={item.text} href={href(item.path)}>
               <Icon name={item.icon} />
               {item.text}
             </Link>
@@ -373,7 +411,6 @@ export function TeacherWorkspace({
                   item.id,
                   selection?.context.origin ?? "all",
                 )}
-                onClick={closeSwitcher}
                 aria-current={
                   assignmentArea && item.id === assignment?.id
                     ? "true"

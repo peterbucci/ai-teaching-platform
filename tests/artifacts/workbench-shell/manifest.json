@@ -282,6 +282,46 @@
       "file": "actual-browser-200-percent.png",
       "bytes": 54435,
       "sha256": "692684496baabf64319f5bb606cf56c8392e13699a7a0b0fa108852fe5dafa38"
+    },
+    {
+      "file": "switcher-guard/1440-mount-guard-dirty.png",
+      "bytes": 38324,
+      "sha256": "8b2194d6b55c8341f4bc0975f0803da3fb875c79b1fd635f5a9f45e6014bb15e"
+    },
+    {
+      "file": "switcher-guard/1440-mount-guard-pending.png",
+      "bytes": 37508,
+      "sha256": "2a94ff408def79955e303cf84d80271607276fcd2d15d2d060e6ad52668286bb"
+    },
+    {
+      "file": "switcher-guard/1440-remount-guard-dirty.png",
+      "bytes": 38324,
+      "sha256": "8b2194d6b55c8341f4bc0975f0803da3fb875c79b1fd635f5a9f45e6014bb15e"
+    },
+    {
+      "file": "switcher-guard/1440-remount-guard-pending.png",
+      "bytes": 37508,
+      "sha256": "2a94ff408def79955e303cf84d80271607276fcd2d15d2d060e6ad52668286bb"
+    },
+    {
+      "file": "switcher-guard/390-mount-guard-dirty.png",
+      "bytes": 26698,
+      "sha256": "7642555be07dd5989e661e1eced5e8b73a9c069335f70a4bc6e9f18242f4f3d6"
+    },
+    {
+      "file": "switcher-guard/390-mount-guard-pending.png",
+      "bytes": 25864,
+      "sha256": "b19f91213c219c83aeb2b4c56483f9dab4737857f8dc0f5a910330e9e55f6551"
+    },
+    {
+      "file": "switcher-guard/390-remount-guard-dirty.png",
+      "bytes": 26698,
+      "sha256": "7642555be07dd5989e661e1eced5e8b73a9c069335f70a4bc6e9f18242f4f3d6"
+    },
+    {
+      "file": "switcher-guard/390-remount-guard-pending.png",
+      "bytes": 25864,
+      "sha256": "b19f91213c219c83aeb2b4c56483f9dab4737857f8dc0f5a910330e9e55f6551"
     }
   ],
   "reports": [
@@ -324,12 +364,34 @@
     {
       "file": "evidence-after.json",
       "sha256": "fec70093a358569e324d6ecf221a284a432aa65d5aed4a759336d62d32c83030"
+    },
+    {
+      "file": "switcher-guard/report.json",
+      "sha256": "85d7a22f05eada98e046bbec4a30e4774a8775dcd91e765a7e862dea591327bb"
+    },
+    {
+      "file": "switcher-guard/report-production.json",
+      "sha256": "15d73d4ab3fa9b80ce431277a8b3d6a3ffd5d07eaf49a74986b4ea177ba8e7db"
+    },
+    {
+      "file": "switcher-guard/report-development.json",
+      "sha256": "3c829d12b1009c7b18371b671d1d2b2a3961918ebb74b7957b77a67ad7df8831"
+    },
+    {
+      "file": "switcher-guard/preinstalled-guard-order-report.json",
+      "sha256": "9326f1be58c8824d30bbdb9d146be3cab7faa48e1e4aeb77c99490234d0d076e"
+    },
+    {
+      "file": "post-capture-verification.json",
+      "sha256": "08861a1acbcd43c96ebc7bcb510ed077c79847d9c9611ef17365f440909e2fb3"
     }
   ],
   "limits": [
     "Prototype illustrative counts and lesson version labels differ from real immutable fixture.",
     "Progress page is legacy review on the exact116 base; actual grid belongs to117.",
     "Pane component fixture mocks Next URL hook; application page adoption is separate.",
-    "Final production rebuild deferred for shared host storage recovery."
-  ]
+    "Local final production rebuild deferred for serialized acceptance; captured commit built successfully remotely. See post-capture verification and current PR checks for later corrections."
+  ],
+  "captureSourceCommit": "dd97767cda2e445bb1cf669b94363d1d9e9500b4",
+  "postCaptureVerification": "post-capture-verification.json"
 }
