@@ -1,0 +1,31 @@
+{
+  "officialPostgreSQLPage": "https://www.postgresql.org/download/windows/",
+  "officialEDBPage": "https://www.enterprisedb.com/download-postgresql-binaries",
+  "officialRedirect": "https://sbp.enterprisedb.com/getfile.jsp?fileid=1260616",
+  "archive": "https://get.enterprisedb.com/postgresql/postgresql-17.11-5-windows-x64-binaries.zip",
+  "checksumURL": "https://get.enterprisedb.com/postgresql/postgresql-17.11-5-windows-x64-binaries.zip.sha256",
+  "sha256": "80379b2c04d51c30225532e0ae04509899141e9957ed096fe749d7fd9df8f82f",
+  "version": "17.11-5 Windows x64",
+  "extraction": "Only pgsql/bin, pgsql/lib and pgsql/share; no installer/service",
+  "runtime": "Native Windows PostgreSQL 17.11; not Docker acceptance",
+  "installation": "Portable extraction in task-private directory; no Windows service installed",
+  "bindAddress": "127.0.0.1",
+  "databasePort": 5466,
+  "applicationPort": 3366,
+  "databaseRole": "learning_app, NOSUPERUSER NOCREATEDB NOCREATEROLE",
+  "data": "Fresh task-private data directory; no existing database reused",
+  "migration": "Existing scripts/migrate.ts passed",
+  "seed": "Existing scripts/seed-demo.ts --class passed once",
+  "fixtureCounts": {
+    "students": 24,
+    "sessions": 23,
+    "responses": 64,
+    "evaluations": 63,
+    "displayedInterventions": 8
+  },
+  "models": "OPENAI_API_KEY and OPENAI_MODEL empty",
+  "paidCalls": 0,
+  "guard": "Unchanged shared safety.mjs; global acceptance lock and host-only 20GiB setup gate",
+  "docker": "Initial daemon startup was unavailable; a separate recovery owner handled it. This Evidence proof used native PostgreSQL and does not claim Docker acceptance. No Docker volume or data was changed by this workstream.",
+  "applicationStatus": "Production built and started at4ce513c81d2f2fc9450cffb4085c8d40a8a6e617; run02browser230/230checks passed;20evidence/workflow tables unchanged."
+}

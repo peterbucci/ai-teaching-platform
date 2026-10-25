@@ -1,0 +1,6688 @@
+{
+  "startedAt": "2026-10-25T13:43:37.653Z",
+  "status": "passed",
+  "origin": "http://127.0.0.1:3366",
+  "sourceSha": "4ce513c81d2f2fc9450cffb4085c8d40a8a6e617",
+  "harnessSha256": "b88d1a30142e879af082f9cd667c561add71610234ea71aa02e3e7eaf2e6832b",
+  "category": "Fictional class fixture; browser against application; zero model calls",
+  "seed": "buildClassFixture(loadApprovedContent()), npm run db:seed -- --class",
+  "fixtureSummary": {
+    "students": 24,
+    "submittedResponses": 63,
+    "longestResponseCharacters": 271,
+    "transmissionDelayResponses": 33
+  },
+  "checks": [
+    {
+      "label": "1440x1000 initial list pane",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+      "activeId": "",
+      "activeTag": "BODY",
+      "activeClass": "",
+      "activePane": "navigation",
+      "layout": "wide",
+      "listScrollTop": 0,
+      "listScrollHeight": 7225,
+      "listClientHeight": 745,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 359,
+        "y": 294.5,
+        "width": 692,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 359,
+        "y": 572.640625,
+        "width": 692,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 359,
+        "y": 610.140625,
+        "width": 692,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 202.5,
+        "width": 330,
+        "height": 796
+      },
+      "main": {
+        "x": 330,
+        "y": 202.5,
+        "width": 750,
+        "height": 796
+      },
+      "mainBody": {
+        "x": 331,
+        "y": 253.5,
+        "width": 748,
+        "height": 745
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 253.5,
+        "width": 328,
+        "height": 745
+      },
+      "contextBody": {
+        "x": 1081,
+        "y": 253.5,
+        "width": 358,
+        "height": 745
+      },
+      "bottomNav": null,
+      "context": {
+        "x": 1080,
+        "y": 202.5,
+        "width": 360,
+        "height": 796
+      },
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 211,
+            "y": 0,
+            "width": 294.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 1408,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1440,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "1440x1000 long response list",
+      "status": "pass",
+      "rows": 33,
+      "listScrollHeight": 7225,
+      "listClientHeight": 745
+    },
+    {
+      "label": "1440x1000 list no horizontal overflow",
+      "status": "pass"
+    },
+    {
+      "label": "1440x1000 keyboard Enter opens actual record",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "wide",
+      "listScrollTop": 0,
+      "listScrollHeight": 7225,
+      "listClientHeight": 745,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 359,
+        "y": 294.5,
+        "width": 692,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 359,
+        "y": 572.640625,
+        "width": 692,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 359,
+        "y": 610.140625,
+        "width": 692,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 202.5,
+        "width": 330,
+        "height": 796
+      },
+      "main": {
+        "x": 330,
+        "y": 202.5,
+        "width": 750,
+        "height": 796
+      },
+      "mainBody": {
+        "x": 331,
+        "y": 253.5,
+        "width": 748,
+        "height": 745
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 253.5,
+        "width": 328,
+        "height": 745
+      },
+      "contextBody": {
+        "x": 1081,
+        "y": 253.5,
+        "width": 358,
+        "height": 745
+      },
+      "bottomNav": null,
+      "context": {
+        "x": 1080,
+        "y": 202.5,
+        "width": 360,
+        "height": 796
+      },
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 211,
+            "y": 0,
+            "width": 294.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 1408,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1440,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "1440x1000 selected record appears near page top",
+      "status": "pass",
+      "record": {
+        "x": 359,
+        "y": 294.5,
+        "width": 692,
+        "height": 28.75
+      }
+    },
+    {
+      "label": "1440x1000 record pane stays above viewport or bottom navigation",
+      "status": "pass",
+      "body": {
+        "x": 331,
+        "y": 253.5,
+        "width": 748,
+        "height": 745
+      },
+      "contentBottom": 1000
+    },
+    {
+      "label": "1440x1000 selecting record does not scroll outer workspace",
+      "status": "pass",
+      "scrollY": 0
+    },
+    {
+      "label": "1440x1000 selected exact original answer",
+      "status": "pass",
+      "attempt": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "expectedLength": 110,
+      "actualLength": 110
+    },
+    {
+      "label": "1440x1000 selected exact original question",
+      "status": "pass",
+      "attempt": "fd3a4d10-9df5-4a6a-89bc-164303f7276d"
+    },
+    {
+      "label": "1440x1000 F1 native Back restores originating row focus",
+      "status": "pass",
+      "expectedFocus": "evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+      "activeId": "evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "activeTag": "A",
+      "activeClass": "",
+      "activePane": "navigation",
+      "layout": "wide",
+      "listScrollTop": 0,
+      "listScrollHeight": 7225,
+      "listClientHeight": 745,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 359,
+        "y": 294.5,
+        "width": 692,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 359,
+        "y": 572.640625,
+        "width": 692,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 359,
+        "y": 610.140625,
+        "width": 692,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 202.5,
+        "width": 330,
+        "height": 796
+      },
+      "main": {
+        "x": 330,
+        "y": 202.5,
+        "width": 750,
+        "height": 796
+      },
+      "mainBody": {
+        "x": 331,
+        "y": 253.5,
+        "width": 748,
+        "height": 745
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 253.5,
+        "width": 328,
+        "height": 745
+      },
+      "contextBody": {
+        "x": 1081,
+        "y": 253.5,
+        "width": 358,
+        "height": 745
+      },
+      "bottomNav": null,
+      "context": {
+        "x": 1080,
+        "y": 202.5,
+        "width": 360,
+        "height": 796
+      },
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 211,
+            "y": 0,
+            "width": 294.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 1408,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1440,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "1440x1000 Back restores list position",
+      "status": "pass",
+      "before": 0,
+      "after": 0
+    },
+    {
+      "label": "1440x1000 Forward restores selected record",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "wide",
+      "listScrollTop": 0,
+      "listScrollHeight": 7225,
+      "listClientHeight": 745,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 359,
+        "y": 294.5,
+        "width": 692,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 359,
+        "y": 572.640625,
+        "width": 692,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 359,
+        "y": 610.140625,
+        "width": 692,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 202.5,
+        "width": 330,
+        "height": 796
+      },
+      "main": {
+        "x": 330,
+        "y": 202.5,
+        "width": 750,
+        "height": 796
+      },
+      "mainBody": {
+        "x": 331,
+        "y": 253.5,
+        "width": 748,
+        "height": 745
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 253.5,
+        "width": 328,
+        "height": 745
+      },
+      "contextBody": {
+        "x": 1081,
+        "y": 253.5,
+        "width": 358,
+        "height": 745
+      },
+      "bottomNav": null,
+      "context": {
+        "x": 1080,
+        "y": 202.5,
+        "width": 360,
+        "height": 796
+      },
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 211,
+            "y": 0,
+            "width": 294.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 1408,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1440,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "1440x1000 Forward focuses visible record heading",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "wide",
+      "listScrollTop": 0,
+      "listScrollHeight": 7225,
+      "listClientHeight": 745,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 359,
+        "y": 294.5,
+        "width": 692,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 359,
+        "y": 572.640625,
+        "width": 692,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 359,
+        "y": 610.140625,
+        "width": 692,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 202.5,
+        "width": 330,
+        "height": 796
+      },
+      "main": {
+        "x": 330,
+        "y": 202.5,
+        "width": 750,
+        "height": 796
+      },
+      "mainBody": {
+        "x": 331,
+        "y": 253.5,
+        "width": 748,
+        "height": 745
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 253.5,
+        "width": 328,
+        "height": 745
+      },
+      "contextBody": {
+        "x": 1081,
+        "y": 253.5,
+        "width": 358,
+        "height": 745
+      },
+      "bottomNav": null,
+      "context": {
+        "x": 1080,
+        "y": 202.5,
+        "width": 360,
+        "height": 796
+      },
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 211,
+            "y": 0,
+            "width": 294.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 1408,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1440,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "1440x1000 forward exact original answer",
+      "status": "pass",
+      "attempt": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "expectedLength": 110,
+      "actualLength": 110
+    },
+    {
+      "label": "1440x1000 forward exact original question",
+      "status": "pass",
+      "attempt": "fd3a4d10-9df5-4a6a-89bc-164303f7276d"
+    },
+    {
+      "label": "1440x1000 direct selected refresh opens record",
+      "status": "pass"
+    },
+    {
+      "label": "1440x1000 last-row click selects exact record",
+      "status": "pass",
+      "attempt": "1f16fd29-fa61-4166-85c8-c13197f1facb"
+    },
+    {
+      "label": "1440x1000 native Back restores exact nonzero list position and originating row focus",
+      "status": "pass",
+      "expectedFocus": "evidence-response-1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "before": {
+        "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+        "activeId": "",
+        "activeTag": "BODY",
+        "activeClass": "",
+        "activePane": "navigation",
+        "layout": "wide",
+        "listScrollTop": 6480,
+        "listScrollHeight": 7225,
+        "listClientHeight": 745,
+        "rows": 33,
+        "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "record": {
+          "x": 359,
+          "y": 294.5,
+          "width": 692,
+          "height": 28.75
+        },
+        "originalAnswerHeading": {
+          "x": 359,
+          "y": 572.640625,
+          "width": 692,
+          "height": 25.5
+        },
+        "originalAnswer": {
+          "x": 359,
+          "y": 610.140625,
+          "width": 692,
+          "height": 98.78125
+        },
+        "navigation": {
+          "x": 0,
+          "y": 202.5,
+          "width": 330,
+          "height": 796
+        },
+        "main": {
+          "x": 330,
+          "y": 202.5,
+          "width": 750,
+          "height": 796
+        },
+        "mainBody": {
+          "x": 331,
+          "y": 253.5,
+          "width": 748,
+          "height": 745
+        },
+        "navigationBody": {
+          "x": 1,
+          "y": 253.5,
+          "width": 328,
+          "height": 745
+        },
+        "contextBody": {
+          "x": 1081,
+          "y": 253.5,
+          "width": 358,
+          "height": 745
+        },
+        "bottomNav": null,
+        "context": {
+          "x": 1080,
+          "y": 202.5,
+          "width": 360,
+          "height": 796
+        },
+        "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+        "overflow": false,
+        "scrollY": 0,
+        "innerWidth": 1440,
+        "innerHeight": 1000,
+        "devicePixelRatio": 1,
+        "rootZoom": "1",
+        "bottomNavigation": [
+          {
+            "label": "Course workspace",
+            "rect": {
+              "x": 211,
+              "y": 0,
+              "width": 294.09375,
+              "height": 57
+            }
+          },
+          {
+            "label": "Assignment workspace",
+            "rect": {
+              "x": 16,
+              "y": 112.5,
+              "width": 1408,
+              "height": 44
+            }
+          },
+          {
+            "label": "Student work views",
+            "rect": {
+              "x": 0,
+              "y": 157.5,
+              "width": 1440,
+              "height": 45
+            }
+          }
+        ]
+      },
+      "after": {
+        "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+        "activeId": "evidence-response-1f16fd29-fa61-4166-85c8-c13197f1facb",
+        "activeTag": "A",
+        "activeClass": "",
+        "activePane": "navigation",
+        "layout": "wide",
+        "listScrollTop": 6480,
+        "listScrollHeight": 7225,
+        "listClientHeight": 745,
+        "rows": 33,
+        "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "record": {
+          "x": 359,
+          "y": 294.5,
+          "width": 692,
+          "height": 28.75
+        },
+        "originalAnswerHeading": {
+          "x": 359,
+          "y": 572.640625,
+          "width": 692,
+          "height": 25.5
+        },
+        "originalAnswer": {
+          "x": 359,
+          "y": 610.140625,
+          "width": 692,
+          "height": 98.78125
+        },
+        "navigation": {
+          "x": 0,
+          "y": 202.5,
+          "width": 330,
+          "height": 796
+        },
+        "main": {
+          "x": 330,
+          "y": 202.5,
+          "width": 750,
+          "height": 796
+        },
+        "mainBody": {
+          "x": 331,
+          "y": 253.5,
+          "width": 748,
+          "height": 745
+        },
+        "navigationBody": {
+          "x": 1,
+          "y": 253.5,
+          "width": 328,
+          "height": 745
+        },
+        "contextBody": {
+          "x": 1081,
+          "y": 253.5,
+          "width": 358,
+          "height": 745
+        },
+        "bottomNav": null,
+        "context": {
+          "x": 1080,
+          "y": 202.5,
+          "width": 360,
+          "height": 796
+        },
+        "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+        "overflow": false,
+        "scrollY": 0,
+        "innerWidth": 1440,
+        "innerHeight": 1000,
+        "devicePixelRatio": 1,
+        "rootZoom": "1",
+        "bottomNavigation": [
+          {
+            "label": "Course workspace",
+            "rect": {
+              "x": 211,
+              "y": 0,
+              "width": 294.09375,
+              "height": 57
+            }
+          },
+          {
+            "label": "Assignment workspace",
+            "rect": {
+              "x": 16,
+              "y": 112.5,
+              "width": 1408,
+              "height": 44
+            }
+          },
+          {
+            "label": "Student work views",
+            "rect": {
+              "x": 0,
+              "y": 157.5,
+              "width": 1440,
+              "height": 45
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "1440x1000 native Forward restores last selected record",
+      "status": "pass",
+      "expectedAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb"
+    },
+    {
+      "label": "1440x1000 last-row Forward focuses visible record heading",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=ae71b8e0-54cb-416e-8f03-bac46347ae6e&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb&evaluation=42a472b6-f120-4170-8ddf-843be29033de&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "wide",
+      "listScrollTop": 6480,
+      "listScrollHeight": 7225,
+      "listClientHeight": 745,
+      "rows": 33,
+      "selected": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "record": {
+        "x": 359,
+        "y": 294.5,
+        "width": 692,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 359,
+        "y": 572.640625,
+        "width": 692,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 359,
+        "y": 610.140625,
+        "width": 692,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 202.5,
+        "width": 330,
+        "height": 796
+      },
+      "main": {
+        "x": 330,
+        "y": 202.5,
+        "width": 750,
+        "height": 796
+      },
+      "mainBody": {
+        "x": 331,
+        "y": 253.5,
+        "width": 748,
+        "height": 745
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 253.5,
+        "width": 328,
+        "height": 745
+      },
+      "contextBody": {
+        "x": 1081,
+        "y": 253.5,
+        "width": 358,
+        "height": 745
+      },
+      "bottomNav": null,
+      "context": {
+        "x": 1080,
+        "y": 202.5,
+        "width": 360,
+        "height": 796
+      },
+      "answer": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 211,
+            "y": 0,
+            "width": 294.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 1408,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1440,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "1440x1000 source context separately accessible",
+      "status": "pass"
+    },
+    {
+      "label": "1440x1000 exact source version preserved",
+      "status": "pass"
+    },
+    {
+      "label": "1440x1000 approved passages actually expanded with exact text",
+      "status": "pass",
+      "expectedPassageIds": ["P07", "P08", "P12"],
+      "visiblePassages": 3
+    },
+    {
+      "label": "1440x1000 scoped search preserves concept",
+      "status": "pass"
+    },
+    {
+      "label": "1440x1000 Back preserves search and concept filters",
+      "status": "pass"
+    },
+    {
+      "label": "1440x1000 unmatched search shows honest empty state",
+      "status": "pass"
+    },
+    {
+      "label": "1440x1000 unselected has no invented original answer",
+      "status": "pass"
+    },
+    {
+      "label": "1440x1000 retained outside search exact original answer",
+      "status": "pass",
+      "attempt": "50000000-0000-4000-8000-000000000001",
+      "expectedLength": 109,
+      "actualLength": 109
+    },
+    {
+      "label": "1440x1000 retained outside search exact original question",
+      "status": "pass",
+      "attempt": "50000000-0000-4000-8000-000000000001"
+    },
+    {
+      "label": "1440x1000 direct selected response remains despite search",
+      "status": "pass"
+    },
+    {
+      "label": "1440x1000 unselected source/context is honest",
+      "status": "pass"
+    },
+    {
+      "label": "1440x1000 pending_review exact original answer",
+      "status": "pass",
+      "attempt": "82e3bdbb-5fba-4c4a-87b9-c5b051c39305",
+      "expectedLength": 213,
+      "actualLength": 213
+    },
+    {
+      "label": "1440x1000 pending_review exact original question",
+      "status": "pass",
+      "attempt": "82e3bdbb-5fba-4c4a-87b9-c5b051c39305"
+    },
+    {
+      "label": "1440x1000 pending_review state preserved",
+      "status": "pass",
+      "attempt": "82e3bdbb-5fba-4c4a-87b9-c5b051c39305",
+      "evaluation": "35ced273-1923-4b82-870f-d3bbbf980850"
+    },
+    {
+      "label": "1440x1000 pending_review cannot prepare selected response",
+      "status": "pass"
+    },
+    {
+      "label": "1440x1000 evaluation_failed exact original answer",
+      "status": "pass",
+      "attempt": "cb5fec92-b796-44ed-85f2-e8e26d29b2e4",
+      "expectedLength": 247,
+      "actualLength": 247
+    },
+    {
+      "label": "1440x1000 evaluation_failed exact original question",
+      "status": "pass",
+      "attempt": "cb5fec92-b796-44ed-85f2-e8e26d29b2e4"
+    },
+    {
+      "label": "1440x1000 evaluation_failed state preserved",
+      "status": "pass",
+      "attempt": "cb5fec92-b796-44ed-85f2-e8e26d29b2e4",
+      "evaluation": "2a29ff63-cbdc-4e30-882b-8b714850cba8"
+    },
+    {
+      "label": "1440x1000 evaluation_failed cannot prepare selected response",
+      "status": "pass"
+    },
+    {
+      "label": "1440x1000 accepted exact original answer",
+      "status": "pass",
+      "attempt": "d52463a8-e32f-40a0-894f-7c1ebed60552",
+      "expectedLength": 41,
+      "actualLength": 41
+    },
+    {
+      "label": "1440x1000 accepted exact original question",
+      "status": "pass",
+      "attempt": "d52463a8-e32f-40a0-894f-7c1ebed60552"
+    },
+    {
+      "label": "1440x1000 accepted state preserved",
+      "status": "pass",
+      "attempt": "d52463a8-e32f-40a0-894f-7c1ebed60552",
+      "evaluation": "666d4bd8-70b8-47f3-840d-d3ecd75cf5b1"
+    },
+    {
+      "label": "1440x1000 hash setup uses explicit record pane",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title"
+    },
+    {
+      "label": "1440x1000 hash-only row navigation reveals and focuses list",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=navigation#evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "activeId": "evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "activeTag": "A",
+      "activeClass": "",
+      "activePane": "navigation",
+      "layout": "wide",
+      "listScrollTop": 0,
+      "listScrollHeight": 7225,
+      "listClientHeight": 745,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 359,
+        "y": 294.5,
+        "width": 692,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 359,
+        "y": 572.640625,
+        "width": 692,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 359,
+        "y": 610.140625,
+        "width": 692,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 202.5,
+        "width": 330,
+        "height": 796
+      },
+      "main": {
+        "x": 330,
+        "y": 202.5,
+        "width": 750,
+        "height": 796
+      },
+      "mainBody": {
+        "x": 331,
+        "y": 253.5,
+        "width": 748,
+        "height": 745
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 253.5,
+        "width": 328,
+        "height": 745
+      },
+      "contextBody": {
+        "x": 1081,
+        "y": 253.5,
+        "width": 358,
+        "height": 745
+      },
+      "bottomNav": null,
+      "context": {
+        "x": 1080,
+        "y": 202.5,
+        "width": 360,
+        "height": 796
+      },
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 211,
+            "y": 0,
+            "width": 294.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 1408,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1440,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "1440x1000 Back after hash navigation returns to record",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "wide",
+      "listScrollTop": 0,
+      "listScrollHeight": 7225,
+      "listClientHeight": 745,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 359,
+        "y": 294.5,
+        "width": 692,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 359,
+        "y": 572.640625,
+        "width": 692,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 359,
+        "y": 610.140625,
+        "width": 692,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 202.5,
+        "width": 330,
+        "height": 796
+      },
+      "main": {
+        "x": 330,
+        "y": 202.5,
+        "width": 750,
+        "height": 796
+      },
+      "mainBody": {
+        "x": 331,
+        "y": 253.5,
+        "width": 748,
+        "height": 745
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 253.5,
+        "width": 328,
+        "height": 745
+      },
+      "contextBody": {
+        "x": 1081,
+        "y": 253.5,
+        "width": 358,
+        "height": 745
+      },
+      "bottomNav": null,
+      "context": {
+        "x": 1080,
+        "y": 202.5,
+        "width": 360,
+        "height": 796
+      },
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 211,
+            "y": 0,
+            "width": 294.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 1408,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1440,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "1440x1000 exact recorded help retained",
+      "status": "pass",
+      "attempt": "50000000-0000-4000-8000-000000000003",
+      "shownInterventionIds": ["70000000-0000-4000-8000-000000000001"]
+    },
+    {
+      "label": "1440x1000 exact lesson version retained",
+      "status": "pass"
+    },
+    {
+      "label": "1440x1000 preparation is bounded read-only handoff",
+      "status": "pass",
+      "action": "http://127.0.0.1:3366/teacher/interventions",
+      "method": "get",
+      "seeds": [
+        "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "adca8ad7-b7ba-4f73-8668-d82ba30edc81"
+      ],
+      "assignment": "30000000-0000-4000-8000-000000000001",
+      "returnTo": "evidence"
+    },
+    {
+      "label": "1440x1000 longest fixture answer exact original answer",
+      "status": "pass",
+      "attempt": "81f0514b-44f7-4e51-805b-f103f2a5678c",
+      "expectedLength": 271,
+      "actualLength": 271
+    },
+    {
+      "label": "1440x1000 longest fixture answer exact original question",
+      "status": "pass",
+      "attempt": "81f0514b-44f7-4e51-805b-f103f2a5678c"
+    },
+    {
+      "label": "1440x1000 longest answer is not visually clamped",
+      "status": "pass",
+      "answerLength": 271
+    },
+    {
+      "label": "1440x1000 direct row hash opens and focuses response list",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=queuing_delay&attempt=81f0514b-44f7-4e51-805b-f103f2a5678c&session=129120b0-f584-41f0-8e58-c3e190941799&workspacePane=navigation#evidence-response-81f0514b-44f7-4e51-805b-f103f2a5678c",
+      "activeId": "evidence-response-81f0514b-44f7-4e51-805b-f103f2a5678c",
+      "activeTag": "A",
+      "activeClass": "",
+      "activePane": "navigation",
+      "layout": "wide",
+      "listScrollTop": 394,
+      "listScrollHeight": 1912,
+      "listClientHeight": 745,
+      "rows": 7,
+      "selected": "81f0514b-44f7-4e51-805b-f103f2a5678c",
+      "record": {
+        "x": 359,
+        "y": 294.5,
+        "width": 692,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 359,
+        "y": 620.234375,
+        "width": 692,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 359,
+        "y": 657.734375,
+        "width": 692,
+        "height": 159.5625
+      },
+      "navigation": {
+        "x": 0,
+        "y": 202.5,
+        "width": 330,
+        "height": 796
+      },
+      "main": {
+        "x": 330,
+        "y": 202.5,
+        "width": 750,
+        "height": 796
+      },
+      "mainBody": {
+        "x": 331,
+        "y": 253.5,
+        "width": 748,
+        "height": 745
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 253.5,
+        "width": 328,
+        "height": 745
+      },
+      "contextBody": {
+        "x": 1081,
+        "y": 253.5,
+        "width": 358,
+        "height": 745
+      },
+      "bottomNav": null,
+      "context": {
+        "x": 1080,
+        "y": 202.5,
+        "width": 360,
+        "height": 796
+      },
+      "answer": "The 4 ms stored waiting interval is queuing delay. Transmission delay is the time to place the packet's bits onto the outbound link once transmission occurs. In the separate immediate-forwarding case, the stated queue wait is zero; a positive wait should not be invented.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 211,
+            "y": 0,
+            "width": 294.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 1408,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1440,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "1024x768 initial list pane",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+      "activeId": "",
+      "activeTag": "BODY",
+      "activeClass": "",
+      "activePane": "navigation",
+      "layout": "medium",
+      "listScrollTop": 0,
+      "listScrollHeight": 7246,
+      "listClientHeight": 468,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 329,
+        "y": 338.5,
+        "width": 666,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 329,
+        "y": 616.640625,
+        "width": 666,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 329,
+        "y": 654.140625,
+        "width": 666,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 246.5,
+        "width": 300,
+        "height": 519
+      },
+      "main": {
+        "x": 300,
+        "y": 246.5,
+        "width": 724,
+        "height": 519
+      },
+      "mainBody": {
+        "x": 301,
+        "y": 297.5,
+        "width": 722,
+        "height": 468
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 297.5,
+        "width": 298,
+        "height": 468
+      },
+      "contextBody": null,
+      "bottomNav": null,
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1024,
+      "innerHeight": 768,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 68,
+            "y": 0,
+            "width": 270.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 992,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1024,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "1024x768 long response list",
+      "status": "pass",
+      "rows": 33,
+      "listScrollHeight": 7246,
+      "listClientHeight": 468
+    },
+    {
+      "label": "1024x768 list no horizontal overflow",
+      "status": "pass"
+    },
+    {
+      "label": "1024x768 keyboard Enter opens actual record",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "medium",
+      "listScrollTop": 72,
+      "listScrollHeight": 7246,
+      "listClientHeight": 468,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 329,
+        "y": 338.5,
+        "width": 666,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 329,
+        "y": 616.640625,
+        "width": 666,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 329,
+        "y": 654.140625,
+        "width": 666,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 246.5,
+        "width": 300,
+        "height": 519
+      },
+      "main": {
+        "x": 300,
+        "y": 246.5,
+        "width": 724,
+        "height": 519
+      },
+      "mainBody": {
+        "x": 301,
+        "y": 297.5,
+        "width": 722,
+        "height": 468
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 297.5,
+        "width": 298,
+        "height": 468
+      },
+      "contextBody": null,
+      "bottomNav": null,
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1024,
+      "innerHeight": 768,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 68,
+            "y": 0,
+            "width": 270.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 992,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1024,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "1024x768 selected record appears near page top",
+      "status": "pass",
+      "record": {
+        "x": 329,
+        "y": 338.5,
+        "width": 666,
+        "height": 28.75
+      }
+    },
+    {
+      "label": "1024x768 record pane stays above viewport or bottom navigation",
+      "status": "pass",
+      "body": {
+        "x": 301,
+        "y": 297.5,
+        "width": 722,
+        "height": 468
+      },
+      "contentBottom": 768
+    },
+    {
+      "label": "1024x768 selecting record does not scroll outer workspace",
+      "status": "pass",
+      "scrollY": 0
+    },
+    {
+      "label": "1024x768 selected exact original answer",
+      "status": "pass",
+      "attempt": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "expectedLength": 110,
+      "actualLength": 110
+    },
+    {
+      "label": "1024x768 selected exact original question",
+      "status": "pass",
+      "attempt": "fd3a4d10-9df5-4a6a-89bc-164303f7276d"
+    },
+    {
+      "label": "1024x768 F1 native Back restores originating row focus",
+      "status": "pass",
+      "expectedFocus": "evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+      "activeId": "evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "activeTag": "A",
+      "activeClass": "",
+      "activePane": "navigation",
+      "layout": "medium",
+      "listScrollTop": 72,
+      "listScrollHeight": 7246,
+      "listClientHeight": 468,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 329,
+        "y": 338.5,
+        "width": 666,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 329,
+        "y": 616.640625,
+        "width": 666,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 329,
+        "y": 654.140625,
+        "width": 666,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 246.5,
+        "width": 300,
+        "height": 519
+      },
+      "main": {
+        "x": 300,
+        "y": 246.5,
+        "width": 724,
+        "height": 519
+      },
+      "mainBody": {
+        "x": 301,
+        "y": 297.5,
+        "width": 722,
+        "height": 468
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 297.5,
+        "width": 298,
+        "height": 468
+      },
+      "contextBody": null,
+      "bottomNav": null,
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1024,
+      "innerHeight": 768,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 68,
+            "y": 0,
+            "width": 270.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 992,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1024,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "1024x768 Back restores list position",
+      "status": "pass",
+      "before": 72,
+      "after": 72
+    },
+    {
+      "label": "1024x768 Forward restores selected record",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "medium",
+      "listScrollTop": 72,
+      "listScrollHeight": 7246,
+      "listClientHeight": 468,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 329,
+        "y": 338.5,
+        "width": 666,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 329,
+        "y": 616.640625,
+        "width": 666,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 329,
+        "y": 654.140625,
+        "width": 666,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 246.5,
+        "width": 300,
+        "height": 519
+      },
+      "main": {
+        "x": 300,
+        "y": 246.5,
+        "width": 724,
+        "height": 519
+      },
+      "mainBody": {
+        "x": 301,
+        "y": 297.5,
+        "width": 722,
+        "height": 468
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 297.5,
+        "width": 298,
+        "height": 468
+      },
+      "contextBody": null,
+      "bottomNav": null,
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1024,
+      "innerHeight": 768,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 68,
+            "y": 0,
+            "width": 270.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 992,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1024,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "1024x768 Forward focuses visible record heading",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "medium",
+      "listScrollTop": 72,
+      "listScrollHeight": 7246,
+      "listClientHeight": 468,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 329,
+        "y": 338.5,
+        "width": 666,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 329,
+        "y": 616.640625,
+        "width": 666,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 329,
+        "y": 654.140625,
+        "width": 666,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 246.5,
+        "width": 300,
+        "height": 519
+      },
+      "main": {
+        "x": 300,
+        "y": 246.5,
+        "width": 724,
+        "height": 519
+      },
+      "mainBody": {
+        "x": 301,
+        "y": 297.5,
+        "width": 722,
+        "height": 468
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 297.5,
+        "width": 298,
+        "height": 468
+      },
+      "contextBody": null,
+      "bottomNav": null,
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1024,
+      "innerHeight": 768,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 68,
+            "y": 0,
+            "width": 270.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 992,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1024,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "1024x768 forward exact original answer",
+      "status": "pass",
+      "attempt": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "expectedLength": 110,
+      "actualLength": 110
+    },
+    {
+      "label": "1024x768 forward exact original question",
+      "status": "pass",
+      "attempt": "fd3a4d10-9df5-4a6a-89bc-164303f7276d"
+    },
+    {
+      "label": "1024x768 direct selected refresh opens record",
+      "status": "pass"
+    },
+    {
+      "label": "1024x768 last-row click selects exact record",
+      "status": "pass",
+      "attempt": "1f16fd29-fa61-4166-85c8-c13197f1facb"
+    },
+    {
+      "label": "1024x768 native Back restores exact nonzero list position and originating row focus",
+      "status": "pass",
+      "expectedFocus": "evidence-response-1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "before": {
+        "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+        "activeId": "",
+        "activeTag": "BODY",
+        "activeClass": "",
+        "activePane": "navigation",
+        "layout": "medium",
+        "listScrollTop": 6632,
+        "listScrollHeight": 7246,
+        "listClientHeight": 468,
+        "rows": 33,
+        "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "record": {
+          "x": 329,
+          "y": 338.5,
+          "width": 666,
+          "height": 28.75
+        },
+        "originalAnswerHeading": {
+          "x": 329,
+          "y": 616.640625,
+          "width": 666,
+          "height": 25.5
+        },
+        "originalAnswer": {
+          "x": 329,
+          "y": 654.140625,
+          "width": 666,
+          "height": 98.78125
+        },
+        "navigation": {
+          "x": 0,
+          "y": 246.5,
+          "width": 300,
+          "height": 519
+        },
+        "main": {
+          "x": 300,
+          "y": 246.5,
+          "width": 724,
+          "height": 519
+        },
+        "mainBody": {
+          "x": 301,
+          "y": 297.5,
+          "width": 722,
+          "height": 468
+        },
+        "navigationBody": {
+          "x": 1,
+          "y": 297.5,
+          "width": 298,
+          "height": 468
+        },
+        "contextBody": null,
+        "bottomNav": null,
+        "context": null,
+        "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+        "overflow": false,
+        "scrollY": 0,
+        "innerWidth": 1024,
+        "innerHeight": 768,
+        "devicePixelRatio": 1,
+        "rootZoom": "1",
+        "bottomNavigation": [
+          {
+            "label": "Course workspace",
+            "rect": {
+              "x": 68,
+              "y": 0,
+              "width": 270.09375,
+              "height": 57
+            }
+          },
+          {
+            "label": "Assignment workspace",
+            "rect": {
+              "x": 16,
+              "y": 112.5,
+              "width": 992,
+              "height": 44
+            }
+          },
+          {
+            "label": "Student work views",
+            "rect": {
+              "x": 0,
+              "y": 157.5,
+              "width": 1024,
+              "height": 45
+            }
+          }
+        ]
+      },
+      "after": {
+        "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+        "activeId": "evidence-response-1f16fd29-fa61-4166-85c8-c13197f1facb",
+        "activeTag": "A",
+        "activeClass": "",
+        "activePane": "navigation",
+        "layout": "medium",
+        "listScrollTop": 6632,
+        "listScrollHeight": 7246,
+        "listClientHeight": 468,
+        "rows": 33,
+        "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "record": {
+          "x": 329,
+          "y": 338.5,
+          "width": 666,
+          "height": 28.75
+        },
+        "originalAnswerHeading": {
+          "x": 329,
+          "y": 616.640625,
+          "width": 666,
+          "height": 25.5
+        },
+        "originalAnswer": {
+          "x": 329,
+          "y": 654.140625,
+          "width": 666,
+          "height": 98.78125
+        },
+        "navigation": {
+          "x": 0,
+          "y": 246.5,
+          "width": 300,
+          "height": 519
+        },
+        "main": {
+          "x": 300,
+          "y": 246.5,
+          "width": 724,
+          "height": 519
+        },
+        "mainBody": {
+          "x": 301,
+          "y": 297.5,
+          "width": 722,
+          "height": 468
+        },
+        "navigationBody": {
+          "x": 1,
+          "y": 297.5,
+          "width": 298,
+          "height": 468
+        },
+        "contextBody": null,
+        "bottomNav": null,
+        "context": null,
+        "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+        "overflow": false,
+        "scrollY": 0,
+        "innerWidth": 1024,
+        "innerHeight": 768,
+        "devicePixelRatio": 1,
+        "rootZoom": "1",
+        "bottomNavigation": [
+          {
+            "label": "Course workspace",
+            "rect": {
+              "x": 68,
+              "y": 0,
+              "width": 270.09375,
+              "height": 57
+            }
+          },
+          {
+            "label": "Assignment workspace",
+            "rect": {
+              "x": 16,
+              "y": 112.5,
+              "width": 992,
+              "height": 44
+            }
+          },
+          {
+            "label": "Student work views",
+            "rect": {
+              "x": 0,
+              "y": 157.5,
+              "width": 1024,
+              "height": 45
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "1024x768 native Forward restores last selected record",
+      "status": "pass",
+      "expectedAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb"
+    },
+    {
+      "label": "1024x768 last-row Forward focuses visible record heading",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=ae71b8e0-54cb-416e-8f03-bac46347ae6e&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb&evaluation=42a472b6-f120-4170-8ddf-843be29033de&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "medium",
+      "listScrollTop": 6632,
+      "listScrollHeight": 7246,
+      "listClientHeight": 468,
+      "rows": 33,
+      "selected": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "record": {
+        "x": 329,
+        "y": 338.5,
+        "width": 666,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 329,
+        "y": 616.640625,
+        "width": 666,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 329,
+        "y": 654.140625,
+        "width": 666,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 246.5,
+        "width": 300,
+        "height": 519
+      },
+      "main": {
+        "x": 300,
+        "y": 246.5,
+        "width": 724,
+        "height": 519
+      },
+      "mainBody": {
+        "x": 301,
+        "y": 297.5,
+        "width": 722,
+        "height": 468
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 297.5,
+        "width": 298,
+        "height": 468
+      },
+      "contextBody": null,
+      "bottomNav": null,
+      "context": null,
+      "answer": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1024,
+      "innerHeight": 768,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 68,
+            "y": 0,
+            "width": 270.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 992,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1024,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "1024x768 source context separately accessible",
+      "status": "pass"
+    },
+    {
+      "label": "1024x768 exact source version preserved",
+      "status": "pass"
+    },
+    {
+      "label": "1024x768 approved passages actually expanded with exact text",
+      "status": "pass",
+      "expectedPassageIds": ["P07", "P08", "P12"],
+      "visiblePassages": 3
+    },
+    {
+      "label": "1024x768 tablet context uses modal drawer",
+      "status": "pass"
+    },
+    {
+      "label": "1024x768 Escape closes reversible drawer",
+      "status": "pass"
+    },
+    {
+      "label": "1024x768 drawer returns focus to opener",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=ae71b8e0-54cb-416e-8f03-bac46347ae6e&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb&evaluation=42a472b6-f120-4170-8ddf-843be29033de&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "",
+      "activeTag": "BUTTON",
+      "activeClass": "tw-panes-context-trigger",
+      "activePane": "main",
+      "layout": "medium",
+      "listScrollTop": 6632,
+      "listScrollHeight": 7246,
+      "listClientHeight": 468,
+      "rows": 33,
+      "selected": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "record": {
+        "x": 329,
+        "y": 338.5,
+        "width": 666,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 329,
+        "y": 616.640625,
+        "width": 666,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 329,
+        "y": 654.140625,
+        "width": 666,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 246.5,
+        "width": 300,
+        "height": 519
+      },
+      "main": {
+        "x": 300,
+        "y": 246.5,
+        "width": 724,
+        "height": 519
+      },
+      "mainBody": {
+        "x": 301,
+        "y": 297.5,
+        "width": 722,
+        "height": 468
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 297.5,
+        "width": 298,
+        "height": 468
+      },
+      "contextBody": null,
+      "bottomNav": null,
+      "context": null,
+      "answer": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1024,
+      "innerHeight": 768,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 68,
+            "y": 0,
+            "width": 270.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 992,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1024,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "1024x768 manual scroll does not jump to stale focus row",
+      "status": "pass",
+      "oldFocus": "evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "before": {
+        "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+        "activeId": "evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "activeTag": "A",
+        "activeClass": "",
+        "activePane": "navigation",
+        "layout": "medium",
+        "listScrollTop": 1472,
+        "listScrollHeight": 7246,
+        "listClientHeight": 468,
+        "rows": 33,
+        "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "record": {
+          "x": 329,
+          "y": 338.5,
+          "width": 666,
+          "height": 28.75
+        },
+        "originalAnswerHeading": {
+          "x": 329,
+          "y": 616.640625,
+          "width": 666,
+          "height": 25.5
+        },
+        "originalAnswer": {
+          "x": 329,
+          "y": 654.140625,
+          "width": 666,
+          "height": 98.78125
+        },
+        "navigation": {
+          "x": 0,
+          "y": 246.5,
+          "width": 300,
+          "height": 519
+        },
+        "main": {
+          "x": 300,
+          "y": 246.5,
+          "width": 724,
+          "height": 519
+        },
+        "mainBody": {
+          "x": 301,
+          "y": 297.5,
+          "width": 722,
+          "height": 468
+        },
+        "navigationBody": {
+          "x": 1,
+          "y": 297.5,
+          "width": 298,
+          "height": 468
+        },
+        "contextBody": null,
+        "bottomNav": null,
+        "context": null,
+        "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+        "overflow": false,
+        "scrollY": 0,
+        "innerWidth": 1024,
+        "innerHeight": 768,
+        "devicePixelRatio": 1,
+        "rootZoom": "1",
+        "bottomNavigation": [
+          {
+            "label": "Course workspace",
+            "rect": {
+              "x": 68,
+              "y": 0,
+              "width": 270.09375,
+              "height": 57
+            }
+          },
+          {
+            "label": "Assignment workspace",
+            "rect": {
+              "x": 16,
+              "y": 112.5,
+              "width": 992,
+              "height": 44
+            }
+          },
+          {
+            "label": "Student work views",
+            "rect": {
+              "x": 0,
+              "y": 157.5,
+              "width": 1024,
+              "height": 45
+            }
+          }
+        ]
+      },
+      "after": {
+        "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&workspacePane=navigation",
+        "activeId": "",
+        "activeTag": "BUTTON",
+        "activeClass": "tw-panes-context-trigger",
+        "activePane": "navigation",
+        "layout": "medium",
+        "listScrollTop": 1472,
+        "listScrollHeight": 7246,
+        "listClientHeight": 468,
+        "rows": 33,
+        "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "record": {
+          "x": 329,
+          "y": 338.5,
+          "width": 666,
+          "height": 28.75
+        },
+        "originalAnswerHeading": {
+          "x": 329,
+          "y": 616.640625,
+          "width": 666,
+          "height": 25.5
+        },
+        "originalAnswer": {
+          "x": 329,
+          "y": 654.140625,
+          "width": 666,
+          "height": 98.78125
+        },
+        "navigation": {
+          "x": 0,
+          "y": 246.5,
+          "width": 300,
+          "height": 519
+        },
+        "main": {
+          "x": 300,
+          "y": 246.5,
+          "width": 724,
+          "height": 519
+        },
+        "mainBody": {
+          "x": 301,
+          "y": 297.5,
+          "width": 722,
+          "height": 468
+        },
+        "navigationBody": {
+          "x": 1,
+          "y": 297.5,
+          "width": 298,
+          "height": 468
+        },
+        "contextBody": null,
+        "bottomNav": null,
+        "context": null,
+        "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+        "overflow": false,
+        "scrollY": 0,
+        "innerWidth": 1024,
+        "innerHeight": 768,
+        "devicePixelRatio": 1,
+        "rootZoom": "1",
+        "bottomNavigation": [
+          {
+            "label": "Course workspace",
+            "rect": {
+              "x": 68,
+              "y": 0,
+              "width": 270.09375,
+              "height": 57
+            }
+          },
+          {
+            "label": "Assignment workspace",
+            "rect": {
+              "x": 16,
+              "y": 112.5,
+              "width": 992,
+              "height": 44
+            }
+          },
+          {
+            "label": "Student work views",
+            "rect": {
+              "x": 0,
+              "y": 157.5,
+              "width": 1024,
+              "height": 45
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "1024x768 scoped search preserves concept",
+      "status": "pass"
+    },
+    {
+      "label": "1024x768 Back preserves search and concept filters",
+      "status": "pass"
+    },
+    {
+      "label": "1024x768 unmatched search shows honest empty state",
+      "status": "pass"
+    },
+    {
+      "label": "1024x768 unselected has no invented original answer",
+      "status": "pass"
+    },
+    {
+      "label": "1024x768 retained outside search exact original answer",
+      "status": "pass",
+      "attempt": "50000000-0000-4000-8000-000000000001",
+      "expectedLength": 109,
+      "actualLength": 109
+    },
+    {
+      "label": "1024x768 retained outside search exact original question",
+      "status": "pass",
+      "attempt": "50000000-0000-4000-8000-000000000001"
+    },
+    {
+      "label": "1024x768 direct selected response remains despite search",
+      "status": "pass"
+    },
+    {
+      "label": "1024x768 unselected source/context is honest",
+      "status": "pass"
+    },
+    {
+      "label": "1024x768 pending_review exact original answer",
+      "status": "pass",
+      "attempt": "82e3bdbb-5fba-4c4a-87b9-c5b051c39305",
+      "expectedLength": 213,
+      "actualLength": 213
+    },
+    {
+      "label": "1024x768 pending_review exact original question",
+      "status": "pass",
+      "attempt": "82e3bdbb-5fba-4c4a-87b9-c5b051c39305"
+    },
+    {
+      "label": "1024x768 pending_review state preserved",
+      "status": "pass",
+      "attempt": "82e3bdbb-5fba-4c4a-87b9-c5b051c39305",
+      "evaluation": "35ced273-1923-4b82-870f-d3bbbf980850"
+    },
+    {
+      "label": "1024x768 pending_review cannot prepare selected response",
+      "status": "pass"
+    },
+    {
+      "label": "1024x768 evaluation_failed exact original answer",
+      "status": "pass",
+      "attempt": "cb5fec92-b796-44ed-85f2-e8e26d29b2e4",
+      "expectedLength": 247,
+      "actualLength": 247
+    },
+    {
+      "label": "1024x768 evaluation_failed exact original question",
+      "status": "pass",
+      "attempt": "cb5fec92-b796-44ed-85f2-e8e26d29b2e4"
+    },
+    {
+      "label": "1024x768 evaluation_failed state preserved",
+      "status": "pass",
+      "attempt": "cb5fec92-b796-44ed-85f2-e8e26d29b2e4",
+      "evaluation": "2a29ff63-cbdc-4e30-882b-8b714850cba8"
+    },
+    {
+      "label": "1024x768 evaluation_failed cannot prepare selected response",
+      "status": "pass"
+    },
+    {
+      "label": "1024x768 accepted exact original answer",
+      "status": "pass",
+      "attempt": "d52463a8-e32f-40a0-894f-7c1ebed60552",
+      "expectedLength": 41,
+      "actualLength": 41
+    },
+    {
+      "label": "1024x768 accepted exact original question",
+      "status": "pass",
+      "attempt": "d52463a8-e32f-40a0-894f-7c1ebed60552"
+    },
+    {
+      "label": "1024x768 accepted state preserved",
+      "status": "pass",
+      "attempt": "d52463a8-e32f-40a0-894f-7c1ebed60552",
+      "evaluation": "666d4bd8-70b8-47f3-840d-d3ecd75cf5b1"
+    },
+    {
+      "label": "1024x768 hash setup uses explicit record pane",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title"
+    },
+    {
+      "label": "1024x768 hash-only row navigation reveals and focuses list",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=navigation#evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "activeId": "evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "activeTag": "A",
+      "activeClass": "",
+      "activePane": "navigation",
+      "layout": "medium",
+      "listScrollTop": 72,
+      "listScrollHeight": 7246,
+      "listClientHeight": 468,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 329,
+        "y": 338.5,
+        "width": 666,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 329,
+        "y": 616.640625,
+        "width": 666,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 329,
+        "y": 654.140625,
+        "width": 666,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 246.5,
+        "width": 300,
+        "height": 519
+      },
+      "main": {
+        "x": 300,
+        "y": 246.5,
+        "width": 724,
+        "height": 519
+      },
+      "mainBody": {
+        "x": 301,
+        "y": 297.5,
+        "width": 722,
+        "height": 468
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 297.5,
+        "width": 298,
+        "height": 468
+      },
+      "contextBody": null,
+      "bottomNav": null,
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1024,
+      "innerHeight": 768,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 68,
+            "y": 0,
+            "width": 270.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 992,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1024,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "1024x768 Back after hash navigation returns to record",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "medium",
+      "listScrollTop": 72,
+      "listScrollHeight": 7246,
+      "listClientHeight": 468,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 329,
+        "y": 338.5,
+        "width": 666,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 329,
+        "y": 616.640625,
+        "width": 666,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 329,
+        "y": 654.140625,
+        "width": 666,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 246.5,
+        "width": 300,
+        "height": 519
+      },
+      "main": {
+        "x": 300,
+        "y": 246.5,
+        "width": 724,
+        "height": 519
+      },
+      "mainBody": {
+        "x": 301,
+        "y": 297.5,
+        "width": 722,
+        "height": 468
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 297.5,
+        "width": 298,
+        "height": 468
+      },
+      "contextBody": null,
+      "bottomNav": null,
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1024,
+      "innerHeight": 768,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 68,
+            "y": 0,
+            "width": 270.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 992,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1024,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "1024x768 exact recorded help retained",
+      "status": "pass",
+      "attempt": "50000000-0000-4000-8000-000000000003",
+      "shownInterventionIds": ["70000000-0000-4000-8000-000000000001"]
+    },
+    {
+      "label": "1024x768 exact lesson version retained",
+      "status": "pass"
+    },
+    {
+      "label": "1024x768 preparation is bounded read-only handoff",
+      "status": "pass",
+      "action": "http://127.0.0.1:3366/teacher/interventions",
+      "method": "get",
+      "seeds": [
+        "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "adca8ad7-b7ba-4f73-8668-d82ba30edc81"
+      ],
+      "assignment": "30000000-0000-4000-8000-000000000001",
+      "returnTo": "evidence"
+    },
+    {
+      "label": "1024x768 longest fixture answer exact original answer",
+      "status": "pass",
+      "attempt": "81f0514b-44f7-4e51-805b-f103f2a5678c",
+      "expectedLength": 271,
+      "actualLength": 271
+    },
+    {
+      "label": "1024x768 longest fixture answer exact original question",
+      "status": "pass",
+      "attempt": "81f0514b-44f7-4e51-805b-f103f2a5678c"
+    },
+    {
+      "label": "1024x768 longest answer is not visually clamped",
+      "status": "pass",
+      "answerLength": 271
+    },
+    {
+      "label": "1024x768 direct row hash opens and focuses response list",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=queuing_delay&attempt=81f0514b-44f7-4e51-805b-f103f2a5678c&session=129120b0-f584-41f0-8e58-c3e190941799&workspacePane=navigation#evidence-response-81f0514b-44f7-4e51-805b-f103f2a5678c",
+      "activeId": "evidence-response-81f0514b-44f7-4e51-805b-f103f2a5678c",
+      "activeTag": "A",
+      "activeClass": "",
+      "activePane": "navigation",
+      "layout": "medium",
+      "listScrollTop": 671,
+      "listScrollHeight": 1933,
+      "listClientHeight": 468,
+      "rows": 7,
+      "selected": "81f0514b-44f7-4e51-805b-f103f2a5678c",
+      "record": {
+        "x": 329,
+        "y": 242.5,
+        "width": 666,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 329,
+        "y": 568.234375,
+        "width": 666,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 329,
+        "y": 605.734375,
+        "width": 666,
+        "height": 159.5625
+      },
+      "navigation": {
+        "x": 0,
+        "y": 246.5,
+        "width": 300,
+        "height": 519
+      },
+      "main": {
+        "x": 300,
+        "y": 246.5,
+        "width": 724,
+        "height": 519
+      },
+      "mainBody": {
+        "x": 301,
+        "y": 297.5,
+        "width": 722,
+        "height": 468
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 297.5,
+        "width": 298,
+        "height": 468
+      },
+      "contextBody": null,
+      "bottomNav": null,
+      "context": null,
+      "answer": "The 4 ms stored waiting interval is queuing delay. Transmission delay is the time to place the packet's bits onto the outbound link once transmission occurs. In the separate immediate-forwarding case, the stated queue wait is zero; a positive wait should not be invented.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1024,
+      "innerHeight": 768,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 68,
+            "y": 0,
+            "width": 270.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 992,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1024,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "390x844 initial list pane",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+      "activeId": "",
+      "activeTag": "BODY",
+      "activeClass": "",
+      "activePane": "navigation",
+      "layout": "compact",
+      "listScrollTop": 0,
+      "listScrollHeight": 7262,
+      "listClientHeight": 633,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": null,
+      "originalAnswerHeading": null,
+      "originalAnswer": null,
+      "navigation": {
+        "x": 0,
+        "y": 145,
+        "width": 390,
+        "height": 633
+      },
+      "main": null,
+      "mainBody": null,
+      "navigationBody": {
+        "x": 1,
+        "y": 145,
+        "width": 388,
+        "height": 633
+      },
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 779,
+        "width": 390,
+        "height": 65
+      },
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 390,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 390,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 779,
+            "width": 390,
+            "height": 65
+          }
+        }
+      ]
+    },
+    {
+      "label": "390x844 long response list",
+      "status": "pass",
+      "rows": 33,
+      "listScrollHeight": 7262,
+      "listClientHeight": 633
+    },
+    {
+      "label": "390x844 list no horizontal overflow",
+      "status": "pass"
+    },
+    {
+      "label": "390x844 persistent mobile bottom navigation visible",
+      "status": "pass"
+    },
+    {
+      "label": "390x844 keyboard Enter opens actual record",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "compact",
+      "listScrollTop": 0,
+      "listScrollHeight": 0,
+      "listClientHeight": 0,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 17,
+        "y": 220,
+        "width": 356,
+        "height": 27.5
+      },
+      "originalAnswerHeading": {
+        "x": 17,
+        "y": 565.28125,
+        "width": 356,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 17,
+        "y": 602.78125,
+        "width": 356,
+        "height": 116.390625
+      },
+      "navigation": null,
+      "main": {
+        "x": 0,
+        "y": 145,
+        "width": 390,
+        "height": 633
+      },
+      "mainBody": {
+        "x": 1,
+        "y": 145,
+        "width": 388,
+        "height": 633
+      },
+      "navigationBody": null,
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 779,
+        "width": 390,
+        "height": 65
+      },
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 390,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 390,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 779,
+            "width": 390,
+            "height": 65
+          }
+        }
+      ]
+    },
+    {
+      "label": "390x844 selected record appears near page top",
+      "status": "pass",
+      "record": {
+        "x": 17,
+        "y": 220,
+        "width": 356,
+        "height": 27.5
+      }
+    },
+    {
+      "label": "390x844 record pane stays above viewport or bottom navigation",
+      "status": "pass",
+      "body": {
+        "x": 1,
+        "y": 145,
+        "width": 388,
+        "height": 633
+      },
+      "contentBottom": 779
+    },
+    {
+      "label": "390x844 selecting record does not scroll outer workspace",
+      "status": "pass",
+      "scrollY": 0
+    },
+    {
+      "label": "390x844 selected exact original answer",
+      "status": "pass",
+      "attempt": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "expectedLength": 110,
+      "actualLength": 110
+    },
+    {
+      "label": "390x844 selected exact original question",
+      "status": "pass",
+      "attempt": "fd3a4d10-9df5-4a6a-89bc-164303f7276d"
+    },
+    {
+      "label": "390x844 F1 native Back restores originating row focus",
+      "status": "pass",
+      "expectedFocus": "evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+      "activeId": "evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "activeTag": "A",
+      "activeClass": "",
+      "activePane": "navigation",
+      "layout": "compact",
+      "listScrollTop": 0,
+      "listScrollHeight": 7262,
+      "listClientHeight": 633,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": null,
+      "originalAnswerHeading": null,
+      "originalAnswer": null,
+      "navigation": {
+        "x": 0,
+        "y": 145,
+        "width": 390,
+        "height": 633
+      },
+      "main": null,
+      "mainBody": null,
+      "navigationBody": {
+        "x": 1,
+        "y": 145,
+        "width": 388,
+        "height": 633
+      },
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 779,
+        "width": 390,
+        "height": 65
+      },
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 390,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 390,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 779,
+            "width": 390,
+            "height": 65
+          }
+        }
+      ]
+    },
+    {
+      "label": "390x844 Back restores list position",
+      "status": "pass",
+      "before": 0,
+      "after": 0
+    },
+    {
+      "label": "390x844 Forward restores selected record",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "compact",
+      "listScrollTop": 0,
+      "listScrollHeight": 0,
+      "listClientHeight": 0,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 17,
+        "y": 220,
+        "width": 356,
+        "height": 27.5
+      },
+      "originalAnswerHeading": {
+        "x": 17,
+        "y": 565.28125,
+        "width": 356,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 17,
+        "y": 602.78125,
+        "width": 356,
+        "height": 116.390625
+      },
+      "navigation": null,
+      "main": {
+        "x": 0,
+        "y": 145,
+        "width": 390,
+        "height": 633
+      },
+      "mainBody": {
+        "x": 1,
+        "y": 145,
+        "width": 388,
+        "height": 633
+      },
+      "navigationBody": null,
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 779,
+        "width": 390,
+        "height": 65
+      },
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 390,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 390,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 779,
+            "width": 390,
+            "height": 65
+          }
+        }
+      ]
+    },
+    {
+      "label": "390x844 Forward focuses visible record heading",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "compact",
+      "listScrollTop": 0,
+      "listScrollHeight": 0,
+      "listClientHeight": 0,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 17,
+        "y": 220,
+        "width": 356,
+        "height": 27.5
+      },
+      "originalAnswerHeading": {
+        "x": 17,
+        "y": 565.28125,
+        "width": 356,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 17,
+        "y": 602.78125,
+        "width": 356,
+        "height": 116.390625
+      },
+      "navigation": null,
+      "main": {
+        "x": 0,
+        "y": 145,
+        "width": 390,
+        "height": 633
+      },
+      "mainBody": {
+        "x": 1,
+        "y": 145,
+        "width": 388,
+        "height": 633
+      },
+      "navigationBody": null,
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 779,
+        "width": 390,
+        "height": 65
+      },
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 390,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 390,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 779,
+            "width": 390,
+            "height": 65
+          }
+        }
+      ]
+    },
+    {
+      "label": "390x844 forward exact original answer",
+      "status": "pass",
+      "attempt": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "expectedLength": 110,
+      "actualLength": 110
+    },
+    {
+      "label": "390x844 forward exact original question",
+      "status": "pass",
+      "attempt": "fd3a4d10-9df5-4a6a-89bc-164303f7276d"
+    },
+    {
+      "label": "390x844 direct selected refresh opens record",
+      "status": "pass"
+    },
+    {
+      "label": "390x844 last-row click selects exact record",
+      "status": "pass",
+      "attempt": "1f16fd29-fa61-4166-85c8-c13197f1facb"
+    },
+    {
+      "label": "390x844 native Back restores exact nonzero list position and originating row focus",
+      "status": "pass",
+      "expectedFocus": "evidence-response-1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "before": {
+        "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+        "activeId": "",
+        "activeTag": "BODY",
+        "activeClass": "",
+        "activePane": "navigation",
+        "layout": "compact",
+        "listScrollTop": 6608,
+        "listScrollHeight": 7262,
+        "listClientHeight": 633,
+        "rows": 33,
+        "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "record": null,
+        "originalAnswerHeading": null,
+        "originalAnswer": null,
+        "navigation": {
+          "x": 0,
+          "y": 145,
+          "width": 390,
+          "height": 633
+        },
+        "main": null,
+        "mainBody": null,
+        "navigationBody": {
+          "x": 1,
+          "y": 145,
+          "width": 388,
+          "height": 633
+        },
+        "contextBody": null,
+        "bottomNav": {
+          "x": 0,
+          "y": 779,
+          "width": 390,
+          "height": 65
+        },
+        "context": null,
+        "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+        "overflow": false,
+        "scrollY": 0,
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "devicePixelRatio": 1,
+        "rootZoom": "1",
+        "bottomNavigation": [
+          {
+            "label": "Student work views",
+            "rect": {
+              "x": 0,
+              "y": 57,
+              "width": 390,
+              "height": 45
+            }
+          },
+          {
+            "label": "Assignment workspace mobile",
+            "rect": {
+              "x": 0,
+              "y": 779,
+              "width": 390,
+              "height": 65
+            }
+          }
+        ]
+      },
+      "after": {
+        "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+        "activeId": "evidence-response-1f16fd29-fa61-4166-85c8-c13197f1facb",
+        "activeTag": "A",
+        "activeClass": "",
+        "activePane": "navigation",
+        "layout": "compact",
+        "listScrollTop": 6608,
+        "listScrollHeight": 7262,
+        "listClientHeight": 633,
+        "rows": 33,
+        "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "record": null,
+        "originalAnswerHeading": null,
+        "originalAnswer": null,
+        "navigation": {
+          "x": 0,
+          "y": 145,
+          "width": 390,
+          "height": 633
+        },
+        "main": null,
+        "mainBody": null,
+        "navigationBody": {
+          "x": 1,
+          "y": 145,
+          "width": 388,
+          "height": 633
+        },
+        "contextBody": null,
+        "bottomNav": {
+          "x": 0,
+          "y": 779,
+          "width": 390,
+          "height": 65
+        },
+        "context": null,
+        "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+        "overflow": false,
+        "scrollY": 0,
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "devicePixelRatio": 1,
+        "rootZoom": "1",
+        "bottomNavigation": [
+          {
+            "label": "Student work views",
+            "rect": {
+              "x": 0,
+              "y": 57,
+              "width": 390,
+              "height": 45
+            }
+          },
+          {
+            "label": "Assignment workspace mobile",
+            "rect": {
+              "x": 0,
+              "y": 779,
+              "width": 390,
+              "height": 65
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "390x844 native Forward restores last selected record",
+      "status": "pass",
+      "expectedAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb"
+    },
+    {
+      "label": "390x844 last-row Forward focuses visible record heading",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=ae71b8e0-54cb-416e-8f03-bac46347ae6e&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb&evaluation=42a472b6-f120-4170-8ddf-843be29033de&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "compact",
+      "listScrollTop": 0,
+      "listScrollHeight": 0,
+      "listClientHeight": 0,
+      "rows": 33,
+      "selected": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "record": {
+        "x": 17,
+        "y": 220,
+        "width": 356,
+        "height": 27.5
+      },
+      "originalAnswerHeading": {
+        "x": 17,
+        "y": 565.28125,
+        "width": 356,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 17,
+        "y": 602.78125,
+        "width": 356,
+        "height": 116.390625
+      },
+      "navigation": null,
+      "main": {
+        "x": 0,
+        "y": 145,
+        "width": 390,
+        "height": 633
+      },
+      "mainBody": {
+        "x": 1,
+        "y": 145,
+        "width": 388,
+        "height": 633
+      },
+      "navigationBody": null,
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 779,
+        "width": 390,
+        "height": 65
+      },
+      "context": null,
+      "answer": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 390,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 390,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 779,
+            "width": 390,
+            "height": 65
+          }
+        }
+      ]
+    },
+    {
+      "label": "390x844 page Back to responses retains exact selection position and row focus",
+      "status": "pass",
+      "expectedAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "expectedFocus": "evidence-response-1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "expectedScroll": 6608,
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=ae71b8e0-54cb-416e-8f03-bac46347ae6e&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb&evaluation=42a472b6-f120-4170-8ddf-843be29033de&returnTo=evidence&workspacePane=navigation#evidence-results",
+      "activeId": "evidence-response-1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "activeTag": "A",
+      "activeClass": "",
+      "activePane": "navigation",
+      "layout": "compact",
+      "listScrollTop": 6608,
+      "listScrollHeight": 7262,
+      "listClientHeight": 633,
+      "rows": 33,
+      "selected": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "record": null,
+      "originalAnswerHeading": null,
+      "originalAnswer": null,
+      "navigation": {
+        "x": 0,
+        "y": 145,
+        "width": 390,
+        "height": 633
+      },
+      "main": null,
+      "mainBody": null,
+      "navigationBody": {
+        "x": 1,
+        "y": 145,
+        "width": 388,
+        "height": 633
+      },
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 779,
+        "width": 390,
+        "height": 65
+      },
+      "context": null,
+      "answer": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 390,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 390,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 779,
+            "width": 390,
+            "height": 65
+          }
+        }
+      ]
+    },
+    {
+      "label": "390x844 response tab preserves exact selection and scroll",
+      "status": "pass",
+      "expectedAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "expectedScroll": 6608,
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=ae71b8e0-54cb-416e-8f03-bac46347ae6e&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb&evaluation=42a472b6-f120-4170-8ddf-843be29033de&returnTo=evidence&workspacePane=navigation#evidence-results",
+      "activeId": "evidence-response-1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "activeTag": "A",
+      "activeClass": "",
+      "activePane": "navigation",
+      "layout": "compact",
+      "listScrollTop": 6608,
+      "listScrollHeight": 7262,
+      "listClientHeight": 633,
+      "rows": 33,
+      "selected": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "record": null,
+      "originalAnswerHeading": null,
+      "originalAnswer": null,
+      "navigation": {
+        "x": 0,
+        "y": 145,
+        "width": 390,
+        "height": 633
+      },
+      "main": null,
+      "mainBody": null,
+      "navigationBody": {
+        "x": 1,
+        "y": 145,
+        "width": 388,
+        "height": 633
+      },
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 779,
+        "width": 390,
+        "height": 65
+      },
+      "context": null,
+      "answer": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 390,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 390,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 779,
+            "width": 390,
+            "height": 65
+          }
+        }
+      ]
+    },
+    {
+      "label": "390x844 source context separately accessible",
+      "status": "pass"
+    },
+    {
+      "label": "390x844 exact source version preserved",
+      "status": "pass"
+    },
+    {
+      "label": "390x844 approved passages actually expanded with exact text",
+      "status": "pass",
+      "expectedPassageIds": ["P07", "P08", "P12"],
+      "visiblePassages": 3
+    },
+    {
+      "label": "390x844 manual scroll does not jump to stale focus row",
+      "status": "pass",
+      "oldFocus": "evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "before": {
+        "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+        "activeId": "evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "activeTag": "A",
+        "activeClass": "",
+        "activePane": "navigation",
+        "layout": "compact",
+        "listScrollTop": 1400,
+        "listScrollHeight": 7262,
+        "listClientHeight": 633,
+        "rows": 33,
+        "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "record": null,
+        "originalAnswerHeading": null,
+        "originalAnswer": null,
+        "navigation": {
+          "x": 0,
+          "y": 145,
+          "width": 390,
+          "height": 633
+        },
+        "main": null,
+        "mainBody": null,
+        "navigationBody": {
+          "x": 1,
+          "y": 145,
+          "width": 388,
+          "height": 633
+        },
+        "contextBody": null,
+        "bottomNav": {
+          "x": 0,
+          "y": 779,
+          "width": 390,
+          "height": 65
+        },
+        "context": null,
+        "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+        "overflow": false,
+        "scrollY": 0,
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "devicePixelRatio": 1,
+        "rootZoom": "1",
+        "bottomNavigation": [
+          {
+            "label": "Student work views",
+            "rect": {
+              "x": 0,
+              "y": 57,
+              "width": 390,
+              "height": 45
+            }
+          },
+          {
+            "label": "Assignment workspace mobile",
+            "rect": {
+              "x": 0,
+              "y": 779,
+              "width": 390,
+              "height": 65
+            }
+          }
+        ]
+      },
+      "after": {
+        "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&workspacePane=navigation",
+        "activeId": "_R_a2npfivb_-navigation-heading",
+        "activeTag": "H2",
+        "activeClass": "tw-panes-heading",
+        "activePane": "navigation",
+        "layout": "compact",
+        "listScrollTop": 1400,
+        "listScrollHeight": 7262,
+        "listClientHeight": 633,
+        "rows": 33,
+        "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "record": null,
+        "originalAnswerHeading": null,
+        "originalAnswer": null,
+        "navigation": {
+          "x": 0,
+          "y": 145,
+          "width": 390,
+          "height": 633
+        },
+        "main": null,
+        "mainBody": null,
+        "navigationBody": {
+          "x": 1,
+          "y": 145,
+          "width": 388,
+          "height": 633
+        },
+        "contextBody": null,
+        "bottomNav": {
+          "x": 0,
+          "y": 779,
+          "width": 390,
+          "height": 65
+        },
+        "context": null,
+        "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+        "overflow": false,
+        "scrollY": 0,
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "devicePixelRatio": 1,
+        "rootZoom": "1",
+        "bottomNavigation": [
+          {
+            "label": "Student work views",
+            "rect": {
+              "x": 0,
+              "y": 57,
+              "width": 390,
+              "height": 45
+            }
+          },
+          {
+            "label": "Assignment workspace mobile",
+            "rect": {
+              "x": 0,
+              "y": 779,
+              "width": 390,
+              "height": 65
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "390x844 scoped search preserves concept",
+      "status": "pass"
+    },
+    {
+      "label": "390x844 Back preserves search and concept filters",
+      "status": "pass"
+    },
+    {
+      "label": "390x844 unmatched search shows honest empty state",
+      "status": "pass"
+    },
+    {
+      "label": "390x844 unselected has no invented original answer",
+      "status": "pass"
+    },
+    {
+      "label": "390x844 retained outside search exact original answer",
+      "status": "pass",
+      "attempt": "50000000-0000-4000-8000-000000000001",
+      "expectedLength": 109,
+      "actualLength": 109
+    },
+    {
+      "label": "390x844 retained outside search exact original question",
+      "status": "pass",
+      "attempt": "50000000-0000-4000-8000-000000000001"
+    },
+    {
+      "label": "390x844 direct selected response remains despite search",
+      "status": "pass"
+    },
+    {
+      "label": "390x844 unselected source/context is honest",
+      "status": "pass"
+    },
+    {
+      "label": "390x844 pending_review exact original answer",
+      "status": "pass",
+      "attempt": "82e3bdbb-5fba-4c4a-87b9-c5b051c39305",
+      "expectedLength": 213,
+      "actualLength": 213
+    },
+    {
+      "label": "390x844 pending_review exact original question",
+      "status": "pass",
+      "attempt": "82e3bdbb-5fba-4c4a-87b9-c5b051c39305"
+    },
+    {
+      "label": "390x844 pending_review state preserved",
+      "status": "pass",
+      "attempt": "82e3bdbb-5fba-4c4a-87b9-c5b051c39305",
+      "evaluation": "35ced273-1923-4b82-870f-d3bbbf980850"
+    },
+    {
+      "label": "390x844 pending_review cannot prepare selected response",
+      "status": "pass"
+    },
+    {
+      "label": "390x844 evaluation_failed exact original answer",
+      "status": "pass",
+      "attempt": "cb5fec92-b796-44ed-85f2-e8e26d29b2e4",
+      "expectedLength": 247,
+      "actualLength": 247
+    },
+    {
+      "label": "390x844 evaluation_failed exact original question",
+      "status": "pass",
+      "attempt": "cb5fec92-b796-44ed-85f2-e8e26d29b2e4"
+    },
+    {
+      "label": "390x844 evaluation_failed state preserved",
+      "status": "pass",
+      "attempt": "cb5fec92-b796-44ed-85f2-e8e26d29b2e4",
+      "evaluation": "2a29ff63-cbdc-4e30-882b-8b714850cba8"
+    },
+    {
+      "label": "390x844 evaluation_failed cannot prepare selected response",
+      "status": "pass"
+    },
+    {
+      "label": "390x844 accepted exact original answer",
+      "status": "pass",
+      "attempt": "d52463a8-e32f-40a0-894f-7c1ebed60552",
+      "expectedLength": 41,
+      "actualLength": 41
+    },
+    {
+      "label": "390x844 accepted exact original question",
+      "status": "pass",
+      "attempt": "d52463a8-e32f-40a0-894f-7c1ebed60552"
+    },
+    {
+      "label": "390x844 accepted state preserved",
+      "status": "pass",
+      "attempt": "d52463a8-e32f-40a0-894f-7c1ebed60552",
+      "evaluation": "666d4bd8-70b8-47f3-840d-d3ecd75cf5b1"
+    },
+    {
+      "label": "390x844 hash setup uses explicit record pane",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title"
+    },
+    {
+      "label": "390x844 hash-only row navigation reveals and focuses list",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=navigation#evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "activeId": "evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "activeTag": "A",
+      "activeClass": "",
+      "activePane": "navigation",
+      "layout": "compact",
+      "listScrollTop": 0,
+      "listScrollHeight": 7262,
+      "listClientHeight": 633,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": null,
+      "originalAnswerHeading": null,
+      "originalAnswer": null,
+      "navigation": {
+        "x": 0,
+        "y": 145,
+        "width": 390,
+        "height": 633
+      },
+      "main": null,
+      "mainBody": null,
+      "navigationBody": {
+        "x": 1,
+        "y": 145,
+        "width": 388,
+        "height": 633
+      },
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 779,
+        "width": 390,
+        "height": 65
+      },
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 390,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 390,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 779,
+            "width": 390,
+            "height": 65
+          }
+        }
+      ]
+    },
+    {
+      "label": "390x844 Back after hash navigation returns to record",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "compact",
+      "listScrollTop": 0,
+      "listScrollHeight": 0,
+      "listClientHeight": 0,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 17,
+        "y": 213,
+        "width": 356,
+        "height": 27.5
+      },
+      "originalAnswerHeading": {
+        "x": 17,
+        "y": 558.28125,
+        "width": 356,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 17,
+        "y": 595.78125,
+        "width": 356,
+        "height": 116.390625
+      },
+      "navigation": null,
+      "main": {
+        "x": 0,
+        "y": 145,
+        "width": 390,
+        "height": 633
+      },
+      "mainBody": {
+        "x": 1,
+        "y": 145,
+        "width": 388,
+        "height": 633
+      },
+      "navigationBody": null,
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 779,
+        "width": 390,
+        "height": 65
+      },
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 390,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 390,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 779,
+            "width": 390,
+            "height": 65
+          }
+        }
+      ]
+    },
+    {
+      "label": "390x844 exact recorded help retained",
+      "status": "pass",
+      "attempt": "50000000-0000-4000-8000-000000000003",
+      "shownInterventionIds": ["70000000-0000-4000-8000-000000000001"]
+    },
+    {
+      "label": "390x844 exact lesson version retained",
+      "status": "pass"
+    },
+    {
+      "label": "390x844 preparation is bounded read-only handoff",
+      "status": "pass",
+      "action": "http://127.0.0.1:3366/teacher/interventions",
+      "method": "get",
+      "seeds": [
+        "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "adca8ad7-b7ba-4f73-8668-d82ba30edc81"
+      ],
+      "assignment": "30000000-0000-4000-8000-000000000001",
+      "returnTo": "evidence"
+    },
+    {
+      "label": "390x844 longest fixture answer exact original answer",
+      "status": "pass",
+      "attempt": "81f0514b-44f7-4e51-805b-f103f2a5678c",
+      "expectedLength": 271,
+      "actualLength": 271
+    },
+    {
+      "label": "390x844 longest fixture answer exact original question",
+      "status": "pass",
+      "attempt": "81f0514b-44f7-4e51-805b-f103f2a5678c"
+    },
+    {
+      "label": "390x844 longest answer is not visually clamped",
+      "status": "pass",
+      "answerLength": 271
+    },
+    {
+      "label": "390x844 direct row hash opens and focuses response list",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=queuing_delay&attempt=81f0514b-44f7-4e51-805b-f103f2a5678c&session=129120b0-f584-41f0-8e58-c3e190941799#evidence-response-81f0514b-44f7-4e51-805b-f103f2a5678c",
+      "activeId": "evidence-response-81f0514b-44f7-4e51-805b-f103f2a5678c",
+      "activeTag": "A",
+      "activeClass": "",
+      "activePane": "navigation",
+      "layout": "compact",
+      "listScrollTop": 536,
+      "listScrollHeight": 1961,
+      "listClientHeight": 633,
+      "rows": 7,
+      "selected": "81f0514b-44f7-4e51-805b-f103f2a5678c",
+      "record": null,
+      "originalAnswerHeading": null,
+      "originalAnswer": null,
+      "navigation": {
+        "x": 0,
+        "y": 145,
+        "width": 390,
+        "height": 633
+      },
+      "main": null,
+      "mainBody": null,
+      "navigationBody": {
+        "x": 1,
+        "y": 145,
+        "width": 388,
+        "height": 633
+      },
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 779,
+        "width": 390,
+        "height": 65
+      },
+      "context": null,
+      "answer": "The 4 ms stored waiting interval is queuing delay. Transmission delay is the time to place the packet's bits onto the outbound link once transmission occurs. In the separate immediate-forwarding case, the stated queue wait is zero; a positive wait should not be invented.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 390,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 390,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 779,
+            "width": 390,
+            "height": 65
+          }
+        }
+      ]
+    },
+    {
+      "label": "320x844 initial list pane",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+      "activeId": "",
+      "activeTag": "BODY",
+      "activeClass": "",
+      "activePane": "navigation",
+      "layout": "compact",
+      "listScrollTop": 0,
+      "listScrollHeight": 7545,
+      "listClientHeight": 618,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": null,
+      "originalAnswerHeading": null,
+      "originalAnswer": null,
+      "navigation": {
+        "x": 0,
+        "y": 145,
+        "width": 320,
+        "height": 618
+      },
+      "main": null,
+      "mainBody": null,
+      "navigationBody": {
+        "x": 1,
+        "y": 145,
+        "width": 318,
+        "height": 618
+      },
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 764,
+        "width": 320,
+        "height": 80
+      },
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 320,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 320,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 764,
+            "width": 320,
+            "height": 80
+          }
+        }
+      ]
+    },
+    {
+      "label": "320x844 long response list",
+      "status": "pass",
+      "rows": 33,
+      "listScrollHeight": 7545,
+      "listClientHeight": 618
+    },
+    {
+      "label": "320x844 list no horizontal overflow",
+      "status": "pass"
+    },
+    {
+      "label": "320x844 persistent mobile bottom navigation visible",
+      "status": "pass"
+    },
+    {
+      "label": "320x844 keyboard Enter opens actual record",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "compact",
+      "listScrollTop": 0,
+      "listScrollHeight": 0,
+      "listClientHeight": 0,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 17,
+        "y": 220,
+        "width": 286,
+        "height": 27.5
+      },
+      "originalAnswerHeading": {
+        "x": 17,
+        "y": 589.078125,
+        "width": 286,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 17,
+        "y": 626.578125,
+        "width": 286,
+        "height": 145.1875
+      },
+      "navigation": null,
+      "main": {
+        "x": 0,
+        "y": 145,
+        "width": 320,
+        "height": 618
+      },
+      "mainBody": {
+        "x": 1,
+        "y": 145,
+        "width": 318,
+        "height": 618
+      },
+      "navigationBody": null,
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 764,
+        "width": 320,
+        "height": 80
+      },
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 320,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 320,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 764,
+            "width": 320,
+            "height": 80
+          }
+        }
+      ]
+    },
+    {
+      "label": "320x844 selected record appears near page top",
+      "status": "pass",
+      "record": {
+        "x": 17,
+        "y": 220,
+        "width": 286,
+        "height": 27.5
+      }
+    },
+    {
+      "label": "320x844 record pane stays above viewport or bottom navigation",
+      "status": "pass",
+      "body": {
+        "x": 1,
+        "y": 145,
+        "width": 318,
+        "height": 618
+      },
+      "contentBottom": 764
+    },
+    {
+      "label": "320x844 selecting record does not scroll outer workspace",
+      "status": "pass",
+      "scrollY": 0
+    },
+    {
+      "label": "320x844 selected exact original answer",
+      "status": "pass",
+      "attempt": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "expectedLength": 110,
+      "actualLength": 110
+    },
+    {
+      "label": "320x844 selected exact original question",
+      "status": "pass",
+      "attempt": "fd3a4d10-9df5-4a6a-89bc-164303f7276d"
+    },
+    {
+      "label": "320x844 F1 native Back restores originating row focus",
+      "status": "pass",
+      "expectedFocus": "evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+      "activeId": "evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "activeTag": "A",
+      "activeClass": "",
+      "activePane": "navigation",
+      "layout": "compact",
+      "listScrollTop": 0,
+      "listScrollHeight": 7545,
+      "listClientHeight": 618,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": null,
+      "originalAnswerHeading": null,
+      "originalAnswer": null,
+      "navigation": {
+        "x": 0,
+        "y": 145,
+        "width": 320,
+        "height": 618
+      },
+      "main": null,
+      "mainBody": null,
+      "navigationBody": {
+        "x": 1,
+        "y": 145,
+        "width": 318,
+        "height": 618
+      },
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 764,
+        "width": 320,
+        "height": 80
+      },
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 320,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 320,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 764,
+            "width": 320,
+            "height": 80
+          }
+        }
+      ]
+    },
+    {
+      "label": "320x844 Back restores list position",
+      "status": "pass",
+      "before": 0,
+      "after": 0
+    },
+    {
+      "label": "320x844 Forward restores selected record",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "compact",
+      "listScrollTop": 0,
+      "listScrollHeight": 0,
+      "listClientHeight": 0,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 17,
+        "y": 220,
+        "width": 286,
+        "height": 27.5
+      },
+      "originalAnswerHeading": {
+        "x": 17,
+        "y": 589.078125,
+        "width": 286,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 17,
+        "y": 626.578125,
+        "width": 286,
+        "height": 145.1875
+      },
+      "navigation": null,
+      "main": {
+        "x": 0,
+        "y": 145,
+        "width": 320,
+        "height": 618
+      },
+      "mainBody": {
+        "x": 1,
+        "y": 145,
+        "width": 318,
+        "height": 618
+      },
+      "navigationBody": null,
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 764,
+        "width": 320,
+        "height": 80
+      },
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 320,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 320,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 764,
+            "width": 320,
+            "height": 80
+          }
+        }
+      ]
+    },
+    {
+      "label": "320x844 Forward focuses visible record heading",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "compact",
+      "listScrollTop": 0,
+      "listScrollHeight": 0,
+      "listClientHeight": 0,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 17,
+        "y": 220,
+        "width": 286,
+        "height": 27.5
+      },
+      "originalAnswerHeading": {
+        "x": 17,
+        "y": 589.078125,
+        "width": 286,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 17,
+        "y": 626.578125,
+        "width": 286,
+        "height": 145.1875
+      },
+      "navigation": null,
+      "main": {
+        "x": 0,
+        "y": 145,
+        "width": 320,
+        "height": 618
+      },
+      "mainBody": {
+        "x": 1,
+        "y": 145,
+        "width": 318,
+        "height": 618
+      },
+      "navigationBody": null,
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 764,
+        "width": 320,
+        "height": 80
+      },
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 320,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 320,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 764,
+            "width": 320,
+            "height": 80
+          }
+        }
+      ]
+    },
+    {
+      "label": "320x844 forward exact original answer",
+      "status": "pass",
+      "attempt": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "expectedLength": 110,
+      "actualLength": 110
+    },
+    {
+      "label": "320x844 forward exact original question",
+      "status": "pass",
+      "attempt": "fd3a4d10-9df5-4a6a-89bc-164303f7276d"
+    },
+    {
+      "label": "320x844 direct selected refresh opens record",
+      "status": "pass"
+    },
+    {
+      "label": "320x844 last-row click selects exact record",
+      "status": "pass",
+      "attempt": "1f16fd29-fa61-4166-85c8-c13197f1facb"
+    },
+    {
+      "label": "320x844 native Back restores exact nonzero list position and originating row focus",
+      "status": "pass",
+      "expectedFocus": "evidence-response-1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "before": {
+        "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+        "activeId": "",
+        "activeTag": "BODY",
+        "activeClass": "",
+        "activePane": "navigation",
+        "layout": "compact",
+        "listScrollTop": 6867,
+        "listScrollHeight": 7545,
+        "listClientHeight": 618,
+        "rows": 33,
+        "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "record": null,
+        "originalAnswerHeading": null,
+        "originalAnswer": null,
+        "navigation": {
+          "x": 0,
+          "y": 145,
+          "width": 320,
+          "height": 618
+        },
+        "main": null,
+        "mainBody": null,
+        "navigationBody": {
+          "x": 1,
+          "y": 145,
+          "width": 318,
+          "height": 618
+        },
+        "contextBody": null,
+        "bottomNav": {
+          "x": 0,
+          "y": 764,
+          "width": 320,
+          "height": 80
+        },
+        "context": null,
+        "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+        "overflow": false,
+        "scrollY": 0,
+        "innerWidth": 320,
+        "innerHeight": 844,
+        "devicePixelRatio": 1,
+        "rootZoom": "1",
+        "bottomNavigation": [
+          {
+            "label": "Student work views",
+            "rect": {
+              "x": 0,
+              "y": 57,
+              "width": 320,
+              "height": 45
+            }
+          },
+          {
+            "label": "Assignment workspace mobile",
+            "rect": {
+              "x": 0,
+              "y": 764,
+              "width": 320,
+              "height": 80
+            }
+          }
+        ]
+      },
+      "after": {
+        "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+        "activeId": "evidence-response-1f16fd29-fa61-4166-85c8-c13197f1facb",
+        "activeTag": "A",
+        "activeClass": "",
+        "activePane": "navigation",
+        "layout": "compact",
+        "listScrollTop": 6867,
+        "listScrollHeight": 7545,
+        "listClientHeight": 618,
+        "rows": 33,
+        "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "record": null,
+        "originalAnswerHeading": null,
+        "originalAnswer": null,
+        "navigation": {
+          "x": 0,
+          "y": 145,
+          "width": 320,
+          "height": 618
+        },
+        "main": null,
+        "mainBody": null,
+        "navigationBody": {
+          "x": 1,
+          "y": 145,
+          "width": 318,
+          "height": 618
+        },
+        "contextBody": null,
+        "bottomNav": {
+          "x": 0,
+          "y": 764,
+          "width": 320,
+          "height": 80
+        },
+        "context": null,
+        "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+        "overflow": false,
+        "scrollY": 0,
+        "innerWidth": 320,
+        "innerHeight": 844,
+        "devicePixelRatio": 1,
+        "rootZoom": "1",
+        "bottomNavigation": [
+          {
+            "label": "Student work views",
+            "rect": {
+              "x": 0,
+              "y": 57,
+              "width": 320,
+              "height": 45
+            }
+          },
+          {
+            "label": "Assignment workspace mobile",
+            "rect": {
+              "x": 0,
+              "y": 764,
+              "width": 320,
+              "height": 80
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "320x844 native Forward restores last selected record",
+      "status": "pass",
+      "expectedAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb"
+    },
+    {
+      "label": "320x844 last-row Forward focuses visible record heading",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=ae71b8e0-54cb-416e-8f03-bac46347ae6e&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb&evaluation=42a472b6-f120-4170-8ddf-843be29033de&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "compact",
+      "listScrollTop": 0,
+      "listScrollHeight": 0,
+      "listClientHeight": 0,
+      "rows": 33,
+      "selected": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "record": {
+        "x": 17,
+        "y": 220,
+        "width": 286,
+        "height": 27.5
+      },
+      "originalAnswerHeading": {
+        "x": 17,
+        "y": 589.078125,
+        "width": 286,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 17,
+        "y": 626.578125,
+        "width": 286,
+        "height": 145.1875
+      },
+      "navigation": null,
+      "main": {
+        "x": 0,
+        "y": 145,
+        "width": 320,
+        "height": 618
+      },
+      "mainBody": {
+        "x": 1,
+        "y": 145,
+        "width": 318,
+        "height": 618
+      },
+      "navigationBody": null,
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 764,
+        "width": 320,
+        "height": 80
+      },
+      "context": null,
+      "answer": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 320,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 320,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 764,
+            "width": 320,
+            "height": 80
+          }
+        }
+      ]
+    },
+    {
+      "label": "320x844 page Back to responses retains exact selection position and row focus",
+      "status": "pass",
+      "expectedAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "expectedFocus": "evidence-response-1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "expectedScroll": 6867,
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=ae71b8e0-54cb-416e-8f03-bac46347ae6e&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb&evaluation=42a472b6-f120-4170-8ddf-843be29033de&returnTo=evidence&workspacePane=navigation#evidence-results",
+      "activeId": "evidence-response-1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "activeTag": "A",
+      "activeClass": "",
+      "activePane": "navigation",
+      "layout": "compact",
+      "listScrollTop": 6867,
+      "listScrollHeight": 7545,
+      "listClientHeight": 618,
+      "rows": 33,
+      "selected": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "record": null,
+      "originalAnswerHeading": null,
+      "originalAnswer": null,
+      "navigation": {
+        "x": 0,
+        "y": 145,
+        "width": 320,
+        "height": 618
+      },
+      "main": null,
+      "mainBody": null,
+      "navigationBody": {
+        "x": 1,
+        "y": 145,
+        "width": 318,
+        "height": 618
+      },
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 764,
+        "width": 320,
+        "height": 80
+      },
+      "context": null,
+      "answer": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 320,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 320,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 764,
+            "width": 320,
+            "height": 80
+          }
+        }
+      ]
+    },
+    {
+      "label": "320x844 response tab preserves exact selection and scroll",
+      "status": "pass",
+      "expectedAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "expectedScroll": 6867,
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=ae71b8e0-54cb-416e-8f03-bac46347ae6e&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb&evaluation=42a472b6-f120-4170-8ddf-843be29033de&returnTo=evidence&workspacePane=navigation#evidence-results",
+      "activeId": "evidence-response-1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "activeTag": "A",
+      "activeClass": "",
+      "activePane": "navigation",
+      "layout": "compact",
+      "listScrollTop": 6867,
+      "listScrollHeight": 7545,
+      "listClientHeight": 618,
+      "rows": 33,
+      "selected": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "record": null,
+      "originalAnswerHeading": null,
+      "originalAnswer": null,
+      "navigation": {
+        "x": 0,
+        "y": 145,
+        "width": 320,
+        "height": 618
+      },
+      "main": null,
+      "mainBody": null,
+      "navigationBody": {
+        "x": 1,
+        "y": 145,
+        "width": 318,
+        "height": 618
+      },
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 764,
+        "width": 320,
+        "height": 80
+      },
+      "context": null,
+      "answer": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 320,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 320,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 764,
+            "width": 320,
+            "height": 80
+          }
+        }
+      ]
+    },
+    {
+      "label": "320x844 source context separately accessible",
+      "status": "pass"
+    },
+    {
+      "label": "320x844 exact source version preserved",
+      "status": "pass"
+    },
+    {
+      "label": "320x844 approved passages actually expanded with exact text",
+      "status": "pass",
+      "expectedPassageIds": ["P07", "P08", "P12"],
+      "visiblePassages": 3
+    },
+    {
+      "label": "320x844 manual scroll does not jump to stale focus row",
+      "status": "pass",
+      "oldFocus": "evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "before": {
+        "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+        "activeId": "evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "activeTag": "A",
+        "activeClass": "",
+        "activePane": "navigation",
+        "layout": "compact",
+        "listScrollTop": 1400,
+        "listScrollHeight": 7545,
+        "listClientHeight": 618,
+        "rows": 33,
+        "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "record": null,
+        "originalAnswerHeading": null,
+        "originalAnswer": null,
+        "navigation": {
+          "x": 0,
+          "y": 145,
+          "width": 320,
+          "height": 618
+        },
+        "main": null,
+        "mainBody": null,
+        "navigationBody": {
+          "x": 1,
+          "y": 145,
+          "width": 318,
+          "height": 618
+        },
+        "contextBody": null,
+        "bottomNav": {
+          "x": 0,
+          "y": 764,
+          "width": 320,
+          "height": 80
+        },
+        "context": null,
+        "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+        "overflow": false,
+        "scrollY": 0,
+        "innerWidth": 320,
+        "innerHeight": 844,
+        "devicePixelRatio": 1,
+        "rootZoom": "1",
+        "bottomNavigation": [
+          {
+            "label": "Student work views",
+            "rect": {
+              "x": 0,
+              "y": 57,
+              "width": 320,
+              "height": 45
+            }
+          },
+          {
+            "label": "Assignment workspace mobile",
+            "rect": {
+              "x": 0,
+              "y": 764,
+              "width": 320,
+              "height": 80
+            }
+          }
+        ]
+      },
+      "after": {
+        "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&workspacePane=navigation",
+        "activeId": "_R_a2npfivb_-navigation-heading",
+        "activeTag": "H2",
+        "activeClass": "tw-panes-heading",
+        "activePane": "navigation",
+        "layout": "compact",
+        "listScrollTop": 1400,
+        "listScrollHeight": 7545,
+        "listClientHeight": 618,
+        "rows": 33,
+        "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "record": null,
+        "originalAnswerHeading": null,
+        "originalAnswer": null,
+        "navigation": {
+          "x": 0,
+          "y": 145,
+          "width": 320,
+          "height": 618
+        },
+        "main": null,
+        "mainBody": null,
+        "navigationBody": {
+          "x": 1,
+          "y": 145,
+          "width": 318,
+          "height": 618
+        },
+        "contextBody": null,
+        "bottomNav": {
+          "x": 0,
+          "y": 764,
+          "width": 320,
+          "height": 80
+        },
+        "context": null,
+        "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+        "overflow": false,
+        "scrollY": 0,
+        "innerWidth": 320,
+        "innerHeight": 844,
+        "devicePixelRatio": 1,
+        "rootZoom": "1",
+        "bottomNavigation": [
+          {
+            "label": "Student work views",
+            "rect": {
+              "x": 0,
+              "y": 57,
+              "width": 320,
+              "height": 45
+            }
+          },
+          {
+            "label": "Assignment workspace mobile",
+            "rect": {
+              "x": 0,
+              "y": 764,
+              "width": 320,
+              "height": 80
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "320x844 scoped search preserves concept",
+      "status": "pass"
+    },
+    {
+      "label": "320x844 Back preserves search and concept filters",
+      "status": "pass"
+    },
+    {
+      "label": "320x844 unmatched search shows honest empty state",
+      "status": "pass"
+    },
+    {
+      "label": "320x844 unselected has no invented original answer",
+      "status": "pass"
+    },
+    {
+      "label": "320x844 retained outside search exact original answer",
+      "status": "pass",
+      "attempt": "50000000-0000-4000-8000-000000000001",
+      "expectedLength": 109,
+      "actualLength": 109
+    },
+    {
+      "label": "320x844 retained outside search exact original question",
+      "status": "pass",
+      "attempt": "50000000-0000-4000-8000-000000000001"
+    },
+    {
+      "label": "320x844 direct selected response remains despite search",
+      "status": "pass"
+    },
+    {
+      "label": "320x844 unselected source/context is honest",
+      "status": "pass"
+    },
+    {
+      "label": "320x844 pending_review exact original answer",
+      "status": "pass",
+      "attempt": "82e3bdbb-5fba-4c4a-87b9-c5b051c39305",
+      "expectedLength": 213,
+      "actualLength": 213
+    },
+    {
+      "label": "320x844 pending_review exact original question",
+      "status": "pass",
+      "attempt": "82e3bdbb-5fba-4c4a-87b9-c5b051c39305"
+    },
+    {
+      "label": "320x844 pending_review state preserved",
+      "status": "pass",
+      "attempt": "82e3bdbb-5fba-4c4a-87b9-c5b051c39305",
+      "evaluation": "35ced273-1923-4b82-870f-d3bbbf980850"
+    },
+    {
+      "label": "320x844 pending_review cannot prepare selected response",
+      "status": "pass"
+    },
+    {
+      "label": "320x844 evaluation_failed exact original answer",
+      "status": "pass",
+      "attempt": "cb5fec92-b796-44ed-85f2-e8e26d29b2e4",
+      "expectedLength": 247,
+      "actualLength": 247
+    },
+    {
+      "label": "320x844 evaluation_failed exact original question",
+      "status": "pass",
+      "attempt": "cb5fec92-b796-44ed-85f2-e8e26d29b2e4"
+    },
+    {
+      "label": "320x844 evaluation_failed state preserved",
+      "status": "pass",
+      "attempt": "cb5fec92-b796-44ed-85f2-e8e26d29b2e4",
+      "evaluation": "2a29ff63-cbdc-4e30-882b-8b714850cba8"
+    },
+    {
+      "label": "320x844 evaluation_failed cannot prepare selected response",
+      "status": "pass"
+    },
+    {
+      "label": "320x844 accepted exact original answer",
+      "status": "pass",
+      "attempt": "d52463a8-e32f-40a0-894f-7c1ebed60552",
+      "expectedLength": 41,
+      "actualLength": 41
+    },
+    {
+      "label": "320x844 accepted exact original question",
+      "status": "pass",
+      "attempt": "d52463a8-e32f-40a0-894f-7c1ebed60552"
+    },
+    {
+      "label": "320x844 accepted state preserved",
+      "status": "pass",
+      "attempt": "d52463a8-e32f-40a0-894f-7c1ebed60552",
+      "evaluation": "666d4bd8-70b8-47f3-840d-d3ecd75cf5b1"
+    },
+    {
+      "label": "320x844 hash setup uses explicit record pane",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title"
+    },
+    {
+      "label": "320x844 hash-only row navigation reveals and focuses list",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=navigation#evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "activeId": "evidence-response-fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "activeTag": "A",
+      "activeClass": "",
+      "activePane": "navigation",
+      "layout": "compact",
+      "listScrollTop": 0,
+      "listScrollHeight": 7545,
+      "listClientHeight": 618,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": null,
+      "originalAnswerHeading": null,
+      "originalAnswer": null,
+      "navigation": {
+        "x": 0,
+        "y": 145,
+        "width": 320,
+        "height": 618
+      },
+      "main": null,
+      "mainBody": null,
+      "navigationBody": {
+        "x": 1,
+        "y": 145,
+        "width": 318,
+        "height": 618
+      },
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 764,
+        "width": 320,
+        "height": 80
+      },
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 320,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 320,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 764,
+            "width": 320,
+            "height": 80
+          }
+        }
+      ]
+    },
+    {
+      "label": "320x844 Back after hash navigation returns to record",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "compact",
+      "listScrollTop": 0,
+      "listScrollHeight": 0,
+      "listClientHeight": 0,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 17,
+        "y": 213,
+        "width": 286,
+        "height": 27.5
+      },
+      "originalAnswerHeading": {
+        "x": 17,
+        "y": 582.078125,
+        "width": 286,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 17,
+        "y": 619.578125,
+        "width": 286,
+        "height": 145.1875
+      },
+      "navigation": null,
+      "main": {
+        "x": 0,
+        "y": 145,
+        "width": 320,
+        "height": 618
+      },
+      "mainBody": {
+        "x": 1,
+        "y": 145,
+        "width": 318,
+        "height": 618
+      },
+      "navigationBody": null,
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 764,
+        "width": 320,
+        "height": 80
+      },
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 320,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 320,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 764,
+            "width": 320,
+            "height": 80
+          }
+        }
+      ]
+    },
+    {
+      "label": "320x844 exact recorded help retained",
+      "status": "pass",
+      "attempt": "50000000-0000-4000-8000-000000000003",
+      "shownInterventionIds": ["70000000-0000-4000-8000-000000000001"]
+    },
+    {
+      "label": "320x844 exact lesson version retained",
+      "status": "pass"
+    },
+    {
+      "label": "320x844 preparation is bounded read-only handoff",
+      "status": "pass",
+      "action": "http://127.0.0.1:3366/teacher/interventions",
+      "method": "get",
+      "seeds": [
+        "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+        "adca8ad7-b7ba-4f73-8668-d82ba30edc81"
+      ],
+      "assignment": "30000000-0000-4000-8000-000000000001",
+      "returnTo": "evidence"
+    },
+    {
+      "label": "320x844 longest fixture answer exact original answer",
+      "status": "pass",
+      "attempt": "81f0514b-44f7-4e51-805b-f103f2a5678c",
+      "expectedLength": 271,
+      "actualLength": 271
+    },
+    {
+      "label": "320x844 longest fixture answer exact original question",
+      "status": "pass",
+      "attempt": "81f0514b-44f7-4e51-805b-f103f2a5678c"
+    },
+    {
+      "label": "320x844 longest answer is not visually clamped",
+      "status": "pass",
+      "answerLength": 271
+    },
+    {
+      "label": "320x844 direct row hash opens and focuses response list",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=queuing_delay&attempt=81f0514b-44f7-4e51-805b-f103f2a5678c&session=129120b0-f584-41f0-8e58-c3e190941799#evidence-response-81f0514b-44f7-4e51-805b-f103f2a5678c",
+      "activeId": "evidence-response-81f0514b-44f7-4e51-805b-f103f2a5678c",
+      "activeTag": "A",
+      "activeClass": "",
+      "activePane": "navigation",
+      "layout": "compact",
+      "listScrollTop": 551,
+      "listScrollHeight": 1982,
+      "listClientHeight": 618,
+      "rows": 7,
+      "selected": "81f0514b-44f7-4e51-805b-f103f2a5678c",
+      "record": null,
+      "originalAnswerHeading": null,
+      "originalAnswer": null,
+      "navigation": {
+        "x": 0,
+        "y": 145,
+        "width": 320,
+        "height": 618
+      },
+      "main": null,
+      "mainBody": null,
+      "navigationBody": {
+        "x": 1,
+        "y": 145,
+        "width": 318,
+        "height": 618
+      },
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 764,
+        "width": 320,
+        "height": 80
+      },
+      "context": null,
+      "answer": "The 4 ms stored waiting interval is queuing delay. Transmission delay is the time to place the packet's bits onto the outbound link once transmission occurs. In the separate immediate-forwarding case, the stated queue wait is zero; a positive wait should not be invented.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 320,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 320,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 764,
+            "width": 320,
+            "height": 80
+          }
+        }
+      ]
+    },
+    {
+      "label": "native100 exact original answer",
+      "status": "pass",
+      "attempt": "50000000-0000-4000-8000-000000000001",
+      "expectedLength": 109,
+      "actualLength": 109
+    },
+    {
+      "label": "native100 exact original question",
+      "status": "pass",
+      "attempt": "50000000-0000-4000-8000-000000000001"
+    },
+    {
+      "label": "native100 selected record reachable",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&attempt=50000000-0000-4000-8000-000000000001&session=40000000-0000-4000-8000-000000000001#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "wide",
+      "listScrollTop": 6116,
+      "listScrollHeight": 7225,
+      "listClientHeight": 653,
+      "rows": 33,
+      "selected": "50000000-0000-4000-8000-000000000001",
+      "record": {
+        "x": 359,
+        "y": 294.5,
+        "width": 668,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 359,
+        "y": 572.640625,
+        "width": 668,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 359,
+        "y": 610.140625,
+        "width": 668,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 202.5,
+        "width": 330,
+        "height": 704
+      },
+      "main": {
+        "x": 330,
+        "y": 202.5,
+        "width": 726,
+        "height": 704
+      },
+      "mainBody": {
+        "x": 331,
+        "y": 253.5,
+        "width": 724,
+        "height": 653
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 253.5,
+        "width": 328,
+        "height": 653
+      },
+      "contextBody": {
+        "x": 1057,
+        "y": 253.5,
+        "width": 358,
+        "height": 653
+      },
+      "bottomNav": null,
+      "context": {
+        "x": 1056,
+        "y": 202.5,
+        "width": 360,
+        "height": 704
+      },
+      "answer": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1416,
+      "innerHeight": 908,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 211,
+            "y": 0,
+            "width": 294.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 1384,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1416,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "native100 complete answer can be read above persistent navigation",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&attempt=50000000-0000-4000-8000-000000000001&session=40000000-0000-4000-8000-000000000001#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "wide",
+      "listScrollTop": 6116,
+      "listScrollHeight": 7225,
+      "listClientHeight": 653,
+      "rows": 33,
+      "selected": "50000000-0000-4000-8000-000000000001",
+      "record": {
+        "x": 359,
+        "y": 294.5,
+        "width": 668,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 359,
+        "y": 572.640625,
+        "width": 668,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 359,
+        "y": 610.140625,
+        "width": 668,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 202.5,
+        "width": 330,
+        "height": 704
+      },
+      "main": {
+        "x": 330,
+        "y": 202.5,
+        "width": 726,
+        "height": 704
+      },
+      "mainBody": {
+        "x": 331,
+        "y": 253.5,
+        "width": 724,
+        "height": 653
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 253.5,
+        "width": 328,
+        "height": 653
+      },
+      "contextBody": {
+        "x": 1057,
+        "y": 253.5,
+        "width": 358,
+        "height": 653
+      },
+      "bottomNav": null,
+      "context": {
+        "x": 1056,
+        "y": 202.5,
+        "width": 360,
+        "height": 704
+      },
+      "answer": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1416,
+      "innerHeight": 908,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 211,
+            "y": 0,
+            "width": 294.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 1384,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1416,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "native200 exact original answer",
+      "status": "pass",
+      "attempt": "50000000-0000-4000-8000-000000000001",
+      "expectedLength": 109,
+      "actualLength": 109
+    },
+    {
+      "label": "native200 exact original question",
+      "status": "pass",
+      "attempt": "50000000-0000-4000-8000-000000000001"
+    },
+    {
+      "label": "native200 selected record reachable",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&attempt=50000000-0000-4000-8000-000000000001&session=40000000-0000-4000-8000-000000000001#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "compact",
+      "listScrollTop": 0,
+      "listScrollHeight": 0,
+      "listClientHeight": 0,
+      "rows": 33,
+      "selected": "50000000-0000-4000-8000-000000000001",
+      "record": {
+        "x": 17,
+        "y": 220,
+        "width": 674,
+        "height": 27.5
+      },
+      "originalAnswerHeading": {
+        "x": 17,
+        "y": 496.890625,
+        "width": 674,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 17,
+        "y": 534.390625,
+        "width": 674,
+        "height": 87.59375
+      },
+      "navigation": null,
+      "main": {
+        "x": 0,
+        "y": 145,
+        "width": 708,
+        "height": 243
+      },
+      "mainBody": {
+        "x": 1,
+        "y": 145,
+        "width": 706,
+        "height": 243
+      },
+      "navigationBody": null,
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 389,
+        "width": 708,
+        "height": 65
+      },
+      "context": null,
+      "answer": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 708,
+      "innerHeight": 454,
+      "devicePixelRatio": 2,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 708,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 389,
+            "width": 708,
+            "height": 65
+          }
+        }
+      ]
+    },
+    {
+      "label": "native200 complete answer can be read above persistent navigation",
+      "status": "pass",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&attempt=50000000-0000-4000-8000-000000000001&session=40000000-0000-4000-8000-000000000001#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "compact",
+      "listScrollTop": 0,
+      "listScrollHeight": 0,
+      "listClientHeight": 0,
+      "rows": 33,
+      "selected": "50000000-0000-4000-8000-000000000001",
+      "record": {
+        "x": 17,
+        "y": -91.5,
+        "width": 674,
+        "height": 27.5
+      },
+      "originalAnswerHeading": {
+        "x": 17,
+        "y": 185.390625,
+        "width": 674,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 17,
+        "y": 222.890625,
+        "width": 674,
+        "height": 87.59375
+      },
+      "navigation": null,
+      "main": {
+        "x": 0,
+        "y": 145,
+        "width": 708,
+        "height": 243
+      },
+      "mainBody": {
+        "x": 1,
+        "y": 145,
+        "width": 706,
+        "height": 243
+      },
+      "navigationBody": null,
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 389,
+        "width": 708,
+        "height": 65
+      },
+      "context": null,
+      "answer": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 708,
+      "innerHeight": 454,
+      "devicePixelRatio": 2,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 708,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 389,
+            "width": 708,
+            "height": 65
+          }
+        }
+      ]
+    },
+    {
+      "label": "Native browser zoom is measured at 200 percent",
+      "status": "pass",
+      "normal": {
+        "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&attempt=50000000-0000-4000-8000-000000000001&session=40000000-0000-4000-8000-000000000001#response-detail-title",
+        "activeId": "response-detail-title",
+        "activeTag": "H2",
+        "activeClass": "",
+        "activePane": "main",
+        "layout": "wide",
+        "listScrollTop": 6116,
+        "listScrollHeight": 7225,
+        "listClientHeight": 653,
+        "rows": 33,
+        "selected": "50000000-0000-4000-8000-000000000001",
+        "record": {
+          "x": 359,
+          "y": 294.5,
+          "width": 668,
+          "height": 28.75
+        },
+        "originalAnswerHeading": {
+          "x": 359,
+          "y": 572.640625,
+          "width": 668,
+          "height": 25.5
+        },
+        "originalAnswer": {
+          "x": 359,
+          "y": 610.140625,
+          "width": 668,
+          "height": 98.78125
+        },
+        "navigation": {
+          "x": 0,
+          "y": 202.5,
+          "width": 330,
+          "height": 704
+        },
+        "main": {
+          "x": 330,
+          "y": 202.5,
+          "width": 726,
+          "height": 704
+        },
+        "mainBody": {
+          "x": 331,
+          "y": 253.5,
+          "width": 724,
+          "height": 653
+        },
+        "navigationBody": {
+          "x": 1,
+          "y": 253.5,
+          "width": 328,
+          "height": 653
+        },
+        "contextBody": {
+          "x": 1057,
+          "y": 253.5,
+          "width": 358,
+          "height": 653
+        },
+        "bottomNav": null,
+        "context": {
+          "x": 1056,
+          "y": 202.5,
+          "width": 360,
+          "height": 704
+        },
+        "answer": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+        "overflow": false,
+        "scrollY": 0,
+        "innerWidth": 1416,
+        "innerHeight": 908,
+        "devicePixelRatio": 1,
+        "rootZoom": "1",
+        "bottomNavigation": [
+          {
+            "label": "Course workspace",
+            "rect": {
+              "x": 211,
+              "y": 0,
+              "width": 294.09375,
+              "height": 57
+            }
+          },
+          {
+            "label": "Assignment workspace",
+            "rect": {
+              "x": 16,
+              "y": 112.5,
+              "width": 1384,
+              "height": 44
+            }
+          },
+          {
+            "label": "Student work views",
+            "rect": {
+              "x": 0,
+              "y": 157.5,
+              "width": 1416,
+              "height": 45
+            }
+          }
+        ]
+      },
+      "doubled": {
+        "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&attempt=50000000-0000-4000-8000-000000000001&session=40000000-0000-4000-8000-000000000001#response-detail-title",
+        "activeId": "response-detail-title",
+        "activeTag": "H2",
+        "activeClass": "",
+        "activePane": "main",
+        "layout": "compact",
+        "listScrollTop": 0,
+        "listScrollHeight": 0,
+        "listClientHeight": 0,
+        "rows": 33,
+        "selected": "50000000-0000-4000-8000-000000000001",
+        "record": {
+          "x": 17,
+          "y": 220,
+          "width": 674,
+          "height": 27.5
+        },
+        "originalAnswerHeading": {
+          "x": 17,
+          "y": 496.890625,
+          "width": 674,
+          "height": 25.5
+        },
+        "originalAnswer": {
+          "x": 17,
+          "y": 534.390625,
+          "width": 674,
+          "height": 87.59375
+        },
+        "navigation": null,
+        "main": {
+          "x": 0,
+          "y": 145,
+          "width": 708,
+          "height": 243
+        },
+        "mainBody": {
+          "x": 1,
+          "y": 145,
+          "width": 706,
+          "height": 243
+        },
+        "navigationBody": null,
+        "contextBody": null,
+        "bottomNav": {
+          "x": 0,
+          "y": 389,
+          "width": 708,
+          "height": 65
+        },
+        "context": null,
+        "answer": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+        "overflow": false,
+        "scrollY": 0,
+        "innerWidth": 708,
+        "innerHeight": 454,
+        "devicePixelRatio": 2,
+        "rootZoom": "1",
+        "bottomNavigation": [
+          {
+            "label": "Student work views",
+            "rect": {
+              "x": 0,
+              "y": 57,
+              "width": 708,
+              "height": 45
+            }
+          },
+          {
+            "label": "Assignment workspace mobile",
+            "rect": {
+              "x": 0,
+              "y": 389,
+              "width": 708,
+              "height": 65
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "Read-only browsing sends no unexpected mutation or off-origin request",
+      "status": "pass",
+      "blockedRequests": []
+    }
+  ],
+  "observations": [
+    {
+      "label": "1440x1000 geometry",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "wide",
+      "listScrollTop": 0,
+      "listScrollHeight": 7225,
+      "listClientHeight": 745,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 359,
+        "y": 294.5,
+        "width": 692,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 359,
+        "y": 572.640625,
+        "width": 692,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 359,
+        "y": 610.140625,
+        "width": 692,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 202.5,
+        "width": 330,
+        "height": 796
+      },
+      "main": {
+        "x": 330,
+        "y": 202.5,
+        "width": 750,
+        "height": 796
+      },
+      "mainBody": {
+        "x": 331,
+        "y": 253.5,
+        "width": 748,
+        "height": 745
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 253.5,
+        "width": 328,
+        "height": 745
+      },
+      "contextBody": {
+        "x": 1081,
+        "y": 253.5,
+        "width": 358,
+        "height": 745
+      },
+      "bottomNav": null,
+      "context": {
+        "x": 1080,
+        "y": 202.5,
+        "width": 360,
+        "height": 796
+      },
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 211,
+            "y": 0,
+            "width": 294.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 1408,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1440,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "1024x768 geometry",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "medium",
+      "listScrollTop": 72,
+      "listScrollHeight": 7246,
+      "listClientHeight": 468,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 329,
+        "y": 338.5,
+        "width": 666,
+        "height": 28.75
+      },
+      "originalAnswerHeading": {
+        "x": 329,
+        "y": 616.640625,
+        "width": 666,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 329,
+        "y": 654.140625,
+        "width": 666,
+        "height": 98.78125
+      },
+      "navigation": {
+        "x": 0,
+        "y": 246.5,
+        "width": 300,
+        "height": 519
+      },
+      "main": {
+        "x": 300,
+        "y": 246.5,
+        "width": 724,
+        "height": 519
+      },
+      "mainBody": {
+        "x": 301,
+        "y": 297.5,
+        "width": 722,
+        "height": 468
+      },
+      "navigationBody": {
+        "x": 1,
+        "y": 297.5,
+        "width": 298,
+        "height": 468
+      },
+      "contextBody": null,
+      "bottomNav": null,
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 1024,
+      "innerHeight": 768,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Course workspace",
+          "rect": {
+            "x": 68,
+            "y": 0,
+            "width": 270.09375,
+            "height": 57
+          }
+        },
+        {
+          "label": "Assignment workspace",
+          "rect": {
+            "x": 16,
+            "y": 112.5,
+            "width": 992,
+            "height": 44
+          }
+        },
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 157.5,
+            "width": 1024,
+            "height": 45
+          }
+        }
+      ]
+    },
+    {
+      "label": "390x844 geometry",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "compact",
+      "listScrollTop": 0,
+      "listScrollHeight": 0,
+      "listClientHeight": 0,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 17,
+        "y": 220,
+        "width": 356,
+        "height": 27.5
+      },
+      "originalAnswerHeading": {
+        "x": 17,
+        "y": 565.28125,
+        "width": 356,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 17,
+        "y": 602.78125,
+        "width": 356,
+        "height": 116.390625
+      },
+      "navigation": null,
+      "main": {
+        "x": 0,
+        "y": 145,
+        "width": 390,
+        "height": 633
+      },
+      "mainBody": {
+        "x": 1,
+        "y": 145,
+        "width": 388,
+        "height": 633
+      },
+      "navigationBody": null,
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 779,
+        "width": 390,
+        "height": 65
+      },
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 390,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 390,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 779,
+            "width": 390,
+            "height": 65
+          }
+        }
+      ]
+    },
+    {
+      "label": "320x844 geometry",
+      "url": "http://127.0.0.1:3366/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9&attempt=fd3a4d10-9df5-4a6a-89bc-164303f7276d&evaluation=640beb15-1596-4229-826d-aef307048c70&returnTo=evidence&workspacePane=main#response-detail-title",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "activeClass": "",
+      "activePane": "main",
+      "layout": "compact",
+      "listScrollTop": 0,
+      "listScrollHeight": 0,
+      "listClientHeight": 0,
+      "rows": 33,
+      "selected": "fd3a4d10-9df5-4a6a-89bc-164303f7276d",
+      "record": {
+        "x": 17,
+        "y": 220,
+        "width": 286,
+        "height": 27.5
+      },
+      "originalAnswerHeading": {
+        "x": 17,
+        "y": 589.078125,
+        "width": 286,
+        "height": 25.5
+      },
+      "originalAnswer": {
+        "x": 17,
+        "y": 626.578125,
+        "width": 286,
+        "height": 145.1875
+      },
+      "navigation": null,
+      "main": {
+        "x": 0,
+        "y": 145,
+        "width": 320,
+        "height": 618
+      },
+      "mainBody": {
+        "x": 1,
+        "y": 145,
+        "width": 318,
+        "height": 618
+      },
+      "navigationBody": null,
+      "contextBody": null,
+      "bottomNav": {
+        "x": 0,
+        "y": 764,
+        "width": 320,
+        "height": 80
+      },
+      "context": null,
+      "answer": "Transmission delay doubles with cable length, while propagation stays fixed because the bit rate is unchanged.",
+      "overflow": false,
+      "scrollY": 0,
+      "innerWidth": 320,
+      "innerHeight": 844,
+      "devicePixelRatio": 1,
+      "rootZoom": "1",
+      "bottomNavigation": [
+        {
+          "label": "Student work views",
+          "rect": {
+            "x": 0,
+            "y": 57,
+            "width": 320,
+            "height": 45
+          }
+        },
+        {
+          "label": "Assignment workspace mobile",
+          "rect": {
+            "x": 0,
+            "y": 764,
+            "width": 320,
+            "height": 80
+          }
+        }
+      ]
+    }
+  ],
+  "blockedRequests": [],
+  "screenshots": [
+    "list-1440x1000.png",
+    "selected-1440x1000.png",
+    "back-1440x1000.png",
+    "context-1440x1000.png",
+    "empty-1440x1000.png",
+    "empty-context-1440x1000.png",
+    "pending_review-1440x1000.png",
+    "evaluation_failed-1440x1000.png",
+    "accepted-1440x1000.png",
+    "hash-only-list-1440x1000.png",
+    "longest-original-1440x1000.png",
+    "list-1024x768.png",
+    "selected-1024x768.png",
+    "back-1024x768.png",
+    "context-1024x768.png",
+    "manual-scroll-return-1024x768.png",
+    "empty-1024x768.png",
+    "empty-context-1024x768.png",
+    "pending_review-1024x768.png",
+    "evaluation_failed-1024x768.png",
+    "accepted-1024x768.png",
+    "hash-only-list-1024x768.png",
+    "longest-original-1024x768.png",
+    "list-390x844.png",
+    "selected-390x844.png",
+    "back-390x844.png",
+    "context-390x844.png",
+    "manual-scroll-return-390x844.png",
+    "empty-390x844.png",
+    "empty-context-390x844.png",
+    "pending_review-390x844.png",
+    "evaluation_failed-390x844.png",
+    "accepted-390x844.png",
+    "hash-only-list-390x844.png",
+    "longest-original-390x844.png",
+    "list-320x844.png",
+    "selected-320x844.png",
+    "back-320x844.png",
+    "context-320x844.png",
+    "manual-scroll-return-320x844.png",
+    "empty-320x844.png",
+    "empty-context-320x844.png",
+    "pending_review-320x844.png",
+    "evaluation_failed-320x844.png",
+    "accepted-320x844.png",
+    "hash-only-list-320x844.png",
+    "longest-original-320x844.png",
+    "native100.png",
+    "native100-answer.png",
+    "native200.png",
+    "native200-answer.png"
+  ],
+  "limitations": [
+    "Rejected and historical accepted-pointer combinations are not supplied by this browser fixture; deterministic coverage is reported separately.",
+    "No valid class fixture has missing approved passage content; empty/unselected source context is checked, unavailable passage fallback remains separately reported."
+  ],
+  "finishedAt": "2026-10-25T13:45:30.874Z"
+}
