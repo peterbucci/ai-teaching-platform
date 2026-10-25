@@ -300,16 +300,22 @@
         <p>
           <strong>Functional results and visual fidelity are separate.</strong>
           Final assignment checks passed 506 unit tests, lint, typecheck,
-          formatting and production build. The final combination passed 625 unit
-          tests, production build, the complete assignment HTTP harness and
-          authenticated publishing HTTP checks. Providers were disabled; no
-          model call was made.
+          formatting, production build and full remote CI integration in
+          <a
+            href="https://github.com/peterbucci/ai-teaching-platform/actions/runs/40204254870"
+            >run 40204254870</a
+          >. The latest combination passed 625 unit tests, production build, the
+          complete assignment HTTP harness and authenticated publishing HTTP
+          checks. Providers were disabled; no model call was made.
         </p>
         <p>
           Discovery gutters now match the reference. Mobile discovery still has
           an additional visible class-filter row, and progress content remains
-          taller than the prototype. The shared C owner's broader browser run is
-          still in progress and is not counted as a pass here.
+          taller than the prototype. The broader C run passed 30 of 31 app cases
+          and 26 restoration checks, exposing a real 1024px Escape conflict. On
+          the exact current candidate, the assignment/shared guard fixes passed
+          the bounded retest: 8 of 8 actual-app cases and 6 of 6 component
+          checks. The historical failure remains recorded.
         </p>
       </aside>
       <nav aria-label="Report sections">
@@ -331,17 +337,17 @@
             before these corrections.
           </dd>
           <dt>Final assignment</dt>
-          <dd><code>03255a51157f49bd9bd2a49575663d0a16df8ed8</code>.</dd>
+          <dd><code>42896da0b45733e79d6d44e246031996bfa49671</code>.</dd>
           <dt>Final combination</dt>
           <dd>
-            <code>b8d0eb55e793905e78452980cc4e92ac178644ab</code>, tree
-            <code>466b42f5b70a33400115d9df5f876f65f3d9289f</code>. Production
-            build ID: <code>c3-z5ci6U8BgOEWk6IZj8</code>.
+            <code>9ca101893a07910539a9e9efe12bc955bf4a08ba</code>, tree
+            <code>fff9c0716e85702e5d205c15766a4cfb6d7f9423</code>. Final build
+            and check identities are recorded in the verification receipt.
           </dd>
           <dt>Shared inputs</dt>
           <dd>
-            C: <code>932a446015f8188e21cfb9d37773e14b56968ba9</code>; E:
-            <code>ff16f1201865f54676db30c24251fe29ceb1b5b1</code>. The
+            C: <code>357a6716a333137e909fb77b9907a90a833a6df3</code>; E:
+            <code>53e494a639d82bd8daa9dfb7655a23ebca3aa9c4</code>. The
             combination consumes shared session return, shell and
             published-lesson handoff contracts.
           </dd>
@@ -354,9 +360,12 @@
           </dd>
           <dt>Progress and details</dt>
           <dd>
-            Final <code>b8d0eb5</code> after explicit activation of the baseline
-            assignment. Its 63 historical synthetic responses remain present;
-            these are a different assignment state from the discovery captures.
+            Capture build <code>b8d0eb55e793905e78452980cc4e92ac178644ab</code>,
+            tree <code>466b42f5b70a33400115d9df5f876f65f3d9289f</code>, after
+            explicit activation of the baseline assignment. Its 63 historical
+            synthetic responses remain present. Later changes affect Escape
+            handling and scroll scope, with no CSS change; these images are not
+            a new execution on <code>9ca1018</code>.
           </dd>
           <dt>Historical comparison</dt>
           <dd>
@@ -395,12 +404,17 @@
                 <td>Final assignment checks</td>
                 <td>
                   <span class="status">Passed</span><br />506 unit tests; lint;
-                  typecheck; formatting; production build.
+                  typecheck; formatting; production build; full remote CI
+                  integration.
                 </td>
                 <td>
-                  Final assignment source checked. A formatting issue in the
-                  historical capture manifest was corrected, then formatting and
-                  build passed. This was a report-artifact issue.
+                  Source <code>42896da</code> passed remote
+                  <a
+                    href="https://github.com/peterbucci/ai-teaching-platform/actions/runs/40204254870"
+                    >CI run 40204254870</a
+                  >. A formatting issue in the historical capture manifest was
+                  corrected, then formatting and build passed. This was a
+                  report-artifact issue.
                 </td>
               </tr>
               <tr>
@@ -411,14 +425,15 @@
                   authenticated publication HTTP checks.
                 </td>
                 <td>
-                  Provider-disabled synthetic verification against the combined
-                  application. The earlier unavailable-approved-version
-                  shared-layout ZodError was corrected by C and the full
-                  assignment harness subsequently passed.
+                  Source <code>9ca1018</code> repeated all listed checks
+                  successfully with disabled providers and synthetic data. The
+                  earlier unavailable-approved-version shared-layout ZodError
+                  was corrected by C and the full assignment harness
+                  subsequently passed.
                 </td>
               </tr>
               <tr>
-                <td>C2 displayed return</td>
+                <td>C2 displayed return on capture build</td>
                 <td><span class="status">Passed</span></td>
                 <td>
                   Read in full → displayed return preserves the selected
@@ -428,8 +443,8 @@
                 </td>
               </tr>
               <tr>
-                <td>C2 hashless Questions history</td>
-                <td><span class="status">Final retest passed</span></td>
+                <td>C2 hashless Questions history on capture build</td>
+                <td><span class="status">b8d0eb5 retest passed</span></td>
                 <td>
                   Questions → session → native Back restores
                   <code>progress-main</code>. The earlier BODY-focus gap is
@@ -481,12 +496,23 @@
                 </td>
               </tr>
               <tr>
-                <td>Broader shared C browser run</td>
-                <td><span class="status pending">In progress</span></td>
+                <td>Broader C browser run and Escape follow-up</td>
                 <td>
-                  Only the documented assignment-owned browser scenarios are
-                  counted here. Broader shared navigation, keyboard and
-                  accessibility acceptance remains the C owner's scope.
+                  <span class="status">Exact-candidate retest passed</span>
+                </td>
+                <td>
+                  Earlier runs passed 30 of 31 app cases and 26 restoration
+                  checks. The 1024px Escape conflict is preserved in
+                  <a href="cross-workspace-results.json"
+                    >the historical case ledger</a
+                  >. Fixes in assignment <code>42896da</code> and shared C
+                  <code>357a671</code> are in combined <code>9ca1018</code>. The
+                  exact candidate passed 8 of 8 actual-app cases and 6 of 6
+                  component checks at 1440/1024/390 in production and
+                  StrictMode. The former 1024px switcher Escape conflict now
+                  preserves URL/pane and restores the opener. Page Details
+                  Escape passes at 320px and 1024px; the displayed C2 return
+                  also passes.
                 </td>
               </tr>
             </tbody>
@@ -674,8 +700,8 @@
         <p class="small muted">
           Click an image to inspect it at full resolution. Before/prototype PNGs
           are preserved historical proof. After JPGs record ba74dc1 with the
-          same discovery CSS as final b8d0eb5. The baseline assignment is
-          inactive in these discovery images.
+          same discovery CSS as the current 9ca1018 candidate. The baseline
+          assignment is inactive in these discovery images.
         </p>
         <h3>1440 × 1000</h3>
         <div class="gallery triplet">
@@ -712,8 +738,8 @@
             /></a>
             <figcaption>
               <strong>After · corrected discovery</strong><br />Captured
-              ba74dc1; discovery CSS unchanged in final b8d0eb5. Baseline class
-              filter manually collapsed; assignment still inactive.
+              ba74dc1; discovery CSS unchanged in current 9ca1018. Baseline
+              class filter manually collapsed; assignment still inactive.
             </figcaption>
           </figure>
         </div>
@@ -752,8 +778,8 @@
             /></a>
             <figcaption>
               <strong>After · corrected discovery</strong><br />Captured
-              ba74dc1; discovery CSS unchanged in final b8d0eb5. Baseline class
-              filter manually collapsed; assignment still inactive.
+              ba74dc1; discovery CSS unchanged in current 9ca1018. Baseline
+              class filter manually collapsed; assignment still inactive.
             </figcaption>
           </figure>
         </div>
@@ -792,8 +818,8 @@
             /></a>
             <figcaption>
               <strong>After · corrected discovery</strong><br />Captured
-              ba74dc1; discovery CSS unchanged in final b8d0eb5. Baseline class
-              filter manually collapsed; assignment still inactive.
+              ba74dc1; discovery CSS unchanged in current 9ca1018. Baseline
+              class filter manually collapsed; assignment still inactive.
             </figcaption>
           </figure>
         </div>
@@ -832,15 +858,15 @@
             /></a>
             <figcaption>
               <strong>After · corrected discovery</strong><br />Captured
-              ba74dc1; discovery CSS unchanged in final b8d0eb5. Baseline class
-              filter manually collapsed; assignment still inactive.
+              ba74dc1; discovery CSS unchanged in current 9ca1018. Baseline
+              class filter manually collapsed; assignment still inactive.
             </figcaption>
           </figure>
         </div>
       </section>
 
       <section id="progress">
-        <h2>Final Class Progress at all four widths</h2>
+        <h2>Class Progress captures at all four widths</h2>
         <p>
           The baseline assignment was explicitly activated before this set. It
           retains 63 responses from 24 enrolled synthetic students. The five
@@ -857,7 +883,7 @@
                 loading="lazy"
             /></a>
             <figcaption>
-              <strong>Progress · 1440 × 1000</strong><br />Final b8d0eb5.
+              <strong>Progress · 1440 × 1000</strong><br />Captured on b8d0eb5.
               Activated baseline; 24 enrolled students and 63 retained
               responses.
             </figcaption>
@@ -870,7 +896,7 @@
                 loading="lazy"
             /></a>
             <figcaption>
-              <strong>Progress · 1024 × 768</strong><br />Final b8d0eb5.
+              <strong>Progress · 1024 × 768</strong><br />Captured on b8d0eb5.
               Activated baseline; 24 enrolled students and 63 retained
               responses.
             </figcaption>
@@ -883,7 +909,7 @@
                 loading="lazy"
             /></a>
             <figcaption>
-              <strong>Progress · 390 × 844</strong><br />Final b8d0eb5.
+              <strong>Progress · 390 × 844</strong><br />Captured on b8d0eb5.
               Activated baseline; 24 enrolled students and 63 retained
               responses.
             </figcaption>
@@ -896,7 +922,7 @@
                 loading="lazy"
             /></a>
             <figcaption>
-              <strong>Progress · 320 × 844</strong><br />Final b8d0eb5.
+              <strong>Progress · 320 × 844</strong><br />Captured on b8d0eb5.
               Activated baseline; 24 enrolled students and 63 retained
               responses.
             </figcaption>
@@ -919,7 +945,7 @@
       </section>
 
       <section id="details">
-        <h2>Final selected evidence at all four widths</h2>
+        <h2>Selected evidence captures at all four widths</h2>
         <p>
           The selected pane displays the original answer for the chosen student
           and concept, and links to the existing authorized session/evidence
@@ -935,7 +961,7 @@
                 loading="lazy"
             /></a>
             <figcaption>
-              <strong>Selected details · 1440 × 1000</strong><br />Final
+              <strong>Selected details · 1440 × 1000</strong><br />Captured on
               b8d0eb5. Original student response and selected concept; no
               duplicated evidence store.
             </figcaption>
@@ -948,9 +974,9 @@
                 loading="lazy"
             /></a>
             <figcaption>
-              <strong>Selected details · 1024 × 768</strong><br />Final b8d0eb5.
-              Original student response and selected concept; no duplicated
-              evidence store.
+              <strong>Selected details · 1024 × 768</strong><br />Captured on
+              b8d0eb5. Original student response and selected concept; no
+              duplicated evidence store.
             </figcaption>
           </figure>
           <figure>
@@ -961,9 +987,9 @@
                 loading="lazy"
             /></a>
             <figcaption>
-              <strong>Selected details · 390 × 844</strong><br />Final b8d0eb5.
-              Original student response and selected concept; no duplicated
-              evidence store.
+              <strong>Selected details · 390 × 844</strong><br />Captured on
+              b8d0eb5. Original student response and selected concept; no
+              duplicated evidence store.
             </figcaption>
           </figure>
           <figure>
@@ -974,9 +1000,9 @@
                 loading="lazy"
             /></a>
             <figcaption>
-              <strong>Selected details · 320 × 844</strong><br />Final b8d0eb5.
-              Original student response and selected concept; no duplicated
-              evidence store.
+              <strong>Selected details · 320 × 844</strong><br />Captured on
+              b8d0eb5. Original student response and selected concept; no
+              duplicated evidence store.
             </figcaption>
           </figure>
         </div>
@@ -1055,15 +1081,21 @@
           <li>
             <strong>Capture provenance:</strong> discovery and C5
             recovery/review images were taken on ba74dc1; progress/details were
-            taken on final b8d0eb5. CSS equality for discovery is documented,
-            but those earlier images are not represented as a final-build
-            execution.
+            taken on b8d0eb5. CSS remains unchanged in current 9ca1018, but
+            those earlier images are not represented as a final-build execution.
           </li>
           <li>
-            <strong>Shared integration:</strong> focused assignment HTTP and
-            C2/C5 browser checks passed with the shared C/E commits. The C
-            owner's broader browser run remains ongoing; no broad keyboard,
-            accessibility or screen-reader pass is inferred.
+            <strong>Shared integration:</strong> focused HTTP checks passed
+            again on current <code>9ca1018</code>; the C2/C5 browser receipts
+            retain their original source identities. Broader earlier C runs
+            passed 30 of 31 app cases and 26 restoration checks, with one 1024px
+            Escape conflict. The assignment/shared fixes passed their
+            exact-candidate follow-up: 8 of 8 actual-app cases and 6 of 6
+            component checks. This resolves that recorded conflict without
+            erasing the earlier failure. Lessons E's separate final browser
+            acceptance is recorded by its owner and is not counted in this
+            assignment report. No broad accessibility or screen-reader
+            acceptance is inferred.
           </li>
           <li>
             <strong>Model scope:</strong> synthetic/provider-disabled checks
@@ -1098,10 +1130,21 @@
             port 3317; no other database or server lifecycle changed.
           </li>
           <li>
-            <a href="browser-results.json">Browser results</a> — final displayed
-            return, hashless history, filter history, version-1 draft recovery,
-            inactive creation and separate activation observations. The
-            manifest's per-capture build field takes precedence over its
+            <a href="cross-workspace-results.json"
+              >Cross-workspace case ledger</a
+            >
+            — preserved earlier C application cases, the real 1024px Escape
+            failure and follow-up source identities. The current bounded retest
+            passed 8/8 actual-app and 6/6 component cases. Its raw receipt
+            identifiers are
+            <code>run-9ca10189-final/actual-app/report.json</code> and
+            <code>run-9ca10189-final/switcher-six/report.json</code>.
+          </li>
+          <li>
+            <a href="browser-results.json">Browser results</a> — recorded
+            displayed return, hashless history, filter history, version-1 draft
+            recovery, inactive creation and separate activation observations.
+            The manifest's per-capture build field takes precedence over its
             top-level build for earlier images.
           </li>
           <li>

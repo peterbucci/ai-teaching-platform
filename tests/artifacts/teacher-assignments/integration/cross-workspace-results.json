@@ -1,0 +1,415 @@
+{
+  "owner": "Shared shell / PR120",
+  "summary": "The initial actual-app runs passed 30 of 31 cases and found a real 1024px Escape conflict. The page guard and shared dialog fixes were then independently verified: all 8 targeted actual-app cases and all 6 component cases passed on the final combined candidate. Historical failure evidence is retained below.",
+  "runs": [
+    {
+      "run": "run-b8d0eb55-02",
+      "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9",
+      "source": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "tree": "466b42f5b70a33400115d9df5f876f65f3d9289f",
+      "status": "fail",
+      "startedAt": "2026-10-25T14:43:58.940Z",
+      "finishedAt": "2026-10-25T14:45:17.090Z",
+      "cases": [
+        {
+          "name": "authorized fixture classes are distinct",
+          "status": "pass"
+        },
+        {
+          "name": "S1 discovery 1440",
+          "status": "pass"
+        },
+        {
+          "name": "scope and keyboard 1440",
+          "status": "pass"
+        },
+        {
+          "name": "direct URL Back Forward 1440",
+          "status": "pass"
+        },
+        {
+          "name": "S1 discovery 1024",
+          "status": "pass"
+        },
+        {
+          "name": "scope and keyboard 1024",
+          "status": "fail"
+        },
+        {
+          "name": "direct URL Back Forward 1024",
+          "status": "pass"
+        },
+        {
+          "name": "S1 discovery 390",
+          "status": "pass"
+        },
+        {
+          "name": "scope and keyboard 390",
+          "status": "pass"
+        },
+        {
+          "name": "direct URL Back Forward 390",
+          "status": "pass"
+        },
+        {
+          "name": "S1 discovery 320",
+          "status": "pass"
+        },
+        {
+          "name": "scope and keyboard 320",
+          "status": "pass"
+        },
+        {
+          "name": "direct URL Back Forward 320",
+          "status": "pass"
+        },
+        {
+          "name": "C2 grid details 1440",
+          "status": "pass"
+        },
+        {
+          "name": "C2 questions grid 1440",
+          "status": "pass"
+        },
+        {
+          "name": "C2 sessions grid 1440",
+          "status": "pass"
+        },
+        {
+          "name": "C2 concepts details 1440",
+          "status": "pass"
+        },
+        {
+          "name": "hashless native Back questions 1440",
+          "status": "pass"
+        },
+        {
+          "name": "hashless native Back sessions 1440",
+          "status": "pass"
+        },
+        {
+          "name": "C2 grid details 390",
+          "status": "pass"
+        },
+        {
+          "name": "C2 questions grid 390",
+          "status": "pass"
+        },
+        {
+          "name": "C2 sessions grid 390",
+          "status": "pass"
+        },
+        {
+          "name": "C2 concepts details 390",
+          "status": "pass"
+        },
+        {
+          "name": "hashless native Back questions 390",
+          "status": "pass"
+        },
+        {
+          "name": "hashless native Back sessions 390",
+          "status": "pass"
+        },
+        {
+          "name": "focused authoring geometry and exact library tools",
+          "status": "fail"
+        },
+        {
+          "name": "actual objective unsaved pane reload Back recovery",
+          "status": "pass"
+        },
+        {
+          "name": "actual objective unsaved guard cancels switcher navigation",
+          "status": "pass"
+        },
+        {
+          "name": "native browser zoom 200 percent",
+          "status": "pass"
+        },
+        {
+          "name": "read-only evidence receipts unchanged",
+          "status": "pass"
+        },
+        {
+          "name": "no browser errors or mutation attempts",
+          "status": "pass"
+        }
+      ],
+      "native200Verified": true,
+      "browserContextsClosed": true,
+      "errors": [],
+      "blockedRequests": []
+    },
+    {
+      "run": "run-b8d0eb55-03-geometry",
+      "reportSha256": "1d8999fcb206f63394ba3f84c971f2a7becc083ffc9151180b37f1737f69638b",
+      "source": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "tree": "466b42f5b70a33400115d9df5f876f65f3d9289f",
+      "status": "pass",
+      "startedAt": "2026-10-25T14:47:07.593Z",
+      "finishedAt": "2026-10-25T14:47:12.842Z",
+      "cases": [
+        {
+          "name": "focused authoring geometry and exact library tools",
+          "status": "pass"
+        },
+        {
+          "name": "no browser errors or mutation attempts",
+          "status": "pass"
+        }
+      ],
+      "native200Verified": false,
+      "browserContextsClosed": true,
+      "errors": [],
+      "blockedRequests": []
+    }
+  ],
+  "followup": {
+    "assignmentSource": "42896da0b45733e79d6d44e246031996bfa49671",
+    "sharedSource": "357a6716a333137e909fb77b9907a90a833a6df3",
+    "combinedCandidate": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+    "status": "pass",
+    "runs": [
+      {
+        "run": "actual-app",
+        "reportSha256": "28faab2c4cec7789dbabfa62eb45fed4adb730bb4db54b97043c741571778ff5",
+        "category": "Actual combined runtime navigation; synthetic fixtures; GET/HEAD after one login per isolated browser",
+        "source": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+        "tree": "fff9c0716e85702e5d205c15766a4cfb6d7f9423",
+        "status": "pass",
+        "startedAt": "2026-10-25T15:27:08.740Z",
+        "finishedAt": "2026-10-25T15:27:14.983Z",
+        "cases": [
+          {
+            "name": "targeted switcher Escape 1440",
+            "status": "pass"
+          },
+          {
+            "name": "targeted switcher Escape 1024",
+            "status": "pass"
+          },
+          {
+            "name": "targeted switcher Escape 390",
+            "status": "pass"
+          },
+          {
+            "name": "targeted Details Escape 320",
+            "status": "pass"
+          },
+          {
+            "name": "targeted Details Escape 1024",
+            "status": "pass"
+          },
+          {
+            "name": "C2 grid details 390",
+            "status": "pass"
+          },
+          {
+            "name": "read-only evidence receipts unchanged",
+            "status": "pass"
+          },
+          {
+            "name": "no browser errors or mutation attempts",
+            "status": "pass"
+          }
+        ],
+        "browserContextsClosed": true,
+        "errors": [],
+        "blockedRequests": [],
+        "limitations": [
+          "No paid calls or model-behavior claim",
+          "F1 Evidence row ownership is Agent A; this suite does not claim its acceptance",
+          "No comprehensive WCAG or screen-reader claim"
+        ]
+      },
+      {
+        "run": "switcher-six",
+        "reportSha256": "5b3f4b2a249e81e0a81c978e037cfeb262e7bc819f659c8f0308cefa920db802",
+        "category": "Actual shared TeacherWorkspace and CSS, isolated page-owned broad Escape fixture; Next hooks, data and ancillary components mocked",
+        "sourceHashes": {
+          "app/teacher/navigation.tsx": "11994a3679ca521672ffb1ae8acf6afc3de2b2ee60d7d38def3afe21ef904907",
+          "app/teacher/workspace-shell.css": "2c789fac6ef9694d507bed347dc1a59776f78712fa1ff9e70d88d1ace0f44918"
+        },
+        "status": "pass",
+        "startedAt": "2026-10-25T15:28:38.744Z",
+        "finishedAt": "2026-10-25T15:28:41.176Z",
+        "cases": [
+          {
+            "name": "production-1440x1000",
+            "status": "pass",
+            "mode": "production",
+            "width": 1440,
+            "height": 1000,
+            "assertions": [
+              "Native dialog closes",
+              "Opener regains focus",
+              "URL and page pane unchanged by modal Escape",
+              "Broad page handler receives no modal Escape",
+              "Escape outside modal still reaches page handler"
+            ],
+            "modalEscape": {
+              "pageEscapes": 0,
+              "registrations": 1,
+              "activePageHandlers": 1,
+              "nativeCancels": 1,
+              "cancelDefaultPrevented": false
+            },
+            "outsideEscape": {
+              "pageEscapes": 1,
+              "registrations": 1,
+              "activePageHandlers": 1,
+              "nativeCancels": 1,
+              "cancelDefaultPrevented": false
+            }
+          },
+          {
+            "name": "production-1024x768",
+            "status": "pass",
+            "mode": "production",
+            "width": 1024,
+            "height": 768,
+            "assertions": [
+              "Native dialog closes",
+              "Opener regains focus",
+              "URL and page pane unchanged by modal Escape",
+              "Broad page handler receives no modal Escape",
+              "Escape outside modal still reaches page handler"
+            ],
+            "modalEscape": {
+              "pageEscapes": 0,
+              "registrations": 1,
+              "activePageHandlers": 1,
+              "nativeCancels": 1,
+              "cancelDefaultPrevented": false
+            },
+            "outsideEscape": {
+              "pageEscapes": 1,
+              "registrations": 1,
+              "activePageHandlers": 1,
+              "nativeCancels": 1,
+              "cancelDefaultPrevented": false
+            }
+          },
+          {
+            "name": "production-390x844",
+            "status": "pass",
+            "mode": "production",
+            "width": 390,
+            "height": 844,
+            "assertions": [
+              "Native dialog closes",
+              "Opener regains focus",
+              "URL and page pane unchanged by modal Escape",
+              "Broad page handler receives no modal Escape",
+              "Escape outside modal still reaches page handler"
+            ],
+            "modalEscape": {
+              "pageEscapes": 0,
+              "registrations": 1,
+              "activePageHandlers": 1,
+              "nativeCancels": 1,
+              "cancelDefaultPrevented": false
+            },
+            "outsideEscape": {
+              "pageEscapes": 1,
+              "registrations": 1,
+              "activePageHandlers": 1,
+              "nativeCancels": 1,
+              "cancelDefaultPrevented": false
+            }
+          },
+          {
+            "name": "development-1440x1000",
+            "status": "pass",
+            "mode": "development",
+            "width": 1440,
+            "height": 1000,
+            "assertions": [
+              "Native dialog closes",
+              "Opener regains focus",
+              "URL and page pane unchanged by modal Escape",
+              "Broad page handler receives no modal Escape",
+              "Escape outside modal still reaches page handler"
+            ],
+            "modalEscape": {
+              "pageEscapes": 0,
+              "registrations": 2,
+              "activePageHandlers": 1,
+              "nativeCancels": 1,
+              "cancelDefaultPrevented": false
+            },
+            "outsideEscape": {
+              "pageEscapes": 1,
+              "registrations": 2,
+              "activePageHandlers": 1,
+              "nativeCancels": 1,
+              "cancelDefaultPrevented": false
+            }
+          },
+          {
+            "name": "development-1024x768",
+            "status": "pass",
+            "mode": "development",
+            "width": 1024,
+            "height": 768,
+            "assertions": [
+              "Native dialog closes",
+              "Opener regains focus",
+              "URL and page pane unchanged by modal Escape",
+              "Broad page handler receives no modal Escape",
+              "Escape outside modal still reaches page handler"
+            ],
+            "modalEscape": {
+              "pageEscapes": 0,
+              "registrations": 2,
+              "activePageHandlers": 1,
+              "nativeCancels": 1,
+              "cancelDefaultPrevented": false
+            },
+            "outsideEscape": {
+              "pageEscapes": 1,
+              "registrations": 2,
+              "activePageHandlers": 1,
+              "nativeCancels": 1,
+              "cancelDefaultPrevented": false
+            }
+          },
+          {
+            "name": "development-390x844",
+            "status": "pass",
+            "mode": "development",
+            "width": 390,
+            "height": 844,
+            "assertions": [
+              "Native dialog closes",
+              "Opener regains focus",
+              "URL and page pane unchanged by modal Escape",
+              "Broad page handler receives no modal Escape",
+              "Escape outside modal still reaches page handler"
+            ],
+            "modalEscape": {
+              "pageEscapes": 0,
+              "registrations": 2,
+              "activePageHandlers": 1,
+              "nativeCancels": 1,
+              "cancelDefaultPrevented": false
+            },
+            "outsideEscape": {
+              "pageEscapes": 1,
+              "registrations": 2,
+              "activePageHandlers": 1,
+              "nativeCancels": 1,
+              "cancelDefaultPrevented": false
+            }
+          }
+        ],
+        "errors": [],
+        "limitations": [
+          "Component regression, not application or database verification",
+          "No document capture listener is modeled; the conflicting page listener deliberately runs in document bubble phase"
+        ]
+      }
+    ]
+  }
+}
