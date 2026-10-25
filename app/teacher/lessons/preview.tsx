@@ -1,4 +1,5 @@
 import type { LessonDraftContent } from "../../../lib/lessons/contracts.ts";
+import { SourcePassageText } from "./reading-text.tsx";
 
 export function LessonPreview({
   content,
@@ -40,7 +41,7 @@ export function LessonPreview({
                 {passage.section ?? passage.id}
                 {passage.page_number ? ` · Page ${passage.page_number}` : ""}
               </summary>
-              <p className="my-3 whitespace-pre-wrap">{passage.text}</p>
+              <SourcePassageText>{passage.text}</SourcePassageText>
             </details>
           ))}
         </section>

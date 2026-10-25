@@ -512,20 +512,6 @@
 .aw-reading-content:has(> .qb-reading) {
   padding: 0;
 }
-.qb-reading-header {
-  min-height: 50px;
-  padding: 10px 16px;
-  border-bottom: 1px solid #e1e9e4;
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background: #f6f8f7;
-}
-.qb-reading-header h2 {
-  font-size: 15px !important;
-  font-weight: 650;
-}
-.qb-reading-header p,
 .qb-reading-credit {
   font-size: 13px;
   color: #4f6359;
@@ -554,19 +540,6 @@
 .qb-reading-cited {
   background: #fffaf0;
   box-shadow: inset 3px 0 0 #d39a2e;
-}
-.qb-reading-text {
-  font-family: var(--font-serif, Georgia), serif;
-  font-size: 15px;
-  line-height: 1.55;
-  color: #22403a;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  margin-top: 4px;
-}
-.qb-reading-text mark {
-  background: #fbe7b3;
-  color: inherit;
 }
 .qb-text-action {
   color: #176d58;
@@ -615,8 +588,5 @@
   }
   .qb-select {
     flex-basis: 100%;
-  }
-  .qb-reading-header {
-    position: static;
   }
 }

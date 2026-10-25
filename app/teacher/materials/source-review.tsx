@@ -96,7 +96,6 @@ export function SourceReview({
   );
   const reading = (
     <div className="lm-source-context">
-      <p className="lp-eyebrow">Original extraction</p>
       <h2>
         {selected
           ? `Passage ${selected.number} as extracted`
@@ -161,6 +160,8 @@ export function SourceReview({
       key={`${source.document_id}:${source.version}:${passageId ?? "details"}`}
       outline={outline}
       reading={reading}
+      readingTitle="Original extraction"
+      readingMeta={`Source v${source.version}`}
       label="Teaching material review"
       defaultPane="editor"
     >

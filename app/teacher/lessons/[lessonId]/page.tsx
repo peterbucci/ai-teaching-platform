@@ -9,6 +9,7 @@ import { LessonPreview } from "../preview.tsx";
 import { TutoringSequence } from "../sequence.tsx";
 import { AuthoringOutline, AuthoringWorkspace } from "../workbench.tsx";
 import { LessonReading } from "../reading.tsx";
+import { PublishedAssignmentHandoff } from "../published-assignment.tsx";
 import { groupPublishingRequirements } from "../readiness.ts";
 import {
   AssembleLesson,
@@ -34,6 +35,59 @@ export default async function LessonReviewPage({
       : null,
   }));
   const { lesson, validation } = review;
+  const selectedPublishedVersion = published?.content_ref.content_version;
+  const versionAssignments = selectedPublishedVersion
+    ? review.assignments.filter(
+        (item) => item.lesson_version === selectedPublishedVersion,
+      )
+    : review.assignments;
+  const assignmentRows = (items: typeof review.assignments) => (
+    <ul className="la-readiness">
+      {items.map((item) => (
+        <li key={item.id}>
+          <Link href={`/teacher/assignments?assignment=${item.id}`}>
+            {item.title} · {item.class_name}
+          </Link>
+          <span>
+            Version {item.lesson_version} ·{" "}
+            {item.teacher_approved_at ? "Active" : "Awaiting activation"}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+  const assignments = (
+    <section
+      className="la-published-assignments"
+      aria-labelledby="lesson-assignments-heading"
+    >
+      <h3 id="lesson-assignments-heading">
+        {selectedPublishedVersion
+          ? `Classes using version ${selectedPublishedVersion}`
+          : "Class assignments"}
+      </h3>
+      {versionAssignments.length ? (
+        assignmentRows(versionAssignments)
+      ) : (
+        <p className="la-muted">
+          No classes assigned
+          {selectedPublishedVersion ? " to this version" : ""}. Publishing a
+          lesson does not assign it.
+        </p>
+      )}
+      {selectedPublishedVersion &&
+        review.assignments.length > versionAssignments.length && (
+          <details className="la-review-disclosure">
+            <summary>Assignments using other lesson versions</summary>
+            {assignmentRows(
+              review.assignments.filter(
+                (item) => item.lesson_version !== selectedPublishedVersion,
+              ),
+            )}
+          </details>
+        )}
+    </section>
+  );
   const requirements = groupPublishingRequirements(lessonId, validation.issues);
   const content = published ?? lesson.draft;
   const href = `/teacher/lessons/${encodeURIComponent(lessonId)}`;
@@ -114,6 +168,11 @@ export default async function LessonReviewPage({
     <TeacherFrame section="Lessons">
       <div className="la-workspace">
         <AuthoringWorkspace
+          readingMeta={
+            content?.content_ref && "source_version" in content.content_ref
+              ? `Source v${content.content_ref.source_version}`
+              : "Curated source"
+          }
           outline={
             <AuthoringOutline
               active={step}
@@ -369,11 +428,30 @@ export default async function LessonReviewPage({
               {published && (
                 <>
                   <h2>Published version {version}</h2>
-                  <p className="la-notice">
-                    <strong>Immutable snapshot.</strong> Later draft edits leave
-                    this version, its assignments and student evidence
-                    unchanged.
+                  <p className="la-publication-status">
+                    Approved and published · Immutable snapshot. Later edits
+                    leave this version and its assignments unchanged.
                   </p>
+                  {assignments}
+                  <PublishedAssignmentHandoff
+                    lessonId={lessonId}
+                    publishedVersion={published.content_ref.content_version}
+                  >
+                    <details className="la-review-disclosure">
+                      <summary>Quick assignment preparation</summary>
+                      <p className="la-muted my-3">
+                        Create an inactive assignment here, then review and
+                        activate it in Class assignments.
+                      </p>
+                      <CreateClassAssignment
+                        key={published.content_ref.content_version}
+                        lessonId={lessonId}
+                        version={published.content_ref.content_version}
+                        title={lesson.title}
+                        classes={review.classes}
+                      />
+                    </details>
+                  </PublishedAssignmentHandoff>
                 </>
               )}
               {!published && (
@@ -412,12 +490,6 @@ export default async function LessonReviewPage({
               {published && (
                 <>
                   <div className="la-actions my-4">
-                    <Link
-                      className="lp-button lp-button-primary"
-                      href="/teacher/assignments"
-                    >
-                      Open class assignments
-                    </Link>
                     <Link className="lp-button" href={href}>
                       Return to draft
                     </Link>
@@ -447,22 +519,6 @@ export default async function LessonReviewPage({
                     </summary>
                     <TutoringSequence content={published} />
                   </details>
-                  <details className="la-review-disclosure">
-                    <summary>
-                      Prepare a class assignment from version {version}
-                    </summary>
-                    <p className="la-muted my-3">
-                      The existing assignment handoff saves an inactive
-                      assignment. Review and activate it in Class assignments.
-                    </p>
-                    <CreateClassAssignment
-                      key={version}
-                      lessonId={lessonId}
-                      version={version!}
-                      title={lesson.title}
-                      classes={review.classes}
-                    />
-                  </details>
                 </>
               )}
               {currentVersion && currentVersionPublished && (
@@ -477,32 +533,7 @@ export default async function LessonReviewPage({
               )}
             </>
           )}
-          {step === "review" && (
-            <section className="la-section">
-              <h3>Class assignments</h3>
-              {review.assignments.length ? (
-                <ul className="la-readiness">
-                  {review.assignments.map((item) => (
-                    <li key={item.id}>
-                      <Link href={`/teacher/assignments?assignment=${item.id}`}>
-                        {item.title} · {item.class_name}
-                      </Link>
-                      <span>
-                        Version {item.lesson_version} ·{" "}
-                        {item.teacher_approved_at
-                          ? "Active"
-                          : "Awaiting activation"}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="la-muted">
-                  No classes assigned. Publishing a lesson does not assign it.
-                </p>
-              )}
-            </section>
-          )}
+          {step === "review" && !published && assignments}
         </AuthoringWorkspace>
       </div>
     </TeacherFrame>

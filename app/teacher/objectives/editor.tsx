@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { AuthoringOutline, AuthoringWorkspace } from "../lessons/workbench.tsx";
+import { SourcePassageText } from "../lessons/reading-text.tsx";
 import { evidenceSegments } from "./source-reading.ts";
 import {
   parseObjectiveRecovery,
@@ -92,7 +93,9 @@ function Passage({
         {passage.section ?? passage.passage_id}
         {passage.page_number ? ` · page ${passage.page_number}` : ""}
       </summary>
-      <blockquote>{passage.text}</blockquote>
+      <blockquote>
+        <SourcePassageText>{passage.text}</SourcePassageText>
+      </blockquote>
       <small>
         Passage {passage.passage_id} · source version {source.version}
       </small>
@@ -135,7 +138,7 @@ function SourceReading({
               {passage.page_number ? ` · Page ${passage.page_number}` : ""} · v
               {source.version}
             </p>
-            <p className="lo-source-text">
+            <SourcePassageText>
               {evidenceSegments(passage.text, quotes).map((segment, index) =>
                 segment.highlighted ? (
                   <mark key={index}>{segment.text}</mark>
@@ -143,7 +146,7 @@ function SourceReading({
                   segment.text
                 ),
               )}
-            </p>
+            </SourcePassageText>
           </article>
         );
       })}
@@ -775,6 +778,12 @@ export function ObjectiveEditor({
         <AuthoringWorkspace
           label="Lesson objectives workbench"
           defaultPane="editor"
+          readingTitle={
+            activeItem
+              ? `Reading · O${items.indexOf(activeItem) + 1}`
+              : "Reading"
+          }
+          readingMeta={`Source v${data.source.version}`}
           outline={
             <AuthoringOutline
               active="objectives"
@@ -929,16 +938,14 @@ export function ObjectiveEditor({
           reading={
             <div className="lo-reading-pane">
               <section className="lo-reading-header">
-                <p className="lp-eyebrow">
-                  Reading · source version {data.source.version}
+                <p>
+                  <strong>{data.source.attribution.title}</strong>
                 </p>
-                <h2>{data.source.attribution.title}</h2>
                 <p className="lo-muted">
                   {data.source.attribution.authors.join(", ")}
                 </p>
                 <p className="lo-muted">
-                  Cited passages appear first. Highlighted words are the current
-                  objective’s exact supporting quotes.
+                  Cited passages first · exact supporting quotes highlighted.
                 </p>
                 <Link
                   href={sourceHref ?? "/teacher/materials"}

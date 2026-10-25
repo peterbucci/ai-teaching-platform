@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { AuthoringWorkspace, AuthoringOutline } from "../../workbench.tsx";
+import { SourcePassageText } from "../../reading-text.tsx";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { z } from "zod";
 import {
@@ -815,18 +816,6 @@ export function QuestionBankEditor({
   );
   const readingPane = (
     <div className="qb-reading">
-      <header className="qb-reading-header">
-        <h2>
-          {panel === "bank"
-            ? "Reading · this question’s passages first"
-            : "Reading"}
-        </h2>
-        <p>
-          {sourceVersion
-            ? `Source version ${sourceVersion}`
-            : "Pinned lesson source"}
-        </p>
-      </header>
       {sourceReference && (
         <div className="qb-reading-credit">
           <p>{sourceReference.attribution.title}</p>
@@ -856,7 +845,7 @@ export function QuestionBankEditor({
           {passage.page_number && (
             <p className="qb-help">Page {passage.page_number}</p>
           )}
-          <p className="qb-reading-text">
+          <SourcePassageText>
             {exactQuoteSegments(passage.text, quotes).map((part, n) =>
               part.marked ? (
                 <mark key={n}>{part.text}</mark>
@@ -864,7 +853,7 @@ export function QuestionBankEditor({
                 <span key={n}>{part.text}</span>
               ),
             )}
-          </p>
+          </SourcePassageText>
           <p className="qb-help">
             {uses.length ? `Used by ${uses.join(", ")}` : "Not used yet"}
           </p>
@@ -877,6 +866,12 @@ export function QuestionBankEditor({
     <AuthoringWorkspace
       label="Question authoring"
       defaultPane="editor"
+      readingTitle={
+        panel === "bank" && activeQuestion
+          ? `Reading · Q${bank.questions.indexOf(activeQuestion) + 1}`
+          : "Reading"
+      }
+      readingMeta={sourceVersion ? `Source v${sourceVersion}` : "Pinned source"}
       outline={
         <AuthoringOutline
           active="questions"

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { LessonDraftContent } from "../../../lib/lessons/contracts.ts";
+import { SourcePassageText } from "./reading-text.tsx";
 
 export function LessonReading({
   content,
@@ -11,13 +12,10 @@ export function LessonReading({
   const source = content?.content_ref;
   return (
     <>
-      <h2>{content?.attribution?.title ?? "Source pending"}</h2>
-      <p className="la-muted">
-        {source && "source_version" in source
-          ? `Source v${source.source_version}`
-          : "Curated source"}{" "}
-        · lesson v{source?.content_version ?? "—"}
+      <p>
+        <strong>{content?.attribution?.title ?? "Source pending"}</strong>
       </p>
+      <p className="la-muted">Lesson v{source?.content_version ?? "—"}</p>
       <p className="la-muted">
         {content?.attribution?.authors.join(", ")} ·{" "}
         {content?.attribution?.license}
@@ -34,7 +32,7 @@ export function LessonReading({
             {passage.page_number ? ` · page ${passage.page_number}` : ""}
           </h3>
           <p className="la-muted">{passage.id}</p>
-          <p className="whitespace-pre-wrap">{passage.text}</p>
+          <SourcePassageText>{passage.text}</SourcePassageText>
           <p className="la-muted">
             Used by{" "}
             {[

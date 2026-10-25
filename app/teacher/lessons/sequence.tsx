@@ -11,7 +11,9 @@ export function TutoringSequence({
   const sequence = content?.sequence;
   return (
     <section aria-labelledby="sequence-heading">
-      <h2 id="sequence-heading">Tutoring sequence</h2>
+      <h2 id="sequence-heading" className="aw-record-heading">
+        Tutoring sequence
+      </h2>
       <p className="la-muted">
         Prepared instructional content and the decisions the tutor can make.
       </p>

@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PR #118 · Workbench v2.2 finishing verification</title>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      body {
+        margin: 0;
+        background: #f7faf7;
+        color: #17302d;
+        font:
+          15px/1.6 system-ui,
+          sans-serif;
+      }
+      main {
+        max-width: 1160px;
+        margin: auto;
+        padding: 32px;
+      }
+      h1 {
+        font-size: 30px;
+        line-height: 1.2;
+        margin-bottom: 12px;
+      }
+      h2 {
+        font-size: 21px;
+        margin-top: 36px;
+      }
+      h3 {
+        font-size: 17px;
+      }
+      p,
+      li {
+        max-width: 100ch;
+      }
+      a {
+        color: #176d58;
+        text-underline-offset: 3px;
+      }
+      code {
+        font-size: 12px;
+        overflow-wrap: anywhere;
+      }
+      .eyebrow {
+        color: #52695d;
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .notice {
+        border-left: 4px solid #b88632;
+        background: #fff5df;
+        padding: 16px 20px;
+      }
+      .notice p {
+        margin: 6px 0;
+      }
+      .status {
+        display: inline-block;
+        border-radius: 4px;
+        padding: 2px 7px;
+        font-size: 12px;
+        font-weight: 650;
+        white-space: nowrap;
+      }
+      .pass {
+        color: #16533e;
+        background: #e4f0e8;
+      }
+      .pending {
+        color: #79571d;
+        background: #fff0cf;
+      }
+      .failed {
+        color: #8d3434;
+        background: #fdebea;
+      }
+      .table-scroll {
+        overflow-x: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+      }
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        vertical-align: top;
+        border-bottom: 1px solid #dce5df;
+      }
+      th {
+        font-size: 12px;
+        color: #52695d;
+      }
+      .changes {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .changes article {
+        background: white;
+        border-top: 2px solid #b9cec1;
+        padding: 16px 20px;
+      }
+      .changes h3 {
+        margin-top: 0;
+      }
+      .changes p {
+        margin-bottom: 0;
+      }
+      @media (max-width: 700px) {
+        main {
+          padding: 20px 16px;
+        }
+        h1 {
+          font-size: 25px;
+        }
+        .changes {
+          grid-template-columns: 1fr;
+        }
+        th,
+        td {
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">
+        Learning Pulse · October 25, 2026 · fictional data · providers disabled
+      </p>
+      <h1>Finish the existing Lessons authoring workspace</h1>
+      <p>
+        <a href="https://github.com/peterbucci/ai-teaching-platform/pull/118"
+          >Draft PR #118</a
+        >
+        · Combined acceptance findings V06, V07, V08 and C5 from
+        <a href="https://github.com/peterbucci/ai-teaching-platform/pull/122"
+          >PR #122</a
+        >. This appendix covers the finishing changes after
+        <code>9c44fe8eb1b122c0e7c1181e1f937ab4b3044445</code>.
+        <strong id="final-source">Exact final code commit: pending.</strong>
+      </p>
+      <div class="notice" role="note">
+        <p><strong>Implementation is ahead of runtime verification.</strong></p>
+        <p>
+          The first quality run passed 466 unit tests, 21 authoring-focused
+          tests, 6 question-focused tests and lint. Typecheck found an
+          unavailable objective-view attribution field; that reference has been
+          removed and the rerun is pending. Full formatting and content checks
+          are pending.
+        </p>
+        <p>
+          Docker startup currently blocks the new production build, populated
+          browser workflow, fresh screenshots and actual 200% browser zoom.
+          Prior passing captures and tests remain historical evidence, not proof
+          of these finishing changes. PR #118 remains draft and unmerged.
+        </p>
+      </div>
+
+      <h2>Corrections in this pass</h2>
+      <div class="changes">
+        <article>
+          <h3>V06 · Pane geometry and density</h3>
+          <p>
+            Removed the extra local canvas border and padding. The persistent
+            lesson outline, focused editor and reading context remain mounted.
+            Desktop geometry follows 330px / flexible / 360px; tablet uses a
+            300px outline and contextual reading. Focused headings use 22px on
+            desktop and 20px on phones. Shared-shell navigation stays outside
+            the page-owned lesson outline. Final content start positions and
+            pane transitions require the new browser pass.
+          </p>
+        </article>
+        <article>
+          <h3>V07 · One source-reading treatment</h3>
+          <p>
+            <code>SourcePassageText</code> applies the same 15px,
+            1.55-line-height serif treatment across objectives, questions,
+            review and publication. Exact approved passage text and optional
+            supporting-quote marks are preserved. Context labels identify the
+            selected objective/question and source version; passage IDs,
+            attribution and version references remain attached to the reading.
+          </p>
+        </article>
+        <article>
+          <h3>V08 · Published assignment preparation</h3>
+          <p>
+            A visible preparation action sits near the top of the published
+            lesson, before its collapsible content snapshots. The action names
+            the selected published version. Class-assignment rows are scoped to
+            that version. The existing quick-create control remains in a
+            secondary disclosure; creation is inactive and classroom activation
+            remains a separate teacher action.
+          </p>
+        </article>
+        <article>
+          <h3>C5 · Exact published-version handoff</h3>
+          <p>
+            Lessons and the Assignments owner agreed on
+            <code
+              >/teacher/assignments/new?lesson=&lt;lesson-id&gt;&amp;version=&lt;exact-published-version&gt;&amp;class=&lt;optional-owned-class-id&gt;</code
+            >. The outgoing action uses the selected authorized publication's
+            version, with no substitution from the current draft or latest
+            version. Assignments owns receiving-form validation, review,
+            creation and activation. The direct receiving route is a PR #117
+            integration dependency.
+          </p>
+        </article>
+      </div>
+
+      <h2>Executed checks and current limits</h2>
+      <p>
+        Local guarded run:
+        <code
+          >.setup/verification/v22-finish/2026-10-25T13-16-00-690Z-quality/</code
+        >. The run stops at its first failure. Its results apply to the worktree
+        at that run, before removal of the unavailable attribution field.
+      </p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Check</th>
+              <th>Status</th>
+              <th>Evidence or outstanding work</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Full unit suite</td>
+              <td><span class="status pass">Passed · 466</span></td>
+              <td><code>01-unit.log</code></td>
+            </tr>
+            <tr>
+              <td>Focused authoring tests</td>
+              <td><span class="status pass">Passed · 21 + 6</span></td>
+              <td>
+                <code>02-authoring-focused.log</code> and
+                <code>03-question-focused.log</code>. Includes the outgoing
+                handoff URL contract tests.
+              </td>
+            </tr>
+            <tr>
+              <td>Lint</td>
+              <td><span class="status pass">Passed</span></td>
+              <td><code>04-lint.log</code></td>
+            </tr>
+            <tr>
+              <td>Typecheck</td>
+              <td><span class="status failed">Failed; rerun pending</span></td>
+              <td>
+                <code>05-typecheck.log</code>: the objective-view attribution
+                contract does not expose <code>license</code>. The unsupported
+                field reference is removed; that edit has not yet passed a
+                rerun.
+              </td>
+            </tr>
+            <tr>
+              <td>Full formatting / content / final diff checks</td>
+              <td><span class="status pending">Pending</span></td>
+              <td>
+                Not reached after the typecheck failure. Formatting this
+                appendix alone does not establish a full formatting pass.
+              </td>
+            </tr>
+            <tr>
+              <td>Production build</td>
+              <td><span class="status pending">Blocked</span></td>
+              <td>
+                Docker startup must recover before the guarded build can run.
+                The prior image does not contain this finishing pass.
+              </td>
+            </tr>
+            <tr>
+              <td>New browser workflow and screenshots</td>
+              <td><span class="status pending">Blocked</span></td>
+              <td>
+                Requires the new running application and populated fictional
+                fixture.
+              </td>
+            </tr>
+            <tr>
+              <td>Actual 200% browser zoom</td>
+              <td><span class="status pending">Blocked</span></td>
+              <td>
+                No new native-zoom capture. Viewport resizing is not a
+                substitute for browser zoom.
+              </td>
+            </tr>
+            <tr>
+              <td>Paid model calls</td>
+              <td><span class="status pass">Disabled</span></td>
+              <td>
+                No paid calls authorized or made for this pass. Deterministic
+                checks do not establish live-model acceptance.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Prototype, before and pending after comparison</h2>
+      <p>
+        The approved reference is the supplied Workbench v2.2
+        <code>Main.dc.html</code> and runtime, with export SHA-256
+        <code
+          >c853369da1250adf24a741a38c3d94d3c97a976c012c352732cf4dd8d924cb54</code
+        >. Existing prototype captures below were rendered from that reference.
+        The prototype example has four objectives and twelve questions; the
+        saved fictional Water, heat and changing state fixture has three
+        concepts and four questions. This is a comparison of the authoring
+        relationships and layout, not an identical-text pixel comparison.
+      </p>
+      <p>
+        <a href="report.html">Previous PR #118 fidelity report</a> is preserved
+        as historical evidence. Its after-question captures represent the
+        application before this finishing pass and retain the earlier shell. The
+        new after column will require captures with the agreed PR #120 shared
+        shell. None of the links below is labelled as a new after result.
+      </p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Viewport</th>
+              <th>Approved prototype</th>
+              <th>Before this pass</th>
+              <th>New after</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1440 × 1000</td>
+              <td>
+                <a href="prototype-question-1440.png">Reference capture</a>
+              </td>
+              <td>
+                <a href="after-questions-1440.png"
+                  >Historical question workspace</a
+                >
+              </td>
+              <td><span class="status pending">Pending</span></td>
+            </tr>
+            <tr>
+              <td>1024 × 768</td>
+              <td>
+                <a href="prototype-question-1024.png">Reference capture</a>
+              </td>
+              <td>
+                <a href="after-questions-1024.png"
+                  >Historical question workspace</a
+                >
+              </td>
+              <td><span class="status pending">Pending</span></td>
+            </tr>
+            <tr>
+              <td>390 × 844</td>
+              <td>
+                <a href="prototype-question-390.png">Reference capture</a>
+              </td>
+              <td>
+                <a href="after-questions-390.png"
+                  >Historical question workspace</a
+                >
+              </td>
+              <td><span class="status pending">Pending</span></td>
+            </tr>
+            <tr>
+              <td>320 × 844</td>
+              <td>
+                <a href="prototype-question-320.png">Reference capture</a>
+              </td>
+              <td>
+                <a href="after-questions-320.png"
+                  >Historical question workspace</a
+                >
+              </td>
+              <td><span class="status pending">Pending</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Populated functional journey still to verify</h2>
+      <p>
+        The new application must exercise source review, objective editing, the
+        multi-concept question bank and private criteria, tutoring preparation,
+        separate approval and publication, and the published assignment handoff.
+        Check stable source references and attribution; reading across all
+        stages; pane focus restoration; unsaved field preservation and
+        navigation recovery; immutable published versions; and arrival at
+        Assignments with the exact selected version. Repeat the four viewport
+        sizes and actual 200% zoom. These new end-to-end results are currently
+        unrun.
+      </p>
+
+      <h2>Integration dependencies and remaining deviations</h2>
+      <ul>
+        <li>
+          <a href="https://github.com/peterbucci/ai-teaching-platform/pull/120"
+            >PR #120</a
+          >
+          owns the shared course navigation, authoring navigation row and outer
+          workspace. Lessons only owns its outline, editor and contextual
+          reading. Final geometry needs the shared-shell integration; shared
+          files are outside this change's ownership.
+        </li>
+        <li>
+          <a href="https://github.com/peterbucci/ai-teaching-platform/pull/117"
+            >PR #117</a
+          >
+          owns the receiving assignment form. Its rejection of unavailable or
+          mismatched versions and its separate creation/activation flow need the
+          combined C5 browser journey. No Assignments files are changed by
+          Lessons.
+        </li>
+        <li>
+          The approved dense example has five concepts, thirteen passages and
+          fifteen bank questions. Combined acceptance's immutable fixture has
+          nineteen question snapshots including its prepared sequence. This is
+          distinct from the earlier four-question water-cycle fixture.
+          Existing tutoring services still prepare one question family; this
+          page does not introduce a new runtime controller.
+        </li>
+        <li>
+          Fresh visual/keyboard/zoom acceptance, independent combined review,
+          live-model and hosted deployment acceptance remain open. No merge,
+          automatic assignment activation or parent-issue closure is implied.
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>

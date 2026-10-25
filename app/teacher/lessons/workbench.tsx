@@ -1,11 +1,34 @@
 "use client";
 
 import Link from "next/link";
-import { useId, useRef, useState, type ReactNode } from "react";
+import {
+  useCallback,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type ReactNode,
+} from "react";
 import "./authoring.css";
 
 type Pane = "outline" | "editor" | "reading";
 const panes: Pane[] = ["outline", "editor", "reading"];
+type Viewport = "wide" | "tablet" | "phone";
+function viewportSnapshot(): Viewport {
+  if (window.matchMedia("(max-width: 800px)").matches) return "phone";
+  return window.matchMedia("(max-width: 1240px)").matches ? "tablet" : "wide";
+}
+function subscribeViewport(notify: () => void) {
+  const queries = [
+    window.matchMedia("(max-width: 800px)"),
+    window.matchMedia("(max-width: 1240px)"),
+  ];
+  queries.forEach((query) => query.addEventListener("change", notify));
+  return () =>
+    queries.forEach((query) => query.removeEventListener("change", notify));
+}
+const serverViewport = (): Viewport => "wide";
 
 /** All panes stay mounted: changing context must not discard unsaved inputs. */
 export function AuthoringWorkspace({
@@ -14,23 +37,108 @@ export function AuthoringWorkspace({
   children,
   defaultPane = "editor",
   label = "Lesson authoring",
+  readingTitle = "Reading",
+  readingMeta,
 }: {
   outline: ReactNode;
   reading: ReactNode;
   children: ReactNode;
   defaultPane?: Pane;
   label?: string;
+  readingTitle?: string;
+  readingMeta?: string;
 }) {
   const [pane, setPane] = useState<Pane>(defaultPane);
+  const subscribe = useCallback(
+    (notify: () => void) =>
+      subscribeViewport(() => {
+        // Resizing must not open a modal over a visible editor/outside control.
+        if (viewportSnapshot() === "tablet" && pane === "reading") {
+          const focusedPane =
+            document.activeElement instanceof HTMLElement
+              ? document.activeElement.closest<HTMLElement>("[data-pane]")
+              : null;
+          if (focusedPane?.dataset.pane !== "reading")
+            setPane(
+              focusedPane?.dataset.pane === "outline" ? "outline" : "editor",
+            );
+        }
+        notify();
+      }),
+    [pane],
+  );
+  const viewport = useSyncExternalStore(
+    subscribe,
+    viewportSnapshot,
+    serverViewport,
+  );
   const id = useId();
   const root = useRef<HTMLDivElement>(null);
+  const readingDialog = useRef<HTMLDialogElement>(null);
+  const readingModal = useRef(false);
+  const lastViewport = useRef(viewport);
+  const lastFocusedControl = useRef<HTMLElement | null>(null);
   const readingOpener = useRef<HTMLElement | null>(null);
+  const readingReturnPane = useRef<Pane>("editor");
+
+  useLayoutEffect(() => {
+    const dialog = readingDialog.current;
+    if (!dialog) return;
+    const changedViewport = lastViewport.current !== viewport;
+    const active =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+    const focused =
+      active === document.body ? lastFocusedControl.current : active;
+    const focusInWorkspace = Boolean(
+      focused && root.current?.contains(focused),
+    );
+    const shouldModal = viewport === "tablet" && pane === "reading";
+    const shouldInline =
+      viewport === "wide" || (viewport === "phone" && pane === "reading");
+    let changedDialogMode = false;
+    if (readingModal.current && !shouldModal) {
+      readingModal.current = false;
+      dialog.close();
+      changedDialogMode = true;
+    }
+    if (shouldModal && !readingModal.current) {
+      const canvasTop = Math.max(
+        0,
+        root.current?.getBoundingClientRect().top ?? 0,
+      );
+      dialog.style.setProperty("--aw-reading-top", `${canvasTop}px`);
+      if (dialog.open) dialog.removeAttribute("open");
+      readingModal.current = true;
+      dialog.showModal();
+      changedDialogMode = true;
+    } else if (!shouldModal) {
+      // Unlike show(), an inline open attribute does not move editor focus.
+      if (shouldInline) dialog.setAttribute("open", "");
+      else dialog.removeAttribute("open");
+    }
+    if (changedViewport && focusInWorkspace && focused) {
+      if (!focused.getClientRects().length) {
+        root.current
+          ?.querySelector<HTMLElement>(`[data-pane="${pane}"]`)
+          ?.focus({ preventScroll: true });
+      } else if (changedDialogMode && document.activeElement !== focused) {
+        // Native modal close restores its opener; preserve a still-visible
+        // reading control when the same mounted pane becomes inline instead.
+        focused.focus({ preventScroll: true });
+      }
+    }
+    lastViewport.current = viewport;
+  }, [pane, viewport]);
   function openPane(next: Pane, focus = true) {
-    if (next === "reading" && pane !== "reading")
+    if (next === "reading" && pane !== "reading") {
+      readingReturnPane.current = pane;
       readingOpener.current =
         document.activeElement instanceof HTMLElement
           ? document.activeElement
           : null;
+    }
     setPane(next);
     if (focus)
       requestAnimationFrame(() =>
@@ -40,14 +148,16 @@ export function AuthoringWorkspace({
       );
   }
   function closeReading() {
-    setPane("editor");
+    setPane(readingReturnPane.current);
     requestAnimationFrame(() => {
       const opener = readingOpener.current;
       if (opener?.isConnected && opener.getClientRects().length)
         opener.focus({ preventScroll: true });
       else
         root.current
-          ?.querySelector<HTMLElement>('[data-pane="editor"]')
+          ?.querySelector<HTMLElement>(
+            `[data-pane="${readingReturnPane.current}"]`,
+          )
           ?.focus({ preventScroll: true });
     });
   }
@@ -57,6 +167,17 @@ export function AuthoringWorkspace({
       className="la-workspace aw-workspace"
       data-active-pane={pane}
       aria-label={label}
+      onFocusCapture={(event) => {
+        if (event.target instanceof HTMLElement)
+          lastFocusedControl.current = event.target;
+      }}
+      onBlurCapture={(event) => {
+        if (
+          event.relatedTarget instanceof HTMLElement &&
+          !event.currentTarget.contains(event.relatedTarget)
+        )
+          lastFocusedControl.current = null;
+      }}
       onClickCapture={(event) => {
         const target =
           event.target instanceof Element
@@ -119,6 +240,7 @@ export function AuthoringWorkspace({
       <aside
         id={`${id}-outline`}
         data-pane="outline"
+        data-workspace-scroll="lesson-outline"
         className="aw-outline-pane"
         tabIndex={-1}
         aria-label={`${label} outline`}
@@ -128,42 +250,68 @@ export function AuthoringWorkspace({
       <section
         id={`${id}-editor`}
         data-pane="editor"
+        data-workspace-scroll="lesson-editor"
         className="aw-editor-pane"
         tabIndex={-1}
         aria-label="Focused editor"
       >
         <div className="aw-editor-toolbar">
-          <span>{label}</span>
           <button
             type="button"
-            onClick={() => openPane(pane === "reading" ? "editor" : "reading")}
+            onClick={() =>
+              pane === "reading" ? closeReading() : openPane("reading")
+            }
             aria-expanded={pane === "reading"}
             aria-controls={`${id}-reading`}
           >
-            Reading ↗
+            Open reading ↗
           </button>
         </div>
         <div className="aw-editor-content">{children}</div>
       </section>
-      <aside
+      <dialog
+        ref={readingDialog}
         id={`${id}-reading`}
         data-pane="reading"
+        data-workspace-scroll="lesson-reading"
         className="aw-reading-pane"
         tabIndex={-1}
+        aria-modal={
+          viewport === "tablet" && pane === "reading" ? true : undefined
+        }
         aria-label="Contextual source reading"
+        onCancel={(event) => {
+          event.preventDefault();
+          closeReading();
+        }}
+        onClick={(event) => {
+          if (viewport !== "tablet" || event.target !== event.currentTarget)
+            return;
+          const bounds = event.currentTarget.getBoundingClientRect();
+          if (
+            event.clientX < bounds.left ||
+            event.clientX > bounds.right ||
+            event.clientY < bounds.top ||
+            event.clientY > bounds.bottom
+          )
+            closeReading();
+        }}
       >
         <div className="aw-reading-toolbar">
-          <span>Reading & source support</span>
+          <div className="aw-reading-heading">
+            <h2>{readingTitle}</h2>
+            {readingMeta && <p>{readingMeta}</p>}
+          </div>
           <button
             type="button"
             onClick={closeReading}
-            aria-label="Close reading and return to editor"
+            aria-label="Close reading and return"
           >
             ×
           </button>
         </div>
         <div className="aw-reading-content">{reading}</div>
-      </aside>
+      </dialog>
     </div>
   );
 }

@@ -11,12 +11,15 @@
   display: grid;
   grid-template-columns: 330px minmax(0, 1fr) 360px;
   height: calc(100dvh - 150px);
-  min-height: 540px;
-  border: 1px solid #dce5df;
-  border-radius: 8px;
+  min-height: 0;
   background: #fff;
   overflow: hidden;
-  font-size: 13px;
+  font-size: 15px;
+}
+/* Match the shared shell's full-width pane slot; never alter its navigation. */
+.tw-main .aw-workspace {
+  margin: -24px -28px -56px;
+  height: calc(100dvh - var(--tw-authoring-top, 103px));
 }
 .aw-workspace > [data-pane] {
   min-width: 0;
@@ -129,12 +132,18 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 10px 16px;
-  min-height: 43px;
+  padding: 6px 16px;
+  min-height: 50px;
   background: #fff;
   border-bottom: 1px solid #e1e9e4;
   color: #65786b;
-  font-size: 11px;
+  font-size: 15px;
+  font-weight: 650;
+}
+.aw-editor-toolbar {
+  display: none;
+  min-height: 48px;
+  justify-content: flex-end;
 }
 .aw-editor-toolbar button {
   display: none;
@@ -144,12 +153,13 @@
   color: #176d58;
 }
 .aw-editor-content {
-  max-width: 840px;
-  padding: 22px 24px 56px;
+  max-width: 920px;
+  padding: 22px 28px 56px;
   margin: 0 auto;
 }
-.aw-editor-content > h2,
-.aw-editor-content > header h2 {
+.la-workspace .aw-editor-content > h2,
+.la-workspace .aw-editor-content > header h2,
+.la-workspace .aw-editor-content h2.aw-record-heading {
   font-size: 22px;
   margin-bottom: 8px;
   letter-spacing: -0.3px;
@@ -159,12 +169,47 @@
   border-radius: 7px;
 }
 .aw-reading-pane {
+  position: static;
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: inherit;
   background: #fcfdfb;
   border-left: 1px solid #e1e9e4;
+}
+.aw-reading-pane:not([open]) {
+  display: none;
+}
+.aw-reading-pane::backdrop {
+  background: #17302d66;
 }
 .aw-reading-toolbar {
   background: #f8faf7;
   color: #365844;
+}
+.aw-reading-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  min-width: 0;
+}
+.aw-reading-toolbar .aw-reading-heading h2 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.aw-reading-heading p {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 400;
+  color: #65786b;
 }
 .aw-reading-toolbar button {
   display: none;
@@ -180,7 +225,7 @@
   margin-bottom: 6px;
 }
 .aw-reading-content h3 {
-  font-size: 12px;
+  font-size: 14px;
   margin: 12px 0 6px;
 }
 .aw-reading-content p {
@@ -223,20 +268,25 @@
   }
   .aw-reading-pane {
     display: none;
-    position: absolute;
-    top: 0;
+    position: fixed;
+    top: var(--aw-reading-top, 0px);
     bottom: 0;
+    left: auto;
     right: 0;
-    width: min(400px, 92%);
+    width: min(400px, 92vw);
+    height: calc(100dvh - var(--aw-reading-top, 0px));
     box-shadow: -12px 0 32px #17302d15;
     z-index: 5;
   }
-  .aw-workspace[data-active-pane="reading"] .aw-reading-pane {
+  .aw-workspace[data-active-pane="reading"] .aw-reading-pane[open] {
     display: block;
   }
   .aw-editor-toolbar button,
   .aw-reading-toolbar button {
     display: block;
+  }
+  .aw-editor-toolbar {
+    display: flex;
   }
 }
 @media (max-width: 800px) {
@@ -244,20 +294,28 @@
     display: flex;
     flex-direction: column;
     height: calc(100dvh - 130px);
-    min-height: 480px;
+    min-height: 0;
+  }
+  .tw-main .aw-workspace {
+    margin: -18px -14px -32px;
+    height: calc(
+      100dvh - var(--tw-authoring-top, 103px) - var(--tw-bottom-height, 65px) -
+        env(safe-area-inset-bottom)
+    );
   }
   .aw-pane-switch {
     display: flex;
     flex: 0 0 auto;
-    padding: 6px;
+    padding: 8px 12px;
     gap: 4px;
     border-bottom: 1px solid #e1e9e4;
     background: #f8faf8;
   }
   .aw-pane-switch button {
     flex: 1;
+    min-height: 42px;
     padding: 8px 5px;
-    font-size: 12px;
+    font-size: 13px;
     border: 1px solid transparent;
     border-radius: 5px;
   }
@@ -272,6 +330,7 @@
     flex: 1;
     min-height: 0;
     width: 100%;
+    height: auto;
     position: static;
     box-shadow: none;
     border: 0;
@@ -284,12 +343,52 @@
   .aw-editor-content {
     padding: 18px 14px 32px;
   }
+  .la-workspace .aw-editor-content > h2,
+  .la-workspace .aw-editor-content > header h2,
+  .la-workspace .aw-editor-content h2.aw-record-heading {
+    font-size: 20px;
+  }
   .aw-editor-toolbar {
     display: none;
   }
   .aw-reading-content {
     padding: 14px;
   }
+}
+@media (max-width: 360px) {
+  .tw-main .aw-workspace {
+    margin-inline: -12px;
+  }
+  .aw-editor-content,
+  .aw-reading-content {
+    padding-inline: 12px;
+  }
+}
+.la-assignment-handoff {
+  border-block: 1px solid #cbd9d1;
+  padding: 16px 0;
+  margin: 20px 0;
+}
+.la-assignment-handoff h3 {
+  font-size: 17px;
+  font-weight: 650;
+  margin-bottom: 6px;
+}
+.la-assignment-handoff .la-actions {
+  margin-top: 12px;
+}
+.la-published-assignments {
+  margin: 20px 0;
+}
+.la-published-assignments h3 {
+  font-weight: 650;
+}
+.la-published-assignments .la-readiness li {
+  padding-block: 10px;
+}
+.la-publication-status {
+  margin: 8px 0 16px;
+  color: var(--la-muted);
 }
 .la-workspace .lp-page-heading {
   margin-bottom: 24px;

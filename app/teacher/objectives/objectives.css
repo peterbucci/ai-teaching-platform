@@ -509,7 +509,7 @@
   margin-bottom: 16px;
 }
 .lo-record-heading h2 {
-  font-size: 26px;
+  font-size: 22px;
   line-height: 1.25;
   letter-spacing: -0.02em;
   margin: 6px 0;
@@ -608,12 +608,6 @@
   padding-bottom: 14px;
   border-bottom: 1px solid var(--lo-line);
 }
-.lo-reading-header h2 {
-  font-size: 18px;
-  line-height: 1.35;
-  margin: 6px 0;
-  overflow-wrap: anywhere;
-}
 .lo-reading-header .lo-muted {
   font-size: 12px;
 }
@@ -653,17 +647,6 @@
   font-size: 10px;
   margin: 4px 0 8px;
   overflow-wrap: anywhere;
-}
-.lo-source-text {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 16px;
-  line-height: 1.7;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-.lo-source-text mark {
-  color: inherit;
-  background: #f3dda6;
 }
 .lo-ai-disclosure {
   margin-top: 20px;
@@ -706,7 +689,7 @@
 }
 @media (max-width: 800px) {
   .lo-record-heading h2 {
-    font-size: 23px;
+    font-size: 20px;
   }
   .lo-workbench .lo-concept-fields {
     grid-template-columns: minmax(0, 1fr);
