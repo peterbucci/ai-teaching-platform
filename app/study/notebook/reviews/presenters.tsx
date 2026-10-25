@@ -13,6 +13,7 @@ import {
 export type TeacherReviewProps = {
   intervention: StudentIntervention;
   followup?: ReviewFollowupState;
+  conceptNames?: Readonly<Record<string, string>>;
 };
 
 export type TeacherReviewSummaryProps = {
@@ -68,26 +69,28 @@ export function TeacherReviewSummary({
             </span>
           </div>
           <h3 className="sn-review-title">{intervention.activity.title}</h3>
-          <p className="sn-review-prose">
-            <span className="sn-review-label">Learning objective</span>
+          <p className="sn-review-prose sn-review-summary-objective">
             {intervention.activity.learning_objective}
           </p>
-          <p className="sn-review-small">
-            {intervention.displayed_at ? (
-              <>
-                Viewing recorded ·{" "}
-                <time dateTime={intervention.displayed_at}>
-                  {reviewTime(intervention.displayed_at)}
-                </time>
-              </>
-            ) : (
-              "Viewing not yet recorded"
-            )}
-          </p>
-          <ReviewActivityStatus
-            intervention={intervention}
-            followup={followup}
-          />
+          <details className="sn-review-card-details">
+            <summary>Delivery and saved status</summary>
+            <p className="sn-review-small">
+              {intervention.displayed_at ? (
+                <>
+                  Viewing recorded ·{" "}
+                  <time dateTime={intervention.displayed_at}>
+                    {reviewTime(intervention.displayed_at)}
+                  </time>
+                </>
+              ) : (
+                "Viewing not yet recorded"
+              )}
+            </p>
+            <ReviewActivityStatus
+              intervention={intervention}
+              followup={followup}
+            />
+          </details>
         </div>
         <div className="sn-review-actions">
           <a
@@ -211,6 +214,7 @@ const assistanceLabels = {
 export function ReviewFeedback({
   intervention,
   followup = { status: "not_loaded" },
+  conceptNames = {},
 }: TeacherReviewProps) {
   const saved = linkedReviewFollowup(intervention, followup);
   if (!saved || reviewStatus(intervention, followup).key !== "accepted")
@@ -235,7 +239,11 @@ export function ReviewFeedback({
         <ul className="sn-review-results">
           {saved.results.map((result) => (
             <li key={result.concept_id}>
-              <span>{result.concept_id}</span>
+              <span>
+                {Object.hasOwn(conceptNames, result.concept_id)
+                  ? conceptNames[result.concept_id]
+                  : "Concept name unavailable"}
+              </span>
               <strong
                 className={`sn-review-result sn-review-result-${result.correctness}`}
               >
@@ -266,6 +274,7 @@ export function ReviewFeedback({
 export function LinkedReviewFollowup({
   intervention,
   followup = { status: "not_loaded" },
+  conceptNames,
 }: TeacherReviewProps) {
   const saved = linkedReviewFollowup(intervention, followup);
   const submitted = saved?.attempt_id && saved.submitted_at;
@@ -296,7 +305,11 @@ export function LinkedReviewFollowup({
           )}
         </>
       )}
-      <ReviewFeedback intervention={intervention} followup={followup} />
+      <ReviewFeedback
+        intervention={intervention}
+        followup={followup}
+        conceptNames={conceptNames}
+      />
       <a className="sn-review-link" href={reviewHref(intervention)}>
         Open the linked review
       </a>
@@ -308,12 +321,16 @@ export function LinkedReviewFollowup({
 export function TeacherReviewFrame({
   intervention,
   children,
-}: Pick<TeacherReviewProps, "intervention"> & { children: ReactNode }) {
+  embedded = false,
+}: Pick<TeacherReviewProps, "intervention"> & {
+  children: ReactNode;
+  embedded?: boolean;
+}) {
   return (
     <div className="sn-reviews sn-review-detail">
       <header className="sn-review-stack">
-        <span className="sn-review-label">Teacher-assigned review</span>
-        <h1>{intervention.activity.title}</h1>
+        <span className="sn-review-kind">Teacher-assigned review</span>
+        {!embedded && <h1>{intervention.activity.title}</h1>}
         <p className="sn-review-small">
           Delivered ·{" "}
           <time dateTime={intervention.delivered_at}>
@@ -325,7 +342,9 @@ export function TeacherReviewFrame({
           submit an answer.
         </p>
       </header>
-      <div className="sn-review-controller">{children}</div>
+      <div className="sn-review-controller" id="review-activity" tabIndex={-1}>
+        {children}
+      </div>
     </div>
   );
 }
