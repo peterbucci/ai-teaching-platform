@@ -4,11 +4,10 @@ import type {
   InterventionActivity,
   InterventionEvidence,
 } from "../../../lib/interventions/contracts.ts";
-import {
-  teacherWorkspaceHref,
-  type TeacherWorkspaceContext,
-} from "../../../lib/teacher/workspace-contracts.ts";
+import type { TeacherWorkspaceContext } from "../../../lib/teacher/workspace-contracts.ts";
 import { evidenceScopeCounts } from "./handoff.ts";
+import { interventionAssistanceLabels } from "./assistance.ts";
+import { interventionObservationHref } from "./snapshot-context.ts";
 
 const roleLabels = {
   supporting: "Reason to review",
@@ -39,7 +38,9 @@ export function EvidenceReview({
       className="lp-panel lp-intervention-panel"
       aria-labelledby="intervention-evidence-title"
     >
-      <h2 id="intervention-evidence-title">Evidence used</h2>
+      <h2 id="intervention-evidence-title" tabIndex={-1}>
+        Evidence used
+      </h2>
       <p className="lp-intervention-scope-title">
         {counts.starting
           ? "Selected starting responses"
@@ -98,15 +99,16 @@ export function EvidenceReview({
         const judgment = evaluation.result?.per_concept_results.find(
           (result) => result.concept_id === evidence.concept.id,
         );
-        const independent =
-          attempt.assistance?.independent_retrieval_eligible_by_concept[
-            evidence.concept.id
-          ];
+        const assistance = interventionAssistanceLabels(
+          attempt,
+          evidence.concept.id,
+        );
         return (
           <div
             className="lp-intervention-evidence"
             key={attempt.id}
             id={`evidence-${attempt.id}`}
+            tabIndex={-1}
           >
             {onToggle && (
               <label className="lp-intervention-choice">
@@ -136,21 +138,16 @@ export function EvidenceReview({
                   {attempt.response_text}
                 </span>
                 <span className="lp-intervention-meta">
-                  {independent
-                    ? "No recorded help · independent"
-                    : "Not an independent retrieval"}{" "}
-                  · {judgment?.correctness.replaceAll("_", " ")}
+                  {assistance.support} · {assistance.independence} ·{" "}
+                  {judgment?.correctness.replaceAll("_", " ")}
                 </span>
               </summary>
               <p className="lp-intervention-meta">
                 {observation.data_origin === "synthetic_fixture"
                   ? "Prepared fictional history"
                   : "Live fictional-student session"}{" "}
-                ·{" "}
-                {independent
-                  ? "Independent response"
-                  : "Assistance recorded / not independent"}{" "}
-                · {attempt.intent.replaceAll("_", " ")}
+                · {assistance.support} · {assistance.independence} ·{" "}
+                {attempt.intent.replaceAll("_", " ")}
               </p>
               <h3>Original question</h3>
               <p className="whitespace-pre-wrap">
@@ -184,15 +181,16 @@ export function EvidenceReview({
                   </p>
                 ))}
               <p className="lp-intervention-meta">
-                Assistance:{" "}
-                {attempt.assistance?.assistance_level.replaceAll("_", " ") ??
-                  "Unknown"}
-                . Immediate retests after help do not establish durable
-                understanding.
+                {assistance.support}. Immediate retests after help do not
+                establish durable understanding.
               </p>
               <Link
                 className="lp-text-link"
-                href={`${teacherWorkspaceHref(`/teacher/sessions/${observation.session_id}`, context, { student: observation.student_id, session: observation.session_id, attempt: attempt.id, evaluation: evaluation.id })}#evaluation-${evaluation.id}`}
+                href={interventionObservationHref(
+                  context,
+                  evidence,
+                  attempt.id,
+                )}
               >
                 Inspect full session and assistance
               </Link>

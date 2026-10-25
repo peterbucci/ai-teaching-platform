@@ -11,11 +11,8 @@ import { calculatePatterns } from "../../../lib/teacher/patterns.ts";
 import { loadTeacherView, evidenceDescription } from "../data.ts";
 import { TeacherFiltersForm } from "../filters.tsx";
 import { TeacherFrame, date } from "../presentation.tsx";
-import {
-  canPrepareFromRow,
-  evidenceResult,
-  teacherEvidenceRows,
-} from "./model.ts";
+import { canPrepareFromRow, evidenceResult } from "./model.ts";
+import { resolveEvidenceSelection } from "./selection.ts";
 import { EvidenceResults } from "./results.tsx";
 import { EvidenceContextLink } from "./context-link.tsx";
 import "./workbench.css";
@@ -49,71 +46,19 @@ export default async function EvidencePage({
         </section>
       </TeacherFrame>
     );
-  const allRows = teacherEvidenceRows(data);
-  if (
-    context.student &&
-    !data.students.some((student) => student.student_id === context.student)
-  )
-    notFound();
-  if (
-    context.session &&
-    !data.evidence.some((item) => item.session.id === context.session)
-  )
-    notFound();
-  const requested = context.attempt
-    ? allRows.find((row) => row.attempt.id === context.attempt)
-    : undefined;
-  if (context.attempt && !requested) notFound();
-  if (requested && context.session && requested.session_id !== context.session)
-    notFound();
-  const concept =
-    context.concept ??
-    requested?.attempt.question.concept_ids[0] ??
-    data.metrics.concepts.find((item) =>
-      allRows.some((row) =>
-        row.attempt.question.concept_ids.includes(item.concept_id),
-      ),
-    )?.concept_id ??
-    data.metrics.concepts[0]?.concept_id;
-  const metric = data.metrics.concepts.find(
-    (item) => item.concept_id === concept,
-  );
-  const conceptRows = allRows.filter(
-    (row) =>
-      row.attempt.question.concept_ids.includes(concept ?? "") &&
-      (!context.student || row.student_id === context.student),
-  );
-  if (requested && !conceptRows.includes(requested)) notFound();
-  if (
-    context.seedAttempt.some(
-      (id) =>
-        !allRows.some(
-          (row) =>
-            row.attempt.id === id && canPrepareFromRow(row, concept ?? ""),
-        ),
-    )
-  )
-    notFound();
-  const query = (context.q ?? "").toLocaleLowerCase();
-  const visibleRows = conceptRows.filter(
-    (row) =>
-      !query ||
-      `${row.student_name} ${row.attempt.question.prompt_text} ${row.attempt.response_text}`
-        .toLocaleLowerCase()
-        .includes(query),
-  );
-  const selected = requested ?? visibleRows[0];
-  const session = selected
-    ? data.evidence.find((item) => item.session.id === selected.session_id)
-    : undefined;
-  const evaluation = context.evaluation
-    ? session?.evaluations.find(
-        (item) =>
-          item.id === context.evaluation &&
-          item.attempt_id === selected?.attempt.id,
-      )
-    : selected?.evaluation;
-  if (context.evaluation && !evaluation) notFound();
+  const selection = resolveEvidenceSelection(data, context);
+  if (!selection) notFound();
+  const {
+    requested,
+    concept,
+    metric,
+    conceptRows,
+    query,
+    visibleRows,
+    selected,
+    session,
+    evaluation,
+  } = selection;
   const currentEvaluation =
     !evaluation || evaluation.id === selected?.attempt.current_evaluation_id;
   const resolved = {
@@ -122,7 +67,7 @@ export default async function EvidencePage({
     concept,
     attempt: selected?.attempt.id,
     evaluation: evaluation?.id,
-    session: selected?.session_id,
+    session: context.session ?? selected?.session_id,
   };
   const patterns = calculatePatterns(
     data.students.map((student) => student.student_id),
@@ -512,12 +457,16 @@ export default async function EvidencePage({
               <h2>
                 {query
                   ? "No responses match this search"
-                  : "No submitted responses for this concept"}
+                  : context.session
+                    ? "No submitted responses in this session for this concept"
+                    : "No submitted responses for this concept"}
               </h2>
               <p>
                 {query
                   ? "Clear the search or choose another concept to review saved work."
-                  : "No evidence has been invented or treated as incorrect. Choose another concept or return after students submit work."}
+                  : context.session
+                    ? "Your requested session remains selected. Choose another response from the results or return after a response is submitted."
+                    : "No evidence has been invented or treated as incorrect. Choose another concept or return after students submit work."}
               </p>
             </section>
           )}

@@ -1,16 +1,13 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { z } from "zod";
-import { requireActor } from "../../../lib/auth.ts";
+import { AuthError, requireActor } from "../../../lib/auth.ts";
 import { readAssignmentContent } from "../../../lib/lessons/store.ts";
 import { EvidenceError, evidenceAccess } from "../../../lib/evidence/store.ts";
 import type { InterventionEvidence } from "../../../lib/interventions/contracts.ts";
 import { buildInterventionEvidence } from "../../../lib/interventions/evidence.ts";
 import { readInterventionReview } from "../../../lib/interventions/approval.ts";
-import {
-  readInterventionDraft,
-  readInterventionDrafts,
-} from "../../../lib/interventions/store.ts";
+import { readInterventionDrafts } from "../../../lib/interventions/store.ts";
 import {
   calculatePatterns,
   type PatternGroup,
@@ -26,6 +23,7 @@ import {
   type TeacherWorkspaceParams,
 } from "../../../lib/teacher/workspace-contracts.ts";
 import { InterventionWorkspace } from "./workspace.tsx";
+import { snapshotInterventionContext } from "./snapshot-context.ts";
 import "./interventions.css";
 
 export const dynamic = "force-dynamic";
@@ -53,6 +51,26 @@ export default async function TeacherInterventionsPage({
     })
     .safeParse(raw);
   if (!parsed.success) notFound();
+  const actor = await requireActor().catch((error: unknown) => {
+    if (error instanceof AuthError && error.status === 401) redirect("/login");
+    throw error;
+  });
+  const access = evidenceAccess(actor);
+  let draft = null;
+  let review = null;
+  if (parsed.data.draft) {
+    try {
+      review = await readInterventionReview(access, parsed.data.draft);
+      draft = review.draft;
+    } catch (error) {
+      if (error instanceof EvidenceError && [403, 404].includes(error.status))
+        notFound();
+      throw error;
+    }
+    const savedContext = snapshotInterventionContext(context, draft);
+    if (!savedContext) notFound();
+    context = savedContext;
+  }
   const params = { ...context, ...parsed.data };
   const { assignments, origin, data } = await loadTeacherView(context);
   if (!data)
@@ -65,22 +83,7 @@ export default async function TeacherInterventionsPage({
         </p>
       </TeacherFrame>
     );
-  const actor = await requireActor();
-  const access = evidenceAccess(actor);
   const drafts = await readInterventionDrafts(access, data.assignment_id);
-  let draft = null;
-  let review = null;
-  if (params.draft) {
-    try {
-      draft = await readInterventionDraft(access, params.draft);
-    } catch (error) {
-      if (error instanceof EvidenceError && error.status === 404) notFound();
-      throw error;
-    }
-    if (draft.assignment_id !== data.assignment_id) notFound();
-    review = await readInterventionReview(access, draft.id);
-    draft = review.draft;
-  }
   const content = await readAssignmentContent(
     access,
     data.assignment_id,

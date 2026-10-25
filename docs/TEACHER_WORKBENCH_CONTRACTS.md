@@ -35,7 +35,9 @@ private criteria or arbitrary return URLs. Unknown fields cannot become actions.
 - `origin`: `all`, `live_demo`, or `synthetic_fixture`.
 - `concept`, `misconception`: bounded IDs checked against the loaded source scope.
 - `student`, `session`, `attempt`, `evaluation`: exact investigation selection;
-  loaders recheck membership. A newer empty session never replaces the selected
+  loaders recheck membership and require supplied identities to agree. A session
+  without a submitted response remains an empty selection; it cannot fall back
+  to another session's answer. A newer empty session never replaces the selected
   assessed attempt. The accepted evaluation pointer takes precedence over a later
   failed retry.
 - `q`: bounded search text. `returnTo` is an allowlisted destination:
@@ -68,6 +70,10 @@ work and contrary evidence. Historical repeated difficulty is not current master
 The investigation shows the saved question and exact student words prominently,
 then accepted result/uncertainty and actual displayed help. Full history and
 provenance remain inspectable. Preparing an intervention is read-only navigation.
+Recorded help and independent-retrieval eligibility for the selected concept are
+separate facts: help about another concept must still be disclosed. Saved draft
+inspection links derive their assignment, concept, origin and response identities
+from the authorized persisted evidence snapshot, overriding stale URL filters.
 The teacher reviews the server-resolved evidence, explicitly generates, edits and
 saves, reviews student/private content, selects recipients, approves a saved
 revision and separately delivers. A changed evidence selection requires another
@@ -81,6 +87,13 @@ the actor/artifact/base revision and cannot overwrite newer server edits. Sign-i
 expiry must not automatically replay a mutation. This slice does not replace the
 authoring editors' existing recovery implementations; broader uniform draft UX is
 a separately owned follow-up.
+
+Before a draft exists, one unfinished teaching direction is recovered per actor,
+assignment, concept, origin, pattern and canonical starting-response set in the
+current tab. Changing that scope selects its own recovery entry. Unscoped legacy
+entries are not guessed into a preparation. Opening an existing draft cannot
+clear an unfinished preparation; only its matching, successfully acknowledged
+generation request can clear its recovery, without erasing later edits.
 
 ## Visual and accessibility contract
 
@@ -96,6 +109,9 @@ required. List/detail transitions expose a labeled return to results. Preserve
 selection and focus context; use semantic headings, labels, visible keyboard focus,
 status text and alerts. Content must remain usable at 1440, 1024, 390 and 320px,
 including long original responses and 200% zoom. Do not rely on color alone.
+Intervention evidence hashes reveal the Evidence pane, expand the cited original
+response, and move focus after it is visible. The same behavior applies to keyboard
+activation, initial bookmarks and Back/Forward; pane headings are focus targets.
 
 ## Exclusive work packages and merge order
 

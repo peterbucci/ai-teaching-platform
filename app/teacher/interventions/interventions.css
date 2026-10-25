@@ -65,6 +65,11 @@
 .lp-intervention-evidence {
   border-top: 1px solid var(--line);
   padding: 15px 0;
+  scroll-margin-top: 16px;
+}
+.lp-intervention-evidence:focus-visible {
+  outline: 2px solid #176d58;
+  outline-offset: 4px;
 }
 .lp-intervention-evidence summary {
   cursor: pointer;
