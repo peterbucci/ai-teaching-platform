@@ -118,11 +118,23 @@ the switcher; navigation is not hamburger-only.
 
 Normal links use Next's real router/history. Shared restoration keeps bounded,
 memory-only positions and content-control identities across shell remounts;
-chrome links do not overwrite the originating content focus. Pages can use an
+positions belong to individual browser history entries, including repeated
+visits to the same URL. History state stores only an opaque entry token and
+preserves the router's and pages' fields; no position or form value is stored
+there. Chrome links do not overwrite the originating content focus. Pages can use an
 element `id` or `data-workspace-focus` for stable focus, and
 `data-workspace-scroll` for their own scroll container. No text is stored.
 After reload the URL restores selection, but previous in-memory scroll snapshots
 are unavailable. Exact hash activation remains with the owning page.
+
+Pages that already restore their own focus/scroll can mark the managed region
+`data-workspace-restoration="page"`. The shell excludes that region and its
+descendants from shared snapshots and yields all placement when the page has
+already focused a visible control there. PR #116's existing evidence component
+is recognized without changing its files. Its per-history-entry list controller
+owns row focus and list scroll; the shell does not read or rewrite its history
+state. Focusing a content control without a stable identity clears the old shared
+focus target; moving into navigation chrome alone preserves it.
 
 Draft recovery/dirty navigation remains owned by each editor and its existing
 actor/revision/request contracts. The shell does not promise to save unsaved

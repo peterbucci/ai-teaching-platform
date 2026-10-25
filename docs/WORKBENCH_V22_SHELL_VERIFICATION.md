@@ -75,6 +75,35 @@ journeys have not been repeated after this merge during the local acceptance
 hold. The existing screenshots prove the captured geometry, not final combined
 page behavior. Current remote production and integration results are on
 [PR #120's checks](https://github.com/peterbucci/ai-teaching-platform/pull/120/checks).
+The dependency-integration commit `a045def` subsequently passed both complete
+remote CI jobs, including production build and all quality/integration steps:
+[run 40164628446](https://github.com/peterbucci/ai-teaching-platform/actions/runs/40164628446).
+
+### Final restoration compatibility correction
+
+A subsequent review found that the shared shell could resurrect an earlier row
+focus after the teacher moved to an anonymous filter control. Its URL-keyed
+scroll snapshot could also compete with #116's new per-entry evidence list
+controller. The shared-only correction excludes page-owned restoration regions,
+clears stale focus after anonymous content controls and yields all placement
+after the page has focused its own visible target. No page file was changed.
+
+Shared snapshots now belong to individual browser history entries, using an
+opaque token that preserves existing router/page state. Positions remain bounded
+in memory and disappear on reload. Repeated visits to an identical URL have
+distinct snapshots. Missing metadata after reselecting a page is renewed safely;
+a browser rejecting metadata writes falls back to native behavior without
+repeated writes or a misleading URL-based restoration.
+
+**26 component browser regressions passed with zero errors**, using the actual
+shared component, React 19.3 and native history, with mocked Next hooks and a
+labelled page-restorer fixture. They exercise both restoration orders, anonymous
+filters, repeated URLs, identical-URL Back/Forward, synchronous and delayed router
+updates, metadata preservation, reload, rejected writes, and immediate departure
+after the router resets metadata. Existing generic restoration and exact hashes
+remain covered. These are component checks, not a new application/database run.
+The report and final source hashes are in `restoration-browser-report.json` and
+`restoration-verification.json`. Final remote checks remain tied to the PR head.
 
 ## Geometry and visual findings
 
@@ -190,9 +219,11 @@ foundation guard also closes its containing dialog before focusing feedback.
    URL selection survives refresh. Page editors continue to own durable draft
    recovery and dirty-navigation behavior.
 6. No live-model evaluation, hosted deployment, full page parity, assistive
-   technology audit, independent human approval or production build of the
-   final source is claimed. Storage recovery and a fresh production build remain
-   review gates. This is a stacked draft; it must not merge automatically.
+   technology audit or independent human approval is claimed. Final remote build
+   and integration status must be checked against the current PR head; the
+   successful dependency-integration run above does not certify later changes.
+   The combined application browser journey remains deferred during serialized
+   local acceptance. This is a stacked draft; it must not merge automatically.
 
 Next integration: page owners adopt the documented pane and URL contracts on
 their own branches, then rerun the relevant real page journeys after #116 and
