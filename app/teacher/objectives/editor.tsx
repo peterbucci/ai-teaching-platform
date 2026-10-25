@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { z } from "zod";
-import { AuthoringSteps } from "../lessons/workbench.tsx";
+import { AuthoringOutline, AuthoringWorkspace } from "../lessons/workbench.tsx";
+import { evidenceSegments } from "./source-reading.ts";
 import {
   parseObjectiveRecovery,
   type ObjectiveRecovery,
@@ -99,7 +100,68 @@ function Passage({
   );
 }
 
-export function ObjectiveEditor({ lessonId }: { lessonId: string }) {
+function SourceReading({
+  source,
+  item,
+}: {
+  source: ObjectiveSource;
+  item?: ObjectiveEdit;
+}) {
+  const cited = source.passages.filter((passage) =>
+    item?.passage_ids.includes(passage.passage_id),
+  );
+  const other = source.passages.filter(
+    (passage) => !item?.passage_ids.includes(passage.passage_id),
+  );
+  return (
+    <div className="lo-reading-passages">
+      {[...cited, ...other].map((passage) => {
+        const linked = item?.passage_ids.includes(passage.passage_id);
+        const quotes =
+          item?.support_evidence
+            .filter((evidence) => evidence.passage_id === passage.passage_id)
+            .map((evidence) => evidence.quote) ?? [];
+        return (
+          <article
+            key={passage.passage_id}
+            className={`lo-reading-passage${linked ? " lo-reading-cited" : ""}`}
+          >
+            <div className="lo-reading-passage-heading">
+              <h3>{passage.section ?? passage.passage_id}</h3>
+              {linked && <span>Cited here</span>}
+            </div>
+            <p className="lo-muted">
+              {passage.passage_id}
+              {passage.page_number ? ` · Page ${passage.page_number}` : ""} · v
+              {source.version}
+            </p>
+            <p className="lo-source-text">
+              {evidenceSegments(passage.text, quotes).map((segment, index) =>
+                segment.highlighted ? (
+                  <mark key={index}>{segment.text}</mark>
+                ) : (
+                  segment.text
+                ),
+              )}
+            </p>
+          </article>
+        );
+      })}
+    </div>
+  );
+}
+
+export function ObjectiveEditor({
+  lessonId,
+  initialObjectiveId,
+  contentVersion,
+  publishedVersions,
+}: {
+  lessonId: string;
+  initialObjectiveId?: string;
+  contentVersion: string | null;
+  publishedVersions: string[];
+}) {
   const [data, setData] = useState<ObjectiveEditorState | null>(null);
   const [title, setTitle] = useState("");
   const [items, setItems] = useState<ObjectiveEdit[]>([]);
@@ -112,7 +174,9 @@ export function ObjectiveEditor({ lessonId }: { lessonId: string }) {
   const [requestId, setRequestId] = useState<string | null>(null);
   const [selectedSuggestions, setSelectedSuggestions] = useState<number[]>([]);
   const [approvalConfirmed, setApprovalConfirmed] = useState(false);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(
+    initialObjectiveId ?? null,
+  );
   const [recovery, setRecovery] = useState<ObjectiveRecovery | null>(null);
   const [editRevision, setEditRevision] = useState<number | null>(null);
   const [recoveryWarning, setRecoveryWarning] = useState<string | null>(null);
@@ -679,225 +743,612 @@ export function ObjectiveEditor({ lessonId }: { lessonId: string }) {
     );
   const suggestions = proposal?.result?.ok ? proposal.result.suggestions : [];
 
+  function selectObjective(id: string) {
+    setSelectedId(id);
+    const url = new URL(window.location.href);
+    url.searchParams.set("objective", id);
+    window.history.replaceState(window.history.state, "", url);
+  }
+
+  const activeItem = items.find((item) => item.concept_id === activeId);
+  const sourceHref = data
+    ? `/teacher/materials/${encodeURIComponent(data.source.document_id)}?version=${data.source.version}`
+    : undefined;
+  const questionCount = data?.lesson.draft.questions?.length;
+
   return (
-    <div className="lp-objectives la-workspace">
-      <Link className="lp-text-link" href="/teacher/lessons">
-        ← Lesson library
-      </Link>
-      <header className="lp-page-heading lo-heading">
-        <p className="lp-eyebrow">Lessons / Learning objectives</p>
-        <h1 className="lp-title">
-          {data?.lesson.title ?? "Learning objectives"}
-        </h1>
-        <p className="lp-intro">
-          Write measurable goals, check their source support, and approve the
-          reviewed set.
-        </p>
-      </header>
-      <AuthoringSteps
-        active="objectives"
-        lessonId={lessonId}
-        sourceHref={
-          data
-            ? `/teacher/materials/${encodeURIComponent(data.source.document_id)}?version=${data.source.version}`
-            : undefined
-        }
-      />
-      {error && (
-        <div role="alert" className="lo-notice lo-warning">
-          <p>{error}</p>
-          {conflict && (
-            <p>
-              Your edits are preserved below. Compare the latest saved
-              objectives before choosing which work to keep.
-              <button
-                className="lp-button"
-                type="button"
-                disabled={Boolean(busy)}
-                onClick={() => void compareSaved()}
-              >
-                Compare latest saved draft
-              </button>
+    <div className="lp-objectives la-workspace lo-workbench">
+      {!data ? (
+        <div className="lo-loading-state">
+          <Link className="lp-text-link" href="/teacher/lessons">
+            ← Lesson library
+          </Link>
+          {error ? (
+            <p className="lo-notice lo-warning" role="alert">
+              {error}
             </p>
+          ) : (
+            <p role="status">Loading your objectives draft…</p>
           )}
         </div>
-      )}
-      {message && (
-        <p role="status" className="lo-notice lo-success">
-          {message}
-        </p>
-      )}
-      {recoveryWarning && (
-        <p className="lo-notice lo-warning" role="status">
-          {recoveryWarning}
-        </p>
-      )}
-      {recovery && data && (
-        <section className="lo-notice" aria-label="Recover unsaved objectives">
-          <strong>Unfinished objective edits are available</strong>
-          <p>
-            This tab kept a recovery copy from draft revision{" "}
-            {recovery.revision}.{" "}
-            {recovery.revision !== data.lesson.revision
-              ? "The saved draft has changed. Restore to compare your work before saving."
-              : "Restore it to continue where you left off."}
-          </p>
-          <div className="lo-actions">
-            <button
-              className="lp-button lp-button-primary"
-              type="button"
-              onClick={() => {
-                setTitle(recovery.title);
-                setItems(recovery.items);
-                setEditRevision(recovery.revision);
-                const stale = recovery.revision !== data.lesson.revision;
-                setConflict(stale);
-                setError(
-                  stale
-                    ? "Recovered edits belong to an older revision. They have not changed the saved draft."
-                    : null,
-                );
-                setRecovery(null);
-                setApprovalConfirmed(false);
-              }}
-            >
-              Restore unfinished edits
-            </button>
-            <button
-              className="lp-button"
-              type="button"
-              onClick={() => {
-                forgetRequest(recoveryKey);
-                setRecovery(null);
-              }}
-            >
-              Keep saved version
-            </button>
-          </div>
-        </section>
-      )}
-      {comparing && data && (
-        <section
-          className="lo-notice"
-          aria-label="Compare latest saved objectives"
-        >
-          <h2>Latest saved draft · revision {data.lesson.revision}</h2>
-          <p>
-            <strong>{data.lesson.title}</strong> · Your local edits remain in
-            the editor below.
-          </p>
-          <ol className="lo-comparison-list">
-            {savedItems.map((item) => (
-              <li key={item.concept_id}>
-                <strong>{item.concept_name}</strong>
-                <p>{item.objective}</p>
-                <small>
-                  {item.passage_ids.length} supporting passages ·{" "}
-                  {item.teacher_verified ? "Reviewed" : "Needs review"}
-                </small>
-                <details className="lo-passage">
-                  <summary>Inspect saved emphasis and source support</summary>
-                  <p>Emphasis: {item.emphasis ?? "Not set"}</p>
-                  <p>Passages: {item.passage_ids.join(", ") || "None"}</p>
-                  {item.support_evidence.map((evidence, index) => (
-                    <blockquote key={`${evidence.passage_id}:${index}`}>
-                      {evidence.quote}
-                      <small> · {evidence.passage_id}</small>
-                    </blockquote>
-                  ))}
-                  <p>{item.support_note || "No support note"}</p>
-                  <small>Concept identity: {item.concept_id}</small>
-                </details>
-              </li>
-            ))}
-          </ol>
-          <p>
-            Using your local edits replaces the saved objective set on your next
-            save and requires review again. Review any wording, additions, or
-            removals above first.
-          </p>
-          <div className="lo-actions">
-            <button
-              className="lp-button"
-              type="button"
-              onClick={() => {
-                if (
-                  window.confirm(
-                    "Use your local objective set in place of the latest saved set? Nothing is saved until you choose Save changes.",
-                  )
-                ) {
-                  setEditRevision(data.lesson.revision);
-                  setConflict(false);
-                  setComparing(false);
-                  setError(null);
-                  setApprovalConfirmed(false);
-                }
-              }}
-            >
-              Keep my edits for the next save
-            </button>
-            <button
-              className="lp-button"
-              type="button"
-              onClick={() => {
-                if (
-                  window.confirm(
-                    "Discard local edits and use the saved objective set?",
-                  )
-                )
-                  hydrate(data);
-              }}
-            >
-              Use latest saved objectives
-            </button>
-          </div>
-        </section>
-      )}
-      {!data && !error && <p role="status">Loading your objectives draft…</p>}
-      {data && (
-        <>
-          <div className="lo-context">
-            <span>
-              {data.source.attribution.title} · source version{" "}
-              {data.source.version}
-            </span>
-            <span
-              className={`lp-badge ${reviewed && !dirty ? "" : "lp-badge-neutral"}`}
-            >
-              {reviewed && !dirty
-                ? "Objectives approved"
-                : dirty
-                  ? "Unsaved changes"
-                  : "Needs review"}
-            </span>
-            <span className="lo-muted">Revision {data.lesson.revision}</span>
-          </div>
-          {reviewed && !dirty && (
-            <div className="lo-notice lo-success">
-              <p>
-                This set was approved on{" "}
-                {new Date(reviewed.reviewed_at).toLocaleString()}. Editing the
-                objectives requires a new review.
-              </p>
-              {data.source.review_status === "approved" && !busy && (
-                <Link
-                  className="lp-button lp-button-primary mt-3"
-                  href={`/teacher/lessons/${encodeURIComponent(lessonId)}/questions`}
-                >
-                  Continue to question bank
-                </Link>
-              )}
-            </div>
-          )}
-          <div className="lo-editor-layout">
-            <div>
-              <form
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  void save();
-                }}
-              >
+      ) : (
+        <AuthoringWorkspace
+          label="Lesson objectives workbench"
+          defaultPane="editor"
+          outline={
+            <AuthoringOutline
+              active="objectives"
+              lessonId={lessonId}
+              title={title || data.lesson.title}
+              version={`Draft v${contentVersion ?? "—"} · revision ${data.lesson.revision}`}
+              versions={
+                <>
+                  <p>Current draft · revision {data.lesson.revision}</p>
+                  {publishedVersions.length ? (
+                    publishedVersions.map((version) => (
+                      <Link
+                        key={version}
+                        href={`/teacher/lessons/${encodeURIComponent(lessonId)}?version=${encodeURIComponent(version)}`}
+                      >
+                        Published version {version}
+                      </Link>
+                    ))
+                  ) : (
+                    <p>No published versions yet.</p>
+                  )}
+                </>
+              }
+              sourceLabel={`${data.source.attribution.title} · v${data.source.version}`}
+              sourceHref={`/teacher/lessons/${encodeURIComponent(lessonId)}?step=source`}
+              objectiveCount={items.length}
+              questionCount={questionCount}
+              readiness={
+                <div className="lo-outline-readiness">
+                  <strong>
+                    {reviewed && !dirty
+                      ? "Objectives approved"
+                      : dirty
+                        ? "Unsaved objective changes"
+                        : "Objectives need review"}
+                  </strong>
+                  <p>
+                    Source v{data.source.version} ·{" "}
+                    {savedItems.filter((item) => item.review).length} of{" "}
+                    {savedItems.length} saved objectives reviewed.
+                  </p>
+                  <Link
+                    href={`/teacher/lessons/${encodeURIComponent(lessonId)}?step=approval`}
+                  >
+                    Review publication requirements
+                  </Link>
+                </div>
+              }
+              objectiveItems={
                 <fieldset disabled={editingLocked} className="lo-fields">
+                  {items.length > 0 && (
+                    <nav
+                      className="lo-objective-index"
+                      aria-label="Choose a learning objective"
+                    >
+                      {items.map((item, index) => {
+                        const saved = savedItems.find(
+                          (entry) => entry.concept_id === item.concept_id,
+                        );
+                        const current =
+                          saved &&
+                          JSON.stringify(item) ===
+                            JSON.stringify(editable(saved));
+                        return (
+                          <div
+                            className={`lo-index-row ${activeId === item.concept_id ? "lo-index-active" : ""}`}
+                            key={item.concept_id}
+                          >
+                            <label className="lo-index-select">
+                              <input
+                                type="checkbox"
+                                aria-label={`Select objective ${index + 1} to merge`}
+                                checked={mergeIds.includes(item.concept_id)}
+                                onChange={(event) =>
+                                  setMergeIds((current) =>
+                                    event.target.checked
+                                      ? [...current, item.concept_id]
+                                      : current.filter(
+                                          (id) => id !== item.concept_id,
+                                        ),
+                                  )
+                                }
+                              />
+                            </label>
+                            <button
+                              className="lo-index-button"
+                              type="button"
+                              aria-pressed={activeId === item.concept_id}
+                              data-authoring-open="editor"
+                              onClick={() => selectObjective(item.concept_id)}
+                            >
+                              <strong>
+                                {index + 1}.{" "}
+                                {item.concept_name || "Untitled objective"}
+                              </strong>
+                              <small
+                                className={
+                                  current && saved.review
+                                    ? "lo-reviewed-label"
+                                    : "lo-muted"
+                                }
+                              >
+                                {current && saved.review
+                                  ? "Reviewed"
+                                  : "Needs review"}
+                                {item.emphasis ? ` · ${item.emphasis}` : ""}
+                              </small>
+                            </button>
+                          </div>
+                        );
+                      })}
+                    </nav>
+                  )}
+
+                  <div className="lo-outline-actions">
+                    <button
+                      className="lo-small-button"
+                      type="button"
+                      disabled={items.length >= 40}
+                      data-authoring-open="editor"
+                      onClick={add}
+                    >
+                      + Add an objective
+                    </button>
+                    <button
+                      className="lo-small-button"
+                      type="button"
+                      disabled={mergeIds.length < 2}
+                      data-authoring-open="editor"
+                      onClick={merge}
+                    >
+                      Merge selected ({mergeIds.length})
+                    </button>
+                  </div>
+                </fieldset>
+              }
+              questionItems={data.lesson.draft.questions?.map(
+                (question, index) =>
+                  question.question_id ? (
+                    <Link
+                      className="lo-outline-question"
+                      key={question.question_id}
+                      href={`/teacher/lessons/${encodeURIComponent(lessonId)}/questions?question=${encodeURIComponent(question.question_id)}`}
+                    >
+                      <span>Question {index + 1}</span>
+                      <small>{question.prompt_text}</small>
+                    </Link>
+                  ) : null,
+              )}
+            />
+          }
+          reading={
+            <div className="lo-reading-pane">
+              <section className="lo-reading-header">
+                <p className="lp-eyebrow">
+                  Reading · source version {data.source.version}
+                </p>
+                <h2>{data.source.attribution.title}</h2>
+                <p className="lo-muted">
+                  {data.source.attribution.authors.join(", ")}
+                </p>
+                <p className="lo-muted">
+                  Cited passages appear first. Highlighted words are the current
+                  objective’s exact supporting quotes.
+                </p>
+                <Link
+                  href={sourceHref ?? "/teacher/materials"}
+                  className="lp-text-link"
+                >
+                  Source and version details
+                </Link>
+              </section>
+              <SourceReading source={data.source} item={activeItem} />
+              <details className="lo-ai-disclosure">
+                <summary>Optional AI suggestions</summary>{" "}
+                <section
+                  className="lp-panel lo-ai-panel"
+                  aria-labelledby="ai-objectives-heading"
+                >
+                  <p className="lp-eyebrow">Optional help</p>
+                  <h2 id="ai-objectives-heading">
+                    Suggest learning objectives
+                  </h2>
+                  <p>
+                    AI examines this approved source and checks its proposed
+                    goals against the passages. You choose what to keep and
+                    review each goal.
+                  </p>
+                  <button
+                    className="lp-button"
+                    type="button"
+                    disabled={
+                      Boolean(busy) ||
+                      dirty ||
+                      unresolved ||
+                      items.length >= 40 ||
+                      mutationsBlocked
+                    }
+                    onClick={() => void suggest()}
+                  >
+                    {busy === "suggest"
+                      ? "Checking source and suggesting…"
+                      : proposal
+                        ? "Generate a new set"
+                        : "Suggest from this material"}
+                  </button>
+                  {dirty && (
+                    <p className="lo-muted">
+                      Save your edits before requesting or accepting
+                      suggestions.
+                    </p>
+                  )}
+                  {unresolved && (
+                    <div className="lo-notice">
+                      <p>
+                        A suggestion request is still awaiting a confirmed
+                        result. You can keep editing manually.
+                      </p>
+                      <button
+                        className="lp-button"
+                        type="button"
+                        disabled={Boolean(busy)}
+                        onClick={() => void checkSuggestions()}
+                      >
+                        {busy === "check"
+                          ? "Checking…"
+                          : "Check suggestion status"}
+                      </button>
+                    </div>
+                  )}
+                  {proposal?.result && !proposal.result.ok && (
+                    <p className="lo-notice lo-warning">
+                      {proposal.result.message} Your draft is safe; you can
+                      continue manually.
+                    </p>
+                  )}
+                  {staleProposal && (
+                    <p className="lo-notice lo-warning">
+                      These suggestions belong to an older draft revision. Your
+                      current objectives were preserved. Save your work before
+                      requesting a new set.
+                    </p>
+                  )}
+                  {proposal?.status === "applied" && (
+                    <p className="lo-notice lo-success">
+                      The selected suggestions were added to the draft for your
+                      review.
+                    </p>
+                  )}
+                  {suggestions.length > 0 && (
+                    <div className="lo-suggestions">
+                      {suggestions.map((suggestion, index) => (
+                        <article
+                          className="lo-suggestion"
+                          key={`${proposal?.request_id}:${index}`}
+                        >
+                          <label className="lo-check">
+                            <input
+                              type="checkbox"
+                              checked={selectedSuggestions.includes(index)}
+                              disabled={
+                                mutationsBlocked ||
+                                suggestion.support.status === "unsupported" ||
+                                staleProposal ||
+                                proposal?.status !== "completed" ||
+                                Boolean(busy) ||
+                                dirty
+                              }
+                              onChange={(event) =>
+                                setSelectedSuggestions((current) =>
+                                  event.target.checked
+                                    ? [...current, index]
+                                    : current.filter(
+                                        (value) => value !== index,
+                                      ),
+                                )
+                              }
+                            />
+                            <strong>{suggestion.concept_name}</strong>
+                          </label>
+                          <p>{suggestion.objective}</p>
+                          <span
+                            className={`lo-support-status lo-${suggestion.support.status}`}
+                          >
+                            {suggestion.support.status}
+                            {suggestion.emphasis
+                              ? ` · ${suggestion.emphasis}`
+                              : ""}
+                          </span>
+                          <p className="lo-muted">
+                            {suggestion.support.reason}
+                          </p>
+                          {suggestion.uncertainty && (
+                            <p className="lo-muted">
+                              Uncertainty: {suggestion.uncertainty}
+                            </p>
+                          )}
+                          {suggestion.support.evidence.map(
+                            (evidence, evidenceIndex) => (
+                              <div
+                                key={`${evidence.passage_id}:${evidenceIndex}`}
+                              >
+                                <blockquote className="lo-evidence-quote">
+                                  {evidence.quote}
+                                </blockquote>
+                                <Passage
+                                  source={data.source}
+                                  passageId={evidence.passage_id}
+                                />
+                              </div>
+                            ),
+                          )}
+                          {suggestion.support.status === "unsupported" && (
+                            <p className="lo-warning">
+                              Not selected: the source does not support this
+                              suggestion. Rewrite a manual objective with valid
+                              support instead.
+                            </p>
+                          )}
+                        </article>
+                      ))}
+                      <button
+                        className="lp-button lp-button-primary"
+                        type="button"
+                        disabled={
+                          mutationsBlocked ||
+                          selectedSuggestions.length === 0 ||
+                          Boolean(busy) ||
+                          dirty ||
+                          staleProposal ||
+                          proposal?.status !== "completed"
+                        }
+                        onClick={() => void acceptSuggestions()}
+                      >
+                        {busy === "accept"
+                          ? "Adding…"
+                          : `Add selected to draft (${selectedSuggestions.length})`}
+                      </button>
+                      <p className="lo-muted">
+                        A set can be applied once. Check all suggestions you
+                        want before adding them.
+                      </p>
+                    </div>
+                  )}
+                </section>
+              </details>
+            </div>
+          }
+        >
+          <div className="lo-record">
+            <header className="lo-record-heading">
+              <p className="lp-eyebrow">Learning objective</p>
+              <h2>{activeItem?.concept_name || "Shape the learning goals"}</h2>
+              <p className="lo-muted">
+                Write a measurable goal and verify it against this version of
+                the reading.
+              </p>
+              <span
+                className={`lo-support-status lo-${dirty ? "uncertain" : reviewed ? "supported" : "uncertain"}`}
+              >
+                {dirty
+                  ? "Unsaved changes"
+                  : reviewed
+                    ? "Objectives approved"
+                    : "Needs review"}
+              </span>
+            </header>
+            {error && (
+              <div role="alert" className="lo-notice lo-warning">
+                <p>{error}</p>
+                {conflict && (
+                  <p>
+                    Your edits are preserved below. Compare the latest saved
+                    objectives before choosing which work to keep.
+                    <button
+                      className="lp-button"
+                      type="button"
+                      disabled={Boolean(busy)}
+                      onClick={() => void compareSaved()}
+                    >
+                      Compare latest saved draft
+                    </button>
+                  </p>
+                )}
+              </div>
+            )}
+            {message && (
+              <p role="status" className="lo-notice lo-success">
+                {message}
+              </p>
+            )}
+            {recoveryWarning && (
+              <p className="lo-notice lo-warning" role="status">
+                {recoveryWarning}
+              </p>
+            )}
+            {recovery && data && (
+              <section
+                className="lo-notice"
+                aria-label="Recover unsaved objectives"
+              >
+                <strong>Unfinished objective edits are available</strong>
+                <p>
+                  This tab kept a recovery copy from draft revision{" "}
+                  {recovery.revision}.{" "}
+                  {recovery.revision !== data.lesson.revision
+                    ? "The saved draft has changed. Restore to compare your work before saving."
+                    : "Restore it to continue where you left off."}
+                </p>
+                <div className="lo-actions">
+                  <button
+                    className="lp-button lp-button-primary"
+                    type="button"
+                    onClick={() => {
+                      setTitle(recovery.title);
+                      setItems(recovery.items);
+                      setEditRevision(recovery.revision);
+                      const stale = recovery.revision !== data.lesson.revision;
+                      setConflict(stale);
+                      setError(
+                        stale
+                          ? "Recovered edits belong to an older revision. They have not changed the saved draft."
+                          : null,
+                      );
+                      setRecovery(null);
+                      setApprovalConfirmed(false);
+                    }}
+                  >
+                    Restore unfinished edits
+                  </button>
+                  <button
+                    className="lp-button"
+                    type="button"
+                    onClick={() => {
+                      forgetRequest(recoveryKey);
+                      setRecovery(null);
+                    }}
+                  >
+                    Keep saved version
+                  </button>
+                </div>
+              </section>
+            )}
+            {comparing && data && (
+              <section
+                className="lo-notice"
+                aria-label="Compare latest saved objectives"
+              >
+                <h2>Latest saved draft · revision {data.lesson.revision}</h2>
+                <p>
+                  <strong>{data.lesson.title}</strong> · Your local edits remain
+                  in the editor below.
+                </p>
+                <ol className="lo-comparison-list">
+                  {savedItems.map((item) => (
+                    <li key={item.concept_id}>
+                      <strong>{item.concept_name}</strong>
+                      <p>{item.objective}</p>
+                      <small>
+                        {item.passage_ids.length} supporting passages ·{" "}
+                        {item.teacher_verified ? "Reviewed" : "Needs review"}
+                      </small>
+                      <details className="lo-passage">
+                        <summary>
+                          Inspect saved emphasis and source support
+                        </summary>
+                        <p>Emphasis: {item.emphasis ?? "Not set"}</p>
+                        <p>Passages: {item.passage_ids.join(", ") || "None"}</p>
+                        {item.support_evidence.map((evidence, index) => (
+                          <blockquote key={`${evidence.passage_id}:${index}`}>
+                            {evidence.quote}
+                            <small> · {evidence.passage_id}</small>
+                          </blockquote>
+                        ))}
+                        <p>{item.support_note || "No support note"}</p>
+                        <small>Concept identity: {item.concept_id}</small>
+                      </details>
+                    </li>
+                  ))}
+                </ol>
+                <p>
+                  Using your local edits replaces the saved objective set on
+                  your next save and requires review again. Review any wording,
+                  additions, or removals above first.
+                </p>
+                <div className="lo-actions">
+                  <button
+                    className="lp-button"
+                    type="button"
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          "Use your local objective set in place of the latest saved set? Nothing is saved until you choose Save changes.",
+                        )
+                      ) {
+                        setEditRevision(data.lesson.revision);
+                        setConflict(false);
+                        setComparing(false);
+                        setError(null);
+                        setApprovalConfirmed(false);
+                      }
+                    }}
+                  >
+                    Keep my edits for the next save
+                  </button>
+                  <button
+                    className="lp-button"
+                    type="button"
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          "Discard local edits and use the saved objective set?",
+                        )
+                      )
+                        hydrate(data);
+                    }}
+                  >
+                    Use latest saved objectives
+                  </button>
+                </div>
+              </section>
+            )}
+
+            <form
+              onSubmit={(event) => {
+                event.preventDefault();
+                void save();
+              }}
+            >
+              <div className="lo-save-bar">
+                <div>
+                  <strong>
+                    {dirty ? "You have unsaved changes" : "Your draft is saved"}
+                  </strong>
+                  <p className="lo-muted">
+                    {dirty
+                      ? "Edits are kept in this browser tab until saved. Saving resets objective approval and dependent question/lesson readiness."
+                      : "Saved objectives are separate from lesson publication."}
+                  </p>
+                </div>
+                <div className="lo-actions">
+                  <button
+                    className="lp-button"
+                    type="button"
+                    disabled={Boolean(busy) || Boolean(recovery)}
+                    onClick={() => {
+                      if (
+                        !dirty ||
+                        window.confirm(
+                          "Discard your unsaved edits and load the saved version?",
+                        )
+                      )
+                        void reload();
+                    }}
+                  >
+                    {dirty ? "Discard edits and reload" : "Reload saved draft"}
+                  </button>
+                  <button
+                    className="lp-button lp-button-primary"
+                    type="submit"
+                    disabled={
+                      !dirty || Boolean(busy) || conflict || Boolean(recovery)
+                    }
+                  >
+                    {busy === "save" ? "Saving…" : "Save changes"}
+                  </button>
+                </div>
+              </div>
+              <fieldset disabled={editingLocked} className="lo-fields">
+                <details
+                  className="lo-title-disclosure"
+                  open={!title.trim() ? true : undefined}
+                >
+                  <summary>Lesson title</summary>{" "}
                   <label className="lp-field lo-title-field">
                     Lesson title
                     <input
@@ -911,726 +1362,375 @@ export function ObjectiveEditor({ lessonId }: { lessonId: string }) {
                       }}
                     />
                   </label>
-                  <div className="lo-section-heading">
-                    <h2>
-                      {items.length} learning{" "}
-                      {items.length === 1 ? "objective" : "objectives"}
-                    </h2>
-                    <div className="lo-actions">
-                      <button
-                        className="lp-button"
-                        type="button"
-                        onClick={merge}
-                        disabled={mergeIds.length < 2}
-                      >
-                        Merge selected ({mergeIds.length})
-                      </button>
-                      <button
-                        className="lp-button"
-                        type="button"
-                        onClick={add}
-                        disabled={items.length >= 40}
-                      >
-                        + Add objective
-                      </button>
-                    </div>
+                </details>
+                {items.length === 0 && (
+                  <div className="lp-panel lo-empty">
+                    <h3>Start with one clear goal</h3>
+                    <p>
+                      Describe something a student should be able to explain,
+                      compare, calculate, or demonstrate after reading the
+                      material.
+                    </p>
+                    <button className="lp-button" type="button" onClick={add}>
+                      Add an objective manually
+                    </button>
                   </div>
-                  {items.length === 0 && (
-                    <div className="lp-panel lo-empty">
-                      <h3>Start with one clear goal</h3>
-                      <p>
-                        Describe something a student should be able to explain,
-                        compare, calculate, or demonstrate after reading the
-                        material.
-                      </p>
-                      <button className="lp-button" type="button" onClick={add}>
-                        Add an objective manually
-                      </button>
-                    </div>
-                  )}
-                  <div className="lo-focus-layout">
-                    {items.length > 0 && (
-                      <nav
-                        className="lo-objective-index"
-                        aria-label="Choose a learning objective"
+                )}
+                <div className="lo-objective-list">
+                  {items.map((item, index) => {
+                    if (item.concept_id !== activeId) return null;
+                    const saved = savedItems.find(
+                      (entry) => entry.concept_id === item.concept_id,
+                    );
+                    const changed =
+                      !saved ||
+                      JSON.stringify(item) !== JSON.stringify(editable(saved));
+                    return (
+                      <article
+                        className="lp-panel lo-objective"
+                        key={item.concept_id}
+                        aria-labelledby={`concept-label-${item.concept_id}`}
                       >
-                        {items.map((item, index) => {
-                          const saved = savedItems.find(
-                            (entry) => entry.concept_id === item.concept_id,
-                          );
-                          const current =
-                            saved &&
-                            JSON.stringify(item) ===
-                              JSON.stringify(editable(saved));
-                          return (
-                            <div
-                              className={`lo-index-row ${activeId === item.concept_id ? "lo-index-active" : ""}`}
-                              key={item.concept_id}
+                        <div className="lo-objective-top">
+                          <p className="lo-muted">
+                            Objective {index + 1} of {items.length} ·{" "}
+                            {saved?.origin === "ai"
+                              ? "AI suggested · verify below"
+                              : "Teacher authored"}
+                          </p>
+                          <div className="lo-actions">
+                            <button
+                              type="button"
+                              className="lo-small-button"
+                              onClick={() => move(index, -1)}
+                              disabled={index === 0}
+                              aria-label={`Move objective ${index + 1} up`}
                             >
-                              <label className="lo-index-select">
-                                <input
-                                  type="checkbox"
-                                  aria-label={`Select objective ${index + 1} to merge`}
-                                  checked={mergeIds.includes(item.concept_id)}
-                                  onChange={(event) =>
-                                    setMergeIds((current) =>
-                                      event.target.checked
-                                        ? [...current, item.concept_id]
-                                        : current.filter(
-                                            (id) => id !== item.concept_id,
-                                          ),
-                                    )
-                                  }
-                                />
-                              </label>
-                              <button
-                                className="lo-index-button"
-                                type="button"
-                                aria-pressed={activeId === item.concept_id}
-                                onClick={() => setSelectedId(item.concept_id)}
-                              >
-                                <span className="lo-muted">
-                                  {String(index + 1).padStart(2, "0")} ·{" "}
-                                  {item.emphasis ?? "Emphasis not set"}
-                                </span>
-                                <strong>
-                                  {item.concept_name || "Untitled objective"}
-                                </strong>
-                                <span>
-                                  {item.objective ||
-                                    "Add a measurable learning goal"}
-                                </span>
-                                <small
-                                  className={
-                                    current && saved.review
-                                      ? "lo-reviewed-label"
-                                      : "lo-muted"
-                                  }
-                                >
-                                  {current && saved.review
-                                    ? "Source support reviewed"
-                                    : "Needs review"}
-                                </small>
-                              </button>
-                            </div>
-                          );
-                        })}
-                      </nav>
-                    )}
-                    <div className="lo-objective-list">
-                      {items.map((item, index) => {
-                        if (item.concept_id !== activeId) return null;
-                        const saved = savedItems.find(
-                          (entry) => entry.concept_id === item.concept_id,
-                        );
-                        const changed =
-                          !saved ||
-                          JSON.stringify(item) !==
-                            JSON.stringify(editable(saved));
-                        return (
-                          <article
-                            className="lp-panel lo-objective"
-                            key={item.concept_id}
-                            aria-labelledby={`concept-label-${item.concept_id}`}
+                              ↑
+                            </button>
+                            <button
+                              type="button"
+                              className="lo-small-button"
+                              onClick={() => move(index, 1)}
+                              disabled={index === items.length - 1}
+                              aria-label={`Move objective ${index + 1} down`}
+                            >
+                              ↓
+                            </button>
+                            <button
+                              type="button"
+                              className="lo-small-button"
+                              onClick={() => {
+                                setItems((current) =>
+                                  current.filter(
+                                    (entry) =>
+                                      entry.concept_id !== item.concept_id,
+                                  ),
+                                );
+                                setMergeIds((current) =>
+                                  current.filter(
+                                    (id) => id !== item.concept_id,
+                                  ),
+                                );
+                                setApprovalConfirmed(false);
+                              }}
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        </div>
+                        <div className="lo-concept-fields">
+                          <label
+                            className="lp-field"
+                            id={`concept-label-${item.concept_id}`}
                           >
-                            <div className="lo-objective-top">
-                              <p className="lo-muted">
-                                Objective {index + 1} of {items.length} ·{" "}
-                                {saved?.origin === "ai"
-                                  ? "AI suggested · verify below"
-                                  : "Teacher authored"}
-                              </p>
-                              <div className="lo-actions">
-                                <button
-                                  type="button"
-                                  className="lo-small-button"
-                                  onClick={() => move(index, -1)}
-                                  disabled={index === 0}
-                                  aria-label={`Move objective ${index + 1} up`}
-                                >
-                                  ↑
-                                </button>
-                                <button
-                                  type="button"
-                                  className="lo-small-button"
-                                  onClick={() => move(index, 1)}
-                                  disabled={index === items.length - 1}
-                                  aria-label={`Move objective ${index + 1} down`}
-                                >
-                                  ↓
-                                </button>
-                                <button
-                                  type="button"
-                                  className="lo-small-button"
-                                  onClick={() => {
-                                    setItems((current) =>
-                                      current.filter(
-                                        (entry) =>
-                                          entry.concept_id !== item.concept_id,
-                                      ),
-                                    );
-                                    setMergeIds((current) =>
-                                      current.filter(
-                                        (id) => id !== item.concept_id,
-                                      ),
-                                    );
-                                    setApprovalConfirmed(false);
-                                  }}
-                                >
-                                  Remove
-                                </button>
-                              </div>
-                            </div>
-                            <div className="lo-concept-fields">
-                              <label
-                                className="lp-field"
-                                id={`concept-label-${item.concept_id}`}
+                            Concept {index + 1}
+                            <input
+                              className="lp-input"
+                              value={item.concept_name}
+                              maxLength={200}
+                              required
+                              onChange={(event) =>
+                                updateItem(item.concept_id, {
+                                  concept_name: event.target.value,
+                                })
+                              }
+                              placeholder="For example, Evaporation"
+                            />
+                          </label>
+                          <label className="lp-field">
+                            Emphasis
+                            <select
+                              className="lp-input"
+                              value={item.emphasis ?? ""}
+                              onChange={(event) =>
+                                updateItem(item.concept_id, {
+                                  emphasis:
+                                    event.target.value === "essential" ||
+                                    event.target.value === "supporting" ||
+                                    event.target.value === "optional"
+                                      ? event.target.value
+                                      : null,
+                                })
+                              }
+                            >
+                              <option value="">Not set</option>
+                              <option value="essential">Essential</option>
+                              <option value="supporting">Supporting</option>
+                              <option value="optional">Optional</option>
+                            </select>
+                          </label>
+                        </div>
+                        <label className="lp-field">
+                          Learning objective
+                          <textarea
+                            className="lp-input"
+                            rows={3}
+                            maxLength={2000}
+                            required
+                            value={item.objective}
+                            onChange={(event) =>
+                              updateItem(item.concept_id, {
+                                objective: event.target.value,
+                              })
+                            }
+                            placeholder="Students will be able to explain…"
+                          />
+                        </label>
+                        <p
+                          className={`lo-support-status lo-${changed ? "uncertain" : saved.support.status}`}
+                        >
+                          {changed
+                            ? "Changes need source review"
+                            : saved.review
+                              ? "Source support reviewed"
+                              : `Source check: ${saved.support.status}`}
+                        </p>
+                        {saved && !changed && (
+                          <p className="lo-muted">
+                            {saved.support.reason}
+                            {saved.uncertainty
+                              ? ` Uncertainty: ${saved.uncertainty}`
+                              : ""}
+                          </p>
+                        )}
+                        <details
+                          className="lo-support-editor"
+                          open={item.teacher_verified ? undefined : true}
+                        >
+                          <summary>
+                            Review supporting passages (
+                            {item.passage_ids.length} selected)
+                          </summary>
+                          <p className="lo-muted">
+                            Choose passages that support this exact goal. Read
+                            them, quote the relevant evidence, and explain the
+                            connection.
+                          </p>
+                          <div className="lo-passage-choices">
+                            {data.source.passages.map((passage) => (
+                              <div
+                                key={passage.passage_id}
+                                className="lo-passage-choice"
                               >
-                                Concept {index + 1}
-                                <input
-                                  className="lp-input"
-                                  value={item.concept_name}
-                                  maxLength={200}
-                                  required
-                                  onChange={(event) =>
-                                    updateItem(item.concept_id, {
-                                      concept_name: event.target.value,
-                                    })
-                                  }
-                                  placeholder="For example, Evaporation"
-                                />
-                              </label>
-                              <label className="lp-field">
-                                Emphasis
-                                <select
-                                  className="lp-input"
-                                  value={item.emphasis ?? ""}
-                                  onChange={(event) =>
-                                    updateItem(item.concept_id, {
-                                      emphasis:
-                                        event.target.value === "essential" ||
-                                        event.target.value === "supporting" ||
-                                        event.target.value === "optional"
-                                          ? event.target.value
-                                          : null,
-                                    })
-                                  }
-                                >
-                                  <option value="">Not set</option>
-                                  <option value="essential">Essential</option>
-                                  <option value="supporting">Supporting</option>
-                                  <option value="optional">Optional</option>
-                                </select>
-                              </label>
-                            </div>
-                            <label className="lp-field">
-                              Learning objective
-                              <textarea
-                                className="lp-input"
-                                rows={3}
-                                maxLength={2000}
-                                required
-                                value={item.objective}
-                                onChange={(event) =>
-                                  updateItem(item.concept_id, {
-                                    objective: event.target.value,
-                                  })
-                                }
-                                placeholder="Students will be able to explain…"
-                              />
-                            </label>
-                            <p
-                              className={`lo-support-status lo-${changed ? "uncertain" : saved.support.status}`}
-                            >
-                              {changed
-                                ? "Changes need source review"
-                                : saved.review
-                                  ? "Source support reviewed"
-                                  : `Source check: ${saved.support.status}`}
-                            </p>
-                            {saved && !changed && (
-                              <p className="lo-muted">
-                                {saved.support.reason}
-                                {saved.uncertainty
-                                  ? ` Uncertainty: ${saved.uncertainty}`
-                                  : ""}
-                              </p>
-                            )}
-                            <details
-                              className="lo-support-editor"
-                              open={item.teacher_verified ? undefined : true}
-                            >
-                              <summary>
-                                Review supporting passages (
-                                {item.passage_ids.length} selected)
-                              </summary>
-                              <p className="lo-muted">
-                                Choose passages that support this exact goal.
-                                Read them, quote the relevant evidence, and
-                                explain the connection.
-                              </p>
-                              <div className="lo-passage-choices">
-                                {data.source.passages.map((passage) => (
-                                  <div
-                                    key={passage.passage_id}
-                                    className="lo-passage-choice"
-                                  >
-                                    <label className="lo-check">
-                                      <input
-                                        type="checkbox"
-                                        checked={item.passage_ids.includes(
-                                          passage.passage_id,
-                                        )}
-                                        disabled={
-                                          !item.passage_ids.includes(
-                                            passage.passage_id,
-                                          ) && item.passage_ids.length >= 20
-                                        }
-                                        onChange={(event) =>
-                                          changePassage(
-                                            item,
-                                            passage.passage_id,
-                                            event.target.checked,
-                                          )
-                                        }
-                                      />
-                                      <span>
-                                        Use passage {passage.passage_id}
-                                      </span>
-                                    </label>
-                                    <Passage
-                                      source={data.source}
-                                      passageId={passage.passage_id}
-                                    />
-                                    {item.passage_ids.includes(
+                                <label className="lo-check">
+                                  <input
+                                    type="checkbox"
+                                    checked={item.passage_ids.includes(
                                       passage.passage_id,
-                                    ) &&
-                                      quoteFields(item, passage.passage_id).map(
-                                        (evidence, quoteIndex) => (
-                                          <label
-                                            key={`${passage.passage_id}:${quoteIndex}`}
-                                            className="lp-field"
-                                          >
-                                            Exact supporting quote
-                                            <textarea
-                                              className="lp-input"
-                                              rows={2}
-                                              maxLength={4000}
-                                              value={evidence.quote}
-                                              placeholder="Copy the relevant words from this passage"
-                                              onChange={(event) =>
-                                                changeQuote(
-                                                  item,
-                                                  passage.passage_id,
-                                                  event.target.value,
-                                                  evidence.evidenceIndex,
-                                                )
-                                              }
-                                            />
-                                          </label>
-                                        ),
-                                      )}
-                                  </div>
-                                ))}
+                                    )}
+                                    disabled={
+                                      !item.passage_ids.includes(
+                                        passage.passage_id,
+                                      ) && item.passage_ids.length >= 20
+                                    }
+                                    onChange={(event) =>
+                                      changePassage(
+                                        item,
+                                        passage.passage_id,
+                                        event.target.checked,
+                                      )
+                                    }
+                                  />
+                                  <span>Use passage {passage.passage_id}</span>
+                                </label>
+                                <p className="lo-muted">
+                                  {passage.section ?? passage.passage_id} · Read
+                                  the full passage in Reading.
+                                </p>
+                                {item.passage_ids.includes(
+                                  passage.passage_id,
+                                ) &&
+                                  quoteFields(item, passage.passage_id).map(
+                                    (evidence, quoteIndex) => (
+                                      <label
+                                        key={`${passage.passage_id}:${quoteIndex}`}
+                                        className="lp-field"
+                                      >
+                                        Exact supporting quote
+                                        <textarea
+                                          className="lp-input"
+                                          rows={2}
+                                          maxLength={4000}
+                                          value={evidence.quote}
+                                          placeholder="Copy the relevant words from this passage"
+                                          onChange={(event) =>
+                                            changeQuote(
+                                              item,
+                                              passage.passage_id,
+                                              event.target.value,
+                                              evidence.evidenceIndex,
+                                            )
+                                          }
+                                        />
+                                      </label>
+                                    ),
+                                  )}
                               </div>
-                              <label className="lp-field">
-                                How does the evidence support this objective?
-                                <textarea
-                                  className="lp-input"
-                                  rows={2}
-                                  maxLength={2000}
-                                  value={item.support_note}
-                                  onChange={(event) =>
-                                    updateItem(item.concept_id, {
-                                      support_note: event.target.value,
-                                    })
-                                  }
-                                  placeholder="Explain which part of the objective the passage supports."
-                                />
-                              </label>
-                            </details>
-                            <label className="lo-check lo-review-check">
-                              <input
-                                type="checkbox"
-                                checked={item.teacher_verified}
-                                disabled={
-                                  item.passage_ids.length === 0 ||
-                                  item.passage_ids.some(
-                                    (id) =>
-                                      !item.support_evidence.some(
-                                        (evidence) =>
-                                          evidence.passage_id === id,
-                                      ),
-                                  ) ||
-                                  !item.support_note.trim()
-                                }
-                                onChange={(event) =>
-                                  updateItem(
-                                    item.concept_id,
-                                    { teacher_verified: event.target.checked },
-                                    false,
-                                  )
-                                }
-                              />
-                              <span>
-                                I reviewed the quoted passages and verified that
-                                they support this objective.
-                              </span>
-                            </label>
-                            <div className="lo-actions lo-item-navigation">
-                              <button
-                                className="lo-small-button"
-                                type="button"
-                                disabled={index === 0}
-                                onClick={() =>
-                                  setSelectedId(items[index - 1].concept_id)
-                                }
-                              >
-                                ← Previous objective
-                              </button>
-                              <button
-                                className="lo-small-button"
-                                type="button"
-                                disabled={index === items.length - 1}
-                                onClick={() =>
-                                  setSelectedId(items[index + 1].concept_id)
-                                }
-                              >
-                                Next objective →
-                              </button>
-                            </div>
-                          </article>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </fieldset>
-                <div className="lo-save-bar">
-                  <div>
-                    <strong>
-                      {dirty
-                        ? "You have unsaved changes"
-                        : "Your draft is saved"}
-                    </strong>
-                    <p className="lo-muted">
-                      {dirty
-                        ? "Edits are kept in this browser tab until saved. Saving resets objective approval and dependent question/lesson readiness."
-                        : "Saved objectives are separate from lesson publication."}
-                    </p>
-                  </div>
-                  <div className="lo-actions">
-                    <button
-                      className="lp-button"
-                      type="button"
-                      disabled={Boolean(busy) || Boolean(recovery)}
-                      onClick={() => {
-                        if (
-                          !dirty ||
-                          window.confirm(
-                            "Discard your unsaved edits and load the saved version?",
-                          )
-                        )
-                          void reload();
-                      }}
-                    >
-                      {dirty
-                        ? "Discard edits and reload"
-                        : "Reload saved draft"}
-                    </button>
-                    <button
-                      className="lp-button lp-button-primary"
-                      type="submit"
-                      disabled={
-                        !dirty || Boolean(busy) || conflict || Boolean(recovery)
-                      }
-                    >
-                      {busy === "save" ? "Saving…" : "Save changes"}
-                    </button>
-                  </div>
+                            ))}
+                          </div>
+                          <label className="lp-field">
+                            How does the evidence support this objective?
+                            <textarea
+                              className="lp-input"
+                              rows={2}
+                              maxLength={2000}
+                              value={item.support_note}
+                              onChange={(event) =>
+                                updateItem(item.concept_id, {
+                                  support_note: event.target.value,
+                                })
+                              }
+                              placeholder="Explain which part of the objective the passage supports."
+                            />
+                          </label>
+                        </details>
+                        <label className="lo-check lo-review-check">
+                          <input
+                            type="checkbox"
+                            checked={item.teacher_verified}
+                            disabled={
+                              item.passage_ids.length === 0 ||
+                              item.passage_ids.some(
+                                (id) =>
+                                  !item.support_evidence.some(
+                                    (evidence) => evidence.passage_id === id,
+                                  ),
+                              ) ||
+                              !item.support_note.trim()
+                            }
+                            onChange={(event) =>
+                              updateItem(
+                                item.concept_id,
+                                { teacher_verified: event.target.checked },
+                                false,
+                              )
+                            }
+                          />
+                          <span>
+                            I reviewed the quoted passages and verified that
+                            they support this objective.
+                          </span>
+                        </label>
+                        <div className="lo-actions lo-item-navigation">
+                          <button
+                            className="lo-small-button"
+                            type="button"
+                            disabled={index === 0}
+                            onClick={() =>
+                              setSelectedId(items[index - 1].concept_id)
+                            }
+                          >
+                            ← Previous objective
+                          </button>
+                          <button
+                            className="lo-small-button"
+                            type="button"
+                            disabled={index === items.length - 1}
+                            onClick={() =>
+                              setSelectedId(items[index + 1].concept_id)
+                            }
+                          >
+                            Next objective →
+                          </button>
+                        </div>
+                      </article>
+                    );
+                  })}
                 </div>
-              </form>
-              {(!reviewed || dirty) && (
-                <section
-                  className="lp-panel lo-approval"
-                  aria-labelledby="approve-objectives-heading"
-                >
-                  <p className="lp-eyebrow">Finish objective review</p>
-                  <h2 id="approve-objectives-heading">
-                    Approve this set of objectives
-                  </h2>
-                  <p>
-                    Approval records your review for the current draft.
-                    Questions, lesson publication, and assignment activation are
-                    separate steps.
+              </fieldset>
+            </form>
+            {reviewed && !dirty && (
+              <p className="lo-notice lo-success">
+                Objectives approved for this revision. Editing them requires a
+                new review. Questions and lesson publication are separate
+                approvals.
+              </p>
+            )}
+            {(!reviewed || dirty) && (
+              <section
+                className="lp-panel lo-approval"
+                aria-labelledby="approve-objectives-heading"
+              >
+                <p className="lp-eyebrow">Finish objective review</p>
+                <h2 id="approve-objectives-heading">
+                  Approve this set of objectives
+                </h2>
+                <p>
+                  Approval records your review for the current draft. Questions,
+                  lesson publication, and assignment activation are separate
+                  steps.
+                </p>
+                {!approvable && (
+                  <p className="lo-muted">
+                    Verify source support for every objective and save your
+                    changes first. Uncertain or unsupported goals need to be
+                    rewritten or removed.
                   </p>
-                  {!approvable && (
-                    <p className="lo-muted">
-                      Verify source support for every objective and save your
-                      changes first. Uncertain or unsupported goals need to be
-                      rewritten or removed.
-                    </p>
-                  )}
-                  <label className="lo-check">
-                    <input
-                      type="checkbox"
-                      checked={approvalConfirmed}
-                      disabled={
-                        mutationsBlocked ||
-                        dirty ||
-                        !approvable ||
-                        Boolean(busy) ||
-                        Boolean(reviewed)
-                      }
-                      onChange={(event) =>
-                        setApprovalConfirmed(event.target.checked)
-                      }
-                    />
-                    <span>
-                      I approve the content, order, emphasis, and source support
-                      of these saved objectives.
-                    </span>
-                  </label>
-                  <button
-                    className="lp-button lp-button-primary"
-                    type="button"
-                    onClick={() => void approve()}
+                )}
+                <label className="lo-check">
+                  <input
+                    type="checkbox"
+                    checked={approvalConfirmed}
                     disabled={
                       mutationsBlocked ||
-                      !approvalConfirmed ||
                       dirty ||
                       !approvable ||
                       Boolean(busy) ||
                       Boolean(reviewed)
                     }
-                  >
-                    {busy === "approve"
-                      ? "Approving…"
-                      : reviewed && !dirty
-                        ? "Objectives approved"
-                        : "Approve objectives"}
-                  </button>
-                </section>
-              )}
-              <div className="lo-actions lo-stage-actions">
-                <Link
-                  className="lp-button"
-                  href={`/teacher/materials/${encodeURIComponent(data.source.document_id)}?version=${data.source.version}`}
-                >
-                  ← Previous: source review
-                </Link>
-                {reviewed && !dirty ? (
-                  <Link
-                    className="lp-button lp-button-primary"
-                    href={`/teacher/lessons/${encodeURIComponent(lessonId)}/questions`}
-                  >
-                    Next: question bank →
-                  </Link>
-                ) : (
-                  <span className="lo-muted">
-                    Save and approve the objectives to prepare questions.
+                    onChange={(event) =>
+                      setApprovalConfirmed(event.target.checked)
+                    }
+                  />
+                  <span>
+                    I approve the content, order, emphasis, and source support
+                    of these saved objectives.
                   </span>
-                )}
-              </div>
-            </div>
-            <aside
-              className="lo-assistance"
-              aria-label="Source and AI suggestions"
-            >
-              <section className="lp-panel">
-                <p className="lp-eyebrow">Your approved material</p>
-                <h2>{data.source.attribution.title}</h2>
-                <p className="lo-muted">
-                  {data.source.attribution.authors.join(", ")} · source version{" "}
-                  {data.source.version}
-                </p>
-                {items
-                  .find((item) => item.concept_id === activeId)
-                  ?.passage_ids.map((passageId) => (
-                    <Passage
-                      key={passageId}
-                      source={data.source}
-                      passageId={passageId}
-                    />
-                  ))}
-                <details className="lo-source-preview">
-                  <summary>
-                    Read all {data.source.passages.length} passages
-                  </summary>
-                  {data.source.passages.map((passage) => (
-                    <Passage
-                      key={passage.passage_id}
-                      source={data.source}
-                      passageId={passage.passage_id}
-                    />
-                  ))}
-                </details>
-              </section>
-              <section
-                className="lp-panel lo-ai-panel"
-                aria-labelledby="ai-objectives-heading"
-              >
-                <p className="lp-eyebrow">Optional help</p>
-                <h2 id="ai-objectives-heading">Suggest learning objectives</h2>
-                <p>
-                  AI examines this approved source and checks its proposed goals
-                  against the passages. You choose what to keep and review each
-                  goal.
-                </p>
+                </label>
                 <button
-                  className="lp-button"
+                  className="lp-button lp-button-primary"
                   type="button"
+                  onClick={() => void approve()}
                   disabled={
-                    Boolean(busy) ||
+                    mutationsBlocked ||
+                    !approvalConfirmed ||
                     dirty ||
-                    unresolved ||
-                    items.length >= 40 ||
-                    mutationsBlocked
+                    !approvable ||
+                    Boolean(busy) ||
+                    Boolean(reviewed)
                   }
-                  onClick={() => void suggest()}
                 >
-                  {busy === "suggest"
-                    ? "Checking source and suggesting…"
-                    : proposal
-                      ? "Generate a new set"
-                      : "Suggest from this material"}
+                  {busy === "approve"
+                    ? "Approving…"
+                    : reviewed && !dirty
+                      ? "Objectives approved"
+                      : "Approve objectives"}
                 </button>
-                {dirty && (
-                  <p className="lo-muted">
-                    Save your edits before requesting or accepting suggestions.
-                  </p>
-                )}
-                {unresolved && (
-                  <div className="lo-notice">
-                    <p>
-                      A suggestion request is still awaiting a confirmed result.
-                      You can keep editing manually.
-                    </p>
-                    <button
-                      className="lp-button"
-                      type="button"
-                      disabled={Boolean(busy)}
-                      onClick={() => void checkSuggestions()}
-                    >
-                      {busy === "check"
-                        ? "Checking…"
-                        : "Check suggestion status"}
-                    </button>
-                  </div>
-                )}
-                {proposal?.result && !proposal.result.ok && (
-                  <p className="lo-notice lo-warning">
-                    {proposal.result.message} Your draft is safe; you can
-                    continue manually.
-                  </p>
-                )}
-                {staleProposal && (
-                  <p className="lo-notice lo-warning">
-                    These suggestions belong to an older draft revision. Your
-                    current objectives were preserved. Save your work before
-                    requesting a new set.
-                  </p>
-                )}
-                {proposal?.status === "applied" && (
-                  <p className="lo-notice lo-success">
-                    The selected suggestions were added to the draft for your
-                    review.
-                  </p>
-                )}
-                {suggestions.length > 0 && (
-                  <div className="lo-suggestions">
-                    {suggestions.map((suggestion, index) => (
-                      <article
-                        className="lo-suggestion"
-                        key={`${proposal?.request_id}:${index}`}
-                      >
-                        <label className="lo-check">
-                          <input
-                            type="checkbox"
-                            checked={selectedSuggestions.includes(index)}
-                            disabled={
-                              mutationsBlocked ||
-                              suggestion.support.status === "unsupported" ||
-                              staleProposal ||
-                              proposal?.status !== "completed" ||
-                              Boolean(busy) ||
-                              dirty
-                            }
-                            onChange={(event) =>
-                              setSelectedSuggestions((current) =>
-                                event.target.checked
-                                  ? [...current, index]
-                                  : current.filter((value) => value !== index),
-                              )
-                            }
-                          />
-                          <strong>{suggestion.concept_name}</strong>
-                        </label>
-                        <p>{suggestion.objective}</p>
-                        <span
-                          className={`lo-support-status lo-${suggestion.support.status}`}
-                        >
-                          {suggestion.support.status}
-                          {suggestion.emphasis
-                            ? ` · ${suggestion.emphasis}`
-                            : ""}
-                        </span>
-                        <p className="lo-muted">{suggestion.support.reason}</p>
-                        {suggestion.uncertainty && (
-                          <p className="lo-muted">
-                            Uncertainty: {suggestion.uncertainty}
-                          </p>
-                        )}
-                        {suggestion.support.evidence.map(
-                          (evidence, evidenceIndex) => (
-                            <div
-                              key={`${evidence.passage_id}:${evidenceIndex}`}
-                            >
-                              <blockquote className="lo-evidence-quote">
-                                {evidence.quote}
-                              </blockquote>
-                              <Passage
-                                source={data.source}
-                                passageId={evidence.passage_id}
-                              />
-                            </div>
-                          ),
-                        )}
-                        {suggestion.support.status === "unsupported" && (
-                          <p className="lo-warning">
-                            Not selected: the source does not support this
-                            suggestion. Rewrite a manual objective with valid
-                            support instead.
-                          </p>
-                        )}
-                      </article>
-                    ))}
-                    <button
-                      className="lp-button lp-button-primary"
-                      type="button"
-                      disabled={
-                        mutationsBlocked ||
-                        selectedSuggestions.length === 0 ||
-                        Boolean(busy) ||
-                        dirty ||
-                        staleProposal ||
-                        proposal?.status !== "completed"
-                      }
-                      onClick={() => void acceptSuggestions()}
-                    >
-                      {busy === "accept"
-                        ? "Adding…"
-                        : `Add selected to draft (${selectedSuggestions.length})`}
-                    </button>
-                    <p className="lo-muted">
-                      A set can be applied once. Check all suggestions you want
-                      before adding them.
-                    </p>
-                  </div>
-                )}
               </section>
-            </aside>
+            )}
           </div>
-        </>
+        </AuthoringWorkspace>
       )}
     </div>
   );

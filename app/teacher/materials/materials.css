@@ -372,8 +372,8 @@
   }
 }
 .lp-material-page-heading h1 {
-  font-size: clamp(1.75rem, 3vw, 2.25rem);
-  font-weight: 750;
+  font-size: 28px;
+  font-weight: 650;
   line-height: 1.2;
   margin: 0.5rem 0 0.75rem;
 }
@@ -386,4 +386,222 @@
   font-size: 1.05rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+}
+
+/* The import has no lesson identity yet: a compact, standalone preparation form. */
+.lp-material-preparation {
+  max-width: 900px;
+  gap: 20px;
+  margin-inline: auto;
+}
+.lp-material-preparation .lp-material-page-heading .lp-eyebrow {
+  margin-top: 16px;
+}
+.lp-material-preparation .lp-material-page-heading > p:last-child {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #60736d;
+}
+.lp-material-preparation .lp-material-import > form.lp-material-card,
+.lp-material-preparation .lp-material-review .lp-material-card {
+  border: 0;
+  border-top: 1px solid #e1e9e4;
+  padding: 20px 0 0;
+  border-radius: 0;
+  background: transparent;
+}
+.lp-material-preparation .lp-material-import legend,
+.lp-material-preparation .lp-material-card h2 {
+  font-size: 16px;
+}
+.lp-material-preparation .lp-material-source {
+  min-height: 180px;
+}
+.lp-material-preparation .lp-material-note {
+  margin-bottom: 12px;
+}
+.lp-material-preparation .lp-material-progress {
+  font-size: 12px;
+}
+.lm-existing-materials {
+  border-top: 1px solid #e1e9e4;
+  padding: 16px 0;
+  font-size: 13px;
+}
+.lm-existing-materials > summary {
+  cursor: pointer;
+  color: #176d58;
+  font-weight: 600;
+}
+.lm-existing-materials > section {
+  margin-top: 16px;
+}
+
+/* The saved-source inspector uses the shared responsive workbench geometry. */
+.lm-saved-source {
+  max-width: none;
+  display: block;
+}
+.lm-material-back {
+  padding: 0 0 16px;
+  font-size: 13px;
+}
+.lm-source-identity {
+  padding: 20px;
+  border-bottom: 1px solid #e1e9e4;
+  background: #f6f8f7;
+}
+.lm-source-identity h1 {
+  font-size: 19px;
+  font-weight: 650;
+  line-height: 1.35;
+  margin: 8px 0;
+  overflow-wrap: anywhere;
+}
+.lm-source-identity > p:not(.lp-eyebrow) {
+  color: #60736d;
+  font-size: 12px;
+  line-height: 1.55;
+  margin: 8px 0;
+}
+.lm-source-identity .lp-material-versions {
+  margin: 12px 0;
+}
+.lm-source-identity .lp-material-versions a {
+  padding: 6px 8px;
+  min-height: 34px;
+  font-size: 12px;
+}
+.lm-source-navigation {
+  display: grid;
+  padding: 12px 0;
+}
+.lm-source-navigation h2 {
+  padding: 16px 20px 8px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #60736d;
+}
+.lm-source-node {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 10px 20px;
+  border-left: 3px solid transparent;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #17302d;
+  text-decoration: none;
+}
+.lm-source-node small {
+  display: block;
+  font-size: 11px;
+  color: #60736d;
+}
+.lm-source-node:hover {
+  background: #f2f6f3;
+}
+.lm-source-node-active {
+  background: #eaf6ef;
+  border-left-color: #176d58;
+  font-weight: 600;
+}
+.lm-source-node .lm-source-status {
+  flex-shrink: 0;
+  font-weight: 400;
+}
+.lm-source-outline-note {
+  padding: 16px 20px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #60736d;
+  border-top: 1px solid #e1e9e4;
+}
+.lm-source-editor {
+  min-width: 0;
+}
+.lm-source-editor section > h2 {
+  margin: 8px 0 12px;
+  font-size: 24px;
+  line-height: 1.3;
+}
+.lm-source-context {
+  min-width: 0;
+}
+.lm-source-context h2 {
+  font-size: 17px;
+  line-height: 1.4;
+  margin: 8px 0;
+}
+.lm-source-context .lp-material-saved-text {
+  font-size: 15px;
+  line-height: 1.75;
+  margin: 16px 0;
+}
+.lm-source-context-facts {
+  display: grid;
+  gap: 4px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.lm-source-context-facts dt {
+  color: #60736d;
+  margin-top: 12px;
+}
+.lm-source-context-facts dd {
+  margin: 0;
+}
+.lm-source-cautions {
+  margin-top: 20px;
+  border-top: 1px solid #e1e9e4;
+  padding-top: 16px;
+  font-size: 12px;
+}
+.lm-source-cautions ul {
+  padding-left: 16px;
+}
+.lm-source-facts {
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: 0;
+  margin: 20px 0;
+}
+.lm-source-facts dt,
+.lm-source-facts dd {
+  border-top: 1px solid #e1e9e4;
+  padding: 12px 12px 12px 0;
+}
+.lm-source-main-reading {
+  margin: 20px 0 24px;
+  line-height: 1.8;
+}
+.lm-source-adjacent {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  font-size: 13px;
+  border-top: 1px solid #e1e9e4;
+  padding-top: 16px;
+  margin-top: 24px;
+}
+.lm-source-footer {
+  border-top: 1px solid #e1e9e4;
+  padding-top: 20px;
+  margin-top: 24px;
+}
+@media (max-width: 600px) {
+  .lm-source-facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .lm-source-facts dt {
+    padding-bottom: 4px;
+  }
+  .lm-source-facts dd {
+    border-top: 0;
+    padding-top: 0;
+  }
+  .lm-source-editor section > h2 {
+    font-size: 21px;
+  }
 }

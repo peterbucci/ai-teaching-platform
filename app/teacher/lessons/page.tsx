@@ -1,10 +1,13 @@
 import Link from "next/link";
-import { listTeacherLessons } from "../../../lib/lessons/publishing.ts";
-import { readLessonDraft } from "../../../lib/lessons/store.ts";
+import {
+  listTeacherLessons,
+  lessonPublishingReview,
+} from "../../../lib/lessons/publishing.ts";
 import { listSourceVersions } from "../../../lib/lessons/sources.ts";
 import { TeacherFrame } from "../presentation.tsx";
 import { loadTeacherLesson } from "./load.ts";
 import { lessonStepHref, resumeLessonStep } from "./authoring-state.ts";
+import { ObjectiveLibrary } from "../objectives/library.tsx";
 import "./authoring.css";
 
 export const dynamic = "force-dynamic";
@@ -12,7 +15,13 @@ export const dynamic = "force-dynamic";
 export default async function LessonsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; page?: string }>;
+  searchParams: Promise<{
+    q?: string;
+    page?: string;
+    new?: string;
+    source?: string;
+    version?: string;
+  }>;
 }) {
   const query = await searchParams;
   const search = typeof query.q === "string" ? query.q.slice(0, 200) : "";
@@ -32,10 +41,14 @@ export default async function LessonsPage({
       );
       // Existing owned draft reads, bounded to the visible page.
       const lessons = await Promise.all(
-        filtered.slice((page - 1) * 12, page * 12).map(async (summary) => ({
-          ...summary,
-          draft: (await readLessonDraft(access, summary.id)).draft,
-        })),
+        filtered.slice((page - 1) * 12, page * 12).map(async (summary) => {
+          const review = await lessonPublishingReview(access, summary.id);
+          return {
+            ...summary,
+            draft: review.lesson.draft,
+            assignments: review.assignments,
+          };
+        }),
       );
       return {
         lessons,
@@ -56,13 +69,11 @@ export default async function LessonsPage({
           <p className="lp-eyebrow">Your teaching library</p>
           <h1 className="lp-title">Lessons</h1>
           <p className="lp-intro">
-            Turn your teaching material into a coherent lesson: learning
-            objectives, a reviewed question bank, and a prepared tutoring
-            sequence. Publish a reusable version when you’re ready.
+            Reusable lessons, question banks and published versions.
           </p>
           <div className="la-actions">
             <Link
-              href="/teacher/objectives"
+              href="/teacher/lessons?new=true"
               className="lp-button lp-button-primary"
             >
               New lesson
@@ -75,6 +86,19 @@ export default async function LessonsPage({
             </Link>
           </div>
         </header>
+        {query.new === "true" && (
+          <section className="la-new-lesson">
+            <div className="la-section-heading">
+              <h2>New lesson</h2>
+              <Link href="/teacher/lessons">Cancel</Link>
+            </div>
+            <ObjectiveLibrary
+              compact
+              sourceId={query.source}
+              sourceVersion={query.version}
+            />
+          </section>
+        )}
         <form className="la-search" action="/teacher/lessons">
           <label className="lp-field">
             Find a lesson
@@ -104,10 +128,12 @@ export default async function LessonsPage({
             <table className="la-library">
               <thead>
                 <tr>
-                  <th>Lesson / source</th>
-                  <th>Content</th>
+                  <th>Lesson</th>
+                  <th>Objectives</th>
+                  <th>Questions</th>
                   <th>Draft</th>
-                  <th>Published versions</th>
+                  <th>Latest published</th>
+                  <th>Assigned to</th>
                 </tr>
               </thead>
               <tbody>
@@ -132,14 +158,13 @@ export default async function LessonsPage({
                             : ""}
                         </span>
                       </td>
-                      <td data-label="Content">
+                      <td data-label="Objectives">
                         {lesson.draft?.objective_workflow?.items.length ??
                           lesson.draft?.concepts?.length ??
                           0}{" "}
-                        objectives
-                        <small>
-                          {lesson.draft?.questions?.length ?? 0} questions
-                        </small>
+                      </td>
+                      <td data-label="Questions">
+                        {lesson.draft?.questions?.length ?? 0}
                       </td>
                       <td data-label="Draft">
                         <span
@@ -161,18 +186,37 @@ export default async function LessonsPage({
                       </td>
                       <td data-label="Published">
                         {lesson.published_versions.length ? (
-                          lesson.published_versions.map((version) => (
-                            <div key={version}>
-                              <Link
-                                className="lp-text-link"
-                                href={`/teacher/lessons/${encodeURIComponent(lesson.id)}?version=${encodeURIComponent(version)}`}
-                              >
-                                Version {version}
-                              </Link>
-                            </div>
-                          ))
+                          lesson.published_versions
+                            .slice(0, 1)
+                            .map((version) => (
+                              <div key={version}>
+                                <Link
+                                  className="lp-text-link"
+                                  href={`/teacher/lessons/${encodeURIComponent(lesson.id)}?version=${encodeURIComponent(version)}`}
+                                >
+                                  Version {version}
+                                </Link>
+                              </div>
+                            ))
                         ) : (
                           <span className="la-muted">Not published</span>
+                        )}
+                      </td>
+                      <td data-label="Assigned to">
+                        {lesson.assignments.length ? (
+                          <Link
+                            className="lp-text-link"
+                            href="/teacher/assignments"
+                          >
+                            {
+                              new Set(
+                                lesson.assignments.map((item) => item.class_id),
+                              ).size
+                            }{" "}
+                            classes
+                          </Link>
+                        ) : (
+                          <span className="la-muted">Not assigned</span>
                         )}
                       </td>
                     </tr>

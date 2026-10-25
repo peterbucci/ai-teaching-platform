@@ -16,7 +16,6 @@ import {
   MAX_MATERIAL_BYTES,
   type MaterialExtractionPreview,
 } from "../../../lib/materials/contracts.ts";
-import { AuthoringSteps } from "../lessons/workbench.tsx";
 import {
   parseMaterialRecovery,
   type MaterialImportDraft,
@@ -564,7 +563,6 @@ export function ImportMaterialForm({
         if (!recoveryAvailable) setRecoveryDismissed(true);
       }}
     >
-      <AuthoringSteps active={preview ? "source" : "material"} />
       {recoveryAvailable && (
         <section
           className="lp-material-notice"
@@ -653,7 +651,7 @@ export function ImportMaterialForm({
       {!preview && (
         <form onSubmit={extract} className="lp-material-card">
           <fieldset disabled={busy || recoveryAvailable}>
-            <legend>1. Choose source material</legend>
+            <legend>Choose the material</legend>
             <p className="lp-material-note" id="material-limits">
               Paste text, or upload a UTF-8 .txt or .md file or a text-based
               PDF. Maximum file size: 5 MB. Maximum extracted text: 50,000

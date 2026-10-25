@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
-import { AuthoringSteps } from "../lessons/workbench.tsx";
 import { requestedApprovedSource } from "./draft-recovery.ts";
 import {
   ObjectiveLibrarySchema,
@@ -23,9 +22,11 @@ const PendingCreationSchema = z.strictObject({
 export function ObjectiveLibrary({
   sourceId,
   sourceVersion,
+  compact = false,
 }: {
   sourceId?: string;
   sourceVersion?: string;
+  compact?: boolean;
 }) {
   const [library, setLibrary] = useState<z.infer<
     typeof ObjectiveLibrarySchema
@@ -155,15 +156,9 @@ export function ObjectiveLibrary({
   }
 
   return (
-    <div className="lp-objectives la-workspace">
-      <AuthoringSteps
-        active="objectives"
-        sourceHref={
-          selected
-            ? `/teacher/materials/${encodeURIComponent(selected.document_id)}?version=${selected.version}`
-            : undefined
-        }
-      />
+    <div
+      className={`lp-objectives ${compact ? "lo-preparation" : "lo-objective-library"}`}
+    >
       {notice && (
         <p className="lo-notice" role="status">
           {notice}
@@ -272,43 +267,45 @@ export function ObjectiveLibrary({
               </p>
             )}
           </section>
-          <section className="lo-library" aria-labelledby="drafts-heading">
-            <div className="lo-section-heading">
-              <h2 id="drafts-heading">Resume objective review</h2>
-              <span className="lo-muted">{library.drafts.length} drafts</span>
-            </div>
-            {library.drafts.length ? (
-              <div className="lo-draft-list">
-                {library.drafts.map((lesson) => (
-                  <Link
-                    className="lp-panel lo-draft-link"
-                    href={`/teacher/objectives/${lesson.id}`}
-                    key={lesson.id}
-                  >
-                    <div>
-                      <h3>{lesson.title}</h3>
-                      <p className="lo-muted">
-                        {lesson.draft.objective_workflow?.items.length ?? 0}{" "}
-                        objectives · draft revision {lesson.revision}
-                      </p>
-                    </div>
-                    <span
-                      className={`lp-badge ${lesson.draft.objective_workflow?.reviewed ? "" : "lp-badge-neutral"}`}
-                    >
-                      {lesson.draft.objective_workflow?.reviewed
-                        ? "Objectives approved"
-                        : "Needs review"}
-                    </span>
-                    <span aria-hidden="true">→</span>
-                  </Link>
-                ))}
+          {!compact && (
+            <section className="lo-library" aria-labelledby="drafts-heading">
+              <div className="lo-section-heading">
+                <h2 id="drafts-heading">Resume objective review</h2>
+                <span className="lo-muted">{library.drafts.length} drafts</span>
               </div>
-            ) : (
-              <p className="lo-notice">
-                Your first objectives draft will appear here.
-              </p>
-            )}
-          </section>
+              {library.drafts.length ? (
+                <div className="lo-draft-list">
+                  {library.drafts.map((lesson) => (
+                    <Link
+                      className="lp-panel lo-draft-link"
+                      href={`/teacher/objectives/${lesson.id}`}
+                      key={lesson.id}
+                    >
+                      <div>
+                        <h3>{lesson.title}</h3>
+                        <p className="lo-muted">
+                          {lesson.draft.objective_workflow?.items.length ?? 0}{" "}
+                          objectives · draft revision {lesson.revision}
+                        </p>
+                      </div>
+                      <span
+                        className={`lp-badge ${lesson.draft.objective_workflow?.reviewed ? "" : "lp-badge-neutral"}`}
+                      >
+                        {lesson.draft.objective_workflow?.reviewed
+                          ? "Objectives approved"
+                          : "Needs review"}
+                      </span>
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <p className="lo-notice">
+                  Your first objectives draft will appear here.
+                </p>
+              )}
+            </section>
+          )}
         </>
       )}
     </div>

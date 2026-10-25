@@ -7,7 +7,8 @@ import { TeacherFrame } from "../../presentation.tsx";
 import { loadTeacherLesson } from "../load.ts";
 import { LessonPreview } from "../preview.tsx";
 import { TutoringSequence } from "../sequence.tsx";
-import { AuthoringSteps } from "../workbench.tsx";
+import { AuthoringOutline, AuthoringWorkspace } from "../workbench.tsx";
+import { LessonReading } from "../reading.tsx";
 import { groupPublishingRequirements } from "../readiness.ts";
 import {
   AssembleLesson,
@@ -38,12 +39,10 @@ export default async function LessonReviewPage({
   const href = `/teacher/lessons/${encodeURIComponent(lessonId)}`;
   const approved = lesson.approved_revision === lesson.revision;
   const step = published
-    ? "publication"
-    : requestedStep === "source" ||
-        requestedStep === "sequence" ||
-        requestedStep === "publication"
+    ? "review"
+    : requestedStep === "source" || requestedStep === "sequence"
       ? requestedStep
-      : "approval";
+      : "review";
   const source = content?.content_ref;
   const sourceHref =
     source && "source_kind" in source
@@ -114,386 +113,386 @@ export default async function LessonReviewPage({
   return (
     <TeacherFrame section="Lessons">
       <div className="la-workspace">
-        <header className="lp-page-heading">
-          <Link className="lp-text-link" href="/teacher/lessons">
-            ← Lessons and material
-          </Link>
-          <p className="lp-eyebrow mt-4">
-            {published
-              ? `Published lesson · version ${version}`
-              : `Private draft · revision ${lesson.revision}`}
-          </p>
-          <h1 className="lp-title">{lesson.title}</h1>
-          <div className="la-facts">
-            <span>{content?.attribution?.title ?? "Source pending"}</span>
-            <span>
-              {source && "source_version" in source
-                ? `Source version ${source.source_version}`
-                : "Curated source"}
-            </span>
-            <span>Lesson version {source?.content_version ?? "—"}</span>
-            <span>
-              {content?.concepts?.length ?? 0} concepts ·{" "}
-              {content?.questions?.length ?? 0} bank questions
-            </span>
-          </div>
-          {published ? (
-            <div className="la-notice">
-              <strong>Published snapshot.</strong> Its content cannot change.
-              Later draft edits leave this version, its assignments and student
-              evidence unchanged.{" "}
-              <Link className="lp-text-link" href={href}>
-                Return to current draft
-              </Link>
-            </div>
-          ) : (
-            <AuthoringSteps
+        <AuthoringWorkspace
+          outline={
+            <AuthoringOutline
               active={step}
               lessonId={lessonId}
-              objectivesHref={objectivesHref}
-              questionsHref={questionsHref}
-            />
-          )}
-        </header>
-        <div className="la-detail-layout">
-          <div>
-            {step === "source" && (
-              <>
-                <h2>Source review</h2>
-                <p className="la-muted mb-4">
-                  This lesson is pinned to the exact material below. A new
-                  source version does not replace it.
-                </p>
-                <LessonPreview content={content} section="source" />
-                {sourceHref && (
-                  <Link className="lp-button mt-4" href={sourceHref}>
-                    Inspect original extraction and source versions
-                  </Link>
-                )}
-                <nav
-                  className="la-bottom-nav"
-                  aria-label="Next authoring stage"
+              title={lesson.title}
+              version={
+                published
+                  ? `Published v${version} · immutable`
+                  : `Draft v${currentVersion ?? "—"} · revision ${lesson.revision}`
+              }
+              sourceLabel={content?.attribution?.title}
+              sourceHref={
+                published
+                  ? `${href}?version=${encodeURIComponent(version!)}#review-source`
+                  : `${href}?step=source`
+              }
+              objectivesHref={
+                published
+                  ? `${href}?version=${encodeURIComponent(version!)}#review-objectives`
+                  : objectivesHref
+              }
+              questionsHref={
+                published
+                  ? `${href}?version=${encodeURIComponent(version!)}#review-questions`
+                  : questionsHref
+              }
+              reviewHref={
+                published
+                  ? `${href}?version=${encodeURIComponent(version!)}`
+                  : `${href}?step=approval`
+              }
+              objectiveCount={content?.concepts?.length ?? 0}
+              questionCount={content?.questions?.length ?? 0}
+              objectiveItems={content?.concepts?.map((c, i) => (
+                <Link
+                  className="aw-outline-link"
+                  data-authoring-open="editor"
+                  key={c.id}
+                  href={
+                    published
+                      ? `${href}?version=${encodeURIComponent(version!)}#review-objectives`
+                      : lesson.draft?.objective_workflow
+                        ? `${objectivesHref}?objective=${encodeURIComponent(c.id)}`
+                        : objectivesHref
+                  }
                 >
-                  <Link href="/teacher/lessons">Return to library</Link>
-                  <Link
-                    className="lp-button lp-button-primary"
-                    href={objectivesHref}
-                  >
-                    Next: learning objectives →
-                  </Link>
-                </nav>
-              </>
-            )}
-            {step === "sequence" && (
-              <>
-                <TutoringSequence content={content} />
-                {lesson.draft?.question_bank?.approval && (
-                  <section className="lp-panel mt-5">
-                    <AssembleLesson
-                      lessonId={lessonId}
-                      revision={lesson.revision}
-                      families={families}
-                    />
-                  </section>
-                )}
-                <nav className="la-bottom-nav" aria-label="Authoring stage">
-                  <Link href={questionsHref}>← Previous: question bank</Link>
-                  <Link
-                    className="lp-button lp-button-primary"
-                    href={`${href}?step=approval`}
-                  >
-                    Next: approval →
-                  </Link>
-                </nav>
-              </>
-            )}
-            {step === "approval" && (
-              <>
-                <h2>Review and approve</h2>
-                <p className="la-muted">
-                  Review the complete saved revision. Approval and publication
-                  are separate actions.
-                </p>
-                <ul className="la-readiness">
-                  {checkpoints.map((item) => (
-                    <li key={item.title}>
-                      <Link href={item.href}>{item.title}</Link>
-                      <span>{item.status}</span>
+                  O{i + 1} · {c.title}
+                </Link>
+              ))}
+              questionItems={content?.questions?.map((q, i) => (
+                <Link
+                  className="aw-outline-link"
+                  data-authoring-open="editor"
+                  key={q.question_id}
+                  href={
+                    published
+                      ? `${href}?version=${encodeURIComponent(version!)}#review-questions`
+                      : lesson.draft?.question_bank
+                        ? `${questionsHref}?question=${encodeURIComponent(q.question_id ?? "")}`
+                        : questionsHref
+                  }
+                >
+                  Q{i + 1} · {q.prompt_text.slice(0, 64)}
+                  {q.prompt_text.length > 64 ? "…" : ""}
+                </Link>
+              ))}
+              sequenceHref={
+                published
+                  ? `${href}?version=${encodeURIComponent(version!)}#review-sequence`
+                  : undefined
+              }
+              readiness={
+                !published && (
+                  <ul>
+                    {checkpoints.map((item) => (
+                      <li key={item.title}>
+                        <Link href={item.href}>{item.title}</Link> ·{" "}
+                        {item.status}
+                      </li>
+                    ))}
+                    <li>
+                      {approved
+                        ? "✓ Revision approved"
+                        : "○ Lesson approval needed"}
                     </li>
+                  </ul>
+                )
+              }
+              versions={
+                <>
+                  <Link href={href}>
+                    Current draft · revision {lesson.revision}
+                  </Link>
+                  {review.published_versions.map((item) => (
+                    <Link
+                      key={item.version}
+                      href={`${href}?version=${encodeURIComponent(item.version)}`}
+                    >
+                      Published version {item.version}
+                    </Link>
                   ))}
-                </ul>
-                <section
-                  className={`la-notice ${validation.valid ? "" : "la-notice-warning"}`}
-                  aria-labelledby="readiness-heading"
-                >
-                  <h3 id="readiness-heading">
-                    {validation.valid
-                      ? "Content checks passed"
-                      : "Requirements to resolve"}
-                  </h3>
-                  {validation.valid ? (
-                    <p>
-                      Source and content checks passed for this revision. Check
-                      the educational content and private guidance before
-                      approval.
-                    </p>
-                  ) : (
-                    <>
-                      <ul className="la-readiness">
-                        {requirements.groups.map((group) => (
-                          <li key={group.key}>
-                            <div>
-                              <Link
-                                className="lp-text-link"
-                                href={
-                                  group.key === "objectives"
-                                    ? objectivesHref
-                                    : group.key === "questions"
-                                      ? questionsHref
-                                      : group.href
-                                }
-                              >
-                                {group.title}
-                              </Link>
-                              <p className="la-muted">{group.description}</p>
-                            </div>
-                            <span>
-                              {group.issueCount}{" "}
-                              {group.issueCount === 1 ? "check" : "checks"}
-                            </span>
+                </>
+              }
+            />
+          }
+          reading={<LessonReading content={content} sourceHref={sourceHref} />}
+        >
+          {step === "source" && (
+            <>
+              <h2>Source review</h2>
+              <p className="la-muted mb-4">
+                This lesson is pinned to the exact material below. A new source
+                version does not replace it.
+              </p>
+              <LessonPreview content={content} section="source" />
+              {sourceHref && (
+                <Link className="lp-button mt-4" href={sourceHref}>
+                  Inspect original extraction and source versions
+                </Link>
+              )}
+            </>
+          )}
+          {step === "sequence" && (
+            <>
+              <TutoringSequence content={content} />
+              {lesson.draft?.question_bank?.approval && (
+                <section className="lp-panel mt-5">
+                  <AssembleLesson
+                    lessonId={lessonId}
+                    revision={lesson.revision}
+                    families={families}
+                  />
+                </section>
+              )}
+            </>
+          )}
+          {step === "review" && !published && (
+            <>
+              <h2>Approve, publish and assign</h2>
+              <p className="la-muted">
+                Review the complete saved revision. Approval and publication are
+                separate actions.
+              </p>
+              <ul className="la-readiness">
+                {checkpoints.map((item) => (
+                  <li key={item.title}>
+                    <Link href={item.href}>{item.title}</Link>
+                    <span>{item.status}</span>
+                  </li>
+                ))}
+              </ul>
+              <section
+                className={`la-notice ${validation.valid ? "" : "la-notice-warning"}`}
+                aria-labelledby="readiness-heading"
+              >
+                <h3 id="readiness-heading">
+                  {validation.valid
+                    ? "Content checks passed"
+                    : "Requirements to resolve"}
+                </h3>
+                {validation.valid ? (
+                  <p>
+                    Source and content checks passed for this revision. Check
+                    the educational content and private guidance before
+                    approval.
+                  </p>
+                ) : (
+                  <>
+                    <ul className="la-readiness">
+                      {requirements.groups.map((group) => (
+                        <li key={group.key}>
+                          <div>
+                            <Link
+                              className="lp-text-link"
+                              href={
+                                group.key === "objectives"
+                                  ? objectivesHref
+                                  : group.key === "questions"
+                                    ? questionsHref
+                                    : group.href
+                              }
+                            >
+                              {group.title}
+                            </Link>
+                            <p className="la-muted">{group.description}</p>
+                          </div>
+                          <span>
+                            {group.issueCount}{" "}
+                            {group.issueCount === 1 ? "check" : "checks"}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                    <details>
+                      <summary>Detailed validation messages</summary>
+                      <ul className="list-disc pl-5 mt-2">
+                        {requirements.diagnostics.map((issue, index) => (
+                          <li key={index}>
+                            <strong>{issue.path || "Lesson"}:</strong>{" "}
+                            {issue.message}
                           </li>
                         ))}
                       </ul>
-                      <details>
-                        <summary>Detailed validation messages</summary>
-                        <ul className="list-disc pl-5 mt-2">
-                          {requirements.diagnostics.map((issue, index) => (
-                            <li key={index}>
-                              <strong>{issue.path || "Lesson"}:</strong>{" "}
-                              {issue.message}
-                            </li>
-                          ))}
-                        </ul>
-                      </details>
-                    </>
-                  )}
-                </section>
-                {(
-                  [
-                    ["source", "Source and student reading"],
-                    ["objectives", "Learning objectives and source support"],
-                    ["questions", "Questions and teacher-only answer guidance"],
-                  ] as const
-                ).map(([section, title]) => (
-                  <details
-                    id={`review-${section}`}
-                    className="la-review-disclosure"
-                    key={section}
-                  >
-                    <summary>{title}</summary>
-                    <LessonPreview content={content} section={section} />
-                  </details>
-                ))}
-                <details className="la-review-disclosure">
-                  <summary>Tutoring sequence and permitted actions</summary>
-                  <TutoringSequence content={content} />
-                </details>
-                <section className="lp-panel mt-5">
-                  <h3>
-                    {approved
-                      ? "This saved revision is approved"
-                      : "Approve this saved revision"}
-                  </h3>
-                  {approved ? (
-                    <p className="my-3">
-                      Ready for the separate publication step. Any further edit
-                      requires another review.
-                    </p>
-                  ) : (
-                    <ReviewActions
-                      key={`${lesson.revision}:approval`}
-                      lessonId={lessonId}
-                      revision={lesson.revision}
-                      approved={false}
-                      valid={validation.valid}
-                    />
-                  )}
-                  {approved && (
-                    <Link
-                      className="lp-button lp-button-primary"
-                      href={`${href}?step=publication`}
-                    >
-                      Next: publication →
-                    </Link>
-                  )}
-                </section>
-                <nav className="la-bottom-nav" aria-label="Authoring stage">
-                  <Link href={`${href}?step=sequence`}>
-                    ← Previous: tutoring sequence
-                  </Link>
-                  <Link href="/teacher/lessons">Return to library</Link>
-                </nav>
-              </>
-            )}
-            {step === "publication" && (
-              <>
-                <h2>
-                  {published ? `Published version ${version}` : "Publication"}
-                </h2>
-                {!published && (
-                  <section className="lp-panel mt-4">
-                    {approved ? (
-                      <>
-                        <h3>Publish the approved revision</h3>
-                        <p className="la-muted mb-4">
-                          This creates an immutable reusable lesson. Choosing a
-                          class and activating an assignment happen separately.
-                        </p>
-                        <ReviewActions
-                          key={`${lesson.revision}:publication`}
-                          lessonId={lessonId}
-                          revision={lesson.revision}
-                          approved
-                          valid={validation.valid}
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <p>
-                          Review and approve the current saved revision before
-                          publishing it.
-                        </p>
-                        <Link
-                          className="lp-button lp-button-primary mt-4"
-                          href={`${href}?step=approval`}
-                        >
-                          Review approval requirements
-                        </Link>
-                      </>
-                    )}
-                  </section>
-                )}
-                {published && (
-                  <>
-                    <div className="la-actions my-4">
-                      <Link
-                        className="lp-button lp-button-primary"
-                        href="/teacher/assignments"
-                      >
-                        Open class assignments
-                      </Link>
-                      <Link className="lp-button" href={href}>
-                        Return to draft
-                      </Link>
-                    </div>
-                    {(
-                      [
-                        ["source", "Published reading"],
-                        ["objectives", "Published objectives"],
-                        [
-                          "questions",
-                          "Published question bank and private criteria",
-                        ],
-                      ] as const
-                    ).map(([section, title]) => (
-                      <details className="la-review-disclosure" key={section}>
-                        <summary>{title}</summary>
-                        <LessonPreview content={published} section={section} />
-                      </details>
-                    ))}
-                    <details className="la-review-disclosure">
-                      <summary>Published tutoring sequence and policy</summary>
-                      <TutoringSequence content={published} />
-                    </details>
-                    <details className="la-review-disclosure">
-                      <summary>
-                        Prepare a class assignment from version {version}
-                      </summary>
-                      <p className="la-muted my-3">
-                        The existing assignment handoff saves an inactive
-                        assignment. Review and activate it in Class assignments.
-                      </p>
-                      <CreateClassAssignment
-                        key={version}
-                        lessonId={lessonId}
-                        version={version!}
-                        title={lesson.title}
-                        classes={review.classes}
-                      />
                     </details>
                   </>
                 )}
-                {currentVersion && currentVersionPublished && (
-                  <section className="lp-panel mt-5">
-                    <StartLessonVersion
-                      key={lesson.revision}
-                      lessonId={lessonId}
-                      revision={lesson.revision}
-                      currentVersion={currentVersion}
-                    />
-                  </section>
+              </section>
+              {(
+                [
+                  ["source", "Source and student reading"],
+                  ["objectives", "Learning objectives and source support"],
+                  ["questions", "Questions and teacher-only answer guidance"],
+                ] as const
+              ).map(([section, title]) => (
+                <details
+                  id={`review-${section}`}
+                  className="la-review-disclosure"
+                  key={section}
+                >
+                  <summary>{title}</summary>
+                  <LessonPreview content={content} section={section} />
+                </details>
+              ))}
+              <details className="la-review-disclosure">
+                <summary>Tutoring sequence and permitted actions</summary>
+                <TutoringSequence content={content} />
+              </details>
+              <section className="lp-panel mt-5">
+                <h3>
+                  {approved
+                    ? "This saved revision is approved"
+                    : "Approve this saved revision"}
+                </h3>
+                {approved ? (
+                  <p className="my-3">
+                    Ready for the separate publication action below. Any further
+                    edit requires another review.
+                  </p>
+                ) : (
+                  <ReviewActions
+                    key={`${lesson.revision}:approval`}
+                    lessonId={lessonId}
+                    revision={lesson.revision}
+                    approved={false}
+                    valid={validation.valid}
+                  />
                 )}
-              </>
-            )}
-          </div>
-          <aside
-            className="la-aside"
-            aria-label="Lesson versions and assignments"
-          >
-            <section>
-              <h2>Saved lesson</h2>
-              <p className="la-muted">
-                Draft revision {lesson.revision}
-                <br />
-                {approved
-                  ? "Current revision approved"
-                  : "Review required before publication"}
-              </p>
-              <p className="la-muted mt-3">
-                Draft edits do not change published content.
-              </p>
-            </section>
-            <section>
-              <h2>Published versions</h2>
-              {review.published_versions.length ? (
-                <ul>
-                  {review.published_versions.map((item) => (
-                    <li key={item.version}>
-                      <Link
-                        className="lp-text-link"
-                        aria-current={
-                          version === item.version ? "page" : undefined
-                        }
-                        href={`${href}?version=${encodeURIComponent(item.version)}`}
-                      >
-                        Version {item.version}
-                      </Link>
-                      <p className="la-muted">Immutable snapshot</p>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="la-muted">No published versions yet.</p>
+              </section>
+            </>
+          )}
+          {step === "review" && (
+            <>
+              {published && (
+                <>
+                  <h2>Published version {version}</h2>
+                  <p className="la-notice">
+                    <strong>Immutable snapshot.</strong> Later draft edits leave
+                    this version, its assignments and student evidence
+                    unchanged.
+                  </p>
+                </>
               )}
-            </section>
-            <section>
-              <h2>Class assignments</h2>
+              {!published && (
+                <section className="lp-panel mt-4">
+                  {approved ? (
+                    <>
+                      <h3>Publish the approved revision</h3>
+                      <p className="la-muted mb-4">
+                        This creates an immutable reusable lesson. Choosing a
+                        class and activating an assignment happen separately.
+                      </p>
+                      <ReviewActions
+                        key={`${lesson.revision}:publication`}
+                        lessonId={lessonId}
+                        revision={lesson.revision}
+                        approved
+                        valid={validation.valid}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <p>
+                        Review and approve the current saved revision before
+                        publishing it.
+                      </p>
+                      <Link
+                        className="lp-button lp-button-primary mt-4"
+                        href={`${href}?step=approval`}
+                      >
+                        Review approval requirements
+                      </Link>
+                    </>
+                  )}
+                </section>
+              )}
+              {published && (
+                <>
+                  <div className="la-actions my-4">
+                    <Link
+                      className="lp-button lp-button-primary"
+                      href="/teacher/assignments"
+                    >
+                      Open class assignments
+                    </Link>
+                    <Link className="lp-button" href={href}>
+                      Return to draft
+                    </Link>
+                  </div>
+                  {(
+                    [
+                      ["source", "Published reading"],
+                      ["objectives", "Published objectives"],
+                      [
+                        "questions",
+                        "Published question bank and private criteria",
+                      ],
+                    ] as const
+                  ).map(([section, title]) => (
+                    <details
+                      id={`review-${section}`}
+                      className="la-review-disclosure"
+                      key={section}
+                    >
+                      <summary>{title}</summary>
+                      <LessonPreview content={published} section={section} />
+                    </details>
+                  ))}
+                  <details className="la-review-disclosure">
+                    <summary id="review-sequence">
+                      Published tutoring sequence and policy
+                    </summary>
+                    <TutoringSequence content={published} />
+                  </details>
+                  <details className="la-review-disclosure">
+                    <summary>
+                      Prepare a class assignment from version {version}
+                    </summary>
+                    <p className="la-muted my-3">
+                      The existing assignment handoff saves an inactive
+                      assignment. Review and activate it in Class assignments.
+                    </p>
+                    <CreateClassAssignment
+                      key={version}
+                      lessonId={lessonId}
+                      version={version!}
+                      title={lesson.title}
+                      classes={review.classes}
+                    />
+                  </details>
+                </>
+              )}
+              {currentVersion && currentVersionPublished && (
+                <section className="lp-panel mt-5">
+                  <StartLessonVersion
+                    key={lesson.revision}
+                    lessonId={lessonId}
+                    revision={lesson.revision}
+                    currentVersion={currentVersion}
+                  />
+                </section>
+              )}
+            </>
+          )}
+          {step === "review" && (
+            <section className="la-section">
+              <h3>Class assignments</h3>
               {review.assignments.length ? (
-                <ul>
+                <ul className="la-readiness">
                   {review.assignments.map((item) => (
                     <li key={item.id}>
-                      <Link
-                        className="lp-text-link"
-                        href={`/teacher/assignments?assignment=${item.id}`}
-                      >
+                      <Link href={`/teacher/assignments?assignment=${item.id}`}>
                         {item.title} · {item.class_name}
                       </Link>
-                      <p className="la-muted">
+                      <span>
                         Version {item.lesson_version} ·{" "}
                         {item.teacher_approved_at
                           ? "Active"
                           : "Awaiting activation"}
-                      </p>
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -503,8 +502,8 @@ export default async function LessonReviewPage({
                 </p>
               )}
             </section>
-          </aside>
-        </div>
+          )}
+        </AuthoringWorkspace>
       </div>
     </TeacherFrame>
   );

@@ -10,6 +10,8 @@ import {
   currentBankQuestion,
   groupBankQuestions,
   shouldGuardBankNavigation,
+  questionReadingPassages,
+  exactQuoteSegments,
 } from "./workbench-state.ts";
 
 function questions() {
@@ -80,6 +82,65 @@ test("selection follows the stable ID through reorder and falls back safely afte
     bank[2],
   );
   assert.equal(currentBankQuestion([], selected.question_id), null);
+});
+
+test("reading follows the selected question while retaining source order, identity and usage", () => {
+  const lesson = makeTeacherLesson(
+    makeTeacherSourceReference(
+      "33333333-3333-4333-8333-333333333333",
+      "11111111-1111-4111-8111-111111111111",
+    ),
+    "22222222-2222-4222-8222-222222222222",
+    "1",
+  );
+  const selected = lesson.questions[0];
+  selected.source_passage_ids = [lesson.passages[1].id];
+  const original = structuredClone(lesson);
+  const reading = questionReadingPassages(
+    lesson.passages,
+    lesson.questions,
+    lesson.concepts,
+    selected.question_id ?? null,
+    [],
+  );
+  assert.equal(reading[0].passage, lesson.passages[1]);
+  assert.equal(reading[0].index, 1);
+  assert.equal(reading[0].linked, true);
+  assert.ok(reading[0].uses.includes("Q1"));
+  assert.ok(reading[0].uses.every((usage) => /^[OQ]\d+$/.test(usage)));
+  assert.deepEqual(lesson, original);
+  const overview = questionReadingPassages(
+    lesson.passages,
+    lesson.questions,
+    lesson.concepts,
+    null,
+    [],
+  );
+  assert.deepEqual(
+    overview.map((item) => item.passage.id),
+    lesson.passages.map((item) => item.id),
+  );
+  assert.ok(overview.every((item) => !item.linked));
+});
+
+test("quote highlighting preserves exact text and does not mark unsupported wording", () => {
+  const text =
+    "Water vapor becomes liquid. <script> remains ordinary source text.";
+  const parts = exactQuoteSegments(text, [
+    "Water vapor",
+    "vapor becomes liquid",
+    "not in the source",
+    "",
+    "<script>",
+  ]);
+  assert.equal(parts.map((part) => part.text).join(""), text);
+  assert.deepEqual(
+    parts.filter((part) => part.marked).map((part) => part.text),
+    ["Water vapor becomes liquid", "<script>"],
+  );
+  assert.deepEqual(exactQuoteSegments(text, ["different wording"]), [
+    { text, marked: false },
+  ]);
 });
 
 test("dirty-navigation guard protects page changes without blocking recovery downloads or source inspection", () => {
