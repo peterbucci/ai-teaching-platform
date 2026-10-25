@@ -11,6 +11,7 @@ import {
 } from "../../../lib/evidence/store.ts";
 import { assignmentReview } from "../../../lib/assignments/store.ts";
 import { readAssignmentContent } from "../../../lib/lessons/store.ts";
+import { listTeacherLessons } from "../../../lib/lessons/publishing.ts";
 import { readAssignmentEvidence } from "../../../lib/teacher/store.ts";
 import { readInterventionDrafts } from "../../../lib/interventions/store.ts";
 import { readInterventionReview } from "../../../lib/interventions/approval.ts";
@@ -25,6 +26,7 @@ const HeaderSchema = z.object({
   title: z.string(),
   class_id: z.uuid(),
   class_name: z.string(),
+  enrolled: z.number().int().nonnegative(),
   lesson_id: z.string(),
   lesson_title: z.string(),
   lesson_version: z.string(),
@@ -44,7 +46,8 @@ export async function assignmentIndex(access: EvidenceAccess) {
     );
     const assignments = await client.query(
       `SELECT a.id,a.title,a.class_id,c.name AS class_name,a.lesson_id,
-       COALESCE(l.title,a.lesson_id) AS lesson_title,a.lesson_version,a.teacher_approved_at
+       COALESCE(l.title,a.lesson_id) AS lesson_title,a.lesson_version,a.teacher_approved_at,
+       (SELECT COUNT(*)::integer FROM enrollments e WHERE e.class_id=a.class_id) AS enrolled
        FROM assignments a JOIN classes c ON c.id=a.class_id
        LEFT JOIN lessons l ON l.id=a.lesson_id
        WHERE c.teacher_id=$1 ORDER BY c.name,a.title,a.id`,
@@ -122,7 +125,9 @@ export async function loadAssignments(
     const visible = filterAssignments(assignments, context);
     const selected = context.assignment
       ? (assignments.find((item) => item.id === context.assignment) ?? null)
-      : (visible[0] ?? null);
+      : null;
+    const catalog =
+      !selected && index.classes.length ? await listTeacherLessons(access) : [];
     const content = selected?.review
       ? await readAssignmentContent(access, selected.id, "teacher")
       : null;
@@ -149,6 +154,7 @@ export async function loadAssignments(
       classes: index.classes,
       assignments,
       visible,
+      catalog,
       selected,
       content,
       progress,

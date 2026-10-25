@@ -8,6 +8,7 @@ import {
   progressEvaluation,
   progressEvidenceHref,
   progressHref,
+  progressMark,
   selectProgressEvidence,
   type AssignmentEvidence,
 } from "../app/teacher/assignments/progress-model.ts";
@@ -308,4 +309,82 @@ test("student-only and concept-only selections include their matching saved work
     selectProgressEvidence(data.evidence, DEMO_IDS.inactiveStudent).length,
     0,
   );
+});
+
+test("class-grid marks retain every original attempt in chronological order", () => {
+  const data = snapshot();
+  const original = structuredClone(data);
+  const progress = buildAssignmentProgress(data, "all");
+  const student = progress.students.find(
+    (item) => item.student_id === DEMO_IDS.studentOne,
+  )!;
+  const cell = student.cells.find(
+    (item) => item.conceptId === "transmission_delay",
+  )!;
+  assert.deepEqual(
+    cell.marks.map((mark) => mark.attemptId),
+    data.evidence[0].attempts.map((attempt) => attempt.id),
+  );
+  assert.deepEqual(
+    cell.marks.map((mark) => mark.status),
+    ["incorrect", "incorrect", "correct", "correct"],
+  );
+  assert.deepEqual(
+    cell.marks.map((mark) => mark.assistance),
+    ["none", "none", "help", "help"],
+  );
+  assert.equal(student.helpShownCount, 2);
+  assert.equal(progress.reachedByConcept.transmission_delay, 2);
+  assert.equal(progress.assistanceSummary.helpResponses, 2);
+  assert.deepEqual(data, original);
+});
+
+test("reading-only marks require displayed recorded reading and never become content-help marks", () => {
+  const data = snapshot();
+  const row = selectProgressEvidence(data.evidence, DEMO_IDS.studentTwo)[0];
+  const reading = {
+    ...data.evidence[0].interventions[0],
+    id: "70000000-0000-4000-8000-000000000099",
+    session_id: row.evidence.session.id,
+    related_attempt_id: row.attempt.id,
+    related_evaluation_id: null,
+    type: "reading" as const,
+    concept_ids: ["transmission_delay"],
+    delivery_status: "displayed" as const,
+    created_at: row.attempt.presented_at,
+    visible_at: row.attempt.presented_at,
+  };
+  row.evidence.interventions.push(reading);
+  row.attempt.assistance!.intervention_ids.push(reading.id);
+  row.attempt.assistance!.assistance_level = "reading";
+  row.attempt.assistance!.independent_retrieval_eligible_by_concept.transmission_delay = false;
+  assert.equal(progressMark(row, "transmission_delay").assistance, "reading");
+  assert.equal(progressMark(row, "propagation_delay").assistance, "none");
+  assert.equal(
+    buildAssignmentProgress(data, "all").assistanceSummary.readingOnlyResponses,
+    1,
+  );
+  row.evidence.interventions = [
+    { ...reading, delivery_status: "created", visible_at: null },
+  ];
+  assert.equal(progressMark(row, "transmission_delay").assistance, "none");
+});
+
+test("progress navigation carries subview and reversible pane with selection", () => {
+  const url = new URL(
+    progressHref(
+      DEMO_IDS.assignmentId,
+      "synthetic_fixture",
+      { student: DEMO_IDS.studentOne, concept: "transmission_delay" },
+      { class: DEMO_IDS.classId, status: "active" },
+      { progressView: "concepts", pane: "grid" },
+    ),
+    "https://example.test",
+  );
+  assert.equal(url.searchParams.get("pane"), "grid");
+  assert.equal(url.searchParams.get("progressView"), "concepts");
+  assert.equal(url.searchParams.get("student"), DEMO_IDS.studentOne);
+  assert.equal(url.searchParams.get("concept"), "transmission_delay");
+  assert.equal(url.searchParams.get("class"), DEMO_IDS.classId);
+  assert.equal(url.hash, "#cell-evidence");
 });

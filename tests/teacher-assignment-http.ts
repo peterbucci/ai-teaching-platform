@@ -114,16 +114,61 @@ async function denied(path: string, cookie: string, privateTitle: string) {
     "Denied page exposed another classroom's assignment.",
   );
   assert.ok(
-    !html.includes("Original response"),
+    !html.includes('class="ap-original-response"'),
     "Denied page exposed student evidence.",
   );
 }
 
+function renderedMarkup(html: string) {
+  return html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "")
+    .replace(/<!--[\s\S]*?-->/g, "");
+}
+
+function assertDiscovery(html: string) {
+  const rendered = renderedMarkup(html);
+  assert.ok(rendered.includes('class="awa-workspace awa-discovery"'));
+  assert.ok(
+    rendered.includes(
+      'aria-label="Lessons, published versions and class assignments"',
+    ),
+  );
+  assert.ok(
+    !rendered.includes("awa-assignment-workspace"),
+    "Discovery selected an assignment implicitly.",
+  );
+  assert.ok(
+    !rendered.includes('class="ap-summary"'),
+    "Discovery must not show a selected assignment's progress dashboard.",
+  );
+  assert.ok(!rendered.includes('aria-label="Classroom activation"'));
+}
+
 function summaryCount(html: string, label: string) {
-  const match = html.match(
-    new RegExp(`<dt>${label}</dt>\\s*<dd>\\s*(?:<!--.*?-->\\s*)*(\\d+)`),
+  const match = renderedMarkup(html).match(
+    new RegExp(`<dt>${label}</dt>\\s*<dd>\\s*(\\d+)`),
   );
   assert.ok(match, `Missing visible progress summary: ${label}`);
+  return Number(match[1]);
+}
+
+function summaryDenominator(html: string, label: string) {
+  const match = renderedMarkup(html).match(
+    new RegExp(`<dt>${label}</dt>\\s*<dd>\\s*\\d+\\s*<small>of (\\d+)</small>`),
+  );
+  assert.ok(match, `Missing progress denominator: ${label}`);
+  return Number(match[1]);
+}
+
+function detailCount(html: string, label: string) {
+  const details = renderedMarkup(html).match(
+    /<details class="ap-count-details">([\s\S]*?)<\/details>/,
+  );
+  assert.ok(details, "Missing participation and evaluation breakdown.");
+  const text = details[1].replace(/<[^>]*>/g, " ").replace(/\s+/g, " ");
+  const match = text.match(new RegExp(`(?:^|[ ·])(\\d+) ${label}(?:[ ·]|$)`));
+  assert.ok(match, `Missing specific progress count: ${label}`);
   return Number(match[1]);
 }
 
@@ -252,6 +297,10 @@ try {
     url({ class: "", status: "all" }),
     teacher.cookie,
   );
+  assertDiscovery(allClasses);
+  assertDiscovery(
+    await page("/teacher/assignments?view=progress", teacher.cookie),
+  );
   assert.ok(
     allClasses.includes(assignmentTitle),
     "Empty class filter must mean all authorized classes.",
@@ -260,7 +309,20 @@ try {
     url({ class: classId, status: "inactive" }),
     teacher.cookie,
   );
+  assertDiscovery(inactive);
   assert.ok(inactive.includes(assignmentTitle));
+  assert.ok(inactive.includes('class="awa-tree-lesson"'));
+  assert.ok(inactive.includes('class="awa-tree-version"'));
+  assert.ok(inactive.includes('class="awa-tree-assignment"'));
+  const legacyReview = await page(
+    url({ assignment: created.id }),
+    teacher.cookie,
+  );
+  assert.ok(legacyReview.includes("Review assignment"));
+  assert.ok(legacyReview.includes("Saved, not yet active"));
+  assert.ok(
+    !renderedMarkup(legacyReview).includes('class="awa-assignment-tree"'),
+  );
   const activeBefore = await page(
     url({ class: classId, status: "active" }),
     teacher.cookie,
@@ -268,13 +330,14 @@ try {
   assert.ok(activeBefore.includes("No assignments match these filters"));
   assert.ok(!activeBefore.includes(assignmentTitle));
   const empty = await page(url({ class: emptyClassId }), teacher.cookie);
+  assertDiscovery(empty);
   assert.ok(empty.includes("No assignments match these filters"));
   assert.ok(!empty.includes(assignmentTitle));
   const noRosterHtml = await page(
     url({ assignment: noRoster.id, view: "progress" }),
     teacher.cookie,
   );
-  assert.equal(summaryCount(noRosterHtml, "Students enrolled"), 0);
+  assert.equal(summaryDenominator(noRosterHtml, "students have answered"), 0);
   assert.ok(noRosterHtml.includes("No students enrolled yet"));
 
   // The SQL guard rejects scope corruption even for a fresh inactive assignment.
@@ -311,7 +374,11 @@ try {
     url({ assignment: created.id, view: "preview" }),
     teacher.cookie,
   );
-  assert.ok(preview.includes("Read-only student learning preview"));
+  assert.ok(preview.includes("What students see"));
+  assert.ok(
+    preview.includes("Read-only preview. No student session is started"),
+  );
+  assert.ok(preview.includes("Assignment and published version"));
   assert.ok(preview.includes(curated.content_ref.content_version));
   assert.ok(!preview.includes("Teacher-only answer guidance"));
   assert.ok(!preview.includes("rubric"));
@@ -347,6 +414,17 @@ try {
   );
   assert.ok(activated.includes(assignmentTitle));
   assert.ok(activated.includes("Active for enrolled students"));
+  const outsideFilters = await page(
+    url({ class: emptyClassId, status: "inactive", assignment: created.id }),
+    teacher.cookie,
+  );
+  assert.ok(outsideFilters.includes(assignmentTitle));
+  assert.ok(outsideFilters.includes("Active for enrolled students"));
+  assert.ok(
+    outsideFilters.includes(
+      "This linked assignment is outside the current list filters.",
+    ),
+  );
   await assert.rejects(
     startSession(other.access, created.id),
     (error: unknown) => error instanceof EvidenceError && error.status === 404,
@@ -361,9 +439,10 @@ try {
     origin: "synthetic_fixture",
   });
   const zero = await page(progressUrl, teacher.cookie);
-  assert.equal(summaryCount(zero, "Students enrolled"), 1);
-  assert.equal(summaryCount(zero, "Students started"), 0);
-  assert.equal(summaryCount(zero, "Submitted responses"), 0);
+  assert.equal(summaryDenominator(zero, "students have answered"), 1);
+  assert.equal(summaryCount(zero, "students have answered"), 0);
+  assert.equal(detailCount(zero, "students started"), 0);
+  assert.equal(summaryCount(zero, "answers"), 0);
   const session = await startSession(
     student.access,
     created.id,
@@ -374,8 +453,9 @@ try {
     intent: "initial_retrieval",
   });
   const waiting = await page(progressUrl, teacher.cookie);
-  assert.equal(summaryCount(waiting, "Students started"), 1);
-  assert.equal(summaryCount(waiting, "Missing responses"), 1);
+  assert.equal(detailCount(waiting, "students started"), 1);
+  assert.equal(summaryCount(waiting, "students have answered"), 0);
+  assert.equal(detailCount(waiting, "presented questions without answers"), 1);
   const responseText = `Synthetic original response ${run}\nI am explaining the packet's journey in my own words <without a grade>.`;
   const submission = {
     attempt_id: attempt.id,
@@ -397,17 +477,67 @@ try {
     origin: "synthetic_fixture",
     student: student.access.actor.profileId,
     concept: first.concept_ids[0],
+    class: classId,
+    status: "active",
+    progressView: "grid",
+    pane: "details",
   });
   const savedHtml = await page(selectedUrl, teacher.cookie);
-  assert.equal(summaryCount(savedHtml, "Submitted responses"), 1);
-  assert.equal(summaryCount(savedHtml, "Missing responses"), 0);
-  assert.equal(summaryCount(savedHtml, "Evaluations pending"), 1);
+  assert.equal(summaryCount(savedHtml, "answers"), 1);
+  assert.equal(summaryCount(savedHtml, "students have answered"), 1);
+  assert.equal(summaryCount(savedHtml, "evaluated"), 0);
+  assert.equal(
+    detailCount(savedHtml, "presented questions without answers"),
+    0,
+  );
+  assert.equal(detailCount(savedHtml, "evaluations pending"), 1);
   assert.ok(
     textPresent(savedHtml, responseText),
     "Selected grid cell must display exact original work.",
   );
   assert.ok(savedHtml.includes(`/teacher/sessions/${session.id}`));
   assert.ok(savedHtml.includes(`attempt-${attempt.id}`));
+  const assignmentActions = renderedMarkup(savedHtml).match(
+    /<nav[^>]*aria-label="Assignment actions"[^>]*>([\s\S]*?)<\/nav>/,
+  );
+  assert.ok(assignmentActions, "Missing assignment navigation.");
+  const listLink = assignmentActions[1].match(
+    /<a href="([^"]+)">← All assignments<\/a>/,
+  );
+  assert.ok(listLink, "Selected evidence needs a route back to discovery.");
+  const listUrl = new URL(listLink[1].replaceAll("&amp;", "&"), base);
+  assert.deepEqual(
+    [...listUrl.searchParams],
+    [
+      ["class", classId],
+      ["status", "active"],
+    ],
+  );
+  assertDiscovery(
+    await page(listUrl.pathname + listUrl.search, teacher.cookie),
+  );
+  for (const [progressView, expected] of [
+    ["concepts", "Latest correct"],
+    ["questions", "Students shown it"],
+    ["sessions", "All saved sessions in the selected evidence source"],
+  ]) {
+    const alternate = new URL(selectedUrl, base);
+    alternate.searchParams.set("progressView", progressView);
+    alternate.searchParams.set("pane", "grid");
+    const html = await page(
+      alternate.pathname + alternate.search,
+      teacher.cookie,
+    );
+    assert.ok(
+      html.includes(expected),
+      `Missing ${progressView} progress view.`,
+    );
+    assert.ok(
+      textPresent(html, responseText),
+      "Changing progress view lost the selected original work.",
+    );
+    assert.equal(summaryCount(html, "answers"), 1);
+  }
   const saved = await readAssignmentEvidence(
     teacher.access,
     created.id,
@@ -438,9 +568,17 @@ try {
     failure_reason: "Prepared failure fixture; no model was called.",
   });
   const failed = await page(selectedUrl, teacher.cookie);
-  assert.equal(summaryCount(failed, "Evaluations pending"), 0);
+  assert.equal(detailCount(failed, "evaluations pending"), 0);
+  assert.equal(detailCount(failed, "failed"), 1);
+  assert.equal(
+    summaryCount(failed, "evaluations pending, failed or rejected"),
+    1,
+  );
+  assert.equal(summaryCount(failed, "evaluated"), 0);
   assert.ok(
-    failed.includes("Evaluation failed. The original answer is preserved."),
+    renderedMarkup(failed).includes(
+      "Evaluation failed. The original answer is preserved.",
+    ),
   );
   assert.ok(textPresent(failed, responseText));
   assert.deepEqual(

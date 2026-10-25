@@ -6,6 +6,7 @@ import {
   assignmentLessonCoverage,
   projectStudentLearningPreview,
 } from "./preview-model.ts";
+import "./lesson-review.css";
 
 type LessonProps = { content: ApprovedContent; contentRef: ContentRef };
 
@@ -14,23 +15,22 @@ export function AssignmentLessonReview({ content, contentRef }: LessonProps) {
   const questions = [...content.questions.entries()];
   return (
     <div className="awa-lesson-review">
-      <section className="lp-panel" id="learning-goals">
-        <p className="lp-eyebrow">Published lesson · Learning goals</p>
-        <h2>What students will explore</h2>
-        <p className="lp-panel-description">
+      <section className="awa-review-section" id="learning-goals">
+        <h2 className="awa-review-title">Learning goals</h2>
+        <p className="awa-review-meta">
           {coverage.concepts.length} concepts with their approved objectives and
           source passages. One question can cover several concepts.
         </p>
-        <div className="awa-concept-cards">
+        <div className="awa-review-concepts">
           {coverage.concepts.map((concept) => (
-            <article key={concept.id} className="awa-concept-card">
-              <h3>{concept.title}</h3>
-              <ul className="list-disc pl-5 my-3 space-y-2">
+            <article key={concept.id} className="awa-review-concept">
+              <h3 className="awa-review-concept-title">{concept.title}</h3>
+              <ul className="awa-review-objectives">
                 {concept.objectives.map((objective) => (
                   <li key={objective}>{objective}</li>
                 ))}
               </ul>
-              <p className="lp-panel-description">
+              <p className="awa-review-meta">
                 {concept.questionCount} prepared questions · Reading:{" "}
                 {concept.passageIds.map((id, index) => (
                   <span key={id}>
@@ -45,10 +45,9 @@ export function AssignmentLessonReview({ content, contentRef }: LessonProps) {
           ))}
         </div>
       </section>
-      <section className="lp-panel" id="prepared-practice">
-        <p className="lp-eyebrow">Published lesson · Question coverage</p>
-        <h2>Prepared questions and tutoring</h2>
-        <p className="lp-panel-description">
+      <section className="awa-review-section" id="prepared-practice">
+        <h2 className="awa-review-title">Prepared questions and tutoring</h2>
+        <p className="awa-review-meta">
           {coverage.questionCount} distinct prepared questions, including{" "}
           {coverage.sequenceQuestionCount} in the approved tutoring sequence.
           Coverage counts include questions used for clarification, diagnosis,
@@ -125,10 +124,9 @@ export function AssignmentLessonReview({ content, contentRef }: LessonProps) {
           </ol>
         </details>
       </section>
-      <section className="lp-panel awa-reading" id="assigned-reading">
-        <p className="lp-eyebrow">Published lesson · Approved reading</p>
-        <h2>Assigned reading</h2>
-        <p className="lp-panel-description mb-4">
+      <section className="awa-review-section awa-reading" id="assigned-reading">
+        <h2 className="awa-review-title">Assigned reading</h2>
+        <p className="awa-review-meta">
           {coverage.passageCount} passages from the exact source version
           attached to this lesson.
         </p>
@@ -145,24 +143,96 @@ export function StudentLearningPreview({
   instructions,
   active,
   assignmentId,
+  className,
 }: LessonProps & {
   title: string;
   instructions: string | null;
   active: boolean;
   assignmentId?: string;
+  className?: string;
 }) {
   const preview = projectStudentLearningPreview(content, contentRef);
   return (
-    <div className="awa-preview">
-      <section className="lp-panel">
-        <p className="lp-eyebrow">Read-only student learning preview</p>
-        <h2>{title}</h2>
-        <p className="lp-panel-description">
-          This preview shows the approved learning material. Opening it does not
-          start a student session, submit an answer, or record reading as
-          assistance.
+    <div className="awa-student-preview">
+      <p className="awa-preview-caption">
+        What students see before they start, using this assignment’s fixed
+        lesson version.
+      </p>
+      <section className="awa-preview-frame" aria-label="What students see">
+        <p className="awa-preview-kicker">
+          My Learning{className ? ` · ${className}` : ""}
         </p>
-        <dl className="awa-preview-identity">
+        <div className="awa-preview-card">
+          <div className="awa-preview-card-heading">
+            <h2 className="awa-preview-title">{title}</h2>
+            <span className="awa-preview-state">
+              {active ? "Ready to start" : "Not active yet"}
+            </span>
+          </div>
+          <p className="awa-preview-instructions">
+            {instructions || "No additional instructions were provided."}
+          </p>
+          <div className="awa-preview-stack">
+            <h3 className="awa-preview-label">You’ll practise</h3>
+            {preview.concepts.map((concept) => (
+              <div className="awa-preview-goal" key={concept.id}>
+                <p className="awa-preview-concept">{concept.title}</p>
+                {concept.objectives.map((objective) => (
+                  <p key={objective}>{objective}</p>
+                ))}
+              </div>
+            ))}
+          </div>
+          <div className="awa-preview-stack">
+            <h3 className="awa-preview-label">How this works</h3>
+            <ol className="awa-preview-how">
+              <li>
+                <span>Read the assigned pages when you’re ready.</span>
+              </li>
+              <li>
+                <span>
+                  Answer questions in your own words. You’ll see questions
+                  selected from the approved lesson, rather than every question.
+                </span>
+              </li>
+              <li>
+                <span>
+                  Ask for help when you need it. Help actually shown is saved
+                  with your work for your teacher.
+                </span>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+      <p className="awa-preview-caption awa-preview-readonly">
+        Read-only preview. No student session is started, no answer is
+        submitted, and reading is not recorded as assistance.
+      </p>
+      <details className="awa-preview-disclosure">
+        <summary>Start, resume, and tutoring interactions</summary>
+        <div className="awa-preview-disclosure-body">
+          <p>
+            {active
+              ? "Enrolled students open this assignment from their own Assignments page."
+              : "After activation, enrolled students can open this assignment from their own Assignments page."}{" "}
+            They can start practice, resume an active saved session, or review
+            completed work. This teacher preview does not open those controls.
+          </p>
+          <ul>
+            {preview.interactions.map((interaction) => (
+              <li key={interaction}>{interaction}</li>
+            ))}
+          </ul>
+          <p className="awa-preview-caption">
+            The next activity depends on the student’s response. Original work
+            and any help actually shown remain part of the saved evidence.
+          </p>
+        </div>
+      </details>
+      <details className="awa-preview-disclosure">
+        <summary>Assignment and published version</summary>
+        <dl className="awa-preview-version">
           {assignmentId && (
             <>
               <dt>Assignment</dt>
@@ -180,53 +250,13 @@ export function StudentLearningPreview({
               : "Inactive — teacher activation required"}
           </dd>
         </dl>
-        <h3>Instructions</h3>
-        <p className="my-3 whitespace-pre-wrap">
-          {instructions || "No additional instructions were provided."}
-        </p>
-      </section>
-      <section className="lp-panel">
-        <h2>Start or continue learning</h2>
-        <p>
-          {active
-            ? "Enrolled students open this assignment from their own Assignments page."
-            : "After activation, enrolled students can open this assignment from their own Assignments page."}{" "}
-          They can start practice, resume an active saved session, or review
-          completed work. This teacher preview does not open those controls.
-        </p>
-        <h3 className="mt-5">What to expect in a session</h3>
-        <ul className="list-disc pl-5 my-3 space-y-2">
-          {preview.interactions.map((interaction) => (
-            <li key={interaction}>{interaction}</li>
-          ))}
-        </ul>
-        <p className="lp-panel-description">
-          The next activity depends on the student’s response. Original work and
-          any help actually shown remain part of the saved evidence.
-        </p>
-      </section>
-      <section className="lp-panel">
-        <h2>Learning goals</h2>
-        <div className="awa-concept-cards">
-          {preview.concepts.map((concept) => (
-            <article key={concept.id} className="awa-concept-card">
-              <h3>{concept.title}</h3>
-              <ul className="list-disc pl-5 my-3 space-y-2">
-                {concept.objectives.map((objective) => (
-                  <li key={objective}>{objective}</li>
-                ))}
-              </ul>
-              <p className="lp-panel-description">
-                Reading: {concept.passageIds.join(", ")}
-              </p>
-            </article>
-          ))}
+      </details>
+      <details className="awa-preview-disclosure awa-reading">
+        <summary>Read the assigned passages</summary>
+        <div className="awa-preview-disclosure-body">
+          <Reading reading={preview.reading} />
         </div>
-      </section>
-      <section className="lp-panel awa-reading">
-        <h2>Assigned reading</h2>
-        <Reading reading={preview.reading} />
-      </section>
+      </details>
     </div>
   );
 }

@@ -19,6 +19,13 @@ export type ProgressListContext = Pick<
   Partial<AssignmentWorkspace>,
   "class" | "status"
 >;
+export type ProgressView = "grid" | "concepts" | "questions" | "sessions";
+export type ProgressPane = "grid" | "details";
+export type ProgressFollowup = {
+  id: string;
+  title: string;
+  recipientIds: string[];
+};
 
 export function progressEvaluationHistory({
   evidence,
@@ -48,6 +55,7 @@ export function progressHref(
   origin: OriginFilter,
   selection: { student?: string; concept?: string } = {},
   listContext: ProgressListContext = {},
+  navigation: { progressView?: ProgressView; pane?: ProgressPane } = {},
 ) {
   return `/teacher/assignments?${new URLSearchParams({
     assignment,
@@ -56,7 +64,15 @@ export function progressHref(
     ...selection,
     ...(listContext.class ? { class: listContext.class } : {}),
     ...(listContext.status ? { status: listContext.status } : {}),
+    ...(navigation.progressView
+      ? { progressView: navigation.progressView }
+      : {}),
+    ...(navigation.pane ? { pane: navigation.pane } : {}),
   })}#cell-evidence`;
+}
+
+export function progressSelectionId(student?: string, concept?: string) {
+  return `ap-selection-${student ?? "all"}-${concept ?? "all"}`;
 }
 
 export function progressEvidenceHref(
@@ -112,6 +128,51 @@ export function progressStatusLabel(status: ProgressStatus) {
   return resultLabels[status];
 }
 
+/** Read the saved judgment and displayed assistance; never infer a new grade. */
+export function progressMark(row: ProgressEvidence, concept: string) {
+  const { attempt, evidence } = row;
+  const evaluation = progressEvaluation(row);
+  const judgment =
+    evaluation?.validation_status === "accepted"
+      ? evaluation.result?.per_concept_results.find(
+          (item) => item.concept_id === concept,
+        )
+      : undefined;
+  const status: ProgressStatus = !attempt.submitted_at
+    ? "no_response"
+    : (judgment?.correctness ??
+      (evaluation?.validation_status === "evaluation_failed"
+        ? "evaluation_failed"
+        : evaluation?.validation_status === "rejected"
+          ? "rejected"
+          : "pending"));
+  const shown = evidence.interventions.filter(
+    (item) =>
+      attempt.assistance?.intervention_ids.includes(item.id) &&
+      item.delivery_status === "displayed" &&
+      item.visible_at !== null &&
+      item.concept_ids.includes(concept),
+  );
+  const helped =
+    attempt.question.embedded_scaffolding.some((item) =>
+      item.concept_ids.includes(concept),
+    ) ||
+    shown.some((item) =>
+      ["hint", "worked_example", "corrective_feedback"].includes(item.type),
+    );
+  const assistance = helped
+    ? "help"
+    : shown.some((item) => item.type === "reading")
+      ? "reading"
+      : "none";
+  return {
+    attemptId: attempt.id,
+    status,
+    assistance,
+    label: `${progressStatusLabel(status)}${assistance === "help" ? "; content help shown before" : assistance === "reading" ? "; reading only before" : "; no content help recorded"}`,
+  };
+}
+
 export function buildAssignmentProgress(
   data: AssignmentEvidence,
   origin: OriginFilter,
@@ -131,9 +192,33 @@ export function buildAssignmentProgress(
     ({ attempt }) => attempt.submitted_at !== null,
   );
   const evaluations = submitted.map(progressEvaluation);
+  const assistanceSummary = submitted.reduce(
+    (counts, row) => {
+      const marks = row.attempt.question.concept_ids.map((concept) =>
+        progressMark(row, concept),
+      );
+      if (marks.some((mark) => mark.assistance === "help"))
+        counts.helpResponses++;
+      else if (marks.some((mark) => mark.assistance === "reading"))
+        counts.readingOnlyResponses++;
+      return counts;
+    },
+    { helpResponses: 0, readingOnlyResponses: 0 },
+  );
   return {
     sessions,
     metrics,
+    assistanceSummary,
+    reachedByConcept: Object.fromEntries(
+      conceptIds.map((concept) => [
+        concept,
+        new Set(
+          attempts
+            .filter((row) => row.attempt.question.concept_ids.includes(concept))
+            .map((row) => row.evidence.session.student_id),
+        ).size,
+      ]),
+    ),
     summary: {
       enrolled: data.students.length,
       startedStudents: new Set(sessions.map((item) => item.session.student_id))
@@ -167,6 +252,30 @@ export function buildAssignmentProgress(
       return {
         ...student,
         sessionCount: history.length,
+        helpShownCount: history.reduce(
+          (count, item) =>
+            count +
+            item.interventions.filter(
+              (intervention) =>
+                intervention.delivery_status === "displayed" &&
+                intervention.visible_at !== null &&
+                ["hint", "worked_example", "corrective_feedback"].includes(
+                  intervention.type,
+                ),
+            ).length,
+          0,
+        ),
+        readingShownCount: history.reduce(
+          (count, item) =>
+            count +
+            item.interventions.filter(
+              (intervention) =>
+                intervention.delivery_status === "displayed" &&
+                intervention.visible_at !== null &&
+                intervention.type === "reading",
+            ).length,
+          0,
+        ),
         responseCount: history.reduce(
           (total, item) =>
             total +
@@ -192,6 +301,9 @@ export function buildAssignmentProgress(
             status,
             evidenceCount: evidence.length,
             latestSubmitted,
+            marks: [...evidence]
+              .reverse()
+              .map((row) => progressMark(row, concept.concept_id)),
           };
         }),
       };
