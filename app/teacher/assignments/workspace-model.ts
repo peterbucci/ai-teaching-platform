@@ -102,7 +102,15 @@ export function assignmentTree<
     }
     version.assignments.push(assignment);
   }
-  const tree = [...lessons.values()];
+  // Put usable lessons before unpublished drafts without changing version order
+  // or concealing any exact identity. Stable ties preserve catalog ordering.
+  const rank = (lesson: Lesson) =>
+    lesson.versions.some((version) => version.assignments.length)
+      ? 0
+      : lesson.versions.length
+        ? 1
+        : 2;
+  const tree = [...lessons.values()].sort((a, b) => rank(a) - rank(b));
   if (includeUnassigned) return tree;
   // Retain ownership and publication metadata while showing only matching rows.
   return tree

@@ -3,11 +3,18 @@
 import Link from "next/link";
 import { useEffect, useRef, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
-import type { ProgressPane } from "./progress-model.ts";
+import {
+  progressRestorationTarget,
+  type ProgressPane,
+  type ProgressView,
+} from "./progress-model.ts";
 
 /** Only pane navigation is client-side; authorized evidence stays server-rendered. */
 export function ProgressPanes({
   pane,
+  progressView,
+  selectedStudent,
+  selectedConcept,
   selectionKey,
   returnFocusId,
   closeHref,
@@ -16,6 +23,9 @@ export function ProgressPanes({
   details,
 }: {
   pane: ProgressPane;
+  progressView: ProgressView;
+  selectedStudent?: string;
+  selectedConcept?: string;
   selectionKey: string;
   returnFocusId: string;
   closeHref: string;
@@ -25,17 +35,38 @@ export function ProgressPanes({
 }) {
   const router = useRouter();
   const detailsRef = useRef<HTMLElement>(null);
+  const mainRef = useRef<HTMLElement>(null);
   const previousPane = useRef(pane);
   useEffect(() => {
-    const narrow = window.matchMedia("(max-width: 1240px)").matches;
-    if (pane === "details" && narrow)
-      detailsRef.current?.focus({ preventScroll: true });
-    if (pane === "grid" && previousPane.current === "details")
-      (
-        document.getElementById(returnFocusId) ??
-        document.getElementById("ap-open-details")
-      )?.focus({ preventScroll: true });
-    previousPane.current = pane;
+    let frame = 0;
+    function restoreFocus() {
+      const targetId = progressRestorationTarget(window.location.hash, {
+        pane,
+        progressView,
+        student: selectedStudent,
+        concept: selectedConcept,
+      });
+      if (targetId) {
+        const target = document.getElementById(targetId) ?? mainRef.current;
+        target?.focus({ preventScroll: true });
+        target?.scrollIntoView({ block: "nearest", inline: "nearest" });
+      } else if (
+        pane === "details" &&
+        window.matchMedia("(max-width: 1240px)").matches
+      ) {
+        detailsRef.current?.focus({ preventScroll: true });
+      } else if (pane === "grid" && previousPane.current === "details") {
+        (document.getElementById(returnFocusId) ?? mainRef.current)?.focus({
+          preventScroll: true,
+        });
+      }
+      previousPane.current = pane;
+    }
+    function scheduleRestoration() {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(restoreFocus);
+    }
+    scheduleRestoration();
     function escape(event: KeyboardEvent) {
       if (
         event.key === "Escape" &&
@@ -47,11 +78,35 @@ export function ProgressPanes({
       }
     }
     document.addEventListener("keydown", escape);
-    return () => document.removeEventListener("keydown", escape);
-  }, [pane, selectionKey, returnFocusId, closeHref, router]);
+    window.addEventListener("hashchange", scheduleRestoration);
+    return () => {
+      cancelAnimationFrame(frame);
+      document.removeEventListener("keydown", escape);
+      window.removeEventListener("hashchange", scheduleRestoration);
+    };
+  }, [
+    pane,
+    progressView,
+    selectedStudent,
+    selectedConcept,
+    selectionKey,
+    returnFocusId,
+    closeHref,
+    router,
+  ]);
   return (
-    <div className="ap-workbench" data-pane={pane}>
-      <section className="ap-main" aria-label="Class progress views">
+    <div
+      className="ap-workbench"
+      data-pane={pane}
+      data-workspace-restoration="page"
+    >
+      <section
+        id="progress-main"
+        ref={mainRef}
+        tabIndex={-1}
+        className="ap-main"
+        aria-label="Class progress views"
+      >
         <div className="ap-mobile-bar">
           <span>Select a cell or column to inspect its evidence</span>
           <Link id="ap-open-details" href={openHref} scroll={false}>

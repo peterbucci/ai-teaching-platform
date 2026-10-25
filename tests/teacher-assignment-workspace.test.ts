@@ -263,3 +263,38 @@ test("filtered discovery retains lesson ownership without showing unassigned cat
     "Unfiltered discovery still shows authorized lessons before assignment.",
   );
 });
+
+test("discovery puts assigned publications before unassigned versions and drafts without changing identities", () => {
+  const draft = {
+    id: first,
+    title: "Draft first in catalog",
+    revision: 1,
+    approved_revision: null,
+    content_version: "draft",
+    published_versions: [] as string[],
+  };
+  const published = {
+    ...draft,
+    id: second,
+    title: "Published lesson",
+    published_versions: ["immutable-older", "immutable-newer"],
+  };
+  const assigned = {
+    lesson_id: "curated",
+    lesson_title: "Assigned lesson",
+    lesson_version: "exact-immutable-version",
+  };
+  const catalog = [draft, published];
+  const original = structuredClone(catalog);
+  const tree = assignmentTree([assigned], catalog);
+  assert.deepEqual(
+    tree.map((item) => item.id),
+    ["curated", second, first],
+  );
+  assert.deepEqual(
+    tree[1].versions.map((item) => item.version),
+    published.published_versions,
+  );
+  assert.deepEqual(tree[0].versions[0].assignments, [assigned]);
+  assert.deepEqual(catalog, original);
+});

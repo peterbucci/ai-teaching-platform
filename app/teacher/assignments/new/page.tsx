@@ -13,15 +13,14 @@ import { TeacherFrame } from "../../presentation.tsx";
 import { assignmentIndex, withAssignmentAccess } from "../load.ts";
 import { AssignmentLessonReview } from "../lesson-review.tsx";
 import { CreateAssignment } from "../create.tsx";
+import {
+  NewAssignmentSelectionSchema,
+  publishedAssignmentHref,
+  selectPublishedLesson,
+} from "./selection.ts";
 import "../assignments.css";
 
 export const dynamic = "force-dynamic";
-const Selection = z.object({
-  lesson: z.string().min(1).max(160).optional(),
-  version: z.string().min(1).max(100).optional(),
-  class: z.uuid().optional(),
-});
-
 export default async function NewAssignmentPage({
   searchParams,
 }: {
@@ -29,7 +28,7 @@ export default async function NewAssignmentPage({
 }) {
   const raw = await searchParams;
   const data = await withAssignmentAccess(async (access) => {
-    const params = Selection.parse(raw);
+    const params = NewAssignmentSelectionSchema.parse(raw);
     const index = await assignmentIndex(access);
     if (params.class && !index.classes.some((c) => c.id === params.class))
       notFound();
@@ -76,15 +75,7 @@ export default async function NewAssignmentPage({
         assignment: item.id,
       });
     }
-    const selected = params.lesson
-      ? choices.find(
-          (c) =>
-            c.lesson === params.lesson &&
-            c.version ===
-              (params.version ??
-                choices.find((i) => i.lesson === params.lesson)?.version),
-        )
-      : choices[0];
+    const selected = selectPublishedLesson(choices, params);
     if ((params.lesson || params.version) && !selected) notFound();
     let content: ApprovedContent | null = null;
     let unavailable = false;
@@ -151,7 +142,7 @@ export default async function NewAssignmentPage({
                 <Link
                   key={`${item.lesson}:${item.version}`}
                   aria-current={item === selected ? "true" : undefined}
-                  href={`/teacher/assignments/new?${new URLSearchParams({ lesson: item.lesson, version: item.version, ...(params.class ? { class: params.class } : {}) })}`}
+                  href={publishedAssignmentHref(item, params.class)}
                 >
                   <strong>{item.title}</strong>
                   <span>Published version {item.version}</span>
@@ -194,7 +185,12 @@ export default async function NewAssignmentPage({
                 shown here belong to this exact published version.
               </p>
               <CreateAssignment
-                key={`${actorId}:${selected.lesson}:${selected.version}`}
+                key={JSON.stringify([
+                  actorId,
+                  selected.lesson,
+                  selected.version,
+                  params.class,
+                ])}
                 actorId={actorId}
                 lessonId={selected.lesson}
                 version={selected.version}

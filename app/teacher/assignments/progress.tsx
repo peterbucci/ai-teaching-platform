@@ -10,6 +10,7 @@ import {
   progressHref,
   progressMark,
   progressSelectionId,
+  progressSessionHref,
   progressStatusLabel,
   selectProgressEvidence,
   type AssignmentEvidence,
@@ -18,6 +19,7 @@ import {
   type ProgressFollowup,
   type ProgressListContext,
   type ProgressPane,
+  type ProgressReturnContext,
   type ProgressStatus,
   type ProgressView,
 } from "./progress-model.ts";
@@ -51,13 +53,13 @@ const statuses: ProgressStatus[] = [
 function EvidenceItem({
   row,
   content,
-  origin,
+  returnContext,
   concept,
   studentName,
 }: {
   row: ProgressEvidence;
   content: ApprovedContent;
-  origin: OriginFilter;
+  returnContext: ProgressReturnContext;
   concept?: string;
   studentName: string;
 }) {
@@ -128,10 +130,7 @@ function EvidenceItem({
             accepted judgment remains in effect.
           </p>
         )}
-      <Link
-        className="ap-link"
-        href={progressEvidenceHref(row, origin, concept)}
-      >
+      <Link className="ap-link" href={progressEvidenceHref(row, returnContext)}>
         Read in full
       </Link>
       <details className="ap-record-details">
@@ -202,6 +201,19 @@ export function AssignmentProgress({
   };
   const selection = selectedStudent || selectedConcept;
   const activePane = pane ?? (selection ? "details" : "grid");
+  const sessionReturnContext: ProgressReturnContext = {
+    assignment: data.assignment_id,
+    origin,
+    ...selected,
+    progressView,
+    pane: "grid",
+    // A linked assignment may sit outside the current list filter. The shared
+    // session-return contract accepts only the target's authorized class.
+    ...(listContext?.class === data.class_id
+      ? { class: listContext.class }
+      : {}),
+    status: listContext?.status ?? "all",
+  };
   const href = (
     selection: { student?: string; concept?: string } = selected,
     targetPane: ProgressPane = "details",
@@ -261,7 +273,7 @@ export function AssignmentProgress({
           key={row.attempt.id}
           row={row}
           content={content}
-          origin={origin}
+          returnContext={{ ...sessionReturnContext, pane: "details" }}
           concept={selectedConcept}
           studentName={studentName(row.evidence.session.student_id)}
         />
@@ -636,7 +648,10 @@ export function AssignmentProgress({
                       <th>
                         <Link
                           className="ap-link"
-                          href={progressEvidenceHref(item.row, origin)}
+                          href={progressEvidenceHref(
+                            item.row,
+                            sessionReturnContext,
+                          )}
                         >
                           {item.row.attempt.question.question_id ??
                             "Generated question"}
@@ -694,7 +709,10 @@ export function AssignmentProgress({
                         <th>
                           <Link
                             className="ap-link"
-                            href={`/teacher/sessions/${item.session.id}?${new URLSearchParams({ assignment: data.assignment_id, origin })}`}
+                            href={progressSessionHref(
+                              item.session.id,
+                              sessionReturnContext,
+                            )}
                           >
                             {studentName(item.session.student_id)}
                           </Link>
@@ -844,6 +862,9 @@ export function AssignmentProgress({
     <div className="assignment-progress">
       <ProgressPanes
         pane={activePane}
+        progressView={progressView}
+        selectedStudent={selectedStudent}
+        selectedConcept={selectedConcept}
         selectionKey={`${selectedStudent ?? ""}:${selectedConcept ?? ""}:${progressView}`}
         returnFocusId={progressSelectionId(selectedStudent, selectedConcept)}
         closeHref={href(selected, "grid")}

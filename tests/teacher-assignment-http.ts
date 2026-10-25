@@ -58,6 +58,9 @@ const emptyClassId = randomUUID();
 const noRosterClassId = randomUUID();
 const foreignClassId = randomUUID();
 const disposableAssignments: string[] = [];
+// PR #117 can verify outgoing C2 links alone. Enable only on an integrated
+// checkout containing the shared session-page return-link implementation.
+const checkSharedReturn = process.env.ASSIGNMENT_SHARED_RETURN_CHECK === "true";
 
 async function request(path: string, cookie = "", body?: unknown) {
   return fetch(new URL(path, base), {
@@ -124,6 +127,85 @@ function renderedMarkup(html: string) {
     .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
     .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "")
     .replace(/<!--[\s\S]*?-->/g, "");
+}
+
+function renderedLinks(html: string) {
+  return [
+    ...renderedMarkup(html).matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi),
+  ].flatMap((match) => {
+    const href = match[1].match(/\bhref="([^"]*)"/);
+    if (!href) return [];
+    return [
+      {
+        url: new URL(href[1].replaceAll("&amp;", "&"), base),
+        text: match[2]
+          .replace(/<[^>]*>/g, " ")
+          .replace(/\s+/g, " ")
+          .trim(),
+        current: /\baria-current="true"/.test(match[1]),
+      },
+    ];
+  });
+}
+
+function assertSessionReturnContext(
+  target: URL,
+  sessionId: string,
+  expected: Record<string, string>,
+  attemptId?: string,
+) {
+  assert.equal(target.origin, base.origin);
+  assert.equal(target.pathname, `/teacher/sessions/${sessionId}`);
+  assert.deepEqual(Object.fromEntries(target.searchParams), {
+    returnTo: "progress",
+    ...expected,
+    ...(attemptId ? { attempt: attemptId } : {}),
+  });
+  assert.equal(target.hash, attemptId ? `#attempt-${attemptId}` : "");
+}
+
+async function assertSharedProgressReturn(target: URL, cookie: string) {
+  if (!checkSharedReturn) return;
+  const sessionHtml = await page(target.pathname + target.search, cookie);
+  const attemptId = target.searchParams.get("attempt");
+  if (attemptId)
+    assert.ok(
+      renderedMarkup(sessionHtml).includes(`id="attempt-${attemptId}"`),
+      "The linked original attempt must exist in the integrated session page.",
+    );
+  const back = renderedLinks(sessionHtml).find((link) =>
+    /^Back to class progress$/i.test(link.text),
+  );
+  assert.ok(
+    back,
+    "Integrated session page needs its Back to class progress link.",
+  );
+  const source = Object.fromEntries(target.searchParams);
+  const expected = {
+    assignment: source.assignment,
+    view: "progress",
+    origin: source.origin,
+    progressView: source.progressView,
+    pane: source.pane,
+    status: source.status,
+    ...(source.class ? { class: source.class } : {}),
+    ...(source.progressStudent ? { student: source.progressStudent } : {}),
+    ...(source.progressConcept ? { concept: source.progressConcept } : {}),
+  };
+  assert.equal(back.url.origin, base.origin);
+  assert.equal(back.url.pathname, "/teacher/assignments");
+  assert.deepEqual(Object.fromEntries(back.url.searchParams), expected);
+  const focus =
+    source.pane === "details"
+      ? "cell-evidence"
+      : source.progressView === "concepts" && source.progressConcept
+        ? `ap-selection-all-${source.progressConcept}`
+        : source.progressView === "grid" &&
+            (source.progressStudent || source.progressConcept)
+          ? `ap-selection-${source.progressStudent ?? "all"}-${source.progressConcept ?? "all"}`
+          : "progress-main";
+  assert.equal(decodeURIComponent(back.url.hash), `#${focus}`);
+  await page(back.url.pathname + back.url.search, cookie);
 }
 
 function assertDiscovery(html: string) {
@@ -283,14 +365,107 @@ try {
     teacher.cookie,
     assignmentTitle,
   );
+  for (const version of [curated.content_ref.content_version, "unpublished"])
+    await denied(
+      `/teacher/assignments/new?${new URLSearchParams({ version, class: classId })}`,
+      teacher.cookie,
+      "Create inactive assignment",
+    );
+  const beforeCreatePreview = await db.query(
+    "SELECT id FROM assignments WHERE class_id=$1 ORDER BY id",
+    [classId],
+  );
   const newPage = await page(
     `/teacher/assignments/new?class=${classId}&lesson=${curated.content_ref.package_id}&version=${curated.content_ref.content_version}`,
     teacher.cookie,
   );
-  assert.ok(newPage.includes("Create inactive assignment"));
-  assert.ok(newPage.includes(curated.content_ref.content_version));
+  const newRendered = renderedMarkup(newPage);
+  assert.ok(newRendered.includes("Create inactive assignment"));
+  assert.ok(newRendered.includes(curated.content_ref.content_version));
+  assert.ok(!newRendered.includes("Approve and activate"));
+  const chosenVersion = renderedLinks(newPage).filter(
+    (link) => link.current && link.url.pathname === "/teacher/assignments/new",
+  );
+  assert.equal(
+    chosenVersion.length,
+    1,
+    "Exactly one published choice is selected.",
+  );
+  assert.deepEqual(Object.fromEntries(chosenVersion[0].url.searchParams), {
+    lesson: curated.content_ref.package_id,
+    version: curated.content_ref.content_version,
+    class: classId,
+  });
+  const classSelect = newRendered.match(
+    /<select\b[^>]*name="class_id"[^>]*>([\s\S]*?)<\/select>/,
+  );
+  assert.ok(
+    classSelect,
+    "Creation must display the receiving class selection.",
+  );
+  const selectedClasses = [...classSelect[1].matchAll(/<option\b([^>]*)>/g)]
+    .filter((match) => /\bselected(?:=|\s|$)/.test(match[1]))
+    .map((match) => match[1].match(/\bvalue="([^"]*)"/)?.[1]);
+  assert.deepEqual(selectedClasses, [classId]);
+  assert.deepEqual(
+    (
+      await db.query(
+        "SELECT id FROM assignments WHERE class_id=$1 ORDER BY id",
+        [classId],
+      )
+    ).rows,
+    beforeCreatePreview.rows,
+    "Opening a published-version receiving page must not create an assignment.",
+  );
+  const createPath = `/api/teacher/lessons/${encodeURIComponent(curated.content_ref.package_id)}/assignments`;
+  const handoffRequest = {
+    request_id: randomUUID(),
+    class_id: classId,
+    version: curated.content_ref.content_version,
+    title: `Assignment HTTP ${run}: exact receiving handoff`,
+    instructions: "Synthetic C5 handoff; save inactive for a separate review.",
+  };
+  const handoffResponse = await request(
+    createPath,
+    teacher.cookie,
+    handoffRequest,
+  );
+  assert.equal(handoffResponse.status, 200);
+  const handoff = z
+    .object({
+      id: z.uuid(),
+      class_id: z.uuid(),
+      lesson_id: z.string(),
+      lesson_version: z.string(),
+    })
+    .parse(await handoffResponse.json());
+  disposableAssignments.push(handoff.id);
+  assert.equal(handoff.class_id, classId);
+  assert.equal(handoff.lesson_id, curated.content_ref.package_id);
+  assert.equal(handoff.lesson_version, curated.content_ref.content_version);
+  const replay = await request(createPath, teacher.cookie, handoffRequest);
+  assert.equal(replay.status, 200);
+  assert.deepEqual(
+    await replay.json(),
+    handoff,
+    "A saved creation request must replay its original assignment.",
+  );
+  assert.equal(
+    (await assignmentReview(teacher.access, handoff.id)).teacher_approved_at,
+    null,
+  );
+  assert.deepEqual(
+    (await readAssignmentContent(teacher.access, handoff.id, "teacher"))
+      .content_ref,
+    curated.content_ref,
+  );
+  const handoffReview = renderedMarkup(
+    await page(url({ assignment: handoff.id, view: "review" }), teacher.cookie),
+  );
+  assert.ok(handoffReview.includes("Saved, not yet active"));
+  assert.ok(handoffReview.includes("Approve and activate"));
   console.log(
-    "PASS: anonymous, student, foreign-class and unknown-version access boundaries; exact published creation preview.",
+    "PASS: anonymous, student, foreign-class, unknown/orphan-version boundaries; rendered exact version/class handoff, side-effect-free preview, inactive HTTP creation and replay.",
   );
 
   const allClasses = await page(
@@ -497,6 +672,31 @@ try {
   );
   assert.ok(savedHtml.includes(`/teacher/sessions/${session.id}`));
   assert.ok(savedHtml.includes(`attempt-${attempt.id}`));
+  const readInFull = renderedLinks(savedHtml).find(
+    (link) =>
+      link.text === "Read in full" &&
+      link.url.pathname === `/teacher/sessions/${session.id}`,
+  );
+  assert.ok(
+    readInFull,
+    "Selected evidence must render a real Read in full link.",
+  );
+  assertSessionReturnContext(
+    readInFull.url,
+    session.id,
+    {
+      assignment: created.id,
+      origin: "synthetic_fixture",
+      progressStudent: student.access.actor.profileId,
+      progressConcept: first.concept_ids[0],
+      progressView: "grid",
+      pane: "details",
+      class: classId,
+      status: "active",
+    },
+    attempt.id,
+  );
+  await assertSharedProgressReturn(readInFull.url, teacher.cookie);
   const assignmentActions = renderedMarkup(savedHtml).match(
     /<nav[^>]*aria-label="Assignment actions"[^>]*>([\s\S]*?)<\/nav>/,
   );
@@ -553,6 +753,171 @@ try {
     saved.evidence[0].attempts[0].question.content_ref,
     curated.content_ref,
   );
+
+  // Inspect only the established fictional baseline. Different students make
+  // target-student substitution visible in question/session table links.
+  const baselineSessions = baseline.evidence.filter(
+    (item) =>
+      item.session.data_origin === "synthetic_fixture" &&
+      item.attempts.length > 0,
+  );
+  const baselineExample = baselineSessions[0];
+  assert.ok(
+    baselineExample,
+    "C2 needs the seeded fictional baseline evidence.",
+  );
+  const baselineAttempt = baselineExample.attempts[0];
+  const baselineConcept = baselineAttempt.question.concept_ids[0];
+  const baselineContext = {
+    assignment: baseline.assignment_id,
+    view: "progress",
+    origin: "synthetic_fixture",
+    class: baseline.class_id,
+    status: "all",
+  };
+  const conceptOnly = await page(
+    url({
+      ...baselineContext,
+      concept: baselineConcept,
+      progressView: "concepts",
+      pane: "details",
+    }),
+    teacher.cookie,
+  );
+  const conceptLink = renderedLinks(conceptOnly).find(
+    (link) =>
+      link.text === "Read in full" &&
+      link.url.pathname === `/teacher/sessions/${baselineExample.session.id}` &&
+      link.url.searchParams.get("attempt") === baselineAttempt.id,
+  );
+  assert.ok(
+    conceptLink,
+    "A concept-only selection must expose its original work.",
+  );
+  assertSessionReturnContext(
+    conceptLink.url,
+    baselineExample.session.id,
+    {
+      assignment: baseline.assignment_id,
+      origin: "synthetic_fixture",
+      progressConcept: baselineConcept,
+      progressView: "concepts",
+      pane: "details",
+      class: baseline.class_id,
+      status: "all",
+    },
+    baselineAttempt.id,
+  );
+  assert.equal(
+    conceptLink.url.searchParams.has("progressStudent"),
+    false,
+    "A concept-only view must not acquire the evidence target's student filter.",
+  );
+  await assertSharedProgressReturn(conceptLink.url, teacher.cookie);
+
+  const questionPage = await page(
+    url({
+      ...baselineContext,
+      progressView: "questions",
+      pane: "grid",
+    }),
+    teacher.cookie,
+  );
+  const questionTable = renderedMarkup(questionPage).match(
+    /<table\b[^>]*class="[^"]*\bap-questions\b[^"]*"[^>]*>[\s\S]*?<\/table>/,
+  );
+  assert.ok(questionTable, "The baseline must render presented questions.");
+  const questionTarget = renderedLinks(questionTable[0]).find(
+    (link) =>
+      link.url.pathname.startsWith("/teacher/sessions/") &&
+      link.url.searchParams.has("attempt"),
+  );
+  assert.ok(
+    questionTarget,
+    "A presented question needs its saved evidence link.",
+  );
+  const targetSession = baselineSessions.find(
+    (item) =>
+      questionTarget.url.pathname === `/teacher/sessions/${item.session.id}`,
+  );
+  assert.ok(
+    targetSession,
+    "Question link must target the authorized baseline.",
+  );
+  const targetAttempt = targetSession.attempts.find(
+    (item) => item.id === questionTarget.url.searchParams.get("attempt"),
+  );
+  assert.ok(targetAttempt, "Question link must identify its original attempt.");
+  const originalStudent = baseline.students.find(
+    (item) =>
+      item.student_id !== targetSession.session.student_id &&
+      baselineSessions.some(
+        (session) => session.session.student_id === item.student_id,
+      ),
+  );
+  assert.ok(
+    originalStudent,
+    "C2 needs two distinct fictional students with saved work.",
+  );
+  for (const progressView of ["questions", "sessions"]) {
+    const originalContext = {
+      ...baselineContext,
+      student: originalStudent.student_id,
+      concept: baselineConcept,
+      progressView,
+      pane: "grid",
+    };
+    const linkedPage = await page(url(originalContext), teacher.cookie);
+    const links =
+      progressView === "questions"
+        ? renderedLinks(
+            renderedMarkup(linkedPage).match(
+              /<table\b[^>]*class="[^"]*\bap-questions\b[^"]*"[^>]*>[\s\S]*?<\/table>/,
+            )?.[0] ?? "",
+          )
+        : renderedLinks(linkedPage);
+    const targetLink = links.find(
+      (link) =>
+        link.url.pathname === questionTarget.url.pathname &&
+        (progressView === "questions"
+          ? link.url.searchParams.get("attempt") === targetAttempt.id
+          : !link.url.searchParams.has("attempt")),
+    );
+    assert.ok(
+      targetLink,
+      `${progressView} must retain its actual session-row link.`,
+    );
+    assertSessionReturnContext(
+      targetLink.url,
+      targetSession.session.id,
+      {
+        assignment: baseline.assignment_id,
+        origin: "synthetic_fixture",
+        progressStudent: originalStudent.student_id,
+        progressConcept: baselineConcept,
+        progressView,
+        pane: "grid",
+        class: baseline.class_id,
+        status: "all",
+      },
+      progressView === "questions" ? targetAttempt.id : undefined,
+    );
+    assert.notEqual(
+      targetLink.url.searchParams.get("progressStudent"),
+      targetSession.session.student_id,
+      "The clicked target's student must not replace the originating selection.",
+    );
+    await assertSharedProgressReturn(targetLink.url, teacher.cookie);
+  }
+  console.log(
+    "PASS: rendered C2 Read in full, concept-only, question and session links preserve original selection, source, view, pane, class, status and attempt context.",
+  );
+  console.log(
+    checkSharedReturn
+      ? "PASS: integrated session-page Back to class progress links preserve the C2 return context."
+      : "SKIP: integrated session return checks require ASSIGNMENT_SHARED_RETURN_CHECK=true and the shared return-link implementation.",
+  );
+
   await recordEvaluation(student.access, session.id, {
     id: randomUUID(),
     attempt_id: attempt.id,

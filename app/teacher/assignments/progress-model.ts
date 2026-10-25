@@ -21,6 +21,17 @@ export type ProgressListContext = Pick<
 >;
 export type ProgressView = "grid" | "concepts" | "questions" | "sessions";
 export type ProgressPane = "grid" | "details";
+/** Local selection; the C2 serializer namespaces it on the session route. */
+export type ProgressReturnContext = {
+  assignment: string;
+  origin: OriginFilter;
+  student?: string;
+  concept?: string;
+  progressView: ProgressView;
+  pane: ProgressPane;
+  class?: string;
+  status: NonNullable<ProgressListContext["status"]>;
+};
 export type ProgressFollowup = {
   id: string;
   title: string;
@@ -68,24 +79,76 @@ export function progressHref(
       ? { progressView: navigation.progressView }
       : {}),
     ...(navigation.pane ? { pane: navigation.pane } : {}),
-  })}#cell-evidence`;
+  })}#${encodeURIComponent(
+    progressReturnFocusId({
+      ...selection,
+      progressView: navigation.progressView ?? "grid",
+      pane:
+        navigation.pane ??
+        (selection.student || selection.concept ? "details" : "grid"),
+    }),
+  )}`;
 }
 
 export function progressSelectionId(student?: string, concept?: string) {
   return `ap-selection-${student ?? "all"}-${concept ?? "all"}`;
 }
 
+type ProgressFocusContext = Pick<
+  ProgressReturnContext,
+  "student" | "concept" | "progressView" | "pane"
+>;
+
+export function progressReturnFocusId(context: ProgressFocusContext) {
+  if (context.pane === "details") return "cell-evidence";
+  if (context.progressView === "concepts" && context.concept)
+    return progressSelectionId(undefined, context.concept);
+  if (context.progressView === "grid" && (context.student || context.concept))
+    return progressSelectionId(context.student, context.concept);
+  return "progress-main";
+}
+
+/** Accept only fixed or context-derived anchors, never an arbitrary selector. */
+export function progressRestorationTarget(
+  hash: string,
+  context: ProgressFocusContext,
+) {
+  let id: string;
+  try {
+    id = decodeURIComponent(hash.startsWith("#") ? hash.slice(1) : hash);
+  } catch {
+    return null;
+  }
+  if (id !== progressReturnFocusId(context)) return null;
+  return id;
+}
+
+/** All assignment-to-session links use the same explicit structured context. */
+export function progressSessionHref(
+  sessionId: string,
+  context: ProgressReturnContext,
+  attemptId?: string,
+) {
+  const query = new URLSearchParams({
+    returnTo: "progress",
+    assignment: context.assignment,
+    origin: context.origin,
+    ...(context.student ? { progressStudent: context.student } : {}),
+    ...(context.concept ? { progressConcept: context.concept } : {}),
+    progressView: context.progressView,
+    pane: context.pane,
+    ...(context.class ? { class: context.class } : {}),
+    status: context.status,
+    ...(attemptId ? { attempt: attemptId } : {}),
+  });
+  return `/teacher/sessions/${encodeURIComponent(sessionId)}?${query}${attemptId ? `#attempt-${encodeURIComponent(attemptId)}` : ""}`;
+}
+
 export function progressEvidenceHref(
   row: ProgressEvidence,
-  origin: OriginFilter,
-  concept?: string,
+  context: ProgressReturnContext,
 ) {
-  return `/teacher/sessions/${row.evidence.session.id}?${new URLSearchParams({
-    assignment: row.evidence.session.assignment_id,
-    origin,
-    student: row.evidence.session.student_id,
-    ...(concept ? { concept } : {}),
-  })}#attempt-${row.attempt.id}`;
+  return progressSessionHref(row.evidence.session.id, context, row.attempt.id);
 }
 
 /** Saved attempts, not just the newest session: an empty resume cannot hide work. */

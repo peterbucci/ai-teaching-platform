@@ -69,12 +69,23 @@
 .awa-discovery,
 .awa-assignment-workspace > .awa-page-heading,
 .awa-heading {
-  padding: 24px 28px 0;
+  padding: 0;
 }
 .awa-discovery {
-  padding-bottom: 56px;
+  max-width: 1204px;
 }
-.awa-discovery-heading,
+/* PR #120's documented full-width pane contract. Only progress cancels the
+   shell inset; its main pane owns one heading gutter and Details owns its own. */
+.awa-progress-workspace {
+  margin: -24px -28px -56px;
+}
+.awa-progress-workspace > .awa-followups {
+  padding-inline: 28px;
+}
+.awa-progress-workspace > .awa-notice {
+  margin-inline: 28px !important;
+}
+.awa-heading-line,
 .awa-heading {
   display: flex;
   flex-direction: row;
@@ -82,15 +93,30 @@
   justify-content: space-between;
   gap: 16px;
 }
-.awa-discovery-heading > div,
+.awa-heading-line > div,
 .awa-heading > div {
   min-width: 0;
 }
 .awa-discovery-heading h1 {
-  margin: 4px 0 6px;
+  margin: 0;
 }
-.awa-discovery-heading > .lp-button {
+.awa-heading-line > .lp-button {
   flex: none;
+}
+.awa-filter-disclosure {
+  font-size: 13px;
+  border-block: 1px solid #e1e9e4;
+}
+.awa-filter-disclosure > summary {
+  padding-block: 8px;
+  min-height: 38px;
+}
+.awa-filter-summary {
+  color: #4f6359;
+  margin-left: 12px;
+}
+.awa-filter-disclosure[open] {
+  padding-bottom: 12px;
 }
 .awa-workspace .lp-button {
   font-size: 13.5px;
@@ -106,7 +132,7 @@
   flex-wrap: wrap;
   align-items: end;
   gap: 8px 12px;
-  margin-top: 18px;
+  margin-top: 6px;
 }
 .awa-filters .lp-field {
   font-size: 13px;
@@ -160,6 +186,25 @@
 .awa-tree-version h3 {
   font-size: 14px;
   overflow-wrap: anywhere;
+}
+.awa-version-id {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.awa-version-label .awa-version-id {
+  display: block;
+}
+.awa-version-disclosure summary {
+  padding-block: 4px;
+}
+.awa-version-disclosure summary .awa-version-id {
+  display: inline;
+}
+.awa-version-disclosure[open] > .awa-version-id {
+  display: block;
+  margin-top: 4px;
 }
 .awa-tree-assignment {
   display: grid;
@@ -232,11 +277,10 @@
 .awa-context-actions {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 8px 16px;
   flex-wrap: wrap;
-  padding: 8px 16px;
-  border-bottom: 1px solid #e1e9e4;
+  flex-shrink: 0;
   font-size: 13.5px;
 }
 .awa-context-actions > div {
@@ -259,7 +303,7 @@
   flex-wrap: wrap;
   gap: 2px;
   border-bottom: 1px solid #e1e9e4;
-  margin: 16px 28px;
+  margin: 16px 0;
 }
 .awa-tabs a {
   display: inline-flex;
@@ -280,7 +324,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) 360px;
   align-items: start;
-  margin: 0 28px;
+  margin: 0;
   gap: 28px;
 }
 .awa-review-layout > * {
@@ -346,10 +390,10 @@
   max-width: 70ch;
 }
 .awa-assignment-workspace > .awa-empty {
-  padding: 24px 28px;
+  padding: 24px 0;
 }
 .awa-followups {
-  padding: 16px 28px;
+  padding: 16px 0;
   border-top: 1px solid #e1e9e4;
   font-size: 14px;
 }
@@ -376,7 +420,7 @@
   color: #4f6359;
 }
 .awa-workspace > .awa-student-preview {
-  margin: 16px 28px 32px;
+  margin: 16px 0 32px;
 }
 .awa-version-options {
   margin: 12px 0;
@@ -403,7 +447,7 @@
   border: 0;
   border-radius: 0;
   box-shadow: none;
-  margin: 16px 28px;
+  margin: 16px 0;
   padding: 0 0 16px;
   border-bottom: 1px solid #e1e9e4;
 }
@@ -429,17 +473,39 @@
   }
 }
 @media (max-width: 800px) {
-  .awa-discovery,
-  .awa-assignment-workspace > .awa-page-heading,
-  .awa-heading {
-    padding: 18px 16px 0;
+  .awa-progress-workspace {
+    margin: -18px -14px -32px;
   }
-  .awa-discovery {
-    padding-bottom: 32px;
+  .awa-progress-workspace > .awa-followups {
+    padding-inline: 14px;
   }
-  .awa-discovery-heading {
+  .awa-progress-workspace > .awa-notice {
+    margin-inline: 14px !important;
+  }
+  .awa-workspace h1,
+  .awa-heading .lp-title {
+    font-size: 23px;
+  }
+  .awa-assignment-workspace .awa-heading-line {
     flex-direction: column;
-    gap: 10px;
+    gap: 0;
+  }
+  .awa-discovery-heading .awa-heading-line {
+    align-items: center;
+    gap: 8px;
+  }
+  .awa-filter-disclosure > summary {
+    min-height: 44px;
+  }
+  .awa-version-disclosure > summary {
+    min-height: 44px;
+    padding-block: 10px;
+  }
+  .awa-filter-summary {
+    margin-left: 6px;
+  }
+  .awa-version-label .awa-version-id {
+    display: inline;
   }
   .awa-tree-version {
     grid-template-columns: minmax(0, 1fr);
@@ -477,27 +543,25 @@
     height: 40px;
   }
   .awa-review-layout {
-    margin: 0 16px;
     gap: 16px;
-  }
-  .awa-tabs {
-    margin: 16px;
   }
   .awa-tabs a {
     padding: 0 8px;
     font-size: 13.5px;
   }
-  .awa-workspace > .awa-student-preview {
-    margin: 16px;
-  }
-  .awa-workspace > .lp-panel {
-    margin: 16px;
-  }
-  .awa-followups {
-    padding: 16px;
-  }
   .awa-version-options a {
     flex-direction: column;
     gap: 4px;
+  }
+}
+@media (max-width: 360px) {
+  .awa-progress-workspace {
+    margin-inline: -12px;
+  }
+  .awa-progress-workspace > .awa-followups {
+    padding-inline: 12px;
+  }
+  .awa-progress-workspace > .awa-notice {
+    margin-inline: 12px !important;
   }
 }

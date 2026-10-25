@@ -12,6 +12,7 @@ import {
   StudentLearningPreview,
 } from "./lesson-review.tsx";
 import { AssignmentProgress } from "./progress.tsx";
+import { PublishedVersionLabel } from "./version-label.tsx";
 import "./assignments.css";
 
 export const dynamic = "force-dynamic";
@@ -43,18 +44,38 @@ export default async function AssignmentsPage({
       : status === "inactive"
         ? "Not active yet"
         : "Unavailable";
+  const actions = (
+    <nav className="awa-context-actions" aria-label="Assignment actions">
+      <Link href={assignmentListHref(context)}>← All assignments</Link>
+      <Link
+        href={assignmentHref(selection, {
+          view: context.view === "review" ? "progress" : "review",
+        })}
+        aria-label={
+          context.view === "review" ? undefined : "Review lesson and activation"
+        }
+      >
+        {context.view === "review" ? "Class progress" : "Review"}
+      </Link>
+    </nav>
+  );
   const heading = selected && (
     <header className="awa-page-heading">
-      <p className="awa-eyebrow">
-        {selected.class_name} · {selected.title}
-      </p>
-      <h1>
-        {context.view === "progress"
-          ? "Class progress"
-          : context.view === "preview"
-            ? "What students see"
-            : "Review assignment"}
-      </h1>
+      <div className="awa-heading-line">
+        <div>
+          <p className="awa-eyebrow">
+            {selected.class_name} · {selected.title}
+          </p>
+          <h1>
+            {context.view === "progress"
+              ? "Class progress"
+              : context.view === "preview"
+                ? "What students see"
+                : "Review assignment"}
+          </h1>
+        </div>
+        {actions}
+      </div>
       {context.view === "progress" && (
         <p className="awa-intro">
           How this class is doing on each idea in the lesson, one row per
@@ -63,8 +84,9 @@ export default async function AssignmentsPage({
       )}
       <p className="awa-chain">
         From the lesson <strong>{selected.lesson_title}</strong>, published
-        version {selected.lesson_version} · {selected.enrolled}{" "}
-        {selected.enrolled === 1 ? "student" : "students"} ·{" "}
+        version{" "}
+        <code className="awa-version-id">{selected.lesson_version}</code> ·{" "}
+        {selected.enrolled} {selected.enrolled === 1 ? "student" : "students"} ·{" "}
         <span className={"awa-status awa-status-" + selected.status}>
           {stateLabel(selected.status)}
         </span>
@@ -98,66 +120,80 @@ export default async function AssignmentsPage({
       <div
         className={
           "awa-workspace " +
-          (selected ? "awa-assignment-workspace" : "awa-discovery")
+          (selected ? "awa-assignment-workspace" : "awa-discovery") +
+          (selected && context.view === "progress" && progress && content
+            ? " awa-progress-workspace"
+            : "")
         }
       >
         {!selected ? (
           <>
             <header className="awa-page-heading awa-discovery-heading">
-              <div>
-                <p className="awa-eyebrow">All authorized classes</p>
+              <div className="awa-heading-line">
                 <h1>Assignments</h1>
-                <p className="awa-intro">
-                  Each assignment gives one class one published version of a
-                  lesson. A published version never changes; later lesson edits
-                  leave existing assignments and their student work unchanged.
-                </p>
+                <Link
+                  className="lp-button"
+                  href={
+                    "/teacher/assignments/new" +
+                    (context.class ? "?class=" + context.class : "")
+                  }
+                >
+                  New assignment
+                </Link>
               </div>
-              <Link
-                className="lp-button"
-                href={
-                  "/teacher/assignments/new" +
-                  (context.class ? "?class=" + context.class : "")
-                }
-              >
-                New assignment
-              </Link>
-            </header>
-            <form action="/teacher/assignments" className="awa-filters">
-              <label className="lp-field">
-                Class
-                <select
-                  className="lp-input"
-                  name="class"
-                  defaultValue={context.class ?? ""}
-                >
-                  <option value="">All classes</option>
-                  {classes.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="lp-field">
-                Availability
-                <select
-                  className="lp-input"
-                  name="status"
-                  defaultValue={context.status}
-                >
-                  <option value="all">All assignments</option>
-                  <option value="active">Active</option>
-                  <option value="inactive">Inactive</option>
-                  <option value="unavailable">Unavailable</option>
-                </select>
-              </label>
-              <button className="lp-button">Apply filters</button>
-              <p className="awa-note">
-                {visible.length} assignments · {classes.length} authorized
-                classes
+              <p className="awa-intro">
+                Give a class a published lesson version. Later lesson edits
+                leave assigned versions and student work unchanged.
               </p>
-            </form>
+            </header>
+            <details
+              className="awa-filter-disclosure"
+              key={`${context.class ?? "all"}:${context.status}`}
+              open={!!context.class || context.status !== "all"}
+            >
+              <summary>
+                <span>Filters</span>
+                <span className="awa-filter-summary">
+                  {classes.find((item) => item.id === context.class)?.name ??
+                    "All classes"}
+                  {context.status !== "all"
+                    ? ` · ${stateLabel(context.status)}`
+                    : ""}
+                  {` · ${visible.length} assignments`}
+                </span>
+              </summary>
+              <form action="/teacher/assignments" className="awa-filters">
+                <label className="lp-field">
+                  Class
+                  <select
+                    className="lp-input"
+                    name="class"
+                    defaultValue={context.class ?? ""}
+                  >
+                    <option value="">All classes</option>
+                    {classes.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="lp-field">
+                  Availability
+                  <select
+                    className="lp-input"
+                    name="status"
+                    defaultValue={context.status}
+                  >
+                    <option value="all">All assignments</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="unavailable">Unavailable</option>
+                  </select>
+                </label>
+                <button className="lp-button">Apply filters</button>
+              </form>
+            </details>
             <div
               className="awa-assignment-tree"
               aria-label="Lessons, published versions and class assignments"
@@ -203,7 +239,7 @@ export default async function AssignmentsPage({
                       key={version.version}
                       aria-label={lesson.title + ", version " + version.version}
                     >
-                      <h3>Version {version.version}</h3>
+                      <PublishedVersionLabel version={version.version} />
                       <div className="awa-tree-classes">
                         {!version.assignments.length && (
                           <p className="awa-note">No class has this version.</p>
@@ -301,24 +337,6 @@ export default async function AssignmentsPage({
           </>
         ) : (
           <>
-            <nav
-              className="awa-context-actions"
-              aria-label="Assignment actions"
-            >
-              <Link href={assignmentListHref(context)}>← All assignments</Link>
-              {context.view === "review" ? (
-                <Link href={assignmentHref(selection, { view: "progress" })}>
-                  Class progress
-                </Link>
-              ) : (
-                <Link
-                  href={assignmentHref(selection, { view: "review" })}
-                  aria-label="Review lesson and activation"
-                >
-                  Review
-                </Link>
-              )}
-            </nav>
             {!visible.some((item) => item.id === selected.id) && (
               <p className="awa-notice">
                 This linked assignment is outside the current list filters. Its

@@ -9,8 +9,13 @@ import {
   progressEvidenceHref,
   progressHref,
   progressMark,
+  progressRestorationTarget,
+  progressReturnFocusId,
+  progressSelectionId,
+  progressSessionHref,
   selectProgressEvidence,
   type AssignmentEvidence,
+  type ProgressReturnContext,
 } from "../app/teacher/assignments/progress-model.ts";
 
 const content = loadApprovedContent();
@@ -253,12 +258,33 @@ test("grid and full evidence links preserve the authorized assignment, selection
   assert.equal(selected.searchParams.get("status"), "active");
   assert.equal(selected.hash, "#cell-evidence");
   const target = new URL(
-    progressEvidenceHref(row, "synthetic_fixture", "transmission_delay"),
+    progressEvidenceHref(row, {
+      assignment: data.assignment_id,
+      origin: "synthetic_fixture",
+      student: DEMO_IDS.studentOne,
+      concept: "transmission_delay",
+      class: DEMO_IDS.classId,
+      status: "active",
+      progressView: "grid",
+      pane: "details",
+    }),
     "https://example.test",
   );
   assert.equal(target.pathname, `/teacher/sessions/${row.evidence.session.id}`);
   assert.equal(target.hash, `#attempt-${row.attempt.id}`);
-  assert.equal(target.searchParams.get("concept"), "transmission_delay");
+  assert.equal(
+    target.searchParams.get("progressConcept"),
+    "transmission_delay",
+  );
+  assert.equal(target.searchParams.get("progressStudent"), DEMO_IDS.studentOne);
+  assert.equal(target.searchParams.has("student"), false);
+  assert.equal(target.searchParams.has("concept"), false);
+  assert.equal(target.searchParams.get("returnTo"), "progress");
+  assert.equal(target.searchParams.get("attempt"), row.attempt.id);
+  assert.equal(target.searchParams.get("pane"), "details");
+  assert.equal(target.searchParams.get("progressView"), "grid");
+  assert.equal(target.searchParams.get("class"), DEMO_IDS.classId);
+  assert.equal(target.searchParams.get("status"), "active");
   assert.equal(
     row.attempt.question.content_ref.content_version,
     content.content_ref.content_version,
@@ -386,5 +412,206 @@ test("progress navigation carries subview and reversible pane with selection", (
   assert.equal(url.searchParams.get("student"), DEMO_IDS.studentOne);
   assert.equal(url.searchParams.get("concept"), "transmission_delay");
   assert.equal(url.searchParams.get("class"), DEMO_IDS.classId);
-  assert.equal(url.hash, "#cell-evidence");
+  assert.equal(
+    url.hash,
+    `#${progressSelectionId(undefined, "transmission_delay")}`,
+  );
+});
+
+test("outgoing Details return context preserves concept-only and student-only selection", () => {
+  const row = selectProgressEvidence(
+    snapshot().evidence,
+    DEMO_IDS.studentOne,
+  )[0];
+  const context: ProgressReturnContext = {
+    assignment: DEMO_IDS.assignmentId,
+    origin: "synthetic_fixture",
+    progressView: "concepts",
+    pane: "details",
+    status: "active",
+    class: DEMO_IDS.classId,
+  };
+  const concept = new URL(
+    progressEvidenceHref(row, { ...context, concept: "transmission_delay" }),
+    "https://example.test",
+  );
+  assert.equal(concept.searchParams.has("progressStudent"), false);
+  assert.equal(
+    concept.searchParams.get("progressConcept"),
+    "transmission_delay",
+  );
+  assert.equal(concept.searchParams.has("student"), false);
+  assert.equal(concept.searchParams.has("concept"), false);
+  assert.equal(concept.hash, `#attempt-${row.attempt.id}`);
+  const student = new URL(
+    progressEvidenceHref(row, { ...context, student: DEMO_IDS.studentOne }),
+    "https://example.test",
+  );
+  assert.equal(student.searchParams.has("progressConcept"), false);
+  assert.equal(
+    student.searchParams.get("progressStudent"),
+    DEMO_IDS.studentOne,
+  );
+  assert.equal(student.searchParams.has("student"), false);
+  assert.equal(student.searchParams.has("concept"), false);
+  const unselected = new URL(
+    progressEvidenceHref(row, context),
+    "https://example.test",
+  );
+  assert.equal(unselected.searchParams.has("student"), false);
+  assert.equal(unselected.searchParams.has("concept"), false);
+  assert.equal(unselected.searchParams.has("progressStudent"), false);
+  assert.equal(unselected.searchParams.has("progressConcept"), false);
+});
+
+test("question and session links preserve the originating selection separately from target records", () => {
+  const row = selectProgressEvidence(
+    snapshot().evidence,
+    DEMO_IDS.studentTwo,
+  )[0];
+  const context: ProgressReturnContext = {
+    assignment: DEMO_IDS.assignmentId,
+    origin: "all",
+    student: DEMO_IDS.studentOne,
+    concept: "transmission_delay",
+    progressView: "questions",
+    pane: "grid",
+    status: "all",
+    class: DEMO_IDS.classId,
+  };
+  const question = new URL(
+    progressEvidenceHref(row, context),
+    "https://example.test",
+  );
+  assert.equal(
+    question.pathname,
+    `/teacher/sessions/${row.evidence.session.id}`,
+  );
+  assert.equal(row.evidence.session.student_id, DEMO_IDS.studentTwo);
+  assert.equal(
+    question.searchParams.get("progressStudent"),
+    DEMO_IDS.studentOne,
+  );
+  assert.equal(
+    question.searchParams.get("progressConcept"),
+    "transmission_delay",
+  );
+  assert.equal(question.searchParams.has("student"), false);
+  assert.equal(question.searchParams.has("concept"), false);
+  assert.equal(question.searchParams.get("attempt"), row.attempt.id);
+  assert.equal(question.searchParams.get("progressView"), "questions");
+  assert.equal(question.searchParams.get("pane"), "grid");
+  const session = new URL(
+    progressSessionHref(row.evidence.session.id, {
+      ...context,
+      progressView: "sessions",
+    }),
+    "https://example.test",
+  );
+  assert.equal(session.searchParams.get("progressView"), "sessions");
+  assert.equal(session.searchParams.get("returnTo"), "progress");
+  assert.equal(
+    session.searchParams.get("progressStudent"),
+    DEMO_IDS.studentOne,
+  );
+  assert.equal(session.searchParams.has("student"), false);
+  assert.equal(session.searchParams.has("concept"), false);
+  assert.equal(session.searchParams.has("attempt"), false);
+  assert.equal(session.hash, "");
+  assert.deepEqual(
+    [...session.searchParams.keys()].sort(),
+    [
+      "assignment",
+      "class",
+      "progressConcept",
+      "origin",
+      "pane",
+      "progressView",
+      "returnTo",
+      "status",
+      "progressStudent",
+    ].sort(),
+  );
+});
+
+test("returned focus anchors restore the actual visible selection or main view", () => {
+  const context = {
+    student: DEMO_IDS.studentOne,
+    concept: "transmission_delay",
+    progressView: "grid" as const,
+    pane: "grid" as const,
+  };
+  const cell = progressSelectionId(context.student, context.concept);
+  assert.equal(
+    progressRestorationTarget(`#${encodeURIComponent(cell)}`, context),
+    cell,
+  );
+  assert.equal(
+    progressRestorationTarget("#cell-evidence", {
+      ...context,
+      pane: "details",
+    }),
+    "cell-evidence",
+  );
+  const column = progressSelectionId(undefined, context.concept);
+  assert.equal(
+    progressReturnFocusId({ ...context, progressView: "concepts" }),
+    column,
+  );
+  assert.equal(
+    progressRestorationTarget(`#${column}`, {
+      ...context,
+      progressView: "concepts",
+    }),
+    column,
+  );
+  assert.equal(
+    progressRestorationTarget(`#${cell}`, {
+      ...context,
+      progressView: "concepts",
+    }),
+    null,
+  );
+  const studentOnly = {
+    ...context,
+    concept: undefined,
+    progressView: "concepts" as const,
+  };
+  assert.equal(progressReturnFocusId(studentOnly), "progress-main");
+  assert.equal(
+    progressRestorationTarget("#progress-main", studentOnly),
+    "progress-main",
+  );
+  for (const progressView of ["questions", "sessions"] as const) {
+    assert.equal(
+      progressReturnFocusId({ ...context, progressView }),
+      "progress-main",
+    );
+    assert.equal(
+      progressRestorationTarget("#progress-main", { ...context, progressView }),
+      "progress-main",
+    );
+  }
+});
+
+test("restoration rejects arbitrary, malformed and unrelated selection hashes", () => {
+  const context = {
+    student: DEMO_IDS.studentOne,
+    concept: "concept / one",
+    progressView: "grid" as const,
+    pane: "grid" as const,
+  };
+  const expected = progressSelectionId(context.student, context.concept);
+  assert.equal(
+    progressRestorationTarget(`#${encodeURIComponent(expected)}`, context),
+    expected,
+  );
+  for (const hash of [
+    "#body",
+    "#.ap-main",
+    "#%ZZ",
+    `#${progressSelectionId(DEMO_IDS.studentTwo, context.concept)}`,
+    "#cell-evidence",
+  ])
+    assert.equal(progressRestorationTarget(hash, context), null);
 });

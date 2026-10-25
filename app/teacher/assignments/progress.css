@@ -633,7 +633,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-    padding: 6px 16px;
+    padding: 6px 28px;
     min-height: 48px;
     background: var(--ap-canvas);
     border-bottom: 1px solid var(--ap-line);
@@ -651,15 +651,17 @@
     color: #17302d;
   }
 }
-@media (max-width: 700px) {
+@media (max-width: 800px) {
   .ap-main-heading {
     padding: 18px 14px 12px;
   }
   .ap-grid-intro,
-  .ap-subview {
-    padding-left: 14px;
-    padding-right: 14px;
+  .ap-subview,
+  .ap-mobile-bar {
+    padding-inline: 14px;
   }
+}
+@media (max-width: 700px) {
   .ap-summary > div {
     flex: 1 1 40%;
     min-width: 0;
@@ -684,11 +686,11 @@
     min-width: 0;
   }
 }
-@media (max-width: 380px) {
+@media (max-width: 360px) {
   .ap-main-heading,
   .ap-grid-intro,
-  .ap-subview {
-    padding-left: 12px;
-    padding-right: 12px;
+  .ap-subview,
+  .ap-mobile-bar {
+    padding-inline: 12px;
   }
 }
