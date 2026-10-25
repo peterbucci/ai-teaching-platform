@@ -2,6 +2,10 @@
 // here until a reviewed sequential integration. Type-only domain imports stay so.
 export type * from "./contracts.ts";
 export {
+  NOTEBOOK_PRESENTATION_CONTRACT,
+  NOTEBOOK_PRIMARY_NAVIGATION,
+} from "./contracts.ts";
+export {
   NotebookRouteStateSchema,
   notebookHref,
   parseNotebookHref,

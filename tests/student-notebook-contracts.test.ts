@@ -6,6 +6,7 @@ import {
   notebookReviewCard,
   notebookQuestionHref,
   notebookHref,
+  NOTEBOOK_PRIMARY_NAVIGATION,
   type NotebookState,
 } from "../app/study/notebook/index.ts";
 import type {
@@ -23,6 +24,25 @@ const s = "20000000-0000-4000-8000-000000000001";
 const q = "30000000-0000-4000-8000-000000000001";
 const other = "40000000-0000-4000-8000-000000000001";
 const timestamp = "2026-10-25T10:00:00Z";
+
+test("approved primary navigation has three existing destinations; review remains a dedicated deep link", () => {
+  assert.deepEqual(
+    NOTEBOOK_PRIMARY_NAVIGATION.map(({ section, label, route }) => ({
+      section,
+      label,
+      href: notebookHref(route),
+    })),
+    [
+      { section: "learning", label: "My learning", href: "/study/assignments" },
+      { section: "records", label: "Notebook", href: "/study/history" },
+      { section: "reading", label: "Reading", href: "/study/reading" },
+    ],
+  );
+  assert.equal(
+    notebookHref({ kind: "review", approvalId: other }),
+    `/study/interventions/${other}`,
+  );
+});
 
 test("current-data saved work preserves exact originals, historical version, assistance and separate equal-text attempts", () => {
   const response: AssignmentWorkResponse = {
@@ -175,8 +195,9 @@ test("review cards retain approval routing without exposing undisplayed activity
     displayed_at: null,
     content_ref: loadApprovedContent().content_ref,
     activity: {
-      title: "Teacher review",
-      learning_objective: "Compare",
+      title: "Which delay does cable length change?",
+      learning_objective:
+        "Explain transmission delay as packet size ÷ link rate and predict how changing packet size or rate affects it.",
       explanation: "Undisplayed help",
       exercise_text: "Private to this activity display",
       practice_questions: [],
@@ -186,6 +207,8 @@ test("review cards retain approval routing without exposing undisplayed activity
   };
   const contaminated = { ...review, secret: "do not forward" };
   const card = notebookReviewCard(contaminated);
+  assert.equal(card.title, review.activity.title);
+  assert.equal(card.learningObjective, review.activity.learning_objective);
   assert.equal(card.href, `/study/interventions/${other}`);
   assert.equal(card.displayed_at, null);
   assert.doesNotMatch(
