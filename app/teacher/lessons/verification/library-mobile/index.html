@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  /><title>Lessons Library — R08 comparison and verification</title
+  ><style>
+    body {
+      font:
+        15px/1.6 system-ui,
+        sans-serif;
+      color: #17302d;
+      margin: 0;
+      background: #f7faf8;
+    }
+    main {
+      max-width: 1700px;
+      margin: auto;
+      padding: 24px;
+    }
+    h1 {
+      font-size: 30px;
+      line-height: 1.2;
+    }
+    h2 {
+      font-size: 22px;
+      margin-top: 28px;
+    }
+    a {
+      color: #176d58;
+      text-underline-offset: 3px;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    section {
+      margin-top: 32px;
+      border-top: 1px solid #cbd9d1;
+      padding-top: 12px;
+    }
+    .comparison {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+    figure {
+      margin: 0;
+      min-width: 0;
+    }
+    figcaption {
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      border: 1px solid #cbd9d1;
+      background: white;
+    }
+    table {
+      border-collapse: collapse;
+      background: white;
+    }
+    th,
+    td {
+      text-align: left;
+      border: 1px solid #cbd9d1;
+      padding: 8px 12px;
+    }
+    code {
+      overflow-wrap: anywhere;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    .note {
+      max-width: 110ch;
+      background: #fff;
+      padding: 16px;
+      border: 1px solid #cbd9d1;
+      border-radius: 6px;
+    }
+    .states {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .states figure {
+      width: min(100%, 390px);
+    }
+    @media (max-width: 900px) {
+      .comparison {
+        grid-template-columns: 1fr;
+      }
+      main {
+        padding: 16px;
+      }
+    }
+  </style>
+  <main>
+    <h1>Lessons Library: compact rows and reachable actions</h1>
+    <p>
+      Learning Pulse J · R08 · October 25, 2026 · refs #114 / #118. Page-local
+      correction against <code>07efb7f821339538800f150f57b298eb2e606be3</code>.
+      Draft review evidence; no merge or release approval.
+    </p>
+    <nav>
+      <a href="#1440x1000">1440x1000</a><a href="#1024x768">1024x768</a
+      ><a href="#390x844">390x844</a><a href="#320x844">320x844</a
+      ><a href="#native200">native200</a><a href="#states">Edge states</a
+      ><a href="browser.json">35 browser checks</a
+      ><a href="provenance.json">Provenance</a>
+    </nav>
+    <h2>Observed change</h2>
+    <p class="note">
+      At 390px, the first row starts at 265px instead of 450px, and its height
+      falls from 252px to 138px. At 320px it starts at 265px instead of 473px
+      and falls from 316px to 160px. Three original lesson rows are fully
+      visible on either phone size. At native 200%, the complete first row is
+      visible above the bottom navigation; the base had no row in the first
+      viewport. Full titles remain available without ellipses. Primary resume
+      and latest-publication links stay visible. Native Details exposes source
+      attribution/version, draft revision/version, every immutable publication
+      and class assignment status.
+    </p>
+    <table>
+      <caption>
+        First row top / row height, rounded CSS pixels
+      </caption>
+      <thead>
+        <tr>
+          <th>Viewport</th>
+          <th>Prototype</th>
+          <th>Before</th>
+          <th>After</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>1440x1000</th>
+          <td>368 / 74</td>
+          <td>480 / 96</td>
+          <td>272 / 105</td>
+        </tr>
+        <tr>
+          <th>1024x768</th>
+          <td>368 / 74</td>
+          <td>480 / 124</td>
+          <td>272 / 105</td>
+        </tr>
+        <tr>
+          <th>390x844</th>
+          <td>317 / 74</td>
+          <td>450 / 252</td>
+          <td>265 / 138</td>
+        </tr>
+        <tr>
+          <th>320x844</th>
+          <td>339 / 74</td>
+          <td>473 / 316</td>
+          <td>265 / 160</td>
+        </tr>
+        <tr>
+          <th>native200</th>
+          <td>274 / 74</td>
+          <td>490 / 130</td>
+          <td>265 / 118</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>Verification and scope</h2>
+    <ul>
+      <li>
+        Final production build passed; 632 deterministic tests passed; 20
+        focused Lessons tests passed; lint, typecheck, formatting and diff
+        whitespace passed. No paid calls. The full deterministic suite preceded
+        the final CSS-only disclosure focus refinement; final browser checks and
+        production build include it.
+      </li>
+      <li>
+        35 final browser checks passed: original resume hrefs; exact v1/v2
+        publication history; actual question-bank resume; source-version
+        material links; keyboard order and unobscured visible focus; Enter/Space
+        disclosure; search/clear/no results; new lesson/cancel; empty real
+        fictional account; complete 300-character unbroken title; actual native
+        200% mouse/keyboard/details/publication. No page errors or unintended
+        requests.
+      </li>
+      <li>
+        Database hashes for existing lessons, immutable publications, source
+        documents/versions, assignments, attempts and evaluations stayed
+        unchanged during browser checks. The added unpublished long-title test
+        draft was removed after verification, before matching four-lesson
+        comparison captures. The empty account is separate.
+        <a href="data-integrity.json">Integrity receipt</a>.
+      </li>
+      <li>
+        Only the Lessons Library page, its library CSS and this focused
+        verification bundle change. Shared shell,
+        Materials/Objectives/Questions, reading, services, source resolution,
+        authorization, migrations, publication and assignment behavior are
+        unchanged.
+      </li>
+    </ul>
+    <h2>Retained deviations for review</h2>
+    <ul>
+      <li>
+        The prototype has three short-title lessons; the application comparisons
+        have the same four longer synthetic records before and after. The
+        prototype hides most phone metadata and has no separate per-row
+        resume/publication actions. The application retains visible counts,
+        draft state and essential links, so phone rows remain taller than its
+        74px prototype rows. Source/revision/history/class details are available
+        through a native disclosure.
+      </li>
+      <li>
+        Desktop uses labelled counts within the identity column and explicit
+        links instead of six compact prototype columns / a single whole-row
+        button. The first desktop row is 105px versus the base's 96px; the
+        header is substantially shorter. This preserves readable actions and
+        full source information.
+      </li>
+      <li>
+        At 200%, the corrected first row is fully visible; the prototype also
+        shows more of its second row. The shared navigation is intentionally
+        untouched. Font fallback and source line breaks are inherited. These
+        retained differences are disclosed for review, not claimed as
+        product-owner approval.
+      </li>
+      <li>
+        Screen readers, physical phones, other browser engines, hosted
+        deployment and real-model behavior were not tested. Browser phone
+        viewports and keyboard checks establish a narrower result.
+      </li>
+    </ul>
+    <h2>Evidence reliability</h2>
+    <p>
+      Images below are actual, unmodified captures. Click any image for full
+      resolution. Native zoom images use the visible browser surface because the
+      ordinary screenshot API produced cropped native-zoom images; those cropped
+      attempts are excluded. Native zoom was established through native browser
+      profile preferences and measured independently of CSS/pinch emulation.
+      <a href="prototype-native.json">Prototype zoom measurements</a> ·
+      <a href="before-native.json">Base zoom measurements</a> ·
+      <a href="after.json">Final measurements</a>.
+    </p>
+    <p>
+      The first browser helper run had eight harness failures (an incorrect
+      question-editor heading and assertions before navigation content was
+      ready), retained in
+      <a href="browser-initial.json">its original report</a>. A later visual
+      review found native disclosure focus movement despite the intermediate
+      suite passing; the final CSS and browser assertion correct it.
+      <a href="browser.json">Final 35-check report</a> is authoritative for this
+      correction.
+    </p>
+    <section id="1440x1000">
+      <h2>1440x1000</h2>
+      <div class="comparison">
+        <figure>
+          <figcaption>Approved prototype</figcaption>
+          <a href="prototype/1440x1000.png"
+            ><img
+              loading="lazy"
+              src="prototype/1440x1000.png"
+              alt="Approved prototype, Lessons Library, 1440x1000"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>Base application</figcaption>
+          <a href="before/1440x1000.png"
+            ><img
+              loading="lazy"
+              src="before/1440x1000.png"
+              alt="Base application, Lessons Library, 1440x1000"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>Corrected application</figcaption>
+          <a href="after/1440x1000.png"
+            ><img
+              loading="lazy"
+              src="after/1440x1000.png"
+              alt="Corrected application, Lessons Library, 1440x1000" /></a
+          ><a href="after/1440x1000-full.png"
+            >Full page / below-fold reachability</a
+          >
+        </figure>
+      </div>
+    </section>
+    <section id="1024x768">
+      <h2>1024x768</h2>
+      <div class="comparison">
+        <figure>
+          <figcaption>Approved prototype</figcaption>
+          <a href="prototype/1024x768.png"
+            ><img
+              loading="lazy"
+              src="prototype/1024x768.png"
+              alt="Approved prototype, Lessons Library, 1024x768"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>Base application</figcaption>
+          <a href="before/1024x768.png"
+            ><img
+              loading="lazy"
+              src="before/1024x768.png"
+              alt="Base application, Lessons Library, 1024x768"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>Corrected application</figcaption>
+          <a href="after/1024x768.png"
+            ><img
+              loading="lazy"
+              src="after/1024x768.png"
+              alt="Corrected application, Lessons Library, 1024x768" /></a
+          ><a href="after/1024x768-full.png"
+            >Full page / below-fold reachability</a
+          >
+        </figure>
+      </div>
+    </section>
+    <section id="390x844">
+      <h2>390x844</h2>
+      <div class="comparison">
+        <figure>
+          <figcaption>Approved prototype</figcaption>
+          <a href="prototype/390x844.png"
+            ><img
+              loading="lazy"
+              src="prototype/390x844.png"
+              alt="Approved prototype, Lessons Library, 390x844"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>Base application</figcaption>
+          <a href="before/390x844.png"
+            ><img
+              loading="lazy"
+              src="before/390x844.png"
+              alt="Base application, Lessons Library, 390x844"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>Corrected application</figcaption>
+          <a href="after/390x844.png"
+            ><img
+              loading="lazy"
+              src="after/390x844.png"
+              alt="Corrected application, Lessons Library, 390x844" /></a
+          ><a href="after/390x844-full.png"
+            >Full page / below-fold reachability</a
+          >
+        </figure>
+      </div>
+    </section>
+    <section id="320x844">
+      <h2>320x844</h2>
+      <div class="comparison">
+        <figure>
+          <figcaption>Approved prototype</figcaption>
+          <a href="prototype/320x844.png"
+            ><img
+              loading="lazy"
+              src="prototype/320x844.png"
+              alt="Approved prototype, Lessons Library, 320x844"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>Base application</figcaption>
+          <a href="before/320x844.png"
+            ><img
+              loading="lazy"
+              src="before/320x844.png"
+              alt="Base application, Lessons Library, 320x844"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>Corrected application</figcaption>
+          <a href="after/320x844.png"
+            ><img
+              loading="lazy"
+              src="after/320x844.png"
+              alt="Corrected application, Lessons Library, 320x844" /></a
+          ><a href="after/320x844-full.png"
+            >Full page / below-fold reachability</a
+          >
+        </figure>
+      </div>
+    </section>
+    <section id="native200">
+      <h2>Actual native 200% browser zoom</h2>
+      <div class="comparison">
+        <figure>
+          <figcaption>Approved prototype</figcaption>
+          <a href="prototype/native200.png"
+            ><img
+              loading="lazy"
+              src="prototype/native200.png"
+              alt="Approved prototype, Lessons Library, native200"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>Base application</figcaption>
+          <a href="before/native200.png"
+            ><img
+              loading="lazy"
+              src="before/native200.png"
+              alt="Base application, Lessons Library, native200"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>Corrected application</figcaption>
+          <a href="after/native200.png"
+            ><img
+              loading="lazy"
+              src="after/native200.png"
+              alt="Corrected application, Lessons Library, native200"
+          /></a>
+        </figure>
+      </div>
+    </section>
+    <section id="states">
+      <h2>Focused edge states and below-fold checks</h2>
+      <div class="states">
+        <figure>
+          <figcaption>details-320x844</figcaption>
+          <a href="states/details-320x844.png"
+            ><img
+              loading="lazy"
+              src="states/details-320x844.png"
+              alt="Actual library state: details-320x844"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>details-390x844</figcaption>
+          <a href="states/details-390x844.png"
+            ><img
+              loading="lazy"
+              src="states/details-390x844.png"
+              alt="Actual library state: details-390x844"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>long-title-320x844</figcaption>
+          <a href="states/long-title-320x844.png"
+            ><img
+              loading="lazy"
+              src="states/long-title-320x844.png"
+              alt="Actual library state: long-title-320x844"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>empty-320x844</figcaption>
+          <a href="states/empty-320x844.png"
+            ><img
+              loading="lazy"
+              src="states/empty-320x844.png"
+              alt="Actual library state: empty-320x844"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>empty-1440x1000</figcaption>
+          <a href="states/empty-1440x1000.png"
+            ><img
+              loading="lazy"
+              src="states/empty-1440x1000.png"
+              alt="Actual library state: empty-1440x1000"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>no-results-320x844</figcaption>
+          <a href="states/no-results-320x844.png"
+            ><img
+              loading="lazy"
+              src="states/no-results-320x844.png"
+              alt="Actual library state: no-results-320x844"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>below-fold-320x844</figcaption>
+          <a href="states/below-fold-320x844.png"
+            ><img
+              loading="lazy"
+              src="states/below-fold-320x844.png"
+              alt="Actual library state: below-fold-320x844"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>keyboard-320x844</figcaption>
+          <a href="states/keyboard-320x844.png"
+            ><img
+              loading="lazy"
+              src="states/keyboard-320x844.png"
+              alt="Actual library state: keyboard-320x844"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>native200-details-surface</figcaption>
+          <a href="states/native200-details-surface.png"
+            ><img
+              loading="lazy"
+              src="states/native200-details-surface.png"
+              alt="Actual library state: native200-details-surface"
+          /></a>
+        </figure>
+      </div>
+    </section>
+    <section>
+      <h2>Reproduction</h2>
+      <p>
+        Use the exact application source and an isolated fictional database with
+        providers disabled. The browser helper is opt-in and read-only after
+        sign-in: <a href="browser-check.mjs">browser-check.mjs</a>. Supply
+        <code>--origin</code> (loopback), a fresh <code>--output</code>,
+        <code>--modules</code> (directory containing Playwright),
+        <code>--browser</code> (Edge/Chromium executable),
+        <code>--fixture</code> (fictional lesson/empty-account descriptors),
+        <code>--env</code> (private runtime config with empty OPENAI_API_KEY),
+        and <code>--baseline</code> (before.json). The
+        <a href="fixture.json">executed fixture descriptors</a> preserve exact
+        synthetic IDs/source references; recreating the temporary long-title
+        draft requires a fresh descriptor. Auth profiles, runtime credentials
+        and database dumps are deliberately excluded.
+      </p>
+      <p>
+        Next narrow step: review this focused PR against the pinned combined
+        base, then include it in independent Workbench acceptance. No epic or
+        coordination issue is closed here.
+      </p>
+    </section>
+  </main>
+</html>
