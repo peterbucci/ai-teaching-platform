@@ -1,0 +1,98 @@
+{
+  "fixtureOnly": true,
+  "actualStudySessionMounted": false,
+  "runId": "1a3cb7f3-7e56-4007-a814-142ff399dd32",
+  "origin": "http://127.0.0.1:65052",
+  "route": "/",
+  "sourceSha": "a0c3ec6552fac31390d600a9d6b25332c392f140",
+  "n0Sha": "00929bca7d7072a683940b5485d55b4442dd9514",
+  "freshBrowser": true,
+  "actual200PercentZoom": {
+    "status": "PASS",
+    "method": "Native browser profile zoom; fresh headed Edge profiles, viewport:null",
+    "metrics": [
+      {
+        "factor": 1,
+        "width": 1416,
+        "height": 1008,
+        "dpr": 1,
+        "scale": 1,
+        "cssZoom": "1",
+        "overflow": false
+      },
+      {
+        "factor": 2,
+        "width": 708,
+        "height": 504,
+        "dpr": 2,
+        "scale": 1,
+        "cssZoom": "1",
+        "overflow": false
+      }
+    ]
+  },
+  "results": [
+    {
+      "viewport": "1440x1000",
+      "overflow": false,
+      "retainedMount": true,
+      "retainedDraft": true,
+      "focusReturn": true,
+      "noticesAvailable": true
+    },
+    {
+      "viewport": "1024x768",
+      "overflow": false,
+      "retainedMount": true,
+      "retainedDraft": true,
+      "focusReturn": true,
+      "noticesAvailable": true
+    },
+    {
+      "viewport": "390x844",
+      "overflow": false,
+      "retainedMount": true,
+      "retainedDraft": true,
+      "focusReturn": true,
+      "noticesAvailable": true
+    },
+    {
+      "viewport": "320x844",
+      "overflow": false,
+      "retainedMount": true,
+      "retainedDraft": true,
+      "focusReturn": true,
+      "noticesAvailable": true
+    },
+    {
+      "check": "Tab / Shift+Tab / Enter / Space / Escape",
+      "passed": true,
+      "directionalNavigation": "Not a menu/tablist widget; ordinary document scrolling"
+    },
+    {
+      "check": "N0 adapter / navigation intent / browser Back and Forward",
+      "passed": true,
+      "scope": "Fixture router only; existing app routes are not mounted"
+    },
+    {
+      "check": "viewport resizing / keyboard-sized viewport",
+      "passed": true,
+      "nativeMobileKeyboard": "not verified"
+    },
+    {
+      "check": "reduced motion",
+      "passed": true
+    },
+    {
+      "check": "external requests / browser errors",
+      "requests": [],
+      "errors": [],
+      "mutations": []
+    },
+    {
+      "check": "Prototype screenshots",
+      "status": "COMPONENT COMPARISON ONLY",
+      "note": "Authoritative fa69c2d0 export: responsive Main.dc.html wrapper and exact V1440-HelpMsg.dc.html. Full application acceptance remains pending."
+    }
+  ]
+}
