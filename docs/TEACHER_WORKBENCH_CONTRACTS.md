@@ -54,6 +54,15 @@ selection. Draft, provider request and delivery identities remain local to their
 existing editor routes and are never copied by shared navigation. Existing
 Insights anchor links remain usable without a redirect or renamed route.
 
+Loaded intervention drafts set `contextIsAuthoritative` on `TeacherFrame` and
+`TeacherWorkspace`: the complete authorized snapshot replaces URL context,
+including identities absent from the snapshot. Acknowledged generation recovery
+canonicalizes the full URL before shared navigation can reuse it and rejects a
+result for another expected draft. Ordinary investigation checkbox updates remain
+URL-driven. Course authoring links carry no investigation context; Assignments
+carries only assignment, Desk assignment/origin, Students assignment/origin/student,
+and Evidence/Interventions the validated investigation scope.
+
 The shared shell exposes Teaching Desk, Evidence, Interventions, Lessons,
 Assignments and Students, retaining direct Materials and Objectives access until
 their complete authoring continuity is integrated. Student navigation is unchanged.
@@ -66,6 +75,11 @@ responses are missing evidence; pending/failed/rejected evaluations are operatio
 states, not wrong answers. Preserve uncertain evaluations, source version,
 independent versus assisted work, reading-only activity, immediate retests, later
 work and contrary evidence. Historical repeated difficulty is not current mastery.
+
+Evaluation display distinguishes the selected assessment from the response's
+current accepted pointer. Pending, failed or rejected attempts never imply an
+accepted result exists. A failed retry does not exclude an earlier accepted result
+that remains current; historical accepted evaluations do not control preparation.
 
 The investigation shows the saved question and exact student words prominently,
 then accepted result/uncertainty and actual displayed help. Full history and
@@ -112,6 +126,18 @@ including long original responses and 200% zoom. Do not rely on color alone.
 Intervention evidence hashes reveal the Evidence pane, expand the cited original
 response, and move focus after it is visible. The same behavior applies to keyboard
 activation, initial bookmarks and Back/Forward; pane headings are focus targets.
+
+Evidence lists keep stable `evidence-response-<attempt>` anchors and a filter-scoped
+history entry for nested scroll and originating-row focus. Selecting another
+response must not remount the list. Checkbox changes alter only selected-response
+parameters; they do not move focus. Page-owned row/detail hashes take precedence
+over shell restoration. No-hash list focus is restored only when the teacher was
+in that list; other focus remains the shell's responsibility.
+
+A blocked intervention navigation closes its containing native dialog before
+revealing and focusing the Activity pane's explanation. The explanation leads to
+save/discard controls or the existing pending-request reconciliation control.
+Closing the drawer never discards work or automatically repeats a mutation.
 
 ## Exclusive work packages and merge order
 

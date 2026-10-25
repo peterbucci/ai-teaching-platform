@@ -9,10 +9,12 @@ export function TeacherFrame({
   children,
   section = "Teaching Desk",
   context,
+  contextIsAuthoritative = false,
 }: {
   children: ReactNode;
   section?: string;
   context?: TeacherWorkspaceContext;
+  contextIsAuthoritative?: boolean;
 }) {
   return (
     <Suspense
@@ -22,7 +24,11 @@ export function TeacherFrame({
         </Workspace>
       }
     >
-      <TeacherWorkspace section={section} context={context}>
+      <TeacherWorkspace
+        section={section}
+        context={context}
+        contextIsAuthoritative={contextIsAuthoritative}
+      >
         <div className="lp-teacher">{children}</div>
       </TeacherWorkspace>
     </Suspense>

@@ -11,7 +11,12 @@ import { calculatePatterns } from "../../../lib/teacher/patterns.ts";
 import { loadTeacherView, evidenceDescription } from "../data.ts";
 import { TeacherFiltersForm } from "../filters.tsx";
 import { TeacherFrame, date } from "../presentation.tsx";
-import { canPrepareFromRow, evidenceResult } from "./model.ts";
+import { evidenceResult } from "./model.ts";
+import { evidenceEvaluationDisplay } from "./evaluation-display.ts";
+import {
+  evidenceResultsScope,
+  evidenceResponseAnchor,
+} from "./results-navigation.ts";
 import { resolveEvidenceSelection } from "./selection.ts";
 import { EvidenceResults } from "./results.tsx";
 import { EvidenceContextLink } from "./context-link.tsx";
@@ -59,8 +64,9 @@ export default async function EvidencePage({
     session,
     evaluation,
   } = selection;
-  const currentEvaluation =
-    !evaluation || evaluation.id === selected?.attempt.current_evaluation_id;
+  const evaluationDisplay = selected
+    ? evidenceEvaluationDisplay(selected, evaluation, concept)
+    : null;
   const resolved = {
     ...context,
     assignment: data.assignment_id,
@@ -174,14 +180,17 @@ export default async function EvidencePage({
       </form>
       <div className="wb-evidence-layout">
         <EvidenceResults
-          key={`${data.assignment_id}:${origin}:${concept}:${context.q ?? ""}:${selected?.attempt.id ?? ""}`}
+          key={evidenceResultsScope(resolved)}
           rows={visibleRows}
           context={resolved}
           selectedAttempt={selected?.attempt.id}
           totalRows={conceptRows.length}
         />
         <div className="wb-evidence-detail">
-          <a href="#evidence-results" className="lp-text-link wb-mobile-back">
+          <a
+            href={`#${evidenceResponseAnchor(selected && visibleRows.includes(selected) ? selected.attempt.id : undefined)}`}
+            className="lp-text-link wb-mobile-back"
+          >
             <Icon name="back" /> Back to results
           </a>
           {selected ? (
@@ -207,31 +216,26 @@ export default async function EvidencePage({
                 <span className="lp-badge lp-badge-neutral">
                   {evidenceResult({ ...selected, evaluation }, concept)}
                 </span>
-                {currentEvaluation &&
-                  concept &&
-                  canPrepareFromRow(selected, concept) && (
-                    <p className="mt-4">
-                      <EvidenceContextLink
-                        className="lp-button lp-button-primary"
-                        preserveSelection={false}
-                        href={teacherWorkspaceHref(
-                          "/teacher/interventions",
-                          resolved,
-                          {
-                            seedAttempt: [selected.attempt.id],
-                            returnTo: "evidence",
-                          },
-                        )}
-                      >
-                        Prepare from this response <Icon name="arrow" />
-                      </EvidenceContextLink>
-                    </p>
-                  )}
-                {!currentEvaluation && (
-                  <p role="status">
-                    This is an earlier saved evaluation. The current accepted
-                    evaluation controls preparation.
+                {evaluationDisplay?.canPrepareSelected && (
+                  <p className="mt-4">
+                    <EvidenceContextLink
+                      className="lp-button lp-button-primary"
+                      preserveSelection={false}
+                      href={teacherWorkspaceHref(
+                        "/teacher/interventions",
+                        resolved,
+                        {
+                          seedAttempt: [selected.attempt.id],
+                          returnTo: "evidence",
+                        },
+                      )}
+                    >
+                      Prepare from this response <Icon name="arrow" />
+                    </EvidenceContextLink>
                   </p>
+                )}
+                {evaluationDisplay?.notice && (
+                  <p role="status">{evaluationDisplay.notice}</p>
                 )}
               </div>
               <section className="wb-detail-section">
@@ -281,9 +285,8 @@ export default async function EvidencePage({
                 ) : (
                   <>
                     <p>
-                      {evidenceResult({ ...selected, evaluation }, concept)}.
-                      This response has not been included as an accepted
-                      judgment for intervention preparation.
+                      {evidenceResult({ ...selected, evaluation }, concept)}.{" "}
+                      {evaluationDisplay?.preparationNote}
                     </p>
                     {evaluation?.failure_reason && (
                       <p>{evaluation.failure_reason}</p>

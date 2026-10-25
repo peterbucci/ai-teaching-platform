@@ -2,13 +2,15 @@
 
 import { usePathname, useSearchParams } from "next/navigation";
 import type { ReactNode } from "react";
-import {
-  parseTeacherWorkspaceContext,
-  teacherWorkspaceHref,
-  type TeacherWorkspaceContext,
-  type TeacherWorkspaceParams,
+import type {
+  TeacherWorkspaceContext,
+  TeacherWorkspaceParams,
 } from "../../lib/teacher/workspace-contracts.ts";
 import { Workspace, type WorkspaceLink } from "../components/workspace.tsx";
+import {
+  resolveTeacherNavigationContext,
+  teacherNavigationHref,
+} from "./navigation-context.ts";
 
 const destinations = [
   { href: "/teacher", text: "Teaching Desk", icon: "home" },
@@ -19,16 +21,18 @@ const destinations = [
   { href: "/teacher/students", text: "Students", icon: "users" },
   { href: "/teacher/materials", text: "Materials", icon: "book" },
   { href: "/teacher/objectives", text: "Objectives", icon: "book" },
-] satisfies WorkspaceLink[];
+] as const satisfies readonly WorkspaceLink[];
 
 export function TeacherWorkspace({
   children,
   section,
   context,
+  contextIsAuthoritative = false,
 }: {
   children: ReactNode;
   section: string;
   context?: TeacherWorkspaceContext;
+  contextIsAuthoritative?: boolean;
 }) {
   const search = useSearchParams();
   const pathname = usePathname();
@@ -37,18 +41,11 @@ export function TeacherWorkspace({
     const values = search.getAll(key);
     params[key] = values.length > 1 ? values : values[0];
   }
-  let selected = context;
-  try {
-    // Resolved server defaults supply the current assignment. URL updates from
-    // selection controls take precedence without requiring another data store.
-    selected = parseTeacherWorkspaceContext({
-      ...context,
-      ...params,
-      seedAttempt: search.getAll("seedAttempt"),
-    });
-  } catch {
-    /* Invalid input is rejected by the destination loader. */
-  }
+  const selected = resolveTeacherNavigationContext(
+    context,
+    params,
+    contextIsAuthoritative,
+  );
   const active =
     pathname === "/teacher"
       ? "Teaching Desk"
@@ -62,9 +59,8 @@ export function TeacherWorkspace({
           )?.text;
   const links = destinations.map((item) => ({
     ...item,
-    // Draft/request identities belong to their own editor. Navigation carries
-    // investigation filters but never replays a mutation or implies recipients.
-    href: teacherWorkspaceHref(item.href, selected ?? {}),
+    // Each destination receives its supported scope, never editor identities.
+    href: teacherNavigationHref(item.href, selected),
   }));
   return (
     <Workspace
