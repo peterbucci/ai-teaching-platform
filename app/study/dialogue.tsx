@@ -60,6 +60,8 @@ export function StudyDialogue({
   attemptId,
   disabled = false,
   locked = false,
+  answerRetryAllowed = false,
+  answerRecoveryNotice,
   readOnly = false,
   text,
   onTextChange,
@@ -75,6 +77,8 @@ export function StudyDialogue({
   attemptId: string;
   disabled?: boolean;
   locked?: boolean;
+  answerRetryAllowed?: boolean;
+  answerRecoveryNotice?: ReactNode;
   readOnly?: boolean;
   text: string;
   onTextChange: (text: string) => void;
@@ -450,6 +454,7 @@ export function StudyDialogue({
     // checks pending operations, displayed assistance and the current attempt.
     if (
       (transport && !fallbackAvailable && !locked) ||
+      (locked && !answerRetryAllowed) ||
       readOnly ||
       disabled ||
       working ||
@@ -469,7 +474,7 @@ export function StudyDialogue({
     } catch {
       if (mounted.current)
         setError(
-          "Your answer could not be confirmed. Your text is still here; retry the saved answer.",
+          "Your answer could not be confirmed. Your text is still here; check the answer save before continuing.",
         );
     } finally {
       inFlight.current = false;
@@ -734,6 +739,7 @@ export function StudyDialogue({
           </button>
         )}
       </ConversationScroll>
+      {answerRecoveryNotice}
       {!readOnly && (
         <form
           onSubmit={(event) => void send(event)}
@@ -813,10 +819,12 @@ export function StudyDialogue({
               <button
                 type="button"
                 className="lp-button lp-button-primary"
-                disabled={disabled || working || uncertain}
+                disabled={
+                  disabled || working || uncertain || !answerRetryAllowed
+                }
                 onClick={() => void submitFallbackAnswer()}
               >
-                Retry sending saved answer <Icon name="send" />
+                Retry original answer <Icon name="send" />
               </button>
             ) : (
               <button
