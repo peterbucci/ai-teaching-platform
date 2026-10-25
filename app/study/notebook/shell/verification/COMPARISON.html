@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>N1 Notebook — final reference comparison</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 24px;
+        color: #26352f;
+        background: #f5f4ef;
+        font:
+          16px/1.5 system-ui,
+          sans-serif;
+      }
+      main {
+        max-width: 1600px;
+        margin: auto;
+      }
+      h1 {
+        font-size: 28px;
+      }
+      h2 {
+        margin-top: 40px;
+      }
+      code {
+        overflow-wrap: anywhere;
+      }
+      a {
+        color: #245f50;
+      }
+      .note {
+        padding: 16px;
+        border-left: 4px solid #a37d37;
+        background: #fff8e8;
+      }
+      .pair {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+        align-items: start;
+      }
+      figure {
+        margin: 0;
+        min-width: 0;
+      }
+      figcaption {
+        margin-bottom: 10px;
+        font-weight: 600;
+      }
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border: 1px solid #cdd4ce;
+        background: white;
+      }
+      .phone img {
+        max-width: 390px;
+      }
+      .phone figure {
+        display: grid;
+        justify-items: center;
+      }
+      @media (max-width: 640px) {
+        body {
+          padding: 16px;
+        }
+        .pair {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Student Notebook: final reference and N1 shell</h1>
+      <p>October 25, 2026 · Isolated presentation verification</p>
+      <p class="note">
+        The final corrected prototype is authoritative. These are provisional
+        component comparisons, not full application visual acceptance. The
+        actual shell is rendered with fictional test content, an intentional
+        recovery notice and a stateful test input. The real StudySession is not
+        mounted.
+      </p>
+      <p>
+        Tested source: <code>1a5efc2f92001c616fabad597344e84cf707d932</code
+        ><br />N0 contract: <code>8bca4d3554ae02a909b93f1a7b95ed033b62a718</code
+        ><br />Reference ZIP SHA-256:
+        <code
+          >fa69c2d0262b0be684b5e9d21b2131d7c02a5bf9577c1586df07950c6394c570</code
+        >
+      </p>
+      <p>
+        Reference images use Main.dc.html in a responsive viewing wrapper.
+        External fonts were blocked. Open an image for its original pixels. Read
+        the <a href="RESULTS.md">passed, failed and unrun checks</a> and
+        <a href="../INTEGRATION.md">integration guide</a> for scope and
+        remaining differences.
+      </p>
+
+      <h2>1440 × 1000</h2>
+      <div class="pair">
+        <figure>
+          <figcaption>Final prototype</figcaption>
+          <a href="evidence/prototype-1440x1000.png"
+            ><img
+              src="evidence/prototype-1440x1000.png"
+              alt="Authoritative prototype at 1440 by 1000"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>Implemented N1 shell — fixture content</figcaption>
+          <a href="evidence/shell-1440x1000.png"
+            ><img
+              src="evidence/shell-1440x1000.png"
+              alt="Actual isolated shell at 1440 by 1000"
+          /></a>
+        </figure>
+      </div>
+      <h2>1024 × 768</h2>
+      <div class="pair">
+        <figure>
+          <figcaption>Final prototype</figcaption>
+          <a href="evidence/prototype-1024x768.png"
+            ><img
+              src="evidence/prototype-1024x768.png"
+              alt="Authoritative prototype at 1024 by 768"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>Implemented N1 shell — fixture content</figcaption>
+          <a href="evidence/shell-1024x768.png"
+            ><img
+              src="evidence/shell-1024x768.png"
+              alt="Actual isolated shell at 1024 by 768"
+          /></a>
+        </figure>
+      </div>
+      <h2>390 × 844</h2>
+      <div class="pair phone">
+        <figure>
+          <figcaption>Final prototype</figcaption>
+          <a href="evidence/prototype-390x844.png"
+            ><img
+              src="evidence/prototype-390x844.png"
+              alt="Authoritative prototype at 390 by 844"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>Implemented N1 shell — fixture content</figcaption>
+          <a href="evidence/shell-390x844.png"
+            ><img
+              src="evidence/shell-390x844.png"
+              alt="Actual isolated shell at 390 by 844"
+          /></a>
+        </figure>
+      </div>
+      <h2>320 × 844</h2>
+      <div class="pair phone">
+        <figure>
+          <figcaption>Final prototype</figcaption>
+          <a href="evidence/prototype-320x844.png"
+            ><img
+              src="evidence/prototype-320x844.png"
+              alt="Authoritative prototype at 320 by 844"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>Implemented N1 shell — fixture content</figcaption>
+          <a href="evidence/shell-320x844.png"
+            ><img
+              src="evidence/shell-320x844.png"
+              alt="Actual isolated shell at 320 by 844"
+          /></a>
+        </figure>
+      </div>
+      <h2>Corrected help-request reference</h2>
+      <p>
+        Unmodified V1440-HelpMsg.dc.html. N1 supplies presentation regions; PR
+        #113 retains the actual composer, help-versus-answer handling, scrolling
+        and recovery. Teacher-approved activity content remains authoritative.
+      </p>
+      <a href="evidence/prototype-corrected-help-1440x1000.png"
+        ><img
+          src="evidence/prototype-corrected-help-1440x1000.png"
+          alt="Corrected help-request interaction in the final 1440 prototype"
+      /></a>
+      <h2>Native browser zoom</h2>
+      <p>
+        Fresh headed Edge profiles at native 100% and 200%. Browser measurements
+        confirm DPR 1 → 2 and viewport 1416 × 1008 → 708 × 504. This is not CSS
+        zoom or mobile emulation. These captures show the test input scrolled
+        into view.
+      </p>
+      <div class="pair">
+        <figure>
+          <figcaption>Native 100%</figcaption>
+          <a href="evidence/native-zoom-100-composer.png"
+            ><img
+              src="evidence/native-zoom-100-composer.png"
+              alt="Shell test input at native 100 percent browser zoom"
+          /></a>
+        </figure>
+        <figure>
+          <figcaption>Native 200%</figcaption>
+          <a href="evidence/native-zoom-200-composer.png"
+            ><img
+              src="evidence/native-zoom-200-composer.png"
+              alt="Shell test input at native 200 percent browser zoom"
+          /></a>
+        </figure>
+      </div>
+      <h2>Remaining integration review</h2>
+      <p>
+        Review supplied title/question context, account actions, reading cards,
+        teacher activities and real conversation content together when N2–N5
+        mount. N1 adds a Menu control for shared student navigation. The
+        fixture's long passage and recovery notice intentionally differ from the
+        prototype. Verify real PR #113 notices, scroll ownership and composer
+        space in that host, including a native mobile keyboard and screen
+        reader.
+      </p>
+    </main>
+  </body>
+</html>
