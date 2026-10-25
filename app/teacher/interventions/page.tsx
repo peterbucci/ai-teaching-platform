@@ -13,7 +13,6 @@ import {
   type PatternGroup,
 } from "../../../lib/teacher/patterns.ts";
 import { evidenceDescription, loadTeacherView } from "../data.ts";
-import { TeacherFiltersForm } from "../filters.tsx";
 import { TeacherFrame } from "../presentation.tsx";
 import {
   parseTeacherWorkspaceContext,
@@ -72,7 +71,7 @@ export default async function TeacherInterventionsPage({
     context = savedContext;
   }
   const params = { ...context, ...parsed.data };
-  const { assignments, origin, data } = await loadTeacherView(context);
+  const { origin, data } = await loadTeacherView(context);
   if (!data)
     return (
       <TeacherFrame
@@ -169,154 +168,7 @@ export default async function TeacherInterventionsPage({
       context={context}
       contextIsAuthoritative={draft !== null}
     >
-      <header className="lp-page-heading">
-        <Link className="lp-text-link" href={teacherReturnHref(context)}>
-          Back to your investigation
-        </Link>
-        <p className="lp-eyebrow mt-5">Evidence into teaching</p>
-        <h1 className="lp-title">Interventions</h1>
-        <p className="lp-intro">
-          Prepare a focused review activity from recorded student reasoning. You
-          decide what happens next.
-        </p>
-      </header>
-      <TeacherFiltersForm
-        action="/teacher/interventions"
-        assignments={assignments}
-        assignment={data.assignment_id}
-        origin={draft?.evidence.selection.origin ?? origin}
-      />
-      <p className="lp-view-context">
-        {evidenceDescription(draft?.evidence.selection.origin ?? origin)}
-      </p>
-      {!draft && (
-        <form action="/teacher/interventions" className="lp-filter-bar">
-          <input type="hidden" name="assignment" value={data.assignment_id} />
-          <input type="hidden" name="origin" value={origin} />
-          <input type="hidden" name="returnTo" value={context.returnTo} />
-          <label className="lp-field">
-            Teaching concept
-            <select
-              name="concept"
-              defaultValue={conceptId}
-              className="lp-input"
-            >
-              {data.metrics.concepts.map((item) => (
-                <option key={item.concept_id} value={item.concept_id}>
-                  {content.concepts.get(item.concept_id)?.title ??
-                    item.concept_id}
-                </option>
-              ))}
-            </select>
-          </label>
-          <button className="lp-button">Review concept evidence</button>
-        </form>
-      )}
-      {!draft && groups.length > 0 && (
-        <form action="/teacher/interventions" className="lp-filter-bar mt-3">
-          <input type="hidden" name="assignment" value={data.assignment_id} />
-          <input type="hidden" name="origin" value={origin} />
-          <input type="hidden" name="concept" value={conceptId} />
-          <input type="hidden" name="returnTo" value={context.returnTo} />
-          <label className="lp-field">
-            Optional class insight
-            <select
-              name="misconception"
-              defaultValue={params.misconception ?? ""}
-              className="lp-input"
-            >
-              <option value="">All evidence for this concept</option>
-              {groups.map((group) => (
-                <option
-                  key={group.misconception_id}
-                  value={group.misconception_id}
-                >
-                  {content.misconceptions.get(group.misconception_id)
-                    ?.definition ?? group.misconception_id}
-                </option>
-              ))}
-            </select>
-          </label>
-          <button className="lp-button">Review insight evidence</button>
-        </form>
-      )}
-      {drafts.length > 0 && (
-        <details className="mt-5">
-          <summary>Saved interventions ({drafts.length})</summary>
-          <ul className="lp-intervention-drafts">
-            {drafts.map((item) => (
-              <li key={item.id}>
-                <Link
-                  className="lp-text-link"
-                  href={`${teacherWorkspaceHref(
-                    "/teacher/interventions",
-                    context,
-                    {
-                      concept: item.evidence.selection.concept_id,
-                      misconception:
-                        item.evidence.selection.misconception_id ?? undefined,
-                      origin: item.evidence.selection.origin,
-                      seedAttempt: [],
-                      student: undefined,
-                      session: undefined,
-                      attempt: undefined,
-                      evaluation: undefined,
-                    },
-                  )}&draft=${encodeURIComponent(item.id)}`}
-                >
-                  {item.activity.title} · revision {item.revision} ·{" "}
-                  {item.status.replaceAll("_", " ")}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </details>
-      )}
-      {conceptId && (
-        <h2 className="mt-6 text-xl font-semibold">
-          {content.concepts.get(conceptId)?.title ?? conceptId}
-        </h2>
-      )}
-      {evidenceError && (
-        <p role="alert" className="lp-intervention-note mt-4">
-          {evidenceError}
-        </p>
-      )}
-      {narrowingResponses.length > 0 && (
-        <form
-          action="/teacher/interventions"
-          className="lp-intervention-narrowing"
-        >
-          <h3>Choose a smaller starting set</h3>
-          <p>
-            Select responses from fewer students. Their other accepted answers
-            on this concept, including contrary evidence, stay included.
-          </p>
-          {Array.from(
-            new URLSearchParams(
-              teacherWorkspaceHref("/teacher/interventions", context, {
-                seedAttempt: [],
-              }).split("?")[1],
-            ),
-          ).map(([name, value]) => (
-            <input type="hidden" key={name} name={name} value={value} />
-          ))}
-          {narrowingResponses.map((response) => (
-            <label className="lp-intervention-choice" key={response.id}>
-              <input
-                type="checkbox"
-                name="seedAttempt"
-                value={response.id}
-                defaultChecked={context.seedAttempt.includes(response.id)}
-              />
-              <span>
-                <strong>{response.student}</strong> · {response.question}
-              </span>
-            </label>
-          ))}
-          <button className="lp-button mt-4">Review selected evidence</button>
-        </form>
-      )}
+      <h1 className="sr-only">Interventions</h1>
       <InterventionWorkspace
         key={`${data.assignment_id}:${origin}:${conceptId}:${params.misconception ?? ""}:${context.seedAttempt.join(",")}:${draft?.id ?? "new"}`}
         assignmentId={data.assignment_id}
@@ -327,6 +179,201 @@ export default async function TeacherInterventionsPage({
         initialRequestId={params.request ?? null}
         initialDraftId={params.generation_draft ?? null}
         initialReview={review}
+        evidenceControls={
+          <div className="lp-intervention-context">
+            <p className="lp-intervention-context-heading">
+              <strong>{evidence?.concept.title ?? "Choose evidence"}</strong>
+              <span
+                className="lp-intervention-meta"
+                title={evidenceDescription(
+                  draft?.evidence.selection.origin ?? origin,
+                )}
+              >
+                {" · "}
+                {(draft?.evidence.selection.origin ?? origin) ===
+                "synthetic_fixture"
+                  ? "Prepared examples"
+                  : (draft?.evidence.selection.origin ?? origin) === "live_demo"
+                    ? "Live test sessions"
+                    : "Live and prepared responses"}
+              </span>
+            </p>
+            <Link className="lp-text-link" href={teacherReturnHref(context)}>
+              Back to investigation
+            </Link>
+            {!draft && (
+              <details className="lp-intervention-selection">
+                <summary>Change evidence scope</summary>
+                {!draft && (
+                  <form
+                    action="/teacher/interventions"
+                    className="lp-intervention-scope-form"
+                  >
+                    <input
+                      type="hidden"
+                      name="assignment"
+                      value={data.assignment_id}
+                    />
+                    <input
+                      type="hidden"
+                      name="returnTo"
+                      value={context.returnTo}
+                    />
+                    <label className="lp-field">
+                      Evidence source
+                      <select
+                        name="origin"
+                        defaultValue={origin}
+                        className="lp-input"
+                      >
+                        <option value="all">All records</option>
+                        <option value="live_demo">Live test sessions</option>
+                        <option value="synthetic_fixture">
+                          Prepared class examples
+                        </option>
+                      </select>
+                    </label>
+                    <label className="lp-field">
+                      Teaching concept
+                      <select
+                        name="concept"
+                        defaultValue={conceptId}
+                        className="lp-input"
+                      >
+                        {data.metrics.concepts.map((item) => (
+                          <option key={item.concept_id} value={item.concept_id}>
+                            {content.concepts.get(item.concept_id)?.title ??
+                              "Concept name unavailable"}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <button className="lp-button">
+                      Review concept evidence
+                    </button>
+                  </form>
+                )}
+                {!draft && groups.length > 0 && (
+                  <form
+                    action="/teacher/interventions"
+                    className="lp-intervention-scope-form"
+                  >
+                    <input
+                      type="hidden"
+                      name="assignment"
+                      value={data.assignment_id}
+                    />
+                    <input type="hidden" name="origin" value={origin} />
+                    <input type="hidden" name="concept" value={conceptId} />
+                    <input
+                      type="hidden"
+                      name="returnTo"
+                      value={context.returnTo}
+                    />
+                    <label className="lp-field">
+                      Optional class insight
+                      <select
+                        name="misconception"
+                        defaultValue={params.misconception ?? ""}
+                        className="lp-input"
+                      >
+                        <option value="">All evidence for this concept</option>
+                        {groups.map((group) => (
+                          <option
+                            key={group.misconception_id}
+                            value={group.misconception_id}
+                          >
+                            {content.misconceptions.get(group.misconception_id)
+                              ?.definition ?? group.misconception_id}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <button className="lp-button">
+                      Review insight evidence
+                    </button>
+                  </form>
+                )}
+              </details>
+            )}
+            {drafts.length > 0 && (
+              <details className="lp-intervention-saved">
+                <summary>Saved interventions ({drafts.length})</summary>
+                <ul className="lp-intervention-drafts">
+                  {drafts.map((item) => (
+                    <li key={item.id}>
+                      <Link
+                        className="lp-text-link"
+                        href={`${teacherWorkspaceHref(
+                          "/teacher/interventions",
+                          context,
+                          {
+                            concept: item.evidence.selection.concept_id,
+                            misconception:
+                              item.evidence.selection.misconception_id ??
+                              undefined,
+                            origin: item.evidence.selection.origin,
+                            seedAttempt: [],
+                            student: undefined,
+                            session: undefined,
+                            attempt: undefined,
+                            evaluation: undefined,
+                          },
+                        )}&draft=${encodeURIComponent(item.id)}`}
+                      >
+                        {item.activity.title} · revision {item.revision} ·{" "}
+                        {item.status.replaceAll("_", " ")}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            )}
+            {evidenceError && (
+              <p role="alert" className="lp-intervention-note mt-4">
+                {evidenceError}
+              </p>
+            )}
+            {narrowingResponses.length > 0 && (
+              <form
+                action="/teacher/interventions"
+                className="lp-intervention-narrowing"
+              >
+                <h3>Choose a smaller starting set</h3>
+                <p>
+                  Select responses from fewer students. Their other accepted
+                  answers on this concept, including contrary evidence, stay
+                  included.
+                </p>
+                {Array.from(
+                  new URLSearchParams(
+                    teacherWorkspaceHref("/teacher/interventions", context, {
+                      seedAttempt: [],
+                    }).split("?")[1],
+                  ),
+                ).map(([name, value]) => (
+                  <input type="hidden" key={name} name={name} value={value} />
+                ))}
+                {narrowingResponses.map((response) => (
+                  <label className="lp-intervention-choice" key={response.id}>
+                    <input
+                      type="checkbox"
+                      name="seedAttempt"
+                      value={response.id}
+                      defaultChecked={context.seedAttempt.includes(response.id)}
+                    />
+                    <span>
+                      <strong>{response.student}</strong> · {response.question}
+                    </span>
+                  </label>
+                ))}
+                <button className="lp-button mt-4">
+                  Review selected evidence
+                </button>
+              </form>
+            )}
+          </div>
+        }
       />
     </TeacherFrame>
   );

@@ -165,13 +165,27 @@ try {
   for (const marker of [
     "Private draft",
     "Evidence used",
-    "Review the proposed activity",
+    "Write and save draft",
+    "Choose recipients",
+    "Approve saved revision",
+    "Deliver activity",
+    "Read follow-up",
     "Student preview",
     "Teacher-only review",
     "Check your understanding",
     "Source references",
   ])
     assert.ok(html.includes(marker), `Saved review page is missing ${marker}.`);
+  for (const [pane, label] of [
+    ["navigation", "Evidence"],
+    ["main", "Activity"],
+    ["context", "Steps"],
+  ])
+    assert.match(
+      html,
+      new RegExp(`id="[^"]+-${pane}-heading"[^>]*>${label}</h2>`),
+      `Saved review page must include the shared ${label} pane.`,
+    );
   assert.ok(html.includes(saved.request.draft_id));
   const deniedPage = await request(pagePath, student.cookie);
   // Next can stream the authorized not-found boundary after a 200 response starts.
@@ -186,7 +200,7 @@ try {
   );
   assert.ok(!deniedHtml.includes("Private answer guidance"));
   checks.push(
-    "saved teacher workspace renders private-draft status, evidence, student preview and teacher-review controls; student page denies private evidence",
+    "saved teacher workspace renders shared Evidence/Activity/Steps, private-draft status, separate lifecycle actions, student preview and teacher-review controls; student page denies private evidence",
   );
 
   const crossOrigin = await request(api, teacher.cookie, {

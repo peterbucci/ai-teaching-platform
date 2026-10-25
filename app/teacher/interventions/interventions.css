@@ -1,19 +1,152 @@
-.lp-intervention-layout {
-  display: grid;
-  grid-template-columns: minmax(300px, 0.8fr) minmax(0, 1.2fr);
-  gap: 18px;
-  align-items: start;
-  margin-top: 24px;
-}
-.lp-intervention-evidence-pane {
+.lp-intervention-workspace {
   min-width: 0;
 }
-.lp-intervention-mobile-tabs {
-  display: none;
+/* Match the current shell and pane headings without extending under its nav. */
+.lp-intervention-workspace .tw-panes .tw-panes-body {
+  max-height: max(0px, calc(100dvh - 254px));
+}
+@media (min-width: 801px) and (max-width: 1240px) {
+  .lp-intervention-workspace .tw-panes .tw-panes-body {
+    max-height: max(0px, calc(100dvh - 298px));
+  }
+  .lp-intervention-workspace .tw-panes-context .tw-panes-body {
+    max-height: max(0px, calc(100dvh - 62px));
+  }
+}
+.lp-intervention-context {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 12px;
+}
+.lp-intervention-context-heading,
+.lp-intervention-context > .lp-intervention-selection,
+.lp-intervention-context > .lp-intervention-narrowing,
+.lp-intervention-context > [role="alert"],
+.lp-intervention-context > details[open] {
+  flex-basis: 100%;
+}
+.lp-intervention-context-heading {
+  font-size: 13px;
+  line-height: 1.5;
+}
+.lp-intervention-context > .lp-text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.lp-intervention-context > .lp-text-link,
+.lp-intervention-context summary {
+  font-size: 12px;
+}
+.lp-intervention-context summary {
+  cursor: pointer;
+  font-weight: 600;
+  min-height: 44px;
+  padding-block: 12px;
+}
+.lp-intervention-scope-form {
+  display: grid;
+  gap: 12px;
+  margin-block: 12px;
+}
+.lp-intervention-scope-form .lp-field {
+  min-width: 0;
+}
+.lp-intervention-scope-form .lp-input {
+  width: 100%;
+  min-width: 0;
+}
+.lp-intervention-steps {
+  list-style: none;
+  counter-reset: intervention-step;
+}
+.lp-intervention-steps > li {
+  counter-increment: intervention-step;
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0 18px 30px;
+  position: relative;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.lp-intervention-steps > li::before {
+  content: counter(intervention-step);
+  position: absolute;
+  left: 0;
+  top: 18px;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--green);
+  border-radius: 50%;
+  color: var(--green);
+  font-weight: 650;
+}
+.lp-intervention-steps > li > h3 {
+  font-size: 14px;
+  font-weight: 650;
+  margin-bottom: 8px;
+}
+.lp-intervention-steps .lp-intervention-approval-summary,
+.lp-intervention-steps .lp-intervention-section {
+  margin-top: 12px;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.lp-intervention-steps .lp-intervention-actions {
+  gap: 8px;
+}
+.lp-intervention-workspace .lp-intervention-panel {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: none;
+}
+.lp-intervention-workspace .lp-intervention-panel > h2 {
+  font-size: 22px;
+  font-weight: 650;
+  line-height: 1.3;
+}
+.lp-intervention-workspace
+  .lp-intervention-panel
+  > #intervention-evidence-title {
+  font-size: 15px;
+}
+.lp-intervention-workspace .lp-button {
+  white-space: normal;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.lp-intervention-workspace .lp-intervention-tabs {
+  padding-top: 0;
+}
+.lp-intervention-workspace .lp-intervention-status {
+  margin-bottom: 8px;
+}
+.lp-intervention-workspace [tabindex="-1"]:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
 }
 .lp-intervention-scope-title {
   font-weight: 650;
   color: var(--ink);
+}
+.lp-intervention-panel > .lp-intervention-scope-summary {
+  margin-top: 6px;
+}
+.lp-intervention-panel > .lp-intervention-scope-details {
+  padding-top: 0;
+  margin-top: 8px;
+}
+.lp-intervention-scope-details > summary {
+  min-height: 44px;
+  padding-block: 12px;
 }
 .lp-intervention-question-preview,
 .lp-intervention-answer-preview {
@@ -267,34 +400,32 @@
   padding-top: 16px;
 }
 @media (max-width: 800px) {
-  .lp-intervention-layout {
-    grid-template-columns: 1fr;
+  .lp-intervention-workspace .tw-panes .tw-panes-body {
+    max-height: max(
+      0px,
+      calc(
+        100dvh - 196px - var(--tw-bottom-height, 65px) -
+          env(safe-area-inset-bottom, 0px)
+      )
+    );
   }
-  .lp-intervention-mobile-tabs {
-    display: flex;
-    gap: 8px;
+  .lp-intervention-workspace .lp-intervention-tabs {
+    flex-wrap: nowrap;
+    gap: 4px;
+    padding-bottom: 8px;
   }
-  .lp-intervention-mobile-tabs .lp-button {
-    flex: 1;
+  .lp-intervention-tabs button {
+    flex: 1 1 0;
+    min-width: 0;
     min-height: 44px;
+    padding: 8px 4px;
   }
-  .lp-intervention-mobile-tabs [aria-pressed="true"] {
-    background: #eaf6ef;
-    border-color: #176d58;
-    color: #176d58;
-  }
-  .lp-intervention-evidence-pane[data-active="false"],
-  .lp-intervention-activity-pane[data-active="false"] {
-    display: none;
+  .lp-intervention-student-preview {
+    padding-top: 12px;
   }
   .lp-intervention-choice {
     min-height: 44px;
     align-items: center;
-  }
-}
-@media (max-width: 560px) {
-  .lp-intervention-panel {
-    padding: 20px 18px;
   }
 }
 

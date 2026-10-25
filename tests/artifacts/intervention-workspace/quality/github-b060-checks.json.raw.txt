@@ -1,0 +1,43 @@
+{
+  "checkedAt": "2026-10-25T14:49:03.137Z",
+  "pullRequest": "https://github.com/peterbucci/ai-teaching-platform/pull/124",
+  "headRevision": "b0608f6c69f47c48ed85876a992ccc3011bd2a66",
+  "runId": 40201536770,
+  "scope": "GitHub checks attached to PR head. The approval job checkout log and fetched commit prove merge preview 13b0d30c96792009eafa4ec97edf9fe1d32c8b5e (b0608f6 into aff34337c7a49c2bfeb9912d39c919ca3e8bc00d, fix(teacher): keep authoring navigation compact and contextual). The current PR/run metadata still reports target dd7401e; therefore these 573 CI tests are separate evidence from the requested-base isolated 563-test run. No visual-browser claim.",
+  "jobs": [
+    {
+      "job": {
+        "id": 121193563969,
+        "head_sha": "b0608f6c69f47c48ed85876a992ccc3011bd2a66",
+        "name": "quality",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "url": "https://github.com/peterbucci/ai-teaching-platform/actions/runs/40201536770/job/121193563969",
+      "logTruncated": true,
+      "evidence": [
+        "2026-10-25T14:18:13.2287723Z # tests 573",
+        "2026-10-25T14:18:13.2287889Z # pass 573",
+        "2026-10-25T14:18:13.2287974Z # fail 0",
+        "2026-10-25T14:18:13.2288063Z # cancelled 0",
+        "2026-10-25T14:18:13.2288143Z # skipped 0",
+        "2026-10-25T14:18:13.2288341Z # duration_ms 22843.946315",
+        "2026-10-25T14:25:55.8902187Z {\"issue\":44,\"verification\":\"authenticated HTTP and server-rendered saved review page; not a visual browser interaction test\",\"checked_at\":\"2026-10-25T14:25:55.886Z\",\"origin\":\"http://localhost:3000\",\"draft_id\":\"3c7c3d4c-ff77-46c7-a551-4454fdbb5aec\",\"saved_revision\":3,\"status\":\"passed\",\"paid_requests\":0,\"checks\":[\"anonymous access returns 401; fictional student cannot read teacher draft or generation request (404)\",\"authenticated teacher retrieves saved private draft and immutable completed request via no-store API\",\"saved teacher workspace renders shared Evidence/Activity/Steps, private-draft status, separate lifecycle actions, student preview and teacher-review controls; student page denies private evidence\",\"cross-origin POST returns 403; oversized and malformed generation requests return 400 before any reservation or model call; original evidence preserved\"]}"
+      ]
+    },
+    {
+      "job": {
+        "id": 121193563731,
+        "head_sha": "b0608f6c69f47c48ed85876a992ccc3011bd2a66",
+        "name": "intervention-approval",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "url": "https://github.com/peterbucci/ai-teaching-platform/actions/runs/40201536770/job/121193563731",
+      "logTruncated": false,
+      "evidence": [
+        "2026-10-25T14:18:53.9162838Z {\"status\":\"passed\",\"verification\":\"PostgreSQL, authenticated HTTP and server-rendered UI; injected fixtures, no live model acceptance or visual browser interaction\",\"paid_calls\":0,\"completed\":[{\"kind\":\"uploaded\",\"draft_id\":\"07e8cf26-ca40-43eb-9a1c-281251b2afcd\",\"approval_id\":\"16511fb8-c662-4deb-86bf-9359b826f7fe\",\"assignment_id\":\"71106edf-dc0b-4d53-a678-72fdb051bdbd\"},{\"kind\":\"curated\",\"draft_id\":\"00a66210-8ad3-4d17-9700-c39a43e4b2fd\",\"approval_id\":\"71004cfd-dad0-4604-80b3-fa31c3210979\",\"assignment_id\":\"30000000-0000-4000-8000-000000000001\"}],\"checks\":[\"uploaded: HTTP start/reload, private accepted evaluation and teacher comparison; ordinary answer/controller/R7 routes denied; unknown outcome retains one spent unresolved reservation, exact answer and no replay/retry. Six injected evaluations; zero paid calls.\",\"uploaded: exact-source edit/replay/stale/reference checks, explicit approval then delivery, enrollment and private projection, displayed-once, immutable history and unchanged original evidence passed.\",\"curated: HTTP start/reload, private accepted evaluation and teacher comparison; ordinary answer/controller/R7 routes denied; unknown outcome retains one spent unresolved reservation, exact answer and no replay/retry. Six injected evaluations; zero paid calls.\",\"curated: exact-source edit/replay/stale/reference checks, explicit approval then delivery, enrollment and private projection, displayed-once, immutable history and unchanged original evidence passed.\"]}"
+      ]
+    }
+  ]
+}

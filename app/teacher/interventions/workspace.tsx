@@ -6,7 +6,14 @@ import {
   useRef,
   useState,
   useSyncExternalStore,
+  type ReactNode,
 } from "react";
+import { useSearchParams } from "next/navigation";
+import { TeacherWorkspacePanes } from "../workspace-panes.tsx";
+import {
+  resolveTeacherWorkspacePane,
+  teacherWorkspacePaneHref,
+} from "../workspace-panes-model.ts";
 import { z } from "zod";
 import type { InterventionReview } from "../../../lib/interventions/approval-contracts.ts";
 import type { InterventionEvidence } from "../../../lib/interventions/contracts.ts";
@@ -76,6 +83,7 @@ export function InterventionWorkspace({
   initialRequestId,
   initialDraftId,
   initialReview,
+  evidenceControls,
 }: {
   assignmentId: string;
   actorId: string;
@@ -85,15 +93,34 @@ export function InterventionWorkspace({
   initialRequestId: string | null;
   initialDraftId: string | null;
   initialReview: InterventionReview | null;
+  evidenceControls: ReactNode;
 }) {
   const [draft, setDraft] = useState(initialDraft);
-  const [mobilePane, setMobilePane] = useState<"evidence" | "activity">(
-    initialDraft ? "activity" : "evidence",
+  const search = useSearchParams();
+  const initialPane = initialDraft ? "main" : "navigation";
+  const activePane = resolveTeacherWorkspacePane(
+    search,
+    ["navigation", "main", "context"],
+    initialPane,
   );
   const layout = useRef<HTMLDivElement>(null);
   const [focusRequest, setFocusRequest] = useState<{ id: string } | null>(null);
+  const handledFocus = useRef<{ id: string } | null>(null);
   const revealActivity = useCallback((id = "intervention-draft-title") => {
-    setMobilePane("activity");
+    // Follow the shared pane contract: forwarding Next's internal state would
+    // bypass its URL-to-useSearchParams synchronization.
+    window.history.replaceState(
+      null,
+      "",
+      teacherWorkspacePaneHref(
+        new URL(window.location.href),
+        id === "intervention-edit-actions"
+          ? "context"
+          : id === "intervention-evidence-title"
+            ? "navigation"
+            : "main",
+      ),
+    );
     setFocusRequest({ id });
   }, []);
   const [review, setReview] = useState(initialReview);
@@ -123,26 +150,34 @@ export function InterventionWorkspace({
       evidence?.observations.map((item) => item.attempt.id) ?? [];
     const navigate = (hash: string, initial = false) => {
       const id = interventionAnchorTarget(hash, attemptIds);
-      if (!id) {
-        setFocusRequest(
-          initial
-            ? null
-            : {
-                id: initialDraft
-                  ? "intervention-draft-title"
-                  : "intervention-evidence-title",
-              },
-        );
-        setMobilePane(initialDraft ? "activity" : "evidence");
+      if (!id) return;
+      // The shared pane controller owns tabs/history. A citation alone may
+      // reveal its exact saved response; pane-only history must not reselect it.
+      const pane = id === "intervention-draft-title" ? "main" : "navigation";
+      if (
+        initial &&
+        new URLSearchParams(window.location.search).has("workspacePane") &&
+        resolveTeacherWorkspacePane(
+          new URLSearchParams(window.location.search),
+          ["navigation", "main", "context"],
+          initialPane,
+        ) !== pane
+      )
         return;
-      }
-      setMobilePane(
-        id === "intervention-draft-title" ? "activity" : "evidence",
+      window.history.replaceState(
+        null,
+        "",
+        teacherWorkspacePaneHref(new URL(window.location.href), pane),
       );
       // A fresh request also handles clicking the currently bookmarked hash.
       setFocusRequest({ id });
     };
-    const restore = () => navigate(window.location.hash);
+    let previousHash = window.location.hash;
+    const restore = () => {
+      if (window.location.hash === previousHash) return;
+      previousHash = window.location.hash;
+      navigate(previousHash);
+    };
     const follow = (event: MouseEvent) => {
       if (
         event.defaultPrevented ||
@@ -165,8 +200,14 @@ export function InterventionWorkspace({
         next.pathname === window.location.pathname &&
         next.search === window.location.search &&
         interventionAnchorTarget(next.hash, attemptIds)
-      )
+      ) {
+        event.preventDefault();
+        // A new citation is a new history entry; let the shared shell mint
+        // its own restoration identity instead of copying the prior one.
+        window.history.pushState(null, "", next);
+        previousHash = next.hash;
         navigate(next.hash);
+      }
     };
     const root = layout.current;
     root?.addEventListener("click", follow);
@@ -178,31 +219,26 @@ export function InterventionWorkspace({
       window.removeEventListener("hashchange", restore);
       window.removeEventListener("popstate", restore);
     };
-  }, [evidence, initialDraft]);
+  }, [evidence, initialPane]);
 
   useEffect(() => {
-    if (!focusRequest) return;
-    const evidenceTarget =
-      focusRequest.id === "intervention-evidence-title" ||
-      focusRequest.id.startsWith("evidence-");
-    if (evidenceTarget !== (mobilePane === "evidence")) return;
+    if (!focusRequest || handledFocus.current === focusRequest) return;
     const target = document.getElementById(focusRequest.id);
-    if (!target || !layout.current?.contains(target)) return;
+    if (
+      !target ||
+      !layout.current?.contains(target) ||
+      !target.getClientRects().length
+    )
+      return;
     focusInterventionAnchor(
       target,
       target.querySelector<HTMLDetailsElement>(":scope > details"),
     );
-  }, [focusRequest, mobilePane]);
-
-  function selectPane(pane: "evidence" | "activity") {
-    const id =
-      pane === "evidence"
-        ? "intervention-evidence-title"
-        : "intervention-draft-title";
-    window.location.hash = id;
-    setMobilePane(pane);
-    setFocusRequest({ id });
-  }
+    // On tablet the target can be laid out behind the still-open Steps dialog.
+    // Keep the request pending until the pane change closes that modal and
+    // focus can actually move into the requested content.
+    if (document.activeElement === target) handledFocus.current = focusRequest;
+  }, [focusRequest, activePane]);
   const previewCurrent =
     Boolean(draft) ||
     matchesReviewedSelection(
@@ -332,6 +368,7 @@ export function InterventionWorkspace({
           "AI-generated draft saved privately. Review the activity, source support, and answer guidance.",
         );
         setError(null);
+        revealActivity();
       } else {
         setError(
           result.error ??
@@ -340,7 +377,7 @@ export function InterventionWorkspace({
         setNotice(null);
       }
     },
-    [directionKey],
+    [directionKey, revealActivity],
   );
 
   const missingRequest = useCallback(() => {
@@ -514,242 +551,305 @@ export function InterventionWorkspace({
     }
   }
 
-  if (!evidence)
-    return (
-      <p className="lp-empty-results">
-        Choose a concept with accepted student responses to prepare a review
-        activity.
-      </p>
-    );
+  function reconcileGeneration() {
+    if (pendingId) void checkRequest(pendingId);
+  }
 
-  return (
-    <div className="lp-intervention-layout" ref={layout}>
-      <div
-        className="lp-intervention-mobile-tabs"
-        role="group"
-        aria-label="Intervention workspace"
-      >
-        <button
-          type="button"
-          className="lp-button"
-          aria-pressed={mobilePane === "evidence"}
-          onClick={() => selectPane("evidence")}
-        >
-          Evidence used
-        </button>
-        <button
-          type="button"
-          className="lp-button"
-          aria-pressed={mobilePane === "activity"}
-          onClick={() => selectPane("activity")}
-        >
-          Activity
-        </button>
-      </div>
-      <div
-        className="lp-intervention-evidence-pane"
-        data-active={mobilePane === "evidence"}
-      >
-        <EvidenceReview
-          evidence={evidence}
-          context={context}
-          selectedIds={selectedIds}
-          locked={locked}
-          previewCurrent={previewCurrent}
-          reviewHref={interventionPreviewHref(context, selectedIds)}
-          onToggle={
-            draft
-              ? undefined
-              : (id) =>
-                  setSelectedIds((current) =>
-                    current.includes(id)
-                      ? current.filter((item) => item !== id)
-                      : current.length < 60
-                        ? [...current, id]
-                        : current,
-                  )
-          }
+  function renderWorkspace({
+    activity,
+    steps,
+  }: {
+    activity: ReactNode;
+    steps: ReactNode;
+  }) {
+    return (
+      <div className="lp-intervention-workspace" ref={layout}>
+        <TeacherWorkspacePanes
+          initialPane={initialPane}
+          navigation={{
+            label: "Evidence",
+            children: (
+              <>
+                {evidenceControls}
+                {evidence ? (
+                  <EvidenceReview
+                    evidence={evidence}
+                    context={context}
+                    selectedIds={selectedIds}
+                    locked={locked}
+                    previewCurrent={previewCurrent}
+                    reviewHref={interventionPreviewHref(context, selectedIds)}
+                    onToggle={
+                      draft
+                        ? undefined
+                        : (id) =>
+                            setSelectedIds((current) =>
+                              current.includes(id)
+                                ? current.filter((item) => item !== id)
+                                : current.length < 60
+                                  ? [...current, id]
+                                  : current,
+                            )
+                    }
+                  />
+                ) : (
+                  <p className="lp-empty-results">
+                    Choose a concept with accepted student responses to prepare
+                    a review activity.
+                  </p>
+                )}
+              </>
+            ),
+          }}
+          main={{
+            label: "Activity",
+            children: (
+              <section
+                className="lp-intervention-panel lp-intervention-activity-pane"
+                id={draft ? "intervention-draft-title" : undefined}
+                tabIndex={draft ? -1 : undefined}
+                aria-label={
+                  draft ? `Activity: ${draft.activity.title}` : undefined
+                }
+                aria-labelledby={draft ? undefined : "intervention-draft-title"}
+              >
+                {!draft && (
+                  <h2 id="intervention-draft-title" tabIndex={-1}>
+                    Prepare a review activity
+                  </h2>
+                )}
+                {!draft && (
+                  <p>
+                    Prepare a source-grounded activity from the selected
+                    reasoning.
+                  </p>
+                )}
+                {!draft && (
+                  <p className="lp-intervention-note">
+                    This stays private. Generating does not select recipients,
+                    approve the activity, or deliver anything.
+                  </p>
+                )}
+                {draft &&
+                  initialEvidence &&
+                  draft.evidence.observations.some(
+                    (item) =>
+                      !initialEvidence.observations.some(
+                        (previous) => previous.attempt.id === item.attempt.id,
+                      ),
+                  ) && (
+                    <p className="lp-intervention-meta">
+                      New accepted responses were included when generation
+                      rechecked the evidence. Review the saved scope alongside
+                      the activity.
+                    </p>
+                  )}
+                {activity}
+                {evidence && (
+                  <>
+                    {(!draft || draft.status === "private_draft") && (
+                      <form
+                        className="lp-intervention-section"
+                        onSubmit={(event) => {
+                          event.preventDefault();
+                          void generate();
+                        }}
+                      >
+                        <h3>
+                          {draft ? "Request a revision" : "Draft with AI"}
+                        </h3>
+                        <label className="lp-intervention-field">
+                          {draft
+                            ? "What should change?"
+                            : "Optional teaching direction"}
+                          <textarea
+                            className="lp-input"
+                            value={instructions}
+                            onChange={(event) => {
+                              setInstructions({
+                                key: directionKey,
+                                text: event.target.value,
+                              });
+                              if (!draft) {
+                                rememberDirection(
+                                  browserDirectionStorage(),
+                                  directionKey,
+                                  event.target.value,
+                                );
+                              }
+                            }}
+                            maxLength={1500}
+                            required={Boolean(draft)}
+                            disabled={generationLocked}
+                            placeholder="For example: use a conceptual comparison and ask students to explain what stays the same."
+                          />
+                        </label>
+                        <p className="lp-intervention-meta">
+                          Revisions keep the same recorded evidence and source
+                          version. A failed generation preserves the previous
+                          saved draft.
+                        </p>
+                        {!previewCurrent && (
+                          <p className="lp-intervention-warning" role="status">
+                            Your starting responses changed. Review selected
+                            evidence before generating; the server includes
+                            related and contrary answers. Each starting
+                            selection keeps its own teaching direction in this
+                            tab.
+                          </p>
+                        )}
+                        {editorState.dirty && (
+                          <p className="lp-intervention-meta">
+                            Save or discard your edits before requesting an AI
+                            revision.
+                          </p>
+                        )}
+                        <div className="lp-intervention-actions">
+                          <button
+                            className="lp-button lp-button-primary"
+                            disabled={
+                              generationLocked ||
+                              Boolean(draft && !instructions.trim())
+                            }
+                            aria-busy={busy}
+                          >
+                            {busy
+                              ? "Working…"
+                              : draft
+                                ? "Generate revised draft"
+                                : "Generate private draft"}
+                          </button>
+                          {draft && !locked && (
+                            <a
+                              className="lp-text-link"
+                              href={teacherWorkspaceHref(
+                                "/teacher/interventions",
+                                context,
+                                {
+                                  origin: evidence.selection.origin,
+                                  concept: evidence.selection.concept_id,
+                                  seedAttempt: [],
+                                },
+                              )}
+                            >
+                              Start a separate draft
+                            </a>
+                          )}
+                        </div>
+                        {(notice || pendingId) && (
+                          <div
+                            id="intervention-generation-status"
+                            tabIndex={-1}
+                            className="lp-intervention-note mt-4"
+                          >
+                            {notice && <p role="status">{notice}</p>}
+                            {pendingId && (
+                              <button
+                                type="button"
+                                className="lp-button"
+                                disabled={busy}
+                                onClick={reconcileGeneration}
+                              >
+                                Check generation status
+                              </button>
+                            )}
+                          </div>
+                        )}
+                        {error && (
+                          <p role="alert" className="mt-4">
+                            {error}
+                          </p>
+                        )}
+                      </form>
+                    )}
+                    {draft && draft.status !== "private_draft" && pendingId && (
+                      <div
+                        className="lp-intervention-section"
+                        id="intervention-generation-status"
+                        tabIndex={-1}
+                      >
+                        <p className="lp-intervention-meta">
+                          An earlier generation request still needs
+                          reconciliation. It cannot overwrite this finalized
+                          activity.
+                        </p>
+                        <button
+                          type="button"
+                          className="lp-button"
+                          disabled={busy}
+                          onClick={reconcileGeneration}
+                        >
+                          Check earlier generation status
+                        </button>
+                        {notice && <p role="status">{notice}</p>}
+                        {error && <p role="alert">{error}</p>}
+                      </div>
+                    )}
+                  </>
+                )}
+              </section>
+            ),
+          }}
+          context={{ label: "Steps", children: steps }}
         />
       </div>
-      <section
-        className="lp-panel lp-intervention-panel lp-intervention-activity-pane"
-        data-active={mobilePane === "activity"}
-        aria-labelledby="intervention-draft-title"
-      >
-        <div className="flex flex-wrap items-center gap-3">
-          <span className="lp-badge lp-badge-neutral">
-            Teacher-controlled intervention
-          </span>
-        </div>
-        <h2 id="intervention-draft-title" tabIndex={-1}>
-          {draft ? "Review the proposed activity" : "Prepare a review activity"}
-        </h2>
-        <p>
-          {draft
-            ? "Review the evidence, refine the activity, and choose who should receive it. Approval and delivery are separate teacher decisions."
-            : "Ask AI to create a source-grounded explanation, targeted practice, and a fresh check from this recorded reasoning."}
-        </p>
-        {!draft && (
-          <p className="lp-intervention-note">
-            This stays private. Generating does not select recipients, approve
-            the activity, or deliver anything.
-          </p>
-        )}
-        {draft && initialEvidence && (
-          <p className="lp-intervention-meta">
-            Saved evidence: {draft.evidence.counts.selected_responses} responses
-            from {draft.evidence.counts.selected_students} students.
-            {draft.evidence.observations.filter(
-              (item) =>
-                !initialEvidence.observations.some(
-                  (previous) => previous.attempt.id === item.attempt.id,
-                ),
-            ).length > 0 &&
-              " New accepted responses were included when generation rechecked the evidence. Review the saved scope alongside the activity."}
-          </p>
-        )}
-        {draft && (
-          <InterventionEditor
-            key={`${draft.id}:${draft.revision}`}
-            actorId={actorId}
-            draft={draft}
-            initialReview={review}
-            disabled={locked}
-            onReview={acceptReview}
-            onStateChange={setEditorState}
-            onNavigationBlocked={revealActivity}
-          />
-        )}
-        {(!draft || draft.status === "private_draft") && (
-          <form
-            className="lp-intervention-section"
-            onSubmit={(event) => {
-              event.preventDefault();
-              void generate();
-            }}
-          >
-            <h3>{draft ? "Request a revision" : "Draft with AI"}</h3>
-            <label className="lp-intervention-field">
-              {draft ? "What should change?" : "Optional teaching direction"}
-              <textarea
-                className="lp-input"
-                value={instructions}
-                onChange={(event) => {
-                  setInstructions({
-                    key: directionKey,
-                    text: event.target.value,
-                  });
-                  if (!draft) {
-                    rememberDirection(
-                      browserDirectionStorage(),
-                      directionKey,
-                      event.target.value,
-                    );
-                  }
-                }}
-                maxLength={1500}
-                required={Boolean(draft)}
-                disabled={generationLocked}
-                placeholder="For example: use a conceptual comparison and ask students to explain what stays the same."
-              />
-            </label>
-            <p className="lp-intervention-meta">
-              Revisions keep the same recorded evidence and source version. A
-              failed generation preserves the previous saved draft.
+    );
+  }
+
+  return draft ? (
+    <InterventionEditor
+      key={`${draft.id}:${draft.revision}`}
+      actorId={actorId}
+      draft={draft}
+      initialReview={review}
+      disabled={locked}
+      onReview={acceptReview}
+      onStateChange={setEditorState}
+      onNavigationBlocked={revealActivity}
+      renderWorkspace={renderWorkspace}
+    />
+  ) : (
+    renderWorkspace({
+      activity: null,
+      steps: (
+        <ol className="lp-intervention-steps">
+          <li>
+            <h3>Choose the answers to use</h3>
+            <p>
+              {evidence
+                ? `${evidence.counts.selected_responses} responses from ${evidence.counts.selected_students} students reviewed.`
+                : "Select accepted evidence in Evidence."}
             </p>
-            {!previewCurrent && (
-              <p className="lp-intervention-warning" role="status">
-                Your starting responses changed. Review selected evidence before
-                generating; the server includes related and contrary answers.
-                Each starting selection keeps its own teaching direction in this
-                tab.
-              </p>
-            )}
-            {editorState.dirty && (
-              <p className="lp-intervention-meta">
-                Save or discard your edits before requesting an AI revision.
-              </p>
-            )}
-            <div className="lp-intervention-actions">
-              <button
-                className="lp-button lp-button-primary"
-                disabled={
-                  generationLocked || Boolean(draft && !instructions.trim())
-                }
-                aria-busy={busy}
-              >
-                {busy
-                  ? "Working…"
-                  : draft
-                    ? "Generate revised draft"
-                    : "Generate private draft"}
-              </button>
-              {draft && !locked && (
-                <a
-                  className="lp-text-link"
-                  href={teacherWorkspaceHref(
-                    "/teacher/interventions",
-                    context,
-                    {
-                      origin: evidence.selection.origin,
-                      concept: evidence.selection.concept_id,
-                      seedAttempt: [],
-                    },
-                  )}
-                >
-                  Start a separate draft
-                </a>
-              )}
-            </div>
-            {(notice || pendingId) && (
-              <div
-                id="intervention-generation-status"
-                tabIndex={-1}
-                className="lp-intervention-note mt-4"
-              >
-                {notice && <p role="status">{notice}</p>}
-                {pendingId && (
-                  <button
-                    type="button"
-                    className="lp-button"
-                    disabled={busy}
-                    onClick={() => void checkRequest(pendingId)}
-                  >
-                    Check generation status
-                  </button>
-                )}
-              </div>
-            )}
-            {error && (
-              <p role="alert" className="mt-4">
-                {error}
-              </p>
-            )}
-          </form>
-        )}
-        {draft && draft.status !== "private_draft" && pendingId && (
-          <div
-            className="lp-intervention-section"
-            id="intervention-generation-status"
-            tabIndex={-1}
-          >
-            <p className="lp-intervention-meta">
-              An earlier generation request still needs reconciliation. It
-              cannot overwrite this finalized activity.
+          </li>
+          <li>
+            <h3>Write and save the draft</h3>
+            <p>
+              {pendingId
+                ? "Generation outcome unconfirmed. Check its status in Activity."
+                : "Generate a private draft in Activity after reviewing the evidence."}
             </p>
-            <button
-              type="button"
-              className="lp-button"
-              disabled={busy}
-              onClick={() => void checkRequest(pendingId)}
-            >
-              Check earlier generation status
-            </button>
-            {notice && <p role="status">{notice}</p>}
-            {error && <p role="alert">{error}</p>}
-          </div>
-        )}
-      </section>
-    </div>
+          </li>
+          <li>
+            <h3>Choose the students</h3>
+            <p>
+              Available after a private draft is saved. Evidence selection does
+              not select recipients.
+            </p>
+          </li>
+          <li>
+            <h3>Approve the saved revision</h3>
+            <p>Teacher review required.</p>
+          </li>
+          <li>
+            <h3>Deliver to students</h3>
+            <p>Requires separate approval. Nothing has been delivered.</p>
+          </li>
+          <li>
+            <h3>Read follow-up answers</h3>
+            <p>Available after delivery.</p>
+          </li>
+        </ol>
+      ),
+    })
   );
 }
