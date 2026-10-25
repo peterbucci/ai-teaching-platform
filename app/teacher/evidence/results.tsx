@@ -103,8 +103,10 @@ export function EvidenceResults({
                       const next = checked
                         ? selected.filter((id) => id !== row.attempt.id)
                         : [...selected, row.attempt.id];
+                      // Let Next copy its internal state and notify search-param subscribers.
+                      // Reusing history.state marks this as an internal router write.
                       window.history.replaceState(
-                        window.history.state,
+                        null,
                         "",
                         teacherWorkspaceHref("/teacher/evidence", context, {
                           seedAttempt: next,
