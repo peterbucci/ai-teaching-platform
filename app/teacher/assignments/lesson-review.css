@@ -1,0 +1,231 @@
+/* Assignment-only treatment from Workbench v2.2: ruled review sections and
+   the student preview's .spv / .asgc / .how layout. */
+.awa-lesson-review,
+.awa-student-preview {
+  min-width: 0;
+  color: #17302d;
+}
+.awa-lesson-review .awa-review-section {
+  border-top: 1px solid #e1e9e4;
+  padding: 16px 0;
+  min-width: 0;
+}
+.awa-lesson-review .awa-review-title {
+  font-size: 15.5px;
+  line-height: 1.35;
+  font-weight: 650;
+  letter-spacing: normal;
+  margin: 0 0 6px;
+}
+.awa-lesson-review .awa-review-meta {
+  font-size: 13px;
+  color: #4f6359;
+  line-height: 1.45;
+  margin: 0;
+}
+.awa-review-concepts {
+  margin-top: 12px;
+}
+.awa-review-concept {
+  padding: 12px 0;
+  border-bottom: 1px solid #e1e9e4;
+}
+.awa-review-concept:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.awa-lesson-review .awa-review-concept-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+.awa-review-objectives {
+  list-style: disc;
+  padding-left: 20px;
+  margin: 6px 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+.awa-review-objectives li + li {
+  margin-top: 4px;
+}
+.awa-lesson-review .awa-review-section > .lp-evidence-details {
+  margin-top: 12px;
+}
+.awa-lesson-review .awa-sequence-list {
+  list-style: decimal;
+  margin: 12px 0;
+  padding-left: 20px;
+}
+.awa-lesson-review .awa-sequence-list > li + li {
+  margin-top: 16px;
+}
+.awa-student-preview {
+  max-width: 760px;
+  font-size: 15px;
+  line-height: 1.55;
+}
+.awa-student-preview .awa-preview-caption {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #4f6359;
+}
+.awa-preview-frame {
+  background: #f6f8f7;
+  border: 1px solid #e1e9e4;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+.awa-student-preview .awa-preview-kicker {
+  font-size: 12.5px;
+  color: #4f6359;
+  margin: 0;
+}
+.awa-preview-card {
+  background: #fff;
+  border: 1px solid #e1e9e4;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+.awa-preview-card-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+.awa-student-preview .awa-preview-title {
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 650;
+  letter-spacing: normal;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.awa-preview-state {
+  display: inline-block;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 0 9px;
+  border: 1px solid #c5d9eb;
+  border-radius: 999px;
+  white-space: nowrap;
+  line-height: 1.65;
+  color: #2f5e85;
+  background: #ecf3fa;
+}
+.awa-student-preview .awa-preview-instructions {
+  font-size: 15px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin: 0;
+}
+.awa-preview-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.awa-student-preview .awa-preview-label {
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #4f6359;
+  margin: 0;
+}
+.awa-preview-goal {
+  font-size: 14.5px;
+}
+.awa-student-preview .awa-preview-goal p {
+  margin: 0;
+}
+.awa-preview-concept {
+  font-weight: 600;
+}
+.awa-preview-how {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  counter-reset: preview-how;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.awa-preview-how li {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 2px 10px;
+  counter-increment: preview-how;
+  font-size: 14.5px;
+}
+.awa-preview-how li::before {
+  content: counter(preview-how);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  background: #eef2f0;
+  color: #2b4b42;
+}
+.awa-student-preview .awa-preview-readonly {
+  margin: 10px 0 16px;
+}
+.awa-preview-disclosure {
+  border-top: 1px solid #e1e9e4;
+  font-size: 14px;
+}
+.awa-preview-disclosure > summary {
+  padding: 12px 0;
+  color: #176d58;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.awa-preview-disclosure-body {
+  padding-bottom: 16px;
+}
+.awa-preview-disclosure-body > ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin: 10px 0;
+}
+.awa-preview-version {
+  display: grid;
+  grid-template-columns: minmax(120px, auto) minmax(0, 1fr);
+  gap: 6px 16px;
+  margin: 0 0 16px;
+  overflow-wrap: anywhere;
+  font-size: 13px;
+}
+.awa-preview-version dt {
+  color: #4f6359;
+}
+.awa-preview-version dd {
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .awa-preview-frame {
+    padding: 12px;
+  }
+  .awa-preview-version {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3px;
+  }
+  .awa-preview-version dd + dt {
+    margin-top: 7px;
+  }
+}

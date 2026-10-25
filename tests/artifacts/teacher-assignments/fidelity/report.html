@@ -1,0 +1,1112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Assignments &amp; Class Progress — v2.2 fidelity correction report
+    </title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #17302d;
+        --muted: #4f6359;
+        --line: #dbe5df;
+        --green: #176d58;
+        --paper: #fff;
+        --canvas: #f6f8f7;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--canvas);
+        font:
+          15px/1.6 system-ui,
+          -apple-system,
+          "Segoe UI",
+          sans-serif;
+      }
+      main {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 36px 28px 72px;
+      }
+      h1,
+      h2,
+      h3,
+      p,
+      figure {
+        margin: 0;
+      }
+      h1 {
+        font-size: clamp(25px, 3vw, 38px);
+        line-height: 1.2;
+        max-width: 28ch;
+      }
+      h2 {
+        font-size: 23px;
+        line-height: 1.3;
+        margin-bottom: 12px;
+      }
+      h3 {
+        font-size: 17px;
+        margin-bottom: 6px;
+      }
+      p + p {
+        margin-top: 10px;
+      }
+      a {
+        color: var(--green);
+        text-underline-offset: 3px;
+      }
+      a:focus-visible {
+        outline: 3px solid var(--green);
+        outline-offset: 4px;
+      }
+      code {
+        font-size: 0.9em;
+        overflow-wrap: anywhere;
+      }
+      header {
+        padding-bottom: 26px;
+        border-bottom: 2px solid var(--ink);
+      }
+      .eyebrow {
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+      .meta,
+      .small {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .meta {
+        margin-top: 12px;
+      }
+      .status {
+        border: 1px solid #c5d9eb;
+        background: #ecf3fa;
+        padding: 16px 18px;
+        margin-top: 20px;
+      }
+      .status strong {
+        display: block;
+        font-size: 17px;
+      }
+      .status p {
+        font-size: 14px;
+        margin-top: 6px;
+      }
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 20px;
+        margin-top: 18px;
+      }
+      .report-section {
+        margin-top: 32px;
+      }
+      .table-wrap {
+        overflow-x: auto;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        margin-top: 12px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        min-width: 780px;
+      }
+      th,
+      td {
+        padding: 12px 14px;
+        text-align: left;
+        vertical-align: top;
+        border-bottom: 1px solid var(--line);
+      }
+      th {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        background: #eef5f1;
+      }
+      td {
+        font-size: 14px;
+      }
+      tbody tr:last-child td {
+        border-bottom: 0;
+      }
+      td:first-child {
+        font-weight: 600;
+        min-width: 160px;
+      }
+      ul {
+        margin: 10px 0 0;
+        padding-left: 22px;
+      }
+      li + li {
+        margin-top: 6px;
+      }
+      .provenance {
+        display: grid;
+        grid-template-columns: minmax(160px, 220px) minmax(0, 1fr);
+        gap: 8px 16px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        padding: 18px;
+        margin: 0;
+      }
+      .provenance dt {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .provenance dd {
+        margin: 0;
+        overflow-wrap: anywhere;
+      }
+      .capture-set {
+        padding: 20px 0;
+        border-top: 1px solid var(--line);
+      }
+      .comparison-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 12px;
+      }
+      figure {
+        min-width: 0;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      figure > a {
+        display: block;
+        background: #eef2f0;
+      }
+      figure img {
+        display: block;
+        width: 100%;
+        height: 380px;
+        object-fit: contain;
+        object-position: top;
+        background: #eef2f0;
+      }
+      figcaption {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        padding: 10px 12px;
+        font-size: 12px;
+        overflow-wrap: anywhere;
+      }
+      figcaption strong {
+        font-size: 13px;
+      }
+      .pending {
+        color: #7f5216;
+        font-weight: 600;
+      }
+      .note {
+        border-left: 3px solid #c5d9eb;
+        padding-left: 14px;
+        margin-top: 14px;
+      }
+      footer {
+        border-top: 1px solid var(--line);
+        margin-top: 36px;
+        padding-top: 16px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      @media (max-width: 800px) {
+        main {
+          padding: 24px 16px 48px;
+        }
+        .comparison-grid {
+          grid-template-columns: 1fr;
+        }
+        .provenance {
+          grid-template-columns: 1fr;
+          gap: 3px;
+        }
+        .provenance dd + dt {
+          margin-top: 10px;
+        }
+        figure img {
+          height: auto;
+          max-height: 760px;
+        }
+        .status {
+          padding: 14px;
+        }
+      }
+      @media print {
+        body {
+          background: white;
+        }
+        main {
+          max-width: none;
+          padding: 0;
+        }
+        nav {
+          display: none;
+        }
+        a {
+          color: inherit;
+        }
+        .comparison-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        figure img {
+          height: 240px;
+        }
+        .capture-set {
+          break-inside: avoid;
+        }
+        table {
+          min-width: 0;
+        }
+        th,
+        td {
+          font-size: 11px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">
+          Learning Pulse · Teaching Workbench v2.2 · October 25, 2026
+        </p>
+        <h1>Assignments &amp; Class Progress fidelity correction</h1>
+        <p class="meta">
+          Focused comparison for
+          <a href="https://github.com/peterbucci/ai-teaching-platform/pull/117"
+            >PR #117</a
+          >
+          ·
+          <a href="https://github.com/peterbucci/ai-teaching-platform/issues/16"
+            >assignment issue #16</a
+          >
+          ·
+          <a
+            href="https://github.com/peterbucci/ai-teaching-platform/issues/114"
+            >workbench coordination #114</a
+          >
+        </p>
+        <div class="status" role="note">
+          <strong
+            >Page-local corrections implemented; integrated visual acceptance
+            pending shared shell</strong
+          >
+          <p>
+            This report covers the assignment pages changed in this correction.
+            It does not claim full prototype fidelity. The shared sidebar and
+            surrounding workspace shell remain owned by the Workbench agent;
+            integrated screenshots require that work before final acceptance.
+          </p>
+        </div>
+        <nav aria-label="Report sections">
+          <a href="#comparison">Screen comparison</a
+          ><a href="#deviations">Deliberate differences</a
+          ><a href="#verification">Verification</a
+          ><a href="#gallery">Screenshot gallery</a
+          ><a href="#handoff">Integration handoff</a>
+        </nav>
+      </header>
+      <section class="report-section" id="reference">
+        <h2>Reference and comparison basis</h2>
+        <dl class="provenance">
+          <dt>Approved design</dt>
+          <dd>
+            Teaching Workbench v2.2 clickable prototype,
+            <code>prototype-v22/Main.dc.html</code>, from the supplied prototype
+            archive.
+          </dd>
+          <dt>Verified SHA-256</dt>
+          <dd>
+            <code
+              >C853369DA1250ADF24A741A38C3D94D3C97A976C012C352732CF4DD8D924CB54</code
+            >
+          </dd>
+          <dt>Before revision</dt>
+          <dd><code>6f9dd8991abef5efa8108e50b2274dc3bdc13ce6</code></dd>
+          <dt>Prototype sample</dt>
+          <dd>18 fictional students and 68 answers.</dd>
+          <dt>Application fixture</dt>
+          <dd>
+            24 fictional students and 63 answers, using the application's saved
+            synthetic evidence.
+          </dd>
+          <dt>Comparison method</dt>
+          <dd>
+            Equivalent screen states and selection contexts, not an identical
+            sample dataset. Different names, counts, question text, and
+            content-version strings are not automatically visual defects.
+          </dd>
+          <dt>Capture status</dt>
+          <dd id="capture-status">
+            27 captures recorded from the actual prototype, original PR, and
+            corrected page. Detail comparisons use 1440 × 1000, 1024 × 768, 390
+            × 844, and 320 × 844. Viewport dimensions were checked in the
+            rendered browser; captures are unaltered. The browser screenshot API
+            returns smaller raster dimensions for scrollable application pages;
+            both configured viewport and native image dimensions are recorded in
+            <a href="captures.json">the capture manifest</a>. Before detail
+            images scroll to the original inline response section; after images
+            show the new contextual pane. Browser development indicators remain
+            visible.
+          </dd>
+        </dl>
+      </section>
+      <section class="report-section" id="comparison">
+        <h2>Screen-by-screen comparison</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Screen</th>
+                <th scope="col">Approved reference</th>
+                <th scope="col">Page-local correction</th>
+                <th scope="col">Acceptance / remaining boundary</th>
+                <th scope="col">Captures</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Assignment discovery</td>
+                <td>
+                  A lesson → published version → classroom assignment tree, with
+                  class rows and availability.
+                </td>
+                <td>
+                  Groups by stable lesson/version identities, then displays
+                  actual class assignments. Authorized publication choices
+                  retain the exact version.
+                </td>
+                <td>
+                  Implemented. Enrollment counts use the roster. Shared
+                  navigation and final visual alignment remain pending.
+                </td>
+                <td>
+                  <a href="#discovery-1440">1440 px</a><br /><a
+                    href="#discovery-320"
+                    >320 px</a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td>Class progress metrics and subviews</td>
+                <td>
+                  Assignment context, concise figures, and distinct grid,
+                  concept, question, and session views.
+                </td>
+                <td>
+                  Exposes existing evidence through those subviews, retaining
+                  the source filter and distinct response/student denominators.
+                </td>
+                <td>
+                  Implemented using application loaders. No mastery percentage
+                  or invented outcome substitutes for recorded evidence.
+                </td>
+                <td>
+                  <a href="#progress-1440">1440 px</a><br /><a
+                    href="#progress-320"
+                    >320 px</a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td>Chronological grid and Details</td>
+                <td>
+                  Student/concept cells contain chronological marks; a 380 px
+                  Details rail exposes selected evidence.
+                </td>
+                <td>
+                  Chronological shape marks, assistance distinctions, selected
+                  context, original work, and existing evidence-workspace links.
+                </td>
+                <td>
+                  Page-local behavior implemented. The complete 380 px rail and
+                  surrounding shell need integrated visual acceptance.
+                </td>
+                <td>
+                  <a href="#details-1440">1440 px</a><br /><a
+                    href="#details-1024"
+                    >1024 px</a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td>Mobile reversible panes</td>
+                <td>
+                  The narrow grid and Details alternate without losing selected
+                  evidence.
+                </td>
+                <td>
+                  URL-backed pane selection, visible Details/Close controls,
+                  Escape return, and focus restoration preserve the return path.
+                </td>
+                <td>
+                  Implemented. Back/Forward/reload and focus behavior should be
+                  assessed with the final shell at every requested width.
+                </td>
+                <td>
+                  <a href="#details-390">390 px</a><br /><a href="#details-320"
+                    >320 px</a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td>Lesson review and activation</td>
+                <td>
+                  Compact, ruled review content; publication and classroom
+                  activation are separate decisions.
+                </td>
+                <td>
+                  Ruled goals, full prepared-question coverage, private teacher
+                  guidance, sequence branches, and exact reading. Inactive
+                  creation and explicit activation stay separate.
+                </td>
+                <td>
+                  Implemented without editing a published lesson. The existing
+                  activation service remains the authority.
+                </td>
+                <td><a href="#review-preview">After · 1440 px</a></td>
+              </tr>
+              <tr>
+                <td>Read-only student preview</td>
+                <td>
+                  “What students see”: one compact student-style assignment
+                  card, goals, and numbered “How this works”.
+                </td>
+                <td>
+                  Prototype-style frame/card; disclosures retain identity,
+                  version, complete reading, and start/resume explanations.
+                </td>
+                <td>
+                  Implemented with the public projection. No fake session,
+                  mutation, private criteria, unrevealed diagnostics, or future
+                  answer guidance.
+                </td>
+                <td><a href="#review-preview">After · 1440 / 320 px</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section class="report-section" id="deviations">
+        <h2>Deliberate differences and limits</h2>
+        <ul>
+          <li>
+            <strong>Unavailable metadata stays unavailable.</strong> Publication
+            timestamps and revision notes are not fabricated where the current
+            loader does not provide them.
+          </li>
+          <li>
+            <strong>The index uses actual enrollment.</strong> Class rows show
+            roster counts rather than loading every student history for every
+            assignment to imitate a prototype participation label.
+          </li>
+          <li>
+            <strong>Full content-version identifiers remain intact.</strong>
+            They may wrap differently from the prototype's short sample labels;
+            links and assignment identities retain the exact value.
+          </li>
+          <li>
+            <strong>The current shared sidebar remains.</strong> Shared
+            workspace/navigation files are outside this correction's ownership.
+            This is an integration dependency, not accepted full fidelity.
+          </li>
+          <li>
+            <strong>The evidence-source filter remains available.</strong>
+            Prepared synthetic histories and live demo records must remain
+            distinguishable.
+          </li>
+          <li>
+            <strong>Preview privacy remains enforced.</strong> Teacher-only
+            criteria, hypotheses, diagnostic prompts, and future feedback stay
+            out of the student projection. Opening a preview creates no session
+            and marks no assistance as shown.
+          </li>
+          <li>
+            <strong>The fixtures differ.</strong> The application uses 24
+            students / 63 answers; the prototype uses 18 / 68. Compare
+            structure, labels, density, and behavior against equivalent states.
+          </li>
+        </ul>
+      </section>
+      <section class="report-section" id="verification">
+        <h2>Verification record</h2>
+        <p>
+          These checks ran against fictional records with model providers
+          disabled. Functional regression and page-local visual checks do not
+          establish integrated shared-shell acceptance.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Check</th>
+                <th scope="col">Recorded result</th>
+                <th scope="col">What it establishes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Deterministic test suite</td>
+                <td id="final-unit-status">
+                  494 passed; 0 failed, skipped, or cancelled.
+                </td>
+                <td>
+                  Fixture behavior and focused failure cases. This is not
+                  evidence of live model behavior.
+                </td>
+              </tr>
+              <tr>
+                <td>HTTP verification</td>
+                <td>Passed in the implementation run.</td>
+                <td>
+                  Application route behavior within the tested synthetic fixture
+                  scope.
+                </td>
+              </tr>
+              <tr>
+                <td>TypeScript / lint / formatting</td>
+                <td>Passed in the implementation run.</td>
+                <td>Code and formatting checks for the implementation.</td>
+              </tr>
+              <tr>
+                <td>Content verification</td>
+                <td>293 checks passed.</td>
+                <td>
+                  Existing approved-content checks; no new content system.
+                </td>
+              </tr>
+              <tr>
+                <td>Production build</td>
+                <td>Passed in the implementation run.</td>
+                <td>
+                  The application builds successfully in the tested
+                  configuration.
+                </td>
+              </tr>
+              <tr>
+                <td>Model calls</td>
+                <td>
+                  Providers disabled for fixture verification; no paid model
+                  calls.
+                </td>
+                <td>
+                  No claim of live agentic acceptance is made by this UI
+                  correction.
+                </td>
+              </tr>
+              <tr>
+                <td>Visual acceptance</td>
+                <td id="final-visual-status" class="pending">
+                  Page-local structure compared at all four requested sizes.
+                  Integrated acceptance remains pending shared shell.
+                </td>
+                <td>
+                  Assess screenshots at the listed widths. Passing tests or a
+                  build alone cannot establish design fidelity.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note" id="final-verification-note">
+          Browser checks: selecting an original-work cell, Escape and Close,
+          Back/Forward, reload, focus restoration, separate activation, and
+          read-only preview passed. No document-level horizontal overflow was
+          observed at the four sizes; the wide grid scrolls within its own
+          region. Desktop Details measured 380 px. Original response text,
+          dates, assistance and source/evaluation disclosures remain available.
+          The existing sidebar reduces the grid's usable width; global header,
+          assignment band, mobile bottom navigation, and final page offsets need
+          the shared shell. No shared-shell or Lessons branch was merged. A host
+          storage incident was reported after the successful build and
+          regression run. Further heavyweight builds and database acceptance
+          were paused. The final small action-link simplification was checked in
+          the browser and static checks; the production build was not rerun
+          after that change. Generated preview caches can be removed without
+          deleting sources, screenshots, reports, or database volumes.
+        </p>
+      </section>
+      <section class="report-section" id="gallery">
+        <h2>Reference / before / after gallery</h2>
+        <p class="small">
+          Click an image for its full-resolution JPEG. All image paths are
+          relative to this report. These filenames are the agreed capture
+          targets; a linked image alone does not mean the state has received
+          visual acceptance.
+        </p>
+        <section class="capture-set" id="discovery-1440">
+          <h3>Assignment discovery · 1440 px</h3>
+          <p class="small">
+            Lesson → version → class-assignment hierarchy at desktop width.
+          </p>
+          <div class="comparison-grid">
+            <figure>
+              <a href="reference-discovery-1440.jpg"
+                ><img
+                  src="reference-discovery-1440.jpg"
+                  alt="Approved prototype: discovery at 1440 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>Approved prototype</strong
+                ><a href="reference-discovery-1440.jpg"
+                  >reference-discovery-1440.jpg</a
+                >
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="before-discovery-1440.jpg"
+                ><img
+                  src="before-discovery-1440.jpg"
+                  alt="Before correction: discovery at 1440 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>Before correction</strong
+                ><a href="before-discovery-1440.jpg"
+                  >before-discovery-1440.jpg</a
+                >
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="after-discovery-1440.jpg"
+                ><img
+                  src="after-discovery-1440.jpg"
+                  alt="After correction: discovery at 1440 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>After correction</strong
+                ><a href="after-discovery-1440.jpg">after-discovery-1440.jpg</a>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="capture-set" id="discovery-320">
+          <h3>Assignment discovery · 320 px</h3>
+          <p class="small">
+            The same hierarchy at the narrowest requested viewport.
+          </p>
+          <div class="comparison-grid">
+            <figure>
+              <a href="reference-discovery-320.jpg"
+                ><img
+                  src="reference-discovery-320.jpg"
+                  alt="Approved prototype: discovery at 320 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>Approved prototype</strong
+                ><a href="reference-discovery-320.jpg"
+                  >reference-discovery-320.jpg</a
+                >
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="before-discovery-320.jpg"
+                ><img
+                  src="before-discovery-320.jpg"
+                  alt="Before correction: discovery at 320 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>Before correction</strong
+                ><a href="before-discovery-320.jpg">before-discovery-320.jpg</a>
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="after-discovery-320.jpg"
+                ><img
+                  src="after-discovery-320.jpg"
+                  alt="After correction: discovery at 320 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>After correction</strong
+                ><a href="after-discovery-320.jpg">after-discovery-320.jpg</a>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="capture-set" id="progress-1440">
+          <h3>Class progress · 1440 px</h3>
+          <p class="small">
+            Assignment context, metrics, subviews, and evidence-source filter.
+          </p>
+          <div class="comparison-grid">
+            <figure>
+              <a href="reference-progress-1440.jpg"
+                ><img
+                  src="reference-progress-1440.jpg"
+                  alt="Approved prototype: progress at 1440 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>Approved prototype</strong
+                ><a href="reference-progress-1440.jpg"
+                  >reference-progress-1440.jpg</a
+                >
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="before-progress-1440.jpg"
+                ><img
+                  src="before-progress-1440.jpg"
+                  alt="Before correction: progress at 1440 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>Before correction</strong
+                ><a href="before-progress-1440.jpg">before-progress-1440.jpg</a>
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="after-progress-1440.jpg"
+                ><img
+                  src="after-progress-1440.jpg"
+                  alt="After correction: progress at 1440 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>After correction</strong
+                ><a href="after-progress-1440.jpg">after-progress-1440.jpg</a>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="capture-set" id="progress-320">
+          <h3>Class progress · 320 px</h3>
+          <p class="small">
+            Narrow progress layout with reversible access to Details.
+          </p>
+          <div class="comparison-grid">
+            <figure>
+              <a href="reference-progress-320.jpg"
+                ><img
+                  src="reference-progress-320.jpg"
+                  alt="Approved prototype: progress at 320 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>Approved prototype</strong
+                ><a href="reference-progress-320.jpg"
+                  >reference-progress-320.jpg</a
+                >
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="before-progress-320.jpg"
+                ><img
+                  src="before-progress-320.jpg"
+                  alt="Before correction: progress at 320 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>Before correction</strong
+                ><a href="before-progress-320.jpg">before-progress-320.jpg</a>
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="after-progress-320.jpg"
+                ><img
+                  src="after-progress-320.jpg"
+                  alt="After correction: progress at 320 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>After correction</strong
+                ><a href="after-progress-320.jpg">after-progress-320.jpg</a>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="capture-set" id="details-1440">
+          <h3>Selected evidence / Details · 1440 px</h3>
+          <p class="small">
+            Chronological shape marks and the 380 px Details rail.
+          </p>
+          <div class="comparison-grid">
+            <figure>
+              <a href="reference-details-1440.jpg"
+                ><img
+                  src="reference-details-1440.jpg"
+                  alt="Approved prototype: details at 1440 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>Approved prototype</strong
+                ><a href="reference-details-1440.jpg"
+                  >reference-details-1440.jpg</a
+                >
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="before-details-1440.jpg"
+                ><img
+                  src="before-details-1440.jpg"
+                  alt="Before correction: details at 1440 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>Before correction</strong
+                ><a href="before-details-1440.jpg">before-details-1440.jpg</a>
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="after-details-1440.jpg"
+                ><img
+                  src="after-details-1440.jpg"
+                  alt="After correction: details at 1440 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>After correction</strong
+                ><a href="after-details-1440.jpg">after-details-1440.jpg</a>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="capture-set" id="details-1024">
+          <h3>Selected evidence / Details · 1024 px</h3>
+          <p class="small">Selected evidence in the narrow pane mode.</p>
+          <div class="comparison-grid">
+            <figure>
+              <a href="reference-details-1024.jpg"
+                ><img
+                  src="reference-details-1024.jpg"
+                  alt="Approved prototype: details at 1024 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>Approved prototype</strong
+                ><a href="reference-details-1024.jpg"
+                  >reference-details-1024.jpg</a
+                >
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="before-details-1024.jpg"
+                ><img
+                  src="before-details-1024.jpg"
+                  alt="Before correction: details at 1024 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>Before correction</strong
+                ><a href="before-details-1024.jpg">before-details-1024.jpg</a>
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="after-details-1024.jpg"
+                ><img
+                  src="after-details-1024.jpg"
+                  alt="After correction: details at 1024 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>After correction</strong
+                ><a href="after-details-1024.jpg">after-details-1024.jpg</a>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="capture-set" id="details-390">
+          <h3>Selected evidence / Details · 390 px</h3>
+          <p class="small">Selected evidence with a route back to the grid.</p>
+          <div class="comparison-grid">
+            <figure>
+              <a href="reference-details-390.jpg"
+                ><img
+                  src="reference-details-390.jpg"
+                  alt="Approved prototype: details at 390 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>Approved prototype</strong
+                ><a href="reference-details-390.jpg"
+                  >reference-details-390.jpg</a
+                >
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="before-details-390.jpg"
+                ><img
+                  src="before-details-390.jpg"
+                  alt="Before correction: details at 390 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>Before correction</strong
+                ><a href="before-details-390.jpg">before-details-390.jpg</a>
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="after-details-390.jpg"
+                ><img
+                  src="after-details-390.jpg"
+                  alt="After correction: details at 390 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>After correction</strong
+                ><a href="after-details-390.jpg">after-details-390.jpg</a>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="capture-set" id="details-320">
+          <h3>Selected evidence / Details · 320 px</h3>
+          <p class="small">
+            Narrowest Details pane; selection and return controls preserved.
+          </p>
+          <div class="comparison-grid">
+            <figure>
+              <a href="reference-details-320.jpg"
+                ><img
+                  src="reference-details-320.jpg"
+                  alt="Approved prototype: details at 320 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>Approved prototype</strong
+                ><a href="reference-details-320.jpg"
+                  >reference-details-320.jpg</a
+                >
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="before-details-320.jpg"
+                ><img
+                  src="before-details-320.jpg"
+                  alt="Before correction: details at 320 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>Before correction</strong
+                ><a href="before-details-320.jpg">before-details-320.jpg</a>
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="after-details-320.jpg"
+                ><img
+                  src="after-details-320.jpg"
+                  alt="After correction: details at 320 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>After correction</strong
+                ><a href="after-details-320.jpg">after-details-320.jpg</a>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="capture-set" id="review-preview">
+          <h3>Lesson review and student preview · after correction</h3>
+          <p class="small">
+            Additional captures for compact ruled review and the safe
+            student-style preview. They do not substitute for the paired
+            comparisons above.
+          </p>
+          <div class="comparison-grid">
+            <figure>
+              <a href="after-review-1440.jpg"
+                ><img
+                  src="after-review-1440.jpg"
+                  alt="After correction: Lesson review and activation at 1440 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>After correction</strong
+                ><a href="after-review-1440.jpg">after-review-1440.jpg</a>
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="after-preview-1440.jpg"
+                ><img
+                  src="after-preview-1440.jpg"
+                  alt="After correction: Read-only student preview at 1440 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>After correction</strong
+                ><a href="after-preview-1440.jpg">after-preview-1440.jpg</a>
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="after-preview-320.jpg"
+                ><img
+                  src="after-preview-320.jpg"
+                  alt="After correction: Read-only student preview at 320 px"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                <strong>After correction</strong
+                ><a href="after-preview-320.jpg">after-preview-320.jpg</a>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+      </section>
+      <section class="report-section" id="handoff">
+        <h2>Integration handoff</h2>
+        <p>
+          The Lessons-to-Assignments handoff uses the existing route with exact
+          selected identities:
+        </p>
+        <p>
+          <code
+            >/teacher/assignments/new?lesson=&lt;lessonId&gt;&amp;version=&lt;publishedVersion&gt;&amp;class=&lt;classId&gt;</code
+          >
+        </p>
+        <ul>
+          <li>
+            <strong>Lessons owner:</strong> pass the published lesson ID, exact
+            version, and authorized class where available. Assignments consumes
+            the existing review/resolver contracts.
+          </li>
+          <li>
+            <strong>Workbench owner:</strong> integrate the shared global
+            header, assignment band and mobile bottom navigation, then repeat
+            paired desktop/mobile captures. Shared workspace components and
+            navigation contracts were not changed in this correction.
+          </li>
+          <li>
+            <strong>Evidence owner:</strong> existing evidence routes receive
+            authorized assignment/student/concept context; progress creates no
+            extra evidence store or evaluator.
+          </li>
+          <li>
+            <strong>Implementation boundary:</strong> assignment-specific UI and
+            tests/artifacts only. No new services, shared-file changes,
+            assignment persistence system, or student-session mutations are
+            introduced by this fidelity pass.
+          </li>
+        </ul>
+      </section>
+      <footer>
+        Scope: the new fidelity correction for PR #117. Status remains
+        “Page-local corrections implemented; integrated visual acceptance
+        pending shared shell” until the coordinating agent records final
+        integrated review.
+      </footer>
+    </main>
+  </body>
+</html>
