@@ -2,6 +2,9 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   evidenceResponseAnchor,
+  evidenceHashPane,
+  evidencePaneHref,
+  isNewEvidenceHashNavigation,
   evidenceResultsNavigationKey,
   evidenceResultsScope,
   evidenceResultsTarget,
@@ -220,4 +223,89 @@ test("scroll memory yields no-hash focus to the shell after the teacher enters a
     evidenceResultsTarget("", ids, ids[1], focused),
     evidenceResponseAnchor(ids[1]),
   );
+});
+
+test("F1: Back to an originating row beats an older detail hash, while direct links and Forward detail retain their target", () => {
+  const origin = { scope, attemptId: ids[1], scrollTop: 6175, focusRow: true };
+  assert.equal(
+    evidenceResultsTarget("#response-detail-title", ids, ids[0], origin, true),
+    evidenceResponseAnchor(ids[1]),
+  );
+  assert.equal(
+    evidenceResultsTarget("#response-detail-title", ids, ids[0], origin),
+    "response-detail-title",
+  );
+  assert.equal(
+    evidenceResultsTarget(
+      "#response-detail-title",
+      ids,
+      ids[0],
+      { ...origin, focusRow: false },
+      true,
+    ),
+    "response-detail-title",
+  );
+  assert.equal(
+    evidenceResultsTarget(
+      "#response-detail-title",
+      [ids[0]],
+      ids[0],
+      origin,
+      true,
+    ),
+    "response-detail-title",
+  );
+});
+
+test("record/list pane links retain exact selection, filters and bounded starting responses", () => {
+  const current =
+    "https://fictional.test/teacher/evidence?assignment=a&attempt=b&evaluation=e&session=s&student=u&concept=delay&q=long+answer&seedAttempt=b&seedAttempt=c&workspacePane=context#old";
+  for (const pane of ["navigation", "main"] as const) {
+    const url = new URL(evidencePaneHref(current, pane), current);
+    assert.equal(url.searchParams.get("workspacePane"), pane);
+    for (const name of [
+      "assignment",
+      "attempt",
+      "evaluation",
+      "session",
+      "student",
+      "concept",
+      "q",
+    ])
+      assert.equal(
+        url.searchParams.get(name),
+        new URL(current).searchParams.get(name),
+      );
+    assert.deepEqual(url.searchParams.getAll("seedAttempt"), ["b", "c"]);
+    assert.equal(evidenceHashPane(url.hash), pane);
+  }
+  assert.equal(evidenceHashPane("#evidence-response-response-a"), "navigation");
+  assert.equal(evidenceHashPane("#unrelated"), null);
+  assert.equal(evidenceHashPane("#evidence-%ZZ"), null);
+});
+
+test("native hash pushes select their target pane without turning Back or unrelated fragments into fresh navigation", () => {
+  const record =
+    "https://fictional.test/teacher/evidence?attempt=a&workspacePane=main#response-detail-title";
+  const row = record.replace("#response-detail-title", "#evidence-response-a");
+  assert.equal(isNewEvidenceHashNavigation(record, row, null), true);
+  assert.equal(isNewEvidenceHashNavigation(row, record, { __NA: true }), false);
+  assert.equal(isNewEvidenceHashNavigation(record, record, null), false);
+  assert.equal(
+    isNewEvidenceHashNavigation(
+      record,
+      row.replace("attempt=a", "attempt=b"),
+      null,
+    ),
+    false,
+  );
+  for (const hash of ["#unrelated", "#evidence-%ZZ"])
+    assert.equal(
+      isNewEvidenceHashNavigation(
+        record,
+        record.replace("#response-detail-title", hash),
+        null,
+      ),
+      false,
+    );
 });

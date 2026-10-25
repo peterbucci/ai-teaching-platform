@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useLayoutEffect, useMemo, useRef } from "react";
 import {
   parseTeacherWorkspaceContext,
   teacherWorkspaceHref,
@@ -15,6 +15,7 @@ import {
 } from "./model.ts";
 import {
   evidenceResponseAnchor,
+  evidencePaneHref,
   evidenceResultsNavigationKey,
   evidenceResultsScope,
   evidenceResultsTarget,
@@ -23,7 +24,13 @@ import {
   readEvidenceResultsMemory,
   responseVisibleScrollTop,
   withEvidenceResultsMemory,
+  type EvidenceResultsMemory,
 } from "./results-navigation.ts";
+import {
+  evidenceLocationRevision,
+  isEvidenceHistoryTraversal,
+  useEvidenceLocation,
+} from "./workspace.tsx";
 
 export function EvidenceResults({
   rows,
@@ -37,6 +44,8 @@ export function EvidenceResults({
   totalRows: number;
 }) {
   const search = useSearchParams();
+  const { revision: locationRevision } = useEvidenceLocation();
+  const lastListMemory = useRef<EvidenceResultsMemory | null>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const restoring = useRef(true);
   const scrollFrame = useRef<number | null>(null);
@@ -48,19 +57,23 @@ export function EvidenceResults({
     [attemptIdsKey],
   );
   const remember = useCallback(
-    (attemptId?: string) => {
+    (attemptId?: string, preservePaneAnchor = false) => {
       const list = listRef.current;
+      const scroller = list?.closest<HTMLElement>(".tw-panes-body") ?? list;
       // A route transition can begin before its new results have rendered.
       if (
         !list ||
+        !scroller ||
+        !list.getClientRects().length ||
         restoring.current ||
+        evidenceLocationRevision() !== locationRevision ||
         evidenceResultsNavigationKey(window.location.search) !== navigationKey
       )
         return;
       const focused = document.activeElement?.closest<HTMLElement>(
         "[data-evidence-attempt]",
       );
-      const bounds = list.getBoundingClientRect();
+      const bounds = scroller.getBoundingClientRect();
       const visible = (element: HTMLElement) => {
         const row = element.getBoundingClientRect();
         return row.bottom > bounds.top && row.top < bounds.bottom;
@@ -71,14 +84,26 @@ export function EvidenceResults({
         : Array.from(
             list.querySelectorAll<HTMLElement>("[data-evidence-attempt]"),
           ).find(visible);
+      const paneControl =
+        preservePaneAnchor &&
+        document.activeElement?.closest(
+          ".tw-panes-switcher, .tw-panes-context-trigger",
+        );
+      const memory = {
+        scope,
+        attemptId:
+          attemptId ??
+          (paneControl ? lastListMemory.current?.attemptId : undefined) ??
+          anchor?.dataset.evidenceAttempt,
+        scrollTop: scroller.scrollTop,
+        focusRow: paneControl
+          ? (lastListMemory.current?.focusRow ?? false)
+          : Boolean(attemptId || focusedRow),
+      };
+      lastListMemory.current = memory;
       try {
         window.history.replaceState(
-          withEvidenceResultsMemory(window.history.state, {
-            scope,
-            attemptId: attemptId ?? anchor?.dataset.evidenceAttempt,
-            scrollTop: list.scrollTop,
-            focusRow: Boolean(attemptId || focusedRow),
-          }),
+          withEvidenceResultsMemory(window.history.state, memory),
           "",
         );
       } catch (error) {
@@ -88,71 +113,137 @@ export function EvidenceResults({
           throw error;
       }
     },
-    [navigationKey, scope],
+    [locationRevision, navigationKey, scope],
   );
-  useEffect(() => {
+  useLayoutEffect(() => {
     let frame = 0;
     function restore() {
       window.cancelAnimationFrame(frame);
       restoring.current = true;
       frame = window.requestAnimationFrame(() => {
         const list = listRef.current;
+        const scroller = list?.closest<HTMLElement>(".tw-panes-body") ?? list;
         if (
           !list ||
+          !scroller ||
           evidenceResultsNavigationKey(window.location.search) !== navigationKey
         )
           return;
-        const memory = readEvidenceResultsMemory(
+        const historyTraversal = isEvidenceHistoryTraversal();
+        const saved = readEvidenceResultsMemory(
           window.history.state,
           scope,
           attemptIds,
         );
-        if (memory) list.scrollTop = memory.scrollTop;
-        const targetId = evidenceResultsTarget(
-          window.location.hash,
-          attemptIds,
-          selectedAttempt,
-          memory,
+        const local = lastListMemory.current;
+        const memory =
+          saved ??
+          (local
+            ? readEvidenceResultsMemory(
+                withEvidenceResultsMemory(null, local),
+                scope,
+                attemptIds,
+              )
+            : null);
+        if (memory) lastListMemory.current = memory;
+        const pane = list.closest<HTMLElement>(".tw-panes")?.dataset.activePane;
+        const compact = window.matchMedia("(max-width: 800px)").matches;
+        const listVisible = Boolean(list.getClientRects().length);
+        if (memory && listVisible) scroller.scrollTop = memory.scrollTop;
+        // Shell tabs retain the URL hash. Only a visible Evidence pane can receive
+        // its target; the shell alone places focus in the context drawer.
+        const hash =
+          compact &&
+          pane === "navigation" &&
+          window.location.hash === "#response-detail-title"
+            ? "#evidence-results"
+            : window.location.hash;
+        // Local memory keeps the mounted list's position across pane changes.
+        // Only this arriving history entry may override its explicit detail hash
+        // with row focus; otherwise Forward would reuse the row left by Back.
+        const targetMemory =
+          historyTraversal && !saved && !hash ? null : memory;
+        const opener = document.activeElement?.closest<HTMLElement>(
+          ".tw-panes-context-trigger",
         );
+        // Escape/Close belongs to the shared drawer. Its restored opener focus
+        // must not be replaced by the detail hash retained in the URL.
+        const targetId =
+          opener?.getClientRects().length ||
+          (pane === "context" && window.innerWidth <= 1240)
+            ? null
+            : evidenceResultsTarget(
+                hash,
+                attemptIds,
+                selectedAttempt,
+                targetMemory,
+                historyTraversal && saved !== null,
+              );
         const target = targetId ? document.getElementById(targetId) : null;
         const rowAnchor =
           targetId === "response-detail-title"
             ? document.getElementById(evidenceResponseAnchor(selectedAttempt))
             : target;
         const row = rowAnchor?.closest<HTMLElement>("[data-evidence-attempt]");
-        if (row && list.contains(row)) {
-          const bounds = list.getBoundingClientRect();
+        if (row && list.contains(row) && listVisible) {
+          const bounds = scroller.getBoundingClientRect();
           const rowBounds = row.getBoundingClientRect();
-          list.scrollTop = responseVisibleScrollTop({
-            scrollTop: list.scrollTop,
-            viewportHeight: list.clientHeight,
-            scrollHeight: list.scrollHeight,
-            rowTop: rowBounds.top - bounds.top + list.scrollTop,
+          scroller.scrollTop = responseVisibleScrollTop({
+            scrollTop: scroller.scrollTop,
+            viewportHeight: scroller.clientHeight,
+            scrollHeight: scroller.scrollHeight,
+            rowTop: rowBounds.top - bounds.top + scroller.scrollTop,
             rowHeight: rowBounds.height,
           });
         }
-        if (target) focusEvidenceResultsTarget(target);
+        if (target?.getClientRects().length) focusEvidenceResultsTarget(target);
         restoring.current = false;
       });
     }
-    const save = () => remember();
+    // Responsive hydration can reveal a hash target after the first placement.
+    // Reuse this one page-owned routine once the shared pane DOM is ready.
+    const panes = listRef.current?.closest(".tw-panes");
+    const observer = new MutationObserver(restore);
+    if (panes)
+      observer.observe(panes, {
+        attributes: true,
+        attributeFilter: ["data-active-pane", "data-layout"],
+      });
     restore();
-    window.addEventListener("hashchange", restore);
-    window.addEventListener("popstate", restore);
+    const save = (event: Event) =>
+      remember(undefined, event.type === "focusin");
+    const scroller =
+      listRef.current?.closest<HTMLElement>(".tw-panes-body") ??
+      listRef.current;
+    const saveScroll = () => {
+      if (scrollFrame.current !== null) return;
+      scrollFrame.current = window.requestAnimationFrame(() => {
+        scrollFrame.current = null;
+        remember();
+      });
+    };
+    scroller?.addEventListener("scroll", saveScroll);
     window.addEventListener("pagehide", save);
     document.addEventListener("focusin", save);
     return () => {
+      observer.disconnect();
       window.cancelAnimationFrame(frame);
       if (scrollFrame.current !== null) {
         window.cancelAnimationFrame(scrollFrame.current);
         scrollFrame.current = null;
       }
-      window.removeEventListener("hashchange", restore);
-      window.removeEventListener("popstate", restore);
+      scroller?.removeEventListener("scroll", saveScroll);
       window.removeEventListener("pagehide", save);
       document.removeEventListener("focusin", save);
     };
-  }, [attemptIds, navigationKey, remember, scope, selectedAttempt]);
+  }, [
+    attemptIds,
+    locationRevision,
+    navigationKey,
+    remember,
+    scope,
+    selectedAttempt,
+  ]);
   const selected = parseTeacherWorkspaceContext({
     ...context,
     seedAttempt: search.getAll("seedAttempt"),
@@ -187,13 +278,6 @@ export function EvidenceResults({
       <ul
         className="wb-response-list"
         ref={listRef}
-        onScroll={() => {
-          if (scrollFrame.current !== null) return;
-          scrollFrame.current = window.requestAnimationFrame(() => {
-            scrollFrame.current = null;
-            remember();
-          });
-        }}
         onFocusCapture={(event) => {
           const row = event.target.closest<HTMLElement>(
             "[data-evidence-attempt]",
@@ -221,7 +305,15 @@ export function EvidenceResults({
                 aria-current={
                   selectedAttempt === row.attempt.id ? "true" : undefined
                 }
-                href={`${teacherWorkspaceHref("/teacher/evidence", context, { attempt: row.attempt.id, evaluation: row.evaluation?.id, session: row.session_id, seedAttempt: selected })}#response-detail-title`}
+                href={evidencePaneHref(
+                  teacherWorkspaceHref("/teacher/evidence", context, {
+                    attempt: row.attempt.id,
+                    evaluation: row.evaluation?.id,
+                    session: row.session_id,
+                    seedAttempt: selected,
+                  }),
+                  "main",
+                )}
                 scroll={false}
                 onClick={(event) => {
                   if (
@@ -233,7 +325,11 @@ export function EvidenceResults({
                   )
                     return;
                   remember(row.attempt.id);
-                  if (row.attempt.id === selectedAttempt) {
+                  // A same-selected row may still be a NEW URL (the initial
+                  // implicit selection). Focusing detail before that navigation
+                  // overwrites the originating entry and caused F1.
+                  if (event.currentTarget.href === window.location.href) {
+                    event.preventDefault();
                     const detail = document.getElementById(
                       "response-detail-title",
                     );
