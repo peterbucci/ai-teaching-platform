@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  /><title>Agent F — Overview verification</title
+  ><style>
+    body {
+      font:
+        16px/1.55 system-ui,
+        sans-serif;
+      color: #17302d;
+      max-width: 1200px;
+      margin: auto;
+      padding: 28px;
+      background: #f6f8f7;
+    }
+    h1,
+    h2 {
+      line-height: 1.2;
+    }
+    section {
+      background: white;
+      padding: 22px;
+      margin: 20px 0;
+      border: 1px solid #d5e2da;
+      border-radius: 10px;
+    }
+    a {
+      color: #176d58;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 14px;
+    }
+    th,
+    td {
+      text-align: left;
+      vertical-align: top;
+      border: 1px solid #d5e2da;
+      padding: 10px;
+    }
+    pre {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-size: 13px;
+      background: #eef5f1;
+      padding: 14px;
+    }
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #d5e2da;
+    }
+    figure {
+      margin: 0;
+    }
+    figcaption {
+      font-weight: 600;
+      margin: 8px 0;
+    }
+    .table {
+      overflow: auto;
+    }
+    @media (max-width: 800px) {
+      .compare {
+        display: block;
+      }
+      body {
+        padding: 12px;
+      }
+    }
+  </style>
+  <h1>Teaching Workbench v2.2 — Overview</h1>
+  <p>Agent F · 25 October 2026 · Draft integration evidence</p>
+  <section>
+    <h2>Result and scope</h2>
+    <p>
+      The selected-assignment Teaching Desk is replaced with a teacher decision
+      workspace across authorized assignments: evidence-backed review prompts,
+      assignment rail, saved private work, recent responses, and contextual next
+      actions. No shared shell, navigation, other workspace, schema, or
+      permission service was changed.
+    </p>
+    <p>
+      Base: <code>07efb7f821339538800f150f57b298eb2e606be3</code>; target branch
+      <code>codex/workbench-v22-final-integration</code>. Coordination:
+      <a href="https://github.com/peterbucci/ai-teaching-platform/issues/8"
+        >#8</a
+      >,
+      <a href="https://github.com/peterbucci/ai-teaching-platform/issues/114"
+        >#114</a
+      >; structural acceptance R04 and
+      <a href="https://github.com/peterbucci/ai-teaching-platform/pull/122"
+        >PR #122 final visual report</a
+      >. This is not a claim that all prototype capabilities or the agentic
+      product are complete.
+    </p>
+  </section>
+  <section>
+    <h2>Equivalent populated comparison</h2>
+    <p>
+      The actual supplied HTML, not a recreated mockup, was rendered at the same
+      four sizes. Main.dc.html SHA-256:
+      <code
+        >c853369da1250adf24a741a38c3d94d3c97a976c012c352732cf4dd8d924cb54</code
+      >. External Google fonts were blocked; local font fallback was used. The
+      PR #122 baseline screenshot was reviewed before implementation and is
+      preserved <a href="baseline-overview-1440.png">here</a>.
+    </p>
+    <p>
+      Both populated states include active and inactive assignments, concerns in
+      multiple classes, unfinished lesson/intervention work,
+      approved-but-undelivered work, delivered work, unresolved evaluations, and
+      missing answers. The application uses an isolated PostgreSQL database with
+      fictional accounts and actual saved service records: 3 assignments across
+      2 classes, 9 decision rows, 3 concept evaluation-check rows, 2
+      missing-work rows, and 2 saved drafts. The prototype has 4 assignments
+      across 4 sections (3 active), 6 decision rows and 4 resume entries.
+      Counts, names, dates, concept duplication and long fixture labels are not
+      evidence of a missing UI capability. No synthetic record is presented as
+      live AI output.
+    </p>
+    <div class="compare">
+      <figure>
+        <figcaption>Approved prototype · 1440×1000</figcaption>
+        <a href="prototype-1440.png"
+          ><img
+            src="prototype-1440.png"
+            alt="Supplied prototype populated Overview"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>Actual corrected app · 1440×1000</figcaption>
+        <a href="overview-1440.png"
+          ><img
+            src="overview-1440.png"
+            alt="Actual application populated Overview"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Screen and interaction parity matrix</h2>
+    <p>
+      Prototype actions exercised: concern evidence, private draft, delivery
+      review, follow-up answers, unresolved evaluations, missing-work roster,
+      active/inactive assignment, private intervention resume and lesson resume.
+      See <a href="prototype.json">actual prototype results</a>,
+      <a href="interactions.json">application results</a> and
+      <a href="parity.json">machine-readable matrix</a>.
+    </p>
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <th>Area</th>
+            <th>Prototype</th>
+            <th>Application</th>
+            <th>Assessment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Whole-workspace priorities</td>
+            <td>
+              Whole course; 3 active assignments across 3 sections, plus 1
+              inactive.
+            </td>
+            <td>
+              All teacher-authorized assignments, including multiple owned
+              classes. Selected assignment on return never narrows the Overview.
+            </td>
+            <td>
+              Structure implemented; teacher authority is narrower than the
+              fictional course. Three application assignments vs four prototype
+              assignments is a fixture difference.
+            </td>
+          </tr>
+          <tr>
+            <td>Teaching decisions</td>
+            <td>
+              Named concern hypotheses, repeated/contrary evidence,
+              draft/delivery/follow-up status.
+            </td>
+            <td>
+              Existing teachingPriorities metrics, exact original response
+              actions; separate approved and delivered workflow rows. Missing
+              work stays separate from assessed reasoning.
+            </td>
+            <td>
+              Bounded deviation: concept-level review prompts and deterministic
+              count ordering, not named pattern hypotheses or repeat/contrary
+              ranking. No automatic link between a concept concern and a saved
+              draft.
+            </td>
+          </tr>
+          <tr>
+            <td>Assignment rail</td>
+            <td>
+              Active/inactive assignments, participation, evaluation summaries;
+              open assignment.
+            </td>
+            <td>
+              All authorized titles open their own review. Progress is direct;
+              disclosure holds exact fixed version and Evidence/Interventions
+              links. Inactive rows explicitly say students cannot open them.
+            </td>
+            <td>
+              Implemented navigation and status. Rail evaluation subtotals
+              omitted to reduce density; checks remain in the main queue. Exact
+              version is available without dominating the rail.
+            </td>
+          </tr>
+          <tr>
+            <td>Available teaching work</td>
+            <td>Course navigation and resume pathways.</td>
+            <td>
+              Prepare lesson, lesson library and assignment review links; jump
+              links near the first decision.
+            </td>
+            <td>
+              Implemented. Available-work section is requested scope, not a
+              literal extra panel in the supplied prototype Overview.
+            </td>
+          </tr>
+          <tr>
+            <td>Resume lesson and intervention</td>
+            <td>
+              Private intervention, two lesson drafts, and inactive assignment
+              review.
+            </td>
+            <td>
+              Existing private intervention and unfinished current lesson
+              versions resume exact saved identity/editor step; published
+              current versions and dismissed/approved/delivered interventions
+              excluded from unfinished list.
+            </td>
+            <td>
+              Implemented for saved server work. Number/titles of drafts differ
+              by fixture. Inactive work is reviewed through the rail.
+              Browser-only unsaved recovery is not indexed.
+            </td>
+          </tr>
+          <tr>
+            <td>Recent activity</td>
+            <td>
+              No distinct recent-activity section in this supplied Overview.
+            </td>
+            <td>
+              Five latest saved submitted answers across authorized assignments,
+              exact response links and evidence origin.
+            </td>
+            <td>
+              Implemented requested extension. Not a teacher-action audit trail
+              and not inferred student behavior.
+            </td>
+          </tr>
+          <tr>
+            <td>Empty, loading, error</td>
+            <td>
+              Empty priority group for a selected section; prototype has no real
+              service failures.
+            </td>
+            <td>
+              Empty teacher and filtered evidence tested; foreign/missing
+              assignment rejected; failed pinned record stays visible with
+              counts excluded. Page-local loading and overall-unavailable
+              fallback exist.
+            </td>
+            <td>
+              Empty and partial failure browser checks pass. Loading probe timed
+              out before document commit; visible loading fallback remains
+              unverified. Whole-database outage not tested.
+            </td>
+          </tr>
+          <tr>
+            <td>Desktop organization</td>
+            <td>Decision list left, assignments and unfinished work right.</td>
+            <td>
+              Same organization at 1440 and 1024. Shared shell unchanged.
+              Repeated cautions consolidated; identifiers disclosed on demand.
+            </td>
+            <td>
+              Implemented structure, not pixel identity. Baseline shared
+              breadcrumb/context band adds height; primary action still visible
+              without scrolling.
+            </td>
+          </tr>
+          <tr>
+            <td>Mobile and native zoom</td>
+            <td>
+              Single column at compact widths; priority actions before lower
+              rail.
+            </td>
+            <td>
+              Single column at 390 and 320; early Resume/Assignments/Activity
+              jumps. Short-height spacing at real 200% keeps first action clear
+              of fixed navigation.
+            </td>
+            <td>
+              Four viewport checks and native 200% pass. Native Chrome content
+              viewport was 712×452 CSS px at DPR 2 (100% was 1424×905 at DPR 1).
+            </td>
+          </tr>
+          <tr>
+            <td>Filtering and returns</td>
+            <td>
+              Section filter chips; context-specific decisions and navigation.
+            </td>
+            <td>
+              Existing evidence-origin filter; all authorized assignments remain
+              visible. Exact assignment/origin/attempt/session/evaluation and
+              returnTo=desk on evidence links.
+            </td>
+            <td>
+              Section chips are a remaining interaction deviation, not a fixture
+              difference. Agent K owns shared return behavior; browser
+              Back/Forward/reload and generated contexts verified here.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section>
+    <h2>Viewport and native zoom results</h2>
+    <p>
+      All four requested sizes have no horizontal overflow. The complete first
+      decision action is above fixed navigation without scrolling. Desktop
+      review led only to consolidation of repeated cautions, disclosure of exact
+      version identifiers, and reduced rail repetition. Short-height spacing was
+      then adjusted after native zoom exposed a partially covered first action.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Viewport</th>
+          <th>First action bottom</th>
+          <th>Document width</th>
+          <th>Real captures</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1440×1000</td>
+          <td>371.8px</td>
+          <td>1440px</td>
+          <td>
+            <a href="overview-1440.png">App</a> ·
+            <a href="overview-1440-full.png">full page</a> ·
+            <a href="prototype-1440.png">Prototype</a>
+          </td>
+        </tr>
+        <tr>
+          <td>1024×768</td>
+          <td>446.7px</td>
+          <td>1024px</td>
+          <td>
+            <a href="overview-1024.png">App</a> ·
+            <a href="overview-1024-full.png">full page</a> ·
+            <a href="prototype-1024.png">Prototype</a>
+          </td>
+        </tr>
+        <tr>
+          <td>390×844</td>
+          <td>519.0px</td>
+          <td>390px</td>
+          <td>
+            <a href="overview-390.png">App</a> ·
+            <a href="overview-390-full.png">full page</a> ·
+            <a href="prototype-390.png">Prototype</a>
+          </td>
+        </tr>
+        <tr>
+          <td>320×844</td>
+          <td>537.0px</td>
+          <td>320px</td>
+          <td>
+            <a href="overview-320.png">App</a> ·
+            <a href="overview-320-full.png">full page</a> ·
+            <a href="prototype-320.png">Prototype</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <a href="viewports.json">Measured viewport results</a>. Native 200%: fresh
+      Chrome profile, newly verified origin <code>http://127.0.0.1:3516</code>,
+      HTTP response + unique debugging target + visible address bar
+      independently checked. Ctrl+0 followed by five Ctrl+numpad-plus shortcuts;
+      Chrome displayed 200%, DPR doubled from 1 to 2. No CSS zoom, simulated
+      page scaling, or reuse of the earlier uncertain Edge session. Final first
+      action ends at 374.5px; fixed navigation starts at 387.5px.
+      <a href="native-origin.json">Origin evidence</a> ·
+      <a href="native-200.json">measurements</a> ·
+      <a href="native-200.png">page capture</a> ·
+      <a href="native-200-full.png">full page</a>.
+    </p>
+    <figure>
+      <figcaption>Actual native browser at 200%</figcaption>
+      <a href="native-200-browser.png"
+        ><img
+          src="native-200-browser.png"
+          alt="Chrome with visible 200 percent control and complete first decision button above navigation"
+      /></a>
+    </figure>
+  </section>
+  <section>
+    <h2>Verification evidence</h2>
+    <p>
+      Production application navigation used real local authentication and
+      database records, without model calls. Tests verify assignment review and
+      inactive status, exact original response targets, second-class
+      progress/evidence, private draft resume, approved/delivered draft
+      identities, recent activity, origin filters, browser Back/Forward/reload,
+      mobile jump links, keyboard reachability, foreign/missing assignment
+      rejection, empty teacher and partial missing-record handling. The
+      interaction log records each check. No browser write request occurred
+      after sign-in; before/after hashes of nine evidence/workflow tables match.
+      A temporary invalid pinned-record fixture was restored in a finally block.
+    </p>
+    <p>
+      <a href="interactions.json">Browser checks and table hashes</a> ·
+      <a href="empty-teacher.png">empty teacher</a> ·
+      <a href="empty-evidence-1440.png">empty filtered evidence</a> ·
+      <a href="missing-assignment.png">missing record</a> ·
+      <a href="partial-unavailable.png">partial failure</a> ·
+      <a href="keyboard-focus.png">keyboard focus</a> ·
+      <a href="resume-320.png">mobile resume</a>.
+    </p>
+    <p>
+      <strong>Unverified:</strong> the real loading probe blocked document
+      commit for 30 seconds, so no visible loading fallback could be
+      established. The temporary lock was rolled back; subsequent checks verify
+      recovery. The page-local fallback exists in source. See
+      <a href="loading-attempt.json">exact failed probe</a>. A whole-database
+      outage, physical phones and screen-reader testing were not performed.
+    </p>
+    <p>
+      Required checks: 26 focused/related tests passed; repository lint,
+      TypeScript, formatting and production webpack build passed (logs linked
+      below). The production build reports the existing
+      <code
+        >lib/materials/extract.ts module.createRequire failed parsing
+        argument</code
+      >
+      warning. An earlier harness launch with Node's
+      <code>--env-file</code> failed because the spawned Next worker rejected
+      that inherited option; normal Next environment loading succeeded. That
+      failed launch is retained as
+      <a href="build-launch-failure.txt">evidence</a>.
+    </p>
+    <pre>
+node --experimental-strip-types --conditions=react-server --test app/teacher/overview/overview.test.ts tests/teacher-priorities.test.ts tests/teacher-shell-metadata.test.ts tests/teacher-workspace-contracts.test.ts tests/teacher-progress-return.test.ts
+node node_modules/eslint/bin/eslint.js . --max-warnings=0
+node node_modules/next/dist/bin/next typegen
+node node_modules/typescript/bin/tsc --noEmit
+node node_modules/prettier/bin/prettier.cjs --check .
+node node_modules/next/dist/bin/next build --webpack
+python content/network-performance-v1/verify_package.py</pre>
+    <p>
+      <a href="focused-tests.txt">Test log</a> ·
+      <a href="lint.txt">lint log</a> ·
+      <a href="typecheck.txt">TypeScript log</a> ·
+      <a href="format.txt">format log</a> · <a href="build.txt">build log</a> ·
+      <a href="content.txt">content check</a> ·
+      <a href="checks.json">exit codes and commands</a>. Webpack is explicit
+      because the local dependency directory is a junction outside this
+      worktree. No dependency/configuration change is included.
+    </p>
+  </section>
+  <section>
+    <h2>Missing-data decisions and remaining deviations</h2>
+    <ul>
+      <li>
+        Authority remains the union of teacherAssignments and existing
+        class/lesson ownership checks. No global course registry or cross-class
+        student total was created. A true course selector needs an approved
+        course-membership contract.
+      </li>
+      <li>
+        Priority counts come from existing authorized metrics. Denominators name
+        enrolled or assessed students within the assignment; counts are never
+        added across concepts/classes. A multi-concept answer may create
+        multiple concept review prompts. No mastery, due dates, behavioral
+        inference or trends were invented.
+      </li>
+      <li>
+        The prototype's named hypotheses, repeated/contrary counts and direct
+        concern-to-draft matching require an agreed authorized
+        pattern-to-workflow projection. Current concept prompts are useful but
+        not full pattern parity. This is a deliberate scope boundary requiring
+        review, not a fixture difference.
+      </li>
+      <li>
+        Section filter chips remain absent. Evidence-origin filtering is
+        supported. Adding section filtering is a separate local interaction
+        decision for integration review; it is not claimed complete.
+      </li>
+      <li>
+        Intervention listing retains the existing 30-most-recent limit per
+        assignment, with a visible notice at the cap. Complete older-draft
+        recovery requires a paginated owned draft listing contract. Saved drafts
+        only: listing browser-local unsaved work would need a scoped recovery
+        index.
+      </li>
+      <li>
+        Recent activity is saved student answers, not an audit of all teacher
+        actions. A full activity feed needs an authorized event source. The
+        supplied prototype Overview has no separate recent-activity panel.
+      </li>
+      <li>
+        The shared shell context band and return labels are unchanged. Agent K
+        owns contextual-return integration. Overview-origin links carry fresh
+        assignment scope and returnTo=desk; lesson editor resume uses its
+        existing canonical route.
+      </li>
+      <li>
+        Page-local reads use existing authorized services with at most four
+        assignment loads concurrently. This avoids a parallel metrics service;
+        it is not a single transaction across the entire workspace and has not
+        been load-tested at large course scale.
+      </li>
+    </ul>
+    <p>
+      Review and explicitly accept these bounded deviations before calling
+      complete prototype parity. No request to waive authorization or fabricate
+      data is needed.
+    </p>
+  </section>
+  <section>
+    <h2>Reproduction and integration</h2>
+    <p>
+      All changed paths belong to Agent F: <code>app/teacher/page.tsx</code> and
+      <code>app/teacher/overview/**</code>. No migrations or new environment
+      variables are required for application deployment. Review this draft
+      against <code>codex/workbench-v22-final-integration</code> at the stated
+      common SHA. Integrate the F commit as a unit, preserving other agents'
+      routes and shared return work; rerun Overview navigation after Agent K's
+      changes. Do not close #8/#114 or treat unrelated agentic acceptance as
+      complete.
+    </p>
+    <p>
+      Browser harnesses are included under this verification folder:
+      <code>viewport-check.mjs</code>, <code>interaction-check.mjs</code>,
+      <code>prototype-check.mjs</code>, <code>native-measure.mjs</code>. Run
+      from repository root with a separate fictional database named
+      <code>overview_f</code> and the application at port 3516. Set
+      <code>PLAYWRIGHT_PACKAGE</code> to an existing Playwright package.json
+      path, <code>BROWSER_EXECUTABLE</code> to an installed browser, and supply
+      fictional <code>DEMO_TEACHER_EMAIL/PASSWORD</code> and
+      <code>EMPTY_TEACHER_EMAIL/PASSWORD</code> privately.
+      <code>fixture.json</code> records the scenario identities; recreate
+      equivalent owned data and update those IDs for another isolated database.
+      No credentials or database dump are included. The interaction harness
+      deliberately changes and restores one inactive fixture's pinned record; it
+      is guarded to the isolated database name.
+    </p>
+    <pre>
+node --env-file=.env app/teacher/overview/verification/viewport-check.mjs
+node --experimental-strip-types --conditions=react-server --env-file=.env app/teacher/overview/verification/interaction-check.mjs
+node app/teacher/overview/verification/prototype-check.mjs
+# Native measurement requires a separately verified, fresh Chrome test target on port 9516
+# and actual native zoom input; the script measures, it does not set zoom.
+node app/teacher/overview/verification/native-measure.mjs</pre>
+    <p>
+      The app test uses fictional seed records and saved synthetic evaluations
+      through existing services. It proves read behavior and navigation, not
+      model quality or live agentic behavior. No paid calls were made.
+    </p>
+  </section>
+</html>

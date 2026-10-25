@@ -1,0 +1,405 @@
+/* Overview owns only descendants of ov-workspace; shared navigation is unchanged. */
+.ov-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  margin: -24px -28px;
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.ov-main {
+  min-width: 0;
+  padding: 24px 28px;
+}
+.ov-heading {
+  margin-bottom: 14px;
+}
+.ov-eyebrow {
+  color: var(--muted);
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+}
+.ov-heading h1,
+.ov-loading h1 {
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 4px 0;
+}
+.ov-heading > p:last-child {
+  color: var(--muted);
+}
+.ov-workspace h2 {
+  font-size: 18px;
+  font-weight: 650;
+  line-height: 1.4;
+}
+.ov-workspace h3 {
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.4;
+}
+.ov-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 18px;
+  font-size: 13px;
+}
+.ov-tools nav,
+.ov-assignment-list nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+}
+.ov-tools nav a,
+.ov-assignment-list nav a,
+.ov-link,
+.ov-work-links a {
+  color: var(--green);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.ov-tools nav a,
+.ov-assignment-list nav a {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+}
+.ov-filter summary {
+  cursor: pointer;
+  padding: 6px 0;
+  color: var(--muted);
+}
+.ov-filter form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0;
+}
+.ov-filter select {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 8px;
+  max-width: 100%;
+  background: white;
+}
+.ov-queue {
+  margin-bottom: 26px;
+}
+.ov-queue > header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-bottom: 9px;
+  border-bottom: 2px solid var(--ink);
+}
+.ov-queue > header span {
+  color: var(--muted);
+  font-size: 13px;
+}
+.ov-queue ol,
+.ov-rail ul,
+.ov-activity ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.ov-priority {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) auto;
+  gap: 14px;
+  padding: 17px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+.ov-priority .lp-button {
+  font-size: 13px;
+  padding: 9px 12px;
+  min-height: 40px;
+  white-space: nowrap;
+}
+.ov-number {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  padding-top: 2px;
+}
+.ov-meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+.ov-meta b {
+  color: var(--ink);
+}
+.ov-muted {
+  color: var(--muted);
+  font-size: 13px;
+}
+.ov-priority .ov-muted {
+  margin-top: 4px;
+}
+.ov-rail {
+  min-width: 0;
+  padding: 24px 22px;
+  border-left: 1px solid var(--line);
+  background: #f5f8f6;
+}
+.ov-rail section + section {
+  border-top: 1px solid var(--line);
+  margin-top: 24px;
+  padding-top: 18px;
+}
+.ov-rail h2 {
+  margin-bottom: 7px;
+  font-size: 16px;
+}
+.ov-rail-title {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 6px;
+}
+.ov-assignment-list li,
+.ov-resume-list li {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  overflow-wrap: anywhere;
+}
+.ov-assignment-title {
+  font-weight: 600;
+  display: block;
+  margin-top: 3px;
+}
+.ov-assignment-title:hover {
+  text-decoration: underline;
+}
+.ov-assignment-list small {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+}
+.ov-badge {
+  border: 1px solid #cbd6d0;
+  border-radius: 20px;
+  font-size: 11px;
+  padding: 1px 8px;
+  white-space: nowrap;
+}
+.ov-active {
+  background: #eaf6ef;
+  color: #176b51;
+}
+.ov-inactive,
+.ov-unavailable {
+  background: #fff5e7;
+  color: #87530c;
+}
+.ov-resume-list .lp-button {
+  margin-top: 7px;
+  min-height: 38px;
+  padding: 7px 12px;
+  font-size: 13px;
+}
+.ov-work-links li {
+  padding: 9px 0;
+}
+.ov-work-links span {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+}
+.ov-link {
+  display: inline-block;
+  padding-top: 12px;
+}
+.ov-footnote {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 18px 0;
+  max-width: 90ch;
+}
+.ov-empty-note {
+  color: var(--muted);
+  font-size: 14px;
+  padding: 14px 0;
+}
+.ov-empty {
+  padding: 18px 0;
+}
+.ov-empty .lp-button {
+  margin-top: 12px;
+}
+.ov-notice {
+  padding: 10px 12px;
+  margin: 12px 0;
+  background: #fff5e7;
+  border: 1px solid #e4cfad;
+  border-radius: 6px;
+  font-size: 13px;
+}
+.ov-notice summary {
+  cursor: pointer;
+}
+.ov-notice ul {
+  padding-left: 18px;
+}
+.ov-notice a {
+  text-decoration: underline;
+}
+.ov-activity {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+.ov-activity li {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.ov-activity a {
+  display: block;
+}
+.ov-activity span,
+.ov-activity small {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+}
+.ov-activity a:hover strong {
+  text-decoration: underline;
+}
+.ov-loading {
+  padding: 20px;
+}
+@media (max-width: 1100px) {
+  .ov-workspace {
+    grid-template-columns: minmax(0, 1fr) 285px;
+  }
+  .ov-priority {
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 9px;
+  }
+  .ov-priority > .lp-button {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+@media (max-width: 800px) {
+  .ov-workspace {
+    display: block;
+    margin: -18px -16px;
+    font-size: 14px;
+  }
+  .ov-main {
+    padding: 16px;
+  }
+  .ov-heading {
+    margin-bottom: 8px;
+  }
+  .ov-heading h1 {
+    font-size: 24px;
+  }
+  .ov-heading > p:last-child {
+    font-size: 13px;
+  }
+  .ov-tools {
+    margin-bottom: 12px;
+    gap: 0;
+  }
+  .ov-tools nav {
+    gap: 10px;
+    font-size: 12px;
+  }
+  .ov-filter summary {
+    font-size: 12px;
+  }
+  .ov-workspace h2 {
+    font-size: 17px;
+  }
+  .ov-priority {
+    padding: 12px 0;
+  }
+  .ov-priority h3 {
+    font-size: 15px;
+  }
+  .ov-priority .ov-muted {
+    font-size: 12px;
+  }
+  .ov-rail {
+    padding: 18px 16px;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+  .ov-queue {
+    margin-bottom: 20px;
+  }
+}
+@media (max-width: 800px) {
+  .ov-workspace {
+    margin-inline: -14px;
+  }
+}
+@media (max-width: 360px) {
+  .ov-workspace {
+    margin-inline: -12px;
+  }
+}
+
+.ov-queue-note {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.ov-assignment-details {
+  font-size: 12px;
+  color: var(--muted);
+}
+.ov-assignment-details summary {
+  cursor: pointer;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.ov-assignment-details summary::before {
+  content: "+";
+}
+.ov-assignment-details[open] summary::before {
+  content: "−";
+}
+.ov-assignment-details p {
+  margin-bottom: 6px;
+}
+.ov-assignment-details code {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 11px;
+}
+.ov-assignment-details a + a {
+  margin-left: 12px;
+}
+.ov-workspace section[id] {
+  scroll-margin-top: 18px;
+}
+/* Native browser zoom can produce a short, narrow content viewport. */
+@media (max-width: 800px) and (max-height: 600px) {
+  .ov-eyebrow {
+    display: none;
+  }
+  .ov-main {
+    padding-top: 10px;
+  }
+  .ov-tools {
+    margin-bottom: 4px;
+  }
+  .ov-priority {
+    padding-block: 9px;
+  }
+}
