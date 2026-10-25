@@ -46,7 +46,7 @@ test("R01 displayed Back restores the original roster filters and work-log posit
     q: "Ada & Bea",
     participation: "submitted",
     rosterPane: "main",
-  };
+  } as const;
   const outgoing = url(
     teacherWorkspaceHref(`/teacher/sessions/${base.session}`, params),
   );
@@ -106,7 +106,7 @@ test("reloading a session URL and changing filters use URL context, never rememb
     q: "Ada",
     participation: "submitted",
     rosterPane: "main",
-  };
+  } as const;
   const opened = teacherWorkspaceHref(
     `/teacher/sessions/${base.session}`,
     original,
