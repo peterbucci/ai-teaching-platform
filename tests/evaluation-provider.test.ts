@@ -135,6 +135,7 @@ test("provider uses one bounded Structured Outputs request and retains actual pr
   if (result.ok) {
     assert.deepEqual(result.result, validResult);
     assert.equal(result.model, "gpt-6.1-sol-fixture");
+    assert.equal(result.needsReconciliation, false);
     assert.equal(result.responseId, "resp_fixture");
     assert.deepEqual(result.usage, {
       inputTokens: 100,
@@ -194,6 +195,7 @@ test("refusals, incomplete output and invalid JSON/schema fail safely without lo
     assert.equal(result.ok, false);
     if (!result.ok) {
       assert.equal(result.code, example.code);
+      assert.equal(result.needsReconciliation, false);
       assert.equal(result.responseId, "resp_fixture");
       assert.equal(result.usage?.totalTokens, 150);
       assert.ok(!result.message.includes("Private"));
@@ -216,6 +218,8 @@ test("provider access failures, rate limits and transport errors are sanitized w
       code: "quota_exceeded",
     },
     { status: 400, code: "invalid_request" },
+    { status: 408, code: "timeout" },
+    { status: 409, code: "invalid_request" },
     { status: 500, code: "provider_error" },
     { status: 0, code: "timeout" },
     { status: -1, code: "connection" },
@@ -243,10 +247,35 @@ test("provider access failures, rate limits and transport errors are sanitized w
     if (!result.ok) {
       assert.equal(result.code, example.code);
       assert.equal(result.model, "gpt-6.1-sol");
+      assert.equal(
+        result.needsReconciliation,
+        example.status <= 0 || example.status === 408 || example.status >= 500,
+      );
       assert.ok(!result.message.includes("Private"));
       assert.equal(result.usage, undefined);
     }
     current++;
   }
   assert.equal(fetch.mock.callCount(), cases.length);
+});
+
+test("terminal provider statuses settle while queued work remains unknown", async (t) => {
+  configure(t);
+  let status = "failed";
+  const fetch = t.mock.method(globalThis, "fetch", async () =>
+    Response.json({
+      ...responseEnvelope(JSON.stringify(validResult)),
+      status,
+    }),
+  );
+  for (const candidate of ["failed", "cancelled", "queued", "in_progress"]) {
+    status = candidate;
+    const outcome = await requestEvaluation(input);
+    assert.equal(outcome.ok, false);
+    assert.equal(
+      outcome.needsReconciliation,
+      candidate === "queued" || candidate === "in_progress",
+    );
+  }
+  assert.equal(fetch.mock.callCount(), 4);
 });

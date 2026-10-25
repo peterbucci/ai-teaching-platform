@@ -1,0 +1,141 @@
+{
+  "checked_at": "2026-10-23T12:28:39.260Z",
+  "approval_id": "b3f368c2-1bee-4593-a33d-c8f718911e0e",
+  "draft_id": "baaa38f1-8ebd-46b1-ab5b-003a99106e7e",
+  "approved_revision": 2,
+  "assignment_id": "30000000-0000-4000-8000-000000000001",
+  "content_ref": {
+    "source_id": "peterson_davie_1_5_1",
+    "package_id": "network-performance-v1",
+    "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+    "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+    "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+  },
+  "real_model_calls": 1,
+  "draft_generation_calls": 0,
+  "scope": "One fictional student answer submitted through the production browser to a reused approved #44/#45 activity.",
+  "records": [
+    {
+      "student_id": "10000000-0000-4000-8000-000000000002",
+      "session_id": "abfe4c2e-e45f-433c-bf9c-fc0f289129a4",
+      "attempt_id": "259affb6-80f0-49fe-8cfa-c975660b3443",
+      "data_origin": "live_demo",
+      "question": {
+        "origin": "generated",
+        "rubric": {
+          "version": "teacher-intervention-v2",
+          "criteria": [
+            "Propagation =  Distance/SpeedOfLight",
+            "Transmit = Size/Bandwidth",
+            "``SpeedOfLight`` is the effective speed of light over that wire"
+          ],
+          "answer_guidance": "Propagation =  Distance/SpeedOfLight\n   Transmit = Size/Bandwidth\n\nwhere ``Distance`` is the length of the wire over which the data will\ntravel, ``SpeedOfLight`` is the effective speed of light over that wire,\n``Size`` is the size of the packet, and ``Bandwidth`` is the bandwidth\nat which the packet is transmitted.",
+          "acceptable_variations": [],
+          "partial_credit_guidance": null
+        },
+        "generation": {
+          "model": "gpt-6.1-sol",
+          "generated_at": "2026-10-23T02:32:40.540Z",
+          "prompt_template_version": "teacher-intervention-v2"
+        },
+        "concept_ids": ["transmission_delay", "propagation_delay"],
+        "content_ref": {
+          "source_id": "peterson_davie_1_5_1",
+          "package_id": "network-performance-v1",
+          "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+          "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+          "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+        },
+        "prompt_text": "A laboratory compares sending the same packet across a single link before and after changing its medium. Cable length and link transmission rate remain fixed, but effective signal speed is lower in the new medium. Predict what happens to transmission delay and propagation delay. Explain why the delays need not change together.",
+        "question_id": "693eee7d-f526-4c53-8c59-7d69e9ca963b",
+        "sequence_id": null,
+        "source_passage_ids": ["P08"],
+        "embedded_scaffolding": []
+      },
+      "response_text": "Transmission delay stays the same because the packet size and the link transmission rate have not changed. Propagation delay increases because the signal travels the same cable length at a lower effective speed. Sending all the bits onto the link and carrying a signal along the cable depend on different quantities, so the two delays need not change together.",
+      "assistance": {
+        "assistance_level": "corrective_feedback",
+        "intervention_ids": ["eab306c1-cb86-444a-9f0c-4e7ccde8e09f"],
+        "scaffolding_types": [],
+        "most_recent_content_assistance_at": "2026-10-23T03:22:18.051Z",
+        "elapsed_since_content_assistance_seconds": 32673.208,
+        "independent_retrieval_eligible_by_concept": {
+          "propagation_delay": false,
+          "transmission_delay": false
+        }
+      },
+      "submitted_at": "2026-10-23T12:26:51.259Z",
+      "evaluation_id": "6a26f346-4af0-410b-b658-11446c538b8f",
+      "validation_status": "accepted",
+      "evaluator": {
+        "type": "language_model",
+        "model": "gpt-6.1-sol",
+        "version": "grounded-network-performance-v2"
+      },
+      "result": {
+        "evidence_quotes": [
+          {
+            "quote": "Transmission delay stays the same because the packet size and the link transmission rate have not changed.",
+            "response_id": "259affb6-80f0-49fe-8cfa-c975660b3443",
+            "end_character": 106,
+            "interpretation": "Provides the correct transmission-delay prediction and its controlling quantities.",
+            "start_character": 0
+          },
+          {
+            "quote": "Propagation delay increases because the signal travels the same cable length at a lower effective speed.",
+            "response_id": "259affb6-80f0-49fe-8cfa-c975660b3443",
+            "end_character": 211,
+            "interpretation": "Provides the correct propagation-delay prediction and explains the effect of reduced effective speed at fixed distance.",
+            "start_character": 107
+          },
+          {
+            "quote": "Sending all the bits onto the link and carrying a signal along the cable depend on different quantities, so the two delays need not change together.",
+            "response_id": "259affb6-80f0-49fe-8cfa-c975660b3443",
+            "end_character": 360,
+            "interpretation": "Explicitly distinguishes the two processes and explains why their delays can change independently.",
+            "start_character": 212
+          }
+        ],
+        "reasoning_observed": "The response correctly explains both predictions using their distinct controlling quantities. This is a correct immediate retest after corrective feedback, not evidence of independent retrieval or lasting retention. Embedded scaffolding was empty.",
+        "source_passage_ids": ["P08"],
+        "uncertainty_reason": null,
+        "per_concept_results": [
+          {
+            "concept_id": "transmission_delay",
+            "error_type": null,
+            "correctness": "correct",
+            "rubric_criteria_met": [
+              "Correctly predicts unchanged transmission delay because packet size and link rate remain fixed, consistent with Transmit = Size/Bandwidth.",
+              "Distinguishes placing bits onto the link from signal travel along the cable."
+            ],
+            "rubric_criteria_missing": []
+          },
+          {
+            "concept_id": "propagation_delay",
+            "error_type": null,
+            "correctness": "correct",
+            "rubric_criteria_met": [
+              "Correctly predicts increased propagation delay for fixed distance and lower effective signal speed, consistent with Propagation = Distance/SpeedOfLight.",
+              "Identifies the relevant speed as effective signal speed along the cable."
+            ],
+            "rubric_criteria_missing": []
+          }
+        ],
+        "proposed_next_action": "SCHEDULE_REVIEW",
+        "misconception_candidates": []
+      },
+      "request_id": "37e032c7-1843-430c-80b9-722bee42089f",
+      "dispatch_state": "completed",
+      "provider_metadata": {
+        "model": "gpt-6.1-sol",
+        "usage": {
+          "inputTokens": 3613,
+          "totalTokens": 4067,
+          "outputTokens": 454
+        },
+        "response_id": "resp_02417bdb457d5627016adb528a8cc887d1b5c9ef3e8c641ed9",
+        "provider_origin": "configured_model"
+      }
+    }
+  ]
+}

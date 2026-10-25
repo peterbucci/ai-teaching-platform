@@ -1,0 +1,23 @@
+diff --git a/app/components/visual/player.tsx b/app/components/visual/player.tsx
+index 27a711e..aea6736 100644
+--- a/app/components/visual/player.tsx
++++ b/app/components/visual/player.tsx
+@@ -689,8 +689,16 @@ function Player({
+           <dd>{activity.source.source_id}</dd>
+           <dt>Content version</dt>
+           <dd>{activity.source.content_version}</dd>
+-          <dt>Source commit</dt>
+-          <dd>{activity.source.source_commit}</dd>
++          <dt>
++            {"source_commit" in activity.source
++              ? "Source commit"
++              : "Source version"}
++          </dt>
++          <dd>
++            {"source_commit" in activity.source
++              ? activity.source.source_commit
++              : activity.source.source_version}
++          </dd>
+         </dl>
+       </details>
+     </section>

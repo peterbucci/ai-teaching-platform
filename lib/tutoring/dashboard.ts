@@ -7,10 +7,11 @@ import {
   SessionSchema,
 } from "../evidence/contracts.ts";
 import {
-  loadApprovedContent,
   validateContentRef,
   validateQuestionSnapshot,
+  type ApprovedContent,
 } from "../evidence/content.ts";
+import { resolveAssignmentContent } from "../lessons/store.ts";
 import {
   EvidenceError,
   transaction,
@@ -30,6 +31,7 @@ import {
 const LessonRowSchema = z.object({
   id: z.uuid(),
   title: z.string().min(1),
+  instructions: z.string().max(5000),
   class_id: z.uuid(),
   class_name: z.string().min(1),
   teacher_approved_at: z.iso.datetime({ offset: true }),
@@ -64,7 +66,7 @@ export async function readStudentDashboard(
     .object({ display_name: z.string().trim().min(1) })
     .parse(profileRows.rows[0]);
   const lessonRows = await client.query(
-    `SELECT a.id,a.title,a.class_id,a.teacher_approved_at,a.content_ref,a.approved_concept_ids,
+    `SELECT a.id,a.title,a.instructions,a.class_id,a.teacher_approved_at,a.content_ref,a.approved_concept_ids,
       a.approved_passage_ids,c.name AS class_name,
       latest.session,latest.started_at AS session_started_at,completed.last_completed_at
      FROM assignments a
@@ -74,12 +76,14 @@ export async function readStudentDashboard(
        SELECT jsonb_build_object('id',s.id,'status',s.status) AS session,s.started_at
        FROM sessions s WHERE s.assignment_id=a.id AND s.class_id=a.class_id
          AND s.student_id=e.student_id AND s.data_origin='live_demo'
+         AND NOT EXISTS (SELECT 1 FROM teacher_intervention_followups f WHERE f.session_id=s.id)
        ORDER BY s.started_at DESC,s.id DESC LIMIT 1
      ) latest ON true
      LEFT JOIN LATERAL (
        SELECT MAX(s.ended_at) AS last_completed_at
        FROM sessions s WHERE s.assignment_id=a.id AND s.class_id=a.class_id
          AND s.student_id=e.student_id AND s.data_origin='live_demo'
+         AND NOT EXISTS (SELECT 1 FROM teacher_intervention_followups f WHERE f.session_id=s.id)
          AND s.status='completed'
      ) completed ON true
      WHERE e.student_id=$1 AND a.teacher_approved_at IS NOT NULL ORDER BY a.id`,
@@ -92,13 +96,26 @@ export async function readStudentDashboard(
      JOIN assignments a ON a.id=s.assignment_id AND a.class_id=s.class_id
      JOIN enrollments e ON e.class_id=s.class_id AND e.student_id=s.student_id
      WHERE s.student_id=$1 AND s.data_origin='live_demo'
+       AND NOT EXISTS (SELECT 1 FROM teacher_intervention_followups f WHERE f.session_id=s.id)
        AND a.teacher_approved_at IS NOT NULL AND t.submitted_at IS NOT NULL
      ORDER BY t.submitted_at DESC,t.id DESC`,
     [access.actor.profileId],
   );
-  const content = loadApprovedContent();
+  const lessonRecords = lessonRows.rows.map((row) =>
+    LessonRowSchema.parse(evidenceRow(row)),
+  );
+  const contents = new Map<string, ApprovedContent>();
+  for (const lesson of lessonRecords) {
+    contents.set(
+      lesson.id,
+      await resolveAssignmentContent(client, access, lesson.id, "student"),
+    );
+  }
   const attempts = attemptRows.rows.map((row) => {
     const attempt = AttemptRowSchema.parse(evidenceRow(row));
+    const content = contents.get(attempt.assignment_id);
+    if (!content)
+      throw new EvidenceError(503, "This saved lesson version is unavailable.");
     const question = validateQuestionSnapshot(content, attempt.question);
     return {
       id: attempt.id,
@@ -108,8 +125,8 @@ export async function readStudentDashboard(
       conceptIds: question.concept_ids,
     };
   });
-  const lessons: DashboardLesson[] = lessonRows.rows.map((row) => {
-    const lesson = LessonRowSchema.parse(evidenceRow(row));
+  const lessons: DashboardLesson[] = lessonRecords.map((lesson) => {
+    const content = contents.get(lesson.id)!;
     const topics = assignmentPracticeTopics(content, lesson);
     const submittedAttempts = attempts.filter(
       (attempt) => attempt.assignmentId === lesson.id,
@@ -117,6 +134,7 @@ export async function readStudentDashboard(
     return {
       id: lesson.id,
       title: lesson.title,
+      instructions: lesson.instructions,
       approval_label: "Approved by your teacher",
       session: lesson.session,
       latestSessionStartedAt: lesson.session_started_at,
@@ -176,7 +194,12 @@ export async function readStudentAssignmentWork(
   );
   if (!assignmentRows.rows[0])
     throw new EvidenceError(404, "Assignment not found.");
-  const content = loadApprovedContent();
+  const content = await resolveAssignmentContent(
+    client,
+    access,
+    assignmentId,
+    "student",
+  );
   const assignment = z
     .object({ content_ref: z.unknown() })
     .parse(assignmentRows.rows[0]);
@@ -189,6 +212,7 @@ export async function readStudentAssignmentWork(
      JOIN assignments a ON a.id=s.assignment_id AND a.class_id=s.class_id
      JOIN enrollments e ON e.class_id=s.class_id AND e.student_id=s.student_id
      WHERE a.id=$1 AND s.student_id=$2 AND s.data_origin='live_demo'
+       AND NOT EXISTS (SELECT 1 FROM teacher_intervention_followups f WHERE f.session_id=s.id)
        AND a.teacher_approved_at IS NOT NULL
      ORDER BY s.started_at DESC,s.id DESC`,
     [assignmentId, access.actor.profileId],
@@ -199,6 +223,7 @@ export async function readStudentAssignmentWork(
      JOIN assignments a ON a.id=s.assignment_id AND a.class_id=s.class_id
      JOIN enrollments e ON e.class_id=s.class_id AND e.student_id=s.student_id
      WHERE a.id=$1 AND s.student_id=$2 AND s.data_origin='live_demo'
+       AND NOT EXISTS (SELECT 1 FROM teacher_intervention_followups f WHERE f.session_id=s.id)
        AND a.teacher_approved_at IS NOT NULL AND t.submitted_at IS NOT NULL
      ORDER BY t.session_id,t.sequence_index,t.id`,
     [assignmentId, access.actor.profileId],
@@ -287,6 +312,7 @@ export async function readStudentSessionAssignment(
      JOIN enrollments e ON e.class_id=s.class_id AND e.student_id=s.student_id
      JOIN profiles p ON p.id=s.student_id
      WHERE s.id=$1 AND p.id=$2 AND p.auth_user_id=$3
+       AND NOT EXISTS (SELECT 1 FROM teacher_intervention_followups f WHERE f.session_id=s.id)
        AND s.data_origin='live_demo' AND a.teacher_approved_at IS NOT NULL`,
     [sessionId, access.actor.profileId, access.actor.userId],
   );

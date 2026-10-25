@@ -77,23 +77,32 @@ export function Reading({
       <p className="leading-7">
         From <em>{source.title}</em>, {source.authors.join(" and ")}.{" "}
         {source.section}. Copyright {source.copyright}.{" "}
-        <a className="lp-text-link" href={source.license_url}>
-          {source.license}
-        </a>
+        {source.license_url ? (
+          <a className="lp-text-link" href={source.license_url}>
+            {source.license}
+          </a>
+        ) : (
+          source.license
+        )}
         .
       </p>
       <p className="my-3 text-sm">
-        This prepared excerpt omits figures and includes separately labeled
-        project notes.{" "}
-        <a className="lp-text-link" href={source.url}>
-          View the fixed source
-        </a>
-        .
+        {"source_commit" in reading.content_ref
+          ? "This prepared excerpt omits figures and includes separately labeled project notes."
+          : "This reading uses the reviewed text from your teacher’s approved source version."}{" "}
+        {source.url && (
+          <a className="lp-text-link" href={source.url}>
+            View the fixed source
+          </a>
+        )}
       </p>
       <details className="lp-evidence-details">
         <summary>Source version and reading notes</summary>
         <p className="break-all my-3">
-          Source: {reading.content_ref.source_commit}
+          Source:{" "}
+          {"source_commit" in reading.content_ref
+            ? reading.content_ref.source_commit
+            : `${reading.content_ref.source_id} · version ${reading.content_ref.source_version}`}
           <br />
           Content: {reading.content_ref.content_version}
         </p>

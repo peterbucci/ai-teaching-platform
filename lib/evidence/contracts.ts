@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { UploadedSourceReferenceSchema } from "../lessons/source-contracts.ts";
 
 const text = z
   .string()
@@ -16,13 +17,22 @@ const requiredNames = names.refine(
   "At least one ID is required",
 );
 
-export const ContentRefSchema = z.strictObject({
+export const CuratedContentRefSchema = z.strictObject({
   package_id: text,
   content_version: text,
   source_id: text,
   source_commit: z.string().regex(/^[a-f0-9]{40}$/),
   excerpt_sha256: z.string().regex(/^[a-f0-9]{64}$/),
 });
+export const UploadedContentRefSchema = UploadedSourceReferenceSchema.extend({
+  package_id: text,
+  content_version: text,
+});
+// Preserve the original curated wire shape, including existing saved evidence.
+export const ContentRefSchema = z.union([
+  CuratedContentRefSchema,
+  UploadedContentRefSchema,
+]);
 export type ContentRef = z.infer<typeof ContentRefSchema>;
 
 export const EmbeddedScaffoldingSchema = z.strictObject({
@@ -42,6 +52,8 @@ export const QuestionSnapshotSchema = z
     origin: z.enum(["curated", "generated"]),
     question_id: text.nullable(),
     sequence_id: text.nullable(),
+    // Assigned by the controller at a reviewed generated-question handoff only.
+    controller_node_id: text.optional(),
     prompt_text: text,
     content_ref: ContentRefSchema,
     concept_ids: requiredNames,
@@ -65,7 +77,9 @@ export const QuestionSnapshotSchema = z
   .superRefine((question, context) => {
     if (
       question.origin === "curated" &&
-      (!question.question_id || question.generation)
+      (!question.question_id ||
+        question.generation ||
+        question.controller_node_id !== undefined)
     ) {
       context.addIssue({
         code: "custom",
@@ -340,6 +354,8 @@ export const EvaluationSchema = z
       type: z.enum(["language_model", "human_review", "synthetic_fixture"]),
       model: text.nullable(),
       version: text,
+      provider_reservation_id: id.optional(),
+      provider_outcome: z.enum(["settled", "unknown"]).optional(),
     }),
     evaluated_at: timestamp,
     supersedes_id: id.nullable(),
@@ -348,6 +364,21 @@ export const EvaluationSchema = z
     failure_reason: text.nullable(),
   })
   .superRefine((evaluation, context) => {
+    const { provider_reservation_id, provider_outcome } = evaluation.evaluator;
+    if (
+      (provider_reservation_id === undefined) !==
+        (provider_outcome === undefined) ||
+      (provider_outcome !== undefined &&
+        (evaluation.evaluator.type !== "language_model" ||
+          evaluation.validation_status === "pending_review" ||
+          (provider_outcome === "unknown" &&
+            evaluation.validation_status !== "evaluation_failed")))
+    )
+      context.addIssue({
+        code: "custom",
+        message:
+          "Provider outcomes require a linked model reservation and a compatible final status",
+      });
     if (evaluation.validation_status === "accepted" && !evaluation.result) {
       context.addIssue({
         code: "custom",

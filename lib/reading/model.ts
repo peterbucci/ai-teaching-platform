@@ -40,7 +40,7 @@ export const StudentReaderViewSchema = z.strictObject({
     ),
     sections: z.array(
       ReadingSchema.shape.sections.element.extend({
-        url: z.url(),
+        url: z.url().nullable(),
         conceptIds: z.array(z.string()),
       }),
     ),

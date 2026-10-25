@@ -1,0 +1,237 @@
+import Link from "next/link";
+import {
+  lessonPublishingReview,
+  readPublishedLessonForReview,
+} from "../../../../lib/lessons/publishing.ts";
+import { TeacherFrame } from "../../presentation.tsx";
+import { loadTeacherLesson } from "../load.ts";
+import { LessonPreview } from "../preview.tsx";
+import {
+  AssembleLesson,
+  CreateClassAssignment,
+  ReviewActions,
+  StartLessonVersion,
+} from "../controls.tsx";
+
+export const dynamic = "force-dynamic";
+export default async function LessonReviewPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ lessonId: string }>;
+  searchParams: Promise<{ version?: string }>;
+}) {
+  const { lessonId } = await params;
+  const { version } = await searchParams;
+  const { review, published } = await loadTeacherLesson(async (access) => ({
+    review: await lessonPublishingReview(access, lessonId),
+    published: version
+      ? await readPublishedLessonForReview(access, lessonId, version)
+      : null,
+  }));
+  const { lesson, validation } = review;
+  const content = published ?? lesson.draft;
+  const href = `/teacher/lessons/${encodeURIComponent(lessonId)}`;
+  const currentVersion = lesson.draft?.content_ref?.content_version;
+  const currentVersionPublished = review.published_versions.some(
+    (item) => item.version === currentVersion,
+  );
+  const families = [
+    ...new Set(
+      lesson.draft?.question_bank?.items.map((item) => item.family_id) ?? [],
+    ),
+  ].map((id, index) => {
+    const initial = lesson.draft?.question_bank?.items.find(
+      (item) => item.family_id === id && item.role === "initial",
+    );
+    const prompt = lesson.draft?.questions
+      ?.find((question) => question.question_id === initial?.question_id)
+      ?.prompt_text.replace(/\s+/g, " ")
+      .trim();
+    return {
+      id,
+      label: `Family ${index + 1}${prompt ? ` · ${prompt.length > 80 ? `${prompt.slice(0, 77)}…` : prompt}` : ""}`,
+    };
+  });
+  return (
+    <TeacherFrame section="Lessons">
+      <header className="lp-page-heading">
+        <Link href="/teacher/lessons">← Your lessons</Link>
+        <p className="lp-eyebrow mt-4">
+          {published
+            ? `Published version ${version}`
+            : `Draft revision ${lesson.revision}`}
+        </p>
+        <h1 className="lp-title">{lesson.title}</h1>
+        <p className="lp-intro">
+          {published
+            ? "This approved snapshot is immutable. New lesson edits leave its assignments and student work unchanged."
+            : "Check the complete lesson before approving it. Edits clear approval and require a new review."}
+        </p>
+        {published && (
+          <Link className="lp-button" href={href}>
+            Return to current draft
+          </Link>
+        )}
+        {!published && (
+          <nav className="flex flex-wrap gap-3" aria-label="Lesson authoring">
+            {lesson.draft?.content_ref &&
+              "source_kind" in lesson.draft.content_ref && (
+                <Link
+                  className="lp-button"
+                  href={`/teacher/materials/${encodeURIComponent(lesson.draft.content_ref.source_id)}?version=${lesson.draft.content_ref.source_version}`}
+                >
+                  Review source material
+                </Link>
+              )}
+            {lesson.draft?.objective_workflow && (
+              <Link
+                className="lp-button"
+                href={`/teacher/objectives/${encodeURIComponent(lessonId)}`}
+              >
+                Edit learning objectives
+              </Link>
+            )}
+            {!!lesson.draft?.concepts?.length && (
+              <Link className="lp-button" href={`${href}/questions`}>
+                Edit question bank
+              </Link>
+            )}
+          </nav>
+        )}
+      </header>
+      <div className="lp-assignment-layout">
+        <div className="lp-assignment-main">
+          {!published && (
+            <section className="lp-panel" aria-labelledby="validation-heading">
+              <h2 id="validation-heading">
+                {validation.valid
+                  ? "Ready for your review"
+                  : "Requirements to resolve"}
+              </h2>
+              {validation.valid ? (
+                <p>
+                  Required content and source checks passed. Review the
+                  educational content and source support before approval.
+                </p>
+              ) : (
+                <ul className="list-disc pl-5 my-3">
+                  {validation.issues.map((issue, index) => (
+                    <li key={index}>
+                      {issue.path === "sequence" && !lesson.draft?.sequence ? (
+                        "Prepare the reviewed tutoring sequence before approving this lesson."
+                      ) : (
+                        <>
+                          <strong>{issue.path || "Lesson"}:</strong>{" "}
+                          {issue.message}
+                        </>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
+          )}
+          {!published && lesson.draft?.question_bank?.approval && (
+            <section className="lp-panel">
+              <AssembleLesson
+                lessonId={lessonId}
+                revision={lesson.revision}
+                families={families}
+              />
+            </section>
+          )}
+          <LessonPreview content={content} />
+        </div>
+        <aside
+          className="lp-panel lp-assignment-sidebar"
+          aria-label="Lesson publication and assignment"
+        >
+          {published && version ? (
+            <>
+              <p className="lp-eyebrow">Published lesson</p>
+              <h2>Choose a class</h2>
+              <p>
+                You are assigning version {version}. Review its reading and
+                questions alongside this form.
+              </p>
+              <CreateClassAssignment
+                key={version}
+                lessonId={lessonId}
+                version={version}
+                title={lesson.title}
+                classes={review.classes}
+              />
+            </>
+          ) : (
+            <>
+              <p className="lp-eyebrow">
+                {lesson.approved_revision === lesson.revision
+                  ? "Approved draft"
+                  : "Lesson review"}
+              </p>
+              <h2>
+                {lesson.approved_revision === lesson.revision
+                  ? "Publish this version"
+                  : "Approve reviewed content"}
+              </h2>
+              <ReviewActions
+                key={`${lesson.revision}:${lesson.approved_revision}`}
+                lessonId={lessonId}
+                revision={lesson.revision}
+                approved={lesson.approved_revision === lesson.revision}
+                valid={validation.valid}
+              />
+            </>
+          )}
+          {currentVersion && currentVersionPublished && (
+            <section className="mt-6">
+              <StartLessonVersion
+                key={lesson.revision}
+                lessonId={lessonId}
+                revision={lesson.revision}
+                currentVersion={currentVersion}
+              />
+            </section>
+          )}
+          <h3 className="font-semibold mt-6">Published versions</h3>
+          {review.published_versions.length ? (
+            <ul className="space-y-2 my-3">
+              {review.published_versions.map((item) => (
+                <li key={item.version}>
+                  <Link
+                    href={`${href}?version=${encodeURIComponent(item.version)}`}
+                  >
+                    Review version {item.version} and assign
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No published versions yet.</p>
+          )}
+          <h3 className="font-semibold mt-6">Class assignments</h3>
+          {review.assignments.length ? (
+            <ul className="space-y-3 my-3">
+              {review.assignments.map((item) => (
+                <li key={item.id}>
+                  <Link href={`/teacher/assignments?assignment=${item.id}`}>
+                    {item.title} · {item.class_name}
+                  </Link>
+                  <p>
+                    Version {item.lesson_version} ·{" "}
+                    {item.teacher_approved_at
+                      ? "Active"
+                      : "Awaiting activation"}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No classes assigned yet.</p>
+          )}
+        </aside>
+      </div>
+    </TeacherFrame>
+  );
+}

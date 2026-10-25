@@ -1,0 +1,37 @@
+{
+  "issue": 45,
+  "checked_at": "2026-10-23T03:25:41.915Z",
+  "status": "passed",
+  "origin": "http://localhost:3045",
+  "verification": "real PostgreSQL and authenticated HTTP; browser interaction verified separately",
+  "source_draft_id": "baaa38f1-8ebd-46b1-ab5b-003a99106e7e",
+  "source_provenance": {
+    "model": "gpt-6.1-sol",
+    "response_id": "resp_0c302bafa1559207016adac72d2a9c87d2b6bb629443db0514",
+    "prompt_template_version": "teacher-intervention-v2",
+    "generated_at": "2026-10-23T02:32:40.540Z",
+    "usage": {
+      "inputTokens": 3766,
+      "outputTokens": 1351,
+      "totalTokens": 5117
+    }
+  },
+  "verification_copy_ids": [
+    "e8405ead-5202-4119-bb09-f6e69a9af2a0",
+    "a616865b-a751-4b4e-ad06-4cf69fa4f5e5"
+  ],
+  "approval_id": "a57a242a-bf7b-422a-853c-4c02e224b66e",
+  "delivery_id": "5e25f1eb-3942-47ce-9d40-a7ede5323bfe",
+  "recipient_ids": [
+    "10000000-0000-4000-8000-000000000002",
+    "10000000-0000-4000-8000-000000000003"
+  ],
+  "new_model_calls": 0,
+  "checks": [
+    "Authenticated teacher ownership and profile binding enforced; anonymous/student/foreign-teacher requests denied; generated copy invisible to students.",
+    "Save advances exactly once, preserves original evidence/provenance, rejects stale/altered replay, unauthorized source version, forged ownership and cross-origin writes.",
+    "Enrollment is rechecked after preview; approval records final exact revision, content, evidence and two explicitly selected recipients once; approved-only content is still student-invisible.",
+    "Delivery is durable and idempotent under concurrent retries; two recipients can retrieve only public content, enrolled third student and teacher cannot; GET does not mark assistance, explicit display is recorded once per student.",
+    "PostgreSQL rejects mutation of final approvals, deliveries and recipients plus insertion of an unapproved recipient; dismissed and approved drafts cannot reach the generation provider; source #44 draft, original answers/evaluations and model-request count remain unchanged."
+  ]
+}
