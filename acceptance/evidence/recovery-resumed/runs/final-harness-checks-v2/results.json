@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+  "category": "deterministic recovery guard, browser wrapper, evidence collector, authentication redaction, and literal dynamic-route test invocation; no Docker/browser/database/model execution",
+  "startedAt": "2026-10-25T05:40:18.978Z",
+  "finishedAt": "2026-10-25T05:40:19.459Z",
+  "result": "pass",
+  "exitCode": 0,
+  "tests": 24,
+  "passed": 24,
+  "failed": 0,
+  "skipped": 0,
+  "command": [
+    "C:\\Program Files\\nodejs\\node.exe",
+    "--test-reporter=tap",
+    "--test",
+    "acceptance/safety.test.mjs",
+    "acceptance/browser-run.test.mjs",
+    "acceptance/collect-resumed-evidence.test.mjs",
+    "acceptance/redact-auth-trace.test.mjs",
+    "acceptance/focused-tests.test.mjs"
+  ],
+  "log": "tests.log",
+  "inputs": [
+    {
+      "path": "acceptance/safety.test.mjs",
+      "sha256": "819efd0de539780581236109fcbe72cde23352748942c77c80392eb235dd30d3"
+    },
+    {
+      "path": "acceptance/browser-run.test.mjs",
+      "sha256": "8224ba3c4fa849434a39c42e27e78b9d3b0c4572d5cc278ab1af429784f16fc5"
+    },
+    {
+      "path": "acceptance/collect-resumed-evidence.test.mjs",
+      "sha256": "95a212c5139abf8a51166cdc6183baddbed5b5983428b10d56baa5726e13492d"
+    },
+    {
+      "path": "acceptance/redact-auth-trace.test.mjs",
+      "sha256": "64dcaf4b4b31b2bd65e1d0c54a75c5f41c057b475c59b8ae903e142ba1eeef64"
+    },
+    {
+      "path": "acceptance/focused-tests.test.mjs",
+      "sha256": "9142010240ebdb9a40a3f5372b44e3caa73345d4c48b6b66d0e040fd2fd2b6a5"
+    },
+    {
+      "path": "acceptance/safety.mjs",
+      "sha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485"
+    },
+    {
+      "path": "acceptance/browser-run.mjs",
+      "sha256": "613dfbdcbef1f28069f19ef380617f1b70e08074cc404f6208d94c7e0487107c"
+    },
+    {
+      "path": "acceptance/collect-resumed-evidence.mjs",
+      "sha256": "1c06e2dfb32337dd1fd967669b53ee3c4f9d5af64da7659bcbd3a570c6d56c3c"
+    },
+    {
+      "path": "acceptance/redact-auth-trace.mjs",
+      "sha256": "ffd8073c8c5c47e9f52faf196698407af7268f4073ddcbecc8ee79ce5c11278b"
+    },
+    {
+      "path": "acceptance/focused-tests.mjs",
+      "sha256": "71e690837a0e807f74697d4497a16c859f36fa2d4044e53255101615a399a6c7"
+    },
+    {
+      "path": "acceptance/runner.mjs",
+      "sha256": "378f69d3465fb42e12223a8fcac3fbd634557495463c0b2578cac36c5213520c"
+    }
+  ],
+  "limitations": [
+    "Source-only harness tests; no runtime service or paid model calls. Old final-harness-checks receipt retained."
+  ]
+}

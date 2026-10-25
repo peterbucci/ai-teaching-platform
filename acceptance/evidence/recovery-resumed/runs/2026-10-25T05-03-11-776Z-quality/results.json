@@ -1,0 +1,525 @@
+{
+  "schemaVersion": 1,
+  "mode": "quality",
+  "target": "combined-recovery",
+  "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+  "source": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+  "project": "lp-accept-recovery-01a1714f",
+  "origin": "http://localhost:3355",
+  "manifest": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\manifest.json",
+  "fixture": "repository unit fixtures; curated network-performance-v1 package",
+  "paidModelCallsAuthorized": false,
+  "checks": [
+    {
+      "name": "preflight:npm-ci",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T05:03:12.162Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "availableBytes": 55066447872,
+          "availableGiB": 51.28462600708008,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "availableBytes": 55066447872,
+          "availableGiB": 51.28462600708008,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 55066447872,
+          "availableGiB": 51.28462600708008,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "npm-ci",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic quality",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+      "target": "combined-recovery",
+      "project": "lp-accept-recovery-01a1714f",
+      "origin": "http://localhost:3355",
+      "startedAt": "2026-10-25T05:03:12.164Z",
+      "finishedAt": "2026-10-25T05:03:48.202Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "ci"
+      ],
+      "log": "02-npm-ci.log"
+    },
+    {
+      "name": "preflight:test",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T05:03:48.204Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "availableBytes": 54394068992,
+          "availableGiB": 50.658424377441406,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "availableBytes": 54394068992,
+          "availableGiB": 50.658424377441406,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 54394068992,
+          "availableGiB": 50.658424377441406,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "test",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic quality",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+      "target": "combined-recovery",
+      "project": "lp-accept-recovery-01a1714f",
+      "origin": "http://localhost:3355",
+      "startedAt": "2026-10-25T05:03:48.206Z",
+      "finishedAt": "2026-10-25T05:04:03.120Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "test"
+      ],
+      "log": "04-test.log"
+    },
+    {
+      "name": "preflight:lint",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T05:04:03.124Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "availableBytes": 54436102144,
+          "availableGiB": 50.69757080078125,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "availableBytes": 54436102144,
+          "availableGiB": 50.69757080078125,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 54436102144,
+          "availableGiB": 50.69757080078125,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "lint",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic quality",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+      "target": "combined-recovery",
+      "project": "lp-accept-recovery-01a1714f",
+      "origin": "http://localhost:3355",
+      "startedAt": "2026-10-25T05:04:03.127Z",
+      "finishedAt": "2026-10-25T05:04:23.130Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "lint"
+      ],
+      "log": "06-lint.log"
+    },
+    {
+      "name": "preflight:typecheck",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T05:04:23.131Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "availableBytes": 54469136384,
+          "availableGiB": 50.728336334228516,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "availableBytes": 54469136384,
+          "availableGiB": 50.728336334228516,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 54469136384,
+          "availableGiB": 50.728336334228516,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "typecheck",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic quality",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+      "target": "combined-recovery",
+      "project": "lp-accept-recovery-01a1714f",
+      "origin": "http://localhost:3355",
+      "startedAt": "2026-10-25T05:04:23.135Z",
+      "finishedAt": "2026-10-25T05:04:40.214Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "typecheck"
+      ],
+      "log": "08-typecheck.log"
+    },
+    {
+      "name": "preflight:format:check",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T05:04:40.217Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "availableBytes": 54455119872,
+          "availableGiB": 50.71528244018555,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "availableBytes": 54455119872,
+          "availableGiB": 50.71528244018555,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 54455119872,
+          "availableGiB": 50.71528244018555,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "format:check",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic quality",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+      "target": "combined-recovery",
+      "project": "lp-accept-recovery-01a1714f",
+      "origin": "http://localhost:3355",
+      "startedAt": "2026-10-25T05:04:40.219Z",
+      "finishedAt": "2026-10-25T05:04:49.480Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "format:check"
+      ],
+      "log": "10-format-check.log"
+    },
+    {
+      "name": "preflight:build",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T05:04:49.482Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "availableBytes": 54442958848,
+          "availableGiB": 50.703956604003906,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "availableBytes": 54442958848,
+          "availableGiB": 50.703956604003906,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 54442958848,
+          "availableGiB": 50.703956604003906,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "build",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic quality",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+      "target": "combined-recovery",
+      "project": "lp-accept-recovery-01a1714f",
+      "origin": "http://localhost:3355",
+      "startedAt": "2026-10-25T05:04:49.484Z",
+      "finishedAt": "2026-10-25T05:05:16.602Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "build"
+      ],
+      "log": "12-build.log"
+    },
+    {
+      "name": "preflight:focused-authoring",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T05:05:16.611Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "availableBytes": 54223101952,
+          "availableGiB": 50.49919891357422,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "availableBytes": 54223101952,
+          "availableGiB": 50.49919891357422,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 54223101952,
+          "availableGiB": 50.49919891357422,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "focused-authoring",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic colocated application tests omitted by the repository test glob",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+      "target": "combined-recovery",
+      "project": "lp-accept-recovery-01a1714f",
+      "origin": "http://localhost:3355",
+      "startedAt": "2026-10-25T05:05:16.613Z",
+      "finishedAt": "2026-10-25T05:05:17.066Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "--experimental-strip-types",
+        "--conditions=react-server",
+        "--test",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2\\app\\teacher\\lessons\\authoring-state.test.ts",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2\\app\\teacher\\lessons\\[lessonId]\\questions\\workbench-state.test.ts",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2\\app\\teacher\\materials\\import-draft.test.ts",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2\\app\\teacher\\materials\\source-review-model.test.ts",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2\\app\\teacher\\objectives\\draft-recovery.test.ts",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2\\app\\teacher\\objectives\\source-reading.test.ts"
+      ],
+      "log": "14-focused-authoring.log"
+    },
+    {
+      "name": "preflight:content:check",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T05:05:17.068Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "availableBytes": 54223024128,
+          "availableGiB": 50.49912643432617,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "availableBytes": 54223024128,
+          "availableGiB": 50.49912643432617,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 54223024128,
+          "availableGiB": 50.49912643432617,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "content:check",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic curated content verification",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+      "target": "combined-recovery",
+      "project": "lp-accept-recovery-01a1714f",
+      "origin": "http://localhost:3355",
+      "startedAt": "2026-10-25T05:05:17.069Z",
+      "finishedAt": "2026-10-25T05:05:17.460Z",
+      "command": [
+        "python",
+        "content/network-performance-v1/verify_package.py"
+      ],
+      "log": "16-content-check.log"
+    }
+  ],
+  "passed": [
+    "preflight:npm-ci",
+    "npm-ci",
+    "preflight:test",
+    "test",
+    "preflight:lint",
+    "lint",
+    "preflight:typecheck",
+    "typecheck",
+    "preflight:format:check",
+    "format:check",
+    "preflight:build",
+    "build",
+    "preflight:focused-authoring",
+    "focused-authoring",
+    "preflight:content:check",
+    "content:check"
+  ],
+  "failed": [],
+  "unrun": [],
+  "stoppedAfterFailure": false,
+  "safetyPolicy": {
+    "buildMinimumGiB": 20,
+    "runtimeMinimumGiB": 10,
+    "sharedLock": "C:\\Users\\sb128\\AppData\\Local\\learning-pulse-acceptance.lock"
+  },
+  "completed": true,
+  "result": "pass",
+  "limitations": [
+    "No hosted release verification",
+    "No fresh or historical actual-model claim",
+    "Browser/accessibility evidence is recorded separately",
+    "Thresholds are conservative starting headroom, not a guarantee against concurrent unguarded clients or an individual command exhausting storage",
+    "Shared lock covers this guarded runner only; other Docker clients and browser scripts must be coordinated with the environment owner",
+    "Unverifiable Docker guest or backing storage fails closed; host backing-disk space is always required"
+  ]
+}

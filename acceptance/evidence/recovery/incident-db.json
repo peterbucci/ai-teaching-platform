@@ -1,0 +1,13 @@
+{
+  "recordedAt": "2026-10-25T04:29:52.9521394Z",
+  "args": [
+    "inspect",
+    "lp-accept-combined-db-1",
+    "--format",
+    "{\"id\":{{json .Id}},\"name\":{{json .Name}},\"image\":{{json .Image}},\"state\":{{json .State}},\"restarts\":{{.RestartCount}},\"mounts\":{{json .Mounts}},\"labels\":{{json .Config.Labels}}}"
+  ],
+  "exitCode": 1,
+  "timedOut": false,
+  "stdout": "\n",
+  "stderr": "Error: No such object: lp-accept-combined-db-1\n"
+}

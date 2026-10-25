@@ -1,0 +1,100 @@
+TAP version 13
+# Subtest: positional browser invocation pins output, origin and SHA
+ok 1 - positional browser invocation pins output, origin and SHA
+  ---
+  duration_ms: 1.3954
+  ...
+# Subtest: state-based browser invocation cannot point to an incident environment
+ok 2 - state-based browser invocation cannot point to an incident environment
+  ---
+  duration_ms: 0.4544
+  ...
+# Subtest: only explicit browser harnesses and their known arguments are permitted
+ok 3 - only explicit browser harnesses and their known arguments are permitted
+  ---
+  duration_ms: 0.1442
+  ...
+# Subtest: guard leaves output absent for harnesses that create their own folder
+ok 4 - guard leaves output absent for harnesses that create their own folder
+  ---
+  duration_ms: 3.8607
+  ...
+# Subtest: followup journey requires all three explicit UUID identities
+ok 5 - followup journey requires all three explicit UUID identities
+  ---
+  duration_ms: 0.366
+  ...
+# Subtest: collector allows receipt/browser evidence and rejects private browser/config files
+ok 6 - collector allows receipt/browser evidence and rejects private browser/config files
+  ---
+  duration_ms: 1.7885
+  ...
+# Subtest: private scan rejects known secrets and authentication state without echoing values
+ok 7 - private scan rejects known secrets and authentication state without echoing values
+  ---
+  duration_ms: 0.6659
+  ...
+# Subtest: fixture extraction preserves nested JSON and refuses ambiguity/non-recovery output
+ok 8 - fixture extraction preserves nested JSON and refuses ambiguity/non-recovery output
+  ---
+  duration_ms: 1.0893
+  ...
+# Subtest: space gate uses available blocks and includes the exact threshold
+ok 9 - space gate uses available blocks and includes the exact threshold
+  ---
+  duration_ms: 1.943
+  ...
+# Subtest: one atomic lock refuses a second state path and preserves its owner
+ok 10 - one atomic lock refuses a second state path and preserves its owner
+  ---
+  duration_ms: 12.0936
+  ...
+# Subtest: low host space fails before querying or starting Docker
+ok 11 - low host space fails before querying or starting Docker
+  ---
+  duration_ms: 0.4921
+  ...
+# Subtest: Docker API failure or remote endpoint is fail closed
+ok 12 - Docker API failure or remote endpoint is fail closed
+  ---
+  duration_ms: 0.5114
+  ...
+# Subtest: backing storage space is mandatory even with healthy Docker and guest space
+ok 13 - backing storage space is mandatory even with healthy Docker and guest space
+  ---
+  duration_ms: 1.3212
+  ...
+# Subtest: guest exhaustion and unavailable guest storage both fail closed
+ok 14 - guest exhaustion and unavailable guest storage both fail closed
+  ---
+  duration_ms: 0.629
+  ...
+# Subtest: explicit existing-container fallback verifies the engine volume before read-only df
+ok 15 - explicit existing-container fallback verifies the engine volume before read-only df
+  ---
+  duration_ms: 1.3779
+  ...
+# Subtest: unknown Docker Desktop backing disk is rejected
+ok 16 - unknown Docker Desktop backing disk is rejected
+  ---
+  duration_ms: 0.1688
+  ...
+# Subtest: fresh initialization rejects named or Compose-labelled persistent resources
+ok 17 - fresh initialization rejects named or Compose-labelled persistent resources
+  ---
+  duration_ms: 0.679
+  ...
+# Subtest: df parser rejects missing or nonnumeric available space
+ok 18 - df parser rejects missing or nonnumeric available space
+  ---
+  duration_ms: 0.4095
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 126.526

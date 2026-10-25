@@ -1,0 +1,10 @@
+
+> ai-teaching-platform@0.1.0 interventions:lessons:check
+> node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-intervention-lessons.ts
+
+{"status":"passed","mode":"uploaded-lesson-injected-provider","paid_calls":0,"fixture_provider_calls":6,"source_id":"0537fa67-94c0-4431-ac66-67276712b5f6","source_version":1,"lesson_id":"51bc2ffa-25ee-4e26-bc95-821736fd7888","assignment_id":"315dbc26-9f73-4b19-a2dc-482eb2ae3525","session_id":"8894f63e-b91d-4d0d-9b0e-548b6a5e21d9","draft_id":"d984da48-310f-41bb-843d-3c3f07a23b43","revision":2,"checks":["Canonical approved uploaded source, published lesson and assignment retain exact source and UUID concepts","Private source excerpts retain null URLs without fabricated public links","Only owner teacher may generate/read; stale revisions reject before dispatch","Changed source version in provider output persists its fixed rejection reason without overwriting the prior draft","Uploaded concept labels cannot replace UUIDs; their fixed rejection persists and replays without dispatch","Unknown provider errors cannot impersonate typed validation failures or leak private text on readback or replay","Source version append and attempted assignment retarget cannot change pinned draft evidence","Replays do not dispatch again; original student evidence and curated baseline remain unchanged","Legacy trimmed snapshots restore canonical bytes only in new revisions; altered legacy and trimmed v3 sources reject before dispatch"]}
+.env not found. Continuing without it.
+(node:72) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///app/scripts/check-intervention-lessons.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)

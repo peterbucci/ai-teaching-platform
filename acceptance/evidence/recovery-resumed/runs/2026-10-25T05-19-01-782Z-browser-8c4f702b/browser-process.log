@@ -1,0 +1,52 @@
+{
+  "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\browser-assignments-retry3\\report.json",
+  "status": "failed",
+  "cases": [
+    {
+      "id": "AS-01-draft-refresh-exact",
+      "status": "PASS"
+    },
+    {
+      "id": "AS-02-create-responsive-four-viewports",
+      "status": "PASS"
+    },
+    {
+      "id": "AS-03-two-tab-safe-conflict",
+      "status": "PASS"
+    },
+    {
+      "id": "AS-04-initial401-safe-recovery",
+      "status": "PASS"
+    },
+    {
+      "id": "AS-05-unknown-create-reload-and-explicit-replay",
+      "status": "PASS"
+    },
+    {
+      "id": "AS-06-created-inactive-student-hidden",
+      "status": "PASS"
+    },
+    {
+      "id": "AS-07-safe-preview-no-writes",
+      "status": "PASS"
+    },
+    {
+      "id": "AS-08-explicit-activation-student-start",
+      "status": "PASS"
+    },
+    {
+      "id": "AS-09-presented-progress-not-wrong",
+      "status": "PASS"
+    },
+    {
+      "id": "AS-10-progress-responsive-four-viewports",
+      "status": "PASS"
+    },
+    {
+      "id": "AS-11-exact-history-assistance-and-accepted-evaluation",
+      "status": "FAIL"
+    }
+  ],
+  "failure_stage": "original synthetic history",
+  "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n    'Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.',\n+   'Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.',\n+   'Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.',\n+   'Fictional follow-up response preserved during an uncertain request.',\n+   'Fictional follow-up response preserved during an uncertain request.',\n+   'Fictional follow-up response preserved during an uncertain request.',\n+   'Fictional follow-up response preserved during an uncertain request.',\n    'On A, transmission and propagation are each 1 ms. On B, both are 3 ms, because transmitting across three times the distance takes three times as long.',\n+   'On A, transmission and propagation are each 1 ms. On B, both are 3 ms, because transmitting across three times the distance takes three times as long.',\n+   'Reading assistance integration fixture — no model evaluation.',\n+   'Transmission delay is unchanged: the number of packet bits and the rate at which they enter the link are unchanged. Propagation delay doubles because distance doubles at the same propagation speed.',\n+   'Transmission delay is unchanged: the number of packet bits and the rate at which they enter the link are unchanged. Propagation delay doubles because distance doubles at the same propagation speed.',\n    'Transmission is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes. Propagation is 3 ms for both. More bits take longer to put onto the link, but the distance and propagation speed stay the same.',\n+   'Transmission is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes. Propagation is 3 ms for both. More bits take longer to put onto the link, but the distance and propagation speed stay the same.',\n+   'Transmission is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes. Propagation is 3 ms for both. More bits take longer to put onto the link, but the distance and propagation speed stay the same.',\n+   'Transmission is 1 ms on each: the packet has 8,000 bits and the rate is 8 million bits per second. Propagation is 1 ms on A and 3 ms on B. I used transmission to mean travel before, but physical distance changes propagation, not the time to send the bits onto the link.',\n    'Transmission is 2 ms for each: 24,000 divided by 12,000,000 seconds. Propagation is 0.5 ms for 100 km and 2 ms for 400 km. Only propagation changes with the distance.',\n+   'Transmission is 2 ms for each: 24,000 divided by 12,000,000 seconds. Propagation is 0.5 ms for 100 km and 2 ms for 400 km. Only propagation changes with the distance.'\n  ]\n"
+}

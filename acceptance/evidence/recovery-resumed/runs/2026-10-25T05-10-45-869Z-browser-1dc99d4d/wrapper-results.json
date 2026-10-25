@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-10-25T05-10-45-869Z-browser-1dc99d4d",
+  "project": "lp-accept-recovery-01a1714f",
+  "source": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+  "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+  "origin": "http://localhost:3355",
+  "script": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-source\\acceptance\\resume-authoring-browser.mjs",
+  "scriptSha256": "c9f935cfd29bbc31614ee6f2213641d65097cb8d5e13cd2f771b55d12484ca4c",
+  "args": [
+    "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+    "unused",
+    "C:/Users/sb128/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright"
+  ],
+  "output": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\browser-authoring",
+  "status": "failed",
+  "checks": [
+    {
+      "stage": "wrapper-stopped",
+      "status": "fail",
+      "error": "EPERM: operation not permitted, mkdir 'C:\\Users\\sb128\\AppData\\Local\\learning-pulse-acceptance.lock'"
+    }
+  ],
+  "childResult": null,
+  "paidModelCallsAuthorized": false,
+  "browserCaseResult": "not-assessed-by-wrapper; inspect the child browser report",
+  "limitations": [
+    "A zero child exit code does not prove browser cases passed",
+    "Wrapper serializes guarded processes only; coordinate other tools with the environment owner",
+    "Storage checks bracket the browser process; its case report and screenshots are separate evidence"
+  ]
+}

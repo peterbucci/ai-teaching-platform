@@ -1,0 +1,526 @@
+{
+  "schemaVersion": 1,
+  "mode": "approval",
+  "target": "combined-recovery",
+  "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+  "source": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+  "project": "lp-accept-recovery-01a1714f",
+  "origin": "http://localhost:3355",
+  "manifest": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\manifest.json",
+  "fixture": "db:seed plus check-intervention-approval-lessons --setup-fixtures --with-followups",
+  "paidModelCallsAuthorized": false,
+  "checks": [
+    {
+      "name": "preflight:restart-app",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T05:02:35.260Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "availableBytes": 55083155456,
+          "availableGiB": 51.30018615722656,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "availableBytes": 55083155456,
+          "availableGiB": 51.30018615722656,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 55083155456,
+          "availableGiB": 51.30018615722656,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "learningplatform-db-1",
+          "source": "/var/lib/docker/volumes/learningplatform_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 900584161280,
+          "availableGiB": 838.7343597412109,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 55083147264,
+            "availableGiB": 51.30017852783203,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "name": "restart-app",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "provider-disabled integration",
+      "fixture": "db:seed plus check-intervention-approval-lessons --setup-fixtures --with-followups",
+      "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+      "target": "combined-recovery",
+      "project": "lp-accept-recovery-01a1714f",
+      "origin": "http://localhost:3355",
+      "startedAt": "2026-10-25T05:02:36.689Z",
+      "finishedAt": "2026-10-25T05:02:37.684Z",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "lp-accept-recovery-01a1714f",
+        "--env-file",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\.env.acceptance",
+        "--file",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\compose.json",
+        "restart",
+        "app"
+      ],
+      "log": "02-restart-app.log"
+    },
+    {
+      "name": "preflight:wait-app",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T05:02:37.686Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "availableBytes": 55081013248,
+          "availableGiB": 51.29819107055664,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "availableBytes": 55081013248,
+          "availableGiB": 51.29819107055664,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 55081013248,
+          "availableGiB": 51.29819107055664,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "learningplatform-db-1",
+          "source": "/var/lib/docker/volumes/learningplatform_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 900584157184,
+          "availableGiB": 838.7343559265137,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 55080947712,
+            "availableGiB": 51.29813003540039,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "name": "wait-app",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "provider-disabled integration",
+      "fixture": "db:seed plus check-intervention-approval-lessons --setup-fixtures --with-followups",
+      "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+      "target": "combined-recovery",
+      "project": "lp-accept-recovery-01a1714f",
+      "origin": "http://localhost:3355",
+      "startedAt": "2026-10-25T05:02:39.004Z",
+      "finishedAt": "2026-10-25T05:02:43.032Z",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "lp-accept-recovery-01a1714f",
+        "--env-file",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\.env.acceptance",
+        "--file",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\compose.json",
+        "up",
+        "--wait",
+        "--wait-timeout",
+        "180",
+        "--no-build",
+        "--no-recreate",
+        "app"
+      ],
+      "log": "04-wait-app.log"
+    },
+    {
+      "name": "preflight:reload-browser-gateway",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T05:02:43.035Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "availableBytes": 55080460288,
+          "availableGiB": 51.29767608642578,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "availableBytes": 55080460288,
+          "availableGiB": 51.29767608642578,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 55080460288,
+          "availableGiB": 51.29767608642578,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "learningplatform-db-1",
+          "source": "/var/lib/docker/volumes/learningplatform_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 900584157184,
+          "availableGiB": 838.7343559265137,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 55080374272,
+            "availableGiB": 51.2975959777832,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "name": "reload-browser-gateway",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "provider-disabled integration",
+      "fixture": "db:seed plus check-intervention-approval-lessons --setup-fixtures --with-followups",
+      "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+      "target": "combined-recovery",
+      "project": "lp-accept-recovery-01a1714f",
+      "origin": "http://localhost:3355",
+      "startedAt": "2026-10-25T05:02:44.386Z",
+      "finishedAt": "2026-10-25T05:02:44.949Z",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "lp-accept-recovery-01a1714f",
+        "--env-file",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\.env.acceptance",
+        "--file",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\compose.json",
+        "exec",
+        "-T",
+        "gateway",
+        "nginx",
+        "-s",
+        "reload"
+      ],
+      "log": "06-reload-browser-gateway.log"
+    },
+    {
+      "name": "preflight:interventions:approval:lessons",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T05:02:44.950Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "availableBytes": 55078699008,
+          "availableGiB": 51.29603576660156,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "availableBytes": 55078699008,
+          "availableGiB": 51.29603576660156,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 55078699008,
+          "availableGiB": 51.29603576660156,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "learningplatform-db-1",
+          "source": "/var/lib/docker/volumes/learningplatform_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 900583968768,
+          "availableGiB": 838.7341804504395,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 55078428672,
+            "availableGiB": 51.29578399658203,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "name": "interventions:approval:lessons",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "synthetic provider / real database and HTTP integration",
+      "fixture": "db:seed plus check-intervention-approval-lessons --setup-fixtures --with-followups",
+      "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+      "target": "combined-recovery",
+      "project": "lp-accept-recovery-01a1714f",
+      "origin": "http://localhost:3355",
+      "startedAt": "2026-10-25T05:02:46.469Z",
+      "finishedAt": "2026-10-25T05:02:56.905Z",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "lp-accept-recovery-01a1714f",
+        "--env-file",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\.env.acceptance",
+        "--file",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\compose.json",
+        "exec",
+        "-T",
+        "-e",
+        "OPENAI_API_KEY=",
+        "-e",
+        "OPENAI_MODEL=",
+        "-e",
+        "DIALOGUE_CHECK_SYNTHETIC=1",
+        "-e",
+        "DIALOGUE_CHECK_URL=http://localhost:3355",
+        "-e",
+        "CHECK_INTERVENTION_APPROVAL_OUTPUT=/tmp/acceptance-approval-2026-10-25T05-02-34-853Z.json",
+        "app",
+        "npm",
+        "run",
+        "interventions:approval:lessons",
+        "--",
+        "--setup-fixtures",
+        "--with-followups"
+      ],
+      "log": "08-interventions-approval-lessons.log"
+    },
+    {
+      "name": "preflight:copy-approval-report",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T05:02:56.908Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "availableBytes": 55072935936,
+          "availableGiB": 51.29066848754883,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "availableBytes": 55072935936,
+          "availableGiB": 51.29066848754883,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 55072935936,
+          "availableGiB": 51.29066848754883,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "learningplatform-db-1",
+          "source": "/var/lib/docker/volumes/learningplatform_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 900581949440,
+          "availableGiB": 838.7322998046875,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 55070081024,
+            "availableGiB": 51.28800964355469,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "name": "copy-approval-report",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "provider-disabled integration",
+      "fixture": "db:seed plus check-intervention-approval-lessons --setup-fixtures --with-followups",
+      "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+      "target": "combined-recovery",
+      "project": "lp-accept-recovery-01a1714f",
+      "origin": "http://localhost:3355",
+      "startedAt": "2026-10-25T05:02:58.465Z",
+      "finishedAt": "2026-10-25T05:02:58.983Z",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "lp-accept-recovery-01a1714f",
+        "--env-file",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\.env.acceptance",
+        "--file",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\compose.json",
+        "cp",
+        "app:/tmp/acceptance-approval-2026-10-25T05-02-34-853Z.json",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\runs\\2026-10-25T05-02-34-853Z-approval\\approval-details.json"
+      ],
+      "log": "10-copy-approval-report.log"
+    }
+  ],
+  "passed": [
+    "preflight:restart-app",
+    "restart-app",
+    "preflight:wait-app",
+    "wait-app",
+    "preflight:reload-browser-gateway",
+    "reload-browser-gateway",
+    "preflight:interventions:approval:lessons",
+    "interventions:approval:lessons",
+    "preflight:copy-approval-report",
+    "copy-approval-report"
+  ],
+  "failed": [],
+  "unrun": [],
+  "stoppedAfterFailure": false,
+  "safetyPolicy": {
+    "buildMinimumGiB": 20,
+    "runtimeMinimumGiB": 10,
+    "sharedLock": "C:\\Users\\sb128\\AppData\\Local\\learning-pulse-acceptance.lock"
+  },
+  "completed": true,
+  "result": "pass",
+  "limitations": [
+    "No hosted release verification",
+    "No fresh or historical actual-model claim",
+    "Browser/accessibility evidence is recorded separately",
+    "Thresholds are conservative starting headroom, not a guarantee against concurrent unguarded clients or an individual command exhausting storage",
+    "Shared lock covers this guarded runner only; other Docker clients and browser scripts must be coordinated with the environment owner",
+    "Unverifiable Docker guest or backing storage fails closed; host backing-disk space is always required"
+  ]
+}

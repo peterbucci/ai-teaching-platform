@@ -1,0 +1,47 @@
+TAP version 13
+# (node:137468) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:137468) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a1714f-71e2-74a3-b3ac-39b3f362f9cb/recovery-candidate-v2/app/teacher/lessons/%5BlessonId%5D/questions/workbench-state.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2\\package.json.
+# Subtest: multi-concept grouping keeps each question once and retains exact private criteria and source identity
+ok 1 - multi-concept grouping keeps each question once and retains exact private criteria and source identity
+  ---
+  duration_ms: 28.6224
+  ...
+# Subtest: questions with missing or unknown concepts remain reachable for correction
+ok 2 - questions with missing or unknown concepts remain reachable for correction
+  ---
+  duration_ms: 3.3792
+  ...
+# Subtest: selection follows the stable ID through reorder and falls back safely after removal
+ok 3 - selection follows the stable ID through reorder and falls back safely after removal
+  ---
+  duration_ms: 0.6677
+  ...
+# Subtest: reading follows the selected question while retaining source order, identity and usage
+ok 4 - reading follows the selected question while retaining source order, identity and usage
+  ---
+  duration_ms: 1.0477
+  ...
+# Subtest: quote highlighting preserves exact text and does not mark unsupported wording
+ok 5 - quote highlighting preserves exact text and does not mark unsupported wording
+  ---
+  duration_ms: 0.2394
+  ...
+# Subtest: dirty-navigation guard protects page changes without blocking recovery downloads or source inspection
+ok 6 - dirty-navigation guard protects page changes without blocking recovery downloads or source inspection
+  ---
+  duration_ms: 0.2609
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 300.9936
+(node:135904) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

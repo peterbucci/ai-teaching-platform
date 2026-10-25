@@ -1,0 +1,110 @@
+{
+  "target": "combined-recovery",
+  "sha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+  "origin": "http://localhost:3355",
+  "environment_manifest": "../manifest.json",
+  "configuration": "provider-disabled; synthetic fixtures; loopback gateway; app/database isolated internal Docker network",
+  "verification": "Provider-disabled browser manual authoring and cross-role assignment using original synthetic material",
+  "run_id": "Manual authoring combined-recovery 1792905065796",
+  "started_at_utc": "2026-10-25T05:11:05.796Z",
+  "status": "failed",
+  "paid_calls": 0,
+  "initial_host_headroom": [
+    {
+      "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+      "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+      "availableBytes": 54145277952,
+      "availableGiB": 50.426719665527344,
+      "minimumGiB": 10,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+      "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+      "availableBytes": 54145277952,
+      "availableGiB": 50.426719665527344,
+      "minimumGiB": 10,
+      "pass": true
+    }
+  ],
+  "harness_sha256": "c9f935cfd29bbc31614ee6f2213641d65097cb8d5e13cd2f771b55d12484ca4c",
+  "checks": [],
+  "planned_stages": [
+    "login",
+    "source import",
+    "manual objective",
+    "manual question bank",
+    "sequence and publication",
+    "inactive assignment",
+    "activation",
+    "student reading and session",
+    "teacher sees exact presented student evidence",
+    "student explicitly submits original answer",
+    "teacher sees exact submitted ungraded evidence",
+    "new version and history preservation"
+  ],
+  "viewports": [],
+  "unrun": [
+    "File-upload browser variants",
+    "Fresh model generation/evaluation",
+    "Accepted historical evaluation preservation; provider-disabled submission remains ungraded",
+    "200% zoom, keyboard-only journey and screen-reader verification"
+  ],
+  "failure_stage": "source import",
+  "error": "locator.fill: Error: strict mode violation: locator('#material-text') resolved to 2 elements:\n    1) <textarea rows=\"9\" required=\"\" maxlength=\"50000\" id=\"material-text\" class=\"lp-input lp-material-source\" aria-describedby=\"material-limits material-character-count\"></textarea> aka getByLabel('Source text0 / 50,000')\n    2) <textarea rows=\"9\" required=\"\" maxlength=\"50000\" id=\"material-text\" class=\"lp-input lp-material-source\" aria-describedby=\"material-limits material-character-count\"></textarea> aka locator('#material-text').nth(1)\n\nCall log:\n\u001b[2m  - waiting for locator('#material-text')\u001b[22m\n",
+  "stage_results": [
+    {
+      "name": "login",
+      "status": "PASS"
+    },
+    {
+      "name": "source import",
+      "status": "FAIL"
+    },
+    {
+      "name": "manual objective",
+      "status": "UNRUN"
+    },
+    {
+      "name": "manual question bank",
+      "status": "UNRUN"
+    },
+    {
+      "name": "sequence and publication",
+      "status": "UNRUN"
+    },
+    {
+      "name": "inactive assignment",
+      "status": "UNRUN"
+    },
+    {
+      "name": "activation",
+      "status": "UNRUN"
+    },
+    {
+      "name": "student reading and session",
+      "status": "UNRUN"
+    },
+    {
+      "name": "teacher sees exact presented student evidence",
+      "status": "UNRUN"
+    },
+    {
+      "name": "student explicitly submits original answer",
+      "status": "UNRUN"
+    },
+    {
+      "name": "teacher sees exact submitted ungraded evidence",
+      "status": "UNRUN"
+    },
+    {
+      "name": "new version and history preservation",
+      "status": "UNRUN"
+    }
+  ],
+  "checked_at_utc": "2026-10-25T05:11:06.829Z",
+  "screenshots": [
+    "failure-teacher.png",
+    "failure-student.png"
+  ]
+}

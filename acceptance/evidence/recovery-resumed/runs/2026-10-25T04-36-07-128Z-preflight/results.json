@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "mode": "preflight",
+  "target": "combined-recovery",
+  "sourceSha": "2327e8279e942a745f21dd9c1ebd3c093172062d",
+  "source": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate",
+  "project": "lp-accept-recovery-01a1714f",
+  "origin": "http://localhost:3355",
+  "manifest": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\manifest.json",
+  "fixture": "isolated fictional acceptance configuration",
+  "paidModelCallsAuthorized": false,
+  "checks": [
+    {
+      "name": "preflight:explicit-preflight",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "fail",
+      "observedAt": "2026-10-25T04:36:07.400Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate",
+          "availableBytes": 6471004160,
+          "availableGiB": 6.026592254638672,
+          "minimumGiB": 20,
+          "pass": false
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "availableBytes": 6471004160,
+          "availableGiB": 6.026592254638672,
+          "minimumGiB": 20,
+          "pass": false
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 6471004160,
+          "availableGiB": 6.026592254638672,
+          "minimumGiB": 20,
+          "pass": false
+        }
+      ],
+      "engine": {
+        "status": "not-checked"
+      },
+      "backingStorage": null,
+      "pass": false
+    }
+  ],
+  "passed": [],
+  "failed": [
+    "preflight:explicit-preflight"
+  ],
+  "unrun": [],
+  "stoppedAfterFailure": true,
+  "safetyPolicy": {
+    "buildMinimumGiB": 20,
+    "runtimeMinimumGiB": 10,
+    "sharedLock": "C:\\Users\\sb128\\AppData\\Local\\learning-pulse-acceptance.lock"
+  },
+  "completed": false,
+  "result": "fail",
+  "limitations": [
+    "No hosted release verification",
+    "No fresh or historical actual-model claim",
+    "Browser/accessibility evidence is recorded separately",
+    "Thresholds are conservative starting headroom, not a guarantee against concurrent unguarded clients or an individual command exhausting storage",
+    "Shared lock covers this guarded runner only; other Docker clients and browser scripts must be coordinated with the environment owner",
+    "Unverifiable Docker guest or backing storage fails closed; host backing-disk space is always required"
+  ]
+}

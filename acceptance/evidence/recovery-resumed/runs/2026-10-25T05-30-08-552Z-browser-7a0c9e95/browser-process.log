@@ -1,0 +1,121 @@
+{
+  "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\browser-student-result-retry1\\student-result-report.json",
+  "cases": [
+    {
+      "id": "S-01-accepted-correct-result-visible",
+      "status": "PASS",
+      "details": {
+        "observed": "The verified completed session displays its accepted correct outcome and performance limitation in the dedicated completion panel at all four widths.",
+        "accepted_evaluation": "eb7832ce-1a8d-40bd-8f07-79c86adda91f",
+        "session_id": "551bc760-dccf-42a0-a3c7-7a2fa31a9fc0",
+        "exact_original_text_visible": true,
+        "expected_completion_message": "Your answer is correct. Practice complete. This records today's performance, not lasting mastery.",
+        "completion_panel_checks": [
+          {
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "visible": true,
+            "text": "Your answer is correct. Practice complete. This records today's performance, not lasting mastery.",
+            "matchesAcceptedResult": true
+          },
+          {
+            "viewport": {
+              "width": 1024,
+              "height": 768
+            },
+            "visible": true,
+            "text": "Your answer is correct. Practice complete. This records today's performance, not lasting mastery.",
+            "matchesAcceptedResult": true
+          },
+          {
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "visible": true,
+            "text": "Your answer is correct. Practice complete. This records today's performance, not lasting mastery.",
+            "matchesAcceptedResult": true
+          },
+          {
+            "viewport": {
+              "width": 320,
+              "height": 844
+            },
+            "visible": true,
+            "text": "Your answer is correct. Practice complete. This records today's performance, not lasting mastery.",
+            "matchesAcceptedResult": true
+          }
+        ],
+        "evaluator_type": "synthetic_fixture",
+        "owner": "Student result/scroll PR #113"
+      }
+    },
+    {
+      "id": "ST-03-accepted-fixture-refresh-unchanged",
+      "status": "PASS",
+      "details": {
+        "session_id": "551bc760-dccf-42a0-a3c7-7a2fa31a9fc0",
+        "view_equal": true
+      }
+    },
+    {
+      "id": "RC-09-other-student-denied",
+      "status": "PASS",
+      "details": {
+        "status": 404,
+        "foreign_session": "e86e0b73-ce5c-4195-b82a-f1dd74991c11"
+      }
+    },
+    {
+      "id": "RC-07-exact-replay-altered-payload-stale-revision",
+      "status": "PASS",
+      "details": {
+        "same_request": 200,
+        "altered_payload": 409,
+        "stale_revision": 409,
+        "view_unchanged": true,
+        "provider_requests_used": 0
+      }
+    },
+    {
+      "id": "RC-09-assignment-mismatch",
+      "status": "PASS",
+      "details": {
+        "observed": "404 page",
+        "private_evidence_exposed": false
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "correct-result-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "file": "correct-result-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      }
+    },
+    {
+      "file": "correct-result-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "file": "correct-result-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      }
+    }
+  ]
+}

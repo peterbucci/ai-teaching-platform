@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-25T04:33:27Z",
+  "category": "NEW synthetic verification composition; not a reviewed PR head, release build, or acceptance pass",
+  "repository": "https://github.com/peterbucci/ai-teaching-platform",
+  "verificationOnly": true,
+  "readyForSourceCheckout": true,
+  "runtimeAcceptanceStatus": "UNRUN",
+  "provisionalReason": "Student PR113 owner reported active S-01/S-02 repairs at 2026-10-25T04:29:30Z. The published head remained 2b490863 at composition. Recheck heads and create a new composition if reviewed fixes advance before acceptance.",
+  "sourceSha": "2327e8279e942a745f21dd9c1ebd3c093172062d",
+  "tree": "016e8aeebd3b1f584cc7bd5a1036afcfeb8eac5c",
+  "baseMain": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+  "baseVerification": "Local main and current GitHub PR base_sha fields agree. Independent git ls-remote could not run because hostname resolution failed; no remote refs fetched or advanced.",
+  "pins": [
+    {
+      "pr": 116,
+      "url": "https://github.com/peterbucci/ai-teaching-platform/pull/116",
+      "head": "codex/teacher-workbench-slice",
+      "sha": "76b11ddfa0ce784f70290c0746efd94c7042f6fc",
+      "baseSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "state": "open",
+      "draft": true,
+      "updatedAt": "2026-10-25T04:11:43Z",
+      "formalSubmittedReviewCount": 0,
+      "reviewBoundary": "PR description reports scoped independent engineering/AI review. No formal submitted GitHub reviews. Draft, human/full combined acceptance pending."
+    },
+    {
+      "pr": 117,
+      "url": "https://github.com/peterbucci/ai-teaching-platform/pull/117",
+      "head": "codex/workbench-assignments",
+      "sha": "6f9dd8991abef5efa8108e50b2274dc3bdc13ce6",
+      "baseSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "state": "open",
+      "draft": true,
+      "updatedAt": "2026-10-25T04:11:30Z",
+      "formalSubmittedReviewCount": 0,
+      "reviewBoundary": "PR description reports scoped independent engineering/AI review. No formal submitted GitHub reviews. Draft, human/full combined acceptance pending."
+    },
+    {
+      "pr": 118,
+      "url": "https://github.com/peterbucci/ai-teaching-platform/pull/118",
+      "head": "codex/workbench-lessons",
+      "sha": "d2dca515b1a926daf28e791044fe04d01bdf20a9",
+      "baseSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "state": "open",
+      "draft": true,
+      "updatedAt": "2026-10-25T04:11:33Z",
+      "formalSubmittedReviewCount": 0,
+      "reviewBoundary": "PR description reports scoped independent engineering/AI review. No formal submitted GitHub reviews. Draft, human/full combined acceptance pending."
+    },
+    {
+      "pr": 113,
+      "url": "https://github.com/peterbucci/ai-teaching-platform/pull/113",
+      "head": "codex/show-answer-result",
+      "sha": "2b490863cc6de69a7659f1df1e4628bc22dd7d9a",
+      "baseSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "state": "open",
+      "draft": true,
+      "updatedAt": "2026-10-25T04:29:30Z",
+      "formalSubmittedReviewCount": 0,
+      "reviewBoundary": "PR description reports scoped independent engineering/AI review. No formal submitted GitHub reviews. Draft, human/full combined acceptance pending."
+    }
+  ],
+  "verificationHarness": {
+    "pr": 119,
+    "sha": "ee77ffd8506852a0509798fe91d5d14d76c0e187",
+    "includedInApplicationTree": false,
+    "originalArtifactsPreserved": true
+  },
+  "parentOrder": [
+    "main",
+    "#116",
+    "#117",
+    "#118",
+    "#113"
+  ],
+  "steps": [
+    {
+      "inputParents": [
+        "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+        "76b11ddfa0ce784f70290c0746efd94c7042f6fc"
+      ],
+      "tree": "e3035bbcc37c89473c37df6c7f643dbf472136f4",
+      "commit": "e618329f1b10ee62db16f3be01bf802240ef5524",
+      "conflicts": [],
+      "mergeExitCode": 0,
+      "message": "Verification only: recovery composition main plus PR116 76b11dd; no refs advanced"
+    },
+    {
+      "inputParents": [
+        "e618329f1b10ee62db16f3be01bf802240ef5524",
+        "6f9dd8991abef5efa8108e50b2274dc3bdc13ce6"
+      ],
+      "tree": "d9cd7c241d482cac7dbc2eceaf795ab02ad72958",
+      "commit": "df574a696e0c95155fe3f614503b01b9d86dbc29",
+      "conflicts": [],
+      "mergeExitCode": 0,
+      "message": "Verification only: recovery composition adds pinned PR117; no refs advanced"
+    },
+    {
+      "inputParents": [
+        "df574a696e0c95155fe3f614503b01b9d86dbc29",
+        "d2dca515b1a926daf28e791044fe04d01bdf20a9"
+      ],
+      "tree": "a83563fc13bb4172ee178bc46dae41ede41ac433",
+      "commit": "ba5e986d664174c5e5c3cec9e90688682a47ffab",
+      "conflicts": [],
+      "mergeExitCode": 0,
+      "message": "Verification only: recovery composition adds pinned PR118; no refs advanced"
+    },
+    {
+      "inputParents": [
+        "ba5e986d664174c5e5c3cec9e90688682a47ffab",
+        "2b490863cc6de69a7659f1df1e4628bc22dd7d9a"
+      ],
+      "tree": "016e8aeebd3b1f584cc7bd5a1036afcfeb8eac5c",
+      "commit": "2327e8279e942a745f21dd9c1ebd3c093172062d",
+      "conflicts": [],
+      "mergeExitCode": 0,
+      "message": "Verification only: fresh recovery composition main plus PR116 PR117 PR118 PR113; no refs advanced"
+    }
+  ],
+  "method": {
+    "merge": "git -c gc.auto=0 merge-tree --write-tree <left> <right>",
+    "commit": "git -c gc.auto=0 commit-tree <tree> -p <left> -p <right> -m <message>",
+    "automaticGcDisabled": true,
+    "objectsUnreferenced": true,
+    "note": "Recreated commit hashes can differ with commit metadata. Content trees and full parent pins are the reproducible source identity."
+  },
+  "checks": {
+    "allFourMergesConflictFree": true,
+    "diffCheck": "PASS: git diff --check baseMain sourceSha",
+    "sourceHeadAfter": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+    "sourceWorkingTreeAfter": "clean",
+    "changedFilesVersusMain": 96,
+    "insertionsVersusMain": 15724,
+    "deletionsVersusMain": 2976,
+    "applicationEditsByRecovery": 0,
+    "manualConflictResolutions": 0,
+    "branchesAdvanced": 0,
+    "worktreesCreated": 0,
+    "dependenciesInstalled": 0,
+    "buildsRun": 0,
+    "runtimeTestsRun": 0,
+    "paidModelCalls": 0,
+    "pullRequestsMerged": 0,
+    "productionDeployment": false
+  },
+  "knownAcceptanceConcerns": [
+    {
+      "id": "S-01",
+      "status": "Must retest #113 exact combined head",
+      "description": "PR113 supplies completion result UI; old combined source excluded it. No runtime/browser acceptance was run on this new composition."
+    },
+    {
+      "id": "S-02",
+      "status": "Still present by source inspection; runtime reproduction required",
+      "path": "app/study/session.tsx",
+      "source": "2b490863cc6de69a7659f1df1e4628bc22dd7d9a",
+      "description": "401 branch still claims 'Please sign in again. Your submitted work is saved.' before confirmed server persistence. Student owner reports active scoped repair.",
+      "coordinationUrl": "https://github.com/peterbucci/ai-teaching-platform/pull/113#issuecomment-6393446741"
+    },
+    {
+      "id": "Lessons-to-Assignments",
+      "status": "Known unwired combined navigation gate",
+      "description": "PR118 body states published-version CTA is not yet wired to PR117 /teacher/assignments/new?lesson=<id>&version=<published-version>. A clean combination alone does not implement that handoff."
+    },
+    {
+      "id": "PR116-remaining",
+      "status": "Outside five corrected items; acceptance concerns",
+      "description": "PR116 description retains superseded-evaluation wording without an accepted evaluation, results-list position restoration, and 61-selection narrowing concerns. Verify repaired paths and remaining boundaries independently."
+    },
+    {
+      "id": "A11Y-01",
+      "status": "Inherited acceptance concern",
+      "description": "Historical evidence-list browser Back restored scroll but focus became BODY. Combined keyboard/native 200%/screen-reader checks are unrun."
+    }
+  ],
+  "requiredNextSteps": [
+    "Coordinate safe host/Docker recovery with owner; preserve incident artifacts and volumes.",
+    "Allocate a new unique Compose project/port/subnet and fresh volume; changing only state directory reuses old database.",
+    "Verify database read/write/WAL sync and restart persistence before acceptance.",
+    "Recheck current reviewed PR heads, especially active student repairs; regenerate composition if pins change.",
+    "Run disk-preflight guarded serial build/quality/integration and approval/follow-up checks, then complete cross-role browser matrix. Report passes/failures/unrun separately."
+  ],
+  "priorFailedRun": {
+    "sourceSha": "545b880749c757f7502a9bfa7fd127afdf290afd",
+    "tree": "0ced8e7b3cf19a30b93261cd313e19d5ef756ade",
+    "project": "lp-accept-combined",
+    "volume": "lp-accept-combined_postgres_data",
+    "reused": false,
+    "retained": true,
+    "retentionScope": "Original failure artifacts and affected PostgreSQL volume retained; original container was already absent when recovery inspected it."
+  },
+  "limitations": [
+    "This receipt demonstrates only conflict-free Git tree composition and whitespace verification.",
+    "No database, Docker, build, service, browser, hosted, actual-model, or human acceptance result is established.",
+    "Unreferenced commit objects may be garbage collected later; retain receipt and pin in an explicitly authorized isolated verification checkout when safe."
+  ]
+}

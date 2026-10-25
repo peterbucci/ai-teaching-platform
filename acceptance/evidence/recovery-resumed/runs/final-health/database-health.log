@@ -1,0 +1,226 @@
+2026-10-25T04:50:04.998575387Z The files belonging to this database system will be owned by user "postgres".
+2026-10-25T04:50:04.998655868Z This user must also own the server process.
+2026-10-25T04:50:04.998669810Z 
+2026-10-25T04:50:05.002448544Z The database cluster will be initialized with locale "en_US.utf8".
+2026-10-25T04:50:05.002484223Z The default database encoding has accordingly been set to "UTF8".
+2026-10-25T04:50:05.002487097Z The default text search configuration will be set to "english".
+2026-10-25T04:50:05.002489188Z 
+2026-10-25T04:50:05.002491604Z Data page checksums are disabled.
+2026-10-25T04:50:05.002493826Z 
+2026-10-25T04:50:05.002570472Z fixing permissions on existing directory /var/lib/postgresql/data ... ok
+2026-10-25T04:50:05.020479581Z creating subdirectories ... ok
+2026-10-25T04:50:05.020702254Z selecting dynamic shared memory implementation ... posix
+2026-10-25T04:50:05.050139351Z selecting default "max_connections" ... 100
+2026-10-25T04:50:05.079678155Z selecting default "shared_buffers" ... 128MB
+2026-10-25T04:50:05.101564295Z selecting default time zone ... Etc/UTC
+2026-10-25T04:50:05.106400172Z creating configuration files ... ok
+2026-10-25T04:50:05.415728742Z running bootstrap script ... ok
+2026-10-25T04:50:06.221763597Z performing post-bootstrap initialization ... ok
+2026-10-25T04:50:06.913828894Z syncing data to disk ... ok
+2026-10-25T04:50:06.913869808Z 
+2026-10-25T04:50:06.913873715Z 
+2026-10-25T04:50:06.913887897Z Success. You can now start the database server using:
+2026-10-25T04:50:06.913891051Z 
+2026-10-25T04:50:06.913893257Z     pg_ctl -D /var/lib/postgresql/data -l logfile start
+2026-10-25T04:50:06.913895464Z 
+2026-10-25T04:50:06.984147358Z waiting for server to start....2026-10-25 04:50:06.983 UTC [48] LOG:  starting PostgreSQL 17.11 (Debian 17.11-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+2026-10-25T04:50:06.986837265Z 2026-10-25 04:50:06.986 UTC [48] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-10-25T04:50:07.000518649Z 2026-10-25 04:50:07.000 UTC [51] LOG:  database system was shut down at 2026-10-25 04:50:06 UTC
+2026-10-25T04:50:07.006619381Z 2026-10-25 04:50:07.006 UTC [48] LOG:  database system is ready to accept connections
+2026-10-25T04:50:07.040705016Z  done
+2026-10-25T04:50:07.040733636Z server started
+2026-10-25T04:50:07.207562439Z CREATE DATABASE
+2026-10-25T04:50:07.208898376Z 
+2026-10-25T04:50:07.209120044Z 
+2026-10-25T04:50:07.209134926Z /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/10-app.sh
+2026-10-25T04:50:07.280156633Z CREATE ROLE
+2026-10-25T04:50:07.311142690Z ALTER DATABASE
+2026-10-25T04:50:07.312305039Z REVOKE
+2026-10-25T04:50:07.314665324Z GRANT
+2026-10-25T04:50:07.317682006Z 
+2026-10-25T04:50:07.318745456Z waiting for server to shut down...2026-10-25 04:50:07.318 UTC [48] LOG:  received fast shutdown request
+2026-10-25T04:50:07.321056789Z .2026-10-25 04:50:07.320 UTC [48] LOG:  aborting any active transactions
+2026-10-25T04:50:07.323122317Z 2026-10-25 04:50:07.322 UTC [48] LOG:  background worker "logical replication launcher" (PID 54) exited with exit code 1
+2026-10-25T04:50:07.323344502Z 2026-10-25 04:50:07.323 UTC [49] LOG:  shutting down
+2026-10-25T04:50:07.327990053Z 2026-10-25 04:50:07.327 UTC [49] LOG:  checkpoint starting: shutdown immediate
+2026-10-25T04:50:07.602777185Z 2026-10-25 04:50:07.602 UTC [49] LOG:  checkpoint complete: wrote 930 buffers (5.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.028 s, sync=0.233 s, total=0.280 s; sync files=308, longest=0.026 s, average=0.001 s; distance=4251 kB, estimate=4251 kB; lsn=0/190DC90, redo lsn=0/190DC90
+2026-10-25T04:50:07.611431790Z 2026-10-25 04:50:07.611 UTC [48] LOG:  database system is shut down
+2026-10-25T04:50:07.619475955Z  done
+2026-10-25T04:50:07.619511767Z server stopped
+2026-10-25T04:50:07.620825789Z 
+2026-10-25T04:50:07.620837521Z PostgreSQL init process complete; ready for start up.
+2026-10-25T04:50:07.620840714Z 
+2026-10-25T04:50:32.975018066Z 
+2026-10-25T04:50:32.975040591Z PostgreSQL Database directory appears to contain a database; Skipping initialization
+2026-10-25T04:50:32.975042419Z 
+2026-10-25T05:02:04.654653268Z 
+2026-10-25T05:02:04.654692320Z PostgreSQL Database directory appears to contain a database; Skipping initialization
+2026-10-25T05:02:04.654697514Z 
+2026-10-25T04:50:06.913867213Z initdb: warning: enabling "trust" authentication for local connections
+2026-10-25T04:50:06.913881498Z initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+2026-10-25T04:50:07.663279298Z 2026-10-25 04:50:07.662 UTC [1] LOG:  starting PostgreSQL 17.11 (Debian 17.11-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+2026-10-25T04:50:07.663310984Z 2026-10-25 04:50:07.663 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2026-10-25T04:50:07.663314774Z 2026-10-25 04:50:07.663 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2026-10-25T04:50:07.668949720Z 2026-10-25 04:50:07.668 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-10-25T04:50:07.674666794Z 2026-10-25 04:50:07.674 UTC [67] LOG:  database system was shut down at 2026-10-25 04:50:07 UTC
+2026-10-25T04:50:07.681640329Z 2026-10-25 04:50:07.681 UTC [1] LOG:  database system is ready to accept connections
+2026-10-25T04:50:28.420174020Z 2026-10-25 04:50:28.419 UTC [65] LOG:  checkpoint starting: immediate force wait
+2026-10-25T04:50:28.516093830Z 2026-10-25 04:50:28.515 UTC [65] LOG:  checkpoint complete: wrote 56 buffers (0.3%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.009 s, sync=0.030 s, total=0.096 s; sync files=43, longest=0.004 s, average=0.001 s; distance=7112 kB, estimate=7112 kB; lsn=0/2000080, redo lsn=0/2000028
+2026-10-25T04:50:32.551683378Z 2026-10-25 04:50:32.551 UTC [1] LOG:  received fast shutdown request
+2026-10-25T04:50:32.553739361Z 2026-10-25 04:50:32.553 UTC [1] LOG:  aborting any active transactions
+2026-10-25T04:50:32.555966718Z 2026-10-25 04:50:32.555 UTC [1] LOG:  background worker "logical replication launcher" (PID 70) exited with exit code 1
+2026-10-25T04:50:32.557285546Z 2026-10-25 04:50:32.557 UTC [65] LOG:  shutting down
+2026-10-25T04:50:32.558658424Z 2026-10-25 04:50:32.558 UTC [65] LOG:  checkpoint starting: shutdown immediate
+2026-10-25T04:50:32.569245898Z 2026-10-25 04:50:32.566 UTC [65] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.010 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=6401 kB; lsn=0/20000F8, redo lsn=0/20000F8
+2026-10-25T04:50:32.570970567Z 2026-10-25 04:50:32.570 UTC [1] LOG:  database system is shut down
+2026-10-25T04:50:32.995342777Z 2026-10-25 04:50:32.995 UTC [1] LOG:  starting PostgreSQL 17.11 (Debian 17.11-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+2026-10-25T04:50:32.995366659Z 2026-10-25 04:50:32.995 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2026-10-25T04:50:32.995368542Z 2026-10-25 04:50:32.995 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2026-10-25T04:50:32.998975423Z 2026-10-25 04:50:32.998 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-10-25T04:50:33.003841493Z 2026-10-25 04:50:33.003 UTC [29] LOG:  database system was shut down at 2026-10-25 04:50:32 UTC
+2026-10-25T04:50:33.008258706Z 2026-10-25 04:50:33.008 UTC [1] LOG:  database system is ready to accept connections
+2026-10-25T04:55:06.640916184Z 2026-10-25 04:55:06.640 UTC [494] ERROR:  Your teacher needs to activate this assignment first
+2026-10-25T04:55:06.641041325Z 2026-10-25 04:55:06.640 UTC [494] CONTEXT:  PL/pgSQL function private.require_teacher_activation() line 6 at RAISE
+2026-10-25T04:55:06.641051065Z 2026-10-25 04:55:06.640 UTC [494] STATEMENT:  INSERT INTO sessions(id,student_id,assignment_id,class_id,data_origin) VALUES($1,$2,$3,$4,'live_demo')
+2026-10-25T04:55:06.771821819Z 2026-10-25 04:55:06.771 UTC [495] ERROR:  Assignment requires the exact authorized published lesson version and scope
+2026-10-25T04:55:06.771851393Z 2026-10-25 04:55:06.771 UTC [495] CONTEXT:  PL/pgSQL function private.guard_assignment() line 24 at RAISE
+2026-10-25T04:55:06.771853799Z 2026-10-25 04:55:06.771 UTC [495] STATEMENT:  UPDATE assignments SET approved_concept_ids=ARRAY['changed'] WHERE id=$1
+2026-10-25T04:55:06.783599718Z 2026-10-25 04:55:06.783 UTC [496] ERROR:  An approved assignment or assignment with evidence is immutable; create a new assignment version
+2026-10-25T04:55:06.783642394Z 2026-10-25 04:55:06.783 UTC [496] CONTEXT:  PL/pgSQL function private.guard_assignment() line 40 at RAISE
+2026-10-25T04:55:06.783646645Z 2026-10-25 04:55:06.783 UTC [496] STATEMENT:  UPDATE assignments SET title=title || ' changed' WHERE id=$1
+2026-10-25T04:55:06.797588677Z 2026-10-25 04:55:06.797 UTC [497] ERROR:  Teacher approval is immutable
+2026-10-25T04:55:06.797643567Z 2026-10-25 04:55:06.797 UTC [497] CONTEXT:  PL/pgSQL function private.guard_assignment() line 33 at RAISE
+2026-10-25T04:55:06.797645845Z 2026-10-25 04:55:06.797 UTC [497] STATEMENT:  UPDATE assignments SET teacher_approved_by=null,teacher_approved_at=null WHERE id=$1
+2026-10-25T04:55:33.077129704Z 2026-10-25 04:55:33.076 UTC [27] LOG:  checkpoint starting: time
+2026-10-25T04:56:13.333749450Z 2026-10-25 04:56:13.333 UTC [27] LOG:  checkpoint complete: wrote 403 buffers (2.5%); 0 WAL file(s) added, 0 removed, 0 recycled; write=40.091 s, sync=0.153 s, total=40.257 s; sync files=252, longest=0.006 s, average=0.001 s; distance=2334 kB, estimate=2334 kB; lsn=0/22BE600, redo lsn=0/22479D8
+2026-10-25T04:57:09.650152838Z 2026-10-25 04:57:09.649 UTC [716] ERROR:  Original dialogue identity and payload are immutable
+2026-10-25T04:57:09.650186584Z 2026-10-25 04:57:09.649 UTC [716] CONTEXT:  PL/pgSQL function private.guard_dialogue_history() line 8 at RAISE
+2026-10-25T04:57:09.650189167Z 2026-10-25 04:57:09.649 UTC [716] STATEMENT:  UPDATE dialogue_operations SET payload='{}'::jsonb WHERE request_id=$1
+2026-10-25T04:57:09.651404948Z 2026-10-25 04:57:09.651 UTC [717] ERROR:  Dialogue evidence cannot be deleted
+2026-10-25T04:57:09.651425028Z 2026-10-25 04:57:09.651 UTC [717] CONTEXT:  PL/pgSQL function private.guard_dialogue_history() line 3 at RAISE
+2026-10-25T04:57:09.651427534Z 2026-10-25 04:57:09.651 UTC [717] STATEMENT:  DELETE FROM dialogue_events WHERE request_id=$1
+2026-10-25T04:57:09.905315432Z 2026-10-25 04:57:09.905 UTC [719] ERROR:  Answer already submitted with a different key or body
+2026-10-25T04:57:09.905346577Z 2026-10-25 04:57:09.905 UTC [719] CONTEXT:  PL/pgSQL function public.submit_answer(uuid,uuid,text,jsonb,timestamp with time zone) line 16 at RAISE
+2026-10-25T04:57:09.905348990Z 2026-10-25 04:57:09.905 UTC [719] STATEMENT:  SELECT * FROM submit_answer($1,$2,$3,$4::jsonb,$5::timestamptz)
+2026-10-25T04:57:10.312086204Z 2026-10-25 04:57:10.311 UTC [719] ERROR:  Known provider outcomes cannot be rewritten
+2026-10-25T04:57:10.312115669Z 2026-10-25 04:57:10.311 UTC [719] CONTEXT:  PL/pgSQL function private.guard_dialogue_provider_history() line 12 at RAISE
+2026-10-25T04:57:10.312118230Z 2026-10-25 04:57:10.311 UTC [719] STATEMENT:  UPDATE dialogue_provider_calls SET result='{}'::jsonb WHERE request_id=$1
+2026-10-25T04:57:10.312810728Z 2026-10-25 04:57:10.312 UTC [718] ERROR:  Provider reservation identity is immutable
+2026-10-25T04:57:10.312825835Z 2026-10-25 04:57:10.312 UTC [718] CONTEXT:  PL/pgSQL function private.guard_dialogue_provider_history() line 10 at RAISE
+2026-10-25T04:57:10.312828164Z 2026-10-25 04:57:10.312 UTC [718] STATEMENT:  UPDATE dialogue_provider_calls SET step_id='review' WHERE request_id=$1
+2026-10-25T04:57:10.321539206Z 2026-10-25 04:57:10.321 UTC [720] ERROR:  Provider reservations cannot be deleted
+2026-10-25T04:57:10.321574943Z 2026-10-25 04:57:10.321 UTC [720] CONTEXT:  PL/pgSQL function private.guard_dialogue_provider_history() line 3 at RAISE
+2026-10-25T04:57:10.321580025Z 2026-10-25 04:57:10.321 UTC [720] STATEMENT:  DELETE FROM dialogue_provider_calls WHERE request_id=$1
+2026-10-25T04:57:17.356924027Z 2026-10-25 04:57:17.356 UTC [721] ERROR:  Reconcile the unfinished session provider operation first
+2026-10-25T04:57:17.356970731Z 2026-10-25 04:57:17.356 UTC [721] CONTEXT:  PL/pgSQL function private.guard_session_provider_budget() line 36 at RAISE
+2026-10-25T04:57:17.357021041Z 	SQL statement "insert into public.evaluations select (entry).* returning *"
+2026-10-25T04:57:17.357029317Z 	PL/pgSQL function public.save_evaluation(jsonb) line 17 at SQL statement
+2026-10-25T04:57:17.357033154Z 2026-10-25 04:57:17.356 UTC [721] STATEMENT:  SELECT * FROM save_evaluation($1::jsonb)
+2026-10-25T04:57:17.628837530Z 2026-10-25 04:57:17.628 UTC [721] ERROR:  Reconcile the unfinished session provider operation first
+2026-10-25T04:57:17.628868355Z 2026-10-25 04:57:17.628 UTC [721] CONTEXT:  PL/pgSQL function private.guard_session_provider_budget() line 36 at RAISE
+2026-10-25T04:57:17.628870305Z 	SQL statement "insert into public.evaluations select (entry).* returning *"
+2026-10-25T04:57:17.628871993Z 	PL/pgSQL function public.save_evaluation(jsonb) line 17 at SQL statement
+2026-10-25T04:57:17.628873505Z 2026-10-25 04:57:17.628 UTC [721] STATEMENT:  SELECT * FROM save_evaluation($1::jsonb)
+2026-10-25T04:57:17.870236330Z 2026-10-25 04:57:17.869 UTC [721] ERROR:  Provider outcome must link its original model reservation
+2026-10-25T04:57:17.870278826Z 2026-10-25 04:57:17.869 UTC [721] CONTEXT:  PL/pgSQL function private.guard_session_provider_budget() line 16 at RAISE
+2026-10-25T04:57:17.870280848Z 	SQL statement "insert into public.evaluations select (entry).* returning *"
+2026-10-25T04:57:17.870282970Z 	PL/pgSQL function public.save_evaluation(jsonb) line 17 at SQL statement
+2026-10-25T04:57:17.870284358Z 2026-10-25 04:57:17.869 UTC [721] STATEMENT:  SELECT * FROM save_evaluation($1::jsonb)
+2026-10-25T04:57:18.285485808Z 2026-10-25 04:57:18.285 UTC [721] ERROR:  Provider outcome must link its original model reservation
+2026-10-25T04:57:18.285524179Z 2026-10-25 04:57:18.285 UTC [721] CONTEXT:  PL/pgSQL function private.guard_session_provider_budget() line 16 at RAISE
+2026-10-25T04:57:18.285526542Z 	SQL statement "insert into public.evaluations select (entry).* returning *"
+2026-10-25T04:57:18.285528627Z 	PL/pgSQL function public.save_evaluation(jsonb) line 17 at SQL statement
+2026-10-25T04:57:18.285529901Z 2026-10-25 04:57:18.285 UTC [721] STATEMENT:  SELECT * FROM save_evaluation($1::jsonb)
+2026-10-25T04:57:18.339411651Z 2026-10-25 04:57:18.339 UTC [721] ERROR:  Reconcile the unfinished session provider operation first
+2026-10-25T04:57:18.339454535Z 2026-10-25 04:57:18.339 UTC [721] CONTEXT:  PL/pgSQL function private.guard_session_provider_budget() line 36 at RAISE
+2026-10-25T04:57:18.339457706Z 	SQL statement "insert into public.evaluations select (entry).* returning *"
+2026-10-25T04:57:18.339460564Z 	PL/pgSQL function public.save_evaluation(jsonb) line 17 at SQL statement
+2026-10-25T04:57:18.339462682Z 2026-10-25 04:57:18.339 UTC [721] STATEMENT:  SELECT * FROM save_evaluation($1::jsonb)
+2026-10-25T04:59:23.605996798Z 2026-10-25 04:59:23.605 UTC [963] ERROR:  Published lesson and source versions are immutable; append a new version
+2026-10-25T04:59:23.606032375Z 2026-10-25 04:59:23.605 UTC [963] CONTEXT:  PL/pgSQL function private.immutable_lesson_version() line 3 at RAISE
+2026-10-25T04:59:23.606035115Z 2026-10-25 04:59:23.605 UTC [963] STATEMENT:  UPDATE source_versions SET file_name='rewrite' WHERE document_id=$1 AND version=1
+2026-10-25T04:59:23.607393076Z 2026-10-25 04:59:23.607 UTC [964] ERROR:  Published lesson and source versions are immutable; append a new version
+2026-10-25T04:59:23.607429752Z 2026-10-25 04:59:23.607 UTC [964] CONTEXT:  PL/pgSQL function private.immutable_lesson_version() line 3 at RAISE
+2026-10-25T04:59:23.607435333Z 2026-10-25 04:59:23.607 UTC [964] STATEMENT:  DELETE FROM source_versions WHERE document_id=$1 AND version=1
+2026-10-25T04:59:23.712930073Z 2026-10-25 04:59:23.712 UTC [965] ERROR:  Published lesson and source versions are immutable; append a new version
+2026-10-25T04:59:23.712962697Z 2026-10-25 04:59:23.712 UTC [965] CONTEXT:  PL/pgSQL function private.immutable_lesson_version() line 3 at RAISE
+2026-10-25T04:59:23.712967713Z 2026-10-25 04:59:23.712 UTC [965] STATEMENT:  UPDATE lesson_versions SET version='changed' WHERE lesson_id=$1 AND version='1'
+2026-10-25T04:59:23.722424450Z 2026-10-25 04:59:23.722 UTC [966] ERROR:  Published lesson and source versions are immutable; append a new version
+2026-10-25T04:59:23.722461765Z 2026-10-25 04:59:23.722 UTC [966] CONTEXT:  PL/pgSQL function private.immutable_lesson_version() line 3 at RAISE
+2026-10-25T04:59:23.722467304Z 2026-10-25 04:59:23.722 UTC [966] STATEMENT:  DELETE FROM lesson_versions WHERE lesson_id=$1 AND version='1'
+2026-10-25T04:59:23.812420200Z 2026-10-25 04:59:23.812 UTC [967] ERROR:  Assignment requires the exact authorized published lesson version and scope
+2026-10-25T04:59:23.812466167Z 2026-10-25 04:59:23.812 UTC [967] CONTEXT:  PL/pgSQL function private.guard_assignment() line 24 at RAISE
+2026-10-25T04:59:23.812471651Z 2026-10-25 04:59:23.812 UTC [967] STATEMENT:  UPDATE assignments SET content_ref=jsonb_set(content_ref,'{content_version}','"other"') WHERE id=$1
+2026-10-25T04:59:23.829463099Z 2026-10-25 04:59:23.824 UTC [968] ERROR:  Assignment requires the exact authorized published lesson version and scope
+2026-10-25T04:59:23.829494556Z 2026-10-25 04:59:23.824 UTC [968] CONTEXT:  PL/pgSQL function private.guard_assignment() line 24 at RAISE
+2026-10-25T04:59:23.829497030Z 2026-10-25 04:59:23.824 UTC [968] STATEMENT:  UPDATE assignments SET class_id=$2 WHERE id=$1
+2026-10-25T04:59:23.840844005Z 2026-10-25 04:59:23.840 UTC [969] ERROR:  Assignment requires the exact authorized published lesson version and scope
+2026-10-25T04:59:23.840888434Z 2026-10-25 04:59:23.840 UTC [969] CONTEXT:  PL/pgSQL function private.guard_assignment() line 24 at RAISE
+2026-10-25T04:59:23.840893923Z 2026-10-25 04:59:23.840 UTC [969] STATEMENT:  UPDATE assignments SET approved_passage_ids=ARRAY['P08'] WHERE id=$1
+2026-10-25T04:59:24.404191617Z 2026-10-25 04:59:24.403 UTC [970] ERROR:  An approved assignment or assignment with evidence is immutable; create a new assignment version
+2026-10-25T04:59:24.404258344Z 2026-10-25 04:59:24.403 UTC [970] CONTEXT:  PL/pgSQL function private.guard_assignment() line 40 at RAISE
+2026-10-25T04:59:24.404262998Z 2026-10-25 04:59:24.403 UTC [970] STATEMENT:  UPDATE assignments SET title='rewrite history' WHERE id=$1
+2026-10-25T05:00:31.663798063Z 2026-10-25 05:00:31.663 UTC [1097] ERROR:  Published lesson and source versions are immutable; append a new version
+2026-10-25T05:00:31.663829791Z 2026-10-25 05:00:31.663 UTC [1097] CONTEXT:  PL/pgSQL function private.immutable_lesson_version() line 3 at RAISE
+2026-10-25T05:00:31.663832285Z 2026-10-25 05:00:31.663 UTC [1097] STATEMENT:  UPDATE lesson_versions SET version='rewritten' WHERE lesson_id=$1
+2026-10-25T05:00:31.756667244Z 2026-10-25 05:00:31.756 UTC [1096] ERROR:  An approved assignment or assignment with evidence is immutable; create a new assignment version
+2026-10-25T05:00:31.756693105Z 2026-10-25 05:00:31.756 UTC [1096] CONTEXT:  PL/pgSQL function private.guard_assignment() line 40 at RAISE
+2026-10-25T05:00:31.756695452Z 2026-10-25 05:00:31.756 UTC [1096] STATEMENT:  UPDATE assignments SET instructions='rewrite' WHERE id=$1
+2026-10-25T05:00:31.781992352Z 2026-10-25 05:00:31.781 UTC [1099] ERROR:  An approved assignment or assignment with evidence is immutable; create a new assignment version
+2026-10-25T05:00:31.782018392Z 2026-10-25 05:00:31.781 UTC [1099] CONTEXT:  PL/pgSQL function private.guard_assignment() line 40 at RAISE
+2026-10-25T05:00:31.782020786Z 2026-10-25 05:00:31.781 UTC [1099] STATEMENT:  UPDATE assignments SET instructions='rewrite' WHERE id=$1
+2026-10-25T05:00:33.381377033Z 2026-10-25 05:00:33.381 UTC [27] LOG:  checkpoint starting: time
+2026-10-25T05:00:44.887062754Z 2026-10-25 05:00:44.886 UTC [1128] ERROR:  Published lesson and source versions are immutable; append a new version
+2026-10-25T05:00:44.887091854Z 2026-10-25 05:00:44.886 UTC [1128] CONTEXT:  PL/pgSQL function private.immutable_lesson_version() line 3 at RAISE
+2026-10-25T05:00:44.887093965Z 2026-10-25 05:00:44.886 UTC [1128] STATEMENT:  UPDATE source_versions SET review_status='extracted' WHERE document_id=$1 AND version=1
+2026-10-25T05:01:20.039801160Z 2026-10-25 05:01:20.039 UTC [27] LOG:  checkpoint complete: wrote 468 buffers (2.9%); 0 WAL file(s) added, 0 removed, 0 recycled; write=46.636 s, sync=0.019 s, total=46.659 s; sync files=137, longest=0.002 s, average=0.001 s; distance=3274 kB, estimate=3274 kB; lsn=0/25CBFD8, redo lsn=0/257A5C0
+2026-10-25T05:01:33.994788501Z 2026-10-25 05:01:33.994 UTC [1214] ERROR:  Assignment requires the exact authorized published lesson version and scope
+2026-10-25T05:01:33.994828224Z 2026-10-25 05:01:33.994 UTC [1214] CONTEXT:  PL/pgSQL function private.guard_assignment() line 24 at RAISE
+2026-10-25T05:01:33.994833424Z 2026-10-25 05:01:33.994 UTC [1214] STATEMENT:  UPDATE assignments SET content_ref=jsonb_set(content_ref,'{source_version}','2') WHERE id=$1
+2026-10-25T05:02:01.744122739Z 2026-10-25 05:02:01.743 UTC [1271] ERROR:  Answer already submitted with a different key or body
+2026-10-25T05:02:01.744152893Z 2026-10-25 05:02:01.743 UTC [1271] CONTEXT:  PL/pgSQL function public.submit_answer(uuid,uuid,text,jsonb,timestamp with time zone) line 16 at RAISE
+2026-10-25T05:02:01.744164384Z 2026-10-25 05:02:01.743 UTC [1271] STATEMENT:  SELECT * FROM submit_answer($1,$2,$3,$4::jsonb,$5::timestamptz)
+2026-10-25T05:02:01.918304734Z 2026-10-25 05:02:01.918 UTC [1272] ERROR:  insert or update on table "attempts" violates foreign key constraint "attempts_parent_attempt_id_session_id_fkey"
+2026-10-25T05:02:01.918342352Z 2026-10-25 05:02:01.918 UTC [1272] DETAIL:  Key (parent_attempt_id, session_id)=(50000000-0000-4000-8000-000000000005, ffd93243-ffde-4980-a92d-cbaa9a3b3211) is not present in table "attempts".
+2026-10-25T05:02:01.918346864Z 2026-10-25 05:02:01.918 UTC [1272] STATEMENT:  insert into attempts select (jsonb_populate_record(null::attempts, $1::jsonb)).*
+2026-10-25T05:02:01.927929032Z 2026-10-25 05:02:01.927 UTC [1274] ERROR:  insert or update on table "sessions" violates foreign key constraint "sessions_assignment_id_class_id_fkey"
+2026-10-25T05:02:01.927968211Z 2026-10-25 05:02:01.927 UTC [1274] DETAIL:  Key (assignment_id, class_id)=(30000000-0000-4000-8000-000000000001, 3ca5b176-9ea7-4ffb-9024-a9a006e0daf0) is not present in table "assignments".
+2026-10-25T05:02:01.927973469Z 2026-10-25 05:02:01.927 UTC [1274] STATEMENT:  insert into sessions select (jsonb_populate_record(null::sessions, $1::jsonb)).*
+2026-10-25T05:02:01.936501219Z 2026-10-25 05:02:01.936 UTC [1275] ERROR:  Submitted answers and assistance are immutable
+2026-10-25T05:02:01.936517436Z 2026-10-25 05:02:01.936 UTC [1275] CONTEXT:  PL/pgSQL function private.guard_attempt() line 22 at RAISE
+2026-10-25T05:02:01.936520672Z 2026-10-25 05:02:01.936 UTC [1275] STATEMENT:  update attempts set response_text = $1 where id = $2
+2026-10-25T05:02:03.994698884Z 2026-10-25 05:02:03.994 UTC [1] LOG:  received fast shutdown request
+2026-10-25T05:02:03.997288706Z 2026-10-25 05:02:03.996 UTC [1] LOG:  aborting any active transactions
+2026-10-25T05:02:03.997710743Z 2026-10-25 05:02:03.997 UTC [1271] FATAL:  terminating connection due to administrator command
+2026-10-25T05:02:03.997722157Z 2026-10-25 05:02:03.997 UTC [1273] FATAL:  terminating connection due to administrator command
+2026-10-25T05:02:03.997727392Z 2026-10-25 05:02:03.997 UTC [1262] FATAL:  terminating connection due to administrator command
+2026-10-25T05:02:04.003623497Z 2026-10-25 05:02:04.003 UTC [1] LOG:  background worker "logical replication launcher" (PID 32) exited with exit code 1
+2026-10-25T05:02:04.003662453Z 2026-10-25 05:02:04.003 UTC [27] LOG:  shutting down
+2026-10-25T05:02:04.009861571Z 2026-10-25 05:02:04.009 UTC [27] LOG:  checkpoint starting: shutdown immediate
+2026-10-25T05:02:04.053623310Z 2026-10-25 05:02:04.053 UTC [27] LOG:  checkpoint complete: wrote 202 buffers (1.2%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.008 s, sync=0.028 s, total=0.050 s; sync files=89, longest=0.003 s, average=0.001 s; distance=1065 kB, estimate=3053 kB; lsn=0/2684A48, redo lsn=0/2684A48
+2026-10-25T05:02:04.060092599Z 2026-10-25 05:02:04.059 UTC [1] LOG:  database system is shut down
+2026-10-25T05:02:04.684312996Z 2026-10-25 05:02:04.683 UTC [1] LOG:  starting PostgreSQL 17.11 (Debian 17.11-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+2026-10-25T05:02:04.684348237Z 2026-10-25 05:02:04.684 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2026-10-25T05:02:04.684352228Z 2026-10-25 05:02:04.684 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2026-10-25T05:02:04.687707321Z 2026-10-25 05:02:04.687 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-10-25T05:02:04.695091808Z 2026-10-25 05:02:04.694 UTC [29] LOG:  database system was shut down at 2026-10-25 05:02:04 UTC
+2026-10-25T05:02:04.706719011Z 2026-10-25 05:02:04.706 UTC [1] LOG:  database system is ready to accept connections
+2026-10-25T05:02:48.310250427Z 2026-10-25 05:02:48.310 UTC [107] ERROR:  Assignment requires the exact authorized published lesson version and scope
+2026-10-25T05:02:48.310277123Z 2026-10-25 05:02:48.310 UTC [107] CONTEXT:  PL/pgSQL function private.guard_assignment() line 24 at RAISE
+2026-10-25T05:02:48.310279478Z 2026-10-25 05:02:48.310 UTC [107] STATEMENT:  UPDATE assignments SET content_ref=jsonb_set(content_ref,'{source_version}','2') WHERE id=$1
+2026-10-25T05:02:51.258249440Z 2026-10-25 05:02:51.257 UTC [110] ERROR:  Intervention approval, delivery and action history are immutable
+2026-10-25T05:02:51.258277830Z 2026-10-25 05:02:51.257 UTC [110] CONTEXT:  PL/pgSQL function private.immutable_teacher_intervention_record() line 3 at RAISE
+2026-10-25T05:02:51.258280251Z 2026-10-25 05:02:51.257 UTC [110] STATEMENT:  UPDATE teacher_intervention_approvals SET approved_at=clock_timestamp() WHERE id=$1
+2026-10-25T05:02:54.666321968Z 2026-10-25 05:02:54.666 UTC [122] ERROR:  Intervention approval, delivery and action history are immutable
+2026-10-25T05:02:54.666537005Z 2026-10-25 05:02:54.666 UTC [122] CONTEXT:  PL/pgSQL function private.immutable_teacher_intervention_record() line 3 at RAISE
+2026-10-25T05:02:54.666542148Z 2026-10-25 05:02:54.666 UTC [122] STATEMENT:  UPDATE teacher_intervention_approvals SET approved_at=clock_timestamp() WHERE id=$1
+2026-10-25T05:07:04.769420213Z 2026-10-25 05:07:04.769 UTC [27] LOG:  checkpoint starting: time
+2026-10-25T05:07:49.120806297Z 2026-10-25 05:07:49.120 UTC [27] LOG:  checkpoint complete: wrote 445 buffers (2.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=44.329 s, sync=0.017 s, total=44.352 s; sync files=119, longest=0.002 s, average=0.001 s; distance=2547 kB, estimate=2547 kB; lsn=0/2901948, redo lsn=0/29018B8
+2026-10-25T05:12:04.203458064Z 2026-10-25 05:12:04.203 UTC [27] LOG:  checkpoint starting: time
+2026-10-25T05:12:07.630776898Z 2026-10-25 05:12:07.630 UTC [27] LOG:  checkpoint complete: wrote 35 buffers (0.2%); 0 WAL file(s) added, 0 removed, 0 recycled; write=3.412 s, sync=0.008 s, total=3.428 s; sync files=29, longest=0.002 s, average=0.001 s; distance=115 kB, estimate=2304 kB; lsn=0/291E630, redo lsn=0/291E5D8
+2026-10-25T05:17:04.711019716Z 2026-10-25 05:17:04.710 UTC [27] LOG:  checkpoint starting: time
+2026-10-25T05:17:16.181368065Z 2026-10-25 05:17:16.181 UTC [27] LOG:  checkpoint complete: wrote 117 buffers (0.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=11.445 s, sync=0.016 s, total=11.471 s; sync files=74, longest=0.004 s, average=0.001 s; distance=536 kB, estimate=2127 kB; lsn=0/29A4890, redo lsn=0/29A4800
+2026-10-25T05:22:04.265853918Z 2026-10-25 05:22:04.265 UTC [27] LOG:  checkpoint starting: time
+2026-10-25T05:22:07.998639456Z 2026-10-25 05:22:07.998 UTC [27] LOG:  checkpoint complete: wrote 40 buffers (0.2%); 0 WAL file(s) added, 0 removed, 0 recycled; write=3.717 s, sync=0.010 s, total=3.733 s; sync files=32, longest=0.003 s, average=0.001 s; distance=364 kB, estimate=1951 kB; lsn=0/29FFA60, redo lsn=0/29FFA08
+2026-10-25T05:27:05.081879522Z 2026-10-25 05:27:05.081 UTC [27] LOG:  checkpoint starting: time
+2026-10-25T05:27:18.351821329Z 2026-10-25 05:27:18.351 UTC [27] LOG:  checkpoint complete: wrote 135 buffers (0.8%); 0 WAL file(s) added, 0 removed, 0 recycled; write=13.243 s, sync=0.013 s, total=13.271 s; sync files=62, longest=0.002 s, average=0.001 s; distance=798 kB, estimate=1835 kB; lsn=0/2AC73D8, redo lsn=0/2AC7348
