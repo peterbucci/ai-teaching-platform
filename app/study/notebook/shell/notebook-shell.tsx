@@ -50,6 +50,7 @@ export type NotebookShellProps = {
   selectedPrompt?: string;
   hideContextHeading?: boolean;
   title: string;
+  shortTitle?: string;
   eyebrow?: string;
   subtitle?: string;
   /** Existing owner renders account controls; the shell invents no identity. */
@@ -82,6 +83,7 @@ export function NotebookShell({
   selectedPrompt,
   hideContextHeading = false,
   title,
+  shortTitle,
   eyebrow,
   subtitle,
   account,
@@ -312,8 +314,25 @@ export function NotebookShell({
                       }
                     }}
                   >
-                    <summary aria-label="Show selected question">
-                      <strong>{title}</strong>
+                    <summary
+                      aria-label="Show selected question"
+                      aria-description={title}
+                    >
+                      <strong title={title}>
+                        <span
+                          className={shortTitle ? styles.fullTitle : undefined}
+                        >
+                          {title}
+                        </span>
+                        {shortTitle && (
+                          <span
+                            className={styles.shortTitle}
+                            aria-hidden="true"
+                          >
+                            {shortTitle}
+                          </span>
+                        )}
+                      </strong>
                       <span aria-hidden="true">⌄</span>
                     </summary>
                     <div className={styles.promptText}>

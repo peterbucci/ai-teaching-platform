@@ -355,6 +355,7 @@ export function ActiveStudyNotebook({
         }}
         presentation={{
           title: `Page ${pageNumber} · ${selected ? notebookQuestionKind(selected.intent) : "Study session"}`,
+          shortTitle: `Page ${pageNumber}`,
           subtitle: title,
           account: <AccountMenu area="student" />,
           activeStudy: true,

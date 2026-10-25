@@ -631,9 +631,9 @@ export function StudyDialogue({
                       <div className="lp-student-message">
                         <h3 className="lp-message-label">
                           {outcome.status === "help"
-                            ? "Help request · not graded"
+                            ? "You · Help request · not graded"
                             : outcome.status === "clarification"
-                              ? "Your message · awaiting clarification"
+                              ? "You · awaiting clarification"
                               : "You"}
                         </h3>
                         <p className="lp-answer">{message.text}</p>

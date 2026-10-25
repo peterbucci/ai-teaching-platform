@@ -72,6 +72,7 @@ export function ConversationScroll({
   const paperPosition = useRef({ x: 0, y: 0 });
   const paperWasHidden = useRef(false);
   const paperInitialized = useRef(false);
+  const paperRestoring = useRef(false);
 
   useLayoutEffect(() => {
     if (!paper) return;
@@ -85,11 +86,19 @@ export function ConversationScroll({
     }
     if (!paperWasHidden.current) return;
     paperWasHidden.current = false;
+    // A queued scroll from the hidden document's height clamp must not replace
+    // the saved position before this frame restores the visible paper.
+    const position = paperPosition.current;
+    paperRestoring.current = true;
     const frame = requestAnimationFrame(() => {
-      programmedScrollTopRef.current = paperPosition.current.y;
-      window.scrollTo(paperPosition.current.x, paperPosition.current.y);
+      window.scrollTo(position.x, position.y);
+      programmedScrollTopRef.current = window.scrollY;
+      paperRestoring.current = false;
     });
-    return () => cancelAnimationFrame(frame);
+    return () => {
+      cancelAnimationFrame(frame);
+      paperRestoring.current = false;
+    };
   }, [active, paper]);
 
   const scrollToLatest = useCallback(() => {
@@ -99,6 +108,7 @@ export function ConversationScroll({
       !viewport ||
       !content ||
       !active ||
+      (paper && (paperWasHidden.current || paperRestoring.current)) ||
       !viewport.checkVisibility({
         checkOpacity: true,
         checkVisibilityCSS: true,
@@ -186,6 +196,7 @@ export function ConversationScroll({
       !viewport ||
       !content ||
       !active ||
+      (paper && (paperWasHidden.current || paperRestoring.current)) ||
       !viewport.checkVisibility({
         checkOpacity: true,
         checkVisibilityCSS: true,

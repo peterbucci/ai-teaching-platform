@@ -14,6 +14,7 @@ export type N0NotebookShellProps = ContractProps & {
   presentation?: Pick<
     NotebookShellProps,
     | "title"
+    | "shortTitle"
     | "subtitle"
     | "eyebrow"
     | "account"
@@ -76,6 +77,7 @@ export function N0NotebookShell({
       selectedPrompt={presentation?.selectedPrompt}
       hideContextHeading={presentation?.hideContextHeading}
       title={presentation?.title ?? titles[navigation.section]}
+      shortTitle={presentation?.shortTitle}
       subtitle={presentation?.subtitle}
       eyebrow={presentation?.eyebrow}
       account={presentation?.account}
