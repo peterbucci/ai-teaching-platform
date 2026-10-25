@@ -42,9 +42,11 @@ const statusLabels = {
 export function DeliveredActivity({
   intervention,
   studentId,
+  conceptNames,
 }: {
   intervention: StudentIntervention;
   studentId: string;
+  conceptNames: Readonly<Record<string, string>>;
 }) {
   const endpoint = `/api/student/interventions/${intervention.approval_id}/followup`;
   const recoveryKey = `learning-pulse:intervention-answer:${studentId}:${intervention.approval_id}`;
@@ -400,8 +402,10 @@ export function DeliveredActivity({
               <ul>
                 {followup.results.map((result) => (
                   <li key={result.concept_id}>
-                    {result.concept_id}:{" "}
-                    {result.correctness.replaceAll("_", " ")}
+                    {Object.hasOwn(conceptNames, result.concept_id)
+                      ? conceptNames[result.concept_id]
+                      : "Concept name unavailable"}
+                    : {result.correctness.replaceAll("_", " ")}
                   </li>
                 ))}
               </ul>

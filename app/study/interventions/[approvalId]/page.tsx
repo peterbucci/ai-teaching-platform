@@ -6,6 +6,8 @@ import {
   EvidenceError,
   evidenceAccess,
 } from "../../../../lib/evidence/store.ts";
+import { readAssignmentContent } from "../../../../lib/lessons/store.ts";
+import { freshCheckConceptNames } from "../../../../lib/interventions/student-concept-names.ts";
 import { readStudentIntervention } from "../../../../lib/interventions/approval.ts";
 import { Workspace } from "../../../components/workspace.tsx";
 import { TeacherReviewFrame } from "../../notebook/reviews/presenters.tsx";
@@ -28,7 +30,18 @@ export default async function StudentInterventionPage({
         evidenceAccess(actor),
         id.data,
       );
-      return { intervention, studentId: actor.profileId };
+      // The resolver authorizes enrollment and loads the assignment's pinned version.
+      // Only public concept titles cross the client boundary, never private criteria.
+      const content = await readAssignmentContent(
+        evidenceAccess(actor),
+        intervention.assignment_id,
+        "student",
+      );
+      return {
+        intervention,
+        studentId: actor.profileId,
+        conceptNames: freshCheckConceptNames(content, intervention),
+      };
     } catch (error) {
       if (error instanceof AuthError && error.status === 401)
         redirect("/login");
@@ -48,6 +61,7 @@ export default async function StudentInterventionPage({
               key={`${loaded.studentId}:${loaded.intervention.approval_id}`}
               intervention={loaded.intervention}
               studentId={loaded.studentId}
+              conceptNames={loaded.conceptNames}
             />
           </TeacherReviewFrame>
         ) : (
