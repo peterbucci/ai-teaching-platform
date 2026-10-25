@@ -427,10 +427,11 @@ export default async function LessonReviewPage({
             <>
               {published && (
                 <>
-                  <h2>Published version {version}</h2>
+                  <h2>{lesson.title}</h2>
                   <p className="la-publication-status">
-                    Approved and published · Immutable snapshot. Later edits
-                    leave this version and its assignments unchanged.
+                    Published version {published.content_ref.content_version}
+                    {" · "}Approved · Immutable snapshot. Later edits leave this
+                    version and its assignments unchanged.
                   </p>
                   {assignments}
                   <PublishedAssignmentHandoff
