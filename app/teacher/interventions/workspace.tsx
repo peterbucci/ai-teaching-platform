@@ -234,7 +234,7 @@ export function InterventionWorkspace({
       target,
       target.querySelector<HTMLDetailsElement>(":scope > details"),
     );
-    // On tablet the target can be laid out behind the still-open Steps dialog.
+    // On tablet the target can be laid out behind the contextual drawer.
     // Keep the request pending until the pane change closes that modal and
     // focus can actually move into the requested content.
     if (document.activeElement === target) handledFocus.current = focusRequest;
@@ -565,6 +565,7 @@ export function InterventionWorkspace({
     return (
       <div className="lp-intervention-workspace" ref={layout}>
         <TeacherWorkspacePanes
+          tabletDrawer="navigation"
           initialPane={initialPane}
           navigation={{
             label: "Evidence",

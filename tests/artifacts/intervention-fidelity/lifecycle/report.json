@@ -1,0 +1,397 @@
+{
+  "status": "passed",
+  "origin": "http://127.0.0.1:3372",
+  "draftId": "3da23ea7-6972-4ef7-9763-ada152bf66a7",
+  "paidCalls": 0,
+  "actions": [
+    {
+      "action": "save",
+      "status": "acknowledged",
+      "priorRevision": 3,
+      "httpStatus": 200,
+      "request": {
+        "request_id": "414c67bf-9103-468b-810a-dd7b78e0eed5",
+        "expected_revision": 3,
+        "action": "save",
+        "activity": {
+          "title": "Fictional teacher edit saved during generation · fidelity review",
+          "learning_objective": "Explain transmission delay as the time needed to place a packet's bits onto the link at its given rate.",
+          "strategy": "predict_then_explain",
+          "rationale": "Predict a change, then explain the reasoning for Transmission delay, prompted by recorded reasoning: “Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.”. Correct or contrary evidence is also retained for review.",
+          "explanation": "We often think of latency as having three components. First, there is\nthe speed-of-light propagation delay. This delay occurs because nothing,\nincluding a bit on a wire, can travel faster than the speed of light. If\nyou know the distance between two points, you can calculate the\nspeed-of-light latency, although you have to be careful because light\ntravels across different media at different speeds: It travels at\n3.0 × 10\\ :sup:`8` m/s in a vacuum, 2.3 × 10\\ :sup:`8` m/s\nin a copper cable, and 2.0 × 10\\ :sup:`8` m/s in an optical fiber.\nSecond, there is the amount of time it takes to transmit a unit of data.\nThis is a function of the network bandwidth and the size of the packet in\nwhich the data is carried. Third, there may be queuing delays inside the\nnetwork, since packet switches generally need to store packets for some\ntime before forwarding them on an outbound link. So, we could define the\ntotal latency as",
+          "exercise_text": "Sketch a packet being placed onto a link. Annotate which parts of the transfer depend on packet size, link bandwidth, and physical distance. Explain the distinction in your own words.",
+          "practice_questions": [
+            {
+              "origin": "generated",
+              "question_id": "21d43d25-37af-444c-a0c8-01a5afbc9ffd",
+              "sequence_id": null,
+              "prompt_text": "A sender replaces a short message with a longer message on the same link. Predict how the time needed to transmit the message changes, and explain what role bandwidth plays.",
+              "content_ref": {
+                "package_id": "network-performance-v1",
+                "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+                "source_id": "peterson_davie_1_5_1",
+                "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+                "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+              },
+              "concept_ids": ["transmission_delay"],
+              "source_passage_ids": ["P07"],
+              "rubric": {
+                "version": "teacher-intervention-v4",
+                "answer_guidance": "We often think of latency as having three components. First, there is\nthe speed-of-light propagation delay. This delay occurs because nothing,\nincluding a bit on a wire, can travel faster than the speed of light. If\nyou know the distance between two points, you can calculate the\nspeed-of-light latency, although you have to be careful because light\ntravels across different media at different speeds: It travels at\n3.0 × 10\\ :sup:`8` m/s in a vacuum, 2.3 × 10\\ :sup:`8` m/s\nin a copper cable, and 2.0 × 10\\ :sup:`8` m/s in an optical fiber.\nSecond, there is the amount of time it takes to transmit a unit of data.\nThis is a function of the network bandwidth and the size of the packet in\nwhich the data is carried. Third, there may be queuing delays inside the\nnetwork, since packet switches generally need to store packets for some\ntime before forwarding them on an outbound link. So, we could define the\ntotal latency as",
+                "criteria": [
+                  "We often think of latency as having three components. First, there is\nthe speed-of-light propagation delay. This delay o"
+                ],
+                "acceptable_variations": [],
+                "partial_credit_guidance": null
+              },
+              "embedded_scaffolding": [],
+              "generation": {
+                "model": "synthetic-integration-provider",
+                "prompt_template_version": "teacher-intervention-v4",
+                "generated_at": "2026-10-25T18:56:53.562Z"
+              }
+            }
+          ],
+          "fresh_check": {
+            "origin": "generated",
+            "question_id": "c32c5583-c8da-4180-a054-c82afeff447d",
+            "sequence_id": null,
+            "prompt_text": "Compare sending an identical packet on a long high bandwidth link and a short low bandwidth link. Which link needs more time to put the packet onto the link? Explain what information determines this transmission delay.",
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            },
+            "concept_ids": ["transmission_delay"],
+            "source_passage_ids": ["P07"],
+            "rubric": {
+              "version": "teacher-intervention-v4",
+              "answer_guidance": "We often think of latency as having three components. First, there is\nthe speed-of-light propagation delay. This delay occurs because nothing,\nincluding a bit on a wire, can travel faster than the speed of light. If\nyou know the distance between two points, you can calculate the\nspeed-of-light latency, although you have to be careful because light\ntravels across different media at different speeds: It travels at\n3.0 × 10\\ :sup:`8` m/s in a vacuum, 2.3 × 10\\ :sup:`8` m/s\nin a copper cable, and 2.0 × 10\\ :sup:`8` m/s in an optical fiber.\nSecond, there is the amount of time it takes to transmit a unit of data.\nThis is a function of the network bandwidth and the size of the packet in\nwhich the data is carried. Third, there may be queuing delays inside the\nnetwork, since packet switches generally need to store packets for some\ntime before forwarding them on an outbound link. So, we could define the\ntotal latency as",
+              "criteria": [
+                "We often think of latency as having three components. First, there is\nthe speed-of-light propagation delay. This delay o"
+              ],
+              "acceptable_variations": [],
+              "partial_credit_guidance": null
+            },
+            "embedded_scaffolding": [],
+            "generation": {
+              "model": "synthetic-integration-provider",
+              "prompt_template_version": "teacher-intervention-v4",
+              "generated_at": "2026-10-25T18:56:53.562Z"
+            }
+          },
+          "source_references": [
+            {
+              "passage_id": "P07",
+              "quote": "We often think of latency as having three components. First, there is\nthe speed-of-light propagation delay. This delay occurs because nothing,\nincluding a bit on a wire, can travel faster than the speed of light. If\nyou know the distance between two points, you can calculate the\nspeed-of-light latency, although you have to be careful because light\ntravels across different media at different speeds: It travels at\n3.0 × 10\\ :sup:`8` m/s in a vacuum, 2.3 × 10\\ :sup:`8` m/s\nin a copper cable, and 2.0 × 10\\ :sup:`8` m/s in an optical fiber.\nSecond, there is the amount of time it takes to transmit a unit of data.\nThis is a function of the network bandwidth and the size of the packet in\nwhich the data is carried. Third, there may be queuing delays inside the\nnetwork, since packet switches generally need to store packets for some\ntime before forwarding them on an outbound link. So, we could define the\ntotal latency as"
+            }
+          ],
+          "evidence_references": [
+            {
+              "attempt_id": "50000000-0000-4000-8000-000000000001",
+              "evaluation_id": "60000000-0000-4000-8000-000000000001",
+              "response_quote": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+              "role": "supporting"
+            },
+            {
+              "attempt_id": "50000000-0000-4000-8000-000000000003",
+              "evaluation_id": "60000000-0000-4000-8000-000000000003",
+              "response_quote": "Transmission is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes. Propagation is 3 ms for both. More bits take longer to put onto the link, but the distance and propagation speed stay the same.",
+              "role": "contradictory"
+            }
+          ],
+          "suggested_recipients": [
+            {
+              "student_id": "10000000-0000-4000-8000-000000000002",
+              "evidence_attempt_ids": ["50000000-0000-4000-8000-000000000001"],
+              "reason": "Included history: 5 responses suggesting review, 7 correct or contrary responses, and 0 uncertain/context responses. 5 of 12 responses are eligible as independent for Transmission delay. These are response counts for this learner, not a diagnosis; recipient selection remains with the teacher."
+            }
+          ],
+          "uncertainty": "This draft responds to recorded work, not a diagnosis of a lasting misconception or an assessment of ability or motivation. Correct and assisted responses may qualify the recommendation; immediate improvement does not establish retention. Source excerpts and references were checked, but a teacher must review the new prompts and their answer guidance for educational fit before any future assignment."
+        }
+      },
+      "savedRevision": 4
+    },
+    {
+      "action": "approve",
+      "status": "acknowledged",
+      "priorRevision": 4,
+      "httpStatus": 200,
+      "request": {
+        "request_id": "6ce5dd00-6c11-4722-a3af-16b9e40b6c29",
+        "expected_revision": 4,
+        "action": "approve",
+        "recipient_ids": ["9878101a-0ced-4ce2-a045-6709060fd902"]
+      },
+      "savedRevision": 5,
+      "approval": "5c65aac7-ef3c-41ed-a925-d6277910f1b0"
+    },
+    {
+      "action": "deliver",
+      "status": "acknowledged",
+      "priorRevision": 5,
+      "httpStatus": 200,
+      "request": {
+        "request_id": "bffd54f9-2c8e-438a-9e0a-38ef5574a432",
+        "expected_revision": 5,
+        "action": "deliver",
+        "approval_id": "5c65aac7-ef3c-41ed-a925-d6277910f1b0"
+      },
+      "savedRevision": 5,
+      "approval": "5c65aac7-ef3c-41ed-a925-d6277910f1b0",
+      "delivery": "613ee4ec-3f03-42d2-901f-f0ce5930ff52"
+    }
+  ],
+  "checks": [
+    {
+      "name": "private-five-layouts-and-no-mutations",
+      "pass": true
+    },
+    {
+      "name": "one-mounted-editor-and-unsaved-work-across-panes",
+      "pass": true
+    },
+    {
+      "name": "unsaved-navigation-guard-and-reload-recovery",
+      "pass": true
+    },
+    {
+      "name": "edited-saved-five-layouts-and-no-mutations",
+      "pass": true
+    },
+    {
+      "name": "approved-undelivered-five-layouts-and-no-mutations",
+      "pass": true
+    },
+    {
+      "name": "delivered-five-layouts-and-no-mutations",
+      "pass": true
+    }
+  ],
+  "images": [
+    {
+      "name": "private-1440",
+      "width": 1440,
+      "height": 1000,
+      "dpr": 1,
+      "outerWidth": 1440,
+      "zoom": "1",
+      "scale": 1,
+      "overflow": false,
+      "completedRowsVisible": 1
+    },
+    {
+      "name": "private-1024",
+      "width": 1024,
+      "height": 768,
+      "dpr": 1,
+      "outerWidth": 1024,
+      "zoom": "1",
+      "scale": 1,
+      "overflow": false,
+      "completedRowsVisible": 1
+    },
+    {
+      "name": "private-390",
+      "width": 390,
+      "height": 844,
+      "dpr": 1,
+      "outerWidth": 516,
+      "zoom": "1",
+      "scale": 1,
+      "overflow": false,
+      "completedRowsVisible": 1
+    },
+    {
+      "name": "private-320",
+      "width": 320,
+      "height": 844,
+      "dpr": 1,
+      "outerWidth": 516,
+      "zoom": "1",
+      "scale": 1,
+      "overflow": false,
+      "completedRowsVisible": 1
+    },
+    {
+      "name": "private-native200",
+      "width": 708,
+      "height": 454,
+      "dpr": 2,
+      "outerWidth": 1440,
+      "zoom": "1",
+      "scale": 1,
+      "overflow": false,
+      "completedRowsVisible": 1
+    },
+    {
+      "name": "edited-saved-1440",
+      "width": 1440,
+      "height": 1000,
+      "dpr": 1,
+      "outerWidth": 1440,
+      "zoom": "1",
+      "scale": 1,
+      "overflow": false,
+      "completedRowsVisible": 1
+    },
+    {
+      "name": "edited-saved-1024",
+      "width": 1024,
+      "height": 768,
+      "dpr": 1,
+      "outerWidth": 1024,
+      "zoom": "1",
+      "scale": 1,
+      "overflow": false,
+      "completedRowsVisible": 1
+    },
+    {
+      "name": "edited-saved-390",
+      "width": 390,
+      "height": 844,
+      "dpr": 1,
+      "outerWidth": 516,
+      "zoom": "1",
+      "scale": 1,
+      "overflow": false,
+      "completedRowsVisible": 1
+    },
+    {
+      "name": "edited-saved-320",
+      "width": 320,
+      "height": 844,
+      "dpr": 1,
+      "outerWidth": 516,
+      "zoom": "1",
+      "scale": 1,
+      "overflow": false,
+      "completedRowsVisible": 1
+    },
+    {
+      "name": "edited-saved-native200",
+      "width": 708,
+      "height": 454,
+      "dpr": 2,
+      "outerWidth": 1440,
+      "zoom": "1",
+      "scale": 1,
+      "overflow": false,
+      "completedRowsVisible": 1
+    },
+    {
+      "name": "approved-undelivered-1440",
+      "width": 1440,
+      "height": 1000,
+      "dpr": 1,
+      "outerWidth": 1440,
+      "zoom": "1",
+      "scale": 1,
+      "overflow": false,
+      "completedRowsVisible": 4
+    },
+    {
+      "name": "approved-undelivered-1024",
+      "width": 1024,
+      "height": 768,
+      "dpr": 1,
+      "outerWidth": 1024,
+      "zoom": "1",
+      "scale": 1,
+      "overflow": false,
+      "completedRowsVisible": 4
+    },
+    {
+      "name": "approved-undelivered-390",
+      "width": 390,
+      "height": 844,
+      "dpr": 1,
+      "outerWidth": 516,
+      "zoom": "1",
+      "scale": 1,
+      "overflow": false,
+      "completedRowsVisible": 4
+    },
+    {
+      "name": "approved-undelivered-320",
+      "width": 320,
+      "height": 844,
+      "dpr": 1,
+      "outerWidth": 516,
+      "zoom": "1",
+      "scale": 1,
+      "overflow": false,
+      "completedRowsVisible": 4
+    },
+    {
+      "name": "approved-undelivered-native200",
+      "width": 708,
+      "height": 454,
+      "dpr": 2,
+      "outerWidth": 1440,
+      "zoom": "1",
+      "scale": 1,
+      "overflow": false,
+      "completedRowsVisible": 4
+    },
+    {
+      "name": "delivered-1440",
+      "width": 1440,
+      "height": 1000,
+      "dpr": 1,
+      "outerWidth": 1440,
+      "zoom": "1",
+      "scale": 1,
+      "overflow": false,
+      "completedRowsVisible": 5
+    },
+    {
+      "name": "delivered-1024",
+      "width": 1024,
+      "height": 768,
+      "dpr": 1,
+      "outerWidth": 1024,
+      "zoom": "1",
+      "scale": 1,
+      "overflow": false,
+      "completedRowsVisible": 5
+    },
+    {
+      "name": "delivered-390",
+      "width": 390,
+      "height": 844,
+      "dpr": 1,
+      "outerWidth": 516,
+      "zoom": "1",
+      "scale": 1,
+      "overflow": false,
+      "completedRowsVisible": 5
+    },
+    {
+      "name": "delivered-320",
+      "width": 320,
+      "height": 844,
+      "dpr": 1,
+      "outerWidth": 516,
+      "zoom": "1",
+      "scale": 1,
+      "overflow": false,
+      "completedRowsVisible": 5
+    },
+    {
+      "name": "delivered-native200",
+      "width": 708,
+      "height": 454,
+      "dpr": 2,
+      "outerWidth": 1440,
+      "zoom": "1",
+      "scale": 1,
+      "overflow": false,
+      "completedRowsVisible": 4
+    }
+  ],
+  "errors": [],
+  "blocked": []
+}

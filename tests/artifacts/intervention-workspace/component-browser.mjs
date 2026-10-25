@@ -30,7 +30,7 @@ const report = {
   paidCalls: 0,
   sourceManifest: JSON.parse(
     fs.readFileSync(
-      path.join(__dirname, "component-source-manifest.json"),
+      path.join(output, "component-source-manifest.json"),
       "utf8",
     ),
   ),
@@ -107,7 +107,7 @@ const server = http.createServer((req, res) => {
   }
   async function screenshot(name) {
     const file = `component-${name}.png`;
-    await page.screenshot({ path: path.join(__dirname, file) });
+    await page.screenshot({ path: path.join(output, file) });
     report.screenshots.push(file);
   }
   async function run(name, body) {
@@ -131,7 +131,7 @@ const server = http.createServer((req, res) => {
       if (page && !page.isClosed()) await screenshot(`${name}-failed`);
     }
     fs.writeFileSync(
-      path.join(__dirname, reportName),
+      path.join(output, reportName),
       JSON.stringify(report, null, 2),
     );
   }
@@ -507,17 +507,12 @@ const server = http.createServer((req, res) => {
         mutations: 0,
       };
     });
-    await run("1024-steps-modal-escape-focus-and-state", async () => {
+    await run("1024-evidence-modal-escape-focus-and-state", async () => {
       await fresh(1024);
       const opener = page.getByRole("button", {
-        name: "Open Steps",
+        name: "Open Evidence",
         exact: true,
       });
-      await opener.click();
-      await active("context");
-      await page.waitForFunction(() =>
-        document.querySelector(".tw-panes-context").matches(":modal"),
-      );
       await page
         .locator(".lp-intervention-recipient-selection > summary")
         .click();
@@ -525,6 +520,18 @@ const server = http.createServer((req, res) => {
         .locator(".lp-intervention-recipient-selection input")
         .first();
       await first.check();
+      await opener.focus();
+      await page.keyboard.press("Enter");
+      await active("navigation");
+      await page.waitForFunction(() =>
+        document.querySelector(".tw-panes-context").matches(":modal"),
+      );
+      assert.equal(
+        await page
+          .getByRole("dialog", { name: "Evidence", exact: true })
+          .isVisible(),
+        true,
+      );
       await page.keyboard.press("Escape");
       await page.waitForFunction(() =>
         document.activeElement?.classList.contains("tw-panes-context-trigger"),
@@ -535,11 +542,21 @@ const server = http.createServer((req, res) => {
           .evaluate((el) => el.matches(":modal")),
         false,
       );
-      await opener.click();
-      await active("context");
       assert.equal(await first.isChecked(), true);
+      assert.equal(
+        await page
+          .getByRole("region", { name: "Activity", exact: true })
+          .isVisible(),
+        true,
+      );
+      assert.equal(
+        await page
+          .getByRole("region", { name: "Steps", exact: true })
+          .isVisible(),
+        true,
+      );
       assert.deepEqual(await writes(), []);
-      await screenshot("1024-steps-modal");
+      await screenshot("1024-activity-and-steps");
       return {
         escape: "closed and returned focus",
         recipientPreserved: true,
@@ -547,7 +564,7 @@ const server = http.createServer((req, res) => {
       };
     });
     await run(
-      "1024-steps-inspect-evidence-focus-after-modal-close",
+      "1024-steps-inspect-evidence-opens-drawer-preserves-editor",
       async () => {
         const outcomes = [];
         for (const trigger of ["pointer", "retained-input-focus"]) {
@@ -559,32 +576,26 @@ const server = http.createServer((req, res) => {
           await title.fill("Tablet private work stays intact");
           await title.focus();
           const initialRequests = await count();
-          if (trigger === "pointer") {
-            await page
-              .getByRole("button", { name: "Open Steps", exact: true })
-              .click();
-          } else {
-            // Exercise native dialog restoration when opening does not move focus
-            // off the prior Activity input (a programmatic activation seam).
-            await page.evaluate(() =>
-              document.querySelector(".tw-panes-context-trigger").click(),
-            );
-          }
-          await active("context");
-          await page.waitForFunction(() =>
-            document.querySelector(".tw-panes-context").matches(":modal"),
-          );
+          const inspect = page.getByRole("button", {
+            name: "Inspect saved evidence",
+            exact: true,
+          });
           await page
-            .getByRole("button", {
-              name: "Inspect saved evidence",
-              exact: true,
-            })
+            .locator(".lp-intervention-completed-stage > summary")
+            .first()
             .click();
+          if (trigger === "pointer") await inspect.click();
+          else await inspect.evaluate((el) => el.click());
           await active("navigation");
           await page.waitForFunction(
             () =>
-              !document.querySelector(".tw-panes-context").matches(":modal") &&
+              document.querySelector(".tw-panes-context").matches(":modal") &&
               document.activeElement?.id === "intervention-evidence-title",
+          );
+          await page.keyboard.press("Escape");
+          await page.waitForFunction(
+            () =>
+              !document.querySelector(".tw-panes-context").matches(":modal"),
           );
           assert.equal(
             await title.inputValue(),
@@ -864,7 +875,7 @@ const server = http.createServer((req, res) => {
     report.passed = report.cases.filter((c) => c.status === "pass").length;
     report.failed = report.cases.filter((c) => c.status !== "pass").length;
     fs.writeFileSync(
-      path.join(__dirname, reportName),
+      path.join(output, reportName),
       JSON.stringify(report, null, 2),
     );
     await browser.close();

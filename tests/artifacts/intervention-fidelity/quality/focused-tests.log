@@ -1,0 +1,370 @@
+TAP version 13
+# (node:141652) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:141652) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/intervention-hydration-fidelity/LearningPlatform/tests/intervention-approval.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\intervention-hydration-fidelity\\LearningPlatform\\package.json.
+# Subtest: teacher edits preserve the original evidence, source version and generation provenance
+ok 1 - teacher edits preserve the original evidence, source version and generation provenance
+  ---
+  duration_ms: 5.5679
+  ...
+# Subtest: rejects forged question identity, provenance, source versions and evidence changes
+ok 2 - rejects forged question identity, provenance, source versions and evidence changes
+  ---
+  duration_ms: 7.4143
+  ...
+# Subtest: student projection excludes answer guidance, evidence, hypotheses, recipient identities and model traces
+ok 3 - student projection excludes answer guidance, evidence, hypotheses, recipient identities and model traces
+  ---
+  duration_ms: 3.275
+  ...
+# Subtest: approval requires explicit distinct recipients and a positive reviewed revision
+ok 4 - approval requires explicit distinct recipients and a positive reviewed revision
+  ---
+  duration_ms: 1.7277
+  ...
+# (node:43040) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:43040) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/intervention-hydration-fidelity/LearningPlatform/tests/intervention-generation.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\intervention-hydration-fidelity\\LearningPlatform\\package.json.
+# Subtest: selection preserves original accepted evidence, contrary reasoning, distinct counts and assistance
+ok 5 - selection preserves original accepted evidence, contrary reasoning, distinct counts and assistance
+  ---
+  duration_ms: 4.6756
+  ...
+# Subtest: explicit examples include same-student contrary follow-ups and preserve class insight counts
+ok 6 - explicit examples include same-student contrary follow-ups and preserve class insight counts
+  ---
+  duration_ms: 24.4775
+  ...
+# Subtest: rejects scope, unknown selection, unaccepted responses and source-version mismatches
+ok 7 - rejects scope, unknown selection, unaccepted responses and source-version mismatches
+  ---
+  duration_ms: 16.7896
+  ...
+# Subtest: provider projection omits roster identity and preserves reasoning, uncertainty and revision context
+ok 8 - provider projection omits roster identity and preserves reasoning, uncertainty and revision context
+  ---
+  duration_ms: 20.2822
+  ...
+# Subtest: valid qualitative activity creates generated snapshots and checked source/evidence receipts
+ok 9 - valid qualitative activity creates generated snapshots and checked source/evidence receipts
+  ---
+  duration_ms: 13.0878
+  ...
+# Subtest: rejects fabricated source, response and private guidance, unsupported recipients and omitted counterevidence
+ok 10 - rejects fabricated source, response and private guidance, unsupported recipients and omitted counterevidence
+  ---
+  duration_ms: 31.6494
+  ...
+# Subtest: rejects repeated checks, unverified quantitative problems and injected executable content without mutating valid work
+ok 11 - rejects repeated checks, unverified quantitative problems and injected executable content without mutating valid work
+  ---
+  duration_ms: 18.6754
+  ...
+# Subtest: preserves multiple assessed concepts and requires authorized citations for each
+ok 12 - preserves multiple assessed concepts and requires authorized citations for each
+  ---
+  duration_ms: 27.482
+  ...
+# Subtest: keeps rationale concise, counts all recipient history in code, and keeps review notices outside the exercise
+ok 13 - keeps rationale concise, counts all recipient history in code, and keeps review notices outside the exercise
+  ---
+  duration_ms: 6.314
+  ...
+# Subtest: accepts the full reviewed objective length supported by lesson authoring
+ok 14 - accepts the full reviewed objective length supported by lesson authoring
+  ---
+  duration_ms: 6.7353
+  ...
+# Subtest: legacy trimmed source snapshots regenerate without rewriting history or accepting changed excerpts
+ok 15 - legacy trimmed source snapshots regenerate without rewriting history or accepting changed excerpts
+  ---
+  duration_ms: 32.0799
+  ...
+# Subtest: uploaded UUID concepts never receive instructions to substitute curated networking IDs
+ok 16 - uploaded UUID concepts never receive instructions to substitute curated networking IDs
+  ---
+  duration_ms: 12.9824
+  ...
+# Subtest: source and concept rule failures carry fixed typed reasons without model text
+ok 17 - source and concept rule failures carry fixed typed reasons without model text
+  ---
+  duration_ms: 3.0876
+  ...
+# (node:140536) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:140536) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/intervention-hydration-fidelity/LearningPlatform/tests/intervention-outcomes.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\intervention-hydration-fidelity\\LearningPlatform\\package.json.
+# Subtest: opening or explicitly starting a follow-up does not invent a response or failed evaluation
+ok 18 - opening or explicitly starting a follow-up does not invent a response or failed evaluation
+  ---
+  duration_ms: 24.4246
+  ...
+# Subtest: a saved response and unknown dispatch remain pending and never become a retryable failure with elapsed time
+ok 19 - a saved response and unknown dispatch remain pending and never become a retryable failure with elapsed time
+  ---
+  duration_ms: 5.4889
+  ...
+# Subtest: a linked unknown final outcome remains pending even when its dispatch is marked failed
+ok 20 - a linked unknown final outcome remains pending even when its dispatch is marked failed
+  ---
+  duration_ms: 6.4417
+  ...
+# Subtest: accepted uncertain judgments stay accepted while the student projection excludes private rubric and evaluator details
+ok 21 - accepted uncertain judgments stay accepted while the student projection excludes private rubric and evaluator details
+  ---
+  duration_ms: 3.8311
+  ...
+# Subtest: known failures respect the cooldown and durable dispatch cap, including configuration failures without a model evaluation
+ok 22 - known failures respect the cooldown and durable dispatch cap, including configuration failures without a model evaluation
+  ---
+  duration_ms: 3.7974
+  ...
+# Subtest: an immediate fresh check never becomes independent retrieval; only assistance displayed before submission appears in its snapshot
+ok 23 - an immediate fresh check never becomes independent retrieval; only assistance displayed before submission appears in its snapshot
+  ---
+  duration_ms: 3.7535
+  ...
+# (node:148208) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:148208) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/intervention-hydration-fidelity/LearningPlatform/tests/intervention-provider.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\intervention-hydration-fidelity\\LearningPlatform\\package.json.
+# Subtest: intervention SDK requests support private and attributed uploaded sources without weakening the canonical schema
+ok 24 - intervention SDK requests support private and attributed uploaded sources without weakening the canonical schema
+  ---
+  duration_ms: 61.0839
+  ...
+# Subtest: intervention responses still reject malformed attribution URLs and source identities after wire adaptation
+ok 25 - intervention responses still reject malformed attribution URLs and source identities after wire adaptation
+  ---
+  duration_ms: 14.1828
+  ...
+# (node:145608) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:145608) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/intervention-hydration-fidelity/LearningPlatform/tests/teacher-intervention-assistance.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\intervention-hydration-fidelity\\LearningPlatform\\package.json.
+# Subtest: a multi-concept response can record help while remaining independent for a different concept
+ok 26 - a multi-concept response can record help while remaining independent for a different concept
+  ---
+  duration_ms: 2.426
+  ...
+# Subtest: a displayed hint for the selected concept is recorded and prevents independent retrieval
+ok 27 - a displayed hint for the selected concept is recorded and prevents independent retrieval
+  ---
+  duration_ms: 1.4168
+  ...
+# Subtest: a submitted retrieval without displayed assistance shows no recorded help and remains independent
+ok 28 - a submitted retrieval without displayed assistance shows no recorded help and remains independent
+  ---
+  duration_ms: 0.3522
+  ...
+# Subtest: created or failed hints that were never displayed do not count as assistance
+ok 29 - created or failed hints that were never displayed do not count as assistance
+  ---
+  duration_ms: 0.4409
+  ...
+# Subtest: lack of independent eligibility does not invent assistance
+ok 30 - lack of independent eligibility does not invent assistance
+  ---
+  duration_ms: 0.2498
+  ...
+# Subtest: missing and incomplete assistance remain unknown
+ok 31 - missing and incomplete assistance remain unknown
+  ---
+  duration_ms: 0.2208
+  ...
+# Subtest: scaffolding, displayed tutor interactions and question content are not labelled no help
+ok 32 - scaffolding, displayed tutor interactions and question content are not labelled no help
+  ---
+  duration_ms: 0.2876
+  ...
+# (node:10864) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:10864) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/intervention-hydration-fidelity/LearningPlatform/tests/teacher-intervention-concept-label.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\intervention-hydration-fidelity\\LearningPlatform\\package.json.
+# Subtest: follow-up labels use primary and related names from the saved source for both content kinds
+ok 33 - follow-up labels use primary and related names from the saved source for both content kinds
+  ---
+  duration_ms: 17.5794
+  ...
+# Subtest: a reused concept ID cannot borrow its name from another lesson or source version
+ok 34 - a reused concept ID cannot borrow its name from another lesson or source version
+  ---
+  duration_ms: 3.6969
+  ...
+# Subtest: uploaded labels retain the exact saved document and teacher scope
+ok 35 - uploaded labels retain the exact saved document and teacher scope
+  ---
+  duration_ms: 1.1503
+  ...
+# Subtest: missing question, unsaved concept names and out-of-question results use an honest fallback
+ok 36 - missing question, unsaved concept names and out-of-question results use an honest fallback
+  ---
+  duration_ms: 0.8325
+  ...
+# (node:150416) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:150416) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/intervention-hydration-fidelity/LearningPlatform/tests/teacher-intervention-direction-recovery.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\intervention-hydration-fidelity\\LearningPlatform\\package.json.
+# Subtest: Student09 and Student23 preparations restore and edit their own direction
+ok 37 - Student09 and Student23 preparations restore and edit their own direction
+  ---
+  duration_ms: 5.0453
+  ...
+# Subtest: actor, assignment, concept, origin and pattern isolate recovery
+ok 38 - actor, assignment, concept, origin and pattern isolate recovery
+  ---
+  duration_ms: 0.72
+  ...
+# Subtest: response order and duplicate identities do not create a different preparation
+ok 39 - response order and duplicate identities do not create a different preparation
+  ---
+  duration_ms: 0.3061
+  ...
+# Subtest: opening an older draft or acknowledging another request cannot erase unsent work
+ok 40 - opening an older draft or acknowledging another request cannot erase unsent work
+  ---
+  duration_ms: 1.1724
+  ...
+# Subtest: acknowledged generation clears only its matching preparation and request
+ok 41 - acknowledged generation clears only its matching preparation and request
+  ---
+  duration_ms: 1.9224
+  ...
+# Subtest: a late acknowledgement cannot erase newer edits or a later request
+ok 42 - a late acknowledgement cannot erase newer edits or a later request
+  ---
+  duration_ms: 5.6289
+  ...
+# Subtest: unscoped legacy values and malformed storage are not restored
+ok 43 - unscoped legacy values and malformed storage are not restored
+  ---
+  duration_ms: 0.8204
+  ...
+# Subtest: unavailable browser storage cannot prevent generation or discard in-memory text
+ok 44 - unavailable browser storage cannot prevent generation or discard in-memory text
+  ---
+  duration_ms: 1.288
+  ...
+# (node:142744) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:142744) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/intervention-hydration-fidelity/LearningPlatform/tests/teacher-intervention-evidence-navigation.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\intervention-hydration-fidelity\\LearningPlatform\\package.json.
+# Subtest: bookmarked or history-restored evidence hashes resolve only saved response identities
+ok 45 - bookmarked or history-restored evidence hashes resolve only saved response identities
+  ---
+  duration_ms: 1.5578
+  ...
+# Subtest: pane navigation resolves both headings without treating arbitrary hashes as evidence
+ok 46 - pane navigation resolves both headings without treating arbitrary hashes as evidence
+  ---
+  duration_ms: 0.2535
+  ...
+# Subtest: revealed response opens its detail before receiving focus and scrolling
+ok 47 - revealed response opens its detail before receiving focus and scrolling
+  ---
+  duration_ms: 1.7091
+  ...
+# Subtest: switching to a pane heading supports focus without requiring response details
+ok 48 - switching to a pane heading supports focus without requiring response details
+  ---
+  duration_ms: 0.2604
+  ...
+# (node:133188) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:133188) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/intervention-hydration-fidelity/LearningPlatform/tests/teacher-intervention-handoff.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\intervention-hydration-fidelity\\LearningPlatform\\package.json.
+# Subtest: selected-response handoff previews related and contrary evidence without changing recipient choice
+ok 49 - selected-response handoff previews related and contrary evidence without changing recipient choice
+  ---
+  duration_ms: 36.8337
+  ...
+# Subtest: changing or clearing a starting set requires another server preview; ordering alone does not
+ok 50 - changing or clearing a starting set requires another server preview; ordering alone does not
+  ---
+  duration_ms: 0.2591
+  ...
+# Subtest: preview and investigation links exclude generation and draft identities
+ok 51 - preview and investigation links exclude generation and draft identities
+  ---
+  duration_ms: 0.7985
+  ...
+# (node:125056) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:125056) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/intervention-hydration-fidelity/LearningPlatform/tests/teacher-intervention-navigation-block.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\intervention-hydration-fidelity\\LearningPlatform\\package.json.
+# Subtest: a capture guard closes the modal before focusing blocked-navigation feedback
+ok 52 - a capture guard closes the modal before focusing blocked-navigation feedback
+  ---
+  duration_ms: 2.8845
+  ...
+# Subtest: desktop and already closed drawers still reveal actionable feedback
+ok 53 - desktop and already closed drawers still reveal actionable feedback
+  ---
+  duration_ms: 0.354
+  ...
+# (node:79436) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:79436) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/intervention-hydration-fidelity/LearningPlatform/tests/teacher-intervention-snapshot-context.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\intervention-hydration-fidelity\\LearningPlatform\\package.json.
+# Subtest: saved snapshot replaces conflicting filters and seeds without rewriting the snapshot
+ok 54 - saved snapshot replaces conflicting filters and seeds without rewriting the snapshot
+  ---
+  duration_ms: 9.0759
+  ...
+# Subtest: saved draft rejects a different explicit assignment and inconsistent snapshot assignment
+ok 55 - saved draft rejects a different explicit assignment and inconsistent snapshot assignment
+  ---
+  duration_ms: 0.5178
+  ...
+# Subtest: only matching exact response identities survive saved draft navigation
+ok 56 - only matching exact response identities survive saved draft navigation
+  ---
+  duration_ms: 0.7942
+  ...
+# Subtest: full-session inspection links use saved evidence rather than conflicting URL scope
+ok 57 - full-session inspection links use saved evidence rather than conflicting URL scope
+  ---
+  duration_ms: 2.0166
+  ...
+# Subtest: acknowledged request A replaces stale recovery scope B before shared navigation
+ok 58 - acknowledged request A replaces stale recovery scope B before shared navigation
+  ---
+  duration_ms: 2.752
+  ...
+# Subtest: acknowledged request cannot replace a different draft or assignment
+ok 59 - acknowledged request cannot replace a different draft or assignment
+  ---
+  duration_ms: 0.5424
+  ...
+# (node:148288) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:148288) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/intervention-hydration-fidelity/LearningPlatform/tests/teacher-intervention-timestamp.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\intervention-hydration-fidelity\\LearningPlatform\\package.json.
+# Subtest: saved intervention instants render with an explicit, stable UTC meaning
+ok 60 - saved intervention instants render with an explicit, stable UTC meaning
+  ---
+  duration_ms: 2.8248
+  ...
+1..60
+# tests 60
+# suites 0
+# pass 60
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 992.8469
