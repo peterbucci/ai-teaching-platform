@@ -10,11 +10,8 @@
         --ink: #17302d;
         --muted: #53655c;
         --line: #dbe4df;
-        --paper: #fff;
         --canvas: #f5f8f6;
         --accent: #176d58;
-        --pending: #795400;
-        --pending-bg: #fff6db;
       }
       * {
         box-sizing: border-box;
@@ -30,33 +27,49 @@
           sans-serif;
       }
       main {
-        max-width: 1120px;
+        max-width: 1200px;
         margin: auto;
-        padding: 40px 28px 72px;
+        padding: 36px 28px 72px;
       }
       h1,
       h2,
       h3,
-      p {
+      p,
+      figure {
         margin: 0;
       }
       h1 {
-        max-width: 28ch;
         font-size: clamp(28px, 4vw, 42px);
         line-height: 1.15;
         letter-spacing: -0.025em;
+        max-width: 28ch;
       }
       h2 {
-        margin-bottom: 14px;
         font-size: 23px;
         line-height: 1.3;
+        margin-bottom: 14px;
       }
       h3 {
-        margin: 22px 0 8px;
-        font-size: 17px;
+        font-size: 18px;
+        margin: 24px 0 12px;
       }
       p + p {
         margin-top: 10px;
+      }
+      header {
+        margin-bottom: 24px;
+      }
+      header p {
+        margin-top: 14px;
+        max-width: 85ch;
+      }
+      .eyebrow {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 0 0 10px;
       }
       a {
         color: var(--accent);
@@ -79,23 +92,15 @@
         white-space: pre-wrap;
         overflow-wrap: anywhere;
         padding: 14px 16px;
-        border: 1px solid var(--line);
         background: var(--canvas);
+        border: 1px solid var(--line);
       }
-      header {
-        margin-bottom: 26px;
-      }
-      header p {
-        margin-top: 14px;
-        max-width: 85ch;
-      }
-      .eyebrow {
-        margin: 0 0 10px;
-        color: var(--muted);
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 18px;
+        margin: 20px 0;
+        font-size: 14px;
       }
       .status {
         display: inline-block;
@@ -104,13 +109,12 @@
         font-size: 12px;
         font-weight: 700;
         line-height: 1.5;
-        white-space: nowrap;
-        background: var(--pending-bg);
-        color: var(--pending);
-      }
-      .status.reviewed {
         background: #e9f4ee;
         color: #235d48;
+      }
+      .status.pending {
+        background: #fff6db;
+        color: #795400;
       }
       .status.historical {
         background: #edf0f4;
@@ -119,25 +123,15 @@
       .notice {
         padding: 18px 20px;
         border-left: 4px solid #a77710;
-        background: var(--pending-bg);
+        background: #fff6db;
         margin: 22px 0;
-      }
-      .notice strong {
-        color: #694b08;
       }
       section {
         margin-top: 26px;
         padding: 26px;
         border: 1px solid var(--line);
         border-radius: 8px;
-        background: var(--paper);
-      }
-      nav {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px 18px;
-        margin: 20px 0;
-        font-size: 14px;
+        background: #fff;
       }
       .table-wrap {
         overflow: auto;
@@ -163,18 +157,10 @@
         background: #f0f5f2;
         font-weight: 650;
       }
-      td:first-child,
-      th:first-child {
-        padding-left: 0;
-      }
-      th:first-child {
-        padding-left: 12px;
-      }
       tr:last-child td {
         border-bottom: 0;
       }
-      ul,
-      ol {
+      ul {
         margin: 10px 0 0;
         padding-left: 22px;
       }
@@ -187,17 +173,11 @@
       .small {
         font-size: 13px;
       }
-      .pending-slot {
-        padding: 15px 18px;
-        border: 1px dashed #a9b9af;
-        background: #fafcfb;
-        margin-top: 14px;
-      }
       .contract {
         display: grid;
-        grid-template-columns: 170px minmax(0, 1fr);
+        grid-template-columns: 180px minmax(0, 1fr);
         gap: 10px 18px;
-        margin: 16px 0 0;
+        margin: 16px 0;
       }
       .contract dt {
         font-weight: 650;
@@ -206,34 +186,73 @@
         margin: 0;
         min-width: 0;
       }
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        align-items: start;
+      }
+      .gallery.triplet {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .gallery figure {
+        min-width: 0;
+        border: 1px solid var(--line);
+        background: var(--canvas);
+      }
+      .gallery a {
+        display: block;
+      }
+      .gallery img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: 560px;
+        object-fit: contain;
+        object-position: top;
+        background: #eef2ef;
+      }
+      .gallery figcaption {
+        padding: 10px 12px;
+        font-size: 12px;
+        line-height: 1.5;
+        color: var(--muted);
+      }
+      .gallery figcaption strong {
+        color: var(--ink);
+      }
       footer {
         margin-top: 24px;
-        color: var(--muted);
         font-size: 13px;
+        color: var(--muted);
       }
-      @media (max-width: 650px) {
+      @media (max-width: 700px) {
         main {
           padding: 24px 12px 40px;
         }
         section {
           padding: 18px 14px;
         }
-        .notice {
-          padding: 15px;
+        h2 {
+          font-size: 20px;
+        }
+        .contract,
+        .gallery,
+        .gallery.triplet {
+          grid-template-columns: 1fr;
         }
         .contract {
-          grid-template-columns: 1fr;
           gap: 3px;
         }
         .contract dd {
           margin-bottom: 12px;
         }
+        .gallery img {
+          max-height: 700px;
+        }
         th,
         td {
           padding: 9px;
-        }
-        h2 {
-          font-size: 20px;
         }
       }
       @media print {
@@ -244,11 +263,14 @@
           max-width: none;
           padding: 0;
         }
+        nav {
+          display: none;
+        }
         section {
           break-inside: avoid;
         }
-        nav {
-          display: none;
+        .gallery {
+          break-inside: avoid;
         }
         a {
           color: inherit;
@@ -260,223 +282,255 @@
     <main>
       <header>
         <p class="eyebrow">
-          Teaching Workbench v2.2 · PR #117 · prepared 25 October 2026
+          Teaching Workbench v2.2 · PR #117 · 25 October 2026
         </p>
         <h1>Assignments and Class Progress</h1>
         <p>
-          Integration verification for the C2, C5, V04 and V05 corrections. This
-          report records the implemented assignment-side changes and the
-          evidence still needed from a fresh combined candidate.
+          The C2 return flow, C5 exact-version assignment creation, V04
+          discovery density and V05 spacing corrections have completed focused
+          synthetic integration checks. The galleries below show the measured
+          result and the remaining visual differences.
         </p>
-        <p><span class="status">Combined verification pending</span></p>
+        <p>
+          <span class="status">Focused functional verification passed</span>
+          <span class="status pending">Full visual parity not claimed</span>
+        </p>
       </header>
-
-      <aside class="notice" aria-label="Verification status">
+      <aside class="notice" aria-label="Acceptance scope">
         <p>
-          <strong
-            >Visual acceptance has not passed for these corrections.</strong
-          >
-          The assignment production build passed. Combined runtime checks are
-          pending coordination of the shared verification lock. No new
-          screenshot or successful browser result is claimed here.
+          <strong>Functional results and visual fidelity are separate.</strong>
+          Final assignment checks passed 506 unit tests, lint, typecheck,
+          formatting and production build. The final combination passed 625 unit
+          tests, production build, the complete assignment HTTP harness and
+          authenticated publishing HTTP checks. Providers were disabled; no
+          model call was made.
         </p>
         <p>
-          Final assignment source passed 505 unit tests, lint, typecheck,
-          formatting and a production build with providers disabled. These
-          checks do not establish shared C/E runtime integration.
+          Discovery gutters now match the reference. Mobile discovery still has
+          an additional visible class-filter row, and progress content remains
+          taller than the prototype. The shared C owner's broader browser run is
+          still in progress and is not counted as a pass here.
         </p>
       </aside>
-
       <nav aria-label="Report sections">
-        <a href="#identity">Source identity</a>
-        <a href="#changes">Changes</a>
-        <a href="#contracts">Contracts</a>
-        <a href="#before">Historical measurements</a>
-        <a href="#verification">Verification matrix</a>
-        <a href="#dependencies">Dependencies</a>
-        <a href="#evidence">Evidence references</a>
+        <a href="#identity">Source identity</a><a href="#results">Results</a
+        ><a href="#contracts">Contracts</a
+        ><a href="#measurements">Measurements</a
+        ><a href="#discovery">Discovery comparison</a
+        ><a href="#progress">Progress</a><a href="#details">Details</a
+        ><a href="#remaining">Remaining differences</a
+        ><a href="#evidence">Evidence</a>
       </nav>
 
       <section id="identity">
-        <h2>Source identity and scope</h2>
+        <h2>Exact source and capture identities</h2>
         <dl class="contract">
-          <dt>Assignment before-head</dt>
+          <dt>Before assignment</dt>
           <dd>
             <code>9f300ce6e975ab460328a8aa4428c26d441ee0ab</code> — PR #117
-            before the current corrections.
+            before these corrections.
           </dd>
-          <dt>Historical combination</dt>
+          <dt>Final assignment</dt>
+          <dd><code>03255a51157f49bd9bd2a49575663d0a16df8ed8</code>.</dd>
+          <dt>Final combination</dt>
           <dd>
+            <code>b8d0eb55e793905e78452980cc4e92ac178644ab</code>, tree
+            <code>466b42f5b70a33400115d9df5f876f65f3d9289f</code>. Production
+            build ID: <code>c3-z5ci6U8BgOEWk6IZj8</code>.
+          </dd>
+          <dt>Shared inputs</dt>
+          <dd>
+            C: <code>932a446015f8188e21cfb9d37773e14b56968ba9</code>; E:
+            <code>ff16f1201865f54676db30c24251fe29ceb1b5b1</code>. The
+            combination consumes shared session return, shell and
+            published-lesson handoff contracts.
+          </dd>
+          <dt>Discovery captures</dt>
+          <dd>
+            <code>ba74dc1b09a571726f9a904c2626dde955378aa2</code>, tree
+            <code>0ceb3aceb71275f9486fe6d4876723febbc52cca</code>. Its discovery
+            CSS is unchanged in the final combination. Those images precede
+            activation of the baseline assignment.
+          </dd>
+          <dt>Progress and details</dt>
+          <dd>
+            Final <code>b8d0eb5</code> after explicit activation of the baseline
+            assignment. Its 63 historical synthetic responses remain present;
+            these are a different assignment state from the discovery captures.
+          </dd>
+          <dt>Historical comparison</dt>
+          <dd>
+            PR #122 combination
             <code>462cfb1b31d9108cec70d18b6553bd45048d2eed</code>, tree
-            <code>03cca1fed3900a122e689c4a512afadd9052e5af</code>. PR #122
-            captures used this combination, which includes the assignment
-            before-head.
-          </dd>
-          <dt>Report evidence revision</dt>
-          <dd>
-            <code>a82b90864b9d87153ba88128eb2282ac60f6dbeb</code> — historical
-            acceptance artifacts; not a new application build.
-          </dd>
-          <dt>New combined candidate</dt>
-          <dd>
-            <span class="status">Pending</span> Record the exact assignment,
-            shared C and outgoing E commits, combined commit/tree, image
-            identity and runtime receipt after composition.
-          </dd>
-          <dt>Owned change area</dt>
-          <dd>
-            <code>app/teacher/assignments/**</code>, focused assignment tests
-            and this report. Existing publication, authorization, content
-            resolution, evidence and evaluation services remain the integration
-            boundaries.
+            <code>03cca1fed3900a122e689c4a512afadd9052e5af</code>. Historical
+            artifact revision
+            <code>a82b90864b9d87153ba88128eb2282ac60f6dbeb</code>.
           </dd>
         </dl>
-        <p class="small muted">
-          References:
-          <a href="https://github.com/peterbucci/ai-teaching-platform/pull/117"
-            >PR #117</a
-          >,
-          <a href="https://github.com/peterbucci/ai-teaching-platform/pull/122"
-            >PR #122</a
-          >,
-          <a href="https://github.com/peterbucci/ai-teaching-platform/issues/16"
-            >#16</a
-          >
-          and
-          <a
-            href="https://github.com/peterbucci/ai-teaching-platform/issues/114"
-            >#114</a
-          >. No merge is implied by this report.
+        <p class="small">
+          Executed check results and environment identity:
+          <a href="verification.json">verification.json</a>. The authoritative
+          <a href="browser-results.json">browser manifest</a> records all 21
+          final-package JPG identities, viewport and intrinsic image dimensions,
+          SHA256 hashes, per-capture builds and observed checks. Historical
+          image identities are in
+          <a href="historical-captures.json">historical-captures.json</a>.
+          Existing screenshots are never relabeled as new final captures.
         </p>
       </section>
 
-      <section id="changes">
-        <h2>Corrections implemented in the assignment slice</h2>
+      <section id="results">
+        <h2>Executed checks and outcomes</h2>
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
-                <th scope="col">Finding</th>
-                <th scope="col">Current source behavior</th>
-                <th scope="col">Acceptance still required</th>
+                <th scope="col">Check</th>
+                <th scope="col">Result</th>
+                <th scope="col">What it establishes</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>C2 — progress return</strong></td>
+                <td>Final assignment checks</td>
                 <td>
-                  All assignment-to-session links carry a structured return
-                  context. Original progress selection uses
-                  <code>progressStudent</code> and <code>progressConcept</code>,
-                  separate from the opened session/attempt. Page-owned
-                  restoration chooses the visible cell, concept column, details
-                  panel or main view.
+                  <span class="status">Passed</span><br />506 unit tests; lint;
+                  typecheck; formatting; production build.
                 </td>
                 <td>
-                  Shared session receiver, authorized round trip, Back/Forward,
-                  reload, keyboard and mobile focus on the combined build.
+                  Final assignment source checked. A formatting issue in the
+                  historical capture manifest was corrected, then formatting and
+                  build passed. This was a report-artifact issue.
                 </td>
               </tr>
               <tr>
-                <td><strong>C5 — exact publication handoff</strong></td>
+                <td>Final combined checks</td>
                 <td>
-                  The new-assignment receiver selects exact
-                  <code>lesson</code> + <code>version</code> and authorized
-                  optional <code>class</code>. A version without its lesson is
-                  rejected. An unavailable exact pair cannot fall back to
-                  another publication.
+                  <span class="status">Passed</span><br />625 unit tests;
+                  production build; complete assignment HTTP harness;
+                  authenticated publication HTTP checks.
                 </td>
                 <td>
-                  Lessons E must send the exact pair. Verify the rendered
-                  outgoing link and preserved form recovery during real client
-                  navigation.
-                </td>
-              </tr>
-              <tr>
-                <td><strong>V04 — discovery density</strong></td>
-                <td>
-                  Discovery remains lesson → exact published version → classroom
-                  assignment. Assigned published lessons sort ahead of
-                  unassigned publications and drafts. The heading/action row and
-                  collapsible filters reduce the first-view stack. Long version
-                  IDs use an eight-character prefix and six-character suffix
-                  with an accessible disclosure of the full immutable ID; IDs of
-                  24 characters or fewer remain complete.
-                </td>
-                <td>
-                  Measure first lesson position, filter behavior, disclosure
-                  readability and populated lesson/version/class density at all
-                  four viewports. Shortened display must leave full IDs in links
-                  and requests.
+                  Provider-disabled synthetic verification against the combined
+                  application. The earlier unavailable-approved-version
+                  shared-layout ZodError was corrected by C and the full
+                  assignment harness subsequently passed.
                 </td>
               </tr>
               <tr>
-                <td><strong>V05 — shared/local spacing</strong></td>
+                <td>C2 displayed return</td>
+                <td><span class="status">Passed</span></td>
                 <td>
-                  Discovery and review use the shared shell's inset once.
-                  Resolved progress uses the documented full-width pane
-                  contract, with one internal main-pane gutter and a separately
-                  padded details pane. Follow-up and notice content regain the
-                  appropriate gutter.
+                  Read in full → displayed return preserves the selected
+                  student/concept, synthetic origin, Details pane and focus.
+                  Earlier focused 320px checks also confirmed Close → cell, Back
+                  → Details, Forward → cell and Details reload.
+                </td>
+              </tr>
+              <tr>
+                <td>C2 hashless Questions history</td>
+                <td><span class="status">Final retest passed</span></td>
+                <td>
+                  Questions → session → native Back restores
+                  <code>progress-main</code>. The earlier BODY-focus gap is
+                  fixed. The manifest records scrollY 0 before navigation and
+                  265 after Back; this is focus restoration, not a claim of
+                  identical scroll offset.
+                </td>
+              </tr>
+              <tr>
+                <td>Filtering and history</td>
+                <td><span class="status">Passed</span></td>
+                <td>
+                  Class/status filtering, no-match state and reload retained the
+                  URL state. Native Back restored the all-state assignment;
+                  Forward restored the active/no-match state.
+                </td>
+              </tr>
+              <tr>
+                <td>C5 exact version and draft recovery</td>
+                <td><span class="status">Passed</span></td>
+                <td>
+                  Published version 1 remained selected while version 2 existed.
+                  Class, title and instructions survived reload and Back/Forward
+                  before creation.
+                </td>
+              </tr>
+              <tr>
+                <td>Creation and separate activation</td>
+                <td><span class="status">Passed</span></td>
+                <td>
+                  Creation produced inactive assignment
+                  <code>0023d5d6-f33a-46f4-a265-43feb43b29ab</code>, pinned to
+                  version 1. Explicit review and a separate activation succeeded
+                  without changing that version. The new assignment has zero
+                  participation: 0 of 24 students.
+                </td>
+              </tr>
+              <tr>
+                <td>Four viewport captures</td>
+                <td>
+                  <span class="status">Captured</span><br />1440×1000, 1024×768,
+                  390×844, 320×844.
                 </td>
                 <td>
-                  Combined geometry and overflow checks with the exact shared
-                  shell; verify narrow details and grid navigation.
+                  Discovery, progress and details are shown below. No horizontal
+                  page overflow was reported; discovery gutters measured 28 / 28
+                  / 14 / 12px. These outcomes do not establish full visual
+                  parity.
+                </td>
+              </tr>
+              <tr>
+                <td>Broader shared C browser run</td>
+                <td><span class="status pending">In progress</span></td>
+                <td>
+                  Only the documented assignment-owned browser scenarios are
+                  counted here. Broader shared navigation, keyboard and
+                  accessibility acceptance remains the C owner's scope.
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
         <p class="small muted">
-          These are source-level statements. They do not establish measured
-          browser geometry, successful runtime authorization or visual
-          completion.
+          Earlier 505-test standalone and 622-test combined results remain
+          historical; they are superseded for this final source by the results
+          above. All data used here are fictional or synthetic. No paid model,
+          live student, real agentic or screen-reader acceptance is claimed.
         </p>
       </section>
 
       <section id="contracts">
-        <h2>Frozen integration contracts</h2>
+        <h2>Implemented contracts</h2>
         <h3>C2: progress → session → progress</h3>
-        <pre><code>/teacher/sessions/&lt;sessionId&gt;?
-  returnTo=progress
-  &amp;assignment=&lt;authorized assignment&gt;
-  &amp;origin=&lt;current evidence origin&gt;
-  &amp;progressStudent=&lt;original selected student, optional&gt;
-  &amp;progressConcept=&lt;original selected concept, optional&gt;
-  &amp;progressView=grid|concepts|questions|sessions
-  &amp;pane=grid|details
-  &amp;class=&lt;current authorized class filter, optional&gt;
-  &amp;status=&lt;current status filter&gt;
-  &amp;attempt=&lt;target attempt, when applicable&gt;
-  #attempt-&lt;target attempt&gt;</code></pre>
         <p>
-          The target session identifies the student whose work is opened. The
-          link deliberately omits target <code>student</code> and
-          <code>concept</code> query fields: the session route authorizes the
-          actual record. The namespaced fields preserve the teacher's original
-          selection even when a Questions or Study sessions row belongs to
-          another student.
+          Outgoing session links carry <code>returnTo=progress</code>,
+          assignment, origin, progress view, pane, class/status filters and
+          optional attempt identity. Original progress selection uses
+          <code>progressStudent</code> and <code>progressConcept</code>. The
+          target session identifies whose work is opened; target
+          <code>student</code>/<code>concept</code> query fields are omitted.
+          This allows a teacher to inspect a Questions or Study sessions row for
+          another student and return to the original selection.
         </p>
         <p>
-          The shared receiver returns to <code>/teacher/assignments</code> with
-          <code>view=progress</code>, maps <code>progressStudent</code> →
-          <code>student</code> and <code>progressConcept</code> →
-          <code>concept</code>, and preserves assignment, origin, progress view,
-          pane and list filters. It must validate the return student against the
-          authorized assignment roster and the return concept against its exact
-          approved version. Return context never grants record access.
+          The shared receiver authorizes the session/attempt and independently
+          validates the return roster and concept against the authorized
+          assignment and exact published version. It maps the namespaced
+          selection back to <code>student</code>/<code>concept</code> in the
+          progress URL. Return context grants no access.
         </p>
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
-                <th scope="col">Return view</th>
-                <th scope="col">Focus target</th>
+                <th scope="col">Return context</th>
+                <th scope="col">Page-owned focus target</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Details pane</td>
+                <td>Details</td>
                 <td><code>cell-evidence</code></td>
               </tr>
               <tr>
@@ -492,386 +546,609 @@
                 <td>Concepts with a selected concept</td>
                 <td>
                   <code>ap-selection-all-&lt;concept&gt;</code>, the visible
-                  concept column rather than an absent student/concept cell.
+                  concept column.
                 </td>
               </tr>
               <tr>
-                <td>
-                  Questions, Study sessions, or no visible selection target
-                </td>
+                <td>Questions, Study sessions, or no visible selection</td>
                 <td><code>progress-main</code></td>
               </tr>
             </tbody>
           </table>
         </div>
         <p class="small muted">
-          The progress region declares
-          <code>data-workspace-restoration="page"</code>. Only fixed or
-          context-derived hash targets are accepted; no arbitrary selector is
-          used. This avoids a second competing shared restoration controller.
+          The region declares <code>data-workspace-restoration="page"</code>.
+          Restoration accepts only fixed/context-derived targets and also
+          handles hashless history. The final fix avoids automatically scrolling
+          the main view during initial focus restoration.
         </p>
-
-        <h3>C5: published lesson → new classroom assignment</h3>
-        <pre><code>/teacher/assignments/new?lesson=&lt;exact lesson ID&gt;&amp;version=&lt;full published version&gt;[&amp;class=&lt;authorized class ID&gt;]</code></pre>
+        <h3>C5: exact published version → inactive assignment</h3>
+        <pre><code>/teacher/assignments/new?lesson=&lt;exact lesson&gt;&amp;version=&lt;full published version&gt;[&amp;class=&lt;authorized class&gt;]</code></pre>
         <p>
-          The current receiver rejects orphan versions, unknown exact pairs and
-          foreign classes, then resolves the selected immutable content through
-          existing authorized services. Legacy lesson-only links select that
-          lesson's first available published version; the unscoped picker
-          selects the first catalog item. This compatibility behavior does not
-          apply to exact two-field handoffs.
+          The receiver rejects orphan versions, unknown exact pairs and foreign
+          classes, then uses the existing authorized content resolver. Exact
+          handoffs cannot fall back to another publication. Legacy lesson-only
+          and unscoped picker behavior remain compatible. Creation, publication
+          and activation remain separate decisions; pending creation requests
+          retain their immutable idempotency payload.
+        </p>
+        <h3>V04/V05: discovery and shared spacing</h3>
+        <p>
+          Discovery groups by real lesson identity, exact version and classroom
+          assignment. Assigned publications appear before unassigned
+          publications and drafts. Long IDs show an eight-character prefix and
+          six-character suffix, with the full immutable ID available through a
+          native disclosure; routes and requests keep the full value. Closed
+          desktop filters share the heading row; opening them restores the
+          full-width form. Active filters initially open, and teachers can
+          collapse them.
         </p>
         <p>
-          Creation remains an inactive assignment. Activation is a separate
-          review action. The recovered request retains its original class,
-          title, instructions and idempotency identity. Merely opening or
-          returning to the builder must not create, activate or rewrite a
-          lesson.
-        </p>
-
-        <h3>V05: one gutter, shared shell and full-width progress</h3>
-        <p>
-          With PR #120's documented shell, normal content uses 28px horizontal
-          gutters on desktop, 14px at widths up to 800px and 12px at widths up
-          to 360px. Only the resolved progress workspace cancels the outer shell
-          inset. Its main heading/content restores the same gutter, while the
-          desktop details column remains 380px wide. At 1440px the intended
-          full-width frame is 1060px main + 380px details; this remains a
-          source-derived expectation until captured.
+          Normal discovery/review content consumes the shell inset once: 28px
+          desktop, 14px through 800px, 12px through 360px. Resolved progress
+          uses the agreed full-width frame and one internal heading/content
+          gutter, with its own details pane. Shared shell and evidence/session
+          services remain owned by their respective agents.
         </p>
       </section>
 
-      <section id="before">
-        <h2>Historical baseline measurements</h2>
+      <section id="measurements">
+        <h2>Measured discovery change</h2>
         <p>
-          These values come from the retained PR #122 default-fixture and
-          exported-prototype capture JSON. They describe the old combined
-          candidate containing assignment head <code>9f300ce</code>. They are
-          not measurements of the current correction.
+          Coordinates below use the first lesson heading in CSS pixels. The
+          after captures isolate the baseline class using a class filter that
+          was manually collapsed. The historical default fixture and prototype
+          use different content and counts; this is a layout comparison, not
+          identical data.
         </p>
         <div class="table-wrap">
           <table>
-            <caption>
-              First lesson heading coordinates, CSS pixels; values rounded to
-              two decimals.
-            </caption>
             <thead>
               <tr>
                 <th scope="col">Viewport</th>
-                <th scope="col">Before x</th>
-                <th scope="col">Prototype x</th>
-                <th scope="col">Before y</th>
-                <th scope="col">Prototype y</th>
-                <th scope="col">Current result</th>
+                <th scope="col">Before x / y</th>
+                <th scope="col">Prototype x / y</th>
+                <th scope="col">After x / y</th>
+                <th scope="col">After y difference</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>1440 × 1000</td>
-                <td>56</td>
-                <td>28</td>
-                <td>360.42</td>
-                <td>255.28</td>
-                <td>Pending</td>
+                <td>56 / 360.42</td>
+                <td>28 / 255.28</td>
+                <td>28 / 252.50</td>
+                <td>−2.78px</td>
               </tr>
               <tr>
                 <td>1024 × 768</td>
-                <td>56</td>
-                <td>28</td>
-                <td>360.42</td>
-                <td>255.28</td>
-                <td>Pending</td>
+                <td>56 / 360.42</td>
+                <td>28 / 255.28</td>
+                <td>28 / 252.50</td>
+                <td>−2.78px</td>
               </tr>
               <tr>
                 <td>390 × 844</td>
-                <td>30</td>
-                <td>14</td>
-                <td>492.69</td>
-                <td>265.94</td>
-                <td>Pending</td>
+                <td>30 / 492.69</td>
+                <td>14 / 265.94</td>
+                <td>14 / 315.02</td>
+                <td>+49.08px</td>
               </tr>
               <tr>
                 <td>320 × 844</td>
-                <td>28</td>
-                <td>12</td>
-                <td>559.66</td>
-                <td>287.69</td>
-                <td>Pending</td>
+                <td>28 / 559.66</td>
+                <td>12 / 287.69</td>
+                <td>12 / 325.53</td>
+                <td>+37.84px</td>
               </tr>
             </tbody>
           </table>
         </div>
         <p>
-          The prior audit identified accumulated shell and page padding, a
-          taller heading/filter stack, and wrapped full version IDs. Fixture
-          counts and labels differ between the application and prototype, so
-          these measurements identify layout differences without claiming
-          identical content density.
+          Desktop first-lesson density is close to the reference. Mobile remains
+          taller because the visible class-filter summary and real copy wrap
+          into additional lines. The corrected version disclosure avoids the
+          previous full-hash stack; it does not remove the filter or fabricate a
+          short version number.
         </p>
         <p class="small">
-          Sources:
+          Before sources:
           <a
             href="https://github.com/peterbucci/ai-teaching-platform/blob/a82b90864b9d87153ba88128eb2282ac60f6dbeb/acceptance/v22/final-verification/screenshots-default/report.json"
-            >historical application geometry</a
+            >PR #122 application geometry</a
           >
           and
           <a
             href="https://github.com/peterbucci/ai-teaching-platform/blob/a82b90864b9d87153ba88128eb2282ac60f6dbeb/acceptance/v22/prototype-verification/screenshots/report.json"
-            >exported prototype geometry</a
-          >. The prototype HTML SHA256 is
+            >prototype geometry</a
+          >. After source: <a href="browser-results.json">browser manifest</a>.
+          Prototype HTML SHA256:
           <code
             >c853369da1250adf24a741a38c3d94d3c97a976c012c352732cf4dd8d924cb54</code
           >.
         </p>
       </section>
 
-      <section id="verification">
-        <h2>Verification status</h2>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">Check</th>
-                <th scope="col">Evidence / status</th>
-                <th scope="col">Required completion record</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Repository unit tests, lint, typecheck</td>
-                <td>
-                  <span class="status reviewed">Passed</span><br />505 unit
-                  tests, lint, typecheck and repository formatting passed.
-                </td>
-                <td>
-                  Final assignment source; synthetic tests and disabled model
-                  providers. Combined HTTP and browser checks are separate.
-                </td>
-              </tr>
-              <tr>
-                <td>Final production build</td>
-                <td>
-                  <span class="status reviewed"
-                    >Passed — assignment branch</span
-                  >
-                </td>
-                <td>
-                  Next.js production build passed in the guarded host slot.
-                  Combined candidate build and runtime remain pending.
-                </td>
-              </tr>
-              <tr>
-                <td>C2 integrated HTTP return</td>
-                <td>
-                  <span class="status">Pending</span><br />Assignment harness
-                  has an explicit shared-return mode.
-                </td>
-                <td>
-                  Run provider-disabled with
-                  <code>ASSIGNMENT_SHARED_RETURN_CHECK=true</code> on the
-                  reviewed isolated candidate. Exercise selected A → row B →
-                  return to A, concept-only/student-only contexts, all progress
-                  views and authorized/invalid return fields.
-                </td>
-              </tr>
-              <tr>
-                <td>C5 handoff and creation</td>
-                <td><span class="status">Pending</span></td>
-                <td>
-                  Open the actual Lessons E link; check exact
-                  lesson/version/class, orphan/unknown rejection, inactive
-                  creation, request replay, and separate activation.
-                </td>
-              </tr>
-              <tr>
-                <td>Four viewport captures</td>
-                <td>
-                  <span class="status">Pending</span><br />1440×1000, 1024×768,
-                  390×844, 320×844.
-                </td>
-                <td>
-                  Fresh discovery, progress grid/details and relevant
-                  create/review captures; measured gutters, first lesson
-                  position, full-ID disclosure and horizontal overflow.
-                </td>
-              </tr>
-              <tr>
-                <td>Browser Back/Forward and reload</td>
-                <td><span class="status">Pending</span></td>
-                <td>
-                  Use native history across discovery, filtered/selected
-                  progress, session detail and returned progress. Check URL,
-                  selection, pane and restored focus, including repeated
-                  entries.
-                </td>
-              </tr>
-              <tr>
-                <td>Mobile and keyboard focus</td>
-                <td><span class="status">Pending</span></td>
-                <td>
-                  Tab/Enter into a meaningful cell, open full evidence, follow
-                  displayed return, use Escape/close and history; verify visible
-                  focused target at 390px and 320px.
-                </td>
-              </tr>
-              <tr>
-                <td>Unsent draft and uncertain request recovery</td>
-                <td><span class="status">Pending</span></td>
-                <td>
-                  Preserve class/title/instructions through reload and
-                  navigation; actor/lesson/version separation; cross-tab
-                  conflict; immutable pending request; no automatic mutation on
-                  restoration.
-                </td>
-              </tr>
-              <tr>
-                <td>Activation and evidence integrity</td>
-                <td><span class="status">Pending</span></td>
-                <td>
-                  Confirm creation remains inactive, activation requires
-                  separate review, approved version stays fixed, historical
-                  answers remain unchanged, and preview performs no student
-                  mutation or private-criteria disclosure.
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <section id="discovery">
+        <h2>Discovery: prototype, before and after</h2>
+        <p class="small muted">
+          Click an image to inspect it at full resolution. Before/prototype PNGs
+          are preserved historical proof. After JPGs record ba74dc1 with the
+          same discovery CSS as final b8d0eb5. The baseline assignment is
+          inactive in these discovery images.
+        </p>
+        <h3>1440 × 1000</h3>
+        <div class="gallery triplet">
+          <figure>
+            <a href="prototype-discovery-1440x1000.png"
+              ><img
+                src="prototype-discovery-1440x1000.png"
+                alt="Prototype"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              <strong>Prototype</strong><br />Historical exported v2.2
+              prototype; fictional built-in data.
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="before-discovery-1440x1000.png"
+              ><img
+                src="before-discovery-1440x1000.png"
+                alt="Before · PR #122"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              <strong>Before · PR #122</strong><br />Historical combination
+              462cfb1; assignment input 9f300ce.
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="after-discovery-1440x1000.jpg"
+              ><img
+                src="after-discovery-1440x1000.jpg"
+                alt="After · corrected discovery"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              <strong>After · corrected discovery</strong><br />Captured
+              ba74dc1; discovery CSS unchanged in final b8d0eb5. Baseline class
+              filter manually collapsed; assignment still inactive.
+            </figcaption>
+          </figure>
         </div>
-        <div class="pending-slot" id="verified-results">
-          <strong>Reserved for new verified results.</strong>
-          <p class="small">
-            Populate only after execution with candidate identity, fixture
-            identity, commands/checks, timestamps, outcomes and links to fresh
-            receipts and screenshots. Leave failed or interrupted checks
-            visible. No after-image is attached in this preparation report.
-          </p>
+        <h3>1024 × 768</h3>
+        <div class="gallery triplet">
+          <figure>
+            <a href="prototype-discovery-1024x768.png"
+              ><img
+                src="prototype-discovery-1024x768.png"
+                alt="Prototype"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              <strong>Prototype</strong><br />Historical exported v2.2
+              prototype; fictional built-in data.
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="before-discovery-1024x768.png"
+              ><img
+                src="before-discovery-1024x768.png"
+                alt="Before · PR #122"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              <strong>Before · PR #122</strong><br />Historical combination
+              462cfb1; assignment input 9f300ce.
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="after-discovery-1024x768.jpg"
+              ><img
+                src="after-discovery-1024x768.jpg"
+                alt="After · corrected discovery"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              <strong>After · corrected discovery</strong><br />Captured
+              ba74dc1; discovery CSS unchanged in final b8d0eb5. Baseline class
+              filter manually collapsed; assignment still inactive.
+            </figcaption>
+          </figure>
+        </div>
+        <h3>390 × 844</h3>
+        <div class="gallery triplet">
+          <figure>
+            <a href="prototype-discovery-390x844.png"
+              ><img
+                src="prototype-discovery-390x844.png"
+                alt="Prototype"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              <strong>Prototype</strong><br />Historical exported v2.2
+              prototype; fictional built-in data.
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="before-discovery-390x844.png"
+              ><img
+                src="before-discovery-390x844.png"
+                alt="Before · PR #122"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              <strong>Before · PR #122</strong><br />Historical combination
+              462cfb1; assignment input 9f300ce.
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="after-discovery-390x844.jpg"
+              ><img
+                src="after-discovery-390x844.jpg"
+                alt="After · corrected discovery"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              <strong>After · corrected discovery</strong><br />Captured
+              ba74dc1; discovery CSS unchanged in final b8d0eb5. Baseline class
+              filter manually collapsed; assignment still inactive.
+            </figcaption>
+          </figure>
+        </div>
+        <h3>320 × 844</h3>
+        <div class="gallery triplet">
+          <figure>
+            <a href="prototype-discovery-320x844.png"
+              ><img
+                src="prototype-discovery-320x844.png"
+                alt="Prototype"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              <strong>Prototype</strong><br />Historical exported v2.2
+              prototype; fictional built-in data.
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="before-discovery-320x844.png"
+              ><img
+                src="before-discovery-320x844.png"
+                alt="Before · PR #122"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              <strong>Before · PR #122</strong><br />Historical combination
+              462cfb1; assignment input 9f300ce.
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="after-discovery-320x844.jpg"
+              ><img
+                src="after-discovery-320x844.jpg"
+                alt="After · corrected discovery"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              <strong>After · corrected discovery</strong><br />Captured
+              ba74dc1; discovery CSS unchanged in final b8d0eb5. Baseline class
+              filter manually collapsed; assignment still inactive.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
-      <section id="dependencies">
-        <h2>Integration dependencies and limits</h2>
+      <section id="progress">
+        <h2>Final Class Progress at all four widths</h2>
+        <p>
+          The baseline assignment was explicitly activated before this set. It
+          retains 63 responses from 24 enrolled synthetic students. The five
+          summary measures show 22 students who answered, 63 answers, 61
+          evaluated answers, 2 pending/failed/rejected evaluations and 8 answers
+          after help. Response counts and student counts remain distinct.
+        </p>
+        <div class="gallery">
+          <figure>
+            <a href="after-progress-1440x1000.jpg"
+              ><img
+                src="after-progress-1440x1000.jpg"
+                alt="Progress · 1440 × 1000"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              <strong>Progress · 1440 × 1000</strong><br />Final b8d0eb5.
+              Activated baseline; 24 enrolled students and 63 retained
+              responses.
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="after-progress-1024x768.jpg"
+              ><img
+                src="after-progress-1024x768.jpg"
+                alt="Progress · 1024 × 768"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              <strong>Progress · 1024 × 768</strong><br />Final b8d0eb5.
+              Activated baseline; 24 enrolled students and 63 retained
+              responses.
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="after-progress-390x844.jpg"
+              ><img
+                src="after-progress-390x844.jpg"
+                alt="Progress · 390 × 844"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              <strong>Progress · 390 × 844</strong><br />Final b8d0eb5.
+              Activated baseline; 24 enrolled students and 63 retained
+              responses.
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="after-progress-320x844.jpg"
+              ><img
+                src="after-progress-320x844.jpg"
+                alt="Progress · 320 × 844"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              <strong>Progress · 320 × 844</strong><br />Final b8d0eb5.
+              Activated baseline; 24 enrolled students and 63 retained
+              responses.
+            </figcaption>
+          </figure>
+        </div>
+        <p class="small">
+          Reference progress:
+          <a
+            href="https://github.com/peterbucci/ai-teaching-platform/blob/a82b90864b9d87153ba88128eb2282ac60f6dbeb/acceptance/v22/prototype-verification/screenshots/assignment-section-a-1440x1000.png"
+            >prototype 1440px</a
+          >
+          and
+          <a
+            href="https://github.com/peterbucci/ai-teaching-platform/blob/a82b90864b9d87153ba88128eb2282ac60f6dbeb/acceptance/v22/prototype-verification/screenshots/assignment-section-a-320x844.png"
+            >prototype 320px</a
+          >. Prototype counts are 16 of 18 students, 68 responses, 66 evaluated,
+          2 pending/failed and 16 assisted; the after fixture is not relabeled
+          to match them.
+        </p>
+      </section>
+
+      <section id="details">
+        <h2>Final selected evidence at all four widths</h2>
+        <p>
+          The selected pane displays the original answer for the chosen student
+          and concept, and links to the existing authorized session/evidence
+          route. On phones it replaces the grid view, making the evidence
+          readable without scrolling past the progress summary.
+        </p>
+        <div class="gallery">
+          <figure>
+            <a href="after-details-1440x1000.jpg"
+              ><img
+                src="after-details-1440x1000.jpg"
+                alt="Selected details · 1440 × 1000"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              <strong>Selected details · 1440 × 1000</strong><br />Final
+              b8d0eb5. Original student response and selected concept; no
+              duplicated evidence store.
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="after-details-1024x768.jpg"
+              ><img
+                src="after-details-1024x768.jpg"
+                alt="Selected details · 1024 × 768"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              <strong>Selected details · 1024 × 768</strong><br />Final b8d0eb5.
+              Original student response and selected concept; no duplicated
+              evidence store.
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="after-details-390x844.jpg"
+              ><img
+                src="after-details-390x844.jpg"
+                alt="Selected details · 390 × 844"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              <strong>Selected details · 390 × 844</strong><br />Final b8d0eb5.
+              Original student response and selected concept; no duplicated
+              evidence store.
+            </figcaption>
+          </figure>
+          <figure>
+            <a href="after-details-320x844.jpg"
+              ><img
+                src="after-details-320x844.jpg"
+                alt="Selected details · 320 × 844"
+                loading="lazy"
+            /></a>
+            <figcaption>
+              <strong>Selected details · 320 × 844</strong><br />Final b8d0eb5.
+              Original student response and selected concept; no duplicated
+              evidence store.
+            </figcaption>
+          </figure>
+        </div>
+        <h3>Additional captured states</h3>
         <ul>
           <li>
-            <strong>Shared C receiver:</strong> accept the frozen namespaced
-            progress return fields, authorize the opened session/attempt
-            separately, validate return roster/concept scope, and render “Back
-            to class progress” with the correct focus hash. Its commit must be
-            present in the candidate.
+            <a href="after-long-version-320x844.jpg"
+              >Full immutable version disclosure · 320px</a
+            >
+            and
+            <a href="after-empty-filter-320x844.jpg"
+              >empty active-filter result · 320px</a
+            >.
           </li>
           <li>
-            <strong>Lessons E outgoing handoff:</strong> emit the exact
-            published lesson/version pair to the new-assignment receiver. Its
-            commit and actual rendered link must be verified; the receiver alone
-            does not complete C5.
+            <a href="after-exact-version-draft-1440x1000.jpg"
+              >Exact older publication selected · 1440px</a
+            >
+            and
+            <a href="after-restored-draft-form-1440x1000.jpg"
+              >restored class/title/instructions · 1440px</a
+            >.
           </li>
           <li>
-            <strong>PR #120 shell:</strong> retain its documented 28/14/12px
-            inset and page-owned restoration contract. The assignment page
-            consumes these; it does not edit the shared shell or mount a
-            competing pane controller.
+            <a href="after-inactive-review-1440x1000.jpg"
+              >Inactive assignment review before separate activation · 1440px</a
+            >
+            and
+            <a href="after-zero-participation-1440x1000.jpg"
+              >zero participation · 1440px</a
+            >.
           </li>
           <li>
-            <strong>Runtime isolation:</strong> create a fresh project, database
-            volume, ports/networks and outside-source state after shared-lock
-            coordination. Existing acceptance runners and browser helpers are
-            pinned to old projects and old source/fixture receipts; changing
-            their state directory alone does not create isolation.
+            <a href="after-session-return-1440x1000.jpg"
+              >Full original response reached from Class Progress · 1440px</a
+            >.
           </li>
           <li>
-            <strong>Synthetic scope:</strong> blank model providers and
-            fictional fixtures only. Expanded class fixtures, default captures
-            and published-density fixtures are different database states. The
-            retained nineteen-question published fixture and 24-student expanded
-            class fixture are not equivalent to the prototype's fifteen
-            questions and eighteen students.
+            <a href="after-student-preview-1440x1000.jpg"
+              >Student preview · 1440px</a
+            >
+            and
+            <a href="after-student-preview-320x844.jpg"
+              >student preview · 320px</a
+            >.
           </li>
         </ul>
-        <p class="muted">
-          No paid model call, live student data, real agentic acceptance,
-          screen-reader acceptance or automatic merge is claimed.
+      </section>
+
+      <section id="remaining">
+        <h2>Remaining visual differences and scope limits</h2>
+        <ul>
+          <li>
+            <strong>Mobile discovery:</strong> the explicit class-filter summary
+            and different copy still put the first lesson 49.08px lower at 390px
+            and 37.84px lower at 320px than the prototype. Matching gutters and
+            no overflow do not make this a pixel match.
+          </li>
+          <li>
+            <strong>Progress first viewport:</strong> both interfaces use five
+            compact summary measures, but actual long assignment/version labels,
+            the participation disclosure and evidence-origin controls add
+            height. The desktop grid begins lower. At 320px the after image
+            still shows summary metrics near the lower edge, while the prototype
+            reaches its Class grid/By idea tabs. The summary and first-view
+            density are not fully matched.
+          </li>
+          <li>
+            <strong>Fixture differences:</strong> 24 versus 18 students, 63
+            versus 68 responses, real immutable hash IDs versus prototype
+            ordinal versions, and inactive-versus-active capture timing must
+            remain visible. Earlier default, expanded class and
+            published-density fixtures are separate states, not interchangeable
+            proof.
+          </li>
+          <li>
+            <strong>Capture provenance:</strong> discovery and C5
+            recovery/review images were taken on ba74dc1; progress/details were
+            taken on final b8d0eb5. CSS equality for discovery is documented,
+            but those earlier images are not represented as a final-build
+            execution.
+          </li>
+          <li>
+            <strong>Shared integration:</strong> focused assignment HTTP and
+            C2/C5 browser checks passed with the shared C/E commits. The C
+            owner's broader browser run remains ongoing; no broad keyboard,
+            accessibility or screen-reader pass is inferred.
+          </li>
+          <li>
+            <strong>Model scope:</strong> synthetic/provider-disabled checks
+            prove these UI, routing and persistence paths. They do not prove the
+            real agentic decision/tool/observation/adaptation cycle.
+          </li>
+        </ul>
+        <p>
+          No automatic merge was performed. References:
+          <a href="https://github.com/peterbucci/ai-teaching-platform/pull/117"
+            >PR #117</a
+          >,
+          <a href="https://github.com/peterbucci/ai-teaching-platform/issues/16"
+            >#16</a
+          >,
+          <a
+            href="https://github.com/peterbucci/ai-teaching-platform/issues/114"
+            >#114</a
+          >.
         </p>
       </section>
 
       <section id="evidence">
-        <h2>Historical evidence references</h2>
-        <p>
-          All links below are historical evidence, retained to make the
-          before-state inspectable. They must not be relabeled as screenshots or
-          passes of the current corrections.
-        </p>
+        <h2>Evidence and preserved history</h2>
         <ul>
+          <li>
+            <a href="verification.json">Verification receipt</a> — final
+            source/tree/build identity, 506 standalone and 625 combined tests,
+            static checks, production builds and both HTTP harness outcomes.
+            Runtime used a separate fictional logical database on the existing
+            loopback PostgreSQL 17.11 server and an owned production Next app on
+            port 3317; no other database or server lifecycle changed.
+          </li>
+          <li>
+            <a href="browser-results.json">Browser results</a> — final displayed
+            return, hashless history, filter history, version-1 draft recovery,
+            inactive creation and separate activation observations. The
+            manifest's per-capture build field takes precedence over its
+            top-level build for earlier images.
+          </li>
+          <li>
+            <a href="historical-captures.json">Historical capture identities</a>
+            — eight retained before/prototype discovery PNGs.
+          </li>
           <li>
             <a
               href="https://github.com/peterbucci/ai-teaching-platform/blob/a82b90864b9d87153ba88128eb2282ac60f6dbeb/acceptance/v22/FINAL_INTAKE.md"
-              >PR #122 exact composition and intake</a
-            >
-            — <code>acceptance/v22/FINAL_INTAKE.md</code>.
-          </li>
-          <li>
+              >PR #122 exact intake</a
+            >,
             <a
               href="https://github.com/peterbucci/ai-teaching-platform/blob/a82b90864b9d87153ba88128eb2282ac60f6dbeb/acceptance/v22/DEFECTS.md"
-              >Current historical defects and ownership</a
-            >
-            — <code>acceptance/v22/DEFECTS.md</code>.
-          </li>
-          <li>
-            <a
-              href="https://github.com/peterbucci/ai-teaching-platform/blob/a82b90864b9d87153ba88128eb2282ac60f6dbeb/acceptance/v22/final-verification/screenshots-default/assignments-1440x1000.png"
-              >Historical application discovery, 1440px</a
+              >historical defects</a
             >
             and
-            <a
-              href="https://github.com/peterbucci/ai-teaching-platform/blob/a82b90864b9d87153ba88128eb2282ac60f6dbeb/acceptance/v22/final-verification/screenshots-default/assignments-320x844.png"
-              >320px</a
-            >
-            —
-            <code
-              >acceptance/v22/final-verification/screenshots-default/assignments-&lt;viewport&gt;.png</code
-            >; 1024px and 390px are in the same directory.
-          </li>
-          <li>
-            <a
-              href="https://github.com/peterbucci/ai-teaching-platform/blob/a82b90864b9d87153ba88128eb2282ac60f6dbeb/acceptance/v22/prototype-verification/screenshots/assignments-1440x1000.png"
-              >Exported prototype discovery, 1440px</a
-            >
-            and
-            <a
-              href="https://github.com/peterbucci/ai-teaching-platform/blob/a82b90864b9d87153ba88128eb2282ac60f6dbeb/acceptance/v22/prototype-verification/screenshots/assignments-320x844.png"
-              >320px</a
-            >
-            —
-            <code
-              >acceptance/v22/prototype-verification/screenshots/assignments-&lt;viewport&gt;.png</code
-            >.
-          </li>
-          <li>
             <a
               href="https://github.com/peterbucci/ai-teaching-platform/blob/a82b90864b9d87153ba88128eb2282ac60f6dbeb/acceptance/v22/final-verification/FINAL_ACCEPTANCE_REPORT.md"
-              >Historical combined acceptance report</a
-            >
-            and
+              >historical acceptance report</a
+            >.
+          </li>
+          <li>
             <a
               href="https://github.com/peterbucci/ai-teaching-platform/blob/a82b90864b9d87153ba88128eb2282ac60f6dbeb/acceptance/v22/final-verification/PUBLISHED_DENSITY_VISUAL_REPORT.md"
-              >published-density comparison</a
-            >.
+              >Historical published-density report</a
+            >
+            — its nineteen-question/four-inactive-assignment fixture is separate
+            from this progress fixture.
           </li>
           <li>
             <a href="../fidelity/report.html"
               >Earlier assignment-only fidelity report</a
             >
-            and <a href="../fidelity/captures.json">capture manifest</a> —
-            retained under
-            <code>tests/artifacts/teacher-assignments/fidelity/</code>; existing
-            filenames containing “after” refer to that earlier correction, not
-            this one.
+            and <a href="../fidelity/captures.json">capture identities</a>.
+            Existing “after” filenames there refer to that earlier correction.
           </li>
         </ul>
+        <p class="small muted">
+          Results are recorded in the verification receipt and browser manifest.
+          Historical images retain their original identities and capture dates.
+        </p>
       </section>
-
       <footer>
-        Prepared as an assignment-specific verification record. Source review,
-        deterministic tests, synthetic runtime checks and visual comparison are
-        separate evidence categories.
+        Source review, deterministic tests, authenticated synthetic integration
+        and visual comparison are separate evidence categories. Current focused
+        functional verification passed; full v2.2 visual completion is not
+        claimed.
       </footer>
     </main>
   </body>

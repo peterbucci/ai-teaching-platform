@@ -1,0 +1,67 @@
+{
+  "assignmentSource": "03255a51157f49bd9bd2a49575663d0a16df8ed8",
+  "combinedSource": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+  "combinedTree": "466b42f5b70a33400115d9df5f876f65f3d9289f",
+  "buildSource": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+  "buildId": "c3-z5ci6U8BgOEWk6IZj8",
+  "steps": [
+    {
+      "name": "combined-tests",
+      "exitCode": 0
+    },
+    {
+      "name": "combined-build",
+      "exitCode": 0
+    },
+    {
+      "name": "assignment-http",
+      "exitCode": 0
+    },
+    {
+      "name": "publishing-http",
+      "exitCode": 0
+    }
+  ],
+  "assignmentHttp": "passed",
+  "standalone": {
+    "tests": 506,
+    "lint": "passed",
+    "typecheck": "passed",
+    "format": "passed after formatting historical capture manifest",
+    "productionBuild": "passed",
+    "firstPass": [
+      {
+        "name": "format-scoped",
+        "exitCode": 0
+      },
+      {
+        "name": "tests",
+        "exitCode": 0
+      },
+      {
+        "name": "lint",
+        "exitCode": 0
+      },
+      {
+        "name": "typegen",
+        "exitCode": 0
+      },
+      {
+        "name": "typecheck",
+        "exitCode": 0
+      },
+      {
+        "name": "format-check",
+        "exitCode": 1
+      }
+    ]
+  },
+  "combinedTests": 625,
+  "providersDisabled": true,
+  "environment": "Separate fictional logical database on existing loopback PostgreSQL 17.11 server; own production Next app on loopback3317. No other database or server lifecycle changed.",
+  "references": {
+    "shell": "932a446015f8188e21cfb9d37773e14b56968ba9",
+    "lessons": "ff16f1201865f54676db30c24251fe29ceb1b5b1",
+    "base": "462cfb1b31d9108cec70d18b6553bd45048d2eed"
+  }
+}
