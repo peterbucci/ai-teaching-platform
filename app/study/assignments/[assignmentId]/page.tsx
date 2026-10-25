@@ -17,7 +17,10 @@ import { Icon } from "../../../components/icons.tsx";
 import { LocalTime } from "../../../components/local-time.tsx";
 import { Workspace } from "../../../components/workspace.tsx";
 import { AssignmentAction } from "../action.tsx";
-import { AssignmentOverview, AssignmentWork } from "./panels.tsx";
+import { AssignmentOverview as NotebookAssignmentOverview } from "../../notebook/learning/index.ts";
+import { NotebookSavedWorkView } from "../../notebook/records/index.ts";
+import { notebookSavedWork } from "../../notebook/adapters.ts";
+import { NotebookRouteShell } from "../../notebook/integration/route-shell.tsx";
 import "../assignments.css";
 import "./detail.css";
 import "../../study.css";
@@ -100,6 +103,30 @@ export default async function StudentAssignmentPage({
   const { lesson, work, initial, dashboard, sessionId } = data;
   // Preserve saved links to the retired resources tab after checking access.
   if (tab === "materials") redirect(`/study/reading?assignment=${lesson.id}`);
+  if (tab === "overview" || tab === "work")
+    return (
+      <NotebookRouteShell
+        route={{ kind: "assignment", assignmentId: lesson.id, tab, sessionId }}
+        section={tab === "work" ? "records" : "learning"}
+        title={tab === "work" ? `Saved work · ${lesson.title}` : lesson.title}
+        leafHeading={tab === "overview"}
+      >
+        {tab === "overview" ? (
+          <NotebookAssignmentOverview lesson={lesson} />
+        ) : (
+          <NotebookSavedWorkView
+            work={
+              work
+                ? { status: "ready", data: notebookSavedWork(lesson.id, work) }
+                : {
+                    status: "unavailable",
+                    message: "Your saved work is temporarily unavailable.",
+                  }
+            }
+          />
+        )}
+      </NotebookRouteShell>
+    );
   const studying = tab === "study";
   const completed = lesson.session?.status === "completed";
   const status = !lesson.session
@@ -171,9 +198,7 @@ export default async function StudentAssignmentPage({
             </Link>
           ))}
         </nav>
-        {tab === "overview" ? (
-          <AssignmentOverview lesson={lesson} />
-        ) : studying ? (
+        {studying ? (
           initial ? (
             <StudySession
               key={initial.session.id}
@@ -193,8 +218,6 @@ export default async function StudentAssignmentPage({
               <AssignmentAction lesson={lesson} className="lp-button-primary" />
             </section>
           )
-        ) : work ? (
-          <AssignmentWork assignmentId={lesson.id} work={work} />
         ) : null}
       </div>
     </Workspace>

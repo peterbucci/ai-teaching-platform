@@ -8,8 +8,10 @@ import {
 } from "../../../../lib/evidence/store.ts";
 import { readStudentIntervention } from "../../../../lib/interventions/approval.ts";
 import { Workspace } from "../../../components/workspace.tsx";
+import { TeacherReviewFrame } from "../../notebook/reviews/presenters.tsx";
 import { DeliveredActivity } from "./activity.tsx";
 import "../../../components/intervention-activity.css";
+import "../../notebook/reviews/reviews.css";
 
 export const dynamic = "force-dynamic";
 export default async function StudentInterventionPage({
@@ -38,25 +40,16 @@ export default async function StudentInterventionPage({
     <Workspace area="student" section="Assignments">
       <div className="lp-review-page">
         <Link href="/study/assignments" className="lp-button">
-          Back to assignments
+          Back to My learning
         </Link>
         {loaded ? (
-          <section className="lp-panel">
-            <p className="lp-review-meta">
-              Assigned review · Available since{" "}
-              {new Date(loaded.intervention.delivered_at).toLocaleDateString(
-                "en-US",
-                {
-                  timeZone: "America/New_York",
-                },
-              )}
-            </p>
+          <TeacherReviewFrame intervention={loaded.intervention}>
             <DeliveredActivity
               key={`${loaded.studentId}:${loaded.intervention.approval_id}`}
               intervention={loaded.intervention}
               studentId={loaded.studentId}
             />
-          </section>
+          </TeacherReviewFrame>
         ) : (
           <section className="lp-panel" role="alert">
             <h1>We couldn’t load this activity</h1>

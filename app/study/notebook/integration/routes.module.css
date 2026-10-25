@@ -1,0 +1,13 @@
+.route {
+  min-height: 100dvh;
+}
+
+/* The existing leaves supply the page heading and their own gutters. Keep the
+   N1 header/navigation once, without a second title above the same page. */
+.route[data-leaf-heading="true"] [role="region"] > div:first-child:has(> h1) {
+  display: none;
+}
+
+.route [role="region"] > div:last-child {
+  max-width: 1200px;
+}
