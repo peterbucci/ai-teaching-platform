@@ -11,6 +11,15 @@ import type { StudentIntervention } from "../../../lib/interventions/approval-co
 import type { StudentInterventionFollowup } from "../../../lib/interventions/outcomes-contracts.ts";
 import type { NotebookRouteState } from "./route-state.ts";
 
+/** Approved presentation v1; data completeness and route integration remain separate gates. */
+export const NOTEBOOK_PRESENTATION_CONTRACT = {
+  version: 1,
+  designSha256:
+    "fa69c2d0262b0be684b5e9d21b2131d7c02a5bf9577c1586df07950c6394c570",
+  main: "Main.dc.html",
+  helpInteraction: "V1440-HelpMsg.dc.html",
+} as const;
+
 /** Presentation availability, never a replacement for domain lifecycle state. */
 export type NotebookState<T> =
   | { status: "loading" }
@@ -20,6 +29,22 @@ export type NotebookState<T> =
   | { status: "ready"; data: T };
 
 export type NotebookSection = "learning" | "records" | "reading" | "reviews";
+/** Reviews are reached from My learning, not a fourth primary destination. */
+export type NotebookPrimarySection = Exclude<NotebookSection, "reviews">;
+export const NOTEBOOK_PRIMARY_NAVIGATION = [
+  { section: "learning", label: "My learning", route: { kind: "learning" } },
+  { section: "records", label: "Notebook", route: { kind: "history" } },
+  {
+    section: "reading",
+    label: "Reading",
+    route: { kind: "reading", location: {} },
+  },
+] as const satisfies readonly {
+  section: NotebookPrimarySection;
+  label: string;
+  route: NotebookRouteState;
+}[];
+
 export type NotebookNavigation = {
   section: NotebookSection;
   route: NotebookRouteState;
@@ -27,9 +52,10 @@ export type NotebookNavigation = {
   onNavigate: (destination: NotebookRouteState) => void;
 };
 
-/** Provisional slot names/layout until the corrected export is approved.
+/** Frozen v1: index = page rail, page = main content, context = facing reading.
  * Mount each stateful child once. The existing controller owns its composer,
  * scroll root, focus, storage and display acknowledgements, even across panes.
+ * Pane visibility is local presentation state, not another route or tutor state.
  */
 export type NotebookShellSlots = {
   header?: ReactNode;
@@ -118,6 +144,7 @@ export type NotebookReviewCard = Pick<
   StudentIntervention,
   "approval_id" | "assignment_id" | "delivered_at" | "displayed_at"
 > & {
+  /** Preserve approved wording, even when title and objective emphasize different concepts. */
   title: StudentIntervention["activity"]["title"];
   learningObjective: StudentIntervention["activity"]["learning_objective"];
   href: string;

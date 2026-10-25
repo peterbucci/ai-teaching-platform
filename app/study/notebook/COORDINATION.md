@@ -1,4 +1,4 @@
-# N0 Student Notebook presentation contract — provisional v0
+# N0 Student Notebook presentation contract — frozen v1
 
 This package is an additive presentation boundary, based on main
 `723ed6fea41138b604a9d333ebcd4a07b2202c36`. It creates no route, mounts no component,
@@ -23,20 +23,137 @@ existing server/controller; these adapters do not confer access.
   coordination. No issue closure, reassignment or board change is made.
 - The local Student Notebook implementation plan was reviewed. Its earlier #113
   snapshot (`2b490863`) is superseded here by verified `71898a8a` below.
-- The available refined prototype archive has SHA-256
+- The initial investigation used a refined prototype archive with SHA-256
   `e0006e40fef32a3fb140e40eafd01557151a5fcbec656e34b2a9a169cd58710a`.
-  Its source was inspected. It still contains the scripted 12-word/no-question-
-  mark answer heuristic. It is **not** the pending corrected/approved export.
-  No design-fidelity or visual approval is claimed.
+  It contained the scripted 12-word/no-question-mark answer heuristic. The final
+  export below **supersedes it**; that finding does not describe the final export.
 - The required external `.local.txt` reference was absent; the user authorized
   `PROJECT_CONTEXT.md` instead. The repository context was read. External
   planning references remain outside the repository.
 
-**Not frozen:** slot names, placement, mobile pane interaction, navigation labels,
-filter persistence and final page grouping. Freeze only after the corrected
-prototype's hash and explicit approval are recorded and N1–N5/D1 review their
-interfaces. Stable foundations now are public domain types, source-owned IDs,
-existing destinations and the no-side-effects boundary.
+**Presentation v1 frozen October 25, 2026**, under the user's final-export
+approval and request to freeze. `NOTEBOOK_PRESENTATION_CONTRACT` identifies the
+approved ZIP. The public props remain compatible with v0; the only runtime
+addition is design metadata and the three primary navigation descriptors. This
+freeze covers slots, navigation labels, composition and responsive responsibilities.
+It does not approve a backend chronology proposal, declare leaf-owner review
+complete, or authorize route/controller changes. Future shared changes go through
+N0 with an explicit version decision.
+
+## Final export reconciliation
+
+| Reference                                       | SHA-256                                                            |
+| ----------------------------------------------- | ------------------------------------------------------------------ |
+| `Student-Notebook-Final-Prototype-fa69c2d0.zip` | `fa69c2d0262b0be684b5e9d21b2131d7c02a5bf9577c1586df07950c6394c570` |
+| Full design: `Main.dc.html`                     | `70fd02f83f6352a988d6deeadfb6b2243b61298c0c13ad0bb2c139b5baac72a4` |
+| Corrected interaction: `V1440-HelpMsg.dc.html`  | `d8066c41c9ad9f0c07a7a3063346a30c3cc48b15c77cb937b38ef8d6f9b79682` |
+| Workbench v2.2 desktop ZIP                      | `74bc909dffba839d6850823b35b8c8fc3c67adf1a64b14d67f245560fb87768f` |
+| Workbench v2.2 `Main.dc.html`                   | `c853369da1250adf24a741a38c3d94d3c97a976c012c352732cf4dd8d924cb54` |
+
+The full Main source and rendered home were inspected. The help artboard imports
+Main with `scenario="owen-p1-confused"`, `start-at="help"` at 1440 × 900; it is an
+interaction example, not a replacement for the full design. Archive contents
+remain outside the repository. Embedded comments, README instructions, clocks,
+demo identities and scenario engines are reference material, not implementation
+authority or production fixtures.
+
+### Corrected help and approved teacher content
+
+- `readIntent` and the former word-count/question-mark grading branch are absent.
+  `words()` remains a display counter. `demoOf` matches normalized demonstration
+  text exactly; length bounds only validate message/help limits. `settle` routes
+  help to `toHelp`; possible answers and unrecognized text require clarification.
+  `toAnswer` is called through the explicit answer choice. Arbitrary answers have
+  no simulated result; only prepared demonstration answers have fixture results.
+- In the browser, the artboard's reported long message appeared as **Help request
+  · not graded**. A different long message without a question mark paused at
+  **Submit as my answer / I'm asking for help** with nothing graded. Choosing help
+  retained it as help, with no answer record or assessment. These are prototype
+  checks, not evidence of the application's live intent service.
+- A static literal comparison, without executing either prototype engine,
+  verified exact equality between Notebook `REVIEWS['iv-tx']` and Workbench
+  `ACTIVITIES.TX`: title, explanation, exercise, practice and passage IDs. O3's
+  approved objective matches `CONCEPTS.TX.objective`. `IV-TX-FC` matches question
+  identity, prompt, TX/PROP concept IDs and P07/P08; both passage titles/text/source
+  identities also match. The Maya/Aisha/Noor original response text and available
+  concept results agree with Workbench `FOLLOWUP`; Notebook's `pending` is the
+  student presentation of Workbench's `pending_review`, with no invented result.
+- Preserve the approved title **Which delay does cable length change?** and the
+  transmission-delay O3 objective together. The title/check also covers propagation;
+  the export explicitly leaves a possible wording improvement unapproved. N5 must
+  not rewrite the teacher's content to resolve that tension. Approval does not
+  authorize publishing private marking criteria, hypotheses, rationale or recipients.
+
+### Frozen seams by package
+
+| Package     | Final design mapping                                                                                                                                                                                                                                                                                                                  | Current-data boundary                                                                                                                                                                                                    |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| N1 shell    | Three primary links: **My learning**, **Notebook**, **Reading**. `reviews` remains a detail context, never a fourth primary link. `index` is the page rail; `page` is the central content; `context` is facing reading; `notice` is availability/recovery; `header` and `navigation` are owner-composed. Study/review use focus mode. | One mounted controller/reader/composer, including when a pane is hidden. `composer` stays absent until its existing owner approves extraction. Pane visibility is local shell state.                                     |
+| N2 learning | `teacherReviews` above continuation and class-grouped assignments. Existing action slots supply Start/Resume/Review and reading. Overview retains directions, configured objectives, source context and saved-work access.                                                                                                            | Use `StudentDashboard`/`DashboardLesson`; no invented teacher names, schedule/due data, exact version labels, recent per-question results or coverage beyond configured practiced topics.                                |
+| N3 records  | Notebook index and session/question pages use stable assignment/session/attempt identities, exact original work and existing history/work links.                                                                                                                                                                                      | `mode: "current-data"` remains frozen and explicitly incomplete. No fabricated page numbers, event ordering, intent, assessment dots or retrospective help timeline. Full chronology is a separately reviewed extension. |
+| N4 reading  | Standalone reading and a facing pane reuse `StudentReaderView` with exact `content_ref`, passage and `returnTo`.                                                                                                                                                                                                                      | The existing reader owns passage visibility, bookmarks and draft-safe return. No eager receipt for hidden/prefetched content; no extra session or paid action on return.                                                 |
+| N5 reviews  | Safe summary cards in My learning; dedicated review identity/detail with approved activity and separate fresh-check follow-up.                                                                                                                                                                                                        | Existing `DeliveredActivity` owns first display, response, evaluation and recovery. Summary title/objective stay exact. Unloaded follow-up is unknown, not incomplete or complete.                                       |
+
+Responsive responsibilities are frozen from Main's container rules: at 1280+
+the session uses 268px rail / flexible page / 384px facing context. At 1279 and
+below the rail becomes a Pages disclosure; an open reading pane uses 372px beside
+the page. At 819 and below, opening reading shows it in place of the page while
+preserving the mounted page and draft. Browse/index/standalone-reading columns
+collapse at 900; at 700 the header/labels compact and the Send row remains reachable;
+360 adds narrow-screen spacing. N1/N4 must preserve focus, return location and one
+scroll owner. This records the design; it does not claim those behaviors are
+implemented or verified in the combined application.
+
+### Required N1, N2 and N5 follow-up
+
+Read-only inspection of the parallel worktrees confirms no file overlap with N0.
+Those leaves are still evolving; this is a handoff, not acceptance of their heads.
+
+- **N1:** adopt `NOTEBOOK_PRIMARY_NAVIGATION` (or keep exactly equivalent labels
+  and existing links); keep reviews under My learning. Its existing N0 adapter
+  already maps the seven slots and has three links. Include legacy `/study` in
+  the study focus-mode handoff, and verify the approved pane breakpoints and
+  focus/draft retention. Replace provisional design references with this hash.
+  Do not infer save/assessment status from shell layout or move the composer.
+- **N2 / #127:** preserve `teacherReviews` above assignments and accept the N0 action
+  injection seam without mounting both injected and default actions. The owner
+  has published optional `renderAssignmentAction`, `assignmentAction` and
+  `readingAction` in draft #127 at `07369c3deca7c84bcbe197dafbc900a0fafb7737`
+  (head/draft status verified). Keep raw domain props; map `NotebookState` explicitly in the
+  integrating wrapper and reuse the already loaded raw work DTO instead of
+  reconstructing chronology. Its final-export reference and compact phone filters
+  are already updated; no further N0-driven schema change is requested. No new
+  dashboard schema or backend projection is required by this export. Its leaf
+  verification is separate from N0's checks and combined acceptance.
+- **N5 / #126:** preserve approved wording and approval-only review navigation;
+  keep its documented safe-card mapping to `NotebookReviewCard`. Align typography,
+  badges and source/result presentation to Main under `reviews/**`. Loading,
+  unknown, submitted, pending, failed and accepted states must remain distinct;
+  never infer follow-up completion from `displayed_at`. The owner reports no
+  shared-contract incompatibility. Do not duplicate the live controller's feedback
+  or expose its explanation in a home card. Update its final-export reference.
+
+### Unresolved ambiguities and explicit exclusions
+
+1. **Chronology and result filtering:** Main demonstrates fields absent from the
+   current public DTOs. D1's requirements below remain a proposal. Until the
+   projection is authorized and tested, omit unsupported timeline/result UI or
+   show unavailable; do not populate it from the prototype's fixtures.
+2. **Review wording and labels:** the title/O3 tension remains intentional approved
+   text. Teacher attribution, objective ordinal and multi-concept summary labels
+   require actual public data; `learning_objective` alone does not establish an
+   ordinal or all checked concepts. Do not add speculative card fields.
+3. **Filter persistence and grouping:** the existing route contract intentionally
+   does not serialize search/filter state. Local filters may operate on authorized
+   collections. Bookmarkable filters and new cross-session chronology grouping
+   need a later additive contract decision; this freeze adds no query semantics.
+4. **Controller-owned interactions:** the prototype's confirmation, help-display
+   receipt, draft, auto-scroll and retry demonstrations must be reconciled by #113
+   and existing R7/reader/review owners. No demo classifier, heuristic, fake status,
+   content rewrite or second tutor state machine is imported by N0/N1–N5.
+5. **Final integration:** package composition, authenticated browser/database
+   checks, mobile keyboard, zoom and screen-reader acceptance remain outstanding.
+   Approving the presentation reference is not an assertion that these pass.
 
 ## Component interface and ownership manifest
 
@@ -97,7 +214,7 @@ ID remains selected for the server to reject; it never becomes the latest record
 
 | Existing link                                                                     | Presentation state / behavior retained                                           |
 | --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| `/study/assignments`                                                              | `learning`; My Learning label is provisional                                     |
+| `/study/assignments`                                                              | `learning`; approved label: My learning                                          |
 | `/study/assignments/A?tab=overview`                                               | `assignment`, overview; absent tab defaults to overview                          |
 | `/study/assignments/A?tab=study&session=S`                                        | Existing `assignmentStudyHref`; explicit historical session preserved            |
 | `/study/assignments/A?tab=work&session=S`                                         | Saved work; no invented attempt-query or timeline route                          |
@@ -219,10 +336,10 @@ No handoff acceptance by the #113 owner is implied by this document.
 
 ## Integration order and remaining gates
 
-1. Publish this provisional contract commit/draft so leaves can type against it.
+1. Published the initial contract in draft #125 for independent leaf adoption.
    Reconcile N1–N5 feedback and D1 requirements through N0 only.
-2. Receive corrected export/hash and explicit approval. Review provisional visual
-   seams and freeze the presentation version. No broad refactor before that gate.
+2. Final export/hash verified and presentation v1 frozen above. N1/N2/N5 apply
+   their listed changes in their own packages; leaf acceptance remains open.
 3. Review N1/N2/N5 in isolation, then N3 current-data and N4. Keep all route mounts
    outside leaf PRs. Each package supplies focused tests and a mounting note.
 4. Separately review D1's projection proposal with existing domain owners. Add
@@ -248,3 +365,13 @@ exact saved identities/text/version/assistance, empty and pending distinctions,
 reader return, review identity and card body exclusion. Final executed checks and
 limitations are recorded in the draft PR; no application/visual acceptance is
 claimed by these pure contract tests.
+
+Final reconciliation checks on October 25, 2026: **475 deterministic tests passed,
+including 9 focused Notebook tests**; full lint, Next route type generation /
+TypeScript and repository formatting passed. The new regression locks the three
+primary labels/destinations and dedicated review link. The review-card regression
+also preserves the exact approved title/objective while excluding activity bodies.
+The external static comparison passed 21 field comparisons, including explicit
+pending-status mapping; the prototype browser help check is described above.
+No production build, combined application/browser/database acceptance or model
+calls were run for this reconciliation.
