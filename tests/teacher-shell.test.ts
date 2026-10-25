@@ -216,7 +216,7 @@ test("ordinary selection follows URL updates but acknowledged drafts clear omitt
   );
 });
 
-test("course destinations accept only their supported scope while explicit Progress retains investigation filters", () => {
+test("course Assignments stays unscoped while explicit assignment views retain investigation filters", () => {
   const context = parseTeacherWorkspaceContext({
     assignment: firstId,
     origin: "synthetic_fixture",
@@ -226,15 +226,12 @@ test("course destinations accept only their supported scope while explicit Progr
     attempt: attemptId,
   });
   for (const path of [
+    "/teacher/assignments",
     "/teacher/lessons",
     "/teacher/materials",
     "/teacher/objectives",
   ])
     assert.equal(workspaceNavigationHref(path, context), path);
-  assert.deepEqual(
-    [...query(workspaceNavigationHref("/teacher/assignments", context))],
-    [["assignment", firstId]],
-  );
   assert.deepEqual(
     [...query(workspaceNavigationHref("/teacher", context))],
     [
@@ -250,14 +247,40 @@ test("course destinations accept only their supported scope while explicit Progr
       ["student", "fictional-student"],
     ],
   );
-  const progress = query(
-    workspaceNavigationHref("/teacher/assignments", context, "progress"),
+  for (const view of ["progress", "review", "preview"] as const) {
+    const selected = query(
+      workspaceNavigationHref("/teacher/assignments", context, view),
+    );
+    assert.equal(selected.get("view"), view);
+    assert.equal(selected.get("assignment"), firstId);
+    assert.equal(selected.get("origin"), "synthetic_fixture");
+    assert.equal(selected.get("student"), "fictional-student");
+    assert.equal(selected.get("concept"), "latency");
+    assert.equal(selected.get("attempt"), attemptId);
+    assert.equal(selected.get("q"), context.q);
+  }
+});
+
+test("returning to course Assignments after switching assignment clears every selected scope", () => {
+  const switched = query(switchedAssignmentHref(secondId, "live_demo"));
+  const context = parseTeacherWorkspaceContext({
+    assignment: switched.get("assignment") ?? undefined,
+    origin: switched.get("origin") ?? undefined,
+    concept: "latency",
+    student: "fictional-student",
+    session: sessionId,
+    attempt: attemptId,
+    seedAttempt: [attemptId],
+  });
+  // Course tabs, the mobile course link, breadcrumb and switcher all call this
+  // adapter without a view; only explicit assignment navigation adds a view.
+  assert.equal(
+    workspaceNavigationHref("/teacher/assignments", context),
+    "/teacher/assignments",
   );
-  assert.equal(progress.get("view"), "progress");
-  assert.equal(progress.get("assignment"), firstId);
-  assert.equal(progress.get("origin"), "synthetic_fixture");
-  assert.equal(progress.get("student"), "fictional-student");
-  assert.equal(progress.get("concept"), "latency");
+  assert.equal(context.assignment, secondId);
+  assert.deepEqual(context.seedAttempt, [attemptId]);
+  assert.equal(switched.get("view"), "progress");
 });
 
 test("approved course and assignment hierarchy retains all existing teacher destinations", () => {
@@ -281,4 +304,32 @@ test("approved course and assignment hierarchy retains all existing teacher dest
   ] as const;
   for (const [path, view, expected] of destinations)
     assert.equal(workspaceDestination(path, view), expected, path);
+});
+
+test("Progress tab from a session restores the original selection while course Assignments remains discovery", () => {
+  const context = parseTeacherWorkspaceContext({
+    assignment: firstId,
+    student: secondId,
+    session: sessionId,
+    attempt: attemptId,
+    returnTo: "progress",
+    progressStudent: unknownId,
+    progressConcept: "latency",
+    progressView: "questions",
+    pane: "grid",
+  });
+  const href = workspaceNavigationHref(
+    "/teacher/assignments",
+    context,
+    "progress",
+  );
+  assert.equal(query(href).get("student"), unknownId);
+  assert.equal(query(href).get("concept"), "latency");
+  assert.equal(query(href).has("session"), false);
+  assert.equal(query(href).has("attempt"), false);
+  assert.equal(new URL(href, "https://example.test").hash, "#progress-main");
+  assert.equal(
+    workspaceNavigationHref("/teacher/assignments", context),
+    "/teacher/assignments",
+  );
 });

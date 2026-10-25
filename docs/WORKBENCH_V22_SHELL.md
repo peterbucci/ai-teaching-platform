@@ -4,8 +4,9 @@ Coordination: [#114](https://github.com/peterbucci/ai-teaching-platform/issues/1
 Original stacked base: repaired PR #116 at `76b11ddfa0ce784f70290c0746efd94c7042f6fc`.
 The user-approved dependency merge includes PR #116's later repair
 `94e4e534ea4d68d86ea0810067497bf07258e6d2`; the original base remains an ancestor.
-This successor owns shared presentation only; PR #116 itself is unchanged.
-Incoming page-owned changes are preserved verbatim from that dependency.
+This successor owns shared presentation and the explicitly assigned session
+return correction below; PR #116 itself is unchanged. Other page-owned files
+are preserved from the dependency.
 
 ## Design and authority
 
@@ -49,7 +50,7 @@ their own course/assignment navigation or duplicate the context band.
 | Navigation                  | URL / meaning                                                                                                     |
 | --------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | Overview                    | `/teacher` with assignment and origin; current content is honestly selected-assignment scope                      |
-| Assignments                 | `/teacher/assignments` without `view`: course discovery                                                           |
+| Assignments                 | Bare `/teacher/assignments`: course discovery; no selected-assignment query                                       |
 | Lessons                     | `/teacher/lessons`; Materials and Objectives remain reachable at their original URLs through lesson subnavigation |
 | Progress                    | `/teacher/assignments?assignment=…&view=progress`; PR #117 owns actual progress content                           |
 | Assignment review / preview | Explicit `view=review` / `view=preview` remains in assignment scope under Progress                                |
@@ -59,7 +60,7 @@ their own course/assignment navigation or duplicate the context band.
 
 `workspaceNavigationHref` in `app/teacher/workspace-model.ts` is the shared
 adapter over PR #116's `teacherNavigationHref` and the unchanged validated
-`teacherWorkspaceHref`. Course Assignments receives only assignment; Overview
+`teacherWorkspaceHref`. Course Assignments receives no selection parameters; Overview
 receives assignment/origin; Roster additionally receives student, never an old
 answer search. Lessons, Materials and Objectives receive no investigation
 parameters. Evidence, Insights and Interventions retain validated investigation
@@ -70,6 +71,80 @@ text. Explicit page-owned preparation links still use the existing seed contract
 `switchedAssignmentHref` starts Progress with only the
 new assignment and origin, clearing incompatible concepts/records/panes. It does
 not select recipients or write anything. The switcher explains this clearing.
+
+### S1 and C2: course discovery and Class Progress returns
+
+These corrections address [PR #122 S1/C2](https://github.com/peterbucci/ai-teaching-platform/blob/codex/workbench-acceptance-verification/acceptance/v22/DEFECTS.md).
+Every shared course Assignments entry, including the desktop course tab, phone
+Back link, breadcrumb and workspace switcher, uses the bare library route.
+Explicit `view=progress|review|preview` links keep their assignment. The
+Assignments page continues to interpret explicit assignment parameters normally.
+
+Agent D owns outgoing Assignment links and the returning page's focus controller.
+Agent C owns `parseTeacherWorkspaceContext`, `teacherReturnHref`,
+`teacherProgressReturnHref`, `resolveTeacherSessionContext` and the session
+detail receiver. The agreed session URL fields are:
+
+| Field                                         | Meaning / allowlist                                                                                                                |
+| --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `returnTo`                                    | `progress` selects this contract; other existing return destinations are unchanged                                                 |
+| `assignment`, `origin`                        | Actual assignment UUID and `all                                                                                                    | synthetic_fixture                         | live_demo` evidence filter |
+| `session`, `attempt`, `evaluation`, `student` | Optional target record identities; if supplied they must match the authorized session/evidence                                     |
+| `progressStudent`                             | Optional original selection UUID, validated against that assignment's current roster; may differ from the opened session's student |
+| `progressConcept`                             | Optional original concept selection, validated against the assignment's pinned content                                             |
+| `progressView`                                | `grid                                                                                                                              | concepts                                  | questions                  | sessions`; defaults to `grid` when omitted |
+| `pane`                                        | `grid                                                                                                                              | details`; defaults to `grid` when omitted |
+| `class`, `status`                             | Optional UUID matching the authorized session's class; status is `all                                                              | active                                    | inactive                   | unavailable`                               |
+
+The `progress*`, `pane`, `class` and `status` fields above are parsed only for
+`returnTo=progress`. Other pages retain their own query contracts. Original
+selection omissions remain absent: opening a student's row from a concept-wide
+view does not create a student filter on return. Questions/Sessions can open a
+different student's record while preserving the original, roster-authorized
+selection. An unrelated library class filter must be omitted by the sender.
+
+The receiver first uses existing teacher session and pinned-content services.
+When a valid `progressStudent` UUID is supplied, it reuses the existing
+`readAssignmentEvidence` service for that session's assignment to obtain the
+authorized roster. This adds a bounded read for selected-student returns; it
+adds no service, database query, mutation or permission grant. Malformed or
+cross-scope identities return the existing not-found response.
+
+The return builder emits only `/teacher/assignments`, fixed `view=progress`,
+assignment/origin, original selection mapped to `student`/`concept`, subview,
+pane and optional class/status. It excludes target record IDs, seed selection,
+search, private text, draft/request identifiers and any raw return URL. The
+focus fragment is computed, never caller-selected:
+
+- Details: `#cell-evidence`.
+- Grid selection: the existing `ap-selection-{student-or-all}-{concept-or-all}` ID.
+- By idea selection: `ap-selection-all-{concept}`, even when a student filter is retained.
+- Questions, Sessions or no visible selection: `#progress-main`.
+
+Fragments are encoded from validated identities. Agent D owns resolving these
+fixed targets after authorized rendering, including desktop focus, hidden-pane
+fallbacks and direct/reloaded URLs. The shell leaves nonempty hash placement to
+that page controller. Actual integration requires a disposable composition of
+the pinned Agent C and Agent D commits; standalone fixture tests are not that
+browser acceptance.
+
+For page-owned edge-to-edge progress frames, the existing shell inset is
+`24px 28px 56px` desktop, `18px 14px 32px` at phone widths, with `12px` inline
+at widths up to360px. A page may cancel those insets like `.tw-panes` and supply
+one internal heading gutter. Its page controller and record layout stay owned
+by that page; no second pane controller is required.
+
+### F1 ownership agreement
+
+Agent A owns Evidence row/list/detail focus. Its entire managed list/detail
+region must use `data-workspace-restoration="page"`. The shared shell excludes
+descendant focus and scroll from its snapshots and yields all placement when a
+visible managed control already has focus. Agent A must also preserve the
+originating row's entry before navigation: immediate detail focus is appropriate
+only when the full destination URL already equals the current URL. Otherwise
+post-navigation/hash placement owns the detail target. A boundary alone cannot
+repair a page that overwrites the original entry's row intent before leaving.
+No Evidence files or shared restoration behavior are changed by S1/C2.
 
 ### Contextual panes
 

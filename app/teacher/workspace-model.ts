@@ -1,5 +1,6 @@
 import {
   parseTeacherWorkspaceContext,
+  teacherProgressReturnHref,
   teacherWorkspaceHref,
   type TeacherWorkspaceContext,
   type TeacherWorkspaceParams,
@@ -69,14 +70,16 @@ export function workspaceNavigationHref(
   });
   // Explicit assignment views are investigations (including #117's student /
   // concept progress filters), unlike course-level assignment discovery.
-  if (view && path === "/teacher/assignments")
-    return `${teacherWorkspaceHref(path, selected)}&view=${view}`;
+  if (path === "/teacher/assignments") {
+    if (view === "progress" && selected.returnTo === "progress")
+      return teacherProgressReturnHref(selected);
+    return view ? `${teacherWorkspaceHref(path, selected)}&view=${view}` : path;
+  }
   switch (path) {
     case "/teacher":
     case "/teacher/evidence":
     case "/teacher/interventions":
     case "/teacher/lessons":
-    case "/teacher/assignments":
     case "/teacher/students":
     case "/teacher/materials":
     case "/teacher/objectives":
