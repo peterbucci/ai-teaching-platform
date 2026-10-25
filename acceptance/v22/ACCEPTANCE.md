@@ -4,7 +4,7 @@
 
 Coordination: [#35](https://github.com/peterbucci/ai-teaching-platform/issues/35), [#76](https://github.com/peterbucci/ai-teaching-platform/issues/76), [#114](https://github.com/peterbucci/ai-teaching-platform/issues/114). Capture date: October 25, 2026. Accounts and records are fictional. Providers were disabled; no paid calls were made. Screen-reader and actual-model verification remain unrun.
 
-The shared shell and newer assignment/lesson heads arrived during packaging. See [second-snapshot intake](SHELL_INTAKE.md); it is separate from the completed first-snapshot results below.
+The shared shell and newer assignment/lesson heads arrived during packaging. See [second-snapshot intake](SHELL_INTAKE.md); it is separate from the completed first-snapshot results below. A third [latest-head intake](LATEST_INTAKE.md) now proves a #116/#120 navigation merge conflict and records the shell CI stale-label failure. The local composition runner stopped with that conflict intact. No latest combined candidate is accepted.
 
 ## Review entry points
 

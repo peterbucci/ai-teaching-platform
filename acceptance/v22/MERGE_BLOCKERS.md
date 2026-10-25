@@ -1,5 +1,7 @@
 # Remaining merge and acceptance gates
 
+Latest intake: [M01 navigation conflict and T01 shell CI assertion failure](LATEST_INTAKE.md) are additional merge gates. They concern newer heads and do not change the historical snapshot results below.
+
 The combined candidate is **not accepted for the complete Learning Pulse / Workbench v2.2 refactor**. This is an acceptance report, not a request to merge any implementation PR.
 
 1. **Pin the shared shell.** The first baseline had no committed shell delta. PR #120 and newer #117/#118 heads have now been composed separately; see SHELL_INTAKE.md. Complete their own runtime and visual checks. Do not integrate uncommitted shared files or force conflicts.

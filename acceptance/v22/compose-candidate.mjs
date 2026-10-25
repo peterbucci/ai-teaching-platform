@@ -1,7 +1,9 @@
 import { spawnSync } from "node:child_process";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { isAbsolute, resolve } from "node:path";
-const [repo, destination, receipt] = process.argv.slice(2);
+const [repo, destination, receipt, manifestPath] = process.argv.slice(2);
+if (manifestPath && !isAbsolute(manifestPath))
+  throw new Error("Optional manifest path must be absolute.");
 if (![repo, destination, receipt].every((p) => p && isAbsolute(p)))
   throw new Error(
     "Pass absolute repository, NEW worktree and NEW receipt paths.",
@@ -9,7 +11,10 @@ if (![repo, destination, receipt].every((p) => p && isAbsolute(p)))
 if (existsSync(destination) || existsSync(receipt))
   throw new Error("Destination and receipt must be new.");
 const pins = JSON.parse(
-  readFileSync(new URL("./baselines.json", import.meta.url), "utf8"),
+  readFileSync(
+    manifestPath || new URL("./baselines.json", import.meta.url),
+    "utf8",
+  ),
 );
 const byTarget = new Map(pins.baselines.map((p) => [p.target, p]));
 function git(cwd, ...args) {

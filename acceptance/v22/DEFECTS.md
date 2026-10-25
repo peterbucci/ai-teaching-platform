@@ -1,5 +1,7 @@
 # Defects and integration gaps
 
+Latest intake: [M01 navigation conflict and T01 shell CI assertion failure](LATEST_INTAKE.md) are additional merge gates. They concern newer heads and do not change the historical snapshot results below.
+
 Owners below are implementation PRs/workstreams, not new GitHub assignee changes. No competing application fixes were made. P1 blocks the complete v2.2 visual-acceptance claim; P2 affects navigation/recovery correctness; P3 is an integration decision. Functional findings and visual differences are separate.
 
 ## Functional and context findings

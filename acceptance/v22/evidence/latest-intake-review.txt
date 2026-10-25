@@ -1,0 +1,17 @@
+Latest intake 2026-10-25T05:12:46.641Z: static only; no runtime activity.
+
+Ten object-only pairwise checks: 9 clean, 1 conflicts, 0 command failures. Raw commands, exits, stdout and stderr are in latest-intake-review.json.
+
+BLOCKER #116 + #120: app/teacher/navigation.tsx (exit 1).
+
+#116 94e4e534 and #120 dd97767 owners must reconcile the shared navigation component. presentation.tsx and TEACHER_WORKBENCH_CONTRACTS.md also overlap; a clean textual merge does not establish authoritative saved-draft scope or compatible destination filtering.
+
+#113 2fc0d49 changes production answer recovery. Its committed browser results are explicitly BEFORE 2b490863; after-fix exact-head verification remains pending. Prior results cannot close the new recovery gate.
+
+#118 9c44fe8 is artifacts-only: ten PNG/JSON/TXT/HTML files under app/teacher/lessons/verification. Runtime source remains byte-identical outside that directory to 7b82197. Build/menu receipts name 7b82197, not a new combined runtime.
+
+No latest combined tree is accepted and no runnable candidate was created. Clean pairwise checks are not combined acceptance.
+
+The separately prepared second candidate 1a9d95b3/c2f1c30b still contains old #113 2b49086 and #116 76b11dd. Its 36 planned default screenshots at3350 will describe only that pinned baseline; awaiting parent GO.
+
+No source files, protected docs, worktrees, refs or existing PRs modified. Only unreachable Git merge objects and local verification reports were created.

@@ -19,3 +19,5 @@ The repository unit suite passed **557 tests**, all six colocated authoring file
 Host free space subsequently rose to about 51 GiB. The coordinating recovery task requested a serialized fresh PostgreSQL WAL/restart gate and acceptance window. New heavyweight builds and database/browser activity in this task remain held until that window ends and the shared guard permits execution. The earlier low-space observation is historical, not a current capacity measurement.
 
 Static re-review distinguishes defects already changed by newer heads from remaining defects. See the separate `independent-review/shell-review.txt` when available; do not apply all first-snapshot findings to the updated shell unchanged. A clean merge and unit tests still do not establish full integration or visual acceptance.
+
+The second snapshot also passed all ten pairwise text merges. A separate disposable recomposition produced the identical tree; see evidence/shell-reproduction-receipt.json. To reproduce this snapshot, pass the absolute path to shell-baselines.json as the composition utility's fourth argument. Omitting that argument still reproduces the first snapshot.

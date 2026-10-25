@@ -1,5 +1,7 @@
 # Pinned integration matrix
 
+Latest intake: [M01 navigation conflict and T01 shell CI assertion failure](LATEST_INTAKE.md) are additional merge gates. They concern newer heads and do not change the historical snapshot results below.
+
 First GitHub baseline observed at 2026-10-25T04:09:19Z. This table preserves that snapshot; [SHELL_INTAKE.md](SHELL_INTAKE.md) records the newer #117/#118/#120 heads and separately composed candidate. Exact check URLs and completion times are in [baselines.json](baselines.json). All four PRs were open drafts; this verification does not constitute human approval.
 
 | Snapshot           | Exact commit                                                                          | Branch-specific evidence                                               | Combined status                                               |
