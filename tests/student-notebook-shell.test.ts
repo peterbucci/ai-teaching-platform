@@ -152,6 +152,30 @@ test("N0 slots mount once, preserve custom navigation, and keep composer extract
   );
 });
 
+test("N0 legacy study and review routes retain focus mode with frozen primary navigation", () => {
+  for (const route of [
+    { kind: "legacy-study", assignmentId: "assignment", sessionId: "session" },
+    { kind: "assignment", assignmentId: "assignment", tab: "study" },
+    { kind: "review", approvalId: "approved" },
+    { kind: "history" },
+  ]) {
+    const html = render(`h(N0NotebookShell, {
+      navigation: {section:'records',route:${JSON.stringify(route)},onNavigate:()=>{}},
+      slots: {page:h('textarea',{'aria-label':'Existing composer'})}
+    })`);
+    assert.ok(
+      html.includes(
+        `data-mode="${route.kind === "history" ? "browse" : "focus"}"`,
+      ),
+    );
+    assert.equal((html.match(/<textarea/g) ?? []).length, 1);
+    assert.ok(html.includes('href="/study/assignments"'));
+    assert.ok(html.includes('href="/study/history"'));
+    assert.ok(html.includes('href="/study/reading"'));
+    assert.ok(!html.includes('href="/study/interventions'));
+  }
+});
+
 test("N0 navigation emits only explicit ordinary-click intent and leaves new-tab clicks native", () => {
   const html = render(`(() => {
     const calls = [];

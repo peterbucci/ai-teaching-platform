@@ -98,7 +98,7 @@ const identity = {
   origin: base,
   route: "/",
   sourceSha,
-  n0Sha: "00929bca7d7072a683940b5485d55b4442dd9514",
+  n0Sha: "8bca4d3554ae02a909b93f1a7b95ed033b62a718",
   freshBrowser: true,
   fixtureOnly: true,
 };

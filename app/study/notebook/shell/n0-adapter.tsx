@@ -1,6 +1,7 @@
 "use client";
 
 import type { MouseEventHandler } from "react";
+import { NOTEBOOK_PRIMARY_NAVIGATION } from "../contracts.ts";
 import type {
   NotebookShellProps as ContractProps,
   NotebookNavigation,
@@ -54,6 +55,7 @@ export function N0NotebookShell({
   };
   const focused =
     navigation.route.kind === "review" ||
+    navigation.route.kind === "legacy-study" ||
     (navigation.route.kind === "assignment" &&
       navigation.route.tab === "study");
   return (
@@ -66,29 +68,12 @@ export function N0NotebookShell({
       questionContext={presentation?.questionContext}
       headerContent={slots.header}
       navigationContent={slots.navigation}
-      destinations={[
-        {
-          id: "learning",
-          label: "My learning",
-          current: navigation.section === "learning",
-          ...notebookNavigationLink(navigation, { kind: "learning" }),
-        },
-        {
-          id: "records",
-          label: "Notebook",
-          current: navigation.section === "records",
-          ...notebookNavigationLink(navigation, { kind: "history" }),
-        },
-        {
-          id: "reading",
-          label: "Reading",
-          current: navigation.section === "reading",
-          ...notebookNavigationLink(navigation, {
-            kind: "reading",
-            location: {},
-          }),
-        },
-      ]}
+      destinations={NOTEBOOK_PRIMARY_NAVIGATION.map((destination) => ({
+        id: destination.section,
+        label: destination.label,
+        current: navigation.section === destination.section,
+        ...notebookNavigationLink(navigation, destination.route),
+      }))}
       pages={
         slots.index == null
           ? undefined

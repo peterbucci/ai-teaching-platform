@@ -2,7 +2,8 @@
 
 N1 is an unmounted presentation package. It preserves the original implementation
 and adds a small adapter for N0 PR #125 at
-`00929bca7d7072a683940b5485d55b4442dd9514`. The PR is stacked on
+frozen v1 `8bca4d3554ae02a909b93f1a7b95ed033b62a718`, following the original
+`00929bca7d7072a683940b5485d55b4442dd9514` handoff. The PR is stacked on
 `codex/student-notebook-contracts`. N0 files are inherited unchanged, not copied
 or edited in the N1 diff.
 
@@ -45,7 +46,9 @@ CSS, Workspace, domain service, provider, storage or authentication file changes
 `presentation` optionally supplies `title`, `subtitle`, `eyebrow`, `account`,
 `questionContext`, `indexTitle` and `contextTitle`. These are display values from
 authorized projections, never permission or routing authorities. The default
-navigation is My learning / Notebook / Reading. Teacher-review links come from
+navigation consumes N0's `NOTEBOOK_PRIMARY_NAVIGATION`: My learning / Notebook /
+Reading. Legacy `/study`, assignment study and review routes use focus mode.
+Teacher-review links come from
 N5 in My learning or the index; there is no invented review-list route.
 
 Example for the future integrating owner (not installed by this PR):
@@ -121,9 +124,8 @@ not the latter. Native modified/new-tab links keep normal browser behavior.
 ## Remaining review boundaries
 
 No N0 contract update was necessary: shared slots/navigation are consumed directly.
-N0's freeze/coordination wording must be reconciled by its owner with the now
-authoritative design; N1 does not edit it. The local `presentation` labels are an
-adapter detail, not a new shared contract.
+N0's frozen v1 coordination document was reviewed and inherited unchanged.
+The local `presentation` labels are an adapter detail, not a new shared contract.
 
 Remaining full-application checks include notice extraction, display receipts,
 live reader return, PR #113 scroll/Jump-to-latest behavior, real save recovery,
