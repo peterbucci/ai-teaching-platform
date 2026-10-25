@@ -19,11 +19,18 @@ export function RosterFocus() {
   const search = useSearchParams();
   useEffect(() => {
     const restore = () => {
-      const id = decodeURIComponent(window.location.hash.slice(1));
+      let id: string;
+      try {
+        id = decodeURIComponent(window.location.hash.slice(1));
+      } catch {
+        return;
+      }
       if (!/^roster-(main|student-[a-f0-9-]+|attempt-[a-f0-9-]+)$/.test(id))
         return;
-      const element =
-        document.getElementById(id) ?? document.getElementById("roster-main");
+      const selected = document.getElementById(id);
+      const element = selected?.getClientRects().length
+        ? selected
+        : document.getElementById("roster-main");
       if (element?.getClientRects().length) {
         element.focus({ preventScroll: true });
         element.scrollIntoView({ block: "nearest" });

@@ -343,7 +343,11 @@ export default async function RosterPage({
             >
               <label>
                 Assignment
-                <select name="assignment" defaultValue={data.assignment_id}>
+                <select
+                  aria-label="Assignment"
+                  name="assignment"
+                  defaultValue={data.assignment_id}
+                >
                   {assignments.map((a) => (
                     <option value={a.id} key={a.id}>
                       {a.class_name} · {a.title}
@@ -353,7 +357,11 @@ export default async function RosterPage({
               </label>
               <label>
                 Evidence source
-                <select name="origin" defaultValue={origin}>
+                <select
+                  aria-label="Evidence source"
+                  name="origin"
+                  defaultValue={origin}
+                >
                   <option value="all">All records</option>
                   <option value="synthetic_fixture">Synthetic histories</option>
                   <option value="live_demo">Live demo interactions</option>
@@ -362,6 +370,7 @@ export default async function RosterPage({
               <label>
                 Participation
                 <select
+                  aria-label="Participation"
                   name="participation"
                   defaultValue={context.participation}
                 >
