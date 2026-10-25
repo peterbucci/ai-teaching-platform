@@ -615,3 +615,35 @@ test("restoration rejects arbitrary, malformed and unrelated selection hashes", 
   ])
     assert.equal(progressRestorationTarget(hash, context), null);
 });
+
+test("hashless session returns restore the authorized progress view and selection", () => {
+  const context = {
+    student: DEMO_IDS.studentOne,
+    concept: "transmission_delay",
+    progressView: "grid" as const,
+    pane: "grid" as const,
+  };
+  assert.equal(
+    progressRestorationTarget("", context),
+    progressSelectionId(context.student, context.concept),
+  );
+  assert.equal(
+    progressRestorationTarget("", { ...context, progressView: "concepts" }),
+    progressSelectionId(undefined, context.concept),
+  );
+  assert.equal(
+    progressRestorationTarget("", { ...context, pane: "details" }),
+    "cell-evidence",
+  );
+  for (const progressView of ["questions", "sessions"] as const) {
+    assert.equal(
+      progressRestorationTarget("", { ...context, progressView }),
+      "progress-main",
+    );
+    assert.equal(
+      progressRestorationTarget("#", { ...context, progressView }),
+      "progress-main",
+    );
+  }
+  assert.equal(progressRestorationTarget("#unrelated", context), null);
+});

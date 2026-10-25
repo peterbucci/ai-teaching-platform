@@ -113,6 +113,9 @@ export function progressRestorationTarget(
   hash: string,
   context: ProgressFocusContext,
 ) {
+  // Assignment tabs preserve validated selection without adding a fragment.
+  // Returning from a session still needs the intended page-owned focus target.
+  if (hash === "" || hash === "#") return progressReturnFocusId(context);
   let id: string;
   try {
     id = decodeURIComponent(hash.startsWith("#") ? hash.slice(1) : hash);

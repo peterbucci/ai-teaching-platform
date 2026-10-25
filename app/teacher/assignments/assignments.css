@@ -118,6 +118,35 @@
 .awa-filter-disclosure[open] {
   padding-bottom: 12px;
 }
+/* Keep the closed desktop control beside the heading; opening it restores the
+   full-width form in normal flow. Native disclosure and GET filtering stay intact. */
+@media (min-width: 801px) {
+  .awa-discovery:has(> .awa-filter-disclosure:not([open])) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) fit-content(320px);
+    column-gap: 16px;
+    align-items: start;
+  }
+  .awa-discovery > .awa-discovery-heading {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .awa-discovery > .awa-filter-disclosure:not([open]) {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+    border: 1px solid #e1e9e4;
+    border-radius: 8px;
+  }
+  .awa-discovery > .awa-filter-disclosure:not([open]) > summary {
+    padding-inline: 10px;
+    overflow-wrap: anywhere;
+  }
+  .awa-discovery > .awa-assignment-tree,
+  .awa-discovery > .awa-empty {
+    grid-column: 1 / -1;
+  }
+}
 .awa-workspace .lp-button {
   font-size: 13.5px;
   min-height: 34px;
