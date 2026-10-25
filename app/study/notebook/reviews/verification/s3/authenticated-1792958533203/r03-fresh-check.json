@@ -1,0 +1,212 @@
+{
+  "source": "d486fc029941567f81257d7b8717b1cb3dab09d4",
+  "diffSha256": "3d1a18c21bc47435cbb6b3e6f4c408c6c0174903da6cb9a070c01136059a33a6",
+  "runtime": "production",
+  "buildId": "3erwlXPL8MHDd835FjUP4",
+  "base": "http://127.0.0.1:3413",
+  "sourceFiles": [
+    {
+      "file": "app/study/interventions/[approvalId]/activity.tsx",
+      "sha256": "7b3b1eda995dfebaebf791c3342d26c14038fded710da347d80a42e69d5f64b3"
+    },
+    {
+      "file": "app/study/interventions/[approvalId]/page.tsx",
+      "sha256": "2fb694319b27d6bd8aa122f148956ab5718f970fd0d54f971353cc924faf7cc7"
+    },
+    {
+      "file": "app/study/notebook/reviews/presenters.tsx",
+      "sha256": "2cb4c3ff4f2ab3c8f417a113214f48b40ae7d747721a73c816869994f2a94ddd"
+    },
+    {
+      "file": "lib/interventions/student-concept-names.ts",
+      "sha256": "beebb47d3636f8eb4467da7b686b6e096c82d517c1812ca1dc885463faeaf737"
+    },
+    {
+      "file": "lib/interventions/outcomes.ts",
+      "sha256": "bfd506c6e13b580acd3ec0f1d2e29f09a7c85873ae05ab00b9ff87a0d92b7af3"
+    },
+    {
+      "file": "app/teacher/interventions/followup.tsx",
+      "sha256": "ab4f9f44fa16db60a523176643fa58bb63784697c6ccb8ba604af8dfd21b7230"
+    }
+  ],
+  "sourceFilesSha256": "5e6aadc6e3de8f3f2e51710a15bff6837ea85b1aefb015c8bec919e95715a316",
+  "fixture": "New uploaded synthetic water-state lesson with digit-leading UUID concepts",
+  "evaluationProvenance": "Authored synthetic fixture; no actual-model assessment",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "checks": [
+    "authorized fictional uploaded lesson and teacher-approved activity use UUID concept identities",
+    "one mounted review controller preserves exact unsent draft across refresh and browser Back/Forward",
+    "lost submit response recovers the exact saved answer without resubmission or evaluation retry",
+    "authored accepted fixture is established before the immutable comparison baseline",
+    "student 1440px shows public UUID-concept title, exact saved text and accepted result through refresh/history",
+    "student 1024px shows public UUID-concept title, exact saved text and accepted result through refresh/history",
+    "student 390px shows public UUID-concept title, exact saved text and accepted result through refresh/history",
+    "student 320px shows public UUID-concept title, exact saved text and accepted result through refresh/history",
+    "authenticated teacher API and UI retain the same accepted evaluation, original response and complete evaluation history"
+  ],
+  "comparisons": [
+    {
+      "stage": "student-1440",
+      "sha256": "e11540b47b0c7648843d0fb5689ef5482fa219fb7eba25a7989cde5ca572296b",
+      "hashes": {
+        "approval": "caecefa62c2be53f77b6227e855cfa84e979453f3fc252836cdfc9871cd68466",
+        "attempt": "84ab4712ee751c5416ad0f926fd61d71b589624757506f2b1f9cb7874d4a2364",
+        "evaluations": "4811cd1684a748e78c00c9f3a2169765e98df21094e3b93b3d22963f71155fc4"
+      }
+    },
+    {
+      "stage": "student-1440-refresh-history",
+      "sha256": "e11540b47b0c7648843d0fb5689ef5482fa219fb7eba25a7989cde5ca572296b",
+      "hashes": {
+        "approval": "caecefa62c2be53f77b6227e855cfa84e979453f3fc252836cdfc9871cd68466",
+        "attempt": "84ab4712ee751c5416ad0f926fd61d71b589624757506f2b1f9cb7874d4a2364",
+        "evaluations": "4811cd1684a748e78c00c9f3a2169765e98df21094e3b93b3d22963f71155fc4"
+      }
+    },
+    {
+      "stage": "student-1024",
+      "sha256": "e11540b47b0c7648843d0fb5689ef5482fa219fb7eba25a7989cde5ca572296b",
+      "hashes": {
+        "approval": "caecefa62c2be53f77b6227e855cfa84e979453f3fc252836cdfc9871cd68466",
+        "attempt": "84ab4712ee751c5416ad0f926fd61d71b589624757506f2b1f9cb7874d4a2364",
+        "evaluations": "4811cd1684a748e78c00c9f3a2169765e98df21094e3b93b3d22963f71155fc4"
+      }
+    },
+    {
+      "stage": "student-1024-refresh-history",
+      "sha256": "e11540b47b0c7648843d0fb5689ef5482fa219fb7eba25a7989cde5ca572296b",
+      "hashes": {
+        "approval": "caecefa62c2be53f77b6227e855cfa84e979453f3fc252836cdfc9871cd68466",
+        "attempt": "84ab4712ee751c5416ad0f926fd61d71b589624757506f2b1f9cb7874d4a2364",
+        "evaluations": "4811cd1684a748e78c00c9f3a2169765e98df21094e3b93b3d22963f71155fc4"
+      }
+    },
+    {
+      "stage": "student-390",
+      "sha256": "e11540b47b0c7648843d0fb5689ef5482fa219fb7eba25a7989cde5ca572296b",
+      "hashes": {
+        "approval": "caecefa62c2be53f77b6227e855cfa84e979453f3fc252836cdfc9871cd68466",
+        "attempt": "84ab4712ee751c5416ad0f926fd61d71b589624757506f2b1f9cb7874d4a2364",
+        "evaluations": "4811cd1684a748e78c00c9f3a2169765e98df21094e3b93b3d22963f71155fc4"
+      }
+    },
+    {
+      "stage": "student-390-refresh-history",
+      "sha256": "e11540b47b0c7648843d0fb5689ef5482fa219fb7eba25a7989cde5ca572296b",
+      "hashes": {
+        "approval": "caecefa62c2be53f77b6227e855cfa84e979453f3fc252836cdfc9871cd68466",
+        "attempt": "84ab4712ee751c5416ad0f926fd61d71b589624757506f2b1f9cb7874d4a2364",
+        "evaluations": "4811cd1684a748e78c00c9f3a2169765e98df21094e3b93b3d22963f71155fc4"
+      }
+    },
+    {
+      "stage": "student-320",
+      "sha256": "e11540b47b0c7648843d0fb5689ef5482fa219fb7eba25a7989cde5ca572296b",
+      "hashes": {
+        "approval": "caecefa62c2be53f77b6227e855cfa84e979453f3fc252836cdfc9871cd68466",
+        "attempt": "84ab4712ee751c5416ad0f926fd61d71b589624757506f2b1f9cb7874d4a2364",
+        "evaluations": "4811cd1684a748e78c00c9f3a2169765e98df21094e3b93b3d22963f71155fc4"
+      }
+    },
+    {
+      "stage": "student-320-refresh-history",
+      "sha256": "e11540b47b0c7648843d0fb5689ef5482fa219fb7eba25a7989cde5ca572296b",
+      "hashes": {
+        "approval": "caecefa62c2be53f77b6227e855cfa84e979453f3fc252836cdfc9871cd68466",
+        "attempt": "84ab4712ee751c5416ad0f926fd61d71b589624757506f2b1f9cb7874d4a2364",
+        "evaluations": "4811cd1684a748e78c00c9f3a2169765e98df21094e3b93b3d22963f71155fc4"
+      }
+    },
+    {
+      "stage": "teacher-accepted-result-and-evidence",
+      "sha256": "e11540b47b0c7648843d0fb5689ef5482fa219fb7eba25a7989cde5ca572296b",
+      "hashes": {
+        "approval": "caecefa62c2be53f77b6227e855cfa84e979453f3fc252836cdfc9871cd68466",
+        "attempt": "84ab4712ee751c5416ad0f926fd61d71b589624757506f2b1f9cb7874d4a2364",
+        "evaluations": "4811cd1684a748e78c00c9f3a2169765e98df21094e3b93b3d22963f71155fc4"
+      }
+    },
+    {
+      "stage": "final",
+      "sha256": "e11540b47b0c7648843d0fb5689ef5482fa219fb7eba25a7989cde5ca572296b",
+      "hashes": {
+        "approval": "caecefa62c2be53f77b6227e855cfa84e979453f3fc252836cdfc9871cd68466",
+        "attempt": "84ab4712ee751c5416ad0f926fd61d71b589624757506f2b1f9cb7874d4a2364",
+        "evaluations": "4811cd1684a748e78c00c9f3a2169765e98df21094e3b93b3d22963f71155fc4"
+      }
+    }
+  ],
+  "screenshots": [
+    "student-fresh-check-1440.png",
+    "student-fresh-check-1024.png",
+    "student-fresh-check-390.png",
+    "student-fresh-check-320.png",
+    "teacher-same-accepted-fresh-check.png"
+  ],
+  "pageErrors": [],
+  "knownGaps": [
+    "The existing teacher follow-up UI still displays raw concept IDs. This check compares its accepted identity/results, not student/teacher label parity."
+  ],
+  "result": "PASS",
+  "identities": {
+    "approvalId": "1d72ecd6-e711-4104-9dd9-6e6f0faa4d76",
+    "draftId": "0c4e3622-7bdb-4d3c-b76b-da3eaa0ef9bf",
+    "assignmentId": "2445a282-0b70-4dd0-8857-140565b76006",
+    "conceptId": "12450519-0819-4935-b41f-e38e878b2f45",
+    "conceptName": "Evaporation",
+    "contentRef": {
+      "source_kind": "uploaded",
+      "source_id": "165d1ee5-976e-4c66-a53d-afaf536d8b2e",
+      "source_version": 1,
+      "document_sha256": "8b1962d35bca66984155f1416a6dd6ee226b70be4510f0a4ae532b3b317fb4c1",
+      "excerpt_sha256": "85e9bfd7dea721f766279eb9f3085ac45bd7bec6b071a015cc76ebe9caf3b51c",
+      "attribution": {
+        "title": "Water changing state",
+        "authors": ["Fictional demo teacher"],
+        "copyright": "2026 Fictional demo teacher",
+        "section": "Evaporation and condensation",
+        "url": null,
+        "license": "Original synthetic material; permitted for this demo",
+        "license_url": null,
+        "cautions": [
+          "This short reading does not cover boiling, freezing, or weather prediction."
+        ]
+      },
+      "access_scope": {
+        "teacher_id": "10000000-0000-4000-8000-000000000001"
+      },
+      "package_id": "6d2f22d3-ec4c-46fa-bbe5-ead2ca2214d4",
+      "content_version": "1"
+    },
+    "originalAttemptId": "4b3e09e9-1314-4f0b-b965-ff2658aaf3b7",
+    "originalSessionId": "757daaf1-47b7-46b6-9bd6-ea51c6995c98"
+  },
+  "accepted": {
+    "sessionId": "34c1e507-1747-4009-ae50-44b218120a05",
+    "attemptId": "6cf1c55b-2c8d-40e1-b894-23ded7c4ac3c",
+    "evaluationId": "a4a2f3f0-4387-4d9a-bb02-ebc0124ff7e9",
+    "results": [
+      {
+        "concept_id": "12450519-0819-4935-b41f-e38e878b2f45",
+        "correctness": "correct"
+      }
+    ],
+    "responseText": "  Water has not disappeared.\nEvaporation changes liquid water into water vapor, a gas.\nThe same water is in a different state.  "
+  },
+  "baseline": {
+    "sha256": "e11540b47b0c7648843d0fb5689ef5482fa219fb7eba25a7989cde5ca572296b",
+    "hashes": {
+      "approval": "caecefa62c2be53f77b6227e855cfa84e979453f3fc252836cdfc9871cd68466",
+      "attempt": "84ab4712ee751c5416ad0f926fd61d71b589624757506f2b1f9cb7874d4a2364",
+      "evaluations": "4811cd1684a748e78c00c9f3a2169765e98df21094e3b93b3d22963f71155fc4"
+    },
+    "evaluationIds": ["a4a2f3f0-4387-4d9a-bb02-ebc0124ff7e9"]
+  },
+  "followupWrites": {
+    "starts": 1,
+    "submissions": 1,
+    "retries": 0
+  }
+}
