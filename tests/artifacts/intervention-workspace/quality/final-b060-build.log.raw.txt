@@ -1,0 +1,89 @@
+
+> ai-teaching-platform@0.1.0 build
+> next build
+
+▲ Next.js 16.4.3 (Turbopack)
+✓ Running next.config took 15ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 5.4s
+  Running TypeScript ...
+  Finished TypeScript in 6.0s ...
+  Collecting page data using 31 workers ...
+  Generating static pages using 31 workers (0/12) ...
+  Generating static pages using 31 workers (3/12) 
+  Generating static pages using 31 workers (6/12) 
+  Generating static pages using 31 workers (9/12) 
+✓ Generating static pages using 31 workers (12/12) in 418ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ƒ /api/auth/[...all]
+├ ƒ /api/sessions
+├ ƒ /api/sessions/[sessionId]
+├ ƒ /api/sessions/[sessionId]/answers
+├ ƒ /api/sessions/[sessionId]/interventions/[interventionId]
+├ ƒ /api/speech
+├ ƒ /api/student/interventions
+├ ƒ /api/student/interventions/[approvalId]
+├ ƒ /api/student/interventions/[approvalId]/followup
+├ ƒ /api/study/reading/bookmarks
+├ ƒ /api/teacher/assignments/[assignmentId]/approval
+├ ƒ /api/teacher/assignments/[assignmentId]/metrics
+├ ƒ /api/teacher/interventions
+├ ƒ /api/teacher/interventions/[draftId]
+├ ƒ /api/teacher/interventions/[draftId]/followup
+├ ƒ /api/teacher/lessons/[lessonId]/approval
+├ ƒ /api/teacher/lessons/[lessonId]/assembly
+├ ƒ /api/teacher/lessons/[lessonId]/assignments
+├ ƒ /api/teacher/lessons/[lessonId]/publication
+├ ƒ /api/teacher/lessons/[lessonId]/question-bank
+├ ƒ /api/teacher/lessons/[lessonId]/versions
+├ ƒ /api/teacher/materials
+├ ƒ /api/teacher/materials/[documentId]
+├ ƒ /api/teacher/materials/preview
+├ ƒ /api/teacher/objectives
+├ ƒ /api/teacher/objectives/[lessonId]
+├ ƒ /api/teacher/objectives/[lessonId]/approve
+├ ƒ /api/teacher/objectives/[lessonId]/suggest
+├ ƒ /api/teacher/objectives/[lessonId]/suggest/accept
+├ ƒ /api/teacher/sessions/[sessionId]
+├ ƒ /api/teacher/sessions/[sessionId]/conversation
+├ ƒ /api/tutoring
+├ ƒ /api/tutoring/[sessionId]
+├ ƒ /api/tutoring/[sessionId]/conversation
+├ ƒ /api/tutoring/[sessionId]/conversation/display
+├ ƒ /api/tutoring/[sessionId]/conversation/operations/[requestId]
+├ ƒ /api/tutoring/[sessionId]/reading
+├ ƒ /api/tutoring/[sessionId]/restart
+├ ○ /dev/visual-player
+├ ƒ /login
+├ ƒ /study
+├ ƒ /study/assignments
+├ ƒ /study/assignments/[assignmentId]
+├ ƒ /study/audio-preview
+├ ƒ /study/dialogue-preview
+├ ƒ /study/history
+├ ƒ /study/interventions/[approvalId]
+├ ƒ /study/reading
+├ ƒ /teacher
+├ ƒ /teacher/assignments
+├ ƒ /teacher/evidence
+├ ƒ /teacher/insights
+├ ƒ /teacher/interventions
+├ ƒ /teacher/lessons
+├ ƒ /teacher/lessons/[lessonId]
+├ ƒ /teacher/lessons/[lessonId]/questions
+├ ƒ /teacher/materials
+├ ƒ /teacher/materials/[documentId]
+├ ƒ /teacher/objectives
+├ ƒ /teacher/objectives/[lessonId]
+├ ƒ /teacher/sessions/[sessionId]
+└ ƒ /teacher/students
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

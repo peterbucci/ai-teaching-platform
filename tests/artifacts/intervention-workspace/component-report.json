@@ -1,0 +1,289 @@
+{
+  "applicationCommit": "b0608f6c69f47c48ed85876a992ccc3011bd2a66",
+  "category": "Actual InterventionWorkspace/editor/review/shared panes/shared shell production React components; mocked Next hooks and explicitly synthetic API fixtures. No database, provider, actual-model or service authorization coverage.",
+  "startedAt": "2026-10-25T15:00:13.122Z",
+  "paidCalls": 0,
+  "sourceManifest": {
+    "applicationCommit": "b0608f6c69f47c48ed85876a992ccc3011bd2a66",
+    "generatedAt": "2026-10-25T15:00:12.754Z",
+    "category": "Real component browser fixture; mocked Next hooks/API; no database/providers",
+    "files": [
+      {
+        "file": "app/teacher/interventions/workspace.tsx",
+        "sha256": "1f424bfef74aa8c8909e7ba877b78e8c46840811fcd952ee75da1fcc26c606ea"
+      },
+      {
+        "file": "app/teacher/interventions/editor.tsx",
+        "sha256": "de7a38606c3c3eb174c3b4008ebf936b4dedb9b99ff0eb3b71f08a6157c407af"
+      },
+      {
+        "file": "app/teacher/interventions/review.tsx",
+        "sha256": "0729c7277ccc054aad50368e807de8b95130da9c707e725e4e79c10d13630c85"
+      },
+      {
+        "file": "app/teacher/interventions/followup.tsx",
+        "sha256": "80ad650f1c22af75aa8c6ab7286af1b7b74b9c2656df0958c6a6b7301bc569a8"
+      },
+      {
+        "file": "app/teacher/interventions/interventions.css",
+        "sha256": "8c09e84dd87dc42526df6ba455fed48fe5af2288d29e981a6fdcfb3e0692f811"
+      },
+      {
+        "file": "app/teacher/workspace-panes.tsx",
+        "sha256": "e3da195e09f7589cee501f0849ad83a0cd1e72a51229b8834b56c90e3ec8bead"
+      },
+      {
+        "file": "app/teacher/workspace-panes-model.ts",
+        "sha256": "c685dbd533c409c51362e34bddc8b8aeae9a382746f763b9d2993620a61a1789"
+      },
+      {
+        "file": "app/teacher/navigation.tsx",
+        "sha256": "1d813ed08f7c900c453b46ae3f9f2b76fb2506174d8be3ca9a934c3b376f0962"
+      },
+      {
+        "file": "app/teacher/workspace-restoration.tsx",
+        "sha256": "a4523fa5815e2ada84e1d254c8d1793ada39911ac727dddb878507e5e95cf76d"
+      },
+      {
+        "file": "app/teacher/workspace-shell.css",
+        "sha256": "9e875118ec3649441d2fcf0deec3ab9cabded7064792dc3492a83e8dbb6b05ff"
+      }
+    ],
+    "bytes": 1511885
+  },
+  "cases": [
+    {
+      "name": "320-three-panes-draft-recipients-and-views",
+      "status": "pass",
+      "details": {
+        "tabs": 3,
+        "initialRequests": 1,
+        "finalRequests": 1,
+        "mutations": 0,
+        "editedText": "Private edit at 320",
+        "recipient": "Student One (fictional)AI suggested · review supporting and contrary evidenceWhy suggested?Included history: 2 responses suggesting review, 2 correct or contrary responses, and 0 uncertain/context responses. 1 of 4 responses are eligible as independent for Transmission delay. These are response counts for this learner, not a diagnosis; recipient selection remains with the teacher.Inspect response 1Inspect response 2Inspect response 3Inspect response 4"
+      }
+    },
+    {
+      "name": "390-three-panes-draft-recipients-and-views",
+      "status": "pass",
+      "details": {
+        "tabs": 3,
+        "initialRequests": 1,
+        "finalRequests": 1,
+        "mutations": 0,
+        "editedText": "Private edit at 390",
+        "recipient": "Student One (fictional)AI suggested · review supporting and contrary evidenceWhy suggested?Included history: 2 responses suggesting review, 2 correct or contrary responses, and 0 uncertain/context responses. 1 of 4 responses are eligible as independent for Transmission delay. These are response counts for this learner, not a diagnosis; recipient selection remains with the teacher.Inspect response 1Inspect response 2Inspect response 3Inspect response 4"
+      }
+    },
+    {
+      "name": "390-native-save-from-steps",
+      "status": "pass",
+      "details": {
+        "posts": [
+          {
+            "action": "save",
+            "expectedRevision": 1,
+            "request": "b43dfb9e-2108-42d5-b8df-485e4f06590f"
+          }
+        ],
+        "savedRevision": 2
+      }
+    },
+    {
+      "name": "390-invalid-hidden-field-reveals-activity-without-save",
+      "status": "pass",
+      "details": {
+        "activePane": "Activity",
+        "title": "",
+        "mutations": 0,
+        "focus": "intervention-edit-form"
+      }
+    },
+    {
+      "name": "390-lost-save-reconciles-unchanged-request",
+      "status": "pass",
+      "details": {
+        "attempts": 2,
+        "completedSaves": 1,
+        "request": "32847132-2145-4cbd-ad35-9f9dc68f14dc",
+        "unchangedIdentity": true
+      }
+    },
+    {
+      "name": "390-stale-conflict-preserves-edit-until-explicit-discard",
+      "status": "pass",
+      "details": {
+        "conflict": true,
+        "localTextPreserved": true,
+        "refresh": "GET only",
+        "discard": "local only",
+        "postAttempts": 1
+      }
+    },
+    {
+      "name": "390-step-evidence-anchor-reveals-exact-response",
+      "status": "pass",
+      "details": {
+        "href": "#evidence-50000000-0000-4000-8000-000000000001",
+        "focusedCitation": "evidence-50000000-0000-4000-8000-000000000001",
+        "priorEntry": {
+          "url": "http://127.0.0.1:50462/teacher/interventions?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&draft=baaa38f1-8ebd-46b1-ab5b-003a99106e7e&scenario=private&workspacePane=context",
+          "token": "dc5aa53fc73f02cbb2988a203bdd03f3",
+          "focusedHref": "#evidence-50000000-0000-4000-8000-000000000001",
+          "stepsScroll": 748
+        },
+        "citationToken": "6dfa58f87e366953e4dfb790037d055c",
+        "backEntry": {
+          "url": "http://127.0.0.1:50462/teacher/interventions?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&draft=baaa38f1-8ebd-46b1-ab5b-003a99106e7e&scenario=private&workspacePane=context",
+          "token": "dc5aa53fc73f02cbb2988a203bdd03f3",
+          "focusedHref": "#evidence-50000000-0000-4000-8000-000000000001",
+          "stepsScroll": 748
+        },
+        "restoration": "Actual shared restoration and native Back; distinct citation entry identity, original focus and scroll restored",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "320-keyboard-tabs",
+      "status": "pass",
+      "details": {
+        "arrowEnter": "Steps",
+        "homeSpace": "Evidence",
+        "end": "Steps focus",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "1024-steps-modal-escape-focus-and-state",
+      "status": "pass",
+      "details": {
+        "escape": "closed and returned focus",
+        "recipientPreserved": true,
+        "mutations": 0
+      }
+    },
+    {
+      "name": "1024-steps-inspect-evidence-focus-after-modal-close",
+      "status": "pass",
+      "details": {
+        "outcomes": [
+          {
+            "trigger": "pointer",
+            "modalClosed": true,
+            "focusedTarget": "intervention-evidence-title",
+            "draftRetained": true,
+            "extraRequests": 0
+          },
+          {
+            "trigger": "retained-input-focus",
+            "modalClosed": true,
+            "focusedTarget": "intervention-evidence-title",
+            "draftRetained": true,
+            "extraRequests": 0
+          }
+        ],
+        "mutations": 0
+      }
+    },
+    {
+      "name": "390-unsaved-shell-link-block-and-reload-recovery",
+      "status": "pass",
+      "details": {
+        "blockedFrom": "http://127.0.0.1:50462/teacher/interventions?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&draft=baaa38f1-8ebd-46b1-ab5b-003a99106e7e&scenario=private&workspacePane=context",
+        "recoveredText": "Recovered private browser text",
+        "reloadRequests": 1,
+        "mutations": 0
+      }
+    },
+    {
+      "name": "390-preparation-direction-recovery-and-generation-read-only",
+      "status": "pass",
+      "details": {
+        "teachingDirection": "recovered after reload",
+        "pendingGenerationReads": 1,
+        "paneSwitchRequests": 0,
+        "mutations": 0
+      }
+    },
+    {
+      "name": "390-hash-pane-history-and-reload",
+      "status": "pass",
+      "details": {
+        "hash": "#evidence-50000000-0000-4000-8000-000000000001",
+        "reloadPane": "Activity",
+        "backPane": "Activity",
+        "forwardPane": "Steps",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "390-completed-generation-read-selects-activity",
+      "status": "pass",
+      "details": {
+        "activePane": "Activity",
+        "requests": [
+          {
+            "method": "GET",
+            "path": "/api/teacher/interventions"
+          },
+          {
+            "method": "GET",
+            "path": "/api/teacher/interventions"
+          },
+          {
+            "method": "GET",
+            "path": "/api/teacher/interventions/baaa38f1-8ebd-46b1-ab5b-003a99106e7e"
+          }
+        ],
+        "mutations": 0
+      }
+    },
+    {
+      "name": "native-200-percent-zoom",
+      "status": "pass",
+      "details": {
+        "method": "Native Edge default zoom preferences, separate isolated profiles; unchanged physical window size, no CSS/pinch zoom",
+        "measurements": [
+          {
+            "zoom": 1,
+            "innerWidth": 1416,
+            "innerHeight": 908,
+            "outerWidth": 1440,
+            "outerHeight": 1000,
+            "dpr": 1,
+            "visualScale": 1,
+            "cssZoom": "1",
+            "layout": "wide",
+            "scrollWidth": 1416
+          },
+          {
+            "zoom": 2,
+            "innerWidth": 708,
+            "innerHeight": 454,
+            "outerWidth": 1440,
+            "outerHeight": 1000,
+            "dpr": 2,
+            "visualScale": 1,
+            "cssZoom": "1",
+            "layout": "compact",
+            "scrollWidth": 708
+          }
+        ],
+        "panes": "all three reachable at 200%",
+        "mutations": 0
+      }
+    }
+  ],
+  "screenshots": [
+    "component-320-steps-preserved.png",
+    "component-390-steps-preserved.png",
+    "component-1024-steps-modal.png",
+    "component-native200-real-components.png"
+  ],
+  "errors": [],
+  "browser": "156.0.4314.42",
+  "finishedAt": "2026-10-25T15:00:30.834Z",
+  "passed": 15,
+  "failed": 0
+}

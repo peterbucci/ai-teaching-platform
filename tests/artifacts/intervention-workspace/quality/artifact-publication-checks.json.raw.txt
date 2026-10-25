@@ -1,0 +1,17 @@
+{
+  "sourceSha": "b0608f6c69f47c48ed85876a992ccc3011bd2a66",
+  "category": "Targeted publication checks on newly added verification artifacts; no application/runtime retest",
+  "completedAt": "2026-10-25T15:34:01.943Z",
+  "checks": [
+    {
+      "command": "node node_modules/eslint/bin/eslint.js tests/artifacts/intervention-workspace --max-warnings=0",
+      "exitCode": 0
+    },
+    {
+      "command": "node node_modules/prettier/bin/prettier.cjs --check tests/artifacts/intervention-workspace",
+      "exitCode": 0
+    }
+  ],
+  "fullApplicationChecks": "quality/final-b060-results.json.raw.txt",
+  "applicationChangesSinceFullChecks": false
+}

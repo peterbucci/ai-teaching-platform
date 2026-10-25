@@ -1,0 +1,1085 @@
+/** Intervention-only real browser checks. All provider calls are blocked. */
+import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
+import { createHash, createHmac } from "node:crypto";
+import { createRequire } from "node:module";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { join, resolve } from "node:path";
+import { verifyTeacherFollowupLabels } from "./followup-label-check.mjs";
+import {
+  acquireLock,
+  preflight,
+  MIN_RUNTIME_GIB,
+  LOCK_PATH,
+} from "./safety.mjs";
+
+const [mode, stateArg, fixtureArg, outArg] = process.argv.slice(2);
+assert.ok(
+  ["capture", "journey", "zoom", "activate", "followup"].includes(mode),
+);
+assert.ok(
+  stateArg && fixtureArg && outArg,
+  "Usage: browser.mjs <capture|journey|zoom|activate> <state> <fixture-report> <new-private-output>",
+);
+const state = resolve(stateArg),
+  out = resolve(outArg);
+assert.equal(
+  existsSync(out),
+  false,
+  "Preserve previous evidence; use a fresh directory.",
+);
+const manifest = JSON.parse(readFileSync(resolve(state, "manifest.json")));
+assert.ok(
+  ["lp-v22-intervention", "lp-v22-intervention-before"].includes(
+    manifest.project,
+  ),
+);
+assert.equal(manifest.paidModelCallsAuthorized, false);
+const fixtureBytes = readFileSync(resolve(fixtureArg)),
+  fixture = JSON.parse(fixtureBytes);
+assert.equal(fixture.status, "passed");
+assert.equal(fixture.sourceSha, manifest.sourceSha);
+assert.equal(fixture.project, manifest.project);
+assert.match(fixture.draft_id, /^[a-f0-9-]{36}$/);
+const environment = Object.fromEntries(
+  readFileSync(resolve(state, ".env.acceptance"), "utf8")
+    .trim()
+    .split(/\r?\n/)
+    .map((line) => {
+      const i = line.indexOf("=");
+      return [line.slice(0, i), line.slice(i + 1)];
+    }),
+);
+assert.equal(environment.OPENAI_API_KEY || "", "");
+assert.equal(environment.OPENAI_MODEL || "", "");
+const origin = manifest.origin;
+assert.equal(environment.AUTH_URL, origin);
+const api = `/api/teacher/interventions/${fixture.draft_id}`;
+const assignmentApi = `/api/teacher/assignments/${fixture.assignment_id}/approval`;
+const route = `/teacher/interventions?assignment=${fixture.assignment_id}&draft=${fixture.draft_id}`;
+const hash = (v) => createHash("sha256").update(v).digest("hex");
+assert.equal(
+  hash(readFileSync(new URL("./safety.mjs", import.meta.url))),
+  "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+);
+const { chromium } = createRequire(import.meta.url)(
+  process.env.PLAYWRIGHT_MODULE ??
+    "C:/Users/sb128/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright",
+);
+const browserPath =
+  process.env.BROWSER_EXECUTABLE ??
+  "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe";
+mkdirSync(out);
+const report = {
+  mode,
+  status: "running",
+  sourceSha: manifest.sourceSha,
+  sourceTree: manifest.sourceTree,
+  project: manifest.project,
+  origin,
+  draft_id: fixture.draft_id,
+  assignment_id: fixture.assignment_id,
+  fixtureSha256: hash(fixtureBytes),
+  harnessSha256: hash(readFileSync(new URL(import.meta.url))),
+  guardSha256: hash(readFileSync(new URL("./safety.mjs", import.meta.url))),
+  followupHelperSha256: hash(
+    readFileSync(new URL("./followup-label-check.mjs", import.meta.url)),
+  ),
+  paid_calls: 0,
+  screenshots: [],
+  checks: [],
+  mutations: [],
+  blocked: [],
+  pageErrors: [],
+  limitations: [
+    "Synthetic generation only; no actual model or educational effectiveness claim",
+    "Screen reader unrun",
+  ],
+  startedAt: new Date().toISOString(),
+};
+const save = () =>
+  writeFileSync(
+    join(out, "report.json"),
+    JSON.stringify(report, null, 2) + "\n",
+    { flush: true },
+  );
+let release,
+  browser,
+  context,
+  page,
+  uncertain = false,
+  allowedAction = null;
+const contexts = [];
+function gate(name) {
+  const observation = preflight({
+    source: manifest.source,
+    state,
+    minimumGiB: MIN_RUNTIME_GIB,
+    explicitPath: manifest.dockerDataPath || undefined,
+    probeContainer: manifest.storageProbeContainer || undefined,
+    dockerRequired: manifest.runtimeKind !== "native-postgresql",
+  });
+  report.checks.push({ name: "preflight:" + name, ...observation });
+  save();
+  assert.equal(observation.pass, true);
+}
+async function protect(ctx) {
+  ctx.setDefaultTimeout(20000);
+  ctx.setDefaultNavigationTimeout(30000);
+  await ctx.route("**/*", async (r) => {
+    const request = r.request(),
+      url = new URL(request.url());
+    const login =
+      url.pathname === "/api/auth/sign-in/email" && request.method() === "POST";
+    const read = ["GET", "HEAD"].includes(request.method());
+    const body = request.method() === "POST" ? request.postDataJSON() : null;
+    const mutation =
+      url.pathname === api &&
+      request.method() === "POST" &&
+      body?.action === allowedAction &&
+      allowedAction !== null;
+    const activation =
+      mode === "activate" &&
+      allowedAction === "activate" &&
+      url.pathname === assignmentApi &&
+      request.method() === "POST";
+    if (url.origin === origin && (login || read || mutation || activation))
+      return r.continue();
+    report.blocked.push({
+      url: url.origin + url.pathname,
+      method: request.method(),
+    });
+    save();
+    await r.abort("blockedbyclient");
+  });
+}
+async function login(ctx) {
+  gate("fictional-login");
+  let email = environment.DEMO_TEACHER_EMAIL,
+    password = environment.DEMO_TEACHER_PASSWORD;
+  if (mode === "followup") {
+    assert.ok(fixture.teacher_auth_user_id.startsWith("intervention-lesson-"));
+    assert.ok(fixture.teacher_email.endsWith("@example.invalid"));
+    assert.match(fixture.approvalReceiptSha256, /^[a-f0-9]{64}$/);
+    email = fixture.teacher_email;
+    password = createHmac("sha256", environment.AUTH_SECRET)
+      .update(fixture.teacher_auth_user_id)
+      .digest("hex");
+  }
+  const response = await ctx.request.post(origin + "/api/auth/sign-in/email", {
+    data: {
+      email,
+      password,
+    },
+    headers: { Origin: origin },
+    timeout: 20000,
+  });
+  assert.equal(
+    response.status(),
+    200,
+    "Fictional teacher login failed; credentials are never logged.",
+  );
+}
+async function readReview(ctx = context) {
+  const response = await ctx.request.get(origin + api, { timeout: 20000 });
+  assert.equal(response.status(), 200);
+  const value = await response.json();
+  assert.equal(value.draft.id, fixture.draft_id);
+  return value;
+}
+async function show(label) {
+  const tab = page.getByRole("tab", { name: label, exact: true });
+  if (await tab.isVisible()) {
+    await tab.click();
+    await page
+      .getByRole("tab", { name: label, exact: true, selected: true })
+      .waitFor();
+    return;
+  }
+  const trigger = page.getByRole("button", {
+    name: `Open ${label}`,
+    exact: true,
+  });
+  if (await trigger.isVisible()) {
+    if (
+      await page.getByRole("dialog", { name: label, exact: true }).isVisible()
+    )
+      return;
+    await trigger.click();
+    return;
+  }
+  const modal = page.locator('dialog[aria-modal="true"][open]');
+  if (await modal.count()) await page.keyboard.press("Escape");
+}
+async function shot(name) {
+  const geometry = await page.evaluate(() => {
+    const pane = document.querySelector(".tw-panes"),
+      box = pane?.getBoundingClientRect();
+    return {
+      width: innerWidth,
+      height: innerHeight,
+      documentWidth: document.documentElement.scrollWidth,
+      dpr: devicePixelRatio,
+      scrollY,
+      workspace: box
+        ? { x: box.x, y: box.y, width: box.width, height: box.height }
+        : null,
+      focus: document.activeElement?.textContent?.trim().slice(0, 120),
+    };
+  });
+  assert.ok(
+    geometry.documentWidth <= geometry.width + 1,
+    "Document horizontal overflow",
+  );
+  const nameWithSize = `${name}-${geometry.width}x${geometry.height}.png`;
+  await page.screenshot({ path: join(out, nameWithSize), fullPage: false });
+  report.screenshots.push({
+    name: nameWithSize,
+    url: page.url(),
+    geometry,
+    sha256: hash(readFileSync(join(out, nameWithSize))),
+  });
+  save();
+}
+async function captureState(name, requirePanes = true) {
+  const mutationsBefore = report.mutations.length;
+  for (const [width, height] of [
+    [1440, 1000],
+    [1024, 768],
+    [390, 844],
+    [320, 844],
+  ]) {
+    await page.setViewportSize({ width, height });
+    if (requirePanes)
+      await page
+        .locator(
+          `.tw-panes[data-layout="${width <= 800 ? "compact" : width <= 1240 ? "medium" : "wide"}"]`,
+        )
+        .waitFor();
+    // A context URL retained from the phone may open the tablet drawer on
+    // resize. Close it before testing its actual keyboard opener; never press
+    // Enter with an unknown control focused inside an already open drawer.
+    if (
+      width === 1024 &&
+      requirePanes &&
+      (await page.locator('dialog[aria-modal="true"][open]').count())
+    )
+      await page.keyboard.press("Escape");
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await shot(name + "-page-top");
+    if (width <= 800 && requirePanes) {
+      for (const label of ["Evidence", "Activity", "Steps"]) {
+        const tab = page.getByRole("tab", { name: label, exact: true });
+        assert.equal(await tab.count(), 1, label + " phone tab");
+        await tab.click();
+        await page
+          .getByRole("tab", { name: label, exact: true, selected: true })
+          .waitFor();
+        assert.equal(await tab.getAttribute("aria-selected"), "true");
+        assert.equal(await page.getByRole("tabpanel").count(), 1);
+        await shot(name + "-" + label.toLowerCase());
+      }
+    }
+    if (width === 1024 && requirePanes) {
+      const trigger = page.locator(".tw-panes-context-trigger");
+      assert.equal(await trigger.count(), 1);
+      await trigger.focus();
+      await page.keyboard.press("Enter");
+      await page.getByRole("dialog").waitFor({ state: "visible" });
+      assert.equal(
+        await page.getByRole("dialog").evaluate((el) => el.matches(":modal")),
+        true,
+      );
+      await trigger.evaluate((el) => el.focus());
+      assert.equal(
+        await trigger.evaluate((el) => el === document.activeElement),
+        false,
+        "Native modal makes background opener inert",
+      );
+      for (let n = 0; n < 8; n++) {
+        await page.keyboard.press(n === 7 ? "Shift+Tab" : "Tab");
+        report.checks.push({
+          name: "tablet-dialog-focus-observation",
+          state: name,
+          index: n,
+          ...(await page.evaluate(() => ({
+            tag: document.activeElement?.tagName,
+            id: document.activeElement?.id,
+            text: document.activeElement?.textContent?.trim().slice(0, 80),
+            modal: document.querySelector("dialog")?.matches(":modal"),
+          }))),
+        });
+        save();
+        if (
+          !(await page
+            .getByRole("dialog")
+            .evaluate((el) => el.contains(document.activeElement)))
+        ) {
+          assert.equal(
+            await page.evaluate(() => document.activeElement === document.body),
+            true,
+            "No background control receives keyboard focus",
+          );
+          assert.equal(
+            await page
+              .getByRole("dialog")
+              .evaluate((el) => el.matches(":modal")),
+            true,
+          );
+          // A native dialog permits browser chrome in its tab cycle. The next
+          // Tab must re-enter this modal, never the underlying workspace.
+          await page.keyboard.press("Tab");
+          assert.equal(
+            await page
+              .getByRole("dialog")
+              .evaluate((el) => el.contains(document.activeElement)),
+            true,
+            "Tab returns from browser chrome to the native modal",
+          );
+        }
+      }
+      await shot(name + "-context-open");
+      await page.keyboard.press("Escape");
+      assert.equal(
+        await trigger.evaluate((el) => el === document.activeElement),
+        true,
+        "Escape returns focus to context opener",
+      );
+    }
+  }
+  assert.equal(
+    report.mutations.length,
+    mutationsBefore,
+    "Pane browsing made a mutation",
+  );
+}
+async function keyboardPanes() {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const evidence = page.getByRole("tab", { name: "Evidence", exact: true });
+  await evidence.focus();
+  await page.keyboard.press("ArrowRight");
+  assert.equal(
+    await page
+      .getByRole("tab", { name: "Activity", exact: true })
+      .evaluate((el) => el === document.activeElement),
+    true,
+  );
+  await page.keyboard.press("ArrowRight");
+  const steps = page.getByRole("tab", { name: "Steps", exact: true });
+  assert.equal(
+    await steps.evaluate((el) => el === document.activeElement),
+    true,
+  );
+  await page.keyboard.press("Enter");
+  assert.equal(await steps.getAttribute("aria-selected"), "true");
+  const order = [];
+  for (let n = 0; n < 16; n++) {
+    await page.keyboard.press("Tab");
+    order.push(
+      await page.evaluate(() => {
+        const el = document.activeElement;
+        return {
+          tag: el.tagName,
+          text: el.textContent?.trim().slice(0, 100),
+          label: el.getAttribute("aria-label"),
+          visible: el.getClientRects().length > 0 && !el.closest("[hidden]"),
+        };
+      }),
+    );
+  }
+  assert.ok(order.every((item) => item.visible));
+  report.checks.push({
+    name: "keyboard-pane-navigation-and-visible-tab-order",
+    pass: true,
+    order,
+  });
+  save();
+}
+async function action(kind, button, validate) {
+  gate(kind);
+  allowedAction = kind;
+  uncertain = true;
+  const item = {
+    action: kind,
+    status: "intent-recorded",
+    startedAt: new Date().toISOString(),
+  };
+  report.mutations.push(item);
+  report.lock_retained = true;
+  save();
+  const responsePromise = page.waitForResponse(
+    (r) =>
+      new URL(r.url()).pathname === api &&
+      r.request().method() === "POST" &&
+      r.request().postDataJSON()?.action === kind,
+    { timeout: 25000 },
+  );
+  await button.click();
+  const response = await responsePromise;
+  item.httpStatus = response.status();
+  item.request = response.request().postDataJSON();
+  save();
+  assert.equal(
+    response.status(),
+    200,
+    kind + " outcome requires reconciliation",
+  );
+  // Next may refresh after the response headers and make Playwright's page
+  // response body unavailable. Reconcile using an authenticated GET only;
+  // never reissue the mutation or infer success from the HTTP status alone.
+  const body = await readReview();
+  item.outcomeReadVia = "authenticated GET after single POST HTTP200";
+  assert.equal(body.draft?.id, fixture.draft_id);
+  assert.equal(
+    body.draft.revision,
+    item.request.expected_revision + (kind === "deliver" ? 0 : 1),
+  );
+  validate(body);
+  uncertain = false;
+  allowedAction = null;
+  Object.assign(item, {
+    status: "acknowledged",
+    revision: body.draft.revision,
+    approval_id: body.approval?.id ?? null,
+    delivery_id: body.delivery?.id ?? null,
+    finishedAt: new Date().toISOString(),
+  });
+  report.lock_retained = false;
+  save();
+  return body;
+}
+async function nativeZoom() {
+  const observations = [];
+  for (const zoom of [1, 2]) {
+    gate("native-zoom-" + zoom);
+    const profile = join(out, "private-profile-" + zoom);
+    mkdirSync(join(profile, "Default"), { recursive: true });
+    writeFileSync(
+      join(profile, "Default", "Preferences"),
+      JSON.stringify({
+        partition: {
+          default_zoom_level: {
+            x: Math.log(zoom) / Math.log(1.2),
+            0: Math.log(zoom) / Math.log(1.2),
+          },
+        },
+      }),
+    );
+    const ctx = await chromium.launchPersistentContext(profile, {
+      executablePath: browserPath,
+      headless: true,
+      viewport: null,
+      args: ["--window-size=1440,1000"],
+    });
+    contexts.push(ctx);
+    await protect(ctx);
+    await login(ctx);
+    page = await ctx.newPage();
+    await page.goto(origin + route);
+    await page
+      .locator(".lp-intervention-workspace, .lp-intervention-layout")
+      .first()
+      .waitFor();
+    const m = await page.evaluate(() => ({
+      dpr: devicePixelRatio,
+      width: innerWidth,
+      outerWidth,
+      scale: visualViewport.scale,
+      rootZoom: getComputedStyle(document.documentElement).zoom,
+    }));
+    observations.push(m);
+    await shot("actual-native-zoom-" + zoom * 100);
+  }
+  assert.ok(Math.abs(observations[1].dpr / observations[0].dpr - 2) < 0.05);
+  assert.ok(
+    Math.abs(observations[1].width / observations[0].width - 0.5) < 0.05,
+  );
+  assert.equal(observations[1].outerWidth, observations[0].outerWidth);
+  assert.equal(observations[1].scale, 1);
+  assert.equal(observations[1].rootZoom, "1");
+  report.nativeZoom = observations;
+}
+async function activateFixtureAssignment() {
+  const read = await context.request.get(origin + assignmentApi, {
+    timeout: 20000,
+  });
+  assert.equal(read.status(), 200);
+  const prior = await read.json();
+  assert.equal(prior.id, fixture.assignment_id);
+  await page.goto(
+    origin + `/teacher/assignments?assignment=${fixture.assignment_id}`,
+  );
+  await shot("fictional-assignment-before-activation");
+  if (prior.teacher_approved_at) {
+    report.checks.push({
+      name: "fixture-assignment-already-active-no-repeat",
+      pass: true,
+      approved_at: prior.teacher_approved_at,
+    });
+    return;
+  }
+  await page
+    .getByRole("checkbox", { name: /I have reviewed this reading/ })
+    .check();
+  gate("explicit-fixture-assignment-activation");
+  allowedAction = "activate";
+  uncertain = true;
+  report.lock_retained = true;
+  const item = {
+    action: "fixture-assignment-activation",
+    status: "intent-recorded",
+    assignment_id: fixture.assignment_id,
+  };
+  report.mutations.push(item);
+  save();
+  const responsePromise = page.waitForResponse(
+    (r) =>
+      new URL(r.url()).pathname === assignmentApi &&
+      r.request().method() === "POST",
+    { timeout: 25000 },
+  );
+  await page
+    .getByRole("button", { name: "Approve and activate", exact: true })
+    .click();
+  const response = await responsePromise;
+  item.httpStatus = response.status();
+  save();
+  assert.equal(response.status(), 200);
+  const reconciliation = await context.request.get(origin + assignmentApi, {
+    timeout: 20000,
+  });
+  assert.equal(reconciliation.status(), 200);
+  const saved = await reconciliation.json();
+  item.outcomeReadVia = "authenticated GET after single POST HTTP200";
+  assert.equal(saved.id, fixture.assignment_id);
+  assert.ok(saved.teacher_approved_at);
+  assert.deepEqual(saved.content_ref, prior.content_ref);
+  uncertain = false;
+  allowedAction = null;
+  report.lock_retained = false;
+  Object.assign(item, {
+    status: "acknowledged",
+    approved_at: saved.teacher_approved_at,
+    content_ref: saved.content_ref,
+  });
+  save();
+  await shot("fictional-assignment-after-activation");
+}
+async function inspectUploadedFollowup() {
+  assert.equal(fixture.content_ref.source_kind, "uploaded");
+  assert.equal(typeof fixture.concept_id, "string");
+  assert.equal(typeof fixture.concept_name, "string");
+  const response = await context.request.get(origin + api + "/followup", {
+    timeout: 20000,
+  });
+  assert.equal(response.status(), 200);
+  const comparison = await response.json();
+  assert.equal(comparison.draft_id, fixture.draft_id);
+  assert.equal(comparison.approval_id, fixture.approval_id);
+  assert.deepEqual(comparison.content_ref, fixture.content_ref);
+  const originals = comparison.original_evidence.observations.map(
+    (observation) => observation.attempt.response_text,
+  );
+  const followups = comparison.recipients.flatMap((recipient) =>
+    recipient.followup?.response_text == null
+      ? []
+      : [recipient.followup.response_text],
+  );
+  assert.ok(followups.length > 0, "An actual submitted follow-up is required");
+  report.followup = [];
+  for (const [width, height] of [
+    [1440, 1000],
+    [1024, 768],
+    [390, 844],
+    [320, 844],
+  ]) {
+    gate("read-only-followup-" + width);
+    await page.setViewportSize({ width, height });
+    const labels = await verifyTeacherFollowupLabels({
+      page,
+      draftUrl: origin + route,
+      conceptId: fixture.concept_id,
+      conceptName: fixture.concept_name,
+    });
+    const beforeQuotes = page.locator(".lp-followup-before blockquote"),
+      afterQuotes = page.locator(".lp-followup-after blockquote");
+    const beforeText = await beforeQuotes.allTextContents(),
+      afterText = await afterQuotes.allTextContents();
+    assert.ok(beforeText.length && afterText.length);
+    assert.ok(
+      beforeText.every((text) => originals.includes(text)),
+      "Rendered original text matches exact saved evidence",
+    );
+    assert.ok(
+      afterText.every((text) => followups.includes(text)),
+      "Rendered follow-up text matches exact saved response",
+    );
+    await page.locator(".lp-intervention-followup").evaluate((el) => {
+      const body = el.closest(".tw-panes-body");
+      if (body) body.scrollTop = 0;
+      window.scrollTo(0, 0);
+    });
+    await shot("followup-page-top");
+    await beforeQuotes.first().scrollIntoViewIfNeeded();
+    await shot("followup-original-expanded");
+    await afterQuotes.first().scrollIntoViewIfNeeded();
+    await shot("followup-response-expanded");
+    report.followup.push({
+      ...labels,
+      originalTextSha256: beforeText.map(hash),
+      followupTextSha256: afterText.map(hash),
+    });
+    save();
+  }
+  assert.equal(report.blocked.length, 0);
+  assert.equal(report.mutations.length, 0);
+  assert.equal(report.pageErrors.length, 0);
+  report.limitations.push(
+    "Follow-up captures use the separate uploaded synthetic integration fixture, not the curated browser journey",
+  );
+}
+async function citationBackRestoration() {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.locator('.tw-panes[data-layout="compact"]').waitFor();
+  await show("Activity");
+  await page
+    .getByRole("button", { name: "Teacher-only review", exact: true })
+    .click();
+  const citation = page
+    .locator('.lp-intervention-editor-workspace a[href^="#evidence-"]')
+    .first();
+  await citation.focus();
+  const beforeUrl = page.url(),
+    href = await citation.getAttribute("href");
+  const beforeScroll = await citation.evaluate(
+    (el) => el.closest(".tw-panes-body").scrollTop,
+  );
+  const beforeToken = await page.evaluate(
+    () => window.history.state?.__learningPulseWorkspaceEntry ?? null,
+  );
+  await page.keyboard.press("Enter");
+  await page
+    .getByRole("tab", { name: "Evidence", exact: true, selected: true })
+    .waitFor();
+  const target = page.locator(href);
+  await target.waitFor({ state: "visible" });
+  await page.waitForFunction(
+    (el) => el === document.activeElement,
+    await target.elementHandle(),
+  );
+  assert.equal(
+    await target
+      .locator("details")
+      .first()
+      .evaluate((el) => el.open),
+    true,
+  );
+  assert.equal(
+    await target.evaluate((el) => el === document.activeElement),
+    true,
+  );
+  const afterToken = await page.evaluate(
+    () => window.history.state?.__learningPulseWorkspaceEntry ?? null,
+  );
+  if (beforeToken !== null && afterToken !== null)
+    assert.notEqual(
+      afterToken,
+      beforeToken,
+      "Citation creates a distinct shell restoration entry",
+    );
+  await shot("citation-exact-original");
+  await page.goBack();
+  await page.waitForURL(beforeUrl);
+  await page
+    .getByRole("tab", { name: "Activity", exact: true, selected: true })
+    .waitFor();
+  await page.waitForFunction(
+    (el) => el === document.activeElement,
+    await citation.elementHandle(),
+  );
+  assert.equal(
+    await citation.evaluate((el) => el === document.activeElement),
+    true,
+    "Back returns focus to the citing activity link",
+  );
+  const afterScroll = await citation.evaluate(
+    (el) => el.closest(".tw-panes-body").scrollTop,
+  );
+  assert.ok(
+    Math.abs(afterScroll - beforeScroll) <= 2,
+    "Back restores Activity scroll position",
+  );
+  report.checks.push({
+    name: "citation-exact-evidence-and-native-back-restoration",
+    pass: true,
+    href,
+    beforeScroll,
+    afterScroll,
+    beforeToken,
+    afterToken,
+  });
+  save();
+}
+async function realPaneRevealChecks() {
+  const initialReview = await readReview();
+  for (const width of [320, 1024]) {
+    await page.setViewportSize({ width, height: width === 320 ? 844 : 768 });
+    await page
+      .locator(
+        `.tw-panes[data-layout="${width === 320 ? "compact" : "medium"}"]`,
+      )
+      .waitFor();
+    await show("Steps");
+    await page
+      .getByRole("button", { name: "Inspect saved evidence", exact: true })
+      .click();
+    await page.locator('.tw-panes[data-active-pane="navigation"]').waitFor();
+    const heading = page.locator("#intervention-evidence-title");
+    await heading.waitFor({ state: "visible" });
+    await page.waitForFunction(
+      (el) => el === document.activeElement,
+      await heading.elementHandle(),
+    );
+    assert.equal(
+      await heading.evaluate((el) => el === document.activeElement),
+      true,
+    );
+    await shot("steps-inspect-saved-evidence");
+    await show("Activity");
+    await page
+      .getByRole("button", { name: "Edit activity", exact: true })
+      .click();
+    const guidance = page.locator("details.lp-intervention-guidance").first();
+    if (!(await guidance.evaluate((el) => el.open)))
+      await guidance.locator("summary").click();
+    const field = page.getByLabel("Answer guidance", { exact: true }).first();
+    const original = await field.inputValue();
+    await field.fill("");
+    await guidance.locator("summary").click();
+    await show("Steps");
+    const blockedBefore = report.blocked.length;
+    await page
+      .getByRole("button", { name: "Save private revision", exact: true })
+      .click();
+    await page.locator('.tw-panes[data-active-pane="main"]').waitFor();
+    await field.waitFor({ state: "visible" });
+    const editForm = page.locator("#intervention-edit-form");
+    await page.waitForFunction(
+      (el) => el === document.activeElement,
+      await editForm.elementHandle(),
+    );
+    assert.equal(
+      await editForm.evaluate((el) => el === document.activeElement),
+      true,
+      "Invalid Save focuses Activity's edit form and reveals the required teacher field",
+    );
+    assert.equal(await field.evaluate((el) => el.validity.valueMissing), true);
+    assert.equal(
+      await editForm.evaluate(
+        (el, input) => el.contains(input),
+        await field.elementHandle(),
+      ),
+      true,
+    );
+    assert.equal(await guidance.evaluate((el) => el.open), true);
+    assert.equal(
+      report.blocked.length,
+      blockedBefore,
+      "Invalid Save made no mutation request",
+    );
+    assert.equal(
+      (await readReview()).draft.revision,
+      initialReview.draft.revision,
+    );
+    await shot("invalid-save-reveals-teacher-guidance");
+    await field.fill(original);
+    report.checks.push({
+      name: "actual-next-pane-reveal-and-required-field",
+      width,
+      pass: true,
+    });
+    save();
+  }
+}
+try {
+  release = acquireLock({
+    task: "intervention browser " + mode,
+    state,
+    output: out,
+  });
+  report.lock_path = LOCK_PATH;
+  save();
+  const current = spawnSync(
+    "git",
+    ["-C", manifest.source, "rev-parse", "HEAD"],
+    { encoding: "utf8", windowsHide: true },
+  );
+  assert.equal(current.status, 0);
+  assert.equal(current.stdout.trim(), manifest.sourceSha);
+  gate("browser-start");
+  if (manifest.runtimeKind === "native-postgresql") {
+    assert.equal(fixture.runtimeKind, "native-postgresql");
+    assert.equal(manifest.build_id, fixture.build_id);
+    assert.equal(
+      readFileSync(join(manifest.source, ".next/BUILD_ID"), "utf8").trim(),
+      fixture.build_id,
+    );
+    assert.ok(Number.isSafeInteger(manifest.appPid) && manifest.appPid > 0);
+    const processIdentity = spawnSync(
+      "powershell.exe",
+      [
+        "-NoProfile",
+        "-NonInteractive",
+        "-Command",
+        `Get-CimInstance Win32_Process -Filter 'ProcessId = ${manifest.appPid}' | Select-Object ProcessId,ExecutablePath,CommandLine | ConvertTo-Json -Compress`,
+      ],
+      { encoding: "utf8", timeout: 20000, windowsHide: true },
+    );
+    assert.equal(processIdentity.status, 0);
+    const actualProcess = JSON.parse(processIdentity.stdout);
+    assert.equal(actualProcess.ProcessId, manifest.appPid);
+    const commandLine = actualProcess.CommandLine.replaceAll(
+      "\\",
+      "/",
+    ).toLowerCase();
+    assert.ok(
+      commandLine.includes(
+        manifest.source.replaceAll("\\", "/").toLowerCase() +
+          "/node_modules/next/dist/bin/next",
+      ),
+    );
+    assert.ok(
+      commandLine.includes("start") &&
+        commandLine.includes("3362") &&
+        commandLine.includes("127.0.0.1"),
+    );
+    report.runtimeKind = "native-postgresql";
+    report.build_id = fixture.build_id;
+    report.appPid = manifest.appPid;
+  } else {
+    const imageIdentity = spawnSync(
+      "docker",
+      ["inspect", manifest.project + "-app-1", "--format", "{{.Image}}"],
+      { encoding: "utf8", timeout: 20000, windowsHide: true },
+    );
+    assert.equal(imageIdentity.status, 0);
+    assert.equal(imageIdentity.stdout.trim(), fixture.image_id);
+    report.image_id = imageIdentity.stdout.trim();
+  }
+  if (mode === "zoom") await nativeZoom();
+  else {
+    browser = await chromium.launch({
+      executablePath: browserPath,
+      headless: true,
+    });
+    context = await browser.newContext({
+      viewport: { width: 1440, height: 1000 },
+    });
+    contexts.push(context);
+    await protect(context);
+    await login(context);
+    page = await context.newPage();
+    page.on("pageerror", (error) => {
+      report.pageErrors.push(String(error));
+      save();
+    });
+    page.on("dialog", (dialog) => dialog.accept());
+    if (mode === "activate") await activateFixtureAssignment();
+    else if (mode === "followup") await inspectUploadedFollowup();
+    else {
+      await page.goto(origin + route);
+      await page
+        .locator(".lp-intervention-workspace, .lp-intervention-layout")
+        .first()
+        .waitFor();
+      let review = await readReview();
+      const originalEvidence = JSON.stringify(review.draft.evidence);
+      await captureState(
+        mode === "capture" ? "saved-state" : "private-draft",
+        manifest.project !== "lp-v22-intervention-before",
+      );
+      if (mode === "journey") {
+        assert.equal(
+          review.approval,
+          null,
+          "Do not replay an approved journey",
+        );
+        await keyboardPanes();
+        await citationBackRestoration();
+        await realPaneRevealChecks();
+        await page.setViewportSize({ width: 320, height: 844 });
+        await show("Activity");
+        await page
+          .getByRole("button", { name: "Edit activity", exact: true })
+          .click();
+        const editedTitle = "Synthetic v2.2 reviewed intervention";
+        await page
+          .getByLabel("Activity title", { exact: true })
+          .fill(editedTitle);
+        await show("Evidence");
+        await show("Steps");
+        await show("Activity");
+        assert.equal(
+          await page.getByLabel("Activity title", { exact: true }).inputValue(),
+          editedTitle,
+        );
+        await show("Steps");
+        const beforeUrl = page.url();
+        let leave = null;
+        for (const name of ["Student work", "Overview"]) {
+          for (const link of await page
+            .getByRole("link", { name, exact: true })
+            .all())
+            if (await link.isVisible()) {
+              leave = link;
+              break;
+            }
+          if (leave) break;
+        }
+        assert.ok(
+          leave,
+          "A visible application navigation link is needed for the unsaved-work check",
+        );
+        await leave.click();
+        const blockedUrl = new URL(page.url()),
+          priorUrl = new URL(beforeUrl);
+        assert.equal(blockedUrl.pathname, priorUrl.pathname);
+        for (const name of ["assignment", "draft"])
+          assert.equal(
+            blockedUrl.searchParams.get(name),
+            priorUrl.searchParams.get(name),
+          );
+        await page.locator('.tw-panes[data-active-pane="main"]').waitFor();
+        await page
+          .locator("#intervention-navigation-notice")
+          .waitFor({ state: "visible" });
+        report.checks.push({ name: "unsaved-navigation-block", pass: true });
+        await page.reload();
+        await page
+          .locator(".lp-intervention-workspace, .lp-intervention-layout")
+          .first()
+          .waitFor();
+        await show("Activity");
+        await page
+          .getByRole("button", { name: "Edit activity", exact: true })
+          .click();
+        await page
+          .getByText(
+            "Your unsaved edits were recovered in this tab. Review them before saving.",
+            { exact: true },
+          )
+          .waitFor();
+        assert.equal(
+          await page.getByLabel("Activity title", { exact: true }).inputValue(),
+          editedTitle,
+        );
+        await shot("recovered-unsaved-draft");
+        await page
+          .getByRole("button", { name: "Student preview", exact: true })
+          .click();
+        await shot("unsaved-student-preview");
+        await show("Steps");
+        review = await action(
+          "save",
+          page.getByRole("button", {
+            name: "Save private revision",
+            exact: true,
+          }),
+          (r) => {
+            assert.equal(r.draft.activity.title, editedTitle);
+            assert.equal(r.approval, null);
+          },
+        );
+        await captureState("edited-saved-draft");
+        await show("Steps");
+        const recipient = review.eligible_recipients.find(
+          (r) => r.student_id === "10000000-0000-4000-8000-000000000002",
+        );
+        assert.ok(recipient);
+        const recipientDisclosure = page.locator(
+          "details.lp-intervention-recipient-selection",
+        );
+        if (
+          (await recipientDisclosure.count()) &&
+          !(await recipientDisclosure.evaluate((el) => el.open))
+        )
+          await recipientDisclosure.locator("summary").click();
+        await page
+          .locator(".lp-intervention-recipients")
+          .getByRole("checkbox", { name: new RegExp(recipient.display_name) })
+          .check();
+        review = await action(
+          "approve",
+          page.getByRole("button", { name: /^Approve revision / }),
+          (r) => {
+            assert.ok(r.approval);
+            assert.equal(r.delivery, null);
+            assert.deepEqual(r.approval.recipient_ids, [recipient.student_id]);
+          },
+        );
+        await captureState("approved-undelivered");
+        await show("Steps");
+        review = await action(
+          "deliver",
+          page.getByRole("button", { name: /^Deliver approved activity to / }),
+          (r) => {
+            assert.ok(r.delivery);
+            assert.equal(r.approval.id, review.approval.id);
+          },
+        );
+        await captureState("delivered");
+        report.approval_id = review.approval.id;
+        report.delivery_id = review.delivery.id;
+        report.limitations.push(
+          "Student follow-up submission/evaluation covered by separately guarded intervention approval/followup integration suite, not by this browser journey",
+        );
+      }
+      assert.equal(
+        JSON.stringify((await readReview()).draft.evidence),
+        originalEvidence,
+        "Exact saved evidence unchanged",
+      );
+      assert.equal(report.blocked.length, 0);
+      assert.equal(report.pageErrors.length, 0);
+    }
+  }
+  report.status = "passed";
+  report.finishedAt = new Date().toISOString();
+  save();
+} catch (error) {
+  report.status = uncertain ? "uncertain" : "failed";
+  report.error = String(error);
+  report.lock_retained = uncertain;
+  if (page && !page.isClosed()) {
+    try {
+      const filename = "failure-" + mode + ".png";
+      await page.screenshot({
+        path: join(out, filename),
+        fullPage: false,
+        timeout: 5000,
+      });
+      report.failureScreenshot = {
+        filename,
+        sha256: hash(readFileSync(join(out, filename))),
+      };
+    } catch (captureError) {
+      report.failureScreenshotError = String(captureError);
+    }
+  }
+  save();
+  process.exitCode = 1;
+} finally {
+  try {
+    for (const ctx of contexts)
+      await ctx.close({ reason: "Intervention verification finished" });
+    if (browser) await browser.close();
+  } catch (error) {
+    uncertain = true;
+    report.status = "uncertain";
+    report.closeError = String(error);
+    report.lock_retained = true;
+    save();
+    process.exitCode = 1;
+  }
+  if (release && !uncertain) release();
+}
