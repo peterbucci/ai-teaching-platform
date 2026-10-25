@@ -1,0 +1,10 @@
+
+> ai-teaching-platform@0.1.0 class:check
+> node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-class-fixture.ts
+
+{"status":"passed","students":24,"syntheticSessions":23,"checks":["seed twice unchanged","existing live evidence preserved","conflict rolled back","teacher reconstructed every fixture","student denied private teacher evidence"],"paidRequests":0}
+.env not found. Continuing without it.
+(node:85) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///app/scripts/check-class-fixture.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)

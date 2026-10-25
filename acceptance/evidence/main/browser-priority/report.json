@@ -1,0 +1,53 @@
+{
+  "sourceSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+  "harnessSha256": "ebc31df7f4257c25f4fd907d3aed9249ccf76c3cacfbb57a8513a5ecf4b5fa39",
+  "category": "provider-disabled real browser; actual teacher attention-card navigation through synthetic accepted evidence",
+  "startedAt": "2026-10-25T03:29:48.454Z",
+  "status": "fail",
+  "cases": [
+    {
+      "id": "P01 current-main attention card opens exact accepted evidence",
+      "status": "pass",
+      "details": {
+        "priorityHref": "/teacher/insights?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture#patterns",
+        "originalHref": "/teacher/sessions/60c118ec-b50c-44ec-8fd7-d27e9d1a1853#evaluation-666d4bd8-70b8-47f3-840d-d3ecd75cf5b1",
+        "assignment": "30000000-0000-4000-8000-000000000001",
+        "concept": "transmission_delay",
+        "sessionId": "60c118ec-b50c-44ec-8fd7-d27e9d1a1853",
+        "attemptId": "d52463a8-e32f-40a0-894f-7c1ebed60552",
+        "evaluationId": "666d4bd8-70b8-47f3-840d-d3ecd75cf5b1",
+        "originalResponse": "I am not sure which delay changes or why.",
+        "source": {
+          "package_id": "network-performance-v1",
+          "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+          "source_id": "peterson_davie_1_5_1",
+          "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+          "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+        },
+        "assistance": {
+          "intervention_ids": [],
+          "assistance_level": "none_recorded",
+          "scaffolding_types": [
+            "diagnostic_prompt_without_answer"
+          ],
+          "independent_retrieval_eligible_by_concept": {
+            "propagation_delay": false,
+            "transmission_delay": false
+          },
+          "most_recent_content_assistance_at": null,
+          "elapsed_since_content_assistance_seconds": null
+        }
+      }
+    }
+  ],
+  "requests": [],
+  "screenshots": [
+    "selected-teacher-attention-card.png",
+    "priority-original-evidence.png",
+    "failure.png"
+  ],
+  "browser": "156.0.4314.42",
+  "priorityText": "REVIEW STUDENT REASONING\n\nWhat do students’ explanations tell us?\n\n10 distinct students have recorded evidence across 3 possible reasoning patterns. Read their explanations before deciding what to revisit.\n\nObservations to inspect, not fixed student labels\nReview explanations",
+  "error": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('heading', { name: 'Evidence used', exact: true }).first() to be visible\u001b[22m\n",
+  "finishedAt": "2026-10-25T03:30:06.085Z"
+}

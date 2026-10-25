@@ -1,0 +1,186 @@
+{
+  "target": "pr116",
+  "sha": "5d6363d2867a6f0250f8220db0474342b1241d00",
+  "origin": "http://localhost:3322",
+  "started_at_utc": "2026-10-25T03:26:42.001Z",
+  "method": "Fresh isolated Edge profiles; native partition.default_zoom_level preference; viewport:null; no CSS zoom, deviceScaleFactor, pinch or emulation",
+  "measurements": {
+    "baseline": {
+      "devicePixelRatio": 1,
+      "innerWidth": 1416,
+      "innerHeight": 808,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "zoom200": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "teacher": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "reading": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    }
+  },
+  "checks": [
+    "Native 200% zoom measured: DPR doubles, CSS viewport halves, visualViewport.scale and CSS zoom remain 1"
+  ],
+  "keyboard": [
+    {
+      "label": "teacher sign-in",
+      "tabs": 3,
+      "focused": {
+        "tag": "BUTTON",
+        "text": "Demo teacher",
+        "href": null,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "open navigation drawer",
+      "tabs": 2,
+      "focused": {
+        "tag": "BUTTON",
+        "text": "Open navigation",
+        "href": null,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "teacher evidence navigation",
+      "tabs": 3,
+      "focused": {
+        "tag": "A",
+        "text": "Evidence",
+        "href": "/teacher/evidence?origin=all&returnTo=evidence",
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "expand evidence details",
+      "tabs": 3,
+      "focused": {
+        "tag": "SUMMARY",
+        "text": "Account menu",
+        "href": null,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "open navigation drawer",
+      "tabs": 4,
+      "focused": {
+        "tag": "BUTTON",
+        "text": "Open navigation",
+        "href": null,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "intervention review navigation",
+      "tabs": 4,
+      "focused": {
+        "tag": "A",
+        "text": "Interventions",
+        "href": "/teacher/interventions?origin=all&returnTo=evidence",
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "student sign-in",
+      "tabs": 2,
+      "focused": {
+        "tag": "BUTTON",
+        "text": "Demo student",
+        "href": null,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "student assignment details",
+      "tabs": 91,
+      "focused": {
+        "tag": "A",
+        "text": "Details: Manual authoring pr116 1792898280048 assignment",
+        "href": "/study/assignments/2bd8094c-21d0-428c-bc54-3ef9d584f1b5",
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 889
+      }
+    },
+    {
+      "label": "student reading",
+      "tabs": 8,
+      "focused": {
+        "tag": "A",
+        "text": "Open reading",
+        "href": "/study/reading?assignment=2bd8094c-21d0-428c-bc54-3ef9d584f1b5",
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 628.5
+      }
+    },
+    {
+      "label": "reading End key scroll",
+      "focused": {
+        "tag": "BODY",
+        "text": "Skip to content\nReading\nCLASS\nNetworking demo — synthetic class\nSynthetic optional speech verification\nSynthetic publishing HTTP 60b30736-6a48-4672-a0f9-d45e9d7",
+        "href": null,
+        "outline": "rgb(23, 48, 45) none 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "student study session",
+      "tabs": 6,
+      "focused": {
+        "tag": "A",
+        "text": "Study session",
+        "href": "/study/assignments/2bd8094c-21d0-428c-bc54-3ef9d584f1b5?tab=study",
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 74.5
+      }
+    }
+  ],
+  "unrun": [
+    "No visible original-session link reached in this bounded keyboard evidence pass",
+    "expand saved interventions: no matching reachable control found within 110 Tab presses",
+    "student composer: no matching reachable control found within 110 Tab presses",
+    "Screen-reader operation and comprehensive WCAG compliance",
+    "Full keyboard-only editing/approval/delivery and all failure states",
+    "Browser Forward and complete focus/scroll restoration across every page"
+  ],
+  "paid_calls": 0,
+  "native_zoom_verified": true,
+  "status": "completed bounded checks",
+  "checked_at_utc": "2026-10-25T03:26:48.120Z"
+}

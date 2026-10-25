@@ -1,0 +1,3273 @@
+{
+  "teacher": [
+    {
+      "url": "http://localhost:3321/api/teacher/materials",
+      "status": 200,
+      "body": {
+        "document_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+        "version": 1
+      }
+    },
+    {
+      "url": "http://localhost:3321/api/teacher/objectives",
+      "status": 200,
+      "body": {
+        "drafts": [],
+        "sources": [
+          {
+            "document_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+            "version": 1,
+            "request_id": "45e5a0d4-b2b7-4092-a23c-e29f193481a9",
+            "latest_version": 1,
+            "file_name": "pasted-source.txt",
+            "mime_type": "text/plain",
+            "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+            "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+            "attribution": {
+              "title": "Manual authoring 1792897382810",
+              "authors": [
+                "Fictional acceptance teacher"
+              ],
+              "copyright": "2026 fictional acceptance fixture",
+              "section": "Imported source",
+              "url": null,
+              "license": "Original synthetic material; permitted for this test",
+              "license_url": null,
+              "cautions": []
+            },
+            "extraction": [
+              {
+                "passage_id": "p001",
+                "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared.\n\nCondensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state."
+              }
+            ],
+            "passages": [
+              {
+                "passage_id": "p001",
+                "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared.\n\nCondensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state."
+              }
+            ],
+            "review_status": "approved",
+            "permitted_use": true,
+            "created_at": "2026-10-25T03:04:03.316Z",
+            "source_ref": {
+              "source_kind": "uploaded",
+              "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+              "source_version": 1,
+              "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+              "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+              "attribution": {
+                "title": "Manual authoring 1792897382810",
+                "authors": [
+                  "Fictional acceptance teacher"
+                ],
+                "copyright": "2026 fictional acceptance fixture",
+                "section": "Imported source",
+                "url": null,
+                "license": "Original synthetic material; permitted for this test",
+                "license_url": null,
+                "cautions": []
+              },
+              "access_scope": {
+                "teacher_id": "10000000-0000-4000-8000-000000000001"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "url": "http://localhost:3321/api/teacher/objectives",
+      "status": 200,
+      "body": {
+        "lesson": {
+          "id": "889bfd08-de13-4430-a967-3767f987db58",
+          "owner_id": "10000000-0000-4000-8000-000000000001",
+          "title": "Manual authoring 1792897382810",
+          "draft": {
+            "content_ref": {
+              "source_kind": "uploaded",
+              "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+              "source_version": 1,
+              "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+              "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+              "attribution": {
+                "title": "Manual authoring 1792897382810",
+                "authors": [
+                  "Fictional acceptance teacher"
+                ],
+                "copyright": "2026 fictional acceptance fixture",
+                "section": "Imported source",
+                "url": null,
+                "license": "Original synthetic material; permitted for this test",
+                "license_url": null,
+                "cautions": []
+              },
+              "access_scope": {
+                "teacher_id": "10000000-0000-4000-8000-000000000001"
+              },
+              "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+              "content_version": "1"
+            },
+            "attribution": {
+              "title": "Manual authoring 1792897382810",
+              "authors": [
+                "Fictional acceptance teacher"
+              ],
+              "copyright": "2026 fictional acceptance fixture",
+              "section": "Imported source",
+              "url": null,
+              "license": "Original synthetic material; permitted for this test",
+              "license_url": null,
+              "cautions": []
+            },
+            "assignment_key": "889bfd08-de13-4430-a967-3767f987db58",
+            "passages": [
+              {
+                "id": "p001",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared.\n\nCondensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state.",
+                "url": null,
+                "start_line": null,
+                "end_line": null,
+                "sha256": "8b1962d35bca66984155f1416a6dd6ee226b70be4510f0a4ae532b3b317fb4c1"
+              }
+            ],
+            "objective_workflow": {
+              "source_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                }
+              },
+              "creation": {
+                "request_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "title": "Manual authoring 1792897382810"
+              },
+              "items": [],
+              "reviewed": null
+            }
+          },
+          "revision": 1,
+          "approved_revision": null
+        },
+        "source": {
+          "document_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+          "version": 1,
+          "request_id": "45e5a0d4-b2b7-4092-a23c-e29f193481a9",
+          "latest_version": 1,
+          "file_name": "pasted-source.txt",
+          "mime_type": "text/plain",
+          "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+          "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+          "attribution": {
+            "title": "Manual authoring 1792897382810",
+            "authors": [
+              "Fictional acceptance teacher"
+            ],
+            "copyright": "2026 fictional acceptance fixture",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic material; permitted for this test",
+            "license_url": null,
+            "cautions": []
+          },
+          "extraction": [
+            {
+              "passage_id": "p001",
+              "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared.\n\nCondensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state."
+            }
+          ],
+          "passages": [
+            {
+              "passage_id": "p001",
+              "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared.\n\nCondensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state."
+            }
+          ],
+          "review_status": "approved",
+          "permitted_use": true,
+          "created_at": "2026-10-25T03:04:03.316Z",
+          "source_ref": {
+            "source_kind": "uploaded",
+            "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+            "source_version": 1,
+            "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+            "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+            "attribution": {
+              "title": "Manual authoring 1792897382810",
+              "authors": [
+                "Fictional acceptance teacher"
+              ],
+              "copyright": "2026 fictional acceptance fixture",
+              "section": "Imported source",
+              "url": null,
+              "license": "Original synthetic material; permitted for this test",
+              "license_url": null,
+              "cautions": []
+            },
+            "access_scope": {
+              "teacher_id": "10000000-0000-4000-8000-000000000001"
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "http://localhost:3321/api/teacher/objectives/889bfd08-de13-4430-a967-3767f987db58",
+      "status": 200,
+      "body": {
+        "lesson": {
+          "id": "889bfd08-de13-4430-a967-3767f987db58",
+          "owner_id": "10000000-0000-4000-8000-000000000001",
+          "title": "Manual authoring 1792897382810",
+          "draft": {
+            "content_ref": {
+              "source_kind": "uploaded",
+              "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+              "source_version": 1,
+              "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+              "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+              "attribution": {
+                "title": "Manual authoring 1792897382810",
+                "authors": [
+                  "Fictional acceptance teacher"
+                ],
+                "copyright": "2026 fictional acceptance fixture",
+                "section": "Imported source",
+                "url": null,
+                "license": "Original synthetic material; permitted for this test",
+                "license_url": null,
+                "cautions": []
+              },
+              "access_scope": {
+                "teacher_id": "10000000-0000-4000-8000-000000000001"
+              },
+              "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+              "content_version": "1"
+            },
+            "attribution": {
+              "title": "Manual authoring 1792897382810",
+              "authors": [
+                "Fictional acceptance teacher"
+              ],
+              "copyright": "2026 fictional acceptance fixture",
+              "section": "Imported source",
+              "url": null,
+              "license": "Original synthetic material; permitted for this test",
+              "license_url": null,
+              "cautions": []
+            },
+            "assignment_key": "889bfd08-de13-4430-a967-3767f987db58",
+            "passages": [
+              {
+                "id": "p001",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared.\n\nCondensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state.",
+                "url": null,
+                "start_line": null,
+                "end_line": null,
+                "sha256": "8b1962d35bca66984155f1416a6dd6ee226b70be4510f0a4ae532b3b317fb4c1"
+              }
+            ],
+            "objective_workflow": {
+              "source_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                }
+              },
+              "creation": {
+                "request_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "title": "Manual authoring 1792897382810"
+              },
+              "items": [],
+              "reviewed": null
+            }
+          },
+          "revision": 1,
+          "approved_revision": null
+        },
+        "source": {
+          "document_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+          "version": 1,
+          "request_id": "45e5a0d4-b2b7-4092-a23c-e29f193481a9",
+          "latest_version": 1,
+          "file_name": "pasted-source.txt",
+          "mime_type": "text/plain",
+          "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+          "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+          "attribution": {
+            "title": "Manual authoring 1792897382810",
+            "authors": [
+              "Fictional acceptance teacher"
+            ],
+            "copyright": "2026 fictional acceptance fixture",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic material; permitted for this test",
+            "license_url": null,
+            "cautions": []
+          },
+          "extraction": [
+            {
+              "passage_id": "p001",
+              "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared.\n\nCondensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state."
+            }
+          ],
+          "passages": [
+            {
+              "passage_id": "p001",
+              "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared.\n\nCondensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state."
+            }
+          ],
+          "review_status": "approved",
+          "permitted_use": true,
+          "created_at": "2026-10-25T03:04:03.316Z",
+          "source_ref": {
+            "source_kind": "uploaded",
+            "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+            "source_version": 1,
+            "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+            "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+            "attribution": {
+              "title": "Manual authoring 1792897382810",
+              "authors": [
+                "Fictional acceptance teacher"
+              ],
+              "copyright": "2026 fictional acceptance fixture",
+              "section": "Imported source",
+              "url": null,
+              "license": "Original synthetic material; permitted for this test",
+              "license_url": null,
+              "cautions": []
+            },
+            "access_scope": {
+              "teacher_id": "10000000-0000-4000-8000-000000000001"
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "http://localhost:3321/api/teacher/objectives/889bfd08-de13-4430-a967-3767f987db58",
+      "status": 200,
+      "body": {
+        "lesson": {
+          "id": "889bfd08-de13-4430-a967-3767f987db58",
+          "owner_id": "10000000-0000-4000-8000-000000000001",
+          "title": "Manual authoring 1792897382810",
+          "draft": {
+            "content_ref": {
+              "source_kind": "uploaded",
+              "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+              "source_version": 1,
+              "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+              "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+              "attribution": {
+                "title": "Manual authoring 1792897382810",
+                "authors": [
+                  "Fictional acceptance teacher"
+                ],
+                "copyright": "2026 fictional acceptance fixture",
+                "section": "Imported source",
+                "url": null,
+                "license": "Original synthetic material; permitted for this test",
+                "license_url": null,
+                "cautions": []
+              },
+              "access_scope": {
+                "teacher_id": "10000000-0000-4000-8000-000000000001"
+              },
+              "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+              "content_version": "1"
+            },
+            "attribution": {
+              "title": "Manual authoring 1792897382810",
+              "authors": [
+                "Fictional acceptance teacher"
+              ],
+              "copyright": "2026 fictional acceptance fixture",
+              "section": "Imported source",
+              "url": null,
+              "license": "Original synthetic material; permitted for this test",
+              "license_url": null,
+              "cautions": []
+            },
+            "assignment_key": "889bfd08-de13-4430-a967-3767f987db58",
+            "passages": [
+              {
+                "id": "p001",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared.\n\nCondensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state.",
+                "url": null,
+                "start_line": null,
+                "end_line": null,
+                "sha256": "8b1962d35bca66984155f1416a6dd6ee226b70be4510f0a4ae532b3b317fb4c1"
+              }
+            ],
+            "objective_workflow": {
+              "source_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                }
+              },
+              "creation": {
+                "request_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "title": "Manual authoring 1792897382810"
+              },
+              "items": [
+                {
+                  "concept_id": "278d2958-32a9-4f10-a731-71923975d136",
+                  "concept_name": "Evaporation",
+                  "objective": "Explain that evaporation changes liquid water into water vapor rather than making it disappear.",
+                  "passage_ids": [
+                    "p001"
+                  ],
+                  "emphasis": "essential",
+                  "support_evidence": [
+                    {
+                      "passage_id": "p001",
+                      "quote": "Evaporation changes liquid water into water vapor, a gas."
+                    }
+                  ],
+                  "support_note": "The passage identifies liquid water becoming vapor and says it has not disappeared.",
+                  "teacher_verified": true,
+                  "origin": "manual",
+                  "ai_baseline": null,
+                  "uncertainty": null,
+                  "support": {
+                    "status": "supported",
+                    "reason": "The passage identifies liquid water becoming vapor and says it has not disappeared.",
+                    "evidence": [
+                      {
+                        "passage_id": "p001",
+                        "quote": "Evaporation changes liquid water into water vapor, a gas."
+                      }
+                    ]
+                  },
+                  "review": {
+                    "reviewed_by": "10000000-0000-4000-8000-000000000001",
+                    "reviewed_at": "2026-10-25T03:04:48.278Z"
+                  }
+                }
+              ],
+              "reviewed": null
+            }
+          },
+          "revision": 2,
+          "approved_revision": null
+        },
+        "source": {
+          "document_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+          "version": 1,
+          "request_id": "45e5a0d4-b2b7-4092-a23c-e29f193481a9",
+          "latest_version": 1,
+          "file_name": "pasted-source.txt",
+          "mime_type": "text/plain",
+          "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+          "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+          "attribution": {
+            "title": "Manual authoring 1792897382810",
+            "authors": [
+              "Fictional acceptance teacher"
+            ],
+            "copyright": "2026 fictional acceptance fixture",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic material; permitted for this test",
+            "license_url": null,
+            "cautions": []
+          },
+          "extraction": [
+            {
+              "passage_id": "p001",
+              "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared.\n\nCondensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state."
+            }
+          ],
+          "passages": [
+            {
+              "passage_id": "p001",
+              "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared.\n\nCondensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state."
+            }
+          ],
+          "review_status": "approved",
+          "permitted_use": true,
+          "created_at": "2026-10-25T03:04:03.316Z",
+          "source_ref": {
+            "source_kind": "uploaded",
+            "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+            "source_version": 1,
+            "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+            "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+            "attribution": {
+              "title": "Manual authoring 1792897382810",
+              "authors": [
+                "Fictional acceptance teacher"
+              ],
+              "copyright": "2026 fictional acceptance fixture",
+              "section": "Imported source",
+              "url": null,
+              "license": "Original synthetic material; permitted for this test",
+              "license_url": null,
+              "cautions": []
+            },
+            "access_scope": {
+              "teacher_id": "10000000-0000-4000-8000-000000000001"
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "http://localhost:3321/api/teacher/objectives/889bfd08-de13-4430-a967-3767f987db58/approve",
+      "status": 200,
+      "body": {
+        "lesson": {
+          "id": "889bfd08-de13-4430-a967-3767f987db58",
+          "owner_id": "10000000-0000-4000-8000-000000000001",
+          "title": "Manual authoring 1792897382810",
+          "draft": {
+            "content_ref": {
+              "source_kind": "uploaded",
+              "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+              "source_version": 1,
+              "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+              "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+              "attribution": {
+                "title": "Manual authoring 1792897382810",
+                "authors": [
+                  "Fictional acceptance teacher"
+                ],
+                "copyright": "2026 fictional acceptance fixture",
+                "section": "Imported source",
+                "url": null,
+                "license": "Original synthetic material; permitted for this test",
+                "license_url": null,
+                "cautions": []
+              },
+              "access_scope": {
+                "teacher_id": "10000000-0000-4000-8000-000000000001"
+              },
+              "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+              "content_version": "1"
+            },
+            "attribution": {
+              "title": "Manual authoring 1792897382810",
+              "authors": [
+                "Fictional acceptance teacher"
+              ],
+              "copyright": "2026 fictional acceptance fixture",
+              "section": "Imported source",
+              "url": null,
+              "license": "Original synthetic material; permitted for this test",
+              "license_url": null,
+              "cautions": []
+            },
+            "assignment_key": "889bfd08-de13-4430-a967-3767f987db58",
+            "concepts": [
+              {
+                "id": "278d2958-32a9-4f10-a731-71923975d136",
+                "title": "Evaporation",
+                "objectives": [
+                  "Explain that evaporation changes liquid water into water vapor rather than making it disappear."
+                ],
+                "boundaries": [
+                  "Use only the reviewed source passages supporting this objective."
+                ],
+                "review_status": "approved",
+                "source_passage_ids": [
+                  "p001"
+                ],
+                "common_misconceptions": []
+              }
+            ],
+            "passages": [
+              {
+                "id": "p001",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared.\n\nCondensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state.",
+                "url": null,
+                "start_line": null,
+                "end_line": null,
+                "sha256": "8b1962d35bca66984155f1416a6dd6ee226b70be4510f0a4ae532b3b317fb4c1"
+              }
+            ],
+            "objective_workflow": {
+              "source_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                }
+              },
+              "creation": {
+                "request_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "title": "Manual authoring 1792897382810"
+              },
+              "items": [
+                {
+                  "concept_id": "278d2958-32a9-4f10-a731-71923975d136",
+                  "concept_name": "Evaporation",
+                  "objective": "Explain that evaporation changes liquid water into water vapor rather than making it disappear.",
+                  "passage_ids": [
+                    "p001"
+                  ],
+                  "emphasis": "essential",
+                  "support_evidence": [
+                    {
+                      "passage_id": "p001",
+                      "quote": "Evaporation changes liquid water into water vapor, a gas."
+                    }
+                  ],
+                  "support_note": "The passage identifies liquid water becoming vapor and says it has not disappeared.",
+                  "teacher_verified": true,
+                  "origin": "manual",
+                  "ai_baseline": null,
+                  "uncertainty": null,
+                  "support": {
+                    "status": "supported",
+                    "reason": "The passage identifies liquid water becoming vapor and says it has not disappeared.",
+                    "evidence": [
+                      {
+                        "passage_id": "p001",
+                        "quote": "Evaporation changes liquid water into water vapor, a gas."
+                      }
+                    ]
+                  },
+                  "review": {
+                    "reviewed_by": "10000000-0000-4000-8000-000000000001",
+                    "reviewed_at": "2026-10-25T03:04:48.278Z"
+                  }
+                }
+              ],
+              "reviewed": {
+                "reviewed_by": "10000000-0000-4000-8000-000000000001",
+                "reviewed_at": "2026-10-25T03:04:56.325Z",
+                "revision": 3
+              }
+            }
+          },
+          "revision": 3,
+          "approved_revision": null
+        },
+        "source": {
+          "document_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+          "version": 1,
+          "request_id": "45e5a0d4-b2b7-4092-a23c-e29f193481a9",
+          "latest_version": 1,
+          "file_name": "pasted-source.txt",
+          "mime_type": "text/plain",
+          "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+          "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+          "attribution": {
+            "title": "Manual authoring 1792897382810",
+            "authors": [
+              "Fictional acceptance teacher"
+            ],
+            "copyright": "2026 fictional acceptance fixture",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic material; permitted for this test",
+            "license_url": null,
+            "cautions": []
+          },
+          "extraction": [
+            {
+              "passage_id": "p001",
+              "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared.\n\nCondensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state."
+            }
+          ],
+          "passages": [
+            {
+              "passage_id": "p001",
+              "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared.\n\nCondensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state."
+            }
+          ],
+          "review_status": "approved",
+          "permitted_use": true,
+          "created_at": "2026-10-25T03:04:03.316Z",
+          "source_ref": {
+            "source_kind": "uploaded",
+            "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+            "source_version": 1,
+            "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+            "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+            "attribution": {
+              "title": "Manual authoring 1792897382810",
+              "authors": [
+                "Fictional acceptance teacher"
+              ],
+              "copyright": "2026 fictional acceptance fixture",
+              "section": "Imported source",
+              "url": null,
+              "license": "Original synthetic material; permitted for this test",
+              "license_url": null,
+              "cautions": []
+            },
+            "access_scope": {
+              "teacher_id": "10000000-0000-4000-8000-000000000001"
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "http://localhost:3321/api/teacher/lessons/889bfd08-de13-4430-a967-3767f987db58/question-bank",
+      "status": 200,
+      "body": {
+        "lesson_id": "889bfd08-de13-4430-a967-3767f987db58",
+        "title": "Manual authoring 1792897382810",
+        "revision": 4,
+        "draft": {
+          "content_ref": {
+            "source_kind": "uploaded",
+            "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+            "source_version": 1,
+            "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+            "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+            "attribution": {
+              "title": "Manual authoring 1792897382810",
+              "authors": [
+                "Fictional acceptance teacher"
+              ],
+              "copyright": "2026 fictional acceptance fixture",
+              "section": "Imported source",
+              "url": null,
+              "license": "Original synthetic material; permitted for this test",
+              "license_url": null,
+              "cautions": []
+            },
+            "access_scope": {
+              "teacher_id": "10000000-0000-4000-8000-000000000001"
+            },
+            "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+            "content_version": "1"
+          },
+          "attribution": {
+            "title": "Manual authoring 1792897382810",
+            "authors": [
+              "Fictional acceptance teacher"
+            ],
+            "copyright": "2026 fictional acceptance fixture",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic material; permitted for this test",
+            "license_url": null,
+            "cautions": []
+          },
+          "assignment_key": "889bfd08-de13-4430-a967-3767f987db58",
+          "concepts": [
+            {
+              "id": "278d2958-32a9-4f10-a731-71923975d136",
+              "title": "Evaporation",
+              "objectives": [
+                "Explain that evaporation changes liquid water into water vapor rather than making it disappear."
+              ],
+              "boundaries": [
+                "Use only the reviewed source passages supporting this objective."
+              ],
+              "review_status": "approved",
+              "source_passage_ids": [
+                "p001"
+              ],
+              "common_misconceptions": []
+            }
+          ],
+          "passages": [
+            {
+              "id": "p001",
+              "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+              "source_version": 1,
+              "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared.\n\nCondensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state.",
+              "url": null,
+              "start_line": null,
+              "end_line": null,
+              "sha256": "8b1962d35bca66984155f1416a6dd6ee226b70be4510f0a4ae532b3b317fb4c1"
+            }
+          ],
+          "misconceptions": [],
+          "scope": "Use only the teacher-approved learning objectives and exact source passages in this lesson version.",
+          "terminology_policy": "Accept equivalent wording when it preserves the meaning required by the reviewed question criteria. Ask for clarification when meaning is uncertain.",
+          "misconception_policy": "Record original reasoning and preserve uncertainty. Use only approved misconception identifiers; an incorrect answer alone does not establish a stable misconception.",
+          "scoring_policy": {
+            "allowed_correctness": [
+              "correct",
+              "partially_correct",
+              "incorrect",
+              "uncertain"
+            ],
+            "correct": "The answer meets the reviewed private criteria and explains the reasoning requested in the question.",
+            "partially_correct": "Some required reasoning is correct, but at least one relevant part is missing, incomplete or incorrect. Follow the question's partial-answer guidance.",
+            "incorrect": "The response clearly contradicts the reviewed answer criteria or the supported relationship being assessed.",
+            "uncertain": "There is insufficient clear, relevant reasoning to assess the intended answer. Preserve uncertainty instead of assuming an error.",
+            "misconception_handling": "Treat reasoning errors as tentative; use only approved categories and do not diagnose a stable misconception from one response.",
+            "terminology_handling": "Accept meaningful equivalent terminology as allowed by the reviewed question and lesson policies.",
+            "numeric_handling": "Use reviewed arithmetic and the question's expected numerical result, units and partial-answer guidance. A model's calculation claim is not verification.",
+            "assistance_handling": "Use the application's record of assistance actually shown. Keep independent responses distinct from responses following feedback or hints.",
+            "example_response_handling": "Examples illustrate criteria only; they are not student evidence or the only acceptable wording.",
+            "grounding": "Use the exact approved lesson source version, cited passages and private question criteria. Do not invent unsupported facts or evaluation requirements."
+          },
+          "questions": [
+            {
+              "origin": "curated",
+              "question_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+              "sequence_id": null,
+              "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "content_version": "1"
+              },
+              "concept_ids": [
+                "278d2958-32a9-4f10-a731-71923975d136"
+              ],
+              "source_passage_ids": [
+                "p001"
+              ],
+              "rubric": {
+                "version": "teacher-review-v1",
+                "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+                "criteria": [
+                  "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                ],
+                "acceptable_variations": [
+                  "Water becomes a gas in the air; the material still exists."
+                ],
+                "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+              },
+              "embedded_scaffolding": [],
+              "generation": null
+            },
+            {
+              "origin": "curated",
+              "question_id": "teacher-a4f65e23-47e9-47d0-8874-30986b9c2e55",
+              "sequence_id": null,
+              "prompt_text": "A damp cloth dries in the air. Describe the change in the water and explain whether the water still exists.",
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "content_version": "1"
+              },
+              "concept_ids": [
+                "278d2958-32a9-4f10-a731-71923975d136"
+              ],
+              "source_passage_ids": [
+                "p001"
+              ],
+              "rubric": {
+                "version": "teacher-review-v1",
+                "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+                "criteria": [
+                  "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                ],
+                "acceptable_variations": [
+                  "Water becomes a gas in the air; the material still exists."
+                ],
+                "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+              },
+              "embedded_scaffolding": [],
+              "generation": null
+            },
+            {
+              "origin": "curated",
+              "question_id": "teacher-bd2a33bd-f82c-44e7-94a6-5e0db54eca44",
+              "sequence_id": null,
+              "prompt_text": "Someone says that the water from a drying tabletop has ceased to exist. What would you say to them, and why?",
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "content_version": "1"
+              },
+              "concept_ids": [
+                "278d2958-32a9-4f10-a731-71923975d136"
+              ],
+              "source_passage_ids": [
+                "p001"
+              ],
+              "rubric": {
+                "version": "teacher-review-v1",
+                "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+                "criteria": [
+                  "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                ],
+                "acceptable_variations": [
+                  "Water becomes a gas in the air; the material still exists."
+                ],
+                "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+              },
+              "embedded_scaffolding": [],
+              "generation": null
+            },
+            {
+              "origin": "curated",
+              "question_id": "teacher-5669e1de-ed49-40b6-bb07-22c93776c2dd",
+              "sequence_id": null,
+              "prompt_text": "A display labels a container with less liquid than yesterday as evidence that matter was destroyed. Evaluate this conclusion using the reading and give a better explanation.",
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "content_version": "1"
+              },
+              "concept_ids": [
+                "278d2958-32a9-4f10-a731-71923975d136"
+              ],
+              "source_passage_ids": [
+                "p001"
+              ],
+              "rubric": {
+                "version": "teacher-review-v1",
+                "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+                "criteria": [
+                  "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                ],
+                "acceptable_variations": [
+                  "Water becomes a gas in the air; the material still exists."
+                ],
+                "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+              },
+              "embedded_scaffolding": [],
+              "generation": null
+            }
+          ],
+          "question_guidance": [
+            {
+              "question_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+              "assumptions": [],
+              "misconception_ids": []
+            },
+            {
+              "question_id": "teacher-a4f65e23-47e9-47d0-8874-30986b9c2e55",
+              "assumptions": [],
+              "misconception_ids": []
+            },
+            {
+              "question_id": "teacher-bd2a33bd-f82c-44e7-94a6-5e0db54eca44",
+              "assumptions": [],
+              "misconception_ids": []
+            },
+            {
+              "question_id": "teacher-5669e1de-ed49-40b6-bb07-22c93776c2dd",
+              "assumptions": [],
+              "misconception_ids": []
+            }
+          ],
+          "activity_policy": {
+            "allowed_actions": [
+              "ASK_RETRIEVAL_QUESTION",
+              "ASK_DIAGNOSTIC_FOLLOWUP",
+              "GIVE_CORRECTIVE_FEEDBACK",
+              "RETEST_CONCEPT",
+              "SCHEDULE_REVIEW",
+              "END_SESSION"
+            ],
+            "allow_runtime_generation": false
+          },
+          "question_bank": {
+            "preferences": {
+              "format": "short_answer",
+              "difficulty": "intermediate",
+              "emphasized_concept_ids": [
+                "278d2958-32a9-4f10-a731-71923975d136"
+              ],
+              "priorities": [
+                "explanation"
+              ],
+              "misconception_ids": [],
+              "reasoning_errors": [],
+              "student_instructions": ""
+            },
+            "items": [
+              {
+                "question_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "family_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "role": "initial",
+                "format": "short_answer",
+                "difficulty": "intermediate",
+                "feedback_guidance": "Evaporation changes liquid water into water vapor. The water changes state rather than ceasing to exist.",
+                "reasoning_error": null,
+                "source_support": [
+                  {
+                    "passage_id": "p001",
+                    "quote": "Evaporation changes liquid water into water vapor, a gas.",
+                    "criterion": "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                  }
+                ],
+                "calculation": null,
+                "review_status": "reviewed",
+                "review_notes": "",
+                "quality_issues": []
+              },
+              {
+                "question_id": "teacher-a4f65e23-47e9-47d0-8874-30986b9c2e55",
+                "family_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "role": "alternative",
+                "format": "short_answer",
+                "difficulty": "intermediate",
+                "feedback_guidance": "Evaporation changes liquid water into water vapor. The water changes state rather than ceasing to exist.",
+                "reasoning_error": null,
+                "source_support": [
+                  {
+                    "passage_id": "p001",
+                    "quote": "Evaporation changes liquid water into water vapor, a gas.",
+                    "criterion": "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                  }
+                ],
+                "calculation": null,
+                "review_status": "reviewed",
+                "review_notes": "",
+                "quality_issues": []
+              },
+              {
+                "question_id": "teacher-bd2a33bd-f82c-44e7-94a6-5e0db54eca44",
+                "family_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "role": "diagnostic",
+                "format": "short_answer",
+                "difficulty": "intermediate",
+                "feedback_guidance": "Evaporation changes liquid water into water vapor. The water changes state rather than ceasing to exist.",
+                "reasoning_error": null,
+                "source_support": [
+                  {
+                    "passage_id": "p001",
+                    "quote": "Evaporation changes liquid water into water vapor, a gas.",
+                    "criterion": "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                  }
+                ],
+                "calculation": null,
+                "review_status": "reviewed",
+                "review_notes": "",
+                "quality_issues": []
+              },
+              {
+                "question_id": "teacher-5669e1de-ed49-40b6-bb07-22c93776c2dd",
+                "family_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "role": "retest",
+                "format": "short_answer",
+                "difficulty": "intermediate",
+                "feedback_guidance": "Evaporation changes liquid water into water vapor. The water changes state rather than ceasing to exist.",
+                "reasoning_error": null,
+                "source_support": [
+                  {
+                    "passage_id": "p001",
+                    "quote": "Evaporation changes liquid water into water vapor, a gas.",
+                    "criterion": "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                  }
+                ],
+                "calculation": null,
+                "review_status": "reviewed",
+                "review_notes": "",
+                "quality_issues": []
+              }
+            ],
+            "delivery": {
+              "closing_feedback": {
+                "correct_after_feedback": "Your answer after feedback has been saved. A later independent check can provide different evidence of your understanding.",
+                "uncertain_after_feedback": "Some reasoning remains unclear. Review the assigned passages with your teacher; your original responses have been saved.",
+                "partial_after_feedback_arithmetic_or_units": "Your reasoning and remaining calculation or unit difficulty have been saved. Review the assigned passages with your teacher.",
+                "partial_or_incorrect_after_feedback": "There are still parts to review. Your teacher can inspect your original responses and the assistance you received."
+              },
+              "fallback_message": "Please answer the current question using the assigned reading. Your saved work is preserved if you need to return later."
+            },
+            "approval": null
+          },
+          "objective_workflow": {
+            "source_ref": {
+              "source_kind": "uploaded",
+              "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+              "source_version": 1,
+              "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+              "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+              "attribution": {
+                "title": "Manual authoring 1792897382810",
+                "authors": [
+                  "Fictional acceptance teacher"
+                ],
+                "copyright": "2026 fictional acceptance fixture",
+                "section": "Imported source",
+                "url": null,
+                "license": "Original synthetic material; permitted for this test",
+                "license_url": null,
+                "cautions": []
+              },
+              "access_scope": {
+                "teacher_id": "10000000-0000-4000-8000-000000000001"
+              }
+            },
+            "creation": {
+              "request_id": "889bfd08-de13-4430-a967-3767f987db58",
+              "title": "Manual authoring 1792897382810"
+            },
+            "items": [
+              {
+                "concept_id": "278d2958-32a9-4f10-a731-71923975d136",
+                "concept_name": "Evaporation",
+                "objective": "Explain that evaporation changes liquid water into water vapor rather than making it disappear.",
+                "passage_ids": [
+                  "p001"
+                ],
+                "emphasis": "essential",
+                "support_evidence": [
+                  {
+                    "passage_id": "p001",
+                    "quote": "Evaporation changes liquid water into water vapor, a gas."
+                  }
+                ],
+                "support_note": "The passage identifies liquid water becoming vapor and says it has not disappeared.",
+                "teacher_verified": true,
+                "origin": "manual",
+                "ai_baseline": null,
+                "uncertainty": null,
+                "support": {
+                  "status": "supported",
+                  "reason": "The passage identifies liquid water becoming vapor and says it has not disappeared.",
+                  "evidence": [
+                    {
+                      "passage_id": "p001",
+                      "quote": "Evaporation changes liquid water into water vapor, a gas."
+                    }
+                  ]
+                },
+                "review": {
+                  "reviewed_by": "10000000-0000-4000-8000-000000000001",
+                  "reviewed_at": "2026-10-25T03:04:48.278Z"
+                }
+              }
+            ],
+            "reviewed": {
+              "reviewed_by": "10000000-0000-4000-8000-000000000001",
+              "reviewed_at": "2026-10-25T03:04:56.325Z",
+              "revision": 3
+            }
+          }
+        },
+        "issues": [],
+        "operations": [],
+        "has_unknown_outcome": false
+      }
+    },
+    {
+      "url": "http://localhost:3321/api/teacher/lessons/889bfd08-de13-4430-a967-3767f987db58/question-bank",
+      "status": 200,
+      "body": {
+        "lesson_id": "889bfd08-de13-4430-a967-3767f987db58",
+        "title": "Manual authoring 1792897382810",
+        "revision": 5,
+        "draft": {
+          "content_ref": {
+            "source_kind": "uploaded",
+            "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+            "source_version": 1,
+            "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+            "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+            "attribution": {
+              "title": "Manual authoring 1792897382810",
+              "authors": [
+                "Fictional acceptance teacher"
+              ],
+              "copyright": "2026 fictional acceptance fixture",
+              "section": "Imported source",
+              "url": null,
+              "license": "Original synthetic material; permitted for this test",
+              "license_url": null,
+              "cautions": []
+            },
+            "access_scope": {
+              "teacher_id": "10000000-0000-4000-8000-000000000001"
+            },
+            "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+            "content_version": "1"
+          },
+          "attribution": {
+            "title": "Manual authoring 1792897382810",
+            "authors": [
+              "Fictional acceptance teacher"
+            ],
+            "copyright": "2026 fictional acceptance fixture",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic material; permitted for this test",
+            "license_url": null,
+            "cautions": []
+          },
+          "assignment_key": "889bfd08-de13-4430-a967-3767f987db58",
+          "concepts": [
+            {
+              "id": "278d2958-32a9-4f10-a731-71923975d136",
+              "title": "Evaporation",
+              "objectives": [
+                "Explain that evaporation changes liquid water into water vapor rather than making it disappear."
+              ],
+              "boundaries": [
+                "Use only the reviewed source passages supporting this objective."
+              ],
+              "review_status": "approved",
+              "source_passage_ids": [
+                "p001"
+              ],
+              "common_misconceptions": []
+            }
+          ],
+          "passages": [
+            {
+              "id": "p001",
+              "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+              "source_version": 1,
+              "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared.\n\nCondensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state.",
+              "url": null,
+              "start_line": null,
+              "end_line": null,
+              "sha256": "8b1962d35bca66984155f1416a6dd6ee226b70be4510f0a4ae532b3b317fb4c1"
+            }
+          ],
+          "misconceptions": [],
+          "scope": "Use only the teacher-approved learning objectives and exact source passages in this lesson version.",
+          "terminology_policy": "Accept equivalent wording when it preserves the meaning required by the reviewed question criteria. Ask for clarification when meaning is uncertain.",
+          "misconception_policy": "Record original reasoning and preserve uncertainty. Use only approved misconception identifiers; an incorrect answer alone does not establish a stable misconception.",
+          "scoring_policy": {
+            "allowed_correctness": [
+              "correct",
+              "partially_correct",
+              "incorrect",
+              "uncertain"
+            ],
+            "correct": "The answer meets the reviewed private criteria and explains the reasoning requested in the question.",
+            "partially_correct": "Some required reasoning is correct, but at least one relevant part is missing, incomplete or incorrect. Follow the question's partial-answer guidance.",
+            "incorrect": "The response clearly contradicts the reviewed answer criteria or the supported relationship being assessed.",
+            "uncertain": "There is insufficient clear, relevant reasoning to assess the intended answer. Preserve uncertainty instead of assuming an error.",
+            "misconception_handling": "Treat reasoning errors as tentative; use only approved categories and do not diagnose a stable misconception from one response.",
+            "terminology_handling": "Accept meaningful equivalent terminology as allowed by the reviewed question and lesson policies.",
+            "numeric_handling": "Use reviewed arithmetic and the question's expected numerical result, units and partial-answer guidance. A model's calculation claim is not verification.",
+            "assistance_handling": "Use the application's record of assistance actually shown. Keep independent responses distinct from responses following feedback or hints.",
+            "example_response_handling": "Examples illustrate criteria only; they are not student evidence or the only acceptable wording.",
+            "grounding": "Use the exact approved lesson source version, cited passages and private question criteria. Do not invent unsupported facts or evaluation requirements."
+          },
+          "questions": [
+            {
+              "origin": "curated",
+              "question_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+              "sequence_id": null,
+              "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "content_version": "1"
+              },
+              "concept_ids": [
+                "278d2958-32a9-4f10-a731-71923975d136"
+              ],
+              "source_passage_ids": [
+                "p001"
+              ],
+              "rubric": {
+                "version": "teacher-review-v1",
+                "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+                "criteria": [
+                  "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                ],
+                "acceptable_variations": [
+                  "Water becomes a gas in the air; the material still exists."
+                ],
+                "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+              },
+              "embedded_scaffolding": [],
+              "generation": null
+            },
+            {
+              "origin": "curated",
+              "question_id": "teacher-a4f65e23-47e9-47d0-8874-30986b9c2e55",
+              "sequence_id": null,
+              "prompt_text": "A damp cloth dries in the air. Describe the change in the water and explain whether the water still exists.",
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "content_version": "1"
+              },
+              "concept_ids": [
+                "278d2958-32a9-4f10-a731-71923975d136"
+              ],
+              "source_passage_ids": [
+                "p001"
+              ],
+              "rubric": {
+                "version": "teacher-review-v1",
+                "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+                "criteria": [
+                  "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                ],
+                "acceptable_variations": [
+                  "Water becomes a gas in the air; the material still exists."
+                ],
+                "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+              },
+              "embedded_scaffolding": [],
+              "generation": null
+            },
+            {
+              "origin": "curated",
+              "question_id": "teacher-bd2a33bd-f82c-44e7-94a6-5e0db54eca44",
+              "sequence_id": null,
+              "prompt_text": "Someone says that the water from a drying tabletop has ceased to exist. What would you say to them, and why?",
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "content_version": "1"
+              },
+              "concept_ids": [
+                "278d2958-32a9-4f10-a731-71923975d136"
+              ],
+              "source_passage_ids": [
+                "p001"
+              ],
+              "rubric": {
+                "version": "teacher-review-v1",
+                "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+                "criteria": [
+                  "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                ],
+                "acceptable_variations": [
+                  "Water becomes a gas in the air; the material still exists."
+                ],
+                "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+              },
+              "embedded_scaffolding": [],
+              "generation": null
+            },
+            {
+              "origin": "curated",
+              "question_id": "teacher-5669e1de-ed49-40b6-bb07-22c93776c2dd",
+              "sequence_id": null,
+              "prompt_text": "A display labels a container with less liquid than yesterday as evidence that matter was destroyed. Evaluate this conclusion using the reading and give a better explanation.",
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "content_version": "1"
+              },
+              "concept_ids": [
+                "278d2958-32a9-4f10-a731-71923975d136"
+              ],
+              "source_passage_ids": [
+                "p001"
+              ],
+              "rubric": {
+                "version": "teacher-review-v1",
+                "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+                "criteria": [
+                  "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                ],
+                "acceptable_variations": [
+                  "Water becomes a gas in the air; the material still exists."
+                ],
+                "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+              },
+              "embedded_scaffolding": [],
+              "generation": null
+            }
+          ],
+          "question_guidance": [
+            {
+              "question_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+              "assumptions": [],
+              "misconception_ids": []
+            },
+            {
+              "question_id": "teacher-a4f65e23-47e9-47d0-8874-30986b9c2e55",
+              "assumptions": [],
+              "misconception_ids": []
+            },
+            {
+              "question_id": "teacher-bd2a33bd-f82c-44e7-94a6-5e0db54eca44",
+              "assumptions": [],
+              "misconception_ids": []
+            },
+            {
+              "question_id": "teacher-5669e1de-ed49-40b6-bb07-22c93776c2dd",
+              "assumptions": [],
+              "misconception_ids": []
+            }
+          ],
+          "activity_policy": {
+            "allowed_actions": [
+              "ASK_RETRIEVAL_QUESTION",
+              "ASK_DIAGNOSTIC_FOLLOWUP",
+              "GIVE_CORRECTIVE_FEEDBACK",
+              "RETEST_CONCEPT",
+              "SCHEDULE_REVIEW",
+              "END_SESSION"
+            ],
+            "allow_runtime_generation": false
+          },
+          "question_bank": {
+            "preferences": {
+              "format": "short_answer",
+              "difficulty": "intermediate",
+              "emphasized_concept_ids": [
+                "278d2958-32a9-4f10-a731-71923975d136"
+              ],
+              "priorities": [
+                "explanation"
+              ],
+              "misconception_ids": [],
+              "reasoning_errors": [],
+              "student_instructions": ""
+            },
+            "items": [
+              {
+                "question_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "family_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "role": "initial",
+                "format": "short_answer",
+                "difficulty": "intermediate",
+                "feedback_guidance": "Evaporation changes liquid water into water vapor. The water changes state rather than ceasing to exist.",
+                "reasoning_error": null,
+                "source_support": [
+                  {
+                    "passage_id": "p001",
+                    "quote": "Evaporation changes liquid water into water vapor, a gas.",
+                    "criterion": "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                  }
+                ],
+                "calculation": null,
+                "review_status": "reviewed",
+                "review_notes": "",
+                "quality_issues": []
+              },
+              {
+                "question_id": "teacher-a4f65e23-47e9-47d0-8874-30986b9c2e55",
+                "family_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "role": "alternative",
+                "format": "short_answer",
+                "difficulty": "intermediate",
+                "feedback_guidance": "Evaporation changes liquid water into water vapor. The water changes state rather than ceasing to exist.",
+                "reasoning_error": null,
+                "source_support": [
+                  {
+                    "passage_id": "p001",
+                    "quote": "Evaporation changes liquid water into water vapor, a gas.",
+                    "criterion": "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                  }
+                ],
+                "calculation": null,
+                "review_status": "reviewed",
+                "review_notes": "",
+                "quality_issues": []
+              },
+              {
+                "question_id": "teacher-bd2a33bd-f82c-44e7-94a6-5e0db54eca44",
+                "family_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "role": "diagnostic",
+                "format": "short_answer",
+                "difficulty": "intermediate",
+                "feedback_guidance": "Evaporation changes liquid water into water vapor. The water changes state rather than ceasing to exist.",
+                "reasoning_error": null,
+                "source_support": [
+                  {
+                    "passage_id": "p001",
+                    "quote": "Evaporation changes liquid water into water vapor, a gas.",
+                    "criterion": "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                  }
+                ],
+                "calculation": null,
+                "review_status": "reviewed",
+                "review_notes": "",
+                "quality_issues": []
+              },
+              {
+                "question_id": "teacher-5669e1de-ed49-40b6-bb07-22c93776c2dd",
+                "family_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "role": "retest",
+                "format": "short_answer",
+                "difficulty": "intermediate",
+                "feedback_guidance": "Evaporation changes liquid water into water vapor. The water changes state rather than ceasing to exist.",
+                "reasoning_error": null,
+                "source_support": [
+                  {
+                    "passage_id": "p001",
+                    "quote": "Evaporation changes liquid water into water vapor, a gas.",
+                    "criterion": "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                  }
+                ],
+                "calculation": null,
+                "review_status": "reviewed",
+                "review_notes": "",
+                "quality_issues": []
+              }
+            ],
+            "delivery": {
+              "closing_feedback": {
+                "correct_after_feedback": "Your answer after feedback has been saved. A later independent check can provide different evidence of your understanding.",
+                "uncertain_after_feedback": "Some reasoning remains unclear. Review the assigned passages with your teacher; your original responses have been saved.",
+                "partial_after_feedback_arithmetic_or_units": "Your reasoning and remaining calculation or unit difficulty have been saved. Review the assigned passages with your teacher.",
+                "partial_or_incorrect_after_feedback": "There are still parts to review. Your teacher can inspect your original responses and the assistance you received."
+              },
+              "fallback_message": "Please answer the current question using the assigned reading. Your saved work is preserved if you need to return later."
+            },
+            "approval": {
+              "reviewed_by": "10000000-0000-4000-8000-000000000001",
+              "reviewed_at": "2026-10-25T03:06:31.804Z",
+              "content_fingerprint": "5c8a89321bf583ecb0bdefb48c2fad45195619a0b26bbca23aafdeb3a3d05d5c"
+            }
+          },
+          "objective_workflow": {
+            "source_ref": {
+              "source_kind": "uploaded",
+              "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+              "source_version": 1,
+              "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+              "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+              "attribution": {
+                "title": "Manual authoring 1792897382810",
+                "authors": [
+                  "Fictional acceptance teacher"
+                ],
+                "copyright": "2026 fictional acceptance fixture",
+                "section": "Imported source",
+                "url": null,
+                "license": "Original synthetic material; permitted for this test",
+                "license_url": null,
+                "cautions": []
+              },
+              "access_scope": {
+                "teacher_id": "10000000-0000-4000-8000-000000000001"
+              }
+            },
+            "creation": {
+              "request_id": "889bfd08-de13-4430-a967-3767f987db58",
+              "title": "Manual authoring 1792897382810"
+            },
+            "items": [
+              {
+                "concept_id": "278d2958-32a9-4f10-a731-71923975d136",
+                "concept_name": "Evaporation",
+                "objective": "Explain that evaporation changes liquid water into water vapor rather than making it disappear.",
+                "passage_ids": [
+                  "p001"
+                ],
+                "emphasis": "essential",
+                "support_evidence": [
+                  {
+                    "passage_id": "p001",
+                    "quote": "Evaporation changes liquid water into water vapor, a gas."
+                  }
+                ],
+                "support_note": "The passage identifies liquid water becoming vapor and says it has not disappeared.",
+                "teacher_verified": true,
+                "origin": "manual",
+                "ai_baseline": null,
+                "uncertainty": null,
+                "support": {
+                  "status": "supported",
+                  "reason": "The passage identifies liquid water becoming vapor and says it has not disappeared.",
+                  "evidence": [
+                    {
+                      "passage_id": "p001",
+                      "quote": "Evaporation changes liquid water into water vapor, a gas."
+                    }
+                  ]
+                },
+                "review": {
+                  "reviewed_by": "10000000-0000-4000-8000-000000000001",
+                  "reviewed_at": "2026-10-25T03:04:48.278Z"
+                }
+              }
+            ],
+            "reviewed": {
+              "reviewed_by": "10000000-0000-4000-8000-000000000001",
+              "reviewed_at": "2026-10-25T03:04:56.325Z",
+              "revision": 3
+            }
+          }
+        },
+        "issues": [],
+        "operations": [],
+        "has_unknown_outcome": false
+      }
+    },
+    {
+      "url": "http://localhost:3321/api/teacher/lessons/889bfd08-de13-4430-a967-3767f987db58/assembly",
+      "status": 200,
+      "body": {
+        "id": "889bfd08-de13-4430-a967-3767f987db58",
+        "owner_id": "10000000-0000-4000-8000-000000000001",
+        "title": "Manual authoring 1792897382810",
+        "draft": {
+          "content_ref": {
+            "source_kind": "uploaded",
+            "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+            "source_version": 1,
+            "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+            "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+            "attribution": {
+              "title": "Manual authoring 1792897382810",
+              "authors": [
+                "Fictional acceptance teacher"
+              ],
+              "copyright": "2026 fictional acceptance fixture",
+              "section": "Imported source",
+              "url": null,
+              "license": "Original synthetic material; permitted for this test",
+              "license_url": null,
+              "cautions": []
+            },
+            "access_scope": {
+              "teacher_id": "10000000-0000-4000-8000-000000000001"
+            },
+            "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+            "content_version": "1"
+          },
+          "attribution": {
+            "title": "Manual authoring 1792897382810",
+            "authors": [
+              "Fictional acceptance teacher"
+            ],
+            "copyright": "2026 fictional acceptance fixture",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic material; permitted for this test",
+            "license_url": null,
+            "cautions": []
+          },
+          "assignment_key": "889bfd08-de13-4430-a967-3767f987db58",
+          "concepts": [
+            {
+              "id": "278d2958-32a9-4f10-a731-71923975d136",
+              "title": "Evaporation",
+              "objectives": [
+                "Explain that evaporation changes liquid water into water vapor rather than making it disappear."
+              ],
+              "boundaries": [
+                "Use only the reviewed source passages supporting this objective."
+              ],
+              "review_status": "approved",
+              "source_passage_ids": [
+                "p001"
+              ],
+              "common_misconceptions": []
+            }
+          ],
+          "passages": [
+            {
+              "id": "p001",
+              "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+              "source_version": 1,
+              "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared.\n\nCondensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state.",
+              "url": null,
+              "start_line": null,
+              "end_line": null,
+              "sha256": "8b1962d35bca66984155f1416a6dd6ee226b70be4510f0a4ae532b3b317fb4c1"
+            }
+          ],
+          "misconceptions": [],
+          "scope": "Use only the teacher-approved learning objectives and exact source passages in this lesson version.",
+          "terminology_policy": "Accept equivalent wording when it preserves the meaning required by the reviewed question criteria. Ask for clarification when meaning is uncertain.",
+          "misconception_policy": "Record original reasoning and preserve uncertainty. Use only approved misconception identifiers; an incorrect answer alone does not establish a stable misconception.",
+          "scoring_policy": {
+            "allowed_correctness": [
+              "correct",
+              "partially_correct",
+              "incorrect",
+              "uncertain"
+            ],
+            "correct": "The answer meets the reviewed private criteria and explains the reasoning requested in the question.",
+            "partially_correct": "Some required reasoning is correct, but at least one relevant part is missing, incomplete or incorrect. Follow the question's partial-answer guidance.",
+            "incorrect": "The response clearly contradicts the reviewed answer criteria or the supported relationship being assessed.",
+            "uncertain": "There is insufficient clear, relevant reasoning to assess the intended answer. Preserve uncertainty instead of assuming an error.",
+            "misconception_handling": "Treat reasoning errors as tentative; use only approved categories and do not diagnose a stable misconception from one response.",
+            "terminology_handling": "Accept meaningful equivalent terminology as allowed by the reviewed question and lesson policies.",
+            "numeric_handling": "Use reviewed arithmetic and the question's expected numerical result, units and partial-answer guidance. A model's calculation claim is not verification.",
+            "assistance_handling": "Use the application's record of assistance actually shown. Keep independent responses distinct from responses following feedback or hints.",
+            "example_response_handling": "Examples illustrate criteria only; they are not student evidence or the only acceptable wording.",
+            "grounding": "Use the exact approved lesson source version, cited passages and private question criteria. Do not invent unsupported facts or evaluation requirements."
+          },
+          "sequence": {
+            "assignment_id": "889bfd08-de13-4430-a967-3767f987db58",
+            "sequence_id": "889bfd08-de13-4430-a967-3767f987db58:teacher-480a4618-2d10-4370-b923-33bcc8ffd27f:practice",
+            "status": "approved",
+            "concept_ids": [
+              "278d2958-32a9-4f10-a731-71923975d136"
+            ],
+            "initial_question_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+            "hypothesis_id": null,
+            "diagnostic_options": [
+              {
+                "misconception_id": null,
+                "question_id": "teacher-bd2a33bd-f82c-44e7-94a6-5e0db54eca44"
+              }
+            ],
+            "interpretation_rules": [
+              "Record original reasoning and preserve uncertainty. Use only approved misconception identifiers; an incorrect answer alone does not establish a stable misconception."
+            ],
+            "bounds": {
+              "max_neutral_clarifications": 0,
+              "max_diagnostic_prompts": 1,
+              "max_immediate_retest_prompts": 1,
+              "max_unsupported_input_retries_total": 1,
+              "max_student_response_prompts": 4
+            },
+            "nodes": [
+              {
+                "node_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "kind": "initial_retrieval",
+                "prompt": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process."
+              },
+              {
+                "node_id": "teacher-bd2a33bd-f82c-44e7-94a6-5e0db54eca44",
+                "kind": "diagnostic_followup",
+                "prompt": "Someone says that the water from a drying tabletop has ceased to exist. What would you say to them, and why?"
+              },
+              {
+                "node_id": "teacher-5669e1de-ed49-40b6-bb07-22c93776c2dd",
+                "kind": "immediate_retest",
+                "prompt": "A display labels a container with less liquid than yesterday as evidence that matter was destroyed. Evaluate this conclusion using the reading and give a better explanation."
+              },
+              {
+                "node_id": "889bfd08-de13-4430-a967-3767f987db58:teacher-480a4618-2d10-4370-b923-33bcc8ffd27f:practice:corrective",
+                "kind": "corrective_feedback",
+                "source_passage_ids": [
+                  "p001"
+                ],
+                "feedback": "Evaporation changes liquid water into water vapor. The water changes state rather than ceasing to exist.",
+                "next_node_id": "teacher-5669e1de-ed49-40b6-bb07-22c93776c2dd"
+              },
+              {
+                "node_id": "889bfd08-de13-4430-a967-3767f987db58:teacher-480a4618-2d10-4370-b923-33bcc8ffd27f:practice:arithmetic",
+                "kind": "arithmetic_feedback",
+                "source_passage_ids": [
+                  "p001"
+                ],
+                "feedback": "Evaporation changes liquid water into water vapor. The water changes state rather than ceasing to exist.",
+                "next_node_id": "teacher-5669e1de-ed49-40b6-bb07-22c93776c2dd"
+              },
+              {
+                "node_id": "889bfd08-de13-4430-a967-3767f987db58:teacher-480a4618-2d10-4370-b923-33bcc8ffd27f:practice:closing",
+                "kind": "closing_feedback_and_review",
+                "source_passage_ids": [
+                  "p001"
+                ],
+                "feedback_variants": {
+                  "correct_after_feedback": "Your answer after feedback has been saved. A later independent check can provide different evidence of your understanding.",
+                  "uncertain_after_feedback": "Some reasoning remains unclear. Review the assigned passages with your teacher; your original responses have been saved.",
+                  "partial_or_incorrect_after_feedback": "There are still parts to review. Your teacher can inspect your original responses and the assistance you received.",
+                  "partial_after_feedback_arithmetic_or_units": "Your reasoning and remaining calculation or unit difficulty have been saved. Review the assigned passages with your teacher."
+                }
+              },
+              {
+                "node_id": "889bfd08-de13-4430-a967-3767f987db58:teacher-480a4618-2d10-4370-b923-33bcc8ffd27f:practice:fallback",
+                "kind": "unsupported_input_or_evaluation_fallback",
+                "feedback_variants": {
+                  "unrelated_or_empty": "Please answer the current question using the assigned reading. Your saved work is preserved if you need to return later."
+                }
+              }
+            ]
+          },
+          "questions": [
+            {
+              "origin": "curated",
+              "question_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+              "sequence_id": "889bfd08-de13-4430-a967-3767f987db58:teacher-480a4618-2d10-4370-b923-33bcc8ffd27f:practice",
+              "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "content_version": "1"
+              },
+              "concept_ids": [
+                "278d2958-32a9-4f10-a731-71923975d136"
+              ],
+              "source_passage_ids": [
+                "p001"
+              ],
+              "rubric": {
+                "version": "teacher-review-v1",
+                "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+                "criteria": [
+                  "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                ],
+                "acceptable_variations": [
+                  "Water becomes a gas in the air; the material still exists."
+                ],
+                "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+              },
+              "embedded_scaffolding": [],
+              "generation": null
+            },
+            {
+              "origin": "curated",
+              "question_id": "teacher-a4f65e23-47e9-47d0-8874-30986b9c2e55",
+              "sequence_id": null,
+              "prompt_text": "A damp cloth dries in the air. Describe the change in the water and explain whether the water still exists.",
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "content_version": "1"
+              },
+              "concept_ids": [
+                "278d2958-32a9-4f10-a731-71923975d136"
+              ],
+              "source_passage_ids": [
+                "p001"
+              ],
+              "rubric": {
+                "version": "teacher-review-v1",
+                "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+                "criteria": [
+                  "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                ],
+                "acceptable_variations": [
+                  "Water becomes a gas in the air; the material still exists."
+                ],
+                "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+              },
+              "embedded_scaffolding": [],
+              "generation": null
+            },
+            {
+              "origin": "curated",
+              "question_id": "teacher-bd2a33bd-f82c-44e7-94a6-5e0db54eca44",
+              "sequence_id": "889bfd08-de13-4430-a967-3767f987db58:teacher-480a4618-2d10-4370-b923-33bcc8ffd27f:practice",
+              "prompt_text": "Someone says that the water from a drying tabletop has ceased to exist. What would you say to them, and why?",
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "content_version": "1"
+              },
+              "concept_ids": [
+                "278d2958-32a9-4f10-a731-71923975d136"
+              ],
+              "source_passage_ids": [
+                "p001"
+              ],
+              "rubric": {
+                "version": "teacher-review-v1",
+                "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+                "criteria": [
+                  "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                ],
+                "acceptable_variations": [
+                  "Water becomes a gas in the air; the material still exists."
+                ],
+                "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+              },
+              "embedded_scaffolding": [],
+              "generation": null
+            },
+            {
+              "origin": "curated",
+              "question_id": "teacher-5669e1de-ed49-40b6-bb07-22c93776c2dd",
+              "sequence_id": "889bfd08-de13-4430-a967-3767f987db58:teacher-480a4618-2d10-4370-b923-33bcc8ffd27f:practice",
+              "prompt_text": "A display labels a container with less liquid than yesterday as evidence that matter was destroyed. Evaluate this conclusion using the reading and give a better explanation.",
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "content_version": "1"
+              },
+              "concept_ids": [
+                "278d2958-32a9-4f10-a731-71923975d136"
+              ],
+              "source_passage_ids": [
+                "p001"
+              ],
+              "rubric": {
+                "version": "teacher-review-v1",
+                "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+                "criteria": [
+                  "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                ],
+                "acceptable_variations": [
+                  "Water becomes a gas in the air; the material still exists."
+                ],
+                "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+              },
+              "embedded_scaffolding": [],
+              "generation": null
+            }
+          ],
+          "question_guidance": [
+            {
+              "question_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+              "assumptions": [],
+              "misconception_ids": []
+            },
+            {
+              "question_id": "teacher-a4f65e23-47e9-47d0-8874-30986b9c2e55",
+              "assumptions": [],
+              "misconception_ids": []
+            },
+            {
+              "question_id": "teacher-bd2a33bd-f82c-44e7-94a6-5e0db54eca44",
+              "assumptions": [],
+              "misconception_ids": []
+            },
+            {
+              "question_id": "teacher-5669e1de-ed49-40b6-bb07-22c93776c2dd",
+              "assumptions": [],
+              "misconception_ids": []
+            }
+          ],
+          "activity_policy": {
+            "allowed_actions": [
+              "ASK_RETRIEVAL_QUESTION",
+              "ASK_DIAGNOSTIC_FOLLOWUP",
+              "GIVE_CORRECTIVE_FEEDBACK",
+              "RETEST_CONCEPT",
+              "SCHEDULE_REVIEW",
+              "END_SESSION"
+            ],
+            "allow_runtime_generation": false
+          },
+          "question_bank": {
+            "preferences": {
+              "format": "short_answer",
+              "difficulty": "intermediate",
+              "emphasized_concept_ids": [
+                "278d2958-32a9-4f10-a731-71923975d136"
+              ],
+              "priorities": [
+                "explanation"
+              ],
+              "misconception_ids": [],
+              "reasoning_errors": [],
+              "student_instructions": ""
+            },
+            "items": [
+              {
+                "question_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "family_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "role": "initial",
+                "format": "short_answer",
+                "difficulty": "intermediate",
+                "feedback_guidance": "Evaporation changes liquid water into water vapor. The water changes state rather than ceasing to exist.",
+                "reasoning_error": null,
+                "source_support": [
+                  {
+                    "passage_id": "p001",
+                    "quote": "Evaporation changes liquid water into water vapor, a gas.",
+                    "criterion": "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                  }
+                ],
+                "calculation": null,
+                "review_status": "reviewed",
+                "review_notes": "",
+                "quality_issues": []
+              },
+              {
+                "question_id": "teacher-a4f65e23-47e9-47d0-8874-30986b9c2e55",
+                "family_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "role": "alternative",
+                "format": "short_answer",
+                "difficulty": "intermediate",
+                "feedback_guidance": "Evaporation changes liquid water into water vapor. The water changes state rather than ceasing to exist.",
+                "reasoning_error": null,
+                "source_support": [
+                  {
+                    "passage_id": "p001",
+                    "quote": "Evaporation changes liquid water into water vapor, a gas.",
+                    "criterion": "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                  }
+                ],
+                "calculation": null,
+                "review_status": "reviewed",
+                "review_notes": "",
+                "quality_issues": []
+              },
+              {
+                "question_id": "teacher-bd2a33bd-f82c-44e7-94a6-5e0db54eca44",
+                "family_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "role": "diagnostic",
+                "format": "short_answer",
+                "difficulty": "intermediate",
+                "feedback_guidance": "Evaporation changes liquid water into water vapor. The water changes state rather than ceasing to exist.",
+                "reasoning_error": null,
+                "source_support": [
+                  {
+                    "passage_id": "p001",
+                    "quote": "Evaporation changes liquid water into water vapor, a gas.",
+                    "criterion": "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                  }
+                ],
+                "calculation": null,
+                "review_status": "reviewed",
+                "review_notes": "",
+                "quality_issues": []
+              },
+              {
+                "question_id": "teacher-5669e1de-ed49-40b6-bb07-22c93776c2dd",
+                "family_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "role": "retest",
+                "format": "short_answer",
+                "difficulty": "intermediate",
+                "feedback_guidance": "Evaporation changes liquid water into water vapor. The water changes state rather than ceasing to exist.",
+                "reasoning_error": null,
+                "source_support": [
+                  {
+                    "passage_id": "p001",
+                    "quote": "Evaporation changes liquid water into water vapor, a gas.",
+                    "criterion": "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                  }
+                ],
+                "calculation": null,
+                "review_status": "reviewed",
+                "review_notes": "",
+                "quality_issues": []
+              }
+            ],
+            "delivery": {
+              "closing_feedback": {
+                "correct_after_feedback": "Your answer after feedback has been saved. A later independent check can provide different evidence of your understanding.",
+                "uncertain_after_feedback": "Some reasoning remains unclear. Review the assigned passages with your teacher; your original responses have been saved.",
+                "partial_after_feedback_arithmetic_or_units": "Your reasoning and remaining calculation or unit difficulty have been saved. Review the assigned passages with your teacher.",
+                "partial_or_incorrect_after_feedback": "There are still parts to review. Your teacher can inspect your original responses and the assistance you received."
+              },
+              "fallback_message": "Please answer the current question using the assigned reading. Your saved work is preserved if you need to return later."
+            },
+            "approval": {
+              "reviewed_by": "10000000-0000-4000-8000-000000000001",
+              "reviewed_at": "2026-10-25T03:06:31.804Z",
+              "content_fingerprint": "5c8a89321bf583ecb0bdefb48c2fad45195619a0b26bbca23aafdeb3a3d05d5c"
+            }
+          },
+          "objective_workflow": {
+            "source_ref": {
+              "source_kind": "uploaded",
+              "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+              "source_version": 1,
+              "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+              "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+              "attribution": {
+                "title": "Manual authoring 1792897382810",
+                "authors": [
+                  "Fictional acceptance teacher"
+                ],
+                "copyright": "2026 fictional acceptance fixture",
+                "section": "Imported source",
+                "url": null,
+                "license": "Original synthetic material; permitted for this test",
+                "license_url": null,
+                "cautions": []
+              },
+              "access_scope": {
+                "teacher_id": "10000000-0000-4000-8000-000000000001"
+              }
+            },
+            "creation": {
+              "request_id": "889bfd08-de13-4430-a967-3767f987db58",
+              "title": "Manual authoring 1792897382810"
+            },
+            "items": [
+              {
+                "concept_id": "278d2958-32a9-4f10-a731-71923975d136",
+                "concept_name": "Evaporation",
+                "objective": "Explain that evaporation changes liquid water into water vapor rather than making it disappear.",
+                "passage_ids": [
+                  "p001"
+                ],
+                "emphasis": "essential",
+                "support_evidence": [
+                  {
+                    "passage_id": "p001",
+                    "quote": "Evaporation changes liquid water into water vapor, a gas."
+                  }
+                ],
+                "support_note": "The passage identifies liquid water becoming vapor and says it has not disappeared.",
+                "teacher_verified": true,
+                "origin": "manual",
+                "ai_baseline": null,
+                "uncertainty": null,
+                "support": {
+                  "status": "supported",
+                  "reason": "The passage identifies liquid water becoming vapor and says it has not disappeared.",
+                  "evidence": [
+                    {
+                      "passage_id": "p001",
+                      "quote": "Evaporation changes liquid water into water vapor, a gas."
+                    }
+                  ]
+                },
+                "review": {
+                  "reviewed_by": "10000000-0000-4000-8000-000000000001",
+                  "reviewed_at": "2026-10-25T03:04:48.278Z"
+                }
+              }
+            ],
+            "reviewed": {
+              "reviewed_by": "10000000-0000-4000-8000-000000000001",
+              "reviewed_at": "2026-10-25T03:04:56.325Z",
+              "revision": 3
+            }
+          }
+        },
+        "revision": 6,
+        "approved_revision": null
+      }
+    },
+    {
+      "url": "http://localhost:3321/api/teacher/lessons/889bfd08-de13-4430-a967-3767f987db58/approval",
+      "status": 200,
+      "body": {
+        "id": "889bfd08-de13-4430-a967-3767f987db58",
+        "owner_id": "10000000-0000-4000-8000-000000000001",
+        "title": "Manual authoring 1792897382810",
+        "draft": {
+          "content_ref": {
+            "source_kind": "uploaded",
+            "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+            "source_version": 1,
+            "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+            "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+            "attribution": {
+              "title": "Manual authoring 1792897382810",
+              "authors": [
+                "Fictional acceptance teacher"
+              ],
+              "copyright": "2026 fictional acceptance fixture",
+              "section": "Imported source",
+              "url": null,
+              "license": "Original synthetic material; permitted for this test",
+              "license_url": null,
+              "cautions": []
+            },
+            "access_scope": {
+              "teacher_id": "10000000-0000-4000-8000-000000000001"
+            },
+            "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+            "content_version": "1"
+          },
+          "attribution": {
+            "title": "Manual authoring 1792897382810",
+            "authors": [
+              "Fictional acceptance teacher"
+            ],
+            "copyright": "2026 fictional acceptance fixture",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic material; permitted for this test",
+            "license_url": null,
+            "cautions": []
+          },
+          "assignment_key": "889bfd08-de13-4430-a967-3767f987db58",
+          "approval": {
+            "status": "approved",
+            "approved_by": "10000000-0000-4000-8000-000000000001",
+            "approved_at": "2026-10-25T03:06:47.838Z",
+            "approval_type": "teacher_review",
+            "approval_note": "Teacher explicitly approved this draft revision."
+          },
+          "concepts": [
+            {
+              "id": "278d2958-32a9-4f10-a731-71923975d136",
+              "title": "Evaporation",
+              "objectives": [
+                "Explain that evaporation changes liquid water into water vapor rather than making it disappear."
+              ],
+              "boundaries": [
+                "Use only the reviewed source passages supporting this objective."
+              ],
+              "review_status": "approved",
+              "source_passage_ids": [
+                "p001"
+              ],
+              "common_misconceptions": []
+            }
+          ],
+          "passages": [
+            {
+              "id": "p001",
+              "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+              "source_version": 1,
+              "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared.\n\nCondensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state.",
+              "url": null,
+              "start_line": null,
+              "end_line": null,
+              "sha256": "8b1962d35bca66984155f1416a6dd6ee226b70be4510f0a4ae532b3b317fb4c1"
+            }
+          ],
+          "misconceptions": [],
+          "scope": "Use only the teacher-approved learning objectives and exact source passages in this lesson version.",
+          "terminology_policy": "Accept equivalent wording when it preserves the meaning required by the reviewed question criteria. Ask for clarification when meaning is uncertain.",
+          "misconception_policy": "Record original reasoning and preserve uncertainty. Use only approved misconception identifiers; an incorrect answer alone does not establish a stable misconception.",
+          "scoring_policy": {
+            "allowed_correctness": [
+              "correct",
+              "partially_correct",
+              "incorrect",
+              "uncertain"
+            ],
+            "correct": "The answer meets the reviewed private criteria and explains the reasoning requested in the question.",
+            "partially_correct": "Some required reasoning is correct, but at least one relevant part is missing, incomplete or incorrect. Follow the question's partial-answer guidance.",
+            "incorrect": "The response clearly contradicts the reviewed answer criteria or the supported relationship being assessed.",
+            "uncertain": "There is insufficient clear, relevant reasoning to assess the intended answer. Preserve uncertainty instead of assuming an error.",
+            "misconception_handling": "Treat reasoning errors as tentative; use only approved categories and do not diagnose a stable misconception from one response.",
+            "terminology_handling": "Accept meaningful equivalent terminology as allowed by the reviewed question and lesson policies.",
+            "numeric_handling": "Use reviewed arithmetic and the question's expected numerical result, units and partial-answer guidance. A model's calculation claim is not verification.",
+            "assistance_handling": "Use the application's record of assistance actually shown. Keep independent responses distinct from responses following feedback or hints.",
+            "example_response_handling": "Examples illustrate criteria only; they are not student evidence or the only acceptable wording.",
+            "grounding": "Use the exact approved lesson source version, cited passages and private question criteria. Do not invent unsupported facts or evaluation requirements."
+          },
+          "sequence": {
+            "assignment_id": "889bfd08-de13-4430-a967-3767f987db58",
+            "sequence_id": "889bfd08-de13-4430-a967-3767f987db58:teacher-480a4618-2d10-4370-b923-33bcc8ffd27f:practice",
+            "status": "approved",
+            "concept_ids": [
+              "278d2958-32a9-4f10-a731-71923975d136"
+            ],
+            "initial_question_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+            "hypothesis_id": null,
+            "diagnostic_options": [
+              {
+                "misconception_id": null,
+                "question_id": "teacher-bd2a33bd-f82c-44e7-94a6-5e0db54eca44"
+              }
+            ],
+            "interpretation_rules": [
+              "Record original reasoning and preserve uncertainty. Use only approved misconception identifiers; an incorrect answer alone does not establish a stable misconception."
+            ],
+            "bounds": {
+              "max_neutral_clarifications": 0,
+              "max_diagnostic_prompts": 1,
+              "max_immediate_retest_prompts": 1,
+              "max_unsupported_input_retries_total": 1,
+              "max_student_response_prompts": 4
+            },
+            "nodes": [
+              {
+                "node_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "kind": "initial_retrieval",
+                "prompt": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process."
+              },
+              {
+                "node_id": "teacher-bd2a33bd-f82c-44e7-94a6-5e0db54eca44",
+                "kind": "diagnostic_followup",
+                "prompt": "Someone says that the water from a drying tabletop has ceased to exist. What would you say to them, and why?"
+              },
+              {
+                "node_id": "teacher-5669e1de-ed49-40b6-bb07-22c93776c2dd",
+                "kind": "immediate_retest",
+                "prompt": "A display labels a container with less liquid than yesterday as evidence that matter was destroyed. Evaluate this conclusion using the reading and give a better explanation."
+              },
+              {
+                "node_id": "889bfd08-de13-4430-a967-3767f987db58:teacher-480a4618-2d10-4370-b923-33bcc8ffd27f:practice:corrective",
+                "kind": "corrective_feedback",
+                "source_passage_ids": [
+                  "p001"
+                ],
+                "feedback": "Evaporation changes liquid water into water vapor. The water changes state rather than ceasing to exist.",
+                "next_node_id": "teacher-5669e1de-ed49-40b6-bb07-22c93776c2dd"
+              },
+              {
+                "node_id": "889bfd08-de13-4430-a967-3767f987db58:teacher-480a4618-2d10-4370-b923-33bcc8ffd27f:practice:arithmetic",
+                "kind": "arithmetic_feedback",
+                "source_passage_ids": [
+                  "p001"
+                ],
+                "feedback": "Evaporation changes liquid water into water vapor. The water changes state rather than ceasing to exist.",
+                "next_node_id": "teacher-5669e1de-ed49-40b6-bb07-22c93776c2dd"
+              },
+              {
+                "node_id": "889bfd08-de13-4430-a967-3767f987db58:teacher-480a4618-2d10-4370-b923-33bcc8ffd27f:practice:closing",
+                "kind": "closing_feedback_and_review",
+                "source_passage_ids": [
+                  "p001"
+                ],
+                "feedback_variants": {
+                  "correct_after_feedback": "Your answer after feedback has been saved. A later independent check can provide different evidence of your understanding.",
+                  "uncertain_after_feedback": "Some reasoning remains unclear. Review the assigned passages with your teacher; your original responses have been saved.",
+                  "partial_or_incorrect_after_feedback": "There are still parts to review. Your teacher can inspect your original responses and the assistance you received.",
+                  "partial_after_feedback_arithmetic_or_units": "Your reasoning and remaining calculation or unit difficulty have been saved. Review the assigned passages with your teacher."
+                }
+              },
+              {
+                "node_id": "889bfd08-de13-4430-a967-3767f987db58:teacher-480a4618-2d10-4370-b923-33bcc8ffd27f:practice:fallback",
+                "kind": "unsupported_input_or_evaluation_fallback",
+                "feedback_variants": {
+                  "unrelated_or_empty": "Please answer the current question using the assigned reading. Your saved work is preserved if you need to return later."
+                }
+              }
+            ]
+          },
+          "questions": [
+            {
+              "origin": "curated",
+              "question_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+              "sequence_id": "889bfd08-de13-4430-a967-3767f987db58:teacher-480a4618-2d10-4370-b923-33bcc8ffd27f:practice",
+              "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "content_version": "1"
+              },
+              "concept_ids": [
+                "278d2958-32a9-4f10-a731-71923975d136"
+              ],
+              "source_passage_ids": [
+                "p001"
+              ],
+              "rubric": {
+                "version": "teacher-review-v1",
+                "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+                "criteria": [
+                  "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                ],
+                "acceptable_variations": [
+                  "Water becomes a gas in the air; the material still exists."
+                ],
+                "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+              },
+              "embedded_scaffolding": [],
+              "generation": null
+            },
+            {
+              "origin": "curated",
+              "question_id": "teacher-a4f65e23-47e9-47d0-8874-30986b9c2e55",
+              "sequence_id": null,
+              "prompt_text": "A damp cloth dries in the air. Describe the change in the water and explain whether the water still exists.",
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "content_version": "1"
+              },
+              "concept_ids": [
+                "278d2958-32a9-4f10-a731-71923975d136"
+              ],
+              "source_passage_ids": [
+                "p001"
+              ],
+              "rubric": {
+                "version": "teacher-review-v1",
+                "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+                "criteria": [
+                  "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                ],
+                "acceptable_variations": [
+                  "Water becomes a gas in the air; the material still exists."
+                ],
+                "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+              },
+              "embedded_scaffolding": [],
+              "generation": null
+            },
+            {
+              "origin": "curated",
+              "question_id": "teacher-bd2a33bd-f82c-44e7-94a6-5e0db54eca44",
+              "sequence_id": "889bfd08-de13-4430-a967-3767f987db58:teacher-480a4618-2d10-4370-b923-33bcc8ffd27f:practice",
+              "prompt_text": "Someone says that the water from a drying tabletop has ceased to exist. What would you say to them, and why?",
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "content_version": "1"
+              },
+              "concept_ids": [
+                "278d2958-32a9-4f10-a731-71923975d136"
+              ],
+              "source_passage_ids": [
+                "p001"
+              ],
+              "rubric": {
+                "version": "teacher-review-v1",
+                "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+                "criteria": [
+                  "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                ],
+                "acceptable_variations": [
+                  "Water becomes a gas in the air; the material still exists."
+                ],
+                "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+              },
+              "embedded_scaffolding": [],
+              "generation": null
+            },
+            {
+              "origin": "curated",
+              "question_id": "teacher-5669e1de-ed49-40b6-bb07-22c93776c2dd",
+              "sequence_id": "889bfd08-de13-4430-a967-3767f987db58:teacher-480a4618-2d10-4370-b923-33bcc8ffd27f:practice",
+              "prompt_text": "A display labels a container with less liquid than yesterday as evidence that matter was destroyed. Evaluate this conclusion using the reading and give a better explanation.",
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "content_version": "1"
+              },
+              "concept_ids": [
+                "278d2958-32a9-4f10-a731-71923975d136"
+              ],
+              "source_passage_ids": [
+                "p001"
+              ],
+              "rubric": {
+                "version": "teacher-review-v1",
+                "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+                "criteria": [
+                  "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                ],
+                "acceptable_variations": [
+                  "Water becomes a gas in the air; the material still exists."
+                ],
+                "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+              },
+              "embedded_scaffolding": [],
+              "generation": null
+            }
+          ],
+          "question_guidance": [
+            {
+              "question_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+              "assumptions": [],
+              "misconception_ids": []
+            },
+            {
+              "question_id": "teacher-a4f65e23-47e9-47d0-8874-30986b9c2e55",
+              "assumptions": [],
+              "misconception_ids": []
+            },
+            {
+              "question_id": "teacher-bd2a33bd-f82c-44e7-94a6-5e0db54eca44",
+              "assumptions": [],
+              "misconception_ids": []
+            },
+            {
+              "question_id": "teacher-5669e1de-ed49-40b6-bb07-22c93776c2dd",
+              "assumptions": [],
+              "misconception_ids": []
+            }
+          ],
+          "activity_policy": {
+            "allowed_actions": [
+              "ASK_RETRIEVAL_QUESTION",
+              "ASK_DIAGNOSTIC_FOLLOWUP",
+              "GIVE_CORRECTIVE_FEEDBACK",
+              "RETEST_CONCEPT",
+              "SCHEDULE_REVIEW",
+              "END_SESSION"
+            ],
+            "allow_runtime_generation": false
+          },
+          "question_bank": {
+            "preferences": {
+              "format": "short_answer",
+              "difficulty": "intermediate",
+              "emphasized_concept_ids": [
+                "278d2958-32a9-4f10-a731-71923975d136"
+              ],
+              "priorities": [
+                "explanation"
+              ],
+              "misconception_ids": [],
+              "reasoning_errors": [],
+              "student_instructions": ""
+            },
+            "items": [
+              {
+                "question_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "family_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "role": "initial",
+                "format": "short_answer",
+                "difficulty": "intermediate",
+                "feedback_guidance": "Evaporation changes liquid water into water vapor. The water changes state rather than ceasing to exist.",
+                "reasoning_error": null,
+                "source_support": [
+                  {
+                    "passage_id": "p001",
+                    "quote": "Evaporation changes liquid water into water vapor, a gas.",
+                    "criterion": "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                  }
+                ],
+                "calculation": null,
+                "review_status": "reviewed",
+                "review_notes": "",
+                "quality_issues": []
+              },
+              {
+                "question_id": "teacher-a4f65e23-47e9-47d0-8874-30986b9c2e55",
+                "family_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "role": "alternative",
+                "format": "short_answer",
+                "difficulty": "intermediate",
+                "feedback_guidance": "Evaporation changes liquid water into water vapor. The water changes state rather than ceasing to exist.",
+                "reasoning_error": null,
+                "source_support": [
+                  {
+                    "passage_id": "p001",
+                    "quote": "Evaporation changes liquid water into water vapor, a gas.",
+                    "criterion": "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                  }
+                ],
+                "calculation": null,
+                "review_status": "reviewed",
+                "review_notes": "",
+                "quality_issues": []
+              },
+              {
+                "question_id": "teacher-bd2a33bd-f82c-44e7-94a6-5e0db54eca44",
+                "family_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "role": "diagnostic",
+                "format": "short_answer",
+                "difficulty": "intermediate",
+                "feedback_guidance": "Evaporation changes liquid water into water vapor. The water changes state rather than ceasing to exist.",
+                "reasoning_error": null,
+                "source_support": [
+                  {
+                    "passage_id": "p001",
+                    "quote": "Evaporation changes liquid water into water vapor, a gas.",
+                    "criterion": "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                  }
+                ],
+                "calculation": null,
+                "review_status": "reviewed",
+                "review_notes": "",
+                "quality_issues": []
+              },
+              {
+                "question_id": "teacher-5669e1de-ed49-40b6-bb07-22c93776c2dd",
+                "family_id": "teacher-480a4618-2d10-4370-b923-33bcc8ffd27f",
+                "role": "retest",
+                "format": "short_answer",
+                "difficulty": "intermediate",
+                "feedback_guidance": "Evaporation changes liquid water into water vapor. The water changes state rather than ceasing to exist.",
+                "reasoning_error": null,
+                "source_support": [
+                  {
+                    "passage_id": "p001",
+                    "quote": "Evaporation changes liquid water into water vapor, a gas.",
+                    "criterion": "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                  }
+                ],
+                "calculation": null,
+                "review_status": "reviewed",
+                "review_notes": "",
+                "quality_issues": []
+              }
+            ],
+            "delivery": {
+              "closing_feedback": {
+                "correct_after_feedback": "Your answer after feedback has been saved. A later independent check can provide different evidence of your understanding.",
+                "uncertain_after_feedback": "Some reasoning remains unclear. Review the assigned passages with your teacher; your original responses have been saved.",
+                "partial_after_feedback_arithmetic_or_units": "Your reasoning and remaining calculation or unit difficulty have been saved. Review the assigned passages with your teacher.",
+                "partial_or_incorrect_after_feedback": "There are still parts to review. Your teacher can inspect your original responses and the assistance you received."
+              },
+              "fallback_message": "Please answer the current question using the assigned reading. Your saved work is preserved if you need to return later."
+            },
+            "approval": {
+              "reviewed_by": "10000000-0000-4000-8000-000000000001",
+              "reviewed_at": "2026-10-25T03:06:31.804Z",
+              "content_fingerprint": "5c8a89321bf583ecb0bdefb48c2fad45195619a0b26bbca23aafdeb3a3d05d5c"
+            }
+          },
+          "objective_workflow": {
+            "source_ref": {
+              "source_kind": "uploaded",
+              "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+              "source_version": 1,
+              "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+              "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+              "attribution": {
+                "title": "Manual authoring 1792897382810",
+                "authors": [
+                  "Fictional acceptance teacher"
+                ],
+                "copyright": "2026 fictional acceptance fixture",
+                "section": "Imported source",
+                "url": null,
+                "license": "Original synthetic material; permitted for this test",
+                "license_url": null,
+                "cautions": []
+              },
+              "access_scope": {
+                "teacher_id": "10000000-0000-4000-8000-000000000001"
+              }
+            },
+            "creation": {
+              "request_id": "889bfd08-de13-4430-a967-3767f987db58",
+              "title": "Manual authoring 1792897382810"
+            },
+            "items": [
+              {
+                "concept_id": "278d2958-32a9-4f10-a731-71923975d136",
+                "concept_name": "Evaporation",
+                "objective": "Explain that evaporation changes liquid water into water vapor rather than making it disappear.",
+                "passage_ids": [
+                  "p001"
+                ],
+                "emphasis": "essential",
+                "support_evidence": [
+                  {
+                    "passage_id": "p001",
+                    "quote": "Evaporation changes liquid water into water vapor, a gas."
+                  }
+                ],
+                "support_note": "The passage identifies liquid water becoming vapor and says it has not disappeared.",
+                "teacher_verified": true,
+                "origin": "manual",
+                "ai_baseline": null,
+                "uncertainty": null,
+                "support": {
+                  "status": "supported",
+                  "reason": "The passage identifies liquid water becoming vapor and says it has not disappeared.",
+                  "evidence": [
+                    {
+                      "passage_id": "p001",
+                      "quote": "Evaporation changes liquid water into water vapor, a gas."
+                    }
+                  ]
+                },
+                "review": {
+                  "reviewed_by": "10000000-0000-4000-8000-000000000001",
+                  "reviewed_at": "2026-10-25T03:04:48.278Z"
+                }
+              }
+            ],
+            "reviewed": {
+              "reviewed_by": "10000000-0000-4000-8000-000000000001",
+              "reviewed_at": "2026-10-25T03:04:56.325Z",
+              "revision": 3
+            }
+          }
+        },
+        "revision": 6,
+        "approved_revision": 6
+      }
+    },
+    {
+      "url": "http://localhost:3321/api/teacher/lessons/889bfd08-de13-4430-a967-3767f987db58/publication",
+      "status": 200,
+      "body": {
+        "lesson_id": "889bfd08-de13-4430-a967-3767f987db58",
+        "version": "1",
+        "content_ref": {
+          "source_kind": "uploaded",
+          "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+          "source_version": 1,
+          "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+          "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+          "attribution": {
+            "title": "Manual authoring 1792897382810",
+            "authors": [
+              "Fictional acceptance teacher"
+            ],
+            "copyright": "2026 fictional acceptance fixture",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic material; permitted for this test",
+            "license_url": null,
+            "cautions": []
+          },
+          "access_scope": {
+            "teacher_id": "10000000-0000-4000-8000-000000000001"
+          },
+          "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+          "content_version": "1"
+        }
+      }
+    },
+    {
+      "url": "http://localhost:3321/api/teacher/lessons/889bfd08-de13-4430-a967-3767f987db58/assignments",
+      "status": 200,
+      "body": {
+        "id": "53f84e71-f829-4479-84fd-0df908d5bf87",
+        "class_id": "20000000-0000-4000-8000-000000000001",
+        "lesson_id": "889bfd08-de13-4430-a967-3767f987db58",
+        "lesson_version": "1"
+      }
+    },
+    {
+      "url": "http://localhost:3321/api/teacher/lessons/889bfd08-de13-4430-a967-3767f987db58/versions",
+      "status": 200,
+      "body": {
+        "lesson_id": "889bfd08-de13-4430-a967-3767f987db58",
+        "version": "2",
+        "revision": 7
+      }
+    }
+  ],
+  "student": [
+    {
+      "url": "http://localhost:3321/api/tutoring",
+      "status": 200,
+      "body": {
+        "session": {
+          "id": "35242f08-a4c6-4a1d-b965-5486843e7bee",
+          "status": "active",
+          "started_at": "2026-10-25T03:09:13.783Z",
+          "ended_at": null
+        },
+        "attempts": [
+          {
+            "id": "cec0de0b-0a01-48a4-9055-2edf2cdaf749",
+            "sequence_index": 0,
+            "intent": "initial_retrieval",
+            "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+            "concept_ids": [
+              "278d2958-32a9-4f10-a731-71923975d136"
+            ],
+            "presented_at": "2026-10-25T03:09:13.793Z",
+            "submitted_at": null,
+            "response_text": null
+          }
+        ],
+        "interventions": [],
+        "pending_reading": null,
+        "progress": {
+          "phase": "answer",
+          "current_attempt_id": "cec0de0b-0a01-48a4-9055-2edf2cdaf749",
+          "failed_evaluation_id": null,
+          "retry_allowed": false,
+          "retry_after": null,
+          "message": "Explain your thinking in your own words.",
+          "next_review_at": null
+        },
+        "citations": []
+      }
+    },
+    {
+      "url": "http://localhost:3321/api/tutoring/35242f08-a4c6-4a1d-b965-5486843e7bee/conversation",
+      "status": 200,
+      "body": {
+        "dialogue": {
+          "state": {
+            "version": "r7-v1",
+            "revision": 0,
+            "lesson": {
+              "session_id": "35242f08-a4c6-4a1d-b965-5486843e7bee",
+              "assignment_id": "53f84e71-f829-4479-84fd-0df908d5bf87",
+              "attempt_id": "cec0de0b-0a01-48a4-9055-2edf2cdaf749",
+              "root_attempt_id": "cec0de0b-0a01-48a4-9055-2edf2cdaf749",
+              "sequence_index": 0,
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "content_version": "1"
+              }
+            },
+            "progress": {
+              "phase": "answer",
+              "current_attempt_id": "cec0de0b-0a01-48a4-9055-2edf2cdaf749",
+              "failed_evaluation_id": null,
+              "retry_allowed": false,
+              "retry_after": null,
+              "message": "Your saved conversation and lesson.",
+              "next_review_at": null
+            },
+            "enabled": true,
+            "active_request_id": null,
+            "turns_used": 0,
+            "provider_requests_used": 0
+          },
+          "turns": []
+        },
+        "messages": []
+      }
+    },
+    {
+      "url": "http://localhost:3321/api/tutoring/35242f08-a4c6-4a1d-b965-5486843e7bee/conversation",
+      "status": 200,
+      "body": {
+        "dialogue": {
+          "state": {
+            "version": "r7-v1",
+            "revision": 0,
+            "lesson": {
+              "session_id": "35242f08-a4c6-4a1d-b965-5486843e7bee",
+              "assignment_id": "53f84e71-f829-4479-84fd-0df908d5bf87",
+              "attempt_id": "cec0de0b-0a01-48a4-9055-2edf2cdaf749",
+              "root_attempt_id": "cec0de0b-0a01-48a4-9055-2edf2cdaf749",
+              "sequence_index": 0,
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "559f8f81-78bf-4dea-ba78-bd846e4f7b27",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Manual authoring 1792897382810",
+                  "authors": [
+                    "Fictional acceptance teacher"
+                  ],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "889bfd08-de13-4430-a967-3767f987db58",
+                "content_version": "1"
+              }
+            },
+            "progress": {
+              "phase": "answer",
+              "current_attempt_id": "cec0de0b-0a01-48a4-9055-2edf2cdaf749",
+              "failed_evaluation_id": null,
+              "retry_allowed": false,
+              "retry_after": null,
+              "message": "Your saved conversation and lesson.",
+              "next_review_at": null
+            },
+            "enabled": true,
+            "active_request_id": null,
+            "turns_used": 0,
+            "provider_requests_used": 0
+          },
+          "turns": []
+        },
+        "messages": []
+      }
+    }
+  ],
+  "session_before": {
+    "session": {
+      "id": "35242f08-a4c6-4a1d-b965-5486843e7bee",
+      "status": "active",
+      "started_at": "2026-10-25T03:09:13.783Z",
+      "ended_at": null
+    },
+    "attempts": [
+      {
+        "id": "cec0de0b-0a01-48a4-9055-2edf2cdaf749",
+        "sequence_index": 0,
+        "intent": "initial_retrieval",
+        "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+        "concept_ids": [
+          "278d2958-32a9-4f10-a731-71923975d136"
+        ],
+        "presented_at": "2026-10-25T03:09:13.793Z",
+        "submitted_at": null,
+        "response_text": null
+      }
+    ],
+    "interventions": [],
+    "pending_reading": null,
+    "progress": {
+      "phase": "answer",
+      "current_attempt_id": "cec0de0b-0a01-48a4-9055-2edf2cdaf749",
+      "failed_evaluation_id": null,
+      "retry_allowed": false,
+      "retry_after": null,
+      "message": "Explain your thinking in your own words.",
+      "next_review_at": null
+    },
+    "citations": []
+  },
+  "session_after": {
+    "session": {
+      "id": "35242f08-a4c6-4a1d-b965-5486843e7bee",
+      "status": "active",
+      "started_at": "2026-10-25T03:09:13.783Z",
+      "ended_at": null
+    },
+    "attempts": [
+      {
+        "id": "cec0de0b-0a01-48a4-9055-2edf2cdaf749",
+        "sequence_index": 0,
+        "intent": "initial_retrieval",
+        "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+        "concept_ids": [
+          "278d2958-32a9-4f10-a731-71923975d136"
+        ],
+        "presented_at": "2026-10-25T03:09:13.793Z",
+        "submitted_at": null,
+        "response_text": null
+      }
+    ],
+    "interventions": [],
+    "pending_reading": null,
+    "progress": {
+      "phase": "answer",
+      "current_attempt_id": "cec0de0b-0a01-48a4-9055-2edf2cdaf749",
+      "failed_evaluation_id": null,
+      "retry_allowed": false,
+      "retry_after": null,
+      "message": "Explain your thinking in your own words.",
+      "next_review_at": null
+    },
+    "citations": []
+  }
+}

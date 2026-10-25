@@ -1,0 +1,51 @@
+{
+  "target": "main",
+  "sourceSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+  "category": "supplementary production baseline",
+  "paidModelCallsAuthorized": false,
+  "checks": [
+    {
+      "name": "lint-production-baseline",
+      "status": "pass",
+      "exitCode": 0,
+      "sourceSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "target": "main",
+      "category": "deterministic production baseline; acceptance directory explicitly excluded",
+      "fixture": "source checkout; previously completed locked npm ci",
+      "node": "v22.13.0",
+      "platform": "win32",
+      "startedAt": "2026-10-25T03:03:55.003Z",
+      "finishedAt": "2026-10-25T03:05:06.840Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "node_modules/eslint/bin/eslint.js",
+        ".",
+        "--max-warnings=0",
+        "--ignore-pattern",
+        "acceptance/**"
+      ],
+      "log": "lint-production-baseline.log"
+    },
+    {
+      "name": "format-production-baseline",
+      "status": "pass",
+      "exitCode": 0,
+      "sourceSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "target": "main",
+      "category": "deterministic production baseline; acceptance directory explicitly excluded",
+      "fixture": "source checkout; previously completed locked npm ci",
+      "node": "v22.13.0",
+      "platform": "win32",
+      "startedAt": "2026-10-25T03:05:06.842Z",
+      "finishedAt": "2026-10-25T03:05:17.801Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "node_modules/prettier/bin/prettier.cjs",
+        "--check",
+        ".",
+        "!acceptance/**"
+      ],
+      "log": "format-production-baseline.log"
+    }
+  ]
+}

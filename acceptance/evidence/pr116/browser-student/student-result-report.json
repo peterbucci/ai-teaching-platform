@@ -1,0 +1,116 @@
+{
+  "source_sha": "5d6363d2867a6f0250f8220db0474342b1241d00",
+  "base": "http://localhost:3322",
+  "started_at": "2026-10-25T03:16:57.287Z",
+  "fixture": {
+    "project": "lp-accept-pr116",
+    "fictional_only": true,
+    "actual_model_calls": 0,
+    "provenance": "Fresh ordinary tutoring-service session (live_demo navigation category), original fictional correct response and explicitly synthetic_fixture accepted evaluation. Historical seeded records unchanged.",
+    "assignment_id": "30000000-0000-4000-8000-000000000001",
+    "student_id": "10000000-0000-4000-8000-000000000003",
+    "session_id": "596fda0e-7186-4e13-bf4d-6e865cfa9d5c",
+    "attempt_id": "d6b4c388-f717-4bed-9b72-ab8559752621",
+    "evaluation_id": "ac0ddce6-6bdf-4bdc-8d59-73a9d6727b54",
+    "status": "completed",
+    "response_text": "Transmission delay is unchanged: the number of packet bits and the rate at which they enter the link are unchanged. Propagation delay doubles because distance doubles at the same propagation speed.",
+    "correctness": [
+      {
+        "concept_id": "transmission_delay",
+        "correctness": "correct",
+        "error_type": null,
+        "rubric_criteria_met": [],
+        "rubric_criteria_missing": []
+      },
+      {
+        "concept_id": "propagation_delay",
+        "correctness": "correct",
+        "error_type": null,
+        "rubric_criteria_met": [],
+        "rubric_criteria_missing": []
+      }
+    ],
+    "url": "/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=596fda0e-7186-4e13-bf4d-6e865cfa9d5c"
+  },
+  "category": "Provider-disabled browser plus explicitly synthetic accepted-evaluation fixture; no actual-model claim",
+  "cases": [
+    {
+      "id": "S-01-accepted-correct-result-visible",
+      "status": "FAIL",
+      "details": {
+        "observed": "Only Completed and saved original answer; accepted correct outcome and uncertainty are not visibly rendered.",
+        "accepted_evaluation": "ac0ddce6-6bdf-4bdc-8d59-73a9d6727b54",
+        "session_id": "596fda0e-7186-4e13-bf4d-6e865cfa9d5c",
+        "exact_original_text_visible": true,
+        "evaluator_type": "synthetic_fixture",
+        "owner": "Student result/scroll PR #113"
+      }
+    },
+    {
+      "id": "ST-03-accepted-fixture-refresh-unchanged",
+      "status": "PASS",
+      "details": {
+        "session_id": "596fda0e-7186-4e13-bf4d-6e865cfa9d5c",
+        "view_equal": true
+      }
+    },
+    {
+      "id": "RC-09-other-student-denied",
+      "status": "PASS",
+      "details": {
+        "status": 404,
+        "foreign_session": "f1639d10-3745-4494-8c40-73a6a9f81d5c"
+      }
+    },
+    {
+      "id": "RC-07-exact-replay-altered-payload-stale-revision",
+      "status": "PASS",
+      "details": {
+        "same_request": 200,
+        "altered_payload": 409,
+        "stale_revision": 409,
+        "view_unchanged": true,
+        "provider_requests_used": 0
+      }
+    },
+    {
+      "id": "RC-09-assignment-mismatch",
+      "status": "PASS",
+      "details": {
+        "observed": "404 page",
+        "private_evidence_exposed": false
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "correct-result-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "file": "correct-result-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      }
+    },
+    {
+      "file": "correct-result-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "file": "correct-result-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      }
+    }
+  ],
+  "finished_at": "2026-10-25T03:17:00.399Z"
+}

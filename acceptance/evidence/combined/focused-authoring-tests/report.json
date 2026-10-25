@@ -1,0 +1,68 @@
+{
+  "sourceSha": "545b880749c757f7502a9bfa7fd127afdf290afd",
+  "target": "combined",
+  "configurationCategory": "deterministic focused authoring state/recovery tests; no database or provider",
+  "fixture": "four PR118-authored local state/recovery test files omitted by generic npm test glob",
+  "startedAt": "2026-10-25T03:47:42.468523+00:00",
+  "finishedAt": "2026-10-25T03:47:43.877756+00:00",
+  "results": [
+    {
+      "file": "app/teacher/materials/import-draft.test.ts",
+      "command": [
+        "node",
+        "--experimental-strip-types",
+        "--conditions=react-server",
+        "app/teacher/materials/import-draft.test.ts"
+      ],
+      "sourceFileSHA256": "239d52d0bf5c6dcd9c6ab8860ea922768196a17b10a16dc89e998a991947aa22",
+      "status": "pass",
+      "exitCode": 0,
+      "passedTests": 4,
+      "log": "import-draft.test.ts.log"
+    },
+    {
+      "file": "app/teacher/objectives/draft-recovery.test.ts",
+      "command": [
+        "node",
+        "--experimental-strip-types",
+        "--conditions=react-server",
+        "app/teacher/objectives/draft-recovery.test.ts"
+      ],
+      "sourceFileSHA256": "1bbf897ba8281f67f9c591ddd4d0aeecce9b22b4307d2dc54fc0918ba82fffab",
+      "status": "pass",
+      "exitCode": 0,
+      "passedTests": 4,
+      "log": "draft-recovery.test.ts.log"
+    },
+    {
+      "file": "app/teacher/lessons/authoring-state.test.ts",
+      "command": [
+        "node",
+        "--experimental-strip-types",
+        "--conditions=react-server",
+        "app/teacher/lessons/authoring-state.test.ts"
+      ],
+      "sourceFileSHA256": "84aa1fc1472840714787f69ca4a0ddbc18a24255796eb7e53fc2cc6ab98b6bb4",
+      "status": "pass",
+      "exitCode": 0,
+      "passedTests": 5,
+      "log": "authoring-state.test.ts.log"
+    },
+    {
+      "file": "app/teacher/lessons/[lessonId]/questions/workbench-state.test.ts",
+      "command": [
+        "node",
+        "--experimental-strip-types",
+        "--conditions=react-server",
+        "app/teacher/lessons/[lessonId]/questions/workbench-state.test.ts"
+      ],
+      "sourceFileSHA256": "6ab9151b90b42a80ec14266a6e9e3c7a025e64c9c4ffbbfeb079e5c33b65066f",
+      "status": "pass",
+      "exitCode": 0,
+      "passedTests": 4,
+      "log": "workbench-state.test.ts.log"
+    }
+  ],
+  "totalPassed": 17,
+  "paidModelCalls": 0
+}

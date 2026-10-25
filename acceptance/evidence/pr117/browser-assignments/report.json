@@ -1,0 +1,32 @@
+{
+  "target": "pr117",
+  "source_sha": "6f9dd8991abef5efa8108e50b2274dc3bdc13ce6",
+  "origin": "http://localhost:3323",
+  "started_at": "2026-10-25T03:50:55.152Z",
+  "category": "provider-disabled browser; fictional authored and synthetic histories; no actual model calls",
+  "authoring_fixture": "29ce4af3-d172-4dc5-8920-6ee2a4e6c9e9",
+  "cases": [
+    {
+      "id": "AS-01-draft-refresh-exact",
+      "status": "FAIL",
+      "details": {
+        "error": "locator.inputValue: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('Instructions for students', { exact: true })\u001b[22m\n"
+      }
+    }
+  ],
+  "screenshots": [
+    "failure-teacher.png"
+  ],
+  "status": "failed",
+  "failure_stage": "draft preservation",
+  "error": "locator.inputValue: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('Instructions for students', { exact: true })\u001b[22m\n",
+  "finished_at": "2026-10-25T03:51:11.961Z",
+  "unrun": [
+    "Real authentication expiry and sign-in return",
+    "Fresh model calls",
+    "Hosted release",
+    "Full keyboard-only and screen-reader journey",
+    "Actual browser200%zoom in this suite",
+    "Unchanged private published-history guarantees beyond separately executed service checks"
+  ]
+}

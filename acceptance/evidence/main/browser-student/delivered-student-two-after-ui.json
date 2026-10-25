@@ -1,0 +1,52 @@
+{
+  "status": 200,
+  "data": {
+    "approval_id": "56184882-8818-4a56-a5fd-24ee2ae7d2b6",
+    "draft_id": "47d61be0-5cf9-47af-8fce-1056789ae5bd",
+    "assignment_id": "30000000-0000-4000-8000-000000000001",
+    "delivered_at": "2026-10-25T03:04:54.296Z",
+    "displayed_at": "2026-10-25T03:11:59.100Z",
+    "content_ref": {
+      "package_id": "network-performance-v1",
+      "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+      "source_id": "peterson_davie_1_5_1",
+      "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+      "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+    },
+    "activity": {
+      "title": "Independent acceptance 723ed6f",
+      "learning_objective": "Explain transmission delay as the time needed to place a packet's bits onto the link at its given rate.",
+      "explanation": "We often think of latency as having three components. First, there is\nthe speed-of-light propagation delay. This delay occurs because nothing,\nincluding a bit on a wire, can travel faster than the speed of light. If\nyou know the distance between two points, you can calculate the\nspeed-of-light latency, although you have to be careful because light\ntravels across different media at different speeds: It travels at\n3.0 × 10\\ :sup:`8` m/s in a vacuum, 2.3 × 10\\ :sup:`8` m/s\nin a copper cable, and 2.0 × 10\\ :sup:`8` m/s in an optical fiber.\nSecond, there is the amount of time it takes to transmit a unit of data.\nThis is a function of the network bandwidth and the size of the packet in\nwhich the data is carried. Third, there may be queuing delays inside the\nnetwork, since packet switches generally need to store packets for some\ntime before forwarding them on an outbound link. So, we could define the\ntotal latency as",
+      "exercise_text": "Sketch a packet being placed onto a link. Annotate which parts of the transfer depend on packet size, link bandwidth, and physical distance. Explain the distinction in your own words.",
+      "practice_questions": [
+        {
+          "question_id": "bb14722e-8904-4d8e-a587-d7de9de7b245",
+          "prompt_text": "A sender replaces a short message with a longer message on the same link. Predict how the time needed to transmit the message changes, and explain what role bandwidth plays.",
+          "concept_ids": [
+            "transmission_delay"
+          ],
+          "source_passage_ids": [
+            "P07"
+          ]
+        }
+      ],
+      "fresh_check": {
+        "question_id": "8c1c9705-e33f-4ce8-ac39-f23fa6c4fbed",
+        "prompt_text": "Compare sending an identical packet on a long high bandwidth link and a short low bandwidth link. Which link needs more time to put the packet onto the link? Explain what information determines this transmission delay.",
+        "concept_ids": [
+          "transmission_delay"
+        ],
+        "source_passage_ids": [
+          "P07"
+        ]
+      },
+      "source_references": [
+        {
+          "passage_id": "P07",
+          "quote": "We often think of latency as having three components. First, there is\nthe speed-of-light propagation delay. This delay occurs because nothing,\nincluding a bit on a wire, can travel faster than the speed of light. If\nyou know the distance between two points, you can calculate the\nspeed-of-light latency, although you have to be careful because light\ntravels across different media at different speeds: It travels at\n3.0 × 10\\ :sup:`8` m/s in a vacuum, 2.3 × 10\\ :sup:`8` m/s\nin a copper cable, and 2.0 × 10\\ :sup:`8` m/s in an optical fiber.\nSecond, there is the amount of time it takes to transmit a unit of data.\nThis is a function of the network bandwidth and the size of the packet in\nwhich the data is carried. Third, there may be queuing delays inside the\nnetwork, since packet switches generally need to store packets for some\ntime before forwarding them on an outbound link. So, we could define the\ntotal latency as"
+        }
+      ]
+    }
+  },
+  "visible_text": "Skip to content\nLearning Pulse\nA little insight. A better next step.\n\nYOUR LEARNING\n\nAssignments\nLearning journal\nReading\nStudent workspace\nBack to assignments\n\nAssigned review · Available since 10/24/2026\n\nTEACHER-ASSIGNED REVIEW\n\nIndependent acceptance 723ed6f\n\nExplain transmission delay as the time needed to place a packet's bits onto the link at its given rate.\n\nTry it first\n\nSketch a packet being placed onto a link. Annotate which parts of the transfer depend on packet size, link bandwidth, and physical distance. Explain the distinction in your own words.\n\nA sender replaces a short message with a longer message on the same link. Predict how the time needed to transmit the message changes, and explain what role bandwidth plays.\n\nSources: P07\nExplanation\n\nWe often think of latency as having three components. First, there is\nthe speed-of-light propagation delay. This delay occurs because nothing,\nincluding a bit on a wire, can travel faster than the speed of light. If\nyou know the distance between two points, you can calculate the\nspeed-of-light latency, although you have to be careful because light\ntravels across different media at different speeds: It travels at\n3.0 × 10\\ :sup:`8` m/s in a vacuum, 2.3 × 10\\ :sup:`8` m/s\nin a copper cable, and 2.0 × 10\\ :sup:`8` m/s in an optical fiber.\nSecond, there is the amount of time it takes to transmit a unit of data.\nThis is a function of the network bandwidth and the size of the packet in\nwhich the data is carried. Third, there may be queuing delays inside the\nnetwork, since packet switches generally need to store packets for some\ntime before forwarding them on an outbound link. So, we could define the\ntotal latency as\n\nCheck your understanding\n\nCompare sending an identical packet on a long high bandwidth link and a short low bandwidth link. Which link needs more time to put the packet onto the link? Explain what information determines this transmission delay.\n\nSources: P07\nSource references\nP07\n\nWe often think of latency as having three components. First, there is the speed-of-light propagation delay. This delay occurs because nothing, including a bit on a wire, can travel faster than the speed of light. If you know the distance between two points, you can calculate the speed-of-light latency, although you have to be careful because light travels across different media at different speeds: It travels at 3.0 × 10\\ :sup:`8` m/s in a vacuum, 2.3 × 10\\ :sup:`8` m/s in a copper cable, and 2.0 × 10\\ :sup:`8` m/s in an optical fiber. Second, there is the amount of time it takes to transmit a unit of data. This is a function of the network bandwidth and the size of the packet in which the data is carried. Third, there may be queuing delays inside the network, since packet switches generally need to store packets for some time before forwarding them on an outbound link. So, we could define the total latency as\n\nYour fresh-check response\nRefresh saved status\n\nSubmit one answer to the check of understanding. Your teacher can compare it with your earlier work. Opening this page does not start or submit your response.\n\nStart fresh check"
+}

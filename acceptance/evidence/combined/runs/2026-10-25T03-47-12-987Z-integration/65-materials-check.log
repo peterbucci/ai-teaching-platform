@@ -1,0 +1,11 @@
+
+> ai-teaching-platform@0.1.0 materials:check
+> node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-materials.ts
+
+PASS: authenticated text/TXT/Markdown/PDF extraction; complete flat/nested page trees and two-stream PDF storage; malformed page trees and damaged later streams rejected without preview, approval receipt, or persisted source; obsolete versionless/v2 receipts cannot save or renew partial extraction; corrected/excluded passages; private SQL bytes; saved reload/list; immutable versions; idempotent save; stale/replayed/forged request rejection; teacher isolation; unsupported, malformed and over-limit inputs; same-origin enforcement. No model calls or browser automation performed.
+Retained 4 synthetic source documents labeled 'Synthetic material verification 14b83182-cabd-4339-a4a5-a35555a40dbe' because source-version history is append-only. Temporary authorization class removed.
+.env not found. Continuing without it.
+(node:72) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///app/scripts/check-materials.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)

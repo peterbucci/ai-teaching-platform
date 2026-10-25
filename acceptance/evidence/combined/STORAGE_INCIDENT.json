@@ -1,0 +1,51 @@
+{
+  "category": "Environment incident; not an application assertion failure",
+  "sourceSha": "545b880749c757f7502a9bfa7fd127afdf290afd",
+  "recordedAt": "2026-10-25T03:55:39.8191459Z",
+  "target": "combined",
+  "failedChecks": [
+    {
+      "name": "interventions:check",
+      "startedAt": "2026-10-25T03:52:23.862Z",
+      "finishedAt": "2026-10-25T03:52:35.951Z",
+      "log": "73-interventions-check.log"
+    },
+    {
+      "name": "restart-app",
+      "startedAt": "2026-10-25T03:52:35.952Z",
+      "finishedAt": "2026-10-25T03:52:36.394Z",
+      "log": "74-restart-app.log"
+    },
+    {
+      "name": "restart-app",
+      "startedAt": "2026-10-25T03:52:36.395Z",
+      "finishedAt": "2026-10-25T03:52:36.813Z",
+      "log": "75-restart-app.log"
+    },
+    {
+      "name": "restart-app",
+      "startedAt": "2026-10-25T03:52:36.814Z",
+      "finishedAt": "2026-10-25T03:52:37.227Z",
+      "log": "76-restart-app.log"
+    }
+  ],
+  "observedDatabaseError": "PostgreSQL PANIC 58030: could not fdatasync WAL file: Input/output error",
+  "observedDockerError": "Docker Desktop Linux Engine API returned500 after the WAL error; subsequent read-only docker version did not complete and its client was stopped",
+  "hostFreeGiBBeforeCleanup": 0.01,
+  "hostFreeGiBAfterCleanup": 9.15,
+  "cleanup": [
+    "acceptance-pr117/LearningPlatform/node_modules",
+    "acceptance-pr117/LearningPlatform/.next",
+    "acceptance-pr118/LearningPlatform/node_modules",
+    "acceptance-pr118/LearningPlatform/.next",
+    "acceptance-combined/LearningPlatform/node_modules",
+    "acceptance-combined/LearningPlatform/.next"
+  ],
+  "cleanupBoundary": "Absolute paths checked inside this task's managed worktrees; root reparse points refused; only regenerable dependencies/build output removed after all local builds/tests completed",
+  "sourceRecordsAndVolumesPreserved": true,
+  "otherWorkstreamsTouched": false,
+  "dockerDaemonRestarted": false,
+  "paidOperationsRetried": false,
+  "databaseRecoveryVerified": false,
+  "acceptanceImpact": "Later combined intervention, linked-followup, persistence and browser checks unrun/blocked. No runtime writes after halt. Earlier passed runs retain their exact timestamps; no durability claim after storage failure."
+}

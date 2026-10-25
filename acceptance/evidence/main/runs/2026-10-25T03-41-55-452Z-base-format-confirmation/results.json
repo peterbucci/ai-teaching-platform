@@ -1,0 +1,42 @@
+{
+  "sourceSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+  "category": "base verification formatting and harness lint after later-target scope began",
+  "exclusions": {
+    "reason": "New PR117/118/combined browser scripts actively being authored; outside current-main/PR116 baseline verification",
+    "files": [
+      "acceptance/authoring-workbench-browser.mjs",
+      "acceptance/pr117-assignment-http.mjs",
+      "acceptance/pr117-authoring-browser.mjs"
+    ]
+  },
+  "previousFullLint": "2026-10-25T03-39-54-956Z-base-final-receipt",
+  "checks": [
+    {
+      "name": "format",
+      "command": [
+        "node",
+        "node_modules/prettier/bin/prettier.cjs",
+        "--check",
+        ".",
+        "!acceptance/authoring-workbench-browser.mjs",
+        "!acceptance/pr117-assignment-http.mjs",
+        "!acceptance/pr117-authoring-browser.mjs"
+      ],
+      "status": "pass",
+      "exitCode": 0,
+      "log": "format.log"
+    },
+    {
+      "name": "verification-harness-lint",
+      "command": [
+        "node",
+        "node_modules/eslint/bin/eslint.js",
+        "acceptance/runner.mjs",
+        "acceptance/collect-evidence.mjs"
+      ],
+      "status": "pass",
+      "exitCode": 0,
+      "log": "verification-harness-lint.log"
+    }
+  ]
+}

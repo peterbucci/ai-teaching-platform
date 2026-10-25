@@ -1,0 +1,38 @@
+
+> ai-teaching-platform@0.1.0 interventions:check
+> node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-interventions.ts
+
+.env not found. Continuing without it.
+(node:72) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///app/scripts/check-interventions.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+/app/node_modules/pg-pool/index.js:45
+    Error.captureStackTrace(err)
+          ^
+
+error: could not fdatasync file "000000010000000000000001": Input/output error
+    at /app/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async file:///app/scripts/check-interventions.ts:205:5 {
+  length: 131,
+  severity: 'PANIC',
+  code: '58030',
+  detail: undefined,
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'xlog.c',
+  line: '8798',
+  routine: 'issue_xlog_fsync'
+}
+
+Node.js v22.23.2
+request returned 500 Internal Server Error for API route and version http://%2F%2F.%2Fpipe%2FdockerDesktopLinuxEngine/v1.51/exec/4667f6ebf3d9b621adc4e095aa0e9a251c5d678ec7041773211843806002e359/json, check if the server supports the requested API version

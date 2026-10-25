@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "mode": "quality",
+  "target": "pr116",
+  "sourceSha": "5d6363d2867a6f0250f8220db0474342b1241d00",
+  "source": "C:\\Users\\sb128\\.codex\\worktrees\\acceptance-pr116\\LearningPlatform",
+  "project": "lp-accept-pr116",
+  "origin": "http://localhost:3322",
+  "manifest": "C:\\Users\\sb128\\Desktop\\LearningPlatform\\.setup\\acceptance-pr116\\manifest.json",
+  "fixture": "repository unit fixtures; curated network-performance-v1 package",
+  "paidModelCallsAuthorized": false,
+  "checks": [
+    {
+      "name": "npm-ci",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic quality",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "5d6363d2867a6f0250f8220db0474342b1241d00",
+      "target": "pr116",
+      "project": "lp-accept-pr116",
+      "origin": "http://localhost:3322",
+      "startedAt": "2026-10-25T02:59:27.510Z",
+      "finishedAt": "2026-10-25T03:00:35.580Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "ci"
+      ],
+      "log": "01-npm-ci.log"
+    },
+    {
+      "name": "test",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic quality",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "5d6363d2867a6f0250f8220db0474342b1241d00",
+      "target": "pr116",
+      "project": "lp-accept-pr116",
+      "origin": "http://localhost:3322",
+      "startedAt": "2026-10-25T03:00:35.581Z",
+      "finishedAt": "2026-10-25T03:00:58.534Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "test"
+      ],
+      "log": "02-test.log"
+    },
+    {
+      "name": "lint",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic quality",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "5d6363d2867a6f0250f8220db0474342b1241d00",
+      "target": "pr116",
+      "project": "lp-accept-pr116",
+      "origin": "http://localhost:3322",
+      "startedAt": "2026-10-25T03:00:58.535Z",
+      "finishedAt": "2026-10-25T03:01:58.696Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "lint"
+      ],
+      "log": "03-lint.log"
+    },
+    {
+      "name": "typecheck",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic quality",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "5d6363d2867a6f0250f8220db0474342b1241d00",
+      "target": "pr116",
+      "project": "lp-accept-pr116",
+      "origin": "http://localhost:3322",
+      "startedAt": "2026-10-25T03:01:58.697Z",
+      "finishedAt": "2026-10-25T03:02:29.506Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "typecheck"
+      ],
+      "log": "04-typecheck.log"
+    },
+    {
+      "name": "format:check",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic quality",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "5d6363d2867a6f0250f8220db0474342b1241d00",
+      "target": "pr116",
+      "project": "lp-accept-pr116",
+      "origin": "http://localhost:3322",
+      "startedAt": "2026-10-25T03:02:29.507Z",
+      "finishedAt": "2026-10-25T03:02:40.174Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "format:check"
+      ],
+      "log": "05-format-check.log"
+    },
+    {
+      "name": "build",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic quality",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "5d6363d2867a6f0250f8220db0474342b1241d00",
+      "target": "pr116",
+      "project": "lp-accept-pr116",
+      "origin": "http://localhost:3322",
+      "startedAt": "2026-10-25T03:02:40.175Z",
+      "finishedAt": "2026-10-25T03:03:46.963Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "build"
+      ],
+      "log": "06-build.log"
+    },
+    {
+      "name": "content:check",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic curated content verification",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "5d6363d2867a6f0250f8220db0474342b1241d00",
+      "target": "pr116",
+      "project": "lp-accept-pr116",
+      "origin": "http://localhost:3322",
+      "startedAt": "2026-10-25T03:03:46.965Z",
+      "finishedAt": "2026-10-25T03:03:47.885Z",
+      "command": [
+        "python",
+        "content/network-performance-v1/verify_package.py"
+      ],
+      "log": "07-content-check.log"
+    }
+  ],
+  "result": "pass",
+  "limitations": [
+    "No hosted release verification",
+    "No fresh or historical actual-model claim",
+    "Browser/accessibility evidence is recorded separately"
+  ]
+}

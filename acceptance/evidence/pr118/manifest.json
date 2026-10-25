@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "initializedAt": "2026-10-25T03:41:12.669Z",
+  "verificationTargetKind": "separate pinned branch or pull-request head",
+  "browserNetwork": "lp-accept-main_browser",
+  "target": "pr118",
+  "project": "lp-accept-pr118",
+  "source": "C:\\Users\\sb128\\.codex\\worktrees\\acceptance-pr118\\LearningPlatform",
+  "sourceSha": "d2dca515b1a926daf28e791044fe04d01bdf20a9",
+  "origin": "http://localhost:3324",
+  "configurationCategory": "provider-disabled; synthetic fixtures; loopback gateway; app/database isolated internal Docker network",
+  "database": "disposable project-owned PostgreSQL 17.11 volume; no host database port",
+  "node": "v22.13.0",
+  "platform": "win32",
+  "architecture": "x64",
+  "hashes": {
+    "Dockerfile": "9234df0cf2b45eff67b27bf293db1a87852249db91f849489f0483c625e25530",
+    "compose.yaml": "df2e88b8389804c9e7591a319b147773b892adaad3c0fddad1e260335a1f3ff6",
+    "package.json": "9c67fbec75ef8db20adeed717291751479fe6b83b92ff6384f918db42cf1a147",
+    "package-lock.json": "eba6237900204f79433f27f73f20861c2401b820cbebedb2d4554d9b3567027d",
+    ".github/workflows/ci.yml": "337a07150615d929ce81d495ca40ba0be72e4cfc8c378a93eddae45107e76ccc"
+  },
+  "productionSourceVerification": "git HEAD and tracked production cleanliness checked",
+  "secrets": "generated locally; not included in reports; outside source/build context",
+  "paidModelCallsAuthorized": false,
+  "internalSubnet": "10.233.118.0/24",
+  "configurationOverrides": [
+    {
+      "at": "2026-10-25T03:44:26.082448+00:00",
+      "target": "pr118",
+      "reason": "Docker default address pools exhausted; explicit unused subnet inspected against Docker IPAM and host routes",
+      "subnet": "10.233.118.0/24",
+      "previousComposeSHA256": "704123ed2a5814611216cca924b43a0cfe7395e7161b8764b7e6424a6b9d6f21",
+      "originalConfigurationBackup": "C:\\Users\\sb128\\Desktop\\LearningPlatform\\.setup\\acceptance-pr118\\configuration-overrides\\explicit-subnet-20261025T034426",
+      "applicationOrDatabaseSourceChanged": false,
+      "existingNetworksDeleted": false
+    }
+  ]
+}

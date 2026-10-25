@@ -1,0 +1,33 @@
+
+> ai-teaching-platform@0.1.0 r7:controller:check
+> node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-r7-controller.ts
+
+PASS: Explicit Continue recovers a known saved controller choice once, preserving the original evaluation and authored activity without any new model call
+PASS: Generated diagnostic commits through the existing controller once; duplicate operations and controller application do not create another attempt or paid stage
+PASS: New generated-question response uses its private snapshot in the existing evaluator; controller explanation remains unassisted until actual display acknowledgment
+PASS: Generated retest completes the same authored sequence, preserves assisted outcome, recovers read-only, and is inspectable only by the authorized teacher
+PASS: Invalid generated source leaves the original answer/evaluation intact; explicit authored continuation works and stale replay starts no extra stage
+PASS: Final controller commit reloads published runtime policy despite a forged caller context; denial preserves evidence and the authored fallback remains available
+{
+  "fixture_only": true,
+  "model_calls": 0,
+  "sessions": [
+    "c383b0dd-3554-4a2e-95a8-9af8323afce3",
+    "48a9475a-00e6-4ac2-8626-b1fee5b13fae",
+    "dfc20c1c-c434-4816-9a3c-431a19e3936c",
+    "a6bce254-1df1-4fc4-a4af-d22665472068"
+  ],
+  "checks": [
+    "Explicit Continue recovers a known saved controller choice once, preserving the original evaluation and authored activity without any new model call",
+    "Generated diagnostic commits through the existing controller once; duplicate operations and controller application do not create another attempt or paid stage",
+    "New generated-question response uses its private snapshot in the existing evaluator; controller explanation remains unassisted until actual display acknowledgment",
+    "Generated retest completes the same authored sequence, preserves assisted outcome, recovers read-only, and is inspectable only by the authorized teacher",
+    "Invalid generated source leaves the original answer/evaluation intact; explicit authored continuation works and stale replay starts no extra stage",
+    "Final controller commit reloads published runtime policy despite a forged caller context; denial preserves evidence and the authored fallback remains available"
+  ]
+}
+.env not found. Continuing without it.
+(node:85) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///app/scripts/check-r7-controller.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)

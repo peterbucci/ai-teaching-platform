@@ -1,0 +1,254 @@
+{
+  "sourceSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+  "category": "final offline verification source and five-target evidence audit; no runtime or model calls",
+  "checks": [
+    {
+      "name": "lint",
+      "status": "pass",
+      "command": [
+        "node",
+        "node_modules/eslint/bin/eslint.js",
+        "."
+      ],
+      "exitCode": 0,
+      "log": "lint.log"
+    },
+    {
+      "name": "format",
+      "status": "pass",
+      "command": [
+        "node",
+        "node_modules/prettier/bin/prettier.cjs",
+        "--check",
+        "."
+      ],
+      "exitCode": 0,
+      "log": "format.log"
+    },
+    {
+      "name": "syntax-accessibility-browser.mjs",
+      "status": "pass",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\accessibility-browser.mjs"
+      ],
+      "exitCode": 0,
+      "log": "syntax-accessibility-browser.mjs.log"
+    },
+    {
+      "name": "syntax-authoring-browser.mjs",
+      "status": "pass",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\authoring-browser.mjs"
+      ],
+      "exitCode": 0,
+      "log": "syntax-authoring-browser.mjs.log"
+    },
+    {
+      "name": "syntax-authoring-workbench-browser.mjs",
+      "status": "pass",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\authoring-workbench-browser.mjs"
+      ],
+      "exitCode": 0,
+      "log": "syntax-authoring-workbench-browser.mjs.log"
+    },
+    {
+      "name": "syntax-collect-evidence.mjs",
+      "status": "pass",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\collect-evidence.mjs"
+      ],
+      "exitCode": 0,
+      "log": "syntax-collect-evidence.mjs.log"
+    },
+    {
+      "name": "syntax-oversized-browser.mjs",
+      "status": "pass",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\oversized-browser.mjs"
+      ],
+      "exitCode": 0,
+      "log": "syntax-oversized-browser.mjs.log"
+    },
+    {
+      "name": "syntax-oversized-evidence.mjs",
+      "status": "pass",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\oversized-evidence.mjs"
+      ],
+      "exitCode": 0,
+      "log": "syntax-oversized-evidence.mjs.log"
+    },
+    {
+      "name": "syntax-pr117-assignment-http.mjs",
+      "status": "pass",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\pr117-assignment-http.mjs"
+      ],
+      "exitCode": 0,
+      "log": "syntax-pr117-assignment-http.mjs.log"
+    },
+    {
+      "name": "syntax-pr117-assignments-browser.mjs",
+      "status": "pass",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\pr117-assignments-browser.mjs"
+      ],
+      "exitCode": 0,
+      "log": "syntax-pr117-assignments-browser.mjs.log"
+    },
+    {
+      "name": "syntax-pr117-authoring-browser.mjs",
+      "status": "pass",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\pr117-authoring-browser.mjs"
+      ],
+      "exitCode": 0,
+      "log": "syntax-pr117-authoring-browser.mjs.log"
+    },
+    {
+      "name": "syntax-priority-browser.mjs",
+      "status": "pass",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\priority-browser.mjs"
+      ],
+      "exitCode": 0,
+      "log": "syntax-priority-browser.mjs.log"
+    },
+    {
+      "name": "syntax-runner.mjs",
+      "status": "pass",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\runner.mjs"
+      ],
+      "exitCode": 0,
+      "log": "syntax-runner.mjs.log"
+    },
+    {
+      "name": "syntax-seed-student-result.mjs",
+      "status": "pass",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\seed-student-result.mjs"
+      ],
+      "exitCode": 0,
+      "log": "syntax-seed-student-result.mjs.log"
+    },
+    {
+      "name": "syntax-student-browser.mjs",
+      "status": "pass",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\student-browser.mjs"
+      ],
+      "exitCode": 0,
+      "log": "syntax-student-browser.mjs.log"
+    },
+    {
+      "name": "syntax-student-result-browser.mjs",
+      "status": "pass",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\student-result-browser.mjs"
+      ],
+      "exitCode": 0,
+      "log": "syntax-student-result-browser.mjs.log"
+    },
+    {
+      "name": "syntax-teacher-browser.mjs",
+      "status": "pass",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\teacher-browser.mjs"
+      ],
+      "exitCode": 0,
+      "log": "syntax-teacher-browser.mjs.log"
+    },
+    {
+      "name": "syntax-workbench-browser.mjs",
+      "status": "pass",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\workbench-browser.mjs"
+      ],
+      "exitCode": 0,
+      "log": "syntax-workbench-browser.mjs.log"
+    },
+    {
+      "name": "relative-markdown-links",
+      "status": "pass",
+      "checked": 97,
+      "log": "relative-links.log"
+    },
+    {
+      "name": "bundle-integrity",
+      "log": "integrity.log",
+      "status": "pass",
+      "artifactCount": 813,
+      "counts": {
+        "main": {
+          "files": 280,
+          "screenshots": 104,
+          "bytes": 9292313
+        },
+        "pr116": {
+          "files": 210,
+          "screenshots": 93,
+          "bytes": 8632996
+        },
+        "pr117": {
+          "files": 76,
+          "screenshots": 19,
+          "bytes": 3060836
+        },
+        "pr118": {
+          "files": 146,
+          "screenshots": 60,
+          "bytes": 6863135
+        },
+        "combined": {
+          "files": 101,
+          "screenshots": 0,
+          "bytes": 314052
+        }
+      },
+      "uniquePaths": true,
+      "exactRawHashesAndJSONValues": true,
+      "noUnindexedTargetFiles": true
+    },
+    {
+      "name": "collector-secret-and-raw-preservation-canary",
+      "log": "collector-canary.log",
+      "status": "pass"
+    }
+  ],
+  "missingLinks": [],
+  "finishedAt": "2026-10-25T04:05:01.310397+00:00"
+}

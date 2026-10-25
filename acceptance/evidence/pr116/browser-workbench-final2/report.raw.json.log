@@ -1,0 +1,125 @@
+{
+  "sourceSha": "5d6363d2867a6f0250f8220db0474342b1241d00",
+  "harnessSha256": "1e1298a2d56dc83d451c09f61b35d9fdebcf1c62fb6155b261d9fc69ec7fe22d",
+  "base": "http://localhost:3322",
+  "category": "provider-disabled browser; synthetic fixture",
+  "browser": "156.0.4314.42",
+  "cases": [
+    {
+      "id": "W01 exact authorized evidence matches stored response",
+      "status": "pass",
+      "startedAt": "2026-10-25T03:16:47.956Z",
+      "finishedAt": "2026-10-25T03:16:49.408Z",
+      "details": {
+        "entry": "Direct verified evidence URL",
+        "originalAttempt": "50000000-0000-4000-8000-000000000001",
+        "evaluation": "60000000-0000-4000-8000-000000000001",
+        "sessionHref": "/teacher/sessions/40000000-0000-4000-8000-000000000001?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=40000000-0000-4000-8000-000000000001&attempt=50000000-0000-4000-8000-000000000001&evaluation=60000000-0000-4000-8000-000000000001&returnTo=evidence#evaluation-60000000-0000-4000-8000-000000000001"
+      }
+    },
+    {
+      "id": "W02 selected response persists to evidence preparation and back",
+      "status": "pass",
+      "startedAt": "2026-10-25T03:16:49.409Z",
+      "finishedAt": "2026-10-25T03:16:50.626Z",
+      "details": {
+        "selection": [
+          "50000000-0000-4000-8000-000000000001"
+        ]
+      }
+    },
+    {
+      "id": "W03 exact evaluation return after full-session detour",
+      "status": "pass",
+      "startedAt": "2026-10-25T03:16:50.627Z",
+      "finishedAt": "2026-10-25T03:16:52.083Z",
+      "details": {
+        "evaluation": "60000000-0000-4000-8000-000000000001"
+      }
+    },
+    {
+      "id": "W04 selected detail usable 1440",
+      "status": "pass",
+      "startedAt": "2026-10-25T03:16:52.084Z",
+      "finishedAt": "2026-10-25T03:16:53.230Z",
+      "details": {
+        "width": 1440,
+        "scroll": 1440
+      }
+    },
+    {
+      "id": "W04 selected detail usable 1024",
+      "status": "pass",
+      "startedAt": "2026-10-25T03:16:53.231Z",
+      "finishedAt": "2026-10-25T03:16:53.321Z",
+      "details": {
+        "width": 1024,
+        "scroll": 1024
+      }
+    },
+    {
+      "id": "W04 selected detail usable 390",
+      "status": "pass",
+      "startedAt": "2026-10-25T03:16:53.322Z",
+      "finishedAt": "2026-10-25T03:16:53.407Z",
+      "details": {
+        "width": 390,
+        "scroll": 390
+      }
+    },
+    {
+      "id": "W04 selected detail usable 320",
+      "status": "pass",
+      "startedAt": "2026-10-25T03:16:53.408Z",
+      "finishedAt": "2026-10-25T03:16:53.479Z",
+      "details": {
+        "width": 320,
+        "scroll": 320
+      }
+    },
+    {
+      "id": "W05 cross-assignment evidence rejected",
+      "status": "pass",
+      "startedAt": "2026-10-25T03:16:53.481Z",
+      "finishedAt": "2026-10-25T03:16:54.124Z",
+      "details": "Unavailable; no original response disclosed"
+    },
+    {
+      "id": "W06 malformed over-limit URL returns explicit scope error",
+      "status": "fail",
+      "startedAt": "2026-10-25T03:16:54.125Z",
+      "finishedAt": "2026-10-25T03:16:54.761Z",
+      "error": "Malformed duplicate-ID URL is denied but has no actionable scope hint (post-submission UX; not the genuine >60 accepted-evidence case)",
+      "url": "http://localhost:3322/teacher/interventions?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001&seedAttempt=50000000-0000-4000-8000-000000000001",
+      "bodyArtifact": "W06-malformed-over-limit-URL-returns-explicit-scope-error-failed.txt"
+    },
+    {
+      "id": "W07 browsing does not mutate",
+      "status": "pass",
+      "startedAt": "2026-10-25T03:16:54.783Z",
+      "finishedAt": "2026-10-25T03:16:54.783Z",
+      "details": {
+        "nonAuthMutations": []
+      }
+    }
+  ],
+  "requests": [],
+  "screenshots": [
+    "exact-original.png",
+    "prepared-selected-evidence.png",
+    "selected-response-1440.png",
+    "selected-response-1024.png",
+    "selected-response-390.png",
+    "selected-response-320.png",
+    "oversized-selection.png",
+    "W06-malformed-over-limit-URL-returns-explicit-scope-error-failed.png"
+  ],
+  "startedAt": "2026-10-25T03:16:47.045Z",
+  "limitations": [
+    "W01 opens a verified evidence URL directly; no priority-card click is claimed",
+    "W06 checks a malformed duplicate-ID URL; genuine 61-response narrowing requires the separate oversized fixture",
+    "Screen-reader and native 200% zoom unrun"
+  ],
+  "finishedAt": "2026-10-25T03:16:54.784Z",
+  "result": "fail"
+}

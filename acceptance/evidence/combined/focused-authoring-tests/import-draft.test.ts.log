@@ -1,0 +1,35 @@
+TAP version 13
+# Subtest: material recovery retains original extraction, corrected and excluded passages, and retry identity
+ok 1 - material recovery retains original extraction, corrected and excluded passages, and retry identity
+  ---
+  duration_ms: 8.5717
+  ...
+# Subtest: material recovery is separated by teacher, source document, and expected version
+ok 2 - material recovery is separated by teacher, source document, and expected version
+  ---
+  duration_ms: 0.2988
+  ...
+# Subtest: recovery rejects shuffled or missing passage identities and a lost preview receipt
+ok 3 - recovery rejects shuffled or missing passage identities and a lost preview receipt
+  ---
+  duration_ms: 1.5835
+  ...
+# Subtest: partial material recovery permits unfinished attribution and fails safely for damaged storage
+ok 4 - partial material recovery permits unfinished attribution and fails safely for damaged storage
+  ---
+  duration_ms: 0.5671
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 26.9372
+(node:108856) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:108856) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/acceptance-combined/LearningPlatform/app/teacher/materials/import-draft.test.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\sb128\.codex\worktrees\acceptance-combined\LearningPlatform\package.json.

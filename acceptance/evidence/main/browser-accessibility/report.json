@@ -1,0 +1,293 @@
+{
+  "target": "main",
+  "sha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+  "origin": "http://localhost:3321",
+  "started_at_utc": "2026-10-25T03:29:20.080Z",
+  "method": "Fresh isolated Edge profiles; native partition.default_zoom_level preference; viewport:null; no CSS zoom, deviceScaleFactor, pinch or emulation",
+  "measurements": {
+    "baseline": {
+      "devicePixelRatio": 1,
+      "innerWidth": 1416,
+      "innerHeight": 808,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "01-baseline-login": {
+      "devicePixelRatio": 1,
+      "innerWidth": 1416,
+      "innerHeight": 808,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "zoom200": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "02-native-200-login": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "03-teacher-200": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "teacher": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "04-evidence-200": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "05-original-evidence-200": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "08-reading-200": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "reading": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "09-composer-keyboard-200": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "composer": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    }
+  },
+  "checks": [
+    "Native 200% zoom measured: DPR doubles, CSS viewport halves, visualViewport.scale and CSS zoom remain 1",
+    "Tab/Enter activation reached assignment, source and composer; exact unsent text entered without submitting; return from reading used native browser history API"
+  ],
+  "keyboard": [
+    {
+      "label": "teacher sign-in",
+      "tabs": 3,
+      "focused": {
+        "tag": "BUTTON",
+        "text": "Demo teacher",
+        "href": null,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "open navigation drawer",
+      "tabs": 2,
+      "focused": {
+        "tag": "BUTTON",
+        "text": "Open navigation",
+        "href": null,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "teacher evidence navigation",
+      "tabs": 4,
+      "focused": {
+        "tag": "A",
+        "text": "Learning insights",
+        "href": "/teacher/insights",
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "open original student evidence",
+      "tabs": 21,
+      "focused": {
+        "tag": "A",
+        "text": "Inspect session",
+        "href": "/teacher/sessions/129120b0-f584-41f0-8e58-c3e190941799",
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 2090.5
+      }
+    },
+    {
+      "label": "browser Back restoration",
+      "before": {
+        "tag": "A",
+        "text": "Inspect session",
+        "href": "/teacher/sessions/129120b0-f584-41f0-8e58-c3e190941799",
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 2090.5
+      },
+      "after": {
+        "tag": "BODY",
+        "text": "Skip to content\nLearning insights\n\nCLASSROOM EVIDENCE\n\nLearning insights\n\nExplore how students reason about the material, and the work behind each result.\n\nAssi",
+        "href": null,
+        "outline": "rgb(23, 48, 45) none 3px",
+        "scrollY": 2090.5
+      }
+    },
+    {
+      "label": "browser Forward",
+      "after": {
+        "tag": "BODY",
+        "text": "Skip to content\nStudent evidence\nBack to learning insights\nStudent 04 (synthetic)\n\nBandwidth and latency — approved demo reading\n\nSynthetic history\ncompleted\n4 ",
+        "href": null,
+        "outline": "rgb(23, 48, 45) none 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "open navigation drawer",
+      "tabs": 2,
+      "focused": {
+        "tag": "BUTTON",
+        "text": "Open navigation",
+        "href": null,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "student sign-in",
+      "tabs": 2,
+      "focused": {
+        "tag": "BUTTON",
+        "text": "Demo student",
+        "href": null,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "student assignment details",
+      "tabs": 69,
+      "focused": {
+        "tag": "A",
+        "text": "Details: Manual authoring 1792897382810 assignment",
+        "href": "/study/assignments/53f84e71-f829-4479-84fd-0df908d5bf87",
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 928.5
+      }
+    },
+    {
+      "label": "student reading",
+      "tabs": 8,
+      "focused": {
+        "tag": "A",
+        "text": "Open reading",
+        "href": "/study/reading?assignment=53f84e71-f829-4479-84fd-0df908d5bf87",
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 628.5
+      }
+    },
+    {
+      "label": "reading End key scroll",
+      "focused": {
+        "tag": "BODY",
+        "text": "Skip to content\nReading\nCLASS\nSynthetic publishing HTTP 803d374e-dfef-4db2-9e60-90cbf5bbdced: owned\nUncertainty regression 3d0c2bab-5532-4143-8908-35bc324ea4cd\n",
+        "href": null,
+        "outline": "rgb(23, 48, 45) none 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "student study session",
+      "tabs": 6,
+      "focused": {
+        "tag": "A",
+        "text": "Study session",
+        "href": "/study/assignments/53f84e71-f829-4479-84fd-0df908d5bf87?tab=study",
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 72.5
+      }
+    },
+    {
+      "label": "student composer",
+      "tabs": 30,
+      "focused": {
+        "tag": "TEXTAREA",
+        "text": "Ask a question or share your thinking...",
+        "href": null,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 447.5
+      }
+    }
+  ],
+  "unrun": [
+    "intervention review navigation: no matching reachable control found within 110 Tab presses",
+    "Existing saved intervention review was not reached in bounded keyboard pass",
+    "Screen-reader operation and comprehensive WCAG compliance",
+    "Full keyboard-only editing/approval/delivery and all failure states",
+    "Complete focus/scroll restoration across every page; PR116 Forward not reached"
+  ],
+  "paid_calls": 0,
+  "native_zoom_verified": true,
+  "status": "completed bounded checks",
+  "checked_at_utc": "2026-10-25T03:29:26.184Z"
+}
