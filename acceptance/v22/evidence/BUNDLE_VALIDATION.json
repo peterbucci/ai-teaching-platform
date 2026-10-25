@@ -1,8 +1,8 @@
 {
-  "recordedAt": "2026-10-25T05:15:46.290Z",
+  "recordedAt": "2026-10-25T05:23:04.747Z",
   "scope": "Verification assets only; no application/runtime/DB activity",
   "json": 42,
-  "scripts": 14,
+  "scripts": 24,
   "images": 121,
   "imageGroups": {
     "1024x768": 28,
@@ -101,9 +101,24 @@
       "sha256": "7eb526980e1d1a198f20324951667e925aec1b56dcaef3bebcb0d208807e035e"
     },
     {
+      "file": "evidence/container-fixture-packaged-tests.log",
+      "bytes": 952,
+      "sha256": "7409fe181ee6dee1ac1a7d7d193e6e000ece7272196baf9dc882b0df16152a7a"
+    },
+    {
+      "file": "evidence/continuation-review.txt",
+      "bytes": 6149,
+      "sha256": "b702cce2cab4171dc381915a0c55a13d35c9e860a032ab3c4eed471cf349b937"
+    },
+    {
       "file": "evidence/COPIED_HASHES.json",
       "bytes": 30289,
       "sha256": "9a72ae21bbdf7989e01acf208b30cb69488356892a88f08bb5aba9b3cf1693b2"
+    },
+    {
+      "file": "evidence/guarded-container-fixture-test-v3.log",
+      "bytes": 953,
+      "sha256": "a40e2115de93be6cfc4182944c04b5a4f095bf1846aa9f1dbf9ed42da45710a0"
     },
     {
       "file": "evidence/INDEX.md",
@@ -2156,6 +2171,71 @@
       "sha256": "859e288ce5128a0a96369afc52a645b7b6cdc5aecefd96614885c35fe6dcd525"
     },
     {
+      "file": "runner-work/guarded-browser.mjs",
+      "bytes": 12357,
+      "sha256": "bb1d107506f586d4d18da980964281534cbcdb711c61189acf054ce6ae068809"
+    },
+    {
+      "file": "runner-work/guarded-container-fixture.mjs",
+      "bytes": 8278,
+      "sha256": "75dcf547aaa139d154cddb96bc8b35bea8c3473d88e90a66bb901a2a54abd697"
+    },
+    {
+      "file": "runner-work/guarded-container-fixture.test.mjs",
+      "bytes": 6957,
+      "sha256": "6fd08aadeceabff184b0595f5bdbdae3779be5727fe9b3fe1fae94329e84bdb3"
+    },
+    {
+      "file": "runner-work/GUARDED_BROWSER_PLACEMENT.md",
+      "bytes": 3791,
+      "sha256": "46709939ab5bbc450aedccfa851a71de0054e553253c994a064ce42d16bd5924"
+    },
+    {
+      "file": "runner-work/intervention-continuation-browser.mjs",
+      "bytes": 18429,
+      "sha256": "457f25c21c59d4e0bccdf31bfdfff8e4f6900c27f5b5bf3f1ae73aff19cc9da6"
+    },
+    {
+      "file": "runner-work/intervention-continuation-fixture.mjs",
+      "bytes": 19380,
+      "sha256": "cb15468610be14eeac323b92e8704d142798e427bca3cd50b368a3d0be6e8b1b"
+    },
+    {
+      "file": "runner-work/INTERVENTION_CONTINUATION.md",
+      "bytes": 8953,
+      "sha256": "6eba1f241cee19606f39e858f8df18fef8c9a245edb3fcb1b54af5bbc536ddc9"
+    },
+    {
+      "file": "runner-work/seed-student-regression.mjs",
+      "bytes": 7306,
+      "sha256": "370185bee609c8d97be2ba8a5ba5163e2a371828efe40008af73c5063f5ec221"
+    },
+    {
+      "file": "runner-work/shell-accessibility-browser.mjs",
+      "bytes": 21864,
+      "sha256": "5fd0d8b035ddc5c4f13ee57c8b34d57bb0a0024c34d204f8688c16f25fde8c60"
+    },
+    {
+      "file": "runner-work/shell-authoring-browser.mjs",
+      "bytes": 32668,
+      "sha256": "8816a7464cbec2260ba78a006d19b51748342290eb4fea58990eb1d64a19837e"
+    },
+    {
+      "file": "runner-work/SHELL_ACCESSIBILITY_STATUS.txt",
+      "bytes": 2931,
+      "sha256": "34f2e5e71d3b4294a81b38eb0c1d3c07176967fe1f9315d3ae49f54dd7d516fa"
+    },
+    {
+      "file": "runner-work/SHELL_AUTHORING_STATUS.txt",
+      "bytes": 2999,
+      "sha256": "25cad4266b9c30bf9af1a275f63b63077f8814a0efa144d250acd766c74ca8fc"
+    },
+    {
+      "file": "runner-work/student-regression-browser.mjs",
+      "bytes": 14220,
+      "sha256": "bb9e23264d18e0a653f39505ba3417b0e052f6ed67367112cb358252aa83fa22"
+    },
+    {
       "file": "RUNNER.md",
       "bytes": 13362,
       "sha256": "1a3c5f5cbe0e2c5453c5b6e1c0077a4776fa9985e7661ee20d0f904acca77337"
@@ -2186,9 +2266,24 @@
       "sha256": "75aa5d40a70851851cfea58a07f84a2a5f4943b619d31e9f18e701eb1723e335"
     },
     {
+      "file": "shell-verification/capture-shell.mjs",
+      "bytes": 11474,
+      "sha256": "0ae0f22e1c976e2d078845d691791a5b6c97c899c104621f6ba455c8fbb795bd"
+    },
+    {
+      "file": "shell-verification/CAPTURE_READINESS.md",
+      "bytes": 5432,
+      "sha256": "069aafe54eceb1eba9d5e902f8bec75c1a699848ecc4603c7d6af3bd43476f9d"
+    },
+    {
+      "file": "SHELL_BROWSER_READINESS.md",
+      "bytes": 4992,
+      "sha256": "d947344c9f9f107317606d1c93ca1abf24abc24bd071f81382a595d4b174a5c0"
+    },
+    {
       "file": "SHELL_INTAKE.md",
-      "bytes": 2933,
-      "sha256": "72e128a6e17bf5636b206d6377baac5cefa60072f6b2def1589fff492a5f44da"
+      "bytes": 3169,
+      "sha256": "ba96e2c0c62e5244b63d0147b0dc4e902c27bf79f58eee47e512eb93595b8c3f"
     },
     {
       "file": "STORAGE_GUARD.md",

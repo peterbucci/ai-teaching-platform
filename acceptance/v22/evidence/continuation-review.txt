@@ -1,0 +1,33 @@
+INTERVENTION CONTINUATION — INDEPENDENT STATIC REVIEW
+October 25, 2026
+
+Application commit: 1a9d95b3be3e30d08d9dafc7ec6d1a14208368ac
+Application tree: c2f1c30b3f62391283ced9f798bbcae5cc7ca794
+Fixture SHA256: cb15468610be14eeac323b92e8704d142798e427bca3cd50b368a3d0be6e8b1b
+Browser SHA256: 457f25c21c59d4e0bccdf31bfdfff8e4f6900c27f5b5bf3f1ae73aff19cc9da6
+
+No consequential flaw was found in the reviewed continuation delta. This is source inspection, not executed acceptance. No browser, database operation, container action, build or model call was performed by this review. No application file was edited. The subsequent host container adapter is outside these hashes and requires its own review.
+
+Inspected against actual pinned application APIs and UI:
+- Evaluation service signature and durable reservation/validation behavior; intervention generation prompt/schema/validation; approval/delivery actions; student follow-up retry and provenance projection; teacher comparison linkage.
+- Fixture verifies the authoring report's completed functional stage, original text, original attempt/session, student, assignment class, teacher ownership, activation, source/version and immutable content reference before its permitted writes. It rechecks preserved original answer/attempt fields after the seam.
+- Prepare mode injects a labelled synthetic evaluation only when no evaluation exists; it does not replace an accepted result, silently retry a recorded failure or replay an unresolved request. Existing accepted evidence is recorded explicitly. Stable request/draft identities permit reuse of completed private generation; failed/unresolved generation stops.
+- Generate mode calls the existing draft service with injected proposal data, not approval/delivery services. It requires the result to remain private and review approval/delivery to remain null. It never activates an assignment or submits a student's answer.
+- Follow-up mode requires the completed browser stage, same approved recipients/source, exact original evaluation pointer and same saved follow-up text/attempt. It only retries a failed result after the normal server retry allowance and uses a stable retry identity. Accepted results may be reused; pending/unknown outcomes stop. Injected provenance is checked after the retry.
+- Browser controls match the pinned teacher/student implementation. Private editing, approval and delivery are separate real UI actions. The student's activity endpoint must remain 404 before delivery. The same fictional student opens the delivered review and submits the follow-up through its actual UI.
+- Final browser inspection checks preserved original response, exact content reference, linked follow-up, counts for the one intended recipient and visible synthetic evaluation provenance. Responsive failure produces a nonzero exit; functional continuation markers are only set after their inspection stage succeeds.
+- Browser imports the byte-identical shared safety helper, takes the shared lock, checks runtime storage before launch/actions and releases only its owned lock. Off-origin browser traffic is blocked. Container fixture needs the coordinator's guarded host invocation; it cannot independently verify host storage from inside the app container.
+
+Limits
+The original and follow-up judgments plus private draft are explicit test injections. Their purpose is to verify continuity and authorization through the existing services without paid calls. They do not demonstrate real model decision quality, autonomous generation, educational effectiveness or long-term retention. The browser path has not yet been executed; selector/recovery timing and real combined behavior still require the serialized runtime run. Screen-reader and native 200% checks remain separately unrun in these utilities.
+
+Guarded host adapter review — October 25, 2026
+Adapter: guarded-container-fixture.mjs, SHA256 75dcf547aaa139d154cddb96bc8b35bea8c3473d88e90a66bb901a2a54abd697.
+Focused mocked test: guarded-container-fixture.test.mjs, SHA256 6fd08aadeceabff184b0595f5bdbdae3779be5727fe9b3fe1fae94329e84bdb3.
+No remaining consequential flaw found in this reviewed adapter. Review was static; no Docker, browser, database or build action was performed by this reviewer.
+
+The host adapter permits only prepare, evaluate-followup and student-regression modes. It verifies the exact combined shell SHA/tree, origin, project, source context, app image tag, actual container image ID and project/service labels. Its container-inspection formats omit environment secrets. It imports the exact reviewed safety helper, owns the shared lock and gates each Docker command on the runtime storage threshold. Source arguments use arrays rather than shell interpolation. Copied fixture, input and output paths are unique /tmp acceptance paths. The fixture cannot silently restart or retry a failed application operation through this adapter.
+
+Review found and corrected a consequential recovery defect: a host Docker exec timeout could release the shared lock while the container process remained running. The final adapter treats every fixture execution error or nonzero exit as uncertain, latches that condition before log I/O, makes no further Docker command, retains its owned lock, emits reconciliation instructions and exits nonzero. Only a successful exit proceeds to retrieve the finalized fixture receipt. This deliberately requires coordinator reconciliation even when a nonzero exit may have been an ordinary fixture assertion failure; the adapter does not guess which process outcomes are safe.
+
+Inspected retained guarded-container-fixture-test-v3.log: three mocked full-control-flow cases passed for exec timeout, timeout followed by log-write failure, and nonzero transport failure without a spawn error. Each verifies the lock remains owned and no later Docker operation occurs. These are simulated tool-boundary failures against the actual adapter source, not runtime Docker failure tests. Prior v1/v2 logs remain historical evidence and do not represent the final source hash. Successful real runtime execution remains unrun at this review checkpoint.

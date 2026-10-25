@@ -1,0 +1,24 @@
+Prepared shell accessibility/context verifier — October 25, 2026
+
+Execution: UNRUN. Syntax and formatting passed; no browser, Docker, DB or build action was taken during preparation.
+Utility: shell-accessibility-browser.mjs
+SHA256: 5fd0d8b035ddc5c4f13ee57c8b34d57bb0a0024c34d204f8688c16f25fde8c60
+Application: 1a9d95b3be3e30d08d9dafc7ec6d1a14208368ac / tree c2f1c30b3f62391283ced9f798bbcae5cc7ca794
+Runtime: lp-v22-shell5 at http://localhost:3350, with empty provider configuration.
+
+Invocation (only after coordinator GO; this utility acquires the shared lock itself):
+node <ROOT>/runner-work/shell-accessibility-browser.mjs <ROOT>/runtime-shell <NEW-output-directory> <absolute-playwright-package-directory> <reviewed-safety.mjs> [completed-shell-authoring-report.json]
+
+Set BROWSER_EXECUTABLE to an installed Edge executable if it differs from the default C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe. The supplied safety helper must match SHA256 af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485. Runtime host/Docker/backing-storage preflight is required before launch and each case. No external lock may be held around this command; it participates in the shared guard directly.
+
+Focused checks
+- S1 course Assignments and 390px mobile Back must enter discovery, recorded separately from screenshots.
+- C2 selected assignment progress -> Read in full -> actual displayed Back destination, with exact route evidence.
+- Browser Back/Forward and reload route preservation; focus observations reported separately without inferring complete focus acceptance from a matching URL.
+- Tab/Enter scope-dialog navigation, visible focus inside the native dialog, Escape returning to its opener; desktop, 390, 320 and native 200% contexts.
+- Actual 200% native browser zoom using isolated profile Preferences, viewport:null and a 1440x1000 window. DPR ratio2, CSS width ratio0.5, visualViewportScale1, root CSS zoom1 and fixed outer width must be measured before claiming native zoom.
+- If a completed authored fixture report is provided: local unsaved objective edit survives Reading/Outline/Editor pane changes; source words are inspected at390 and native200. The local edit is restored without saving. These cases remain explicitly unrun when the fixture is absent.
+
+After fictional demo login, all application mutations are blocked. Only GET/HEAD are allowed. The utility uses no evaluator/generation calls. Known route defects are recorded as failed checks and execution continues through independent bounded cases; any failure/overflow yields nonzero exit. Screen-reader, comprehensive WCAG, unsaved reload/navigation-away and pending/failed mutation recovery remain explicitly unrun here.
+
+Publication: copy report.json and PNGs only after inspecting their contents. NEVER publish private-profile-* folders, which contain browser authentication. The new utility has not been copied into REPORT yet.

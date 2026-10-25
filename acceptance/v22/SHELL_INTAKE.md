@@ -21,3 +21,5 @@ Host free space subsequently rose to about 51 GiB. The coordinating recovery tas
 Static re-review distinguishes defects already changed by newer heads from remaining defects. See the separate `independent-review/shell-review.txt` when available; do not apply all first-snapshot findings to the updated shell unchanged. A clean merge and unit tests still do not establish full integration or visual acceptance.
 
 The second snapshot also passed all ten pairwise text merges. A separate disposable recomposition produced the identical tree; see evidence/shell-reproduction-receipt.json. To reproduce this snapshot, pass the absolute path to shell-baselines.json as the composition utility's fourth argument. Omitting that argument still reproduces the first snapshot.
+
+The independently reviewed [shared-shell browser utilities](SHELL_BROWSER_READINESS.md) are prepared. Their runtime status is explicitly unrun pending the serialized recovery window; three mocked fixture-adapter recovery cases passed.
