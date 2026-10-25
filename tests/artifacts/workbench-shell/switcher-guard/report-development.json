@@ -1,0 +1,171 @@
+{
+  "category": "Actual shared navigation.tsx and CSS with repository React19.3.0 development StrictMode; isolated page-owned dirty/pending capture guard fixture mounted as descendant passive useEffect matching repository guards; Next Link/router and metadata mocked; no application/DB changes or actions",
+  "boundary": "An unrelated window capture guard installed before the React shell layout effect can focus while the native dialog is still inert; preinstalled-guard-order-report.json preserves this unsupported ordering diagnostic. Current repository guards are descendant passive effects.",
+  "cases": [
+    {
+      "name": "1440-mount-guard-dirty",
+      "status": "pass",
+      "mouse": "guard effective; modal dismissed; page recovery focused",
+      "keyboard": "Enter guard effective; page recovery retains focus after asynchronous close",
+      "escape": "opener focus restored",
+      "preserved": "dirty input and original pending identity",
+      "state": {
+        "blocked": 2,
+        "routes": 0,
+        "guardCalls": 2,
+        "registrations": 3,
+        "guardModalStates": [false, false],
+        "events": ["page guard", "page guard"]
+      }
+    },
+    {
+      "name": "1440-mount-guard-pending",
+      "status": "pass",
+      "mouse": "guard effective; modal dismissed; page recovery focused",
+      "keyboard": "Enter guard effective; page recovery retains focus after asynchronous close",
+      "escape": "opener focus restored",
+      "preserved": "dirty input and original pending identity",
+      "state": {
+        "blocked": 2,
+        "routes": 0,
+        "guardCalls": 2,
+        "registrations": 3,
+        "guardModalStates": [false, false],
+        "events": ["page guard", "page guard"]
+      }
+    },
+    {
+      "name": "1440-remount-guard-dirty",
+      "status": "pass",
+      "mouse": "guard effective; modal dismissed; page recovery focused",
+      "keyboard": "Enter guard effective; page recovery retains focus after asynchronous close",
+      "escape": "opener focus restored",
+      "preserved": "dirty input and original pending identity",
+      "state": {
+        "blocked": 2,
+        "routes": 0,
+        "guardCalls": 2,
+        "registrations": 5,
+        "guardModalStates": [false, false],
+        "events": ["page guard", "page guard"]
+      }
+    },
+    {
+      "name": "1440-remount-guard-pending",
+      "status": "pass",
+      "mouse": "guard effective; modal dismissed; page recovery focused",
+      "keyboard": "Enter guard effective; page recovery retains focus after asynchronous close",
+      "escape": "opener focus restored",
+      "preserved": "dirty input and original pending identity",
+      "state": {
+        "blocked": 2,
+        "routes": 0,
+        "guardCalls": 2,
+        "registrations": 5,
+        "guardModalStates": [false, false],
+        "events": ["page guard", "page guard"]
+      }
+    },
+    {
+      "name": "390-mount-guard-dirty",
+      "status": "pass",
+      "mouse": "guard effective; modal dismissed; page recovery focused",
+      "keyboard": "Enter guard effective; page recovery retains focus after asynchronous close",
+      "escape": "opener focus restored",
+      "preserved": "dirty input and original pending identity",
+      "state": {
+        "blocked": 2,
+        "routes": 0,
+        "guardCalls": 2,
+        "registrations": 3,
+        "guardModalStates": [false, false],
+        "events": ["page guard", "page guard"]
+      }
+    },
+    {
+      "name": "390-mount-guard-pending",
+      "status": "pass",
+      "mouse": "guard effective; modal dismissed; page recovery focused",
+      "keyboard": "Enter guard effective; page recovery retains focus after asynchronous close",
+      "escape": "opener focus restored",
+      "preserved": "dirty input and original pending identity",
+      "state": {
+        "blocked": 2,
+        "routes": 0,
+        "guardCalls": 2,
+        "registrations": 3,
+        "guardModalStates": [false, false],
+        "events": ["page guard", "page guard"]
+      }
+    },
+    {
+      "name": "390-remount-guard-dirty",
+      "status": "pass",
+      "mouse": "guard effective; modal dismissed; page recovery focused",
+      "keyboard": "Enter guard effective; page recovery retains focus after asynchronous close",
+      "escape": "opener focus restored",
+      "preserved": "dirty input and original pending identity",
+      "state": {
+        "blocked": 2,
+        "routes": 0,
+        "guardCalls": 2,
+        "registrations": 5,
+        "guardModalStates": [false, false],
+        "events": ["page guard", "page guard"]
+      }
+    },
+    {
+      "name": "390-remount-guard-pending",
+      "status": "pass",
+      "mouse": "guard effective; modal dismissed; page recovery focused",
+      "keyboard": "Enter guard effective; page recovery retains focus after asynchronous close",
+      "escape": "opener focus restored",
+      "preserved": "dirty input and original pending identity",
+      "state": {
+        "blocked": 2,
+        "routes": 0,
+        "guardCalls": 2,
+        "registrations": 5,
+        "guardModalStates": [false, false],
+        "events": ["page guard", "page guard"]
+      }
+    },
+    {
+      "name": "normal-navigation-mount",
+      "status": "pass",
+      "state": {
+        "blocked": 0,
+        "routes": 1,
+        "guardCalls": 1,
+        "registrations": 2,
+        "guardModalStates": [false],
+        "events": ["page guard", "link router"],
+        "lastRoute": "/teacher/lessons?assignment=assignment-a"
+      }
+    },
+    {
+      "name": "normal-navigation-remount",
+      "status": "pass",
+      "state": {
+        "blocked": 0,
+        "routes": 1,
+        "guardCalls": 1,
+        "registrations": 4,
+        "guardModalStates": [false],
+        "events": ["page guard", "link router"],
+        "lastRoute": "/teacher/lessons?assignment=assignment-a"
+      }
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "1440-mount-guard-dirty.png",
+    "1440-mount-guard-pending.png",
+    "1440-remount-guard-dirty.png",
+    "1440-remount-guard-pending.png",
+    "390-mount-guard-dirty.png",
+    "390-mount-guard-pending.png",
+    "390-remount-guard-dirty.png",
+    "390-remount-guard-pending.png"
+  ]
+}

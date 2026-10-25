@@ -8,31 +8,44 @@ import {
   EvidenceError,
   evidenceAccess,
 } from "../../../../lib/evidence/store.ts";
-import { readTeacherSession } from "../../../../lib/teacher/store.ts";
+import {
+  readAssignmentEvidence,
+  readTeacherSession,
+} from "../../../../lib/teacher/store.ts";
 import { readTeacherConversation } from "../../../../lib/dialogue/store.ts";
 import { ConversationEvidence } from "../conversation-evidence.tsx";
 import { TeacherFrame, date, label, originLabel } from "../../presentation.tsx";
 import { EvidenceAnchor } from "../evidence-anchor.tsx";
 import {
-  parseTeacherWorkspaceContext,
-  teacherWorkspaceHref,
+  teacherReturnHref,
   type TeacherWorkspaceParams,
 } from "../../../../lib/teacher/workspace-contracts.ts";
+import { resolveTeacherSessionContext } from "../../workspace-session-context.ts";
 
 export const dynamic = "force-dynamic";
-async function load(id: string) {
+async function load(id: string, needsProgressRoster: boolean) {
   try {
     const access = evidenceAccess(await requireActor());
     const detail = await readTeacherSession(access, id);
-    const [conversation, content] = await Promise.all([
+    const [conversation, content, progress] = await Promise.all([
       readTeacherConversation(access, id),
       readAssignmentContent(
         access,
         detail.evidence.session.assignment_id,
         "teacher",
       ),
+      needsProgressRoster
+        ? readAssignmentEvidence(access, detail.evidence.session.assignment_id)
+        : undefined,
     ]);
-    return { ...detail, conversation, content };
+    return {
+      ...detail,
+      conversation,
+      content,
+      rosterStudentIds: new Set(
+        progress?.students.map((student) => student.student_id),
+      ),
+    };
   } catch (error) {
     if (error instanceof AuthError && error.status === 401) redirect("/login");
     if (
@@ -50,60 +63,45 @@ export default async function SessionPage({
   params: Promise<{ sessionId: string }>;
   searchParams: Promise<TeacherWorkspaceParams>;
 }) {
-  const { evidence, display_name, title, conversation, content } = await load(
+  const raw = await searchParams;
+  const {
+    evidence,
+    display_name,
+    title,
+    conversation,
+    content,
+    rosterStudentIds,
+  } = await load(
     (await params).sessionId,
+    raw.returnTo === "progress" &&
+      z.uuid().safeParse(raw.progressStudent).success,
   );
   const { session, attempts, evaluations, interventions } = evidence;
   let context;
   try {
-    const raw = await searchParams;
-    context = parseTeacherWorkspaceContext({
-      ...raw,
-      // Existing Insights, patterns and roster links predate workspace context.
-      // Preserve their original Back destination rather than choosing an answer.
-      returnTo: raw.returnTo ?? "insights",
-    });
+    context = resolveTeacherSessionContext(
+      raw,
+      evidence,
+      new Set(content.concepts.keys()),
+      rosterStudentIds,
+    );
   } catch (error) {
     if (error instanceof z.ZodError) notFound();
     throw error;
   }
-  if (
-    (context.assignment && context.assignment !== session.assignment_id) ||
-    (context.student && context.student !== session.student_id) ||
-    (context.session && context.session !== session.id) ||
-    (context.origin !== "all" && context.origin !== session.data_origin) ||
-    (context.attempt &&
-      !attempts.some((attempt) => attempt.id === context.attempt)) ||
-    (context.evaluation &&
-      !evaluations.some(
-        (evaluation) =>
-          evaluation.id === context.evaluation &&
-          (!context.attempt || evaluation.attempt_id === context.attempt),
-      ))
-  )
-    notFound();
-  const resolved = { ...context, assignment: session.assignment_id };
-  const returnPaths = {
-    desk: "/teacher",
-    evidence: "/teacher/evidence",
-    insights: "/teacher/insights",
-    patterns: "/teacher/insights",
-    students: "/teacher/students",
-  };
+  if (!context) notFound();
+  const resolved = context;
   const returnLabels = {
     desk: "Teaching Desk",
     evidence: "Evidence",
     insights: "learning insights",
     patterns: "reasoning patterns",
     students: "Students",
+    progress: "Class Progress",
   };
   const returnHref =
-    teacherWorkspaceHref(returnPaths[context.returnTo], resolved) +
-    (context.returnTo === "patterns"
-      ? "#patterns"
-      : context.returnTo === "insights"
-        ? "#responses"
-        : "");
+    teacherReturnHref(resolved) +
+    (context.returnTo === "insights" ? "#responses" : "");
   const conceptName = (id: string) => content.concepts.get(id)?.title ?? id;
   const stepNames = {
     initial_retrieval: "First answer",

@@ -1,0 +1,10 @@
+{
+  "category": "Actual shared navigation and CSS, isolated React19 page guard fixture",
+  "production": "report-production.json",
+  "developmentStrictMode": "report-development.json",
+  "passed": 20,
+  "failed": 0,
+  "browserErrors": 0,
+  "contract": "Shared native capture dismissal registers in ancestor layout effect; page guards register in descendant passive effects. Page guards remain responsible for cancellation, state, recovery, and focus.",
+  "limitation": "Externally preinstalled or descendant layout-effect guards may run before dismissal and attempt focus while native dialog content outside is inert. That unsupported ordering diagnostic is preserved in preinstalled-guard-order-report.json."
+}

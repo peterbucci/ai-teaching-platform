@@ -1,0 +1,245 @@
+[
+  {
+    "role": "bounded same-source continuation",
+    "label": "run-b8d0eb55-03-geometry",
+    "reportSha256": "1d8999fcb206f63394ba3f84c971f2a7becc083ffc9151180b37f1737f69638b",
+    "category": "Actual combined runtime navigation; synthetic fixtures; GET/HEAD after one login per isolated browser",
+    "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+    "sourceTree": "466b42f5b70a33400115d9df5f876f65f3d9289f",
+    "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+    "buildSourceTree": "466b42f5b70a33400115d9df5f876f65f3d9289f",
+    "applicationBuildReused": false,
+    "buildDiffPaths": [],
+    "readinessBuildId": "c3-z5ci6U8BgOEWk6IZj8",
+    "harnessSha256": "8ae14e52f9e746e6115549bc6a1578573840e0d1648e2a3ea47b11336913a75a",
+    "readinessReceiptSha256": "702abbf96c3c803dd492fe06c9a83b247143eb00c3328b26b591259db0d30199",
+    "reportedEquivalenceEvidence": {
+      "buildDiffPaths": []
+    },
+    "origin": "http://127.0.0.1:3317/",
+    "startedAt": "2026-10-25T14:47:07.593Z",
+    "finishedAt": "2026-10-25T14:47:12.842Z",
+    "status": "pass",
+    "counts": {
+      "pass": 2
+    },
+    "cases": [
+      {
+        "name": "focused authoring geometry and exact library tools",
+        "status": "pass",
+        "details": {
+          "measurements": [
+            {
+              "width": 1440,
+              "height": 1000,
+              "authoringMode": "focused",
+              "headerHeight": 58,
+              "pathHeight": 45,
+              "pathDisplay": "flex",
+              "contentTop": 103,
+              "authoringTop": 103,
+              "bottomPosition": "static",
+              "bottomLabel": "Course workspace mobile",
+              "bottomBottom": 0,
+              "bottomVisible": false,
+              "bottomLinks": ["Overview", "Assignments", "Lessons"]
+            },
+            {
+              "width": 1024,
+              "height": 768,
+              "authoringMode": "focused",
+              "headerHeight": 58,
+              "pathHeight": 45,
+              "pathDisplay": "flex",
+              "contentTop": 103,
+              "authoringTop": 103,
+              "bottomPosition": "static",
+              "bottomLabel": "Course workspace mobile",
+              "bottomBottom": 0,
+              "bottomVisible": false,
+              "bottomLinks": ["Overview", "Assignments", "Lessons"]
+            },
+            {
+              "width": 390,
+              "height": 844,
+              "authoringMode": "focused",
+              "headerHeight": 57,
+              "pathHeight": 0,
+              "pathDisplay": "none",
+              "contentTop": 57,
+              "authoringTop": 57,
+              "bottomPosition": "fixed",
+              "bottomLabel": "Course workspace mobile",
+              "bottomBottom": 844,
+              "bottomVisible": true,
+              "bottomLinks": ["Overview", "Assignments", "Lessons"]
+            },
+            {
+              "width": 320,
+              "height": 844,
+              "authoringMode": "focused",
+              "headerHeight": 57,
+              "pathHeight": 0,
+              "pathDisplay": "none",
+              "contentTop": 57,
+              "authoringTop": 57,
+              "bottomPosition": "fixed",
+              "bottomLabel": "Course workspace mobile",
+              "bottomBottom": 844,
+              "bottomVisible": true,
+              "bottomLinks": ["Overview", "Assignments", "Lessons"]
+            }
+          ],
+          "libraries": [
+            {
+              "width": 1440,
+              "path": "/teacher/lessons",
+              "links": [
+                {
+                  "href": "/teacher/lessons"
+                },
+                {
+                  "href": "/teacher/materials"
+                },
+                {
+                  "href": "/teacher/objectives"
+                }
+              ]
+            },
+            {
+              "width": 1440,
+              "path": "/teacher/materials",
+              "links": [
+                {
+                  "href": "/teacher/lessons"
+                },
+                {
+                  "href": "/teacher/materials"
+                },
+                {
+                  "href": "/teacher/objectives"
+                }
+              ]
+            },
+            {
+              "width": 1440,
+              "path": "/teacher/objectives",
+              "links": [
+                {
+                  "href": "/teacher/lessons"
+                },
+                {
+                  "href": "/teacher/materials"
+                },
+                {
+                  "href": "/teacher/objectives"
+                }
+              ]
+            },
+            {
+              "width": 390,
+              "path": "/teacher/lessons",
+              "links": [
+                {
+                  "href": "/teacher/lessons"
+                },
+                {
+                  "href": "/teacher/materials"
+                },
+                {
+                  "href": "/teacher/objectives"
+                }
+              ]
+            },
+            {
+              "width": 390,
+              "path": "/teacher/materials",
+              "links": [
+                {
+                  "href": "/teacher/lessons"
+                },
+                {
+                  "href": "/teacher/materials"
+                },
+                {
+                  "href": "/teacher/objectives"
+                }
+              ]
+            },
+            {
+              "width": 390,
+              "path": "/teacher/objectives",
+              "links": [
+                {
+                  "href": "/teacher/lessons"
+                },
+                {
+                  "href": "/teacher/materials"
+                },
+                {
+                  "href": "/teacher/objectives"
+                }
+              ]
+            }
+          ],
+          "ordinaryBackLinkKeyboardNavigation": true,
+          "detailedVisualOwner": "Agent E"
+        }
+      },
+      {
+        "name": "no browser errors or mutation attempts",
+        "status": "pass",
+        "details": {
+          "blockedRequests": 0
+        }
+      }
+    ],
+    "continuationOf": "run-b8d0eb55-02: bounded authoring geometry retry after correcting desktop mobile-only Editor-button assumption; all prior reports preserved; 1024 Escape defect is not rerun or hidden.",
+    "selectedCaseNames": [
+      "focused authoring geometry and exact library tools",
+      "no browser errors or mutation attempts"
+    ],
+    "notExecutedCaseNames": [
+      "authorized fixture classes are distinct",
+      "S1 discovery 1440",
+      "scope and keyboard 1440",
+      "direct URL Back Forward 1440",
+      "S1 discovery 1024",
+      "scope and keyboard 1024",
+      "direct URL Back Forward 1024",
+      "S1 discovery 390",
+      "scope and keyboard 390",
+      "direct URL Back Forward 390",
+      "S1 discovery 320",
+      "scope and keyboard 320",
+      "direct URL Back Forward 320",
+      "C2 grid details 1440",
+      "C2 questions grid 1440",
+      "C2 sessions grid 1440",
+      "C2 concepts details 1440",
+      "hashless native Back questions 1440",
+      "hashless native Back sessions 1440",
+      "C2 grid details 390",
+      "C2 questions grid 390",
+      "C2 sessions grid 390",
+      "C2 concepts details 390",
+      "hashless native Back questions 390",
+      "hashless native Back sessions 390",
+      "actual objective unsaved pane reload Back recovery",
+      "actual objective unsaved guard cancels switcher navigation",
+      "native browser zoom 200 percent",
+      "read-only evidence receipts unchanged"
+    ],
+    "errors": [],
+    "fatal": null,
+    "native200Verified": false,
+    "nativePreferenceObservation": null,
+    "limitations": [
+      "No paid calls or model-behavior claim",
+      "F1 Evidence row ownership is Agent A; this suite does not claim its acceptance",
+      "No comprehensive WCAG or screen-reader claim"
+    ],
+    "blockedRequests": [],
+    "evidenceHashes": []
+  }
+]

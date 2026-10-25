@@ -1,0 +1,717 @@
+{
+  "category": "Actual shared workspace-restoration.tsx with repository React19.3.0 and native history; Next hooks mocked; page-owned per-entry restorer is a labeled fixture, no page/application/DB changes",
+  "sourceHash": "a4523fa5815e2ada84e1d254c8d1793ada39911ac727dddb878507e5e95cf76d",
+  "frameScheduling": "",
+  "status": "pass",
+  "statusDerivation": "Derived from the recorded case statuses and errors; incomplete/missing evidence is not passed.",
+  "expectedCases": 26,
+  "counts": {
+    "pass": 26
+  },
+  "cases": [
+    {
+      "name": "page-first stable-control to anonymous select clears stale shared focus",
+      "status": "pass",
+      "details": {}
+    },
+    {
+      "name": "page-first stable-control to anonymous button clears stale shared focus",
+      "status": "pass",
+      "details": {}
+    },
+    {
+      "name": "page-first row-10 to anonymous select clears stale shared focus",
+      "status": "pass",
+      "details": {}
+    },
+    {
+      "name": "page-first row-10 to anonymous button clears stale shared focus",
+      "status": "pass",
+      "details": {}
+    },
+    {
+      "name": "page-first legacy page entry wins across repeated URLs",
+      "status": "pass",
+      "details": {
+        "first": {
+          "actual": {
+            "focus": "row-3",
+            "list": 140,
+            "ancestor": 364,
+            "generic": 0,
+            "y": 494,
+            "entry": "first",
+            "hash": ""
+          },
+          "placed": {
+            "focus": "row-3",
+            "list": 140,
+            "ancestor": 364,
+            "generic": 0,
+            "y": 494,
+            "entry": "first",
+            "hash": ""
+          },
+          "events": ["page", "shell"]
+        },
+        "second": {
+          "actual": {
+            "focus": "row-18",
+            "list": 1154,
+            "ancestor": 400,
+            "generic": 0,
+            "y": 494,
+            "entry": "second",
+            "hash": ""
+          },
+          "placed": {
+            "focus": "row-18",
+            "list": 1154,
+            "ancestor": 400,
+            "generic": 0,
+            "y": 494,
+            "entry": "second",
+            "hash": ""
+          },
+          "events": ["page", "shell"]
+        }
+      }
+    },
+    {
+      "name": "page-first marker page entry wins across repeated URLs",
+      "status": "pass",
+      "details": {
+        "first": {
+          "actual": {
+            "focus": "row-3",
+            "list": 140,
+            "ancestor": 364,
+            "generic": 0,
+            "y": 494,
+            "entry": "first",
+            "hash": ""
+          },
+          "placed": {
+            "focus": "row-3",
+            "list": 140,
+            "ancestor": 364,
+            "generic": 0,
+            "y": 494,
+            "entry": "first",
+            "hash": ""
+          },
+          "events": ["page", "shell"]
+        },
+        "second": {
+          "actual": {
+            "focus": "row-18",
+            "list": 1154,
+            "ancestor": 400,
+            "generic": 0,
+            "y": 494,
+            "entry": "second",
+            "hash": ""
+          },
+          "placed": {
+            "focus": "row-18",
+            "list": 1154,
+            "ancestor": 400,
+            "generic": 0,
+            "y": 494,
+            "entry": "second",
+            "hash": ""
+          },
+          "events": ["page", "shell"]
+        }
+      }
+    },
+    {
+      "name": "page-first generic shared focus and scrolling retained",
+      "status": "pass",
+      "details": {
+        "saved": {
+          "focus": "stable-control",
+          "list": 140,
+          "ancestor": 95,
+          "generic": 315,
+          "y": 260,
+          "entry": "first",
+          "hash": ""
+        },
+        "actual": {
+          "focus": "stable-control",
+          "list": 500,
+          "ancestor": 95,
+          "generic": 315,
+          "y": 260,
+          "entry": "first",
+          "hash": ""
+        }
+      }
+    },
+    {
+      "name": "page-first exact hash remains page-owned",
+      "status": "pass",
+      "details": {
+        "actual": {
+          "focus": "row-17",
+          "list": 1084,
+          "ancestor": 400,
+          "generic": 0,
+          "y": 494,
+          "entry": "first",
+          "hash": "#row-17"
+        },
+        "placed": {
+          "focus": "row-17",
+          "list": 1084,
+          "ancestor": 400,
+          "generic": 0,
+          "y": 494,
+          "entry": "first",
+          "hash": "#row-17"
+        }
+      }
+    },
+    {
+      "name": "shell-first stable-control to anonymous select clears stale shared focus",
+      "status": "pass",
+      "details": {}
+    },
+    {
+      "name": "shell-first stable-control to anonymous button clears stale shared focus",
+      "status": "pass",
+      "details": {}
+    },
+    {
+      "name": "shell-first row-10 to anonymous select clears stale shared focus",
+      "status": "pass",
+      "details": {}
+    },
+    {
+      "name": "shell-first row-10 to anonymous button clears stale shared focus",
+      "status": "pass",
+      "details": {}
+    },
+    {
+      "name": "shell-first legacy page entry wins across repeated URLs",
+      "status": "pass",
+      "details": {
+        "first": {
+          "actual": {
+            "focus": "row-3",
+            "list": 140,
+            "ancestor": 364,
+            "generic": 0,
+            "y": 494,
+            "entry": "first",
+            "hash": ""
+          },
+          "placed": {
+            "focus": "row-3",
+            "list": 140,
+            "ancestor": 364,
+            "generic": 0,
+            "y": 494,
+            "entry": "first",
+            "hash": ""
+          },
+          "events": ["shell", "page"]
+        },
+        "second": {
+          "actual": {
+            "focus": "row-18",
+            "list": 1154,
+            "ancestor": 400,
+            "generic": 0,
+            "y": 494,
+            "entry": "second",
+            "hash": ""
+          },
+          "placed": {
+            "focus": "row-18",
+            "list": 1154,
+            "ancestor": 400,
+            "generic": 0,
+            "y": 494,
+            "entry": "second",
+            "hash": ""
+          },
+          "events": ["shell", "page"]
+        }
+      }
+    },
+    {
+      "name": "shell-first marker page entry wins across repeated URLs",
+      "status": "pass",
+      "details": {
+        "first": {
+          "actual": {
+            "focus": "row-3",
+            "list": 140,
+            "ancestor": 364,
+            "generic": 0,
+            "y": 494,
+            "entry": "first",
+            "hash": ""
+          },
+          "placed": {
+            "focus": "row-3",
+            "list": 140,
+            "ancestor": 364,
+            "generic": 0,
+            "y": 494,
+            "entry": "first",
+            "hash": ""
+          },
+          "events": ["shell", "page"]
+        },
+        "second": {
+          "actual": {
+            "focus": "row-18",
+            "list": 1154,
+            "ancestor": 400,
+            "generic": 0,
+            "y": 494,
+            "entry": "second",
+            "hash": ""
+          },
+          "placed": {
+            "focus": "row-18",
+            "list": 1154,
+            "ancestor": 400,
+            "generic": 0,
+            "y": 494,
+            "entry": "second",
+            "hash": ""
+          },
+          "events": ["shell", "page"]
+        }
+      }
+    },
+    {
+      "name": "shell-first generic shared focus and scrolling retained",
+      "status": "pass",
+      "details": {
+        "saved": {
+          "focus": "stable-control",
+          "list": 140,
+          "ancestor": 95,
+          "generic": 315,
+          "y": 260,
+          "entry": "first",
+          "hash": ""
+        },
+        "actual": {
+          "focus": "stable-control",
+          "list": 500,
+          "ancestor": 95,
+          "generic": 315,
+          "y": 260,
+          "entry": "first",
+          "hash": ""
+        }
+      }
+    },
+    {
+      "name": "shell-first exact hash remains page-owned",
+      "status": "pass",
+      "details": {
+        "actual": {
+          "focus": "row-17",
+          "list": 1084,
+          "ancestor": 400,
+          "generic": 0,
+          "y": 494,
+          "entry": "first",
+          "hash": "#row-17"
+        },
+        "placed": {
+          "focus": "row-17",
+          "list": 1084,
+          "ancestor": 400,
+          "generic": 0,
+          "y": 494,
+          "entry": "first",
+          "hash": "#row-17"
+        }
+      }
+    },
+    {
+      "name": "normal repeated URL restores distinct generic entries",
+      "status": "pass",
+      "details": {
+        "first": {
+          "focus": "stable-control",
+          "list": 0,
+          "ancestor": 81,
+          "generic": 231,
+          "y": 251,
+          "entry": "first",
+          "hash": ""
+        },
+        "second": {
+          "focus": "stable-second",
+          "list": 0,
+          "ancestor": 181,
+          "generic": 521,
+          "y": 421,
+          "entry": "second",
+          "hash": ""
+        },
+        "returnedFirst": {
+          "focus": "stable-control",
+          "list": 0,
+          "ancestor": 81,
+          "generic": 231,
+          "y": 251,
+          "entry": "first",
+          "hash": ""
+        },
+        "returnedSecond": {
+          "focus": "stable-second",
+          "list": 0,
+          "ancestor": 181,
+          "generic": 521,
+          "y": 421,
+          "entry": "second",
+          "hash": ""
+        }
+      }
+    },
+    {
+      "name": "sync-before repeated URL restores distinct generic entries",
+      "status": "pass",
+      "details": {
+        "first": {
+          "focus": "stable-control",
+          "list": 0,
+          "ancestor": 81,
+          "generic": 231,
+          "y": 251,
+          "entry": "first",
+          "hash": ""
+        },
+        "second": {
+          "focus": "stable-second",
+          "list": 0,
+          "ancestor": 181,
+          "generic": 521,
+          "y": 421,
+          "entry": "second",
+          "hash": ""
+        },
+        "returnedFirst": {
+          "focus": "stable-control",
+          "list": 0,
+          "ancestor": 81,
+          "generic": 231,
+          "y": 251,
+          "entry": "first",
+          "hash": ""
+        },
+        "returnedSecond": {
+          "focus": "stable-second",
+          "list": 0,
+          "ancestor": 181,
+          "generic": 521,
+          "y": 421,
+          "entry": "second",
+          "hash": ""
+        }
+      }
+    },
+    {
+      "name": "delayed repeated URL restores distinct generic entries",
+      "status": "pass",
+      "details": {
+        "first": {
+          "focus": "stable-control",
+          "list": 0,
+          "ancestor": 81,
+          "generic": 231,
+          "y": 251,
+          "entry": "first",
+          "hash": ""
+        },
+        "second": {
+          "focus": "stable-second",
+          "list": 0,
+          "ancestor": 181,
+          "generic": 521,
+          "y": 421,
+          "entry": "second",
+          "hash": ""
+        },
+        "returnedFirst": {
+          "focus": "stable-control",
+          "list": 0,
+          "ancestor": 81,
+          "generic": 231,
+          "y": 251,
+          "entry": "first",
+          "hash": ""
+        },
+        "returnedSecond": {
+          "focus": "stable-second",
+          "list": 0,
+          "ancestor": 181,
+          "generic": 521,
+          "y": 421,
+          "entry": "second",
+          "hash": ""
+        }
+      }
+    },
+    {
+      "name": "normal direct same-URL Back and Forward rerun shared restoration",
+      "status": "pass",
+      "details": {
+        "first": {
+          "focus": "stable-control",
+          "list": 0,
+          "ancestor": 83,
+          "generic": 233,
+          "y": 253,
+          "entry": "first",
+          "hash": ""
+        },
+        "second": {
+          "focus": "stable-second",
+          "list": 0,
+          "ancestor": 183,
+          "generic": 523,
+          "y": 423,
+          "entry": "second",
+          "hash": ""
+        },
+        "returnedFirst": {
+          "focus": "stable-control",
+          "list": 0,
+          "ancestor": 83,
+          "generic": 233,
+          "y": 253,
+          "entry": "first",
+          "hash": ""
+        },
+        "returnedSecond": {
+          "focus": "stable-second",
+          "list": 0,
+          "ancestor": 183,
+          "generic": 523,
+          "y": 423,
+          "entry": "second",
+          "hash": ""
+        }
+      }
+    },
+    {
+      "name": "sync-before direct same-URL Back and Forward rerun shared restoration",
+      "status": "pass",
+      "details": {
+        "first": {
+          "focus": "stable-control",
+          "list": 0,
+          "ancestor": 83,
+          "generic": 233,
+          "y": 253,
+          "entry": "first",
+          "hash": ""
+        },
+        "second": {
+          "focus": "stable-second",
+          "list": 0,
+          "ancestor": 183,
+          "generic": 523,
+          "y": 423,
+          "entry": "second",
+          "hash": ""
+        },
+        "returnedFirst": {
+          "focus": "stable-control",
+          "list": 0,
+          "ancestor": 83,
+          "generic": 233,
+          "y": 253,
+          "entry": "first",
+          "hash": ""
+        },
+        "returnedSecond": {
+          "focus": "stable-second",
+          "list": 0,
+          "ancestor": 183,
+          "generic": 523,
+          "y": 423,
+          "entry": "second",
+          "hash": ""
+        }
+      }
+    },
+    {
+      "name": "delayed direct same-URL Back and Forward rerun shared restoration",
+      "status": "pass",
+      "details": {
+        "first": {
+          "focus": "stable-control",
+          "list": 0,
+          "ancestor": 83,
+          "generic": 233,
+          "y": 253,
+          "entry": "first",
+          "hash": ""
+        },
+        "second": {
+          "focus": "stable-second",
+          "list": 0,
+          "ancestor": 183,
+          "generic": 523,
+          "y": 423,
+          "entry": "second",
+          "hash": ""
+        },
+        "returnedFirst": {
+          "focus": "stable-control",
+          "list": 0,
+          "ancestor": 83,
+          "generic": 233,
+          "y": 253,
+          "entry": "first",
+          "hash": ""
+        },
+        "returnedSecond": {
+          "focus": "stable-second",
+          "list": 0,
+          "ancestor": 183,
+          "generic": 523,
+          "y": 423,
+          "entry": "second",
+          "hash": ""
+        }
+      }
+    },
+    {
+      "name": "same-URL Next metadata reset renews identity without reusing old token",
+      "status": "pass",
+      "details": {
+        "saved": {
+          "focus": "stable-second",
+          "list": 0,
+          "ancestor": 180,
+          "generic": 444,
+          "y": 410,
+          "entry": "first",
+          "hash": ""
+        },
+        "actual": {
+          "focus": "stable-second",
+          "list": 0,
+          "ancestor": 180,
+          "generic": 444,
+          "y": 410,
+          "entry": "first",
+          "hash": ""
+        }
+      }
+    },
+    {
+      "name": "history preserves router/page metadata and reload persists no position or draft",
+      "status": "pass",
+      "details": {
+        "before": {
+          "entry": "first"
+        },
+        "after": {
+          "position": {
+            "focus": "BODY",
+            "list": 0,
+            "ancestor": 0,
+            "generic": 0,
+            "y": 0,
+            "entry": "first",
+            "hash": ""
+          }
+        }
+      }
+    },
+    {
+      "name": "same-URL metadata reset followed immediately by captured leave click preserves origin",
+      "status": "pass",
+      "details": {
+        "saved": {
+          "focus": "stable-second",
+          "list": 0,
+          "ancestor": 190,
+          "generic": 456,
+          "y": 430,
+          "entry": "first",
+          "hash": ""
+        },
+        "actual": {
+          "focus": "stable-second",
+          "list": 0,
+          "ancestor": 190,
+          "generic": 456,
+          "y": 430,
+          "entry": "first",
+          "hash": ""
+        }
+      }
+    },
+    {
+      "name": "SecurityError uses bounded native fallback without per-scroll retries",
+      "status": "pass",
+      "details": {
+        "writes": 4,
+        "position": {
+          "focus": "stable-control",
+          "list": 0,
+          "ancestor": 90,
+          "generic": 190,
+          "y": 190,
+          "entry": "first",
+          "hash": ""
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "fatal": null,
+  "provenance": {
+    "reusedFromSeparateRun": true,
+    "originalReportSha256": "9158994d8d21213ee0b4450bb8d4f43beec74bbbce6985fa95b563b975820070",
+    "originalEnclosingRunReportSha256": "280cd7cce3e3ae236b7167082ec6f41fa949bd84402d907934e21edfa0caa55c",
+    "originalRunLabel": "run-b8d0eb55-01",
+    "executionNote": "Imported component receipt from an earlier run. These 26 cases were not rerun by the selected application run.",
+    "componentStartedAt": "",
+    "componentFinishedAt": "",
+    "originalEnclosingRunStartedAt": "2026-10-25T14:39:01.847Z",
+    "originalEnclosingRunFinishedAt": "2026-10-25T14:40:16.157Z",
+    "timestampNote": "Enclosing-run timestamps are an execution window, not invented component-specific start or finish times.",
+    "originalRunSource": {
+      "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "sourceTree": "466b42f5b70a33400115d9df5f876f65f3d9289f",
+      "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "buildSourceTree": "466b42f5b70a33400115d9df5f876f65f3d9289f",
+      "applicationBuildReused": false,
+      "buildDiffPaths": [],
+      "readinessBuildId": "c3-z5ci6U8BgOEWk6IZj8",
+      "harnessSha256": "39a93d4e7f75282a6e2d826178efecd6559a97723ba5223d7f91b38d0e1eb4e6",
+      "readinessReceiptSha256": "702abbf96c3c803dd492fe06c9a83b247143eb00c3328b26b591259db0d30199",
+      "reportedEquivalenceEvidence": {
+        "buildDiffPaths": []
+      }
+    },
+    "originalRunStatus": "fail",
+    "originalRunCounts": {
+      "pass": 3,
+      "fail": 29
+    },
+    "originalExecutionCase": {
+      "name": "preserved 26 shell restoration scenarios",
+      "status": "pass",
+      "count": 26,
+      "sourceHash": "a4523fa5815e2ada84e1d254c8d1793ada39911ac727dddb878507e5e95cf76d",
+      "report": "restoration-26/report.json"
+    }
+  }
+}

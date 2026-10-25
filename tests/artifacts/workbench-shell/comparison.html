@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Workbench v2.2 — actual shell comparison</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #f6f8f7;
+        color: #17302d;
+        font:
+          15px/1.5 system-ui,
+          sans-serif;
+      }
+      header {
+        padding: 24px 28px;
+        background: white;
+        border-bottom: 1px solid #ccd9d1;
+      }
+      h1 {
+        font-size: 26px;
+        margin: 0 0 8px;
+      }
+      p {
+        max-width: 1050px;
+        margin: 8px 0;
+      }
+      a {
+        color: #176d58;
+      }
+      label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin: 12px 20px 0 0;
+      }
+      select,
+      button {
+        font: inherit;
+        padding: 8px 12px;
+        border: 1px solid #ccd9d1;
+        border-radius: 6px;
+        background: white;
+        color: inherit;
+      }
+      main {
+        padding: 20px 28px;
+      }
+      .comparison {
+        overflow: auto;
+        border: 1px solid #ccd9d1;
+        background: #e8eeea;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        padding: 16px;
+      }
+      .native .grid {
+        grid-template-columns: repeat(3, var(--shot-width));
+        width: max-content;
+      }
+      figure {
+        margin: 0;
+        min-width: 0;
+      }
+      figcaption {
+        padding: 12px;
+        background: white;
+        min-height: 82px;
+        border-bottom: 1px solid #ccd9d1;
+      }
+      figcaption strong {
+        display: block;
+      }
+      figcaption small {
+        display: block;
+        color: #4f6359;
+      }
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+        background: white;
+      }
+      details {
+        margin: 20px 0;
+        background: white;
+        padding: 16px;
+        border: 1px solid #ccd9d1;
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 650;
+      }
+      .panes {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 16px;
+      }
+      .note {
+        padding: 12px 16px;
+        background: #fff4e1;
+        border-left: 4px solid #936121;
+      }
+      footer {
+        padding: 12px 28px 32px;
+      }
+      button:focus-visible,
+      select:focus-visible,
+      a:focus-visible,
+      summary:focus-visible {
+        outline: 3px solid #2f8a6b;
+        outline-offset: 3px;
+      }
+      @media (max-width: 800px) {
+        header,
+        main,
+        footer {
+          padding: 16px;
+        }
+        .grid {
+          gap: 8px;
+          padding: 8px;
+        }
+        figcaption {
+          font-size: 12px;
+          padding: 8px;
+          min-height: 100px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Workbench v2.2 shared shell</h1>
+      <p>
+        Actual exported prototype · exact PR #116 base · corrected shared shell.
+        Choose a viewport and route; open any screenshot to inspect its original
+        pixels.
+      </p>
+      <p class="note">
+        This compares shared navigation structure. The exact #116 base still
+        renders assignment review for Progress; its grid belongs to #117.
+        Existing page-owned cards, filters and reading layouts remain visible.
+        Prototype:18 illustrative students. App:24 fictional students and the
+        actual fixed content version.
+      </p>
+      <label
+        >Viewport
+        <select id="viewport">
+          <option>1440x1000</option>
+          <option>1024x768</option>
+          <option>390x844</option>
+          <option>320x844</option>
+        </select></label
+      ><label
+        >Surface
+        <select id="surface">
+          <option value="overview">Overview</option>
+          <option value="progress">Progress</option>
+          <option value="student-work">Student work / All answers</option>
+        </select></label
+      ><button id="native" aria-pressed="false">
+        Show original pixel size
+      </button>
+    </header>
+    <main>
+      <div class="comparison" id="comparison">
+        <div class="grid" id="grid"></div>
+      </div>
+      <details>
+        <summary>
+          Optional page-owned panes — separate component fixture
+        </summary>
+        <p>
+          Actual shared component and CSS, React19.3.0. Next URL hook mocked.
+          These images do not claim integration into #117, #118 or Evidence.
+        </p>
+        <div class="panes">
+          <figure>
+            <figcaption>panes-1024x768-modal.png</figcaption>
+            <a href="panes-1024x768-modal.png"
+              ><img
+                loading="lazy"
+                src="panes-1024x768-modal.png"
+                alt="panes-1024x768-modal.png"
+            /></a>
+          </figure>
+          <figure>
+            <figcaption>panes-1024x768.png</figcaption>
+            <a href="panes-1024x768.png"
+              ><img
+                loading="lazy"
+                src="panes-1024x768.png"
+                alt="panes-1024x768.png"
+            /></a>
+          </figure>
+          <figure>
+            <figcaption>panes-1440x1000-two.png</figcaption>
+            <a href="panes-1440x1000-two.png"
+              ><img
+                loading="lazy"
+                src="panes-1440x1000-two.png"
+                alt="panes-1440x1000-two.png"
+            /></a>
+          </figure>
+          <figure>
+            <figcaption>panes-1440x1000.png</figcaption>
+            <a href="panes-1440x1000.png"
+              ><img
+                loading="lazy"
+                src="panes-1440x1000.png"
+                alt="panes-1440x1000.png"
+            /></a>
+          </figure>
+          <figure>
+            <figcaption>panes-320x844-context.png</figcaption>
+            <a href="panes-320x844-context.png"
+              ><img
+                loading="lazy"
+                src="panes-320x844-context.png"
+                alt="panes-320x844-context.png"
+            /></a>
+          </figure>
+          <figure>
+            <figcaption>panes-320x844.png</figcaption>
+            <a href="panes-320x844.png"
+              ><img
+                loading="lazy"
+                src="panes-320x844.png"
+                alt="panes-320x844.png"
+            /></a>
+          </figure>
+          <figure>
+            <figcaption>panes-390x844-context.png</figcaption>
+            <a href="panes-390x844-context.png"
+              ><img
+                loading="lazy"
+                src="panes-390x844-context.png"
+                alt="panes-390x844-context.png"
+            /></a>
+          </figure>
+          <figure>
+            <figcaption>panes-390x844.png</figcaption>
+            <a href="panes-390x844.png"
+              ><img
+                loading="lazy"
+                src="panes-390x844.png"
+                alt="panes-390x844.png"
+            /></a>
+          </figure>
+        </div>
+      </details>
+      <details>
+        <summary>Verification receipts</summary>
+        <ul>
+          <li>
+            <a href="prototype-measurements.json"
+              >prototype-measurements.json</a
+            >
+          </li>
+          <li><a href="before-report.json">before-report.json</a></li>
+          <li><a href="after-report.json">after-report.json</a></li>
+          <li><a href="navigation-report.json">navigation-report.json</a></li>
+          <li><a href="history-report.json">history-report.json</a></li>
+          <li><a href="scope-report.json">scope-report.json</a></li>
+          <li>
+            <a href="subnavigation-report.json">subnavigation-report.json</a>
+          </li>
+          <li>
+            <a href="pane-component-report.json">pane-component-report.json</a>
+          </li>
+          <li><a href="evidence-before.json">evidence-before.json</a></li>
+          <li><a href="evidence-after.json">evidence-after.json</a></li>
+          <li><a href="manifest.json">Source and screenshot hashes</a></li>
+        </ul>
+      </details>
+    </main>
+    <footer>
+      <a href="../../../docs/WORKBENCH_V22_SHELL_VERIFICATION.md"
+        >Verification and deviations</a
+      >
+      ·
+      <a href="../../../docs/WORKBENCH_V22_SHELL.md"
+        >Page integration contract</a
+      >
+      <p>
+        Draft review evidence. No deployment, model evaluation, page-owner
+        integration or merge is implied.
+      </p>
+    </footer>
+    <script>
+      const viewport = document.getElementById("viewport"),
+        surface = document.getElementById("surface"),
+        comparison = document.getElementById("comparison");
+      function render() {
+        comparison.style.setProperty(
+          "--shot-width",
+          viewport.value.split("x")[0] + "px",
+        );
+        document.getElementById("grid").innerHTML = [
+          [
+            "prototype",
+            "Exported prototype",
+            "Actual supplied HTML; illustrative fixture",
+          ],
+          [
+            "before",
+            "Before · repaired PR #116",
+            "Exact base76b11dd; original left sidebar",
+          ],
+          [
+            "after",
+            "After · shared shell",
+            "Same app/database; page-local content retained",
+          ],
+        ]
+          .map(([key, title, note]) => {
+            const file =
+              key + "-" + surface.value + "-" + viewport.value + ".png";
+            return (
+              "<figure><figcaption><strong>" +
+              title +
+              "</strong><small>" +
+              note +
+              '</small></figcaption><a href="' +
+              file +
+              '"><img src="' +
+              file +
+              '" alt="' +
+              title +
+              " " +
+              surface.value +
+              " at " +
+              viewport.value +
+              '"></a></figure>'
+            );
+          })
+          .join("");
+      }
+      viewport.addEventListener("change", render);
+      surface.addEventListener("change", render);
+      document.getElementById("native").addEventListener("click", (event) => {
+        const active = comparison.classList.toggle("native");
+        event.currentTarget.setAttribute("aria-pressed", String(active));
+        event.currentTarget.textContent = active
+          ? "Fit three comparisons"
+          : "Show original pixel size";
+      });
+      render();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,229 @@
+{
+  "category": "Actual shared TeacherWorkspace and CSS, isolated page-owned broad Escape fixture; Next hooks, data and ancillary components mocked",
+  "status": "pass",
+  "expectedCases": 6,
+  "cases": [
+    {
+      "name": "production-1440x1000",
+      "status": "pass",
+      "details": {
+        "mode": "production",
+        "width": 1440,
+        "height": 1000,
+        "urlBefore": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=details&reactMode=production",
+        "urlAfterPageEscape": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=grid&reactMode=production",
+        "modalEscape": {
+          "pageEscapes": 0,
+          "registrations": 1,
+          "activePageHandlers": 1,
+          "nativeCancels": 1,
+          "cancelDefaultPrevented": false
+        },
+        "outsideEscape": {
+          "pageEscapes": 1,
+          "registrations": 1,
+          "activePageHandlers": 1,
+          "nativeCancels": 1,
+          "cancelDefaultPrevented": false
+        },
+        "assertions": [
+          "Native dialog closes",
+          "Opener regains focus",
+          "URL and page pane unchanged by modal Escape",
+          "Broad page handler receives no modal Escape",
+          "Escape outside modal still reaches page handler"
+        ]
+      }
+    },
+    {
+      "name": "production-1024x768",
+      "status": "pass",
+      "details": {
+        "mode": "production",
+        "width": 1024,
+        "height": 768,
+        "urlBefore": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=details&reactMode=production",
+        "urlAfterPageEscape": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=grid&reactMode=production",
+        "modalEscape": {
+          "pageEscapes": 0,
+          "registrations": 1,
+          "activePageHandlers": 1,
+          "nativeCancels": 1,
+          "cancelDefaultPrevented": false
+        },
+        "outsideEscape": {
+          "pageEscapes": 1,
+          "registrations": 1,
+          "activePageHandlers": 1,
+          "nativeCancels": 1,
+          "cancelDefaultPrevented": false
+        },
+        "assertions": [
+          "Native dialog closes",
+          "Opener regains focus",
+          "URL and page pane unchanged by modal Escape",
+          "Broad page handler receives no modal Escape",
+          "Escape outside modal still reaches page handler"
+        ]
+      }
+    },
+    {
+      "name": "production-390x844",
+      "status": "pass",
+      "details": {
+        "mode": "production",
+        "width": 390,
+        "height": 844,
+        "urlBefore": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=details&reactMode=production",
+        "urlAfterPageEscape": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=grid&reactMode=production",
+        "modalEscape": {
+          "pageEscapes": 0,
+          "registrations": 1,
+          "activePageHandlers": 1,
+          "nativeCancels": 1,
+          "cancelDefaultPrevented": false
+        },
+        "outsideEscape": {
+          "pageEscapes": 1,
+          "registrations": 1,
+          "activePageHandlers": 1,
+          "nativeCancels": 1,
+          "cancelDefaultPrevented": false
+        },
+        "assertions": [
+          "Native dialog closes",
+          "Opener regains focus",
+          "URL and page pane unchanged by modal Escape",
+          "Broad page handler receives no modal Escape",
+          "Escape outside modal still reaches page handler"
+        ]
+      }
+    },
+    {
+      "name": "development-1440x1000",
+      "status": "pass",
+      "details": {
+        "mode": "development",
+        "width": 1440,
+        "height": 1000,
+        "urlBefore": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=details&reactMode=development",
+        "urlAfterPageEscape": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=grid&reactMode=development",
+        "modalEscape": {
+          "pageEscapes": 0,
+          "registrations": 2,
+          "activePageHandlers": 1,
+          "nativeCancels": 1,
+          "cancelDefaultPrevented": false
+        },
+        "outsideEscape": {
+          "pageEscapes": 1,
+          "registrations": 2,
+          "activePageHandlers": 1,
+          "nativeCancels": 1,
+          "cancelDefaultPrevented": false
+        },
+        "assertions": [
+          "Native dialog closes",
+          "Opener regains focus",
+          "URL and page pane unchanged by modal Escape",
+          "Broad page handler receives no modal Escape",
+          "Escape outside modal still reaches page handler"
+        ]
+      }
+    },
+    {
+      "name": "development-1024x768",
+      "status": "pass",
+      "details": {
+        "mode": "development",
+        "width": 1024,
+        "height": 768,
+        "urlBefore": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=details&reactMode=development",
+        "urlAfterPageEscape": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=grid&reactMode=development",
+        "modalEscape": {
+          "pageEscapes": 0,
+          "registrations": 2,
+          "activePageHandlers": 1,
+          "nativeCancels": 1,
+          "cancelDefaultPrevented": false
+        },
+        "outsideEscape": {
+          "pageEscapes": 1,
+          "registrations": 2,
+          "activePageHandlers": 1,
+          "nativeCancels": 1,
+          "cancelDefaultPrevented": false
+        },
+        "assertions": [
+          "Native dialog closes",
+          "Opener regains focus",
+          "URL and page pane unchanged by modal Escape",
+          "Broad page handler receives no modal Escape",
+          "Escape outside modal still reaches page handler"
+        ]
+      }
+    },
+    {
+      "name": "development-390x844",
+      "status": "pass",
+      "details": {
+        "mode": "development",
+        "width": 390,
+        "height": 844,
+        "urlBefore": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=details&reactMode=development",
+        "urlAfterPageEscape": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=grid&reactMode=development",
+        "modalEscape": {
+          "pageEscapes": 0,
+          "registrations": 2,
+          "activePageHandlers": 1,
+          "nativeCancels": 1,
+          "cancelDefaultPrevented": false
+        },
+        "outsideEscape": {
+          "pageEscapes": 1,
+          "registrations": 2,
+          "activePageHandlers": 1,
+          "nativeCancels": 1,
+          "cancelDefaultPrevented": false
+        },
+        "assertions": [
+          "Native dialog closes",
+          "Opener regains focus",
+          "URL and page pane unchanged by modal Escape",
+          "Broad page handler receives no modal Escape",
+          "Escape outside modal still reaches page handler"
+        ]
+      }
+    }
+  ],
+  "counts": {
+    "pass": 6
+  },
+  "reportSha256": "5b3f4b2a249e81e0a81c978e037cfeb262e7bc819f659c8f0308cefa920db802",
+  "sourceSha": "",
+  "sourceTree": "",
+  "buildSourceSha": "",
+  "buildSourceTree": "",
+  "applicationBuildReused": null,
+  "buildDiffPaths": null,
+  "readinessBuildId": "",
+  "harnessSha256": "dcdef299036690af3f84330593c61600548c0a35741b65d24d85fc8231ea512f",
+  "readinessReceiptSha256": "",
+  "reportedEquivalenceEvidence": {},
+  "sourceHashes": {
+    "app/teacher/navigation.tsx": "11994a3679ca521672ffb1ae8acf6afc3de2b2ee60d7d38def3afe21ef904907",
+    "app/teacher/workspace-shell.css": "2c789fac6ef9694d507bed347dc1a59776f78712fa1ff9e70d88d1ace0f44918"
+  },
+  "reactVersion": "19.3.0",
+  "reactRoot": "document",
+  "strictMode": true,
+  "startedAt": "2026-10-25T15:28:38.744Z",
+  "finishedAt": "2026-10-25T15:28:41.176Z",
+  "errors": [],
+  "fatal": null,
+  "limitations": [
+    "Component regression, not application or database verification",
+    "No document capture listener is modeled; the conflicting page listener deliberately runs in document bubble phase"
+  ],
+  "executionNote": "Separate isolated component execution: actual shared component, document React root, mocked Next hooks and deliberate broad page Escape handler. No application or database verification is implied. Source file hashes are retained; no unreported Git commit is inferred."
+}

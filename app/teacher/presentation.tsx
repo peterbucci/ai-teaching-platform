@@ -1,9 +1,43 @@
 import { Suspense, type ReactNode } from "react";
 import type { ClassMetrics } from "../../lib/teacher/metrics.ts";
 import type { TeacherWorkspaceContext } from "../../lib/teacher/workspace-contracts.ts";
-import { Workspace } from "../components/workspace.tsx";
 import { TeacherWorkspace } from "./navigation.tsx";
 import "./teacher.css";
+
+export { TeacherWorkspacePanes } from "./workspace-panes.tsx";
+
+/** Pages supply computed values and honest labels; the shell never calculates evidence. */
+export function TeacherMetricStrip({
+  items,
+}: {
+  items: { label: string; value: ReactNode; note?: ReactNode }[];
+}) {
+  return (
+    <dl className="tw-metric-strip">
+      {items.map((item) => (
+        <div key={item.label}>
+          <dd>{item.value}</dd>
+          <dt>{item.label}</dt>
+          {item.note && <dd className="tw-metric-note">{item.note}</dd>}
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+export function TeacherRuledList({
+  children,
+  label,
+}: {
+  children: ReactNode;
+  label: string;
+}) {
+  return (
+    <ul className="tw-ruled-list" aria-label={label}>
+      {children}
+    </ul>
+  );
+}
 
 export function TeacherFrame({
   children,
@@ -19,9 +53,12 @@ export function TeacherFrame({
   return (
     <Suspense
       fallback={
-        <Workspace area="teacher" section={section}>
-          <div className="lp-teacher">{children}</div>
-        </Workspace>
+        <div className="tw-shell">
+          <header className="tw-header">Learning Pulse</header>
+          <main className="tw-main" aria-busy="true">
+            <p role="status">Loading workspace…</p>
+          </main>
+        </div>
       }
     >
       <TeacherWorkspace
