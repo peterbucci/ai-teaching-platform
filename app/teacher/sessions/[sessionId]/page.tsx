@@ -84,6 +84,7 @@ export default async function SessionPage({
       evidence,
       new Set(content.concepts.keys()),
       rosterStudentIds,
+      new Set(content.misconceptions.keys()),
     );
   } catch (error) {
     if (error instanceof z.ZodError) notFound();
@@ -99,9 +100,7 @@ export default async function SessionPage({
     students: "Students",
     progress: "Class Progress",
   };
-  const returnHref =
-    teacherReturnHref(resolved) +
-    (context.returnTo === "insights" ? "#responses" : "");
+  const returnHref = teacherReturnHref(resolved);
   const conceptName = (id: string) => content.concepts.get(id)?.title ?? id;
   const stepNames = {
     initial_retrieval: "First answer",

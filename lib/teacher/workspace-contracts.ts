@@ -15,6 +15,9 @@ const contextSchema = z.object({
     .enum(["desk", "evidence", "insights", "patterns", "students", "progress"])
     .default("evidence"),
   seedAttempt: z.array(z.uuid()).max(60).default([]),
+  // Page-owned return presentation is namespaced; it is never a destination.
+  participation: z.enum(["all", "submitted", "opened", "missing"]).optional(),
+  rosterPane: z.enum(["navigation", "main", "context"]).optional(),
   // These presentation fields belong only to a Class Progress return. Other
   // pages retain their own independent pane/class/status parameter contracts.
   progressView: z
@@ -50,8 +53,10 @@ export function parseTeacherWorkspaceContext(
   const raw: Record<string, unknown> = {};
   for (const key of Object.keys(contextSchema.shape)) {
     if (
-      params.returnTo !== "progress" &&
-      progressReturnFields.some((field) => field === key)
+      (params.returnTo !== "students" &&
+        (key === "participation" || key === "rosterPane")) ||
+      (params.returnTo !== "progress" &&
+        progressReturnFields.some((field) => field === key))
     )
       continue;
     const value = params[key];
@@ -65,6 +70,8 @@ export function parseTeacherWorkspaceContext(
         : value;
   }
   const context = contextSchema.parse(raw);
+  if (context.returnTo === "students" && context.student)
+    z.uuid().parse(context.student);
   if (context.returnTo === "progress") {
     if (!context.assignment)
       throw new z.ZodError([
@@ -113,6 +120,8 @@ export function teacherWorkspaceHref(
 export function teacherReturnHref(context: TeacherWorkspaceContext) {
   if (context.returnTo === "progress")
     return teacherProgressReturnHref(context);
+  if (["students", "insights", "patterns"].includes(context.returnTo))
+    return teacherInvestigationReturnHref(context);
   const paths = {
     desk: "/teacher",
     evidence: "/teacher/evidence",
@@ -122,6 +131,40 @@ export function teacherReturnHref(context: TeacherWorkspaceContext) {
   } as const;
   const href = teacherWorkspaceHref(paths[context.returnTo], context);
   return context.returnTo === "patterns" ? `${href}#patterns` : href;
+}
+
+/** Fixed destinations and anchors, after the session receiver authorizes identities. */
+function teacherInvestigationReturnHref(context: TeacherWorkspaceContext) {
+  const valid = parseTeacherWorkspaceContext(context);
+  const roster = valid.returnTo === "students";
+  const query = new URLSearchParams({
+    ...(valid.assignment ? { assignment: valid.assignment } : {}),
+    origin: valid.origin,
+    ...(valid.student ? { student: valid.student } : {}),
+    ...(valid.concept ? { concept: valid.concept } : {}),
+    returnTo: valid.returnTo,
+  });
+  let anchor: string;
+  if (roster) {
+    if (valid.q) query.set("q", valid.q);
+    if (valid.participation) query.set("participation", valid.participation);
+    if (valid.rosterPane) query.set("workspacePane", valid.rosterPane);
+    anchor =
+      valid.rosterPane === "main" && valid.attempt
+        ? `roster-attempt-${valid.attempt}`
+        : valid.student
+          ? `roster-student-${valid.student}`
+          : "roster-main";
+  } else {
+    if (valid.misconception) query.set("misconception", valid.misconception);
+    anchor =
+      valid.returnTo === "patterns"
+        ? "patterns"
+        : valid.concept
+          ? `concept-${valid.concept}`
+          : "responses";
+  }
+  return `/teacher/${roster ? "students" : "insights"}?${query}#${encodeURIComponent(anchor)}`;
 }
 
 /** Fixed route and computed anchors only; callers must first authorize context. */
