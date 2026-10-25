@@ -465,6 +465,11 @@ export default async function TeacherInsightsPage({
                       </p>
                       {data.students.map((student) => {
                         const row = latestByStudent.get(student.student_id);
+                        const earlier = relatedRows.filter(
+                          (item) =>
+                            item.student_id === student.student_id &&
+                            item.attempt.id !== row?.attempt.id,
+                        );
                         return (
                           <div className="ci-student" key={student.student_id}>
                             {row ? (
@@ -478,6 +483,26 @@ export default async function TeacherInsightsPage({
                                 {student.display_name} · No submitted response
                                 for this idea
                               </p>
+                            )}
+                            {earlier.length > 0 && (
+                              <details className="ci-history">
+                                <summary>
+                                  Earlier responses · {earlier.length}
+                                </summary>
+                                <p className="ci-meta">
+                                  Original reasoning remains available across
+                                  sessions. The latest answer does not replace
+                                  this history.
+                                </p>
+                                {earlier.map((item) => (
+                                  <ResponseExcerpt
+                                    key={item.attempt.id}
+                                    row={item}
+                                    concept={concept!}
+                                    context={context}
+                                  />
+                                ))}
+                              </details>
                             )}
                           </div>
                         );
