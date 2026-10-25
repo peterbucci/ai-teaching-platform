@@ -234,7 +234,10 @@ export function InterventionWorkspace({
       target,
       target.querySelector<HTMLDetailsElement>(":scope > details"),
     );
-    handledFocus.current = focusRequest;
+    // On tablet the target can be laid out behind the still-open Steps dialog.
+    // Keep the request pending until the pane change closes that modal and
+    // focus can actually move into the requested content.
+    if (document.activeElement === target) handledFocus.current = focusRequest;
   }, [focusRequest, activePane]);
   const previewCurrent =
     Boolean(draft) ||
@@ -603,11 +606,18 @@ export function InterventionWorkspace({
             children: (
               <section
                 className="lp-intervention-panel lp-intervention-activity-pane"
-                aria-labelledby="intervention-draft-title"
+                id={draft ? "intervention-draft-title" : undefined}
+                tabIndex={draft ? -1 : undefined}
+                aria-label={
+                  draft ? `Activity: ${draft.activity.title}` : undefined
+                }
+                aria-labelledby={draft ? undefined : "intervention-draft-title"}
               >
-                <h2 id="intervention-draft-title" tabIndex={-1}>
-                  {draft?.activity.title ?? "Prepare a review activity"}
-                </h2>
+                {!draft && (
+                  <h2 id="intervention-draft-title" tabIndex={-1}>
+                    Prepare a review activity
+                  </h2>
+                )}
                 {!draft && (
                   <p>
                     Prepare a source-grounded activity from the selected
@@ -620,20 +630,20 @@ export function InterventionWorkspace({
                     approve the activity, or deliver anything.
                   </p>
                 )}
-                {draft && initialEvidence && (
-                  <p className="lp-intervention-meta">
-                    Saved evidence: {draft.evidence.counts.selected_responses}{" "}
-                    responses from {draft.evidence.counts.selected_students}{" "}
-                    students.
-                    {draft.evidence.observations.filter(
-                      (item) =>
-                        !initialEvidence.observations.some(
-                          (previous) => previous.attempt.id === item.attempt.id,
-                        ),
-                    ).length > 0 &&
-                      " New accepted responses were included when generation rechecked the evidence. Review the saved scope alongside the activity."}
-                  </p>
-                )}
+                {draft &&
+                  initialEvidence &&
+                  draft.evidence.observations.some(
+                    (item) =>
+                      !initialEvidence.observations.some(
+                        (previous) => previous.attempt.id === item.attempt.id,
+                      ),
+                  ) && (
+                    <p className="lp-intervention-meta">
+                      New accepted responses were included when generation
+                      rechecked the evidence. Review the saved scope alongside
+                      the activity.
+                    </p>
+                  )}
                 {activity}
                 {evidence && (
                   <>

@@ -181,15 +181,26 @@ export default async function TeacherInterventionsPage({
         initialReview={review}
         evidenceControls={
           <div className="lp-intervention-context">
+            <p className="lp-intervention-context-heading">
+              <strong>{evidence?.concept.title ?? "Choose evidence"}</strong>
+              <span
+                className="lp-intervention-meta"
+                title={evidenceDescription(
+                  draft?.evidence.selection.origin ?? origin,
+                )}
+              >
+                {" · "}
+                {(draft?.evidence.selection.origin ?? origin) ===
+                "synthetic_fixture"
+                  ? "Prepared examples"
+                  : (draft?.evidence.selection.origin ?? origin) === "live_demo"
+                    ? "Live test sessions"
+                    : "Live and prepared responses"}
+              </span>
+            </p>
             <Link className="lp-text-link" href={teacherReturnHref(context)}>
-              Back to your investigation
+              Back to investigation
             </Link>
-            <p className="lp-intervention-scope-title">
-              {evidence?.concept.title ?? "Choose evidence"}
-            </p>
-            <p className="lp-intervention-meta">
-              {evidenceDescription(draft?.evidence.selection.origin ?? origin)}
-            </p>
             {!draft && (
               <details className="lp-intervention-selection">
                 <summary>Change evidence scope</summary>

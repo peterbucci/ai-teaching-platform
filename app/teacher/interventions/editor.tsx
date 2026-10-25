@@ -503,7 +503,7 @@ export function InterventionEditor({
         >
           <p className="lp-intervention-meta">
             Student preview{dirty ? " of unsaved edits" : " of saved activity"}.
-            Only the content below is included in the activity students receive.
+            Student-facing content only.
           </p>
           {studentActivity ? (
             <InterventionActivityView activity={studentActivity} />

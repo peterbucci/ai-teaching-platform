@@ -41,27 +41,16 @@ export function EvidenceReview({
       <h2 id="intervention-evidence-title" tabIndex={-1}>
         Evidence used
       </h2>
-      <p className="lp-intervention-scope-title">
-        {counts.starting
-          ? "Selected starting responses"
-          : "All eligible responses"}
-        {!previewCurrent && " · previous reviewed scope"}
-      </p>
-      <p>
-        {evidence.counts.selected_students} distinct students ·{" "}
+      <p className="lp-intervention-meta lp-intervention-scope-summary">
+        {counts.starting ? `${counts.starting} starting · ` : "All eligible · "}
         {evidence.counts.selected_responses} responses ·{" "}
-        {evidence.counts.enrolled_students} enrolled
+        {evidence.counts.selected_students} students
+        {!previewCurrent && <strong> · previous reviewed scope</strong>}
       </p>
-      <p className="lp-intervention-meta">
-        {counts.starting > 0 &&
-          `${counts.starting} starting responses expanded to include related answers. `}
+      <p className="lp-intervention-meta lp-intervention-scope-summary">
         {counts.supporting} supporting · {counts.contrary} contrary ·{" "}
-        {counts.context} context responses.
+        {counts.context} context
       </p>
-      <details className="lp-intervention-section">
-        <summary>How this evidence is counted</summary>
-        <p className="lp-intervention-meta">{evidence.scope_note}</p>
-      </details>
       {onToggle && (
         <p className="lp-intervention-note">
           {selectedIds.length
@@ -94,8 +83,20 @@ export function EvidenceReview({
           </p>
         </div>
       )}
-      <details className="lp-intervention-section">
-        <summary>Approved source and lesson identity</summary>
+      <details className="lp-intervention-section lp-intervention-scope-details">
+        <summary>Selection and approved sources</summary>
+        <p className="lp-intervention-meta">
+          {evidence.counts.selected_students} distinct students ·{" "}
+          {evidence.counts.selected_responses} responses ·{" "}
+          {evidence.counts.enrolled_students} enrolled
+        </p>
+        {counts.starting > 0 && (
+          <p className="lp-intervention-meta">
+            {counts.starting} starting responses expanded to include related
+            answers.
+          </p>
+        )}
+        <p className="lp-intervention-meta">{evidence.scope_note}</p>
         <p className="lp-intervention-meta">
           Package: {evidence.content_ref.package_id}
           <br />
