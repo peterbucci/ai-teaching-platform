@@ -187,6 +187,27 @@ test("markers preserve missing, uncertainty, pending and assistance distinctions
   );
 });
 
+test("help for one concept does not mark unrelated concepts as assisted", () => {
+  const evidence = structuredClone(fixture.sessions[0]);
+  const attempt = evidence.attempts.find(
+    (a) =>
+      a.assistance?.intervention_ids.length &&
+      a.question.concept_ids.length > 1,
+  )!;
+  const [first, second] = attempt.question.concept_ids;
+  const help = evidence.interventions.find((h) =>
+    attempt.assistance!.intervention_ids.includes(h.id),
+  )!;
+  help.type = "hint";
+  help.concept_ids = [first];
+  attempt.question.embedded_scaffolding = [];
+  attempt.assistance!.intervention_ids = [help.id];
+  attempt.assistance!.independent_retrieval_eligible_by_concept[first] = false;
+  attempt.assistance!.independent_retrieval_eligible_by_concept[second] = false;
+  assert.equal(responseMark(evidence, attempt, first).help, "help");
+  assert.equal(responseMark(evidence, attempt, second).help, "none");
+});
+
 test("only explicit approval and matching delivery recipients produce delivered indicators", () => {
   // Minimal structural test inputs: the real loader validates complete snapshots.
   const review = {
