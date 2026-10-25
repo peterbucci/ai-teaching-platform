@@ -135,7 +135,10 @@ export type NotebookReadingContext = {
 export type NotebookReadingProps = {
   state: NotebookState<StudentReaderView>;
   context: NotebookState<NotebookReadingContext>;
-  /** Existing reader owns display, bookmarks, text sizing and draft-safe return. */
+  /** Existing reader owns display, bookmarks, text sizing and draft-safe return.
+   * A session reader is not inert when hidden: its owner must review visibility
+   * gating before live facing-pane composition. See COORDINATION.md N4 gate.
+   */
   reader: ReactNode;
 };
 

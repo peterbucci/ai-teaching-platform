@@ -118,6 +118,56 @@ test("no submitted records remains empty and does not invent chronology/results 
   );
 });
 
+test("N3 current-data keeps server order and empty submitted answers without adopting speculative chronology", () => {
+  const response: AssignmentWorkResponse = {
+    id: q,
+    promptText: "Original question",
+    responseText: "",
+    submittedAt: timestamp,
+    conceptIds: [],
+    conceptTitles: [],
+    contentVersion: "historical-v1",
+    assistanceLevel: "none_recorded",
+  };
+  const source = {
+    sessions: [
+      {
+        id: s,
+        status: "completed" as const,
+        startedAt: timestamp,
+        endedAt: timestamp,
+        readingOpened: true,
+        responses: [
+          { ...response, events: [{ text: "undisplayed help" }] },
+          {
+            ...response,
+            id: other,
+            submittedAt: "2026-10-24T10:00:00Z",
+            responseText: "  preserved  ",
+          },
+        ],
+      },
+    ],
+    snapshot: { id: "unreviewed-projection" },
+  };
+  const work = notebookSavedWork(a, source);
+  const questions = work.sessions[0].questions;
+  assert.deepEqual(
+    questions.map(({ identity }) => identity.attemptId),
+    [q, other],
+  );
+  assert.equal(questions[0].response.responseText, "");
+  assert.equal(questions[1].response.responseText, "  preserved  ");
+  assert.equal(questions[0].response.assistanceLevel, "none_recorded");
+  assert.ok(
+    questions.every(({ assessment }) => assessment.status === "unavailable"),
+  );
+  assert.doesNotMatch(
+    JSON.stringify(work),
+    /snapshot|events|undisplayed|unreviewed/,
+  );
+});
+
 function reader(): StudentReaderView {
   const reading = assignedReading(loadApprovedContent().content_ref);
   return {
@@ -178,6 +228,24 @@ test("reader return uses resolved historical session/question; independent retur
     notebookReadingContext(uploaded, true).contentRef,
     uploaded.reading.content_ref,
   );
+});
+
+test("N4 return with no current attempt retains the resolved session and does not invent historical selection", () => {
+  const view = reader();
+  view.session = { id: s, currentAttemptId: null, pendingPassageId: "P07" };
+  const before = structuredClone(view);
+  const context = notebookReadingContext(view, true);
+  assert.equal(
+    notebookHref(context.returnTo),
+    `/study/assignments/${a}?tab=study&session=${s}`,
+  );
+  assert.equal(context.passageId, "P08");
+  assert.equal(context.session?.pendingPassageId, "P07");
+  assert.equal(
+    notebookHref(notebookReadingContext(view, false).returnTo),
+    `/study/assignments/${a}?tab=overview`,
+  );
+  assert.deepEqual(view, before);
 });
 
 test("review cards retain approval routing without exposing undisplayed activity bodies or inventing completion", () => {

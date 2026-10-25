@@ -104,6 +104,74 @@ collapse at 900; at 700 the header/labels compact and the Send row remains reach
 scroll owner. This records the design; it does not claim those behaviors are
 implemented or verified in the combined application.
 
+### N3 / N4 GO–NO-GO decision
+
+This is permission to proceed with the isolated presentation packages described
+in the user's task, **not production acceptance or permission to mount routes**.
+The design gate is closed: presentation **v1**, with the final hash above, is the
+reference for every leaf. `6ad1709` was the earlier D1 documentation milestone;
+`be84009` froze v1 and `8bca4d3` recorded the completed N5 design handoff. No restart
+of architecture research or new presentation schema is needed.
+
+| Owner/scope                     | Decision                                                | Exact boundary / gate                                                                                                                                                                                                                                                                                                                                                                |
+| ------------------------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| N3 saved records                | **GO — current-data presentation**                      | Implement under `records/**` with `NotebookRecordsProps`, existing history/work DTOs and the N0 adapters. Do not wait for D1 to render original submitted work and supported session filters.                                                                                                                                                                                        |
+| N3 complete recorded chronology | **NO-GO — runtime data unavailable**                    | D1's implementation-ready proposal is not an implemented, reviewed endpoint. Import its eventual approved public type and add a reviewed N0 adapter only after authorization, privacy, ordering, snapshot and no-side-effect tests pass. No stub timeline or browser joins.                                                                                                          |
+| N4 reading presentation         | **GO — isolated presentation and existing-route links** | Implement under `reading/**` with `NotebookReadingProps` / `NotebookReadingContext`; use fixtures for an inert composed reader in leaf checks. Exact source/passage links and existing return semantics do not depend on D1.                                                                                                                                                         |
+| N4 live facing-pane composition | **NO-GO — display-owner review required**               | Existing session-linked `StudentReader` opens a passage on mount/target change and acknowledges committed delivery in effects without checking pane visibility. CSS hiding does not suppress those effects. The reader owner must supply/review visibility-aware behavior and test hidden/visible transitions before any live shell composition. N0/N4 do not patch that controller. |
+| N3/N4 production integration    | **NO-GO in this PR**                                    | Existing routes and #113 remain untouched. A pinned combined head needs authenticated draft/return/receipt/recovery checks, keyboard/mobile/zoom acceptance and relevant D1 integration tests before claiming integrated Notebook behavior.                                                                                                                                          |
+
+For N4, single mounting is necessary but not sufficient. Never place the current
+session reader in an initially hidden pane or continue passing new delivery
+targets to it while hidden. Keep the existing visible `/study/reading` route as
+the supported live destination until the owner resolves that gate. Do not solve
+it by duplicating the reader, clearing session context, inventing a display
+receipt, or moving acknowledgment into the shell. Preserve the mounted study
+page/composer and draft during presentation-only pane switches. The approved
+responsive design is unchanged; the limitation is in integration behavior.
+This gate comes from code inspection of the existing
+[passage-opening effect](https://github.com/peterbucci/ai-teaching-platform/blob/723ed6fea41138b604a9d333ebcd4a07b2202c36/app/study/reading/reader.tsx#L122)
+and [display-acknowledgment effect](https://github.com/peterbucci/ai-teaching-platform/blob/723ed6fea41138b604a9d333ebcd4a07b2202c36/app/study/reading/reader.tsx#L188),
+not a claim that a live hidden-pane test has been run.
+
+### Exact N1–N5 compatibility instructions
+
+Import N0 types/helpers from `app/study/notebook/index.ts`. Leaves may retain
+their own raw-domain props with a small explicit integrating wrapper; they must
+not duplicate domain schemas or change these shared files. No new dependency on
+D1 is needed for v1 current-data rendering.
+
+| Owner | Inputs and composition                                                                                                                                                                                                                                                                                                         | Navigation / state mapping                                                                                                                                                                                                                                                                                                                                                                 |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| N1    | `NotebookShellProps`: pass `navigation` and the seven existing `slots`. Render N2/N3 in `page`, N3 page links in `index`, N4 in `context` only after the live visibility gate, N5 review detail in `page`. `composer` is absent while StudySession owns it.                                                                    | Use `NOTEBOOK_PRIMARY_NAVIGATION` labels and `notebookHref(route)`; `onNavigate` is intent only. `reviews` is a detail context under My learning. `assignment.tab === "study"`, `legacy-study` and review detail use focus presentation. Preserve native modified/new-tab links; never submit/start on navigation.                                                                         |
+| N2    | `NotebookLearningProps.state` supplies `StudentDashboard`; `renderAssignmentAction(lesson)` and `teacherReviews` map to N2's optional slots. Overview `state` supplies the selected `DashboardLesson`; inject `assignmentAction`/`readingAction` once. Its raw work prop may reuse the already loaded `StudentAssignmentWork`. | `ready.data` supplies domain props; actual empty collections remain empty. Map loading/unavailable explicitly. `pending.data` can retain data only for the same authorized scope, with a notice; null pending data is unresolved. No synthetic dashboard/work DTO to stand in for unavailable.                                                                                             |
+| N3    | `NotebookRecordsProps.history` is the authorized `StudentHistoryEntry[]` session index. Build `work` with `notebookSavedWork(authorizedAssignmentId, authorizedWork)` only after the loader binds that ID to the read. The adapter cannot establish ownership. Use `NotebookSavedWork.mode === "current-data"`.                | Session identity is `entry.assignment_id + entry.id`; question identity is adapter `assignmentId + sessionId + attemptId`. Use adapter `href` / `notebookQuestionHref`; keep the existing `#question-{attemptId}` anchor. Render server order and exact response text once; preserve empty submitted strings. Never assign page identity from index, bank question ID or matching wording. |
+| N4    | `state` supplies the resolved `StudentReaderView`. Derive matching `context` with `notebookReadingContext(view, returnToSession)`; keep assignment, exact `contentRef`, selected passage and session together. The `reader` node belongs to the existing display owner; it is not a second reading implementation.             | Set `returnToSession` only for existing citation / `from=study` entry with a resolved session. Serialize existing `reading` route state with exact assignment/version/passage/session and optional citation/fromStudy. Return using `notebookHref(context.returnTo)`. See return limitations below.                                                                                        |
+| N5    | Build safe summary inputs with `notebookReviewCard`; map its title/objective to the leaf's narrow `activity` fields, as documented in #126. `NotebookReviewDetailProps.activity` holds exactly one owner-supplied `DeliveredActivity`; `followup` is its separately loaded public DTO.                                         | Use `/study/interventions/{approvalId}`, never ordinary study routing. Map ready follow-up to the leaf's ready input, loading/unavailable explicitly; pending with data preserves its actual domain state. A display timestamp never proves submission or completion. No independent duplicate response/feedback block.                                                                    |
+
+All packages must treat empty, unavailable and pending as different states. A
+successful empty collection does not establish the absence of unrecorded events.
+Discard or hide stale data when the authorized assignment/session selection
+changes; pending data from a previous selection must never label the new one.
+
+**N3 filter boundary:** history supports its supplied class/source/topic/session
+status metadata; loaded work supports local searching of its actual prompt/answer
+text. Neither supports global answer-text, correctness, help-type, full chronology
+or review-lineage filters. No fan-out over sessions or teacher endpoints. A
+`readingOpened` flag is not a sequence of reading events; `none_recorded` means
+no content assistance recorded at submission, not proof of unaided mastery.
+
+**N4 return boundary:** the existing reader exposes the resolved session's
+`currentAttemptId`, not an arbitrary historical launch-attempt. With no current
+attempt, return targets that exact session without inventing a question anchor;
+without study-return intent it targets the assignment overview. An exact return
+to a different saved historical question after cross-route reading is **not
+promised by v1**. Do not overwrite `currentAttemptId` or add a free-form return URL
+to simulate it. A future typed/authorized historical-return extension needs the
+route/reader owner's review; an in-place pane may retain its existing selection
+without claiming new URL semantics. Missing or foreign source/version context
+stays unavailable; never substitute the latest source.
+
 ### Required N1, N2 and N5 follow-up
 
 Read-only inspection of the parallel worktrees confirms no file overlap with N0.
@@ -203,7 +271,9 @@ feedback audio and display acknowledgement owners intact.
   proof of display. N0 neither reveals that help nor acknowledges it.
 - N4 gets the resolved `StudentReaderView`; the current reader owns first display,
   bookmarks, font controls and draft-safe return. A shell cannot acknowledge a
-  hidden pane or merely prefetched passage.
+  hidden pane or merely prefetched passage. The N4 GO/NO-GO section above blocks
+  live facing-pane composition until the current effect-driven reader has an
+  owner-reviewed visibility contract; mounting once does not satisfy that gate.
 - N5 cards use approval identity and title/objective/delivery/display metadata.
   The dedicated `DeliveredActivity` owns explanation display and fresh checks.
   Actual loaded follow-up uses `StudentInterventionFollowup`; missing follow-up
@@ -293,6 +363,24 @@ future recorded-chronology mode remain provisional pending R7/evidence-owner
 review. N0 adds none of those APIs or schemas. Import the eventual reviewed
 public type instead of cloning the proposal into presentation contracts.
 
+Re-read against the completed implementation-ready proposal: its `current_data`
+spelling is conceptual; the frozen N0 literal remains **`"current-data"`**.
+`recorded_chronology` is a proposed future mode, not a member of the current
+contract. D1 has since reported beginning a separately authorized implementation;
+that progress does not open the N3 runtime gate. N0 adds no speculative events,
+snapshot fields, endpoint calls, DTO clones or automatic fallback to demo data.
+
+The future adapter gate requires the backend owner to publish a pinned reviewed
+DTO/endpoint version and D1-01–20 evidence: exact actor/session/attempt and source
+authorization; strict private-field exclusion; accepted-evaluation-pointer
+selection; original message/submission deduplication by stored identity; recorded
+display before help replay; saved submission-time assistance; deterministic
+server order and separate undated events; consistent whole-attempt pagination;
+snapshot-change handling; explicit review-recipient linkage; bounded reads and
+zero writes/provider calls. N0 then imports that public type in a separately
+reviewed extension. D1's acceptance wording about accepted results/displayed help
+must not be used to describe today's current-data mode.
+
 - The proposed consistent read uses whole-attempt pagination and a hash of the
   canonical safe projection. Display-only changes must change that snapshot.
   A changed cursor snapshot returns 409 with no mixed page data; preserve the
@@ -371,11 +459,15 @@ reader return, review identity and card body exclusion. Final executed checks an
 limitations are recorded in the draft PR; no application/visual acceptance is
 claimed by these pure contract tests.
 
-Final reconciliation checks on October 25, 2026: **475 deterministic tests passed,
-including 9 focused Notebook tests**; full lint, Next route type generation /
+Final N3/N4 reconciliation checks on October 25, 2026: **477 deterministic tests passed,
+including 11 focused Notebook tests**; full lint, Next route type generation /
 TypeScript and repository formatting passed. The new regression locks the three
 primary labels/destinations and dedicated review link. The review-card regression
 also preserves the exact approved title/objective while excluding activity bodies.
+The added N3 regression preserves server order, empty submitted originals and
+stored assistance while excluding speculative event/snapshot fields; N4 verifies
+session return with no current attempt, without mutating pending passage state or
+inventing a question anchor. These are pure adapter tests, not live receipt tests.
 The external static comparison passed 21 field comparisons, including explicit
 pending-status mapping; the prototype browser help check is described above.
 No production build, combined application/browser/database acceptance or model
