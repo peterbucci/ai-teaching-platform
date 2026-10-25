@@ -163,6 +163,32 @@ stale snapshots, unknown outcomes and review boundaries. Current-data mode remai
 usable if the complete chronology contract is deferred. Do not approximate it by
 fetching every full session or by accessing teacher comparison endpoints.
 
+### D1 investigation handoff — October 25
+
+D1's completed design supports this current-data boundary. Its proposed
+`GET /api/student/notebook/sessions/[sessionId]`, public DTO names, bounds and
+future recorded-chronology mode remain provisional pending R7/evidence-owner
+review. N0 adds none of those APIs or schemas. Import the eventual reviewed
+public type instead of cloning the proposal into presentation contracts.
+
+- The proposed consistent read uses whole-attempt pagination and a hash of the
+  canonical safe projection. Display-only changes must change that snapshot.
+  A changed cursor snapshot returns 409 with no mixed page data; preserve the
+  current view and replace it atomically after a fresh read. Do not treat the hash
+  as a monotonic revision or assume an old snapshot remains retrievable.
+- Future ordinary assessment disclosure is limited to recorded correctness and
+  an uncertainty flag with reviewed generic copy. An accepted evaluation does
+  not make its free-text reasoning, uncertainty explanation or rubric narrative
+  safe for student replay. Omit those fields at serialization.
+- Original-work links to teacher reviews require explicit approved activity
+  evidence references, verified against this student's observations and delivered
+  recipient scope. Not every recipient has an original-attempt link. Follow-up
+  records use `teacher_intervention_followups`, separate from ordinary sessions.
+- `presented_at` records server presentation/release, not viewport observation.
+  Actual question-view time, exact old confirmation wording, repeated reading
+  visits and restart-of links between ordinary sessions remain unsupported.
+  The new projection cannot promise to reconstruct events never recorded.
+
 ## Explicit PR #113 handoff
 
 Verified open draft head: `71898a8a72908577065bcc7c7fb9035d6cc29ebf`.
