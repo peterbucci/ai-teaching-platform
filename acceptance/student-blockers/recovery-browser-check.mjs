@@ -612,7 +612,15 @@ export async function runRecoveryAcceptance(options) {
       `/api/tutoring/${fixture.sessionId}`,
       401,
     );
+    const expiredAnswerResponse = fixture.page.waitForResponse(
+      (response) =>
+        response.url() === answerUrl(base, fixture) &&
+        response.request().method() === "POST",
+    );
     await button(fixture, labels.submit).click();
+    const rejectedAnswer = await expiredAnswerResponse;
+    assert.equal(rejectedAnswer.status(), 401);
+    await rejectedAnswer.finished();
     await button(fixture, labels.check).waitFor();
     await fixture.page.waitForLoadState("networkidle");
     const submission = firstSubmission(trace, fixture);
