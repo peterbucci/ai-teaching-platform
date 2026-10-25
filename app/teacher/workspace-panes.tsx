@@ -29,6 +29,8 @@ export type TeacherWorkspacePanesProps = {
   navigation?: TeacherWorkspacePane;
   context?: TeacherWorkspacePane;
   initialPane?: TeacherWorkspacePaneId;
+  /** Tablet-only drawer; desktop and phone retain the same slot order and IDs. */
+  tabletDrawer?: "navigation" | "context";
 };
 
 function viewportSnapshot(): TeacherWorkspacePaneViewport {
@@ -58,6 +60,7 @@ export function TeacherWorkspacePanes({
   navigation,
   context,
   initialPane = "main",
+  tabletDrawer = "context",
 }: TeacherWorkspacePanesProps) {
   const id = useId();
   const search = useSearchParams();
@@ -72,6 +75,7 @@ export function TeacherWorkspacePanes({
   );
   const active = resolveTeacherWorkspacePane(search, panes, initialPane);
   const slots = { navigation, main, context };
+  const drawer = slots[tabletDrawer];
   const root = useRef<HTMLDivElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const modal = useRef(false);
@@ -98,9 +102,10 @@ export function TeacherWorkspacePanes({
     const element = dialog.current;
     if (!element) modal.current = false;
     const shouldModal =
-      Boolean(context) && viewport === "medium" && active === "context";
+      Boolean(drawer) && viewport === "medium" && active === tabletDrawer;
     const shouldInline =
-      viewport === "wide" || (viewport === "compact" && active === "context");
+      viewport === "wide" ||
+      (viewport === "compact" && active === tabletDrawer);
     if (element) {
       if (modal.current && !shouldModal) {
         element.close();
@@ -122,7 +127,7 @@ export function TeacherWorkspacePanes({
     const restoreForLayout =
       layoutChanged &&
       root.current?.contains(document.activeElement) &&
-      (viewport === "compact" || active === "context");
+      (viewport === "compact" || active === tabletDrawer);
     if (changed || becameModal || restoreForLayout) {
       const body = bodies.current[active];
       if (body) body.scrollTop = positions.current[active] ?? 0;
@@ -146,11 +151,11 @@ export function TeacherWorkspacePanes({
         target?.focus({ preventScroll: true });
       }
     }
-    if (active !== "context") previousPane.current = active;
+    if (active !== tabletDrawer) previousPane.current = active;
     lastActive.current = active;
     lastViewport.current = viewport;
     pendingFocus.current = null;
-  }, [active, viewport, context]);
+  }, [active, viewport, drawer, tabletDrawer]);
 
   function rememberScroll() {
     for (const pane of panes) {
@@ -171,11 +176,12 @@ export function TeacherWorkspacePanes({
     );
   }
 
-  function closeContext() {
+  function closeDrawer() {
     rememberScroll();
     pendingFocus.current = "opener";
     const next =
-      panes.includes(previousPane.current) && previousPane.current !== "context"
+      panes.includes(previousPane.current) &&
+      previousPane.current !== tabletDrawer
         ? previousPane.current
         : "main";
     // Closing a drawer replaces its presentation state instead of adding a
@@ -204,13 +210,13 @@ export function TeacherWorkspacePanes({
           >
             {slot.label}
           </h2>
-          {pane === "context" && (
+          {pane === tabletDrawer && (
             <button
               type="button"
               className="tw-panes-context-close"
               hidden={viewport !== "medium"}
               aria-label={`Close ${slot.label}`}
-              onClick={closeContext}
+              onClick={closeDrawer}
             >
               <span aria-hidden="true">×</span>
             </button>
@@ -218,15 +224,15 @@ export function TeacherWorkspacePanes({
         </div>
         <div
           className="tw-panes-body"
-          id={pane === "context" ? `${id}-context-content` : undefined}
+          id={pane === tabletDrawer ? `${id}-${pane}-content` : undefined}
           role={
-            pane === "context" && viewport === "compact"
+            pane === tabletDrawer && viewport === "compact"
               ? "tabpanel"
               : undefined
           }
           aria-labelledby={
-            pane === "context" && viewport === "compact"
-              ? `${id}-context-heading`
+            pane === tabletDrawer && viewport === "compact"
+              ? `${id}-${pane}-heading`
               : undefined
           }
           ref={(element) => {
@@ -254,6 +260,7 @@ export function TeacherWorkspacePanes({
       data-has-context={Boolean(context)}
       data-active-pane={active}
       data-layout={viewport}
+      data-tablet-drawer={tabletDrawer}
     >
       {panes.length > 1 && (
         <div
@@ -274,8 +281,8 @@ export function TeacherWorkspacePanes({
               className="tw-panes-tab"
               aria-selected={active === pane}
               aria-controls={
-                pane === "context"
-                  ? `${id}-context-content`
+                pane === tabletDrawer
+                  ? `${id}-${pane}-content`
                   : `${id}-${pane}-panel`
               }
               tabIndex={active === pane ? 0 : -1}
@@ -297,24 +304,47 @@ export function TeacherWorkspacePanes({
           ))}
         </div>
       )}
-      {context && (
+      {drawer && (
         <button
           ref={opener}
           type="button"
           className="tw-panes-context-trigger"
           hidden={viewport !== "medium"}
           aria-haspopup="dialog"
-          aria-expanded={active === "context"}
-          aria-controls={`${id}-context-panel`}
-          onClick={() => selectPane("context")}
+          aria-expanded={active === tabletDrawer}
+          aria-controls={`${id}-${tabletDrawer}-panel`}
+          onClick={() => selectPane(tabletDrawer)}
         >
-          Open {context.label}
+          Open {drawer.label}
         </button>
       )}
       <div className="tw-panes-grid">
-        {(["navigation", "main"] as const).map((pane) => {
+        {panes.map((pane) => {
           const slot = slots[pane];
-          return slot ? (
+          if (!slot) return null;
+          return pane === tabletDrawer ? (
+            <dialog
+              key={pane}
+              ref={dialog}
+              id={`${id}-${pane}-panel`}
+              className={`tw-panes-context tw-panes-panel tw-panes-panel--${pane}`}
+              aria-modal={viewport === "medium" ? true : undefined}
+              aria-labelledby={`${id}-${pane}-heading`}
+              onCancel={(event) => {
+                event.preventDefault();
+                closeDrawer();
+              }}
+              onClick={(event) => {
+                if (
+                  viewport === "medium" &&
+                  event.target === event.currentTarget
+                )
+                  closeDrawer();
+              }}
+            >
+              {panelContent(pane, slot)}
+            </dialog>
+          ) : (
             <section
               key={pane}
               id={`${id}-${pane}-panel`}
@@ -325,27 +355,8 @@ export function TeacherWorkspacePanes({
             >
               {panelContent(pane, slot)}
             </section>
-          ) : null;
+          );
         })}
-        {context && (
-          <dialog
-            ref={dialog}
-            id={`${id}-context-panel`}
-            className="tw-panes-context tw-panes-panel"
-            aria-modal={viewport === "medium" ? true : undefined}
-            aria-labelledby={`${id}-context-heading`}
-            onCancel={(event) => {
-              event.preventDefault();
-              closeContext();
-            }}
-            onClick={(event) => {
-              if (viewport === "medium" && event.target === event.currentTarget)
-                closeContext();
-            }}
-          >
-            {panelContent("context", context)}
-          </dialog>
-        )}
       </div>
     </div>
   );

@@ -64,3 +64,20 @@ default pane behavior remain unchanged.
 End-to-end R01/R02 completion requires G/H's links and receiving selection/focus
 controllers together with this receiver. A receiver-only test cannot establish
 that their page implementations work. Shared label redesign is outside this fix.
+
+## I: optional tablet drawer
+
+I established that Intervention Activity and Steps must remain adjacent at tablet
+width while Evidence becomes the drawer. `TeacherWorkspacePanes` now accepts
+`tabletDrawer?: 'navigation'|'context'`, defaulting to `context`. Only I's page
+opts into `navigation`; K does not edit that consumer. Desktop slot order and
+phone `workspacePane` identities remain unchanged. The chosen drawer retains
+one native dialog and one mounted set of children across breakpoints. Default
+Evidence/Assignments behavior is preserved; no second pane controller is added.
+
+Shared modifications are confined to `workspace-panes.tsx` and drawer-specific
+selectors in `workspace-shell.css`, with `teacher-pane-drawer-browser.mjs` covering
+both options. It exercises modal/background focus, Escape/opener restoration,
+history, reload, phone/desktop transitions and unsaved input preservation. Native
+Tab may reach browser chrome; background form controls remain inert. This is
+component coverage, not I's production Intervention acceptance.
