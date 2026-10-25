@@ -40,4 +40,35 @@ Never commit setup secrets, browser endpoints or login storage states. Record ea
 
 ## After-fix results
 
-Pending the exact-head browser run. No merge or release approval is implied by the before results or deterministic tests.
+Source: `83114efdb2a5c7deb5238a0b28756429b1952b21`.
+Built image: `sha256:82000ca93dc51e7f6bf3ace409743c13f6a69a82021ebcc3812f3dca6dff0946`.
+The independent browser run completed on October 25, 2026, 05:36 UTC against that clean, pushed head. Providers were disabled and the app had no external network. All ten scenario groups passed:
+
+| Scenario                                                                                                                  | Result                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Accepted correct, partial, incorrect and uncertain outcomes                                                               | PASS, all four widths                                                                               |
+| Completed refresh, accepted evaluation identity, concept results, uncertainty, assistance and private-criteria boundaries | PASS, all four outcome fixtures                                                                     |
+| Initial answer-save 401 before commit                                                                                     | PASS: local text retained, server save unconfirmed                                                  |
+| Offline save failure                                                                                                      | PASS: unknown outcome retained until explicit reconciliation                                        |
+| Server commit followed by lost response                                                                                   | PASS: read-only reconciliation finds the original saved answer without resubmission                 |
+| Explicit answer acknowledgment followed by evaluation 401                                                                 | PASS: confirmed save remains distinguished from failed evaluation                                   |
+| Actual authentication expiry, new-tab sign-in and safe return                                                             | PASS: original tab, exact text and submission identity retained; explicit check and resend required |
+| Duplicate submission and accepted-evaluation replay                                                                       | PASS: exact replay is idempotent; changed answer/key rejected; no duplicate evaluation              |
+
+Each of the four result fixtures and six recovery cases was checked at 1440x900, 1024x768, 390x844 and 320x844. Original whitespace and Unicode were preserved. Refresh, reconciliation and sign-in return did not automatically submit or evaluate. The run captured 40 screenshots; independent visual review found no horizontal overflow. No paid model calls were made.
+
+[Run identity and script hashes](evidence/after-83114efd/run-identity.json) · [Recovery report](evidence/after-83114efd/independent-recovery-report.json) · [Correct](evidence/after-83114efd/correct-result-report.json) · [Partial](evidence/after-83114efd/partially_correct-result-report.json) · [Incorrect](evidence/after-83114efd/incorrect-result-report.json) · [Uncertain](evidence/after-83114efd/uncertain-result-report.json)
+
+[Initial 401 at 320px](evidence/after-83114efd/R1-initial-save-401-320x844.png) · [Unknown save at 320px](evidence/after-83114efd/R3-unknown-before-check-320x844.png) · [Real expired sign-in at 320px](evidence/after-83114efd/R5-expired-auth-320x844.png) · [Accepted uncertain result at 320px](evidence/after-83114efd/uncertain-320x844.png)
+
+### Preserved failed verification attempt
+
+The preceding run on `2fc0d49a63f046a99e62805398b83cdada01a87a` passed the four result fixtures and five recovery cases, but its R5 assertion ran before the real answer-response event arrived. The saved report contains that real 401 and the screenshot shows the honest unconfirmed-save UI. Sign-in return was unrun in that attempt. The harness was corrected to register the exact POST response waiter before clicking and to await/assert 401; no assertion was removed and no application change was needed. The fresh run above completed the previously unrun steps.
+
+[Original failed report](evidence/after-2fc0d49a/independent-recovery-report.json) · [Failure screenshot](evidence/after-2fc0d49a/R5-real-auth-expiry-safe-return-failure.png) · [Original run identity](evidence/after-2fc0d49a/run-identity.json)
+
+### Other validation and independent retest
+
+All 480 deterministic tests passed, including seven new recovery regressions. Lint, strict type checks, formatting and production build passed. [GitHub CI run 40164671022](https://github.com/peterbucci/ai-teaching-platform/actions/runs/40164671022) passed both quality/integration and intervention-approval jobs for `83114efdb2a5c7deb5238a0b28756429b1952b21`.
+
+The evidence-only publication commit must receive a final exact-head build/browser confirmation; that full SHA, image and outcome are recorded in the PR #113/#119 and issue #35 retest comments rather than rewriting captured source identities. PR #119 remains the independent team acceptance gate. The older combined snapshot `45326e2` contained baseline PR #113 `2b49086`; its S-02 finding does not test this fix. No merge or release approval is implied.

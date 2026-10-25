@@ -1,0 +1,453 @@
+{
+  "source_sha": "2fc0d49a63f046a99e62805398b83cdada01a87a",
+  "base": "http://localhost:3383",
+  "started_at": "2026-10-25T05:07:34.978Z",
+  "original_answer": "  Original café 🌱 answer.\nKeep  all spacing.  ",
+  "category": "Provider-disabled real browser/auth/database with explicit precommit/postcommit fault injection",
+  "actual_model_calls": 0,
+  "cases": [
+    {
+      "id": "R1-initial-save-401",
+      "status": "PASS",
+      "started_at": "2026-10-25T05:07:34.978Z",
+      "session_id": "440031d2-0c39-4a59-95c6-a2af4d87ca31",
+      "attempt_id": "74e3ddc0-6b54-44c7-9aae-b73b2859c82f",
+      "quiet_refresh": {
+        "answers": 1,
+        "evaluations": 0,
+        "text_preserved": true
+      },
+      "reconciliation": {
+        "confirmed": "absent",
+        "answer_writes": 0,
+        "evaluation_writes": 0
+      },
+      "automatic_retries": 0,
+      "original_identity_preserved_after_refresh": true,
+      "answer_posts": [
+        {
+          "attempt_id": "74e3ddc0-6b54-44c7-9aae-b73b2859c82f",
+          "submission_key": "94f6f9fd-e415-4898-8649-d0877627a22c",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        },
+        {
+          "attempt_id": "74e3ddc0-6b54-44c7-9aae-b73b2859c82f",
+          "submission_key": "94f6f9fd-e415-4898-8649-d0877627a22c",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [
+        {
+          "status": 401
+        },
+        {
+          "status": 200
+        }
+      ],
+      "evaluation_posts": [
+        {
+          "attempt_id": "74e3ddc0-6b54-44c7-9aae-b73b2859c82f"
+        }
+      ],
+      "finished_at": "2026-10-25T05:07:39.031Z"
+    },
+    {
+      "id": "R2-offline-save",
+      "status": "PASS",
+      "started_at": "2026-10-25T05:07:39.045Z",
+      "session_id": "6c69878c-88b7-4368-8785-1eb93b45a6be",
+      "attempt_id": "5186aae2-2a6e-4a22-9ba0-10012393c792",
+      "quiet_refresh": {
+        "answers": 1,
+        "evaluations": 0,
+        "text_preserved": true
+      },
+      "reconciliation": {
+        "confirmed": "absent",
+        "answer_writes": 0,
+        "evaluation_writes": 0
+      },
+      "automatic_retries": 0,
+      "original_identity_preserved_after_refresh": true,
+      "answer_posts": [
+        {
+          "attempt_id": "5186aae2-2a6e-4a22-9ba0-10012393c792",
+          "submission_key": "26479e2c-d538-4f0e-9f0b-26d1537e1b9c",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        },
+        {
+          "attempt_id": "5186aae2-2a6e-4a22-9ba0-10012393c792",
+          "submission_key": "26479e2c-d538-4f0e-9f0b-26d1537e1b9c",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [
+        {
+          "status": 200
+        }
+      ],
+      "evaluation_posts": [
+        {
+          "attempt_id": "5186aae2-2a6e-4a22-9ba0-10012393c792"
+        }
+      ],
+      "finished_at": "2026-10-25T05:07:43.108Z"
+    },
+    {
+      "id": "R3-committed-response-lost",
+      "status": "PASS",
+      "started_at": "2026-10-25T05:07:43.124Z",
+      "session_id": "f621258d-f935-4c45-b427-cc78570b5c75",
+      "attempt_id": "bf7767df-6040-4513-9807-55794a63a1cd",
+      "quiet_refresh": {
+        "answers": 1,
+        "evaluations": 0,
+        "text_preserved": false
+      },
+      "fault": "Real server answer 200 discarded before the page received it",
+      "read_only_reconciliation": true,
+      "answer_posts": [
+        {
+          "attempt_id": "bf7767df-6040-4513-9807-55794a63a1cd",
+          "submission_key": "eb6536f3-b945-43fe-a2e6-17abed301ad3",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [],
+      "evaluation_posts": [],
+      "finished_at": "2026-10-25T05:07:47.375Z"
+    },
+    {
+      "id": "R4-acknowledged-save-evaluation-401",
+      "status": "PASS",
+      "started_at": "2026-10-25T05:07:47.385Z",
+      "session_id": "08ef94e2-bea7-49f2-82e8-028723ade55e",
+      "attempt_id": "ef2a96a9-4d1b-4908-b2ee-1d33c09a6760",
+      "quiet_refresh": {
+        "answers": 1,
+        "evaluations": 1,
+        "text_preserved": false
+      },
+      "server_save_acknowledged": true,
+      "evaluation_fault": "401 intercepted before server/provider execution",
+      "answer_posts": [
+        {
+          "attempt_id": "ef2a96a9-4d1b-4908-b2ee-1d33c09a6760",
+          "submission_key": "5d8bb38f-c5da-4a9e-9fb3-5d4c87c89899",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [
+        {
+          "status": 200
+        }
+      ],
+      "evaluation_posts": [
+        {
+          "attempt_id": "ef2a96a9-4d1b-4908-b2ee-1d33c09a6760"
+        }
+      ],
+      "finished_at": "2026-10-25T05:07:51.275Z"
+    },
+    {
+      "id": "R5-real-auth-expiry-safe-return",
+      "status": "FAIL",
+      "started_at": "2026-10-25T05:07:51.288Z",
+      "session_id": "cb7a1e88-a85a-418f-a831-51da3c645d40",
+      "attempt_id": "0d696a08-e1cc-490a-9a18-4082dda3678f",
+      "expired_auth_session": {
+        "auth_session_id": "ejZYq2ibWFlpqt7kfebjEciOqq9Rgrho",
+        "expires_at": "2026-10-25T05:06:53.552Z"
+      },
+      "error": "The expression evaluated to a falsy value:\n\n  assert.ok(\n    trace.answerResponses.some((response) => response.status === 401),\n  )\n",
+      "answer_posts": [
+        {
+          "attempt_id": "0d696a08-e1cc-490a-9a18-4082dda3678f",
+          "submission_key": "9d61b5d6-d639-4a2e-8ffa-e1241a9416a7",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [
+        {
+          "status": 401
+        }
+      ],
+      "evaluation_posts": [],
+      "finished_at": "2026-10-25T05:07:53.783Z"
+    },
+    {
+      "id": "R6-duplicate-and-original-identity",
+      "status": "PASS",
+      "started_at": "2026-10-25T05:07:53.797Z",
+      "session_id": "915c7406-2112-4108-8fc7-a91873b3a72d",
+      "attempt_id": "c465cad1-beb1-4d00-9b62-c42cf9835253",
+      "reconciliation": {
+        "confirmed": "absent",
+        "answer_writes": 0,
+        "evaluation_writes": 0
+      },
+      "answer_replays": {
+        "exact": 200,
+        "altered": 409,
+        "new_identity": 409
+      },
+      "accepted_evaluation_reused": "ca1d8013-4033-40ae-8c8b-072dd0bc9b98",
+      "evaluation_replays": [200, 200],
+      "sequential_evaluation_replay": 200,
+      "answer_posts": [
+        {
+          "attempt_id": "c465cad1-beb1-4d00-9b62-c42cf9835253",
+          "submission_key": "28309f1f-fa63-4714-9d6a-178ce7a38152",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        },
+        {
+          "attempt_id": "c465cad1-beb1-4d00-9b62-c42cf9835253",
+          "submission_key": "28309f1f-fa63-4714-9d6a-178ce7a38152",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [
+        {
+          "status": 200
+        }
+      ],
+      "evaluation_posts": [
+        {
+          "attempt_id": "c465cad1-beb1-4d00-9b62-c42cf9835253"
+        }
+      ],
+      "finished_at": "2026-10-25T05:07:58.505Z"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "R1-initial-save-401-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R1-initial-save-401-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R1-initial-save-401-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R1-initial-save-401-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    },
+    {
+      "file": "R2-offline-save-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R2-offline-save-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R2-offline-save-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R2-offline-save-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    },
+    {
+      "file": "R3-unknown-before-check-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R3-unknown-before-check-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R3-unknown-before-check-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R3-unknown-before-check-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    },
+    {
+      "file": "R4-acknowledged-save-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R4-acknowledged-save-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R4-acknowledged-save-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R4-acknowledged-save-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    },
+    {
+      "file": "R5-real-auth-expiry-safe-return-failure.png",
+      "failure": true
+    },
+    {
+      "file": "R6-preserved-answer-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R6-preserved-answer-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R6-preserved-answer-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R6-preserved-answer-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    }
+  ],
+  "limitations": [
+    "Viewport emulation is not native zoom, mobile keyboard or screen-reader verification."
+  ],
+  "finished_at": "2026-10-25T05:07:58.517Z",
+  "result": "INCOMPLETE_OR_FAILED"
+}
