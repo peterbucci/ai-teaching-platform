@@ -624,6 +624,40 @@ intermediate-width/200% zoom layout, fallback/copy and combined regressions.
 Earlier `e18b833` browser evidence is not relabelled as final-head evidence.
 Default enablement/release remains **NO-GO**; no full visual acceptance is given.
 
+#### S2 final evidence receipt
+
+N0 inspected the following S2-owned reports under
+`acceptance/notebook-s2/evidence/`, pinned to application source
+`6aa2ce680d6ccea1f615e104e4f1792bcd502f38` and production-mode build
+`GoinJqtqB2OaFL0DyOFbJ`. This is evidence receipt/review, not an independent N0
+browser rerun or permission to enable the feature by default.
+
+| Report                                     | Recorded outcome                                                                                                                                                                                                          |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `recorded-1792960319810/results.json`      | Recorded-history, privacy, pagination, exact-text, stale-status/recovery, authorization and no-write checks pass; zero page errors.                                                                                       |
+| `fallback-1792960510209/results.json`      | Flag-off authorized fallback and original index checks pass; current-data DOM preserves CRLF/Unicode/tabs/spaces. Native clipboard reports exact equality for the tested Windows fixture, not a cross-platform guarantee. |
+| `journey-1792960371217/journey.json`       | All 13 N7 journey checks pass with providers disabled. These exercise intended synthetic writes; they are separate from the read-only history checks.                                                                     |
+| `mounted-reader-1792960476209/report.json` | All three mounted-reader receipt/overlay/retry checks pass.                                                                                                                                                               |
+| `visual-1792960319253/visual-results.json` | Comparison captures and native 200% zoom recorded (708px CSS viewport/DPR 2); visual parity remains explicitly NOT_ACCEPTED.                                                                                              |
+
+The inspected regression runner changes isolated runtime/output bindings and
+import resolution only; adaptation manifests retain original/adapted hashes.
+Passing reports do not erase earlier failures at the same source/build:
+`mounted-reader-1792960382339/report.json` failed an immediate active=false
+assertion after the account overlay action; `mounted-reader-1792960428275/report.json`
+failed login with HTTP 429. S2 retained both and reports a later screenshot showed
+the reader hidden. Timing is a hypothesis, not a demonstrated root cause; N6 must
+retain this as a reader-transition reliability concern when assessing acceptance.
+No reader/controller edit or weakened assertion is represented as the fix.
+
+The missing rebuilt fallback/copy evidence has now been supplied. Scoped N0
+implementation GO at `6aa2ce6` stands. **Default enablement/release remains NO-GO**
+pending independent combined N6 acceptance and resolution/disposition of retained
+failures and visual/data limitations: session-only global index, missing historical
+concept titles/quote spans, and no facing reader. The frozen contract does not
+invent these fields. No production Notebook acceptance, merge or model call is
+claimed; provider-disabled test reports record zero paid calls.
+
 ## Explicit PR #113 handoff
 
 Verified open draft head: `71898a8a72908577065bcc7c7fb9035d6cc29ebf`.
