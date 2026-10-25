@@ -363,7 +363,9 @@ try {
   await denied(
     `/teacher/assignments/new?lesson=${curated.content_ref.package_id}&version=unpublished`,
     teacher.cookie,
-    assignmentTitle,
+    // The shared shell legitimately lists this teacher's own assignments even
+    // on a not-found page. The denied creation form must not render.
+    "Create inactive assignment",
   );
   for (const version of [curated.content_ref.content_version, "unpublished"])
     await denied(
