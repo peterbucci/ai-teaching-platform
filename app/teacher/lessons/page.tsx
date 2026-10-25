@@ -64,27 +64,31 @@ export default async function LessonsPage({
     `/teacher/lessons?${new URLSearchParams({ q: search, page: String(value) })}`;
   return (
     <TeacherFrame section="Lessons">
-      <div className="la-workspace">
-        <header className="lp-page-heading">
-          <p className="lp-eyebrow">Your teaching library</p>
-          <h1 className="lp-title">Lessons</h1>
-          <p className="lp-intro">
-            Reusable lessons, question banks and published versions.
-          </p>
-          <div className="la-actions">
+      <div className="la-workspace ll-workspace">
+        <header className="lp-page-heading ll-heading">
+          <div className="ll-heading-row">
+            <div>
+              <h1 className="lp-title">Lessons</h1>
+              <p className="la-muted">
+                {count} {count === 1 ? "lesson" : "lessons"}
+                {search ? " found" : ""}
+              </p>
+            </div>
             <Link
               href="/teacher/lessons?new=true"
               className="lp-button lp-button-primary"
             >
               New lesson
             </Link>
-            <Link href="/teacher/materials" className="lp-button">
+          </div>
+          <nav className="la-actions ll-secondary" aria-label="Library actions">
+            <Link href="/teacher/materials" className="lp-text-link">
               Add teaching material
             </Link>
             <Link href="/teacher/assignments" className="lp-text-link">
               Class assignments →
             </Link>
-          </div>
+          </nav>
         </header>
         {query.new === "true" && (
           <section className="la-new-lesson">
@@ -99,9 +103,13 @@ export default async function LessonsPage({
             />
           </section>
         )}
-        <form className="la-search" action="/teacher/lessons">
+        <form
+          className="la-search ll-search"
+          role="search"
+          action="/teacher/lessons"
+        >
           <label className="lp-field">
-            Find a lesson
+            <span className="sr-only">Find a lesson</span>
             <input
               className="lp-input"
               name="q"
@@ -118,112 +126,171 @@ export default async function LessonsPage({
           )}
         </form>
         <section aria-labelledby="lesson-library-heading">
-          <div className="la-section-heading">
-            <h2 id="lesson-library-heading">Lesson library</h2>
-            <p className="la-muted">
-              {count} {count === 1 ? "lesson" : "lessons"}
-            </p>
-          </div>
+          <h2 id="lesson-library-heading" className="sr-only">
+            Lesson library
+          </h2>
           {lessons.length ? (
-            <table className="la-library">
-              <thead>
-                <tr>
-                  <th>Lesson</th>
-                  <th>Objectives</th>
-                  <th>Questions</th>
-                  <th>Draft</th>
-                  <th>Latest published</th>
-                  <th>Assigned to</th>
-                </tr>
-              </thead>
-              <tbody>
-                {lessons.map((lesson) => {
-                  const approved = lesson.approved_revision === lesson.revision;
-                  const step = resumeLessonStep(lesson.draft, approved);
-                  const ref = lesson.draft?.content_ref;
-                  return (
-                    <tr key={lesson.id}>
-                      <td>
-                        <Link
-                          className="la-lesson-name"
-                          href={lessonStepHref(lesson.id, step)}
-                        >
-                          {lesson.title}
-                        </Link>
-                        <span className="la-muted">
-                          {lesson.draft?.attribution?.title ??
-                            "Source not yet prepared"}
-                          {ref && "source_version" in ref
-                            ? ` · source v${ref.source_version}`
+            <ul className="ll-list">
+              {lessons.map((lesson) => {
+                const approved = lesson.approved_revision === lesson.revision;
+                const step = resumeLessonStep(lesson.draft, approved);
+                const ref = lesson.draft?.content_ref;
+                const sourceVersion =
+                  ref && "source_version" in ref ? ref.source_version : null;
+                const sourceTitle =
+                  lesson.draft?.attribution?.title ?? "Source not yet prepared";
+                const objectiveCount =
+                  lesson.draft?.objective_workflow?.items.length ??
+                  lesson.draft?.concepts?.length ??
+                  0;
+                const questionCount = lesson.draft?.questions?.length ?? 0;
+                const latest = lesson.published_versions[0];
+                const classCount = new Set(
+                  lesson.assignments.map((item) => item.class_id),
+                ).size;
+                const publishedHref = (version: string) =>
+                  `/teacher/lessons/${encodeURIComponent(lesson.id)}?version=${encodeURIComponent(version)}`;
+                return (
+                  <li key={lesson.id}>
+                    <article
+                      className="ll-row"
+                      aria-labelledby={`lesson-${lesson.id}`}
+                    >
+                      <div className="ll-identity">
+                        <h3 id={`lesson-${lesson.id}`}>
+                          <Link
+                            className="la-lesson-name"
+                            href={lessonStepHref(lesson.id, step)}
+                          >
+                            {lesson.title}
+                          </Link>
+                        </h3>
+                        <p className="ll-source la-muted">
+                          {sourceTitle}
+                          {sourceVersion !== null
+                            ? ` · source v${sourceVersion}`
                             : ""}
-                        </span>
-                      </td>
-                      <td data-label="Objectives">
-                        {lesson.draft?.objective_workflow?.items.length ??
-                          lesson.draft?.concepts?.length ??
-                          0}{" "}
-                      </td>
-                      <td data-label="Questions">
-                        {lesson.draft?.questions?.length ?? 0}
-                      </td>
-                      <td data-label="Draft">
+                        </p>
+                        <p className="ll-counts la-muted">
+                          {objectiveCount}{" "}
+                          {objectiveCount === 1 ? "objective" : "objectives"}
+                          <span aria-hidden="true"> · </span>
+                          {questionCount}{" "}
+                          {questionCount === 1 ? "question" : "questions"}
+                        </p>
+                      </div>
+                      <div className="ll-draft">
                         <span
                           className={`la-tag ${approved ? "la-tag-approved" : ""}`}
                         >
                           {approved ? "Approved" : "In progress"}
                         </span>
-                        <small>
+                        <p className="ll-revision la-muted">
                           Revision {lesson.revision} · lesson v
                           {lesson.content_version ?? "—"}
-                        </small>
+                        </p>
                         <Link
-                          className="lp-text-link"
+                          className="lp-text-link ll-resume"
                           href={lessonStepHref(lesson.id, step)}
                         >
                           Continue{" "}
                           {step === "questions" ? "question bank" : step}
+                          <span aria-hidden="true"> →</span>
                         </Link>
-                      </td>
-                      <td data-label="Published">
-                        {lesson.published_versions.length ? (
-                          lesson.published_versions
-                            .slice(0, 1)
-                            .map((version) => (
-                              <div key={version}>
-                                <Link
-                                  className="lp-text-link"
-                                  href={`/teacher/lessons/${encodeURIComponent(lesson.id)}?version=${encodeURIComponent(version)}`}
-                                >
-                                  Version {version}
-                                </Link>
-                              </div>
-                            ))
+                      </div>
+                      <div className="ll-publication">
+                        {latest ? (
+                          <Link
+                            className="lp-text-link"
+                            href={publishedHref(latest)}
+                          >
+                            Published v{latest}
+                          </Link>
                         ) : (
                           <span className="la-muted">Not published</span>
                         )}
-                      </td>
-                      <td data-label="Assigned to">
-                        {lesson.assignments.length ? (
+                        <details className="ll-details">
+                          <summary>
+                            Details
+                            <span className="sr-only"> for {lesson.title}</span>
+                          </summary>
+                          <dl>
+                            <div>
+                              <dt>Source</dt>
+                              <dd>
+                                {sourceTitle}
+                                {sourceVersion !== null
+                                  ? ` · source v${sourceVersion}`
+                                  : ""}
+                              </dd>
+                            </div>
+                            <div>
+                              <dt>Draft</dt>
+                              <dd>
+                                Revision {lesson.revision} · lesson v
+                                {lesson.content_version ?? "—"}
+                              </dd>
+                            </div>
+                            <div>
+                              <dt>Publication history</dt>
+                              <dd>
+                                {lesson.published_versions.length ? (
+                                  <ul>
+                                    {lesson.published_versions.map(
+                                      (version) => (
+                                        <li key={version}>
+                                          <Link
+                                            className="lp-text-link"
+                                            href={publishedHref(version)}
+                                          >
+                                            Version {version}
+                                          </Link>
+                                        </li>
+                                      ),
+                                    )}
+                                  </ul>
+                                ) : (
+                                  "No published version yet"
+                                )}
+                              </dd>
+                            </div>
+                            <div>
+                              <dt>Assigned to</dt>
+                              <dd>
+                                {classCount ? (
+                                  <Link
+                                    className="lp-text-link"
+                                    href="/teacher/assignments"
+                                  >
+                                    {classCount}{" "}
+                                    {classCount === 1 ? "class" : "classes"}
+                                  </Link>
+                                ) : (
+                                  "Not assigned"
+                                )}
+                              </dd>
+                            </div>
+                          </dl>
+                        </details>
+                      </div>
+                      <div className="ll-assigned la-muted">
+                        {classCount ? (
                           <Link
                             className="lp-text-link"
                             href="/teacher/assignments"
                           >
-                            {
-                              new Set(
-                                lesson.assignments.map((item) => item.class_id),
-                              ).size
-                            }{" "}
-                            classes
+                            {classCount}{" "}
+                            {classCount === 1 ? "class" : "classes"}
                           </Link>
                         ) : (
-                          <span className="la-muted">Not assigned</span>
+                          "Not assigned"
                         )}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                      </div>
+                    </article>
+                  </li>
+                );
+              })}
+            </ul>
           ) : (
             <div className="la-empty">
               <h3>
