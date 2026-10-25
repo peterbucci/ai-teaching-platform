@@ -1,5 +1,12 @@
 # Teacher Workbench v2.2 — first implementation slice
 
+> **Shared-shell successor:** [Workbench v2.2 shell contract](WORKBENCH_V22_SHELL.md)
+> supersedes the first slice's flat teacher navigation and drawer-only phone
+> treatment. It defines course versus assignment URLs, persistent mobile bottom
+> navigation, page-owned panes and exclusive consumer integration boundaries.
+> The first-slice evidence/lifecycle contracts and historical verification below
+> remain intact. Base: repaired PR #116 `76b11dd`.
+
 Coordination: [#114](https://github.com/peterbucci/ai-teaching-platform/issues/114).
 Implementation homes: [#8](https://github.com/peterbucci/ai-teaching-platform/issues/8),
 [#18](https://github.com/peterbucci/ai-teaching-platform/issues/18).
