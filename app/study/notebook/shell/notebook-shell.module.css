@@ -159,6 +159,12 @@
   color: white;
   text-decoration: none;
 }
+.shell[data-active-study="true"] .backLink .controlLabel {
+  max-width: 180px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .shell[data-mode="focus"] .brand {
   display: none;
 }
@@ -210,6 +216,26 @@
 }
 .notices:empty {
   display: none;
+}
+.notices:has(> [data-notebook-recovery]:only-child:empty) {
+  display: none;
+}
+.shell[data-active-study] .header {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+}
+.shell[data-active-study] .pageHeading {
+  display: none;
+}
+.shell[data-active-study] .rail,
+.shell[data-active-study] .facing {
+  top: 56px;
+  max-height: calc(100dvh - 56px);
+}
+.shell[data-active-study] .notices {
+  position: relative;
+  z-index: 2;
 }
 
 .layout {
@@ -486,6 +512,12 @@
 }
 
 @container notebook (max-width: 819px) {
+  .shell[data-active-study][data-pane="pages"] .learning {
+    display: block;
+  }
+  .shell[data-active-study][data-pane="pages"] .rail {
+    max-height: none;
+  }
   .shell[data-has-pages][data-has-context] .layout,
   .shell[data-has-context="true"][data-pane="context"] .layout {
     grid-template-columns: minmax(0, 1fr);

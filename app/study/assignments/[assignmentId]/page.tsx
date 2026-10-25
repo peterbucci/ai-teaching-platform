@@ -11,6 +11,7 @@ import {
   studentSessionAssignment,
 } from "../../../../lib/tutoring/dashboard.ts";
 import { tutorView } from "../../../../lib/tutoring/store.ts";
+import { studentReader } from "../../../../lib/reading/student-reader.ts";
 import { assignmentStudyHref } from "../../../../lib/tutoring/navigation.ts";
 import { StudySession } from "../../session.tsx";
 import { Icon } from "../../../components/icons.tsx";
@@ -24,6 +25,7 @@ import { NotebookRouteShell } from "../../notebook/integration/route-shell.tsx";
 import "../assignments.css";
 import "./detail.css";
 import "../../study.css";
+import "../../reading/reader.css";
 
 export const dynamic = "force-dynamic";
 const sections = [
@@ -55,6 +57,12 @@ async function loadAssignment(
       initial:
         tab === "study" && sessionId
           ? await tutorView(access, sessionId)
+          : null,
+      reader:
+        tab === "study" && sessionId
+          ? await studentReader(access, { assignmentId, sessionId }).catch(
+              () => null,
+            )
           : null,
       work:
         tab === "work"
@@ -100,7 +108,7 @@ export default async function StudentAssignmentPage({
       </Workspace>
     );
 
-  const { lesson, work, initial, dashboard, sessionId } = data;
+  const { lesson, work, initial, dashboard, sessionId, reader } = data;
   // Preserve saved links to the retired resources tab after checking access.
   if (tab === "materials") redirect(`/study/reading?assignment=${lesson.id}`);
   if (tab === "overview" || tab === "work")
@@ -128,6 +136,19 @@ export default async function StudentAssignmentPage({
       </NotebookRouteShell>
     );
   const studying = tab === "study";
+  if (studying && initial)
+    return (
+      <StudySession
+        key={initial.session.id}
+        lessons={[lesson]}
+        initial={initial}
+        initialTitle={lesson.title}
+        dashboard={dashboard}
+        assignmentId={lesson.id}
+        readerView={reader}
+        className={lesson.className}
+      />
+    );
   const completed = lesson.session?.status === "completed";
   const status = !lesson.session
     ? "Ready to start"

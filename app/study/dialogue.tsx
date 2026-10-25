@@ -1,6 +1,11 @@
 "use client";
 
 import {
+  NotebookNotices,
+  useNotebookSurface,
+} from "./notebook/shell/surface.tsx";
+
+import {
   useCallback,
   useEffect,
   useRef,
@@ -71,7 +76,12 @@ export function StudyDialogue({
   transport,
   preview = false,
   lessonHistory,
+  lessonOutcome,
+  savedAnswerText,
   feedbackAnchorId,
+  historyOnly = false,
+  selectedAnchorId,
+  onReturnToCurrent,
 }: {
   sessionId: string;
   attemptId: string;
@@ -91,8 +101,15 @@ export function StudyDialogue({
   transport?: ConversationTransport;
   preview?: boolean;
   lessonHistory?: ReactNode;
+  lessonOutcome?: ReactNode;
+  savedAnswerText?: string;
   feedbackAnchorId?: string;
+  historyOnly?: boolean;
+  selectedAnchorId?: string;
+  onReturnToCurrent?: () => void;
 }) {
+  const notebookSurface = useNotebookSurface();
+  const presentationVisible = notebookSurface.pageVisible && !historyOnly;
   const [view, setView] = useState<ConversationView | null>(null);
   const [purpose, setPurpose] = useState<AskTutor["purpose"] | undefined>();
   const [previousDraft, setPreviousDraft] = useState<string | null>(null);
@@ -351,20 +368,28 @@ export function StudyDialogue({
   }, [restored, transport, load]);
 
   useEffect(() => {
-    if (blocked || !focusAfterRequest.current) return;
+    if (blocked || !presentationVisible || !focusAfterRequest.current) return;
     const frame = requestAnimationFrame(() => {
-      if (input.current && !input.current.disabled) {
+      if (
+        input.current &&
+        !input.current.disabled &&
+        input.current.checkVisibility({
+          checkOpacity: true,
+          checkVisibilityCSS: true,
+        })
+      ) {
         input.current.focus({ preventScroll: true });
         focusAfterRequest.current = false;
       }
     });
     return () => cancelAnimationFrame(frame);
-  }, [blocked]);
+  }, [blocked, presentationVisible]);
 
   // Bring accepted help into view; acknowledging it still requires visibility.
   const newestTurn = view?.dialogue.turns.at(-1);
   useEffect(() => {
-    if (newestTurn?.response.status !== "accepted") return;
+    if (!presentationVisible || newestTurn?.response.status !== "accepted")
+      return;
     const help = document.getElementById(`dialogue-${newestTurn.request_id}`);
     if (
       help
@@ -372,7 +397,11 @@ export function StudyDialogue({
         ?.getAttribute("data-follow-latest") !== "false"
     )
       help?.scrollIntoView({ block: "nearest" });
-  }, [newestTurn?.request_id, newestTurn?.response.status]);
+  }, [
+    newestTurn?.request_id,
+    newestTurn?.response.status,
+    presentationVisible,
+  ]);
 
   async function act(action: ConversationAction) {
     stopFeedbackAudio();
@@ -484,7 +513,7 @@ export function StudyDialogue({
 
   // Accepted help counts as assistance only after it is actually displayed.
   useEffect(() => {
-    if (!transport || !view) return;
+    if (!transport || !view || !presentationVisible) return;
     let stopped = false;
     const visible = new Set<string>();
     async function confirm() {
@@ -494,7 +523,18 @@ export function StudyDialogue({
         const element = document.getElementById(
           `dialogue-text-${turn.request_id}`,
         );
-        if (!element || acknowledging.current.has(turn.request_id)) continue;
+        if (
+          !element ||
+          acknowledging.current.has(turn.request_id) ||
+          !element.checkVisibility({
+            checkOpacity: true,
+            checkVisibilityCSS: true,
+          }) ||
+          element
+            .closest("[data-active-study]")
+            ?.querySelector("details.lp-account-menu[open], dialog[open]")
+        )
+          continue;
         if (!visible.has(element.id)) continue;
         const current = latest.current;
         if (!current) continue;
@@ -534,7 +574,7 @@ export function StudyDialogue({
       observer.disconnect();
       document.removeEventListener("visibilitychange", confirm);
     };
-  }, [view, transport, displayRetry, receive]);
+  }, [view, transport, displayRetry, receive, presentationVisible]);
 
   return (
     <section
@@ -542,7 +582,11 @@ export function StudyDialogue({
       aria-label="Conversation with your tutor"
     >
       <ConversationScroll
+        active={notebookSurface.pageVisible}
+        paper={notebookSurface.paperScroll}
+        selectedAnchorId={selectedAnchorId}
         initialAnchorId={
+          (historyOnly ? selectedAnchorId : undefined) ??
           feedbackAnchorId ??
           (lessonHistory &&
           !view?.messages.some((message) => message.attempt_id === attemptId)
@@ -551,123 +595,153 @@ export function StudyDialogue({
         }
       >
         {lessonHistory}
-        {(Boolean(view?.messages.length) ||
-          unconfirmed?.action === "send_message") && (
-          <ol className="lp-dialogue-turns" aria-label="Your conversation">
-            {view?.messages.map((message) => {
-              const outcome = message.outcome;
-              const help =
-                outcome.status === "help"
-                  ? view.dialogue.turns.find(
-                      (turn) => turn.request_id === outcome.dialogue_request_id,
-                    )
-                  : undefined;
-              return (
-                <li
-                  className="lp-turn lp-dialogue-turn"
-                  key={message.request_id}
-                >
-                  <div className="lp-student-message">
-                    <h3 className="lp-message-label">You</h3>
-                    <p className="lp-answer">{message.text}</p>
-                  </div>
-                  {help && (
-                    <TutorHelp
-                      sessionId={sessionId}
-                      turn={help}
-                      preview={preview}
-                      onCitation={onCitation}
-                      disabled={disabled || needsDisplay}
-                    />
-                  )}
-                  {outcome.status === "pending" && (
-                    <p role="status">Checking your message…</p>
-                  )}
-                  {outcome.status === "clarification" && (
-                    <div className="lp-question">
-                      <p>
-                        Would you like to submit that as your answer, or are you
-                        asking for help? Nothing has been graded.
-                      </p>
-                      <div className="lp-dialogue-suggestions mt-3">
-                        {(["answer", "help"] as const).map((choice) => (
-                          <button
-                            type="button"
-                            className="lp-button"
-                            key={choice}
-                            disabled={
-                              disabled || working || uncertain || needsDisplay
-                            }
-                            onClick={() =>
-                              void act(
-                                makeResolveAction(
-                                  view.dialogue.state,
-                                  message.request_id,
-                                  choice,
-                                  crypto.randomUUID(),
-                                ),
-                              )
-                            }
-                          >
-                            {choice === "answer"
-                              ? "Submit as my answer"
-                              : "I’m asking for help"}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {outcome.status === "fallback" && (
-                    <p className="lp-notice">{outcome.text}</p>
-                  )}
-                  {outcome.status === "answer" && (
-                    <p role="status">
-                      {preview
-                        ? "Fixture: answer submitted. No real evaluation was run."
-                        : "Your answer is saved."}
-                    </p>
-                  )}
-                  {outcome.status === "cancelled" && (
-                    <p className="lp-muted">
-                      Message cancelled. Your lesson question is still active.
-                    </p>
-                  )}
-                  {["pending", "clarification"].includes(outcome.status) && (
-                    <button
-                      type="button"
-                      className="lp-text-link"
-                      disabled={
-                        disabled || working || uncertain || needsDisplay
-                      }
-                      onClick={() =>
-                        void act(
-                          makeCancelAction(
-                            view.dialogue.state,
-                            message.request_id,
-                            crypto.randomUUID(),
-                          ),
+        <div>
+          {(Boolean(view?.messages.length) ||
+            unconfirmed?.action === "send_message") && (
+            <ol className="lp-dialogue-turns" aria-label="Your conversation">
+              {view?.messages
+                .filter(
+                  (message) =>
+                    message.attempt_id ===
+                      (selectedAnchorId?.replace(/^question-/, "") ??
+                        attemptId) &&
+                    !(
+                      message.outcome.status === "answer" &&
+                      message.text === savedAnswerText
+                    ),
+                )
+                .map((message) => {
+                  const outcome = message.outcome;
+                  const help =
+                    outcome.status === "help"
+                      ? view.dialogue.turns.find(
+                          (turn) =>
+                            turn.request_id === outcome.dialogue_request_id,
                         )
-                      }
+                      : undefined;
+                  return (
+                    <li
+                      className="lp-turn lp-dialogue-turn"
+                      key={message.request_id}
                     >
-                      Cancel this message
-                    </button>
-                  )}
-                </li>
-              );
-            })}
-            {unconfirmed?.action === "send_message" &&
-              !view?.messages.some(
-                (message) => message.request_id === unconfirmed.request_id,
-              ) && (
-                <li className="lp-dialogue-turn">
-                  <div className="lp-student-message">
-                    <h3 className="lp-message-label">You</h3>
-                    <p className="lp-answer">{unconfirmed.text}</p>
-                  </div>
-                </li>
-              )}
-          </ol>
-        )}
+                      <div className="lp-student-message">
+                        <h3 className="lp-message-label">
+                          {outcome.status === "help"
+                            ? "Help request · not graded"
+                            : outcome.status === "clarification"
+                              ? "Your message · awaiting clarification"
+                              : "You"}
+                        </h3>
+                        <p className="lp-answer">{message.text}</p>
+                      </div>
+                      {help && (
+                        <TutorHelp
+                          sessionId={sessionId}
+                          turn={help}
+                          preview={preview}
+                          onCitation={onCitation}
+                          disabled={disabled || needsDisplay}
+                        />
+                      )}
+                      {outcome.status === "pending" && (
+                        <p role="status">Checking your message…</p>
+                      )}
+                      {outcome.status === "clarification" && (
+                        <div className="lp-question">
+                          <p>
+                            Would you like to submit that as your answer, or are
+                            you asking for help? Nothing has been graded.
+                          </p>
+                          <div className="lp-dialogue-suggestions mt-3">
+                            {(["answer", "help"] as const).map((choice) => (
+                              <button
+                                type="button"
+                                className="lp-button"
+                                key={choice}
+                                disabled={
+                                  disabled ||
+                                  working ||
+                                  uncertain ||
+                                  needsDisplay
+                                }
+                                onClick={() =>
+                                  void act(
+                                    makeResolveAction(
+                                      view.dialogue.state,
+                                      message.request_id,
+                                      choice,
+                                      crypto.randomUUID(),
+                                    ),
+                                  )
+                                }
+                              >
+                                {choice === "answer"
+                                  ? "Submit as my answer"
+                                  : "I’m asking for help"}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {outcome.status === "fallback" && (
+                        <p className="lp-notice">{outcome.text}</p>
+                      )}
+                      {outcome.status === "answer" && (
+                        <p role="status">
+                          {preview
+                            ? "Fixture: answer submitted. No real evaluation was run."
+                            : "Your answer is saved."}
+                        </p>
+                      )}
+                      {outcome.status === "cancelled" && (
+                        <p className="lp-muted">
+                          Message cancelled. Your lesson question is still
+                          active.
+                        </p>
+                      )}
+                      {["pending", "clarification"].includes(
+                        outcome.status,
+                      ) && (
+                        <button
+                          type="button"
+                          className="lp-text-link"
+                          disabled={
+                            disabled || working || uncertain || needsDisplay
+                          }
+                          onClick={() =>
+                            void act(
+                              makeCancelAction(
+                                view.dialogue.state,
+                                message.request_id,
+                                crypto.randomUUID(),
+                              ),
+                            )
+                          }
+                        >
+                          Cancel this message
+                        </button>
+                      )}
+                    </li>
+                  );
+                })}
+              {!historyOnly &&
+                unconfirmed?.action === "send_message" &&
+                !view?.messages.some(
+                  (message) => message.request_id === unconfirmed.request_id,
+                ) && (
+                  <li className="lp-dialogue-turn">
+                    <div className="lp-student-message">
+                      <h3 className="lp-message-label">You</h3>
+                      <p className="lp-answer">{unconfirmed.text}</p>
+                    </div>
+                  </li>
+                )}
+            </ol>
+          )}
+        </div>
+        {lessonOutcome}
+      </ConversationScroll>
+      <NotebookNotices>
         {working && (
           <p role="status" className="lp-notice">
             {unconfirmed ? "Checking your message…" : "Please wait…"}
@@ -738,111 +812,128 @@ export function StudyDialogue({
             Recover saved response
           </button>
         )}
-      </ConversationScroll>
-      {answerRecoveryNotice}
-      {!readOnly && (
-        <form
-          onSubmit={(event) => void send(event)}
-          className="lp-ask-composer"
-        >
-          <div
-            className="lp-dialogue-suggestions"
-            role="group"
-            aria-label="Optional starting points"
+        {answerRecoveryNotice}
+      </NotebookNotices>
+      {historyOnly && (
+        <div className="nb-return-current">
+          <p>
+            This is your original saved work. The current question and draft are
+            kept.
+          </p>
+          <button
+            type="button"
+            className="lp-button"
+            onClick={onReturnToCurrent}
           >
-            {DIALOGUE_QUICK_ACTIONS.map((suggestion) => (
-              <button
-                key={suggestion.purpose}
-                type="button"
-                className="lp-dialogue-chip"
-                disabled={blocked}
-                onClick={() => {
-                  if (text.trim() && previousDraft === null)
-                    rememberDraftBackup(text);
-                  onTextChange(suggestion.text);
-                  setPurpose(suggestion.purpose);
-                  setUnavailable(false);
-                  input.current?.focus();
-                }}
-              >
-                {suggestion.label}
-              </button>
-            ))}
-            {previousDraft !== null && (
-              <button
-                type="button"
-                className="lp-text-link"
-                disabled={blocked}
-                onClick={() => {
-                  onTextChange(previousDraft);
-                  rememberDraftBackup(null);
-                  setPurpose(undefined);
-                  setUnavailable(false);
-                  input.current?.focus();
-                }}
-              >
-                Restore previous draft
-              </button>
-            )}
-          </div>
-          <label htmlFor={`tutor-message-${attemptId}`} className="sr-only">
-            Message your tutor
-          </label>
-          <textarea
-            id={`tutor-message-${attemptId}`}
-            ref={input}
-            className="lp-input"
-            value={text}
-            rows={3}
-            maxLength={MESSAGE_CHARACTERS}
-            required
-            placeholder="Ask a question or share your thinking..."
-            disabled={
-              disabled ||
-              locked ||
-              working ||
-              pending ||
-              uncertain ||
-              needsDisplay
-            }
-            onFocus={stopFeedbackAudio}
-            onChange={(event) => {
-              stopFeedbackAudio();
-              onTextChange(event.target.value);
-              if (!event.target.value) setPurpose(undefined);
-              setUnavailable(false);
-            }}
-          />
-          <div className="lp-composer-footer">
-            <p>Your lesson question stays above.</p>
-            {locked ? (
-              <button
-                type="button"
-                className="lp-button lp-button-primary"
-                disabled={
-                  disabled || working || uncertain || !answerRetryAllowed
-                }
-                onClick={() => void submitFallbackAnswer()}
-              >
-                Retry original answer <Icon name="send" />
-              </button>
-            ) : (
-              <button
-                type="submit"
-                className="lp-button lp-button-primary"
-                disabled={
-                  blocked ||
-                  (Boolean(transport) && !view) ||
-                  !restored ||
-                  !text.trim()
-                }
-              >
-                {working ? "Please wait…" : "Send"} <Icon name="send" />
-              </button>
-            )}
-          </div>
-        </form>
+            Return to current question
+          </button>
+        </div>
       )}
+      <div hidden={historyOnly}>
+        {!readOnly && (
+          <form
+            onSubmit={(event) => void send(event)}
+            className="lp-ask-composer"
+          >
+            <div
+              className="lp-dialogue-suggestions"
+              role="group"
+              aria-label="Optional starting points"
+            >
+              {DIALOGUE_QUICK_ACTIONS.map((suggestion) => (
+                <button
+                  key={suggestion.purpose}
+                  type="button"
+                  className="lp-dialogue-chip"
+                  disabled={blocked}
+                  onClick={() => {
+                    if (text.trim() && previousDraft === null)
+                      rememberDraftBackup(text);
+                    onTextChange(suggestion.text);
+                    setPurpose(suggestion.purpose);
+                    setUnavailable(false);
+                    input.current?.focus();
+                  }}
+                >
+                  {suggestion.label}
+                </button>
+              ))}
+              {previousDraft !== null && (
+                <button
+                  type="button"
+                  className="lp-text-link"
+                  disabled={blocked}
+                  onClick={() => {
+                    onTextChange(previousDraft);
+                    rememberDraftBackup(null);
+                    setPurpose(undefined);
+                    setUnavailable(false);
+                    input.current?.focus();
+                  }}
+                >
+                  Restore previous draft
+                </button>
+              )}
+            </div>
+            <label htmlFor={`tutor-message-${attemptId}`} className="sr-only">
+              Message your tutor
+            </label>
+            <textarea
+              id={`tutor-message-${attemptId}`}
+              ref={input}
+              className="lp-input"
+              value={text}
+              rows={3}
+              maxLength={MESSAGE_CHARACTERS}
+              required
+              placeholder="Ask a question or share your thinking..."
+              disabled={
+                disabled ||
+                locked ||
+                working ||
+                pending ||
+                uncertain ||
+                needsDisplay
+              }
+              onFocus={stopFeedbackAudio}
+              onChange={(event) => {
+                stopFeedbackAudio();
+                onTextChange(event.target.value);
+                if (!event.target.value) setPurpose(undefined);
+                setUnavailable(false);
+              }}
+            />
+            <div className="lp-composer-footer">
+              <p>Your lesson question stays above.</p>
+              {locked ? (
+                <button
+                  type="button"
+                  className="lp-button lp-button-primary"
+                  disabled={
+                    disabled || working || uncertain || !answerRetryAllowed
+                  }
+                  onClick={() => void submitFallbackAnswer()}
+                >
+                  Retry original answer <Icon name="send" />
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="lp-button lp-button-primary"
+                  disabled={
+                    blocked ||
+                    (Boolean(transport) && !view) ||
+                    !restored ||
+                    !text.trim()
+                  }
+                >
+                  {working ? "Please wait…" : "Send"} <Icon name="send" />
+                </button>
+              )}
+            </div>
+          </form>
+        )}
+      </div>
     </section>
   );
 }
@@ -874,6 +965,13 @@ function TutorHelp({
         <Icon name="pulse" />
         {preview ? "Example tutor · Fixture, not live AI" : "Learning Pulse"}
       </h3>
+      {!preview && (
+        <p className="nb-help-receipt">
+          {response.status === "displayed"
+            ? "Help shown · recorded as assistance"
+            : "Help · awaiting display confirmation"}
+        </p>
+      )}
       <p
         id={`dialogue-text-${turn.request_id}`}
         className="whitespace-pre-wrap"
