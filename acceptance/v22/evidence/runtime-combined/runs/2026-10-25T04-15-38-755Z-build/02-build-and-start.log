@@ -1,0 +1,174 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 522B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.02kB 0.0s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/node:22.23.2-bookworm-slim
+#3 DONE 0.6s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 136B 0.0s done
+#4 DONE 0.1s
+
+#5 [build 1/6] FROM docker.io/library/node:22.23.2-bookworm-slim@sha256:48e4b67d85f87bd551df43704e24d252f56cc5f8e9718841aace50f19948f0f9
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 6.29MB 2.7s done
+#6 DONE 2.7s
+
+#7 [build 2/6] WORKDIR /app
+#7 CACHED
+
+#8 [build 3/6] COPY package.json package-lock.json ./
+#8 CACHED
+
+#9 [build 4/6] RUN npm ci
+#9 CACHED
+
+#10 [build 5/6] COPY . .
+#10 DONE 0.2s
+
+#11 [build 6/6] RUN npm run build && npm prune --omit=dev
+#11 0.820 
+#11 0.820 > ai-teaching-platform@0.1.0 build
+#11 0.820 > next build
+#11 0.820 
+#11 1.603 ▲ Next.js 16.4.3 (Turbopack)
+#11 1.617 ✓ Running next.config took 14ms
+#11 1.663 
+#11 1.697   Creating an optimized production build ...
+#11 9.406 ✓ Compiled successfully in 7.7s
+#11 9.412   Running TypeScript ...
+#11 29.40   Finished TypeScript in 20.0s ...
+#11 29.40   Collecting page data using 31 workers ...
+#11 38.76   Generating static pages using 31 workers (0/12) ...
+#11 39.11   Generating static pages using 31 workers (3/12) 
+#11 39.13   Generating static pages using 31 workers (6/12) 
+#11 39.45   Generating static pages using 31 workers (9/12) 
+#11 39.52 ✓ Generating static pages using 31 workers (12/12) in 766ms
+#11 39.53   Finalizing page optimization ...
+#11 39.60 
+#11 39.61 Route (app)
+#11 39.61 ┌ ƒ /
+#11 39.61 ├ ○ /_not-found
+#11 39.61 ├ ƒ /api/auth/[...all]
+#11 39.61 ├ ƒ /api/sessions
+#11 39.61 ├ ƒ /api/sessions/[sessionId]
+#11 39.61 ├ ƒ /api/sessions/[sessionId]/answers
+#11 39.61 ├ ƒ /api/sessions/[sessionId]/interventions/[interventionId]
+#11 39.61 ├ ƒ /api/speech
+#11 39.61 ├ ƒ /api/student/interventions
+#11 39.61 ├ ƒ /api/student/interventions/[approvalId]
+#11 39.61 ├ ƒ /api/student/interventions/[approvalId]/followup
+#11 39.61 ├ ƒ /api/study/reading/bookmarks
+#11 39.61 ├ ƒ /api/teacher/assignments/[assignmentId]/approval
+#11 39.61 ├ ƒ /api/teacher/assignments/[assignmentId]/metrics
+#11 39.61 ├ ƒ /api/teacher/interventions
+#11 39.61 ├ ƒ /api/teacher/interventions/[draftId]
+#11 39.61 ├ ƒ /api/teacher/interventions/[draftId]/followup
+#11 39.61 ├ ƒ /api/teacher/lessons/[lessonId]/approval
+#11 39.61 ├ ƒ /api/teacher/lessons/[lessonId]/assembly
+#11 39.61 ├ ƒ /api/teacher/lessons/[lessonId]/assignments
+#11 39.61 ├ ƒ /api/teacher/lessons/[lessonId]/publication
+#11 39.61 ├ ƒ /api/teacher/lessons/[lessonId]/question-bank
+#11 39.61 ├ ƒ /api/teacher/lessons/[lessonId]/versions
+#11 39.61 ├ ƒ /api/teacher/materials
+#11 39.61 ├ ƒ /api/teacher/materials/[documentId]
+#11 39.61 ├ ƒ /api/teacher/materials/preview
+#11 39.61 ├ ƒ /api/teacher/objectives
+#11 39.61 ├ ƒ /api/teacher/objectives/[lessonId]
+#11 39.61 ├ ƒ /api/teacher/objectives/[lessonId]/approve
+#11 39.61 ├ ƒ /api/teacher/objectives/[lessonId]/suggest
+#11 39.61 ├ ƒ /api/teacher/objectives/[lessonId]/suggest/accept
+#11 39.61 ├ ƒ /api/teacher/sessions/[sessionId]
+#11 39.61 ├ ƒ /api/teacher/sessions/[sessionId]/conversation
+#11 39.61 ├ ƒ /api/tutoring
+#11 39.61 ├ ƒ /api/tutoring/[sessionId]
+#11 39.61 ├ ƒ /api/tutoring/[sessionId]/conversation
+#11 39.61 ├ ƒ /api/tutoring/[sessionId]/conversation/display
+#11 39.61 ├ ƒ /api/tutoring/[sessionId]/conversation/operations/[requestId]
+#11 39.61 ├ ƒ /api/tutoring/[sessionId]/reading
+#11 39.61 ├ ƒ /api/tutoring/[sessionId]/restart
+#11 39.61 ├ ○ /dev/visual-player
+#11 39.61 ├ ƒ /login
+#11 39.61 ├ ƒ /study
+#11 39.61 ├ ƒ /study/assignments
+#11 39.61 ├ ƒ /study/assignments/[assignmentId]
+#11 39.61 ├ ƒ /study/audio-preview
+#11 39.61 ├ ƒ /study/dialogue-preview
+#11 39.61 ├ ƒ /study/history
+#11 39.61 ├ ƒ /study/interventions/[approvalId]
+#11 39.61 ├ ƒ /study/reading
+#11 39.61 ├ ƒ /teacher
+#11 39.61 ├ ƒ /teacher/assignments
+#11 39.61 ├ ƒ /teacher/assignments/new
+#11 39.61 ├ ƒ /teacher/evidence
+#11 39.61 ├ ƒ /teacher/insights
+#11 39.61 ├ ƒ /teacher/interventions
+#11 39.61 ├ ƒ /teacher/lessons
+#11 39.61 ├ ƒ /teacher/lessons/[lessonId]
+#11 39.61 ├ ƒ /teacher/lessons/[lessonId]/questions
+#11 39.61 ├ ƒ /teacher/materials
+#11 39.61 ├ ƒ /teacher/materials/[documentId]
+#11 39.61 ├ ƒ /teacher/objectives
+#11 39.61 ├ ƒ /teacher/objectives/[lessonId]
+#11 39.61 ├ ƒ /teacher/sessions/[sessionId]
+#11 39.61 └ ƒ /teacher/students
+#11 39.61 
+#11 39.61 
+#11 39.62 ○  (Static)   prerendered as static content
+#11 39.62 ƒ  (Dynamic)  server-rendered on demand
+#11 39.62 
+#11 44.35 
+#11 44.35 up to date, audited 73 packages in 4s
+#11 44.35 
+#11 44.35 16 packages are looking for funding
+#11 44.35   run `npm fund` for details
+#11 44.35 
+#11 44.35 found 0 vulnerabilities
+#11 DONE 44.5s
+
+#12 [app  3/11] COPY --from=build --chown=node:node /app/package.json /app/package-lock.json ./
+#12 CACHED
+
+#13 [app  4/11] COPY --from=build --chown=node:node /app/node_modules ./node_modules
+#13 CACHED
+
+#14 [app  5/11] COPY --from=build --chown=node:node /app/.next ./.next
+#14 DONE 1.3s
+
+#15 [app  6/11] COPY --from=build --chown=node:node /app/lib ./lib
+#15 DONE 0.2s
+
+#16 [app  7/11] COPY --from=build --chown=node:node /app/scripts ./scripts
+#16 DONE 0.2s
+
+#17 [app  8/11] COPY --from=build --chown=node:node /app/tests/fixtures ./tests/fixtures
+#17 DONE 0.2s
+
+#18 [app  9/11] COPY --from=build --chown=node:node /app/database ./database
+#18 DONE 0.1s
+
+#19 [app 10/11] COPY --from=build --chown=node:node /app/content ./content
+#19 DONE 0.1s
+
+#20 [app 11/11] COPY --from=build --chown=node:node /app/evals ./evals
+#20 DONE 0.1s
+
+#21 exporting to image
+#21 exporting layers
+#21 exporting layers 1.2s done
+#21 writing image sha256:b45d71e75a64d57b7803db92ee4c9ee65249073fce7fd9fdfac7a3fb2f38c965 done
+#21 naming to docker.io/library/lp-v22-integration5:eba2fba3eee223bb43c0eea5fe197e9569285ea9 0.0s done
+#21 DONE 1.3s
+
+#22 resolving provenance for metadata file
+#22 DONE 0.0s
+ app  Built
+ Network lp-v22-integration5_browser  Creating
+ Network lp-v22-integration5_browser  Error
+failed to create network lp-v22-integration5_browser: Error response from daemon: all predefined address pools have been fully subnetted

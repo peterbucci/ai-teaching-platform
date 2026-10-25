@@ -1,0 +1,5 @@
+# Preserve recorded bytes; recognize Windows line endings without rewriting evidence.
+* -text whitespace=cr-at-eol
+# Captured console and visible-page text retain original whitespace intentionally.
+*.log -whitespace
+*.txt -whitespace

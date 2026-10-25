@@ -1,0 +1,19 @@
+{
+  "overrides": [
+    {
+      "files": [
+        "evidence/**",
+        "**/screenshots*/**",
+        "independent-review/browser-*/**",
+        "baselines.json",
+        "authoring-tests.log",
+        "**/interaction-checks/**",
+        "independent-review/export-manifest.json"
+      ],
+      "options": {
+        "requirePragma": true,
+        "parser": "babel"
+      }
+    }
+  ]
+}

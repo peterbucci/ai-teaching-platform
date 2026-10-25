@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "mode": "build",
+  "target": "combined",
+  "sourceSha": "eba2fba3eee223bb43c0eea5fe197e9569285ea9",
+  "sourceTree": "016e8aeebd3b1f584cc7bd5a1036afcfeb8eac5c",
+  "harness": {
+    "version": "workbench-v22-integration5-v1",
+    "sha256": "9dc58c56c8ee19536e1c536174745230819d70d5070fdceb79140403e6c37dbb",
+    "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+    "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d"
+  },
+  "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform",
+  "project": "lp-v22-integration5",
+  "origin": "http://localhost:3349",
+  "manifest": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-combined\\manifest.json",
+  "fixture": "isolated fictional acceptance configuration",
+  "paidModelCallsAuthorized": false,
+  "dependencies": "application image",
+  "verificationLevel": "separate repository suites on the exact pinned application snapshot",
+  "combinedBrowserJourney": "unrun; separate passing suites do not prove one connected browser journey",
+  "checks": [
+    {
+      "name": "docker-version",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "provider-disabled integration",
+      "fixture": "isolated fictional acceptance configuration",
+      "sourceSha": "eba2fba3eee223bb43c0eea5fe197e9569285ea9",
+      "sourceTree": "016e8aeebd3b1f584cc7bd5a1036afcfeb8eac5c",
+      "harness": {
+        "version": "workbench-v22-integration5-v1",
+        "sha256": "9dc58c56c8ee19536e1c536174745230819d70d5070fdceb79140403e6c37dbb",
+        "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+        "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d"
+      },
+      "target": "combined",
+      "project": "lp-v22-integration5",
+      "origin": "http://localhost:3349",
+      "startedAt": "2026-10-25T04:15:39.195Z",
+      "finishedAt": "2026-10-25T04:15:39.519Z",
+      "command": [
+        "docker",
+        "version",
+        "--format",
+        "{{json .}}"
+      ],
+      "log": "01-docker-version.log"
+    },
+    {
+      "name": "build-and-start",
+      "status": "fail",
+      "exitCode": 1,
+      "signal": null,
+      "category": "provider-disabled integration",
+      "fixture": "isolated fictional acceptance configuration",
+      "sourceSha": "eba2fba3eee223bb43c0eea5fe197e9569285ea9",
+      "sourceTree": "016e8aeebd3b1f584cc7bd5a1036afcfeb8eac5c",
+      "harness": {
+        "version": "workbench-v22-integration5-v1",
+        "sha256": "9dc58c56c8ee19536e1c536174745230819d70d5070fdceb79140403e6c37dbb",
+        "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+        "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d"
+      },
+      "target": "combined",
+      "project": "lp-v22-integration5",
+      "origin": "http://localhost:3349",
+      "startedAt": "2026-10-25T04:15:39.519Z",
+      "finishedAt": "2026-10-25T04:16:49.494Z",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "lp-v22-integration5",
+        "--env-file",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-combined\\.env.acceptance",
+        "--file",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-combined\\compose.json",
+        "up",
+        "--build",
+        "--wait",
+        "--wait-timeout",
+        "240"
+      ],
+      "log": "02-build-and-start.log"
+    }
+  ],
+  "result": "fail",
+  "limitations": [
+    "No hosted release verification",
+    "No fresh or historical actual-model claim",
+    "Browser/accessibility evidence is recorded separately",
+    "Real model calls and screen-reader verification remain unrun"
+  ]
+}

@@ -1,0 +1,255 @@
+{
+  "sourceSha": "eba2fba3eee223bb43c0eea5fe197e9569285ea9",
+  "sourceTree": "016e8aeebd3b1f584cc7bd5a1036afcfeb8eac5c",
+  "project": "lp-v22-integration5",
+  "origin": "http://localhost:3349",
+  "startedAt": "2026-10-25T04:22:16.641Z",
+  "method": "Isolated Edge profiles with native partition.default_zoom_level; viewport:null and 1440x1000 window. Separate mobile CSS viewport checks marked explicitly.",
+  "measurements": {
+    "baseline": {
+      "dpr": 1,
+      "innerWidth": 1416,
+      "innerHeight": 908,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "overflow": false,
+      "scrollWidth": 1416,
+      "scrollY": 0
+    },
+    "01-native100-login": {
+      "dpr": 1,
+      "innerWidth": 1416,
+      "innerHeight": 908,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "overflow": false,
+      "scrollWidth": 1416,
+      "scrollY": 0
+    },
+    "native200": {
+      "dpr": 2,
+      "innerWidth": 708,
+      "innerHeight": 454,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "overflow": false,
+      "scrollWidth": 708,
+      "scrollY": 0
+    },
+    "02-native200-login": {
+      "dpr": 2,
+      "innerWidth": 708,
+      "innerHeight": 454,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "overflow": false,
+      "scrollWidth": 708,
+      "scrollY": 0
+    },
+    "03-native200-desk": {
+      "dpr": 2,
+      "innerWidth": 708,
+      "innerHeight": 454,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "overflow": false,
+      "scrollWidth": 708,
+      "scrollY": 0
+    },
+    "04-native200-evidence": {
+      "dpr": 2,
+      "innerWidth": 708,
+      "innerHeight": 454,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "overflow": false,
+      "scrollWidth": 708,
+      "scrollY": 0
+    },
+    "05-native200-original-response": {
+      "dpr": 2,
+      "innerWidth": 708,
+      "innerHeight": 454,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "overflow": false,
+      "scrollWidth": 708,
+      "scrollY": 1365.5
+    },
+    "06-native200-full-session": {
+      "dpr": 2,
+      "innerWidth": 708,
+      "innerHeight": 454,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "overflow": false,
+      "scrollWidth": 708,
+      "scrollY": 979.5
+    }
+  },
+  "checks": [
+    {
+      "label": "keyboard demo teacher login",
+      "status": "keyboard-reachable",
+      "tabs": 3,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "text": "Demo teacher",
+        "href": null,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "native200 drawer Escape restores focus open",
+      "status": "keyboard-reachable",
+      "tabs": 2,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "text": "Open navigation",
+        "href": null,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "native200 drawer Escape restores focus",
+      "status": "pass",
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "text": "Open navigation",
+        "href": null,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "native200 reopen drawer",
+      "status": "keyboard-reachable",
+      "tabs": 16,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "text": "Open navigation",
+        "href": null,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "native200 Evidence navigation",
+      "status": "keyboard-reachable",
+      "tabs": 3,
+      "focus": {
+        "tag": "A",
+        "id": "",
+        "text": "Evidence",
+        "href": "/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=all&returnTo=evidence",
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "native200 select original response",
+      "status": "keyboard-reachable",
+      "tabs": 12,
+      "focus": {
+        "tag": "A",
+        "id": "",
+        "text": "Student Two (fictional)\ncorrect\nTransmission delay is unchanged: the number of packet bits and the rate at which they enter the link are unchanged. Prop…\nPrepar",
+        "href": "/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=all&concept=transmission_delay&session=40000000-0000-4000-8000-000000000002&attempt=50000000-0000-4000-8000-000000000005&evaluation=60000000-0000-4000-8000-000000000005&returnTo=evidence#response-detail-title",
+        "outline": "rgb(23, 109, 88) solid 3px",
+        "scrollY": 448.5
+      }
+    },
+    {
+      "label": "native200 selected response focus",
+      "status": "observed",
+      "focus": {
+        "tag": "A",
+        "id": "",
+        "text": "Student Two (fictional)\ncorrect\nTransmission delay is unchanged: the number of packet bits and the rate at which they enter the link are unchanged. Prop…\nPrepar",
+        "href": "/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=all&concept=transmission_delay&session=40000000-0000-4000-8000-000000000002&attempt=50000000-0000-4000-8000-000000000005&evaluation=60000000-0000-4000-8000-000000000005&returnTo=evidence#response-detail-title",
+        "outline": "rgb(23, 109, 88) solid 3px",
+        "scrollY": 1365.5
+      }
+    },
+    {
+      "label": "native200 full session",
+      "status": "keyboard-reachable",
+      "tabs": 12,
+      "focus": {
+        "tag": "A",
+        "id": "",
+        "text": "Inspect full session and assistance",
+        "href": "/teacher/sessions/40000000-0000-4000-8000-000000000002?assignment=30000000-0000-4000-8000-000000000001&origin=all&concept=transmission_delay&session=40000000-0000-4000-8000-000000000002&attempt=50000000-0000-4000-8000-000000000005&evaluation=60000000-0000-4000-8000-000000000005&returnTo=evidence#evaluation-60000000-0000-4000-8000-000000000005",
+        "outline": "rgb(23, 109, 88) solid 3px",
+        "scrollY": 1999
+      }
+    },
+    {
+      "label": "native200 browser Back focus restoration",
+      "status": "observed",
+      "before": {
+        "tag": "A",
+        "id": "",
+        "text": "Inspect full session and assistance",
+        "href": "/teacher/sessions/40000000-0000-4000-8000-000000000002?assignment=30000000-0000-4000-8000-000000000001&origin=all&concept=transmission_delay&session=40000000-0000-4000-8000-000000000002&attempt=50000000-0000-4000-8000-000000000005&evaluation=60000000-0000-4000-8000-000000000005&returnTo=evidence#evaluation-60000000-0000-4000-8000-000000000005",
+        "outline": "rgb(23, 109, 88) solid 3px",
+        "scrollY": 1999
+      },
+      "after": {
+        "tag": "H2",
+        "id": "response-detail-title",
+        "text": "Student Two (fictional)",
+        "href": null,
+        "outline": "rgb(23, 109, 88) solid 3px",
+        "scrollY": 1365.5
+      },
+      "url": "http://localhost:3349/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=all&concept=transmission_delay&session=40000000-0000-4000-8000-000000000002&attempt=50000000-0000-4000-8000-000000000005&evaluation=60000000-0000-4000-8000-000000000005&returnTo=evidence#response-detail-title"
+    },
+    {
+      "label": "native200 browser Forward",
+      "status": "observed",
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "text": "Skip to content\nStudent evidence\nBack to Evidence\nStudent Two (fictional)\n\nBandwidth and latency — approved demo reading\n\nSynthetic history\ncompleted\n1 answers\n",
+        "href": null,
+        "outline": "rgb(23, 48, 45) none 3px",
+        "scrollY": 979.5
+      },
+      "url": "http://localhost:3349/teacher/sessions/40000000-0000-4000-8000-000000000002?assignment=30000000-0000-4000-8000-000000000001&origin=all&concept=transmission_delay&session=40000000-0000-4000-8000-000000000002&attempt=50000000-0000-4000-8000-000000000005&evaluation=60000000-0000-4000-8000-000000000005&returnTo=evidence#evaluation-60000000-0000-4000-8000-000000000005"
+    }
+  ],
+  "blockedRequests": [],
+  "unrun": [
+    "Screen-reader verification",
+    "Comprehensive WCAG audit",
+    "All editor keyboard paths, failure/recovery states, and long-response stress fixtures",
+    "Student composer and reading at 200% in this bounded teacher-only run"
+  ],
+  "nativeZoomVerified": true,
+  "status": "partial",
+  "error": "locator.waitFor: Error: strict mode violation: locator('.lp-evidence-page') resolved to 2 elements:\n    1) <div class=\"lp-evidence-page\">…</div> aka getByText('Back to EvidenceStudent Two (').first()\n    2) <div class=\"lp-evidence-page\">…</div> aka getByText('Back to EvidenceStudent Two (').nth(1)\n\nCall log:\n\u001b[2m  - waiting for locator('.lp-evidence-page') to be visible\u001b[22m\n",
+  "finishedAt": "2026-10-25T04:22:26.216Z"
+}

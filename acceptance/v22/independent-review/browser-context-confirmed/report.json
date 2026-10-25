@@ -1,0 +1,54 @@
+{
+  "startedAt": "2026-10-25T04:21:55.773Z",
+  "sourceSha": "eba2fba3eee223bb43c0eea5fe197e9569285ea9",
+  "sourceTree": "016e8aeebd3b1f584cc7bd5a1036afcfeb8eac5c",
+  "project": "lp-v22-integration5",
+  "origin": "http://localhost:3349",
+  "browser": "156.0.4314.42",
+  "runnerSha256": "5984c19c2ef90d9448541d3a9326268d1c91a6d93572dd311af03b97ab8fbf01",
+  "category": "focused authenticated GET-only context navigation; existing fictional data; provider-disabled",
+  "checks": [
+    {
+      "id": "C1-selected-assignment-shell",
+      "status": "unrun",
+      "screenshots": [],
+      "reason": "No second-class non-default selected assignment available; multi-class prerequisite absent."
+    },
+    {
+      "id": "C2-progress-session-return",
+      "status": "defect-confirmed",
+      "screenshots": [
+        "C2-before-selected-progress-cell.png",
+        "C2-session-return-link.png"
+      ],
+      "beforeUrl": "http://localhost:3349/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=all&student=10000000-0000-4000-8000-000000000002&concept=transmission_delay&status=all#cell-evidence",
+      "expectedAssignment": "30000000-0000-4000-8000-000000000001",
+      "sessionHref": "/teacher/sessions/40000000-0000-4000-8000-000000000001?assignment=30000000-0000-4000-8000-000000000001&origin=all&student=10000000-0000-4000-8000-000000000002&concept=transmission_delay#attempt-50000000-0000-4000-8000-000000000004",
+      "backText": "Back to learning insights",
+      "backHref": "/teacher/insights?assignment=30000000-0000-4000-8000-000000000001&origin=all&concept=transmission_delay&student=10000000-0000-4000-8000-000000000002&returnTo=insights#responses",
+      "afterUrl": "http://localhost:3349/teacher/insights?assignment=30000000-0000-4000-8000-000000000001&origin=all&concept=transmission_delay&student=10000000-0000-4000-8000-000000000002&returnTo=insights#responses"
+    },
+    {
+      "id": "C3-saved-intervention-shell-context",
+      "status": "unrun",
+      "screenshots": [],
+      "reason": "No saved intervention draft is available in the authorized fictional assignments."
+    },
+    {
+      "id": "C4-search-context-leak",
+      "status": "unrun",
+      "screenshots": [],
+      "reason": "No authorized lesson title is available to reproduce title-search propagation."
+    }
+  ],
+  "blockedRequests": [],
+  "pageErrors": [],
+  "limitations": [
+    "No model verification",
+    "No screen-reader verification",
+    "Focus and keyboard restoration not established by URL checks",
+    "No synthetic records created; missing prerequisites are marked unrun"
+  ],
+  "finishedAt": "2026-10-25T04:22:10.872Z",
+  "status": "defects-confirmed"
+}

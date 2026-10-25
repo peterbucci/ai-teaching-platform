@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "mode": "preflight",
+  "runCompleted": false,
+  "finishedAt": null,
+  "target": "combined",
+  "sourceSha": "eba2fba3eee223bb43c0eea5fe197e9569285ea9",
+  "sourceTree": "016e8aeebd3b1f584cc7bd5a1036afcfeb8eac5c",
+  "harness": {
+    "version": "workbench-v22-integration5-v1",
+    "sha256": "9edadf9d6cf38231bb539162065f450c360525ca78e4722162e3873a6b64996a",
+    "authoringTestsSha256": "b5073c8b19b9876154cb2fa095313634b5619ff731fddbc650878f5c5d4f5d13",
+    "storageGuard": {
+      "pullRequest": "https://github.com/peterbucci/ai-teaching-platform/pull/121",
+      "commit": "fe8323ae8406e4d6415e4486849317fb48a91821",
+      "sha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+      "testsSha256": "819efd0de539780581236109fcbe72cde23352748942c77c80392eb235dd30d3",
+      "revision": "reviewed-PR121-byte-identical-copy"
+    },
+    "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+    "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d",
+    "ignoredSourceAllowlist": [
+      "node_modules/",
+      ".next/",
+      "next-env.d.ts",
+      "*.tsbuildinfo"
+    ]
+  },
+  "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform",
+  "project": "lp-v22-integration5",
+  "origin": "http://localhost:3349",
+  "manifest": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\guard-preflight\\manifest.json",
+  "fixture": "isolated fictional acceptance configuration",
+  "paidModelCallsAuthorized": false,
+  "dependencies": "application image",
+  "verificationLevel": "separate repository suites on the exact pinned application snapshot",
+  "combinedBrowserJourney": "unrun; separate passing suites do not prove one connected browser journey",
+  "checks": [
+    {
+      "name": "runner-stopped",
+      "status": "fail",
+      "category": "runner safety",
+      "error": "Acceptance lock already exists at C:\\Users\\sb128\\AppData\\Local\\learning-pulse-acceptance.lock. Coordinate with its owner; never automatically remove a stale or live lock."
+    }
+  ],
+  "safetyPolicy": {
+    "buildMinimumGiB": 20,
+    "runtimeMinimumGiB": 10,
+    "sharedLock": "C:\\Users\\sb128\\AppData\\Local\\learning-pulse-acceptance.lock"
+  },
+  "stoppedAfterFailure": true,
+  "result": "aborted",
+  "limitations": [
+    "No hosted release verification",
+    "No fresh or historical actual-model claim",
+    "Browser/accessibility evidence is recorded separately",
+    "Real model calls and screen-reader verification remain unrun",
+    "Storage thresholds cannot guarantee headroom against concurrent unguarded clients or one command exhausting storage",
+    "The shared lock covers guarded runners only; browser utilities and other Docker clients require explicit coordinator scheduling"
+  ]
+}

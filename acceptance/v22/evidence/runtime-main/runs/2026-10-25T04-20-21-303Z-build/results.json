@@ -1,0 +1,241 @@
+{
+  "schemaVersion": 1,
+  "mode": "build",
+  "target": "main",
+  "sourceSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+  "sourceTree": "4600f912667a5b034f78459121b079b17d12c762",
+  "harness": {
+    "version": "workbench-v22-integration5-v1",
+    "sha256": "94db2033b9e184f4a6b4d42ce43876960271fcbbf9e9f772a32946b0c996324c",
+    "authoringTestsSha256": "b5073c8b19b9876154cb2fa095313634b5619ff731fddbc650878f5c5d4f5d13",
+    "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+    "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d",
+    "ignoredSourceAllowlist": [
+      "node_modules/",
+      ".next/",
+      "next-env.d.ts",
+      "*.tsbuildinfo"
+    ]
+  },
+  "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+  "project": "lp-v22-main5",
+  "origin": "http://localhost:3344",
+  "manifest": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-main\\manifest.json",
+  "fixture": "isolated fictional acceptance configuration",
+  "paidModelCallsAuthorized": false,
+  "dependencies": "application image",
+  "verificationLevel": "separate repository suites on the exact pinned application snapshot",
+  "combinedBrowserJourney": "unrun; separate passing suites do not prove one connected browser journey",
+  "checks": [
+    {
+      "name": "docker-version",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "provider-disabled integration",
+      "fixture": "isolated fictional acceptance configuration",
+      "sourceSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "sourceTree": "4600f912667a5b034f78459121b079b17d12c762",
+      "harness": {
+        "version": "workbench-v22-integration5-v1",
+        "sha256": "94db2033b9e184f4a6b4d42ce43876960271fcbbf9e9f772a32946b0c996324c",
+        "authoringTestsSha256": "b5073c8b19b9876154cb2fa095313634b5619ff731fddbc650878f5c5d4f5d13",
+        "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+        "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d",
+        "ignoredSourceAllowlist": [
+          "node_modules/",
+          ".next/",
+          "next-env.d.ts",
+          "*.tsbuildinfo"
+        ]
+      },
+      "target": "main",
+      "project": "lp-v22-main5",
+      "origin": "http://localhost:3344",
+      "startedAt": "2026-10-25T04:20:21.707Z",
+      "finishedAt": "2026-10-25T04:20:21.952Z",
+      "command": [
+        "docker",
+        "version",
+        "--format",
+        "{{json .}}"
+      ],
+      "log": "01-docker-version.log"
+    },
+    {
+      "name": "build-and-start",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "provider-disabled integration",
+      "fixture": "isolated fictional acceptance configuration",
+      "sourceSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "sourceTree": "4600f912667a5b034f78459121b079b17d12c762",
+      "harness": {
+        "version": "workbench-v22-integration5-v1",
+        "sha256": "94db2033b9e184f4a6b4d42ce43876960271fcbbf9e9f772a32946b0c996324c",
+        "authoringTestsSha256": "b5073c8b19b9876154cb2fa095313634b5619ff731fddbc650878f5c5d4f5d13",
+        "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+        "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d",
+        "ignoredSourceAllowlist": [
+          "node_modules/",
+          ".next/",
+          "next-env.d.ts",
+          "*.tsbuildinfo"
+        ]
+      },
+      "target": "main",
+      "project": "lp-v22-main5",
+      "origin": "http://localhost:3344",
+      "startedAt": "2026-10-25T04:20:21.954Z",
+      "finishedAt": "2026-10-25T04:20:41.729Z",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "lp-v22-main5",
+        "--env-file",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-main\\.env.acceptance",
+        "--file",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-main\\compose.json",
+        "up",
+        "--build",
+        "--wait",
+        "--wait-timeout",
+        "240"
+      ],
+      "log": "02-build-and-start.log"
+    },
+    {
+      "name": "seed-fictional-demo",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "provider-disabled integration",
+      "fixture": "isolated fictional acceptance configuration",
+      "sourceSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "sourceTree": "4600f912667a5b034f78459121b079b17d12c762",
+      "harness": {
+        "version": "workbench-v22-integration5-v1",
+        "sha256": "94db2033b9e184f4a6b4d42ce43876960271fcbbf9e9f772a32946b0c996324c",
+        "authoringTestsSha256": "b5073c8b19b9876154cb2fa095313634b5619ff731fddbc650878f5c5d4f5d13",
+        "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+        "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d",
+        "ignoredSourceAllowlist": [
+          "node_modules/",
+          ".next/",
+          "next-env.d.ts",
+          "*.tsbuildinfo"
+        ]
+      },
+      "target": "main",
+      "project": "lp-v22-main5",
+      "origin": "http://localhost:3344",
+      "startedAt": "2026-10-25T04:20:41.731Z",
+      "finishedAt": "2026-10-25T04:20:44.699Z",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "lp-v22-main5",
+        "--env-file",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-main\\.env.acceptance",
+        "--file",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-main\\compose.json",
+        "exec",
+        "-T",
+        "app",
+        "npm",
+        "run",
+        "db:seed"
+      ],
+      "log": "03-seed-fictional-demo.log"
+    },
+    {
+      "name": "image-identities",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "provider-disabled integration",
+      "fixture": "isolated fictional acceptance configuration",
+      "sourceSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "sourceTree": "4600f912667a5b034f78459121b079b17d12c762",
+      "harness": {
+        "version": "workbench-v22-integration5-v1",
+        "sha256": "94db2033b9e184f4a6b4d42ce43876960271fcbbf9e9f772a32946b0c996324c",
+        "authoringTestsSha256": "b5073c8b19b9876154cb2fa095313634b5619ff731fddbc650878f5c5d4f5d13",
+        "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+        "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d",
+        "ignoredSourceAllowlist": [
+          "node_modules/",
+          ".next/",
+          "next-env.d.ts",
+          "*.tsbuildinfo"
+        ]
+      },
+      "target": "main",
+      "project": "lp-v22-main5",
+      "origin": "http://localhost:3344",
+      "startedAt": "2026-10-25T04:20:44.700Z",
+      "finishedAt": "2026-10-25T04:20:45.502Z",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "lp-v22-main5",
+        "--env-file",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-main\\.env.acceptance",
+        "--file",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-main\\compose.json",
+        "images",
+        "--format",
+        "json"
+      ],
+      "log": "04-image-identities.log"
+    },
+    {
+      "name": "built-image-id",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "provider-disabled integration",
+      "fixture": "isolated fictional acceptance configuration",
+      "sourceSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "sourceTree": "4600f912667a5b034f78459121b079b17d12c762",
+      "harness": {
+        "version": "workbench-v22-integration5-v1",
+        "sha256": "94db2033b9e184f4a6b4d42ce43876960271fcbbf9e9f772a32946b0c996324c",
+        "authoringTestsSha256": "b5073c8b19b9876154cb2fa095313634b5619ff731fddbc650878f5c5d4f5d13",
+        "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+        "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d",
+        "ignoredSourceAllowlist": [
+          "node_modules/",
+          ".next/",
+          "next-env.d.ts",
+          "*.tsbuildinfo"
+        ]
+      },
+      "target": "main",
+      "project": "lp-v22-main5",
+      "origin": "http://localhost:3344",
+      "startedAt": "2026-10-25T04:20:45.503Z",
+      "finishedAt": "2026-10-25T04:20:45.811Z",
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "lp-v22-main5:723ed6fea41138b604a9d333ebcd4a07b2202c36",
+        "--format",
+        "{{.Id}}"
+      ],
+      "log": "05-built-image-id.log"
+    }
+  ],
+  "result": "pass",
+  "limitations": [
+    "No hosted release verification",
+    "No fresh or historical actual-model claim",
+    "Browser/accessibility evidence is recorded separately",
+    "Real model calls and screen-reader verification remain unrun"
+  ]
+}

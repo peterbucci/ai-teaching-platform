@@ -1,0 +1,123 @@
+{
+  "services": {
+    "gateway": {
+      "image": "nginx:1.27-alpine",
+      "ports": [
+        "127.0.0.1:3349:80"
+      ],
+      "volumes": [
+        "C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/runtime-combined/gateway.conf:/etc/nginx/conf.d/default.conf:ro"
+      ],
+      "depends_on": {
+        "app": {
+          "condition": "service_healthy"
+        }
+      },
+      "networks": [
+        "browser",
+        "acceptance"
+      ]
+    },
+    "app": {
+      "build": {
+        "context": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform",
+        "dockerfile": "Dockerfile"
+      },
+      "image": "lp-v22-integration5:eba2fba3eee223bb43c0eea5fe197e9569285ea9",
+      "environment": {
+        "PGPASSWORD": "${PGPASSWORD}",
+        "AUTH_SECRET": "${AUTH_SECRET}",
+        "PGDATABASE": "${PGDATABASE}",
+        "AUTH_URL": "${AUTH_URL}",
+        "ENABLE_DEMO_LOGIN": "${ENABLE_DEMO_LOGIN}",
+        "APP_BIND_ADDRESS": "${APP_BIND_ADDRESS}",
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "OPENAI_MODEL": "${OPENAI_MODEL}",
+        "DEMO_TEACHER_EMAIL": "${DEMO_TEACHER_EMAIL}",
+        "DEMO_TEACHER_PASSWORD": "${DEMO_TEACHER_PASSWORD}",
+        "DEMO_STUDENT_ONE_EMAIL": "${DEMO_STUDENT_ONE_EMAIL}",
+        "DEMO_STUDENT_ONE_PASSWORD": "${DEMO_STUDENT_ONE_PASSWORD}",
+        "DEMO_STUDENT_TWO_EMAIL": "${DEMO_STUDENT_TWO_EMAIL}",
+        "DEMO_STUDENT_TWO_PASSWORD": "${DEMO_STUDENT_TWO_PASSWORD}",
+        "PGHOST": "db",
+        "PGPORT": "5432",
+        "PGUSER": "learning_app",
+        "DIALOGUE_CHECK_SYNTHETIC": "1",
+        "DIALOGUE_CHECK_URL": "http://localhost:3349"
+      },
+      "command": [
+        "sh",
+        "-c",
+        "npm run db:migrate && exec node node_modules/next/dist/bin/next start --hostname 0.0.0.0 --port 3349"
+      ],
+      "depends_on": {
+        "db": {
+          "condition": "service_healthy"
+        }
+      },
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3349/login').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+        ],
+        "interval": "5s",
+        "timeout": "5s",
+        "retries": 36,
+        "start_period": "30s"
+      },
+      "networks": [
+        "acceptance"
+      ]
+    },
+    "db": {
+      "image": "postgres:17.11-bookworm",
+      "environment": {
+        "POSTGRES_DB": "${PGDATABASE}",
+        "POSTGRES_PASSWORD": "${POSTGRES_PASSWORD}",
+        "PGPASSWORD": "${PGPASSWORD}"
+      },
+      "volumes": [
+        "postgres_data:/var/lib/postgresql/data",
+        "C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/database/init-app.sh:/docker-entrypoint-initdb.d/10-app.sh:ro"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD-SHELL",
+          "pg_isready -h 127.0.0.1 -U postgres -d \"$$POSTGRES_DB\""
+        ],
+        "interval": "5s",
+        "timeout": "5s",
+        "retries": 36
+      },
+      "networks": [
+        "acceptance"
+      ]
+    }
+  },
+  "networks": {
+    "acceptance": {
+      "internal": true,
+      "ipam": {
+        "config": [
+          {
+            "subnet": "10.234.51.0/24"
+          }
+        ]
+      }
+    },
+    "browser": {
+      "ipam": {
+        "config": [
+          {
+            "subnet": "10.234.50.0/24"
+          }
+        ]
+      }
+    }
+  },
+  "volumes": {
+    "postgres_data": {}
+  }
+}

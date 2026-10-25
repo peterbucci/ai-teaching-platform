@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "initializedAt": "2026-10-25T04:20:21.192Z",
+  "verificationTargetKind": "separate pinned branch or pull-request head",
+  "browserNetwork": "lp-v22-main5_browser",
+  "internalSubnet": "10.234.53.0/24",
+  "browserSubnet": "10.234.52.0/24",
+  "freshProjectVerification": "Docker project-labelled containers, networks, volumes and expected unlabelled network/volume names checked absent at initialization",
+  "target": "main",
+  "project": "lp-v22-main5",
+  "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+  "sourceSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+  "sourceTree": "4600f912667a5b034f78459121b079b17d12c762",
+  "harness": {
+    "version": "workbench-v22-integration5-v1",
+    "sha256": "94db2033b9e184f4a6b4d42ce43876960271fcbbf9e9f772a32946b0c996324c",
+    "authoringTestsSha256": "b5073c8b19b9876154cb2fa095313634b5619ff731fddbc650878f5c5d4f5d13",
+    "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+    "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d",
+    "ignoredSourceAllowlist": [
+      "node_modules/",
+      ".next/",
+      "next-env.d.ts",
+      "*.tsbuildinfo"
+    ]
+  },
+  "origin": "http://localhost:3344",
+  "configurationCategory": "provider-disabled; synthetic fixtures; loopback gateway; app/database isolated internal Docker network",
+  "database": "disposable project-owned PostgreSQL 17.11 volume; no host database port",
+  "node": "v22.13.0",
+  "platform": "win32",
+  "architecture": "x64",
+  "hashes": {
+    "Dockerfile": "9234df0cf2b45eff67b27bf293db1a87852249db91f849489f0483c625e25530",
+    "compose.yaml": "df2e88b8389804c9e7591a319b147773b892adaad3c0fddad1e260335a1f3ff6",
+    "package.json": "9c67fbec75ef8db20adeed717291751479fe6b83b92ff6384f918db42cf1a147",
+    "package-lock.json": "eba6237900204f79433f27f73f20861c2401b820cbebedb2d4554d9b3567027d",
+    ".github/workflows/ci.yml": "337a07150615d929ce81d495ca40ba0be72e4cfc8c378a93eddae45107e76ccc"
+  },
+  "productionSourceVerification": "git HEAD, tree, tracked production cleanliness, untracked and ignored files checked; generated node_modules/.next/next-env.d.ts/*.tsbuildinfo are explicit exceptions",
+  "secrets": "generated locally; not included in reports; outside source/build context",
+  "paidModelCallsAuthorized": false
+}
