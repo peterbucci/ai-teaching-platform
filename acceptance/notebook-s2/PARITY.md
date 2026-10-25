@@ -53,6 +53,14 @@ N0 approved `recorded-history-adapter-v1` as an additive extension in
 [decision 24f5b59](https://github.com/peterbucci/ai-teaching-platform/blob/24f5b59cf525e8482b17939131b7f62b771c0734/app/study/notebook/COORDINATION.md).
 Actual implementation review and combined acceptance are separate gates.
 
+N0 subsequently approved the actual implementation through application
+`6aa2ce680d6ccea1f615e104e4f1792bcd502f38` and recorded the
+[final evidence receipt](https://github.com/peterbucci/ai-teaching-platform/blob/984cd53051b8aa7910606c526e0aaa32e4852a72/app/study/notebook/COORDINATION.md).
+Recorded-mode, current-data fallback and native clipboard checks pass on the
+same production build. The [N6 handoff](N6_HANDOFF.md) links the real comparison
+at all requested widths/native zoom and records remaining visual differences.
+Full prototype parity remains NOT_ACCEPTED; combined N6 release approval is pending.
+
 S2 owns new `app/study/notebook/recorded-history.ts`, `records/recorded-*`,
 `records/exact-text.tsx`, `app/study/history/[sessionId]`, focused tests and this
 acceptance directory. N3 `records.tsx` adds links and exact-text rendering;

@@ -11,10 +11,12 @@ assert.equal(process.env.OPENAI_API_KEY, "");
 const root = process.cwd(),
   base = process.env.AUTH_URL,
   require = createRequire(import.meta.url);
-const {
-  chromium,
-} = require("C:/Users/sb128/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright");
+const { chromium } = require(
+  process.env.PLAYWRIGHT_MODULE ||
+    "C:/Users/sb128/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright",
+);
 const prototype =
+  process.env.S2_PROTOTYPE_DIR ||
   "C:/Users/sb128/.codex/worktrees/student-notebook-integration/LearningPlatform/.setup/prototype";
 const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
 assert.equal(
@@ -24,7 +26,8 @@ assert.equal(
 assert.equal(
   hash(
     fs.readFileSync(
-      "C:/Users/sb128/Downloads/Student-Notebook-Final-Prototype-fa69c2d0.zip",
+      process.env.S2_PROTOTYPE_ARCHIVE ||
+        "C:/Users/sb128/Downloads/Student-Notebook-Final-Prototype-fa69c2d0.zip",
     ),
   ),
   "fa69c2d0262b0be684b5e9d21b2131d7c02a5bf9577c1586df07950c6394c570",

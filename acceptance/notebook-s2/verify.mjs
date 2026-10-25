@@ -33,9 +33,10 @@ const root = process.cwd(),
 const statePath = path.join(root, ".setup/s2/browser-state.json");
 const pool = getPool(),
   require = createRequire(import.meta.url);
-const {
-  chromium,
-} = require("C:/Users/sb128/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright");
+const { chromium } = require(
+  process.env.PLAYWRIGHT_MODULE ||
+    "C:/Users/sb128/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright",
+);
 const actorRow = (
   await pool.query("select id,auth_user_id from profiles where id=$1", [
     DEMO_IDS.studentOne,
