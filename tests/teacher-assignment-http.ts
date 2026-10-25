@@ -129,6 +129,21 @@ function renderedMarkup(html: string) {
     .replace(/<!--[\s\S]*?-->/g, "");
 }
 
+/** The authorized shell switcher lists all owned assignments. Filter assertions
+ * must inspect this page's workspace, while privacy assertions inspect all HTML. */
+function assignmentMarkup(html: string) {
+  const rendered = renderedMarkup(html);
+  const start = rendered.search(/<div\b[^>]*class="awa-workspace\b/);
+  assert.ok(start >= 0, "Missing assignment workspace.");
+  const body = rendered.slice(start);
+  let depth = 0;
+  for (const match of body.matchAll(/<\/?div\b[^>]*>/g)) {
+    depth += match[0].startsWith("</") ? -1 : 1;
+    if (depth === 0) return body.slice(0, match.index + match[0].length);
+  }
+  assert.fail("Incomplete assignment workspace markup.");
+}
+
 function renderedLinks(html: string) {
   return [
     ...renderedMarkup(html).matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi),
@@ -479,7 +494,7 @@ try {
     await page("/teacher/assignments?view=progress", teacher.cookie),
   );
   assert.ok(
-    allClasses.includes(assignmentTitle),
+    assignmentMarkup(allClasses).includes(assignmentTitle),
     "Empty class filter must mean all authorized classes.",
   );
   const inactive = await page(
@@ -487,7 +502,7 @@ try {
     teacher.cookie,
   );
   assertDiscovery(inactive);
-  assert.ok(inactive.includes(assignmentTitle));
+  assert.ok(assignmentMarkup(inactive).includes(assignmentTitle));
   assert.ok(inactive.includes('class="awa-tree-lesson"'));
   assert.ok(inactive.includes('class="awa-tree-version"'));
   assert.ok(inactive.includes('class="awa-tree-assignment"'));
@@ -505,11 +520,11 @@ try {
     teacher.cookie,
   );
   assert.ok(activeBefore.includes("No assignments match these filters"));
-  assert.ok(!activeBefore.includes(assignmentTitle));
+  assert.ok(!assignmentMarkup(activeBefore).includes(assignmentTitle));
   const empty = await page(url({ class: emptyClassId }), teacher.cookie);
   assertDiscovery(empty);
   assert.ok(empty.includes("No assignments match these filters"));
-  assert.ok(!empty.includes(assignmentTitle));
+  assert.ok(!assignmentMarkup(empty).includes(assignmentTitle));
   const noRosterHtml = await page(
     url({ assignment: noRoster.id, view: "progress" }),
     teacher.cookie,
@@ -589,13 +604,13 @@ try {
     url({ class: classId, status: "active", assignment: created.id }),
     teacher.cookie,
   );
-  assert.ok(activated.includes(assignmentTitle));
+  assert.ok(assignmentMarkup(activated).includes(assignmentTitle));
   assert.ok(activated.includes("Active for enrolled students"));
   const outsideFilters = await page(
     url({ class: emptyClassId, status: "inactive", assignment: created.id }),
     teacher.cookie,
   );
-  assert.ok(outsideFilters.includes(assignmentTitle));
+  assert.ok(assignmentMarkup(outsideFilters).includes(assignmentTitle));
   assert.ok(outsideFilters.includes("Active for enrolled students"));
   assert.ok(
     outsideFilters.includes(
