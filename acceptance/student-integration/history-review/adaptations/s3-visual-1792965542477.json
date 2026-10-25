@@ -1,0 +1,56 @@
+{
+  "mode": "s3-visual",
+  "assertionsChanged": false,
+  "adaptations": [
+    {
+      "file": "app/study/notebook/reviews/verification/s3/visual.mjs",
+      "from": "lp_s3_review_01a1749b",
+      "to": "student_notebook_final_01a17503",
+      "count": 1
+    },
+    {
+      "file": "app/study/notebook/reviews/verification/s3/visual.mjs",
+      "from": ".setup/selected.json",
+      "to": ".setup/student-integration/history-review/selected.json",
+      "count": 1
+    },
+    {
+      "file": "app/study/notebook/reviews/verification/s3/visual.mjs",
+      "from": "path.resolve(\".setup\",",
+      "to": "path.resolve(\".setup/student-integration/history-review\",",
+      "count": 1
+    },
+    {
+      "file": "app/study/notebook/reviews/verification/s3/visual.mjs",
+      "from": "\"app/study/notebook/reviews/verification/s3/\"",
+      "to": "\"acceptance/student-integration/history-review/s3/\"",
+      "count": 1
+    },
+    {
+      "file": "app/study/notebook/reviews/verification/s3/visual.mjs",
+      "from": "acceptance/notebook/evidence",
+      "to": "acceptance/student-integration/history-review/r03",
+      "count": 1
+    },
+    {
+      "file": "app/study/notebook/reviews/verification/s3/visual.mjs",
+      "from": "const env = JSON.parse(fs.readFileSync(\".setup/env.json\", \"utf8\"));",
+      "to": "const env = { ...process.env };",
+      "count": 1
+    },
+    {
+      "file": "app/study/notebook/reviews/verification/s3/visual.mjs",
+      "from": "acceptance/student-integration/history-review/r03/r03-fresh-check-1792955650134/r03-fresh-check.json",
+      "to": "acceptance/student-integration/history-review/r03/r03-combined-1792965494400/r03-fresh-check.json",
+      "count": 1
+    }
+  ],
+  "files": [
+    {
+      "original": "app/study/notebook/reviews/verification/s3/visual.mjs",
+      "originalSha256": "3ef858fbced9c0655cd52ba3a49027525203e284d10f90175a02d02fa137dcc4",
+      "adapted": ".setup\\student-integration\\history-review\\s3-visual.mjs",
+      "adaptedSha256": "0f938e8a3d9f9be081ffaeb9b63e60cc537f2094bfd640ba434aa4a67329444d"
+    }
+  ]
+}

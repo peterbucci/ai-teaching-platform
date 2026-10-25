@@ -1,0 +1,35 @@
+{
+  "source": "c7bff74a4be9012599fa7c90074d462068fab446",
+  "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "runtime": "production",
+  "buildId": "qbmHrdDM-8fIAyrTY4f0T",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "cases": [
+    {
+      "name": "hidden reader and pane navigation make zero reading/answer writes; one composer and exact draft survive",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3431/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=85a725d5-6fea-446c-8f4a-db70249ba541"
+    },
+    {
+      "name": "in-flight reading keeps delivery identity while hidden; exposure acknowledges exactly once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3431/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=8cab4ab5-f7dd-4611-8b8f-82a01789019c"
+    },
+    {
+      "name": "failed reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3431/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=08fd80d8-80b4-46e1-be3f-185ba3bbde11"
+    },
+    {
+      "name": "unknown reading receipt preserves notice and retries original identity once",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n3 !== 2\n\n    at file:///C:/Users/sb128/.codex/worktrees/student-notebook-final/LearningPlatform/.setup/active-checks/panes.mjs:398:16\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async check (file:///C:/Users/sb128/.codex/worktrees/student-notebook-final/LearningPlatform/.setup/active-checks/panes.mjs:129:5)\n    at async file:///C:/Users/sb128/.codex/worktrees/student-notebook-final/LearningPlatform/.setup/active-checks/panes.mjs:317:5",
+      "url": "http://127.0.0.1:3431/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=b68b77d4-83ba-4582-995e-786cb4121d49"
+    }
+  ],
+  "result": "FAIL",
+  "error": "Expected values to be strictly equal:\n\n3 !== 2\n",
+  "diffAfterSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sourceUnchanged": true
+}

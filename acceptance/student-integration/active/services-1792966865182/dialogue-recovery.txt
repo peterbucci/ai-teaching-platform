@@ -1,0 +1,14 @@
+PASS: Known successful proposal/generation/review recover once under concurrent POSTs; no provider dispatch, grading, or display assistance.
+PASS: Another student and changed original revision cannot recover a saved operation.
+PASS: Missing review and unknown outcome stay pending; repeated recovery creates no calls or effects.
+PASS: A newer submitted answer invalidates the saved operation before recovery.
+PASS: Recorded results require exact original prompt/model/input descriptor and never invoke callbacks.
+PASS: Recorded classification recovers the explicit confirmation step without submitting or evaluating an answer.
+PASS: Authenticated recovery HTTP denies anonymous/foreign/origin/stale/injected requests, keeps GET read-only, and replays one saved delivery without new model calls.
+{"fixture_only":true,"actual_model_calls":0,"checks":7}
+
+(node:145756) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:145756) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/student-notebook-final/LearningPlatform/scripts/check-dialogue-recovery.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\sb128\.codex\worktrees\student-notebook-final\LearningPlatform\package.json.

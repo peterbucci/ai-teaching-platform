@@ -1,0 +1,517 @@
+{
+  "source_sha": "c7bff74a4be9012599fa7c90074d462068fab446",
+  "base": "http://127.0.0.1:3431",
+  "started_at": "2026-10-25T22:01:47.377Z",
+  "original_answer": "  Original café 🌱 answer.\nKeep  all spacing.  ",
+  "category": "Provider-disabled real browser/auth/database with explicit precommit/postcommit fault injection",
+  "actual_model_calls": 0,
+  "cases": [
+    {
+      "id": "R1-initial-save-401",
+      "status": "PASS",
+      "started_at": "2026-10-25T22:01:47.378Z",
+      "session_id": "a36f94bf-f931-4b2f-9b2e-ec794ed1fdf0",
+      "attempt_id": "0b3a7352-48a5-461e-9077-62332aa9ef1b",
+      "quiet_refresh": {
+        "answers": 1,
+        "evaluations": 0,
+        "text_preserved": true
+      },
+      "reconciliation": {
+        "confirmed": "absent",
+        "answer_writes": 0,
+        "evaluation_writes": 0
+      },
+      "automatic_retries": 0,
+      "original_identity_preserved_after_refresh": true,
+      "answer_posts": [
+        {
+          "attempt_id": "0b3a7352-48a5-461e-9077-62332aa9ef1b",
+          "submission_key": "2554d0a3-f877-4655-a924-03409f93b221",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        },
+        {
+          "attempt_id": "0b3a7352-48a5-461e-9077-62332aa9ef1b",
+          "submission_key": "2554d0a3-f877-4655-a924-03409f93b221",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [
+        {
+          "status": 401
+        },
+        {
+          "status": 200
+        }
+      ],
+      "evaluation_posts": [
+        {
+          "attempt_id": "0b3a7352-48a5-461e-9077-62332aa9ef1b"
+        }
+      ],
+      "finished_at": "2026-10-25T22:01:52.371Z"
+    },
+    {
+      "id": "R2-offline-save",
+      "status": "PASS",
+      "started_at": "2026-10-25T22:01:52.392Z",
+      "session_id": "75ba715d-f482-4097-9d12-cfb5381f3cf2",
+      "attempt_id": "a97b6ba5-a0b0-4f34-af8f-f060605ebdea",
+      "quiet_refresh": {
+        "answers": 1,
+        "evaluations": 0,
+        "text_preserved": true
+      },
+      "reconciliation": {
+        "confirmed": "absent",
+        "answer_writes": 0,
+        "evaluation_writes": 0
+      },
+      "automatic_retries": 0,
+      "original_identity_preserved_after_refresh": true,
+      "answer_posts": [
+        {
+          "attempt_id": "a97b6ba5-a0b0-4f34-af8f-f060605ebdea",
+          "submission_key": "881e1eae-6e16-4a64-b040-8e858975a112",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        },
+        {
+          "attempt_id": "a97b6ba5-a0b0-4f34-af8f-f060605ebdea",
+          "submission_key": "881e1eae-6e16-4a64-b040-8e858975a112",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [
+        {
+          "status": 200
+        }
+      ],
+      "evaluation_posts": [
+        {
+          "attempt_id": "a97b6ba5-a0b0-4f34-af8f-f060605ebdea"
+        }
+      ],
+      "finished_at": "2026-10-25T22:01:57.483Z"
+    },
+    {
+      "id": "R3-committed-response-lost",
+      "status": "PASS",
+      "started_at": "2026-10-25T22:01:57.505Z",
+      "session_id": "73e034a7-b661-4496-bdea-7eb7b14fdf5a",
+      "attempt_id": "f5c92682-3186-497b-8ea9-1a8cfda8d2e1",
+      "quiet_refresh": {
+        "answers": 1,
+        "evaluations": 0,
+        "text_preserved": false
+      },
+      "fault": "Real server answer 200 discarded before the page received it",
+      "read_only_reconciliation": true,
+      "answer_posts": [
+        {
+          "attempt_id": "f5c92682-3186-497b-8ea9-1a8cfda8d2e1",
+          "submission_key": "5cc0c0a1-66d8-4b35-9dc9-46bed3bb7d43",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [],
+      "evaluation_posts": [],
+      "finished_at": "2026-10-25T22:02:03.210Z"
+    },
+    {
+      "id": "R4-acknowledged-save-evaluation-401",
+      "status": "PASS",
+      "started_at": "2026-10-25T22:02:03.234Z",
+      "session_id": "818eb3ee-95f5-4cd5-a8ea-2d2f849085e8",
+      "attempt_id": "20290c83-9aae-4796-a231-9c57e7e7110b",
+      "quiet_refresh": {
+        "answers": 1,
+        "evaluations": 1,
+        "text_preserved": false
+      },
+      "server_save_acknowledged": true,
+      "evaluation_fault": "401 intercepted before server/provider execution",
+      "answer_posts": [
+        {
+          "attempt_id": "20290c83-9aae-4796-a231-9c57e7e7110b",
+          "submission_key": "24bd64d7-cd76-45e5-b47f-03e2492138ec",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [
+        {
+          "status": 200
+        }
+      ],
+      "evaluation_posts": [
+        {
+          "attempt_id": "20290c83-9aae-4796-a231-9c57e7e7110b"
+        }
+      ],
+      "finished_at": "2026-10-25T22:02:08.994Z"
+    },
+    {
+      "id": "R5-real-auth-expiry-safe-return",
+      "status": "PASS",
+      "started_at": "2026-10-25T22:02:09.015Z",
+      "session_id": "b5d68739-a334-4016-a0e3-0b5a5be46a45",
+      "attempt_id": "b81f58c9-8d08-4546-8873-0211d1339467",
+      "expired_auth_session": {
+        "auth_session_id": "OfusTxAk7YlARmvkqiP0Ef5hgoui7sYA",
+        "expires_at": "2026-10-25T22:01:14.308Z"
+      },
+      "sign_in": {
+        "original_tab_preserved": true,
+        "method": "Same fictional Student Two account via real new-tab sign-in"
+      },
+      "reconciliation": {
+        "confirmed": "absent",
+        "answer_writes": 0,
+        "evaluation_writes": 0
+      },
+      "return_did_not_submit": true,
+      "answer_posts": [
+        {
+          "attempt_id": "b81f58c9-8d08-4546-8873-0211d1339467",
+          "submission_key": "d8b57d49-3c84-4b41-b49e-6207146f9ae8",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        },
+        {
+          "attempt_id": "b81f58c9-8d08-4546-8873-0211d1339467",
+          "submission_key": "d8b57d49-3c84-4b41-b49e-6207146f9ae8",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [
+        {
+          "status": 401
+        },
+        {
+          "status": 200
+        }
+      ],
+      "evaluation_posts": [
+        {
+          "attempt_id": "b81f58c9-8d08-4546-8873-0211d1339467"
+        }
+      ],
+      "finished_at": "2026-10-25T22:02:17.222Z"
+    },
+    {
+      "id": "R6-duplicate-and-original-identity",
+      "status": "PASS",
+      "started_at": "2026-10-25T22:02:17.247Z",
+      "session_id": "d689c3a4-d74b-4301-95dd-e499cb8b5c12",
+      "attempt_id": "9cdbfadb-47bd-4eb9-8b11-6708cfd049c2",
+      "reconciliation": {
+        "confirmed": "absent",
+        "answer_writes": 0,
+        "evaluation_writes": 0
+      },
+      "answer_replays": {
+        "exact": 200,
+        "altered": 409,
+        "new_identity": 409
+      },
+      "accepted_evaluation_reused": "b7c48807-29f7-4f9e-9c7c-f367b23b8fd7",
+      "evaluation_replays": [
+        409,
+        200
+      ],
+      "sequential_evaluation_replay": 200,
+      "answer_posts": [
+        {
+          "attempt_id": "9cdbfadb-47bd-4eb9-8b11-6708cfd049c2",
+          "submission_key": "ab3b3f58-687b-4521-b1f9-8dbf753a0266",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        },
+        {
+          "attempt_id": "9cdbfadb-47bd-4eb9-8b11-6708cfd049c2",
+          "submission_key": "ab3b3f58-687b-4521-b1f9-8dbf753a0266",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [
+        {
+          "status": 200
+        }
+      ],
+      "evaluation_posts": [
+        {
+          "attempt_id": "9cdbfadb-47bd-4eb9-8b11-6708cfd049c2"
+        }
+      ],
+      "finished_at": "2026-10-25T22:02:22.870Z"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "R1-initial-save-401-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R1-initial-save-401-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R1-initial-save-401-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R1-initial-save-401-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    },
+    {
+      "file": "R2-offline-save-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R2-offline-save-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R2-offline-save-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R2-offline-save-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    },
+    {
+      "file": "R3-unknown-before-check-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R3-unknown-before-check-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R3-unknown-before-check-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R3-unknown-before-check-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    },
+    {
+      "file": "R4-acknowledged-save-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R4-acknowledged-save-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R4-acknowledged-save-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R4-acknowledged-save-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    },
+    {
+      "file": "R5-expired-auth-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R5-expired-auth-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R5-expired-auth-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R5-expired-auth-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    },
+    {
+      "file": "R6-preserved-answer-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R6-preserved-answer-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R6-preserved-answer-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R6-preserved-answer-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    }
+  ],
+  "limitations": [
+    "Viewport emulation is not native zoom, mobile keyboard or screen-reader verification."
+  ],
+  "finished_at": "2026-10-25T22:02:22.895Z",
+  "result": "PASS"
+}
