@@ -284,6 +284,7 @@ export function StudentReader({
     const body = passageBody.current;
     if (!body) return;
     let intersecting = false;
+    let attempted = false;
     let cancelPresentation = () => {};
     const isVisible = () => {
       if (
@@ -317,7 +318,10 @@ export function StudentReader({
       );
     };
     const acknowledge = async () => {
-      if (ackInFlight.current || !isVisible()) return;
+      // A scroll/frame callback can outlive the resolved request until React
+      // cleans up this observer. Only explicit retry creates a fresh attempt.
+      if (attempted || ackInFlight.current || !isVisible()) return;
+      attempted = true;
       ackInFlight.current = true;
       observer.disconnect();
       setPresented(delivery.intervention_id);
