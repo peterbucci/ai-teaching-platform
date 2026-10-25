@@ -17,15 +17,23 @@ import {
   type TutorView,
 } from "../../lib/tutoring/contracts.ts";
 
+import {
+  acknowledgeAnswerSave,
+  answerSaveMessage,
+  canRetryOriginalAnswer,
+  failedAnswerSave,
+  hasMatchingSavedAnswer,
+  restoreAnswerRecovery,
+  studyRequest as request,
+  type AnswerRecovery,
+} from "./answer-recovery.ts";
+
 const button = "lp-button lp-button-primary";
 // Keep drafts across same-tab reader navigation even if browser storage is blocked.
 // Restoration still requires the exact attempt returned by the authorized server.
 const draftMemory = new Map<string, string>();
 // Some browsers disable tab storage. That must never prevent an answer being sent.
-function saveDraft(
-  attempt: string,
-  value: { key: string; response: string; locked?: boolean } | null,
-) {
+function saveDraft(attempt: string, value: AnswerRecovery | null) {
   const serialized = value === null ? null : JSON.stringify(value);
   if (serialized === null) draftMemory.delete(attempt);
   else draftMemory.set(attempt, serialized);
@@ -36,35 +44,6 @@ function saveDraft(
   } catch {
     // The in-memory submission key still protects retries in this tab.
   }
-}
-async function request(path: string, body?: unknown): Promise<unknown> {
-  let response: Response;
-  try {
-    response = await fetch(path, {
-      method: body === undefined ? "GET" : "POST",
-      headers: body === undefined ? {} : { "Content-Type": "application/json" },
-      body: body === undefined ? undefined : JSON.stringify(body),
-    });
-  } catch {
-    throw new Error(
-      "We couldn’t connect. Your answer stays here; check your connection and try again.",
-    );
-  }
-  const value: unknown = await response.json().catch(() => null);
-  if (!response.ok)
-    throw new Error(
-      response.status === 401
-        ? "Please sign in again. Your submitted work is saved."
-        : value &&
-            typeof value === "object" &&
-            "error" in value &&
-            typeof value.error === "string"
-          ? value.error
-          : "We couldn’t finish that request. Your saved work is safe.",
-    );
-  if (value === null)
-    throw new Error("We couldn’t load your progress. Please try again.");
-  return value;
 }
 export function StudySession({
   lessons,
@@ -88,10 +67,15 @@ export function StudySession({
   const [startingNew, setStartingNew] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [locked, setLocked] = useState(false);
+  const [answerRecovery, setAnswerRecovery] = useState<AnswerRecovery | null>(
+    null,
+  );
+  const [answerRetryAllowed, setAnswerRetryAllowed] = useState(false);
   const [displayRetry, setDisplayRetry] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const currentStep = useRef<HTMLHeadingElement>(null);
   const feedbackStep = useRef<HTMLHeadingElement>(null);
+  const completionStep = useRef<HTMLParagraphElement>(null);
   const acknowledgingHelp = useRef(new Set<string>());
   const focusedAttempt = useRef<string | null>(null);
   const pendingReading = view?.pending_reading;
@@ -111,14 +95,18 @@ export function StudySession({
     }
   }, [view?.session.id, wantsReading, router]);
   const busyRef = useRef(false);
-  const submission = useRef<{
-    attempt: string;
-    key: string;
-    response: string;
-  } | null>(null);
+  const submission = useRef<AnswerRecovery | null>(null);
+  const rememberAnswer = useCallback((next: AnswerRecovery) => {
+    submission.current = next;
+    saveDraft(next.attempt, next);
+    setAnswerRecovery(next.state === "local" ? null : next);
+    setLocked(next.state !== "local");
+  }, []);
   const last = view?.attempts.at(-1);
   const lastId = last?.id;
   const submittedAt = last?.submitted_at;
+  const savedResponse = last?.response_text;
+  const sessionId = view?.session.id;
   const phase = view?.progress.phase;
   const progressMessage =
     view?.session.status === "pending_evaluation"
@@ -130,13 +118,21 @@ export function StudySession({
   const assignment = lessons.find(
     (lesson) => lesson.session?.id === view?.session.id,
   );
-  const refresh = useCallback(async (sessionId: string) => {
-    const updated = TutorViewSchema.parse(
-      await request(`/api/tutoring/${sessionId}`),
-    );
-    setView(updated);
-    return updated;
-  }, []);
+  const refresh = useCallback(
+    async (sessionId: string) => {
+      const updated = TutorViewSchema.parse(
+        await request(`/api/tutoring/${sessionId}`),
+      );
+      const original = submission.current;
+      if (original && hasMatchingSavedAnswer(updated, original)) {
+        rememberAnswer({ ...original, state: "acknowledged" });
+        setAnswerRetryAllowed(false);
+      }
+      setView(updated);
+      return updated;
+    },
+    [rememberAnswer],
+  );
   async function perform(operation: () => Promise<void>) {
     if (busyRef.current) return;
     busyRef.current = true;
@@ -164,45 +160,61 @@ export function StudySession({
     });
   }
   useEffect(() => {
-    if (!lastId || submittedAt) return;
-    submission.current = null;
-    queueMicrotask(() => setLocked(false));
+    if (!lastId || !sessionId) return;
+    const restoredSessionId = sessionId;
     let stored = draftMemory.get(lastId) ?? null;
     try {
       stored ??= sessionStorage.getItem(`learning-pulse:${lastId}`);
     } catch {
-      /* Sending answers still works when tab storage is unavailable. */
+      /* The active tab still retains its original answer. */
     }
-    if (stored) {
-      try {
-        const saved: unknown = JSON.parse(stored);
-        if (
-          saved &&
-          typeof saved === "object" &&
-          "key" in saved &&
-          "response" in saved &&
-          typeof saved.key === "string" &&
-          typeof saved.response === "string"
-        ) {
-          const wasSending = "locked" in saved && saved.locked === true;
-          if (wasSending)
-            submission.current = {
-              attempt: lastId,
-              key: saved.key,
-              response: saved.response,
-            };
-          // Restore only a draft belonging to this server-authorized attempt.
-          const restored = saved.response;
-          queueMicrotask(() => {
-            setDraft(restored);
-            setLocked(wasSending);
-          });
-        }
-      } catch {
-        saveDraft(lastId, null);
+    const restored = stored
+      ? restoreAnswerRecovery(stored, restoredSessionId, lastId)
+      : null;
+    queueMicrotask(() => {
+      setAnswerRetryAllowed(false);
+      if (restored) {
+        const next =
+          submittedAt && savedResponse === restored.response
+            ? { ...restored, state: "acknowledged" as const }
+            : restored;
+        rememberAnswer(next);
+        setDraft(
+          submittedAt && next.state === "acknowledged" ? "" : next.response,
+        );
+      } else {
+        submission.current = null;
+        setAnswerRecovery(null);
+        setLocked(false);
+        setDraft("");
       }
-    } else queueMicrotask(() => setDraft(""));
-  }, [lastId, submittedAt]);
+    });
+    // Restore only when the authorized attempt or its submission changes.
+  }, [lastId, submittedAt, savedResponse, sessionId, rememberAnswer]);
+  async function checkAnswerSave() {
+    if (!view || !submission.current) return;
+    await perform(async () => {
+      const updated = await refresh(view.session.id);
+      const original = submission.current;
+      if (!original) return;
+      if (hasMatchingSavedAnswer(updated, original)) {
+        setDraft("");
+        return;
+      }
+      setAnswerRetryAllowed(
+        updated.progress.phase === "answer" &&
+          canRetryOriginalAnswer(updated, original),
+      );
+      if (
+        updated.attempts.find((attempt) => attempt.id === original.attempt)
+          ?.submitted_at &&
+        original.state !== "acknowledged"
+      )
+        setError(
+          "A different answer is saved for this question. Your original text is still kept in this tab; it will not replace the saved answer.",
+        );
+    });
+  }
   // Acknowledgement follows rendering. Creating or fetching help alone does not
   // record it as assistance. The server owns its visibility timestamp.
   const pendingHelp =
@@ -210,7 +222,6 @@ export function StudySession({
       .filter((i) => i.delivery_status === "created" && i.type !== "reading")
       .map((i) => i.id)
       .join(",") ?? "";
-  const sessionId = view?.session.id;
   const conversationTransport = useMemo(
     () => (sessionId ? createConversationTransport(sessionId) : undefined),
     [sessionId],
@@ -268,8 +279,14 @@ export function StudySession({
       phase === "feedback"
         ? feedbackStep.current
         : phase === "completed"
-          ? (feedbackStep.current ?? currentStep.current)
+          ? completionStep.current
           : currentStep.current;
+    if (
+      target
+        ?.closest("[data-conversation-scroll]")
+        ?.getAttribute("data-follow-latest") === "false"
+    )
+      return;
     target?.focus({ preventScroll: true });
     target?.scrollIntoView({ block: "nearest" });
     // A delivery acknowledgement must not jump past feedback to the next question.
@@ -377,32 +394,57 @@ export function StudySession({
   }
   async function answer(response: string) {
     if (!view || !last || !response.trim()) return;
+    const existing = submission.current;
+    if (
+      existing?.state === "acknowledged" ||
+      (existing && existing.state !== "local" && !answerRetryAllowed)
+    )
+      return;
     await perform(async () => {
-      const stored = submission.current;
-      const next =
-        stored?.attempt === last.id
-          ? stored
-          : { attempt: last.id, key: crypto.randomUUID(), response };
-      submission.current = next;
-      setLocked(true);
-      saveDraft(last.id, { ...next, locked: true });
-      await request(`/api/sessions/${view.session.id}/answers`, {
-        attempt_id: last.id,
-        submission_key: next.key,
-        response_text: next.response,
-      });
-      await refresh(view.session.id);
-      saveDraft(last.id, null);
+      const original: AnswerRecovery =
+        existing?.attempt === last.id
+          ? existing
+          : {
+              session: view.session.id,
+              attempt: last.id,
+              key: crypto.randomUUID(),
+              response,
+              state: "local",
+            };
+      setAnswerRetryAllowed(false);
+      // Persist uncertainty before dispatch, so refresh cannot silently resend.
+      rememberAnswer({ ...original, state: "unknown" });
+      try {
+        const receipt = await request(
+          `/api/sessions/${view.session.id}/answers`,
+          {
+            attempt_id: original.attempt,
+            submission_key: original.key,
+            response_text: original.response,
+          },
+        );
+        rememberAnswer(acknowledgeAnswerSave(receipt, original));
+      } catch (error) {
+        rememberAnswer(failedAnswerSave(original, error));
+        throw error;
+      }
+      const updated = await refresh(view.session.id);
+      if (!hasMatchingSavedAnswer(updated, original))
+        throw new Error(
+          "The server acknowledged your answer, but its latest progress could not be confirmed. Check the answer save before continuing.",
+        );
       setDraft("");
-      submission.current = null;
-      setLocked(false);
-      setView(
-        TutorViewSchema.parse(
-          await request(`/api/tutoring/${view.session.id}`, {
-            attempt_id: last.id,
-          }),
-        ),
-      );
+      if (
+        updated.progress.phase === "evaluate" &&
+        updated.progress.current_attempt_id === original.attempt
+      )
+        setView(
+          TutorViewSchema.parse(
+            await request(`/api/tutoring/${view.session.id}`, {
+              attempt_id: original.attempt,
+            }),
+          ),
+        );
     });
   }
   const refreshButton = (
@@ -447,9 +489,15 @@ export function StudySession({
       {error && (
         <div role="alert" className="lp-notice lp-notice-warning mb-5">
           {error}{" "}
-          <Link href="/login" className="underline">
-            Check sign-in
-          </Link>
+          <Link
+            href="/login"
+            target="_blank"
+            rel="noopener"
+            className="underline"
+          >
+            Sign in in a new tab
+          </Link>{" "}
+          Return to this tab to check your progress.
         </div>
       )}
       {!view ? (
@@ -495,55 +543,22 @@ export function StudySession({
                 />
               </div>
             </div>
-            <ol
-              className="lp-turns"
-              aria-label="Your saved learning conversation"
-              tabIndex={0}
-            >
-              {view.attempts.map((attempt, index) => (
-                <li key={attempt.id} className="lp-turn">
-                  <div className="lp-message-label">
-                    <span className="lp-tutor-mark">
-                      <Icon name="pulse" />
-                    </span>
-                    Learning Pulse
-                  </div>
-                  <div className="lp-question">
-                    <h2
-                      id={`question-${attempt.id}`}
-                      ref={attempt.id === lastId ? currentStep : undefined}
-                      tabIndex={-1}
-                    >
-                      {attempt.intent === "diagnostic_followup"
-                        ? "Let’s check your reasoning"
-                        : attempt.intent === "immediate_retest"
-                          ? "Try a fresh question"
-                          : attempt.intent === "neutral_clarification"
-                            ? "Tell us a little more"
-                            : `Question ${index + 1}`}
-                    </h2>
-                    <p className="whitespace-pre-wrap leading-7">
-                      {attempt.prompt_text}
-                    </p>
-                  </div>
-                  {attempt.submitted_at && (
-                    <div className="lp-student-message">
-                      <h3 className="lp-message-label">
-                        Your answer — saved <Icon name="check" />
-                      </h3>
-                      <p className="lp-answer">
-                        {attempt.response_text || "No response entered."}
-                      </p>
-                    </div>
-                  )}
-                  {view.interventions
-                    .filter(
-                      (help) =>
-                        help.related_attempt_id === attempt.id &&
-                        help.type !== "reading",
-                    )
-                    .map((help) => (
-                      <article key={help.id} className="lp-feedback">
+
+            {last && (
+              <StudyDialogue
+                key={last.id}
+                feedbackAnchorId={
+                  pendingHelp
+                    ? `feedback-${pendingHelp.split(",")[0]}`
+                    : undefined
+                }
+                lessonHistory={
+                  <ol
+                    className="lp-turns"
+                    aria-label="Your saved learning conversation"
+                  >
+                    {view.attempts.map((attempt, index) => (
+                      <li key={attempt.id} className="lp-turn">
                         <div className="lp-message-label">
                           <span className="lp-tutor-mark">
                             <Icon name="pulse" />
@@ -552,82 +567,164 @@ export function StudySession({
                         </div>
                         <div className="lp-question">
                           <h2
+                            id={`question-${attempt.id}`}
                             ref={
-                              help.id === latestFeedback
-                                ? feedbackStep
-                                : undefined
+                              attempt.id === lastId ? currentStep : undefined
                             }
                             tabIndex={-1}
                           >
-                            {help.type === "fallback"
-                              ? "Let’s return to the question"
-                              : "Feedback"}
+                            {attempt.intent === "diagnostic_followup"
+                              ? "Let’s check your reasoning"
+                              : attempt.intent === "immediate_retest"
+                                ? "Try a fresh question"
+                                : attempt.intent === "neutral_clarification"
+                                  ? "Tell us a little more"
+                                  : `Question ${index + 1}`}
                           </h2>
-                          <p
-                            id={`feedback-${help.id}`}
-                            className="mt-2 whitespace-pre-wrap leading-7"
-                          >
-                            {help.text_shown}
+                          <p className="whitespace-pre-wrap leading-7">
+                            {attempt.prompt_text}
                           </p>
-                          {help.delivery_status === "displayed" && (
-                            <FeedbackAudio
-                              key={`${help.id}:${last?.id}:${view.session.status}`}
-                              source={{
-                                session_id: view.session.id,
-                                intervention_id: help.id,
-                              }}
-                            />
-                          )}
-                          {view.citations
-                            .filter((c) => c.intervention_id === help.id)
-                            .map((citation) => (
-                              <Link
-                                key={citation.passage_id}
-                                className="lp-citation"
-                                href={`/study/reading?${new URLSearchParams({
-                                  ...(assignmentId
-                                    ? { assignment: assignmentId }
-                                    : {}),
-                                  session: view.session.id,
-                                  version: citation.content_version,
-                                  passage: citation.passage_id,
-                                  citation: citation.intervention_id,
-                                })}`}
-                                prefetch={false}
-                                aria-disabled={busy || undefined}
-                                onClick={(event) => {
-                                  if (busy) event.preventDefault();
-                                }}
-                              >
-                                <Icon name="book" /> Reading ·{" "}
-                                {citation.passage_id}
-                                <span className="lp-study-citation-version">
-                                  {citation.content_version}
-                                </span>
-                              </Link>
-                            ))}
                         </div>
-                      </article>
+                        {attempt.submitted_at && (
+                          <div className="lp-student-message">
+                            <h3 className="lp-message-label">
+                              Your answer — saved <Icon name="check" />
+                            </h3>
+                            <p className="lp-answer">
+                              {attempt.response_text || "No response entered."}
+                            </p>
+                          </div>
+                        )}
+                        {view.interventions
+                          .filter(
+                            (help) =>
+                              help.related_attempt_id === attempt.id &&
+                              help.type !== "reading",
+                          )
+                          .map((help) => (
+                            <article key={help.id} className="lp-feedback">
+                              <div className="lp-message-label">
+                                <span className="lp-tutor-mark">
+                                  <Icon name="pulse" />
+                                </span>
+                                Learning Pulse
+                              </div>
+                              <div className="lp-question">
+                                <h2
+                                  ref={
+                                    help.id === latestFeedback
+                                      ? feedbackStep
+                                      : undefined
+                                  }
+                                  tabIndex={-1}
+                                >
+                                  {help.type === "fallback"
+                                    ? "Let’s return to the question"
+                                    : "Feedback"}
+                                </h2>
+                                <p
+                                  id={`feedback-${help.id}`}
+                                  className="mt-2 whitespace-pre-wrap leading-7"
+                                >
+                                  {help.text_shown}
+                                </p>
+                                {help.delivery_status === "displayed" && (
+                                  <FeedbackAudio
+                                    key={`${help.id}:${last?.id}:${view.session.status}`}
+                                    source={{
+                                      session_id: view.session.id,
+                                      intervention_id: help.id,
+                                    }}
+                                  />
+                                )}
+                                {view.citations
+                                  .filter((c) => c.intervention_id === help.id)
+                                  .map((citation) => (
+                                    <Link
+                                      key={citation.passage_id}
+                                      className="lp-citation"
+                                      href={`/study/reading?${new URLSearchParams(
+                                        {
+                                          ...(assignmentId
+                                            ? { assignment: assignmentId }
+                                            : {}),
+                                          session: view.session.id,
+                                          version: citation.content_version,
+                                          passage: citation.passage_id,
+                                          citation: citation.intervention_id,
+                                        },
+                                      )}`}
+                                      prefetch={false}
+                                      aria-disabled={busy || undefined}
+                                      onClick={(event) => {
+                                        if (busy) event.preventDefault();
+                                      }}
+                                    >
+                                      <Icon name="book" /> Reading ·{" "}
+                                      {citation.passage_id}
+                                      <span className="lp-study-citation-version">
+                                        {citation.content_version}
+                                      </span>
+                                    </Link>
+                                  ))}
+                              </div>
+                            </article>
+                          ))}
+                      </li>
                     ))}
-                </li>
-              ))}
-            </ol>
-            {last && (
-              <StudyDialogue
-                key={last.id}
+                  </ol>
+                }
                 sessionId={view.session.id}
                 attemptId={last.id}
                 disabled={busy || Boolean(pendingReading)}
                 locked={locked}
+                answerRetryAllowed={answerRetryAllowed}
+                answerRecoveryNotice={
+                  answerRecovery ? (
+                    <div className="lp-notice mx-4 my-2" role="status">
+                      <p>{answerSaveMessage(answerRecovery)}</p>
+                      <button
+                        type="button"
+                        className="lp-text-link mr-4"
+                        disabled={busy}
+                        onClick={() => void checkAnswerSave()}
+                      >
+                        Check answer save
+                      </button>
+                      {answerRecovery.state !== "acknowledged" && (
+                        <Link
+                          href="/login"
+                          target="_blank"
+                          rel="noopener"
+                          className="lp-text-link"
+                        >
+                          Sign in in a new tab
+                        </Link>
+                      )}
+                      {answerRecovery.state !== "acknowledged" && (
+                        <p>
+                          After signing in, return to this tab and check the
+                          answer save.
+                        </p>
+                      )}
+                    </div>
+                  ) : undefined
+                }
                 readOnly={view.progress.phase !== "answer"}
                 transport={conversationTransport}
                 text={draft}
                 onTextChange={(text) => {
                   setDraft(text);
-                  if (!submission.current)
-                    saveDraft(last.id, {
-                      key: crypto.randomUUID(),
+                  if (
+                    !submission.current ||
+                    submission.current.state === "local"
+                  )
+                    rememberAnswer({
+                      session: view.session.id,
+                      attempt: last.id,
+                      key: submission.current?.key ?? crypto.randomUUID(),
                       response: text,
+                      state: "local",
                     });
                 }}
                 onSubmitAnswer={answer}
@@ -641,6 +738,8 @@ export function StudySession({
                     saveDraft(last.id, null);
                     setDraft("");
                     submission.current = null;
+                    setAnswerRecovery(null);
+                    setAnswerRetryAllowed(false);
                     setLocked(false);
                     await evaluate();
                   }
@@ -659,12 +758,16 @@ export function StudySession({
               />
             )}
           </div>
-          {((phase !== "answer" && view.session.status !== "completed") ||
-            pendingReading ||
-            (phase !== "answer" && error)) && (
+          {(phase !== "answer" || pendingReading) && (
             <div className="lp-session-actions">
-              {phase !== "answer" && view.session.status !== "completed" && (
-                <p className="lp-study-session-state">{progressMessage}</p>
+              {phase !== "answer" && (
+                <p
+                  className="lp-study-session-state"
+                  ref={phase === "completed" ? completionStep : undefined}
+                  tabIndex={phase === "completed" ? -1 : undefined}
+                >
+                  {progressMessage}
+                </p>
               )}
               {pendingReading && (
                 <p className="lp-study-session-state" role="status">
