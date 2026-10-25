@@ -1,8 +1,11 @@
 # Workbench v2.2 shared shell
 
 Coordination: [#114](https://github.com/peterbucci/ai-teaching-platform/issues/114).
-Stacked base: repaired PR #116 at `76b11ddfa0ce784f70290c0746efd94c7042f6fc`.
+Original stacked base: repaired PR #116 at `76b11ddfa0ce784f70290c0746efd94c7042f6fc`.
+The user-approved dependency merge includes PR #116's later repair
+`94e4e534ea4d68d86ea0810067497bf07258e6d2`; the original base remains an ancestor.
 This successor owns shared presentation only; PR #116 itself is unchanged.
+Incoming page-owned changes are preserved verbatim from that dependency.
 
 ## Design and authority
 
@@ -23,26 +26,29 @@ is the supported scope; larger libraries may later need a reviewed metadata
 projection to avoid repeated content review reads.
 
 Assignment URLs remain selection inputs, not authorization. Every destination
-retains its existing authenticated loader. A page's server-resolved `context`
-takes precedence over stale URL context, including saved intervention scope.
-The supplied `context` is a complete authoritative selection, not a partial
-patch: fields omitted from it stay cleared rather than falling back to URL
-student/session/attempt/evaluation/search values. Only pages that omit `context`
-use the URL selection. An explicit invalid or unknown assignment never silently
-selects the first.
+retains its existing authenticated loader. The shell reuses PR #116's
+`resolveTeacherNavigationContext`. With `contextIsAuthoritative={true}`, a
+page's authorized saved `context` replaces the complete URL scope: omitted
+student/session/attempt/evaluation/search fields stay absent. Ordinary pages
+follow URL selection updates. A just-acknowledged draft's canonical URL replaces
+the earlier preparation scope, including omissions. Destination loaders still
+authorize the draft and its identities. An explicit invalid or unknown assignment
+never silently selects the first.
 Missing context uses the same ordered default as the existing teacher loader.
 No client course store, copied lesson resolver or model call is introduced.
 
 ## Consumer contract
 
-Existing `TeacherFrame({ children, section, context? })` calls remain compatible.
-Use `context` when the server has resolved an assignment/evidence scope. The
+Existing `TeacherFrame({ children, section, context?, contextIsAuthoritative? })`
+calls remain compatible. Use `context` for resolved assignment/evidence scope;
+set `contextIsAuthoritative` only after loading an authorized saved snapshot,
+as PR #116's Interventions page does. The
 shared layout supplies display metadata automatically; pages must not create
 their own course/assignment navigation or duplicate the context band.
 
 | Navigation                  | URL / meaning                                                                                                     |
 | --------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Overview                    | `/teacher` with preserved investigation context; current content is honestly selected-assignment scope            |
+| Overview                    | `/teacher` with assignment and origin; current content is honestly selected-assignment scope                      |
 | Assignments                 | `/teacher/assignments` without `view`: course discovery                                                           |
 | Lessons                     | `/teacher/lessons`; Materials and Objectives remain reachable at their original URLs through lesson subnavigation |
 | Progress                    | `/teacher/assignments?assignment=…&view=progress`; PR #117 owns actual progress content                           |
@@ -52,11 +58,16 @@ their own course/assignment navigation or duplicate the context band.
 | Roster                      | `/teacher/students`; existing canonical session detail routes stay valid                                          |
 
 `workspaceNavigationHref` in `app/teacher/workspace-model.ts` is the shared
-adapter over the unchanged validated `teacherWorkspaceHref`. It preserves
-assignment, origin and investigation filters, removes intervention starting
-responses from generic navigation, and cannot copy draft/provider/delivery
-identities or private text. Explicit page-owned preparation links still use the
-existing seed contract. `switchedAssignmentHref` starts Progress with only the
+adapter over PR #116's `teacherNavigationHref` and the unchanged validated
+`teacherWorkspaceHref`. Course Assignments receives only assignment; Overview
+receives assignment/origin; Roster additionally receives student, never an old
+answer search. Lessons, Materials and Objectives receive no investigation
+parameters. Evidence, Insights and Interventions retain validated investigation
+scope. Explicit assignment Progress/review/preview views also retain that scope
+for #117's student/concept filters. Generic navigation removes intervention
+starting responses and cannot copy draft/provider/delivery identities or private
+text. Explicit page-owned preparation links still use the existing seed contract.
+`switchedAssignmentHref` starts Progress with only the
 new assignment and origin, clearing incompatible concepts/records/panes. It does
 not select recipients or write anything. The switcher explains this clearing.
 

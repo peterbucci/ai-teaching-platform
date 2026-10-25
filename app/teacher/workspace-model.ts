@@ -4,6 +4,10 @@ import {
   type TeacherWorkspaceContext,
   type TeacherWorkspaceParams,
 } from "../../lib/teacher/workspace-contracts.ts";
+import {
+  resolveTeacherNavigationContext,
+  teacherNavigationHref,
+} from "./navigation-context.ts";
 
 /** Display-only metadata from teacherAssignments; never grants access. */
 export type WorkspaceAssignment = {
@@ -34,11 +38,15 @@ export function resolveWorkspaceSelection(
   params: TeacherWorkspaceParams,
   context: TeacherWorkspaceContext | undefined,
   assignments: WorkspaceAssignment[],
+  contextIsAuthoritative = false,
 ) {
-  // A page's server-resolved context is the complete selection, including fields
-  // deliberately omitted from a saved snapshot. Never refill those from a stale
-  // URL. An explicit unknown assignment never becomes the first item.
-  const parsed = parseTeacherWorkspaceContext(context ?? params);
+  // Reuse the repaired foundation's snapshot/canonical-draft precedence. The
+  // display adapter additionally refuses malformed explicit URL selections,
+  // rather than turning the foundation's safe error fallback into a first item.
+  if (!contextIsAuthoritative) parseTeacherWorkspaceContext(params);
+  const parsed = parseTeacherWorkspaceContext(
+    resolveTeacherNavigationContext(context, params, contextIsAuthoritative),
+  );
   const assignment = assignments.find(
     (item) => item.id === (parsed.assignment ?? assignments[0]?.id),
   );
@@ -55,8 +63,27 @@ export function workspaceNavigationHref(
 ) {
   // Preserve investigation filters, but a shared navigation action must not
   // carry a draft, request, pane or selected intervention starting responses.
-  const href = teacherWorkspaceHref(path, context, { seedAttempt: [] });
-  return view ? `${href}&view=${view}` : href;
+  const selected = parseTeacherWorkspaceContext({
+    ...context,
+    seedAttempt: [],
+  });
+  // Explicit assignment views are investigations (including #117's student /
+  // concept progress filters), unlike course-level assignment discovery.
+  if (view && path === "/teacher/assignments")
+    return `${teacherWorkspaceHref(path, selected)}&view=${view}`;
+  switch (path) {
+    case "/teacher":
+    case "/teacher/evidence":
+    case "/teacher/interventions":
+    case "/teacher/lessons":
+    case "/teacher/assignments":
+    case "/teacher/students":
+    case "/teacher/materials":
+    case "/teacher/objectives":
+      return teacherNavigationHref(path, selected);
+    default:
+      return teacherWorkspaceHref(path, selected);
+  }
 }
 
 export function switchedAssignmentHref(

@@ -1,7 +1,8 @@
 # Workbench v2.2 shell verification
 
 Coordination: [#114](https://github.com/peterbucci/ai-teaching-platform/issues/114).
-Base: repaired PR #116, `76b11ddfa0ce784f70290c0746efd94c7042f6fc`.
+Original base: repaired PR #116, `76b11ddfa0ce784f70290c0746efd94c7042f6fc`.
+Approved dependency update: `94e4e534ea4d68d86ea0810067497bf07258e6d2`.
 Scope and consumer API: [shell contract](WORKBENCH_V22_SHELL.md).
 
 ## Inspect the actual comparison
@@ -37,7 +38,8 @@ The dev-server indicator in app captures is not product navigation.
 Coordination review then identified that a supplied server snapshot must replace
 the complete URL context, including deliberate omissions. A focused regression
 now proves that unmatched student/session/attempt/evaluation/search fields do
-not reappear in shell links. Pages without a supplied context still use URLs.
+not reappear in shell links. The later dependency integration below refines
+this behavior to PR #116's explicit authoritative-snapshot flag.
 The related modal correction dismisses the workspace switcher when a page-owned
 guard blocks a link, allowing the page's recovery feedback to receive focus.
 Neither correction changes layout or screenshot pixels. The manifest separately
@@ -51,6 +53,28 @@ authorization, uncertainty and evidence-preservation assertions are retained.
 See [PR #120's checks](https://github.com/peterbucci/ai-teaching-platform/pull/120/checks)
 for the current remote result after these corrections. This report distinguishes
 the captured browser evidence from the later focused fixes.
+
+### Approved foundation dependency integration
+
+The user approved merging PR #116's later repair `94e4e53` while retaining the
+original `76b11dd` ancestry. Page-owned Evidence and Interventions changes,
+the foundation navigation helper and its tests match that dependency verbatim.
+Only the shared navigation conflict needed resolution. The shell forwards
+`contextIsAuthoritative` and reuses the foundation's context and destination
+scope helpers; explicit Progress/review/preview still carry #117's investigation
+filters. New regressions cover canonical draft URL replacement, ordinary URL
+updates and destination-specific scope (including no answer search in Roster).
+
+After integration, **559 deterministic tests passed**, including **12 dedicated
+shell/pane tests** and the foundation's 11 navigation tests. Full ESLint and
+TypeScript (`--noEmit --incremental false`) passed. An independent source review
+found no merge blocker and confirmed unchanged page ownership. Final source
+hashes are recorded separately in `dependency-verification.json`; the earlier
+capture and correction records remain intact. Application/database browser
+journeys have not been repeated after this merge during the local acceptance
+hold. The existing screenshots prove the captured geometry, not final combined
+page behavior. Current remote production and integration results are on
+[PR #120's checks](https://github.com/peterbucci/ai-teaching-platform/pull/120/checks).
 
 ## Geometry and visual findings
 
@@ -78,7 +102,7 @@ explicit integration gap.
 
 ## Executed checks
 
-- Full deterministic suite after the context correction: **523 passed**. The 10 dedicated shell/pane tests
+- Full deterministic suite before the dependency merge: **523 passed**. The 10 dedicated shell/pane tests
   cover invalid or duplicate assignment context, complete server-resolved scope,
   cross-assignment clearing, safe links, destination mapping and pane URLs.
 - Full ESLint, formatting and TypeScript checks passed during implementation.
@@ -133,6 +157,18 @@ Eight screenshots cover wide three/two panes, the tablet drawer, and phone main
 and context panes. Keyboard arrows/Home/End plus Enter/Space, Escape, browser
 history, saved focus/scroll, refresh selection, responsive modal-to-phone
 transition and preservation of unsent input were exercised.
+
+### Workspace switcher and page guards
+
+Before the dependency merge, **20 component browser cases passed** using the
+actual shell/CSS and React 19.3 in production and development StrictMode, at
+1440px and 390px. Tests cover initial/remounted guards, listener re-registration,
+mouse and Enter navigation, preserved dirty/pending state, focused recovery
+feedback, Escape and ordinary navigation exactly once. Next routing and
+assignment metadata are mocked; these are not database acceptance checks.
+The fixture documents the supported passive-effect guard order and preserves
+the failed diagnostic for an arbitrary earlier external guard. The newer
+foundation guard also closes its containing dialog before focusing feedback.
 
 ## Remaining deviations and acceptance boundaries
 

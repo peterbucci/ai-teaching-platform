@@ -5,8 +5,13 @@ import { loadApprovedContent } from "../lib/evidence/content.ts";
 import { DEMO_IDS } from "../lib/evidence/demo.ts";
 import { buildInterventionEvidence } from "../lib/interventions/evidence.ts";
 import { calculateClassMetrics } from "../lib/teacher/metrics.ts";
-import { parseTeacherWorkspaceContext } from "../lib/teacher/workspace-contracts.ts";
 import {
+  parseTeacherWorkspaceContext,
+  teacherWorkspaceHref,
+} from "../lib/teacher/workspace-contracts.ts";
+import { resolveTeacherNavigationContext } from "../app/teacher/navigation-context.ts";
+import {
+  acknowledgedInterventionContext,
   interventionObservationHref,
   snapshotInterventionContext,
 } from "../app/teacher/interventions/snapshot-context.ts";
@@ -45,6 +50,7 @@ const evidence = buildInterventionEvidence(
 );
 const draft = { assignment_id: DEMO_IDS.assignmentId, evidence };
 const first = evidence.observations[0];
+const draftId = "70000000-0000-4000-8000-000000000001";
 
 test("saved snapshot replaces conflicting filters and seeds without rewriting the snapshot", () => {
   for (const origin of ["synthetic_fixture", "live_demo"] as const) {
@@ -156,5 +162,81 @@ test("full-session inspection links use saved evidence rather than conflicting U
         DEMO_IDS.classId,
       ),
     /saved evidence/,
+  );
+});
+
+test("acknowledged request A replaces stale recovery scope B before shared navigation", () => {
+  const initialContext = parseTeacherWorkspaceContext({
+    assignment: DEMO_IDS.assignmentId,
+    origin: "live_demo",
+    concept: "bandwidth_throughput",
+    misconception: "unrelated-insight",
+    student: "unrelated-student",
+    session: DEMO_IDS.classId,
+    attempt: DEMO_IDS.classId,
+    evaluation: DEMO_IDS.classId,
+    seedAttempt: [DEMO_IDS.classId],
+    q: "unrelated search",
+    returnTo: "patterns",
+  });
+  const saved = structuredClone({ ...draft, id: draftId });
+  saved.evidence.selection.attempt_ids = [first.attempt.id];
+  const canonical = acknowledgedInterventionContext(
+    { ...initialContext, request: DEMO_IDS.classId },
+    saved,
+    draftId,
+  );
+  assert.equal(canonical.origin, saved.evidence.selection.origin);
+  assert.equal(canonical.concept, saved.evidence.selection.concept_id);
+  assert.deepEqual(canonical.seedAttempt, [first.attempt.id]);
+  for (const field of [
+    "student",
+    "session",
+    "attempt",
+    "evaluation",
+    "misconception",
+    "q",
+  ] as const)
+    assert.equal(canonical[field], undefined);
+
+  const params = new URL(
+    teacherWorkspaceHref("/teacher/interventions", canonical),
+    "https://example.test",
+  ).searchParams;
+  params.set("draft", draftId);
+  const navigated = resolveTeacherNavigationContext(initialContext, {
+    ...Object.fromEntries(params),
+    seedAttempt: params.getAll("seedAttempt"),
+  });
+  assert.deepEqual(navigated, parseTeacherWorkspaceContext(canonical));
+});
+
+test("acknowledged request cannot replace a different draft or assignment", () => {
+  const saved = { ...draft, id: draftId };
+  assert.throws(
+    () => acknowledgedInterventionContext({}, saved, DEMO_IDS.classId),
+    /another draft/,
+  );
+  assert.throws(
+    () =>
+      acknowledgedInterventionContext(
+        { assignment: DEMO_IDS.classId },
+        saved,
+        draftId,
+      ),
+    /does not match this assignment/,
+  );
+  assert.throws(
+    () =>
+      acknowledgedInterventionContext(
+        {},
+        { ...saved, assignment_id: DEMO_IDS.classId },
+        draftId,
+      ),
+    /does not match this assignment/,
+  );
+  assert.equal(
+    acknowledgedInterventionContext({}, saved, draftId).assignment,
+    saved.assignment_id,
   );
 });

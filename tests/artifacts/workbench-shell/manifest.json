@@ -384,6 +384,10 @@
     {
       "file": "post-capture-verification.json",
       "sha256": "08861a1acbcd43c96ebc7bcb510ed077c79847d9c9611ef17365f440909e2fb3"
+    },
+    {
+      "file": "dependency-verification.json",
+      "sha256": "b55512d1cf9a89181dfba4c0226f6b56f968bdeb0081110c822ce6ef9826ee96"
     }
   ],
   "limits": [
@@ -393,5 +397,6 @@
     "Local final production rebuild deferred for serialized acceptance; captured commit built successfully remotely. See post-capture verification and current PR checks for later corrections."
   ],
   "captureSourceCommit": "dd97767cda2e445bb1cf669b94363d1d9e9500b4",
-  "postCaptureVerification": "post-capture-verification.json"
+  "postCaptureVerification": "post-capture-verification.json",
+  "dependencyVerification": "dependency-verification.json"
 }

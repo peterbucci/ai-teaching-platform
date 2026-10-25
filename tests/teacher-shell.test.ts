@@ -54,6 +54,7 @@ test("the page's server-resolved assignment wins over a stale URL without invent
     { assignment: firstId, origin: "synthetic_fixture" },
     resolved,
     assignments,
+    true,
   );
   assert.equal(selected.assignment?.id, secondId);
   assert.equal(selected.assignment?.class_name, "Networks B");
@@ -63,6 +64,7 @@ test("the page's server-resolved assignment wins over a stale URL without invent
     {},
     parseTeacherWorkspaceContext({ assignment: unknownId }),
     assignments,
+    true,
   );
   assert.equal(absent.assignment, undefined);
   assert.equal(absent.context.assignment, unknownId);
@@ -123,6 +125,7 @@ test("authoritative snapshot omissions clear stale URL response identities and s
     },
     saved,
     assignments,
+    true,
   );
   assert.equal(selected.assignment?.id, secondId);
   assert.equal(selected.context.concept, "latency");
@@ -178,6 +181,83 @@ test("shared navigation preserves investigation scope while removing mutation an
     [attemptId],
     "navigation cannot modify page-owned selections",
   );
+});
+
+test("ordinary selection follows URL updates but acknowledged drafts clear omitted preparation identities", () => {
+  const preparation = parseTeacherWorkspaceContext({
+    assignment: firstId,
+    origin: "synthetic_fixture",
+    student: "fictional-student",
+    attempt: attemptId,
+    seedAttempt: [attemptId],
+  });
+  const changed = resolveWorkspaceSelection(
+    { assignment: secondId, origin: "live_demo" },
+    preparation,
+    assignments,
+  );
+  assert.equal(changed.assignment?.id, secondId);
+  assert.equal(changed.context.origin, "live_demo");
+  assert.deepEqual(changed.context.seedAttempt, []);
+  const acknowledged = resolveWorkspaceSelection(
+    { assignment: secondId, origin: "live_demo", draft: unknownId },
+    preparation,
+    assignments,
+  );
+  assert.equal(acknowledged.assignment?.id, secondId);
+  assert.equal(acknowledged.context.student, undefined);
+  assert.equal(acknowledged.context.attempt, undefined);
+  assert.deepEqual(acknowledged.context.seedAttempt, []);
+  assert.equal(
+    query(
+      workspaceNavigationHref("/teacher/evidence", acknowledged.context),
+    ).has("draft"),
+    false,
+  );
+});
+
+test("course destinations accept only their supported scope while explicit Progress retains investigation filters", () => {
+  const context = parseTeacherWorkspaceContext({
+    assignment: firstId,
+    origin: "synthetic_fixture",
+    student: "fictional-student",
+    concept: "latency",
+    q: "answer text must not become a roster name search",
+    attempt: attemptId,
+  });
+  for (const path of [
+    "/teacher/lessons",
+    "/teacher/materials",
+    "/teacher/objectives",
+  ])
+    assert.equal(workspaceNavigationHref(path, context), path);
+  assert.deepEqual(
+    [...query(workspaceNavigationHref("/teacher/assignments", context))],
+    [["assignment", firstId]],
+  );
+  assert.deepEqual(
+    [...query(workspaceNavigationHref("/teacher", context))],
+    [
+      ["assignment", firstId],
+      ["origin", "synthetic_fixture"],
+    ],
+  );
+  assert.deepEqual(
+    [...query(workspaceNavigationHref("/teacher/students", context))],
+    [
+      ["assignment", firstId],
+      ["origin", "synthetic_fixture"],
+      ["student", "fictional-student"],
+    ],
+  );
+  const progress = query(
+    workspaceNavigationHref("/teacher/assignments", context, "progress"),
+  );
+  assert.equal(progress.get("view"), "progress");
+  assert.equal(progress.get("assignment"), firstId);
+  assert.equal(progress.get("origin"), "synthetic_fixture");
+  assert.equal(progress.get("student"), "fictional-student");
+  assert.equal(progress.get("concept"), "latency");
 });
 
 test("approved course and assignment hierarchy retains all existing teacher destinations", () => {

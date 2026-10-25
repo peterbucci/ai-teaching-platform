@@ -58,10 +58,12 @@ export function TeacherWorkspace({
   children,
   section,
   context,
+  contextIsAuthoritative = false,
 }: {
   children: ReactNode;
   section: string;
   context?: TeacherWorkspaceContext;
+  contextIsAuthoritative?: boolean;
 }) {
   const search = useSearchParams();
   const pathname = usePathname();
@@ -114,7 +116,12 @@ export function TeacherWorkspace({
   }
   let selection: ReturnType<typeof resolveWorkspaceSelection> | undefined;
   try {
-    selection = resolveWorkspaceSelection(params, context, assignments);
+    selection = resolveWorkspaceSelection(
+      params,
+      context,
+      assignments,
+      contextIsAuthoritative,
+    );
   } catch {
     // Destination loaders reject invalid input; do not choose another class.
   }

@@ -37,6 +37,8 @@ import {
   focusInterventionAnchor,
   interventionAnchorTarget,
 } from "./evidence-navigation.ts";
+import { blockInterventionNavigation } from "./navigation-block.ts";
+import { acknowledgedInterventionContext } from "./snapshot-context.ts";
 
 function subscribeToDirection(listener: () => void) {
   window.addEventListener("storage", listener);
@@ -45,24 +47,22 @@ function subscribeToDirection(listener: () => void) {
 
 function requestUrl(
   requestId: string | null,
-  draft?: InterventionDraft,
+  saved?: { draft: InterventionDraft; context: TeacherWorkspaceContext },
   pendingDraftId?: string,
 ) {
   const url = new URL(window.location.href);
   if (pendingDraftId) url.searchParams.set("generation_draft", pendingDraftId);
   if (requestId) url.searchParams.set("request", requestId);
   else url.searchParams.delete("request");
-  if (draft) {
-    url.searchParams.delete("generation_draft");
-    url.searchParams.set("draft", draft.id);
-    url.searchParams.set("concept", draft.evidence.selection.concept_id);
-    if (draft.evidence.selection.misconception_id)
-      url.searchParams.set(
-        "misconception",
-        draft.evidence.selection.misconception_id,
-      );
-    else url.searchParams.delete("misconception");
-    url.searchParams.set("origin", draft.evidence.selection.origin);
+  if (saved) {
+    // A recovered request may have started with stale investigation filters.
+    // Replace the whole scope; absent snapshot identities must remain absent.
+    url.search =
+      teacherWorkspaceHref("/teacher/interventions", saved.context).split(
+        "?",
+      )[1] ?? "";
+    url.searchParams.set("draft", saved.draft.id);
+    url.hash = "";
   }
   window.history.replaceState(null, "", url);
 }
@@ -92,9 +92,9 @@ export function InterventionWorkspace({
   );
   const layout = useRef<HTMLDivElement>(null);
   const [focusRequest, setFocusRequest] = useState<{ id: string } | null>(null);
-  const revealActivity = useCallback(() => {
+  const revealActivity = useCallback((id = "intervention-draft-title") => {
     setMobilePane("activity");
-    setFocusRequest({ id: "intervention-draft-title" });
+    setFocusRequest({ id });
   }, []);
   const [review, setReview] = useState(initialReview);
   const [editorState, setEditorState] = useState({
@@ -182,11 +182,10 @@ export function InterventionWorkspace({
 
   useEffect(() => {
     if (!focusRequest) return;
-    if (
-      (focusRequest.id === "intervention-draft-title") !==
-      (mobilePane === "activity")
-    )
-      return;
+    const evidenceTarget =
+      focusRequest.id === "intervention-evidence-title" ||
+      focusRequest.id.startsWith("evidence-");
+    if (evidenceTarget !== (mobilePane === "evidence")) return;
     const target = document.getElementById(focusRequest.id);
     if (!target || !layout.current?.contains(target)) return;
     focusInterventionAnchor(
@@ -247,6 +246,7 @@ export function InterventionWorkspace({
     const preventLoss = (event: BeforeUnloadEvent) => event.preventDefault();
     const guardLink = (event: MouseEvent) => {
       if (
+        event.defaultPrevented ||
         event.button !== 0 ||
         event.metaKey ||
         event.ctrlKey ||
@@ -266,9 +266,11 @@ export function InterventionWorkspace({
         next.search === window.location.search
       )
         return;
-      event.preventDefault();
-      event.stopPropagation();
-      revealActivity();
+      blockInterventionNavigation(
+        event,
+        link.closest<HTMLDialogElement>("dialog[open]"),
+        () => revealActivity("intervention-generation-status"),
+      );
       setNotice(
         "Check this generation request before leaving. Its outcome is still unconfirmed; opening another page must not start it again.",
       );
@@ -288,6 +290,20 @@ export function InterventionWorkspace({
 
   const acceptResult = useCallback(
     (result: InterventionGenerationResponse) => {
+      const params = new URLSearchParams(window.location.search);
+      const saved = result.draft
+        ? {
+            draft: result.draft,
+            context: acknowledgedInterventionContext(
+              {
+                ...Object.fromEntries(params),
+                seedAttempt: params.getAll("seedAttempt"),
+              },
+              result.draft,
+              draftId.current,
+            ),
+          }
+        : undefined;
       if (result.draft) {
         const next = result.draft;
         setReview(null);
@@ -304,7 +320,7 @@ export function InterventionWorkspace({
         return;
       }
       setPendingId(null);
-      requestUrl(null, result.draft ?? undefined);
+      requestUrl(null, saved);
       if (result.status === "completed" && result.draft) {
         clearAcknowledgedDirection(
           browserDirectionStorage(),
@@ -668,16 +684,6 @@ export function InterventionWorkspace({
                     ? "Generate revised draft"
                     : "Generate private draft"}
               </button>
-              {pendingId && (
-                <button
-                  type="button"
-                  className="lp-button"
-                  disabled={busy}
-                  onClick={() => void checkRequest(pendingId)}
-                >
-                  Check generation status
-                </button>
-              )}
               {draft && !locked && (
                 <a
                   className="lp-text-link"
@@ -695,10 +701,24 @@ export function InterventionWorkspace({
                 </a>
               )}
             </div>
-            {notice && (
-              <p role="status" className="lp-intervention-note mt-4">
-                {notice}
-              </p>
+            {(notice || pendingId) && (
+              <div
+                id="intervention-generation-status"
+                tabIndex={-1}
+                className="lp-intervention-note mt-4"
+              >
+                {notice && <p role="status">{notice}</p>}
+                {pendingId && (
+                  <button
+                    type="button"
+                    className="lp-button"
+                    disabled={busy}
+                    onClick={() => void checkRequest(pendingId)}
+                  >
+                    Check generation status
+                  </button>
+                )}
+              </div>
             )}
             {error && (
               <p role="alert" className="mt-4">
@@ -708,7 +728,11 @@ export function InterventionWorkspace({
           </form>
         )}
         {draft && draft.status !== "private_draft" && pendingId && (
-          <div className="lp-intervention-section">
+          <div
+            className="lp-intervention-section"
+            id="intervention-generation-status"
+            tabIndex={-1}
+          >
             <p className="lp-intervention-meta">
               An earlier generation request still needs reconciliation. It
               cannot overwrite this finalized activity.

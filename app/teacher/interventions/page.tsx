@@ -75,7 +75,11 @@ export default async function TeacherInterventionsPage({
   const { assignments, origin, data } = await loadTeacherView(context);
   if (!data)
     return (
-      <TeacherFrame section="Interventions" context={context}>
+      <TeacherFrame
+        section="Interventions"
+        context={context}
+        contextIsAuthoritative={draft !== null}
+      >
         <h1 className="lp-title">No teaching assignments yet</h1>
         <p className="lp-intro">
           Intervention drafts use accepted responses from your own class
@@ -160,7 +164,11 @@ export default async function TeacherInterventionsPage({
         )
       : [];
   return (
-    <TeacherFrame section="Interventions" context={context}>
+    <TeacherFrame
+      section="Interventions"
+      context={context}
+      contextIsAuthoritative={draft !== null}
+    >
       <header className="lp-page-heading">
         <Link className="lp-text-link" href={teacherReturnHref(context)}>
           Back to your investigation

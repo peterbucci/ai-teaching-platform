@@ -1,8 +1,10 @@
 import type { InterventionEvidence } from "../../../lib/interventions/contracts.ts";
 import type { InterventionDraft } from "../../../lib/interventions/drafts.ts";
 import {
+  parseTeacherWorkspaceContext,
   teacherWorkspaceHref,
   type TeacherWorkspaceContext,
+  type TeacherWorkspaceParams,
 } from "../../../lib/teacher/workspace-contracts.ts";
 
 function evidenceContext(
@@ -53,6 +55,29 @@ export function snapshotInterventionContext(
         }
       : {}),
   };
+}
+
+/** Validate an acknowledged request before changing the displayed draft or URL.
+ * The API response is authorized separately; this prevents one editor from
+ * adopting another request's draft or retaining an unrelated recovery scope. */
+export function acknowledgedInterventionContext(
+  params: TeacherWorkspaceParams,
+  draft: Pick<InterventionDraft, "id" | "assignment_id" | "evidence">,
+  expectedDraftId?: string | null,
+): TeacherWorkspaceContext {
+  if (expectedDraftId && draft.id !== expectedDraftId)
+    throw new Error(
+      "The generation result belongs to another draft. The current activity is unchanged.",
+    );
+  const context = snapshotInterventionContext(
+    parseTeacherWorkspaceContext(params),
+    draft,
+  );
+  if (!context)
+    throw new Error(
+      "The generation result does not match this assignment. The current activity is unchanged.",
+    );
+  return context;
 }
 
 export function interventionObservationHref(
