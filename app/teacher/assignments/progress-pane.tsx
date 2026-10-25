@@ -49,7 +49,10 @@ export function ProgressPanes({
       if (targetId) {
         const target = document.getElementById(targetId) ?? mainRef.current;
         target?.focus({ preventScroll: true });
-        target?.scrollIntoView({ block: "nearest", inline: "nearest" });
+        const hashless =
+          window.location.hash === "" || window.location.hash === "#";
+        if (targetId !== "progress-main" || !hashless)
+          target?.scrollIntoView({ block: "nearest", inline: "nearest" });
       } else if (
         pane === "details" &&
         window.matchMedia("(max-width: 1240px)").matches
