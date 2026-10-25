@@ -443,6 +443,83 @@ must not be used to describe today's current-data mode.
   visits and restart-of links between ordinary sessions remain unsupported.
   The new projection cannot promise to reconstruct events never recorded.
 
+### S2 contract decision — additive adapter, runtime still gated
+
+**GO to implement/review an opt-in `recorded-history-adapter-v1` extension.**
+This is an adapter contract decision, not permission to enable runtime chronology.
+Pinned inputs are N7 #133 `d486fc029941567f81257d7b8717b1cb3dab09d4` and D1 #131
+`884dfb08de31c457a3eb618ad063fcbf701ac5f3`; both heads were verified as draft,
+unmerged. N7 still reports full Notebook acceptance as NOT_ACCEPTED and excludes
+#131. No N7 or S2 files are edited by N0 for this decision.
+
+- Keep `NOTEBOOK_PRESENTATION_CONTRACT.version === 1`, its design hash, frozen
+  props, `NotebookSavedWork`, current-data adapters and N0 barrel unchanged.
+  `recorded-history-adapter-v1` identifies the separate extension; D1's DTO
+  version remains `student-notebook-v1`. Do not silently broaden the existing
+  current-data mode or label backend version as presentation version 2.
+- **Additive route design approved for implementation/review:**
+  `/study/history/[sessionId]?attempt={attemptId}` is a read-only saved-history
+  destination owned by S2. Omitting `attempt` selects the session's recorded
+  pages; supplying it must select that exact authorized attempt, never latest.
+  This is an extension-only route, not a change to frozen `NotebookRouteState`.
+  The shell may use its existing history section/`{ kind: "history" }` parent
+  navigation; the loader separately owns the exact session/attempt selection.
+  Do not pass this new URL through the frozen parser and silently fall back to
+  the index when it returns null. Existing current-data/Study links remain;
+  explicit additional **Recorded history** links use the new pure href helper.
+  No existing assignment page or S1 file ownership is transferred by this decision.
+- S2 may author a new isolated adapter module in its integration branch, with
+  its exact new-file path recorded in its ownership manifest. This does not
+  delegate existing N0-owned files. Import `StudentNotebookSchema` at runtime and
+  `StudentNotebook` / `NotebookPage` / `NotebookEvent` as types from D1's public
+  contracts module only; never import projection/services into the browser.
+- Preserve the exact validated DTO and page/event order, precision-bearing
+  timestamp strings, accepted pointer, saved assistance, current statuses/gaps
+  and body-free pending deliveries. Add only presentation identity/navigation;
+  no copied evidence schema, second result engine, extra help lookup or inferred
+  chronology. Date formatting must not replace the stored strings or order.
+- **Identity constraint:** the proposed `NotebookQuestionIdentity` wrapper is
+  approved only for `session.kind === "tutoring"`. Its `kind: "study"` and
+  `notebookQuestionHref` must never wrap `teacher_intervention_followup`. Keep
+  teacher-review metadata links authoritative. Until a separate discriminated
+  review wrapper is reviewed, do not render such a session as an ordinary study
+  record; hand off through its validated dedicated approval route without
+  starting/resuming ordinary tutoring. Keep actual attempt identity in the DTO.
+- For ordinary saved pages, the wrapper's new href uses the approved read-only
+  history route, not `notebookQuestionHref` (which intentionally resumes the
+  existing study route). The helper validates UUID identities using existing
+  public schema fields, emits canonical app-relative paths and a single encoded
+  `attempt` query. Its loader rejects malformed/duplicate/unsupported query
+  selectors, foreign attempts and mismatched returned selection. A new-session
+  request invalidates old pages before any new data is rendered. Ordinary related
+  attempts may use this helper only from explicit authorized relationship IDs;
+  teacher follow-up links continue to their approval owner.
+- A GET-only loader validates strict DTO version/mode and requested assignment,
+  session and optional exact attempt against returned IDs/selection. Schema
+  parsing alone does not prove those relationships. Validate existing surfaced
+  hrefs with N0 route parsing plus expected identity/kind; validate the new
+  history destination only through the exact extension helper/route rules above.
+  D1's `/study/` string prefix alone is not a navigation allowlist. Never silently
+  retarget a mismatched link to another/default record. Keep reader routes and
+  display ownership unchanged.
+- Only `409 SNAPSHOT_CHANGED` triggers snapshot replacement: invalidate all
+  accumulated pages/cursors, keep at most a clearly stale prior rendering for
+  the same still-authorized scope, then atomically replace after a validated
+  fresh read. Other 409 codes mean unavailable/limited evidence, not a refresh
+  loop. Append only matching snapshots/scopes with validated page identities;
+  reject late responses after selection/auth changes. On 401/403/404 or scope
+  mismatch, clear stale protected content. Fallback must use independently
+  authorized current-data reads, never reuse data after access loss.
+
+**NO-GO to enable runtime on this contract decision alone.** S2 must complete its
+independent backend review, submit the actual adapter/loader diff and focused
+identity/privacy/order/snapshot/fallback tests for N0 review, then satisfy combined
+D1-19/20 acceptance at a pinned head. Include teacher-session rejection/approval
+handoff, duplicate/equal-text attempts, microsecond preservation, accepted result
+after later failure, body-free undisplayed help, stale responses and no writes.
+No model calls or merge approval is included. N4 facing-pane activation is a
+separate owner gate and is not opened by a GET-only records adapter.
+
 ## Explicit PR #113 handoff
 
 Verified open draft head: `71898a8a72908577065bcc7c7fb9035d6cc29ebf`.
