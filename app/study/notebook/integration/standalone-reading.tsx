@@ -23,6 +23,7 @@ export function StandaloneNotebookReading({
   const surface = useRef<HTMLDivElement>(null);
   const refresh = useRef<() => void>(() => {});
   const resumeFrame = useRef<number | null>(null);
+  const overlayTransition = useRef(false);
   const [active, setActive] = useState(false);
   const [visibleHeight, setVisibleHeight] = useState<number | undefined>();
 
@@ -42,7 +43,8 @@ export function StandaloneNotebookReading({
         "dialog[open], details.lp-account-menu[open]",
       );
       setActive(
-        !covered &&
+        !overlayTransition.current &&
+          !covered &&
           reader.isConnected &&
           reader.checkVisibility({
             checkOpacity: true,
@@ -102,6 +104,10 @@ export function StandaloneNotebookReading({
     // Commit active=false before N1 hides the page or the account details open.
     // Mouse and keyboard activation use this same seam; N1 retains the reader.
     const height = surface.current?.getBoundingClientRect().height;
+    // Hiding the reader can synchronously trigger its visibility observers
+    // before the browser opens <details>. Keep those callbacks from undoing
+    // deactivation during the same input event.
+    overlayTransition.current = true;
     flushSync(() => {
       if (height && height > 0) setVisibleHeight(height);
       setActive(false);
@@ -109,6 +115,7 @@ export function StandaloneNotebookReading({
     if (resumeFrame.current !== null) cancelAnimationFrame(resumeFrame.current);
     resumeFrame.current = requestAnimationFrame(() => {
       resumeFrame.current = null;
+      overlayTransition.current = false;
       refresh.current();
     });
   }
