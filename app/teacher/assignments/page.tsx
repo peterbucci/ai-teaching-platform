@@ -1,271 +1,352 @@
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
-import { z } from "zod";
-import { AuthError, requireActor } from "../../../lib/auth.ts";
-import { EvidenceError, evidenceAccess } from "../../../lib/evidence/store.ts";
-import { readAssignmentContent } from "../../../lib/lessons/store.ts";
-import { teacherAssignments } from "../../../lib/teacher/store.ts";
-import { assignmentReview } from "../../../lib/assignments/store.ts";
-import { assignedReading } from "../../../lib/assignments/reading.ts";
-import { Reading } from "../../components/reading.tsx";
-import { Icon } from "../../components/icons.tsx";
 import { TeacherFrame, date } from "../presentation.tsx";
 import { ApproveAssignment } from "./approve.tsx";
+import { loadAssignments } from "./load.ts";
+import { assignmentHref } from "./workspace-model.ts";
+import {
+  AssignmentLessonReview,
+  StudentLearningPreview,
+} from "./lesson-review.tsx";
+import { AssignmentProgress } from "./progress.tsx";
+import "./assignments.css";
 
 export const dynamic = "force-dynamic";
-async function load(id?: string) {
-  try {
-    const access = evidenceAccess(await requireActor());
-    const assignments = await teacherAssignments(access);
-    const selected = id ?? assignments[0]?.id;
-    return {
-      assignments,
-      selected: selected ? await assignmentReview(access, selected) : null,
-      content: selected
-        ? await readAssignmentContent(access, selected, "teacher")
-        : null,
-    };
-  } catch (error) {
-    if (error instanceof AuthError && error.status === 401) redirect("/login");
-    if (
-      error instanceof z.ZodError ||
-      (error instanceof EvidenceError && [403, 404].includes(error.status))
-    )
-      notFound();
-    throw error;
-  }
-}
+
 export default async function AssignmentsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ assignment?: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const { assignments, selected, content } = await load(
-    (await searchParams).assignment,
-  );
-  const questions = content
-    ? [...content.questions.values()].filter(
-        (question) =>
-          !question.sequence_id ||
-          question.question_id === content.sequence.initial_question_id,
-      )
-    : [];
+  const {
+    context,
+    classes,
+    assignments,
+    visible,
+    selected,
+    content,
+    progress,
+    followups,
+  } = await loadAssignments(await searchParams);
+  const selection = { ...context, assignment: selected?.id };
+  const review = selected?.review;
   return (
     <TeacherFrame section="Assignments">
-      <header className="lp-page-heading">
-        <p className="lp-eyebrow">Prepare learning</p>
-        <h1 className="lp-title">Assignments</h1>
-        <p className="lp-intro">
-          Review the source, learning goals, and practice before making them
-          available to your class.
-        </p>
-        <Link href="/teacher/lessons" className="lp-button">
-          Review and publish lessons
-        </Link>
-      </header>
-      {assignments.length > 1 && (
-        <form action="/teacher/assignments" className="lp-filter-bar">
-          <label className="lp-field">
-            Assignment and class
-            <select
-              className="lp-input"
-              name="assignment"
-              defaultValue={selected?.id}
-            >
-              {assignments.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.title} — {item.class_name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <button className="lp-button">Open assignment</button>
-        </form>
-      )}
-      {selected && content ? (
-        <>
-          <section className="lp-assignment-summary">
-            <p className="lp-eyebrow">{selected.class_name}</p>
-            <h2>{selected.title}</h2>
-            <p>
-              Approved lesson version {selected.content_ref.content_version}
+      <div className="awa-workspace">
+        <header className="awa-heading">
+          <div>
+            <p className="lp-eyebrow">Teaching workbench</p>
+            <h1 className="lp-title">Assignments & class progress</h1>
+            <p className="lp-intro">
+              Give a published lesson to a class, then follow the learning it
+              produces.
             </p>
-            <p>
-              A versioned reading and grounded practice sequence. Students’
-              original answers, feedback, and source references stay linked to
-              this assignment.
-            </p>
-            <div className="lp-assignment-facts">
-              <span className="lp-badge">
-                {selected.teacher_approved_at
-                  ? "Active for students"
-                  : "Awaiting teacher approval"}
-              </span>
-              <span className="lp-badge lp-badge-neutral">
-                {selected.approved_concept_ids.length} learning goals
-              </span>
-              <span className="lp-badge lp-badge-neutral">
-                {selected.approved_passage_ids.length} reading passages
-              </span>
-              <span className="lp-badge lp-badge-neutral">
-                {questions.length} prepared questions
-              </span>
-            </div>
-          </section>
-          <div className="lp-assignment-layout">
-            <div className="lp-assignment-main">
-              <section id="assignment-instructions" className="lp-panel">
-                <h2>Instructions for students</h2>
-                <p className="whitespace-pre-wrap">
-                  {selected.instructions ||
-                    "No additional instructions were provided."}
-                </p>
-              </section>
-              <section id="learning-goals" className="lp-panel">
-                <p className="lp-eyebrow">01 · Learning goals</p>
-                <h2>What students will explore</h2>
-                <p className="lp-panel-description mb-4">
-                  The approved concepts for this assignment. Expand a goal to
-                  review its objectives.
-                </p>
-                {[...content.concepts.values()]
-                  .filter((concept) =>
-                    selected.approved_concept_ids.includes(concept.id),
-                  )
-                  .map((concept) => (
-                    <details key={concept.id} className="lp-evidence-details">
-                      <summary>{concept.title}</summary>
-                      <ul className="list-disc pl-5 my-3 space-y-2">
-                        {concept.objectives.map((objective) => (
-                          <li key={objective}>{objective}</li>
-                        ))}
-                      </ul>
-                    </details>
-                  ))}
-              </section>
-              <section id="prepared-practice" className="lp-panel">
-                <p className="lp-eyebrow">02 · Guided practice</p>
-                <h2>Prepared practice</h2>
-                <p className="lp-panel-description mb-4">
-                  {questions.length} prepared questions and an approved guided
-                  sequence for this lesson.
-                </p>
-                <details className="lp-evidence-details">
-                  <summary>Questions and answer guidance</summary>
-                  {questions.map((question) => (
-                    <details
-                      className="lp-evidence-details"
-                      key={question.question_id}
-                    >
-                      <summary>{question.prompt_text}</summary>
-                      <p className="my-3">{question.rubric.answer_guidance}</p>
-                      <ul className="list-disc pl-5">
-                        {question.rubric.criteria.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    </details>
-                  ))}
-                </details>
-                <details className="lp-evidence-details">
-                  <summary>Guided practice sequence</summary>
-                  <p className="my-3">
-                    Initial question → clarification or diagnostic follow-up →
-                    grounded feedback → fresh retests. Only the permitted steps
-                    are used.
-                  </p>
-                  {content.sequence.nodes
-                    .filter((node) => node.prompt || node.feedback)
-                    .map((node) => (
-                      <div key={node.node_id} className="my-4">
-                        <h3 className="font-semibold">
-                          {node.node_id} · {node.kind.replaceAll("_", " ")}
-                        </h3>
-                        <p className="my-2">{node.prompt ?? node.feedback}</p>
-                      </div>
-                    ))}
-                </details>
-              </section>
-              <section id="assigned-reading" className="lp-panel">
-                <p className="lp-eyebrow">03 · Approved source</p>
-                <h2>Assigned reading</h2>
-                <Reading
-                  reading={assignedReading(selected.content_ref, content)}
-                />
-              </section>
-            </div>
-            <aside
-              className="lp-panel lp-assignment-sidebar"
-              aria-label="Assignment review and activation"
-            >
-              <span
-                className={`lp-badge${selected.teacher_approved_at ? "" : " lp-badge-neutral"}`}
-              >
-                {selected.teacher_approved_at
-                  ? "Active assignment"
-                  : "Review required"}
-              </span>
-              <h2>
-                {selected.teacher_approved_at
-                  ? "Ready for your class"
-                  : "Your review matters"}
-              </h2>
-              {selected.teacher_approved_at ? (
-                <>
-                  <p role="status">
-                    Approved by your teacher account on{" "}
-                    {date(selected.teacher_approved_at)}.
-                  </p>
-                  <Link
-                    href={`/teacher/insights?assignment=${selected.id}`}
-                    className="lp-button"
-                  >
-                    View learning evidence <Icon name="arrow" />
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <p>
-                    This lesson version is approved. Activating it records your
-                    separate classroom review.
-                  </p>
-                  <ApproveAssignment
-                    id={selected.id}
-                    token={selected.review_token}
-                  />
-                </>
-              )}
-              <nav
-                className="lp-assignment-review-list"
-                aria-label="Review assignment sections"
-              >
-                <a href="#assignment-instructions">
-                  <Icon name="check" /> Student instructions
-                </a>
-                <a href="#learning-goals">
-                  <Icon name="check" /> Learning goals
-                </a>
-                <a href="#prepared-practice">
-                  <Icon name="chat" /> Prepared practice
-                </a>
-                <a href="#assigned-reading">
-                  <Icon name="book" /> Assigned reading
-                </a>
-              </nav>
-              <p className="mt-4">
-                Changes to an activated reading or its learning goals need a new
-                assignment and review. Saved student work keeps its original
-                version.
-              </p>
-            </aside>
           </div>
-        </>
-      ) : (
-        <section className="lp-panel">
-          <h2>No assignments available</h2>
-          <p>No assignments are available for this teacher account.</p>
-        </section>
-      )}
+          <Link
+            className="lp-button lp-button-primary"
+            href={`/teacher/assignments/new${context.class ? `?class=${context.class}` : ""}`}
+          >
+            New assignment
+          </Link>
+        </header>
+        <ol className="awa-journey" aria-label="Learning workflow">
+          <li>
+            <span>01</span> Published lesson version
+          </li>
+          <li>
+            <span>02</span> Classroom assignment
+          </li>
+          <li>
+            <span>03</span> Learning sessions
+          </li>
+          <li>
+            <span>04</span> Evidence & progress
+          </li>
+        </ol>
+        <details className="awa-catalog" open={context.view === "review"}>
+          <summary className="awa-catalog-toggle">
+            Browse assignments · {assignments.length} assignments across{" "}
+            {classes.length} classes
+          </summary>
+          <div className="awa-section-heading">
+            <div>
+              <h2 id="assignment-list-heading">Class assignments</h2>
+              <p>
+                {assignments.length} assignments across {classes.length} classes
+              </p>
+            </div>
+            <form action="/teacher/assignments" className="awa-filters">
+              <label className="lp-field">
+                Class
+                <select
+                  className="lp-input"
+                  name="class"
+                  defaultValue={context.class ?? ""}
+                >
+                  <option value="">All classes</option>
+                  {classes.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="lp-field">
+                Availability
+                <select
+                  className="lp-input"
+                  name="status"
+                  defaultValue={context.status}
+                >
+                  <option value="all">All assignments</option>
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                  <option value="unavailable">Unavailable</option>
+                </select>
+              </label>
+              <button className="lp-button">Apply filters</button>
+            </form>
+          </div>
+          <div className="awa-assignment-list">
+            {visible.map((item) => (
+              <Link
+                key={item.id}
+                className={`awa-assignment-row${selected?.id === item.id ? " is-selected" : ""}`}
+                aria-current={selected?.id === item.id ? "true" : undefined}
+                href={assignmentHref(context, {
+                  assignment: item.id,
+                  view: "review",
+                })}
+              >
+                <span>
+                  <small>{item.class_name}</small>
+                  <strong>{item.title}</strong>
+                  <span className="awa-version-path">
+                    {item.lesson_title} <span aria-hidden="true">→</span>{" "}
+                    Version {item.lesson_version}
+                  </span>
+                </span>
+                <span className={`awa-status awa-status-${item.status}`}>
+                  {item.status === "active"
+                    ? "Active"
+                    : item.status === "inactive"
+                      ? "Inactive · review to activate"
+                      : "Unavailable"}
+                </span>
+              </Link>
+            ))}
+            {!visible.length && (
+              <div className="awa-empty">
+                <h3>
+                  {assignments.length
+                    ? "No assignments match these filters"
+                    : "No class assignments yet"}
+                </h3>
+                <p>
+                  {assignments.length
+                    ? "Choose another class or availability state."
+                    : "Start with an approved, published lesson. Save its class assignment, then review and activate it."}
+                </p>
+                <Link href="/teacher/assignments/new">
+                  Choose a published lesson →
+                </Link>
+              </div>
+            )}
+          </div>
+        </details>
+        {selected && (
+          <section
+            className="awa-selected"
+            aria-labelledby="selected-assignment-heading"
+          >
+            <header className="awa-detail-heading">
+              <div>
+                <p className="lp-eyebrow">{selected.class_name}</p>
+                <h2 id="selected-assignment-heading">{selected.title}</h2>
+                <p>
+                  {selected.lesson_title} · Published version{" "}
+                  <span className="awa-version">{selected.lesson_version}</span>
+                </p>
+              </div>
+              <span className={`awa-status awa-status-${selected.status}`}>
+                {selected.status}
+              </span>
+            </header>
+            {!visible.some((item) => item.id === selected.id) && (
+              <p className="awa-notice">
+                This linked assignment is outside the current list filters. Its
+                class and version are shown above.
+              </p>
+            )}
+            {review && content ? (
+              <>
+                <nav className="awa-tabs" aria-label="Assignment workspace">
+                  {(
+                    [
+                      ["review", "Lesson & activation"],
+                      ["progress", "Class progress"],
+                      ["preview", "Student preview"],
+                    ] as const
+                  ).map(([view, label]) => (
+                    <Link
+                      key={view}
+                      aria-current={context.view === view ? "page" : undefined}
+                      href={assignmentHref(selection, { view })}
+                    >
+                      {label}
+                    </Link>
+                  ))}
+                </nav>
+                {context.view === "review" && (
+                  <div className="awa-review-layout">
+                    <div>
+                      <section
+                        className="lp-panel"
+                        id="assignment-instructions"
+                      >
+                        <h2>Instructions for students</h2>
+                        <p className="awa-original">
+                          {review.instructions || "No additional instructions."}
+                        </p>
+                        <p className="awa-note">
+                          This assignment uses one immutable lesson version.
+                          Future lesson edits leave it and its saved student
+                          work unchanged.
+                        </p>
+                      </section>
+                      <AssignmentLessonReview
+                        content={content}
+                        contentRef={review.content_ref}
+                      />
+                    </div>
+                    <aside
+                      className="lp-panel awa-activation"
+                      aria-label="Classroom activation"
+                    >
+                      <p className="lp-eyebrow">Classroom availability</p>
+                      <h2>
+                        {review.teacher_approved_at
+                          ? "Active for enrolled students"
+                          : "Saved, not yet active"}
+                      </h2>
+                      {review.teacher_approved_at ? (
+                        <>
+                          <p>
+                            Activated on {date(review.teacher_approved_at)}.
+                          </p>
+                          <Link
+                            className="lp-button lp-button-primary"
+                            href={assignmentHref(selection, {
+                              view: "progress",
+                            })}
+                          >
+                            Open class progress
+                          </Link>
+                        </>
+                      ) : (
+                        <>
+                          <p>
+                            Publication prepared this lesson. Your separate
+                            classroom review makes it available to enrolled
+                            students in {review.class_name}.
+                          </p>
+                          <ApproveAssignment
+                            key={`${review.id}:${review.review_token}`}
+                            id={review.id}
+                            token={review.review_token}
+                          />
+                        </>
+                      )}
+                      <Link
+                        className="lp-button"
+                        href={assignmentHref(selection, { view: "preview" })}
+                      >
+                        Preview student learning
+                      </Link>
+                      <p className="awa-note">
+                        Availability schedules, due dates, and deactivation are
+                        not supported yet.
+                      </p>
+                    </aside>
+                  </div>
+                )}
+                {context.view === "preview" && (
+                  <StudentLearningPreview
+                    content={content}
+                    contentRef={review.content_ref}
+                    title={review.title}
+                    instructions={review.instructions}
+                    active={!!review.teacher_approved_at}
+                    assignmentId={review.id}
+                  />
+                )}
+                {context.view === "progress" && progress && (
+                  <>
+                    <AssignmentProgress
+                      data={progress}
+                      content={content}
+                      origin={context.origin}
+                      selectedStudent={context.student}
+                      selectedConcept={context.concept}
+                      listContext={{
+                        class: context.class,
+                        status: context.status,
+                      }}
+                    />
+                    <section className="lp-panel awa-followups">
+                      <h2>Teacher-assigned follow-ups</h2>
+                      <p>
+                        Recent intervention records for this assignment, across
+                        evidence origins. Approval and delivery are separate.
+                      </p>
+                      {followups.length ? (
+                        <ul>
+                          {followups.map((item) => (
+                            <li key={item.draft.id}>
+                              <Link
+                                href={`/teacher/interventions?${new URLSearchParams({ assignment: selected.id, origin: context.origin, draft: item.draft.id })}`}
+                              >
+                                {item.draft.activity.title}
+                              </Link>
+                              <span>
+                                {item.delivery
+                                  ? `Delivered to ${item.delivery.recipient_ids.length} students`
+                                  : item.approval
+                                    ? "Approved · not delivered"
+                                    : item.draft.status === "dismissed"
+                                      ? "Dismissed"
+                                      : "Private draft · not assigned"}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p>No saved follow-up records yet.</p>
+                      )}
+                      <Link
+                        href={`/teacher/interventions?assignment=${selected.id}&origin=${context.origin}`}
+                      >
+                        Review interventions and later work →
+                      </Link>
+                    </section>
+                  </>
+                )}
+              </>
+            ) : (
+              <div className="awa-empty" role="status">
+                <h3>The pinned lesson is unavailable</h3>
+                <p>
+                  This assignment cannot be activated or previewed until its
+                  exact approved version is restored. Its saved records have not
+                  been changed. Other assignments remain available above.
+                </p>
+                <Link href={assignmentHref(selection)}>
+                  Check availability again
+                </Link>
+              </div>
+            )}
+          </section>
+        )}
+      </div>
     </TeacherFrame>
   );
 }

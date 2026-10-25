@@ -1,0 +1,311 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import { loadApprovedContent } from "../lib/evidence/content.ts";
+import { buildDemoFixture, DEMO_IDS } from "../lib/evidence/demo.ts";
+import { calculateClassMetrics } from "../lib/teacher/metrics.ts";
+import {
+  buildAssignmentProgress,
+  progressEvaluation,
+  progressEvidenceHref,
+  progressHref,
+  selectProgressEvidence,
+  type AssignmentEvidence,
+} from "../app/teacher/assignments/progress-model.ts";
+
+const content = loadApprovedContent();
+const fixture = buildDemoFixture(content);
+function snapshot(): AssignmentEvidence {
+  const students = fixture.enrollments.map(({ student_id }) => ({
+    student_id,
+    display_name: fixture.profiles.find((profile) => profile.id === student_id)!
+      .display_name,
+  }));
+  return {
+    assignment_id: fixture.assignment.id,
+    class_id: fixture.classRecord.id,
+    class_name: fixture.classRecord.name,
+    title: fixture.assignment.title,
+    approved_misconception_ids: fixture.assignment.approved_misconception_ids,
+    students,
+    evidence: structuredClone(fixture.sessions),
+    metrics: calculateClassMetrics(
+      students.map((student) => student.student_id),
+      [...content.concept_ids],
+      fixture.sessions,
+    ),
+  };
+}
+
+test("progress distinguishes distinct students, response counts, and assisted evidence without changing history", () => {
+  const data = snapshot();
+  const original = structuredClone(data);
+  const result = buildAssignmentProgress(data, "all");
+  assert.deepEqual(result.summary, {
+    enrolled: 3,
+    startedStudents: 2,
+    studentsAnswered: 2,
+    completedSessions: 2,
+    submittedResponses: 5,
+    unansweredQuestions: 0,
+    pendingEvaluations: 0,
+    failedEvaluations: 0,
+    rejectedEvaluations: 0,
+  });
+  const transmission = result.metrics.concepts.find(
+    (item) => item.concept_id === "transmission_delay",
+  )!;
+  assert.equal(transmission.latest.correct, 2);
+  assert.equal(transmission.independent.correct, 1);
+  assert.equal(transmission.content_assisted.correct, 1);
+  assert.equal(result.students[0].responseCount, 4);
+  assert.equal(
+    result.students[2].cells.every((cell) => cell.status === "no_response"),
+    true,
+  );
+  assert.deepEqual(data, original);
+});
+
+test("a resumed session retains old work until a new answer replaces the latest result", () => {
+  const data = snapshot();
+  const resumed = structuredClone(data.evidence[1]);
+  resumed.session.id = "40000000-0000-4000-8000-000000000099";
+  resumed.session.status = "active";
+  resumed.session.started_at = "2026-10-20T10:00:00Z";
+  resumed.session.ended_at = null;
+  const attempt = resumed.attempts[0];
+  attempt.id = "50000000-0000-4000-8000-000000000099";
+  attempt.root_attempt_id = attempt.id;
+  attempt.session_id = resumed.session.id;
+  attempt.presented_at = resumed.session.started_at;
+  attempt.submitted_at = null;
+  attempt.response_text = null;
+  attempt.submission_key = null;
+  attempt.assistance = null;
+  attempt.current_evaluation_id = null;
+  attempt.outcome = null;
+  resumed.evaluations = [];
+  data.evidence.push(resumed);
+  const progress = buildAssignmentProgress(data, "all");
+  const cell = progress.students
+    .find((student) => student.student_id === DEMO_IDS.studentTwo)!
+    .cells.find((item) => item.conceptId === "transmission_delay")!;
+  assert.equal(cell.status, "correct");
+  assert.equal(cell.latestSubmitted?.attempt.id, DEMO_IDS.correctRoot);
+  assert.equal(cell.evidenceCount, 2);
+  assert.equal(progress.summary.startedStudents, 2);
+  assert.equal(progress.summary.unansweredQuestions, 1);
+  assert.equal(
+    selectProgressEvidence(
+      progress.sessions,
+      DEMO_IDS.studentTwo,
+      "transmission_delay",
+    ).length,
+    2,
+  );
+  attempt.submitted_at = "2026-10-20T10:01:00Z";
+  attempt.response_text = "A new response awaits evaluation.";
+  attempt.submission_key = "a0000000-0000-4000-8000-000000000099";
+  attempt.assistance = structuredClone(data.evidence[1].attempts[0].assistance);
+  const updated = buildAssignmentProgress(data, "all");
+  const updatedCell = updated.students
+    .find((student) => student.student_id === DEMO_IDS.studentTwo)!
+    .cells.find((item) => item.conceptId === "transmission_delay")!;
+  assert.equal(updatedCell.status, "pending");
+  assert.equal(updatedCell.latestSubmitted?.attempt.id, attempt.id);
+  assert.equal(updated.summary.pendingEvaluations, 1);
+  assert.equal(updated.summary.submittedResponses, 6);
+  assert.equal(updated.summary.unansweredQuestions, 0);
+});
+
+test("pending, failed and rejected answers remain distinct from missing responses and older grades", () => {
+  for (const validation_status of [
+    "pending_review",
+    "evaluation_failed",
+    "rejected",
+  ] as const) {
+    const data = snapshot();
+    const history = data.evidence[1];
+    history.attempts[0].current_evaluation_id = null;
+    history.evaluations[0] = {
+      ...history.evaluations[0],
+      validation_status,
+      result: null,
+      applied_result: null,
+      failure_reason:
+        validation_status === "pending_review"
+          ? null
+          : "Synthetic failed judgment",
+    };
+    const result = buildAssignmentProgress(data, "all");
+    const cell = result.students
+      .find((student) => student.student_id === DEMO_IDS.studentTwo)!
+      .cells.find((item) => item.conceptId === "transmission_delay")!;
+    assert.equal(
+      cell.status,
+      validation_status === "pending_review" ? "pending" : validation_status,
+    );
+    assert.equal(result.summary.submittedResponses, 5);
+    assert.equal(result.summary.unansweredQuestions, 0);
+    assert.equal(
+      result.summary.pendingEvaluations,
+      validation_status === "pending_review" ? 1 : 0,
+    );
+    assert.equal(
+      result.summary.failedEvaluations,
+      validation_status === "evaluation_failed" ? 1 : 0,
+    );
+    assert.equal(
+      result.summary.rejectedEvaluations,
+      validation_status === "rejected" ? 1 : 0,
+    );
+  }
+  const data = snapshot();
+  data.evidence[1].attempts[0].current_evaluation_id = null;
+  data.evidence[1].evaluations = [];
+  assert.equal(
+    buildAssignmentProgress(data, "all").summary.pendingEvaluations,
+    1,
+  );
+});
+
+test("a later failed reevaluation preserves the current accepted judgment and uncertainty", () => {
+  const data = snapshot();
+  const history = data.evidence[1];
+  const accepted = history.evaluations[0];
+  accepted.result!.uncertainty_reason = "The original response is ambiguous.";
+  accepted.result!.per_concept_results[0].correctness = "uncertain";
+  history.evaluations.push({
+    ...accepted,
+    id: "60000000-0000-4000-8000-000000000099",
+    evaluated_at: "2026-10-20T10:00:00Z",
+    validation_status: "evaluation_failed",
+    result: null,
+    applied_result: null,
+    failure_reason: "Synthetic timeout",
+  });
+  const row = selectProgressEvidence(data.evidence, DEMO_IDS.studentTwo)[0];
+  assert.equal(progressEvaluation(row)?.id, accepted.id);
+  assert.equal(
+    progressEvaluation(row)?.result?.uncertainty_reason,
+    "The original response is ambiguous.",
+  );
+  const progress = buildAssignmentProgress(data, "all");
+  assert.equal(progress.summary.failedEvaluations, 0);
+  assert.equal(
+    progress.students
+      .find((student) => student.student_id === DEMO_IDS.studentTwo)!
+      .cells.find(
+        (cell) =>
+          cell.conceptId === accepted.result!.per_concept_results[0].concept_id,
+      )!.status,
+    "uncertain",
+  );
+});
+
+test("origin filtering retains the roster and gives truthful zero participation", () => {
+  const result = buildAssignmentProgress(snapshot(), "live_demo");
+  assert.equal(result.summary.enrolled, 3);
+  assert.equal(result.summary.startedStudents, 0);
+  assert.equal(result.summary.studentsAnswered, 0);
+  assert.equal(result.summary.submittedResponses, 0);
+  assert.equal(result.students.length, 3);
+  assert.equal(
+    result.students.every((student) =>
+      student.cells.every(
+        (cell) => cell.status === "no_response" && cell.evidenceCount === 0,
+      ),
+    ),
+    true,
+  );
+  assert.equal(
+    result.metrics.concepts.every(
+      (concept) => concept.latest.accepted_students === 0,
+    ),
+    true,
+  );
+});
+
+test("grid and full evidence links preserve the authorized assignment, selection and exact attempt", () => {
+  const data = snapshot();
+  const row = selectProgressEvidence(
+    data.evidence,
+    DEMO_IDS.studentOne,
+    "transmission_delay",
+  )[0];
+  const selected = new URL(
+    progressHref(
+      data.assignment_id,
+      "synthetic_fixture",
+      {
+        student: DEMO_IDS.studentOne,
+        concept: "transmission_delay",
+      },
+      { class: DEMO_IDS.classId, status: "active" },
+    ),
+    "https://example.test",
+  );
+  assert.equal(selected.searchParams.get("assignment"), data.assignment_id);
+  assert.equal(selected.searchParams.get("view"), "progress");
+  assert.equal(selected.searchParams.get("student"), DEMO_IDS.studentOne);
+  assert.equal(selected.searchParams.get("origin"), "synthetic_fixture");
+  assert.equal(selected.searchParams.get("class"), DEMO_IDS.classId);
+  assert.equal(selected.searchParams.get("status"), "active");
+  assert.equal(selected.hash, "#cell-evidence");
+  const target = new URL(
+    progressEvidenceHref(row, "synthetic_fixture", "transmission_delay"),
+    "https://example.test",
+  );
+  assert.equal(target.pathname, `/teacher/sessions/${row.evidence.session.id}`);
+  assert.equal(target.hash, `#attempt-${row.attempt.id}`);
+  assert.equal(target.searchParams.get("concept"), "transmission_delay");
+  assert.equal(
+    row.attempt.question.content_ref.content_version,
+    content.content_ref.content_version,
+  );
+  assert.equal(
+    row.attempt.response_text,
+    fixture.sessions[0].attempts.at(-1)!.response_text,
+  );
+});
+
+test("progress does not silently include evidence outside the authorized roster", () => {
+  const data = snapshot();
+  data.students = data.students.filter(
+    (student) => student.student_id !== DEMO_IDS.studentOne,
+  );
+  assert.throws(
+    () => buildAssignmentProgress(data, "all"),
+    /outside the roster/,
+  );
+});
+
+test("student-only and concept-only selections include their matching saved work", () => {
+  const data = snapshot();
+  const student = selectProgressEvidence(data.evidence, DEMO_IDS.studentOne);
+  assert.equal(student.length, 4);
+  assert.equal(
+    student.every(
+      (row) => row.evidence.session.student_id === DEMO_IDS.studentOne,
+    ),
+    true,
+  );
+  const concept = selectProgressEvidence(
+    data.evidence,
+    undefined,
+    "transmission_delay",
+  );
+  assert.equal(
+    new Set(concept.map((row) => row.evidence.session.student_id)).size,
+    2,
+  );
+  assert.equal(
+    concept.every((row) =>
+      row.attempt.question.concept_ids.includes("transmission_delay"),
+    ),
+    true,
+  );
+  assert.equal(
+    selectProgressEvidence(data.evidence, DEMO_IDS.inactiveStudent).length,
+    0,
+  );
+});

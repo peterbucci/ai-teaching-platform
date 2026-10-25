@@ -1,0 +1,358 @@
+.awa-workspace {
+  color: #17302d;
+  min-width: 0;
+}
+.awa-workspace h2 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.35px;
+}
+.awa-workspace h3 {
+  font-weight: 650;
+}
+.awa-heading,
+.awa-section-heading,
+.awa-detail-heading {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.awa-heading {
+  margin-bottom: 24px;
+}
+.awa-heading > div {
+  flex: 1;
+  min-width: min(100%, 280px);
+}
+.awa-heading .lp-title {
+  font-size: clamp(25px, 3vw, 35px);
+}
+.awa-heading .lp-eyebrow {
+  margin-top: 12px;
+}
+.awa-journey {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  list-style: none;
+  margin: 0 0 28px;
+  padding: 16px;
+  gap: 14px;
+  background: #eaf6ef;
+  border: 1px solid #d5e8dc;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.awa-journey li {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+}
+.awa-journey span {
+  color: #176d58;
+  font-size: 11px;
+}
+.awa-catalog {
+  border: 1px solid #e1e9e4;
+  border-radius: 12px;
+  background: white;
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+.awa-catalog-toggle {
+  padding: 16px 20px;
+  font-size: 13px;
+  font-weight: 650;
+}
+.awa-catalog[open] .awa-catalog-toggle {
+  border-bottom: 1px solid #e1e9e4;
+}
+.awa-section-heading {
+  padding: 20px;
+  border-bottom: 1px solid #e1e9e4;
+}
+.awa-section-heading p,
+.awa-detail-heading p,
+.awa-version-path {
+  font-size: 12px;
+  color: #526761;
+  overflow-wrap: anywhere;
+}
+.awa-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 10px;
+}
+.awa-filters .lp-field {
+  min-width: 140px;
+  flex: 1;
+}
+.awa-filters select {
+  max-width: 260px;
+}
+.awa-assignment-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e1e9e4;
+  gap: 16px;
+  text-decoration: none;
+}
+.awa-assignment-row:last-child {
+  border-bottom: 0;
+}
+.awa-assignment-row.is-selected {
+  background: #eaf6ef;
+  box-shadow: inset 3px 0 #176d58;
+}
+.awa-assignment-row:hover {
+  background: #f3f8f5;
+}
+.awa-assignment-row > span:first-child {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.awa-assignment-row small {
+  color: #526761;
+}
+.awa-assignment-row strong {
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+.awa-status {
+  display: inline-flex;
+  width: fit-content;
+  padding: 5px 9px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 650;
+  text-transform: capitalize;
+  background: #edf1ef;
+  color: #526761;
+  flex-shrink: 0;
+}
+.awa-status-active {
+  background: #e3f3e9;
+  color: #176346;
+}
+.awa-status-inactive {
+  background: #f7efd8;
+  color: #775b1b;
+}
+.awa-status-unavailable {
+  background: #f8e9e5;
+  color: #914332;
+}
+.awa-detail-heading {
+  border-bottom: 1px solid #dbe5df;
+  padding: 0 0 20px;
+}
+.awa-detail-heading h2 {
+  font-size: 24px;
+}
+.awa-version {
+  overflow-wrap: anywhere;
+}
+.awa-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0 24px;
+}
+.awa-tabs a {
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 650;
+  border-radius: 8px;
+  border: 1px solid #dce6df;
+  background: white;
+}
+.awa-tabs a[aria-current="page"] {
+  color: #fff;
+  border-color: #176d58;
+  background: #176d58;
+}
+.awa-review-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 310px);
+  gap: 20px;
+  align-items: start;
+}
+.awa-review-layout > div,
+.awa-review-layout > aside {
+  min-width: 0;
+}
+.awa-workspace .lp-panel {
+  margin-bottom: 18px;
+  padding: 22px;
+  border-radius: 10px;
+}
+.awa-workspace .lp-panel p {
+  margin: 10px 0;
+}
+.awa-activation {
+  display: grid;
+  gap: 12px;
+  position: sticky;
+  top: 20px;
+}
+.awa-activation .lp-button {
+  white-space: normal;
+  text-align: center;
+}
+.awa-activation .lp-field {
+  display: grid;
+  gap: 7px;
+}
+.awa-activation form {
+  min-width: 0;
+}
+.awa-workspace .lp-assignment-create {
+  display: grid;
+  gap: 12px;
+}
+.awa-activation input,
+.awa-activation textarea,
+.awa-activation select {
+  max-width: 100%;
+}
+.awa-note,
+.awa-workspace .lp-muted {
+  color: #526761;
+  font-size: 12px;
+  line-height: 1.65;
+}
+.awa-original {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.awa-empty {
+  padding: 28px 22px;
+}
+.awa-empty p {
+  margin: 10px 0;
+  max-width: 70ch;
+}
+.awa-notice {
+  padding: 12px;
+  background: #f8f1df;
+  font-size: 13px;
+}
+.awa-version-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 10px;
+  margin: 16px 0;
+}
+.awa-version-options a {
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+  border: 1px solid #dce6df;
+  border-radius: 8px;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.awa-version-options a[aria-current] {
+  border-color: #176d58;
+  background: #eaf6ef;
+}
+.awa-version-options span {
+  color: #526761;
+  font-size: 12px;
+}
+.awa-concept-cards {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+.awa-concept-card {
+  padding: 15px;
+  border: 1px solid #e1e9e4;
+  border-radius: 8px;
+}
+.awa-concept-card ul,
+.awa-sequence-list {
+  padding-left: 22px;
+}
+.awa-sequence-list li {
+  margin: 16px 0;
+}
+.awa-workspace details {
+  overflow-wrap: anywhere;
+}
+.awa-workspace summary {
+  cursor: pointer;
+}
+.awa-preview-identity {
+  display: grid;
+  gap: 12px;
+  overflow-wrap: anywhere;
+}
+.awa-followups li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid #e1e9e4;
+}
+.awa-followups li span {
+  font-size: 12px;
+  color: #526761;
+}
+.awa-workspace :is(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid #176d58;
+  outline-offset: 3px;
+}
+@media (max-width: 1100px) {
+  .awa-review-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .awa-activation {
+    position: static;
+    grid-row: 1;
+  }
+}
+@media (max-width: 600px) {
+  .awa-heading {
+    gap: 12px;
+  }
+  .awa-journey {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 12px;
+  }
+  .awa-section-heading,
+  .awa-assignment-row {
+    padding: 16px;
+  }
+  .awa-filters {
+    width: 100%;
+  }
+  .awa-filters .lp-field {
+    min-width: 100%;
+  }
+  .awa-filters select {
+    max-width: 100%;
+  }
+  .awa-assignment-row {
+    align-items: start;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .awa-tabs a {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+  .awa-workspace .lp-panel {
+    padding: 16px;
+  }
+  .awa-detail-heading h2 {
+    font-size: 21px;
+  }
+}
