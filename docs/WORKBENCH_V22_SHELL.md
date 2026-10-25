@@ -280,15 +280,65 @@ does not merge #117/#118 or edit their files. Do not merge the shell automatical
 The stacked draft targets `codex/teacher-workbench-slice`; rebase and retarget
 only after #116 is accepted and merged.
 
-PR #117's reported `9f300ce` progress implementation retains its own
+PR #117's integrated `42896da` progress implementation retains its own
 `pane=grid|details` and `progressView=grid|concepts|questions|sessions` controls.
 Those parameters are distinct from the optional shell's `workspacePane`.
 Existing page links and browser history retain their complete URLs; generic
 shell navigation deliberately carries validated investigation context only.
 Page owners should keep their current controls or adopt the shared pane
-component, not mount two pane controllers. Combined acceptance must exercise
-selected student/concept, the page-owned subview and return navigation after
-the branches are integrated. That combined check has not been run here.
+component, not mount two pane controllers. Combined acceptance exercises
+selected student/concept, the page-owned subview and return navigation in the
+disposable compositions recorded below. The stacked PR itself does not include
+the page branches.
+
+## Navigation correction verification
+
+The [navigation evidence viewer](../tests/artifacts/workbench-navigation-return/index.html)
+and its [sanitized receipts](../tests/artifacts/workbench-navigation-return/summary.json)
+record S1/C2 separately from the original prototype comparison. Open the viewer
+locally to inspect the screenshots.
+
+| Evidence                            | Exact source                                                                | Result                                                                                                 |
+| ----------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Shared implementation and CI        | `357a6716a333137e909fb77b9907a90a833a6df3`                                  | 571/571 unit tests, content/lint/typecheck/format, production build and both complete integration jobs |
+| Earlier combined application        | `b8d0eb55e793905e78452980cc4e92ac178644ab`                                  | 30/31 cases after the separately recorded geometry continuation; the 1024px Escape conflict remained   |
+| Final combined affected-case retest | `9ca101893a07910539a9e9efe12bc955bf4a08ba`                                  | 8/8 focused application checks, including the corrected Escape conflict and full displayed C2 return   |
+| Original restoration component      | Unchanged shared restoration implementation; run01 provenance in receipt    | 26/26 cases; not rerun by the later application continuations                                          |
+| Final switcher component            | Actual shared navigation from final combined source, mocked Next/data hooks | 6/6 cases at 1440/1024/390, production and development StrictMode                                      |
+
+[Shared-source CI](https://github.com/peterbucci/ai-teaching-platform/actions/runs/40205217056)
+is distinct from the combined build. The final combined tree is
+`fff9c0716e85702e5d205c15766a4cfb6d7f9423`, build ID
+`64b_tEa9pg31ghh0nCWvq`, with C `357a671`, D `42896da` and E `53e494a`.
+The [combined build receipt](../tests/artifacts/workbench-navigation-return/combined-build-receipt.json) records 625 unit tests, production build, assignment HTTP and
+publishing HTTP checks successfully before the browser grant.
+
+The broader application run covers S1 at all four requested sizes, C2 displayed
+returns and the shared Progress link, different-student Questions/Sessions
+returns, direct URLs, browser Back/Forward, class switching, keyboard navigation,
+unsaved objective recovery and the denied-storage leave guard. Five authorized
+session response hashes and the objective snapshot stayed unchanged. Hashless
+Questions/Sessions return focus is the allowlisted visible Progress view; exact
+originating Evidence row focus remains Agent A's separate F1 contract.
+
+The final application retest checks switcher Escape at 1440/1024/390, page Details
+Escape at 320/1024, a real phone Class Progress → Read in full → Back to Class
+Progress journey, unchanged session evidence and absence of browser errors or
+mutation attempts. The separate component test mounts actual shell code at
+React's document root with an intentionally broad page Escape handler, so the
+page's own fix cannot conceal a shell regression. Modal Escape closes only the
+dialog and restores its opener; Escape outside still reaches the page handler.
+
+Native 200% browser zoom was verified on the earlier combined application:
+DPR 1→2, CSS viewport width 1416→708, visual-viewport scale 1 and root CSS zoom 1.
+Its 708×454 image is a top-left crop, not a complete physical-window screenshot.
+The final bounded run did not repeat the full earlier application suite or zoom.
+Original failed receipts, harness corrections and source/build identities remain
+visible; a focused correction is not presented as a full new-source rerun.
+
+All runtime data was fictional, no paid model calls were made, and the navigation
+browser checks performed no content writes. The runtime was returned to Agent E
+after every C browser context and the isolated component server were closed.
 
 ## Explicit deviations and remaining integration
 
@@ -311,6 +361,6 @@ the branches are integrated. That combined check has not been run here.
    fictional database; no production DOM, calculation or source version is
    altered to imitate prototype values. The visual report records these limits.
 
-See `WORKBENCH_V22_SHELL_VERIFICATION.md` for executed checks, screenshots,
-geometry comparisons and unrun acceptance. No actual-model, hosted-release,
+See `WORKBENCH_V22_SHELL_VERIFICATION.md` for the original prototype comparison
+and the navigation evidence above for subsequent S1/C2 verification. No actual-model, hosted-release,
 full-page parity, educational-validity or independent-human acceptance is claimed.
