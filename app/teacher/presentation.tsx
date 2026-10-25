@@ -69,7 +69,17 @@ export function TeacherFrame({
         contextIsAuthoritative={contextIsAuthoritative}
         pending={pending}
       >
-        <div className="lp-teacher">{children}</div>
+        <div className="lp-teacher">
+          <Suspense
+            fallback={
+              <p role="status" data-workspace-pending="true" aria-busy="true">
+                Loading {section}…
+              </p>
+            }
+          >
+            {children}
+          </Suspense>
+        </div>
       </TeacherWorkspace>
     </Suspense>
   );
