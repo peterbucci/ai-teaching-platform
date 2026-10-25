@@ -18,6 +18,7 @@ import { InterventionActivityView } from "../../components/intervention-activity
 import { ActivityEditor } from "./activity-editor.tsx";
 import { ActivityReview } from "./review.tsx";
 import { InterventionFollowup } from "./followup.tsx";
+import { blockInterventionNavigation } from "./navigation-block.ts";
 
 // Local recovery accepts unfinished text; only the server accepts saved work.
 const recoveryQuestion =
@@ -55,9 +56,9 @@ const RecoverySchema = z.object({
 });
 type Recovery = z.infer<typeof RecoverySchema>;
 
-function remember(draftId: string, value: Recovery | null) {
+function remember(actorId: string, draftId: string, value: Recovery | null) {
   try {
-    const key = `learning-pulse:intervention:${draftId}`;
+    const key = `learning-pulse:intervention:${actorId}:${draftId}`;
     if (value) sessionStorage.setItem(key, JSON.stringify(value));
     else sessionStorage.removeItem(key);
   } catch {
@@ -65,13 +66,20 @@ function remember(draftId: string, value: Recovery | null) {
   }
 }
 
-function savedWork(draftId: string) {
+function savedWork(actorId: string, draftId: string) {
   try {
-    const raw = sessionStorage.getItem(
-      `learning-pulse:intervention:${draftId}`,
-    );
+    const key = `learning-pulse:intervention:${actorId}:${draftId}`;
+    const legacyKey = `learning-pulse:intervention:${draftId}`;
+    // Called only after the server confirms this actor owns the saved draft.
+    // Preserve an older recovery copy while moving it into the actor scope.
+    const raw =
+      sessionStorage.getItem(key) ?? sessionStorage.getItem(legacyKey);
     if (!raw) return null;
     const parsed = RecoverySchema.safeParse(JSON.parse(raw));
+    if (parsed.success) {
+      sessionStorage.setItem(key, raw);
+      sessionStorage.removeItem(legacyKey);
+    }
     return parsed.success ? parsed.data : null;
   } catch {
     return null;
@@ -82,17 +90,21 @@ const sameActivity = (a: InterventionActivity, b: InterventionActivity) =>
   JSON.stringify(a) === JSON.stringify(b);
 
 export function InterventionEditor({
+  actorId,
   draft,
   initialReview,
   disabled,
   onReview,
   onStateChange,
+  onNavigationBlocked,
 }: {
+  actorId: string;
   draft: InterventionDraft;
   initialReview: InterventionReview | null;
   disabled: boolean;
   onReview: (review: InterventionReview) => void;
   onStateChange: (state: { dirty: boolean; busy: boolean }) => void;
+  onNavigationBlocked: (targetId?: string) => void;
 }) {
   const [review, setReview] = useState(initialReview);
   const [activity, setActivity] = useState(draft.activity);
@@ -104,6 +116,7 @@ export function InterventionEditor({
   const [pending, setPending] = useState<InterventionAction | null>(null);
   const [conflict, setConflict] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
+  const [navigationBlocked, setNavigationBlocked] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inFlight = useRef(false);
   // Refresh may update review, but must never rebase unsaved text onto it.
@@ -120,9 +133,47 @@ export function InterventionEditor({
   useEffect(() => {
     if (!dirty && !pending) return;
     const preventLoss = (event: BeforeUnloadEvent) => event.preventDefault();
+    const guardLink = (event: MouseEvent) => {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      )
+        return;
+      const link =
+        event.target instanceof Element
+          ? event.target.closest<HTMLAnchorElement>("a[href]")
+          : null;
+      if (!link || link.target === "_blank" || link.hasAttribute("download"))
+        return;
+      const next = new URL(link.href, window.location.href);
+      if (
+        next.pathname === window.location.pathname &&
+        next.search === window.location.search
+      )
+        return;
+      blockInterventionNavigation(
+        event,
+        link.closest<HTMLDialogElement>("dialog[open]"),
+        () => onNavigationBlocked("intervention-navigation-notice"),
+      );
+      setNavigationBlocked(true);
+      setNotice(
+        pending
+          ? "Check the pending action before leaving. Its request identity is kept in this tab; approval or delivery must not be repeated as a new action."
+          : "Save or discard your changes before leaving this activity. Your unsaved text is kept in this tab.",
+      );
+    };
     window.addEventListener("beforeunload", preventLoss);
-    return () => window.removeEventListener("beforeunload", preventLoss);
-  }, [dirty, pending]);
+    window.addEventListener("click", guardLink, true);
+    return () => {
+      window.removeEventListener("beforeunload", preventLoss);
+      window.removeEventListener("click", guardLink, true);
+    };
+  }, [dirty, onNavigationBlocked, pending]);
 
   useEffect(() => {
     let active = true;
@@ -136,7 +187,7 @@ export function InterventionEditor({
           throw new Error("The current saved revision could not be loaded.");
         const latest = InterventionReviewSchema.parse(await response.json());
         if (!active) return;
-        const local = savedWork(draft.id);
+        const local = savedWork(actorId, draft.id);
         setReview(latest);
         if (
           local &&
@@ -180,12 +231,12 @@ export function InterventionEditor({
     return () => {
       active = false;
     };
-  }, [draft.id, onReview]);
+  }, [actorId, draft.id, onReview]);
 
   function edit(next: InterventionActivity) {
     if (!dirty) editBaseRevision.current = currentDraft.revision;
     setActivity(next);
-    remember(draft.id, {
+    remember(actorId, draft.id, {
       revision: editBaseRevision.current,
       activity: next,
       recipients,
@@ -196,7 +247,7 @@ export function InterventionEditor({
 
   function select(next: string[]) {
     setRecipients(next);
-    remember(draft.id, {
+    remember(actorId, draft.id, {
       revision: dirty ? editBaseRevision.current : currentDraft.revision,
       activity,
       recipients: next,
@@ -246,7 +297,7 @@ export function InterventionEditor({
     setBusy(true);
     setError(null);
     setPending(action);
-    remember(draft.id, {
+    remember(actorId, draft.id, {
       revision: action.expected_revision,
       activity,
       recipients,
@@ -264,7 +315,7 @@ export function InterventionEditor({
         const failure = z.object({ error: z.string() }).safeParse(payload);
         if (response.status >= 400 && response.status < 500) {
           setPending(null);
-          remember(draft.id, {
+          remember(actorId, draft.id, {
             revision: action.expected_revision,
             activity,
             recipients,
@@ -286,6 +337,7 @@ export function InterventionEditor({
       setConflict(false);
       setRecipients(next.approval?.recipient_ids ?? recipients);
       remember(
+        actorId,
         draft.id,
         action.action === "save"
           ? {
@@ -334,7 +386,7 @@ export function InterventionEditor({
     setRecipients(review.approval?.recipient_ids ?? []);
     setConflict(false);
     setError(null);
-    remember(draft.id, null);
+    remember(actorId, draft.id, null);
     setNotice(
       "Unsaved edits discarded. You are viewing the latest loaded saved revision.",
     );
@@ -368,6 +420,35 @@ export function InterventionEditor({
           {dirty ? " · unsaved changes" : " · saved"}
         </span>
       </div>
+      {notice && (
+        <div
+          id="intervention-navigation-notice"
+          tabIndex={-1}
+          role="status"
+          className="lp-intervention-note"
+        >
+          <p>{notice}</p>
+          {navigationBlocked && (dirty || pending) && (
+            <button
+              type="button"
+              className="lp-button"
+              disabled={busy}
+              onClick={() => {
+                if (!pending) setTab("edit");
+                onNavigationBlocked(
+                  pending
+                    ? "intervention-pending-action"
+                    : "intervention-edit-actions",
+                );
+              }}
+            >
+              {pending
+                ? "Review pending action"
+                : "Review save and discard controls"}
+            </button>
+          )}
+        </div>
+      )}
       <div className="lp-intervention-tabs" aria-label="Activity views">
         {editable && (
           <button
@@ -406,7 +487,11 @@ export function InterventionEditor({
             disabled={locked}
             onChange={edit}
           />
-          <div className="lp-intervention-actions">
+          <div
+            className="lp-intervention-actions"
+            id="intervention-edit-actions"
+            tabIndex={-1}
+          >
             <button
               className="lp-button lp-button-primary"
               disabled={locked || !dirty}
@@ -696,7 +781,11 @@ export function InterventionEditor({
         </div>
       )}
       {pending && !busy && (
-        <div className="lp-intervention-warning">
+        <div
+          className="lp-intervention-warning"
+          id="intervention-pending-action"
+          tabIndex={-1}
+        >
           <p>
             The previous {pending.action} request has an unconfirmed response.
             Replaying its unchanged identity recovers the recorded outcome
@@ -711,11 +800,6 @@ export function InterventionEditor({
             Retry same {pending.action} request
           </button>
         </div>
-      )}
-      {notice && (
-        <p role="status" className="lp-intervention-note">
-          {notice}
-        </p>
       )}
       {error && (
         <p role="alert" className="lp-intervention-warning">

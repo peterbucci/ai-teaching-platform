@@ -1,16 +1,13 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { z } from "zod";
-import { requireActor } from "../../../lib/auth.ts";
+import { AuthError, requireActor } from "../../../lib/auth.ts";
 import { readAssignmentContent } from "../../../lib/lessons/store.ts";
 import { EvidenceError, evidenceAccess } from "../../../lib/evidence/store.ts";
 import type { InterventionEvidence } from "../../../lib/interventions/contracts.ts";
 import { buildInterventionEvidence } from "../../../lib/interventions/evidence.ts";
 import { readInterventionReview } from "../../../lib/interventions/approval.ts";
-import {
-  readInterventionDraft,
-  readInterventionDrafts,
-} from "../../../lib/interventions/store.ts";
+import { readInterventionDrafts } from "../../../lib/interventions/store.ts";
 import {
   calculatePatterns,
   type PatternGroup,
@@ -18,7 +15,15 @@ import {
 import { evidenceDescription, loadTeacherView } from "../data.ts";
 import { TeacherFiltersForm } from "../filters.tsx";
 import { TeacherFrame } from "../presentation.tsx";
+import {
+  parseTeacherWorkspaceContext,
+  teacherReturnHref,
+  teacherWorkspaceHref,
+  type TeacherWorkspaceContext,
+  type TeacherWorkspaceParams,
+} from "../../../lib/teacher/workspace-contracts.ts";
 import { InterventionWorkspace } from "./workspace.tsx";
+import { snapshotInterventionContext } from "./snapshot-context.ts";
 import "./interventions.css";
 
 export const dynamic = "force-dynamic";
@@ -26,28 +31,55 @@ export const dynamic = "force-dynamic";
 export default async function TeacherInterventionsPage({
   searchParams,
 }: {
-  searchParams: Promise<{
-    assignment?: string;
-    origin?: string;
-    concept?: string;
-    misconception?: string;
-    draft?: string;
-    request?: string;
-    generation_draft?: string;
-  }>;
+  searchParams: Promise<TeacherWorkspaceParams>;
 }) {
-  const params = await searchParams;
-  if (
-    (params.draft && !z.uuid().safeParse(params.draft).success) ||
-    (params.request && !z.uuid().safeParse(params.request).success) ||
-    (params.generation_draft &&
-      !z.uuid().safeParse(params.generation_draft).success)
-  )
+  const raw = await searchParams;
+  let context: TeacherWorkspaceContext;
+  try {
+    context = parseTeacherWorkspaceContext({
+      ...raw,
+      misconception: raw.misconception === "" ? undefined : raw.misconception,
+    });
+  } catch {
     notFound();
-  const { assignments, origin, data } = await loadTeacherView(params);
+  }
+  const parsed = z
+    .object({
+      draft: z.uuid().optional(),
+      request: z.uuid().optional(),
+      generation_draft: z.uuid().optional(),
+    })
+    .safeParse(raw);
+  if (!parsed.success) notFound();
+  const actor = await requireActor().catch((error: unknown) => {
+    if (error instanceof AuthError && error.status === 401) redirect("/login");
+    throw error;
+  });
+  const access = evidenceAccess(actor);
+  let draft = null;
+  let review = null;
+  if (parsed.data.draft) {
+    try {
+      review = await readInterventionReview(access, parsed.data.draft);
+      draft = review.draft;
+    } catch (error) {
+      if (error instanceof EvidenceError && [403, 404].includes(error.status))
+        notFound();
+      throw error;
+    }
+    const savedContext = snapshotInterventionContext(context, draft);
+    if (!savedContext) notFound();
+    context = savedContext;
+  }
+  const params = { ...context, ...parsed.data };
+  const { assignments, origin, data } = await loadTeacherView(context);
   if (!data)
     return (
-      <TeacherFrame section="Learning insights">
+      <TeacherFrame
+        section="Interventions"
+        context={context}
+        contextIsAuthoritative={draft !== null}
+      >
         <h1 className="lp-title">No teaching assignments yet</h1>
         <p className="lp-intro">
           Intervention drafts use accepted responses from your own class
@@ -55,21 +87,7 @@ export default async function TeacherInterventionsPage({
         </p>
       </TeacherFrame>
     );
-  const access = evidenceAccess(await requireActor());
   const drafts = await readInterventionDrafts(access, data.assignment_id);
-  let draft = null;
-  let review = null;
-  if (params.draft) {
-    try {
-      draft = await readInterventionDraft(access, params.draft);
-    } catch (error) {
-      if (error instanceof EvidenceError && error.status === 404) notFound();
-      throw error;
-    }
-    if (draft.assignment_id !== data.assignment_id) notFound();
-    review = await readInterventionReview(access, draft.id);
-    draft = review.draft;
-  }
   const content = await readAssignmentContent(
     access,
     data.assignment_id,
@@ -97,7 +115,7 @@ export default async function TeacherInterventionsPage({
         assignment_id: data.assignment_id,
         concept_id: conceptId,
         misconception_id: params.misconception || null,
-        attempt_ids: [],
+        attempt_ids: context.seedAttempt,
         origin,
       });
     } catch (error) {
@@ -109,15 +127,51 @@ export default async function TeacherInterventionsPage({
           : "Evidence is unavailable for this selection.";
     }
   }
-  const baseQuery = { assignment: data.assignment_id, origin };
+  context = {
+    ...context,
+    assignment: data.assignment_id,
+    origin,
+    concept: conceptId,
+  };
+  // This list only helps narrow a rejected preview. The existing builder still
+  // validates and expands every selected response before generation is enabled.
+  const narrowingResponses =
+    !draft && evidenceError
+      ? data.evidence.flatMap((item) =>
+          item.attempts.flatMap((attempt) => {
+            const evaluation = item.evaluations.find(
+              (value) => value.id === attempt.current_evaluation_id,
+            );
+            if (
+              !conceptId ||
+              !attempt.question.concept_ids.includes(conceptId) ||
+              attempt.response_text === null ||
+              evaluation?.validation_status !== "accepted" ||
+              !evaluation.result
+            )
+              return [];
+            return [
+              {
+                id: attempt.id,
+                student:
+                  data.students.find(
+                    (student) => student.student_id === item.session.student_id,
+                  )?.display_name ?? "Enrolled student",
+                question: attempt.question.prompt_text,
+              },
+            ];
+          }),
+        )
+      : [];
   return (
-    <TeacherFrame section="Learning insights">
+    <TeacherFrame
+      section="Interventions"
+      context={context}
+      contextIsAuthoritative={draft !== null}
+    >
       <header className="lp-page-heading">
-        <Link
-          className="lp-text-link"
-          href={`/teacher/insights?${new URLSearchParams(baseQuery)}`}
-        >
-          Back to learning insights
+        <Link className="lp-text-link" href={teacherReturnHref(context)}>
+          Back to your investigation
         </Link>
         <p className="lp-eyebrow mt-5">Evidence into teaching</p>
         <h1 className="lp-title">Interventions</h1>
@@ -139,6 +193,7 @@ export default async function TeacherInterventionsPage({
         <form action="/teacher/interventions" className="lp-filter-bar">
           <input type="hidden" name="assignment" value={data.assignment_id} />
           <input type="hidden" name="origin" value={origin} />
+          <input type="hidden" name="returnTo" value={context.returnTo} />
           <label className="lp-field">
             Teaching concept
             <select
@@ -162,6 +217,7 @@ export default async function TeacherInterventionsPage({
           <input type="hidden" name="assignment" value={data.assignment_id} />
           <input type="hidden" name="origin" value={origin} />
           <input type="hidden" name="concept" value={conceptId} />
+          <input type="hidden" name="returnTo" value={context.returnTo} />
           <label className="lp-field">
             Optional class insight
             <select
@@ -192,11 +248,21 @@ export default async function TeacherInterventionsPage({
               <li key={item.id}>
                 <Link
                   className="lp-text-link"
-                  href={`/teacher/interventions?${new URLSearchParams({
-                    assignment: data.assignment_id,
-                    origin: item.evidence.selection.origin,
-                    draft: item.id,
-                  })}`}
+                  href={`${teacherWorkspaceHref(
+                    "/teacher/interventions",
+                    context,
+                    {
+                      concept: item.evidence.selection.concept_id,
+                      misconception:
+                        item.evidence.selection.misconception_id ?? undefined,
+                      origin: item.evidence.selection.origin,
+                      seedAttempt: [],
+                      student: undefined,
+                      session: undefined,
+                      attempt: undefined,
+                      evaluation: undefined,
+                    },
+                  )}&draft=${encodeURIComponent(item.id)}`}
                 >
                   {item.activity.title} · revision {item.revision} ·{" "}
                   {item.status.replaceAll("_", " ")}
@@ -216,9 +282,46 @@ export default async function TeacherInterventionsPage({
           {evidenceError}
         </p>
       )}
+      {narrowingResponses.length > 0 && (
+        <form
+          action="/teacher/interventions"
+          className="lp-intervention-narrowing"
+        >
+          <h3>Choose a smaller starting set</h3>
+          <p>
+            Select responses from fewer students. Their other accepted answers
+            on this concept, including contrary evidence, stay included.
+          </p>
+          {Array.from(
+            new URLSearchParams(
+              teacherWorkspaceHref("/teacher/interventions", context, {
+                seedAttempt: [],
+              }).split("?")[1],
+            ),
+          ).map(([name, value]) => (
+            <input type="hidden" key={name} name={name} value={value} />
+          ))}
+          {narrowingResponses.map((response) => (
+            <label className="lp-intervention-choice" key={response.id}>
+              <input
+                type="checkbox"
+                name="seedAttempt"
+                value={response.id}
+                defaultChecked={context.seedAttempt.includes(response.id)}
+              />
+              <span>
+                <strong>{response.student}</strong> · {response.question}
+              </span>
+            </label>
+          ))}
+          <button className="lp-button mt-4">Review selected evidence</button>
+        </form>
+      )}
       <InterventionWorkspace
-        key={`${data.assignment_id}:${origin}:${conceptId}:${params.misconception ?? ""}:${draft?.id ?? "new"}`}
+        key={`${data.assignment_id}:${origin}:${conceptId}:${params.misconception ?? ""}:${context.seedAttempt.join(",")}:${draft?.id ?? "new"}`}
         assignmentId={data.assignment_id}
+        actorId={actor.profileId}
+        context={context}
         initialEvidence={evidence}
         initialDraft={draft}
         initialRequestId={params.request ?? null}

@@ -5,6 +5,12 @@ import { useEffect, useRef, type ReactNode } from "react";
 import { Icon } from "./icons.tsx";
 import { AccountMenu } from "./account-menu.tsx";
 
+export type WorkspaceLink = {
+  href: string;
+  text: string;
+  icon: Parameters<typeof Icon>[0]["name"];
+};
+
 export function Brand() {
   return (
     <Link href="/" className="lp-brand">
@@ -26,56 +32,67 @@ export function Workspace({
   area,
   section,
   readingHref = "/study/reading",
+  navigationLinks,
+  activeNavigation,
 }: {
   children: ReactNode;
   area: "teacher" | "student";
   section: string;
   readingHref?: string;
+  navigationLinks?: WorkspaceLink[];
+  activeNavigation?: string;
 }) {
   const teacher = area === "teacher";
   const activeSection =
-    section === "Student evidence" ? "Learning insights" : section;
+    activeNavigation ??
+    (section === "Student evidence" ? "Learning insights" : section);
   const drawer = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
-  const links = teacher
-    ? [
-        { href: "/teacher", text: "Class overview", icon: "home" as const },
-        {
-          href: "/teacher/assignments",
-          text: "Assignments",
-          icon: "book" as const,
-        },
-        {
-          href: "/teacher/insights",
-          text: "Learning insights",
-          icon: "chart" as const,
-        },
-        { href: "/teacher/lessons", text: "Lessons", icon: "book" as const },
-        {
-          href: "/teacher/objectives",
-          text: "Objectives",
-          icon: "book" as const,
-        },
-        { href: "/teacher/students", text: "Students", icon: "users" as const },
-        {
-          href: "/teacher/materials",
-          text: "Materials",
-          icon: "book" as const,
-        },
-      ]
-    : [
-        {
-          href: "/study/assignments",
-          text: "Assignments",
-          icon: "assignment" as const,
-        },
-        {
-          href: "/study/history",
-          text: "Learning journal",
-          icon: "journal" as const,
-        },
-        { href: readingHref, text: "Reading", icon: "book" as const },
-      ];
+  const links =
+    navigationLinks ??
+    (teacher
+      ? [
+          { href: "/teacher", text: "Class overview", icon: "home" as const },
+          {
+            href: "/teacher/assignments",
+            text: "Assignments",
+            icon: "book" as const,
+          },
+          {
+            href: "/teacher/insights",
+            text: "Learning insights",
+            icon: "chart" as const,
+          },
+          { href: "/teacher/lessons", text: "Lessons", icon: "book" as const },
+          {
+            href: "/teacher/objectives",
+            text: "Objectives",
+            icon: "book" as const,
+          },
+          {
+            href: "/teacher/students",
+            text: "Students",
+            icon: "users" as const,
+          },
+          {
+            href: "/teacher/materials",
+            text: "Materials",
+            icon: "book" as const,
+          },
+        ]
+      : [
+          {
+            href: "/study/assignments",
+            text: "Assignments",
+            icon: "assignment" as const,
+          },
+          {
+            href: "/study/history",
+            text: "Learning journal",
+            icon: "journal" as const,
+          },
+          { href: readingHref, text: "Reading", icon: "book" as const },
+        ]);
 
   useEffect(() => {
     const desktop = window.matchMedia("(min-width: 801px)");
