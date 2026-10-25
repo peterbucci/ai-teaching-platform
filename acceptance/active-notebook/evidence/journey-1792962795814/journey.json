@@ -1,0 +1,111 @@
+{
+  "source": "273551bb48287dd38843256d22c26b4bc8f449fd",
+  "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "base": "http://127.0.0.1:3427",
+  "runtime": "production",
+  "buildId": "kzvgmL197lNEtYn7qD7Kk",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "checks": [
+    "fictional teacher approves and separately delivers validated authored review",
+    "authenticated My Learning mounts N1/N2/N5 without review body disclosure or writes",
+    "My Learning four viewport widths have no horizontal page overflow",
+    "authenticated assignment overview mounted without starting or evaluating",
+    "help/ambiguous fallback preserves question and requires explicit answer confirmation",
+    "explicitly intended answer saves exact original Unicode whitespace and immutable source snapshot",
+    "accepted synthetic evaluation resumes through the existing tutoring owner",
+    "N3 current-data saved record preserves original response and does not invent per-attempt assessment",
+    "browser Back/Forward and exact saved-question fragment"
+  ],
+  "screenshots": [
+    "application-learning-1440.png",
+    "application-learning-1024.png",
+    "application-learning-390.png",
+    "application-learning-320.png"
+  ],
+  "errors": [],
+  "session": "45003833-ece5-48f8-bd98-5141b5f47dc2",
+  "attempt": "6cda9d36-0d7d-409f-b0de-dddf689307d7",
+  "approval": "896aa0bf-5b1b-478b-9127-6dc2e47237ba",
+  "writes": [
+    {
+      "url": "/api/tutoring/45003833-ece5-48f8-bd98-5141b5f47dc2/conversation",
+      "body": {
+        "version": "r7-conversation-v1",
+        "request_id": "65419bb8-6d93-469d-a4a2-fa84798d36d8",
+        "session_id": "45003833-ece5-48f8-bd98-5141b5f47dc2",
+        "attempt_id": "6cda9d36-0d7d-409f-b0de-dddf689307d7",
+        "expected_revision": 0,
+        "action": "send_message",
+        "text": "What do you mean by packet size?"
+      }
+    },
+    {
+      "url": "/api/tutoring/45003833-ece5-48f8-bd98-5141b5f47dc2/conversation",
+      "body": {
+        "version": "r7-conversation-v1",
+        "request_id": "738bc35a-6d71-4989-90fd-441b3816912f",
+        "session_id": "45003833-ece5-48f8-bd98-5141b5f47dc2",
+        "attempt_id": "6cda9d36-0d7d-409f-b0de-dddf689307d7",
+        "expected_revision": 0,
+        "action": "resolve_intent",
+        "message_request_id": "65419bb8-6d93-469d-a4a2-fa84798d36d8",
+        "choice": "help"
+      }
+    },
+    {
+      "url": "/api/sessions/45003833-ece5-48f8-bd98-5141b5f47dc2/answers",
+      "body": {
+        "attempt_id": "6cda9d36-0d7d-409f-b0de-dddf689307d7",
+        "submission_key": "96b16853-dacc-47c9-9abb-b8bf2a604453",
+        "response_text": "  My original café 🌱 reasoning.\nKeep  two spaces and line breaks.  "
+      }
+    },
+    {
+      "url": "/api/tutoring/45003833-ece5-48f8-bd98-5141b5f47dc2",
+      "body": {
+        "attempt_id": "6cda9d36-0d7d-409f-b0de-dddf689307d7"
+      }
+    },
+    {
+      "url": "/api/tutoring/45003833-ece5-48f8-bd98-5141b5f47dc2/reading",
+      "body": {
+        "passage_id": "P07"
+      }
+    },
+    {
+      "url": "/api/sessions/45003833-ece5-48f8-bd98-5141b5f47dc2/interventions/cce02e24-01e7-4e22-b52e-96893556da97",
+      "body": {}
+    }
+  ],
+  "responses": [
+    {
+      "url": "/api/tutoring/45003833-ece5-48f8-bd98-5141b5f47dc2/conversation",
+      "status": 200
+    },
+    {
+      "url": "/api/tutoring/45003833-ece5-48f8-bd98-5141b5f47dc2/conversation",
+      "status": 200
+    },
+    {
+      "url": "/api/sessions/45003833-ece5-48f8-bd98-5141b5f47dc2/answers",
+      "status": 200
+    },
+    {
+      "url": "/api/tutoring/45003833-ece5-48f8-bd98-5141b5f47dc2",
+      "status": 503
+    },
+    {
+      "url": "/api/tutoring/45003833-ece5-48f8-bd98-5141b5f47dc2/reading",
+      "status": 200
+    },
+    {
+      "url": "/api/sessions/45003833-ece5-48f8-bd98-5141b5f47dc2/interventions/cce02e24-01e7-4e22-b52e-96893556da97",
+      "status": 200
+    }
+  ],
+  "result": "FAIL",
+  "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n'true' !== 'false'\n\n    at file:///C:/Users/sb128/.codex/worktrees/student-notebook-active/LearningPlatform/acceptance/active-notebook/journey.mjs:450:10",
+  "diffAfterSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sourceUnchanged": true
+}
