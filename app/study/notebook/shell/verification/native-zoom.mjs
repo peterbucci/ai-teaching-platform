@@ -44,6 +44,16 @@ export async function checkNativeZoom({
       assert.equal(page.url(), `${base}/`);
       assert.equal(response.headers()["x-n1-test-run"], runId);
       await page.waitForSelector("[data-study-session]");
+      const capture = await context.newCDPSession(page);
+      const screenshot = async (name) => {
+        // Capture the native window view: surface capture clips in CSS pixels
+        // at non-default native zoom and can produce a blank scrolled image.
+        const { data } = await capture.send("Page.captureScreenshot", {
+          format: "png",
+          fromSurface: false,
+        });
+        fs.writeFileSync(path.join(out, name), Buffer.from(data, "base64"));
+      };
       const measured = await page.evaluate(() => ({
         width: innerWidth,
         height: innerHeight,
@@ -56,9 +66,7 @@ export async function checkNativeZoom({
       assert.equal(measured.scale, 1);
       assert.equal(measured.cssZoom, "1");
       metrics.push({ factor, ...measured });
-      await page.screenshot({
-        path: path.join(out, `native-zoom-${factor * 100}.png`),
-      });
+      await screenshot(`native-zoom-${factor * 100}.png`);
       await page.locator("textarea").fill("Native browser zoom draft");
       const token = await page
         .locator("[data-study-session]")
@@ -79,9 +87,8 @@ export async function checkNativeZoom({
         "Native browser zoom draft",
       );
       await page.locator("textarea").scrollIntoViewIfNeeded();
-      await page.screenshot({
-        path: path.join(out, `native-zoom-${factor * 100}-composer.png`),
-      });
+      assert.equal(await page.locator("textarea").isVisible(), true);
+      await screenshot(`native-zoom-${factor * 100}-composer.png`);
     } finally {
       await context.close();
     }
