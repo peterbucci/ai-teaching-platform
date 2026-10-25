@@ -55,12 +55,16 @@ export function TeacherFrame({
   return (
     <Suspense
       fallback={
-        <div className="tw-shell">
-          <header className="tw-header">Learning Pulse</header>
-          <main className="tw-main" aria-busy="true">
+        <TeacherWorkspace
+          section={section}
+          context={context}
+          contextIsAuthoritative={contextIsAuthoritative}
+          pending
+        >
+          <div className="lp-teacher">
             <p role="status">Loading workspace…</p>
-          </main>
-        </div>
+          </div>
+        </TeacherWorkspace>
       }
     >
       <TeacherWorkspace

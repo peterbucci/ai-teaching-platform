@@ -8,7 +8,7 @@ import { runInNewContext } from "node:vm";
 import type { ReactNode } from "react";
 import ts from "typescript";
 
-async function checkStreamingBody() {
+async function checkStreamingBody(suspension: "body" | "shell") {
   // npm test enables react-server for domain tests. Render in a bounded child
   // without that condition so the real React DOM streaming renderer is usable.
   const React = await import("react");
@@ -36,9 +36,14 @@ async function checkStreamingBody() {
     section: string;
     context: typeof authoritative;
     contextIsAuthoritative: boolean;
+    pending?: boolean;
   }) {
     assert.equal(props.context, authoritative);
     assert.equal(props.contextIsAuthoritative, true);
+    assert.equal(props.section, "Evidence");
+    // A normal-shell suspension must reach a pending instance of the same
+    // shell. This does not simulate a missing browser module or route chunk.
+    if (suspension === "shell" && !ready && !props.pending) throw bodyReady;
     return React.createElement(
       "div",
       { className: "tw-shell" },
@@ -47,7 +52,14 @@ async function checkStreamingBody() {
         { className: "tw-header" },
         React.createElement("nav", null, "Authorized workspace navigation"),
       ),
-      React.createElement("main", { id: "main-content" }, props.children),
+      React.createElement(
+        "main",
+        {
+          id: "main-content",
+          "data-workspace-pending": props.pending || undefined,
+        },
+        props.children,
+      ),
     );
   }
   const exports: Record<string, unknown> = {};
@@ -114,7 +126,9 @@ async function checkStreamingBody() {
     assert.match(visibleShell, /id="main-content"/);
     assert.match(visibleShell, /data-workspace-pending="true"/);
     assert.match(visibleShell, /role="status"/);
-    assert.doesNotMatch(visibleShell, />Loading workspace…</);
+    if (suspension === "body")
+      assert.doesNotMatch(visibleShell, />Loading workspace…</);
+    else assert.match(visibleShell, />Loading workspace…</);
     assert.doesNotMatch(visibleShell, /Saved evidence body/);
     ready = true;
     resolveBody();
@@ -128,19 +142,23 @@ async function checkStreamingBody() {
 }
 
 if (process.argv.includes("--stream-child")) {
-  await checkStreamingBody();
+  await checkStreamingBody(
+    process.argv.includes("--suspend-shell") ? "shell" : "body",
+  );
 } else {
-  test("a suspended page body retains the shared shell and authoritative context", () => {
-    const result = spawnSync(
-      process.execPath,
-      [
-        "--experimental-strip-types",
-        fileURLToPath(import.meta.url),
-        "--stream-child",
-      ],
-      { encoding: "utf8", timeout: 20000, windowsHide: true },
-    );
-    assert.equal(result.error, undefined);
-    assert.equal(result.status, 0, result.stderr || result.stdout);
-  });
+  for (const suspension of ["body", "shell"] as const)
+    test(`a suspended ${suspension} retains shared navigation and authoritative context`, () => {
+      const result = spawnSync(
+        process.execPath,
+        [
+          "--experimental-strip-types",
+          fileURLToPath(import.meta.url),
+          "--stream-child",
+          ...(suspension === "shell" ? ["--suspend-shell"] : []),
+        ],
+        { encoding: "utf8", timeout: 20000, windowsHide: true },
+      );
+      assert.equal(result.error, undefined);
+      assert.equal(result.status, 0, result.stderr || result.stdout);
+    });
 }
