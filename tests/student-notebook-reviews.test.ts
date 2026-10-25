@@ -382,6 +382,32 @@ test("review return preserves bounded Notebook filters and rejects external or a
   }
 });
 
+test("recorded question review returns retain exact identities without widening destinations", () => {
+  const session = "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa";
+  const attempt = "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb";
+  const saved = `/study/history/${session}?attempt=${attempt}`;
+  assert.deepEqual(reviewReturnContext(saved), {
+    href: saved,
+    label: "Your saved question",
+  });
+  assert.equal(
+    reviewReturnContext(`/study/history/${session}`).href,
+    `/study/history/${session}`,
+  );
+  for (const value of [
+    saved + "&attempt=" + attempt,
+    saved + "&returnTo=https://example.com",
+    saved + "#question",
+    saved + "\n",
+    `/study/history/${session}?attempt=invalid`,
+    "/study/history/invalid",
+    `/study/history/${session}/../${session}`,
+    saved.replace(attempt, "%62" + attempt.slice(1)),
+    "//example.com" + saved,
+  ])
+    assert.equal(reviewReturnContext(value).href, "/study/assignments");
+});
+
 test("read-only review feedback uses supplied public names and never prints raw concept IDs", () => {
   const conceptId = "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa";
   const props = {

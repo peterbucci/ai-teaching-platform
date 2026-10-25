@@ -323,12 +323,18 @@ export function RecordedQuestionPage({
           ))}
           {page.teacher_reviews.map((review) => (
             <li key={review.approval_id}>
-              <a href={review.href}>Teacher review linked to this work</a>
+              <a
+                href={`${review.href}?returnTo=${encodeURIComponent(recordedHistoryHref(dto.session.id, page.attempt_id))}`}
+              >
+                Teacher review linked to this work
+              </a>
               {review.followup && (
                 <>
                   {" "}
                   ·{" "}
-                  <a href={review.followup.href}>
+                  <a
+                    href={`${review.followup.href}?returnTo=${encodeURIComponent(recordedHistoryHref(dto.session.id, page.attempt_id))}`}
+                  >
                     Review and saved fresh check
                   </a>
                 </>
