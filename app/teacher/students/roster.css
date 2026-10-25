@@ -10,7 +10,7 @@
   font-size: 14px;
   line-height: 1.55;
 }
-.lp-teacher:has(> .roster) {
+.tw-main > .lp-teacher:has(> .roster) {
   padding: 0;
 }
 .roster h1,
@@ -86,6 +86,11 @@
 }
 .roster-heading > p:not(.lp-eyebrow) {
   max-width: 850px;
+}
+.roster-scope {
+  flex-basis: 100%;
+  font-size: 12px;
+  color: var(--roster-muted);
 }
 .roster-note,
 .roster small {
@@ -289,7 +294,9 @@
 .roster--selected .tw-panes {
   margin: 0;
 }
-.roster--selected .tw-panes-grid {
+.roster--selected
+  .tw-panes[data-has-navigation][data-has-context]
+  .tw-panes-grid {
   grid-template-columns: minmax(170px, 0.7fr) minmax(0, 2fr) minmax(
       220px,
       0.9fr
@@ -469,11 +476,25 @@
   border: 0;
 }
 @media (max-width: 1240px) {
-  .roster--selected .tw-panes-grid {
+  .roster--selected
+    .tw-panes[data-has-navigation][data-has-context]
+    .tw-panes-grid {
     grid-template-columns: minmax(170px, 0.7fr) minmax(0, 2fr);
   }
 }
 @media (max-width: 800px) {
+  .roster .roster-heading > .lp-eyebrow {
+    display: none;
+  }
+  .roster .roster-heading h1 {
+    font-size: 26px;
+  }
+  .roster .roster-log h2 {
+    font-size: 22px;
+  }
+  .roster .roster-filters {
+    margin-top: 14px;
+  }
   .roster,
   .roster--selected {
     padding: 16px 12px 26px;
@@ -492,7 +513,9 @@
   .roster-heading {
     margin-bottom: 14px;
   }
-  .roster--selected .tw-panes-grid {
+  .roster--selected
+    .tw-panes[data-has-navigation][data-has-context]
+    .tw-panes-grid {
     display: block;
   }
   .roster-log {

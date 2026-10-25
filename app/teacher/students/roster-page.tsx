@@ -316,23 +316,30 @@ export default async function RosterPage({
               </h1>
               <p>
                 {sessions.length} study sessions · {responses.length} submitted
-                responses in this assignment
+                responses
               </p>
             </>
           ) : (
             <>
               <h1>Roster</h1>
               <p>
-                Each row shows a student’s responses on each idea, in order.
-                Open their work to inspect the original answers and recorded
-                help.
+                Responses by student and idea. Open a student to inspect their
+                original work and recorded help.
               </p>
             </>
           )}
-          <p className="roster-note">
-            {evidenceDescription(origin)} All dates are UTC. This view covers
-            the selected assignment across its saved sessions.
-          </p>
+          <details className="roster-scope">
+            <summary>
+              {origin === "all" ? "All evidence sources" : originLabel(origin)}{" "}
+              · This assignment
+            </summary>
+            <p>
+              {evidenceDescription(origin)} All dates are UTC. This view covers
+              the selected assignment across its saved sessions. Marks describe
+              responses, not ability. Missing work is not evidence of
+              difficulty.
+            </p>
+          </details>
         </header>
         {!selected ? (
           <>
@@ -425,8 +432,7 @@ export default async function RosterPage({
             </div>
             <p className="roster-note">
               {visibleStudents.length} of {data.students.length} enrolled
-              students · Marks describe responses, not ability. Missing work is
-              not evidence of difficulty.
+              students · Response evidence, not mastery.
             </p>
             {visibleStudents.length ? (
               <div
@@ -645,12 +651,15 @@ export default async function RosterPage({
                       : "All ideas"}
                   </p>
                   <h2>Every saved session</h2>
-                  <p className="roster-note">
-                    Original work and displayed help, ordered by recorded time
-                    within each session. Help affects an answer only where its
-                    submission snapshot links it. Equal timestamps do not
-                    establish causal order.
-                  </p>
+                  <details className="roster-note">
+                    <summary>About this work log</summary>
+                    <p>
+                      Original work and displayed help, ordered by recorded time
+                      within each session. Help affects an answer only where its
+                      submission snapshot links it. Equal timestamps do not
+                      establish causal order.
+                    </p>
+                  </details>
                   {sessions.length ? (
                     sessions.map((evidence) => {
                       const events = workEvents(evidence, context.concept);
