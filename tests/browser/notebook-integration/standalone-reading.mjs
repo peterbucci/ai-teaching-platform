@@ -73,7 +73,7 @@ export async function checkStandaloneReadingExposure(page) {
   if (presentation.display === "grid")
     assert.match(presentation.columns, /^270px /, "N4's contents width wins");
 
-  const search = reader.getByRole("textbox", { name: "Search this reading" });
+  const search = reader.getByRole("searchbox", { name: "Search this reading" });
   const previousSearch = await search.inputValue();
   await search.fill("n7 retained reading search");
 
