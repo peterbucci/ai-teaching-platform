@@ -1,0 +1,10 @@
+
+> ai-teaching-platform@0.1.0 interventions:http
+> node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-intervention-http.ts
+
+{"issue":44,"verification":"authenticated HTTP and server-rendered saved review page; not a visual browser interaction test","checked_at":"2026-10-25T05:01:47.779Z","origin":"http://localhost:3355","draft_id":"8b935f47-c3a9-42a6-ba51-e4a261f5d7d4","saved_revision":3,"status":"passed","paid_requests":0,"checks":["anonymous access returns 401; fictional student cannot read teacher draft or generation request (404)","authenticated teacher retrieves saved private draft and immutable completed request via no-store API","saved teacher workspace renders private-draft status, evidence, student preview and teacher-review controls; student page denies private evidence","cross-origin POST returns 403; oversized and malformed generation requests return 400 before any reservation or model call; original evidence preserved"]}
+.env not found. Continuing without it.
+(node:72) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///app/scripts/check-intervention-http.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)

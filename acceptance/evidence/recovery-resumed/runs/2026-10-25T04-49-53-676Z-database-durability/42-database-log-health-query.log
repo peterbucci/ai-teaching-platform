@@ -1,0 +1,78 @@
+db-1  | 2026-10-25T04:50:04.998575387Z The files belonging to this database system will be owned by user "postgres".
+db-1  | 2026-10-25T04:50:04.998655868Z This user must also own the server process.
+db-1  | 2026-10-25T04:50:04.998669810Z 
+db-1  | 2026-10-25T04:50:05.002448544Z The database cluster will be initialized with locale "en_US.utf8".
+db-1  | 2026-10-25T04:50:05.002484223Z The default database encoding has accordingly been set to "UTF8".
+db-1  | 2026-10-25T04:50:05.002487097Z The default text search configuration will be set to "english".
+db-1  | 2026-10-25T04:50:05.002489188Z 
+db-1  | 2026-10-25T04:50:05.002491604Z Data page checksums are disabled.
+db-1  | 2026-10-25T04:50:05.002493826Z 
+db-1  | 2026-10-25T04:50:05.002570472Z fixing permissions on existing directory /var/lib/postgresql/data ... ok
+db-1  | 2026-10-25T04:50:05.020479581Z creating subdirectories ... ok
+db-1  | 2026-10-25T04:50:05.020702254Z selecting dynamic shared memory implementation ... posix
+db-1  | 2026-10-25T04:50:05.050139351Z selecting default "max_connections" ... 100
+db-1  | 2026-10-25T04:50:05.079678155Z selecting default "shared_buffers" ... 128MB
+db-1  | 2026-10-25T04:50:05.101564295Z selecting default time zone ... Etc/UTC
+db-1  | 2026-10-25T04:50:05.106400172Z creating configuration files ... ok
+db-1  | 2026-10-25T04:50:05.415728742Z running bootstrap script ... ok
+db-1  | 2026-10-25T04:50:06.221763597Z performing post-bootstrap initialization ... ok
+db-1  | 2026-10-25T04:50:06.913828894Z syncing data to disk ... ok
+db-1  | 2026-10-25T04:50:06.913869808Z 
+db-1  | 2026-10-25T04:50:06.913867213Z initdb: warning: enabling "trust" authentication for local connections
+db-1  | 2026-10-25T04:50:06.913881498Z initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+db-1  | 2026-10-25T04:50:06.913873715Z 
+db-1  | 2026-10-25T04:50:06.913887897Z Success. You can now start the database server using:
+db-1  | 2026-10-25T04:50:06.913891051Z 
+db-1  | 2026-10-25T04:50:06.913893257Z     pg_ctl -D /var/lib/postgresql/data -l logfile start
+db-1  | 2026-10-25T04:50:06.913895464Z 
+db-1  | 2026-10-25T04:50:06.984147358Z waiting for server to start....2026-10-25 04:50:06.983 UTC [48] LOG:  starting PostgreSQL 17.11 (Debian 17.11-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+db-1  | 2026-10-25T04:50:06.986837265Z 2026-10-25 04:50:06.986 UTC [48] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+db-1  | 2026-10-25T04:50:07.000518649Z 2026-10-25 04:50:07.000 UTC [51] LOG:  database system was shut down at 2026-10-25 04:50:06 UTC
+db-1  | 2026-10-25T04:50:07.006619381Z 2026-10-25 04:50:07.006 UTC [48] LOG:  database system is ready to accept connections
+db-1  | 2026-10-25T04:50:07.040705016Z  done
+db-1  | 2026-10-25T04:50:07.040733636Z server started
+db-1  | 2026-10-25T04:50:07.207562439Z CREATE DATABASE
+db-1  | 2026-10-25T04:50:07.208898376Z 
+db-1  | 2026-10-25T04:50:07.209120044Z 
+db-1  | 2026-10-25T04:50:07.209134926Z /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/10-app.sh
+db-1  | 2026-10-25T04:50:07.280156633Z CREATE ROLE
+db-1  | 2026-10-25T04:50:07.311142690Z ALTER DATABASE
+db-1  | 2026-10-25T04:50:07.312305039Z REVOKE
+db-1  | 2026-10-25T04:50:07.314665324Z GRANT
+db-1  | 2026-10-25T04:50:07.317682006Z 
+db-1  | 2026-10-25T04:50:07.318745456Z waiting for server to shut down...2026-10-25 04:50:07.318 UTC [48] LOG:  received fast shutdown request
+db-1  | 2026-10-25T04:50:07.321056789Z .2026-10-25 04:50:07.320 UTC [48] LOG:  aborting any active transactions
+db-1  | 2026-10-25T04:50:07.323122317Z 2026-10-25 04:50:07.322 UTC [48] LOG:  background worker "logical replication launcher" (PID 54) exited with exit code 1
+db-1  | 2026-10-25T04:50:07.323344502Z 2026-10-25 04:50:07.323 UTC [49] LOG:  shutting down
+db-1  | 2026-10-25T04:50:07.327990053Z 2026-10-25 04:50:07.327 UTC [49] LOG:  checkpoint starting: shutdown immediate
+db-1  | 2026-10-25T04:50:07.602777185Z 2026-10-25 04:50:07.602 UTC [49] LOG:  checkpoint complete: wrote 930 buffers (5.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.028 s, sync=0.233 s, total=0.280 s; sync files=308, longest=0.026 s, average=0.001 s; distance=4251 kB, estimate=4251 kB; lsn=0/190DC90, redo lsn=0/190DC90
+db-1  | 2026-10-25T04:50:07.611431790Z 2026-10-25 04:50:07.611 UTC [48] LOG:  database system is shut down
+db-1  | 2026-10-25T04:50:07.619475955Z  done
+db-1  | 2026-10-25T04:50:07.619511767Z server stopped
+db-1  | 2026-10-25T04:50:07.620825789Z 
+db-1  | 2026-10-25T04:50:07.620837521Z PostgreSQL init process complete; ready for start up.
+db-1  | 2026-10-25T04:50:07.620840714Z 
+db-1  | 2026-10-25T04:50:07.663279298Z 2026-10-25 04:50:07.662 UTC [1] LOG:  starting PostgreSQL 17.11 (Debian 17.11-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+db-1  | 2026-10-25T04:50:07.663310984Z 2026-10-25 04:50:07.663 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+db-1  | 2026-10-25T04:50:07.663314774Z 2026-10-25 04:50:07.663 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+db-1  | 2026-10-25T04:50:07.668949720Z 2026-10-25 04:50:07.668 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+db-1  | 2026-10-25T04:50:07.674666794Z 2026-10-25 04:50:07.674 UTC [67] LOG:  database system was shut down at 2026-10-25 04:50:07 UTC
+db-1  | 2026-10-25T04:50:07.681640329Z 2026-10-25 04:50:07.681 UTC [1] LOG:  database system is ready to accept connections
+db-1  | 2026-10-25T04:50:28.420174020Z 2026-10-25 04:50:28.419 UTC [65] LOG:  checkpoint starting: immediate force wait
+db-1  | 2026-10-25T04:50:28.516093830Z 2026-10-25 04:50:28.515 UTC [65] LOG:  checkpoint complete: wrote 56 buffers (0.3%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.009 s, sync=0.030 s, total=0.096 s; sync files=43, longest=0.004 s, average=0.001 s; distance=7112 kB, estimate=7112 kB; lsn=0/2000080, redo lsn=0/2000028
+db-1  | 2026-10-25T04:50:32.551683378Z 2026-10-25 04:50:32.551 UTC [1] LOG:  received fast shutdown request
+db-1  | 2026-10-25T04:50:32.553739361Z 2026-10-25 04:50:32.553 UTC [1] LOG:  aborting any active transactions
+db-1  | 2026-10-25T04:50:32.555966718Z 2026-10-25 04:50:32.555 UTC [1] LOG:  background worker "logical replication launcher" (PID 70) exited with exit code 1
+db-1  | 2026-10-25T04:50:32.557285546Z 2026-10-25 04:50:32.557 UTC [65] LOG:  shutting down
+db-1  | 2026-10-25T04:50:32.558658424Z 2026-10-25 04:50:32.558 UTC [65] LOG:  checkpoint starting: shutdown immediate
+db-1  | 2026-10-25T04:50:32.569245898Z 2026-10-25 04:50:32.566 UTC [65] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.010 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=6401 kB; lsn=0/20000F8, redo lsn=0/20000F8
+db-1  | 2026-10-25T04:50:32.570970567Z 2026-10-25 04:50:32.570 UTC [1] LOG:  database system is shut down
+db-1  | 2026-10-25T04:50:32.975018066Z 
+db-1  | 2026-10-25T04:50:32.975040591Z PostgreSQL Database directory appears to contain a database; Skipping initialization
+db-1  | 2026-10-25T04:50:32.975042419Z 
+db-1  | 2026-10-25T04:50:32.995342777Z 2026-10-25 04:50:32.995 UTC [1] LOG:  starting PostgreSQL 17.11 (Debian 17.11-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+db-1  | 2026-10-25T04:50:32.995366659Z 2026-10-25 04:50:32.995 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+db-1  | 2026-10-25T04:50:32.995368542Z 2026-10-25 04:50:32.995 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+db-1  | 2026-10-25T04:50:32.998975423Z 2026-10-25 04:50:32.998 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+db-1  | 2026-10-25T04:50:33.003841493Z 2026-10-25 04:50:33.003 UTC [29] LOG:  database system was shut down at 2026-10-25 04:50:32 UTC
+db-1  | 2026-10-25T04:50:33.008258706Z 2026-10-25 04:50:33.008 UTC [1] LOG:  database system is ready to accept connections

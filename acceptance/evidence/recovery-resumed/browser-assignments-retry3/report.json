@@ -1,0 +1,367 @@
+{
+  "target": "combined-recovery",
+  "source_sha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+  "origin": "http://localhost:3355",
+  "started_at": "2026-10-25T05:19:04.028Z",
+  "category": "provider-disabled browser; fictional authored and synthetic histories; no actual model calls",
+  "authoring_fixture": "b9eb0643-4d25-44b6-a310-ac583de094bd",
+  "initial_host_headroom": [
+    {
+      "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+      "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+      "availableBytes": 54004600832,
+      "availableGiB": 50.29570388793945,
+      "minimumGiB": 10,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+      "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+      "availableBytes": 54004600832,
+      "availableGiB": 50.29570388793945,
+      "minimumGiB": 10,
+      "pass": true
+    }
+  ],
+  "harness_sha256": "0d3f6c3ec19aedfb71d3249dfcc02eb5cfdde4287e7ced267a72d8a4aa61e52a",
+  "cases": [
+    {
+      "id": "AS-01-draft-refresh-exact",
+      "status": "PASS",
+      "details": {
+        "title_exact": true,
+        "instructions_exact": true,
+        "published_version": "1"
+      }
+    },
+    {
+      "id": "AS-02-create-responsive-four-viewports",
+      "status": "PASS",
+      "details": [
+        {
+          "width": 1440,
+          "height": 900,
+          "scrollWidth": 1440
+        },
+        {
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024
+        },
+        {
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390
+        },
+        {
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320
+        }
+      ]
+    },
+    {
+      "id": "AS-03-two-tab-safe-conflict",
+      "status": "PASS",
+      "details": {
+        "local_stale_text_preserved": true,
+        "explicit_reconciliation": true,
+        "newer_saved_text_loaded": true
+      }
+    },
+    {
+      "id": "AS-04-initial401-safe-recovery",
+      "status": "PASS",
+      "details": {
+        "injected_before_commit": true,
+        "requests": 1,
+        "preserved_request_fields": true,
+        "real_expiry_unrun": true
+      }
+    },
+    {
+      "id": "AS-05-unknown-create-reload-and-explicit-replay",
+      "status": "PASS",
+      "details": {
+        "created_id": "90f145f3-99f4-4c05-8fe2-8c6ddbe94ed2",
+        "request_id": "d1812f04-b0a9-495e-9d44-00cf9b2c5bf1",
+        "repeat_same_identity": true,
+        "same_assignment": true,
+        "no_automatic_reload_retry": true,
+        "paid_operation": false
+      }
+    },
+    {
+      "id": "AS-06-created-inactive-student-hidden",
+      "status": "PASS",
+      "details": {
+        "assignment_id": "90f145f3-99f4-4c05-8fe2-8c6ddbe94ed2",
+        "class_id": "20000000-0000-4000-8000-000000000001",
+        "lesson_id": "6fe198e6-e4d9-4b43-b7f5-8430847358cc",
+        "lesson_version": "1",
+        "student_list_hidden": true
+      }
+    },
+    {
+      "id": "AS-07-safe-preview-no-writes",
+      "status": "PASS",
+      "details": {
+        "no_api_writes": true,
+        "no_unrevealed_question_or_private_criterion": true,
+        "layouts": [
+          {
+            "width": 1440,
+            "height": 900,
+            "scrollWidth": 1440
+          },
+          {
+            "width": 1024,
+            "height": 768,
+            "scrollWidth": 1024
+          },
+          {
+            "width": 390,
+            "height": 844,
+            "scrollWidth": 390
+          },
+          {
+            "width": 320,
+            "height": 844,
+            "scrollWidth": 320
+          }
+        ]
+      }
+    },
+    {
+      "id": "AS-08-explicit-activation-student-start",
+      "status": "PASS",
+      "details": {
+        "assignment": "90f145f3-99f4-4c05-8fe2-8c6ddbe94ed2",
+        "session": "ceaf0e12-984b-4f38-b9ec-3278af88fb63",
+        "lesson_version": "1",
+        "single_composer": true,
+        "no_answer_submitted": true
+      }
+    },
+    {
+      "id": "AS-09-presented-progress-not-wrong",
+      "status": "PASS",
+      "details": {
+        "summary": "students have answered\n0 of 24\nanswers\n0\nevaluated\n0 of 0\nevaluations pending, failed or rejected\n0\nanswers given after help was shown\n0 of 0",
+        "counts": {
+          "students have answered": "0 of 24",
+          "answers": "0",
+          "evaluated": "0 of 0",
+          "evaluations pending, failed or rejected": "0",
+          "answers given after help was shown": "0 of 0"
+        },
+        "participation": "Participation and evaluation details\n\n1 students started · 0 completed sessions · 1 presented questions without answers · 0 evaluations pending · 0 failed · 0 rejected · 0 answers after reading only. These are response and session counts, not mastery.",
+        "authorized_metrics": {
+          "assignment_id": "90f145f3-99f4-4c05-8fe2-8c6ddbe94ed2",
+          "class_id": "20000000-0000-4000-8000-000000000001",
+          "metrics": {
+            "definition_version": "class-evidence-v1",
+            "origin_filter": "live_demo",
+            "enrolled_students": 24,
+            "participation": {
+              "numerator": 0,
+              "denominator": 24
+            },
+            "no_activity_students": 24,
+            "origins": {
+              "synthetic_fixture": 0,
+              "live_demo": 0
+            },
+            "concepts": [
+              {
+                "concept_id": "7c6abc85-d4c9-4570-b3a6-ff01d3e909ea",
+                "latest": {
+                  "correct": 0,
+                  "partially_correct": 0,
+                  "incorrect": 0,
+                  "uncertain": 0,
+                  "pending": 0,
+                  "evaluation_failed": 0,
+                  "rejected": 0,
+                  "no_response": 24,
+                  "accepted_students": 0,
+                  "correct_rate": {
+                    "numerator": 0,
+                    "denominator": 0
+                  }
+                },
+                "independent": {
+                  "correct": 0,
+                  "partially_correct": 0,
+                  "incorrect": 0,
+                  "uncertain": 0,
+                  "pending": 0,
+                  "evaluation_failed": 0,
+                  "rejected": 0,
+                  "no_response": 24,
+                  "accepted_students": 0,
+                  "correct_rate": {
+                    "numerator": 0,
+                    "denominator": 0
+                  }
+                },
+                "content_assisted": {
+                  "correct": 0,
+                  "partially_correct": 0,
+                  "incorrect": 0,
+                  "uncertain": 0,
+                  "pending": 0,
+                  "evaluation_failed": 0,
+                  "rejected": 0,
+                  "no_response": 24,
+                  "accepted_students": 0,
+                  "correct_rate": {
+                    "numerator": 0,
+                    "denominator": 0
+                  }
+                },
+                "immediate_retest": {
+                  "correct": 0,
+                  "partially_correct": 0,
+                  "incorrect": 0,
+                  "uncertain": 0,
+                  "pending": 0,
+                  "evaluation_failed": 0,
+                  "rejected": 0,
+                  "no_response": 24,
+                  "accepted_students": 0,
+                  "correct_rate": {
+                    "numerator": 0,
+                    "denominator": 0
+                  }
+                },
+                "delayed_review": {
+                  "correct": 0,
+                  "partially_correct": 0,
+                  "incorrect": 0,
+                  "uncertain": 0,
+                  "pending": 0,
+                  "evaluation_failed": 0,
+                  "rejected": 0,
+                  "no_response": 24,
+                  "accepted_students": 0,
+                  "correct_rate": {
+                    "numerator": 0,
+                    "denominator": 0
+                  }
+                },
+                "repeated_difficulty": {
+                  "numerator": 0,
+                  "denominator": 0
+                }
+              }
+            ]
+          }
+        },
+        "presented_answer_not_graded": true
+      }
+    },
+    {
+      "id": "AS-10-progress-responsive-four-viewports",
+      "status": "PASS",
+      "details": [
+        {
+          "width": 1440,
+          "height": 900,
+          "scrollWidth": 1440
+        },
+        {
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024
+        },
+        {
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390
+        },
+        {
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320
+        }
+      ]
+    },
+    {
+      "id": "AS-11-exact-history-assistance-and-accepted-evaluation",
+      "status": "FAIL",
+      "details": {
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n    'Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.',\n+   'Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.',\n+   'Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.',\n+   'Fictional follow-up response preserved during an uncertain request.',\n+   'Fictional follow-up response preserved during an uncertain request.',\n+   'Fictional follow-up response preserved during an uncertain request.',\n+   'Fictional follow-up response preserved during an uncertain request.',\n    'On A, transmission and propagation are each 1 ms. On B, both are 3 ms, because transmitting across three times the distance takes three times as long.',\n+   'On A, transmission and propagation are each 1 ms. On B, both are 3 ms, because transmitting across three times the distance takes three times as long.',\n+   'Reading assistance integration fixture — no model evaluation.',\n+   'Transmission delay is unchanged: the number of packet bits and the rate at which they enter the link are unchanged. Propagation delay doubles because distance doubles at the same propagation speed.',\n+   'Transmission delay is unchanged: the number of packet bits and the rate at which they enter the link are unchanged. Propagation delay doubles because distance doubles at the same propagation speed.',\n    'Transmission is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes. Propagation is 3 ms for both. More bits take longer to put onto the link, but the distance and propagation speed stay the same.',\n+   'Transmission is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes. Propagation is 3 ms for both. More bits take longer to put onto the link, but the distance and propagation speed stay the same.',\n+   'Transmission is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes. Propagation is 3 ms for both. More bits take longer to put onto the link, but the distance and propagation speed stay the same.',\n+   'Transmission is 1 ms on each: the packet has 8,000 bits and the rate is 8 million bits per second. Propagation is 1 ms on A and 3 ms on B. I used transmission to mean travel before, but physical distance changes propagation, not the time to send the bits onto the link.',\n    'Transmission is 2 ms for each: 24,000 divided by 12,000,000 seconds. Propagation is 0.5 ms for 100 km and 2 ms for 400 km. Only propagation changes with the distance.',\n+   'Transmission is 2 ms for each: 24,000 divided by 12,000,000 seconds. Propagation is 0.5 ms for 100 km and 2 ms for 400 km. Only propagation changes with the distance.'\n  ]\n"
+      }
+    }
+  ],
+  "planned_cases": [
+    "AS-01-draft-refresh-exact",
+    "AS-02-create-responsive-four-viewports",
+    "AS-03-two-tab-safe-conflict",
+    "AS-04-initial401-safe-recovery",
+    "AS-05-unknown-create-reload-and-explicit-replay",
+    "AS-06-created-inactive-student-hidden",
+    "AS-07-safe-preview-no-writes",
+    "AS-08-explicit-activation-student-start",
+    "AS-09-presented-progress-not-wrong",
+    "AS-10-progress-responsive-four-viewports",
+    "AS-11-exact-history-assistance-and-accepted-evaluation",
+    "AS-15-narrow-details-escape-and-close-focus",
+    "AS-14-in-page-back-retains-assignment-selection",
+    "AS-12-selection-refresh-and-history",
+    "AS-13-readonly-preview-original-evidence-unchanged"
+  ],
+  "screenshots": [
+    "create-1440x900.png",
+    "create-1024x768.png",
+    "create-390x844.png",
+    "create-320x844.png",
+    "two-tab-conflict.png",
+    "creation-401-preserved.png",
+    "unknown-create-preserved.png",
+    "student-preview-1440x900.png",
+    "student-preview-1024x768.png",
+    "student-preview-390x844.png",
+    "student-preview-320x844.png",
+    "activated-student-session.png",
+    "progress-1440x900.png",
+    "progress-1024x768.png",
+    "progress-390x844.png",
+    "progress-320x844.png",
+    "failure-student.png",
+    "failure-teacher.png"
+  ],
+  "instructions_aria_before": "- textbox \"Instructions for students\"",
+  "instructions_aria_after_restore": "- textbox \"Instructions for students\": Original fictional instructions. Explain your reasoning and retain this line.",
+  "creation_interception": {
+    "status": 200,
+    "assignment_id": "90f145f3-99f4-4c05-8fe2-8c6ddbe94ed2",
+    "request_id": "d1812f04-b0a9-495e-9d44-00cf9b2c5bf1",
+    "error": null
+  },
+  "created_assignment_id": "90f145f3-99f4-4c05-8fe2-8c6ddbe94ed2",
+  "student_session_id": "ceaf0e12-984b-4f38-b9ec-3278af88fb63",
+  "status": "failed",
+  "failure_stage": "original synthetic history",
+  "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n    'Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.',\n+   'Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.',\n+   'Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.',\n+   'Fictional follow-up response preserved during an uncertain request.',\n+   'Fictional follow-up response preserved during an uncertain request.',\n+   'Fictional follow-up response preserved during an uncertain request.',\n+   'Fictional follow-up response preserved during an uncertain request.',\n    'On A, transmission and propagation are each 1 ms. On B, both are 3 ms, because transmitting across three times the distance takes three times as long.',\n+   'On A, transmission and propagation are each 1 ms. On B, both are 3 ms, because transmitting across three times the distance takes three times as long.',\n+   'Reading assistance integration fixture — no model evaluation.',\n+   'Transmission delay is unchanged: the number of packet bits and the rate at which they enter the link are unchanged. Propagation delay doubles because distance doubles at the same propagation speed.',\n+   'Transmission delay is unchanged: the number of packet bits and the rate at which they enter the link are unchanged. Propagation delay doubles because distance doubles at the same propagation speed.',\n    'Transmission is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes. Propagation is 3 ms for both. More bits take longer to put onto the link, but the distance and propagation speed stay the same.',\n+   'Transmission is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes. Propagation is 3 ms for both. More bits take longer to put onto the link, but the distance and propagation speed stay the same.',\n+   'Transmission is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes. Propagation is 3 ms for both. More bits take longer to put onto the link, but the distance and propagation speed stay the same.',\n+   'Transmission is 1 ms on each: the packet has 8,000 bits and the rate is 8 million bits per second. Propagation is 1 ms on A and 3 ms on B. I used transmission to mean travel before, but physical distance changes propagation, not the time to send the bits onto the link.',\n    'Transmission is 2 ms for each: 24,000 divided by 12,000,000 seconds. Propagation is 0.5 ms for 100 km and 2 ms for 400 km. Only propagation changes with the distance.',\n+   'Transmission is 2 ms for each: 24,000 divided by 12,000,000 seconds. Propagation is 0.5 ms for 100 km and 2 ms for 400 km. Only propagation changes with the distance.'\n  ]\n",
+  "failure_urls": {
+    "teacher": "http://localhost:3355/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=10000000-0000-4000-8000-000000000002&concept=transmission_delay&class=20000000-0000-4000-8000-000000000001&status=all&progressView=grid&pane=details#cell-evidence",
+    "student": "http://localhost:3355/study/assignments/90f145f3-99f4-4c05-8fe2-8c6ddbe94ed2?tab=study&session=ceaf0e12-984b-4f38-b9ec-3278af88fb63"
+  },
+  "unrun_cases": [
+    "AS-15-narrow-details-escape-and-close-focus",
+    "AS-14-in-page-back-retains-assignment-selection",
+    "AS-12-selection-refresh-and-history",
+    "AS-13-readonly-preview-original-evidence-unchanged"
+  ],
+  "finished_at": "2026-10-25T05:19:13.359Z",
+  "unrun": [
+    "Real authentication expiry and sign-in return",
+    "Fresh model calls",
+    "Hosted release",
+    "Full keyboard-only and screen-reader journey",
+    "Actual browser200%zoom in this suite",
+    "Unchanged private published-history guarantees beyond separately executed service checks"
+  ]
+}

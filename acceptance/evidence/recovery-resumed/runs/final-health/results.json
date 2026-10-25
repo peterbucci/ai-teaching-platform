@@ -1,0 +1,2660 @@
+{
+  "startedAt": "2026-10-25T05:31:57.454Z",
+  "project": "lp-accept-recovery-01a1714f",
+  "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+  "operations": "read-only; no restart, repair, deletion or model call",
+  "checks": [
+    {
+      "name": "host-backing-guest-engine-health",
+      "status": "pass"
+    },
+    {
+      "name": "isolated-container-network-volume-health",
+      "status": "pass"
+    },
+    {
+      "name": "sentinel-wal-settings-and-storage-error-scan-after-acceptance",
+      "status": "pass"
+    },
+    {
+      "name": "original-artifact-hashes-incident-volume-and-image-retained",
+      "status": "pass"
+    }
+  ],
+  "storage": {
+    "observedAt": "2026-10-25T05:31:57.458Z",
+    "minimumGiB": 10,
+    "host": [
+      {
+        "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+        "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+        "availableBytes": 53945507840,
+        "availableGiB": 50.24066925048828,
+        "minimumGiB": 10,
+        "pass": true
+      },
+      {
+        "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+        "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+        "availableBytes": 53945507840,
+        "availableGiB": 50.24066925048828,
+        "minimumGiB": 10,
+        "pass": true
+      },
+      {
+        "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+        "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+        "availableBytes": 53945507840,
+        "availableGiB": 50.24066925048828,
+        "minimumGiB": 10,
+        "pass": true
+      }
+    ],
+    "engine": {
+      "status": "healthy",
+      "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+      "name": "docker-desktop",
+      "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+      "root": "/var/lib/docker",
+      "storage": {
+        "status": "verified",
+        "method": "read-only df on explicitly selected existing container volume",
+        "container": "lp-accept-recovery-01a1714f-db-1",
+        "source": "/var/lib/docker/volumes/lp-accept-recovery-01a1714f_postgres_data/_data",
+        "destination": "/var/lib/postgresql/data",
+        "availableBytes": 900244271104,
+        "availableGiB": 838.4178123474121,
+        "pass": true
+      }
+    },
+    "backingStorage": {
+      "provenance": "explicit owner-verified Docker storage path",
+      "disks": [
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+          "availableBytes": 53944844288,
+          "availableGiB": 50.24005126953125,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ]
+    },
+    "pass": true
+  },
+  "containers": [
+    {
+      "id": "4227f6939d0ec92109bf1f23b5dca52f9df2cd915c8d98995f4a10f834fa9d28",
+      "name": "/lp-accept-recovery-01a1714f-gateway-1",
+      "image": "sha256:6769dc3a703c719c1d2756bda113659be28ae16cf0da58dd5fd823d6b9a050ea",
+      "status": "running",
+      "health": null,
+      "startedAt": "2026-10-25T04:54:31.620454663Z",
+      "restartCount": 0,
+      "mounts": [
+        {
+          "type": "bind",
+          "name": null,
+          "destination": "/etc/nginx/conf.d/default.conf",
+          "rw": false
+        }
+      ],
+      "networks": [
+        {
+          "name": "lp-accept-recovery-01a1714f_acceptance",
+          "id": "09ee7676a8093f19008e68d496302ade8fd7739b74d36471a8f2f24054a52f60",
+          "ip": "10.233.121.4"
+        },
+        {
+          "name": "lp-accept-recovery-01a1714f_browser",
+          "id": "0902dda24dcab6c4e3816ee9ff93e43a1351268ca97274fb4a23669dc52c9f69",
+          "ip": "10.234.121.2"
+        }
+      ]
+    },
+    {
+      "id": "b7da91a64117164b03299b5f592d3a23c3a425217cb23f2acde957527f44abc8",
+      "name": "/lp-accept-recovery-01a1714f-app-1",
+      "image": "sha256:2274970528a88465c2f6bcaf8ee116b4a35d705b142da92846d107146d2599b6",
+      "status": "running",
+      "health": "healthy",
+      "startedAt": "2026-10-25T05:02:37.310634761Z",
+      "restartCount": 0,
+      "mounts": [],
+      "networks": [
+        {
+          "name": "lp-accept-recovery-01a1714f_acceptance",
+          "id": "09ee7676a8093f19008e68d496302ade8fd7739b74d36471a8f2f24054a52f60",
+          "ip": "10.233.121.2"
+        }
+      ]
+    },
+    {
+      "id": "bddc08d2b9d063d2bb2700f9d2d651056f8309e95641f7b16957cb28c65aeccb",
+      "name": "/lp-accept-recovery-01a1714f-db-1",
+      "image": "sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f",
+      "status": "running",
+      "health": "healthy",
+      "startedAt": "2026-10-25T05:02:04.406093898Z",
+      "restartCount": 0,
+      "mounts": [
+        {
+          "type": "volume",
+          "name": "lp-accept-recovery-01a1714f_postgres_data",
+          "destination": "/var/lib/postgresql/data",
+          "rw": true
+        },
+        {
+          "type": "bind",
+          "name": null,
+          "destination": "/docker-entrypoint-initdb.d/10-app.sh",
+          "rw": false
+        }
+      ],
+      "networks": [
+        {
+          "name": "lp-accept-recovery-01a1714f_acceptance",
+          "id": "09ee7676a8093f19008e68d496302ade8fd7739b74d36471a8f2f24054a52f60",
+          "ip": "10.233.121.3"
+        }
+      ]
+    }
+  ],
+  "networks": [
+    {
+      "id": "09ee7676a8093f19008e68d496302ade8fd7739b74d36471a8f2f24054a52f60",
+      "name": "lp-accept-recovery-01a1714f_acceptance",
+      "created": "2026-10-25T04:50:04.260152245Z",
+      "internal": true,
+      "ipam": [
+        {
+          "Subnet": "10.233.121.0/24"
+        }
+      ],
+      "labels": {
+        "com.docker.compose.config-hash": "8ee3d31190d0050ac352c672d05ef7df4ed635e52fd64d37eadc7ee11adc802b",
+        "com.docker.compose.network": "acceptance",
+        "com.docker.compose.project": "lp-accept-recovery-01a1714f",
+        "com.docker.compose.version": "2.38.1"
+      }
+    },
+    {
+      "id": "0902dda24dcab6c4e3816ee9ff93e43a1351268ca97274fb4a23669dc52c9f69",
+      "name": "lp-accept-recovery-01a1714f_browser",
+      "created": "2026-10-25T04:54:25.116836681Z",
+      "internal": false,
+      "ipam": [
+        {
+          "Subnet": "10.234.121.0/24"
+        }
+      ],
+      "labels": {
+        "com.docker.compose.config-hash": "ccbcf870ba4f4be62d66ef024911a007be814da06cd140b6ad1892f525d7bb9f",
+        "com.docker.compose.network": "browser",
+        "com.docker.compose.project": "lp-accept-recovery-01a1714f",
+        "com.docker.compose.version": "2.38.1"
+      }
+    }
+  ],
+  "volume": {
+    "CreatedAt": "2026-10-25T04:50:04Z",
+    "Driver": "local",
+    "Labels": {
+      "com.docker.compose.config-hash": "c7fcf85ee0445e5a82253beefc5c91f5b02f5d63cd9a2154d147d6a91725538a",
+      "com.docker.compose.project": "lp-accept-recovery-01a1714f",
+      "com.docker.compose.version": "2.38.1",
+      "com.docker.compose.volume": "postgres_data"
+    },
+    "Mountpoint": "/var/lib/docker/volumes/lp-accept-recovery-01a1714f_postgres_data/_data",
+    "Name": "lp-accept-recovery-01a1714f_postgres_data",
+    "Options": null,
+    "Scope": "local"
+  },
+  "inventory": {
+    "containers": [
+      {
+        "id": "c8354ad5b0f0baa7f70bcaa86b73192281351d48ea3ffb13ba511ab030c41cac",
+        "names": "lp-accept-pr113-gateway-1",
+        "image": "nginx:1.27-alpine",
+        "status": "Up 25 minutes",
+        "labels": "com.docker.compose.config-hash=9861f605c24b77f1f123db42e292dba30c0f89aa48fd212dbd9f4749b9ea913d,com.docker.compose.container-number=1,com.docker.compose.depends_on=app:service_healthy:false,com.docker.compose.image=sha256:6769dc3a703c719c1d2756bda113659be28ae16cf0da58dd5fd823d6b9a050ea,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\Desktop\\LearningPlatform\\.setup\\student-blockers\\after-2fc0d49a\\compose.json,com.docker.compose.project.environment_file=C:\\Users\\sb128\\Desktop\\LearningPlatform\\.setup\\student-blockers\\after-2fc0d49a\\.env.acceptance,com.docker.compose.project.working_dir=C:\\Users\\sb128\\Desktop\\LearningPlatform\\.setup\\student-blockers\\after-2fc0d49a,com.docker.compose.project=lp-accept-pr113,com.docker.compose.replace=9914349920a445f193109221f4525db5f23baef9b3bc4bd25362041e95882063,com.docker.compose.service=gateway,com.docker.compose.version=2.38.1,desktop.docker.io/binds/0/Source=C:/Users/sb128/Desktop/LearningPlatform/.setup/student-blockers/after-2fc0d49a/gateway.conf,desktop.docker.io/binds/0/SourceKind=hostFile,desktop.docker.io/binds/0/Target=/etc/nginx/conf.d/default.conf,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/80/tcp=127.0.0.1:3383,maintainer=NGINX Docker Maintainers <docker-maint@nginx.com>"
+      },
+      {
+        "id": "2a858b3f45a582242e45b7f84d25707737f2ff78165c68900a6836522a7ae09d",
+        "names": "lp-accept-pr113-app-1",
+        "image": "lp-accept-pr113:2fc0d49a63f046a99e62805398b83cdada01a87a",
+        "status": "Up 25 minutes (healthy)",
+        "labels": "com.docker.compose.config-hash=39c6991e13d6c093d74e5f841abfeb5bc18cf004d65d7261eead1499eda9ff3a,com.docker.compose.container-number=1,com.docker.compose.depends_on=db:service_healthy:false,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\Desktop\\LearningPlatform\\.setup\\student-blockers\\after-2fc0d49a\\compose.json,com.docker.compose.project.environment_file=C:\\Users\\sb128\\Desktop\\LearningPlatform\\.setup\\student-blockers\\after-2fc0d49a\\.env.acceptance,com.docker.compose.project.working_dir=C:\\Users\\sb128\\Desktop\\LearningPlatform\\.setup\\student-blockers\\after-2fc0d49a,com.docker.compose.project=lp-accept-pr113,com.docker.compose.replace=087b0e0902c37e6ca831830946995d910532d857f5529ed0e4478c1d093af175,com.docker.compose.service=app,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2"
+      },
+      {
+        "id": "4227f6939d0ec92109bf1f23b5dca52f9df2cd915c8d98995f4a10f834fa9d28",
+        "names": "lp-accept-recovery-01a1714f-gateway-1",
+        "image": "nginx:1.27-alpine",
+        "status": "Up 37 minutes",
+        "labels": "com.docker.compose.config-hash=f4aad3012fa8e20d29b53d7a21473c23843b271e9ecab210c6e1345e3e5c9211,com.docker.compose.container-number=1,com.docker.compose.depends_on=app:service_healthy:false,com.docker.compose.image=sha256:6769dc3a703c719c1d2756bda113659be28ae16cf0da58dd5fd823d6b9a050ea,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\compose.json,com.docker.compose.project.environment_file=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\.env.acceptance,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery,com.docker.compose.project=lp-accept-recovery-01a1714f,com.docker.compose.service=gateway,com.docker.compose.version=2.38.1,desktop.docker.io/binds/0/Source=C:/Users/sb128/.codex/visualizations/2026/10/25/01a1714f-71e2-74a3-b3ac-39b3f362f9cb/runtime-recovery/gateway.conf,desktop.docker.io/binds/0/SourceKind=hostFile,desktop.docker.io/binds/0/Target=/etc/nginx/conf.d/default.conf,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/80/tcp=127.0.0.1:3355,maintainer=NGINX Docker Maintainers <docker-maint@nginx.com>"
+      },
+      {
+        "id": "b7da91a64117164b03299b5f592d3a23c3a425217cb23f2acde957527f44abc8",
+        "names": "lp-accept-recovery-01a1714f-app-1",
+        "image": "lp-accept-recovery-01a1714f:45326e243245c4941e2cefd0eab984bb7ee19765",
+        "status": "Up 29 minutes (healthy)",
+        "labels": "com.docker.compose.config-hash=23c1e20359fbb7d80ae5d748292793dc5161ea1e2d0b48a0aa6535b1f833fc3f,com.docker.compose.container-number=1,com.docker.compose.depends_on=db:service_healthy:false,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\compose.json,com.docker.compose.project.environment_file=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\.env.acceptance,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery,com.docker.compose.project=lp-accept-recovery-01a1714f,com.docker.compose.service=app,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2"
+      },
+      {
+        "id": "fa84517721adcaa75e08986d42fa2a1d61054b8b03f1939a83dba4656dd5abf4",
+        "names": "lp-lessons-fidelity-verify",
+        "image": "lp-lessons-fidelity:final",
+        "status": "Up 38 minutes",
+        "labels": "desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/3000/tcp=127.0.0.1:3334"
+      },
+      {
+        "id": "bddc08d2b9d063d2bb2700f9d2d651056f8309e95641f7b16957cb28c65aeccb",
+        "names": "lp-accept-recovery-01a1714f-db-1",
+        "image": "postgres:17.11-bookworm",
+        "status": "Up 29 minutes (healthy)",
+        "labels": "com.docker.compose.config-hash=55b7d865d73063c6260b1b2cd4ef8fe0c1cfc223b368574abb17bf5d4122fbad,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\compose.json,com.docker.compose.project.environment_file=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\.env.acceptance,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery,com.docker.compose.project=lp-accept-recovery-01a1714f,com.docker.compose.service=db,com.docker.compose.version=2.38.1,desktop.docker.io/binds/1/Source=C:/Users/sb128/.codex/visualizations/2026/10/25/01a1714f-71e2-74a3-b3ac-39b3f362f9cb/recovery-candidate-v2/database/init-app.sh,desktop.docker.io/binds/1/SourceKind=hostFile,desktop.docker.io/binds/1/Target=/docker-entrypoint-initdb.d/10-app.sh,desktop.docker.io/ports.scheme=v2"
+      },
+      {
+        "id": "1a5f78f9b7f445b72b269c500aa7800f42f022b2627cc350972ab86fd1c7f67a",
+        "names": "lp-accept-pr113-db-1",
+        "image": "postgres:17.11-bookworm",
+        "status": "Up 45 minutes (healthy)",
+        "labels": "com.docker.compose.config-hash=92728f0816fa8fc8744aca4581c6cd37bc81d2f90031c06199c067f1d858ff1f,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\Desktop\\LearningPlatform\\.setup\\student-blockers\\before\\compose.json,com.docker.compose.project.environment_file=C:\\Users\\sb128\\Desktop\\LearningPlatform\\.setup\\student-blockers\\before\\.env.acceptance,com.docker.compose.project.working_dir=C:\\Users\\sb128\\Desktop\\LearningPlatform\\.setup\\student-blockers\\before,com.docker.compose.project=lp-accept-pr113,com.docker.compose.service=db,com.docker.compose.version=2.38.1,desktop.docker.io/binds/1/Source=C:/Users/sb128/.codex/worktrees/student-acceptance-blockers/LearningPlatform/database/init-app.sh,desktop.docker.io/binds/1/SourceKind=hostFile,desktop.docker.io/binds/1/Target=/docker-entrypoint-initdb.d/10-app.sh,desktop.docker.io/ports.scheme=v2"
+      },
+      {
+        "id": "c1b1d53cce3d731904768e684cd1ea8c5f8fc91bcaa82f68728a898e3b907560",
+        "names": "lp-v22-main5-gateway-1",
+        "image": "nginx:1.27-alpine",
+        "status": "Up About an hour",
+        "labels": "com.docker.compose.config-hash=f1ba18b42a3f01b907ec79ce1b8f8e62e14cdc4e1411bf35d4bf205d33d3cba8,com.docker.compose.container-number=1,com.docker.compose.depends_on=app:service_healthy:false,com.docker.compose.image=sha256:6769dc3a703c719c1d2756bda113659be28ae16cf0da58dd5fd823d6b9a050ea,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-main\\compose.json,com.docker.compose.project.environment_file=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-main\\.env.acceptance,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-main,com.docker.compose.project=lp-v22-main5,com.docker.compose.service=gateway,com.docker.compose.version=2.38.1,desktop.docker.io/binds/0/Source=C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/runtime-main/gateway.conf,desktop.docker.io/binds/0/SourceKind=hostFile,desktop.docker.io/binds/0/Target=/etc/nginx/conf.d/default.conf,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/80/tcp=127.0.0.1:3344,maintainer=NGINX Docker Maintainers <docker-maint@nginx.com>"
+      },
+      {
+        "id": "597d36937870a26476fe58da024c426ce8437a0df6f3e590cf9071abf434e326",
+        "names": "lp-v22-main5-app-1",
+        "image": "lp-v22-main5:723ed6fea41138b604a9d333ebcd4a07b2202c36",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=a6dfa998b9fbe5f6a0c50398819a865995cb905e570b9327a8bce9c6f22459a7,com.docker.compose.container-number=1,com.docker.compose.depends_on=db:service_healthy:false,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-main\\compose.json,com.docker.compose.project.environment_file=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-main\\.env.acceptance,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-main,com.docker.compose.project=lp-v22-main5,com.docker.compose.service=app,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2"
+      },
+      {
+        "id": "4e1df141d28334acc0ce29f6215ca15cc59344cdac7b62f6ba3d54e338950561",
+        "names": "lp-v22-main5-db-1",
+        "image": "postgres:17.11-bookworm",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=5567a95f18da2eae53024abc1c5c621a0f309e7170e9f92f9c7857ebe5393ba7,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-main\\compose.json,com.docker.compose.project.environment_file=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-main\\.env.acceptance,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-main,com.docker.compose.project=lp-v22-main5,com.docker.compose.service=db,com.docker.compose.version=2.38.1,desktop.docker.io/binds/0/Source=C:/Users/sb128/.codex/worktrees/workbench-verification-report/LearningPlatform/database/init-app.sh,desktop.docker.io/binds/0/SourceKind=hostFile,desktop.docker.io/binds/0/Target=/docker-entrypoint-initdb.d/10-app.sh,desktop.docker.io/ports.scheme=v2"
+      },
+      {
+        "id": "bd54d0e24c644a0bb52c58ed666850842461ace1ecd9d278d1764d4a7299be79",
+        "names": "lp-v22-integration5-gateway-1",
+        "image": "nginx:1.27-alpine",
+        "status": "Up About an hour",
+        "labels": "com.docker.compose.config-hash=1ab2e0517121be656cdf3d019533b7d4573edff0613e75e76cc48e79684a3302,com.docker.compose.container-number=1,com.docker.compose.depends_on=app:service_healthy:false,com.docker.compose.image=sha256:6769dc3a703c719c1d2756bda113659be28ae16cf0da58dd5fd823d6b9a050ea,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-combined\\compose.json,com.docker.compose.project.environment_file=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-combined\\.env.acceptance,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-combined,com.docker.compose.project=lp-v22-integration5,com.docker.compose.service=gateway,com.docker.compose.version=2.38.1,desktop.docker.io/binds/0/Source=C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/runtime-combined/gateway.conf,desktop.docker.io/binds/0/SourceKind=hostFile,desktop.docker.io/binds/0/Target=/etc/nginx/conf.d/default.conf,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/80/tcp=127.0.0.1:3349,maintainer=NGINX Docker Maintainers <docker-maint@nginx.com>"
+      },
+      {
+        "id": "36c5706f4f888d00b86ad0d3513bacaf20fe7e3dfbb69db2b8fc846d89ae2a5d",
+        "names": "lp-v22-integration5-app-1",
+        "image": "lp-v22-integration5:eba2fba3eee223bb43c0eea5fe197e9569285ea9",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=3b820e801cfcce0860c89c276df7f315b5b15a1a5888deaaeb400d321ca99ba8,com.docker.compose.container-number=1,com.docker.compose.depends_on=db:service_healthy:false,com.docker.compose.image=sha256:b45d71e75a64d57b7803db92ee4c9ee65249073fce7fd9fdfac7a3fb2f38c965,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-combined\\compose.json,com.docker.compose.project.environment_file=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-combined\\.env.acceptance,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-combined,com.docker.compose.project=lp-v22-integration5,com.docker.compose.service=app,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2"
+      },
+      {
+        "id": "f2e780f5373f4055f04a63b9c5545c9a8d8786b433e3e3826d822543901dbf25",
+        "names": "lp-v22-integration5-db-1",
+        "image": "postgres:17.11-bookworm",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=c2e5213af6bec3696b7ff5cabf56410e33b786c0a31035343ac4fcf678a915d1,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-combined\\compose.json,com.docker.compose.project.environment_file=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-combined\\.env.acceptance,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-combined,com.docker.compose.project=lp-v22-integration5,com.docker.compose.service=db,com.docker.compose.version=2.38.1,desktop.docker.io/binds/1/Source=C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/database/init-app.sh,desktop.docker.io/binds/1/SourceKind=hostFile,desktop.docker.io/binds/1/Target=/docker-entrypoint-initdb.d/10-app.sh,desktop.docker.io/ports.scheme=v2"
+      },
+      {
+        "id": "452624d185bbc19046952ea9a7362b678d4a639b9aa7088da561991a2ed1e0db",
+        "names": "lp-lessons-materials-verify",
+        "image": "lp-lessons-workbench:verify",
+        "status": "Up About an hour",
+        "labels": "desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/3000/tcp=127.0.0.1:3331"
+      },
+      {
+        "id": "6eaf0f2d7f903e5672348fa595fcd0fc18cbe1edb747dc5296790b698a21b342",
+        "names": "lp-workbench-assignments-db-1",
+        "image": "postgres:17.11-bookworm",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=b68871c17a6b2dabfaf547bc5cf2a4d9549ebfaea1c4ef3e4fe7dc287ba76a4c,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\workbench-assignments\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\workbench-assignments\\LearningPlatform\\compose.dev.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\workbench-assignments\\LearningPlatform,com.docker.compose.project=lp-workbench-assignments,com.docker.compose.service=db,com.docker.compose.version=2.38.1,desktop.docker.io/binds/0/Source=C:\\Users\\sb128\\.codex\\worktrees\\workbench-assignments\\LearningPlatform\\database\\init-app.sh,desktop.docker.io/binds/0/SourceKind=hostFile,desktop.docker.io/binds/0/Target=/docker-entrypoint-initdb.d/10-app.sh,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/5432/tcp=127.0.0.1:5817"
+      },
+      {
+        "id": "fed4987b2d8a0c3adf7541e4e92c7bfc88d33414f28d1da053a2c0451e866365",
+        "names": "lp-lessons-verify-db-1",
+        "image": "postgres:17.11-bookworm",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=e5156e6d5919b30bbf0665c3d7350e0410cdbf407fc683e67c2f7e32fa13c024,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a170fa-1add-74d1-8ef4-94a3325efbd0\\workbench-lessons\\compose.yaml,C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a170fa-1add-74d1-8ef4-94a3325efbd0\\workbench-lessons\\.setup\\compose.verify.yaml,com.docker.compose.project.environment_file=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a170fa-1add-74d1-8ef4-94a3325efbd0\\workbench-lessons\\.env,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a170fa-1add-74d1-8ef4-94a3325efbd0\\workbench-lessons,com.docker.compose.project=lp-lessons-verify,com.docker.compose.service=db,com.docker.compose.version=2.38.1,desktop.docker.io/binds/1/Source=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a170fa-1add-74d1-8ef4-94a3325efbd0\\workbench-lessons\\database\\init-app.sh,desktop.docker.io/binds/1/SourceKind=hostFile,desktop.docker.io/binds/1/Target=/docker-entrypoint-initdb.d/10-app.sh,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/5432/tcp=127.0.0.1:5820"
+      },
+      {
+        "id": "835c6f1f9a6fb21ddbe86b03a6612f40bb0f3df108236d7660dfad0bc4447fca",
+        "names": "lp-workbench-verify-app-1",
+        "image": "lp-workbench-verify-app",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=6c47e583ee787288f419860455aee614a961cefaff42145dd3b717c5003809ab,com.docker.compose.container-number=1,com.docker.compose.depends_on=db:service_healthy:false,com.docker.compose.image=sha256:ff3fd20e80278bc2197fdf49d7b4317608ddce96697d6f0388b8c30968cfffc0,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-slice\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-slice\\LearningPlatform\\compose.dev.yaml,com.docker.compose.project.environment_file=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17073-3e03-7032-9e2d-0430626f3305\\workbench-verification\\runtime.env,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-slice\\LearningPlatform,com.docker.compose.project=lp-workbench-verify,com.docker.compose.replace=499dc2144044a4a724cf210c6f3d75be62cf5c2f7219a574cf713b2225503356,com.docker.compose.service=app,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/3000/tcp=127.0.0.1:3310"
+      },
+      {
+        "id": "ee3d2f7840fcc1ca2d41b38dd1e67e52ac4f5b3775c6e2e47c3306a329403941",
+        "names": "lp-workbench-verify-db-1",
+        "image": "postgres:17.11-bookworm",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=22369ddb268baa9f9c6fafbf8ccef5800f5c14e2daf312db907e67d5a534595c,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-slice\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-slice\\LearningPlatform\\compose.dev.yaml,com.docker.compose.project.environment_file=C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17073-3e03-7032-9e2d-0430626f3305\\workbench-verification\\runtime.env,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-slice\\LearningPlatform,com.docker.compose.project=lp-workbench-verify,com.docker.compose.service=db,com.docker.compose.version=2.38.1,desktop.docker.io/binds/1/Source=C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-slice\\LearningPlatform\\database\\init-app.sh,desktop.docker.io/binds/1/SourceKind=hostFile,desktop.docker.io/binds/1/Target=/docker-entrypoint-initdb.d/10-app.sh,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/5432/tcp=127.0.0.1:5810"
+      },
+      {
+        "id": "c6bc26a9c2a47ab860ea37bcbe8ca41ed4efc3fc1b1105bb53222a50409f47c0",
+        "names": "learningpulse-demo-app-1",
+        "image": "learningpulse-demo-app",
+        "status": "Restarting (1) 32 seconds ago",
+        "labels": "com.docker.compose.config-hash=9eb613c7c79cdb8d825fbfc2701613831c0be77e2eb4d273fd724787de8cd320,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:c38ff4ecd0a2d88f5900ac3ae97f20381aa770e594ec1d99995edb028503d126,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\Desktop\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\Desktop\\LearningPlatform\\compose.voice.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\learning-pulse-demo\\LearningPlatform,com.docker.compose.project=learningpulse-demo,com.docker.compose.replace=4c8fd8caa048258fc27923c6c7ec421a96a38e53ac8b7910f37c8c330e0d3503,com.docker.compose.service=app,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/3000/tcp=127.0.0.1:3300"
+      },
+      {
+        "id": "dcce10ecbc6a4840dec66e5e5450628b40472c1192b9a38c832c56e68bc6569f",
+        "names": "learningplatform-app-1",
+        "image": "learningplatform:objective-fix-723ed6fea411-20261023181551_391ddf",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=961809c8a8256d69964729c5b1e99bae5cae7e19d60b03da2c1413e4f9c0f614,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:257ab80fab4c118f39fec9fa0ee1e11e91594bc07c62ffe0b0716d639849815f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\Desktop\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\Desktop\\LearningPlatform\\.setup\\backups\\objective_fix_20261023181551_391ddf\\app-image.yaml,com.docker.compose.project.environment_file=C:\\Users\\sb128\\Desktop\\LearningPlatform\\.env,com.docker.compose.project.working_dir=C:\\Users\\sb128\\Desktop\\LearningPlatform,com.docker.compose.project=learningplatform,com.docker.compose.replace=2388c6860b71f04c49010af618f7e06ba43f5ed0bfc6b607aebda756654e7568,com.docker.compose.service=app,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/3000/tcp=127.0.0.1:3000,org.opencontainers.image.revision=723ed6fea41138b604a9d333ebcd4a07b2202c36,org.opencontainers.image.source-tree=4600f912667a5b034f78459121b079b17d12c762"
+      },
+      {
+        "id": "00828eee84fc14315100340b95d98b2ff295e0c7b3ba2596cc61d95b717d9c89",
+        "names": "learningpulse-demo-speech-1",
+        "image": "learningpulse-demo-speech",
+        "status": "Up About an hour",
+        "labels": "com.docker.compose.config-hash=543200c89bdcc964b1e8b9543d2d43ac287a1509c6dcf7efbffe979992beb32c,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\Desktop\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\Desktop\\LearningPlatform\\compose.voice.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\learning-pulse-demo\\LearningPlatform,com.docker.compose.project=learningpulse-demo,com.docker.compose.service=speech,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2"
+      },
+      {
+        "id": "a2a1e939ba153a8829bab14b6d0bee157bc6d8e75258760ba98fc841eb4f1b29",
+        "names": "learningpulse-demo-db-1",
+        "image": "postgres:17.11-bookworm",
+        "status": "Exited (127) About an hour ago",
+        "labels": "com.docker.compose.config-hash=7af22be95be4f9e91324669cfa39d495faf4e38746c543135cf9697621bffadc,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\Desktop\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\Desktop\\LearningPlatform\\compose.voice.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\learning-pulse-demo\\LearningPlatform,com.docker.compose.project=learningpulse-demo,com.docker.compose.service=db,com.docker.compose.version=2.38.1,desktop.docker.io/binds/1/Source=C:\\Users\\sb128\\.codex\\worktrees\\learning-pulse-demo\\LearningPlatform\\database\\init-app.sh,desktop.docker.io/binds/1/SourceKind=hostFile,desktop.docker.io/binds/1/Target=/docker-entrypoint-initdb.d/10-app.sh,desktop.docker.io/ports.scheme=v2"
+      },
+      {
+        "id": "c77c97e4d3f28d20682b6f604f7f39dff62177aa431dc90df889c3b21902787d",
+        "names": "learningplatform-speech-1",
+        "image": "learningplatform-speech",
+        "status": "Up About an hour",
+        "labels": "com.docker.compose.config-hash=543200c89bdcc964b1e8b9543d2d43ac287a1509c6dcf7efbffe979992beb32c,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\Desktop\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\Desktop\\LearningPlatform\\.setup\\backups\\original_20261023174156_db3a8e\\app-image.yaml,C:\\Users\\sb128\\Desktop\\LearningPlatform\\compose.voice.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\Desktop\\LearningPlatform,com.docker.compose.project=learningplatform,com.docker.compose.service=speech,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2"
+      },
+      {
+        "id": "1803b3f41ff2d80dd8729771791607936a38e33ab8426dc7082fbfbc89660692",
+        "names": "lp-integrated-main-app-1",
+        "image": "lp-integrated-main:acceptance",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=7355223e6a6cc82202cb44c8521b446f5eded7b16325ac79c4e274e4017697c4,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:54bae47608891fa3677e412a02f9d8307ffd7b6f0172adb9089543630316c07c,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\integrated-main-acceptance\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\integrated-main-acceptance\\LearningPlatform\\.setup\\compose-acceptance.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\integrated-main-acceptance\\LearningPlatform,com.docker.compose.project=lp-integrated-main,com.docker.compose.replace=df50896605fc83fcf81dd57e3298d1d2ae653469c3b4bea1a1c47eaa698a05d5,com.docker.compose.service=app,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/3000/tcp=127.0.0.1:3200"
+      },
+      {
+        "id": "1438184535f742c22a7e9adb4bd07668d1b64722d4b76e72889838692c3f6ae9",
+        "names": "lp-integrate99-app-1",
+        "image": "lp-integrate99-app",
+        "status": "Exited (143) 37 hours ago",
+        "labels": "com.docker.compose.config-hash=8ec7f84aec885114dc02cadcf9aeb4de4b878c8447575bb779dbfb1d2af84565,com.docker.compose.container-number=1,com.docker.compose.depends_on=db:service_healthy:false,com.docker.compose.image=sha256:cc88d50cdc2c726e27585d44a81633e375fd36209c73bc8d1a188ef8d15e6b76,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\integrate99-intervention-drafts\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\integrate99-intervention-drafts\\LearningPlatform\\compose.dev.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\integrate99-intervention-drafts\\LearningPlatform,com.docker.compose.project=lp-integrate99,com.docker.compose.service=app,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/3000/tcp=127.0.0.1:3299"
+      },
+      {
+        "id": "bf70fdbaa7707199646d0fa6e69538cd2227a5a3e1f66f6da9fdf152d9d992ce",
+        "names": "lp-integrate84-speech-1",
+        "image": "lp-integrate84-speech",
+        "status": "Up About an hour",
+        "labels": "com.docker.compose.config-hash=543200c89bdcc964b1e8b9543d2d43ac287a1509c6dcf7efbffe979992beb32c,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:2fdfd019471bc1c0164ec46bfacd01253521db15d9391223d977f211c1c456be,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\integrate-84\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\integrate-84\\LearningPlatform\\compose.dev.yaml,C:\\Users\\sb128\\.codex\\worktrees\\integrate-84\\LearningPlatform\\compose.voice.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\integrate-84\\LearningPlatform,com.docker.compose.project=lp-integrate84,com.docker.compose.replace=b2ae1a2d4dac4b69e3028f914fadbd400925c5ec3489ff21c8c39ff4e0923ec3,com.docker.compose.service=speech,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2"
+      },
+      {
+        "id": "85128b1af1d256d3d7460fb4f55c26a5a50a494b01a36d09897111c19c96ce10",
+        "names": "lp-integrate84-app-1",
+        "image": "lp-integrate84-app",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=538e906e506c93e5dfd2280e2cee49e16b3460ed4e066e3de0a3f11224b838d3,com.docker.compose.container-number=1,com.docker.compose.depends_on=db:service_healthy:false,com.docker.compose.image=sha256:c24e1377623d61852abcbb03329b72a6363dde49da68c652c9363260eaca2b6f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\integrate-84\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\integrate-84\\LearningPlatform\\compose.dev.yaml,C:\\Users\\sb128\\.codex\\worktrees\\integrate-84\\LearningPlatform\\compose.voice.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\integrate-84\\LearningPlatform,com.docker.compose.project=lp-integrate84,com.docker.compose.replace=ccd1f64e53fdd1f7aa26cb2a5ccb320d94c687943a869b28670c57ab4004a032,com.docker.compose.service=app,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/3000/tcp=127.0.0.1:3184"
+      },
+      {
+        "id": "a72bb4bf572dd2bf5c1366edf21b95a4a2b162b6acc4309af50879e6e5dafb1a",
+        "names": "lp-integrate106-db-1",
+        "image": "postgres:17.11-bookworm",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=1f76dcfca5e28195736481274a3e48a5c4411a37ac5052a247f6fdc492e23015,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\integrate-106\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\integrate-106\\LearningPlatform\\.setup\\compose.override.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\integrate-106\\LearningPlatform,com.docker.compose.project=lp-integrate106,com.docker.compose.service=db,com.docker.compose.version=2.38.1,desktop.docker.io/binds/1/Source=C:\\Users\\sb128\\.codex\\worktrees\\integrate-106\\LearningPlatform\\database\\init-app.sh,desktop.docker.io/binds/1/SourceKind=hostFile,desktop.docker.io/binds/1/Target=/docker-entrypoint-initdb.d/10-app.sh,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/5432/tcp=127.0.0.1:5796"
+      },
+      {
+        "id": "e9d91c4b67055bffcb1d8ec4df56b7924eb224e3bc0374e1abaaceb48854ecbb",
+        "names": "lp-integrate84-db-1",
+        "image": "postgres:17.11-bookworm",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=9b0c7ff60596c46747197645a76ff4e6c3bf585dc0a98d76a393a31534753ffe,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\integrate-84\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\integrate-84\\LearningPlatform\\compose.dev.yaml,C:\\Users\\sb128\\.codex\\worktrees\\integrate-84\\LearningPlatform\\compose.voice.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\integrate-84\\LearningPlatform,com.docker.compose.project=lp-integrate84,com.docker.compose.service=db,com.docker.compose.version=2.38.1,desktop.docker.io/binds/1/Source=C:\\Users\\sb128\\.codex\\worktrees\\integrate-84\\LearningPlatform\\database\\init-app.sh,desktop.docker.io/binds/1/SourceKind=hostFile,desktop.docker.io/binds/1/Target=/docker-entrypoint-initdb.d/10-app.sh,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/5432/tcp=127.0.0.1:5784"
+      },
+      {
+        "id": "329e380d880977e9ebd85bce3f641867542336b01dc558df03d01409077ad4b2",
+        "names": "lp-integrated-main-db-1",
+        "image": "postgres:17.11-bookworm",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=e6a6ac7c8a910b69eed231792f1f37dfa2012d3ce52c887184c2f352e034939e,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\integrated-main-acceptance\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\integrated-main-acceptance\\LearningPlatform\\.setup\\compose-acceptance.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\integrated-main-acceptance\\LearningPlatform,com.docker.compose.project=lp-integrated-main,com.docker.compose.service=db,com.docker.compose.version=2.38.1,desktop.docker.io/binds/1/Source=C:\\Users\\sb128\\.codex\\worktrees\\integrated-main-acceptance\\LearningPlatform\\database\\init-app.sh,desktop.docker.io/binds/1/SourceKind=hostFile,desktop.docker.io/binds/1/Target=/docker-entrypoint-initdb.d/10-app.sh,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/5432/tcp=127.0.0.1:5800"
+      },
+      {
+        "id": "21e218d8015d0d12f2b91beee8e502df6cdfddd50af210b3605ee818b0617fac",
+        "names": "lp-integrate98-app-1",
+        "image": "lp-integrate98-app",
+        "status": "Exited (143) 37 hours ago",
+        "labels": "com.docker.compose.config-hash=2dd417eadd8884487a4b76f7e2769c4b6fceec9137092a2965c1f5d957a517d8,com.docker.compose.container-number=1,com.docker.compose.depends_on=db:service_healthy:false,com.docker.compose.image=sha256:d41b0df450f8b219ea1b16b9828f5b5fb98652da7d5c8308d76922b230de9b3c,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\integrate-98\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\integrate-98\\LearningPlatform\\compose.dev.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\integrate-98\\LearningPlatform,com.docker.compose.project=lp-integrate98,com.docker.compose.replace=2dbdcd88aca80d024dfe9a9c6ca9fc7d43c73b535160876996bb75a41670e770,com.docker.compose.service=app,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/3000/tcp=127.0.0.1:3198"
+      },
+      {
+        "id": "e58510bcf5f7d98df0e7be5cadeb286a5dec776455a1ff0320246d098809b7af",
+        "names": "lp-integrate52-app-1",
+        "image": "lp-integrate52:verified",
+        "status": "Exited (143) 37 hours ago",
+        "labels": "com.docker.compose.config-hash=83ff95005cdfc2e952d9ec131b61ec1ff4bdc5fd4270ac4d8cee2c4f57ee9687,com.docker.compose.container-number=1,com.docker.compose.depends_on=db:service_healthy:false,com.docker.compose.image=sha256:438f11b34fc1ed3a3cd9d1ecff3f924da0b8226fa2af13fa41847e138a391c1b,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\integrate-52\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\integrate-52\\LearningPlatform\\.setup\\compose-integration.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\integrate-52\\LearningPlatform,com.docker.compose.project=lp-integrate52,com.docker.compose.service=app,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/3000/tcp=127.0.0.1:3102"
+      },
+      {
+        "id": "3e5312491daaa60e44d5eb44d3303ce68c67cc761da7d64f626f46424b3c04c3",
+        "names": "lp-integrate98-db-1",
+        "image": "postgres:17.11-bookworm",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=63f55a2c888fa696ec97b364f7974797978a4f9d7cf6d6f62c67625c66b6430b,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\integrate-98\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\integrate-98\\LearningPlatform\\compose.dev.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\integrate-98\\LearningPlatform,com.docker.compose.project=lp-integrate98,com.docker.compose.service=db,com.docker.compose.version=2.38.1,desktop.docker.io/binds/1/Source=C:\\Users\\sb128\\.codex\\worktrees\\integrate-98\\LearningPlatform\\database\\init-app.sh,desktop.docker.io/binds/1/SourceKind=hostFile,desktop.docker.io/binds/1/Target=/docker-entrypoint-initdb.d/10-app.sh,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/5432/tcp=127.0.0.1:5798"
+      },
+      {
+        "id": "64cb9edd64358b9769bc6d5591a7e2a18320f841511a69beaac0fe7f99525092",
+        "names": "lp-integrate52-db-1",
+        "image": "postgres:17.11-bookworm",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=4c2ed197cf6e6f6ba13fc1068bc0a072bd0a4454f17337edd6c4b2fd0aa1019a,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\integrate-52\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\integrate-52\\LearningPlatform\\.setup\\compose-integration.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\integrate-52\\LearningPlatform,com.docker.compose.project=lp-integrate52,com.docker.compose.service=db,com.docker.compose.version=2.38.1,desktop.docker.io/binds/1/Source=C:\\Users\\sb128\\.codex\\worktrees\\integrate-52\\LearningPlatform\\database\\init-app.sh,desktop.docker.io/binds/1/SourceKind=hostFile,desktop.docker.io/binds/1/Target=/docker-entrypoint-initdb.d/10-app.sh,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/5432/tcp=127.0.0.1:5702"
+      },
+      {
+        "id": "debaf4fe63b8f789a8e47a6527696c0b011531deb52439a148553d48a30f49f1",
+        "names": "lp-integrate51-app-1",
+        "image": "lp-integrate51:verified",
+        "status": "Exited (143) 37 hours ago",
+        "labels": "com.docker.compose.config-hash=f4e220cbce0fb805b7a1c63531c2c6457d95d399ae5b701b06d581cdf0ab9720,com.docker.compose.container-number=1,com.docker.compose.depends_on=db:service_healthy:false,com.docker.compose.image=sha256:0cc2204ebc7774fd259cd6314cc77f8ecf5144da21855ae8f276c979d6c0c7d7,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\integrate-51\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\integrate-51\\LearningPlatform\\.setup\\compose-integration.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\integrate-51\\LearningPlatform,com.docker.compose.project=lp-integrate51,com.docker.compose.service=app,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/3000/tcp=127.0.0.1:3101"
+      },
+      {
+        "id": "4534f20763add91e54894a9a4455f1df574da00bb85c7f43a4af85375691575c",
+        "names": "lp-integrate99-db-1",
+        "image": "postgres:17.11-bookworm",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=69008e7ab657b1a79bfb222486ea0eb65766457f83e5c52185eab5c573b7aa11,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\integrate99-intervention-drafts\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\integrate99-intervention-drafts\\LearningPlatform\\compose.dev.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\integrate99-intervention-drafts\\LearningPlatform,com.docker.compose.project=lp-integrate99,com.docker.compose.service=db,com.docker.compose.version=2.38.1,desktop.docker.io/binds/1/Source=C:\\Users\\sb128\\.codex\\worktrees\\integrate99-intervention-drafts\\LearningPlatform\\database\\init-app.sh,desktop.docker.io/binds/1/SourceKind=hostFile,desktop.docker.io/binds/1/Target=/docker-entrypoint-initdb.d/10-app.sh,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/5432/tcp=127.0.0.1:5799"
+      },
+      {
+        "id": "64c2a8167e96aac17d4001594b0dc62a1a69c407f7d4ad132b0f67faed61bbff",
+        "names": "lp-integrate51-db-1",
+        "image": "postgres:17.11-bookworm",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=b3da0dbb7135115e4501a15b6cf6798932a58e74cc7d99cd451a61f8ac399b89,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\integrate-51\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\integrate-51\\LearningPlatform\\.setup\\compose-integration.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\integrate-51\\LearningPlatform,com.docker.compose.project=lp-integrate51,com.docker.compose.service=db,com.docker.compose.version=2.38.1,desktop.docker.io/binds/1/Source=C:\\Users\\sb128\\.codex\\worktrees\\integrate-51\\LearningPlatform\\database\\init-app.sh,desktop.docker.io/binds/1/SourceKind=hostFile,desktop.docker.io/binds/1/Target=/docker-entrypoint-initdb.d/10-app.sh,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/5432/tcp=127.0.0.1:5701"
+      },
+      {
+        "id": "99b6a267b53ff7c0e1a7c9b2175df9e2b8fc1dcc29b1315e940cecd1f52c1afe",
+        "names": "lp50-app-1",
+        "image": "lp50-objectives:reconciled",
+        "status": "Exited (1) 42 hours ago",
+        "labels": "com.docker.compose.config-hash=85a9f460fef8712018c4db61fca912cc83701a63079182f200bca23af528eaee,com.docker.compose.container-number=1,com.docker.compose.depends_on=db:service_healthy:false,com.docker.compose.image=sha256:a03b2088a49ee35b88861df7cf1739550bb1db533b05d03bdf9957bb4f562138,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\50-learning-objectives\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\50-learning-objectives\\LearningPlatform\\.setup\\compose.objectives.yaml,C:\\Users\\sb128\\.codex\\worktrees\\50-learning-objectives\\LearningPlatform\\.setup\\reconcile-compose.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\50-learning-objectives\\LearningPlatform,com.docker.compose.project=lp50,com.docker.compose.service=app,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/3000/tcp=127.0.0.1:3050"
+      },
+      {
+        "id": "d507039438085fcc6f86fba326a77cbd59fa7c2a59fae01866ef16fa0f0377eb",
+        "names": "lp53-app-1",
+        "image": "lp53-app",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=afb95702d89f8541597ee36a22413428ee9c53b0f75a155b7808fc5eb1632220,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:0598112b1426804ece89c0e869f1c4a6bdbeaefc4d9b93134f4150dce6b4dfe4,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\53-lesson-resolver\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\AppData\\Local\\Temp\\lp53-compose-test.yaml,com.docker.compose.project.environment_file=C:/Users/sb128/.codex/worktrees/53-lesson-resolver/LearningPlatform/.env,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\53-lesson-resolver\\LearningPlatform,com.docker.compose.project=lp53,com.docker.compose.replace=49b1a902b105d54c359d1ae73a1ad2e585b1883491bc429b36b012af882ed353,com.docker.compose.service=app,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/3000/tcp=127.0.0.1:3153"
+      },
+      {
+        "id": "67560830114edc5aaf4d1b57d47f4fcf5c04e5de1f2c564c0576cd00a6cce166",
+        "names": "lp53-db-1",
+        "image": "postgres:17.11-bookworm",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=dc6944dc9652c3ee80f38f1c03e7ec00a2199a3aabda39b89c661e9cc299403d,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\53-lesson-resolver\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\AppData\\Local\\Temp\\lp53-compose-test.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\53-lesson-resolver\\LearningPlatform,com.docker.compose.project=lp53,com.docker.compose.replace=096c5ef732d6daff836763d0db4e0a088da1c59fb1e1b7e3a0f53deb556da305,com.docker.compose.service=db,com.docker.compose.version=2.38.1,desktop.docker.io/binds/1/Source=C:\\Users\\sb128\\.codex\\worktrees\\53-lesson-resolver\\LearningPlatform\\database\\init-app.sh,desktop.docker.io/binds/1/SourceKind=hostFile,desktop.docker.io/binds/1/Target=/docker-entrypoint-initdb.d/10-app.sh,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/5432/tcp=127.0.0.1:5453"
+      },
+      {
+        "id": "8fb6759b39b0be1a8ec5aa274ed6a174b1c70082bddb65f1913c44fdd01ac776",
+        "names": "lp51-db-1",
+        "image": "postgres:17.11-bookworm",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=3dc8f755ddf079de913f4f4e360426f6b0dddcc8b04992a9ea80487b9705b172,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\51-question-bank\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\51-question-bank\\LearningPlatform\\.setup\\db-ports.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\51-question-bank\\LearningPlatform,com.docker.compose.project=lp51,com.docker.compose.service=db,com.docker.compose.version=2.38.1,desktop.docker.io/binds/1/Source=C:\\Users\\sb128\\.codex\\worktrees\\51-question-bank\\LearningPlatform\\database\\init-app.sh,desktop.docker.io/binds/1/SourceKind=hostFile,desktop.docker.io/binds/1/Target=/docker-entrypoint-initdb.d/10-app.sh,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/5432/tcp=127.0.0.1:5551"
+      },
+      {
+        "id": "290bbb1c3f4ed08d32bcfc065b2561dcc6b498f5b26dc3e4111f6ceb95036651",
+        "names": "lp50-db-1",
+        "image": "postgres:17.11-bookworm",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=bf332c444e15142e6c0c6e38c81f802726947cae478bb8d1bf6004cdce426688,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\50-learning-objectives\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\50-learning-objectives\\LearningPlatform\\.setup\\compose.objectives.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\50-learning-objectives\\LearningPlatform,com.docker.compose.project=lp50,com.docker.compose.service=db,com.docker.compose.version=2.38.1,desktop.docker.io/binds/1/Source=C:\\Users\\sb128\\.codex\\worktrees\\50-learning-objectives\\LearningPlatform\\database\\init-app.sh,desktop.docker.io/binds/1/SourceKind=hostFile,desktop.docker.io/binds/1/Target=/docker-entrypoint-initdb.d/10-app.sh,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/5432/tcp=127.0.0.1:5550"
+      },
+      {
+        "id": "9b92919e15361a66f62183d40d37d92b9ff05a9077cb5c6ff8f4f075f5339b1d",
+        "names": "lp49-db-1",
+        "image": "postgres:17.11-bookworm",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=242a50bfcc576322197c3da1d75a978b698e5d50a28d7d230331b36470772de0,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\.codex\\worktrees\\49-material-import\\LearningPlatform\\compose.yaml,C:\\Users\\sb128\\.codex\\worktrees\\49-material-import\\LearningPlatform\\compose.dev.yaml,com.docker.compose.project.environment_file=C:/Users/sb128/Desktop/LearningPlatform/.env,com.docker.compose.project.working_dir=C:\\Users\\sb128\\.codex\\worktrees\\49-material-import\\LearningPlatform,com.docker.compose.project=lp49,com.docker.compose.service=db,com.docker.compose.version=2.38.1,desktop.docker.io/binds/1/Source=C:\\Users\\sb128\\.codex\\worktrees\\49-material-import\\LearningPlatform\\database\\init-app.sh,desktop.docker.io/binds/1/SourceKind=hostFile,desktop.docker.io/binds/1/Target=/docker-entrypoint-initdb.d/10-app.sh,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/5432/tcp=127.0.0.1:5549"
+      },
+      {
+        "id": "0f2306fde554b095ee5d8396a237b279d4e1f6449cd59e41ea180a1402891a20",
+        "names": "learningplatform-db-1",
+        "image": "postgres:17.11-bookworm",
+        "status": "Up About an hour (healthy)",
+        "labels": "com.docker.compose.config-hash=6ebeba45e417bb70e2ef6c6e10efd03e927ac1eca168dcf74bcd5622f78dd468,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\Desktop\\LearningPlatform\\compose.yaml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\Desktop\\LearningPlatform,com.docker.compose.project=learningplatform,com.docker.compose.replace=47cb821ba420a41bc92f7554204dfb23128ebe0c9a8f3c87500582e98a5ff42b,com.docker.compose.service=db,com.docker.compose.version=2.38.1,desktop.docker.io/binds/1/Source=C:\\Users\\sb128\\Desktop\\LearningPlatform\\database\\init-app.sh,desktop.docker.io/binds/1/SourceKind=hostFile,desktop.docker.io/binds/1/Target=/docker-entrypoint-initdb.d/10-app.sh,desktop.docker.io/ports.scheme=v2"
+      },
+      {
+        "id": "a1aa71a5ede61c4fa724906593d0661e4e406443fbd313f44ffe435f5c8b4b0c",
+        "names": "mage-pulse-backend",
+        "image": "mage-backend-backend",
+        "status": "Exited (255) About an hour ago",
+        "labels": "com.docker.compose.config-hash=bd7bd871ea75f13f80120e7c1166c8a44e55c7bb3febad8304bb0b36ff2c9061,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:1794f88d084e09890d91da570df97466cbba80b515a1f0472a5e9f20bcd3f913,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend\\docker-compose.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend\\docker-compose.local.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend\\docker-compose.minio.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend\\docker-compose.pulse.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\.local\\step1\\backend-source.override.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\.local\\deploy-step1-20261009\\local-fresh-data.override.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\.local\\local-run-20261011\\backend-sb08.override.yml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend,com.docker.compose.project=mage-backend,com.docker.compose.replace=a157bebe1cd05f834133b7c84a07104eb804ea319b0fd06066a597ab106cd058,com.docker.compose.service=backend,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/8080/tcp=:8080,org.opencontainers.image.created=2026-09-27T10:25:52.887617+00:00,org.opencontainers.image.description=The Ubuntu container image maintained by Canonical\n\nUbuntu is a Debian-based Linux operating system that runs from the desktop to the cloud, to all your internet connected things.\nIt is the world's most popular operating system across public clouds and OpenStack clouds.\nIt is the number one platform for containers; from Docker to Kubernetes to LXD, Ubuntu can run your containers at scale.\nFast, secure and simple, Ubuntu powers millions of PCs worldwide.\n,org.opencontainers.image.title=ubuntu,org.opencontainers.image.version=26.04"
+      },
+      {
+        "id": "97ed0971071baa0af5d20268db7fa0053a384c03136f43576ed28c48d9201d3b",
+        "names": "mage-portfolio-demo-backend-1",
+        "image": "mage-portfolio-demo-backend",
+        "status": "Exited (143) 2 weeks ago",
+        "labels": "com.docker.compose.config-hash=e751fe38abaf553cd6eec6d52b94dfcd15b0bf771c86839a25e1f7f3711b3fe1,com.docker.compose.container-number=1,com.docker.compose.depends_on=postgres:service_healthy:false,storage-init:service_completed_successfully:false,com.docker.compose.image=sha256:72f81d00a6dbd2341a9f2da859757dac964327ea70d44d0d729fb4cc13a4e5a7,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend-demo-136\\scripts\\demo\\compose.yml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend-demo-136\\scripts\\demo,com.docker.compose.project=mage-portfolio-demo,com.docker.compose.service=backend,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/8080/tcp=127.0.0.1:18080,org.opencontainers.image.created=2026-09-27T10:25:52.887617+00:00,org.opencontainers.image.description=The Ubuntu container image maintained by Canonical\n\nUbuntu is a Debian-based Linux operating system that runs from the desktop to the cloud, to all your internet connected things.\nIt is the world's most popular operating system across public clouds and OpenStack clouds.\nIt is the number one platform for containers; from Docker to Kubernetes to LXD, Ubuntu can run your containers at scale.\nFast, secure and simple, Ubuntu powers millions of PCs worldwide.\n,org.opencontainers.image.title=ubuntu,org.opencontainers.image.version=26.04"
+      },
+      {
+        "id": "40bdd865376e07442d8333b581fc6167911aaf6a389bb367065f84597138bc72",
+        "names": "mage-portfolio-demo-storage-init-1",
+        "image": "mage/minio-community:2025-10-15-local",
+        "status": "Exited (0) 2 weeks ago",
+        "labels": "com.docker.compose.config-hash=3b9521d6ccb96da54433cf1b2c7c885f9f40d66132475ca027e5b97a7a3a4e8f,com.docker.compose.container-number=1,com.docker.compose.depends_on=minio:service_healthy:false,com.docker.compose.image=sha256:801c2fb558b4a98cdbe9773c8cab6031b1bf203bcf8c961612bcb2ae2cfb75f3,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend-demo-136\\scripts\\demo\\compose.yml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend-demo-136\\scripts\\demo,com.docker.compose.project=mage-portfolio-demo,com.docker.compose.service=storage-init,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2"
+      },
+      {
+        "id": "5a51a3e553289d061550b395bd4d2fedb0e79ab95143b4205b0bc2784e444096",
+        "names": "mage-portfolio-demo-minio-1",
+        "image": "mage/minio-community:2025-10-15-local",
+        "status": "Exited (0) 2 weeks ago",
+        "labels": "com.docker.compose.config-hash=0bb4cbf5db65ccb37a018c2265416a20885b3dfec316b63fb0ebb27fe42c1c83,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:801c2fb558b4a98cdbe9773c8cab6031b1bf203bcf8c961612bcb2ae2cfb75f3,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend-demo-136\\scripts\\demo\\compose.yml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend-demo-136\\scripts\\demo,com.docker.compose.project=mage-portfolio-demo,com.docker.compose.service=minio,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/9000/tcp=127.0.0.1:19000,desktop.docker.io/ports/9001/tcp=127.0.0.1:19001"
+      },
+      {
+        "id": "a7ae0ad1f3b95da95b6927fb6ef81c5c265c81ff4f31a6c17633c76672a272fb",
+        "names": "mage-portfolio-demo-postgres-1",
+        "image": "postgres:16",
+        "status": "Exited (0) 2 weeks ago",
+        "labels": "com.docker.compose.config-hash=ee95ad3b6630961b71b0562ec0efdf5730c70f4e47bdf5adcc999e531bd9bf56,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:1b3c642526f8d274b12bdcd93b90aeb7e68a1f59eb20613adb96ed561c01d98c,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend-demo-136\\scripts\\demo\\compose.yml,com.docker.compose.project.working_dir=C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend-demo-136\\scripts\\demo,com.docker.compose.project=mage-portfolio-demo,com.docker.compose.service=postgres,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2"
+      },
+      {
+        "id": "a247f89b2bb82119d63b46f379cde80638413b331feb492134e9c65fb1e0bbee",
+        "names": "mage-minio-init",
+        "image": "mage/minio-community:2025-10-15-local",
+        "status": "Exited (0) 2 weeks ago",
+        "labels": "com.docker.compose.config-hash=a58f288bcd33e118d157bdf9c49a98e274e4a0e7a8431983540eaf78ad1ab693,com.docker.compose.container-number=1,com.docker.compose.depends_on=minio:service_healthy:false,com.docker.compose.image=sha256:801c2fb558b4a98cdbe9773c8cab6031b1bf203bcf8c961612bcb2ae2cfb75f3,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend\\docker-compose.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend\\docker-compose.local.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend\\docker-compose.minio.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend\\docker-compose.pulse.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\.local\\step1\\backend-source.override.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\.local\\deploy-step1-20261009\\local-fresh-data.override.yml,com.docker.compose.project.environment_file=C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend\\.env,com.docker.compose.project.working_dir=C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend,com.docker.compose.project=mage-backend,com.docker.compose.replace=9857e4288e3b4f8afafd2e111bbb45e8c500a3682acc52c9c05830a3c22ea1a7,com.docker.compose.service=minio-init,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2"
+      },
+      {
+        "id": "853ffa5abf685c38149b5b9035d89bdc9c221a23fe85d2eb2ae66cf94b6fe594",
+        "names": "mage-pulse-postgres",
+        "image": "postgres:16",
+        "status": "Exited (255) About an hour ago",
+        "labels": "com.docker.compose.config-hash=500ca8b4642580139aea88e16ca79324396fd4126160fe9fb9efe5dec21dc5bd,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:1b3c642526f8d274b12bdcd93b90aeb7e68a1f59eb20613adb96ed561c01d98c,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend\\docker-compose.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend\\docker-compose.local.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend\\docker-compose.minio.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend\\docker-compose.pulse.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\.local\\step1\\backend-source.override.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\.local\\deploy-step1-20261009\\local-fresh-data.override.yml,com.docker.compose.project.environment_file=C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend\\.env,com.docker.compose.project.working_dir=C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend,com.docker.compose.project=mage-backend,com.docker.compose.replace=e9ffe418f04c1b5f786f04e2e578509a71997f42b67065d05e5ffbc23ff715e0,com.docker.compose.service=postgres,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/5432/tcp=:5432"
+      },
+      {
+        "id": "5a905716fb533222b7ec03c32c8745ce0218c0034bbddec574f63a6b9b3b2f4a",
+        "names": "mage-minio",
+        "image": "mage/minio-community:2025-10-15-local",
+        "status": "Exited (255) About an hour ago",
+        "labels": "com.docker.compose.config-hash=a638938af403e1e7d4f72c1c4d76d6c0cb1ddd54f96807cbb875715f2f79160a,com.docker.compose.container-number=1,com.docker.compose.depends_on=,com.docker.compose.image=sha256:801c2fb558b4a98cdbe9773c8cab6031b1bf203bcf8c961612bcb2ae2cfb75f3,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend\\docker-compose.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend\\docker-compose.local.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend\\docker-compose.minio.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend\\docker-compose.pulse.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\.local\\step1\\backend-source.override.yml,C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\.local\\deploy-step1-20261009\\local-fresh-data.override.yml,com.docker.compose.project.environment_file=C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend\\.env,com.docker.compose.project.working_dir=C:\\Users\\sb128\\Desktop\\Projects\\MAGE\\mage-backend,com.docker.compose.project=mage-backend,com.docker.compose.replace=fb3cc16c2e873e7df887589d7cb64f93afc5bf20e119c66fe1b46ebe023b5dfd,com.docker.compose.service=minio,com.docker.compose.version=2.38.1,desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/9000/tcp=127.0.0.1:9000,desktop.docker.io/ports/9001/tcp=127.0.0.1:9001"
+      },
+      {
+        "id": "742c875e12428f9d08ec49f2a93d819a0acb0882371ee5a84a171f486c2eba40",
+        "names": "mage-pulse-backend-stale-20261009-1640",
+        "image": "sha256:e95aa33310a94f3b77ae82e792e1e4f2ff82b32e9659a7909eed910a51b935f5",
+        "status": "Exited (255) 2 weeks ago",
+        "labels": "desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/8080/tcp=127.0.0.1:8080,mage.i03-local-custom=i03-local-a1893ba601b2,mage.local.branch=pp-r05-moderator-permissions,mage.local.review=PP-I03-controlled-custom,org.opencontainers.image.created=2026-09-27T10:25:52.887617+00:00,org.opencontainers.image.description=The Ubuntu container image maintained by Canonical\n\nUbuntu is a Debian-based Linux operating system that runs from the desktop to the cloud, to all your internet connected things.\nIt is the world's most popular operating system across public clouds and OpenStack clouds.\nIt is the number one platform for containers; from Docker to Kubernetes to LXD, Ubuntu can run your containers at scale.\nFast, secure and simple, Ubuntu powers millions of PCs worldwide.\n,org.opencontainers.image.revision=e02684a6f348cf09c0d418ad1002c4b0c58fb297,org.opencontainers.image.title=ubuntu,org.opencontainers.image.version=26.04"
+      },
+      {
+        "id": "2aa262c4162d3a4dd3e0ff42298e09afa324ffce8c527dbfe468483b9149d6d9",
+        "names": "mage-i03-local-a1893ba601b2-db",
+        "image": "postgres:16",
+        "status": "Exited (255) 2 weeks ago",
+        "labels": "desktop.docker.io/ports.scheme=v2,mage.i03-local-custom=i03-local-a1893ba601b2"
+      },
+      {
+        "id": "655457613c9555dbf7e652398f65ec362c87a398f73d9a4af2f3d8ba0902c6da",
+        "names": "mage-ios-diagnostics-check-lf",
+        "image": "mage-player-check:pp-i03-ios-diagnostics-lf",
+        "status": "Exited (0) 2 weeks ago",
+        "labels": "desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/80/tcp=127.0.0.1:5192,mage.task=ios-stall-diagnostics"
+      },
+      {
+        "id": "7f122c61591387f15284746eaaa5a45d11140804709ecfe7da9f9c43de22d7c9",
+        "names": "mage-ios-diagnostics-check",
+        "image": "mage-player-check:pp-i03-ios-diagnostics",
+        "status": "Exited (0) 2 weeks ago",
+        "labels": "desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/80/tcp=127.0.0.1:5192,mage.task=ios-stall-diagnostics"
+      },
+      {
+        "id": "dacbb4746de6fb524b0161e8360a59538dc1efc723f2e8e1e2647128295fb0b9",
+        "names": "mage-pulse-backend-before-i03-walkthrough",
+        "image": "mage-backend:pp-r05-e02684a",
+        "status": "Exited (143) 2 weeks ago",
+        "labels": "desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/8080/tcp=127.0.0.1:8080,mage.local.admin-account=ari@pulse.local,mage.local.branch=pp-r05-moderator-permissions,org.opencontainers.image.created=2026-09-27T10:25:52.887617+00:00,org.opencontainers.image.description=The Ubuntu container image maintained by Canonical\n\nUbuntu is a Debian-based Linux operating system that runs from the desktop to the cloud, to all your internet connected things.\nIt is the world's most popular operating system across public clouds and OpenStack clouds.\nIt is the number one platform for containers; from Docker to Kubernetes to LXD, Ubuntu can run your containers at scale.\nFast, secure and simple, Ubuntu powers millions of PCs worldwide.\n,org.opencontainers.image.revision=e02684a6f348cf09c0d418ad1002c4b0c58fb297,org.opencontainers.image.title=ubuntu,org.opencontainers.image.version=26.04"
+      },
+      {
+        "id": "dc5dd82c5b7d0d3f84c8a04baab7477746e04662968c36fc8961a4c4f45c2c96",
+        "names": "mage-pulse-backend-before-local-admin-20261003233538",
+        "image": "mage-backend:pp-r05-e02684a",
+        "status": "Exited (143) 3 weeks ago",
+        "labels": "desktop.docker.io/ports.scheme=v2,desktop.docker.io/ports/8080/tcp=127.0.0.1:8080,mage.local.branch=pp-r05-moderator-permissions,org.opencontainers.image.created=2026-09-27T10:25:52.887617+00:00,org.opencontainers.image.description=The Ubuntu container image maintained by Canonical\n\nUbuntu is a Debian-based Linux operating system that runs from the desktop to the cloud, to all your internet connected things.\nIt is the world's most popular operating system across public clouds and OpenStack clouds.\nIt is the number one platform for containers; from Docker to Kubernetes to LXD, Ubuntu can run your containers at scale.\nFast, secure and simple, Ubuntu powers millions of PCs worldwide.\n,org.opencontainers.image.revision=e02684a6f348cf09c0d418ad1002c4b0c58fb297,org.opencontainers.image.title=ubuntu,org.opencontainers.image.version=26.04"
+      },
+      {
+        "id": "9ae94bd782906fcaa74a5722de1a08ac58032cee1b9d5c096aad67f4252a0192",
+        "names": "recipe-lab-pinned-browser-20260917",
+        "image": "mcr.microsoft.com/playwright:v1.62.1-noble@sha256:c091b21d9fae78c76e85cd4356431e9b018402f172a214fc7d7a5e9a7e29d8ac",
+        "status": "Exited (137) 5 weeks ago",
+        "labels": "desktop.docker.io/ports.scheme=v2,org.opencontainers.image.version=24.04,recipe-lab.verification=pinned-browser-20260917"
+      }
+    ],
+    "images": [
+      {
+        "id": "sha256:f287d91a7a1d9a5cfb09ca46ae47dcce849d83f1ef4efdb2898252ddc93af2f9",
+        "repository": "lp-accept-pr113",
+        "tag": "2fc0d49a63f046a99e62805398b83cdada01a87a",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:2274970528a88465c2f6bcaf8ee116b4a35d705b142da92846d107146d2599b6",
+        "repository": "lp-accept-recovery-01a1714f",
+        "tag": "45326e243245c4941e2cefd0eab984bb7ee19765",
+        "size": "1.07GB"
+      },
+      {
+        "id": "sha256:4baf89e279fa924a4c75b014c3807d4628db10a8b02718d0fa4c690119433e03",
+        "repository": "lp-lessons-fidelity",
+        "tag": "final",
+        "size": "1.07GB"
+      },
+      {
+        "id": "sha256:be54d12578802ed61ccca3db8a9bccff6f00cd7aa6486eb93b63421a150e2166",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.07GB"
+      },
+      {
+        "id": "sha256:1c136ccf76587f1740a060b03efbbc00e16d8762ea92f4476a4c0a6b1ea29d2a",
+        "repository": "lp-lessons-fidelity",
+        "tag": "verify",
+        "size": "1.07GB"
+      },
+      {
+        "id": "sha256:b45d71e75a64d57b7803db92ee4c9ee65249073fce7fd9fdfac7a3fb2f38c965",
+        "repository": "lp-v22-integration5",
+        "tag": "eba2fba3eee223bb43c0eea5fe197e9569285ea9",
+        "size": "1.07GB"
+      },
+      {
+        "id": "sha256:0ac534ba66f901bc44b4d456129c4fda5e1b7fb339474a7a84dd793c12e78112",
+        "repository": "lp-accept-pr117",
+        "tag": "6f9dd8991abef5efa8108e50b2274dc3bdc13ce6",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:3011c99f6bf6c325d545dce07614ce51179c3916cda83beeabb55e37d3c9dda4",
+        "repository": "lp-accept-combined",
+        "tag": "545b880749c757f7502a9bfa7fd127afdf290afd",
+        "size": "1.07GB"
+      },
+      {
+        "id": "sha256:c048edd705a40571424249b681254e89d3d8ca03ed0b21e9c8e14daf554d193a",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:dd8f513cc85304c6585f5edc08b897e13ab2d76435af7f990f33a5bb37fab4ec",
+        "repository": "lp-repair116-app",
+        "tag": "latest",
+        "size": "1.07GB"
+      },
+      {
+        "id": "sha256:f8c4cc47d126b6b414f95556c247ce66e27f74c1ddac9de6be10c18d4c0b0350",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.07GB"
+      },
+      {
+        "id": "sha256:df285087507c4477136ca463137bcdf65d04b31976d3eb68497bb30dba0833cf",
+        "repository": "lp-accept-pr118",
+        "tag": "d2dca515b1a926daf28e791044fe04d01bdf20a9",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:df285087507c4477136ca463137bcdf65d04b31976d3eb68497bb30dba0833cf",
+        "repository": "lp-lessons-workbench",
+        "tag": "verify",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:d5e7358d3af4e257a452fb569650b947ade127c396fda8a80c7a74fdc2075468",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:1bb383377b3b0624cc1bd614e73cedde57f204ed53afff0bda86f4cec3b78151",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:38098024383e09a916a581afa09c4c4b7df31627733a09defb4fb2648c297148",
+        "repository": "lp-accept-main",
+        "tag": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:f3d90dfa7463c24d8e6cf997aad12e858cbb31503182fddf0dd86f9c44f7d663",
+        "repository": "lp-review116-a-app",
+        "tag": "latest",
+        "size": "1.07GB"
+      },
+      {
+        "id": "sha256:f3d90dfa7463c24d8e6cf997aad12e858cbb31503182fddf0dd86f9c44f7d663",
+        "repository": "lp-accept-pr116",
+        "tag": "5d6363d2867a6f0250f8220db0474342b1241d00",
+        "size": "1.07GB"
+      },
+      {
+        "id": "sha256:e8bc95b6ca45e50cbc0ccd738b810add972d2090f26a26f180df34d4a5c69039",
+        "repository": "lp-review116-a-checks",
+        "tag": "latest",
+        "size": "1.22GB"
+      },
+      {
+        "id": "sha256:152c567e8cd099a9336084bbbda502a04eec25bd701eda27e087a8e6740a22c5",
+        "repository": "lp-workbench-verify-app",
+        "tag": "latest",
+        "size": "1.07GB"
+      },
+      {
+        "id": "sha256:ff3fd20e80278bc2197fdf49d7b4317608ddce96697d6f0388b8c30968cfffc0",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.07GB"
+      },
+      {
+        "id": "sha256:fda1ceaf9b3a130100582f5543d65a2fbdaf976566a3bd3a01df26fc98349e1b",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.07GB"
+      },
+      {
+        "id": "sha256:041d6e96030126297226f7972d15e4b30a93cdf9d48e668a973fecbfb934d7e1",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.07GB"
+      },
+      {
+        "id": "sha256:455538c08546581974d718d39dc7945857b74b239363e31b5cf74e791b652d7f",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.07GB"
+      },
+      {
+        "id": "sha256:4a1c5b9d4b706949a9fa46effaa1a0ff612c92ce386a1f1091860ceb42604cbd",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.07GB"
+      },
+      {
+        "id": "sha256:906f940b0fec092a1bb5905f633c6c61c78f230c601a7cc3cc13139db06bd1fa",
+        "repository": "lp-student-ux-pr113",
+        "tag": "20261023",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:6ba8ee28f8e8451d9a9da46a5b13ee9774673f998182d18c0b80e2bccb14cfe8",
+        "repository": "lp-accept-pr113",
+        "tag": "2b490863cc6de69a7659f1df1e4628bc22dd7d9a",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:c38ff4ecd0a2d88f5900ac3ae97f20381aa770e594ec1d99995edb028503d126",
+        "repository": "learningpulse-demo-app",
+        "tag": "latest",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:bf3160ce06ea25b9e3401036a3edba48d7fbcc6071c2c7cae5207e818625d6bb",
+        "repository": "lp-student-ux-pr113-preview",
+        "tag": "20261023",
+        "size": "1.22GB"
+      },
+      {
+        "id": "sha256:fcb832d74374ba4ae6ad8d2dd330c23dbfcc9f1a89a01d3dad78fd40c58171d1",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:4f5e8c1ece5f7fa765468fbf81fc873267ea33e21c25bb2395188007222d59a6",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:77033b995e88f48e03780121d5994a49949bf3399d07fcff1e4d4ce987edec20",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:f6e538ebb15ce1df2a4891cd8ec5188d45d8cfcba818d75e41e8c441558c5efb",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:c23d05a815d4940d4f84c942ba1f99ce5283fd5b84ee1dacf4587d1bf5a9790e",
+        "repository": "learningpulse-scroll-preview",
+        "tag": "latest",
+        "size": "1.22GB"
+      },
+      {
+        "id": "sha256:fdf01e22e1e1af87fbb019964a55365feabe1836b7e8aca47d03fadba65043b9",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:257ab80fab4c118f39fec9fa0ee1e11e91594bc07c62ffe0b0716d639849815f",
+        "repository": "learningplatform",
+        "tag": "objective-fix-723ed6fea411-20261023181551_391ddf",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:62deea463bc4c9c261c748dcc62b65e24eb96c924972a2e2c1f27b419d2c3863",
+        "repository": "lp-v22-main5",
+        "tag": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:9c8580b45239ccd1455e0a61e6f2b19dd45ed948266de7c7bc06843dc6d87f50",
+        "repository": "lp-student-ux-main",
+        "tag": "20261023",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:8d0af16c1cab7e4130e4a1cf972d642f99dcd5941c649958338e21f30f6eb628",
+        "repository": "lp-student-ux-main-preview",
+        "tag": "20261023",
+        "size": "1.22GB"
+      },
+      {
+        "id": "sha256:27be924e1da02ba482e37bda5107290ae826333029097d5b132390a2c635f2af",
+        "repository": "learningplatform",
+        "tag": "objective-candidate-2b70f81b",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:54bae47608891fa3677e412a02f9d8307ffd7b6f0172adb9089543630316c07c",
+        "repository": "learningplatform",
+        "tag": "release-6ecc80f5b5ca-20261023174156_db3a8e",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:54bae47608891fa3677e412a02f9d8307ffd7b6f0172adb9089543630316c07c",
+        "repository": "lp-integrated-main",
+        "tag": "acceptance",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:fa11567826ac55bf3f71a817aaa4c3bd38ea04d08ed9abcd524935d4ced4e47f",
+        "repository": "learningpulse-demo-tools",
+        "tag": "latest",
+        "size": "1.22GB"
+      },
+      {
+        "id": "sha256:f1a56732d9f29462dd09b6900d81685ddea729983194714b050fe876265ef2ca",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:eb235bd635f37f0e5a1338ce06b12790dcbe4cb337fde9a6e93f8ffd2bab60bb",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:ab71434ddfbbba184cb8b92cf874a00627dbdca73121c99a4715278bec6e4767",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:cc88d50cdc2c726e27585d44a81633e375fd36209c73bc8d1a188ef8d15e6b76",
+        "repository": "lp-integrate99-app",
+        "tag": "latest",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:d47be35a151d20919c041bbad0967e75fd91e92bfd3135ca16cacaed2cd6e14b",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.05GB"
+      },
+      {
+        "id": "sha256:c24e1377623d61852abcbb03329b72a6363dde49da68c652c9363260eaca2b6f",
+        "repository": "lp-integrate84-app",
+        "tag": "latest",
+        "size": "1.05GB"
+      },
+      {
+        "id": "sha256:2fdfd019471bc1c0164ec46bfacd01253521db15d9391223d977f211c1c456be",
+        "repository": "learningplatform-speech",
+        "tag": "latest",
+        "size": "371MB"
+      },
+      {
+        "id": "sha256:2fdfd019471bc1c0164ec46bfacd01253521db15d9391223d977f211c1c456be",
+        "repository": "learningpulse-demo-speech",
+        "tag": "latest",
+        "size": "371MB"
+      },
+      {
+        "id": "sha256:2fdfd019471bc1c0164ec46bfacd01253521db15d9391223d977f211c1c456be",
+        "repository": "lp-integrate84-speech",
+        "tag": "latest",
+        "size": "371MB"
+      },
+      {
+        "id": "sha256:b14c2ee9a7828711a32516005d019adb62bed8d3af09339371576d03ab8503a0",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.05GB"
+      },
+      {
+        "id": "sha256:d41b0df450f8b219ea1b16b9828f5b5fb98652da7d5c8308d76922b230de9b3c",
+        "repository": "lp-integrate98-app",
+        "tag": "latest",
+        "size": "1.05GB"
+      },
+      {
+        "id": "sha256:d8c7cd2c771ec0f6ec21e1679c799b5c85429bd34c85e5e6c7db341d28a4a71b",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.05GB"
+      },
+      {
+        "id": "sha256:438f11b34fc1ed3a3cd9d1ecff3f924da0b8226fa2af13fa41847e138a391c1b",
+        "repository": "lp-integrate52",
+        "tag": "verified",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:0cc2204ebc7774fd259cd6314cc77f8ecf5144da21855ae8f276c979d6c0c7d7",
+        "repository": "lp-integrate51",
+        "tag": "verified",
+        "size": "1.05GB"
+      },
+      {
+        "id": "sha256:285013536c3cb41bf772c0ca34bba641130514b0eb6671992f6ec5c248ddbce0",
+        "repository": "learningplatform-app",
+        "tag": "latest",
+        "size": "1.05GB"
+      },
+      {
+        "id": "sha256:cdc5169c4b3df3f672e81ae20ff6dfeeb0bb89971e7cab62bf6927a764e81bbb",
+        "repository": "lp50-objectives",
+        "tag": "importer",
+        "size": "1.05GB"
+      },
+      {
+        "id": "sha256:1ac4dd28c5126b9dae687e34a3b71637b08481f34af43a9e3d92ab6c33595e6a",
+        "repository": "lesson-publishing-52-pdf-v3",
+        "tag": "latest",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:a03b2088a49ee35b88861df7cf1739550bb1db533b05d03bdf9957bb4f562138",
+        "repository": "lp50-objectives",
+        "tag": "reconciled",
+        "size": "924MB"
+      },
+      {
+        "id": "sha256:1721bedbfe13a5774c2457a70432ec9834fb27a584fe31c85cafa257c552e847",
+        "repository": "lesson-publishing-52-uncertainty",
+        "tag": "latest",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:0598112b1426804ece89c0e869f1c4a6bdbeaefc4d9b93134f4150dce6b4dfe4",
+        "repository": "lp53-app",
+        "tag": "latest",
+        "size": "918MB"
+      },
+      {
+        "id": "sha256:2341e134fe7d2d8f827c3b92903c1d5abcf05a54fd7673e3d0554438d7dc6d4d",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "918MB"
+      },
+      {
+        "id": "sha256:55935d8530af4c674eca7368447436cfcba5c71b849a20db066a9a81eab96b95",
+        "repository": "lesson-publishing-52",
+        "tag": "latest",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:c7bd15c89a2a213511d800569d7872e8d68a21cdb278fcdbeb5a5a82e365d3fc",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:b69bf137dd639c7ea2fcb28c9edff72d22531a6e9447f0a5671169af3314229b",
+        "repository": "lp45-approval-check",
+        "tag": "latest",
+        "size": "932MB"
+      },
+      {
+        "id": "sha256:c9095a8ead8ddd1c0e7ad1b5bde9900855784840702c62dee2b03a72617a710b",
+        "repository": "learning-pulse-question-bank-check",
+        "tag": "latest",
+        "size": "928MB"
+      },
+      {
+        "id": "sha256:5af7f23f4343362335628b6579c0d1086d4fecdea267eb4b3c656371416fe8af",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:b54db4a8d517a972af0b9762b8fe5a26b685441012879d881fbb7d0c9b86dd78",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "928MB"
+      },
+      {
+        "id": "sha256:1f7c0a16277cc366373b29fc2694cd67de601f4450a22bf30cd40d894be622c6",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "1.06GB"
+      },
+      {
+        "id": "sha256:46d12370f8ffc48f0f9dce1aa27f8409d0a60e7ae33546d34265dba81fef8457",
+        "repository": "lp-r7-ci-98-app",
+        "tag": "latest",
+        "size": "921MB"
+      },
+      {
+        "id": "sha256:73a249d735385d2e62e3e44baa1a70b7ac05a331036ad7aac5bcdd6038f8818f",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "923MB"
+      },
+      {
+        "id": "sha256:9af9c894b2e138c218c0eff2d02a07d654b0e1f055d122d2ac916a6112e0023c",
+        "repository": "lp50-objectives",
+        "tag": "check",
+        "size": "923MB"
+      },
+      {
+        "id": "sha256:7737164bb4d81f3765fc2c3d3d69f56b4500e2dedb099ed546576b9ada06510f",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "918MB"
+      },
+      {
+        "id": "sha256:5e8aa7c9c2668cbaad4c715c964ddfa63eb3348207c2d82c95c2677dd00a379a",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "918MB"
+      },
+      {
+        "id": "sha256:e1eda072a63cafbeb7dfa01e1cb9c77eda0b9e899fb3c37d1e996a614bba6948",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "923MB"
+      },
+      {
+        "id": "sha256:89ef273e28edd954a3089aeda16c5efdd92c824d1c182417198f86fc72ca1556",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "918MB"
+      },
+      {
+        "id": "sha256:2ecf2b66a7016fb124130b01e0a1ede4050151acecaf7b886a9f080901089cc1",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "913MB"
+      },
+      {
+        "id": "sha256:32f43bb0593fbe24f303962cad4908fee943007199af73ee7d796ce72eccf9d6",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "913MB"
+      },
+      {
+        "id": "sha256:69426614007a6b530750f0001caa37332755b56701b507276ef0f0b31dd8289e",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "912MB"
+      },
+      {
+        "id": "sha256:2edacd2bced7e01d4ad23993c62bf0d3df0f503668fb3da9d6116a3e2779a145",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "912MB"
+      },
+      {
+        "id": "sha256:9b65a0d521f94e64cd42ea4a443679ac71bc9e3114eed5536da1406217340902",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "912MB"
+      },
+      {
+        "id": "sha256:dc41fd55b1ed377d82203dc0824c83cd8a5ba9d2e9c5c095e45e13b7e59e6b7c",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "911MB"
+      },
+      {
+        "id": "sha256:5eeaf4282b8d644a2fdecd82d1bd858ed7c40df9c99a75ad239af3264a745c8e",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "909MB"
+      },
+      {
+        "id": "sha256:d89c9b181295cd6ff1bbdc4eb90a846b517dd79c35beeb5a747657e51c8ed4b2",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "902MB"
+      },
+      {
+        "id": "sha256:565e1909145810117183f43f97f29e33824a31af96c29db15f7ff928cbdfa7bb",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "902MB"
+      },
+      {
+        "id": "sha256:eb2c3256c9a2d49e51650915d904dac2475383f7d9722febf7488b1a755d63ee",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "905MB"
+      },
+      {
+        "id": "sha256:4d3737aada8620a505dfc5fa7611257e793058f904ee4d5b33d3b5f82738d506",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "905MB"
+      },
+      {
+        "id": "sha256:5c5f80b7dc08a8dab62f6392b320e93ea051fb67125c616ae0d9f8489671eded",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "902MB"
+      },
+      {
+        "id": "sha256:26ba73b47477bbf784068af19ae9b7ed4c84ae6cbd74f179497034b6e3255825",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "902MB"
+      },
+      {
+        "id": "sha256:4351fecf2ca17c40654b636310801daff1f0122304eae780f9f3dcf61c66da23",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "902MB"
+      },
+      {
+        "id": "sha256:f553e467008a93b39ca693609eb19afac2c393f55ec2e29e7a3e0cf26f639015",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "902MB"
+      },
+      {
+        "id": "sha256:fa18180044ac32a1ae329638fb8aa20c4697be0fd401c231b64d3618d0921f18",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "902MB"
+      },
+      {
+        "id": "sha256:f9f98cee7cf7467989c441e0433803442bd1459ece4a50aca9464c1928e9cf35",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "902MB"
+      },
+      {
+        "id": "sha256:4fa5b5bcf18e3cbd355d94132e1a6adec23bd8f272d51af92545f6e3215065fa",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "902MB"
+      },
+      {
+        "id": "sha256:46fbad4c54ace11e474ea244c49a4c8eb98038eef48a4f011c89227105de2f46",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "897MB"
+      },
+      {
+        "id": "sha256:710e176848d682634f5c2b4550e6bfce1275df12df2d163ec707a4d8d42e4e1b",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "858MB"
+      },
+      {
+        "id": "sha256:3cd98e308fcd36dfc32a361f3219e33a461b76ddb0fd91486005f5423235b08b",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "858MB"
+      },
+      {
+        "id": "sha256:1b7dce51e9b763225643e6974dd84d0283a343330c4661144eb6cd3a3de4119f",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "857MB"
+      },
+      {
+        "id": "sha256:89675210d3d859a3ce5bed919a82e0268d65543a92d4c593eb15f1575acc8be8",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "857MB"
+      },
+      {
+        "id": "sha256:b32f883f30412ca4829821e3658ac337fc8e53ebe11264cf496cd994ac115b46",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "857MB"
+      },
+      {
+        "id": "sha256:e21d76324a68da1fbf0f202c92c2534fe0346c408d70e71a3300aaeb2d45b7c7",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "855MB"
+      },
+      {
+        "id": "sha256:1b53501933fee54bffd959042cb5b1b89da3f9cdecac47bc8da7db561e21fd13",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "853MB"
+      },
+      {
+        "id": "sha256:796d9940b6b59d498eab34342701932aed9857c8ac4d2e228d34f4dc2a517d36",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "853MB"
+      },
+      {
+        "id": "sha256:43d2238685919ef2fe7b7084dd08481a166099910cca3bce9058ae5a8afea511",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "853MB"
+      },
+      {
+        "id": "sha256:560ab8dde9c59c113fe2b18b108901c2ae93c0086c66960169e91599e1ba80ef",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "853MB"
+      },
+      {
+        "id": "sha256:d6433e63023ed0b764af102512d62a3c5e00758295b0b6a2de85fe962f38a1d8",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "853MB"
+      },
+      {
+        "id": "sha256:6fa9ef7bd6db71d6e2b352f6bc6c9cf7814075368f754f1b42ceaaa9d9c27898",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "853MB"
+      },
+      {
+        "id": "sha256:a6b1d7e728c47cb6f63fc434fd42c271d09e960d03444ea6b080b12fc6f5fdc1",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "853MB"
+      },
+      {
+        "id": "sha256:82903352d6faf8f8a318bc4353d1cb1db67d4a5ff968d2799b2718e2cb00afa2",
+        "repository": "postgres",
+        "tag": "17",
+        "size": "454MB"
+      },
+      {
+        "id": "sha256:d3711dff58343297ab6a5da520d3c47af37c33dd21e67ef880c6ab8a8e35b9c6",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "853MB"
+      },
+      {
+        "id": "sha256:875ade3ca365e451a3ad3439b37260eef8e8269c29500e7bc4d450bff6fb48a5",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "853MB"
+      },
+      {
+        "id": "sha256:c38e50e9070b0640254051bbf2a47eb9181dad34991c525d6cec1a9f6b9eb9fa",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "853MB"
+      },
+      {
+        "id": "sha256:8dc313445b7d03fe3ff5b9cf522a077df97ccab38ef5d200eba299302c5e7af6",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "848MB"
+      },
+      {
+        "id": "sha256:ad7b160e95b7f6c4564b2c6ee38248e6b6a153f88a9c74f89780e4a859356c22",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "847MB"
+      },
+      {
+        "id": "sha256:e4779ae960df1d182052be02c0ca470b11191ccdef5963fcc51ee97e423c7d9b",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "847MB"
+      },
+      {
+        "id": "sha256:53c493c9d62b23d57566e79b5f75a12ac5d6a1e909a4acf31ccd1e660ca0ae86",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "847MB"
+      },
+      {
+        "id": "sha256:897bdd832b354ec29c8dec29eef2a586a7c26cd4877a784b1da7941cf737b63b",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "847MB"
+      },
+      {
+        "id": "sha256:3e611119cd6050d6c98459d4edf97fe7e992131dcafac3f2550fd6ddad23b2e3",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "847MB"
+      },
+      {
+        "id": "sha256:cd18cf8f52735a6872ca49f634c35620ec839db541a9ffc37f6d851c1b924a0b",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "829MB"
+      },
+      {
+        "id": "sha256:1ba11dd15c359091fa885ef093d04af3cf5bb28d1e6f84b24e37d7c66e996d95",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "829MB"
+      },
+      {
+        "id": "sha256:19d653bc84539427867814c04274d92423065494d64992eeebcfc314bd89303a",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "813MB"
+      },
+      {
+        "id": "sha256:1f342af59cbde2076829448c3882d8e115b65eea6b174b51307a2c9f9509402e",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "813MB"
+      },
+      {
+        "id": "sha256:d481662ebfecf8823131332dee2c36e411f9903989a6195d64fb3a0881a9e005",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "813MB"
+      },
+      {
+        "id": "sha256:abbb182f62491f6180179f873d3bae7d98a86b9774a0451ee0c27c6e73114fae",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "813MB"
+      },
+      {
+        "id": "sha256:ba63a5591ce7961ef71e37ac67fe63108a795af8b6615973eff342994539c15f",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "790MB"
+      },
+      {
+        "id": "sha256:f5a6a2232532e58fff55fd69e278934c3972c16fc954ed35cf7f20087bc11895",
+        "repository": "learningplatform-transition-check-app",
+        "tag": "latest",
+        "size": "790MB"
+      },
+      {
+        "id": "sha256:01335fd57084737a82ba94c0a5d8b578b42a6d37887d62429cd8e9dafe30ae20",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "790MB"
+      },
+      {
+        "id": "sha256:e0bb30545fed532f74255edda129216cfc0561a15ef55210f9fd77a181702332",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "790MB"
+      },
+      {
+        "id": "sha256:5c84df09252ab3460c284a6b60e10eedbe1e86c18575bee8fe66a63cb9db7eaf",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "790MB"
+      },
+      {
+        "id": "sha256:1794f88d084e09890d91da570df97466cbba80b515a1f0472a5e9f20bcd3f913",
+        "repository": "mage-backend-backend",
+        "tag": "latest",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:6153eeb8a6395e3f274b5bf7c72b898c28cda8c51aede6a0f2c94d11004601af",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:ade03cf69290468b0d7f4a1b1365b0ef2e4bf96e24a74ae8b382acad8069940d",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:fb857fc4864aefd913cce5421491d3b8133be53efa543997d71d1b8e3d5f95e4",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:1cfb0274f0cae2d3ee6d59fa3ee7ec4a450ed09d3aadf5a4e704f096f8f7d063",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:b3da686f9d6e366cdbe7ade3ab44f7fa06e1037b5ab6f1b7c0290c163bf8a862",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:d58f97cb919881b914b0e54f0f497f342687a6ccf1ca58f8edf3e35e7a60d7e7",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:02360f598793d4306efce39cc61edbc58376e3fefa5288ff9223297a05229a68",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:8c05fbd73ee3b4b5ca89056ac7b0a7fe917cb49ed625e995efa4eefc1dfdbde8",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:b127f36199b87085c1310e07f5807633c30bcd4c3b08824cd0d298a4d302f693",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:644e2c5a9942d1285f5a3aac28259562f82196e516de7c983a090e00fe57dd76",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:128efd5253e16976dcb8793c1b384329856eb5165586a6fff8d54ab9d0c2e773",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:72422dcc13b8f5b57c0bfad6f6bb35bd74f9415f9a060ec0fb87de5636608399",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:2f22f22663b38795a39170c91c41b5ed5c83bf079f51ae1c74d4e656e117f6d6",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:72f81d00a6dbd2341a9f2da859757dac964327ea70d44d0d729fb4cc13a4e5a7",
+        "repository": "mage-portfolio-demo-backend",
+        "tag": "latest",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:73b9117551e4563cbf1eeb0ff019bfa6d46fe3e4f995407dea66c028b7d62699",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:f1dae648158d776d9d3b370a6fd2e73f1ee7dfe8e39ca0b0b18c7569d1c1ac3d",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:0b18c370cb1c9d03f1dc63486de39ea1ccfbb59ea8753aad8d4bd15c32d0b389",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:fca28415de1d12797d6f2b277c69e097218a0bce2cfde11a7bb684ceb407573b",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:19b9089769dc162b1bb7f3be008a157923762a4b774f00b1623e0696c8b00fb7",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:7a76b569cf4e5437ac3661d9d2a17a0f5665be569b4e6cd56718242a0c563060",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:0ad7d946158483af763b3f695eca29f0873ff78027ca3837c2d73ac29082ca95",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:589f742565e4f6d22149176b032974f55f8201a8a37b71ed587ec5c6902e689f",
+        "repository": "postgres",
+        "tag": "17.11-bookworm",
+        "size": "445MB"
+      },
+      {
+        "id": "sha256:5d07f3a7b6fe194308c0419b0b68ef3eecd42b783ea90ef7074a459444388033",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:64fe397c605754a64748ce40bb6c0bb723e71c1e8bfa2b5b550d4f54f891d1a8",
+        "repository": "mage-checks-retired",
+        "tag": "local",
+        "size": "230MB"
+      },
+      {
+        "id": "sha256:b078de238e84b426c6380dc29dc3fd7658cd711c743405bb6d73f8b96b1b1dbf",
+        "repository": "mage-player-check",
+        "tag": "pp-i03-5f5295e",
+        "size": "230MB"
+      },
+      {
+        "id": "sha256:cc2c6d8fa941b958ba6ca89342de390359a346d3942b8a4e0c0ae3b1fcc3173f",
+        "repository": "mage-player-check",
+        "tag": "pp-i06-e9a1649",
+        "size": "230MB"
+      },
+      {
+        "id": "sha256:c532b1b492ac83eeae63ceb4024aaf770d3f369176c483c6509adc913e9bd577",
+        "repository": "mage-player-check",
+        "tag": "pp-i05-9f1d50b",
+        "size": "230MB"
+      },
+      {
+        "id": "sha256:2fc3343f256536084dacae440dc28c7ac6297eabc854c8818a6fdf7a3ed0384a",
+        "repository": "mage-player-check",
+        "tag": "pp-i04-lf",
+        "size": "230MB"
+      },
+      {
+        "id": "sha256:638ec9f5ba8982f2643a7204404538152eb1b369c392eec1dcc08f4e3912a416",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "230MB"
+      },
+      {
+        "id": "sha256:8d97fdaa234801b246465e6618355a7265f729c616f4108af1a51a02deaa7142",
+        "repository": "mage-player-check",
+        "tag": "pp-i04-check",
+        "size": "230MB"
+      },
+      {
+        "id": "sha256:883d163a0641003393e3b91b9c21969f5e67a472f5b4227b1b3045f5edb5dd45",
+        "repository": "mage-player-check",
+        "tag": "pp-i03-ios-diagnostics-lf",
+        "size": "230MB"
+      },
+      {
+        "id": "sha256:e6402dcbe25c251b86e553c8210ca50a3233cb82ae90752f6c74b9a14d565832",
+        "repository": "mage-player-check",
+        "tag": "pp-i03-ios-diagnostics",
+        "size": "230MB"
+      },
+      {
+        "id": "sha256:0877381ece12e6a9f5e75a967ad452a4ac626d12095ca61c7d6017e061e1d5b2",
+        "repository": "mage-player-check",
+        "tag": "pp-i03-release-verification",
+        "size": "230MB"
+      },
+      {
+        "id": "sha256:915fd33fb5fd31dbd55babeaa7e706942c9dc155746b342122da3eb09093d230",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "230MB"
+      },
+      {
+        "id": "sha256:c81adeffeae4dc702f9dd8d1ee97c99a061d1f26dfa72d2626013e89aef38da6",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "230MB"
+      },
+      {
+        "id": "sha256:e95aa33310a94f3b77ae82e792e1e4f2ff82b32e9659a7909eed910a51b935f5",
+        "repository": "mage-backend",
+        "tag": "pp-r05-e02684a",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:ce57cc98ae1510589b8dae40bcd4eb6a01ee5079a31a33893bffe5b801cce0bb",
+        "repository": "mage-frontend",
+        "tag": "pp-i03",
+        "size": "66.2MB"
+      },
+      {
+        "id": "sha256:0d5d4757263588e25a39c1a2b7f8ca1019f9cc3b0f76211332c26f651533b34b",
+        "repository": "mage-player-check",
+        "tag": "pp-i02",
+        "size": "48.3MB"
+      },
+      {
+        "id": "sha256:2fcc978e55055893900ede1a5413238cb2fba866ad34e609dbd5d5640abeb574",
+        "repository": "mage-player-check",
+        "tag": "pp-i01",
+        "size": "48.3MB"
+      },
+      {
+        "id": "sha256:37ef623ac82dda9a0b3fa0549aed41725891afb5be7dbd3a708d88e7450606e9",
+        "repository": "mage-backend",
+        "tag": "pp-b03-88b490e",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:62b440848866f2f2ea3cd57695b30183003d4671e6a1598527c13ac38b1e095c",
+        "repository": "mage-backend",
+        "tag": "pp-b02-b369a45",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:468a433876a83a7d643caae1cff67c95ac0ee089e7a229b8a87e7893cff0c0c2",
+        "repository": "mage-backend",
+        "tag": "pp-r02-342d96b",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:c6e337e34c02cbefc86042d77bbcfb268d76ba937fb579dcd4f0b26cf5e6b7f6",
+        "repository": "mage-backend",
+        "tag": "pp-v01-573d67c",
+        "size": "406MB"
+      },
+      {
+        "id": "sha256:a425a123964b7dc6d504bb578eb6fa78d4dba62cd4f3a71b301c5002a44369a4",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "397MB"
+      },
+      {
+        "id": "sha256:8c9d585ef2c751927f5e2d375375094dd2da7a1762d5f9bbe1be1eb99a918e48",
+        "repository": "mage/minio-client",
+        "tag": "verification-7394ce0",
+        "size": "52.7MB"
+      },
+      {
+        "id": "sha256:4e0cd778c92ffcd283e8fa254e08cb29685f6340b95436434d10d8a5a5dbd68a",
+        "repository": "mage-minio-client-check-minio-init",
+        "tag": "latest",
+        "size": "52.7MB"
+      },
+      {
+        "id": "sha256:4e0cd778c92ffcd283e8fa254e08cb29685f6340b95436434d10d8a5a5dbd68a",
+        "repository": "mage/minio-client",
+        "tag": "coolify-fix-7394ce0",
+        "size": "52.7MB"
+      },
+      {
+        "id": "sha256:2ad76385ba5b0574f2276208183ebb4fa50fc9058df258c1e4029f97eeff3b27",
+        "repository": "mage/local-before-fresh100",
+        "tag": "20261002",
+        "size": "397MB"
+      },
+      {
+        "id": "sha256:cdcff7bad9fe95bcf9d3ea4d987fd3ed9ae0559f19cca19a38484608968e6173",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "397MB"
+      },
+      {
+        "id": "sha256:a6b0e516079b64d97032ccea99c1c1c01ffcd5cf76ae1b1685d78a331e5635e2",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "397MB"
+      },
+      {
+        "id": "sha256:957ccfecd0001a1fdb3c8a1839a9cb4dd3312e01638d42e896a1ff662b4c6d5b",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "397MB"
+      },
+      {
+        "id": "sha256:04cad06e1e466765e0b0c5d895ac983442d340983d572701b5e9c7c0aab5be0b",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "397MB"
+      },
+      {
+        "id": "sha256:c8995b2160c9f0eac11ad295f824842eefe0372c880c2b103cf4330c9c2b938d",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "397MB"
+      },
+      {
+        "id": "sha256:807e7984d96fba074829f7533e1193e992850cb1d9015ea726e8c2baa6ead9fb",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "397MB"
+      },
+      {
+        "id": "sha256:6bdea327106f370a8bce4bdc8653ac47afad2d146f88e6085dd064373db04af9",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "397MB"
+      },
+      {
+        "id": "sha256:801c2fb558b4a98cdbe9773c8cab6031b1bf203bcf8c961612bcb2ae2cfb75f3",
+        "repository": "mage/minio-community",
+        "tag": "2025-10-15-local",
+        "size": "209MB"
+      },
+      {
+        "id": "sha256:8837b9a4ebf35986c49b1caf7e7c9201e8d95dbd0598fefe1cffc45b551843b4",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "397MB"
+      },
+      {
+        "id": "sha256:b50ab594d119f75893da6026e8cd72a80e6e68b9f07b89717805158c6288dd91",
+        "repository": "recipe-lab-sandbox-frontend",
+        "tag": "sign-in-layout",
+        "size": "561MB"
+      },
+      {
+        "id": "sha256:1b3c642526f8d274b12bdcd93b90aeb7e68a1f59eb20613adb96ed561c01d98c",
+        "repository": "postgres",
+        "tag": "16",
+        "size": "451MB"
+      },
+      {
+        "id": "sha256:6416890ee361be90b57265d1c84c28a6346f821c7dbcb8fe479a9e9226c9cd91",
+        "repository": "recipe-lab-sandbox-frontend",
+        "tag": "handle-ellipsis",
+        "size": "561MB"
+      },
+      {
+        "id": "sha256:d3599376dda459b1a120ba22cb901220dff732d74a8948b249d28c2bccb4f67d",
+        "repository": "<none>",
+        "tag": "<none>",
+        "size": "561MB"
+      },
+      {
+        "id": "sha256:81bd698b4594e751a3269e4dcd3e03a4a0ec0daf7b72e7aa1abd43cce9887542",
+        "repository": "postgres",
+        "tag": "16-alpine",
+        "size": "294MB"
+      },
+      {
+        "id": "sha256:109d9f91d40c22ae269ec5720bfde11da7004c40f7c9bb29c17795c24c8b40fc",
+        "repository": "recipe-lab-sandbox-frontend",
+        "tag": "verify-final-20260917",
+        "size": "561MB"
+      },
+      {
+        "id": "sha256:6a60a4a70c8f90ad5d13a5f848cf8235635979dff3c0b9efa4657c938276af85",
+        "repository": "recipe-lab-sandbox-frontend",
+        "tag": "verify-20260917",
+        "size": "561MB"
+      },
+      {
+        "id": "sha256:69c8472ba8f5f31f2a9de7c0e56eea5c007e005c13f0dd629753a60086d9da00",
+        "repository": "recipe-lab-sandbox-backend",
+        "tag": "verify-20260917",
+        "size": "158MB"
+      },
+      {
+        "id": "sha256:84893e1b477dc2d3872a729c7ab891a798a6862a39827bd9cdba3677f4f48c5b",
+        "repository": "recipe-lab-backend",
+        "tag": "latest",
+        "size": "493MB"
+      },
+      {
+        "id": "sha256:b58997edfa12716801797c60f10b4894932535353345f3b56047b298ba5ba2ed",
+        "repository": "recipe-lab-frontend",
+        "tag": "latest",
+        "size": "1.05GB"
+      },
+      {
+        "id": "sha256:fee853fafa59550d162cef52bca02d907694b44ebf6ef9fb075bcc0c65d8dedb",
+        "repository": "mcr.microsoft.com/playwright",
+        "tag": "<none>",
+        "size": "2.49GB"
+      },
+      {
+        "id": "sha256:9de255959ba7ca910accfe9b98b5b5d8474a744ad9de3013ea07aba12a747bd4",
+        "repository": "quay.io/minio/aistor/mc",
+        "tag": "RELEASE.2026-03-12T04-18-55Z",
+        "size": "112MB"
+      },
+      {
+        "id": "sha256:b75bc7ce94c36dfb9349cf8b10111504a60119b51a0ac47ae9f6be9006f72f72",
+        "repository": "testcontainers/ryuk",
+        "tag": "0.13.0",
+        "size": "7.2MB"
+      },
+      {
+        "id": "sha256:6769dc3a703c719c1d2756bda113659be28ae16cf0da58dd5fd823d6b9a050ea",
+        "repository": "nginx",
+        "tag": "1.27-alpine",
+        "size": "48.2MB"
+      },
+      {
+        "id": "sha256:b6d0bc67a629b20d424b3e35964400ec438451f41b95302157868d5e379d5039",
+        "repository": "rhysd/actionlint",
+        "tag": "<none>",
+        "size": "70MB"
+      },
+      {
+        "id": "sha256:1579ef37cf85110531cdd80e95a235ddb62e600d83a547d2c69ba78c12664636",
+        "repository": "adobe/s3mock",
+        "tag": "latest",
+        "size": "134MB"
+      }
+    ],
+    "volumes": [
+      {
+        "name": "0ad29582dda39d8c1e322cf58932ddf81decdba9319f04233acc557b59b1dbe6",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "0ce0801e37504f02e72cec20f9e77d1bc7af1fd43ea220c60a1fdd14fffde2d2",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "0efce04ad603511322a67659cb881815409b5dd3164084767505232c5669fc06",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "0f3a57a3785505aea1bae0b8b2067bcc51746a0fe180fc2e18517d0486f85332",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "3b8be70b665a94a28f4529c6cc1d1c2c75208e71e1950c06f166adeb94fee188",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "3cd70e7bfedf7be348d24ffc8313e7f77f216301c0286d85a3d4c084421b4ab1",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "4c2d46922cc2d6c83981d9eae1937b38c1fb40486fbf68def60dbb2fa867f69f",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "4f91c7e0ed26a8ea23286e89ef52db5b8ee25dacbaf7bd89e7b68aac21719b49",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "06d92081e5f106026e43146560441859eefc615ae1515e27500780e6fb3359a5",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "7afcb363be4f84d27c86663a492e2e1419243d577e94b17aba6b740f0aad1fe5",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "7c0eca669d2a81678e9f7575be940ba9da69c2600c0cc711921cc5a028705b6a",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "7ef931c3cfed3464c8603de699eede9746bc8d1ac2b0c3be22c9f653d6b84ae4",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "8d66bbb79f7198c9f099dd6ab738787cd40bbc1721443448e34c805de57fa62c",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "9c2cf2122e3e458a31e2247c7dd8f3fffa58abc80a540d7541bbb6a56fca115f",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "26d4acd97203f220420adb31589dfb6070999d54162221523c0eab1cb28a9f2f",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "55a9d9f5d17dc601c55afc5e0da9f5368c0b1215229bb8d3d17708d11439a8f6",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "69c6a343a067ae780fe78cf48678cffcd5f69d01233131bf9980b0b0343de479",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "85d716d479e99b706ab9f14d13c248c6b7f3f8d66a463efe3837aa3d454b8a71",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "92b38929775073941357e603bfc39891c7c371fd56165adb67090b259109f049",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "94dff2eac3d561a805422414718ce73647f209f7b58acd07f4768b449a2cbaa0",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "371ffd8cc9eed3da0b769a77bf64a2a8889d0d9706d202deb0be2ce8962f639f",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "414c216f25df0c947a342aa5c7a2b6bf2572efd92eb93765712e7ada31b741f9",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "552e1b1978c7c30df4a04c6d5e9597f53842ee74e6ecb4592f15ce2538341e68",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "725a1cb9d2b2f06ee898c3c0098a7f094e17899f46f8404d3743d59f1bfe23b1",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "930e1f9ecd4af1b80891b347d6e28fce1a717c3bb9c1fce92c3a157c3fffa474",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "5800f0de6090ef4fc927b54c27bf36cd699decf16c13df9918e0ed00431e6f18",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "6262ca99de9f6f04662ea24c5d7ae9216efc6623019f4cd44292a7721b6e83a0",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "71137a7cba835308ac1a47a2924989f22ff905e523f78ab39648e144af66f9ed",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "126894ee4526c03ee9b03f87f90eb922c9f1273df291b178860a674482c58bd6",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "0543374e2db7d48990b614081eba0473e9e85c4ddb9734b3f8e11f4469a90a3b",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "a4e699af402e6d2adbb03cfd7bc2bd52f63ad65317f46cdb24f129497ba403ff",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "a50481457f6f0c5565a74893ce6454ee1f2f7e1bf8a5f7a342ed7c0facd64f2d",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "b6c6a14f87d3b7b54ddc7e88e1a2a08ab06fba68a7b7859d37aacf3cd67fd222",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "b286ae3420a97f02999e282c15f9bb5adde19543b8b1b1c2e63d65ac09781352",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "b85808011fb18a951b8ef62ee8bac5bf0d21e60e25d8bf0fa21a3ce856bcd932",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "bdc6896e8b83b216ca51021b09a2a455ec9753d8eb3509ea7f3f790377796b3d",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "bfd547a9a7dfdc79dd49b95917ab03fd9d85a182748370b27f89cd3770a6dfd5",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "c74d60e69f8794cfc7a223042f449a54959a0ea4284610cfc3143f96bb4a4ce9",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "c44526cba280e53e1bc29e2d23b47cf0e5d0973e357c19dc60253a846a1404d2",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "cd775b6f788b1062eefcf78eb7987197a91fcf5abd1e82f2eafd4a9c46ce0ea4",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "d23729df7710183793ae8f7c5ce70cd2cca824366d9430ece401d2ad3eac3dfd",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "dae1563556dce0a0c6cda65795954aafca66071ed1443b0382b1ee82364719bf",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "dd0be879a1cc948c526645a9a2b5ff7cdef3ae7d202bafa945f4ec98fd7575a8",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "de206ea05de812478f7b9b9428debec3738eb6c12799aa01e17b76035ed22631",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "docker_db_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=106e13645f4a5dc4e4538239b0032bbbfbd67ab0f90be61b0d3f672d7aba23d2,com.docker.compose.project=docker,com.docker.compose.version=2.38.1,com.docker.compose.volume=db_data"
+      },
+      {
+        "name": "docker_minio_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=424bd392a41b29b4d76fb52e60a79ac6bc93033e545a395890641015cfc5e522,com.docker.compose.project=docker,com.docker.compose.version=2.38.1,com.docker.compose.volume=minio_data"
+      },
+      {
+        "name": "e7b7ff6210d7c87aebba0a570fcffa10c30bcb3fe2103617ae360cb235a92d58",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "e7d3ef921fab143d93e70a2c96092d05fba1681e7621ba062c056c755abdb6c0",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "e847803fc8777c9f9fad10365b2d7398051ef6ff6637c4309321ee9957bd319d",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "ed46ebe8e9fd2f86ef572931c3b375b6e723730c9602f658854c64ce535d84d7",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "f858abc04d4c3e97149b48d58b50ed158c1ed30ab9c10ab254ea2b67d3c9af03",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "f925022f5a9133cbdccdebb845d792b6ce7faacf5f92cd843516a0a7c396f126",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "fd2692773fe23c50cbec9b8e8d267af9f9bbfc529c9a362aa33a722d680da4b7",
+        "driver": "local",
+        "labels": "com.docker.volume.anonymous="
+      },
+      {
+        "name": "finance-dashboard_pgdata",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=827760e6f275a91d962f10c79fb264e05f29e554ec583ff0dd29ec7ad46b3a45,com.docker.compose.project=finance-dashboard,com.docker.compose.version=2.38.1,com.docker.compose.volume=pgdata"
+      },
+      {
+        "name": "learningplatform_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=56d2ae558e43077fde4f48bf7ebaddcae62bcba72012c3e4e758bbe9b1bc5214,com.docker.compose.project=learningplatform,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "learningpulse-demo_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=8e83a0a822799ac5dbeb591c82b3823dce08d8db57a6239612d076f5c96bc7bd,com.docker.compose.project=learningpulse-demo,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "lp45_postgres_data",
+        "driver": "local",
+        "labels": ""
+      },
+      {
+        "name": "lp49_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=4d23dc8b987bfebbd35bf312e584b5ea024f55ebf61d838074f2942be8971993,com.docker.compose.project=lp49,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "lp50_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=9a2d13f129fa9dfa20f55b82ca8ed541d59ac2bba3f71dcc0533f09a9beed342,com.docker.compose.project=lp50"
+      },
+      {
+        "name": "lp50reconcile_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=1a381bece372345688f7406c53c7e6446da0febab98488d0c7ef6bee1fc69e9f,com.docker.compose.project=lp50reconcile,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "lp51_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=bc27d8d4c1dcde19d126d00a59a5c938034e931116c34025ece963d2ca490e89,com.docker.compose.project=lp51,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "lp53_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=0ca5a52b794fff2a8d7441c2391ad539b888e64dea1c5bff97e52d847ded2473,com.docker.compose.project=lp53,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "lp-accept-combined_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=8b1d3236874e608ac91e142ddaa565e8804026bf086c37d7cab0a61d72f58bf2,com.docker.compose.project=lp-accept-combined,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "lp-accept-main_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=a969949ccbc34ca8f577312957f0b88b10d263ffc54d27e1a9fae96eb77e8a6a,com.docker.compose.project=lp-accept-main,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "lp-accept-pr113_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=3b1f0ecae16ea2fa6ddb0f1b3bb2c2437b990e1ab899e9d1e63995db279788b3,com.docker.compose.project=lp-accept-pr113,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "lp-accept-pr116_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=83e857d471a72bc58f68506f23f276101216195fc7baf8144d249d16962f53df,com.docker.compose.project=lp-accept-pr116,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "lp-accept-pr117_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=e392de9cd616608d0e728aea2a8092451f0cc1ec3ba047c0a960152de6762668,com.docker.compose.project=lp-accept-pr117,com.docker.compose.version=2.38.1"
+      },
+      {
+        "name": "lp-accept-pr118_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=5d9972ad228480c5af8f67613ea6b66a3c6529415f742e949ae03730919b09b2,com.docker.compose.project=lp-accept-pr118,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "lp-accept-recovery-01a1714f_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=c7fcf85ee0445e5a82253beefc5c91f5b02f5d63cd9a2154d147d6a91725538a,com.docker.compose.project=lp-accept-recovery-01a1714f"
+      },
+      {
+        "name": "lp-integrate51_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=3c34c1792b355e921f68fa502bba3adb3bbdc6ffdaba29f989a75d20a315865d,com.docker.compose.project=lp-integrate51"
+      },
+      {
+        "name": "lp-integrate52_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=921a3facc114185d0f384e2c8337c3dfcb0c7040d73dafc6e07f6ae7c99a46cd,com.docker.compose.project=lp-integrate52,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "lp-integrate84_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=948ba7dba69d076fac3e2ad5abf28cf3eda73e0aecf797eb7637e3d18889dd2b,com.docker.compose.project=lp-integrate84,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "lp-integrate98_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.project=lp-integrate98,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=a8f1ed402113c1614e893d14e0899d696a24b7bf9a31b67d7c2264e95d24f2e0"
+      },
+      {
+        "name": "lp-integrate99_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=8ab96f3e5773f01848df6f72a9e3433e610e65ad2fef6a0f4bb97eae2eeb458e,com.docker.compose.project=lp-integrate99"
+      },
+      {
+        "name": "lp-integrate103_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=0d975a595577ddb871fe56c76fa949702d4612a7369a7763428dc9c635fbd9c3,com.docker.compose.project=lp-integrate103,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "lp-integrate106_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=8f068da138230aae9167eb1e27de7788e2e20fdb53464ee98da43366cc1fd93d,com.docker.compose.project=lp-integrate106"
+      },
+      {
+        "name": "lp-integrated-main_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=d75e23736d59d16bef4ea41a86e15cd9a8c2ab0243429650340af5b71f5e5092,com.docker.compose.project=lp-integrated-main,com.docker.compose.version=2.38.1"
+      },
+      {
+        "name": "lp-lessons-verify_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=0f7eae24aae9919054c0a576528af1d15581f420794160c99d6762bcd5a49bc7,com.docker.compose.project=lp-lessons-verify"
+      },
+      {
+        "name": "lp-repair116_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=20de8ccd70cc8fb793a3930f43ad39bf1c3948936353d3585e6eaec6832f6088,com.docker.compose.project=lp-repair116,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "lp-review116-a_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=562a9e6a9f806948d76d863726e0e29bd93325f24ce07b6a63acf9afdd3f9e88,com.docker.compose.project=lp-review116-a,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "lp-ui-preview-pgdata",
+        "driver": "local",
+        "labels": ""
+      },
+      {
+        "name": "lp-v22-integration5_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=c886cfc7d48f97a5809fe6704c99acb268b080786374e24af98eff9c4f2ef8bc,com.docker.compose.project=lp-v22-integration5,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "lp-v22-main5_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=9a9e19a8a64c83e4dd2d679f7584b8098774a1cd65138126f1a1f7603d1efa2d,com.docker.compose.project=lp-v22-main5,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "lp-workbench-assignments_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.project=lp-workbench-assignments,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=8507fc81a7d53405fea7d9f780c37439bc40178fe4187ac5ba5a847c6f679011"
+      },
+      {
+        "name": "lp-workbench-verify_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=804aacd445d7168b8583e46d6f9e4bdc4fc7839df7b642aee96633d088b158d3,com.docker.compose.project=lp-workbench-verify,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "mage-backend_minio_community_data",
+        "driver": "local",
+        "labels": "com.docker.compose.version=2.38.1,com.docker.compose.volume=minio_community_data,com.docker.compose.config-hash=71360f3a063ab9d1766213cc66b05594d9f55847f183d46c98c7bc6b8d4e839d,com.docker.compose.project=mage-backend"
+      },
+      {
+        "name": "mage-backend_minio_data",
+        "driver": "local",
+        "labels": "com.docker.compose.volume=minio_data,com.docker.compose.config-hash=4175a55eb635332dd61a84947306129ca09c7ae93a0388079e5a342aa5685742,com.docker.compose.project=mage-backend,com.docker.compose.version=2.38.1"
+      },
+      {
+        "name": "mage-backend_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=9e4613ba09d8b982bc28e920c7a733ac3e44b0d30e879d8c5e584c2a0d2eb426,com.docker.compose.project=mage-backend,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "mage-portfolio-demo_database",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=c8d3173b5f5243b3ec0a6f56d2b5709407a8403bcfb07154db7e368e5d210311,com.docker.compose.project=mage-portfolio-demo,com.docker.compose.version=2.38.1,com.docker.compose.volume=database"
+      },
+      {
+        "name": "mage-portfolio-demo_thumbnails",
+        "driver": "local",
+        "labels": "com.docker.compose.project=mage-portfolio-demo,com.docker.compose.version=2.38.1,com.docker.compose.volume=thumbnails,com.docker.compose.config-hash=c7d271665823807ae45c1dbc6812647cd67454202c8d3cdec3fcd7560018030c"
+      },
+      {
+        "name": "mage-pulse-review-current-20261009",
+        "driver": "local",
+        "labels": "com.docker.compose.volume=postgres_pulse_data,com.docker.compose.config-hash=4580bd547afa80b28289aa4575d169c5d5b1c99c65beced9d19fc835ccc8ef54,com.docker.compose.project=mage-backend,com.docker.compose.version=2.38.1"
+      },
+      {
+        "name": "mage-pulse-review-postgres-v1",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=c812e547a81c5014b51368b185f179cadd011dff0bfc1e00ed2c2312e4b73de7,com.docker.compose.project=mage-backend,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_pulse_data"
+      },
+      {
+        "name": "mage-pulse-review-postgres-v2-quality",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=4d3dad4170884f69630a609f9488068fa2d2d0ae5e553661e47cd5253a981912,com.docker.compose.project=mage-backend,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_pulse_data"
+      },
+      {
+        "name": "mage-pulse-review-postgres-v3-fresh100-20261002",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=235bf29050b4b76c6547b4011c8f7a38c6a06009ae24468ce4a8493093d76f4c,com.docker.compose.project=mage-backend,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_pulse_data"
+      },
+      {
+        "name": "mage-pulse-review-postgres-v4-fresh5-20261002",
+        "driver": "local",
+        "labels": "com.docker.compose.volume=postgres_pulse_data,com.docker.compose.config-hash=e247aca39c695357cd1440c3b88a1dedba2368284b3b381efc3daa4277824852,com.docker.compose.project=mage-backend,com.docker.compose.version=2.38.1"
+      },
+      {
+        "name": "mage-step1-fresh-minio-20261009",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=a56ca0ee4f78b9ec1afda26b55a37c8f8498a9ffba1f7b15f03646724f5d7f9d,com.docker.compose.project=mage-backend,com.docker.compose.version=2.38.1,com.docker.compose.volume=minio_community_data"
+      },
+      {
+        "name": "mage-step1-fresh-postgres-20261009",
+        "driver": "local",
+        "labels": "com.docker.compose.project=mage-backend,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_pulse_data,com.docker.compose.config-hash=5c7f41d441b1a62ba849b2b8bb6f951c0131982346eedaed214241b2c4c20078"
+      },
+      {
+        "name": "rcp50e_frontend_node_modules",
+        "driver": "local",
+        "labels": ""
+      },
+      {
+        "name": "rcp52_baseline_node_modules",
+        "driver": "local",
+        "labels": ""
+      },
+      {
+        "name": "recipe-lab-smoke-next",
+        "driver": "local",
+        "labels": ""
+      },
+      {
+        "name": "recipe-lab-visual-next",
+        "driver": "local",
+        "labels": ""
+      },
+      {
+        "name": "recipe-lab-visual-node-modules",
+        "driver": "local",
+        "labels": ""
+      },
+      {
+        "name": "recipe-lab_frontend_next_data",
+        "driver": "local",
+        "labels": "com.docker.compose.project=recipe-lab,com.docker.compose.version=2.38.1,com.docker.compose.volume=frontend_next_data,com.docker.compose.config-hash=54489654445b3e0fa5c37d9e8f08015f04f04c8de2a9a7d7b02f34df21e4b9fd"
+      },
+      {
+        "name": "recipe-lab_frontend_node_modules",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=c948eede2f8307bece9e80a96dcc9bc4d080eee18ba6750ffe81e22684966d5e,com.docker.compose.project=recipe-lab,com.docker.compose.version=2.38.1,com.docker.compose.volume=frontend_node_modules"
+      },
+      {
+        "name": "recipe-lab_postgres_data",
+        "driver": "local",
+        "labels": "com.docker.compose.config-hash=11cc84ee139d829b8dafdad69257c7318e5c782ecf2589a54095bd18dfaa32ef,com.docker.compose.project=recipe-lab,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+      },
+      {
+        "name": "recipe_lab_rcp51_node_modules",
+        "driver": "local",
+        "labels": ""
+      }
+    ],
+    "networks": [
+      {
+        "id": "b3b1fc9fdafdb4254a0bb1e376d99b2426a98964ee180fe0c947297882dc2113",
+        "name": "bridge",
+        "driver": "bridge",
+        "labels": ""
+      },
+      {
+        "id": "51ad00f4f764fb91a55d2e852ab2a593b81919b95e8175d066b464518e34b406",
+        "name": "docker_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.config-hash=e7869dccd0af1856c658cbabad8f131128ffb37f03d845c4244677d8b7adea0c,com.docker.compose.network=default,com.docker.compose.project=docker,com.docker.compose.version=2.38.1"
+      },
+      {
+        "id": "afab48e2044c59e28b2b7b127f10d8e08f8ccf2edb4ab7afda4b29e5f04aac33",
+        "name": "finance-dashboard_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.config-hash=f232d8da36dfac0767736932b3085d2331994bc45ae324844d3fc483a8b2f057,com.docker.compose.network=default,com.docker.compose.project=finance-dashboard,com.docker.compose.version=2.38.1"
+      },
+      {
+        "id": "5836a99a4d9acb49816b5ee29aea596055c812b22ffcf130be34a3200b38e7c7",
+        "name": "host",
+        "driver": "host",
+        "labels": ""
+      },
+      {
+        "id": "88de0c7fc5f31c13d18895442fe71629df934c192ee726a6f4595b6daa33360d",
+        "name": "learningplatform_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.version=2.38.1,com.docker.compose.config-hash=c322d5ea3ffaed06e897d3ce81fe3b8c32fd76c660001820fbbf20c123c58e99,com.docker.compose.network=default,com.docker.compose.project=learningplatform"
+      },
+      {
+        "id": "d8c2b98a4c4c21852a6cef2e72eaaacbcadafdfd2546f89678c52f79457f54e2",
+        "name": "learningpulse-demo_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.network=default,com.docker.compose.project=learningpulse-demo,com.docker.compose.version=2.38.1,com.docker.compose.config-hash=c4fa21675b63fd348bf3f06eaf54e822cac0eb5d485128dba74c9f0b27d56a81"
+      },
+      {
+        "id": "61a018461834e0da6da33b99a31bd51854808dc5c247919b277ba40e7344c549",
+        "name": "lp49_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.config-hash=e3c6c3e92178a275306f10fd1b36193691937d5ef8d79eb0aea18d503b1797f5,com.docker.compose.network=default,com.docker.compose.project=lp49,com.docker.compose.version=2.38.1"
+      },
+      {
+        "id": "c17dcf3c495e50b587a1c6d5dcfcc36082ee5e687561fd2e0bfcdf8b66313bc3",
+        "name": "lp50_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.config-hash=f204e6c645647df8ff325b700909620da9b538174ed4ba36f78912f751aa8312,com.docker.compose.network=default,com.docker.compose.project=lp50,com.docker.compose.version=2.38.1"
+      },
+      {
+        "id": "c6df8eb66db3003c67d2b76241e8e43995a436592d81af140c1f85faa231cc17",
+        "name": "lp51_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.network=default,com.docker.compose.project=lp51,com.docker.compose.version=2.38.1,com.docker.compose.config-hash=774cbed764ed13f5c357ab18d0231004a6a7af98dfe0f14ded3e737f60aae393"
+      },
+      {
+        "id": "4935b450f13b4054972cf50f383848fbb73aa75abee3ed00b4b4e5ba04825c83",
+        "name": "lp53_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.config-hash=52f7be01c59e7cafabb65024d72e8871f0d376c324501546392d4bcde17a6eb3,com.docker.compose.network=default,com.docker.compose.project=lp53,com.docker.compose.version=2.38.1"
+      },
+      {
+        "id": "e78772a9215714fcf7b021abc4db0754e8addcae2cbe58bea1ac5aad83893812",
+        "name": "lp-accept-pr113_acceptance",
+        "driver": "bridge",
+        "labels": "com.docker.compose.config-hash=47f1a0b29a97f0b1e1a4c8c241afe31c6922068dc1cc25ff401d436d8e68058f,com.docker.compose.network=acceptance,com.docker.compose.project=lp-accept-pr113,com.docker.compose.version=2.38.1"
+      },
+      {
+        "id": "0ec60788e5f127afb5a76c7b317c5605e4a230255d0b32a5f44755e56271d145",
+        "name": "lp-accept-pr113_browser",
+        "driver": "bridge",
+        "labels": "com.docker.compose.config-hash=3f4217e7515d8c772ebe32cbab4842396f62c961f8eb384a4272c84eef0ecc0d,com.docker.compose.network=browser,com.docker.compose.project=lp-accept-pr113,com.docker.compose.version=2.38.1"
+      },
+      {
+        "id": "09ee7676a8093f19008e68d496302ade8fd7739b74d36471a8f2f24054a52f60",
+        "name": "lp-accept-recovery-01a1714f_acceptance",
+        "driver": "bridge",
+        "labels": "com.docker.compose.config-hash=8ee3d31190d0050ac352c672d05ef7df4ed635e52fd64d37eadc7ee11adc802b,com.docker.compose.network=acceptance,com.docker.compose.project=lp-accept-recovery-01a1714f,com.docker.compose.version=2.38.1"
+      },
+      {
+        "id": "0902dda24dcab6c4e3816ee9ff93e43a1351268ca97274fb4a23669dc52c9f69",
+        "name": "lp-accept-recovery-01a1714f_browser",
+        "driver": "bridge",
+        "labels": "com.docker.compose.project=lp-accept-recovery-01a1714f,com.docker.compose.version=2.38.1,com.docker.compose.config-hash=ccbcf870ba4f4be62d66ef024911a007be814da06cd140b6ad1892f525d7bb9f,com.docker.compose.network=browser"
+      },
+      {
+        "id": "7f01728758d888c6d95be57e4a1d618557cb566af3b06602917b07f196929890",
+        "name": "lp-integrate51_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.config-hash=73f598b3ec8b8198a61c3b41e8d45f48a55aa9f06fef80975b025d6aae91c816,com.docker.compose.network=default,com.docker.compose.project=lp-integrate51,com.docker.compose.version=2.38.1"
+      },
+      {
+        "id": "73d27c5219704a74568f9513a6249c6c94979ec21e361ce1f1f7def93579dfd1",
+        "name": "lp-integrate52_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.config-hash=877b8b08166c69716418d021463df383b6ada6d17f019029e2dc25a928c452db,com.docker.compose.network=default,com.docker.compose.project=lp-integrate52,com.docker.compose.version=2.38.1"
+      },
+      {
+        "id": "efbe213ec0c2d92cb3d5297767133a2360ff2dcb82efd60c096b189548e6f07c",
+        "name": "lp-integrate84_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.version=2.38.1,com.docker.compose.config-hash=2288e80dac2c5f11dcf91c7345d6ed40927fd3b3d0780c407e6e9f4c8f1ac957,com.docker.compose.network=default,com.docker.compose.project=lp-integrate84"
+      },
+      {
+        "id": "0047b20ce1d1c65799b2f92c698930c34aadee6ff01177aa63da347466c45c04",
+        "name": "lp-integrate98_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.project=lp-integrate98,com.docker.compose.version=2.38.1,com.docker.compose.config-hash=50c84d37aca4048a7aa5d93cbae0ddb2148a7c6eb5876f0a2ace2c622e1c0be9,com.docker.compose.network=default"
+      },
+      {
+        "id": "59d5e3eecb2cfe6bd3b4b02a7847e920a203292e84d83a9b46b28e928b7f69df",
+        "name": "lp-integrate99_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.version=2.38.1,com.docker.compose.config-hash=43c989df2db7e47b79a69dd1d9f5959e143867fc6018f334a8a6bc494584cc3d,com.docker.compose.network=default,com.docker.compose.project=lp-integrate99"
+      },
+      {
+        "id": "af5bbfa7899088a0e16eb6a5adb1181a708a5d5518f8d764b2ec910e1c608813",
+        "name": "lp-integrate106_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.version=2.38.1,com.docker.compose.config-hash=8197a7e4dbd2a1506697c71607a6b28199b2e698f49311ca7cfafd26aaafe04f,com.docker.compose.network=default,com.docker.compose.project=lp-integrate106"
+      },
+      {
+        "id": "5c5296d00b2db22a49c29d4e942b7f8e4366a6fdbedbcf83e9d6329cd49cebf2",
+        "name": "lp-integrated-main_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.network=default,com.docker.compose.project=lp-integrated-main,com.docker.compose.version=2.38.1,com.docker.compose.config-hash=2f8d7d77d7f9504a34275d3f7c9f8fa48f32964ed533169f35ca96df98d7d2ba"
+      },
+      {
+        "id": "1bfc85e4ae7980bfa54099fdb9740ff974b2d1c727cfba6f58b2b4b24bf484e9",
+        "name": "lp-lessons-verify_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.config-hash=edb464fa6c6c6fdb896ee315b5ae35d448aa3666fc6ed5df944edc5ec864bda1,com.docker.compose.network=default,com.docker.compose.project=lp-lessons-verify,com.docker.compose.version=2.38.1"
+      },
+      {
+        "id": "44a65f8e666823be63d9a2332753a714bbb658f59def1a393c554fadcf621be5",
+        "name": "lp-student-ux-01a16b04",
+        "driver": "bridge",
+        "labels": "purpose=student-ux-research"
+      },
+      {
+        "id": "637f4cae8e3bafd1145d08da3771ab3e39eadcd271e584e56d91dad9cfec7236",
+        "name": "lp-v22-integration5_acceptance",
+        "driver": "bridge",
+        "labels": "com.docker.compose.config-hash=7d8542d7152b1d5bf35c390c8829fb747cd8d7d61a0f2486c0cfb7d4dd1063d3,com.docker.compose.network=acceptance,com.docker.compose.project=lp-v22-integration5,com.docker.compose.version=2.38.1"
+      },
+      {
+        "id": "4aeb06f5cd99720971465bbd387c084613a2398aa454c9fe1c96dfb13ca3122e",
+        "name": "lp-v22-integration5_browser",
+        "driver": "bridge",
+        "labels": "com.docker.compose.version=2.38.1,com.docker.compose.config-hash=d14c8478a73660dd488350b6f2a4ea954af7fe085663bed0a2d602019f37ca62,com.docker.compose.network=browser,com.docker.compose.project=lp-v22-integration5"
+      },
+      {
+        "id": "b1bf3c222499aac3819eff6fefab754c240b16d0bb8c9b4339c4ed903573be1a",
+        "name": "lp-v22-main5_acceptance",
+        "driver": "bridge",
+        "labels": "com.docker.compose.config-hash=d6ae89b610bc17d21b0ec5f0ab1f47da2cf52186ec663d962ea74028da2666e5,com.docker.compose.network=acceptance,com.docker.compose.project=lp-v22-main5,com.docker.compose.version=2.38.1"
+      },
+      {
+        "id": "fc281b487ef6af43d0010f15d3bee90bdaa374d80c9549ae2add2cfca2930910",
+        "name": "lp-v22-main5_browser",
+        "driver": "bridge",
+        "labels": "com.docker.compose.config-hash=7f47fd3732835533a18f0007f2a12fbcfafc10d1f8c53a92aa306829adfaecfe,com.docker.compose.network=browser,com.docker.compose.project=lp-v22-main5,com.docker.compose.version=2.38.1"
+      },
+      {
+        "id": "4a9cb981d77bb0b8ebcb03abf2a48f8e39ddc79ef555110bb494cebd9137f447",
+        "name": "lp-workbench-assignments_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.network=default,com.docker.compose.project=lp-workbench-assignments,com.docker.compose.version=2.38.1,com.docker.compose.config-hash=946c90a19dd6b1647cd588e473e1e94c4055f0d226b9e353083021a54c499210"
+      },
+      {
+        "id": "cc54486afa59c124f9b0b40b56b344c73a9bcd8380a23cd7b7a692125d94f14b",
+        "name": "lp-workbench-verify_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.config-hash=7d7455ab86da49bfe7e71e71e44cecfc2392233591e48c5a80278606b0b037e6,com.docker.compose.network=default,com.docker.compose.project=lp-workbench-verify,com.docker.compose.version=2.38.1"
+      },
+      {
+        "id": "19b979c3dc82a8124d8905e4e800dd596449970a0cec5b155633126b60fd725a",
+        "name": "mage-backend_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.config-hash=439f48394ceab3606bf9f6a5544b6ade1a842d2448ed35bd5188daff887b7e60,com.docker.compose.network=default,com.docker.compose.project=mage-backend,com.docker.compose.version=2.38.1"
+      },
+      {
+        "id": "2c08bae63a12b14000c2069634f6bb770dfebc0e3cf1ab5a61f9f78dbc46cf73",
+        "name": "mage-i03-local-a1893ba601b2-net",
+        "driver": "bridge",
+        "labels": "mage.i03-local-custom=i03-local-a1893ba601b2"
+      },
+      {
+        "id": "c90b4f59bf6e134db7dbc435eb84cc44867bfa3ee288caf04553e9258b4d7cab",
+        "name": "mage-portfolio-demo_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.version=2.38.1,com.docker.compose.config-hash=c909a15f1a9aa24b782ac839338cad9cf7d301a99118d906e09ca34c45f98046,com.docker.compose.network=default,com.docker.compose.project=mage-portfolio-demo"
+      },
+      {
+        "id": "9f5df90b04f7c0890341f2e6cf9642f3f3d3745a44ba010a72ee8475e88e7d3b",
+        "name": "mood-platform_default",
+        "driver": "bridge",
+        "labels": "com.docker.compose.config-hash=a684a1e9a99e2709717f2dc5a13336e891cec7a40fead99e548113f0ebff246a,com.docker.compose.network=default,com.docker.compose.project=mood-platform,com.docker.compose.version=2.38.1"
+      },
+      {
+        "id": "cd7009fae964ad39e8852439a65db655d403e6e173b0a58aed469613db2e0f6a",
+        "name": "none",
+        "driver": "null",
+        "labels": ""
+      }
+    ],
+    "ownershipRule": "Compose labels identify a project, not deletion permission. Unknown and other-project resources are retained."
+  },
+  "database": {
+    "systemId": "7700463208132288550",
+    "fsync": "on",
+    "synchronousCommit": "on",
+    "fullPageWrites": "on",
+    "walSyncMethod": "fdatasync",
+    "inRecovery": false,
+    "flushLsn": "0/2AE7DB0",
+    "sentinelFlushed": true,
+    "sentinel": {
+      "id": "aeea169b-39b3-4a48-ab68-971e4f8ff3d8",
+      "checksum": "152502017b6b681d3a2ef9d35fbf8d6e83b09533e637341462b8035111dd8e48",
+      "bytes": 512
+    }
+  },
+  "databaseLog": {
+    "bytes": 29123,
+    "sha256": "bba8787105853abdab9f360136405088536ff774424e697a491c9df16d8f23bc",
+    "storageErrors": false,
+    "note": "Expected constraint/authorization test errors are not storage failures."
+  },
+  "preservedArtifacts": [
+    {
+      "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\COMBINED_REPORT.md",
+      "expectedHash": "56B6B636222816CCD379C27A7F9573767D0225DFC573E14EE9A37C3214805F3B",
+      "currentHash": "56B6B636222816CCD379C27A7F9573767D0225DFC573E14EE9A37C3214805F3B",
+      "unchanged": true
+    },
+    {
+      "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\evidence\\combined\\STORAGE_INCIDENT.json",
+      "expectedHash": "C4BD1C4FE093F0745A5068D42AD40421DFDADC10704741C1E5541A791E935595",
+      "currentHash": "C4BD1C4FE093F0745A5068D42AD40421DFDADC10704741C1E5541A791E935595",
+      "unchanged": true
+    }
+  ],
+  "incidentVolume": {
+    "CreatedAt": "2026-10-25T03:46:38Z",
+    "Driver": "local",
+    "Labels": {
+      "com.docker.compose.config-hash": "8b1d3236874e608ac91e142ddaa565e8804026bf086c37d7cab0a61d72f58bf2",
+      "com.docker.compose.project": "lp-accept-combined",
+      "com.docker.compose.version": "2.38.1",
+      "com.docker.compose.volume": "postgres_data"
+    },
+    "Mountpoint": "/var/lib/docker/volumes/lp-accept-combined_postgres_data/_data",
+    "Name": "lp-accept-combined_postgres_data",
+    "Options": null,
+    "Scope": "local"
+  },
+  "incidentVolumeUsers": [],
+  "incidentImage": {
+    "id": "sha256:3011c99f6bf6c325d545dce07614ce51179c3916cda83beeabb55e37d3c9dda4",
+    "tags": [
+      "lp-accept-combined:545b880749c757f7502a9bfa7fd127afdf290afd"
+    ],
+    "preserved": true
+  },
+  "status": "pass",
+  "finishedAt": "2026-10-25T05:32:02.713Z"
+}

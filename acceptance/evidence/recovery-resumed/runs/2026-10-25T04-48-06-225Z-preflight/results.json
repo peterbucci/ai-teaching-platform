@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "mode": "preflight",
+  "target": "combined-recovery",
+  "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+  "source": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+  "project": "lp-accept-recovery-01a1714f",
+  "origin": "http://localhost:3355",
+  "manifest": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\manifest.json",
+  "fixture": "isolated fictional acceptance configuration",
+  "paidModelCallsAuthorized": false,
+  "checks": [
+    {
+      "name": "preflight:explicit-preflight",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T04:48:06.441Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+          "availableBytes": 55525634048,
+          "availableGiB": 51.712276458740234,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+          "availableBytes": 55525634048,
+          "availableGiB": 51.712276458740234,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 55525634048,
+          "availableGiB": 51.712276458740234,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "learningplatform-db-1",
+          "source": "/var/lib/docker/volumes/learningplatform_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897557258240,
+          "availableGiB": 835.9153366088867,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 55525535744,
+            "availableGiB": 51.71218490600586,
+            "minimumGiB": 20,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    }
+  ],
+  "passed": [
+    "preflight:explicit-preflight"
+  ],
+  "failed": [],
+  "unrun": [],
+  "stoppedAfterFailure": false,
+  "safetyPolicy": {
+    "buildMinimumGiB": 20,
+    "runtimeMinimumGiB": 10,
+    "sharedLock": "C:\\Users\\sb128\\AppData\\Local\\learning-pulse-acceptance.lock"
+  },
+  "completed": true,
+  "result": "pass",
+  "limitations": [
+    "No hosted release verification",
+    "No fresh or historical actual-model claim",
+    "Browser/accessibility evidence is recorded separately",
+    "Thresholds are conservative starting headroom, not a guarantee against concurrent unguarded clients or an individual command exhausting storage",
+    "Shared lock covers this guarded runner only; other Docker clients and browser scripts must be coordinated with the environment owner",
+    "Unverifiable Docker guest or backing storage fails closed; host backing-disk space is always required"
+  ]
+}

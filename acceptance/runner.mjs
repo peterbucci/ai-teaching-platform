@@ -8,6 +8,8 @@ import {
   writeFileSync,
 } from "node:fs";
 import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
+import { fileURLToPath } from "node:url";
+import { discoverFocusedTests, focusedTestCounts } from "./focused-tests.mjs";
 import {
   acquireLock,
   assertFreshResources,
@@ -29,6 +31,7 @@ const modes = [
   "restart",
   "report",
   "preflight",
+  "student-fixture",
 ];
 const targetPorts = {
   main: 3321,
@@ -42,6 +45,7 @@ const targetSubnets = {
   pr117: "10.233.117.0/24",
   pr118: "10.233.118.0/24",
   combined: "10.233.119.0/24",
+  "combined-recovery": "10.233.121.0/24",
 };
 const options = {};
 for (let index = 0; index < args.length; index += 2) {
@@ -161,6 +165,7 @@ const checks = [];
 let aborted = false;
 let completed = false;
 let releaseLock;
+let focusedTestPlan = [];
 const integrationNames = [
   "assignments:check",
   "reading:check",
@@ -204,31 +209,34 @@ const planned =
           "reseed-idempotency",
           "verify-persistent-restart",
         ]
-    : mode === "build"
-      ? [
-          "docker-version",
-          "build-and-start",
-          "seed-fictional-demo",
-          "image-identities",
-          "built-image-id",
-        ]
-      : mode === "quality"
+    : mode === "student-fixture"
+      ? ["seed-student-result"]
+      : mode === "build"
         ? [
-            "npm-ci",
-            ...(options.only
-              ? [options.only]
-              : [
-                  "test",
-                  "lint",
-                  "typecheck",
-                  "format:check",
-                  "build",
-                  "content:check",
-                ]),
+            "docker-version",
+            "build-and-start",
+            "seed-fictional-demo",
+            "image-identities",
+            "built-image-id",
           ]
-        : mode === "approval"
-          ? ["interventions:approval:lessons", "copy-approval-report"]
-          : [];
+        : mode === "quality"
+          ? [
+              "npm-ci",
+              ...(options.only
+                ? [options.only]
+                : [
+                    "test",
+                    "focused-authoring",
+                    "lint",
+                    "typecheck",
+                    "format:check",
+                    "build",
+                    "content:check",
+                  ]),
+            ]
+          : mode === "approval"
+            ? ["interventions:approval:lessons", "copy-approval-report"]
+            : [];
 const sha256 = (value) => createHash("sha256").update(value).digest("hex");
 const readJson = (path) => JSON.parse(readFileSync(path, "utf8"));
 const writeJson = writeReceipt;
@@ -310,6 +318,8 @@ function run(
     input,
     timeout = 1_200_000,
     category = "provider-disabled integration",
+    cwd = source,
+    testFile,
   } = {},
 ) {
   if (aborted)
@@ -318,7 +328,7 @@ function run(
   const start = new Date().toISOString();
   process.stdout.write(`[${target}] ${name} started\n`);
   const result = spawnSync(command, argv, {
-    cwd: source,
+    cwd,
     env: command === "docker" ? { ...processEnv, ...secrets } : processEnv,
     input,
     encoding: "utf8",
@@ -329,9 +339,13 @@ function run(
   const log = `${redact(result.stdout)}${redact(result.stderr)}${result.error ? `\n${redact(result.error.message)}\n` : ""}`;
   const filename = `${String(checks.length + 1).padStart(2, "0")}-${name.replace(/[^a-z0-9-]/gi, "-")}.log`;
   writeFileSync(join(resultsPath, filename), log, { flush: true });
+  const testCounts = testFile ? focusedTestCounts(result.stdout) : undefined;
   const check = {
     name,
-    status: result.status === 0 && !result.error ? "pass" : "fail",
+    status:
+      result.status === 0 && !result.error && (!testFile || testCounts.verified)
+        ? "pass"
+        : "fail",
     exitCode: result.status,
     signal: result.signal,
     category,
@@ -343,6 +357,8 @@ function run(
     startedAt: start,
     finishedAt: new Date().toISOString(),
     command: [command, ...argv].map(redact),
+    workingDirectory: cwd,
+    ...(testFile ? { testFile, testCounts } : {}),
     log: filename,
   };
   checks.push(check);
@@ -400,6 +416,7 @@ function saveReport() {
     fixture: fixtures[mode] ?? "isolated fictional acceptance configuration",
     paidModelCallsAuthorized: false,
     checks,
+    focusedTestPlan,
     passed: checks
       .filter((check) => check.status === "pass")
       .map((check) => check.name),
@@ -671,7 +688,9 @@ try {
         },
         browser: options["browser-network"]
           ? { external: true, name: options["browser-network"] }
-          : {},
+          : target === "combined-recovery"
+            ? { ipam: { config: [{ subnet: "10.234.121.0/24" }] } }
+            : {},
       },
       volumes: { postgres_data: {} },
     });
@@ -696,6 +715,10 @@ try {
       },
       internalSubnet:
         options["internal-subnet"] ?? "Docker-managed default pool",
+      browserSubnet:
+        target === "combined-recovery"
+          ? "10.234.121.0/24"
+          : "Docker-managed or external network",
       target,
       project,
       source,
@@ -765,9 +788,24 @@ try {
           "format:check",
           "build",
           "content:check",
+          "focused-authoring",
         ].includes(options.only)
       )
         throw new Error("Unknown/unapproved quality check.");
+      if (!options.only || options.only === "focused-authoring") {
+        focusedTestPlan = discoverFocusedTests(source);
+        if (!focusedTestPlan.length)
+          throw new Error("No focused authoring tests found.");
+        const planIndex = planned.indexOf("focused-authoring");
+        if (planIndex < 0)
+          throw new Error("Focused test plan is absent from requested checks.");
+        planned.splice(
+          planIndex,
+          1,
+          ...focusedTestPlan.map((test) => test.name),
+        );
+        saveReport();
+      }
       const candidates = [
         join(
           dirname(process.execPath),
@@ -807,6 +845,14 @@ try {
             run(name, process.execPath, [npm, "run", name], {
               category: "deterministic quality",
             });
+        }
+        for (const test of focusedTestPlan) {
+          run(test.name, process.execPath, test.argv, {
+            cwd: test.cwd,
+            testFile: { path: test.file, sha256: test.sha256 },
+            category:
+              "deterministic colocated application tests omitted by the repository test glob",
+          });
         }
         if (!options.only || options.only === "content:check")
           run(
@@ -918,6 +964,39 @@ try {
           `app:${reportInContainer}`,
           join(resultsPath, "approval-details.json"),
         ]);
+    } else if (mode === "student-fixture") {
+      if (target !== "combined-recovery")
+        throw new Error(
+          "The recovery student fixture requires the fresh recovery target.",
+        );
+      compose(
+        "seed-student-result",
+        [
+          "exec",
+          "-T",
+          "-e",
+          `ACCEPTANCE_PROJECT=${project}`,
+          "-e",
+          "OPENAI_API_KEY=",
+          "-e",
+          "OPENAI_MODEL=",
+          "app",
+          "node",
+          "--experimental-strip-types",
+          "--conditions=react-server",
+          "--input-type=module",
+        ],
+        {
+          input: readFileSync(
+            fileURLToPath(
+              new URL("./resume-seed-student-result.mjs", import.meta.url),
+            ),
+            "utf8",
+          ),
+          category:
+            "explicitly synthetic accepted evaluation; ordinary service persistence; no model request",
+        },
+      );
     } else if (mode === "restart") {
       restart();
     } else if (mode === "report") {
@@ -925,6 +1004,12 @@ try {
       compose("image-identities", ["images", "--format", "json"]);
     }
   }
+  const incomplete = planned.filter(
+    (name) =>
+      !checks.some((check) => check.name === name && check.status === "pass"),
+  );
+  if (incomplete.length)
+    throw new Error(`Planned checks did not pass: ${incomplete.join(", ")}`);
   completed = true;
 } catch (error) {
   aborted = true;

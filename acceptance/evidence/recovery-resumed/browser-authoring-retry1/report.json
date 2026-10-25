@@ -1,0 +1,110 @@
+{
+  "target": "combined-recovery",
+  "sha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+  "origin": "http://localhost:3355",
+  "environment_manifest": "../manifest.json",
+  "configuration": "provider-disabled; synthetic fixtures; loopback gateway; app/database isolated internal Docker network",
+  "verification": "Provider-disabled browser manual authoring and cross-role assignment using original synthetic material",
+  "run_id": "Manual authoring combined-recovery 1792905132597",
+  "started_at_utc": "2026-10-25T05:12:12.597Z",
+  "status": "failed",
+  "paid_calls": 0,
+  "initial_host_headroom": [
+    {
+      "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+      "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+      "availableBytes": 54052356096,
+      "availableGiB": 50.340179443359375,
+      "minimumGiB": 10,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+      "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+      "availableBytes": 54052356096,
+      "availableGiB": 50.340179443359375,
+      "minimumGiB": 10,
+      "pass": true
+    }
+  ],
+  "harness_sha256": "3368492f212d8f0989e216d785c54275242b867b1c6b0128074aa6ad22515bfb",
+  "checks": [],
+  "planned_stages": [
+    "login",
+    "source import",
+    "manual objective",
+    "manual question bank",
+    "sequence and publication",
+    "inactive assignment",
+    "activation",
+    "student reading and session",
+    "teacher sees exact presented student evidence",
+    "student explicitly submits original answer",
+    "teacher sees exact submitted ungraded evidence",
+    "new version and history preservation"
+  ],
+  "viewports": [],
+  "unrun": [
+    "File-upload browser variants",
+    "Fresh model generation/evaluation",
+    "Accepted historical evaluation preservation; provider-disabled submission remains ungraded",
+    "200% zoom, keyboard-only journey and screen-reader verification"
+  ],
+  "failure_stage": "login",
+  "error": "page.waitForLoadState: Timeout 15000ms exceeded.",
+  "stage_results": [
+    {
+      "name": "login",
+      "status": "FAIL"
+    },
+    {
+      "name": "source import",
+      "status": "UNRUN"
+    },
+    {
+      "name": "manual objective",
+      "status": "UNRUN"
+    },
+    {
+      "name": "manual question bank",
+      "status": "UNRUN"
+    },
+    {
+      "name": "sequence and publication",
+      "status": "UNRUN"
+    },
+    {
+      "name": "inactive assignment",
+      "status": "UNRUN"
+    },
+    {
+      "name": "activation",
+      "status": "UNRUN"
+    },
+    {
+      "name": "student reading and session",
+      "status": "UNRUN"
+    },
+    {
+      "name": "teacher sees exact presented student evidence",
+      "status": "UNRUN"
+    },
+    {
+      "name": "student explicitly submits original answer",
+      "status": "UNRUN"
+    },
+    {
+      "name": "teacher sees exact submitted ungraded evidence",
+      "status": "UNRUN"
+    },
+    {
+      "name": "new version and history preservation",
+      "status": "UNRUN"
+    }
+  ],
+  "checked_at_utc": "2026-10-25T05:12:28.590Z",
+  "screenshots": [
+    "failure-teacher.png",
+    "failure-student.png"
+  ]
+}

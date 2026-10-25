@@ -1,0 +1,666 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-25T04:48:16Z",
+  "category": "RESUMED synthetic verification candidate with newly advanced PR117/118 heads; not reviewed integration approval or acceptance pass",
+  "repository": "https://github.com/peterbucci/ai-teaching-platform",
+  "verificationOnly": true,
+  "readyForSourceCheckout": true,
+  "runtimeAcceptanceStatus": "UNRUN",
+  "provisionalReason": "All four PRs remain drafts with zero formal submitted GitHub reviews. PR117/118 have newly advanced fidelity corrections; successful CI is verified but no independent corrective-head review was identified in GitHub metadata/discussion. PR113 source remains unchanged and S-02 repairs await its owner. This candidate can be independently tested; it is not acceptance or merge approval.",
+  "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+  "tree": "37b198e884a1807ba78bc40845dcd837167e04d5",
+  "baseMain": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+  "baseVerification": "At resume, read-only git ls-remote independently verified remote main and all four PR branch hashes. No fetch, local ref update, branch merge, or worktree change occurred.",
+  "pins": [
+    {
+      "pr": 116,
+      "url": "https://github.com/peterbucci/ai-teaching-platform/pull/116",
+      "head": "codex/teacher-workbench-slice",
+      "sha": "76b11ddfa0ce784f70290c0746efd94c7042f6fc",
+      "baseSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "state": "open",
+      "draft": true,
+      "updatedAt": "2026-10-25T04:11:43Z",
+      "formalSubmittedReviewCount": 0,
+      "reviewBoundary": "Description reports independent engineering review of five repairs at this exact head; draft and full human/combined acceptance pending."
+    },
+    {
+      "pr": 117,
+      "url": "https://github.com/peterbucci/ai-teaching-platform/pull/117",
+      "head": "codex/workbench-assignments",
+      "sha": "9f300ce6e975ab460328a8aa4428c26d441ee0ab",
+      "baseSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "state": "open",
+      "draft": true,
+      "updatedAt": "2026-10-25T04:39:49Z",
+      "formalSubmittedReviewCount": 0,
+      "reviewBoundary": "New corrective head: author validation and successful exact-head CI reported/verified; no formal or separately documented independent corrective-head review identified in GitHub metadata/discussion. Independent integration/human acceptance pending."
+    },
+    {
+      "pr": 118,
+      "url": "https://github.com/peterbucci/ai-teaching-platform/pull/118",
+      "head": "codex/workbench-lessons",
+      "sha": "7b82197f5c0b665a955d5dc47a07e13d8a19627a",
+      "baseSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "state": "open",
+      "draft": true,
+      "updatedAt": "2026-10-25T04:38:34Z",
+      "formalSubmittedReviewCount": 0,
+      "reviewBoundary": "New corrective head: author validation and successful exact-head CI reported/verified; no formal or separately documented independent corrective-head review identified in GitHub metadata/discussion. Independent integration/human acceptance pending."
+    },
+    {
+      "pr": 113,
+      "url": "https://github.com/peterbucci/ai-teaching-platform/pull/113",
+      "head": "codex/show-answer-result",
+      "sha": "2b490863cc6de69a7659f1df1e4628bc22dd7d9a",
+      "baseSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "state": "open",
+      "draft": true,
+      "updatedAt": "2026-10-25T04:41:00Z",
+      "formalSubmittedReviewCount": 0,
+      "reviewBoundary": "Description reports independent AI review of existing head; new S-01/S-02 runtime reproduction/repair work is pending. Draft and combined acceptance pending."
+    }
+  ],
+  "verificationHarness": {
+    "pr": 119,
+    "sha": "ee77ffd8506852a0509798fe91d5d14d76c0e187",
+    "includedInApplicationTree": false,
+    "originalArtifactsPreserved": true
+  },
+  "parentOrder": [
+    "main",
+    "#116",
+    "#117",
+    "#118",
+    "#113"
+  ],
+  "steps": [
+    {
+      "inputParents": [
+        "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+        "76b11ddfa0ce784f70290c0746efd94c7042f6fc"
+      ],
+      "tree": "e3035bbcc37c89473c37df6c7f643dbf472136f4",
+      "commit": "e618329f1b10ee62db16f3be01bf802240ef5524",
+      "conflicts": [],
+      "mergeExitCode": 0,
+      "message": "Verification only: recovery composition main plus PR116 76b11dd; no refs advanced",
+      "reusedUnchangedStage": true,
+      "note": "Main and PR116 pins are unchanged; verified and reused prior unreferenced stage object."
+    },
+    {
+      "inputParents": [
+        "e618329f1b10ee62db16f3be01bf802240ef5524",
+        "9f300ce6e975ab460328a8aa4428c26d441ee0ab"
+      ],
+      "tree": "8651b85719c51ca4cf905a432342577b47377bb5",
+      "commit": "ae4b6087fa246afbe0d840252d0b1ab43e71115c",
+      "conflicts": [],
+      "mergeExitCode": 0,
+      "message": "Verification only: resumed recovery composition adds PR117 at 9f300ce6e975ab460328a8aa4428c26d441ee0ab; no refs advanced"
+    },
+    {
+      "inputParents": [
+        "ae4b6087fa246afbe0d840252d0b1ab43e71115c",
+        "7b82197f5c0b665a955d5dc47a07e13d8a19627a"
+      ],
+      "tree": "6f9e396da1bac9119162cfe4cb1ee20fab0269f3",
+      "commit": "b85f31acadb415f52ffe868adf589c5f0407e537",
+      "conflicts": [],
+      "mergeExitCode": 0,
+      "message": "Verification only: resumed recovery composition adds PR118 at 7b82197f5c0b665a955d5dc47a07e13d8a19627a; no refs advanced"
+    },
+    {
+      "inputParents": [
+        "b85f31acadb415f52ffe868adf589c5f0407e537",
+        "2b490863cc6de69a7659f1df1e4628bc22dd7d9a"
+      ],
+      "tree": "37b198e884a1807ba78bc40845dcd837167e04d5",
+      "commit": "45326e243245c4941e2cefd0eab984bb7ee19765",
+      "conflicts": [],
+      "mergeExitCode": 0,
+      "message": "Verification only: resumed recovery composition adds PR113 at 2b490863cc6de69a7659f1df1e4628bc22dd7d9a; no refs advanced"
+    }
+  ],
+  "method": {
+    "merge": "git -c gc.auto=0 merge-tree --write-tree <left> <right>",
+    "commit": "git -c gc.auto=0 commit-tree <tree> -p <left> -p <right> -m <message>",
+    "automaticGcDisabled": true,
+    "objectsUnreferenced": true,
+    "note": "Recreated commit hashes can differ with commit metadata. Content trees and full parent pins are the reproducible source identity."
+  },
+  "checks": {
+    "allFourMergesConflictFree": true,
+    "diffCheck": "PASS: git diff --check baseMain sourceSha",
+    "sourceHeadAfter": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+    "sourceWorkingTreeAfter": "clean",
+    "changedFilesVersusMain": 156,
+    "insertionsVersusMain": 22226,
+    "deletionsVersusMain": 3871,
+    "applicationEditsByRecovery": 0,
+    "manualConflictResolutions": 0,
+    "branchesAdvanced": 0,
+    "worktreesCreated": 0,
+    "dependenciesInstalled": 0,
+    "buildsRun": 0,
+    "runtimeTestsRun": 0,
+    "paidModelCalls": 0,
+    "pullRequestsMerged": 0,
+    "productionDeployment": false,
+    "note": "One unchanged stage reused and verified; three new merge-tree stages all exited zero. No combined quality/build/runtime checks run in this subtask."
+  },
+  "knownAcceptanceConcerns": [
+    {
+      "id": "S-01",
+      "status": "Must retest #113 exact combined head",
+      "description": "PR113 supplies completion result UI; old combined source excluded it. No runtime/browser acceptance was run on this new composition."
+    },
+    {
+      "id": "S-02",
+      "status": "Still present by source inspection; runtime reproduction required",
+      "path": "app/study/session.tsx",
+      "source": "2b490863cc6de69a7659f1df1e4628bc22dd7d9a",
+      "description": "Published PR113 head remains unchanged. Its owner confirmed generic 401 falsely claims saved and answer path ignores explicit save acknowledgement. At 04:41Z the owner reported no application edits yet; runtime pre-repair reproduction remained under storage hold. Current source candidate includes the known wording; reproduction/repair/retest remain necessary.",
+      "coordinationUrl": "https://github.com/peterbucci/ai-teaching-platform/pull/113#issuecomment-6393539009"
+    },
+    {
+      "id": "Lessons-to-Assignments",
+      "status": "Known unwired combined navigation gate",
+      "description": "Current PR118 intentionally retains its working inline CreateClassAssignment control for exact published version and inactive creation, while PR117 has /teacher/assignments/new?lesson=<id>&version=<published-version>. New-route handoff is still an explicit integration follow-up; do not confuse the existing inline flow with completed new-route wiring."
+    },
+    {
+      "id": "PR116-remaining",
+      "status": "Outside five corrected items; acceptance concerns",
+      "description": "PR116 description retains superseded-evaluation wording without an accepted evaluation, results-list position restoration, and 61-selection narrowing concerns. Verify repaired paths and remaining boundaries independently."
+    },
+    {
+      "id": "A11Y-01",
+      "status": "Inherited acceptance concern",
+      "description": "Historical evidence-list browser Back restored scroll but focus became BODY. Combined keyboard/native 200%/screen-reader checks are unrun."
+    },
+    {
+      "id": "PR118-objectives-menu",
+      "status": "CI build now passed; final-menu browser/combined verification remains open",
+      "description": "PR118 body reports local production rebuild stopped under disk pressure after a final objectives version-menu addition. Current exact-head GitHub CI run40162582846 succeeds including production build. Its screenshots precede the final menu; local recovery and combined browser/source-version checks remain required."
+    },
+    {
+      "id": "Shared-shell-fidelity",
+      "status": "Unverified combined visual acceptance",
+      "description": "Current PR117/118 bodies retain shared-shell/outer-spacing deviations and explicitly require all viewport checks after integration. Corrected authoring UI removed the numbered stage rail; old staged-browser harness selectors require inspection/adaptation without treating selector failure as an app defect."
+    }
+  ],
+  "requiredNextSteps": [
+    "Use root's recovery status and storage coordination; this receipt itself does not verify host/Docker/database health.",
+    "Allocate a new unique Compose project/port/subnet and fresh volume; changing only state directory reuses old database.",
+    "Verify database read/write/WAL sync and restart persistence before acceptance.",
+    "Recheck current reviewed PR heads, especially active student repairs; regenerate composition if pins change.",
+    "Run disk-preflight guarded serial build/quality/integration and approval/follow-up checks, then complete cross-role browser matrix. Report passes/failures/unrun separately."
+  ],
+  "priorFailedRun": {
+    "sourceSha": "545b880749c757f7502a9bfa7fd127afdf290afd",
+    "tree": "0ced8e7b3cf19a30b93261cd313e19d5ef756ade",
+    "project": "lp-accept-combined",
+    "volume": "lp-accept-combined_postgres_data",
+    "reused": false,
+    "retained": true
+  },
+  "limitations": [
+    "This receipt demonstrates only conflict-free Git tree composition and whitespace verification.",
+    "No database, Docker, build, service, browser, hosted, actual-model, or human acceptance result is established.",
+    "Unreferenced commit objects may be garbage collected later; retain receipt and pin in an explicitly authorized isolated verification checkout when safe."
+  ],
+  "supersedesForFutureRuntimeTarget": {
+    "sourceSha": "2327e8279e942a745f21dd9c1ebd3c093172062d",
+    "tree": "016e8aeebd3b1f584cc7bd5a1036afcfeb8eac5c",
+    "receipt": "new-composition.json",
+    "reason": "PR117 and PR118 advanced. Earlier objects, receipt, source checkout, and failed-run artifacts are preserved."
+  },
+  "ciEvidence": [
+    {
+      "pr": 117,
+      "sourceSha": "9f300ce6e975ab460328a8aa4428c26d441ee0ab",
+      "runId": 40162556775,
+      "url": "https://github.com/peterbucci/ai-teaching-platform/actions/runs/40162556775",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "quality",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v7.0.1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@v7.1.0",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm ci",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm run content:check",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm test",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm run lint",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm run typecheck",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm run format:check",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm run build",
+              "conclusion": "success"
+            },
+            {
+              "name": "Configure isolated fictional demo",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build and start application and database",
+              "conclusion": "success"
+            },
+            {
+              "name": "Provision accounts and seed evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check SQL constraints",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check teacher review and activation boundaries",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check reading citations and displayed assistance",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check repeatable fictional class and authorized reconstruction",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check deterministic tutoring and private evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check durable dialogue and authenticated recovery with synthetic providers",
+              "conclusion": "success"
+            },
+            {
+              "name": "Recover only successful saved dialogue outcomes without provider calls",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check generated controller handoffs with synthetic providers",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check authorized metrics and evidence refetch",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check persisted misconception and contradiction counts",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check lesson versions, ownership and historical evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check question-bank review, selective regeneration and durable requests",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check objective review, source grounding and proposal recovery",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check login limits and forwarding-header resistance",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check HTTP authentication and evidence persistence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Restart without resetting data",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check uploaded-lesson uncertainty and authorized teacher pages",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check lesson publishing and isolated class evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check private material extraction, review and version storage",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check publishing HTTP and new-version authorization",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check intervention generation and immutable evidence with synthetic providers",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check uploaded intervention source/version authorization",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check authenticated private intervention review and invalid generation requests",
+              "conclusion": "success"
+            },
+            {
+              "name": "Show service status on failure",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Stop isolated stack",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "intervention-approval",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v7.0.1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@v7.1.0",
+              "conclusion": "success"
+            },
+            {
+              "name": "Configure isolated fictional demo",
+              "conclusion": "success"
+            },
+            {
+              "name": "Start fresh approval verification stack",
+              "conclusion": "success"
+            },
+            {
+              "name": "Seed fictional accounts and evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check uploaded and curated approval, delivery and isolated follow-up outcomes",
+              "conclusion": "success"
+            },
+            {
+              "name": "Show approval service status on failure",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Stop isolated approval stack",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@v7.1.0",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v7.0.1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ],
+      "limitation": "Independent GitHub CI component result; not this new combined source or recovered local database/browser acceptance."
+    },
+    {
+      "pr": 118,
+      "sourceSha": "7b82197f5c0b665a955d5dc47a07e13d8a19627a",
+      "runId": 40162582846,
+      "url": "https://github.com/peterbucci/ai-teaching-platform/actions/runs/40162582846",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "intervention-approval",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v7.0.1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@v7.1.0",
+              "conclusion": "success"
+            },
+            {
+              "name": "Configure isolated fictional demo",
+              "conclusion": "success"
+            },
+            {
+              "name": "Start fresh approval verification stack",
+              "conclusion": "success"
+            },
+            {
+              "name": "Seed fictional accounts and evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check uploaded and curated approval, delivery and isolated follow-up outcomes",
+              "conclusion": "success"
+            },
+            {
+              "name": "Show approval service status on failure",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Stop isolated approval stack",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@v7.1.0",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v7.0.1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "quality",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v7.0.1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@v7.1.0",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm ci",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm run content:check",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm test",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm run lint",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm run typecheck",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm run format:check",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run npm run build",
+              "conclusion": "success"
+            },
+            {
+              "name": "Configure isolated fictional demo",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build and start application and database",
+              "conclusion": "success"
+            },
+            {
+              "name": "Provision accounts and seed evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check SQL constraints",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check teacher review and activation boundaries",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check reading citations and displayed assistance",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check repeatable fictional class and authorized reconstruction",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check deterministic tutoring and private evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check durable dialogue and authenticated recovery with synthetic providers",
+              "conclusion": "success"
+            },
+            {
+              "name": "Recover only successful saved dialogue outcomes without provider calls",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check generated controller handoffs with synthetic providers",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check authorized metrics and evidence refetch",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check persisted misconception and contradiction counts",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check lesson versions, ownership and historical evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check question-bank review, selective regeneration and durable requests",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check objective review, source grounding and proposal recovery",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check login limits and forwarding-header resistance",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check HTTP authentication and evidence persistence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Restart without resetting data",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check uploaded-lesson uncertainty and authorized teacher pages",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check lesson publishing and isolated class evidence",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check private material extraction, review and version storage",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check publishing HTTP and new-version authorization",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check intervention generation and immutable evidence with synthetic providers",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check uploaded intervention source/version authorization",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check authenticated private intervention review and invalid generation requests",
+              "conclusion": "success"
+            },
+            {
+              "name": "Show service status on failure",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Stop isolated stack",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ],
+      "limitation": "Independent GitHub CI component result; not this new combined source or recovered local database/browser acceptance."
+    }
+  ]
+}

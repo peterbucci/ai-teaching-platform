@@ -1,0 +1,173 @@
+{
+  "target": "combined-recovery",
+  "sha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+  "origin": "http://localhost:3355",
+  "environment_manifest": "../manifest.json",
+  "configuration": "provider-disabled; synthetic fixtures; loopback gateway; app/database isolated internal Docker network",
+  "verification": "Provider-disabled browser manual authoring and cross-role assignment using original synthetic material",
+  "run_id": "Manual authoring combined-recovery 1792905182727",
+  "started_at_utc": "2026-10-25T05:13:02.727Z",
+  "status": "failed",
+  "paid_calls": 0,
+  "initial_host_headroom": [
+    {
+      "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+      "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+      "availableBytes": 54047252480,
+      "availableGiB": 50.335426330566406,
+      "minimumGiB": 10,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+      "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+      "availableBytes": 54047252480,
+      "availableGiB": 50.335426330566406,
+      "minimumGiB": 10,
+      "pass": true
+    }
+  ],
+  "harness_sha256": "6a8fe6be764a4ea4f2eff7e4274afa1902aaa3c7fca8b5ba4f500872f6860d55",
+  "checks": [
+    "Manual pasted source import, exact extraction review, attribution and private source save"
+  ],
+  "planned_stages": [
+    "login",
+    "source import",
+    "manual objective",
+    "manual question bank",
+    "sequence and publication",
+    "inactive assignment",
+    "activation",
+    "student reading and session",
+    "teacher sees exact presented student evidence",
+    "student explicitly submits original answer",
+    "teacher sees exact submitted ungraded evidence",
+    "new version and history preservation"
+  ],
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 900,
+      "page": "01-extraction-review",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "01-extraction-review",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "01-extraction-review",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 844,
+      "page": "01-extraction-review",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "page": "02-source-saved",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "02-source-saved",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "02-source-saved",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 844,
+      "page": "02-source-saved",
+      "overflow": false
+    }
+  ],
+  "unrun": [
+    "File-upload browser variants",
+    "Fresh model generation/evaluation",
+    "Accepted historical evaluation preservation; provider-disabled submission remains ungraded",
+    "200% zoom, keyboard-only journey and screen-reader verification"
+  ],
+  "source_id": "4408f590-6110-4ba3-9bea-6f8acf3558d8",
+  "source_version": 1,
+  "failure_stage": "manual objective",
+  "error": "locator.selectOption: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('Approved material', { exact: true })\u001b[22m\n",
+  "stage_results": [
+    {
+      "name": "login",
+      "status": "PASS"
+    },
+    {
+      "name": "source import",
+      "status": "PASS"
+    },
+    {
+      "name": "manual objective",
+      "status": "FAIL"
+    },
+    {
+      "name": "manual question bank",
+      "status": "UNRUN"
+    },
+    {
+      "name": "sequence and publication",
+      "status": "UNRUN"
+    },
+    {
+      "name": "inactive assignment",
+      "status": "UNRUN"
+    },
+    {
+      "name": "activation",
+      "status": "UNRUN"
+    },
+    {
+      "name": "student reading and session",
+      "status": "UNRUN"
+    },
+    {
+      "name": "teacher sees exact presented student evidence",
+      "status": "UNRUN"
+    },
+    {
+      "name": "student explicitly submits original answer",
+      "status": "UNRUN"
+    },
+    {
+      "name": "teacher sees exact submitted ungraded evidence",
+      "status": "UNRUN"
+    },
+    {
+      "name": "new version and history preservation",
+      "status": "UNRUN"
+    }
+  ],
+  "checked_at_utc": "2026-10-25T05:13:21.115Z",
+  "screenshots": [
+    "01-extraction-review.png",
+    "01-extraction-review-1440.png",
+    "01-extraction-review-1024.png",
+    "01-extraction-review-390.png",
+    "01-extraction-review-320.png",
+    "02-source-saved.png",
+    "02-source-saved-1440.png",
+    "02-source-saved-1024.png",
+    "02-source-saved-390.png",
+    "02-source-saved-320.png",
+    "failure-teacher.png",
+    "failure-student.png"
+  ]
+}

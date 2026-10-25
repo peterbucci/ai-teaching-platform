@@ -1,0 +1,181 @@
+{
+  "readinessSha256": "9fc3c83f8e32cd9330f985336b22ec8fdb132c29368a1222a12beaf2601acc15",
+  "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+  "base": "http://localhost:3355",
+  "project": "lp-accept-recovery-01a1714f",
+  "draftId": "8b935f47-c3a9-42a6-ba51-e4a261f5d7d4",
+  "approvalId": "7b7bd353-5fb8-45cb-af56-dcf79cafee71",
+  "deliveryId": "ef696252-1a90-4d3c-9016-e891d975df46",
+  "harnessSha256": "57cfb75be580253eae2000bc1d2786f159293d62e166bb6b3eec57371491b9d3",
+  "startedAt": "2026-10-25T05:29:41.484Z",
+  "result": "pass",
+  "category": "Real teacher-delivery-to-student-to-teacher browser journey; fictional authored response and synthetic original evidence; provider disabled; no injected follow-up evaluation",
+  "cases": [
+    {
+      "id": "F01 exact delivered fixture and private projection",
+      "status": "pass",
+      "details": {
+        "studentId": "10000000-0000-4000-8000-000000000003",
+        "approvedRevision": 4,
+        "freshFollowup": true
+      }
+    },
+    {
+      "id": "F02 nonrecipient denied",
+      "status": "pass",
+      "details": {
+        "actor": "Student One, not selected for this activity",
+        "statuses": [
+          404,
+          404
+        ]
+      }
+    },
+    {
+      "id": "F03 assigned review navigation and actual display acknowledgement",
+      "status": "pass",
+      "details": {
+        "navigatedFromAssignments": true,
+        "actuallyDisplayed": true,
+        "openingCreatedNoFollowup": true
+      }
+    },
+    {
+      "id": "F04 explicit fresh check and unsent refresh preservation",
+      "status": "pass",
+      "details": {
+        "attemptId": "edede6cb-a6c4-4dd5-990a-92e6d175ef49",
+        "unsentTextPreserved": true,
+        "noSubmissionOnReload": true
+      }
+    },
+    {
+      "id": "F05 real UI submission preserves answer with provider-disabled failure",
+      "status": "pass",
+      "details": {
+        "attemptId": "edede6cb-a6c4-4dd5-990a-92e6d175ef49",
+        "evaluationStatus": "failed",
+        "results": [],
+        "assistance": {
+          "intervention_ids": [
+            "14877a78-4e2a-468a-a7da-53f9ba365d67"
+          ],
+          "assistance_level": "corrective_feedback",
+          "scaffolding_types": [],
+          "independent_retrieval_eligible_by_concept": {
+            "transmission_delay": false
+          },
+          "most_recent_content_assistance_at": "2026-10-25T05:29:45.659Z",
+          "elapsed_since_content_assistance_seconds": 0.505
+        },
+        "actualModelCallsClaim": "None: model configuration disabled; no accepted evaluation inferred"
+      }
+    },
+    {
+      "id": "F06 reload preserves saved followup without duplicate submission",
+      "status": "pass",
+      "details": {
+        "immutableSavedFields": true,
+        "writes": [
+          {
+            "url": "http://localhost:3355/api/student/interventions/7b7bd353-5fb8-45cb-af56-dcf79cafee71",
+            "action": "displayed"
+          },
+          {
+            "url": "http://localhost:3355/api/student/interventions/7b7bd353-5fb8-45cb-af56-dcf79cafee71/followup",
+            "action": "start"
+          },
+          {
+            "url": "http://localhost:3355/api/student/interventions/7b7bd353-5fb8-45cb-af56-dcf79cafee71/followup",
+            "action": "submit"
+          }
+        ]
+      }
+    },
+    {
+      "id": "F07 teacher comparison preserves approval and exact original evidence",
+      "status": "pass",
+      "details": {
+        "sessionId": "794ef273-c363-4510-ba5b-5d00dec64c09",
+        "counts": {
+          "intended": 1,
+          "started": 1,
+          "submitted": 1,
+          "missing": 0,
+          "accepted": 0,
+          "pending": 0,
+          "failed": 1,
+          "uncertain": 0
+        },
+        "originalRecipientResponsesShown": 2,
+        "entireOriginalEvidenceUnchanged": true,
+        "approvalAndDeliveryUnchanged": true
+      }
+    },
+    {
+      "id": "F08 followup layout 1440",
+      "status": "pass",
+      "details": {
+        "width": 1440,
+        "studentAndTeacher": true
+      }
+    },
+    {
+      "id": "F08 followup layout 1024",
+      "status": "pass",
+      "details": {
+        "width": 1024,
+        "studentAndTeacher": true
+      }
+    },
+    {
+      "id": "F08 followup layout 390",
+      "status": "pass",
+      "details": {
+        "width": 390,
+        "studentAndTeacher": true
+      }
+    },
+    {
+      "id": "F08 followup layout 320",
+      "status": "pass",
+      "details": {
+        "width": 320,
+        "studentAndTeacher": true
+      }
+    }
+  ],
+  "screenshots": [
+    "student-delivered-activity.png",
+    "student-saved-provider-disabled.png",
+    "teacher-before-after.png",
+    "student-followup-1440.png",
+    "teacher-followup-1440.png",
+    "student-followup-1024.png",
+    "teacher-followup-1024.png",
+    "student-followup-390.png",
+    "teacher-followup-390.png",
+    "student-followup-320.png",
+    "teacher-followup-320.png"
+  ],
+  "unrun": [
+    "Accepted model evaluation and accepted-result comparison (provider disabled)",
+    "Native browser zoom and screen reader"
+  ],
+  "passed": [
+    "F01 exact delivered fixture and private projection",
+    "F02 nonrecipient denied",
+    "F03 assigned review navigation and actual display acknowledgement",
+    "F04 explicit fresh check and unsent refresh preservation",
+    "F05 real UI submission preserves answer with provider-disabled failure",
+    "F06 reload preserves saved followup without duplicate submission",
+    "F07 teacher comparison preserves approval and exact original evidence",
+    "F08 followup layout 1440",
+    "F08 followup layout 1024",
+    "F08 followup layout 390",
+    "F08 followup layout 320"
+  ],
+  "failed": [],
+  "unrunCases": [],
+  "finishedAt": "2026-10-25T05:29:48.526Z"
+}

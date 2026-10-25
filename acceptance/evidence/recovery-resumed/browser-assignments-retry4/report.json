@@ -1,0 +1,673 @@
+{
+  "target": "combined-recovery",
+  "source_sha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+  "origin": "http://localhost:3355",
+  "started_at": "2026-10-25T05:20:25.106Z",
+  "category": "provider-disabled browser; fictional authored and synthetic histories; no actual model calls",
+  "authoring_fixture": "b9eb0643-4d25-44b6-a310-ac583de094bd",
+  "initial_host_headroom": [
+    {
+      "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+      "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+      "availableBytes": 54034755584,
+      "availableGiB": 50.323787689208984,
+      "minimumGiB": 10,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+      "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+      "availableBytes": 54034755584,
+      "availableGiB": 50.323787689208984,
+      "minimumGiB": 10,
+      "pass": true
+    }
+  ],
+  "harness_sha256": "e741bfcb1d88431d6ddf779ea70b13caf9addfa5b884d970ac4178b7e9be2494",
+  "cases": [
+    {
+      "id": "AS-01-draft-refresh-exact",
+      "status": "PASS",
+      "details": {
+        "title_exact": true,
+        "instructions_exact": true,
+        "published_version": "1"
+      }
+    },
+    {
+      "id": "AS-02-create-responsive-four-viewports",
+      "status": "PASS",
+      "details": [
+        {
+          "width": 1440,
+          "height": 900,
+          "scrollWidth": 1440
+        },
+        {
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024
+        },
+        {
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390
+        },
+        {
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320
+        }
+      ]
+    },
+    {
+      "id": "AS-03-two-tab-safe-conflict",
+      "status": "PASS",
+      "details": {
+        "local_stale_text_preserved": true,
+        "explicit_reconciliation": true,
+        "newer_saved_text_loaded": true
+      }
+    },
+    {
+      "id": "AS-04-initial401-safe-recovery",
+      "status": "PASS",
+      "details": {
+        "injected_before_commit": true,
+        "requests": 1,
+        "preserved_request_fields": true,
+        "real_expiry_unrun": true
+      }
+    },
+    {
+      "id": "AS-05-unknown-create-reload-and-explicit-replay",
+      "status": "PASS",
+      "details": {
+        "created_id": "3bace018-86c3-4998-88c5-598d37fd7403",
+        "request_id": "3636dccd-be9f-4167-a257-c24e9a93c02b",
+        "repeat_same_identity": true,
+        "same_assignment": true,
+        "no_automatic_reload_retry": true,
+        "paid_operation": false
+      }
+    },
+    {
+      "id": "AS-06-created-inactive-student-hidden",
+      "status": "PASS",
+      "details": {
+        "assignment_id": "3bace018-86c3-4998-88c5-598d37fd7403",
+        "class_id": "20000000-0000-4000-8000-000000000001",
+        "lesson_id": "6fe198e6-e4d9-4b43-b7f5-8430847358cc",
+        "lesson_version": "1",
+        "student_list_hidden": true
+      }
+    },
+    {
+      "id": "AS-07-safe-preview-no-writes",
+      "status": "PASS",
+      "details": {
+        "no_api_writes": true,
+        "no_unrevealed_question_or_private_criterion": true,
+        "layouts": [
+          {
+            "width": 1440,
+            "height": 900,
+            "scrollWidth": 1440
+          },
+          {
+            "width": 1024,
+            "height": 768,
+            "scrollWidth": 1024
+          },
+          {
+            "width": 390,
+            "height": 844,
+            "scrollWidth": 390
+          },
+          {
+            "width": 320,
+            "height": 844,
+            "scrollWidth": 320
+          }
+        ]
+      }
+    },
+    {
+      "id": "AS-08-explicit-activation-student-start",
+      "status": "PASS",
+      "details": {
+        "assignment": "3bace018-86c3-4998-88c5-598d37fd7403",
+        "session": "6d545ffc-9f50-409c-a35c-be696aeeb0fb",
+        "lesson_version": "1",
+        "single_composer": true,
+        "no_answer_submitted": true
+      }
+    },
+    {
+      "id": "AS-09-presented-progress-not-wrong",
+      "status": "PASS",
+      "details": {
+        "summary": "students have answered\n0 of 24\nanswers\n0\nevaluated\n0 of 0\nevaluations pending, failed or rejected\n0\nanswers given after help was shown\n0 of 0",
+        "counts": {
+          "students have answered": "0 of 24",
+          "answers": "0",
+          "evaluated": "0 of 0",
+          "evaluations pending, failed or rejected": "0",
+          "answers given after help was shown": "0 of 0"
+        },
+        "participation": "Participation and evaluation details\n\n1 students started · 0 completed sessions · 1 presented questions without answers · 0 evaluations pending · 0 failed · 0 rejected · 0 answers after reading only. These are response and session counts, not mastery.",
+        "authorized_metrics": {
+          "assignment_id": "3bace018-86c3-4998-88c5-598d37fd7403",
+          "class_id": "20000000-0000-4000-8000-000000000001",
+          "metrics": {
+            "definition_version": "class-evidence-v1",
+            "origin_filter": "live_demo",
+            "enrolled_students": 24,
+            "participation": {
+              "numerator": 0,
+              "denominator": 24
+            },
+            "no_activity_students": 24,
+            "origins": {
+              "synthetic_fixture": 0,
+              "live_demo": 0
+            },
+            "concepts": [
+              {
+                "concept_id": "7c6abc85-d4c9-4570-b3a6-ff01d3e909ea",
+                "latest": {
+                  "correct": 0,
+                  "partially_correct": 0,
+                  "incorrect": 0,
+                  "uncertain": 0,
+                  "pending": 0,
+                  "evaluation_failed": 0,
+                  "rejected": 0,
+                  "no_response": 24,
+                  "accepted_students": 0,
+                  "correct_rate": {
+                    "numerator": 0,
+                    "denominator": 0
+                  }
+                },
+                "independent": {
+                  "correct": 0,
+                  "partially_correct": 0,
+                  "incorrect": 0,
+                  "uncertain": 0,
+                  "pending": 0,
+                  "evaluation_failed": 0,
+                  "rejected": 0,
+                  "no_response": 24,
+                  "accepted_students": 0,
+                  "correct_rate": {
+                    "numerator": 0,
+                    "denominator": 0
+                  }
+                },
+                "content_assisted": {
+                  "correct": 0,
+                  "partially_correct": 0,
+                  "incorrect": 0,
+                  "uncertain": 0,
+                  "pending": 0,
+                  "evaluation_failed": 0,
+                  "rejected": 0,
+                  "no_response": 24,
+                  "accepted_students": 0,
+                  "correct_rate": {
+                    "numerator": 0,
+                    "denominator": 0
+                  }
+                },
+                "immediate_retest": {
+                  "correct": 0,
+                  "partially_correct": 0,
+                  "incorrect": 0,
+                  "uncertain": 0,
+                  "pending": 0,
+                  "evaluation_failed": 0,
+                  "rejected": 0,
+                  "no_response": 24,
+                  "accepted_students": 0,
+                  "correct_rate": {
+                    "numerator": 0,
+                    "denominator": 0
+                  }
+                },
+                "delayed_review": {
+                  "correct": 0,
+                  "partially_correct": 0,
+                  "incorrect": 0,
+                  "uncertain": 0,
+                  "pending": 0,
+                  "evaluation_failed": 0,
+                  "rejected": 0,
+                  "no_response": 24,
+                  "accepted_students": 0,
+                  "correct_rate": {
+                    "numerator": 0,
+                    "denominator": 0
+                  }
+                },
+                "repeated_difficulty": {
+                  "numerator": 0,
+                  "denominator": 0
+                }
+              }
+            ]
+          }
+        },
+        "presented_answer_not_graded": true
+      }
+    },
+    {
+      "id": "AS-10-progress-responsive-four-viewports",
+      "status": "PASS",
+      "details": [
+        {
+          "width": 1440,
+          "height": 900,
+          "scrollWidth": 1440
+        },
+        {
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024
+        },
+        {
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390
+        },
+        {
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320
+        }
+      ]
+    },
+    {
+      "id": "AS-11-exact-history-assistance-and-accepted-evaluation",
+      "status": "PASS",
+      "details": {
+        "exact_original_texts": [
+          "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+          "On A, transmission and propagation are each 1 ms. On B, both are 3 ms, because transmitting across three times the distance takes three times as long.",
+          "Transmission is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes. Propagation is 3 ms for both. More bits take longer to put onto the link, but the distance and propagation speed stay the same.",
+          "Transmission is 2 ms for each: 24,000 divided by 12,000,000 seconds. Propagation is 0.5 ms for 100 km and 2 ms for 400 km. Only propagation changes with the distance."
+        ],
+        "all_displayed_evidence_verified": [
+          {
+            "session_id": "40000000-0000-4000-8000-000000000001",
+            "attempt_id": "50000000-0000-4000-8000-000000000001",
+            "response_text": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+            "current_evaluation_id": "60000000-0000-4000-8000-000000000001",
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          {
+            "session_id": "40000000-0000-4000-8000-000000000001",
+            "attempt_id": "50000000-0000-4000-8000-000000000002",
+            "response_text": "On A, transmission and propagation are each 1 ms. On B, both are 3 ms, because transmitting across three times the distance takes three times as long.",
+            "current_evaluation_id": "60000000-0000-4000-8000-000000000002",
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          {
+            "session_id": "40000000-0000-4000-8000-000000000001",
+            "attempt_id": "50000000-0000-4000-8000-000000000003",
+            "response_text": "Transmission is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes. Propagation is 3 ms for both. More bits take longer to put onto the link, but the distance and propagation speed stay the same.",
+            "current_evaluation_id": "60000000-0000-4000-8000-000000000003",
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          {
+            "session_id": "40000000-0000-4000-8000-000000000001",
+            "attempt_id": "50000000-0000-4000-8000-000000000004",
+            "response_text": "Transmission is 2 ms for each: 24,000 divided by 12,000,000 seconds. Propagation is 0.5 ms for 100 km and 2 ms for 400 km. Only propagation changes with the distance.",
+            "current_evaluation_id": "60000000-0000-4000-8000-000000000004",
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          {
+            "session_id": "12b2b618-b773-4278-a8b7-7b27c7ff72eb",
+            "attempt_id": "9337ec6d-ec73-4819-b989-a1de98606834",
+            "response_text": "Reading assistance integration fixture — no model evaluation.",
+            "current_evaluation_id": null,
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          {
+            "session_id": "fb9c1c7a-e93a-4036-bb60-b6527d4def5b",
+            "attempt_id": "e40e3b45-cc01-4886-81d6-b028fe4e8736",
+            "response_text": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+            "current_evaluation_id": "809e36e4-b841-4ff2-a9c9-024a9281cf0a",
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          {
+            "session_id": "fb9c1c7a-e93a-4036-bb60-b6527d4def5b",
+            "attempt_id": "8c0e916f-77e8-43c7-a462-d9ca2b036843",
+            "response_text": "On A, transmission and propagation are each 1 ms. On B, both are 3 ms, because transmitting across three times the distance takes three times as long.",
+            "current_evaluation_id": "e979e227-57be-4ca5-874b-9ea71432216b",
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          {
+            "session_id": "fb9c1c7a-e93a-4036-bb60-b6527d4def5b",
+            "attempt_id": "01adf3e4-4f73-4936-affc-5af87bc34d92",
+            "response_text": "Transmission is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes. Propagation is 3 ms for both. More bits take longer to put onto the link, but the distance and propagation speed stay the same.",
+            "current_evaluation_id": "8b0fa1d7-c820-4928-aac6-e93ca864cdec",
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          {
+            "session_id": "fb9c1c7a-e93a-4036-bb60-b6527d4def5b",
+            "attempt_id": "fc9fac1c-ab1d-46bb-bd32-60af734892b6",
+            "response_text": "Transmission is 2 ms for each: 24,000 divided by 12,000,000 seconds. Propagation is 0.5 ms for 100 km and 2 ms for 400 km. Only propagation changes with the distance.",
+            "current_evaluation_id": "899e19ff-f3ff-43da-9984-c8075994a701",
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          {
+            "session_id": "d5ecf558-609b-48d0-88a2-6750ce78dabf",
+            "attempt_id": "5b1e329a-30fb-4946-b6b3-f375cba6f4ab",
+            "response_text": "Transmission delay is unchanged: the number of packet bits and the rate at which they enter the link are unchanged. Propagation delay doubles because distance doubles at the same propagation speed.",
+            "current_evaluation_id": "eee162af-84de-48b5-8fa1-e3a7ce911017",
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          {
+            "session_id": "ce44f22d-f899-4f14-b3e2-7e7094d5f69c",
+            "attempt_id": "76ea024c-6250-41e3-bc9b-bb68f9d77c28",
+            "response_text": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+            "current_evaluation_id": "cecb6a11-41c7-4f00-905c-6cb34e274ad5",
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          {
+            "session_id": "ce44f22d-f899-4f14-b3e2-7e7094d5f69c",
+            "attempt_id": "3b33428a-96f0-455c-953c-e417e1f37fde",
+            "response_text": "Transmission is 1 ms on each: the packet has 8,000 bits and the rate is 8 million bits per second. Propagation is 1 ms on A and 3 ms on B. I used transmission to mean travel before, but physical distance changes propagation, not the time to send the bits onto the link.",
+            "current_evaluation_id": "84a88fff-e72a-405e-9782-9474efbf7adb",
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          {
+            "session_id": "ffd93243-ffde-4980-a92d-cbaa9a3b3211",
+            "attempt_id": "f5dffc64-cd23-498c-9d5f-78edadc09942",
+            "response_text": "Transmission delay is unchanged: the number of packet bits and the rate at which they enter the link are unchanged. Propagation delay doubles because distance doubles at the same propagation speed.",
+            "current_evaluation_id": "897ecbd1-ec7e-448b-917d-f59ce9aa5af0",
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          {
+            "session_id": "ffd93243-ffde-4980-a92d-cbaa9a3b3211",
+            "attempt_id": "82210638-1b08-4193-95c5-b83e9752be44",
+            "response_text": "Transmission is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes. Propagation is 3 ms for both. More bits take longer to put onto the link, but the distance and propagation speed stay the same.",
+            "current_evaluation_id": null,
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          {
+            "session_id": "75b2791f-2cb1-423b-9603-314c4d77c89f",
+            "attempt_id": "b477a398-bab6-4fc5-8632-15e5974924ef",
+            "response_text": "Fictional follow-up response preserved during an uncertain request.",
+            "current_evaluation_id": null,
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          {
+            "session_id": "b2a0f254-28a7-41f1-a35e-e05fa7533d0c",
+            "attempt_id": "dadbd4c8-596c-4dca-ab46-1216f58fab34",
+            "response_text": "Fictional follow-up response preserved during an uncertain request.",
+            "current_evaluation_id": null,
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          {
+            "session_id": "bac35948-25b3-4a6f-bbee-17db26e6375e",
+            "attempt_id": "ea2d317e-d0a9-497a-906f-88cec91a6a67",
+            "response_text": "Fictional follow-up response preserved during an uncertain request.",
+            "current_evaluation_id": null,
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          },
+          {
+            "session_id": "486dd9d5-ada1-4eab-9950-75fa2dee8b6b",
+            "attempt_id": "63b6cb46-cb3e-4a46-a6f9-20a9b5476d6f",
+            "response_text": "Fictional follow-up response preserved during an uncertain request.",
+            "current_evaluation_id": null,
+            "content_ref": {
+              "package_id": "network-performance-v1",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+              "source_id": "peterson_davie_1_5_1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+            }
+          }
+        ],
+        "accepted_evaluation_ids": [
+          "60000000-0000-4000-8000-000000000001",
+          "60000000-0000-4000-8000-000000000002",
+          "60000000-0000-4000-8000-000000000003",
+          "60000000-0000-4000-8000-000000000004"
+        ],
+        "source_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+        "assistance_displayed": true,
+        "layouts": [
+          {
+            "width": 1440,
+            "height": 900,
+            "scrollWidth": 1440
+          },
+          {
+            "width": 1024,
+            "height": 768,
+            "scrollWidth": 1024
+          },
+          {
+            "width": 390,
+            "height": 844,
+            "scrollWidth": 390
+          },
+          {
+            "width": 320,
+            "height": 844,
+            "scrollWidth": 320
+          }
+        ]
+      }
+    },
+    {
+      "id": "AS-15-narrow-details-escape-and-close-focus",
+      "status": "PASS",
+      "details": {
+        "viewport": 390,
+        "escape_returns_focus": true,
+        "close_returns_focus": true,
+        "cell_id": "ap-selection-10000000-0000-4000-8000-000000000002-transmission_delay"
+      }
+    },
+    {
+      "id": "AS-14-in-page-back-retains-assignment-selection",
+      "status": "FAIL",
+      "details": {
+        "expected": "http://localhost:3355/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=10000000-0000-4000-8000-000000000002&concept=transmission_delay&class=20000000-0000-4000-8000-000000000001&status=all&progressView=grid&pane=details#cell-evidence",
+        "actual": "http://localhost:3355/teacher/insights?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&student=10000000-0000-4000-8000-000000000002&returnTo=insights#responses",
+        "full_session": "http://localhost:3355/teacher/sessions/40000000-0000-4000-8000-000000000001?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&student=10000000-0000-4000-8000-000000000002&concept=transmission_delay#attempt-50000000-0000-4000-8000-000000000001",
+        "browser_back_restored_selection": true,
+        "owner": "Shared evidence/navigation #114; existing session route outside PR117",
+        "severity": "P3 navigation context gap; no original evidence mutation"
+      }
+    },
+    {
+      "id": "AS-12-selection-refresh-and-history",
+      "status": "PASS",
+      "details": {
+        "selected_url": "http://localhost:3355/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=10000000-0000-4000-8000-000000000002&concept=transmission_delay&class=20000000-0000-4000-8000-000000000001&status=all&progressView=grid&pane=details#cell-evidence",
+        "refresh": true,
+        "back_forward": true,
+        "narrow_details_focus_checked_separately": true
+      }
+    },
+    {
+      "id": "AS-13-readonly-preview-original-evidence-unchanged",
+      "status": "PASS",
+      "details": {
+        "session_ids": [
+          "40000000-0000-4000-8000-000000000001",
+          "40000000-0000-4000-8000-000000000002"
+        ],
+        "unchanged": true
+      }
+    }
+  ],
+  "planned_cases": [
+    "AS-01-draft-refresh-exact",
+    "AS-02-create-responsive-four-viewports",
+    "AS-03-two-tab-safe-conflict",
+    "AS-04-initial401-safe-recovery",
+    "AS-05-unknown-create-reload-and-explicit-replay",
+    "AS-06-created-inactive-student-hidden",
+    "AS-07-safe-preview-no-writes",
+    "AS-08-explicit-activation-student-start",
+    "AS-09-presented-progress-not-wrong",
+    "AS-10-progress-responsive-four-viewports",
+    "AS-11-exact-history-assistance-and-accepted-evaluation",
+    "AS-15-narrow-details-escape-and-close-focus",
+    "AS-14-in-page-back-retains-assignment-selection",
+    "AS-12-selection-refresh-and-history",
+    "AS-13-readonly-preview-original-evidence-unchanged"
+  ],
+  "screenshots": [
+    "create-1440x900.png",
+    "create-1024x768.png",
+    "create-390x844.png",
+    "create-320x844.png",
+    "two-tab-conflict.png",
+    "creation-401-preserved.png",
+    "unknown-create-preserved.png",
+    "student-preview-1440x900.png",
+    "student-preview-1024x768.png",
+    "student-preview-390x844.png",
+    "student-preview-320x844.png",
+    "activated-student-session.png",
+    "progress-1440x900.png",
+    "progress-1024x768.png",
+    "progress-390x844.png",
+    "progress-320x844.png",
+    "original-evidence-1440x900.png",
+    "original-evidence-1024x768.png",
+    "original-evidence-390x844.png",
+    "original-evidence-320x844.png",
+    "in-page-back-loses-assignment-selection.png"
+  ],
+  "instructions_aria_before": "- textbox \"Instructions for students\"",
+  "instructions_aria_after_restore": "- textbox \"Instructions for students\": Original fictional instructions. Explain your reasoning and retain this line.",
+  "creation_interception": {
+    "status": 200,
+    "assignment_id": "3bace018-86c3-4998-88c5-598d37fd7403",
+    "request_id": "3636dccd-be9f-4167-a257-c24e9a93c02b",
+    "error": null
+  },
+  "created_assignment_id": "3bace018-86c3-4998-88c5-598d37fd7403",
+  "student_session_id": "6d545ffc-9f50-409c-a35c-be696aeeb0fb",
+  "status": "completed_with_findings",
+  "unrun_cases": [],
+  "finished_at": "2026-10-25T05:20:38.862Z",
+  "unrun": [
+    "Real authentication expiry and sign-in return",
+    "Fresh model calls",
+    "Hosted release",
+    "Full keyboard-only and screen-reader journey",
+    "Actual browser200%zoom in this suite",
+    "Unchanged private published-history guarantees beyond separately executed service checks"
+  ]
+}

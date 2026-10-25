@@ -1,0 +1,602 @@
+{
+  "session": {
+    "id": "40000000-0000-4000-8000-000000000001",
+    "student_id": "10000000-0000-4000-8000-000000000002",
+    "assignment_id": "30000000-0000-4000-8000-000000000001",
+    "class_id": "20000000-0000-4000-8000-000000000001",
+    "status": "completed",
+    "data_origin": "synthetic_fixture",
+    "started_at": "2026-10-14T23:40:00.000Z",
+    "ended_at": "2026-10-14T23:47:20.000Z"
+  },
+  "attempts": [
+    {
+      "id": "50000000-0000-4000-8000-000000000001",
+      "session_id": "40000000-0000-4000-8000-000000000001",
+      "sequence_index": 0,
+      "parent_attempt_id": null,
+      "root_attempt_id": "50000000-0000-4000-8000-000000000001",
+      "review_of_attempt_id": null,
+      "question": {
+        "origin": "curated",
+        "question_id": "NP-TX-01",
+        "sequence_id": "transmission_propagation_demo_v1",
+        "prompt_text": "A single cable becomes twice as long. Packet size, link transmission rate, and propagation speed stay unchanged. What happens to transmission delay and propagation delay? Explain why.",
+        "content_ref": {
+          "package_id": "network-performance-v1",
+          "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+          "source_id": "peterson_davie_1_5_1",
+          "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+          "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+        },
+        "concept_ids": [
+          "transmission_delay",
+          "propagation_delay"
+        ],
+        "source_passage_ids": [
+          "P07",
+          "P08",
+          "P12"
+        ],
+        "rubric": {
+          "version": "3bd292c1476f5becb658418b70ee36153cfce830",
+          "answer_guidance": "Transmission delay is unchanged because it is packet size divided by transmission rate, both fixed. Propagation delay doubles because it is cable length divided by propagation speed, and only cable length doubles.",
+          "criteria": [
+            "Identify packet size and transmission rate as the determinants of transmission delay.",
+            "Identify cable length and propagation speed as the determinants of propagation delay.",
+            "Apply the stated controlled change to both quantities."
+          ],
+          "acceptable_variations": [
+            "The time to put the packet onto the cable stays the same; its signal travel time doubles.",
+            "Verbal proportional reasoning is sufficient; equations are optional."
+          ],
+          "partial_credit_guidance": "One correct effect with the other missing or wrong is partial. Both effects correct without explanation are partial and need a brief reasoning probe. If the student uses transmission to mean total delivery, clarify terminology before assigning a misconception hypothesis."
+        },
+        "embedded_scaffolding": [],
+        "generation": null
+      },
+      "intent": "initial_retrieval",
+      "presented_at": "2026-10-14T23:40:00.000Z",
+      "submitted_at": "2026-10-14T23:41:00.000Z",
+      "response_text": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "submission_key": "a0000000-0000-4000-8000-000000000001",
+      "assistance": {
+        "intervention_ids": [],
+        "assistance_level": "none_recorded",
+        "scaffolding_types": [],
+        "independent_retrieval_eligible_by_concept": {
+          "propagation_delay": true,
+          "transmission_delay": true
+        },
+        "most_recent_content_assistance_at": null,
+        "elapsed_since_content_assistance_seconds": null
+      },
+      "current_evaluation_id": "60000000-0000-4000-8000-000000000001",
+      "outcome": {
+        "root_attempt_id": "50000000-0000-4000-8000-000000000001",
+        "concept_ids": [
+          "transmission_delay",
+          "propagation_delay"
+        ],
+        "hypothesis_instance_id": "80000000-0000-4000-8000-000000000001",
+        "latest_hypothesis_status": "supported",
+        "outcome": "correct_after_feedback",
+        "supporting_attempt_ids": [
+          "50000000-0000-4000-8000-000000000001",
+          "50000000-0000-4000-8000-000000000002",
+          "50000000-0000-4000-8000-000000000003",
+          "50000000-0000-4000-8000-000000000004"
+        ],
+        "intervention_ids": [
+          "70000000-0000-4000-8000-000000000001",
+          "70000000-0000-4000-8000-000000000002"
+        ],
+        "recorded_at": "2026-10-14T23:47:20.000Z",
+        "next_review_at": "2026-10-15T23:47:20.000Z",
+        "review_policy_version": "demo-24h-v1",
+        "review_reason": "Illustrative 24-hour demo interval. Immediate success is not evidence of durable retention."
+      }
+    },
+    {
+      "id": "50000000-0000-4000-8000-000000000002",
+      "session_id": "40000000-0000-4000-8000-000000000001",
+      "sequence_index": 1,
+      "parent_attempt_id": "50000000-0000-4000-8000-000000000001",
+      "root_attempt_id": "50000000-0000-4000-8000-000000000001",
+      "review_of_attempt_id": null,
+      "question": {
+        "origin": "curated",
+        "question_id": "D02",
+        "sequence_id": "transmission_propagation_demo_v1",
+        "prompt_text": "Compare two single optical-fiber links. Link A is 200 km long and link B is 600 km long. Each sends the same 1,000-byte packet at 8 Mbps, and propagation speed is 200,000,000 m/s on both. Ignore queuing and processing. For each link, find transmission delay and propagation delay. Which delay changes between the links, and why?",
+        "content_ref": {
+          "package_id": "network-performance-v1",
+          "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+          "source_id": "peterson_davie_1_5_1",
+          "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+          "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+        },
+        "concept_ids": [
+          "transmission_delay",
+          "propagation_delay"
+        ],
+        "source_passage_ids": [
+          "P07",
+          "P08"
+        ],
+        "rubric": {
+          "version": "3bd292c1476f5becb658418b70ee36153cfce830",
+          "answer_guidance": "{\"transmission_A_ms\":1,\"transmission_B_ms\":1,\"propagation_A_ms\":1,\"propagation_B_ms\":3,\"reasoning\":\"8,000 bits / 8,000,000 bits/s = 0.001 s for each transmission. Propagation is 200,000 / 200,000,000 = 0.001 s versus 600,000 / 200,000,000 = 0.003 s. Only distance differs.\",\"acceptable_alternative\":\"A correct qualitative explanation establishes the conceptual distinction even if a separately identified unit or arithmetic error remains.\"}",
+          "criteria": [
+            "8,000 bits / 8,000,000 bits/s = 0.001 s for each transmission. Propagation is 200,000 / 200,000,000 = 0.001 s versus 600,000 / 200,000,000 = 0.003 s. Only distance differs."
+          ],
+          "acceptable_variations": [
+            "A correct qualitative explanation establishes the conceptual distinction even if a separately identified unit or arithmetic error remains."
+          ],
+          "partial_credit_guidance": null
+        },
+        "embedded_scaffolding": [],
+        "generation": null
+      },
+      "intent": "diagnostic_followup",
+      "presented_at": "2026-10-14T23:42:00.000Z",
+      "submitted_at": "2026-10-14T23:43:00.000Z",
+      "response_text": "On A, transmission and propagation are each 1 ms. On B, both are 3 ms, because transmitting across three times the distance takes three times as long.",
+      "submission_key": "a0000000-0000-4000-8000-000000000002",
+      "assistance": {
+        "intervention_ids": [],
+        "assistance_level": "none_recorded",
+        "scaffolding_types": [
+          "diagnostic_prompt_without_answer"
+        ],
+        "independent_retrieval_eligible_by_concept": {
+          "propagation_delay": false,
+          "transmission_delay": false
+        },
+        "most_recent_content_assistance_at": null,
+        "elapsed_since_content_assistance_seconds": null
+      },
+      "current_evaluation_id": "60000000-0000-4000-8000-000000000002",
+      "outcome": null
+    },
+    {
+      "id": "50000000-0000-4000-8000-000000000003",
+      "session_id": "40000000-0000-4000-8000-000000000001",
+      "sequence_index": 2,
+      "parent_attempt_id": "50000000-0000-4000-8000-000000000002",
+      "root_attempt_id": "50000000-0000-4000-8000-000000000001",
+      "review_of_attempt_id": null,
+      "question": {
+        "origin": "curated",
+        "question_id": "D05",
+        "sequence_id": "transmission_propagation_demo_v1",
+        "prompt_text": "On a 600 km optical-fiber link, the rate is 8 Mbps and propagation speed is 200,000,000 m/s. Compare sending a 1,000-byte packet with sending a 2,000-byte packet. Only packet size changes. What are transmission delay and propagation delay in each case? Explain which quantity changes.",
+        "content_ref": {
+          "package_id": "network-performance-v1",
+          "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+          "source_id": "peterson_davie_1_5_1",
+          "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+          "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+        },
+        "concept_ids": [
+          "transmission_delay",
+          "propagation_delay"
+        ],
+        "source_passage_ids": [
+          "P07",
+          "P08"
+        ],
+        "rubric": {
+          "version": "3bd292c1476f5becb658418b70ee36153cfce830",
+          "answer_guidance": "{\"small_packet_transmission_ms\":1,\"large_packet_transmission_ms\":2,\"propagation_ms_each\":3,\"reasoning\":\"Doubling packet size doubles transmission delay at the same rate. Distance and propagation speed are unchanged, so propagation delay stays 3 ms.\"}",
+          "criteria": [
+            "Doubling packet size doubles transmission delay at the same rate. Distance and propagation speed are unchanged, so propagation delay stays 3 ms."
+          ],
+          "acceptable_variations": [],
+          "partial_credit_guidance": null
+        },
+        "embedded_scaffolding": [],
+        "generation": null
+      },
+      "intent": "immediate_retest",
+      "presented_at": "2026-10-14T23:44:00.000Z",
+      "submitted_at": "2026-10-14T23:45:00.000Z",
+      "response_text": "Transmission is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes. Propagation is 3 ms for both. More bits take longer to put onto the link, but the distance and propagation speed stay the same.",
+      "submission_key": "a0000000-0000-4000-8000-000000000003",
+      "assistance": {
+        "intervention_ids": [
+          "70000000-0000-4000-8000-000000000001"
+        ],
+        "assistance_level": "corrective_feedback",
+        "scaffolding_types": [],
+        "independent_retrieval_eligible_by_concept": {
+          "propagation_delay": false,
+          "transmission_delay": false
+        },
+        "most_recent_content_assistance_at": "2026-10-14T23:43:11.000Z",
+        "elapsed_since_content_assistance_seconds": 109
+      },
+      "current_evaluation_id": "60000000-0000-4000-8000-000000000003",
+      "outcome": null
+    },
+    {
+      "id": "50000000-0000-4000-8000-000000000004",
+      "session_id": "40000000-0000-4000-8000-000000000001",
+      "sequence_index": 3,
+      "parent_attempt_id": "50000000-0000-4000-8000-000000000003",
+      "root_attempt_id": "50000000-0000-4000-8000-000000000001",
+      "review_of_attempt_id": null,
+      "question": {
+        "origin": "curated",
+        "question_id": "D06",
+        "sequence_id": "transmission_propagation_demo_v1",
+        "prompt_text": "Now send a 3,000-byte packet at 12 Mbps over a single optical-fiber link. Compare a 100 km link with a 400 km link, both with propagation speed 200,000,000 m/s. Only distance changes. Find transmission delay and propagation delay in each case, and explain your comparison.",
+        "content_ref": {
+          "package_id": "network-performance-v1",
+          "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+          "source_id": "peterson_davie_1_5_1",
+          "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+          "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+        },
+        "concept_ids": [
+          "transmission_delay",
+          "propagation_delay"
+        ],
+        "source_passage_ids": [
+          "P07",
+          "P08"
+        ],
+        "rubric": {
+          "version": "3bd292c1476f5becb658418b70ee36153cfce830",
+          "answer_guidance": "{\"transmission_ms_each\":2,\"short_link_propagation_ms\":0.5,\"long_link_propagation_ms\":2,\"reasoning\":\"24,000 bits / 12,000,000 bits/s = 0.002 s = 2 ms for either link. Propagation is 0.0005 s = 0.5 ms for 100 km and 0.002 s = 2 ms for 400 km.\"}",
+          "criteria": [
+            "24,000 bits / 12,000,000 bits/s = 0.002 s = 2 ms for either link. Propagation is 0.0005 s = 0.5 ms for 100 km and 0.002 s = 2 ms for 400 km."
+          ],
+          "acceptable_variations": [],
+          "partial_credit_guidance": null
+        },
+        "embedded_scaffolding": [],
+        "generation": null
+      },
+      "intent": "immediate_retest",
+      "presented_at": "2026-10-14T23:46:00.000Z",
+      "submitted_at": "2026-10-14T23:47:00.000Z",
+      "response_text": "Transmission is 2 ms for each: 24,000 divided by 12,000,000 seconds. Propagation is 0.5 ms for 100 km and 2 ms for 400 km. Only propagation changes with the distance.",
+      "submission_key": "a0000000-0000-4000-8000-000000000004",
+      "assistance": {
+        "intervention_ids": [
+          "70000000-0000-4000-8000-000000000001"
+        ],
+        "assistance_level": "corrective_feedback",
+        "scaffolding_types": [],
+        "independent_retrieval_eligible_by_concept": {
+          "propagation_delay": false,
+          "transmission_delay": false
+        },
+        "most_recent_content_assistance_at": "2026-10-14T23:43:11.000Z",
+        "elapsed_since_content_assistance_seconds": 229
+      },
+      "current_evaluation_id": "60000000-0000-4000-8000-000000000004",
+      "outcome": null
+    }
+  ],
+  "evaluations": [
+    {
+      "id": "60000000-0000-4000-8000-000000000001",
+      "attempt_id": "50000000-0000-4000-8000-000000000001",
+      "validation_status": "accepted",
+      "evaluator": {
+        "type": "synthetic_fixture",
+        "model": null,
+        "version": "approved-demo-fixture-v1"
+      },
+      "evaluated_at": "2026-10-14T23:41:05.000Z",
+      "supersedes_id": null,
+      "result": {
+        "per_concept_results": [
+          {
+            "concept_id": "transmission_delay",
+            "correctness": "incorrect",
+            "error_type": "conceptual",
+            "rubric_criteria_met": [],
+            "rubric_criteria_missing": []
+          },
+          {
+            "concept_id": "propagation_delay",
+            "correctness": "correct",
+            "error_type": null,
+            "rubric_criteria_met": [],
+            "rubric_criteria_missing": []
+          }
+        ],
+        "source_passage_ids": [
+          "P07",
+          "P08",
+          "P12"
+        ],
+        "evidence_quotes": [
+          {
+            "response_id": "50000000-0000-4000-8000-000000000001",
+            "quote": "Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+            "start_character": 13,
+            "end_character": 109,
+            "interpretation": "Authored synthetic example; the quotation records the observed wording, not a claim about the student's mind."
+          }
+        ],
+        "reasoning_observed": "Authored SYN-SUPPORTED-01 example: the response explicitly links transmission time to distance while answering propagation correctly.",
+        "uncertainty_reason": null,
+        "proposed_next_action": "ASK_DIAGNOSTIC_FOLLOWUP"
+      },
+      "applied_result": {
+        "action": "ASK_DIAGNOSTIC_FOLLOWUP",
+        "hypothesis_events": [
+          {
+            "id": "90000000-0000-4000-8000-000000000001",
+            "hypothesis_instance_id": "80000000-0000-4000-8000-000000000001",
+            "concept_id": "transmission_delay",
+            "misconception_id": "transmission_depends_on_distance",
+            "previous_status": null,
+            "status": "suspected",
+            "evidence_evaluation_ids": [
+              "60000000-0000-4000-8000-000000000001"
+            ],
+            "contradicting_evaluation_ids": [],
+            "supporting_response_quotes": [
+              {
+                "response_id": "50000000-0000-4000-8000-000000000001",
+                "quote": "Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+                "start_character": 13,
+                "end_character": 109,
+                "interpretation": "Authored synthetic example; the quotation records the observed wording, not a claim about the student's mind."
+              }
+            ],
+            "reason": "Tentative hypothesis from an explicit claim; one response does not establish support.",
+            "created_at": "2026-10-14T23:41:05.000Z"
+          }
+        ]
+      },
+      "failure_reason": null
+    },
+    {
+      "id": "60000000-0000-4000-8000-000000000002",
+      "attempt_id": "50000000-0000-4000-8000-000000000002",
+      "validation_status": "accepted",
+      "evaluator": {
+        "type": "synthetic_fixture",
+        "model": null,
+        "version": "approved-demo-fixture-v1"
+      },
+      "evaluated_at": "2026-10-14T23:43:05.000Z",
+      "supersedes_id": null,
+      "result": {
+        "per_concept_results": [
+          {
+            "concept_id": "transmission_delay",
+            "correctness": "incorrect",
+            "error_type": "conceptual",
+            "rubric_criteria_met": [],
+            "rubric_criteria_missing": []
+          },
+          {
+            "concept_id": "propagation_delay",
+            "correctness": "correct",
+            "error_type": null,
+            "rubric_criteria_met": [],
+            "rubric_criteria_missing": []
+          }
+        ],
+        "source_passage_ids": [
+          "P07",
+          "P08"
+        ],
+        "evidence_quotes": [
+          {
+            "response_id": "50000000-0000-4000-8000-000000000002",
+            "quote": "transmitting across three times the distance takes three times as long",
+            "start_character": 79,
+            "end_character": 149,
+            "interpretation": "Authored synthetic example; the quotation records the observed wording, not a claim about the student's mind."
+          }
+        ],
+        "reasoning_observed": "Authored SYN-SUPPORTED-01 example: the response explicitly links transmission time to distance while answering propagation correctly.",
+        "uncertainty_reason": null,
+        "proposed_next_action": "GIVE_CORRECTIVE_FEEDBACK"
+      },
+      "applied_result": {
+        "action": "GIVE_CORRECTIVE_FEEDBACK",
+        "hypothesis_events": [
+          {
+            "id": "90000000-0000-4000-8000-000000000002",
+            "hypothesis_instance_id": "80000000-0000-4000-8000-000000000001",
+            "concept_id": "transmission_delay",
+            "misconception_id": "transmission_depends_on_distance",
+            "previous_status": "suspected",
+            "status": "supported",
+            "evidence_evaluation_ids": [
+              "60000000-0000-4000-8000-000000000001",
+              "60000000-0000-4000-8000-000000000002"
+            ],
+            "contradicting_evaluation_ids": [],
+            "supporting_response_quotes": [
+              {
+                "response_id": "50000000-0000-4000-8000-000000000001",
+                "quote": "Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+                "start_character": 13,
+                "end_character": 109,
+                "interpretation": "Authored synthetic example; the quotation records the observed wording, not a claim about the student's mind."
+              },
+              {
+                "response_id": "50000000-0000-4000-8000-000000000002",
+                "quote": "transmitting across three times the distance takes three times as long",
+                "start_character": 79,
+                "end_character": 149,
+                "interpretation": "Authored synthetic example; the quotation records the observed wording, not a claim about the student's mind."
+              }
+            ],
+            "reason": "The separate diagnostic response repeats the distance-to-transmission claim. Later improvement does not erase this historical evidence.",
+            "created_at": "2026-10-14T23:43:05.000Z"
+          }
+        ]
+      },
+      "failure_reason": null
+    },
+    {
+      "id": "60000000-0000-4000-8000-000000000003",
+      "attempt_id": "50000000-0000-4000-8000-000000000003",
+      "validation_status": "accepted",
+      "evaluator": {
+        "type": "synthetic_fixture",
+        "model": null,
+        "version": "approved-demo-fixture-v1"
+      },
+      "evaluated_at": "2026-10-14T23:45:05.000Z",
+      "supersedes_id": null,
+      "result": {
+        "per_concept_results": [
+          {
+            "concept_id": "transmission_delay",
+            "correctness": "correct",
+            "error_type": null,
+            "rubric_criteria_met": [],
+            "rubric_criteria_missing": []
+          },
+          {
+            "concept_id": "propagation_delay",
+            "correctness": "correct",
+            "error_type": null,
+            "rubric_criteria_met": [],
+            "rubric_criteria_missing": []
+          }
+        ],
+        "source_passage_ids": [
+          "P07",
+          "P08"
+        ],
+        "evidence_quotes": [
+          {
+            "response_id": "50000000-0000-4000-8000-000000000003",
+            "quote": "Transmission is 1 ms for 1,000 bytes and 2 ms for 2,000 bytes. Propagation is 3 ms for both. More bits take longer to put onto the link, but the distance and propagation speed stay the same.",
+            "start_character": 0,
+            "end_character": 190,
+            "interpretation": "Authored synthetic example; the quotation records the observed wording, not a claim about the student's mind."
+          }
+        ],
+        "reasoning_observed": "Authored SYN-SUPPORTED-01 example: the response distinguishes the determinants of transmission and propagation.",
+        "uncertainty_reason": null,
+        "proposed_next_action": "RETEST_CONCEPT"
+      },
+      "applied_result": {
+        "action": "RETEST_CONCEPT",
+        "hypothesis_events": []
+      },
+      "failure_reason": null
+    },
+    {
+      "id": "60000000-0000-4000-8000-000000000004",
+      "attempt_id": "50000000-0000-4000-8000-000000000004",
+      "validation_status": "accepted",
+      "evaluator": {
+        "type": "synthetic_fixture",
+        "model": null,
+        "version": "approved-demo-fixture-v1"
+      },
+      "evaluated_at": "2026-10-14T23:47:05.000Z",
+      "supersedes_id": null,
+      "result": {
+        "per_concept_results": [
+          {
+            "concept_id": "transmission_delay",
+            "correctness": "correct",
+            "error_type": null,
+            "rubric_criteria_met": [],
+            "rubric_criteria_missing": []
+          },
+          {
+            "concept_id": "propagation_delay",
+            "correctness": "correct",
+            "error_type": null,
+            "rubric_criteria_met": [],
+            "rubric_criteria_missing": []
+          }
+        ],
+        "source_passage_ids": [
+          "P07",
+          "P08"
+        ],
+        "evidence_quotes": [
+          {
+            "response_id": "50000000-0000-4000-8000-000000000004",
+            "quote": "Transmission is 2 ms for each: 24,000 divided by 12,000,000 seconds. Propagation is 0.5 ms for 100 km and 2 ms for 400 km. Only propagation changes with the distance.",
+            "start_character": 0,
+            "end_character": 166,
+            "interpretation": "Authored synthetic example; the quotation records the observed wording, not a claim about the student's mind."
+          }
+        ],
+        "reasoning_observed": "Authored SYN-SUPPORTED-01 example: the response distinguishes the determinants of transmission and propagation.",
+        "uncertainty_reason": null,
+        "proposed_next_action": "SCHEDULE_REVIEW"
+      },
+      "applied_result": {
+        "action": "SCHEDULE_REVIEW",
+        "hypothesis_events": []
+      },
+      "failure_reason": null
+    }
+  ],
+  "interventions": [
+    {
+      "id": "70000000-0000-4000-8000-000000000001",
+      "session_id": "40000000-0000-4000-8000-000000000001",
+      "related_attempt_id": "50000000-0000-4000-8000-000000000002",
+      "related_evaluation_id": "60000000-0000-4000-8000-000000000002",
+      "type": "corrective_feedback",
+      "text_shown": "Transmission delay is the time needed to put the packet's bits onto the link: packet size in bits divided by link rate in bits per second. Propagation delay is the time for a signal to travel along the link: distance divided by propagation speed. Changing distance alone changes propagation delay, while transmission delay stays the same. These are separate components of one-way delay.",
+      "concept_ids": [
+        "transmission_delay",
+        "propagation_delay"
+      ],
+      "source_passage_ids": [
+        "P07",
+        "P08",
+        "P12"
+      ],
+      "content_ref": {
+        "package_id": "network-performance-v1",
+        "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+        "source_id": "peterson_davie_1_5_1",
+        "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+        "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+      },
+      "created_at": "2026-10-14T23:43:10.000Z",
+      "visible_at": "2026-10-14T23:43:11.000Z",
+      "delivery_status": "displayed"
+    },
+    {
+      "id": "70000000-0000-4000-8000-000000000002",
+      "session_id": "40000000-0000-4000-8000-000000000001",
+      "related_attempt_id": "50000000-0000-4000-8000-000000000004",
+      "related_evaluation_id": "60000000-0000-4000-8000-000000000004",
+      "type": "corrective_feedback",
+      "text_shown": "You applied the two relationships correctly on both immediate checks. This is a successful retest after feedback. We will check again in a later session.",
+      "concept_ids": [
+        "transmission_delay",
+        "propagation_delay"
+      ],
+      "source_passage_ids": [
+        "P07",
+        "P08",
+        "P12"
+      ],
+      "content_ref": {
+        "package_id": "network-performance-v1",
+        "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+        "source_id": "peterson_davie_1_5_1",
+        "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+        "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+      },
+      "created_at": "2026-10-14T23:47:10.000Z",
+      "visible_at": "2026-10-14T23:47:11.000Z",
+      "delivery_status": "displayed"
+    }
+  ]
+}

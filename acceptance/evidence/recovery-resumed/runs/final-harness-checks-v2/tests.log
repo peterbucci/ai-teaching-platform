@@ -1,0 +1,130 @@
+TAP version 13
+# Subtest: positional browser invocation pins output, origin and SHA
+ok 1 - positional browser invocation pins output, origin and SHA
+  ---
+  duration_ms: 4.5563
+  ...
+# Subtest: state-based browser invocation cannot point to an incident environment
+ok 2 - state-based browser invocation cannot point to an incident environment
+  ---
+  duration_ms: 0.6443
+  ...
+# Subtest: only explicit browser harnesses and their known arguments are permitted
+ok 3 - only explicit browser harnesses and their known arguments are permitted
+  ---
+  duration_ms: 0.2764
+  ...
+# Subtest: guard leaves output absent for harnesses that create their own folder
+ok 4 - guard leaves output absent for harnesses that create their own folder
+  ---
+  duration_ms: 7.0992
+  ...
+# Subtest: followup journey requires all three explicit UUID identities
+ok 5 - followup journey requires all three explicit UUID identities
+  ---
+  duration_ms: 0.6766
+  ...
+# Subtest: application-only source snapshots do not need an acceptance directory
+ok 6 - application-only source snapshots do not need an acceptance directory
+  ---
+  duration_ms: 9.9497
+  ...
+# Subtest: collector allows receipt/browser evidence and rejects private browser/config files
+ok 7 - collector allows receipt/browser evidence and rejects private browser/config files
+  ---
+  duration_ms: 2.2063
+  ...
+# Subtest: private scan rejects known secrets and authentication state without echoing values
+ok 8 - private scan rejects known secrets and authentication state without echoing values
+  ---
+  duration_ms: 1.0968
+  ...
+# Subtest: fixture extraction preserves nested JSON and refuses ambiguity/non-recovery output
+ok 9 - fixture extraction preserves nested JSON and refuses ambiguity/non-recovery output
+  ---
+  duration_ms: 1.2657
+  ...
+# Subtest: a dynamic route test runs from its literal parent instead of an expanded bracket path
+ok 10 - a dynamic route test runs from its literal parent instead of an expanded bracket path
+  ---
+  duration_ms: 270.6794
+  ...
+# Subtest: a zero-test or missing-test summary cannot complete a planned focused file
+ok 11 - a zero-test or missing-test summary cannot complete a planned focused file
+  ---
+  duration_ms: 0.1905
+  ...
+# Subtest: Playwright plain and quoted Cookie headers cannot persist session credentials
+ok 12 - Playwright plain and quoted Cookie headers cannot persist session credentials
+  ---
+  duration_ms: 3.037
+  ...
+# Subtest: Set-Cookie, authorization and standalone session token values are redacted
+ok 13 - Set-Cookie, authorization and standalone session token values are redacted
+  ---
+  duration_ms: 0.3801
+  ...
+# Subtest: JSON-escaped token fields and encoded session assignments are not missed
+ok 14 - JSON-escaped token fields and encoded session assignments are not missed
+  ---
+  duration_ms: 0.3189
+  ...
+# Subtest: space gate uses available blocks and includes the exact threshold
+ok 15 - space gate uses available blocks and includes the exact threshold
+  ---
+  duration_ms: 2.7594
+  ...
+# Subtest: one atomic lock refuses a second state path and preserves its owner
+ok 16 - one atomic lock refuses a second state path and preserves its owner
+  ---
+  duration_ms: 15.0674
+  ...
+# Subtest: low host space fails before querying or starting Docker
+ok 17 - low host space fails before querying or starting Docker
+  ---
+  duration_ms: 0.8258
+  ...
+# Subtest: Docker API failure or remote endpoint is fail closed
+ok 18 - Docker API failure or remote endpoint is fail closed
+  ---
+  duration_ms: 1.4442
+  ...
+# Subtest: backing storage space is mandatory even with healthy Docker and guest space
+ok 19 - backing storage space is mandatory even with healthy Docker and guest space
+  ---
+  duration_ms: 1.0937
+  ...
+# Subtest: guest exhaustion and unavailable guest storage both fail closed
+ok 20 - guest exhaustion and unavailable guest storage both fail closed
+  ---
+  duration_ms: 0.8668
+  ...
+# Subtest: explicit existing-container fallback verifies the engine volume before read-only df
+ok 21 - explicit existing-container fallback verifies the engine volume before read-only df
+  ---
+  duration_ms: 1.7709
+  ...
+# Subtest: unknown Docker Desktop backing disk is rejected
+ok 22 - unknown Docker Desktop backing disk is rejected
+  ---
+  duration_ms: 0.1841
+  ...
+# Subtest: fresh initialization rejects named or Compose-labelled persistent resources
+ok 23 - fresh initialization rejects named or Compose-labelled persistent resources
+  ---
+  duration_ms: 0.7641
+  ...
+# Subtest: df parser rejects missing or nonnumeric available space
+ok 24 - df parser rejects missing or nonnumeric available space
+  ---
+  duration_ms: 0.448
+  ...
+1..24
+# tests 24
+# suites 0
+# pass 24
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 394.5678

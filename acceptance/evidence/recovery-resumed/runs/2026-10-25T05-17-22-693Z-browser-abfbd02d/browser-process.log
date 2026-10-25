@@ -1,0 +1,28 @@
+{
+  "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\browser-assignments-retry1\\report.json",
+  "status": "failed",
+  "cases": [
+    {
+      "id": "AS-01-draft-refresh-exact",
+      "status": "PASS"
+    },
+    {
+      "id": "AS-02-create-responsive-four-viewports",
+      "status": "PASS"
+    },
+    {
+      "id": "AS-03-two-tab-safe-conflict",
+      "status": "PASS"
+    },
+    {
+      "id": "AS-04-initial401-safe-recovery",
+      "status": "PASS"
+    },
+    {
+      "id": "AS-05-unknown-create-reload-and-explicit-replay",
+      "status": "FAIL"
+    }
+  ],
+  "failure_stage": "unknown outcome then explicit replay",
+  "error": "locator.waitFor: Error: strict mode violation: getByRole('alert') resolved to 2 elements:\n    1) <p role=\"alert\" class=\"mt-3\">Failed to fetch</p> aka getByText('Failed to fetch')\n    2) <div role=\"alert\" aria-live=\"assertive\" id=\"__next-route-announcer__\"></div> aka locator('[id=\"__next-route-announcer__\"]')\n\nCall log:\n\u001b[2m  - waiting for getByRole('alert') to be visible\u001b[22m\n"
+}

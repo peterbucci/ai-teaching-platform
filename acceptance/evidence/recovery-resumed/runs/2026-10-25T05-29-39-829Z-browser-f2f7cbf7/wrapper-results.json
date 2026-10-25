@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-10-25T05-29-39-829Z-browser-f2f7cbf7",
+  "project": "lp-accept-recovery-01a1714f",
+  "source": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+  "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+  "origin": "http://localhost:3355",
+  "script": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-source\\acceptance\\resume-followup-browser.mjs",
+  "scriptSha256": "57cfb75be580253eae2000bc1d2786f159293d62e166bb6b3eec57371491b9d3",
+  "args": [
+    "http://localhost:3355",
+    "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\browser-followup",
+    "45326e243245c4941e2cefd0eab984bb7ee19765",
+    "8b935f47-c3a9-42a6-ba51-e4a261f5d7d4",
+    "7b7bd353-5fb8-45cb-af56-dcf79cafee71",
+    "ef696252-1a90-4d3c-9016-e891d975df46"
+  ],
+  "output": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\browser-followup",
+  "status": "process-completed; browser-cases-require-report-review",
+  "checks": [
+    {
+      "stage": "source-head",
+      "status": "pass",
+      "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765"
+    },
+    {
+      "stage": "before-browser",
+      "status": "pass",
+      "observation": {
+        "observedAt": "2026-10-25T05:29:39.888Z",
+        "minimumGiB": 10,
+        "host": [
+          {
+            "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+            "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+            "availableBytes": 53977468928,
+            "availableGiB": 50.27043533325195,
+            "minimumGiB": 10,
+            "pass": true
+          },
+          {
+            "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+            "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+            "availableBytes": 53977468928,
+            "availableGiB": 50.27043533325195,
+            "minimumGiB": 10,
+            "pass": true
+          },
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+            "availableBytes": 53977468928,
+            "availableGiB": 50.27043533325195,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ],
+        "engine": {
+          "status": "healthy",
+          "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+          "name": "docker-desktop",
+          "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+          "root": "/var/lib/docker",
+          "storage": {
+            "status": "verified",
+            "method": "read-only df on explicitly selected existing container volume",
+            "container": "learningplatform-db-1",
+            "source": "/var/lib/docker/volumes/learningplatform_postgres_data/_data",
+            "destination": "/var/lib/postgresql/data",
+            "availableBytes": 900244418560,
+            "availableGiB": 838.4179496765137,
+            "pass": true
+          }
+        },
+        "backingStorage": {
+          "provenance": "explicit owner-verified Docker storage path",
+          "disks": [
+            {
+              "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+              "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+              "availableBytes": 53976158208,
+              "availableGiB": 50.26921463012695,
+              "minimumGiB": 10,
+              "pass": true
+            }
+          ]
+        },
+        "pass": true
+      }
+    },
+    {
+      "stage": "after-browser",
+      "status": "pass",
+      "observation": {
+        "observedAt": "2026-10-25T05:29:49.534Z",
+        "minimumGiB": 10,
+        "host": [
+          {
+            "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+            "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+            "availableBytes": 53969317888,
+            "availableGiB": 50.26284408569336,
+            "minimumGiB": 10,
+            "pass": true
+          },
+          {
+            "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+            "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery",
+            "availableBytes": 53969317888,
+            "availableGiB": 50.26284408569336,
+            "minimumGiB": 10,
+            "pass": true
+          },
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+            "availableBytes": 53969317888,
+            "availableGiB": 50.26284408569336,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ],
+        "engine": {
+          "status": "healthy",
+          "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+          "name": "docker-desktop",
+          "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+          "root": "/var/lib/docker",
+          "storage": {
+            "status": "verified",
+            "method": "read-only df on explicitly selected existing container volume",
+            "container": "learningplatform-db-1",
+            "source": "/var/lib/docker/volumes/learningplatform_postgres_data/_data",
+            "destination": "/var/lib/postgresql/data",
+            "availableBytes": 900244324352,
+            "availableGiB": 838.4178619384766,
+            "pass": true
+          }
+        },
+        "backingStorage": {
+          "provenance": "explicit owner-verified Docker storage path",
+          "disks": [
+            {
+              "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+              "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+              "availableBytes": 53969199104,
+              "availableGiB": 50.262733459472656,
+              "minimumGiB": 10,
+              "pass": true
+            }
+          ]
+        },
+        "pass": true
+      }
+    }
+  ],
+  "childResult": {
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "processCompletedSuccessfully": true
+  },
+  "paidModelCallsAuthorized": false,
+  "browserCaseResult": "not-assessed-by-wrapper; inspect the child browser report",
+  "limitations": [
+    "A zero child exit code does not prove browser cases passed",
+    "Wrapper serializes guarded processes only; coordinate other tools with the environment owner",
+    "Storage checks bracket the browser process; its case report and screenshots are separate evidence"
+  ]
+}

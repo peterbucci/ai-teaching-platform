@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "mode": "build",
+  "target": "combined-recovery",
+  "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+  "source": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\recovery-candidate-v2",
+  "project": "lp-accept-recovery-01a1714f",
+  "origin": "http://localhost:3355",
+  "manifest": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1714f-71e2-74a3-b3ac-39b3f362f9cb\\runtime-recovery\\manifest.json",
+  "fixture": "isolated fictional acceptance configuration",
+  "paidModelCallsAuthorized": false,
+  "checks": [
+    {
+      "name": "runner-stopped",
+      "status": "fail",
+      "category": "runner safety",
+      "error": "Acceptance lock already exists at C:\\Users\\sb128\\AppData\\Local\\learning-pulse-acceptance.lock. Coordinate with its owner; never automatically remove a stale or live lock."
+    }
+  ],
+  "passed": [],
+  "failed": [
+    "runner-stopped"
+  ],
+  "unrun": [
+    "docker-version",
+    "build-and-start",
+    "seed-fictional-demo",
+    "image-identities",
+    "built-image-id"
+  ],
+  "stoppedAfterFailure": true,
+  "safetyPolicy": {
+    "buildMinimumGiB": 20,
+    "runtimeMinimumGiB": 10,
+    "sharedLock": "C:\\Users\\sb128\\AppData\\Local\\learning-pulse-acceptance.lock"
+  },
+  "completed": false,
+  "result": "fail",
+  "limitations": [
+    "No hosted release verification",
+    "No fresh or historical actual-model claim",
+    "Browser/accessibility evidence is recorded separately",
+    "Thresholds are conservative starting headroom, not a guarantee against concurrent unguarded clients or an individual command exhausting storage",
+    "Shared lock covers this guarded runner only; other Docker clients and browser scripts must be coordinated with the environment owner",
+    "Unverifiable Docker guest or backing storage fails closed; host backing-disk space is always required"
+  ]
+}

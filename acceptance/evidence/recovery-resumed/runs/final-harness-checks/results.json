@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "sourceSha": "45326e243245c4941e2cefd0eab984bb7ee19765",
+  "category": "deterministic recovery guard, browser wrapper, evidence collector and authentication redaction tests; no Docker/browser/database/model execution",
+  "startedAt": "2026-10-25T05:30:44.063Z",
+  "finishedAt": "2026-10-25T05:30:44.274Z",
+  "result": "pass",
+  "exitCode": 0,
+  "tests": 22,
+  "passed": 22,
+  "failed": 0,
+  "skipped": 0,
+  "command": [
+    "node",
+    "--test",
+    "acceptance/safety.test.mjs",
+    "acceptance/browser-run.test.mjs",
+    "acceptance/collect-resumed-evidence.test.mjs",
+    "acceptance/redact-auth-trace.test.mjs"
+  ],
+  "log": "tests.log",
+  "inputs": [
+    {
+      "path": "acceptance/safety.test.mjs",
+      "sha256": "819efd0de539780581236109fcbe72cde23352748942c77c80392eb235dd30d3"
+    },
+    {
+      "path": "acceptance/browser-run.test.mjs",
+      "sha256": "8224ba3c4fa849434a39c42e27e78b9d3b0c4572d5cc278ab1af429784f16fc5"
+    },
+    {
+      "path": "acceptance/collect-resumed-evidence.test.mjs",
+      "sha256": "c0f6b5b1dbf624388ce9d99a535d6de69dcaef55a1cc83d7431b37dc57f15475"
+    },
+    {
+      "path": "acceptance/redact-auth-trace.test.mjs",
+      "sha256": "64dcaf4b4b31b2bd65e1d0c54a75c5f41c057b475c59b8ae903e142ba1eeef64"
+    },
+    {
+      "path": "acceptance/safety.mjs",
+      "sha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485"
+    },
+    {
+      "path": "acceptance/browser-run.mjs",
+      "sha256": "613dfbdcbef1f28069f19ef380617f1b70e08074cc404f6208d94c7e0487107c"
+    },
+    {
+      "path": "acceptance/collect-resumed-evidence.mjs",
+      "sha256": "029f843d3a3051773c26bbf12c650a441faea18cc030ba3d22c263b577c8e81e"
+    },
+    {
+      "path": "acceptance/redact-auth-trace.mjs",
+      "sha256": "ffd8073c8c5c47e9f52faf196698407af7268f4073ddcbecc8ee79ce5c11278b"
+    }
+  ]
+}

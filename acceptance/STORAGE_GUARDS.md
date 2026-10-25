@@ -69,3 +69,102 @@ the incident's combined commit as evidence of current acceptance. No live-model
 authorization, daemon-restart authorization, merge or deployment is implied.
 
 Dependency-free guard tests: `node --test acceptance/safety.test.mjs`.
+
+After successful fresh-target initialization, run
+`node acceptance/recovery-db.mjs --state <absolute recovery state> --sha <full candidate SHA>`
+before building the app. This takes the same lock, rejects pre-existing recovery
+resources, and starts only PostgreSQL using the existing local image with no pull
+or build. It verifies the new volume's ownership and creation time, compares the
+container image ID with the previously inspected image, checks synchronous settings,
+commits and checksums a synthetic sentinel, switches WAL and checkpoints, and
+verifies the database identity and sentinel after restarting only that database.
+It checks PostgreSQL logs before and after the restart. Evidence is saved under
+the state's `runs/*-database-durability/results.json`; failures leave the volume
+and logs intact. This is a one-time fresh-environment gate: it deliberately refuses
+to rerun against an existing project, so inspect failed evidence before taking any
+further action. It neither repairs incident volumes nor establishes all possible
+power-loss behavior.
+
+Use `browser-run.mjs` to serialize each subsequent browser journey with the same
+lock and 10 GiB runtime gate. It validates the manifest's source HEAD and exact
+recovery origin, passes blank model variables, and requires a fresh output
+directory under the recovery state. Script names are explicitly allowlisted;
+the wrapper records their path and hash separately from the application SHA.
+It runs the child Node process directly without a shell. Existing browser module,
+executable and endpoint environment settings are inherited.
+
+```powershell
+node acceptance/browser-run.mjs --state $statePath --script resume-student-browser.mjs --out "$statePath/browser-student"
+node acceptance/browser-run.mjs --state $statePath --script resume-authoring-browser.mjs --out "$statePath/browser-authoring" -- '{state}' $endpointPath $playwrightPath
+node acceptance/browser-run.mjs --state $statePath --script resume-teacher-browser.mjs -- '{origin}' '{out}' '{sha}'
+```
+
+`{state}`, `{out}`, `{origin}` and `{sha}` are substituted only as complete argument
+values. For supplemental student results, pass
+`--script resume-student-result-browser.mjs --input <prior student output>` and a
+different fresh `--out`. The prior directory must contain its student report,
+storage state and explicitly seeded accepted-result fixture; its SHA and origin
+must match the recovery target. The wrapper does not create that fixture.
+
+The wrapper records child exit status and separate before/after storage checks in
+`runs/*-browser-*/wrapper-results.json`. It deliberately makes **no browser-case
+pass claim**: some harnesses catch failures and exit zero, so inspect their case
+reports and screenshots. A timeout, process failure or failed safety gate stops
+the invocation. A forcibly interrupted child may leave a browser process or
+remote context requiring owner inspection; no shared browser is automatically
+terminated. Output contains disposable login cookies and stays private.
+
+Wrapper argument tests: `node --test acceptance/browser-run.test.mjs`.
+
+When all runtime and browser receipts are final, package the allowlisted artifacts:
+
+```powershell
+node acceptance/collect-resumed-evidence.mjs collect --state $statePath --composition $resumeCompositionPath
+```
+
+The collector takes the same lock and first scans every candidate text file against
+the generated secret values, without printing those values. It also rejects raw
+authentication-state patterns. A diagnostic `.log` containing ephemeral request
+headers/tokens is eligible only as a separately named `.redacted.log` derivative:
+Cookie/Set-Cookie/Authorization values and session-token values are removed, the
+private raw file remains unchanged, and the inventory records both source and
+derivative hashes plus the redaction note. Raw traces are never copied. Other
+allowed files retain their exact original bytes. The entire proposed snapshot is
+checked before creating `acceptance/evidence/recovery-resumed`.
+It copies the recovery manifest, runtime receipts/logs, allowlisted
+browser reports/screenshots/text and matching resumed composition. Environment,
+Compose/configuration, cookie/storage/profile and unallowlisted files are excluded.
+All private originals remain in place. Existing evidence is never overwritten;
+the collector is intended to run once after the complete snapshot is ready.
+
+After the explicit synthetic student fixture seed has succeeded, its saved stdout
+can be extracted without rerunning the seed:
+
+```powershell
+node acceptance/collect-resumed-evidence.mjs student-fixture --state $statePath --stdout $successfulSeedLog
+```
+
+This separate operation requires exactly one completed zero-model fictional
+recovery fixture in the log and matching prior student-browser evidence. It writes
+the new `browser-student/accepted-result-fixture.json` and an extraction hash record,
+preserving the original log. It refuses an existing fixture. It performs no Docker,
+browser, database or model operation.
+
+Collector tests: `node --test acceptance/collect-resumed-evidence.test.mjs`.
+
+Future browser-wrapper logs redact authentication traces before being written;
+this is additional to generated-secret-value redaction. Redaction regression tests
+use synthetic cookies only: `node --test acceptance/redact-auth-trace.test.mjs`.
+
+Colocated application tests run one file at a time from its literal parent
+directory. Node 22 treats full `--test` paths as glob patterns, so bracketed
+Next.js route directories can otherwise be silently omitted. The runner records
+each discovered test's hash, cwd, arguments and TAP counts; zero, missing or
+skipped results fail the gate. Every planned command must pass before a run is
+marked complete. Regression checks: `node --test acceptance/focused-tests.test.mjs`.
+
+The collector also retains the exact nine allowlisted executed browser sources.
+Their runtime hashes remain reproducible when working harness copies receive
+later formatting. `acceptance/evidence/` is excluded from automatic formatting,
+and its Git attributes preserve exact bytes; formatting a receipt would invalidate
+its recorded digest. This exclusion does not apply to application or harness code.
