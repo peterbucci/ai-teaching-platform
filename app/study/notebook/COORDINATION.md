@@ -608,6 +608,22 @@ Default enablement/release remains **NO-GO**. Rebuilt fallback/clipboard evidenc
 and combined N6/#113/reader acceptance remain separate gates. No shared contract,
 existing controller or backend change is authorized by this presentation review.
 
+#### S2 compact-layout breakpoint follow-up
+
+**GO: scoped source review extended to
+`6aa2ce680d6ccea1f615e104e4f1792bcd502f38`.** N0 verified that the only application
+change from `e18b833` expands the compact records layout breakpoint from 700px
+to 900px. It applies to both the records columns and saved-question detail rules,
+allowing the compact layout at the approximately 708px CSS viewport encountered
+in S2's native 200% zoom inspection. Origin/coverage and stale-status fixes remain.
+The added regression runner and adaptation manifest are acceptance artifacts,
+not application changes; their existence alone is not proof of passing checks.
+
+Final rebuilt evidence must be pinned to this source/build, including the
+intermediate-width/200% zoom layout, fallback/copy and combined regressions.
+Earlier `e18b833` browser evidence is not relabelled as final-head evidence.
+Default enablement/release remains **NO-GO**; no full visual acceptance is given.
+
 ## Explicit PR #113 handoff
 
 Verified open draft head: `71898a8a72908577065bcc7c7fb9035d6cc29ebf`.
