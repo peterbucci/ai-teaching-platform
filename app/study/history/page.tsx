@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { AuthError, requireActor } from "../../../lib/auth.ts";
 import { evidenceAccess } from "../../../lib/evidence/store.ts";
 import { studentStudyHistory } from "../../../lib/tutoring/store.ts";
-import { NotebookRecordIndex } from "../notebook/records/index.ts";
+import { NotebookHistory } from "../notebook/integration/notebook-history.tsx";
 import { NotebookRouteShell } from "../notebook/integration/route-shell.tsx";
 
 export const dynamic = "force-dynamic";
@@ -21,8 +21,10 @@ export default async function StudyHistoryPage() {
       route={{ kind: "history" }}
       section="records"
       title="Notebook"
+      leafHeading
     >
-      <NotebookRecordIndex
+      <NotebookHistory
+        nowISO={new Date().toISOString()}
         history={
           history === null
             ? {

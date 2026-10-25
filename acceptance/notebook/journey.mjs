@@ -443,13 +443,9 @@ try {
         ?.getAttribute("data-reader-active") === "true",
   );
   await page.setViewportSize({ width: 390, height: 844 });
-  await page
-    .getByRole("button", { name: "Open navigation", exact: true })
-    .click();
+  await page.getByRole("button", { name: "Menu", exact: true }).click();
   assert.equal(await readerHost.getAttribute("data-reader-active"), "false");
-  await page
-    .getByRole("button", { name: "Close navigation", exact: true })
-    .click();
+  await page.getByRole("button", { name: "Back to page", exact: true }).click();
   await page.waitForFunction(
     () =>
       document

@@ -1,4 +1,4 @@
-/** Actual N4/Workspace route, actual PostgreSQL receipts, fictional identity. */
+/** Actual standalone N1/N4 route, actual PostgreSQL receipts, fictional identity. */
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
@@ -106,9 +106,7 @@ try {
       `/study/reading?assignment=${DEMO_IDS.assignmentId}&session=${session.id}&version=${encodeURIComponent(attempt.question.content_ref.content_version)}&passage=P07&from=study`,
   );
   await until(() => Boolean(delivery));
-  await page
-    .getByRole("button", { name: "Open navigation", exact: true })
-    .click();
+  await page.getByRole("button", { name: "Menu", exact: true }).click();
   assert.equal(
     await page
       .locator("[data-n7-standalone-reader]")
@@ -125,9 +123,7 @@ try {
   report.checks.push(
     "committed delivery arriving behind mobile overlay sends zero display receipts",
   );
-  await page
-    .getByRole("button", { name: "Close navigation", exact: true })
-    .click();
+  await page.getByRole("button", { name: "Back to page", exact: true }).click();
   await page.locator(".reading-article").scrollIntoViewIfNeeded();
   await until(
     async () => (await readRows())[0]?.delivery_status === "displayed",

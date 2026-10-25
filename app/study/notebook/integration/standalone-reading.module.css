@@ -1,0 +1,149 @@
+/* Next can emit the legacy reader stylesheet after N4's module. These scoped
+   rules preserve N4's presentation where equal-specificity legacy rules win;
+   the unchanged reader still owns contents, controls and --reader-size. */
+.independent {
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  border: 1px solid #e1e9e4;
+  border-radius: 10px;
+  background: #fff;
+  font-size: 14px;
+  color: #4f6359;
+}
+
+.independent strong {
+  color: #17302d;
+}
+
+.independent p {
+  margin: 2px 0 0;
+}
+
+.surface > section > header {
+  padding-top: 12px;
+  padding-bottom: 8px;
+}
+
+/* N4 repeats this version immediately above its Source and version disclosure.
+   Keep the exact value in that disclosure, alongside the other source IDs. */
+.surface > section > header > p:last-of-type {
+  display: none;
+}
+
+.surface :global(.lp-s-reader-refined .read-hero h1) {
+  font-size: 19px;
+  font-weight: 650;
+  letter-spacing: 0;
+}
+
+.surface :global(.lp-s-reader-refined .reader-workspace) {
+  grid-template-columns: 270px minmax(0, 1fr);
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.surface :global(.lp-s-reader-refined .chapter-nav) {
+  background: #fff;
+  border: 1px solid #e1e9e4;
+}
+
+.surface :global(.lp-s-reader-refined .chapter-contents) {
+  height: auto;
+  max-height: none;
+}
+
+.surface :global(.lp-s-reader-refined .reader-tools) {
+  padding: 0 0 12px;
+  gap: 8px;
+}
+
+.surface :global(.lp-s-reader-refined .reader-tools-right) {
+  gap: 8px;
+}
+
+.surface :global(.lp-s-reader-refined .searchbox input) {
+  min-width: 0;
+  width: 100%;
+  font-size: 14px;
+  border-color: #7d8e86;
+  background: #fff;
+}
+
+.surface :global(.lp-s-reader-refined .reader-button) {
+  min-height: 44px;
+  padding: 9px 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.surface :global(.lp-s-reader-refined .text-buttons button) {
+  font-size: 14px;
+}
+
+.surface :global(.lp-s-reader-refined .reading-article) {
+  padding: 12px 0;
+  min-height: 0;
+}
+
+.surface :global(.lp-s-reader-refined .section-title) {
+  font-size: 19px;
+  font-weight: 650;
+  letter-spacing: 0;
+  margin: 6px 0 12px;
+}
+
+.surface :global(.lp-s-reader-refined .reading-body) {
+  line-height: 1.7;
+  color: #1d3a33;
+  max-width: 66ch;
+}
+
+.surface :global(.lp-s-reader-refined .reading-body p) {
+  margin: 0 0 14px;
+}
+
+.surface :global(.lp-s-reader-refined .reader-bottom) {
+  padding: 14px 0;
+}
+
+.surface :global(.lp-s-reader-refined .read-source) {
+  text-align: left;
+  justify-content: flex-start;
+  font-size: 13.5px;
+}
+
+/* Preserve the reader's desktop contents disclosure, while N4's actual slot
+   width controls mobile contents. A viewport rule must not hide a wider slot. */
+@container notebook-reading (min-width: 901px) {
+  .surface :global(.lp-s-reader-refined .reader-workspace.contents-collapsed) {
+    grid-template-columns: 48px minmax(0, 1fr);
+  }
+}
+
+@container notebook-reading (max-width: 900px) {
+  .surface :global(.lp-s-reader-refined .reader-workspace) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .surface :global(.lp-s-reader-refined .chapter-nav) {
+    display: none;
+  }
+
+  .surface :global(.lp-s-reader-refined .chapter-nav.open) {
+    display: flex;
+  }
+
+  .surface :global(.lp-s-reader-refined .chapter-mobile-trigger) {
+    padding: 9px 12px;
+    border: 1px solid #cbd9d1;
+    background: #fff;
+  }
+
+  .surface :global(.lp-s-reader-refined .contents-collapsed .chapter-contents) {
+    display: grid;
+  }
+}

@@ -4,9 +4,9 @@ import { z } from "zod";
 import { AuthError, requireActor } from "../../../lib/auth.ts";
 import { evidenceAccess, EvidenceError } from "../../../lib/evidence/store.ts";
 import { studentReader } from "../../../lib/reading/student-reader.ts";
-import { Workspace } from "../../components/workspace.tsx";
 import { Icon } from "../../components/icons.tsx";
 import "./reader.css";
+import { NotebookRouteShell } from "../notebook/integration/route-shell.tsx";
 import { StandaloneNotebookReading } from "../notebook/integration/standalone-reading.tsx";
 
 export const dynamic = "force-dynamic";
@@ -78,7 +78,12 @@ export default async function ReadingPage({
       />
     );
   return (
-    <Workspace area="student" section="Reading">
+    <NotebookRouteShell
+      section="reading"
+      title="Reading"
+      route={{ kind: "reading", location: {} }}
+      leafHeading
+    >
       <div className="lp-s-reader-refined">
         <header className="read-hero">
           <h1>Reading</h1>
@@ -103,6 +108,6 @@ export default async function ReadingPage({
           </Link>
         </section>
       </div>
-    </Workspace>
+    </NotebookRouteShell>
   );
 }

@@ -8,6 +8,7 @@ import { execFileSync } from "node:child_process";
 import { DEMO_IDS } from "../../lib/evidence/demo.ts";
 import { loadApprovedContent } from "../../lib/evidence/content.ts";
 import { checkStandaloneReadingExposure } from "../../tests/browser/notebook-integration/standalone-reading.mjs";
+import { checkNotebookHistory } from "../../tests/browser/notebook-integration/history.mjs";
 
 assert.equal(process.env.PGHOST, "127.0.0.1");
 assert.equal(process.env.PGPORT, "5907");
@@ -71,12 +72,12 @@ const surfaces = [
     note: "Mounted N1/N2; approved objectives and available current data remain authoritative.",
   },
   {
-    id: "saved",
-    title: "Saved original work",
+    id: "notebook",
+    title: "Notebook index",
     scenario: "maya-notebook",
-    route: `/study/assignments/${assignment}?tab=work&session=${journey.session}#question-${journey.attempt}`,
-    ready: `[id="question-${journey.attempt}"]`,
-    note: "N3 current-data mode; no prototype chronology/results are invented.",
+    route: "/study/history",
+    ready: "[data-n7-notebook-index]",
+    note: "Global Notebook index compared with the same prototype destination. Current-data cards and supported session filters only; per-answer results, help and chronology remain unavailable.",
   },
   {
     id: "reading",
@@ -84,7 +85,7 @@ const surfaces = [
     scenario: "owen-reading",
     route: `/study/reading?assignment=${assignment}&version=${encodeURIComponent(version)}&passage=P07`,
     ready: "[data-n7-standalone-reader]",
-    note: "N4 mounted on existing Workspace. Facing pane disabled pending owner approval; no full shell parity claim.",
+    note: "Standalone N1/N4 composition with one visibility-aware reader. Facing reading remains disabled. Source wording and passage structure follow the actual approved version.",
   },
   {
     id: "review",
@@ -139,18 +140,16 @@ const report = {
   paidCalls: 0,
   fontNote:
     "External prototype fonts blocked; screenshots use available local fallback fonts.",
+  visualAcceptance: {
+    status: "NOT_ACCEPTED",
+    reason:
+      "Viewport, overflow and zoom assertions are functional layout checks, not prototype fidelity acceptance. Active-study presentation remains gated and current-data records cannot reproduce the prototype's full chronology.",
+  },
   checks: [],
   pairs: [],
   geometry: [],
   defects: [],
-  visualDifferences: [
-    {
-      severity: "P3",
-      surface: "learning",
-      issue:
-        "N5 review cards stack the action within the roughly 780px home column at desktop widths, while the prototype keeps a compact right-aligned action. This inherited container breakpoint reduces density and pushes assignments lower; functionality remains available.",
-    },
-  ],
+  visualDifferences: [],
   errors: [],
   blockedExternalRequests: [],
   nativeZoom: { status: "UNRUN", metrics: [] },
@@ -268,6 +267,35 @@ async function geometry(page, surface, variant, size) {
       })),
   }));
   report.geometry.push({ surface: surface.id, variant, size, ...measured });
+  if (variant === "application" && surface.id === "learning") {
+    const cards = await page
+      .locator('[data-notebook-slot="teacher-reviews"] .sn-review-card')
+      .evaluateAll((elements) =>
+        elements.map((card) => {
+          const text = card.querySelector(".sn-review-row > .sn-review-stack");
+          const action = card.querySelector(".sn-review-actions");
+          const textBox = text.getBoundingClientRect();
+          const actionBox = action.getBoundingClientRect();
+          return {
+            width: card.getBoundingClientRect().width,
+            actionBesideText:
+              actionBox.left >= textBox.right - 1 &&
+              Math.abs(actionBox.top - textBox.top) < 2,
+          };
+        }),
+      );
+    for (const card of cards.filter((card) => card.width >= 560))
+      assert.equal(
+        card.actionBesideText,
+        true,
+        "Review action stays beside text when its actual column has room",
+      );
+    report.checks.push({
+      check: "Review summary action follows actual column width",
+      size,
+      cards,
+    });
+  }
   if (variant === "application" && measured.scrollWidth > measured.width + 1)
     report.defects.push({
       severity: "P2",
@@ -323,6 +351,12 @@ try {
           ...exposure,
         });
       }
+      if (surface.id === "notebook")
+        report.checks.push({
+          check: "Notebook history filters / exact links / no writes",
+          size,
+          ...(await checkNotebookHistory(application)),
+        });
       await readyReference(reference, surface);
       const referenceName = `prototype-${surface.id}-${size}.png`;
       await reference.screenshot({ path: path.join(out, referenceName) });
@@ -463,7 +497,7 @@ try {
       .replaceAll('"', "&quot;");
   fs.writeFileSync(
     path.join(out, "COMPARISON.html"),
-    `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>N7 application and approved prototype</title><style>body{font:16px system-ui;background:#f5f3ed;color:#183a31;margin:24px}section{margin:30px 0}figure{margin:0}img{max-width:100%;border:1px solid #bccac1}.pair{display:grid;grid-template-columns:1fr 1fr;gap:20px}figcaption{font-weight:700;padding:10px}p{max-width:1000px}@media(max-width:800px){.pair{grid-template-columns:1fr}}</style><h1>N7: application versus approved prototype</h1><p>Exact reference ZIP fa69c2d0. ${escape(report.fontNote)} Authenticated fictional application data; disabled providers and zero paid calls. Component presentation comparison only; active study, reading and review retain existing Workspace under their safety/ownership gates.</p><p>Source ${escape(report.source)}; working diff SHA-256 ${escape(report.diffSha256)}. Native zoom: ${escape(report.nativeZoom.status)}. <a href="visual-results.json">Raw results and defects</a>.</p>${report.pairs.map((pair) => `<section><h2>${escape(pair.title)} · ${escape(pair.size)}</h2><p>${escape(pair.note)}</p><div class="pair"><figure><figcaption>Approved prototype</figcaption><img src="${escape(pair.prototype)}" alt="Prototype ${escape(pair.title)}"></figure><figure><figcaption>Authenticated application</figcaption><img src="${escape(pair.application)}" alt="Application ${escape(pair.title)}"></figure></div></section>`).join("")}</html>`,
+    `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>N7 application and approved prototype</title><style>body{font:16px system-ui;background:#f5f3ed;color:#183a31;margin:24px}section{margin:30px 0}figure{margin:0}img{max-width:100%;border:1px solid #bccac1}.pair{display:grid;grid-template-columns:1fr 1fr;gap:20px}figcaption{font-weight:700;padding:10px}p{max-width:1000px}.acceptance{padding:16px;border:2px solid #a85c22;background:#fff4e1}@media(max-width:800px){.pair{grid-template-columns:1fr}}</style><h1>N7: application versus approved prototype</h1><p class="acceptance"><strong>Full visual acceptance: not complete.</strong> ${escape(report.visualAcceptance.reason)}</p><p>Exact reference ZIP fa69c2d0. ${escape(report.fontNote)} Authenticated fictional application data; disabled providers and zero paid calls. Each pair compares the same destination. Differences in authorized content and unavailable chronology are identified separately from layout defects.</p><p>Source ${escape(report.source)}; working diff SHA-256 ${escape(report.diffSha256)}. Native zoom mechanics: ${escape(report.nativeZoom.status)}. <a href="visual-results.json">Raw results and defects</a>.</p>${report.pairs.map((pair) => `<section><h2>${escape(pair.title)} · ${escape(pair.size)}</h2><p>${escape(pair.note)}</p><div class="pair"><figure><figcaption>Approved prototype</figcaption><img src="${escape(pair.prototype)}" alt="Prototype ${escape(pair.title)}"></figure><figure><figcaption>Authenticated application</figcaption><img src="${escape(pair.application)}" alt="Application ${escape(pair.title)}"></figure></div></section>`).join("")}</html>`,
   );
   console.log(`REPORT ${path.relative(root, out)}`);
 }

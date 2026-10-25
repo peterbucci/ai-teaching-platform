@@ -3,11 +3,11 @@
 import { useEffect, useRef, useState, type SyntheticEvent } from "react";
 import { flushSync } from "react-dom";
 import type { StudentReaderView } from "../../../../lib/reading/model.ts";
-import { Workspace } from "../../../components/workspace.tsx";
 import { StudentReader } from "../../reading/reader.tsx";
-import { readingHref } from "../../reading/presentation.ts";
 import { notebookReadingContext } from "../adapters.ts";
 import { NotebookReading } from "../reading/index.ts";
+import { NotebookRouteShell } from "./route-shell.tsx";
+import styles from "./standalone-reading.module.css";
 
 /** Standalone route only. Facing-pane composition remains disabled. */
 export function StandaloneNotebookReading({
@@ -61,7 +61,14 @@ export function StandaloneNotebookReading({
     changes.observe(container, {
       subtree: true,
       attributes: true,
-      attributeFilter: ["open", "hidden", "style", "class", "inert"],
+      attributeFilter: [
+        "open",
+        "hidden",
+        "style",
+        "class",
+        "inert",
+        "data-pane",
+      ],
     });
     const intersection = new IntersectionObserver(update);
     intersection.observe(reader);
@@ -88,12 +95,12 @@ export function StandaloneNotebookReading({
   function beforeOverlay(event: SyntheticEvent) {
     if (!(event.target instanceof Element)) return;
     const drawer = event.target.closest(
-      'button[aria-controls="workspace-navigation"]',
+      'button[aria-label="Menu"][aria-controls]',
     );
     const account = event.target.closest("details.lp-account-menu > summary");
     if (!drawer && !account) return;
-    // Commit the reader's active=false before Workspace.showModal or the
-    // native details toggle. Mouse and keyboard activation use this same seam.
+    // Commit active=false before N1 hides the page or the account details open.
+    // Mouse and keyboard activation use this same seam; N1 retains the reader.
     const height = surface.current?.getBoundingClientRect().height;
     flushSync(() => {
       if (height && height > 0) setVisibleHeight(height);
@@ -116,21 +123,33 @@ export function StandaloneNotebookReading({
         if (event.key === "Enter" || event.key === " ") beforeOverlay(event);
       }}
     >
-      <Workspace
-        area="student"
-        section="Reading"
-        readingHref={readingHref({
-          assignmentId: view.assignment.id,
-          contentVersion: view.reading.content_ref.content_version,
-          passageId: view.selectedPassageId,
-          sessionId: view.session?.id,
-        })}
+      <NotebookRouteShell
+        section="reading"
+        title="Reading"
+        route={{
+          kind: "reading",
+          location: {
+            assignmentId: view.assignment.id,
+            contentVersion: view.reading.content_ref.content_version,
+            passageId: view.selectedPassageId,
+            sessionId: view.session?.id,
+          },
+          citationId: citation?.id,
+          fromStudy: returnToSession ? true : undefined,
+        }}
       >
         <div
           ref={surface}
+          className={styles.surface}
           data-n7-reader-surface
           style={{ minHeight: active ? undefined : visibleHeight }}
         >
+          {!view.session && (
+            <aside className={styles.independent}>
+              <strong>Reading on your own</strong>
+              <p>This reading is not recorded as help for a question.</p>
+            </aside>
+          )}
           <NotebookReading
             state={{ status: "ready", data: view }}
             context={{
@@ -147,7 +166,7 @@ export function StandaloneNotebookReading({
             }
           />
         </div>
-      </Workspace>
+      </NotebookRouteShell>
     </div>
   );
 }

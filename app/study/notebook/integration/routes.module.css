@@ -11,3 +11,16 @@
 .route [role="region"] > div:last-child {
   max-width: 1200px;
 }
+
+/* N2's desktop main column is narrower than the N5 standalone breakpoint.
+   Keep the summary action beside its text when that actual column has room. */
+@container sn-review-card (min-width: 560px) {
+  .route [data-notebook-slot="teacher-reviews"] :global(.sn-review-row) {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .route [data-notebook-slot="teacher-reviews"] :global(.sn-review-actions) {
+    align-items: flex-end;
+    max-width: 250px;
+  }
+}
