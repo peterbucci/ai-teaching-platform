@@ -73,7 +73,12 @@ export function StudySession({
 }) {
   const router = useRouter();
   const wantsReading = useSearchParams().get("reading") === "1";
-  const [view, setView] = useState(initial);
+  const [view, setViewSnapshot] = useState(initial);
+  const appliedViewRevision = useRef(0);
+  const setView = useCallback((updated: TutorView) => {
+    appliedViewRevision.current += 1;
+    setViewSnapshot(updated);
+  }, []);
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
   const [startingNew, setStartingNew] = useState(false);
@@ -212,10 +217,13 @@ export function StudySession({
     (lesson) => lesson.session?.id === view?.session.id,
   );
   const refresh = useCallback(
-    async (sessionId: string) => {
+    async (sessionId: string, shouldApply?: () => boolean) => {
       const updated = TutorViewSchema.parse(
         await request(`/api/tutoring/${sessionId}`),
       );
+      // Reader reconciliation may finish after a newer passage or tutor action.
+      // Reject it before changing either answer recovery or the accepted view.
+      if (shouldApply && !shouldApply()) return null;
       const original = submission.current;
       if (original && hasMatchingSavedAnswer(updated, original)) {
         rememberAnswer({ ...original, state: "acknowledged" });
@@ -224,7 +232,7 @@ export function StudySession({
       setView(updated);
       return updated;
     },
-    [rememberAnswer],
+    [rememberAnswer, setView],
   );
   const receiveReadingState = useCallback(
     (state: ReadingDeliveryState) => {
@@ -240,18 +248,30 @@ export function StudySession({
       }
       if (!state.confirmedId) return;
       readingConfirmed.current = state.confirmedId;
-      void refresh(sessionId)
+      const revision = appliedViewRevision.current;
+      const sameReading = () =>
+        readerReceipt.current?.selection === effectiveReadingSelection &&
+        readerReceipt.current.busy === false &&
+        readerReceipt.current.confirmedId === state.confirmedId;
+      const shouldApply = () =>
+        appliedViewRevision.current === revision &&
+        !busyRef.current &&
+        sameReading();
+      void refresh(sessionId, shouldApply)
         .then((updated) => {
-          // A previous passage's refresh cannot unlock a newer pending selection.
+          // A skipped response must not unlock controls using its stale data.
+          // The accepted refresh advances the local view revision exactly once.
           if (
+            updated &&
+            appliedViewRevision.current === revision + 1 &&
+            !busyRef.current &&
             !updated.pending_reading &&
-            readerReceipt.current?.selection === effectiveReadingSelection &&
-            readerReceipt.current.busy === false &&
-            readerReceipt.current.confirmedId === state.confirmedId
+            sameReading()
           )
             setReadingBlocked(false);
         })
         .catch(() => {
+          if (!shouldApply()) return;
           setError(
             "The reading receipt was saved, but your current question could not be refreshed. Refresh saved progress before answering.",
           );
@@ -279,6 +299,7 @@ export function StudySession({
       setRefreshing(true);
       try {
         const updated = await refresh(view.session.id);
+        if (!updated) return;
         if (
           !updated.pending_reading &&
           readingConfirmed.current &&
@@ -329,6 +350,7 @@ export function StudySession({
     if (!view || !submission.current) return;
     await perform(async () => {
       const updated = await refresh(view.session.id);
+      if (!updated) return;
       const original = submission.current;
       if (!original) return;
       if (hasMatchingSavedAnswer(updated, original)) {
@@ -404,7 +426,7 @@ export function StudySession({
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [sessionId, phase, retryAfter, busy]);
+  }, [sessionId, phase, retryAfter, busy, setView]);
   useEffect(() => {
     if (phase !== "answer" && phase !== "completed" && phase !== "feedback")
       return;
@@ -499,7 +521,7 @@ export function StudySession({
       observer.disconnect();
       document.removeEventListener("visibilitychange", confirm);
     };
-  }, [pendingHelp, sessionId, displayRetry]);
+  }, [pendingHelp, sessionId, displayRetry, setView]);
   async function start(id: string) {
     await perform(async () => {
       const updated = TutorViewSchema.parse(
@@ -577,6 +599,7 @@ export function StudySession({
         throw error;
       }
       const updated = await refresh(view.session.id);
+      if (!updated) return;
       if (!hasMatchingSavedAnswer(updated, original))
         throw new Error(
           "The server acknowledged your answer, but its latest progress could not be confirmed. Check the answer save before continuing.",
@@ -952,6 +975,7 @@ export function StudySession({
                 onSubmitAnswer={answer}
                 onLessonChanged={async ({ evaluate: evaluateAnswer }) => {
                   const updated = await refresh(view.session.id);
+                  if (!updated) return;
                   if (
                     evaluateAnswer &&
                     updated.progress.phase === "evaluate" &&
@@ -987,7 +1011,7 @@ export function StudySession({
               />
             )}
           </div>
-          {(phase !== "answer" || pendingReading) && (
+          {(phase !== "answer" || pendingReading || readingBlocksCurrent) && (
             <NotebookNotices>
               <div className="lp-session-actions">
                 {phase !== "answer" && (
@@ -1025,6 +1049,13 @@ export function StudySession({
                     )}
                   </p>
                 )}
+                {readingBlocksCurrent && !pendingReading && (
+                  <p className="lp-study-session-state" role="status">
+                    Reading progress is not yet confirmed for this question.
+                    Your draft is kept. Refresh saved progress after finishing
+                    any reading recovery.
+                  </p>
+                )}
                 {view.progress.phase === "evaluate" && (
                   <button
                     type="button"
@@ -1052,8 +1083,10 @@ export function StudySession({
                     {busy ? "Retrying evaluation…" : "Retry evaluation"}
                   </button>
                 )}
-                {phase !== "answer" &&
-                  (view.session.status !== "completed" || error) &&
+                {(readingBlocksCurrent ||
+                  (phase !== "answer" &&
+                    (view.session.status !== "completed" || error))) &&
+                  (!notebook || !error) &&
                   refreshButton}
               </div>
             </NotebookNotices>
