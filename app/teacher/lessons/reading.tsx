@@ -12,26 +12,31 @@ export function LessonReading({
   const source = content?.content_ref;
   return (
     <>
-      <p>
-        <strong>{content?.attribution?.title ?? "Source pending"}</strong>
-      </p>
-      <p className="la-muted">Lesson v{source?.content_version ?? "—"}</p>
-      <p className="la-muted">
-        {content?.attribution?.authors.join(", ")} ·{" "}
-        {content?.attribution?.license}
-      </p>
-      {sourceHref && (
-        <Link className="lp-text-link" href={sourceHref}>
-          Original extraction & source versions ↗
-        </Link>
-      )}
+      <details className="aw-source-credit">
+        <summary>Source and attribution</summary>
+        <p>
+          <strong>{content?.attribution?.title ?? "Source pending"}</strong>
+        </p>
+        <p className="la-muted">Lesson v{source?.content_version ?? "—"}</p>
+        <p className="la-muted">
+          {content?.attribution?.authors.join(", ")} ·{" "}
+          {content?.attribution?.license}
+        </p>
+        {sourceHref && (
+          <Link className="lp-text-link" href={sourceHref}>
+            Original extraction & source versions ↗
+          </Link>
+        )}
+      </details>
       {content?.passages?.map((passage) => (
         <article className="aw-reading-passage" key={passage.id}>
           <h3>
-            {passage.section ?? passage.id}
+            {passage.id}
+            {passage.section && passage.section !== passage.id
+              ? ` · ${passage.section}`
+              : ""}
             {passage.page_number ? ` · page ${passage.page_number}` : ""}
           </h3>
-          <p className="la-muted">{passage.id}</p>
           <SourcePassageText>{passage.text}</SourcePassageText>
           <p className="la-muted">
             Used by{" "}

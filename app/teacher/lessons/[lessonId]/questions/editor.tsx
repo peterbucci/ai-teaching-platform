@@ -817,7 +817,8 @@ export function QuestionBankEditor({
   const readingPane = (
     <div className="qb-reading">
       {sourceReference && (
-        <div className="qb-reading-credit">
+        <details className="qb-reading-credit aw-source-credit">
+          <summary>Source and attribution</summary>
           <p>{sourceReference.attribution.title}</p>
           <p>
             {sourceReference.attribution.authors.join(", ")} ·{" "}
@@ -830,7 +831,7 @@ export function QuestionBankEditor({
           >
             Open exact source version
           </Link>
-        </div>
+        </details>
       )}
       {reading.map(({ passage, linked, uses, quotes, index }) => (
         <article

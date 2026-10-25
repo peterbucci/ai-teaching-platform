@@ -231,6 +231,19 @@
 .aw-reading-content p {
   margin-bottom: 10px;
 }
+.aw-source-credit {
+  color: #4f6359;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.aw-source-credit > summary {
+  cursor: pointer;
+  color: #176d58;
+  padding-block: 4px;
+}
+.aw-source-credit[open] > summary {
+  margin-bottom: 10px;
+}
 .aw-reading-passage {
   border-top: 1px solid #e1e9e4;
   padding: 14px 0;

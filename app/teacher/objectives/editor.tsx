@@ -130,14 +130,15 @@ function SourceReading({
             className={`lo-reading-passage${linked ? " lo-reading-cited" : ""}`}
           >
             <div className="lo-reading-passage-heading">
-              <h3>{passage.section ?? passage.passage_id}</h3>
+              <h3>
+                {passage.passage_id}
+                {passage.section && passage.section !== passage.passage_id
+                  ? ` · ${passage.section}`
+                  : ""}
+                {passage.page_number ? ` · Page ${passage.page_number}` : ""}
+              </h3>
               {linked && <span>Cited here</span>}
             </div>
-            <p className="lo-muted">
-              {passage.passage_id}
-              {passage.page_number ? ` · Page ${passage.page_number}` : ""} · v
-              {source.version}
-            </p>
             <SourcePassageText>
               {evidenceSegments(passage.text, quotes).map((segment, index) =>
                 segment.highlighted ? (
@@ -937,15 +938,13 @@ export function ObjectiveEditor({
           }
           reading={
             <div className="lo-reading-pane">
-              <section className="lo-reading-header">
+              <details className="lo-reading-header aw-source-credit">
+                <summary>Source and attribution</summary>
                 <p>
                   <strong>{data.source.attribution.title}</strong>
                 </p>
                 <p className="lo-muted">
                   {data.source.attribution.authors.join(", ")}
-                </p>
-                <p className="lo-muted">
-                  Cited passages first · exact supporting quotes highlighted.
                 </p>
                 <Link
                   href={sourceHref ?? "/teacher/materials"}
@@ -953,7 +952,8 @@ export function ObjectiveEditor({
                 >
                   Source and version details
                 </Link>
-              </section>
+              </details>
+              <p className="lo-muted">Exact supporting quotes highlighted.</p>
               <SourceReading source={data.source} item={activeItem} />
               <details className="lo-ai-disclosure">
                 <summary>Optional AI suggestions</summary>{" "}
