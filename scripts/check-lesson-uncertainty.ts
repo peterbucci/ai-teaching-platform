@@ -35,6 +35,7 @@ import {
 import { applyTutoring } from "../lib/tutoring/store.ts";
 import { readAssignmentEvidence } from "../lib/teacher/store.ts";
 import { calculatePatterns } from "../lib/teacher/patterns.ts";
+import { assertUploadedOverview } from "./assert-uploaded-overview.ts";
 import {
   makeTeacherLesson,
   teacherSourceAttribution,
@@ -614,13 +615,37 @@ try {
         .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "")
         .replace(/<[^>]*>/g, " ")
         .replace(/\s+/g, " ");
-      assert.match(
-        text,
-        page === "/teacher"
-          ? /Teaching Desk/
-          : /Unclear or uncategorized reasoning/,
-      );
+      if (page === "/teacher") {
+        // response.text() consumes the complete streamed response. The raw HTML
+        // can retain Suspense's fallback alongside its later resolved payload;
+        // a heading match alone would accept a workspace stuck loading.
+        const evidenceLinks = assertUploadedOverview(html, {
+          assignmentId: empty.assignment.id,
+          assignmentTitle: empty.draft.title,
+          otherAssignmentId: reserved.assignment.id,
+          otherAssignmentTitle: reserved.draft.title,
+          concepts: empty.lesson.concepts,
+          evidence: data.evidence,
+        });
+        for (const link of evidenceLinks) {
+          const detail = await request(
+            link.pathname + link.search,
+            teacher.cookie,
+          );
+          assert.equal(detail.status, 200);
+          assert.ok(
+            (await detail.text()).includes(
+              "I cannot explain these changes yet.",
+            ),
+            "Overview action must open the original uncertain answer",
+          );
+        }
+        console.log(
+          `PASS: resolved Overview for ${empty.assignment.id}; both uploaded assignments, distinct-student uncertainty, separate missing work, and ${evidenceLinks.length} exact original-response actions.`,
+        );
+      }
       if (page === "/teacher/insights") {
+        assert.match(text, /Unclear or uncategorized reasoning/);
         assert.match(text, /1 of 2 students/);
         assert.match(text, /No named pattern/);
       }

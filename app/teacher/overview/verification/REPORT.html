@@ -80,6 +80,20 @@
   <h1>Teaching Workbench v2.2 — Overview</h1>
   <p>Agent F · 25 October 2026 · Draft integration evidence</p>
   <section>
+    <h2>CI regression follow-up</h2>
+    <p>
+      The stale Teaching Desk assertion is replaced with resolved Overview
+      behavior checks. The uploaded-lesson fixture now verifies the visible
+      loading-to-content transition, both owned assignment links, uncertainty
+      denominators, separate missing work and exact original-answer actions.
+      This supersedes the initial loading verification gap below. The approved
+      Overview implementation and visual corrections are unchanged.
+      <a href="ci-followup/REPORT.html"
+        >Follow-up evidence and CI instructions</a
+      >.
+    </p>
+  </section>
+  <section>
     <h2>Result and scope</h2>
     <p>
       The selected-assignment Teaching Desk is replaced with a teacher decision
@@ -276,7 +290,7 @@
             </td>
             <td>
               Empty and partial failure browser checks pass. Loading probe timed
-              out before document commit; visible loading fallback remains
+              out before document commit; visible loading fallback was initially
               unverified. Whole-database outage not tested.
             </td>
           </tr>
@@ -436,12 +450,13 @@
       <a href="resume-320.png">mobile resume</a>.
     </p>
     <p>
-      <strong>Unverified:</strong> the real loading probe blocked document
-      commit for 30 seconds, so no visible loading fallback could be
-      established. The temporary lock was rolled back; subsequent checks verify
-      recovery. The page-local fallback exists in source. See
-      <a href="loading-attempt.json">exact failed probe</a>. A whole-database
-      outage, physical phones and screen-reader testing were not performed.
+      <strong>Initial probe (superseded by the CI follow-up above):</strong> the
+      real loading probe blocked document commit for 30 seconds, so no visible
+      loading fallback could be established. The temporary lock was rolled back;
+      subsequent checks verify recovery. The page-local fallback exists in
+      source. See <a href="loading-attempt.json">exact failed probe</a>. A
+      whole-database outage, physical phones and screen-reader testing were not
+      performed.
     </p>
     <p>
       Required checks: 26 focused/related tests passed; repository lint,

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PR 138 — Uploaded-lesson Overview regression</title>
+  <style>
+    body {
+      max-width: 1000px;
+      margin: auto;
+      padding: 24px;
+      font: 16px/1.55 system-ui;
+      color: #17302d;
+    }
+    img {
+      width: 100%;
+      height: auto;
+    }
+    pre {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      background: #eef5f1;
+      padding: 12px;
+    }
+    a {
+      color: #176d58;
+    }
+  </style>
+  <h1>Uploaded-lesson Overview regression</h1>
+  <p>
+    Follow-up to
+    <a href="https://github.com/peterbucci/ai-teaching-platform/pull/138"
+      >draft PR #138</a
+    >, October 25, 2026.
+  </p>
+  <p>
+    <a
+      href="https://github.com/peterbucci/ai-teaching-platform/actions/runs/40225306718"
+      >Original CI run 40225306718</a
+    >
+    failed at the obsolete Teaching Desk title assertion. Its complete HTTP body
+    already contained resolved Overview content after the Suspense fallback. The
+    local reproduction confirmed the same failure.
+  </p>
+  <h2>What changed</h2>
+  <p>
+    Only regression checks and evidence changed. The Overview page, loader,
+    model and CSS remain byte-for-byte unchanged from the approved
+    implementation.
+  </p>
+  <p>
+    The service gate now consumes the full response and requires real Overview
+    elements after stripping script/style payloads. It checks both owned
+    uploaded assignments and their destinations, the two concepts'
+    distinct-student uncertainty (1 of 2 enrolled students), separate missing
+    work (1 of 2), and exact
+    assignment/origin/concept/session/attempt/evaluation evidence actions. It
+    follows those actions to the original uncertain answer. React may emit later
+    list items in separate hidden segments before inserting them; the assertion
+    handles this without confusing serialized RSC strings with rendered
+    elements.
+  </p>
+  <p>
+    The original reserved-category uncertainty, diagnostic replay, historical
+    lesson-version, unchanged-evidence, unauthorized student/foreign-teacher,
+    and private-response checks remain intact. A negative regression test
+    rejects shell-only, fallback-only, script-only, and unavailable output; it
+    runs in the existing npm test glob. The helper lives under scripts so the
+    existing production Docker image includes it.
+  </p>
+  <h2>Actual browser result</h2>
+  <p>
+    The same successful uploaded fixture was opened in Chrome against the
+    production application. The observer recorded
+    <strong
+      >loading visible / Overview hidden → loading hidden / Overview
+      visible</strong
+    >. Both owned uploads appeared in the assembled rail; two uncertainty
+    decisions and one missing-work row appeared; both Evidence actions opened
+    the original saved response. No browser errors or navigation writes
+    occurred. This closes the initial report's loading-fallback visibility gap
+    for this fixture; it does not establish whole-database outage handling.
+  </p>
+  <p>
+    <a href="browser.json">Observed state sequence and exact URLs</a> ·
+    <a href="uploaded-uncertainty.png">Unmodified application screenshot</a> ·
+    <a href="../uncertainty-browser.mjs">Reproduction harness</a>
+  </p>
+  <img
+    src="uploaded-uncertainty.png"
+    alt="Actual Overview with uploaded-lesson uncertainty rows and both authorized uploaded assignments"
+  />
+  <h2>Verification</h2>
+  <p>
+    Local checks passed: 633 repository unit tests, 27 focused tests, the full
+    uploaded-lesson uncertainty service gate, browser transition/actions, lint,
+    TypeScript and formatting.
+  </p>
+  <p>
+    <a href="service-gate.txt">Complete lessons:uncertainty:check result</a> ·
+    <a href="focused-tests.txt">Focused tests</a> ·
+    <a href="unit-tests.txt">Repository unit tests</a> ·
+    <a href="lint.txt">Lint</a> · <a href="typecheck.txt">TypeScript</a> ·
+    <a href="format.txt">Formatting</a>. The service and browser tests use only
+    fictional saved evaluations, never a model provider.
+  </p>
+  <pre>
+AUTH_URL=http://127.0.0.1:3516
+node --experimental-strip-types --conditions=react-server --env-file=.env scripts/check-lesson-uncertainty.ts
+node --env-file=.env app/teacher/overview/verification/uncertainty-browser.mjs &lt;logged assignment UUID&gt; &lt;logged probe UUID&gt;
+node --experimental-strip-types --conditions=react-server --test app/teacher/overview/overview.test.ts tests/teacher-overview-streamed.test.ts tests/teacher-priorities.test.ts tests/teacher-shell-metadata.test.ts tests/teacher-workspace-contracts.test.ts tests/teacher-progress-return.test.ts
+npm test
+npm run lint
+npm run typecheck
+npm run format:check</pre>
+  <p>
+    Browser harness prerequisites: the same isolated local test origin and
+    fictional teacher environment, an installed browser via BROWSER_EXECUTABLE,
+    and an existing Playwright runtime via PLAYWRIGHT_PACKAGE. The latest GitHub
+    CI result is linked in the PR description; this static evidence bundle
+    records local verification before that push.
+  </p>
+  <h2>Coordination and integration</h2>
+  <p>
+    H independently reproduced stale Insights expectations in the same service
+    gate. H owns the Insights-only inner block in PR #137 (commit 9ef9391) and
+    related metrics/pattern navigation checks. F leaves the original Insights
+    assertions intact on the common baseline. Combine F's Overview branch and
+    H's Insights-specific block when integrating both PRs; preserve the original
+    privacy/history/uncertainty checks. No production code, shared shell or
+    another agent's UI was modified. No merge or paid call occurred.
+  </p>
+</html>
