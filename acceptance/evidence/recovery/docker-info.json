@@ -1,0 +1,12 @@
+{
+  "recordedAt": "2026-10-25T04:29:49.2702486Z",
+  "args": [
+    "info",
+    "--format",
+    "{\"version\":\"{{.ServerVersion}}\",\"driver\":\"{{.Driver}}\",\"root\":\"{{.DockerRootDir}}\",\"containers\":{{.Containers}},\"running\":{{.ContainersRunning}},\"images\":{{.Images}}}"
+  ],
+  "exitCode": 0,
+  "timedOut": false,
+  "stdout": "{\"version\":\"28.3.0\",\"driver\":\"overlay2\",\"root\":\"/var/lib/docker\",\"containers\":53,\"running\":35,\"images\":244}\n",
+  "stderr": ""
+}

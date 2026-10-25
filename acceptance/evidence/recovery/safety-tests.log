@@ -1,0 +1,60 @@
+TAP version 13
+# Subtest: space gate uses available blocks and includes the exact threshold
+ok 1 - space gate uses available blocks and includes the exact threshold
+  ---
+  duration_ms: 1.7233
+  ...
+# Subtest: one atomic lock refuses a second state path and preserves its owner
+ok 2 - one atomic lock refuses a second state path and preserves its owner
+  ---
+  duration_ms: 14.9414
+  ...
+# Subtest: low host space fails before querying or starting Docker
+ok 3 - low host space fails before querying or starting Docker
+  ---
+  duration_ms: 0.4516
+  ...
+# Subtest: Docker API failure or remote endpoint is fail closed
+ok 4 - Docker API failure or remote endpoint is fail closed
+  ---
+  duration_ms: 0.4588
+  ...
+# Subtest: backing storage space is mandatory even with healthy Docker and guest space
+ok 5 - backing storage space is mandatory even with healthy Docker and guest space
+  ---
+  duration_ms: 1.1606
+  ...
+# Subtest: guest exhaustion and unavailable guest storage both fail closed
+ok 6 - guest exhaustion and unavailable guest storage both fail closed
+  ---
+  duration_ms: 0.5704
+  ...
+# Subtest: explicit existing-container fallback verifies the engine volume before read-only df
+ok 7 - explicit existing-container fallback verifies the engine volume before read-only df
+  ---
+  duration_ms: 1.2806
+  ...
+# Subtest: unknown Docker Desktop backing disk is rejected
+ok 8 - unknown Docker Desktop backing disk is rejected
+  ---
+  duration_ms: 0.1358
+  ...
+# Subtest: fresh initialization rejects named or Compose-labelled persistent resources
+ok 9 - fresh initialization rejects named or Compose-labelled persistent resources
+  ---
+  duration_ms: 0.8146
+  ...
+# Subtest: df parser rejects missing or nonnumeric available space
+ok 10 - df parser rejects missing or nonnumeric available space
+  ---
+  duration_ms: 0.3484
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 106.1929

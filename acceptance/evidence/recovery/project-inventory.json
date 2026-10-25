@@ -1,0 +1,869 @@
+{
+  "networks": [
+    {
+      "ID": "88de0c7fc5f31c13d18895442fe71629df934c192ee726a6f4595b6daa33360d",
+      "Name": "learningplatform_default",
+      "Driver": "bridge",
+      "Internal": "false",
+      "Labels": "com.docker.compose.project=learningplatform,com.docker.compose.version=2.38.1,com.docker.compose.config-hash=c322d5ea3ffaed06e897d3ce81fe3b8c32fd76c660001820fbbf20c123c58e99,com.docker.compose.network=default"
+    },
+    {
+      "ID": "61a018461834e0da6da33b99a31bd51854808dc5c247919b277ba40e7344c549",
+      "Name": "lp49_default",
+      "Driver": "bridge",
+      "Internal": "false",
+      "Labels": "com.docker.compose.project=lp49,com.docker.compose.version=2.38.1,com.docker.compose.config-hash=e3c6c3e92178a275306f10fd1b36193691937d5ef8d79eb0aea18d503b1797f5,com.docker.compose.network=default"
+    },
+    {
+      "ID": "c17dcf3c495e50b587a1c6d5dcfcc36082ee5e687561fd2e0bfcdf8b66313bc3",
+      "Name": "lp50_default",
+      "Driver": "bridge",
+      "Internal": "false",
+      "Labels": "com.docker.compose.config-hash=f204e6c645647df8ff325b700909620da9b538174ed4ba36f78912f751aa8312,com.docker.compose.network=default,com.docker.compose.project=lp50,com.docker.compose.version=2.38.1"
+    },
+    {
+      "ID": "c6df8eb66db3003c67d2b76241e8e43995a436592d81af140c1f85faa231cc17",
+      "Name": "lp51_default",
+      "Driver": "bridge",
+      "Internal": "false",
+      "Labels": "com.docker.compose.config-hash=774cbed764ed13f5c357ab18d0231004a6a7af98dfe0f14ded3e737f60aae393,com.docker.compose.network=default,com.docker.compose.project=lp51,com.docker.compose.version=2.38.1"
+    },
+    {
+      "ID": "4935b450f13b4054972cf50f383848fbb73aa75abee3ed00b4b4e5ba04825c83",
+      "Name": "lp53_default",
+      "Driver": "bridge",
+      "Internal": "false",
+      "Labels": "com.docker.compose.config-hash=52f7be01c59e7cafabb65024d72e8871f0d376c324501546392d4bcde17a6eb3,com.docker.compose.network=default,com.docker.compose.project=lp53,com.docker.compose.version=2.38.1"
+    },
+    {
+      "ID": "e78772a9215714fcf7b021abc4db0754e8addcae2cbe58bea1ac5aad83893812",
+      "Name": "lp-accept-pr113_acceptance",
+      "Driver": "bridge",
+      "Internal": "true",
+      "Labels": "com.docker.compose.config-hash=47f1a0b29a97f0b1e1a4c8c241afe31c6922068dc1cc25ff401d436d8e68058f,com.docker.compose.network=acceptance,com.docker.compose.project=lp-accept-pr113,com.docker.compose.version=2.38.1"
+    },
+    {
+      "ID": "7f01728758d888c6d95be57e4a1d618557cb566af3b06602917b07f196929890",
+      "Name": "lp-integrate51_default",
+      "Driver": "bridge",
+      "Internal": "false",
+      "Labels": "com.docker.compose.network=default,com.docker.compose.project=lp-integrate51,com.docker.compose.version=2.38.1,com.docker.compose.config-hash=73f598b3ec8b8198a61c3b41e8d45f48a55aa9f06fef80975b025d6aae91c816"
+    },
+    {
+      "ID": "73d27c5219704a74568f9513a6249c6c94979ec21e361ce1f1f7def93579dfd1",
+      "Name": "lp-integrate52_default",
+      "Driver": "bridge",
+      "Internal": "false",
+      "Labels": "com.docker.compose.config-hash=877b8b08166c69716418d021463df383b6ada6d17f019029e2dc25a928c452db,com.docker.compose.network=default,com.docker.compose.project=lp-integrate52,com.docker.compose.version=2.38.1"
+    },
+    {
+      "ID": "efbe213ec0c2d92cb3d5297767133a2360ff2dcb82efd60c096b189548e6f07c",
+      "Name": "lp-integrate84_default",
+      "Driver": "bridge",
+      "Internal": "false",
+      "Labels": "com.docker.compose.config-hash=2288e80dac2c5f11dcf91c7345d6ed40927fd3b3d0780c407e6e9f4c8f1ac957,com.docker.compose.network=default,com.docker.compose.project=lp-integrate84,com.docker.compose.version=2.38.1"
+    },
+    {
+      "ID": "0047b20ce1d1c65799b2f92c698930c34aadee6ff01177aa63da347466c45c04",
+      "Name": "lp-integrate98_default",
+      "Driver": "bridge",
+      "Internal": "false",
+      "Labels": "com.docker.compose.project=lp-integrate98,com.docker.compose.version=2.38.1,com.docker.compose.config-hash=50c84d37aca4048a7aa5d93cbae0ddb2148a7c6eb5876f0a2ace2c622e1c0be9,com.docker.compose.network=default"
+    },
+    {
+      "ID": "59d5e3eecb2cfe6bd3b4b02a7847e920a203292e84d83a9b46b28e928b7f69df",
+      "Name": "lp-integrate99_default",
+      "Driver": "bridge",
+      "Internal": "false",
+      "Labels": "com.docker.compose.project=lp-integrate99,com.docker.compose.version=2.38.1,com.docker.compose.config-hash=43c989df2db7e47b79a69dd1d9f5959e143867fc6018f334a8a6bc494584cc3d,com.docker.compose.network=default"
+    },
+    {
+      "ID": "af5bbfa7899088a0e16eb6a5adb1181a708a5d5518f8d764b2ec910e1c608813",
+      "Name": "lp-integrate106_default",
+      "Driver": "bridge",
+      "Internal": "false",
+      "Labels": "com.docker.compose.network=default,com.docker.compose.project=lp-integrate106,com.docker.compose.version=2.38.1,com.docker.compose.config-hash=8197a7e4dbd2a1506697c71607a6b28199b2e698f49311ca7cfafd26aaafe04f"
+    },
+    {
+      "ID": "5c5296d00b2db22a49c29d4e942b7f8e4366a6fdbedbcf83e9d6329cd49cebf2",
+      "Name": "lp-integrated-main_default",
+      "Driver": "bridge",
+      "Internal": "false",
+      "Labels": "com.docker.compose.config-hash=2f8d7d77d7f9504a34275d3f7c9f8fa48f32964ed533169f35ca96df98d7d2ba,com.docker.compose.network=default,com.docker.compose.project=lp-integrated-main,com.docker.compose.version=2.38.1"
+    },
+    {
+      "ID": "1bfc85e4ae7980bfa54099fdb9740ff974b2d1c727cfba6f58b2b4b24bf484e9",
+      "Name": "lp-lessons-verify_default",
+      "Driver": "bridge",
+      "Internal": "false",
+      "Labels": "com.docker.compose.network=default,com.docker.compose.project=lp-lessons-verify,com.docker.compose.version=2.38.1,com.docker.compose.config-hash=edb464fa6c6c6fdb896ee315b5ae35d448aa3666fc6ed5df944edc5ec864bda1"
+    },
+    {
+      "ID": "44a65f8e666823be63d9a2332753a714bbb658f59def1a393c554fadcf621be5",
+      "Name": "lp-student-ux-01a16b04",
+      "Driver": "bridge",
+      "Internal": "true",
+      "Labels": "purpose=student-ux-research"
+    },
+    {
+      "ID": "637f4cae8e3bafd1145d08da3771ab3e39eadcd271e584e56d91dad9cfec7236",
+      "Name": "lp-v22-integration5_acceptance",
+      "Driver": "bridge",
+      "Internal": "true",
+      "Labels": "com.docker.compose.version=2.38.1,com.docker.compose.config-hash=7d8542d7152b1d5bf35c390c8829fb747cd8d7d61a0f2486c0cfb7d4dd1063d3,com.docker.compose.network=acceptance,com.docker.compose.project=lp-v22-integration5"
+    },
+    {
+      "ID": "4aeb06f5cd99720971465bbd387c084613a2398aa454c9fe1c96dfb13ca3122e",
+      "Name": "lp-v22-integration5_browser",
+      "Driver": "bridge",
+      "Internal": "false",
+      "Labels": "com.docker.compose.config-hash=d14c8478a73660dd488350b6f2a4ea954af7fe085663bed0a2d602019f37ca62,com.docker.compose.network=browser,com.docker.compose.project=lp-v22-integration5,com.docker.compose.version=2.38.1"
+    },
+    {
+      "ID": "b1bf3c222499aac3819eff6fefab754c240b16d0bb8c9b4339c4ed903573be1a",
+      "Name": "lp-v22-main5_acceptance",
+      "Driver": "bridge",
+      "Internal": "true",
+      "Labels": "com.docker.compose.network=acceptance,com.docker.compose.project=lp-v22-main5,com.docker.compose.version=2.38.1,com.docker.compose.config-hash=d6ae89b610bc17d21b0ec5f0ab1f47da2cf52186ec663d962ea74028da2666e5"
+    },
+    {
+      "ID": "fc281b487ef6af43d0010f15d3bee90bdaa374d80c9549ae2add2cfca2930910",
+      "Name": "lp-v22-main5_browser",
+      "Driver": "bridge",
+      "Internal": "false",
+      "Labels": "com.docker.compose.config-hash=7f47fd3732835533a18f0007f2a12fbcfafc10d1f8c53a92aa306829adfaecfe,com.docker.compose.network=browser,com.docker.compose.project=lp-v22-main5,com.docker.compose.version=2.38.1"
+    },
+    {
+      "ID": "4a9cb981d77bb0b8ebcb03abf2a48f8e39ddc79ef555110bb494cebd9137f447",
+      "Name": "lp-workbench-assignments_default",
+      "Driver": "bridge",
+      "Internal": "false",
+      "Labels": "com.docker.compose.project=lp-workbench-assignments,com.docker.compose.version=2.38.1,com.docker.compose.config-hash=946c90a19dd6b1647cd588e473e1e94c4055f0d226b9e353083021a54c499210,com.docker.compose.network=default"
+    },
+    {
+      "ID": "cc54486afa59c124f9b0b40b56b344c73a9bcd8380a23cd7b7a692125d94f14b",
+      "Name": "lp-workbench-verify_default",
+      "Driver": "bridge",
+      "Internal": "false",
+      "Labels": "com.docker.compose.config-hash=7d7455ab86da49bfe7e71e71e44cecfc2392233591e48c5a80278606b0b037e6,com.docker.compose.network=default,com.docker.compose.project=lp-workbench-verify,com.docker.compose.version=2.38.1"
+    }
+  ],
+  "containers": [
+    {
+      "ID": "7b2e9c33d76a50d7456b834143e5e70ae5a594bbd3788efc88e65ecc3c9bed3f",
+      "Names": "lp-lessons-fidelity-verify",
+      "Image": "lp-lessons-fidelity:verify",
+      "Status": "Up About a minute",
+      "Mounts": "",
+      "Networks": "lp-lessons-verify_default"
+    },
+    {
+      "ID": "c1b1d53cce3d731904768e684cd1ea8c5f8fc91bcaa82f68728a898e3b907560",
+      "Names": "lp-v22-main5-gateway-1",
+      "Image": "nginx:1.27-alpine",
+      "Status": "Up 9 minutes",
+      "Mounts": "/run/desktop/mnt/host/c/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/runtime-main/gateway.conf",
+      "Networks": "lp-v22-main5_acceptance,lp-v22-main5_browser"
+    },
+    {
+      "ID": "597d36937870a26476fe58da024c426ce8437a0df6f3e590cf9071abf434e326",
+      "Names": "lp-v22-main5-app-1",
+      "Image": "lp-v22-main5:723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "Status": "Up 9 minutes (healthy)",
+      "Mounts": "",
+      "Networks": "lp-v22-main5_acceptance"
+    },
+    {
+      "ID": "4e1df141d28334acc0ce29f6215ca15cc59344cdac7b62f6ba3d54e338950561",
+      "Names": "lp-v22-main5-db-1",
+      "Image": "postgres:17.11-bookworm",
+      "Status": "Up 9 minutes (healthy)",
+      "Mounts": "/run/desktop/mnt/host/c/Users/sb128/.codex/worktrees/workbench-verification-report/LearningPlatform/database/init-app.sh,lp-v22-main5_postgres_data",
+      "Networks": "lp-v22-main5_acceptance"
+    },
+    {
+      "ID": "bd54d0e24c644a0bb52c58ed666850842461ace1ecd9d278d1764d4a7299be79",
+      "Names": "lp-v22-integration5-gateway-1",
+      "Image": "nginx:1.27-alpine",
+      "Status": "Up 11 minutes",
+      "Mounts": "/run/desktop/mnt/host/c/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/runtime-combined/gateway.conf",
+      "Networks": "lp-v22-integration5_acceptance,lp-v22-integration5_browser"
+    },
+    {
+      "ID": "36c5706f4f888d00b86ad0d3513bacaf20fe7e3dfbb69db2b8fc846d89ae2a5d",
+      "Names": "lp-v22-integration5-app-1",
+      "Image": "lp-v22-integration5:eba2fba3eee223bb43c0eea5fe197e9569285ea9",
+      "Status": "Up 8 seconds (healthy)",
+      "Mounts": "",
+      "Networks": "lp-v22-integration5_acceptance"
+    },
+    {
+      "ID": "f2e780f5373f4055f04a63b9c5545c9a8d8786b433e3e3826d822543901dbf25",
+      "Names": "lp-v22-integration5-db-1",
+      "Image": "postgres:17.11-bookworm",
+      "Status": "Up 11 minutes (healthy)",
+      "Mounts": "lp-v22-integration5_postgres_data,/run/desktop/mnt/host/c/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/database/init-app.sh",
+      "Networks": "lp-v22-integration5_acceptance"
+    },
+    {
+      "ID": "452624d185bbc19046952ea9a7362b678d4a639b9aa7088da561991a2ed1e0db",
+      "Names": "lp-lessons-materials-verify",
+      "Image": "lp-lessons-workbench:verify",
+      "Status": "Up 13 minutes",
+      "Mounts": "",
+      "Networks": "lp-lessons-verify_default"
+    },
+    {
+      "ID": "6eaf0f2d7f903e5672348fa595fcd0fc18cbe1edb747dc5296790b698a21b342",
+      "Names": "lp-workbench-assignments-db-1",
+      "Image": "postgres:17.11-bookworm",
+      "Status": "Up 15 minutes (healthy)",
+      "Mounts": "lp-workbench-assignments_postgres_data,/run/desktop/mnt/host/c/Users/sb128/.codex/worktrees/workbench-assignments/LearningPlatform/database/init-app.sh",
+      "Networks": "lp-workbench-assignments_default"
+    },
+    {
+      "ID": "fed4987b2d8a0c3adf7541e4e92c7bfc88d33414f28d1da053a2c0451e866365",
+      "Names": "lp-lessons-verify-db-1",
+      "Image": "postgres:17.11-bookworm",
+      "Status": "Up 15 minutes (healthy)",
+      "Mounts": "/run/desktop/mnt/host/c/Users/sb128/.codex/visualizations/2026/10/25/01a170fa-1add-74d1-8ef4-94a3325efbd0/workbench-lessons/database/init-app.sh,lp-lessons-verify_postgres_data",
+      "Networks": "lp-lessons-verify_default"
+    },
+    {
+      "ID": "835c6f1f9a6fb21ddbe86b03a6612f40bb0f3df108236d7660dfad0bc4447fca",
+      "Names": "lp-workbench-verify-app-1",
+      "Image": "lp-workbench-verify-app",
+      "Status": "Up 15 minutes (healthy)",
+      "Mounts": "",
+      "Networks": "lp-workbench-verify_default"
+    },
+    {
+      "ID": "ee3d2f7840fcc1ca2d41b38dd1e67e52ac4f5b3775c6e2e47c3306a329403941",
+      "Names": "lp-workbench-verify-db-1",
+      "Image": "postgres:17.11-bookworm",
+      "Status": "Up 15 minutes (healthy)",
+      "Mounts": "lp-workbench-verify_postgres_data,/run/desktop/mnt/host/c/Users/sb128/.codex/worktrees/teacher-workbench-slice/LearningPlatform/database/init-app.sh",
+      "Networks": "lp-workbench-verify_default"
+    },
+    {
+      "ID": "c6bc26a9c2a47ab860ea37bcbe8ca41ed4efc3fc1b1105bb53222a50409f47c0",
+      "Names": "learningpulse-demo-app-1",
+      "Image": "learningpulse-demo-app",
+      "Status": "Restarting (1) 6 seconds ago",
+      "Mounts": "",
+      "Networks": "learningpulse-demo_default"
+    },
+    {
+      "ID": "dcce10ecbc6a4840dec66e5e5450628b40472c1192b9a38c832c56e68bc6569f",
+      "Names": "learningplatform-app-1",
+      "Image": "learningplatform:objective-fix-723ed6fea411-20261023181551_391ddf",
+      "Status": "Up 15 minutes (healthy)",
+      "Mounts": "",
+      "Networks": "learningplatform_default"
+    },
+    {
+      "ID": "00828eee84fc14315100340b95d98b2ff295e0c7b3ba2596cc61d95b717d9c89",
+      "Names": "learningpulse-demo-speech-1",
+      "Image": "learningpulse-demo-speech",
+      "Status": "Up 15 minutes",
+      "Mounts": "",
+      "Networks": "learningpulse-demo_default"
+    },
+    {
+      "ID": "a2a1e939ba153a8829bab14b6d0bee157bc6d8e75258760ba98fc841eb4f1b29",
+      "Names": "learningpulse-demo-db-1",
+      "Image": "postgres:17.11-bookworm",
+      "Status": "Exited (127) 16 minutes ago",
+      "Mounts": "/run/desktop/mnt/host/c/Users/sb128/.codex/worktrees/learning-pulse-demo/LearningPlatform/database/init-app.sh,learningpulse-demo_postgres_data",
+      "Networks": "learningpulse-demo_default"
+    },
+    {
+      "ID": "c77c97e4d3f28d20682b6f604f7f39dff62177aa431dc90df889c3b21902787d",
+      "Names": "learningplatform-speech-1",
+      "Image": "learningplatform-speech",
+      "Status": "Up 15 minutes",
+      "Mounts": "",
+      "Networks": "learningplatform_default"
+    },
+    {
+      "ID": "1803b3f41ff2d80dd8729771791607936a38e33ab8426dc7082fbfbc89660692",
+      "Names": "lp-integrated-main-app-1",
+      "Image": "lp-integrated-main:acceptance",
+      "Status": "Up 15 minutes (healthy)",
+      "Mounts": "",
+      "Networks": "lp-integrated-main_default"
+    },
+    {
+      "ID": "1438184535f742c22a7e9adb4bd07668d1b64722d4b76e72889838692c3f6ae9",
+      "Names": "lp-integrate99-app-1",
+      "Image": "lp-integrate99-app",
+      "Status": "Exited (143) 36 hours ago",
+      "Mounts": "",
+      "Networks": "lp-integrate99_default"
+    },
+    {
+      "ID": "bf70fdbaa7707199646d0fa6e69538cd2227a5a3e1f66f6da9fdf152d9d992ce",
+      "Names": "lp-integrate84-speech-1",
+      "Image": "lp-integrate84-speech",
+      "Status": "Up 15 minutes",
+      "Mounts": "",
+      "Networks": "lp-integrate84_default"
+    },
+    {
+      "ID": "85128b1af1d256d3d7460fb4f55c26a5a50a494b01a36d09897111c19c96ce10",
+      "Names": "lp-integrate84-app-1",
+      "Image": "lp-integrate84-app",
+      "Status": "Up 15 minutes (healthy)",
+      "Mounts": "",
+      "Networks": "lp-integrate84_default"
+    },
+    {
+      "ID": "a72bb4bf572dd2bf5c1366edf21b95a4a2b162b6acc4309af50879e6e5dafb1a",
+      "Names": "lp-integrate106-db-1",
+      "Image": "postgres:17.11-bookworm",
+      "Status": "Up 15 minutes (healthy)",
+      "Mounts": "/run/desktop/mnt/host/c/Users/sb128/.codex/worktrees/integrate-106/LearningPlatform/database/init-app.sh,lp-integrate106_postgres_data",
+      "Networks": "lp-integrate106_default"
+    },
+    {
+      "ID": "e9d91c4b67055bffcb1d8ec4df56b7924eb224e3bc0374e1abaaceb48854ecbb",
+      "Names": "lp-integrate84-db-1",
+      "Image": "postgres:17.11-bookworm",
+      "Status": "Up 15 minutes (healthy)",
+      "Mounts": "lp-integrate84_postgres_data,/run/desktop/mnt/host/c/Users/sb128/.codex/worktrees/integrate-84/LearningPlatform/database/init-app.sh",
+      "Networks": "lp-integrate84_default"
+    },
+    {
+      "ID": "329e380d880977e9ebd85bce3f641867542336b01dc558df03d01409077ad4b2",
+      "Names": "lp-integrated-main-db-1",
+      "Image": "postgres:17.11-bookworm",
+      "Status": "Up 15 minutes (healthy)",
+      "Mounts": "/run/desktop/mnt/host/c/Users/sb128/.codex/worktrees/integrated-main-acceptance/LearningPlatform/database/init-app.sh,lp-integrated-main_postgres_data",
+      "Networks": "lp-integrated-main_default"
+    },
+    {
+      "ID": "21e218d8015d0d12f2b91beee8e502df6cdfddd50af210b3605ee818b0617fac",
+      "Names": "lp-integrate98-app-1",
+      "Image": "lp-integrate98-app",
+      "Status": "Exited (143) 36 hours ago",
+      "Mounts": "",
+      "Networks": "lp-integrate98_default"
+    },
+    {
+      "ID": "e58510bcf5f7d98df0e7be5cadeb286a5dec776455a1ff0320246d098809b7af",
+      "Names": "lp-integrate52-app-1",
+      "Image": "lp-integrate52:verified",
+      "Status": "Exited (143) 36 hours ago",
+      "Mounts": "",
+      "Networks": "lp-integrate52_default"
+    },
+    {
+      "ID": "3e5312491daaa60e44d5eb44d3303ce68c67cc761da7d64f626f46424b3c04c3",
+      "Names": "lp-integrate98-db-1",
+      "Image": "postgres:17.11-bookworm",
+      "Status": "Up 15 minutes (healthy)",
+      "Mounts": "/run/desktop/mnt/host/c/Users/sb128/.codex/worktrees/integrate-98/LearningPlatform/database/init-app.sh,lp-integrate98_postgres_data",
+      "Networks": "lp-integrate98_default"
+    },
+    {
+      "ID": "64cb9edd64358b9769bc6d5591a7e2a18320f841511a69beaac0fe7f99525092",
+      "Names": "lp-integrate52-db-1",
+      "Image": "postgres:17.11-bookworm",
+      "Status": "Up 15 minutes (healthy)",
+      "Mounts": "/run/desktop/mnt/host/c/Users/sb128/.codex/worktrees/integrate-52/LearningPlatform/database/init-app.sh,lp-integrate52_postgres_data",
+      "Networks": "lp-integrate52_default"
+    },
+    {
+      "ID": "debaf4fe63b8f789a8e47a6527696c0b011531deb52439a148553d48a30f49f1",
+      "Names": "lp-integrate51-app-1",
+      "Image": "lp-integrate51:verified",
+      "Status": "Exited (143) 36 hours ago",
+      "Mounts": "",
+      "Networks": "lp-integrate51_default"
+    },
+    {
+      "ID": "4534f20763add91e54894a9a4455f1df574da00bb85c7f43a4af85375691575c",
+      "Names": "lp-integrate99-db-1",
+      "Image": "postgres:17.11-bookworm",
+      "Status": "Up 15 minutes (healthy)",
+      "Mounts": "/run/desktop/mnt/host/c/Users/sb128/.codex/worktrees/integrate99-intervention-drafts/LearningPlatform/database/init-app.sh,lp-integrate99_postgres_data",
+      "Networks": "lp-integrate99_default"
+    },
+    {
+      "ID": "64c2a8167e96aac17d4001594b0dc62a1a69c407f7d4ad132b0f67faed61bbff",
+      "Names": "lp-integrate51-db-1",
+      "Image": "postgres:17.11-bookworm",
+      "Status": "Up 15 minutes (healthy)",
+      "Mounts": "/run/desktop/mnt/host/c/Users/sb128/.codex/worktrees/integrate-51/LearningPlatform/database/init-app.sh,lp-integrate51_postgres_data",
+      "Networks": "lp-integrate51_default"
+    },
+    {
+      "ID": "99b6a267b53ff7c0e1a7c9b2175df9e2b8fc1dcc29b1315e940cecd1f52c1afe",
+      "Names": "lp50-app-1",
+      "Image": "lp50-objectives:reconciled",
+      "Status": "Exited (1) 41 hours ago",
+      "Mounts": "",
+      "Networks": "lp50_default"
+    },
+    {
+      "ID": "d507039438085fcc6f86fba326a77cbd59fa7c2a59fae01866ef16fa0f0377eb",
+      "Names": "lp53-app-1",
+      "Image": "lp53-app",
+      "Status": "Up 15 minutes (healthy)",
+      "Mounts": "",
+      "Networks": "lp53_default"
+    },
+    {
+      "ID": "67560830114edc5aaf4d1b57d47f4fcf5c04e5de1f2c564c0576cd00a6cce166",
+      "Names": "lp53-db-1",
+      "Image": "postgres:17.11-bookworm",
+      "Status": "Up 15 minutes (healthy)",
+      "Mounts": "/run/desktop/mnt/host/c/Users/sb128/.codex/worktrees/53-lesson-resolver/LearningPlatform/database/init-app.sh,lp53_postgres_data",
+      "Networks": "lp53_default"
+    },
+    {
+      "ID": "8fb6759b39b0be1a8ec5aa274ed6a174b1c70082bddb65f1913c44fdd01ac776",
+      "Names": "lp51-db-1",
+      "Image": "postgres:17.11-bookworm",
+      "Status": "Up 15 minutes (healthy)",
+      "Mounts": "/run/desktop/mnt/host/c/Users/sb128/.codex/worktrees/51-question-bank/LearningPlatform/database/init-app.sh,lp51_postgres_data",
+      "Networks": "lp51_default"
+    },
+    {
+      "ID": "290bbb1c3f4ed08d32bcfc065b2561dcc6b498f5b26dc3e4111f6ceb95036651",
+      "Names": "lp50-db-1",
+      "Image": "postgres:17.11-bookworm",
+      "Status": "Up 15 minutes (healthy)",
+      "Mounts": "/run/desktop/mnt/host/c/Users/sb128/.codex/worktrees/50-learning-objectives/LearningPlatform/database/init-app.sh,lp50_postgres_data",
+      "Networks": "lp50_default"
+    },
+    {
+      "ID": "9b92919e15361a66f62183d40d37d92b9ff05a9077cb5c6ff8f4f075f5339b1d",
+      "Names": "lp49-db-1",
+      "Image": "postgres:17.11-bookworm",
+      "Status": "Up 15 minutes (healthy)",
+      "Mounts": "/run/desktop/mnt/host/c/Users/sb128/.codex/worktrees/49-material-import/LearningPlatform/database/init-app.sh,lp49_postgres_data",
+      "Networks": "lp49_default"
+    },
+    {
+      "ID": "0f2306fde554b095ee5d8396a237b279d4e1f6449cd59e41ea180a1402891a20",
+      "Names": "learningplatform-db-1",
+      "Image": "postgres:17.11-bookworm",
+      "Status": "Up 15 minutes (healthy)",
+      "Mounts": "/run/desktop/mnt/host/c/Users/sb128/Desktop/LearningPlatform/database/init-app.sh,learningplatform_postgres_data",
+      "Networks": "learningplatform_default"
+    }
+  ],
+  "volumes": [
+    {
+      "Name": "learningplatform_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=56d2ae558e43077fde4f48bf7ebaddcae62bcba72012c3e4e758bbe9b1bc5214,com.docker.compose.project=learningplatform"
+    },
+    {
+      "Name": "lp45_postgres_data",
+      "Driver": "local",
+      "Labels": ""
+    },
+    {
+      "Name": "lp49_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.config-hash=4d23dc8b987bfebbd35bf312e584b5ea024f55ebf61d838074f2942be8971993,com.docker.compose.project=lp49,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+    },
+    {
+      "Name": "lp50_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=9a2d13f129fa9dfa20f55b82ca8ed541d59ac2bba3f71dcc0533f09a9beed342,com.docker.compose.project=lp50"
+    },
+    {
+      "Name": "lp50reconcile_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.config-hash=1a381bece372345688f7406c53c7e6446da0febab98488d0c7ef6bee1fc69e9f,com.docker.compose.project=lp50reconcile,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+    },
+    {
+      "Name": "lp51_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.config-hash=bc27d8d4c1dcde19d126d00a59a5c938034e931116c34025ece963d2ca490e89,com.docker.compose.project=lp51,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+    },
+    {
+      "Name": "lp53_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.config-hash=0ca5a52b794fff2a8d7441c2391ad539b888e64dea1c5bff97e52d847ded2473,com.docker.compose.project=lp53,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+    },
+    {
+      "Name": "lp-accept-combined_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.project=lp-accept-combined,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=8b1d3236874e608ac91e142ddaa565e8804026bf086c37d7cab0a61d72f58bf2"
+    },
+    {
+      "Name": "lp-accept-main_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=a969949ccbc34ca8f577312957f0b88b10d263ffc54d27e1a9fae96eb77e8a6a,com.docker.compose.project=lp-accept-main"
+    },
+    {
+      "Name": "lp-accept-pr116_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.config-hash=83e857d471a72bc58f68506f23f276101216195fc7baf8144d249d16962f53df,com.docker.compose.project=lp-accept-pr116,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+    },
+    {
+      "Name": "lp-accept-pr117_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.config-hash=e392de9cd616608d0e728aea2a8092451f0cc1ec3ba047c0a960152de6762668,com.docker.compose.project=lp-accept-pr117,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+    },
+    {
+      "Name": "lp-accept-pr118_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.project=lp-accept-pr118,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=5d9972ad228480c5af8f67613ea6b66a3c6529415f742e949ae03730919b09b2"
+    },
+    {
+      "Name": "lp-integrate51_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.config-hash=3c34c1792b355e921f68fa502bba3adb3bbdc6ffdaba29f989a75d20a315865d,com.docker.compose.project=lp-integrate51,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+    },
+    {
+      "Name": "lp-integrate52_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=921a3facc114185d0f384e2c8337c3dfcb0c7040d73dafc6e07f6ae7c99a46cd,com.docker.compose.project=lp-integrate52,com.docker.compose.version=2.38.1"
+    },
+    {
+      "Name": "lp-integrate84_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.config-hash=948ba7dba69d076fac3e2ad5abf28cf3eda73e0aecf797eb7637e3d18889dd2b,com.docker.compose.project=lp-integrate84,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+    },
+    {
+      "Name": "lp-integrate98_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.project=lp-integrate98,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=a8f1ed402113c1614e893d14e0899d696a24b7bf9a31b67d7c2264e95d24f2e0"
+    },
+    {
+      "Name": "lp-integrate99_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.config-hash=8ab96f3e5773f01848df6f72a9e3433e610e65ad2fef6a0f4bb97eae2eeb458e,com.docker.compose.project=lp-integrate99,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+    },
+    {
+      "Name": "lp-integrate103_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.config-hash=0d975a595577ddb871fe56c76fa949702d4612a7369a7763428dc9c635fbd9c3,com.docker.compose.project=lp-integrate103,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+    },
+    {
+      "Name": "lp-integrate106_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.config-hash=8f068da138230aae9167eb1e27de7788e2e20fdb53464ee98da43366cc1fd93d,com.docker.compose.project=lp-integrate106,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+    },
+    {
+      "Name": "lp-integrated-main_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=d75e23736d59d16bef4ea41a86e15cd9a8c2ab0243429650340af5b71f5e5092,com.docker.compose.project=lp-integrated-main"
+    },
+    {
+      "Name": "lp-lessons-verify_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.config-hash=0f7eae24aae9919054c0a576528af1d15581f420794160c99d6762bcd5a49bc7,com.docker.compose.project=lp-lessons-verify,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+    },
+    {
+      "Name": "lp-repair116_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=20de8ccd70cc8fb793a3930f43ad39bf1c3948936353d3585e6eaec6832f6088,com.docker.compose.project=lp-repair116,com.docker.compose.version=2.38.1"
+    },
+    {
+      "Name": "lp-review116-a_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.project=lp-review116-a,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=562a9e6a9f806948d76d863726e0e29bd93325f24ce07b6a63acf9afdd3f9e88"
+    },
+    {
+      "Name": "lp-ui-preview-pgdata",
+      "Driver": "local",
+      "Labels": ""
+    },
+    {
+      "Name": "lp-v22-integration5_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.config-hash=c886cfc7d48f97a5809fe6704c99acb268b080786374e24af98eff9c4f2ef8bc,com.docker.compose.project=lp-v22-integration5,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+    },
+    {
+      "Name": "lp-v22-main5_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.config-hash=9a9e19a8a64c83e4dd2d679f7584b8098774a1cd65138126f1a1f7603d1efa2d,com.docker.compose.project=lp-v22-main5,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+    },
+    {
+      "Name": "lp-workbench-assignments_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.config-hash=8507fc81a7d53405fea7d9f780c37439bc40178fe4187ac5ba5a847c6f679011,com.docker.compose.project=lp-workbench-assignments,com.docker.compose.version=2.38.1,com.docker.compose.volume=postgres_data"
+    },
+    {
+      "Name": "lp-workbench-verify_postgres_data",
+      "Driver": "local",
+      "Labels": "com.docker.compose.volume=postgres_data,com.docker.compose.config-hash=804aacd445d7168b8583e46d6f9e4bdc4fc7839df7b642aee96633d088b158d3,com.docker.compose.project=lp-workbench-verify,com.docker.compose.version=2.38.1"
+    }
+  ],
+  "recordedAt": "2026-10-25T04:29:49.9363611Z",
+  "images": [
+    {
+      "ID": "sha256:be54d12578802ed61ccca3db8a9bccff6f00cd7aa6486eb93b63421a150e2166",
+      "Repository": "lp-lessons-fidelity",
+      "Tag": "final",
+      "Digest": "<none>",
+      "Size": "1.07GB"
+    },
+    {
+      "ID": "sha256:1c136ccf76587f1740a060b03efbbc00e16d8762ea92f4476a4c0a6b1ea29d2a",
+      "Repository": "lp-lessons-fidelity",
+      "Tag": "verify",
+      "Digest": "<none>",
+      "Size": "1.07GB"
+    },
+    {
+      "ID": "sha256:b45d71e75a64d57b7803db92ee4c9ee65249073fce7fd9fdfac7a3fb2f38c965",
+      "Repository": "lp-v22-integration5",
+      "Tag": "eba2fba3eee223bb43c0eea5fe197e9569285ea9",
+      "Digest": "<none>",
+      "Size": "1.07GB"
+    },
+    {
+      "ID": "sha256:0ac534ba66f901bc44b4d456129c4fda5e1b7fb339474a7a84dd793c12e78112",
+      "Repository": "lp-accept-pr117",
+      "Tag": "6f9dd8991abef5efa8108e50b2274dc3bdc13ce6",
+      "Digest": "<none>",
+      "Size": "1.06GB"
+    },
+    {
+      "ID": "sha256:3011c99f6bf6c325d545dce07614ce51179c3916cda83beeabb55e37d3c9dda4",
+      "Repository": "lp-accept-combined",
+      "Tag": "545b880749c757f7502a9bfa7fd127afdf290afd",
+      "Digest": "<none>",
+      "Size": "1.07GB"
+    },
+    {
+      "ID": "sha256:dd8f513cc85304c6585f5edc08b897e13ab2d76435af7f990f33a5bb37fab4ec",
+      "Repository": "lp-repair116-app",
+      "Tag": "latest",
+      "Digest": "<none>",
+      "Size": "1.07GB"
+    },
+    {
+      "ID": "sha256:df285087507c4477136ca463137bcdf65d04b31976d3eb68497bb30dba0833cf",
+      "Repository": "lp-accept-pr118",
+      "Tag": "d2dca515b1a926daf28e791044fe04d01bdf20a9",
+      "Digest": "<none>",
+      "Size": "1.06GB"
+    },
+    {
+      "ID": "sha256:df285087507c4477136ca463137bcdf65d04b31976d3eb68497bb30dba0833cf",
+      "Repository": "lp-lessons-workbench",
+      "Tag": "verify",
+      "Digest": "<none>",
+      "Size": "1.06GB"
+    },
+    {
+      "ID": "sha256:38098024383e09a916a581afa09c4c4b7df31627733a09defb4fb2648c297148",
+      "Repository": "lp-accept-main",
+      "Tag": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "Digest": "<none>",
+      "Size": "1.06GB"
+    },
+    {
+      "ID": "sha256:f3d90dfa7463c24d8e6cf997aad12e858cbb31503182fddf0dd86f9c44f7d663",
+      "Repository": "lp-accept-pr116",
+      "Tag": "5d6363d2867a6f0250f8220db0474342b1241d00",
+      "Digest": "<none>",
+      "Size": "1.07GB"
+    },
+    {
+      "ID": "sha256:f3d90dfa7463c24d8e6cf997aad12e858cbb31503182fddf0dd86f9c44f7d663",
+      "Repository": "lp-review116-a-app",
+      "Tag": "latest",
+      "Digest": "<none>",
+      "Size": "1.07GB"
+    },
+    {
+      "ID": "sha256:e8bc95b6ca45e50cbc0ccd738b810add972d2090f26a26f180df34d4a5c69039",
+      "Repository": "lp-review116-a-checks",
+      "Tag": "latest",
+      "Digest": "<none>",
+      "Size": "1.22GB"
+    },
+    {
+      "ID": "sha256:152c567e8cd099a9336084bbbda502a04eec25bd701eda27e087a8e6740a22c5",
+      "Repository": "lp-workbench-verify-app",
+      "Tag": "latest",
+      "Digest": "<none>",
+      "Size": "1.07GB"
+    },
+    {
+      "ID": "sha256:906f940b0fec092a1bb5905f633c6c61c78f230c601a7cc3cc13139db06bd1fa",
+      "Repository": "lp-student-ux-pr113",
+      "Tag": "20261023",
+      "Digest": "<none>",
+      "Size": "1.06GB"
+    },
+    {
+      "ID": "sha256:6ba8ee28f8e8451d9a9da46a5b13ee9774673f998182d18c0b80e2bccb14cfe8",
+      "Repository": "lp-accept-pr113",
+      "Tag": "2b490863cc6de69a7659f1df1e4628bc22dd7d9a",
+      "Digest": "<none>",
+      "Size": "1.06GB"
+    },
+    {
+      "ID": "sha256:bf3160ce06ea25b9e3401036a3edba48d7fbcc6071c2c7cae5207e818625d6bb",
+      "Repository": "lp-student-ux-pr113-preview",
+      "Tag": "20261023",
+      "Digest": "<none>",
+      "Size": "1.22GB"
+    },
+    {
+      "ID": "sha256:257ab80fab4c118f39fec9fa0ee1e11e91594bc07c62ffe0b0716d639849815f",
+      "Repository": "learningplatform",
+      "Tag": "objective-fix-723ed6fea411-20261023181551_391ddf",
+      "Digest": "<none>",
+      "Size": "1.06GB"
+    },
+    {
+      "ID": "sha256:9c8580b45239ccd1455e0a61e6f2b19dd45ed948266de7c7bc06843dc6d87f50",
+      "Repository": "lp-student-ux-main",
+      "Tag": "20261023",
+      "Digest": "<none>",
+      "Size": "1.06GB"
+    },
+    {
+      "ID": "sha256:62deea463bc4c9c261c748dcc62b65e24eb96c924972a2e2c1f27b419d2c3863",
+      "Repository": "lp-v22-main5",
+      "Tag": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "Digest": "<none>",
+      "Size": "1.06GB"
+    },
+    {
+      "ID": "sha256:8d0af16c1cab7e4130e4a1cf972d642f99dcd5941c649958338e21f30f6eb628",
+      "Repository": "lp-student-ux-main-preview",
+      "Tag": "20261023",
+      "Digest": "<none>",
+      "Size": "1.22GB"
+    },
+    {
+      "ID": "sha256:27be924e1da02ba482e37bda5107290ae826333029097d5b132390a2c635f2af",
+      "Repository": "learningplatform",
+      "Tag": "objective-candidate-2b70f81b",
+      "Digest": "<none>",
+      "Size": "1.06GB"
+    },
+    {
+      "ID": "sha256:54bae47608891fa3677e412a02f9d8307ffd7b6f0172adb9089543630316c07c",
+      "Repository": "learningplatform",
+      "Tag": "release-6ecc80f5b5ca-20261023174156_db3a8e",
+      "Digest": "<none>",
+      "Size": "1.06GB"
+    },
+    {
+      "ID": "sha256:54bae47608891fa3677e412a02f9d8307ffd7b6f0172adb9089543630316c07c",
+      "Repository": "lp-integrated-main",
+      "Tag": "acceptance",
+      "Digest": "<none>",
+      "Size": "1.06GB"
+    },
+    {
+      "ID": "sha256:cc88d50cdc2c726e27585d44a81633e375fd36209c73bc8d1a188ef8d15e6b76",
+      "Repository": "lp-integrate99-app",
+      "Tag": "latest",
+      "Digest": "<none>",
+      "Size": "1.06GB"
+    },
+    {
+      "ID": "sha256:c24e1377623d61852abcbb03329b72a6363dde49da68c652c9363260eaca2b6f",
+      "Repository": "lp-integrate84-app",
+      "Tag": "latest",
+      "Digest": "<none>",
+      "Size": "1.05GB"
+    },
+    {
+      "ID": "sha256:2fdfd019471bc1c0164ec46bfacd01253521db15d9391223d977f211c1c456be",
+      "Repository": "learningplatform-speech",
+      "Tag": "latest",
+      "Digest": "<none>",
+      "Size": "371MB"
+    },
+    {
+      "ID": "sha256:2fdfd019471bc1c0164ec46bfacd01253521db15d9391223d977f211c1c456be",
+      "Repository": "lp-integrate84-speech",
+      "Tag": "latest",
+      "Digest": "<none>",
+      "Size": "371MB"
+    },
+    {
+      "ID": "sha256:d41b0df450f8b219ea1b16b9828f5b5fb98652da7d5c8308d76922b230de9b3c",
+      "Repository": "lp-integrate98-app",
+      "Tag": "latest",
+      "Digest": "<none>",
+      "Size": "1.05GB"
+    },
+    {
+      "ID": "sha256:438f11b34fc1ed3a3cd9d1ecff3f924da0b8226fa2af13fa41847e138a391c1b",
+      "Repository": "lp-integrate52",
+      "Tag": "verified",
+      "Digest": "<none>",
+      "Size": "1.06GB"
+    },
+    {
+      "ID": "sha256:0cc2204ebc7774fd259cd6314cc77f8ecf5144da21855ae8f276c979d6c0c7d7",
+      "Repository": "lp-integrate51",
+      "Tag": "verified",
+      "Digest": "<none>",
+      "Size": "1.05GB"
+    },
+    {
+      "ID": "sha256:285013536c3cb41bf772c0ca34bba641130514b0eb6671992f6ec5c248ddbce0",
+      "Repository": "learningplatform-app",
+      "Tag": "latest",
+      "Digest": "<none>",
+      "Size": "1.05GB"
+    },
+    {
+      "ID": "sha256:cdc5169c4b3df3f672e81ae20ff6dfeeb0bb89971e7cab62bf6927a764e81bbb",
+      "Repository": "lp50-objectives",
+      "Tag": "importer",
+      "Digest": "<none>",
+      "Size": "1.05GB"
+    },
+    {
+      "ID": "sha256:a03b2088a49ee35b88861df7cf1739550bb1db533b05d03bdf9957bb4f562138",
+      "Repository": "lp50-objectives",
+      "Tag": "reconciled",
+      "Digest": "<none>",
+      "Size": "924MB"
+    },
+    {
+      "ID": "sha256:0598112b1426804ece89c0e869f1c4a6bdbeaefc4d9b93134f4150dce6b4dfe4",
+      "Repository": "lp53-app",
+      "Tag": "latest",
+      "Digest": "<none>",
+      "Size": "918MB"
+    },
+    {
+      "ID": "sha256:b69bf137dd639c7ea2fcb28c9edff72d22531a6e9447f0a5671169af3314229b",
+      "Repository": "lp45-approval-check",
+      "Tag": "latest",
+      "Digest": "<none>",
+      "Size": "932MB"
+    },
+    {
+      "ID": "sha256:46d12370f8ffc48f0f9dce1aa27f8409d0a60e7ae33546d34265dba81fef8457",
+      "Repository": "lp-r7-ci-98-app",
+      "Tag": "latest",
+      "Digest": "<none>",
+      "Size": "921MB"
+    },
+    {
+      "ID": "sha256:9af9c894b2e138c218c0eff2d02a07d654b0e1f055d122d2ac916a6112e0023c",
+      "Repository": "lp50-objectives",
+      "Tag": "check",
+      "Digest": "<none>",
+      "Size": "923MB"
+    },
+    {
+      "ID": "sha256:f5a6a2232532e58fff55fd69e278934c3972c16fc954ed35cf7f20087bc11895",
+      "Repository": "learningplatform-transition-check-app",
+      "Tag": "latest",
+      "Digest": "<none>",
+      "Size": "790MB"
+    }
+  ],
+  "basis": "Observed LearningPlatform Compose working paths, project labels, and LP names. Unlabelled images are not safe deletion candidates."
+}
