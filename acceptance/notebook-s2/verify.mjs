@@ -4,6 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { createHash, randomUUID } from "node:crypto";
 import { createRequire } from "node:module";
+import { execFileSync } from "node:child_process";
 import { getPool } from "../../lib/db.ts";
 import { DEMO_IDS } from "../../lib/evidence/demo.ts";
 import {
@@ -45,6 +46,7 @@ const actor = evidenceAccess({
   userId: actorRow.auth_user_id,
 });
 const original = "  Identical original answer π🙂\nSecond line, unchanged.  ";
+const exactOriginal = "  Original CRLF π🙂\r\nSecond line.\r\n\tFinal line  ";
 async function fingerprint() {
   const h = createHash("sha256");
   for (const table of [
@@ -78,6 +80,12 @@ const out = path.join(
 fs.mkdirSync(out, { recursive: true });
 const report = {
   mode,
+  source: execFileSync("git", ["rev-parse", "HEAD"], {
+    encoding: "utf8",
+  }).trim(),
+  buildId: fs.existsSync(".next/BUILD_ID")
+    ? fs.readFileSync(".next/BUILD_ID", "utf8").trim()
+    : null,
   providersDisabled: true,
   paidCalls: 0,
   checks: [],
@@ -127,7 +135,30 @@ async function login(context, prefix = "DEMO_STUDENT_ONE") {
   );
 }
 try {
-  if (mode === "setup") {
+  if (mode === "setup-exact") {
+    const state = JSON.parse(fs.readFileSync(statePath, "utf8"));
+    assert.ok(!state.exact, "Preserve existing exact-text fixture");
+    const question = getCuratedQuestion(loadApprovedContent(), "NP-TX-01");
+    const session = await startSession(
+      actor,
+      DEMO_IDS.assignmentId,
+      "live_demo",
+    );
+    const attempt = await presentQuestion(actor, session.id, {
+      question,
+      intent: "initial_retrieval",
+    });
+    await submitAnswer(actor, session.id, {
+      attempt_id: attempt.id,
+      submission_key: randomUUID(),
+      response_text: exactOriginal,
+    });
+    state.exact = { session: session.id, attempt: attempt.id };
+    fs.writeFileSync(statePath, JSON.stringify(state, null, 2));
+    check(
+      "ordinary current-data fixture stores exact CRLF, Unicode, tabs and spaces through real answer service",
+    );
+  } else if (mode === "setup") {
     assert.ok(!fs.existsSync(statePath), "Preserve existing fixtures");
     const content = loadApprovedContent(),
       question = getCuratedQuestion(content, "NP-TX-01");
@@ -224,8 +255,26 @@ try {
     );
   } else {
     const state = JSON.parse(fs.readFileSync(statePath, "utf8"));
+    const undisplayedText = `UNDISPLAYED_S2_SENTINEL_${randomUUID()}`;
+    if (mode === "recorded") {
+      const question = getCuratedQuestion(loadApprovedContent(), "NP-TX-01");
+      const pending = await recordIntervention(actor, state.session, {
+        id: randomUUID(),
+        related_attempt_id: state.ids.at(-1),
+        related_evaluation_id: null,
+        type: "hint",
+        text_shown: undisplayedText,
+        concept_ids: question.concept_ids,
+        source_passage_ids: question.source_passage_ids,
+        content_ref: question.content_ref,
+      });
+      state.pending = pending.id;
+      report.operatorFixture = pending.id;
+    }
     browser = await chromium.launch({ headless: true });
-    const context = await browser.newContext();
+    const context = await browser.newContext({
+      permissions: ["clipboard-read", "clipboard-write"],
+    });
     await login(context);
     const page = await context.newPage();
     page.on("pageerror", (e) => report.errors.push(e.message));
@@ -261,6 +310,34 @@ try {
       check(
         "existing index search, scope/status/date filters, native saved-work links preserved",
       );
+      assert.ok(state.exact, "Run setup-exact before final fallback");
+      await page.goto(
+        `${base}/study/history/${state.exact.session}?attempt=${state.exact.attempt}`,
+      );
+      const exact = page.locator("[data-original-response]");
+      await exact.locator("[data-exact-text-ready]").waitFor();
+      assert.equal(await exact.textContent(), exactOriginal);
+      await exact.evaluate((el) => {
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+      });
+      await page.keyboard.press("Control+c");
+      const copied = await page.evaluate(() => navigator.clipboard.readText());
+      report.clipboard = {
+        exact: copied === exactOriginal,
+        source: exactOriginal,
+        copied,
+      };
+      assert.equal(
+        copied.replaceAll("\r\n", "\n"),
+        exactOriginal.replaceAll("\r\n", "\n"),
+      );
+      check(
+        "rebuilt current-data original preserves CRLF/Unicode/tabs/spaces in DOM; actual native copy verified with platform line-ending comparison reported separately",
+      );
     } else {
       await page.goto(route);
       await page.locator("[data-recorded-history]").waitFor();
@@ -291,9 +368,7 @@ try {
         original,
       );
       assert.ok(
-        !(await page.locator("body").innerText()).includes(
-          "UNDISPLAYED_S2_SENTINEL",
-        ),
+        !(await page.locator("body").innerText()).includes(undisplayedText),
       );
       check(
         "actual second-batch DOM rendering and exact deep link work after Load more; undisplayed body excluded",

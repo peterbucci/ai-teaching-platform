@@ -175,6 +175,12 @@ export function RecordedQuestionPage({
       tabIndex={-1}
       data-recorded-question={page.attempt_id}
     >
+      <span
+        className={styles.pageNumber}
+        aria-label={`Page ${page.sequence_index + 1}`}
+      >
+        {page.sequence_index + 1}
+      </span>
       <header className={styles.paperHeader}>
         <span className={styles.kind}>{wording(page.intent)}</span>
         <span className={styles.muted}>

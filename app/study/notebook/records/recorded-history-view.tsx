@@ -86,7 +86,10 @@ export function RecordedHistoryView({
       </section>
     );
   return (
-    <section className={styles.root} data-recorded-history>
+    <section
+      className={`${styles.root} ${scope.attemptId ? styles.detail : ""}`}
+      data-recorded-history
+    >
       <header className={styles.heading}>
         <Link href="/study/history" prefetch={false}>
           ← Back to Notebook
@@ -97,11 +100,11 @@ export function RecordedHistoryView({
           {dto?.pages[0]?.source.title ??
             "Recorded questions, original answers and displayed help"}
         </p>
-        <p className={styles.muted}>
+        <p className={`${styles.muted} ${styles.historyLimit}`}>
           Only saved evidence appears here. Unrecorded events and unsent drafts
           cannot be reconstructed.
         </p>
-        <div className={styles.actions}>
+        <div className={`${styles.actions} ${styles.historyTools}`}>
           <button type="button" onClick={() => load(false)} disabled={busy}>
             Refresh history
           </button>
@@ -122,7 +125,7 @@ export function RecordedHistoryView({
       {state.status === "denied" && <a href="/login">Sign in again</a>}
       {dto && (
         <>
-          <p className={styles.muted}>
+          <p className={`${styles.muted} ${styles.loadedCount}`}>
             {dto.session.data_origin === "synthetic_fixture"
               ? "Fictional demonstration history"
               : "Recorded demonstration work"}{" "}
@@ -131,7 +134,7 @@ export function RecordedHistoryView({
           {scope.attemptId ? (
             <>
               <nav
-                className={styles.actions}
+                className={`${styles.actions} ${styles.pageNavigation}`}
                 aria-label="Saved question navigation"
               >
                 <a href={recordedHistoryHref(scope.sessionId)}>
@@ -165,6 +168,32 @@ export function RecordedHistoryView({
                   page={page}
                 />
               ))}
+              <aside className={styles.savedContext}>
+                <h2>About this saved page</h2>
+                <p>
+                  Your original question and submitted answer stay as they were
+                  saved.
+                </p>
+                <h3>Assessment and help</h3>
+                <p>
+                  Only accepted results and help recorded as displayed appear
+                  here. A generated response alone does not mean you saw it.
+                </p>
+                <h3>Later work</h3>
+                <p>
+                  Related checks and teacher reviews appear only when a saved
+                  link connects them to this question.
+                </p>
+                <h3>What is unavailable</h3>
+                <p>
+                  Unsent drafts and unrecorded events cannot be reconstructed.
+                  Any known gaps are listed on the page.
+                </p>
+                <p className={styles.muted}>
+                  Reading this page does not submit work, reassess an answer or
+                  record new assistance.
+                </p>
+              </aside>
             </>
           ) : (
             <div className={styles.columns}>
