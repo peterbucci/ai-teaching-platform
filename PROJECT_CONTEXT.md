@@ -2,6 +2,8 @@
 
 _Last product-direction revision: October 22, 2026 · Working product name: Learning Pulse_
 
+> **October 23 teacher-first release decision:** The October 25 demonstration now leads with **teacher overview → inspect original student reasoning → AI intervention draft → teacher review/edit/approval and delivery → linked follow-up evidence**. Usability, visual consistency, clear navigation, reliability and presentation are P0 requirements. Preserve the existing R4/R7 implementation supporting that story; authoring polish, narrow copilot and visuals are conditional P1, while broad copilot/voice/new visual types/analytics and infrastructure expansion are P2. This later decision supersedes the October 22 priority table and presentation order below, while preserving the broader product vision and history. See the [demo plan](docs/DEMO_PLAN.md) for the current implementation checkpoint, independent UI acceptance gates and walkthrough, and [roadmap #15](https://github.com/peterbucci/ai-teaching-platform/issues/15) for current ownership/status. Historical real-model evidence remains valid only within its recorded scope; synthetic histories and passing tests do not prove educational effectiveness.
+
 > **Purpose:** This is the team's product specification: what Learning Pulse should do, why it matters, and what a truthful demonstration must prove. It is **not** a claim that all described features are implemented. Check the [GitHub roadmap (#15)](https://github.com/peterbucci/ai-teaching-platform/issues/15), [project board](https://github.com/users/peterbucci/projects/7), current pull requests, and actual code for implementation status. The roadmap and older guides still need to be reconciled with this product reset.
 
 ## 1. What we're building
