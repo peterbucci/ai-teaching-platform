@@ -1,0 +1,281 @@
+{
+  "source_sha": "1726c9c12f171095fed8c327b8a5852e8057c924",
+  "base": "http://127.0.0.1:3407",
+  "started_at": "2026-10-25T18:12:35.842Z",
+  "original_answer": "  Original café 🌱 answer.\nKeep  all spacing.  ",
+  "category": "Provider-disabled real browser/auth/database with explicit precommit/postcommit fault injection",
+  "actual_model_calls": 0,
+  "cases": [
+    {
+      "id": "R1-initial-save-401",
+      "status": "PASS",
+      "started_at": "2026-10-25T18:12:35.842Z",
+      "session_id": "52a12cb8-7f26-491c-a11d-90a83a3cc443",
+      "attempt_id": "dcf8b1a5-fea5-47ce-9154-732e683c2fcf",
+      "quiet_refresh": {
+        "answers": 1,
+        "evaluations": 0,
+        "text_preserved": true
+      },
+      "reconciliation": {
+        "confirmed": "absent",
+        "answer_writes": 0,
+        "evaluation_writes": 0
+      },
+      "automatic_retries": 0,
+      "original_identity_preserved_after_refresh": true,
+      "answer_posts": [
+        {
+          "attempt_id": "dcf8b1a5-fea5-47ce-9154-732e683c2fcf",
+          "submission_key": "affd47f8-955b-423b-a085-65f676b7103f",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        },
+        {
+          "attempt_id": "dcf8b1a5-fea5-47ce-9154-732e683c2fcf",
+          "submission_key": "affd47f8-955b-423b-a085-65f676b7103f",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [
+        {
+          "status": 401
+        },
+        {
+          "status": 200
+        }
+      ],
+      "evaluation_posts": [
+        {
+          "attempt_id": "dcf8b1a5-fea5-47ce-9154-732e683c2fcf"
+        }
+      ],
+      "finished_at": "2026-10-25T18:12:40.821Z"
+    },
+    {
+      "id": "R2-offline-save",
+      "status": "PASS",
+      "started_at": "2026-10-25T18:12:40.836Z",
+      "session_id": "ecd3d5d4-e01a-40a1-98ea-427863640c4f",
+      "attempt_id": "e71d9c63-9411-4133-9bfa-a956be0e65fd",
+      "quiet_refresh": {
+        "answers": 1,
+        "evaluations": 0,
+        "text_preserved": true
+      },
+      "reconciliation": {
+        "confirmed": "absent",
+        "answer_writes": 0,
+        "evaluation_writes": 0
+      },
+      "automatic_retries": 0,
+      "original_identity_preserved_after_refresh": true,
+      "answer_posts": [
+        {
+          "attempt_id": "e71d9c63-9411-4133-9bfa-a956be0e65fd",
+          "submission_key": "6f4b3b0f-0331-433c-9134-44f2e61604ad",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        },
+        {
+          "attempt_id": "e71d9c63-9411-4133-9bfa-a956be0e65fd",
+          "submission_key": "6f4b3b0f-0331-433c-9134-44f2e61604ad",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [
+        {
+          "status": 200
+        }
+      ],
+      "evaluation_posts": [
+        {
+          "attempt_id": "e71d9c63-9411-4133-9bfa-a956be0e65fd"
+        }
+      ],
+      "finished_at": "2026-10-25T18:12:45.376Z"
+    },
+    {
+      "id": "R3-committed-response-lost",
+      "status": "PASS",
+      "started_at": "2026-10-25T18:12:45.390Z",
+      "session_id": "47f183fb-23a7-4f7e-809f-1e66f80ae9ab",
+      "attempt_id": "c74d7b1a-f25e-4340-a997-3061be0f3a0c",
+      "quiet_refresh": {
+        "answers": 1,
+        "evaluations": 0,
+        "text_preserved": false
+      },
+      "fault": "Real server answer 200 discarded before the page received it",
+      "read_only_reconciliation": true,
+      "answer_posts": [
+        {
+          "attempt_id": "c74d7b1a-f25e-4340-a997-3061be0f3a0c",
+          "submission_key": "5753a1cf-2f5b-44d5-b4fa-da426cee0aab",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [],
+      "evaluation_posts": [],
+      "finished_at": "2026-10-25T18:12:49.834Z"
+    },
+    {
+      "id": "R4-acknowledged-save-evaluation-401",
+      "status": "FAIL",
+      "started_at": "2026-10-25T18:12:49.847Z",
+      "error": "page.waitForURL: Timeout 20000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until \"load\"\n============================================================",
+      "finished_at": "2026-10-25T18:13:10.673Z"
+    },
+    {
+      "id": "R5-real-auth-expiry-safe-return",
+      "status": "FAIL",
+      "started_at": "2026-10-25T18:13:10.673Z",
+      "error": "page.waitForURL: Timeout 20000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until \"load\"\n============================================================",
+      "finished_at": "2026-10-25T18:13:31.591Z"
+    },
+    {
+      "id": "R6-duplicate-and-original-identity",
+      "status": "FAIL",
+      "started_at": "2026-10-25T18:13:31.592Z",
+      "error": "page.waitForURL: Timeout 20000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until \"load\"\n============================================================",
+      "finished_at": "2026-10-25T18:13:52.347Z"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "R1-initial-save-401-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R1-initial-save-401-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R1-initial-save-401-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R1-initial-save-401-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    },
+    {
+      "file": "R2-offline-save-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R2-offline-save-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R2-offline-save-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R2-offline-save-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    },
+    {
+      "file": "R3-unknown-before-check-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R3-unknown-before-check-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R3-unknown-before-check-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R3-unknown-before-check-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    }
+  ],
+  "limitations": [
+    "Viewport emulation is not native zoom, mobile keyboard or screen-reader verification."
+  ],
+  "finished_at": "2026-10-25T18:13:52.347Z",
+  "result": "INCOMPLETE_OR_FAILED"
+}

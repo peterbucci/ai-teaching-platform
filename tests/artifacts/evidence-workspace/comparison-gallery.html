@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Evidence v2.2 comparison</title>
+    <style>
+      body {
+        margin: 0;
+        background: #f4f7f5;
+        color: #17302d;
+        font:
+          16px/1.55 system-ui,
+          sans-serif;
+      }
+      main {
+        max-width: 1700px;
+        margin: auto;
+        padding: 28px;
+      }
+      h1 {
+        font-size: 28px;
+        margin: 0 0 10px;
+      }
+      h2 {
+        font-size: 20px;
+        margin: 30px 0 10px;
+      }
+      p {
+        max-width: 1000px;
+      }
+      a {
+        color: #176d58;
+      }
+      nav {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 22px 0;
+      }
+      nav a {
+        border: 1px solid #b7cfc2;
+        border-radius: 7px;
+        padding: 7px 12px;
+        background: white;
+      }
+      section {
+        scroll-margin-top: 15px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+      figure {
+        margin: 0;
+        background: white;
+        border: 1px solid #cedbd3;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      figcaption {
+        padding: 14px;
+        border-bottom: 1px solid #dce6df;
+      }
+      figcaption strong {
+        display: block;
+      }
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .pending {
+        padding: 24px;
+        min-height: 220px;
+        background: #fff9e8;
+        color: #654b18;
+      }
+      .note {
+        font-size: 14px;
+        color: #4f6359;
+      }
+      .state {
+        margin-top: 30px;
+        padding-top: 10px;
+        border-top: 1px solid #cddbd2;
+      }
+      @media (max-width: 850px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        main {
+          padding: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Evidence v2.2 workspace comparison</h1>
+      <p>
+        Actual exported prototype, the previously verified combined
+        implementation, and the corrected Evidence branch. Reference data
+        differ; compare layout and access to the original record and context,
+        without treating student names, counts or content versions as
+        equivalent.
+      </p>
+      <p class="note">
+        Prototype was freshly opened through its real controls at all four
+        sizes. Combined screenshots are unchanged PR #122 evidence on
+        <code>462cfb1</code>. Corrected application captures are from
+        <code>4ce513c</code>: 230 browser checks passed, with no changed
+        evidence/workflow records. The four required viewport comparisons below
+        are uncropped. Native 200% was independently measured; its separate
+        headless browser PNGs are cropped and are not full-viewport visual
+        proof.
+      </p>
+      <p>
+        <a href="VERIFICATION.md">Final verification and limitations</a> ·
+        <a href="corrected/report.json">230-check browser receipt</a> ·
+        <a href="PROVENANCE.md">Reference provenance and reproduction</a> ·
+        <a href="prototype-fresh/report.json"
+          >Fresh exported-prototype measurements</a
+        >
+      </p>
+      <nav>
+        <a href="#selected-1440x1000">1440 × 1000</a
+        ><a href="#selected-1024x768">1024 × 768</a
+        ><a href="#selected-390x844">390 × 844</a
+        ><a href="#selected-320x844">320 × 844</a>
+      </nav>
+      <div id="comparisons"></div>
+      <script>
+        const root = document.getElementById("comparisons");
+        for (const state of ["selected", "list"])
+          for (const size of ["1440x1000", "1024x768", "390x844", "320x844"]) {
+            const section = document.createElement("section");
+            section.id = state + "-" + size;
+            const title = document.createElement("h2");
+            title.textContent =
+              (state === "selected"
+                ? "Selected original record"
+                : "Concern / response-list context") +
+              " · " +
+              size.replace("x", " × ");
+            section.append(title);
+            const grid = document.createElement("div");
+            grid.className = "grid";
+            for (const [label, description, src] of [
+              [
+                "Approved prototype",
+                "Fresh observation of the unchanged exported design",
+                "prototype-fresh/" + state + "-" + size + ".png",
+              ],
+              [
+                "Previous combined implementation",
+                "PR #122 capture; fictional records differ",
+                "reference/combined/" + state + "-" + size + ".png",
+              ],
+              [
+                "Corrected Evidence workspace",
+                "Production application 4ce513c; fictional class fixture",
+                "corrected/" + state + "-" + size + ".png",
+              ],
+            ]) {
+              const figure = document.createElement("figure");
+              const caption = document.createElement("figcaption");
+              const strong = document.createElement("strong");
+              strong.textContent = label;
+              caption.append(strong, description);
+              const link = document.createElement("a");
+              link.href = src;
+              const image = document.createElement("img");
+              image.src = src;
+              image.alt = label + " " + state + " at " + size;
+              image.loading = "lazy";
+              link.append(image);
+              figure.append(caption, link);
+              grid.append(figure);
+            }
+
+            section.append(grid);
+            root.append(section);
+          }
+      </script>
+    </main>
+  </body>
+</html>

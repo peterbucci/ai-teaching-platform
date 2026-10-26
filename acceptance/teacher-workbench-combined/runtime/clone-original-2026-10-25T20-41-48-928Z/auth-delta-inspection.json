@@ -1,0 +1,1079 @@
+{
+  "status": "read-only diagnosis passed",
+  "failedReceipt": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime\\clone-original-2026-10-25T20-41-48-928Z\\receipt.json",
+  "checks": [
+    {
+      "name": "preflight:source-identity",
+      "observedAt": "2026-10-25T20:44:58.257Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27676397568,
+          "availableGiB": 25.775653839111328,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27676397568,
+          "availableGiB": 25.775653839111328,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27676397568,
+          "availableGiB": 25.775653839111328,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897589854208,
+          "availableGiB": 835.9456939697266,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27676123136,
+            "availableGiB": 25.77539825439453,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "name": "source-identity",
+      "pass": true
+    },
+    {
+      "name": "preflight:target-identity",
+      "observedAt": "2026-10-25T20:45:00.627Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27672961024,
+          "availableGiB": 25.77245330810547,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27672961024,
+          "availableGiB": 25.77245330810547,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27672961024,
+          "availableGiB": 25.77245330810547,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897589858304,
+          "availableGiB": 835.9456977844238,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27666411520,
+            "availableGiB": 25.766353607177734,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "name": "target-identity",
+      "pass": true
+    },
+    {
+      "name": "preflight:source-now-tables",
+      "observedAt": "2026-10-25T20:45:02.764Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27666149376,
+          "availableGiB": 25.766109466552734,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27666149376,
+          "availableGiB": 25.766109466552734,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27666149376,
+          "availableGiB": 25.766109466552734,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897589854208,
+          "availableGiB": 835.9456939697266,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27666149376,
+            "availableGiB": 25.766109466552734,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "name": "source-now-tables",
+      "pass": true
+    },
+    {
+      "name": "preflight:source-now-fingerprints",
+      "observedAt": "2026-10-25T20:45:04.467Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27666149376,
+          "availableGiB": 25.766109466552734,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27666149376,
+          "availableGiB": 25.766109466552734,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27666149376,
+          "availableGiB": 25.766109466552734,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897589854208,
+          "availableGiB": 835.9456939697266,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27666149376,
+            "availableGiB": 25.766109466552734,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "name": "source-now-fingerprints",
+      "pass": true
+    },
+    {
+      "name": "preflight:target-now-tables",
+      "observedAt": "2026-10-25T20:45:06.219Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27665960960,
+          "availableGiB": 25.765933990478516,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27665960960,
+          "availableGiB": 25.765933990478516,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27665960960,
+          "availableGiB": 25.765933990478516,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897589862400,
+          "availableGiB": 835.9457015991211,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27665956864,
+            "availableGiB": 25.76593017578125,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "name": "target-now-tables",
+      "pass": true
+    },
+    {
+      "name": "preflight:target-now-fingerprints",
+      "observedAt": "2026-10-25T20:45:07.880Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27665891328,
+          "availableGiB": 25.765869140625,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27665891328,
+          "availableGiB": 25.765869140625,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27665891328,
+          "availableGiB": 25.765869140625,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897589862400,
+          "availableGiB": 835.9457015991211,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27665887232,
+            "availableGiB": 25.765865325927734,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "name": "target-now-fingerprints",
+      "pass": true
+    },
+    {
+      "name": "preflight:source-session-ids",
+      "observedAt": "2026-10-25T20:45:09.926Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27662376960,
+          "availableGiB": 25.762596130371094,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27662376960,
+          "availableGiB": 25.762596130371094,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27662376960,
+          "availableGiB": 25.762596130371094,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897589862400,
+          "availableGiB": 835.9457015991211,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27662405632,
+            "availableGiB": 25.762622833251953,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "name": "source-session-ids",
+      "pass": true
+    },
+    {
+      "name": "preflight:target-session-ids",
+      "observedAt": "2026-10-25T20:45:11.668Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27662106624,
+          "availableGiB": 25.762344360351562,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27662106624,
+          "availableGiB": 25.762344360351562,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27662106624,
+          "availableGiB": 25.762344360351562,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897589862400,
+          "availableGiB": 835.9457015991211,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27662106624,
+            "availableGiB": 25.762344360351562,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "name": "target-session-ids",
+      "pass": true
+    },
+    {
+      "name": "preflight:new-session-public-metadata",
+      "observedAt": "2026-10-25T20:45:13.381Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27657531392,
+          "availableGiB": 25.75808334350586,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27657531392,
+          "availableGiB": 25.75808334350586,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27657531392,
+          "availableGiB": 25.75808334350586,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897589862400,
+          "availableGiB": 835.9457015991211,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27656843264,
+            "availableGiB": 25.757442474365234,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "name": "new-session-public-metadata",
+      "pass": true
+    },
+    {
+      "name": "preflight:original-auth-rows-preserved",
+      "observedAt": "2026-10-25T20:45:15.359Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27657650176,
+          "availableGiB": 25.758193969726562,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27657650176,
+          "availableGiB": 25.758193969726562,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27657650176,
+          "availableGiB": 25.758193969726562,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897589862400,
+          "availableGiB": 835.9457015991211,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27657314304,
+            "availableGiB": 25.75788116455078,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "name": "original-auth-rows-preserved",
+      "pass": true
+    },
+    {
+      "name": "preflight:owned-app-startup-log",
+      "observedAt": "2026-10-25T20:45:17.168Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27656323072,
+          "availableGiB": 25.7569580078125,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27656323072,
+          "availableGiB": 25.7569580078125,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27656323072,
+          "availableGiB": 25.7569580078125,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897589862400,
+          "availableGiB": 835.9457015991211,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27655872512,
+            "availableGiB": 25.75653839111328,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "name": "owned-app-startup-log",
+      "pass": true
+    }
+  ],
+  "originalSourceUnchanged": true,
+  "targetDomainRowsUnchanged": true,
+  "lockReleased": false,
+  "writes": 0,
+  "sourceNow": [
+    {
+      "name": "assignments",
+      "count": 24,
+      "fingerprint": "a60a191c20827bbf24511973ba9137b7"
+    },
+    {
+      "name": "attempts",
+      "count": 178,
+      "fingerprint": "82908bfa1957ade103e72018b8f7a986"
+    },
+    {
+      "name": "auth_account",
+      "count": 17,
+      "fingerprint": "8a1692a4d651d3b921696aac92f2968d"
+    },
+    {
+      "name": "auth_session",
+      "count": 89,
+      "fingerprint": "4a91001af455b82a72d09cb270653127"
+    },
+    {
+      "name": "auth_user",
+      "count": 35,
+      "fingerprint": "a9ee8411a508da423b693f4b9eda74f0"
+    },
+    {
+      "name": "auth_verification",
+      "count": 0,
+      "fingerprint": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "classes",
+      "count": 20,
+      "fingerprint": "ec2df59d35d9615a876f90f392f0125b"
+    },
+    {
+      "name": "dialogue_events",
+      "count": 431,
+      "fingerprint": "ace5caa518d800ae37efa4994dafe57f"
+    },
+    {
+      "name": "dialogue_operations",
+      "count": 79,
+      "fingerprint": "50076d75699a38041bbfeec6efa7123c"
+    },
+    {
+      "name": "dialogue_provider_calls",
+      "count": 74,
+      "fingerprint": "b9bdb6e38a92157d5faa038e0d103431"
+    },
+    {
+      "name": "dialogue_sessions",
+      "count": 35,
+      "fingerprint": "d9d3579ea19717a92fdd7b28d5f1d3e6"
+    },
+    {
+      "name": "enrollments",
+      "count": 43,
+      "fingerprint": "46cbdb4b60e7fe419d40e32782d68ee6"
+    },
+    {
+      "name": "evaluations",
+      "count": 156,
+      "fingerprint": "0011cfc79f98b786dbd071bb298aee79"
+    },
+    {
+      "name": "interventions",
+      "count": 34,
+      "fingerprint": "0d183a35615684536ded5ffd102b120f"
+    },
+    {
+      "name": "lessons",
+      "count": 20,
+      "fingerprint": "156f326835623989d17ab7de1112794c"
+    },
+    {
+      "name": "lesson_versions",
+      "count": 20,
+      "fingerprint": "827413649e9ebb89b21b70551fae1a5a"
+    },
+    {
+      "name": "objective_proposals",
+      "count": 6,
+      "fingerprint": "4fb88a00016e9d3e6bf30fa77b55e794"
+    },
+    {
+      "name": "profiles",
+      "count": 57,
+      "fingerprint": "1063b0b4685e68d62eae4dafef2d6d11"
+    },
+    {
+      "name": "question_bank_operations",
+      "count": 5,
+      "fingerprint": "c7fd00ea0d861c61f44d74e0d65ec35a"
+    },
+    {
+      "name": "reading_bookmarks",
+      "count": 0,
+      "fingerprint": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "schema_migrations",
+      "count": 17,
+      "fingerprint": "13706e991c5f4a210bf68a7d7b6c45d9"
+    },
+    {
+      "name": "sessions",
+      "count": 101,
+      "fingerprint": "b60e4c08dfec43bd4ee93439992889dc"
+    },
+    {
+      "name": "source_documents",
+      "count": 19,
+      "fingerprint": "337e42fabe9492b454a076831061e727"
+    },
+    {
+      "name": "source_versions",
+      "count": 24,
+      "fingerprint": "7364bf2de04ae1b97518f0a3ac06cd91"
+    },
+    {
+      "name": "teacher_intervention_actions",
+      "count": 13,
+      "fingerprint": "7c8bf7fee98bb5e46878713762583b6d"
+    },
+    {
+      "name": "teacher_intervention_approvals",
+      "count": 5,
+      "fingerprint": "bc65f42940d99dce9582ba8c050c3cb9"
+    },
+    {
+      "name": "teacher_intervention_deliveries",
+      "count": 5,
+      "fingerprint": "57bd3e71c40c74a3987678b8f00c7f1d"
+    },
+    {
+      "name": "teacher_intervention_drafts",
+      "count": 17,
+      "fingerprint": "d8ad5e61e81deb7c01536214de0b1431"
+    },
+    {
+      "name": "teacher_intervention_evaluation_requests",
+      "count": 6,
+      "fingerprint": "e68856ad677d3f8e93136d282353a80c"
+    },
+    {
+      "name": "teacher_intervention_followups",
+      "count": 5,
+      "fingerprint": "ed099a5076028d55f0a98dd5c4010c8e"
+    },
+    {
+      "name": "teacher_intervention_recipients",
+      "count": 5,
+      "fingerprint": "e356995f1c0b168a092e096d8a009b01"
+    },
+    {
+      "name": "teacher_intervention_requests",
+      "count": 27,
+      "fingerprint": "f356b707a879755cc9a4e86ee1f7c478"
+    }
+  ],
+  "targetNow": [
+    {
+      "name": "assignments",
+      "count": 24,
+      "fingerprint": "a60a191c20827bbf24511973ba9137b7"
+    },
+    {
+      "name": "attempts",
+      "count": 178,
+      "fingerprint": "82908bfa1957ade103e72018b8f7a986"
+    },
+    {
+      "name": "auth_account",
+      "count": 17,
+      "fingerprint": "8a1692a4d651d3b921696aac92f2968d"
+    },
+    {
+      "name": "auth_session",
+      "count": 90,
+      "fingerprint": "b062e47ff9cf1c778b679d6ed0f60597"
+    },
+    {
+      "name": "auth_user",
+      "count": 35,
+      "fingerprint": "a9ee8411a508da423b693f4b9eda74f0"
+    },
+    {
+      "name": "auth_verification",
+      "count": 0,
+      "fingerprint": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "classes",
+      "count": 20,
+      "fingerprint": "ec2df59d35d9615a876f90f392f0125b"
+    },
+    {
+      "name": "dialogue_events",
+      "count": 431,
+      "fingerprint": "ace5caa518d800ae37efa4994dafe57f"
+    },
+    {
+      "name": "dialogue_operations",
+      "count": 79,
+      "fingerprint": "50076d75699a38041bbfeec6efa7123c"
+    },
+    {
+      "name": "dialogue_provider_calls",
+      "count": 74,
+      "fingerprint": "b9bdb6e38a92157d5faa038e0d103431"
+    },
+    {
+      "name": "dialogue_sessions",
+      "count": 35,
+      "fingerprint": "d9d3579ea19717a92fdd7b28d5f1d3e6"
+    },
+    {
+      "name": "enrollments",
+      "count": 43,
+      "fingerprint": "46cbdb4b60e7fe419d40e32782d68ee6"
+    },
+    {
+      "name": "evaluations",
+      "count": 156,
+      "fingerprint": "0011cfc79f98b786dbd071bb298aee79"
+    },
+    {
+      "name": "interventions",
+      "count": 34,
+      "fingerprint": "0d183a35615684536ded5ffd102b120f"
+    },
+    {
+      "name": "lessons",
+      "count": 20,
+      "fingerprint": "156f326835623989d17ab7de1112794c"
+    },
+    {
+      "name": "lesson_versions",
+      "count": 20,
+      "fingerprint": "827413649e9ebb89b21b70551fae1a5a"
+    },
+    {
+      "name": "objective_proposals",
+      "count": 6,
+      "fingerprint": "4fb88a00016e9d3e6bf30fa77b55e794"
+    },
+    {
+      "name": "profiles",
+      "count": 57,
+      "fingerprint": "1063b0b4685e68d62eae4dafef2d6d11"
+    },
+    {
+      "name": "question_bank_operations",
+      "count": 5,
+      "fingerprint": "c7fd00ea0d861c61f44d74e0d65ec35a"
+    },
+    {
+      "name": "reading_bookmarks",
+      "count": 0,
+      "fingerprint": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "name": "schema_migrations",
+      "count": 17,
+      "fingerprint": "13706e991c5f4a210bf68a7d7b6c45d9"
+    },
+    {
+      "name": "sessions",
+      "count": 101,
+      "fingerprint": "b60e4c08dfec43bd4ee93439992889dc"
+    },
+    {
+      "name": "source_documents",
+      "count": 19,
+      "fingerprint": "337e42fabe9492b454a076831061e727"
+    },
+    {
+      "name": "source_versions",
+      "count": 24,
+      "fingerprint": "7364bf2de04ae1b97518f0a3ac06cd91"
+    },
+    {
+      "name": "teacher_intervention_actions",
+      "count": 13,
+      "fingerprint": "7c8bf7fee98bb5e46878713762583b6d"
+    },
+    {
+      "name": "teacher_intervention_approvals",
+      "count": 5,
+      "fingerprint": "bc65f42940d99dce9582ba8c050c3cb9"
+    },
+    {
+      "name": "teacher_intervention_deliveries",
+      "count": 5,
+      "fingerprint": "57bd3e71c40c74a3987678b8f00c7f1d"
+    },
+    {
+      "name": "teacher_intervention_drafts",
+      "count": 17,
+      "fingerprint": "d8ad5e61e81deb7c01536214de0b1431"
+    },
+    {
+      "name": "teacher_intervention_evaluation_requests",
+      "count": 6,
+      "fingerprint": "e68856ad677d3f8e93136d282353a80c"
+    },
+    {
+      "name": "teacher_intervention_followups",
+      "count": 5,
+      "fingerprint": "ed099a5076028d55f0a98dd5c4010c8e"
+    },
+    {
+      "name": "teacher_intervention_recipients",
+      "count": 5,
+      "fingerprint": "e356995f1c0b168a092e096d8a009b01"
+    },
+    {
+      "name": "teacher_intervention_requests",
+      "count": 27,
+      "fingerprint": "f356b707a879755cc9a4e86ee1f7c478"
+    }
+  ],
+  "addedAuthSessions": [
+    {
+      "email": "acceptance-shell-teacher@example.invalid",
+      "actorId": "Lvo11YyHBHrLmjAdy74F4MCBFHhoEZQg",
+      "createdAt": "2026-10-25T20:42:29.28+00:00",
+      "expiresAt": "2026-11-01T20:42:29.28+00:00",
+      "sessionId": "4IdAolDBgUOh2ywvAQmG4QqegUz6bLCQ",
+      "updatedAt": "2026-10-25T20:42:29.28+00:00"
+    }
+  ],
+  "targetOriginalAuthRowsFingerprint": "4a91001af455b82a72d09cb270653127",
+  "appLogs": {
+    "sha256": "1f8d6e13c1047ff9121522882027ad82ebe18d58e61f3b2f1779904fb6e3da0f",
+    "zeroMigrationsApplied": true,
+    "ready": true,
+    "explicitAuthRouteLog": false,
+    "rawLogsPublished": false
+  },
+  "finishedAt": "2026-10-25T20:45:18.898Z"
+}

@@ -1,0 +1,414 @@
+{
+  "applicationHead": "ff16f1201865f54676db30c24251fe29ceb1b5b1",
+  "applicationTree": "3bc2823576b8de30c9b8dd4ddcf65956a112247c",
+  "ci": {
+    "runId": 40198336589,
+    "url": "https://github.com/peterbucci/ai-teaching-platform/actions/runs/40198336589",
+    "jobs": [
+      {
+        "id": 121183936018,
+        "name": "quality",
+        "head": "ff16f1201865f54676db30c24251fe29ceb1b5b1",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/peterbucci/ai-teaching-platform/actions/runs/40198336589/job/121183936018",
+        "startedAt": "2026-10-25T13:35:56Z",
+        "completedAt": "2026-10-25T13:44:09Z",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:35:57Z",
+            "completedAt": "2026-10-25T13:35:58Z"
+          },
+          {
+            "name": "Run actions/checkout@v7.0.1",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:35:58Z",
+            "completedAt": "2026-10-25T13:35:59Z"
+          },
+          {
+            "name": "Run actions/setup-node@v7.1.0",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:35:59Z",
+            "completedAt": "2026-10-25T13:36:01Z"
+          },
+          {
+            "name": "Run npm ci",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:36:01Z",
+            "completedAt": "2026-10-25T13:36:14Z"
+          },
+          {
+            "name": "Run npm run content:check",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:36:14Z",
+            "completedAt": "2026-10-25T13:36:14Z"
+          },
+          {
+            "name": "Run npm test",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:36:14Z",
+            "completedAt": "2026-10-25T13:36:36Z"
+          },
+          {
+            "name": "Run npm run lint",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:36:36Z",
+            "completedAt": "2026-10-25T13:36:53Z"
+          },
+          {
+            "name": "Run npm run typecheck",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:36:53Z",
+            "completedAt": "2026-10-25T13:37:08Z"
+          },
+          {
+            "name": "Run npm run format:check",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:37:08Z",
+            "completedAt": "2026-10-25T13:37:17Z"
+          },
+          {
+            "name": "Run npm run build",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:37:17Z",
+            "completedAt": "2026-10-25T13:37:47Z"
+          },
+          {
+            "name": "Configure isolated fictional demo",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:37:47Z",
+            "completedAt": "2026-10-25T13:37:47Z"
+          },
+          {
+            "name": "Build and start application and database",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:37:47Z",
+            "completedAt": "2026-10-25T13:39:08Z"
+          },
+          {
+            "name": "Provision accounts and seed evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:39:08Z",
+            "completedAt": "2026-10-25T13:39:09Z"
+          },
+          {
+            "name": "Check SQL constraints",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:39:09Z",
+            "completedAt": "2026-10-25T13:39:09Z"
+          },
+          {
+            "name": "Check teacher review and activation boundaries",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:39:09Z",
+            "completedAt": "2026-10-25T13:39:16Z"
+          },
+          {
+            "name": "Check reading citations and displayed assistance",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:39:16Z",
+            "completedAt": "2026-10-25T13:39:24Z"
+          },
+          {
+            "name": "Check repeatable fictional class and authorized reconstruction",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:39:24Z",
+            "completedAt": "2026-10-25T13:39:32Z"
+          },
+          {
+            "name": "Check deterministic tutoring and private evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:39:32Z",
+            "completedAt": "2026-10-25T13:40:41Z"
+          },
+          {
+            "name": "Check durable dialogue and authenticated recovery with synthetic providers",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:40:41Z",
+            "completedAt": "2026-10-25T13:41:40Z"
+          },
+          {
+            "name": "Recover only successful saved dialogue outcomes without provider calls",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:41:40Z",
+            "completedAt": "2026-10-25T13:41:51Z"
+          },
+          {
+            "name": "Check generated controller handoffs with synthetic providers",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:41:51Z",
+            "completedAt": "2026-10-25T13:42:01Z"
+          },
+          {
+            "name": "Check authorized metrics and evidence refetch",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:42:01Z",
+            "completedAt": "2026-10-25T13:42:10Z"
+          },
+          {
+            "name": "Check persisted misconception and contradiction counts",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:42:10Z",
+            "completedAt": "2026-10-25T13:42:18Z"
+          },
+          {
+            "name": "Check lesson versions, ownership and historical evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:42:18Z",
+            "completedAt": "2026-10-25T13:42:25Z"
+          },
+          {
+            "name": "Check question-bank review, selective regeneration and durable requests",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:42:25Z",
+            "completedAt": "2026-10-25T13:42:32Z"
+          },
+          {
+            "name": "Check objective review, source grounding and proposal recovery",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:42:32Z",
+            "completedAt": "2026-10-25T13:42:39Z"
+          },
+          {
+            "name": "Check login limits and forwarding-header resistance",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:42:39Z",
+            "completedAt": "2026-10-25T13:42:47Z"
+          },
+          {
+            "name": "Check HTTP authentication and evidence persistence",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:42:47Z",
+            "completedAt": "2026-10-25T13:42:55Z"
+          },
+          {
+            "name": "Restart without resetting data",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:42:55Z",
+            "completedAt": "2026-10-25T13:43:03Z"
+          },
+          {
+            "name": "Check uploaded-lesson uncertainty and authorized teacher pages",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:43:03Z",
+            "completedAt": "2026-10-25T13:43:11Z"
+          },
+          {
+            "name": "Check lesson publishing and isolated class evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:43:11Z",
+            "completedAt": "2026-10-25T13:43:19Z"
+          },
+          {
+            "name": "Check private material extraction, review and version storage",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:43:19Z",
+            "completedAt": "2026-10-25T13:43:36Z"
+          },
+          {
+            "name": "Check publishing HTTP and new-version authorization",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:43:36Z",
+            "completedAt": "2026-10-25T13:43:44Z"
+          },
+          {
+            "name": "Check intervention generation and immutable evidence with synthetic providers",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:43:44Z",
+            "completedAt": "2026-10-25T13:43:51Z"
+          },
+          {
+            "name": "Check uploaded intervention source/version authorization",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:43:51Z",
+            "completedAt": "2026-10-25T13:43:59Z"
+          },
+          {
+            "name": "Check authenticated private intervention review and invalid generation requests",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:43:59Z",
+            "completedAt": "2026-10-25T13:44:07Z"
+          },
+          {
+            "name": "Show service status on failure",
+            "status": "completed",
+            "conclusion": "skipped",
+            "startedAt": "2026-10-25T13:44:07Z",
+            "completedAt": "2026-10-25T13:44:07Z"
+          },
+          {
+            "name": "Stop isolated stack",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:44:07Z",
+            "completedAt": "2026-10-25T13:44:07Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@v7.1.0",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:44:07Z",
+            "completedAt": "2026-10-25T13:44:07Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7.0.1",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:44:07Z",
+            "completedAt": "2026-10-25T13:44:07Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:44:07Z",
+            "completedAt": "2026-10-25T13:44:08Z"
+          }
+        ]
+      },
+      {
+        "id": 121183936310,
+        "name": "intervention-approval",
+        "head": "ff16f1201865f54676db30c24251fe29ceb1b5b1",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/peterbucci/ai-teaching-platform/actions/runs/40198336589/job/121183936310",
+        "startedAt": "2026-10-25T13:35:56Z",
+        "completedAt": "2026-10-25T13:37:50Z",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:35:57Z",
+            "completedAt": "2026-10-25T13:35:58Z"
+          },
+          {
+            "name": "Run actions/checkout@v7.0.1",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:35:58Z",
+            "completedAt": "2026-10-25T13:36:00Z"
+          },
+          {
+            "name": "Run actions/setup-node@v7.1.0",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:36:00Z",
+            "completedAt": "2026-10-25T13:36:01Z"
+          },
+          {
+            "name": "Configure isolated fictional demo",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:36:01Z",
+            "completedAt": "2026-10-25T13:36:01Z"
+          },
+          {
+            "name": "Start fresh approval verification stack",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:36:01Z",
+            "completedAt": "2026-10-25T13:37:39Z"
+          },
+          {
+            "name": "Seed fictional accounts and evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:37:39Z",
+            "completedAt": "2026-10-25T13:37:40Z"
+          },
+          {
+            "name": "Check uploaded and curated approval, delivery and isolated follow-up outcomes",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:37:40Z",
+            "completedAt": "2026-10-25T13:37:46Z"
+          },
+          {
+            "name": "Show approval service status on failure",
+            "status": "completed",
+            "conclusion": "skipped",
+            "startedAt": "2026-10-25T13:37:46Z",
+            "completedAt": "2026-10-25T13:37:46Z"
+          },
+          {
+            "name": "Stop isolated approval stack",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:37:46Z",
+            "completedAt": "2026-10-25T13:37:48Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@v7.1.0",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:37:48Z",
+            "completedAt": "2026-10-25T13:37:48Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v7.0.1",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:37:48Z",
+            "completedAt": "2026-10-25T13:37:48Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-25T13:37:48Z",
+            "completedAt": "2026-10-25T13:37:48Z"
+          }
+        ]
+      }
+    ]
+  },
+  "localFocused": {
+    "tests": 27,
+    "passed": 27,
+    "failed": 0,
+    "receipt": ".setup/verification/v22-finish/2026-10-25T13-16-00-690Z-quality/results.json",
+    "scope": "Working tree before d4ebfd1:21 Lessons/Materials/Objectives tests,6 question tests; later changes are UI typography/context only."
+  },
+  "providers": "Disabled; deterministic injected fixtures only. No live-model acceptance.",
+  "browser": "Pending combined runtime lease; CI is not visual acceptance."
+}

@@ -1,0 +1,101 @@
+{
+  "schema": "student-blockers-fixture-v1",
+  "project": "lp-accept-notebook-n7",
+  "source_sha": "1726c9c12f171095fed8c327b8a5852e8057c924",
+  "kind": "correct",
+  "session_id": "b14b4de2-d23e-41be-aa73-3e7b0cbaf358",
+  "assignment_id": "30000000-0000-4000-8000-000000000001",
+  "student_id": "10000000-0000-4000-8000-000000000003",
+  "private_canary": "PRIVATE_STUDENT_ACCEPTANCE_CANARY_20261025",
+  "created_at": "2026-10-25T18:15:14.462Z",
+  "actual_model_calls": 0,
+  "provenance": "Fresh ordinary session, synthetic evaluator; outcomes are authored acceptance states, not actual model judgments. Feedback may be acknowledged only by normal browser display.",
+  "steps": [
+    {
+      "attempt_id": "7f0d521d-2c6f-4924-b4e3-e03b0ffd4330",
+      "submission_key": "fca7ca39-7bbd-4105-afbf-77c073f96646",
+      "response_text": "Transmission delay is unchanged: the number of packet bits and the rate at which they enter the link are unchanged. Propagation delay doubles because distance doubles at the same propagation speed.",
+      "evaluation_id": "63c0b306-d922-45c1-86ec-b4f2f34b51a3",
+      "final": true,
+      "at": "2026-10-25T18:15:15.196Z"
+    }
+  ],
+  "url": "/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=b14b4de2-d23e-41be-aa73-3e7b0cbaf358",
+  "receipt": {
+    "status": "completed",
+    "attempt_id": "7f0d521d-2c6f-4924-b4e3-e03b0ffd4330",
+    "response_text": "Transmission delay is unchanged: the number of packet bits and the rate at which they enter the link are unchanged. Propagation delay doubles because distance doubles at the same propagation speed.",
+    "submission_key": "fca7ca39-7bbd-4105-afbf-77c073f96646",
+    "evaluation_id": "63c0b306-d922-45c1-86ec-b4f2f34b51a3",
+    "correctness": [
+      {
+        "concept_id": "transmission_delay",
+        "correctness": "correct",
+        "error_type": null,
+        "rubric_criteria_met": ["PRIVATE_STUDENT_ACCEPTANCE_CANARY_20261025"],
+        "rubric_criteria_missing": []
+      },
+      {
+        "concept_id": "propagation_delay",
+        "correctness": "correct",
+        "error_type": null,
+        "rubric_criteria_met": ["PRIVATE_STUDENT_ACCEPTANCE_CANARY_20261025"],
+        "rubric_criteria_missing": []
+      }
+    ],
+    "uncertainty_reason": null,
+    "assistance": {
+      "intervention_ids": [],
+      "assistance_level": "none_recorded",
+      "scaffolding_types": [],
+      "independent_retrieval_eligible_by_concept": {
+        "propagation_delay": true,
+        "transmission_delay": true
+      },
+      "most_recent_content_assistance_at": null,
+      "elapsed_since_content_assistance_seconds": null
+    },
+    "content_ref": {
+      "package_id": "network-performance-v1",
+      "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+      "source_id": "peterson_davie_1_5_1",
+      "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+      "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+    },
+    "attempts": 1,
+    "evaluations": 1,
+    "pending_feedback_ids": [],
+    "student_view": {
+      "session": {
+        "id": "b14b4de2-d23e-41be-aa73-3e7b0cbaf358",
+        "status": "completed",
+        "started_at": "2026-10-25T18:15:14.427Z",
+        "ended_at": "2026-10-25T18:15:15.162Z"
+      },
+      "attempts": [
+        {
+          "id": "7f0d521d-2c6f-4924-b4e3-e03b0ffd4330",
+          "sequence_index": 0,
+          "intent": "initial_retrieval",
+          "prompt_text": "A single cable becomes twice as long. Packet size, link transmission rate, and propagation speed stay unchanged. What happens to transmission delay and propagation delay? Explain why.",
+          "concept_ids": ["transmission_delay", "propagation_delay"],
+          "presented_at": "2026-10-25T18:15:14.454Z",
+          "submitted_at": "2026-10-25T18:15:15.088Z",
+          "response_text": "Transmission delay is unchanged: the number of packet bits and the rate at which they enter the link are unchanged. Propagation delay doubles because distance doubles at the same propagation speed."
+        }
+      ],
+      "interventions": [],
+      "pending_reading": null,
+      "progress": {
+        "phase": "completed",
+        "current_attempt_id": "7f0d521d-2c6f-4924-b4e3-e03b0ffd4330",
+        "failed_evaluation_id": null,
+        "retry_allowed": false,
+        "retry_after": null,
+        "message": "Your answer is correct. Practice complete. This records today's performance, not lasting mastery.",
+        "next_review_at": "2026-10-26T18:15:15.151Z"
+      },
+      "citations": []
+    }
+  }
+}

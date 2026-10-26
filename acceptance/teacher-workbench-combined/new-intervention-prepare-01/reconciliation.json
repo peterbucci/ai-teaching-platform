@@ -1,0 +1,68 @@
+{
+  "category": "SELECT-only rejected fixture reconciliation",
+  "status": "reconciled-terminal-failure",
+  "sourceSha": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8",
+  "sourceTree": "333b73e1cae1daddf6edd61300655d0b4825ed67",
+  "project": "lp-teacher-combined-01a174be",
+  "origin": "http://localhost:3449",
+  "failedReceiptSha256": "d4ee9501da0a619b43e39d2e3b48825b0796659024839f08cd7fc22fdeca560d",
+  "actualModelCalls": 0,
+  "mutations": 0,
+  "terminalRequest": {
+    "requestId": "10781145-f3ab-4983-8aa8-13e12eaccc49",
+    "draftId": "ffe032b3-526a-44fd-8e2c-d5678b254ff3",
+    "status": "failed",
+    "error": "A generated question repeats an original or practice question. The previous draft is intact.",
+    "completedAt": "2026-10-25T20:53:58.786Z"
+  },
+  "draftPlaceholder": {
+    "id": "ffe032b3-526a-44fd-8e2c-d5678b254ff3",
+    "revision": 0,
+    "snapshot": null,
+    "approvals": 0,
+    "deliveries": 0
+  },
+  "original": {
+    "attemptId": "ae652658-924b-485d-9a87-7281a7501099",
+    "evaluationId": "2531aac6-c71d-400a-948d-4bb29ac79535",
+    "attemptMatchesFailedReceipt": true,
+    "attemptAndEvaluationMatchFrozenRequestEvidence": true,
+    "controllerUnchanged": true,
+    "answerSha256": "a007b66ac2172e2e772eb65b872dbd343b106cc8c802b6d19325d4bb302564a1",
+    "currentFullSessionSha256": "1cc5aed8daaae4e7e4446b35a21483f0ff2f164082ef5b4f1cfb18c9605e2a47",
+    "boundary": "Exact original attempt and accepted evaluation match pre-generation snapshots. No complete pre-generation session snapshot was persisted by the rejected helper; do not infer a whole-session before/after comparison from this receipt."
+  },
+  "rejectedPromptComparisons": [
+    {
+      "prompt": "Describe the relationship between liquid water and water vapor during evaporation.",
+      "matches": []
+    },
+    {
+      "prompt": "A gardener notices that damp soil dries after watering. Explain where the water can go and whether it still exists.",
+      "matches": [
+        {
+          "evidenceId": "E3",
+          "originalPrompt": "A gardener notices that damp soil dries after watering. Explain where the water can go and whether it still exists.",
+          "similarity": 1
+        }
+      ]
+    }
+  ],
+  "distinctProposal": {
+    "practice": "A caretaker finds a dry birdbath with no sign of a spill. Trace the water through evaporation, identifying its state before and after the change.",
+    "fresh": "A visitor sees no liquid left in a small dish but claims the air cannot contain any of that water. Explain how evaporation could challenge this claim, identifying the form the water takes.",
+    "validatedByUnmodifiedApplicationValidator": true,
+    "comparisonWithOriginals": [
+      {
+        "prompt": "A caretaker finds a dry birdbath with no sign of a spill. Trace the water through evaporation, identifying its state before and after the change.",
+        "maxSimilarity": 0.18518518518518517
+      },
+      {
+        "prompt": "A visitor sees no liquid left in a small dish but claims the air cannot contain any of that water. Explain how evaporation could challenge this claim, identifying the form the water takes.",
+        "maxSimilarity": 0.10526315789473684
+      }
+    ],
+    "practiceFreshSimilarity": 0.1
+  },
+  "finishedAt": "2026-10-25T20:58:19.828Z"
+}

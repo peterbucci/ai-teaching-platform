@@ -1,0 +1,52 @@
+{
+  "source": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+  "sourceSha": "4882b29566fecf8247f0e387ee70393d01984e8e",
+  "category": "Pinned native quality checks; no database or Docker acceptance",
+  "checks": [
+    {
+      "name": "preflight:build",
+      "observedAt": "2026-10-25T13:15:27.034Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "availableBytes": 50355609600,
+          "availableGiB": 46.897315979003906,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-quality\\build-02",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-quality\\build-02",
+          "availableBytes": 50355609600,
+          "availableGiB": 46.897315979003906,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50355609600,
+          "availableGiB": 46.897315979003906,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "build",
+      "exitCode": 1,
+      "error": null
+    }
+  ],
+  "status": "failed",
+  "startedAt": "2026-10-25T13:15:27.030Z",
+  "error": "AssertionError [ERR_ASSERTION]: build failed; see retained log\n\n1 !== 0\n",
+  "finishedAt": "2026-10-25T13:15:45.967Z"
+}

@@ -1,0 +1,777 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  /><title>N7 application and approved prototype</title
+  ><style>
+    body {
+      font: 16px system-ui;
+      background: #f5f3ed;
+      color: #183a31;
+      margin: 24px;
+    }
+    section {
+      margin: 30px 0;
+    }
+    figure {
+      margin: 0;
+    }
+    img {
+      max-width: 100%;
+      border: 1px solid #bccac1;
+    }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    figcaption {
+      font-weight: 700;
+      padding: 10px;
+    }
+    p {
+      max-width: 1000px;
+    }
+    .acceptance {
+      padding: 16px;
+      border: 2px solid #a85c22;
+      background: #fff4e1;
+    }
+    @media (max-width: 800px) {
+      .pair {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <h1>N7: application versus approved prototype</h1>
+  <p class="acceptance">
+    <strong>Full visual acceptance: not complete.</strong> Viewport, overflow
+    and zoom assertions are functional layout checks, not prototype fidelity
+    acceptance. Active-study presentation remains gated and current-data records
+    cannot reproduce the prototype's full chronology.
+  </p>
+  <p>
+    Exact reference ZIP fa69c2d0. External prototype fonts blocked; screenshots
+    use available local fallback fonts. Authenticated fictional application
+    data; disabled providers and zero paid calls. Each pair compares the same
+    destination. Differences in authorized content and unavailable chronology
+    are identified separately from layout defects.
+  </p>
+  <p>
+    Source 32de9a6175348a30aedc61478d5c3d870fece218; working diff SHA-256
+    d6745ddf078bbce6cc4f3feca35c21518d6bf80f99afa0a5b490543b7728eaca. Native
+    zoom mechanics: PASS.
+    <a href="visual-results.json">Raw results and defects</a>.
+  </p>
+  <section>
+    <h2>My Learning · 1440x1000</h2>
+    <p>
+      Mounted N1/N2/N5; factual assignment/review content differs from prototype
+      fixtures.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-learning-1440x1000.png"
+          alt="Prototype My Learning"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-learning-1440x1000.png"
+          alt="Application My Learning"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Assignment overview · 1440x1000</h2>
+    <p>
+      Mounted N1/N2; approved objectives and available current data remain
+      authoritative.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-overview-1440x1000.png"
+          alt="Prototype Assignment overview"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-overview-1440x1000.png"
+          alt="Application Assignment overview"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Notebook index · 1440x1000</h2>
+    <p>
+      Global Notebook index compared with the same prototype destination.
+      Current-data cards and supported session filters only; per-answer results,
+      help and chronology remain unavailable.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-notebook-1440x1000.png"
+          alt="Prototype Notebook index"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-notebook-1440x1000.png"
+          alt="Application Notebook index"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Standalone reading · 1440x1000</h2>
+    <p>
+      Standalone N1/N4 composition with one visibility-aware reader. Facing
+      reading remains disabled. Source wording and passage structure follow the
+      actual approved version.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-reading-1440x1000.png"
+          alt="Prototype Standalone reading"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-reading-1440x1000.png"
+          alt="Application Standalone reading"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Teacher-assigned review · 1440x1000</h2>
+    <p>
+      N5 frame with one unchanged DeliveredActivity and existing Workspace.
+      Teacher-approved synthetic fixture text is authoritative; no full shell
+      parity claim.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-review-1440x1000.png"
+          alt="Prototype Teacher-assigned review"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-review-1440x1000.png"
+          alt="Application Teacher-assigned review"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Active study · 1440x1000</h2>
+    <p>
+      PR #113 layout/controller retained pending coordinated handoff; no
+      active-Notebook visual parity claim.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img src="prototype-study-1440x1000.png" alt="Prototype Active study" />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-study-1440x1000.png"
+          alt="Application Active study"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>My Learning · 1024x768</h2>
+    <p>
+      Mounted N1/N2/N5; factual assignment/review content differs from prototype
+      fixtures.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-learning-1024x768.png"
+          alt="Prototype My Learning"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-learning-1024x768.png"
+          alt="Application My Learning"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Assignment overview · 1024x768</h2>
+    <p>
+      Mounted N1/N2; approved objectives and available current data remain
+      authoritative.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-overview-1024x768.png"
+          alt="Prototype Assignment overview"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-overview-1024x768.png"
+          alt="Application Assignment overview"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Notebook index · 1024x768</h2>
+    <p>
+      Global Notebook index compared with the same prototype destination.
+      Current-data cards and supported session filters only; per-answer results,
+      help and chronology remain unavailable.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-notebook-1024x768.png"
+          alt="Prototype Notebook index"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-notebook-1024x768.png"
+          alt="Application Notebook index"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Standalone reading · 1024x768</h2>
+    <p>
+      Standalone N1/N4 composition with one visibility-aware reader. Facing
+      reading remains disabled. Source wording and passage structure follow the
+      actual approved version.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-reading-1024x768.png"
+          alt="Prototype Standalone reading"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-reading-1024x768.png"
+          alt="Application Standalone reading"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Teacher-assigned review · 1024x768</h2>
+    <p>
+      N5 frame with one unchanged DeliveredActivity and existing Workspace.
+      Teacher-approved synthetic fixture text is authoritative; no full shell
+      parity claim.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-review-1024x768.png"
+          alt="Prototype Teacher-assigned review"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-review-1024x768.png"
+          alt="Application Teacher-assigned review"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Active study · 1024x768</h2>
+    <p>
+      PR #113 layout/controller retained pending coordinated handoff; no
+      active-Notebook visual parity claim.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img src="prototype-study-1024x768.png" alt="Prototype Active study" />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-study-1024x768.png"
+          alt="Application Active study"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>My Learning · 390x844</h2>
+    <p>
+      Mounted N1/N2/N5; factual assignment/review content differs from prototype
+      fixtures.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img src="prototype-learning-390x844.png" alt="Prototype My Learning" />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-learning-390x844.png"
+          alt="Application My Learning"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Assignment overview · 390x844</h2>
+    <p>
+      Mounted N1/N2; approved objectives and available current data remain
+      authoritative.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-overview-390x844.png"
+          alt="Prototype Assignment overview"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-overview-390x844.png"
+          alt="Application Assignment overview"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Notebook index · 390x844</h2>
+    <p>
+      Global Notebook index compared with the same prototype destination.
+      Current-data cards and supported session filters only; per-answer results,
+      help and chronology remain unavailable.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-notebook-390x844.png"
+          alt="Prototype Notebook index"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-notebook-390x844.png"
+          alt="Application Notebook index"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Standalone reading · 390x844</h2>
+    <p>
+      Standalone N1/N4 composition with one visibility-aware reader. Facing
+      reading remains disabled. Source wording and passage structure follow the
+      actual approved version.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-reading-390x844.png"
+          alt="Prototype Standalone reading"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-reading-390x844.png"
+          alt="Application Standalone reading"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Teacher-assigned review · 390x844</h2>
+    <p>
+      N5 frame with one unchanged DeliveredActivity and existing Workspace.
+      Teacher-approved synthetic fixture text is authoritative; no full shell
+      parity claim.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-review-390x844.png"
+          alt="Prototype Teacher-assigned review"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-review-390x844.png"
+          alt="Application Teacher-assigned review"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Active study · 390x844</h2>
+    <p>
+      PR #113 layout/controller retained pending coordinated handoff; no
+      active-Notebook visual parity claim.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img src="prototype-study-390x844.png" alt="Prototype Active study" />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-study-390x844.png"
+          alt="Application Active study"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>My Learning · 320x844</h2>
+    <p>
+      Mounted N1/N2/N5; factual assignment/review content differs from prototype
+      fixtures.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img src="prototype-learning-320x844.png" alt="Prototype My Learning" />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-learning-320x844.png"
+          alt="Application My Learning"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Assignment overview · 320x844</h2>
+    <p>
+      Mounted N1/N2; approved objectives and available current data remain
+      authoritative.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-overview-320x844.png"
+          alt="Prototype Assignment overview"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-overview-320x844.png"
+          alt="Application Assignment overview"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Notebook index · 320x844</h2>
+    <p>
+      Global Notebook index compared with the same prototype destination.
+      Current-data cards and supported session filters only; per-answer results,
+      help and chronology remain unavailable.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-notebook-320x844.png"
+          alt="Prototype Notebook index"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-notebook-320x844.png"
+          alt="Application Notebook index"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Standalone reading · 320x844</h2>
+    <p>
+      Standalone N1/N4 composition with one visibility-aware reader. Facing
+      reading remains disabled. Source wording and passage structure follow the
+      actual approved version.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-reading-320x844.png"
+          alt="Prototype Standalone reading"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-reading-320x844.png"
+          alt="Application Standalone reading"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Teacher-assigned review · 320x844</h2>
+    <p>
+      N5 frame with one unchanged DeliveredActivity and existing Workspace.
+      Teacher-approved synthetic fixture text is authoritative; no full shell
+      parity claim.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-review-320x844.png"
+          alt="Prototype Teacher-assigned review"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-review-320x844.png"
+          alt="Application Teacher-assigned review"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Active study · 320x844</h2>
+    <p>
+      PR #113 layout/controller retained pending coordinated handoff; no
+      active-Notebook visual parity claim.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img src="prototype-study-320x844.png" alt="Prototype Active study" />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-study-320x844.png"
+          alt="Application Active study"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>My Learning · Native 100%</h2>
+    <p>
+      Mounted N1/N2/N5; factual assignment/review content differs from prototype
+      fixtures.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-learning-native-100.png"
+          alt="Prototype My Learning"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-learning-native-100.png"
+          alt="Application My Learning"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>My Learning · Native 200%</h2>
+    <p>
+      Mounted N1/N2/N5; factual assignment/review content differs from prototype
+      fixtures.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-learning-native-200.png"
+          alt="Prototype My Learning"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-learning-native-200.png"
+          alt="Application My Learning"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Assignment overview · Native 200%</h2>
+    <p>
+      Mounted N1/N2; approved objectives and available current data remain
+      authoritative.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-overview-native-200.png"
+          alt="Prototype Assignment overview"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-overview-native-200.png"
+          alt="Application Assignment overview"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Notebook index · Native 200%</h2>
+    <p>
+      Global Notebook index compared with the same prototype destination.
+      Current-data cards and supported session filters only; per-answer results,
+      help and chronology remain unavailable.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-notebook-native-200.png"
+          alt="Prototype Notebook index"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-notebook-native-200.png"
+          alt="Application Notebook index"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Standalone reading · Native 200%</h2>
+    <p>
+      Standalone N1/N4 composition with one visibility-aware reader. Facing
+      reading remains disabled. Source wording and passage structure follow the
+      actual approved version.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-reading-native-200.png"
+          alt="Prototype Standalone reading"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-reading-native-200.png"
+          alt="Application Standalone reading"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Teacher-assigned review · Native 200%</h2>
+    <p>
+      N5 frame with one unchanged DeliveredActivity and existing Workspace.
+      Teacher-approved synthetic fixture text is authoritative; no full shell
+      parity claim.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-review-native-200.png"
+          alt="Prototype Teacher-assigned review"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-review-native-200.png"
+          alt="Application Teacher-assigned review"
+        />
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>Active study · Native 200%</h2>
+    <p>
+      PR #113 layout/controller retained pending coordinated handoff; no
+      active-Notebook visual parity claim.
+    </p>
+    <div class="pair">
+      <figure>
+        <figcaption>Approved prototype</figcaption>
+        <img
+          src="prototype-study-native-200.png"
+          alt="Prototype Active study"
+        />
+      </figure>
+      <figure>
+        <figcaption>Authenticated application</figcaption>
+        <img
+          src="application-study-native-200.png"
+          alt="Application Active study"
+        />
+      </figure>
+    </div>
+  </section>
+</html>

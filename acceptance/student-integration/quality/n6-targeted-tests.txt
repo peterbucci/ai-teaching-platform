@@ -1,0 +1,342 @@
+(node:72948) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+TAP version 13
+# (node:133132) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:133132) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/student-notebook-final/LearningPlatform/tests/answer-recovery.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-final\\LearningPlatform\\package.json.
+# Subtest: pre-commit authentication rejection preserves the original draft and never claims a server save
+ok 1 - pre-commit authentication rejection preserves the original draft and never claims a server save
+  ---
+  duration_ms: 22.4773
+  ...
+# Subtest: offline, empty, and server failures remain unknown with no automatic resend
+ok 2 - offline, empty, and server failures remain unknown with no automatic resend
+  ---
+  duration_ms: 1.5884
+  ...
+# Subtest: only a validated acknowledgement for the same session, attempt and exact original text marks saved
+ok 3 - only a validated acknowledgement for the same session, attempt and exact original text marks saved
+  ---
+  duration_ms: 4.7523
+  ...
+# Subtest: read reconciliation never writes or evaluates; absent answers permit only explicit same-identity retry
+ok 4 - read reconciliation never writes or evaluates; absent answers permit only explicit same-identity retry
+  ---
+  duration_ms: 1.4632
+  ...
+# Subtest: acknowledged saves survive later refresh or evaluation failures and cannot be resent
+ok 5 - acknowledged saves survive later refresh or evaluation failures and cannot be resent
+  ---
+  duration_ms: 0.3165
+  ...
+# Subtest: legacy drafts keep their original identity; in-flight drafts migrate to unknown and foreign drafts never restore
+ok 6 - legacy drafts keep their original identity; in-flight drafts migrate to unknown and foreign drafts never restore
+  ---
+  duration_ms: 0.8245
+  ...
+# Subtest: a stalled connection or body returns control with an unknown outcome and no resend
+ok 7 - a stalled connection or body returns control with an unknown outcome and no resend
+  ---
+  duration_ms: 16.8002
+  ...
+# (node:91384) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:91384) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/student-notebook-final/LearningPlatform/tests/reader-visibility.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-final\\LearningPlatform\\package.json.
+# Subtest: reader activity requires owner permission, browser visibility and focus
+ok 8 - reader activity requires owner permission, browser visibility and focus
+  ---
+  duration_ms: 0.9215
+  ...
+# Subtest: an initially hidden delivery schedules nothing; visibility needs a fresh presentation
+ok 9 - an initially hidden delivery schedules nothing; visibility needs a fresh presentation
+  ---
+  duration_ms: 0.3259
+  ...
+# Subtest: a delayed first frame reads current visibility without needing a rerender
+ok 10 - a delayed first frame reads current visibility without needing a rerender
+  ---
+  duration_ms: 0.1315
+  ...
+# Subtest: owner hide, browser background or lost focus between frames prevents acknowledgment
+ok 11 - owner hide, browser background or lost focus between frames prevents acknowledgment
+  ---
+  duration_ms: 0.2257
+  ...
+# Subtest: clipped or hidden passage at the final frame is not presented
+ok 12 - clipped or hidden passage at the final frame is not presented
+  ---
+  duration_ms: 0.1712
+  ...
+# Subtest: pane hide or unmount cancels either frame and rejects a queued callback race
+ok 13 - pane hide or unmount cancels either frame and rejects a queued callback race
+  ---
+  duration_ms: 0.9454
+  ...
+# Subtest: rapid hide and resume permits only the new visible presentation callback
+ok 14 - rapid hide and resume permits only the new visible presentation callback
+  ---
+  duration_ms: 0.2028
+  ...
+# (node:87968) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:87968) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/student-notebook-final/LearningPlatform/tests/student-intervention-concept-names.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-final\\LearningPlatform\\package.json.
+# Subtest: the accepted follow-up uses pinned public names without changing evidence
+ok 15 - the accepted follow-up uses pinned public names without changing evidence
+  ---
+  duration_ms: 3.1338
+  ...
+# Subtest: a newer lesson or different source cannot relabel the saved follow-up
+ok 16 - a newer lesson or different source cannot relabel the saved follow-up
+  ---
+  duration_ms: 3.1178
+  ...
+# Subtest: missing, blank and out-of-question concepts have no verified label
+ok 17 - missing, blank and out-of-question concepts have no verified label
+  ---
+  duration_ms: 0.3313
+  ...
+# Subtest: source identity field order does not hide valid saved labels
+ok 18 - source identity field order does not hide valid saved labels
+  ---
+  duration_ms: 0.3728
+  ...
+# (node:46864) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:46864) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/student-notebook-final/LearningPlatform/tests/student-notebook-recorded.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-final\\LearningPlatform\\package.json.
+# Subtest: recorded adapter preserves exact DTO, microseconds, accepted authority and body-free pending help
+ok 19 - recorded adapter preserves exact DTO, microseconds, accepted authority and body-free pending help
+  ---
+  duration_ms: 60.8995
+  ...
+# Subtest: exact selectors, foreign scope, unsafe hrefs and mismatched accepted pointer fail closed
+ok 20 - exact selectors, foreign scope, unsafe hrefs and mismatched accepted pointer fail closed
+  ---
+  duration_ms: 13.8798
+  ...
+# Subtest: teacher followup retains approved review route and cannot use study identity wrapper
+ok 21 - teacher followup retains approved review route and cannot use study identity wrapper
+  ---
+  duration_ms: 10.8657
+  ...
+# Subtest: equal answer text remains separate; empty saved answer differs from null
+ok 22 - equal answer text remains separate; empty saved answer differs from null
+  ---
+  duration_ms: 10.1564
+  ...
+# Subtest: append rejects mixed snapshots, duplicate pages and unexpected page boundaries
+ok 23 - append rejects mixed snapshots, duplicate pages and unexpected page boundaries
+  ---
+  duration_ms: 7.8671
+  ...
+# Subtest: the view's multi-batch question mapper retains the owning DTO for every saved link
+ok 24 - the view's multi-batch question mapper retains the owning DTO for every saved link
+  ---
+  duration_ms: 12.7136
+  ...
+# Subtest: 409 snapshot conflict marks old view stale then atomically replaces from a validated first page
+ok 25 - 409 snapshot conflict marks old view stale then atomically replaces from a validated first page
+  ---
+  duration_ms: 22.3842
+  ...
+# Subtest: failed replacement retains visibly stale records and disables cursor reuse
+ok 26 - failed replacement retains visibly stale records and disables cursor reuse
+  ---
+  duration_ms: 9.4747
+  ...
+# Subtest: other 409 errors never retry; access loss and invalid scopes clear old records
+ok 27 - other 409 errors never retry; access loss and invalid scopes clear old records
+  ---
+  duration_ms: 11.2057
+  ...
+# Subtest: late responses from aborted navigation cannot repopulate old scope
+ok 28 - late responses from aborted navigation cannot repopulate old scope
+  ---
+  duration_ms: 9.7097
+  ...
+# Subtest: history route is opt-in, fallback independently authorized, and history leaf has no action endpoints
+ok 29 - history route is opt-in, fallback independently authorized, and history leaf has no action endpoints
+  ---
+  duration_ms: 4.5449
+  ...
+# (node:121424) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:121424) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/student-notebook-final/LearningPlatform/tests/student-notebook-reviews.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-final\\LearningPlatform\\package.json.
+# Subtest: delivery/display never infer fresh-check start, submission or completion
+ok 30 - delivery/display never infer fresh-check start, submission or completion
+  ---
+  duration_ms: 0.8617
+  ...
+# Subtest: missing, loading, unavailable and mismatched follow-ups remain unknown
+ok 31 - missing, loading, unavailable and mismatched follow-ups remain unknown
+  ---
+  duration_ms: 0.1775
+  ...
+# Subtest: pending and failed/rejected evaluations are not incorrect answers
+ok 32 - pending and failed/rejected evaluations are not incorrect answers
+  ---
+  duration_ms: 0.2135
+  ...
+# Subtest: accepted feedback requires the linked submitted attempt and evaluation
+ok 33 - accepted feedback requires the linked submitted attempt and evaluation
+  ---
+  duration_ms: 0.2059
+  ...
+# Subtest: reading links preserve exact assignment/version/passage for curated and uploaded sources
+ok 34 - reading links preserve exact assignment/version/passage for curated and uploaded sources
+  ---
+  duration_ms: 0.5711
+  ...
+# Subtest: source objects and original responses are never rewritten by presentation
+ok 35 - source objects and original responses are never rewritten by presentation
+  ---
+  duration_ms: 15.7506
+  ...
+# Subtest: summary renders authoritative title/objective without delivering explanation, quotes or private extras
+ok 36 - summary renders authoritative title/objective without delivering explanation, quotes or private extras
+  ---
+  duration_ms: 546.0241
+  ...
+# Subtest: follow-up renders exact original text; rejected and pending results/feedback never leak
+ok 37 - follow-up renders exact original text; rejected and pending results/feedback never leak
+  ---
+  duration_ms: 493.6957
+  ...
+# Subtest: accepted results keep partial, incorrect and uncertainty distinct
+ok 38 - accepted results keep partial, incorrect and uncertainty distinct
+  ---
+  duration_ms: 499.5376
+  ...
+# Subtest: another review cannot supply a response or feedback; separate student renders share no state
+ok 39 - another review cannot supply a response or feedback; separate student renders share no state
+  ---
+  duration_ms: 497.9622
+  ...
+# Subtest: source presenter links exact identities without showing unacknowledged excerpts
+ok 40 - source presenter links exact identities without showing unacknowledged excerpts
+  ---
+  duration_ms: 488.7217
+  ...
+# Subtest: empty/loading/unavailable states never render stale review records
+ok 41 - empty/loading/unavailable states never render stale review records
+  ---
+  duration_ms: 510.7936
+  ...
+# Subtest: approved strings are escaped as text and the existing controller has one visible slot
+ok 42 - approved strings are escaped as text and the existing controller has one visible slot
+  ---
+  duration_ms: 530.5419
+  ...
+# Subtest: presenters own no mutations, storage, display receipts or ordinary tutor composer
+ok 43 - presenters own no mutations, storage, display receipts or ordinary tutor composer
+  ---
+  duration_ms: 1.4958
+  ...
+# Subtest: review return preserves bounded Notebook filters and rejects external or action routes
+ok 44 - review return preserves bounded Notebook filters and rejects external or action routes
+  ---
+  duration_ms: 6.2567
+  ...
+# Subtest: recorded question review returns retain exact identities without widening destinations
+ok 45 - recorded question review returns retain exact identities without widening destinations
+  ---
+  duration_ms: 1.7145
+  ...
+# Subtest: read-only review feedback uses supplied public names and never prints raw concept IDs
+ok 46 - read-only review feedback uses supplied public names and never prints raw concept IDs
+  ---
+  duration_ms: 502.7459
+  ...
+# Subtest: embedded frame delegates its visible title and mounts one stable controller target
+ok 47 - embedded frame delegates its visible title and mounts one stable controller target
+  ---
+  duration_ms: 515.7129
+  ...
+# (node:138632) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:138632) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/student-notebook-final/LearningPlatform/tests/student-notebook.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-final\\LearningPlatform\\package.json.
+# Subtest: D1-01/02: immutable attempt identities survive duplicate answer text; only exact submission identity links a message
+ok 48 - D1-01/02: immutable attempt identities survive duplicate answer text; only exact submission identity links a message
+  ---
+  duration_ms: 60.9701
+  ...
+# Subtest: D1-03: clarification and cancellation require explicit audit records, with no invented wording
+ok 49 - D1-03: clarification and cancellation require explicit audit records, with no invented wording
+  ---
+  duration_ms: 12.0704
+  ...
+# Subtest: D1-04/05: accepted help remains hidden until its own validated display chain agrees with the intervention
+ok 50 - D1-04/05: accepted help remains hidden until its own validated display chain agrees with the intervention
+  ---
+  duration_ms: 22.1952
+  ...
+# Subtest: D1-06: later display does not rewrite assistance; sub-millisecond future assistance is rejected
+ok 51 - D1-06: later display does not rewrite assistance; sub-millisecond future assistance is rejected
+  ---
+  duration_ms: 5.7257
+  ...
+# Subtest: D1-07/08: accepted pointer survives later failure; only explicit supersession is accepted history
+ok 52 - D1-07/08: accepted pointer survives later failure; only explicit supersession is accepted history
+  ---
+  duration_ms: 6.8961
+  ...
+# Subtest: D1-09: exact Unicode/whitespace and empty submissions differ from no saved answer
+ok 53 - D1-09: exact Unicode/whitespace and empty submissions differ from no saved answer
+  ---
+  duration_ms: 3.6305
+  ...
+# Subtest: D1-10: exact timestamps, offsets, stable ties and audit bigint sequences
+ok 54 - D1-10: exact timestamps, offsets, stable ties and audit bigint sequences
+  ---
+  duration_ms: 4.6869
+  ...
+# Subtest: D1-11/12: whole-attempt paging, exact selector, stable hash and stale/tampered/foreign cursors
+ok 55 - D1-11/12: whole-attempt paging, exact selector, stable hash and stale/tampered/foreign cursors
+  ---
+  duration_ms: 32.2382
+  ...
+# Subtest: D1-12: limits reject incomplete chronologies instead of dropping events or attempts
+ok 56 - D1-12: limits reject incomplete chronologies instead of dropping events or attempts
+  ---
+  duration_ms: 46.2528
+  ...
+# Subtest: D1-13/14: wrong source/actor/operation cannot be projected
+ok 57 - D1-13/14: wrong source/actor/operation cannot be projected
+  ---
+  duration_ms: 3.7148
+  ...
+# Subtest: D1-16: saved review display may predate fresh-check session; no completion is invented
+ok 58 - D1-16: saved review display may predate fresh-check session; no completion is invented
+  ---
+  duration_ms: 3.7225
+  ...
+# Subtest: D1-17/18: projection is pure and strictly excludes private evidence and undisplayed content
+ok 59 - D1-17/18: projection is pure and strictly excludes private evidence and undisplayed content
+  ---
+  duration_ms: 6.2537
+  ...
+# Subtest: D1-03/08: interrupted reservations stay unknown and orphan accepted records never become authoritative
+ok 60 - D1-03/08: interrupted reservations stay unknown and orphan accepted records never become authoritative
+  ---
+  duration_ms: 11.9479
+  ...
+1..60
+# tests 60
+# suites 0
+# pass 60
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4902.0116

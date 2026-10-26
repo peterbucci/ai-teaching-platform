@@ -1,0 +1,2498 @@
+[
+  {
+    "run": "fallback-1792958697117",
+    "report": {
+      "mode": "fallback",
+      "providersDisabled": true,
+      "paidCalls": 0,
+      "checks": [],
+      "screenshots": [],
+      "requests": [],
+      "errors": [],
+      "failure": "Error: ENOENT: no such file or directory, open 'C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-history\\LearningPlatform\\.setup\\s2\\browser-state.json'\n    at Object.readFileSync (node:fs:442:20)\n    at file:///C:/Users/sb128/.codex/worktrees/student-notebook-history/LearningPlatform/acceptance/notebook-s2/verify.mjs:45:29\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)"
+    }
+  },
+  {
+    "run": "fallback-1792958715139",
+    "report": {
+      "mode": "fallback",
+      "providersDisabled": true,
+      "paidCalls": 0,
+      "checks": [],
+      "screenshots": [],
+      "requests": [],
+      "errors": [
+        "Module build failed (from ../../student-notebook-integration/LearningPlatform/node_modules/next/dist/build/webpack/loaders/next-swc-loader.js):\nError:   x Expected ',', got ':'\n    ,-[C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-history\\LearningPlatform\\app\\study\\notebook\\records\\recorded-loader.ts:82:1]\n 79 |     try {\n 80 |       next = await readRecordedBatch(\n 81 |         scope,\n 82 |       signal: AbortSignal.any([signal,AbortSignal.timeout(15000)]),\n    :             ^\n 83 |         cursor || undefined,\n 84 |         request,\n 85 |       );\n    `----\n\n\nCaused by:\n    Syntax Error"
+      ],
+      "failure": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-original-response]') to be visible\u001b[22m\n\n    at C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-history\\LearningPlatform\\acceptance\\notebook-s2\\verify.mjs:53:75"
+    }
+  },
+  {
+    "run": "fallback-1792958798351",
+    "report": {
+      "mode": "fallback",
+      "providersDisabled": true,
+      "paidCalls": 0,
+      "checks": [
+        "flag-off route uses independently authorized exact current-data question fallback"
+      ],
+      "screenshots": [],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        }
+      ],
+      "errors": [],
+      "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n200 !== 404\n\n    at file:///C:/Users/sb128/.codex/worktrees/student-notebook-history/LearningPlatform/acceptance/notebook-s2/verify.mjs:242:14\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at process.processImmediate (node:internal/timers:459:9)\n    at process.callbackTrampoline (node:internal/async_hooks:130:17)"
+    }
+  },
+  {
+    "run": "fallback-1792958885019",
+    "report": {
+      "mode": "fallback",
+      "providersDisabled": true,
+      "paidCalls": 0,
+      "checks": [
+        "flag-off route uses independently authorized exact current-data question fallback",
+        "Denied document: final 404 content, HTTP 200 streamed shell"
+      ],
+      "screenshots": [],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        }
+      ],
+      "errors": [],
+      "failure": "page.waitForFunction: Timeout 30000ms exceeded.\n    at clear (C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-history\\LearningPlatform\\tests\\browser\\notebook-integration\\history.mjs:136:18)\n    at async checkNotebookHistory (C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-history\\LearningPlatform\\tests\\browser\\notebook-integration\\history.mjs:150:5)\n    at async file:///C:/Users/sb128/.codex/worktrees/student-notebook-history/LearningPlatform/acceptance/notebook-s2/verify.mjs:253:7"
+    }
+  },
+  {
+    "run": "fallback-1792958961568",
+    "report": {
+      "mode": "fallback",
+      "providersDisabled": true,
+      "paidCalls": 0,
+      "checks": [
+        "flag-off route uses independently authorized exact current-data question fallback",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "existing index search, scope/status/date filters, native saved-work links preserved",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "peer/teacher/missing session and foreign or duplicate attempt selectors deny without exposing work",
+        "history browser sent zero non-GET API requests and reported zero page errors"
+      ],
+      "screenshots": [],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        }
+      ],
+      "errors": [],
+      "fingerprint": "c41f3dacdd86ed1d44d3eda7e546674656523df2c8c893b5f0546c974c17e43c"
+    }
+  },
+  {
+    "run": "journey-1792960173557",
+    "report": {
+      "source": "e18b833d3494595d775936f21df5550bca3d8919",
+      "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "base": "http://127.0.0.1:3412",
+      "runtime": "production",
+      "buildId": "bCoFJwgJhZmBoP14jAXCP",
+      "providersDisabled": true,
+      "paidCalls": 0,
+      "checks": [
+        "fictional teacher approves and separately delivers validated authored review",
+        "authenticated My Learning mounts N1/N2/N5 without review body disclosure or writes",
+        "My Learning four viewport widths have no horizontal page overflow",
+        "authenticated assignment overview mounted without starting or evaluating",
+        "help/ambiguous fallback preserves question and requires explicit answer confirmation",
+        "explicitly intended answer saves exact original Unicode whitespace and immutable source snapshot",
+        "accepted synthetic evaluation resumes through the existing tutoring owner",
+        "N3 current-data saved record preserves original response and does not invent per-attempt assessment",
+        "browser Back/Forward and exact saved-question fragment",
+        "standalone N4 bootstraps and deactivates for account and mobile navigation overlays",
+        "reading return preserves original attempt and source identity",
+        "dedicated teacher-approved review retains draft across refresh and saves fresh check with provider disabled",
+        "cross-student session and review authorization rejects foreign identities"
+      ],
+      "screenshots": [
+        "application-learning-1440.png",
+        "application-learning-1024.png",
+        "application-learning-390.png",
+        "application-learning-320.png"
+      ],
+      "errors": [],
+      "session": "40ceae93-970b-4e5d-b836-b6ae5143ba83",
+      "attempt": "af721df1-5871-4db7-9186-593dc5d26c57",
+      "approval": "dfe370c3-0544-4db0-b54b-260170670065",
+      "writes": [
+        {
+          "url": "/api/tutoring/40ceae93-970b-4e5d-b836-b6ae5143ba83/conversation",
+          "body": {
+            "version": "r7-conversation-v1",
+            "request_id": "51db5f60-5c3f-4bf9-8fc5-400d9141f926",
+            "session_id": "40ceae93-970b-4e5d-b836-b6ae5143ba83",
+            "attempt_id": "af721df1-5871-4db7-9186-593dc5d26c57",
+            "expected_revision": 0,
+            "action": "send_message",
+            "text": "What do you mean by packet size?"
+          }
+        },
+        {
+          "url": "/api/tutoring/40ceae93-970b-4e5d-b836-b6ae5143ba83/conversation",
+          "body": {
+            "version": "r7-conversation-v1",
+            "request_id": "098f1538-8b1a-42c7-80a0-36d05316efec",
+            "session_id": "40ceae93-970b-4e5d-b836-b6ae5143ba83",
+            "attempt_id": "af721df1-5871-4db7-9186-593dc5d26c57",
+            "expected_revision": 0,
+            "action": "resolve_intent",
+            "message_request_id": "51db5f60-5c3f-4bf9-8fc5-400d9141f926",
+            "choice": "help"
+          }
+        },
+        {
+          "url": "/api/sessions/40ceae93-970b-4e5d-b836-b6ae5143ba83/answers",
+          "body": {
+            "attempt_id": "af721df1-5871-4db7-9186-593dc5d26c57",
+            "submission_key": "874e0db3-0d3e-4cf4-abae-894cd83f0f47",
+            "response_text": "  My original café 🌱 reasoning.\nKeep  two spaces and line breaks.  "
+          }
+        },
+        {
+          "url": "/api/tutoring/40ceae93-970b-4e5d-b836-b6ae5143ba83",
+          "body": {
+            "attempt_id": "af721df1-5871-4db7-9186-593dc5d26c57"
+          }
+        },
+        {
+          "url": "/api/sessions/40ceae93-970b-4e5d-b836-b6ae5143ba83/interventions/aa65b5c0-be49-4041-8194-a9d48d6e3a61",
+          "body": {}
+        },
+        {
+          "url": "/api/tutoring/40ceae93-970b-4e5d-b836-b6ae5143ba83/reading",
+          "body": {
+            "passage_id": "P07"
+          }
+        },
+        {
+          "url": "/api/sessions/40ceae93-970b-4e5d-b836-b6ae5143ba83/interventions/ec9b812d-599b-4935-9dec-31f0548a6cd0",
+          "body": {}
+        },
+        {
+          "url": "/api/student/interventions/dfe370c3-0544-4db0-b54b-260170670065",
+          "body": {
+            "action": "displayed"
+          }
+        },
+        {
+          "url": "/api/student/interventions/dfe370c3-0544-4db0-b54b-260170670065/followup",
+          "body": {
+            "action": "start"
+          }
+        },
+        {
+          "url": "/api/student/interventions/dfe370c3-0544-4db0-b54b-260170670065/followup",
+          "body": {
+            "action": "submit",
+            "request_id": "0f241e4d-a9d0-4e14-b407-924ff87c9c90",
+            "response_text": "  Fresh check original\nwith exact spacing.  "
+          }
+        }
+      ],
+      "responses": [
+        {
+          "url": "/api/tutoring/40ceae93-970b-4e5d-b836-b6ae5143ba83/conversation",
+          "status": 200
+        },
+        {
+          "url": "/api/tutoring/40ceae93-970b-4e5d-b836-b6ae5143ba83/conversation",
+          "status": 200
+        },
+        {
+          "url": "/api/sessions/40ceae93-970b-4e5d-b836-b6ae5143ba83/answers",
+          "status": 200
+        },
+        {
+          "url": "/api/tutoring/40ceae93-970b-4e5d-b836-b6ae5143ba83",
+          "status": 503
+        },
+        {
+          "url": "/api/tutoring/40ceae93-970b-4e5d-b836-b6ae5143ba83/reading",
+          "status": 200
+        },
+        {
+          "url": "/api/sessions/40ceae93-970b-4e5d-b836-b6ae5143ba83/interventions/ec9b812d-599b-4935-9dec-31f0548a6cd0",
+          "status": 200
+        },
+        {
+          "url": "/api/student/interventions/dfe370c3-0544-4db0-b54b-260170670065",
+          "status": 200
+        },
+        {
+          "url": "/api/student/interventions/dfe370c3-0544-4db0-b54b-260170670065/followup",
+          "status": 200
+        },
+        {
+          "url": "/api/student/interventions/dfe370c3-0544-4db0-b54b-260170670065/followup",
+          "status": 200
+        }
+      ],
+      "result": "PASS"
+    }
+  },
+  {
+    "run": "recorded-1792959127845",
+    "report": {
+      "mode": "recorded",
+      "providersDisabled": true,
+      "paidCalls": 0,
+      "checks": [
+        "actual second-batch DOM rendering and exact deep link work after Load more; undisplayed body excluded",
+        "refresh and native Back/Forward retain exact attempt identities",
+        "authenticated index/session/question rendered at 1440, 1024, 390 and 320; no horizontal overflow or composer"
+      ],
+      "screenshots": [
+        "application-session-1440.png",
+        "application-question-1440.png",
+        "application-index-1440.png",
+        "application-session-1024.png",
+        "application-question-1024.png",
+        "application-index-1024.png",
+        "application-session-390.png",
+        "application-question-390.png",
+        "application-index-390.png",
+        "application-session-320.png",
+        "application-question-320.png",
+        "application-index-320.png"
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        }
+      ],
+      "errors": [],
+      "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ '  Original answer π🙂\\nwith spacing.  '\n- '  Original answer π🙂\\r\\nwith spacing.  '\n\n    at file:///C:/Users/sb128/.codex/worktrees/student-notebook-history/LearningPlatform/acceptance/notebook-s2/verify.mjs:378:20"
+    }
+  },
+  {
+    "run": "recorded-1792959627516",
+    "report": {
+      "mode": "recorded",
+      "source": "1bfaa340692f7b1bf4a9fb7444d84d7dbf9adfe8",
+      "buildId": "He02eAnZzfLetybVR8Lwj",
+      "providersDisabled": true,
+      "paidCalls": 0,
+      "checks": [
+        "actual second-batch DOM rendering and exact deep link work after Load more; undisplayed body excluded",
+        "refresh and native Back/Forward retain exact attempt identities",
+        "authenticated index/session/question rendered at 1440, 1024, 390 and 320; no horizontal overflow or composer",
+        "teacher follow-up stays a dedicated approval handoff; no study wrapper or activity mounted",
+        "D1 real stored histories render exact originals/event order/displayed bodies, accepted uncertainty and historical source versions without private sentinels",
+        "empty saved response and missing assessment are explicit",
+        "failed evaluation never becomes incorrect or overwrites original answer",
+        "loaded-question text/result/assistance filters preserve identity and explicit empty state",
+        "all 13 evidence-table fingerprints unchanged across saved-history navigation",
+        "real display-only snapshot conflict returns 409, atomically replaces ten rows then loads twelve without mixed or duplicate records",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "peer/teacher/missing session and foreign or duplicate attempt selectors deny without exposing work",
+        "history browser sent zero non-GET API requests and reported zero page errors"
+      ],
+      "screenshots": [
+        "application-session-1440.png",
+        "application-question-1440.png",
+        "application-index-1440.png",
+        "application-session-1024.png",
+        "application-question-1024.png",
+        "application-index-1024.png",
+        "application-session-390.png",
+        "application-question-390.png",
+        "application-index-390.png",
+        "application-session-320.png",
+        "application-question-320.png",
+        "application-index-320.png"
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        }
+      ],
+      "errors": [],
+      "fingerprint": "5614fdf9d74c466b2d37c7a10de2c1f76081f238b5b2493384406227f1468a37"
+    }
+  },
+  {
+    "run": "recorded-1792959925721",
+    "report": {
+      "mode": "recorded",
+      "source": "c553774d38a173bb6507dd6947f2812cf67ec773",
+      "buildId": "KFNXGydZwn_IyUC8zH44P",
+      "providersDisabled": true,
+      "paidCalls": 0,
+      "checks": [
+        "actual second-batch DOM rendering and exact deep link work after Load more; undisplayed body excluded",
+        "refresh and native Back/Forward retain exact attempt identities",
+        "authenticated index/session/question rendered at 1440, 1024, 390 and 320; no horizontal overflow or composer",
+        "teacher follow-up stays a dedicated approval handoff; no study wrapper or activity mounted",
+        "D1 real stored histories render exact originals/event order/displayed bodies, accepted uncertainty and historical source versions without private sentinels",
+        "empty saved response and missing assessment are explicit",
+        "failed evaluation never becomes incorrect or overwrites original answer",
+        "loaded-question text/result/assistance filters preserve identity and explicit empty state",
+        "all 13 evidence-table fingerprints unchanged across saved-history navigation",
+        "real display-only snapshot conflict returns 409, atomically replaces ten rows then loads twelve without mixed or duplicate records",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "peer/teacher/missing session and foreign or duplicate attempt selectors deny without exposing work",
+        "history browser sent zero non-GET API requests and reported zero page errors"
+      ],
+      "screenshots": [
+        "application-session-1440.png",
+        "application-question-1440.png",
+        "application-index-1440.png",
+        "application-session-1024.png",
+        "application-question-1024.png",
+        "application-index-1024.png",
+        "application-session-390.png",
+        "application-question-390.png",
+        "application-index-390.png",
+        "application-session-320.png",
+        "application-question-320.png",
+        "application-index-320.png"
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        }
+      ],
+      "errors": [],
+      "operatorFixture": "64b82928-5638-473c-929c-f1e3ca0c9b50",
+      "fingerprint": "68943e1635c834a927c2585c583b34979a237b51243631ffa67ba818f0e0bb3e"
+    }
+  },
+  {
+    "run": "recorded-1792960114231",
+    "report": {
+      "mode": "recorded",
+      "source": "e18b833d3494595d775936f21df5550bca3d8919",
+      "buildId": "bCoFJwgJhZmBoP14jAXCP",
+      "providersDisabled": true,
+      "paidCalls": 0,
+      "checks": [
+        "actual second-batch DOM rendering and exact deep link work after Load more; undisplayed body excluded",
+        "refresh and native Back/Forward retain exact attempt identities",
+        "authenticated index/session/question rendered at 1440, 1024, 390 and 320; no horizontal overflow or composer",
+        "teacher follow-up stays a dedicated approval handoff; no study wrapper or activity mounted",
+        "D1 real stored histories render exact originals/event order/displayed bodies, accepted uncertainty and historical source versions without private sentinels",
+        "empty saved response and missing assessment are explicit",
+        "failed evaluation never becomes incorrect or overwrites original answer",
+        "loaded-question text/result/assistance filters preserve identity and explicit empty state",
+        "injected transport conflict/replacement failure keeps a visible stale notice above real saved evidence at 1440/1024/390/320; mobile origin/coverage stays visible and explicit refresh recovers",
+        "all 13 evidence-table fingerprints unchanged across saved-history navigation",
+        "real display-only snapshot conflict returns 409, atomically replaces ten rows then loads twelve without mixed or duplicate records",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "Denied document: final 404 content, HTTP 200 streamed shell",
+        "peer/teacher/missing session and foreign or duplicate attempt selectors deny without exposing work",
+        "history browser sent zero non-GET API requests and reported zero page errors"
+      ],
+      "screenshots": [
+        "application-session-1440.png",
+        "application-question-1440.png",
+        "application-index-1440.png",
+        "application-session-1024.png",
+        "application-question-1024.png",
+        "application-index-1024.png",
+        "application-session-390.png",
+        "application-question-390.png",
+        "application-index-390.png",
+        "application-session-320.png",
+        "application-question-320.png",
+        "application-index-320.png",
+        "stale-question-1440.png",
+        "stale-question-1024.png",
+        "stale-question-390.png",
+        "stale-question-320.png"
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/auth/get-session"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        },
+        {
+          "method": "GET",
+          "path": "/api/student/notebook/sessions/9c3f4d06-8d4d-4e27-88c1-37bb064c2636"
+        }
+      ],
+      "errors": [],
+      "operatorFixture": "abaab8ae-634d-44e6-9c1d-ac5809cd8814",
+      "fingerprint": "c7e6de007ddecf0ad1688f55d32a5d62c73d260c4970a47cd96057c98143c9e0"
+    }
+  },
+  {
+    "run": "setup-1792958695394",
+    "report": {
+      "mode": "setup",
+      "providersDisabled": true,
+      "paidCalls": 0,
+      "checks": [],
+      "screenshots": [],
+      "requests": [],
+      "errors": [],
+      "failure": "ZodError: [\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"id\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  }\n]\n    at file:///C:/Users/sb128/.codex/worktrees/student-notebook-history/LearningPlatform/lib/evidence/store.ts:483:45\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async inTransaction (file:///C:/Users/sb128/.codex/worktrees/student-notebook-history/LearningPlatform/lib/db.ts:51:20)\n    at async transaction (file:///C:/Users/sb128/.codex/worktrees/student-notebook-history/LearningPlatform/lib/evidence/store.ts:50:12)\n    at async file:///C:/Users/sb128/.codex/worktrees/student-notebook-history/LearningPlatform/acceptance/notebook-s2/verify.mjs:39:17"
+    }
+  },
+  {
+    "run": "setup-1792958713622",
+    "report": {
+      "mode": "setup",
+      "providersDisabled": true,
+      "paidCalls": 0,
+      "checks": [
+        "12 distinct identical-answer attempts, failed/uncertain assessments, pending undisplayed help and empty unassessed answer stored through real services"
+      ],
+      "screenshots": [],
+      "requests": [],
+      "errors": []
+    }
+  },
+  {
+    "run": "setup-exact-1792959827512",
+    "report": {
+      "mode": "setup-exact",
+      "source": "1bfaa340692f7b1bf4a9fb7444d84d7dbf9adfe8",
+      "buildId": "He02eAnZzfLetybVR8Lwj",
+      "providersDisabled": true,
+      "paidCalls": 0,
+      "checks": [
+        "ordinary current-data fixture stores exact CRLF, Unicode, tabs and spaces through real answer service"
+      ],
+      "screenshots": [],
+      "requests": [],
+      "errors": []
+    }
+  },
+  {
+    "run": "visual-1792959659815",
+    "report": {
+      "source": "1bfaa340692f7b1bf4a9fb7444d84d7dbf9adfe8",
+      "applicationManifestSha256": "dc21cc10a8ec258a1ae7eb728f83faa28890288b0811e57e85ff42645fd49946",
+      "buildId": "He02eAnZzfLetybVR8Lwj",
+      "designSha256": "fa69c2d0262b0be684b5e9d21b2131d7c02a5bf9577c1586df07950c6394c570",
+      "providersDisabled": true,
+      "paidCalls": 0,
+      "pairs": [
+        {
+          "surface": "index",
+          "size": "1440×1000",
+          "application": "application-index-1440.png",
+          "prototype": "prototype-index-1440.png"
+        },
+        {
+          "surface": "session",
+          "size": "1440×1000",
+          "application": "application-session-1440.png",
+          "prototype": "prototype-session-1440.png"
+        },
+        {
+          "surface": "question",
+          "size": "1440×1000",
+          "application": "application-question-1440.png",
+          "prototype": "prototype-question-1440.png"
+        },
+        {
+          "surface": "index",
+          "size": "1024×768",
+          "application": "application-index-1024.png",
+          "prototype": "prototype-index-1024.png"
+        },
+        {
+          "surface": "session",
+          "size": "1024×768",
+          "application": "application-session-1024.png",
+          "prototype": "prototype-session-1024.png"
+        },
+        {
+          "surface": "question",
+          "size": "1024×768",
+          "application": "application-question-1024.png",
+          "prototype": "prototype-question-1024.png"
+        },
+        {
+          "surface": "index",
+          "size": "390×844",
+          "application": "application-index-390.png",
+          "prototype": "prototype-index-390.png"
+        },
+        {
+          "surface": "session",
+          "size": "390×844",
+          "application": "application-session-390.png",
+          "prototype": "prototype-session-390.png"
+        },
+        {
+          "surface": "question",
+          "size": "390×844",
+          "application": "application-question-390.png",
+          "prototype": "prototype-question-390.png"
+        },
+        {
+          "surface": "index",
+          "size": "320×844",
+          "application": "application-index-320.png",
+          "prototype": "prototype-index-320.png"
+        },
+        {
+          "surface": "session",
+          "size": "320×844",
+          "application": "application-session-320.png",
+          "prototype": "prototype-session-320.png"
+        },
+        {
+          "surface": "question",
+          "size": "320×844",
+          "application": "application-question-320.png",
+          "prototype": "prototype-question-320.png"
+        },
+        {
+          "surface": "index",
+          "size": "Native 100%",
+          "application": "application-index-native-100.png",
+          "prototype": "prototype-index-native-100.png"
+        },
+        {
+          "surface": "index",
+          "size": "Native 200%",
+          "application": "application-index-native-200.png",
+          "prototype": "prototype-index-native-200.png"
+        },
+        {
+          "surface": "session",
+          "size": "Native 200%",
+          "application": "application-session-native-200.png",
+          "prototype": "prototype-session-native-200.png"
+        },
+        {
+          "surface": "question",
+          "size": "Native 200%",
+          "application": "application-question-native-200.png",
+          "prototype": "prototype-question-native-200.png"
+        }
+      ],
+      "geometry": [
+        {
+          "surface": "index",
+          "variant": "application",
+          "size": "1440×1000",
+          "width": 1440,
+          "height": 1000,
+          "scrollWidth": 1440,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "prototype",
+          "size": "1440×1000",
+          "width": 1440,
+          "height": 1000,
+          "scrollWidth": 1440,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "application",
+          "size": "1440×1000",
+          "width": 1440,
+          "height": 1000,
+          "scrollWidth": 1440,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "prototype",
+          "size": "1440×1000",
+          "width": 1440,
+          "height": 1000,
+          "scrollWidth": 1440,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "application",
+          "size": "1440×1000",
+          "width": 1440,
+          "height": 1000,
+          "scrollWidth": 1440,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "prototype",
+          "size": "1440×1000",
+          "width": 1440,
+          "height": 1000,
+          "scrollWidth": 1440,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "application",
+          "size": "1024×768",
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "prototype",
+          "size": "1024×768",
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "application",
+          "size": "1024×768",
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "prototype",
+          "size": "1024×768",
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "application",
+          "size": "1024×768",
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "prototype",
+          "size": "1024×768",
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "application",
+          "size": "390×844",
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "prototype",
+          "size": "390×844",
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "application",
+          "size": "390×844",
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "prototype",
+          "size": "390×844",
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "application",
+          "size": "390×844",
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "prototype",
+          "size": "390×844",
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "application",
+          "size": "320×844",
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "prototype",
+          "size": "320×844",
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "application",
+          "size": "320×844",
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "prototype",
+          "size": "320×844",
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "application",
+          "size": "320×844",
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "prototype",
+          "size": "320×844",
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "application",
+          "size": "Native 100%",
+          "width": 1416,
+          "height": 1008,
+          "scrollWidth": 1416,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "prototype",
+          "size": "Native 100%",
+          "width": 1416,
+          "height": 1008,
+          "scrollWidth": 1416,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "application",
+          "size": "Native 200%",
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 700,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "prototype",
+          "size": "Native 200%",
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 708,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "application",
+          "size": "Native 200%",
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 700,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "prototype",
+          "size": "Native 200%",
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 708,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "application",
+          "size": "Native 200%",
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 700,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "prototype",
+          "size": "Native 200%",
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 708,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        }
+      ],
+      "errors": [],
+      "nativeZoom": [
+        {
+          "factor": 1,
+          "width": 1416,
+          "height": 1008,
+          "scrollWidth": 1416,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "factor": 2,
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 700,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        }
+      ],
+      "visualParity": "NOT_ACCEPTED pending direct visual review; functional geometry is separate",
+      "limitations": [
+        "Global Notebook remains a session index; the public projection is session-scoped, so full cross-session question/result/help search is unavailable.",
+        "Saved-question pages omit active composers and facing reading. The source DTO has concept IDs, not historical concept display titles.",
+        "Different fictional content is not evidence of exact visual parity. Both surfaces use local available fonts with external requests blocked."
+      ],
+      "nativeZoomVerified": true
+    }
+  },
+  {
+    "run": "visual-1792959938792",
+    "report": {
+      "source": "c553774d38a173bb6507dd6947f2812cf67ec773",
+      "applicationManifestSha256": "4a700aee44c0c445af2fb43fccabf1827e8c81e2cfdb6557e43f98c1a9e8af5f",
+      "buildId": "KFNXGydZwn_IyUC8zH44P",
+      "designSha256": "fa69c2d0262b0be684b5e9d21b2131d7c02a5bf9577c1586df07950c6394c570",
+      "providersDisabled": true,
+      "paidCalls": 0,
+      "pairs": [
+        {
+          "surface": "index",
+          "size": "1440×1000",
+          "application": "application-index-1440.png",
+          "prototype": "prototype-index-1440.png"
+        },
+        {
+          "surface": "session",
+          "size": "1440×1000",
+          "application": "application-session-1440.png",
+          "prototype": "prototype-session-1440.png"
+        },
+        {
+          "surface": "question",
+          "size": "1440×1000",
+          "application": "application-question-1440.png",
+          "prototype": "prototype-question-1440.png"
+        },
+        {
+          "surface": "index",
+          "size": "1024×768",
+          "application": "application-index-1024.png",
+          "prototype": "prototype-index-1024.png"
+        },
+        {
+          "surface": "session",
+          "size": "1024×768",
+          "application": "application-session-1024.png",
+          "prototype": "prototype-session-1024.png"
+        },
+        {
+          "surface": "question",
+          "size": "1024×768",
+          "application": "application-question-1024.png",
+          "prototype": "prototype-question-1024.png"
+        },
+        {
+          "surface": "index",
+          "size": "390×844",
+          "application": "application-index-390.png",
+          "prototype": "prototype-index-390.png"
+        },
+        {
+          "surface": "session",
+          "size": "390×844",
+          "application": "application-session-390.png",
+          "prototype": "prototype-session-390.png"
+        },
+        {
+          "surface": "question",
+          "size": "390×844",
+          "application": "application-question-390.png",
+          "prototype": "prototype-question-390.png"
+        },
+        {
+          "surface": "index",
+          "size": "320×844",
+          "application": "application-index-320.png",
+          "prototype": "prototype-index-320.png"
+        },
+        {
+          "surface": "session",
+          "size": "320×844",
+          "application": "application-session-320.png",
+          "prototype": "prototype-session-320.png"
+        },
+        {
+          "surface": "question",
+          "size": "320×844",
+          "application": "application-question-320.png",
+          "prototype": "prototype-question-320.png"
+        },
+        {
+          "surface": "index",
+          "size": "Native 100%",
+          "application": "application-index-native-100.png",
+          "prototype": "prototype-index-native-100.png"
+        },
+        {
+          "surface": "index",
+          "size": "Native 200%",
+          "application": "application-index-native-200.png",
+          "prototype": "prototype-index-native-200.png"
+        },
+        {
+          "surface": "session",
+          "size": "Native 200%",
+          "application": "application-session-native-200.png",
+          "prototype": "prototype-session-native-200.png"
+        },
+        {
+          "surface": "question",
+          "size": "Native 200%",
+          "application": "application-question-native-200.png",
+          "prototype": "prototype-question-native-200.png"
+        }
+      ],
+      "geometry": [
+        {
+          "surface": "index",
+          "variant": "application",
+          "size": "1440×1000",
+          "width": 1440,
+          "height": 1000,
+          "scrollWidth": 1440,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "prototype",
+          "size": "1440×1000",
+          "width": 1440,
+          "height": 1000,
+          "scrollWidth": 1440,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "application",
+          "size": "1440×1000",
+          "width": 1440,
+          "height": 1000,
+          "scrollWidth": 1440,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "prototype",
+          "size": "1440×1000",
+          "width": 1440,
+          "height": 1000,
+          "scrollWidth": 1440,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "application",
+          "size": "1440×1000",
+          "width": 1440,
+          "height": 1000,
+          "scrollWidth": 1440,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "prototype",
+          "size": "1440×1000",
+          "width": 1440,
+          "height": 1000,
+          "scrollWidth": 1440,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "application",
+          "size": "1024×768",
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "prototype",
+          "size": "1024×768",
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "application",
+          "size": "1024×768",
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "prototype",
+          "size": "1024×768",
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "application",
+          "size": "1024×768",
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "prototype",
+          "size": "1024×768",
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "application",
+          "size": "390×844",
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "prototype",
+          "size": "390×844",
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "application",
+          "size": "390×844",
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "prototype",
+          "size": "390×844",
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "application",
+          "size": "390×844",
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "prototype",
+          "size": "390×844",
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "application",
+          "size": "320×844",
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "prototype",
+          "size": "320×844",
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "application",
+          "size": "320×844",
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "prototype",
+          "size": "320×844",
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "application",
+          "size": "320×844",
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "prototype",
+          "size": "320×844",
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "application",
+          "size": "Native 100%",
+          "width": 1416,
+          "height": 1008,
+          "scrollWidth": 1401,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "prototype",
+          "size": "Native 100%",
+          "width": 1416,
+          "height": 1008,
+          "scrollWidth": 1416,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "application",
+          "size": "Native 200%",
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 700,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "prototype",
+          "size": "Native 200%",
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 708,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "application",
+          "size": "Native 200%",
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 700,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "prototype",
+          "size": "Native 200%",
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 708,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "application",
+          "size": "Native 200%",
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 700,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "prototype",
+          "size": "Native 200%",
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 708,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        }
+      ],
+      "errors": [],
+      "nativeZoom": [
+        {
+          "factor": 1,
+          "width": 1416,
+          "height": 1008,
+          "scrollWidth": 1401,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "factor": 2,
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 700,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        }
+      ],
+      "visualParity": "NOT_ACCEPTED pending direct visual review; functional geometry is separate",
+      "limitations": [
+        "Global Notebook remains a session index; the public projection is session-scoped, so full cross-session question/result/help search is unavailable.",
+        "Saved-question pages omit active composers and facing reading. The source DTO has concept IDs, not historical concept display titles.",
+        "Different fictional content is not evidence of exact visual parity. Both surfaces use local available fonts with external requests blocked."
+      ],
+      "nativeZoomVerified": true
+    }
+  },
+  {
+    "run": "visual-1792960126782",
+    "report": {
+      "source": "e18b833d3494595d775936f21df5550bca3d8919",
+      "applicationManifestSha256": "375c89889d53794fd132c74ccad7fe46982da3821c75a5ce2b66e4cba2fb8db6",
+      "buildId": "bCoFJwgJhZmBoP14jAXCP",
+      "designSha256": "fa69c2d0262b0be684b5e9d21b2131d7c02a5bf9577c1586df07950c6394c570",
+      "providersDisabled": true,
+      "paidCalls": 0,
+      "pairs": [
+        {
+          "surface": "index",
+          "size": "1440×1000",
+          "application": "application-index-1440.png",
+          "prototype": "prototype-index-1440.png"
+        },
+        {
+          "surface": "session",
+          "size": "1440×1000",
+          "application": "application-session-1440.png",
+          "prototype": "prototype-session-1440.png"
+        },
+        {
+          "surface": "question",
+          "size": "1440×1000",
+          "application": "application-question-1440.png",
+          "prototype": "prototype-question-1440.png"
+        },
+        {
+          "surface": "index",
+          "size": "1024×768",
+          "application": "application-index-1024.png",
+          "prototype": "prototype-index-1024.png"
+        },
+        {
+          "surface": "session",
+          "size": "1024×768",
+          "application": "application-session-1024.png",
+          "prototype": "prototype-session-1024.png"
+        },
+        {
+          "surface": "question",
+          "size": "1024×768",
+          "application": "application-question-1024.png",
+          "prototype": "prototype-question-1024.png"
+        },
+        {
+          "surface": "index",
+          "size": "390×844",
+          "application": "application-index-390.png",
+          "prototype": "prototype-index-390.png"
+        },
+        {
+          "surface": "session",
+          "size": "390×844",
+          "application": "application-session-390.png",
+          "prototype": "prototype-session-390.png"
+        },
+        {
+          "surface": "question",
+          "size": "390×844",
+          "application": "application-question-390.png",
+          "prototype": "prototype-question-390.png"
+        },
+        {
+          "surface": "index",
+          "size": "320×844",
+          "application": "application-index-320.png",
+          "prototype": "prototype-index-320.png"
+        },
+        {
+          "surface": "session",
+          "size": "320×844",
+          "application": "application-session-320.png",
+          "prototype": "prototype-session-320.png"
+        },
+        {
+          "surface": "question",
+          "size": "320×844",
+          "application": "application-question-320.png",
+          "prototype": "prototype-question-320.png"
+        },
+        {
+          "surface": "index",
+          "size": "Native 100%",
+          "application": "application-index-native-100.png",
+          "prototype": "prototype-index-native-100.png"
+        },
+        {
+          "surface": "index",
+          "size": "Native 200%",
+          "application": "application-index-native-200.png",
+          "prototype": "prototype-index-native-200.png"
+        },
+        {
+          "surface": "session",
+          "size": "Native 200%",
+          "application": "application-session-native-200.png",
+          "prototype": "prototype-session-native-200.png"
+        },
+        {
+          "surface": "question",
+          "size": "Native 200%",
+          "application": "application-question-native-200.png",
+          "prototype": "prototype-question-native-200.png"
+        }
+      ],
+      "geometry": [
+        {
+          "surface": "index",
+          "variant": "application",
+          "size": "1440×1000",
+          "width": 1440,
+          "height": 1000,
+          "scrollWidth": 1440,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "prototype",
+          "size": "1440×1000",
+          "width": 1440,
+          "height": 1000,
+          "scrollWidth": 1440,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "application",
+          "size": "1440×1000",
+          "width": 1440,
+          "height": 1000,
+          "scrollWidth": 1440,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "prototype",
+          "size": "1440×1000",
+          "width": 1440,
+          "height": 1000,
+          "scrollWidth": 1440,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "application",
+          "size": "1440×1000",
+          "width": 1440,
+          "height": 1000,
+          "scrollWidth": 1440,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "prototype",
+          "size": "1440×1000",
+          "width": 1440,
+          "height": 1000,
+          "scrollWidth": 1440,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "application",
+          "size": "1024×768",
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "prototype",
+          "size": "1024×768",
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "application",
+          "size": "1024×768",
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "prototype",
+          "size": "1024×768",
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "application",
+          "size": "1024×768",
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "prototype",
+          "size": "1024×768",
+          "width": 1024,
+          "height": 768,
+          "scrollWidth": 1024,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "application",
+          "size": "390×844",
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "prototype",
+          "size": "390×844",
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "application",
+          "size": "390×844",
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "prototype",
+          "size": "390×844",
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "application",
+          "size": "390×844",
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "prototype",
+          "size": "390×844",
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "application",
+          "size": "320×844",
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "prototype",
+          "size": "320×844",
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "application",
+          "size": "320×844",
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "prototype",
+          "size": "320×844",
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "application",
+          "size": "320×844",
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "prototype",
+          "size": "320×844",
+          "width": 320,
+          "height": 844,
+          "scrollWidth": 320,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "application",
+          "size": "Native 100%",
+          "width": 1416,
+          "height": 1008,
+          "scrollWidth": 1401,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "prototype",
+          "size": "Native 100%",
+          "width": 1416,
+          "height": 1008,
+          "scrollWidth": 1416,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "application",
+          "size": "Native 200%",
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 700,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "index",
+          "variant": "prototype",
+          "size": "Native 200%",
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 708,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "application",
+          "size": "Native 200%",
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 700,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "session",
+          "variant": "prototype",
+          "size": "Native 200%",
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 708,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "application",
+          "size": "Native 200%",
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 700,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "surface": "question",
+          "variant": "prototype",
+          "size": "Native 200%",
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 708,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        }
+      ],
+      "errors": [],
+      "nativeZoom": [
+        {
+          "factor": 1,
+          "width": 1416,
+          "height": 1008,
+          "scrollWidth": 1401,
+          "dpr": 1,
+          "scale": 1,
+          "cssZoom": "1"
+        },
+        {
+          "factor": 2,
+          "width": 708,
+          "height": 504,
+          "scrollWidth": 700,
+          "dpr": 2,
+          "scale": 1,
+          "cssZoom": "1"
+        }
+      ],
+      "visualParity": "NOT_ACCEPTED pending direct visual review; functional geometry is separate",
+      "limitations": [
+        "Global Notebook remains a session index; the public projection is session-scoped, so full cross-session question/result/help search is unavailable.",
+        "Saved-question pages omit active composers and facing reading. The source DTO has concept IDs, not historical concept display titles.",
+        "Different fictional content is not evidence of exact visual parity. Both surfaces use local available fonts with external requests blocked."
+      ],
+      "nativeZoomVerified": true
+    }
+  }
+]

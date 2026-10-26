@@ -1,0 +1,71 @@
+{
+  "applicationSha": "c7bff74a4be9012599fa7c90074d462068fab446",
+  "productionBuild": "qbmHrdDM-8fIAyrTY4f0T",
+  "sourceManifestSha256": "70392bc618e3a85ad296f8f79ed4551c8e948cdfef131ea8acd2560e344fabcd",
+  "sourceManifestScope": "Tracked app/lib/scripts/tests/database/content plus package files; documentation and historical verification/evidence excluded.",
+  "generatedAt": "2026-10-25T22:05:08.024Z",
+  "runtime": {
+    "database": "student_notebook_final_01a17503",
+    "host": "127.0.0.1",
+    "postgresPort": 5931,
+    "defaultOrigin": "http://127.0.0.1:3431",
+    "recordedAcceptanceOrigin": "http://127.0.0.1:3432",
+    "defaultRecordedHistory": false,
+    "recordedModeIsAcceptanceOnly": true,
+    "providerCredentialsEmpty": true,
+    "paidModelCalls": 0
+  },
+  "checks": [
+    {
+      "name": "unit",
+      "command": "npm test",
+      "status": "PASS",
+      "log": "unit.txt",
+      "detail": "575/575"
+    },
+    {
+      "name": "lint",
+      "command": "npm run lint",
+      "status": "PASS",
+      "log": "lint.txt"
+    },
+    {
+      "name": "typecheck",
+      "command": "npm run typecheck",
+      "status": "PASS",
+      "log": "typecheck.txt"
+    },
+    {
+      "name": "build",
+      "command": "node .setup/runtime/run.cjs build",
+      "status": "PASS",
+      "log": "build.txt"
+    },
+    {
+      "name": "content",
+      "command": "npm run content:check",
+      "status": "PASS",
+      "log": "content.txt",
+      "detail": "293 checks"
+    },
+    {
+      "name": "format",
+      "command": "npm run format:check",
+      "status": "PASS",
+      "log": "format.txt",
+      "detail": "Generated evidence excluded to preserve original bytes; authored scripts/docs checked."
+    }
+  ],
+  "retainedFailures": [
+    {
+      "log": "prior-source/64c78ab/lint-initial.txt",
+      "finding": "S3 static /study/history link flagged after S2 added canonical route; corrected to next/link prefetch=false in 64c78ab."
+    }
+  ],
+  "warnings": [
+    "Existing lib/materials/extract.ts module.createRequire parsing warning during Webpack build."
+  ],
+  "limitations": [
+    "No live model calls; fictional authenticated behavior and injected evaluations are tested separately."
+  ]
+}

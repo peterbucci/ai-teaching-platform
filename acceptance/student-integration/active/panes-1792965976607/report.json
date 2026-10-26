@@ -1,0 +1,266 @@
+{
+  "source": "c7bff74a4be9012599fa7c90074d462068fab446",
+  "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "runtime": "production",
+  "buildId": "qbmHrdDM-8fIAyrTY4f0T",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "cases": [
+    {
+      "name": "hidden reader and pane navigation make zero reading/answer writes; one composer and exact draft survive",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3431/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=db59076d-e7e4-4913-bbbe-c4028bdf9219"
+    },
+    {
+      "name": "in-flight reading keeps delivery identity while hidden; exposure acknowledges exactly once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3431/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=58829fa3-2e45-4962-b334-7e49712ebedc"
+    },
+    {
+      "name": "failed reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3431/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=786c8f4e-1e69-4678-9fd2-5fd49b90707b"
+    },
+    {
+      "name": "unknown reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3431/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=b75c2699-103e-4b79-a391-a533d0f8dfa0"
+    },
+    {
+      "name": "unknown reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3431/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=4e5c1693-5e68-4198-a209-b2de6db7268c"
+    },
+    {
+      "name": "unknown reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3431/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=961ebf13-7cea-4d00-85a2-84e5d6b7a853"
+    },
+    {
+      "name": "unknown reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3431/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=e9ef1193-74d5-4ec0-8fb4-27d4cafd204a"
+    },
+    {
+      "name": "unknown reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3431/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=4ce49974-cfef-4b61-8fa9-bf787c24c51c"
+    },
+    {
+      "name": "unknown reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3431/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=65883e02-e7e4-4c78-aa1e-e01e89f25e48"
+    },
+    {
+      "name": "unknown reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3431/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=daefbcb8-4d92-4c11-9776-9a8a916d8745"
+    },
+    {
+      "name": "unknown reading receipt preserves notice and retries original identity once",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n3 !== 2\n\n    at file:///C:/Users/sb128/.codex/worktrees/student-notebook-final/LearningPlatform/.setup/active-checks/panes.mjs:420:16\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async check (file:///C:/Users/sb128/.codex/worktrees/student-notebook-final/LearningPlatform/.setup/active-checks/panes.mjs:150:5)\n    at async file:///C:/Users/sb128/.codex/worktrees/student-notebook-final/LearningPlatform/.setup/active-checks/panes.mjs:339:5",
+      "url": "http://127.0.0.1:3431/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=23e5ad37-1b5c-4010-b6d5-cd2cba7bb42e"
+    }
+  ],
+  "result": "FAIL",
+  "requests": [
+    {
+      "url": "http://127.0.0.1:3431/api/tutoring/58829fa3-2e45-4962-b334-7e49712ebedc/reading",
+      "body": {
+        "passage_id": "P07"
+      },
+      "at": 1792965981032
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/58829fa3-2e45-4962-b334-7e49712ebedc/interventions/6df121b7-1723-4e6f-9648-046ef223f9ff",
+      "body": {},
+      "at": 1792965981625
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/tutoring/786c8f4e-1e69-4678-9fd2-5fd49b90707b/reading",
+      "body": {
+        "passage_id": "P07"
+      },
+      "at": 1792965983064
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/786c8f4e-1e69-4678-9fd2-5fd49b90707b/interventions/83eae902-1268-43e6-81e7-bfa884d6c00c",
+      "body": {},
+      "at": 1792965983113
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/786c8f4e-1e69-4678-9fd2-5fd49b90707b/interventions/83eae902-1268-43e6-81e7-bfa884d6c00c",
+      "body": {},
+      "at": 1792965983445
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/tutoring/b75c2699-103e-4b79-a391-a533d0f8dfa0/reading",
+      "body": {
+        "passage_id": "P07"
+      },
+      "at": 1792965984218
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/b75c2699-103e-4b79-a391-a533d0f8dfa0/interventions/3a419e24-21c8-4694-8a20-9640ab1dd788",
+      "body": {},
+      "at": 1792965984261
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/b75c2699-103e-4b79-a391-a533d0f8dfa0/interventions/3a419e24-21c8-4694-8a20-9640ab1dd788",
+      "body": {},
+      "at": 1792965984629
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/tutoring/4e5c1693-5e68-4198-a209-b2de6db7268c/reading",
+      "body": {
+        "passage_id": "P07"
+      },
+      "at": 1792965985385
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/4e5c1693-5e68-4198-a209-b2de6db7268c/interventions/fcf0641a-237e-49b1-a9bc-4fc4fad9ee90",
+      "body": {},
+      "at": 1792965985442
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/4e5c1693-5e68-4198-a209-b2de6db7268c/interventions/fcf0641a-237e-49b1-a9bc-4fc4fad9ee90",
+      "body": {},
+      "at": 1792965985795
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/tutoring/961ebf13-7cea-4d00-85a2-84e5d6b7a853/reading",
+      "body": {
+        "passage_id": "P07"
+      },
+      "at": 1792965986513
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/961ebf13-7cea-4d00-85a2-84e5d6b7a853/interventions/468cecc4-10f3-4a36-9576-89a469d78462",
+      "body": {},
+      "at": 1792965986561
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/961ebf13-7cea-4d00-85a2-84e5d6b7a853/interventions/468cecc4-10f3-4a36-9576-89a469d78462",
+      "body": {},
+      "at": 1792965986929
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/tutoring/e9ef1193-74d5-4ec0-8fb4-27d4cafd204a/reading",
+      "body": {
+        "passage_id": "P07"
+      },
+      "at": 1792965987617
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/e9ef1193-74d5-4ec0-8fb4-27d4cafd204a/interventions/456faa55-9945-4fe4-a49a-a912767b59a2",
+      "body": {},
+      "at": 1792965987673
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/e9ef1193-74d5-4ec0-8fb4-27d4cafd204a/interventions/456faa55-9945-4fe4-a49a-a912767b59a2",
+      "body": {},
+      "at": 1792965988092
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/tutoring/4ce49974-cfef-4b61-8fa9-bf787c24c51c/reading",
+      "body": {
+        "passage_id": "P07"
+      },
+      "at": 1792965988808
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/4ce49974-cfef-4b61-8fa9-bf787c24c51c/interventions/90fc727b-a1c4-41a9-b1f5-5d0957a5f408",
+      "body": {},
+      "at": 1792965988856
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/4ce49974-cfef-4b61-8fa9-bf787c24c51c/interventions/90fc727b-a1c4-41a9-b1f5-5d0957a5f408",
+      "body": {},
+      "at": 1792965989222
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/tutoring/65883e02-e7e4-4c78-aa1e-e01e89f25e48/reading",
+      "body": {
+        "passage_id": "P07"
+      },
+      "at": 1792965989914
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/65883e02-e7e4-4c78-aa1e-e01e89f25e48/interventions/55a3ffe0-66f6-4523-860a-e668928c41c2",
+      "body": {},
+      "at": 1792965989968
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/65883e02-e7e4-4c78-aa1e-e01e89f25e48/interventions/55a3ffe0-66f6-4523-860a-e668928c41c2",
+      "body": {},
+      "at": 1792965990328
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/tutoring/daefbcb8-4d92-4c11-9776-9a8a916d8745/reading",
+      "body": {
+        "passage_id": "P07"
+      },
+      "at": 1792965991057
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/daefbcb8-4d92-4c11-9776-9a8a916d8745/interventions/17ea446c-b8b0-4ea5-8cf4-844db48b04bd",
+      "body": {},
+      "at": 1792965991109
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/daefbcb8-4d92-4c11-9776-9a8a916d8745/interventions/17ea446c-b8b0-4ea5-8cf4-844db48b04bd",
+      "body": {},
+      "at": 1792965991502
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/tutoring/23e5ad37-1b5c-4010-b6d5-cd2cba7bb42e/reading",
+      "body": {
+        "passage_id": "P07"
+      },
+      "at": 1792965992210
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/23e5ad37-1b5c-4010-b6d5-cd2cba7bb42e/interventions/0048e54a-b8b7-48d9-bd97-5d207bbe190e",
+      "body": {},
+      "at": 1792965992255
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/23e5ad37-1b5c-4010-b6d5-cd2cba7bb42e/interventions/0048e54a-b8b7-48d9-bd97-5d207bbe190e",
+      "body": {},
+      "at": 1792965992643
+    },
+    {
+      "url": "http://127.0.0.1:3431/api/sessions/23e5ad37-1b5c-4010-b6d5-cd2cba7bb42e/interventions/0048e54a-b8b7-48d9-bd97-5d207bbe190e",
+      "body": {},
+      "at": 1792965992666
+    }
+  ],
+  "receiptFetches": [
+    {
+      "url": "/api/sessions/23e5ad37-1b5c-4010-b6d5-cd2cba7bb42e/interventions/0048e54a-b8b7-48d9-bd97-5d207bbe190e",
+      "method": "POST",
+      "start": 662,
+      "stack": "Error\n    at window.fetch (<anonymous>:7:93)\n    at r (http://127.0.0.1:3431/_next/static/chunks/9496-faa3dde2cccecb68.js:1:4555)\n    at onPresented (http://127.0.0.1:3431/_next/static/chunks/9496-faa3dde2cccecb68.js:1:5327)\n    at http://127.0.0.1:3431/_next/static/chunks/9496-faa3dde2cccecb68.js:1:5180",
+      "error": "TypeError: Failed to fetch",
+      "end": 686.8999999761581
+    },
+    {
+      "url": "/api/sessions/23e5ad37-1b5c-4010-b6d5-cd2cba7bb42e/interventions/0048e54a-b8b7-48d9-bd97-5d207bbe190e",
+      "method": "POST",
+      "start": 1049.8999999761581,
+      "stack": "Error\n    at window.fetch (<anonymous>:7:93)\n    at r (http://127.0.0.1:3431/_next/static/chunks/9496-faa3dde2cccecb68.js:1:4555)\n    at onPresented (http://127.0.0.1:3431/_next/static/chunks/9496-faa3dde2cccecb68.js:1:5327)\n    at http://127.0.0.1:3431/_next/static/chunks/9496-faa3dde2cccecb68.js:1:5180",
+      "status": 200,
+      "end": 1071.5999999046326
+    },
+    {
+      "url": "/api/sessions/23e5ad37-1b5c-4010-b6d5-cd2cba7bb42e/interventions/0048e54a-b8b7-48d9-bd97-5d207bbe190e",
+      "method": "POST",
+      "start": 1072.6999999284744,
+      "stack": "Error\n    at window.fetch (<anonymous>:7:93)\n    at r (http://127.0.0.1:3431/_next/static/chunks/9496-faa3dde2cccecb68.js:1:4555)\n    at onPresented (http://127.0.0.1:3431/_next/static/chunks/9496-faa3dde2cccecb68.js:1:5327)\n    at http://127.0.0.1:3431/_next/static/chunks/9496-faa3dde2cccecb68.js:1:5180"
+    }
+  ],
+  "error": "Expected values to be strictly equal:\n\n3 !== 2\n",
+  "diffAfterSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sourceUnchanged": true
+}

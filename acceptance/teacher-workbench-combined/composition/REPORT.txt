@@ -1,0 +1,31 @@
+Composition audit: PASSED
+Baseline: 07efb7f821339538800f150f57b298eb2e606be3
+Candidate: c26664e49b7cc15fa7c63828f5c582c9b8cac2d8
+Tree: 333b73e1cae1daddf6edd61300655d0b4825ed67
+Recomposed tree: 333b73e1cae1daddf6edd61300655d0b4825ed67
+
+K Navigation #139: e88e45acea1478d562a2fb3fd2ebb9caa5403ed8; baseline ancestor=true; candidate ancestor=true; integration=43ac64b2dd1efc5d57928aaec236c39d7fd39a50
+I Interventions #136: 83bba436ab148f9b2ddaa4de61d29b857458a138; baseline ancestor=true; candidate ancestor=true; integration=9fdf0d1298fb55c793cb3a8d8233431488bfbbfb
+J Lessons #135: c56d31d594d9eedb30b0313c2ab3f22ce65e94a7; baseline ancestor=true; candidate ancestor=true; integration=86c60347bdaddd88497c3cb49950d1eaf7dcbda2
+F Overview #138: 798f32438b1807d625e5c9b9ac9f0a5439dd5b41; baseline ancestor=true; candidate ancestor=true; integration=08bf5d3e464ca3629bc7cabc07eeecea7998abf9
+H Concerns #137: afd91d6749129a77b88f020b2ac98201058cf082; baseline ancestor=true; candidate ancestor=true; integration=744b5c71ce9432e57ca84c2b8b015fc83ca61f91
+G Roster #140: af4eec9c1df2e20658400881e94ff9dbbc7f012e; baseline ancestor=true; candidate ancestor=true; integration=edecbfd95b203568d7ac8957a002e5bba25b211b
+R03 student concept labels #134: 9b4f5e357146338e6d0b99dadc1a0104714ba406; baseline ancestor=true; candidate ancestor=false; integration=c26664e49b7cc15fa7c63828f5c582c9b8cac2d8
+
+All 30 changed production files match their owning source heads byte-for-byte.
+302 changed files equal the complete source union; unowned changes=0; missing source changes=0.
+1259 pre-existing files outside source changes remain untouched. Recovery file differences=0.
+R03 patch IDs: 5b7ab4f01d47d03287fe383ad7eaaab01b86684d / 5b7ab4f01d47d03287fe383ad7eaaab01b86684d.
+Previous evidence differences: 2; listed in JSON for source-owned component harness changes (prior evidence blobs themselves remain present).
+
+scripts/check-metrics.ts
+Blob: d632991c86ed0315b1a20d13bb55cdf70b604309
+Union: retain Overview evidence discovery, G Roster/work-log exact attempt/card streamed-placeholder expansion, evaluation/source/return contracts and privacy checks; retain H rendered By idea navigation, exact evidence/session identities, provenance and refreshed displayed metrics. Remove obsolete direct session-link assumptions on the Roster landing and Concerns landing. Share evaluationId, escapedAnswer and concept declarations; preserve both result descriptions.
+
+scripts/check-lesson-uncertainty.ts
+Blob: 62242c372360a5f6397e96f002d00afbdd89752e
+Union: retain resolved Overview sections, both uploaded assignments, distinct-student uncertainty/missing work and exact original-response actions; retain Insights heading plus enrolled-count alternatives, original uncertainty text and each exact evaluation/session anchor.
+
+Composition verification was performed by the source-audit agent, which also authored the two conflict resolutions. Recomposition independently checks all source blobs and merge outputs but is not an independent acceptance or independent review of those two resolutions. It deliberately uses their recorded resolved blobs. Functional service/browser checks and final independent acceptance remain separate.
+
+node audit.cjs C:/path/to/ai-teaching-platform (repository must contain the recorded source and candidate commits). Creates only this report directory and an object-only recomposition.git with source objects as read-only alternates. No worktree checkout, application edit, database workload or provider call.

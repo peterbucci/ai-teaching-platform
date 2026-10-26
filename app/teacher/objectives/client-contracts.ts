@@ -6,7 +6,18 @@ export const ObjectiveLessonSchema = z.object({
   title: z.string(),
   revision: z.number().int().positive(),
   approved_revision: z.number().int().positive().nullable(),
-  draft: z.object({ objective_workflow: ObjectiveWorkflowSchema.optional() }),
+  draft: z.object({
+    objective_workflow: ObjectiveWorkflowSchema.optional(),
+    questions: z
+      .array(
+        z.object({
+          question_id: z.string().optional(),
+          prompt_text: z.string(),
+          concept_ids: z.array(z.string()),
+        }),
+      )
+      .optional(),
+  }),
 });
 export const ObjectiveSourceSchema = z.object({
   document_id: z.string(),

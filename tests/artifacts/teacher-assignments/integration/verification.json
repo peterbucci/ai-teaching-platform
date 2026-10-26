@@ -1,0 +1,107 @@
+{
+  "assignmentSource": "42896da0b45733e79d6d44e246031996bfa49671",
+  "combinedSource": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+  "combinedTree": "fff9c0716e85702e5d205c15766a4cfb6d7f9423",
+  "buildSource": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+  "buildId": "64b_tEa9pg31ghh0nCWvq",
+  "steps": [
+    {
+      "name": "combined-tests",
+      "exitCode": 0
+    },
+    {
+      "name": "combined-build",
+      "exitCode": 0
+    },
+    {
+      "name": "assignment-http",
+      "exitCode": 0
+    },
+    {
+      "name": "publishing-http",
+      "exitCode": 0
+    }
+  ],
+  "assignmentHttp": "passed",
+  "standalone": {
+    "tests": 506,
+    "lint": "passed",
+    "typecheck": "passed",
+    "format": "passed after formatting historical capture manifest",
+    "productionBuild": "passed",
+    "firstPass": [
+      {
+        "name": "format-scoped",
+        "exitCode": 0
+      },
+      {
+        "name": "tests",
+        "exitCode": 0
+      },
+      {
+        "name": "lint",
+        "exitCode": 0
+      },
+      {
+        "name": "typegen",
+        "exitCode": 0
+      },
+      {
+        "name": "typecheck",
+        "exitCode": 0
+      },
+      {
+        "name": "format-check",
+        "exitCode": 1
+      }
+    ],
+    "source": "03255a51157f49bd9bd2a49575663d0a16df8ed8"
+  },
+  "combinedTests": 625,
+  "providersDisabled": true,
+  "environment": "Separate fictional logical database on existing loopback PostgreSQL 17.11 server; own production Next app on loopback3317. No other database or server lifecycle changed.",
+  "references": {
+    "shell": "357a6716a333137e909fb77b9907a90a833a6df3",
+    "lessons": "53e494a639d82bd8daa9dfb7655a23ebca3aa9c4",
+    "base": "462cfb1b31d9108cec70d18b6553bd45048d2eed"
+  },
+  "previousCombined": {
+    "source": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+    "tree": "466b42f5b70a33400115d9df5f876f65f3d9289f",
+    "buildId": "c3-z5ci6U8BgOEWk6IZj8",
+    "steps": [
+      {
+        "name": "combined-tests",
+        "exitCode": 0
+      },
+      {
+        "name": "combined-build",
+        "exitCode": 0
+      },
+      {
+        "name": "assignment-http",
+        "exitCode": 0
+      },
+      {
+        "name": "publishing-http",
+        "exitCode": 0
+      }
+    ]
+  },
+  "finalAssignmentCI": {
+    "source": "42896da0b45733e79d6d44e246031996bfa49671",
+    "status": "passed",
+    "tests": 506,
+    "url": "https://github.com/peterbucci/ai-teaching-platform/actions/runs/40204254870",
+    "jobs": ["quality", "intervention-approval"]
+  },
+  "captureNote": "Existing discovery/draft captures are ba74dc1; progress/details captures are b8d0eb5. The final assignment correction only scopes Escape handling; it does not change layout. Capture identities remain in browser-results.json.",
+  "independentFinalBrowserVerification": {
+    "combinedCandidate": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+    "status": "pass",
+    "actualAppCasesPassed": 8,
+    "componentCasesPassed": 6,
+    "evidence": "cross-workspace-results.json",
+    "scope": "Switcher Escape at 1440/1024/390; Details Escape at 320/1024; mobile C2 displayed return; unchanged read-only evidence; production and React StrictMode dialog behavior."
+  }
+}

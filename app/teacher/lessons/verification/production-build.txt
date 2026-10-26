@@ -1,0 +1,165 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.02kB 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:22.23.2-bookworm-slim
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 136B 0.0s done
+#3 DONE 0.0s
+
+#4 [build 1/6] FROM docker.io/library/node:22.23.2-bookworm-slim@sha256:48e4b67d85f87bd551df43704e24d252f56cc5f8e9718841aace50f19948f0f9
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 1.55MB 0.1s done
+#5 DONE 0.2s
+
+#6 [build 2/6] WORKDIR /app
+#6 CACHED
+
+#7 [build 3/6] COPY package.json package-lock.json ./
+#7 CACHED
+
+#8 [build 4/6] RUN npm ci
+#8 CACHED
+
+#9 [build 5/6] COPY . .
+#9 DONE 0.6s
+
+#10 [build 6/6] RUN npm run build && npm prune --omit=dev
+#10 0.768
+#10 0.768 > ai-teaching-platform@0.1.0 build
+#10 0.768 > next build
+#10 0.768
+#10 1.720 ▲ Next.js 16.4.3 (Turbopack)
+#10 1.747 ✓ Running next.config took 25ms
+#10 1.898
+#10 1.959   Creating an optimized production build ...
+#10 12.03 ✓ Compiled successfully in 10.1s
+#10 12.03   Running TypeScript ...
+#10 29.96   Finished TypeScript in 17.9s ...
+#10 29.97   Collecting page data using 31 workers ...
+#10 33.44   Generating static pages using 31 workers (0/12) ...
+#10 33.65   Generating static pages using 31 workers (3/12)
+#10 33.66   Generating static pages using 31 workers (6/12)
+#10 33.81   Generating static pages using 31 workers (9/12)
+#10 33.87 ✓ Generating static pages using 31 workers (12/12) in 431ms
+#10 33.88   Finalizing page optimization ...
+#10 33.90
+#10 33.91 Route (app)
+#10 33.91 ┌ ƒ /
+#10 33.91 ├ ○ /_not-found
+#10 33.91 ├ ƒ /api/auth/[...all]
+#10 33.91 ├ ƒ /api/sessions
+#10 33.91 ├ ƒ /api/sessions/[sessionId]
+#10 33.91 ├ ƒ /api/sessions/[sessionId]/answers
+#10 33.91 ├ ƒ /api/sessions/[sessionId]/interventions/[interventionId]
+#10 33.91 ├ ƒ /api/speech
+#10 33.91 ├ ƒ /api/student/interventions
+#10 33.91 ├ ƒ /api/student/interventions/[approvalId]
+#10 33.91 ├ ƒ /api/student/interventions/[approvalId]/followup
+#10 33.91 ├ ƒ /api/study/reading/bookmarks
+#10 33.91 ├ ƒ /api/teacher/assignments/[assignmentId]/approval
+#10 33.91 ├ ƒ /api/teacher/assignments/[assignmentId]/metrics
+#10 33.91 ├ ƒ /api/teacher/interventions
+#10 33.91 ├ ƒ /api/teacher/interventions/[draftId]
+#10 33.91 ├ ƒ /api/teacher/interventions/[draftId]/followup
+#10 33.91 ├ ƒ /api/teacher/lessons/[lessonId]/approval
+#10 33.91 ├ ƒ /api/teacher/lessons/[lessonId]/assembly
+#10 33.91 ├ ƒ /api/teacher/lessons/[lessonId]/assignments
+#10 33.91 ├ ƒ /api/teacher/lessons/[lessonId]/publication
+#10 33.91 ├ ƒ /api/teacher/lessons/[lessonId]/question-bank
+#10 33.91 ├ ƒ /api/teacher/lessons/[lessonId]/versions
+#10 33.91 ├ ƒ /api/teacher/materials
+#10 33.91 ├ ƒ /api/teacher/materials/[documentId]
+#10 33.91 ├ ƒ /api/teacher/materials/preview
+#10 33.91 ├ ƒ /api/teacher/objectives
+#10 33.91 ├ ƒ /api/teacher/objectives/[lessonId]
+#10 33.91 ├ ƒ /api/teacher/objectives/[lessonId]/approve
+#10 33.91 ├ ƒ /api/teacher/objectives/[lessonId]/suggest
+#10 33.91 ├ ƒ /api/teacher/objectives/[lessonId]/suggest/accept
+#10 33.91 ├ ƒ /api/teacher/sessions/[sessionId]
+#10 33.91 ├ ƒ /api/teacher/sessions/[sessionId]/conversation
+#10 33.91 ├ ƒ /api/tutoring
+#10 33.91 ├ ƒ /api/tutoring/[sessionId]
+#10 33.91 ├ ƒ /api/tutoring/[sessionId]/conversation
+#10 33.91 ├ ƒ /api/tutoring/[sessionId]/conversation/display
+#10 33.91 ├ ƒ /api/tutoring/[sessionId]/conversation/operations/[requestId]
+#10 33.91 ├ ƒ /api/tutoring/[sessionId]/reading
+#10 33.91 ├ ƒ /api/tutoring/[sessionId]/restart
+#10 33.91 ├ ○ /dev/visual-player
+#10 33.91 ├ ƒ /login
+#10 33.91 ├ ƒ /study
+#10 33.91 ├ ƒ /study/assignments
+#10 33.91 ├ ƒ /study/assignments/[assignmentId]
+#10 33.91 ├ ƒ /study/audio-preview
+#10 33.91 ├ ƒ /study/dialogue-preview
+#10 33.91 ├ ƒ /study/history
+#10 33.91 ├ ƒ /study/interventions/[approvalId]
+#10 33.91 ├ ƒ /study/reading
+#10 33.91 ├ ƒ /teacher
+#10 33.91 ├ ƒ /teacher/assignments
+#10 33.91 ├ ƒ /teacher/insights
+#10 33.91 ├ ƒ /teacher/interventions
+#10 33.91 ├ ƒ /teacher/lessons
+#10 33.91 ├ ƒ /teacher/lessons/[lessonId]
+#10 33.91 ├ ƒ /teacher/lessons/[lessonId]/questions
+#10 33.91 ├ ƒ /teacher/materials
+#10 33.91 ├ ƒ /teacher/materials/[documentId]
+#10 33.91 ├ ƒ /teacher/objectives
+#10 33.91 ├ ƒ /teacher/objectives/[lessonId]
+#10 33.91 ├ ƒ /teacher/sessions/[sessionId]
+#10 33.91 └ ƒ /teacher/students
+#10 33.91
+#10 33.91
+#10 33.91 ○  (Static)   prerendered as static content
+#10 33.91 ƒ  (Dynamic)  server-rendered on demand
+#10 33.91
+#10 37.70
+#10 37.70 up to date, audited 73 packages in 3s
+#10 37.70
+#10 37.70 16 packages are looking for funding
+#10 37.70   run `npm fund` for details
+#10 37.70
+#10 37.70 found 0 vulnerabilities
+#10 DONE 37.8s
+
+#11 [app  3/11] COPY --from=build --chown=node:node /app/package.json /app/package-lock.json ./
+#11 CACHED
+
+#12 [app  4/11] COPY --from=build --chown=node:node /app/node_modules ./node_modules
+#12 CACHED
+
+#13 [app  5/11] COPY --from=build --chown=node:node /app/.next ./.next
+#13 DONE 0.7s
+
+#14 [app  6/11] COPY --from=build --chown=node:node /app/lib ./lib
+#14 DONE 0.1s
+
+#15 [app  7/11] COPY --from=build --chown=node:node /app/scripts ./scripts
+#15 DONE 0.1s
+
+#16 [app  8/11] COPY --from=build --chown=node:node /app/tests/fixtures ./tests/fixtures
+#16 DONE 0.1s
+
+#17 [app  9/11] COPY --from=build --chown=node:node /app/database ./database
+#17 DONE 0.0s
+
+#18 [app 10/11] COPY --from=build --chown=node:node /app/content ./content
+#18 DONE 0.0s
+
+#19 [app 11/11] COPY --from=build --chown=node:node /app/evals ./evals
+#19 DONE 0.1s
+
+#20 exporting to image
+#20 exporting layers
+#20 exporting layers 1.1s done
+#20 writing image sha256:4baf89e279fa924a4c75b014c3807d4628db10a8b02718d0fa4c690119433e03 done
+#20 naming to docker.io/library/lp-lessons-fidelity:final 0.0s done
+#20 DONE 1.1s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/r9q46lpy3ro6csngg97hc67xg

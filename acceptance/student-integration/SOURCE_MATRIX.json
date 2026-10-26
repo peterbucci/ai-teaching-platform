@@ -1,0 +1,44 @@
+{
+  "repository": "peterbucci/ai-teaching-platform",
+  "branch": "codex/student-notebook-final",
+  "baseline": { "pr": 133, "sha": "d486fc029941567f81257d7b8717b1cb3dab09d4" },
+  "sources": [
+    {
+      "name": "S1 Active Notebook",
+      "pr": 144,
+      "sha": "cd028f0be1790fca2bb5f80d868d4c225a15f64b",
+      "merge": "f2b2b8146b6f8448f05394e8fbfa136818d349cd"
+    },
+    {
+      "name": "S2 Recorded History",
+      "pr": 143,
+      "sha": "fa70d523972db9304d782e5f32363da4d4ba6ab9",
+      "merge": "2d26bae824b5723c101d8776b6ea3058a35cdd44",
+      "includesBackend": "884dfb08de31c457a3eb618ad063fcbf701ac5f3"
+    },
+    {
+      "name": "S3 Teacher Reviews",
+      "pr": 141,
+      "sha": "ab252d0848b1f12fd8e10f382fa9fc106dcaccd7",
+      "merge": "bee0b1a06cc7fbd67cf888e5726021b7af2132bd"
+    }
+  ],
+  "composition": "bee0b1a06cc7fbd67cf888e5726021b7af2132bd",
+  "application": "b39e74d917d21fe662a98e23644b41bb8629826d",
+  "productionBuild": "pFAtaZMHlK_WKmfYtwcfn",
+  "prototypeArchiveSha256": "fa69c2d0262b0be684b5e9d21b2131d7c02a5bf9577c1586df07950c6394c570",
+  "textualConflicts": [],
+  "ownershipResolutions": [
+    "Preserve complete source ancestry with three non-fast-forward merges; #131 is inherited only through S2.",
+    "S1 remains sole active StudySession/StudyDialogue/composer/recovery/reader-display owner.",
+    "S2 consumes the approved public recorded-history adapter; no second evidence or evaluation system.",
+    "S3 wraps one unchanged keyed DeliveredActivity; R03 saved-version concept-name mapper remains unchanged.",
+    "ba12a91 adds validated canonical recorded-question returnTo to existing S2 review links and S3 return receiver; frozen N0 route contract is unchanged.",
+    "64c78ab uses framework Link with prefetch disabled for S3 All your pages navigation, correcting the combined route lint failure.",
+    "c7bff74 keeps standalone reading inactive while a native overlay opens, preventing synchronous visibility observers from undoing deactivation. The existing single reader and receipt owners are retained.",
+    "b39e74d gives each existing reading observer one acknowledgment attempt, preventing stale scroll callbacks from duplicating a completed explicit retry. Existing recovery, visibility and server idempotency remain authoritative."
+  ],
+  "recordedHistoryDefault": "disabled",
+  "providersDisabled": true,
+  "paidModelCalls": 0
+}

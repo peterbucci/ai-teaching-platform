@@ -1,0 +1,32 @@
+{
+  "verifiedDate": "2026-10-25",
+  "base": "07efb7f821339538800f150f57b298eb2e606be3",
+  "applicationRevision": "9300261",
+  "modelCalls": 0,
+  "focusedTests": {
+    "command": "node --experimental-strip-types --conditions=react-server --test tests/roster.test.ts",
+    "passed": 8,
+    "failed": 0
+  },
+  "staticChecks": {
+    "npm run lint": "passed",
+    "npm run typecheck": "passed",
+    "npm run format:check": "passed"
+  },
+  "productionBuild": {
+    "command": "node node_modules/next/dist/bin/next build --webpack",
+    "result": "passed",
+    "existingWarning": "lib/materials/extract.ts: module.createRequire failed parsing argument",
+    "reasonForWebpack": "Existing dependency junction is outside the worktree; no application build configuration changed"
+  },
+  "productionBrowserReceipt": "screenshots/browser-results.json",
+  "nativeZoomReceipt": "screenshots/native-zoom.json",
+  "sharedReceiver": {
+    "pullRequest": "https://github.com/peterbucci/ai-teaching-platform/pull/139",
+    "verifiedComposition": "87e92ed3a0bca307101b02851428334224d5409e",
+    "includedRosterRevisions": ["874ed85", "0443400"],
+    "receiptOwner": "Agent K",
+    "receipt": "https://github.com/peterbucci/ai-teaching-platform/blob/e88e45acea1478d562a2fb3fd2ebb9caa5403ed8/tests/artifacts/teacher-contextual-returns/VERIFICATION.md",
+    "scopeNote": "The G-only branch preserves the base receiver; exact displayed return requires K. Subsequent G application changes compact presentation without changing the outgoing contract."
+  }
+}

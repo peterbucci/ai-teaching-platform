@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { z } from "zod";
 import {
   InterventionActionSchema,
@@ -18,6 +18,8 @@ import { InterventionActivityView } from "../../components/intervention-activity
 import { ActivityEditor } from "./activity-editor.tsx";
 import { ActivityReview } from "./review.tsx";
 import { InterventionFollowup } from "./followup.tsx";
+import { blockInterventionNavigation } from "./navigation-block.ts";
+import { interventionTimestamp } from "./timestamp.ts";
 
 // Local recovery accepts unfinished text; only the server accepts saved work.
 const recoveryQuestion =
@@ -55,9 +57,9 @@ const RecoverySchema = z.object({
 });
 type Recovery = z.infer<typeof RecoverySchema>;
 
-function remember(draftId: string, value: Recovery | null) {
+function remember(actorId: string, draftId: string, value: Recovery | null) {
   try {
-    const key = `learning-pulse:intervention:${draftId}`;
+    const key = `learning-pulse:intervention:${actorId}:${draftId}`;
     if (value) sessionStorage.setItem(key, JSON.stringify(value));
     else sessionStorage.removeItem(key);
   } catch {
@@ -65,13 +67,20 @@ function remember(draftId: string, value: Recovery | null) {
   }
 }
 
-function savedWork(draftId: string) {
+function savedWork(actorId: string, draftId: string) {
   try {
-    const raw = sessionStorage.getItem(
-      `learning-pulse:intervention:${draftId}`,
-    );
+    const key = `learning-pulse:intervention:${actorId}:${draftId}`;
+    const legacyKey = `learning-pulse:intervention:${draftId}`;
+    // Called only after the server confirms this actor owns the saved draft.
+    // Preserve an older recovery copy while moving it into the actor scope.
+    const raw =
+      sessionStorage.getItem(key) ?? sessionStorage.getItem(legacyKey);
     if (!raw) return null;
     const parsed = RecoverySchema.safeParse(JSON.parse(raw));
+    if (parsed.success) {
+      sessionStorage.setItem(key, raw);
+      sessionStorage.removeItem(legacyKey);
+    }
     return parsed.success ? parsed.data : null;
   } catch {
     return null;
@@ -81,18 +90,49 @@ function savedWork(draftId: string) {
 const sameActivity = (a: InterventionActivity, b: InterventionActivity) =>
   JSON.stringify(a) === JSON.stringify(b);
 
+function CompletedStage({
+  title,
+  status,
+  headingId,
+  children,
+}: {
+  title: string;
+  status: string;
+  headingId?: string;
+  children: ReactNode;
+}) {
+  return (
+    <details className="lp-intervention-completed-stage">
+      <summary>
+        <h3 id={headingId}>{title}</h3>
+        <span>{status}</span>
+      </summary>
+      <div>{children}</div>
+    </details>
+  );
+}
+
 export function InterventionEditor({
+  actorId,
   draft,
   initialReview,
   disabled,
   onReview,
   onStateChange,
+  onNavigationBlocked,
+  renderWorkspace,
 }: {
+  actorId: string;
   draft: InterventionDraft;
   initialReview: InterventionReview | null;
   disabled: boolean;
   onReview: (review: InterventionReview) => void;
   onStateChange: (state: { dirty: boolean; busy: boolean }) => void;
+  onNavigationBlocked: (targetId?: string) => void;
+  renderWorkspace: (panes: {
+    activity: ReactNode;
+    steps: ReactNode;
+  }) => ReactNode;
 }) {
   const [review, setReview] = useState(initialReview);
   const [activity, setActivity] = useState(draft.activity);
@@ -104,6 +144,7 @@ export function InterventionEditor({
   const [pending, setPending] = useState<InterventionAction | null>(null);
   const [conflict, setConflict] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
+  const [navigationBlocked, setNavigationBlocked] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inFlight = useRef(false);
   // Refresh may update review, but must never rebase unsaved text onto it.
@@ -120,9 +161,47 @@ export function InterventionEditor({
   useEffect(() => {
     if (!dirty && !pending) return;
     const preventLoss = (event: BeforeUnloadEvent) => event.preventDefault();
+    const guardLink = (event: MouseEvent) => {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      )
+        return;
+      const link =
+        event.target instanceof Element
+          ? event.target.closest<HTMLAnchorElement>("a[href]")
+          : null;
+      if (!link || link.target === "_blank" || link.hasAttribute("download"))
+        return;
+      const next = new URL(link.href, window.location.href);
+      if (
+        next.pathname === window.location.pathname &&
+        next.search === window.location.search
+      )
+        return;
+      blockInterventionNavigation(
+        event,
+        link.closest<HTMLDialogElement>("dialog[open]"),
+        () => onNavigationBlocked("intervention-navigation-notice"),
+      );
+      setNavigationBlocked(true);
+      setNotice(
+        pending
+          ? "Check the pending action before leaving. Its request identity is kept in this tab; approval or delivery must not be repeated as a new action."
+          : "Save or discard your changes before leaving this activity. Your unsaved text is kept in this tab.",
+      );
+    };
     window.addEventListener("beforeunload", preventLoss);
-    return () => window.removeEventListener("beforeunload", preventLoss);
-  }, [dirty, pending]);
+    window.addEventListener("click", guardLink, true);
+    return () => {
+      window.removeEventListener("beforeunload", preventLoss);
+      window.removeEventListener("click", guardLink, true);
+    };
+  }, [dirty, onNavigationBlocked, pending]);
 
   useEffect(() => {
     let active = true;
@@ -136,7 +215,7 @@ export function InterventionEditor({
           throw new Error("The current saved revision could not be loaded.");
         const latest = InterventionReviewSchema.parse(await response.json());
         if (!active) return;
-        const local = savedWork(draft.id);
+        const local = savedWork(actorId, draft.id);
         setReview(latest);
         if (
           local &&
@@ -180,12 +259,12 @@ export function InterventionEditor({
     return () => {
       active = false;
     };
-  }, [draft.id, onReview]);
+  }, [actorId, draft.id, onReview]);
 
   function edit(next: InterventionActivity) {
     if (!dirty) editBaseRevision.current = currentDraft.revision;
     setActivity(next);
-    remember(draft.id, {
+    remember(actorId, draft.id, {
       revision: editBaseRevision.current,
       activity: next,
       recipients,
@@ -196,7 +275,7 @@ export function InterventionEditor({
 
   function select(next: string[]) {
     setRecipients(next);
-    remember(draft.id, {
+    remember(actorId, draft.id, {
       revision: dirty ? editBaseRevision.current : currentDraft.revision,
       activity,
       recipients: next,
@@ -246,7 +325,7 @@ export function InterventionEditor({
     setBusy(true);
     setError(null);
     setPending(action);
-    remember(draft.id, {
+    remember(actorId, draft.id, {
       revision: action.expected_revision,
       activity,
       recipients,
@@ -264,7 +343,7 @@ export function InterventionEditor({
         const failure = z.object({ error: z.string() }).safeParse(payload);
         if (response.status >= 400 && response.status < 500) {
           setPending(null);
-          remember(draft.id, {
+          remember(actorId, draft.id, {
             revision: action.expected_revision,
             activity,
             recipients,
@@ -286,6 +365,7 @@ export function InterventionEditor({
       setConflict(false);
       setRecipients(next.approval?.recipient_ids ?? recipients);
       remember(
+        actorId,
         draft.id,
         action.action === "save"
           ? {
@@ -334,7 +414,7 @@ export function InterventionEditor({
     setRecipients(review.approval?.recipient_ids ?? []);
     setConflict(false);
     setError(null);
-    remember(draft.id, null);
+    remember(actorId, draft.id, null);
     setNotice(
       "Unsaved edits discarded. You are viewing the latest loaded saved revision.",
     );
@@ -351,23 +431,37 @@ export function InterventionEditor({
   } catch {
     // Incomplete local text is editable and recoverable, but cannot be delivered.
   }
-  return (
+  const activityPane = (
     <div className="lp-intervention-editor-workspace">
-      <div className="lp-intervention-status">
-        <strong>
-          {review?.delivery
-            ? "Delivered"
-            : review?.approval
-              ? "Approved · awaiting delivery"
-              : currentDraft.status === "dismissed"
-                ? "Dismissed"
-                : "Private draft"}
-        </strong>
-        <span>
-          Revision {currentDraft.revision}
-          {dirty ? " · unsaved changes" : " · saved"}
-        </span>
-      </div>
+      {notice && (
+        <div
+          id="intervention-navigation-notice"
+          tabIndex={-1}
+          role="status"
+          className="lp-intervention-note"
+        >
+          <p>{notice}</p>
+          {navigationBlocked && (dirty || pending) && (
+            <button
+              type="button"
+              className="lp-button"
+              disabled={busy}
+              onClick={() => {
+                if (!pending) setTab("edit");
+                onNavigationBlocked(
+                  pending
+                    ? "intervention-pending-action"
+                    : "intervention-edit-actions",
+                );
+              }}
+            >
+              {pending
+                ? "Review pending action"
+                : "Review save and discard controls"}
+            </button>
+          )}
+        </div>
+      )}
       <div className="lp-intervention-tabs" aria-label="Activity views">
         {editable && (
           <button
@@ -393,8 +487,25 @@ export function InterventionEditor({
           Teacher-only review
         </button>
       </div>
-      {tab === "edit" && editable && (
+      {editable && (
         <form
+          id="intervention-edit-form"
+          tabIndex={-1}
+          hidden={tab !== "edit"}
+          onInvalidCapture={(event) => {
+            // The save button is in Steps, so reveal Activity before asking
+            // the teacher to complete a field in its otherwise hidden form.
+            event.preventDefault();
+            if (event.target instanceof HTMLElement) {
+              const details = event.target.closest("details");
+              if (details) details.open = true;
+            }
+            setTab("edit");
+            setError(
+              "Complete the required activity fields before saving. Your edits remain private in this tab.",
+            );
+            onNavigationBlocked("intervention-edit-form");
+          }}
           onSubmit={(event) => {
             event.preventDefault();
             void apply({ ...base(), action: "save", activity });
@@ -406,22 +517,6 @@ export function InterventionEditor({
             disabled={locked}
             onChange={edit}
           />
-          <div className="lp-intervention-actions">
-            <button
-              className="lp-button lp-button-primary"
-              disabled={locked || !dirty}
-            >
-              Save private revision
-            </button>
-            <button
-              type="button"
-              className="lp-button"
-              disabled={busy || pending !== null || !dirty}
-              onClick={discard}
-            >
-              Discard unsaved edits
-            </button>
-          </div>
         </form>
       )}
       {tab === "student" && (
@@ -431,7 +526,7 @@ export function InterventionEditor({
         >
           <p className="lp-intervention-meta">
             Student preview{dirty ? " of unsaved edits" : " of saved activity"}.
-            Only the content below is included in the activity students receive.
+            Student-facing content only.
           </p>
           {studentActivity ? (
             <InterventionActivityView activity={studentActivity} />
@@ -469,206 +564,13 @@ export function InterventionEditor({
           </details>
         </>
       )}
-      {editable && (
-        <section
-          className="lp-intervention-section"
-          aria-labelledby="intervention-recipients-title"
-        >
-          <h3 id="intervention-recipients-title">Choose recipients</h3>
-          <p>
-            AI suggestions are recommendations only. Select the currently
-            eligible students who should receive this activity.
-          </p>
-          <div className="lp-intervention-actions">
-            <button
-              type="button"
-              className="lp-button"
-              disabled={locked || !review?.eligible_recipients.length}
-              onClick={() =>
-                select(
-                  review?.eligible_recipients.map(
-                    (student) => student.student_id,
-                  ) ?? [],
-                )
-              }
-            >
-              Select all eligible
-            </button>
-            <button
-              type="button"
-              className="lp-button"
-              disabled={locked || recipients.length === 0}
-              onClick={() => select([])}
-            >
-              Clear selection
-            </button>
-          </div>
-          <div className="lp-intervention-recipients">
-            {review?.eligible_recipients.map((recipient) => {
-              const suggestion =
-                currentDraft.activity.suggested_recipients.find(
-                  (item) => item.student_id === recipient.student_id,
-                );
-              return (
-                <div
-                  key={recipient.student_id}
-                  className="lp-intervention-recipient"
-                >
-                  <label className="lp-intervention-choice">
-                    <input
-                      type="checkbox"
-                      checked={recipients.includes(recipient.student_id)}
-                      disabled={locked}
-                      onChange={(event) =>
-                        select(
-                          event.target.checked
-                            ? [...recipients, recipient.student_id]
-                            : recipients.filter(
-                                (id) => id !== recipient.student_id,
-                              ),
-                        )
-                      }
-                    />
-                    <span>
-                      <strong>{recipient.display_name}</strong>
-                      {suggestion && (
-                        <span className="lp-intervention-meta block">
-                          AI suggested · review supporting and contrary evidence
-                        </span>
-                      )}
-                    </span>
-                  </label>
-                  {suggestion && (
-                    <details>
-                      <summary>Why suggested?</summary>
-                      <p>{suggestion.reason}</p>
-                      {suggestion.evidence_attempt_ids.map((id, index) => (
-                        <a
-                          className="lp-text-link mr-3"
-                          href={`#evidence-${id}`}
-                          key={id}
-                        >
-                          Inspect response {index + 1}
-                        </a>
-                      ))}
-                    </details>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-          {review?.eligible_recipients.length === 0 && (
-            <p>No students are currently eligible for this assignment.</p>
-          )}
-          <div className="lp-intervention-approval-summary">
-            <h3>Approve this saved revision</h3>
-            <p>
-              Revision {currentDraft.revision} · {recipients.length} selected{" "}
-              {recipients.length === 1 ? "student" : "students"}
-              {recipientNames.length
-                ? `: ${recipientNames.map((student) => student.display_name).join(", ")}`
-                : "."}
-            </p>
-            <p>
-              Approval locks the activity and recipient list. Students receive
-              it only after you choose Deliver approved activity.
-            </p>
-            {dirty && (
-              <p className="lp-intervention-warning">
-                Save or discard your unsaved edits before approval.
-              </p>
-            )}
-            <button
-              type="button"
-              className="lp-button lp-button-primary"
-              disabled={locked || dirty || recipients.length === 0}
-              onClick={() =>
-                void apply({
-                  ...base(),
-                  action: "approve",
-                  recipient_ids: recipients,
-                })
-              }
-            >
-              Approve revision {currentDraft.revision} for {recipients.length}{" "}
-              {recipients.length === 1 ? "student" : "students"}
-            </button>
-          </div>
-          <details className="lp-intervention-section">
-            <summary>Dismiss this draft</summary>
-            <p>
-              Dismissal keeps the draft history and original student evidence.
-              This activity will not be delivered.
-            </p>
-            <button
-              type="button"
-              className="lp-button"
-              disabled={locked || dirty}
-              onClick={() => void apply({ ...base(), action: "dismiss" })}
-            >
-              Confirm dismissal
-            </button>
-          </details>
-        </section>
-      )}
-      {review?.approval && (
-        <section className="lp-intervention-approval-summary">
-          <h3>
-            {review.delivery
-              ? "Delivery recorded"
-              : "Ready for your delivery decision"}
-          </h3>
-          <p>
-            Revision {review.approval.approved_revision} approved on{" "}
-            {new Date(review.approval.approved_at).toLocaleString()} for{" "}
-            {review.approval.recipient_ids.length} students.
-          </p>
-          <p>
-            {recipientNames.map((student) => student.display_name).join(", ")}
-          </p>
-          {review.delivery ? (
-            <p role="status">
-              Delivered on{" "}
-              {new Date(review.delivery.delivered_at).toLocaleString()}.
-              Refreshing will not create another delivery.
-            </p>
-          ) : (
-            <>
-              <p>
-                The activity remains private until delivery. The approved
-                content and recipient list are fixed.
-              </p>
-              <button
-                type="button"
-                className="lp-button lp-button-primary"
-                disabled={disabled || busy || pending !== null || conflict}
-                onClick={() =>
-                  void apply({
-                    ...base(),
-                    action: "deliver",
-                    approval_id: review.approval!.id,
-                  })
-                }
-              >
-                Deliver approved activity to{" "}
-                {review.approval.recipient_ids.length} students
-              </button>
-            </>
-          )}
-          <p className="lp-intervention-meta">
-            Approval: {review.approval.id}
-            {review.delivery ? ` · Delivery: ${review.delivery.id}` : ""}
-          </p>
-        </section>
-      )}
-      {review?.delivery && review.approval && (
-        <InterventionFollowup
-          draftId={draft.id}
-          approvalId={review.approval.id}
-        />
-      )}
       {conflict && (
-        <div role="alert" className="lp-intervention-warning">
+        <div
+          id="intervention-conflict"
+          tabIndex={-1}
+          role="alert"
+          className="lp-intervention-warning"
+        >
           <p>
             This view may be stale. Your unsaved edits have been kept. Refresh
             the saved state, then inspect it before discarding local edits;
@@ -696,7 +598,11 @@ export function InterventionEditor({
         </div>
       )}
       {pending && !busy && (
-        <div className="lp-intervention-warning">
+        <div
+          className="lp-intervention-warning"
+          id="intervention-pending-action"
+          tabIndex={-1}
+        >
           <p>
             The previous {pending.action} request has an unconfirmed response.
             Replaying its unchanged identity recovers the recorded outcome
@@ -712,16 +618,397 @@ export function InterventionEditor({
           </button>
         </div>
       )}
-      {notice && (
-        <p role="status" className="lp-intervention-note">
-          {notice}
-        </p>
-      )}
       {error && (
-        <p role="alert" className="lp-intervention-warning">
+        <p
+          id="intervention-action-error"
+          tabIndex={-1}
+          role="alert"
+          className="lp-intervention-warning"
+        >
           {error}
         </p>
       )}
     </div>
   );
+  const stepsPane = (
+    <div className="lp-intervention-steps-workspace">
+      <div className="lp-intervention-status">
+        <strong>
+          {review?.delivery
+            ? "Delivered"
+            : review?.approval
+              ? "Approved · awaiting delivery"
+              : currentDraft.status === "dismissed"
+                ? "Dismissed"
+                : "Private draft"}
+        </strong>
+        <span>
+          Revision {currentDraft.revision}
+          {dirty ? " · unsaved changes" : " · saved"}
+        </span>
+      </div>
+      <ol className="lp-intervention-steps">
+        <li>
+          <CompletedStage
+            title="Choose answers"
+            status={`${currentDraft.evidence.counts.selected_responses} saved`}
+          >
+            <p>
+              {currentDraft.evidence.counts.selected_responses} responses from{" "}
+              {currentDraft.evidence.counts.selected_students} students. Related
+              and contrary answers remain in the saved evidence.
+            </p>
+            <button
+              type="button"
+              className="lp-text-link"
+              aria-label="Inspect saved evidence"
+              onClick={() => onNavigationBlocked("intervention-evidence-title")}
+            >
+              Inspect saved evidence
+            </button>
+          </CompletedStage>
+        </li>
+        <li aria-labelledby="intervention-save-title">
+          {!editable && review?.approval ? (
+            <CompletedStage
+              title="Write and save draft"
+              status="Saved"
+              headingId="intervention-save-title"
+            >
+              <p>Saved activity locked by approval.</p>
+              <button
+                type="button"
+                className="lp-text-link"
+                onClick={() => onNavigationBlocked("intervention-draft-title")}
+              >
+                Review in Activity
+              </button>
+            </CompletedStage>
+          ) : (
+            <>
+              <h3 id="intervention-save-title">Write and save draft</h3>
+              <p>
+                {dirty
+                  ? "Unsaved edits. Save a private revision before approval."
+                  : editable
+                    ? "Review student preview and private guidance before approval."
+                    : "Saved activity locked by approval."}
+              </p>
+              {!editable && (
+                <button
+                  type="button"
+                  className="lp-text-link"
+                  onClick={() =>
+                    onNavigationBlocked("intervention-draft-title")
+                  }
+                >
+                  Review in Activity
+                </button>
+              )}
+            </>
+          )}
+          {editable && (
+            <div
+              className="lp-intervention-actions"
+              id="intervention-edit-actions"
+              tabIndex={-1}
+            >
+              <button
+                type="submit"
+                form="intervention-edit-form"
+                className="lp-button lp-button-primary"
+                disabled={locked || !dirty}
+              >
+                Save private revision
+              </button>
+              {!conflict && (
+                <button
+                  type="button"
+                  className="lp-button"
+                  disabled={busy || pending !== null || !dirty}
+                  onClick={discard}
+                >
+                  Discard unsaved edits
+                </button>
+              )}
+            </div>
+          )}
+          {(pending || conflict || error) && (
+            <div className="lp-intervention-warning" role="status">
+              <p>
+                {pending
+                  ? "An action is unconfirmed. Review its saved request before continuing."
+                  : conflict
+                    ? "The saved revision needs review. Your local work is preserved."
+                    : "The last action needs your attention."}
+              </p>
+              <button
+                type="button"
+                className="lp-button"
+                disabled={busy}
+                onClick={() =>
+                  onNavigationBlocked(
+                    pending
+                      ? "intervention-pending-action"
+                      : conflict
+                        ? "intervention-conflict"
+                        : "intervention-action-error",
+                  )
+                }
+              >
+                Review recovery in Activity
+              </button>
+            </div>
+          )}
+        </li>
+        <li aria-labelledby="intervention-recipients-title">
+          {!review?.approval && (
+            <h3 id="intervention-recipients-title">Choose recipients</h3>
+          )}
+          {editable ? (
+            <details className="lp-intervention-recipient-selection">
+              <summary>{recipients.length} selected · Choose students</summary>
+              <p>
+                AI suggestions are recommendations only. Select the currently
+                eligible students who should receive this activity.
+              </p>
+              <div className="lp-intervention-actions">
+                <button
+                  type="button"
+                  className="lp-button"
+                  disabled={locked || !review?.eligible_recipients.length}
+                  onClick={() =>
+                    select(
+                      review?.eligible_recipients.map(
+                        (student) => student.student_id,
+                      ) ?? [],
+                    )
+                  }
+                >
+                  Select all eligible
+                </button>
+                <button
+                  type="button"
+                  className="lp-button"
+                  disabled={locked || recipients.length === 0}
+                  onClick={() => select([])}
+                >
+                  Clear selection
+                </button>
+              </div>
+              <div className="lp-intervention-recipients">
+                {review?.eligible_recipients.map((recipient) => {
+                  const suggestion =
+                    currentDraft.activity.suggested_recipients.find(
+                      (item) => item.student_id === recipient.student_id,
+                    );
+                  return (
+                    <div
+                      key={recipient.student_id}
+                      className="lp-intervention-recipient"
+                    >
+                      <label className="lp-intervention-choice">
+                        <input
+                          type="checkbox"
+                          checked={recipients.includes(recipient.student_id)}
+                          disabled={locked}
+                          onChange={(event) =>
+                            select(
+                              event.target.checked
+                                ? [...recipients, recipient.student_id]
+                                : recipients.filter(
+                                    (id) => id !== recipient.student_id,
+                                  ),
+                            )
+                          }
+                        />
+                        <span>
+                          <strong>{recipient.display_name}</strong>
+                          {suggestion && (
+                            <span className="lp-intervention-meta block">
+                              AI suggested · review supporting and contrary
+                              evidence
+                            </span>
+                          )}
+                        </span>
+                      </label>
+                      {suggestion && (
+                        <details>
+                          <summary>Why suggested?</summary>
+                          <p>{suggestion.reason}</p>
+                          {suggestion.evidence_attempt_ids.map((id, index) => (
+                            <a
+                              className="lp-text-link mr-3"
+                              href={`#evidence-${id}`}
+                              key={id}
+                            >
+                              Inspect response {index + 1}
+                            </a>
+                          ))}
+                        </details>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+              {review?.eligible_recipients.length === 0 && (
+                <p>No students are currently eligible for this assignment.</p>
+              )}
+            </details>
+          ) : review?.approval ? (
+            <CompletedStage
+              title="Choose recipients"
+              status={`${review.approval.recipient_ids.length} approved`}
+              headingId="intervention-recipients-title"
+            >
+              <p>The approved recipient list is fixed.</p>
+              <p>
+                {recipientNames.length
+                  ? recipientNames
+                      .map((student) => student.display_name)
+                      .join(", ")
+                  : "Recipient names unavailable."}
+              </p>
+            </CompletedStage>
+          ) : (
+            <p>This draft is dismissed. No students will receive it.</p>
+          )}
+        </li>
+        <li>
+          {!review?.approval && <h3>Approve saved revision</h3>}
+          {editable ? (
+            <div className="lp-intervention-approval-summary">
+              <p>
+                Revision {currentDraft.revision} · {recipients.length} selected{" "}
+                {recipients.length === 1 ? "student" : "students"}
+                {recipientNames.length
+                  ? `: ${recipientNames.map((student) => student.display_name).join(", ")}`
+                  : "."}
+              </p>
+              <p>
+                Approval locks the activity and recipient list. Students receive
+                it only after you choose Deliver approved activity.
+              </p>
+              {dirty && (
+                <p className="lp-intervention-warning">
+                  Save or discard your unsaved edits before approval.
+                </p>
+              )}
+              <button
+                type="button"
+                className="lp-button lp-button-primary"
+                disabled={locked || dirty || recipients.length === 0}
+                onClick={() =>
+                  void apply({
+                    ...base(),
+                    action: "approve",
+                    recipient_ids: recipients,
+                  })
+                }
+              >
+                Approve revision {currentDraft.revision} for {recipients.length}{" "}
+                {recipients.length === 1 ? "student" : "students"}
+              </button>
+            </div>
+          ) : review?.approval ? (
+            <CompletedStage
+              title="Approve"
+              status={`Revision ${review.approval.approved_revision} approved`}
+            >
+              <p>
+                Approved on{" "}
+                <time dateTime={review.approval.approved_at}>
+                  {interventionTimestamp(review.approval.approved_at)}
+                </time>
+                .
+              </p>
+              <p className="lp-intervention-meta">
+                Approval: {review.approval.id}
+              </p>
+            </CompletedStage>
+          ) : (
+            <p>No approval is recorded.</p>
+          )}
+        </li>
+        <li>
+          {!review?.delivery && <h3>Deliver activity</h3>}
+          {review?.approval ? (
+            review.delivery ? (
+              <CompletedStage title="Delivery recorded" status="Delivered">
+                <p>
+                  Delivered to {review.approval.recipient_ids.length} students.
+                </p>
+                <p>
+                  Delivered on{" "}
+                  <time dateTime={review.delivery.delivered_at}>
+                    {interventionTimestamp(review.delivery.delivered_at)}
+                  </time>
+                  . Refreshing will not create another delivery.
+                </p>
+                <p className="lp-intervention-meta">
+                  Delivery: {review.delivery.id}
+                </p>
+              </CompletedStage>
+            ) : (
+              <>
+                <p>
+                  The activity remains private until delivery. The approved
+                  content and recipient list are fixed.
+                </p>
+                <button
+                  type="button"
+                  className="lp-button lp-button-primary"
+                  disabled={disabled || busy || pending !== null || conflict}
+                  onClick={() =>
+                    void apply({
+                      ...base(),
+                      action: "deliver",
+                      approval_id: review.approval!.id,
+                    })
+                  }
+                >
+                  Deliver approved activity to{" "}
+                  {review.approval.recipient_ids.length} students
+                </button>
+              </>
+            )
+          ) : (
+            <p>Approval is required. Nothing has been delivered.</p>
+          )}
+        </li>
+        <li>
+          <h3>Read follow-up</h3>
+          {review?.delivery && review.approval ? (
+            <InterventionFollowup
+              draftId={draft.id}
+              approvalId={review.approval.id}
+            />
+          ) : (
+            <p>
+              Follow-up will link here after delivery. No learning outcome is
+              inferred.
+            </p>
+          )}
+        </li>
+      </ol>
+      {editable && (
+        <details className="lp-intervention-section">
+          <summary>Dismiss this draft</summary>
+          <p>
+            Dismissal keeps the draft history and original student evidence.
+            This activity will not be delivered.
+          </p>
+          <button
+            type="button"
+            className="lp-button"
+            disabled={locked || dirty}
+            onClick={() => void apply({ ...base(), action: "dismiss" })}
+          >
+            Confirm dismissal
+          </button>
+        </details>
+      )}
+    </div>
+  );
+  return renderWorkspace({ activity: activityPane, steps: stepsPane });
 }

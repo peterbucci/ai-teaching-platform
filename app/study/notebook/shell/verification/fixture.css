@@ -1,0 +1,75 @@
+/* Standalone harness only. This stylesheet is never imported by the shell. */
+body {
+  margin: 0;
+}
+.fixture-banner {
+  font: 12px/1.5 system-ui;
+  padding: 4px 12px;
+  color: #7f5216;
+  background: #fff4e1;
+}
+.fixture-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.fixture-stack h2 {
+  font-size: 20px;
+  line-height: 1.35;
+}
+.fixture-label {
+  color: #176d58;
+  font-weight: 650;
+  font-size: 13px;
+}
+.fixture-meta {
+  color: #4f6359;
+  font-size: 13px;
+}
+.fixture-response {
+  border-left: 3px solid #cbd9d1;
+  padding-left: 14px;
+}
+.fixture-help {
+  border: 1px solid #c5d9eb;
+  background: #ecf3fa;
+  border-radius: 10px;
+  padding: 14px;
+}
+.fixture-help p,
+.fixture-response p {
+  margin-top: 8px;
+}
+.fixture-serif {
+  font:
+    17px/1.65 Georgia,
+    serif;
+}
+.fixture-notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: #7f5216;
+}
+.fixture-notice button {
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #b9a382;
+  border-radius: 8px;
+  background: #fff4e1;
+}
+#fixture-composer {
+  font: 16px/1.5 system-ui;
+  padding: 12px;
+  border: 1px solid #7d8e86;
+  border-radius: 8px;
+  width: 100%;
+  resize: vertical;
+}
+.fixture-stack summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding: 10px 0;
+}

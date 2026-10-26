@@ -1,0 +1,326 @@
+{
+  "status": "passed",
+  "mode": "durability",
+  "runtimeKind": "native-postgresql",
+  "sourceSha": "b0608f6c69f47c48ed85876a992ccc3011bd2a66",
+  "sourceTree": "b2379831f5afacd7c279bc15c82d438ab547bce6",
+  "project": "lp-v22-intervention",
+  "origin": "http://127.0.0.1:3362",
+  "paid_calls": 0,
+  "startedAt": "2026-10-25T15:10:19.278Z",
+  "checks": [
+    {
+      "name": "preflight:durability",
+      "observedAt": "2026-10-25T15:10:19.285Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "availableBytes": 45579276288,
+          "availableGiB": 42.44900894165039,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "availableBytes": 45579276288,
+          "availableGiB": 42.44900894165039,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 45579276288,
+          "availableGiB": 42.44900894165039,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "preflight:postgres-identity",
+      "observedAt": "2026-10-25T15:10:19.287Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "availableBytes": 45579276288,
+          "availableGiB": 42.44900894165039,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "availableBytes": 45579276288,
+          "availableGiB": 42.44900894165039,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 45579276288,
+          "availableGiB": 42.44900894165039,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "postgres-identity",
+      "exitCode": 0,
+      "error": null,
+      "signal": null,
+      "finishedAt": "2026-10-25T15:10:19.413Z"
+    },
+    {
+      "name": "preflight:prepare-durable-record",
+      "observedAt": "2026-10-25T15:10:19.415Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "availableBytes": 45579276288,
+          "availableGiB": 42.44900894165039,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "availableBytes": 45579276288,
+          "availableGiB": 42.44900894165039,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 45579276288,
+          "availableGiB": 42.44900894165039,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "prepare-durable-record",
+      "exitCode": 0,
+      "error": null,
+      "signal": null,
+      "finishedAt": "2026-10-25T15:10:21.478Z"
+    },
+    {
+      "name": "preflight:restart-owned-postgres",
+      "observedAt": "2026-10-25T15:10:21.480Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "availableBytes": 45578878976,
+          "availableGiB": 42.448638916015625,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "availableBytes": 45578878976,
+          "availableGiB": 42.448638916015625,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 45578878976,
+          "availableGiB": 42.448638916015625,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "restart-owned-postgres",
+      "exitCode": 0,
+      "error": null,
+      "signal": null,
+      "finishedAt": "2026-10-25T15:10:22.116Z"
+    },
+    {
+      "name": "preflight:postgres-identity-after-restart",
+      "observedAt": "2026-10-25T15:10:22.118Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "availableBytes": 45579395072,
+          "availableGiB": 42.449119567871094,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "availableBytes": 45579395072,
+          "availableGiB": 42.449119567871094,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 45579395072,
+          "availableGiB": 42.449119567871094,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "postgres-identity-after-restart",
+      "exitCode": 0,
+      "error": null,
+      "signal": null,
+      "finishedAt": "2026-10-25T15:10:22.228Z"
+    },
+    {
+      "name": "preflight:idempotent-fictional-reseed",
+      "observedAt": "2026-10-25T15:10:22.230Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "availableBytes": 45579194368,
+          "availableGiB": 42.44893264770508,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "availableBytes": 45579194368,
+          "availableGiB": 42.44893264770508,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 45579194368,
+          "availableGiB": 42.44893264770508,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "idempotent-fictional-reseed",
+      "exitCode": 0,
+      "error": null,
+      "signal": null,
+      "finishedAt": "2026-10-25T15:10:23.347Z"
+    },
+    {
+      "name": "preflight:verify-durable-record",
+      "observedAt": "2026-10-25T15:10:23.349Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "availableBytes": 45579128832,
+          "availableGiB": 42.44887161254883,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "availableBytes": 45579128832,
+          "availableGiB": 42.44887161254883,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 45579128832,
+          "availableGiB": 42.44887161254883,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "verify-durable-record",
+      "exitCode": 0,
+      "error": null,
+      "signal": null,
+      "finishedAt": "2026-10-25T15:10:24.153Z"
+    }
+  ],
+  "harnessSha256": "f6a939359bf72b230d37f24319dc46c714f52f09dbb02e62db315615de2806af",
+  "guardSha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+  "nativeBinaryProvenanceSha256": "a64dbf48683928dd7129978d24d7093a201207b40291ead2e86a80b3d3e11caf",
+  "lock_path": "C:\\Users\\sb128\\AppData\\Local\\learning-pulse-acceptance.lock",
+  "databaseBoundary": {
+    "user": "learning_app",
+    "database": "learning_platform",
+    "address": "127.0.0.1",
+    "port": 54362,
+    "fsync": "on",
+    "full_page_writes": "on",
+    "synchronous_commit": "on",
+    "rolsuper": false,
+    "rolcreatedb": false,
+    "rolcreaterole": false
+  },
+  "lock_retained": false,
+  "durability": "Existing persistence test across owned PostgreSQL restart; application process remains running",
+  "finishedAt": "2026-10-25T15:10:24.154Z"
+}

@@ -4,6 +4,10 @@ import type {
   InterventionActivity,
   InterventionEvidence,
 } from "../../../lib/interventions/contracts.ts";
+import type { TeacherWorkspaceContext } from "../../../lib/teacher/workspace-contracts.ts";
+import { evidenceScopeCounts } from "./handoff.ts";
+import { interventionAssistanceLabels } from "./assistance.ts";
+import { interventionObservationHref } from "./snapshot-context.ts";
 
 const roleLabels = {
   supporting: "Reason to review",
@@ -16,34 +20,50 @@ export function EvidenceReview({
   selectedIds,
   onToggle,
   locked = false,
+  context,
+  previewCurrent,
+  reviewHref,
 }: {
   evidence: InterventionEvidence;
   selectedIds: string[];
   onToggle?: (id: string) => void;
   locked?: boolean;
+  context: TeacherWorkspaceContext;
+  previewCurrent: boolean;
+  reviewHref: string;
 }) {
+  const counts = evidenceScopeCounts(evidence);
   return (
     <section
       className="lp-panel lp-intervention-panel"
       aria-labelledby="intervention-evidence-title"
     >
-      <h2 id="intervention-evidence-title">Recorded learning evidence</h2>
-      <p>
-        {evidence.counts.selected_students} distinct students ·{" "}
+      <h2 id="intervention-evidence-title" tabIndex={-1}>
+        Evidence used
+      </h2>
+      <p className="lp-intervention-meta lp-intervention-scope-summary">
+        {counts.starting ? `${counts.starting} starting · ` : "All eligible · "}
         {evidence.counts.selected_responses} responses ·{" "}
-        {evidence.counts.enrolled_students} enrolled
+        {evidence.counts.selected_students} students
+        {!previewCurrent && <strong> · previous reviewed scope</strong>}
       </p>
-      <p className="lp-intervention-meta">{evidence.scope_note}</p>
+      <p className="lp-intervention-meta lp-intervention-scope-summary">
+        {counts.supporting} supporting · {counts.contrary} contrary ·{" "}
+        {counts.context} context
+      </p>
       {onToggle && (
         <p className="lp-intervention-note">
-          Use all evidence for this concept, or choose responses below. Related
-          answers by the same students remain included so that later success and
-          contradictory evidence are preserved.
-          {selectedIds.length > 0 && (
+          {selectedIds.length
+            ? `${selectedIds.length} starting responses selected.`
+            : "No starting responses selected: use all eligible evidence."}{" "}
+          Selecting a response also includes that student’s related and contrary
+          answers. This never chooses recipients.
+          {!previewCurrent && (
             <>
-              {" "}
-              You selected {selectedIds.length} starting responses; the saved
-              draft shows its final evidence scope.
+              <br />
+              <a className="lp-button mt-3" href={reviewHref}>
+                Review selected evidence
+              </a>
             </>
           )}
         </p>
@@ -63,27 +83,76 @@ export function EvidenceReview({
           </p>
         </div>
       )}
+      <details className="lp-intervention-section lp-intervention-scope-details">
+        <summary>Selection and approved sources</summary>
+        <p className="lp-intervention-meta">
+          {evidence.counts.selected_students} distinct students ·{" "}
+          {evidence.counts.selected_responses} responses ·{" "}
+          {evidence.counts.enrolled_students} enrolled
+        </p>
+        {counts.starting > 0 && (
+          <p className="lp-intervention-meta">
+            {counts.starting} starting responses expanded to include related
+            answers.
+          </p>
+        )}
+        <p className="lp-intervention-meta">{evidence.scope_note}</p>
+        <p className="lp-intervention-meta">
+          Package: {evidence.content_ref.package_id}
+          <br />
+          Lesson version: {evidence.content_ref.content_version}
+          <br />
+          Source: {evidence.content_ref.source_id}
+          <br />
+          Source revision:{" "}
+          {"source_commit" in evidence.content_ref
+            ? evidence.content_ref.source_commit
+            : evidence.content_ref.source_version}
+        </p>
+        {evidence.sources.map((source) => (
+          <div className="lp-intervention-source" key={source.passage_id}>
+            {source.url ? (
+              <a
+                className="lp-text-link"
+                href={source.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {source.passage_id}
+              </a>
+            ) : (
+              <span>{source.passage_id}</span>
+            )}
+            <blockquote>{source.text}</blockquote>
+          </div>
+        ))}
+      </details>
       {evidence.observations.map((observation) => {
         const { attempt, evaluation } = observation;
         const judgment = evaluation.result?.per_concept_results.find(
           (result) => result.concept_id === evidence.concept.id,
         );
-        const independent =
-          attempt.assistance?.independent_retrieval_eligible_by_concept[
-            evidence.concept.id
-          ];
+        const assistance = interventionAssistanceLabels(
+          attempt,
+          evidence.concept.id,
+        );
         return (
           <div
             className="lp-intervention-evidence"
             key={attempt.id}
             id={`evidence-${attempt.id}`}
+            tabIndex={-1}
           >
             {onToggle && (
               <label className="lp-intervention-choice">
                 <input
                   type="checkbox"
                   checked={selectedIds.includes(attempt.id)}
-                  disabled={locked}
+                  disabled={
+                    locked ||
+                    (selectedIds.length >= 60 &&
+                      !selectedIds.includes(attempt.id))
+                  }
                   onChange={() => onToggle(attempt.id)}
                 />
                 <span>Use this response from {observation.student_name}</span>
@@ -95,16 +164,23 @@ export function EvidenceReview({
                 <span className="lp-badge lp-badge-neutral">
                   {roleLabels[observation.role]}
                 </span>
+                <span className="lp-intervention-question-preview">
+                  {attempt.question.prompt_text}
+                </span>
+                <span className="lp-intervention-answer-preview">
+                  {attempt.response_text}
+                </span>
+                <span className="lp-intervention-meta">
+                  {assistance.support} · {assistance.independence} ·{" "}
+                  {judgment?.correctness.replaceAll("_", " ")}
+                </span>
               </summary>
               <p className="lp-intervention-meta">
                 {observation.data_origin === "synthetic_fixture"
                   ? "Prepared fictional history"
                   : "Live fictional-student session"}{" "}
-                ·{" "}
-                {independent
-                  ? "Independent response"
-                  : "Assistance recorded / not independent"}{" "}
-                · {attempt.intent.replaceAll("_", " ")}
+                · {assistance.support} · {assistance.independence} ·{" "}
+                {attempt.intent.replaceAll("_", " ")}
               </p>
               <h3>Original question</h3>
               <p className="whitespace-pre-wrap">
@@ -138,15 +214,16 @@ export function EvidenceReview({
                   </p>
                 ))}
               <p className="lp-intervention-meta">
-                Assistance:{" "}
-                {attempt.assistance?.assistance_level.replaceAll("_", " ") ??
-                  "Unknown"}
-                . Immediate retests after help do not establish durable
-                understanding.
+                {assistance.support}. Immediate retests after help do not
+                establish durable understanding.
               </p>
               <Link
                 className="lp-text-link"
-                href={`/teacher/sessions/${observation.session_id}#evaluation-${evaluation.id}`}
+                href={interventionObservationHref(
+                  context,
+                  evidence,
+                  attempt.id,
+                )}
               >
                 Inspect full session and assistance
               </Link>
@@ -154,38 +231,6 @@ export function EvidenceReview({
           </div>
         );
       })}
-      <details className="lp-intervention-section">
-        <summary>Approved source and lesson identity</summary>
-        <p className="lp-intervention-meta">
-          Package: {evidence.content_ref.package_id}
-          <br />
-          Lesson version: {evidence.content_ref.content_version}
-          <br />
-          Source: {evidence.content_ref.source_id}
-          <br />
-          Source revision:{" "}
-          {"source_commit" in evidence.content_ref
-            ? evidence.content_ref.source_commit
-            : evidence.content_ref.source_version}
-        </p>
-        {evidence.sources.map((source) => (
-          <div className="lp-intervention-source" key={source.passage_id}>
-            {source.url ? (
-              <a
-                className="lp-text-link"
-                href={source.url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {source.passage_id}
-              </a>
-            ) : (
-              <span>{source.passage_id}</span>
-            )}
-            <blockquote>{source.text}</blockquote>
-          </div>
-        ))}
-      </details>
     </section>
   );
 }

@@ -1,0 +1,26 @@
+{
+  "source": "e7cbf3d6930e892e91f4170ed2aa08c9b8649e67",
+  "diffSha256": "47ad0799a28012dd8730a683f1315adcc3cf075d4d25d62e4aee4a6e0b8d8994",
+  "base": "http://127.0.0.1:3407",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "checks": [
+    "fictional teacher approves and separately delivers validated authored review",
+    "authenticated My Learning mounts N1/N2/N5 without review body disclosure or writes",
+    "My Learning four viewport widths have no horizontal page overflow",
+    "authenticated assignment overview mounted without starting or evaluating",
+    "help/ambiguous fallback preserves question and requires explicit answer confirmation"
+  ],
+  "screenshots": [
+    "application-learning-1440.png",
+    "application-learning-1024.png",
+    "application-learning-390.png",
+    "application-learning-320.png"
+  ],
+  "errors": [],
+  "session": "a9919d2c-9227-443c-8ce7-fb3b9967d883",
+  "attempt": "ee3e4de5-6802-4c75-925c-ca1508594b9a",
+  "approval": "0c0e461c-ddb8-416b-bc07-6b050a10ee3e",
+  "result": "FAIL",
+  "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ null\n- '  My original café 🌱 reasoning.\\nKeep  two spaces and line breaks.  '\n\n    at file:///C:/Users/sb128/.codex/worktrees/student-notebook-integration/LearningPlatform/acceptance/notebook/journey.mjs:121:10"
+}

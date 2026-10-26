@@ -1,0 +1,47 @@
+{
+  "applicationCommit": "32de9a6175348a30aedc61478d5c3d870fece218",
+  "buildId": "zNNbymqsGD9WxvdnO-vvQ",
+  "productionSourceTreeSha256": "05c03fc0f41b1d3693c470b51699ce3a1c67bf54a57652542aab56a33f38e8f2",
+  "visualAcceptance": "NOT_ACCEPTED",
+  "paidCalls": 0,
+  "runs": {
+    "journey": "evidence/journey-1792954205408/journey.json",
+    "reader": "evidence/mounted-reader-1792954171307/report.json",
+    "visual": "evidence/visual-1792954086544/visual-results.json"
+  },
+  "productionJourneyPassed": 13,
+  "productionReaderChecksPassed": 3,
+  "visualFunctionalChecksPassed": 15,
+  "comparisonPairs": 31,
+  "comparisonScreenshots": 63,
+  "nativeZoomPercent": 200,
+  "horizontalOverflowDefects": 0,
+  "browserErrors": 0,
+  "unitTests": {
+    "passed": 543,
+    "scope": "Corrected-route preflight before final reading CSS/heading adjustments"
+  },
+  "lint": "passed on final corrected source",
+  "repositoryFormatCheck": "passed after corrected evidence formatting",
+  "credentialScan": {
+    "filesChecked": 391,
+    "configuredCredentialFields": 6,
+    "findings": 0
+  },
+  "buildAndTypeScript": "passed on final corrected source",
+  "priorIndependentRecovery": {
+    "source": "1726c9c12f171095fed8c327b8a5852e8057c924",
+    "outcomeMatrices": 4,
+    "widths": [1440, 1024, 390, 320],
+    "recoveryCases": 6,
+    "note": "Original owner files remain unchanged; no claim that this older run executed again on the corrected head"
+  },
+  "gates": [
+    "PR #113 active-study ownership handoff",
+    "Facing reader review and combined activation acceptance",
+    "N0 recorded-chronology adapter approval",
+    "Current-data index lacks prototype question/answer/feedback/help coverage",
+    "Remaining reading gutters, source-tree density and mobile navigation differences",
+    "Native mobile keyboard and screen-reader checks unrun"
+  ]
+}

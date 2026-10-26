@@ -1,0 +1,48 @@
+{
+  "attempts": [
+    {
+      "name": "lifecycle-01",
+      "failure": "AssertionError [ERR_ASSERTION]: Reconcile saved result; never blindly replay\n\n409 !== 200\n\n    at action (file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a17455-1568-77d3-8dfe-e30ce44a1f16/lifecycle.mjs:15:464)\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at process.processImmediate (node:internal/timers:459:9)\n    at process.callbackTrampoline (node:internal/async_hooks:130:17)\n    at async file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a17455-1568-77d3-8dfe-e30ce44a1f16/lifecycle.mjs:20:37",
+      "checks": [
+        {
+          "name": "private-five-layouts-and-no-mutations",
+          "pass": true
+        },
+        {
+          "name": "one-mounted-editor-and-unsaved-work-across-panes",
+          "pass": true
+        },
+        {
+          "name": "unsaved-navigation-guard-and-reload-recovery",
+          "pass": true
+        }
+      ],
+      "actions": [
+        {
+          "action": "save",
+          "requestId": "03d8ba94-84cd-4e04-9eae-6b09d59daed4",
+          "expectedRevision": 1,
+          "httpStatus": 409
+        }
+      ],
+      "pageErrors": []
+    },
+    {
+      "name": "lifecycle-02",
+      "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'Fictional teacher edit saved during generation'\n- 'Fictional teacher edit saved during generation · fidelity review'\n\n    at file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a17455-1568-77d3-8dfe-e30ce44a1f16/lifecycle.mjs:19:468",
+      "checks": [
+        {
+          "name": "private-five-layouts-and-no-mutations",
+          "pass": true
+        },
+        {
+          "name": "one-mounted-editor-and-unsaved-work-across-panes",
+          "pass": true
+        }
+      ],
+      "actions": [],
+      "pageErrors": []
+    }
+  ],
+  "reconciliation": "lifecycle-01: saved revision1, zero action records and zero approvals confirmed by SQL; no retry. lifecycle-02: no action attempted; verifier inspected input before asynchronous recovery finished. lifecycle-03 waited for recovery and passed. Two optional integrity attempts stopped on normal sign-in429 before lifecycle cloning; final attempt after full cooldown passed. No quota, timestamp or rate-limit changed."
+}

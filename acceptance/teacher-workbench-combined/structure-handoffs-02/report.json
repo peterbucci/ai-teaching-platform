@@ -1,0 +1,540 @@
+{
+  "helper": "combined-structure-handoffs",
+  "sourceSha": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8",
+  "sourceTree": "333b73e1cae1daddf6edd61300655d0b4825ed67",
+  "project": "lp-teacher-combined-01a174be",
+  "origin": "http://localhost:3449",
+  "inputSha256": null,
+  "runtimeHelperSha256": "3734d1bab74979ba3acf3a5331d05632f58c73e41bdf950c5e4a4a2d13473126",
+  "safetySha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+  "startedAt": "2026-10-25T21:07:50.155Z",
+  "status": "passed",
+  "checks": [
+    {
+      "id": "R04-decision",
+      "label": "Exact displayed original and authorized session preserved",
+      "status": "passed",
+      "href": "http://localhost:3449/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=all&concept=bandwidth_throughput&session=2be2efa1-031f-4e3b-8ef2-a992afecb614&attempt=9dde5548-eb2f-4671-83fc-5cdb9483c41b&evaluation=77a9bff2-914e-4629-8fb0-2cd66c404694&returnTo=desk#response-detail-title",
+      "sessionId": "2be2efa1-031f-4e3b-8ef2-a992afecb614",
+      "attemptId": "9dde5548-eb2f-4671-83fc-5cdb9483c41b",
+      "evaluationId": "77a9bff2-914e-4629-8fb0-2cd66c404694",
+      "sourceRef": {
+        "package_id": "network-performance-v1",
+        "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+        "source_id": "peterson_davie_1_5_1",
+        "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+        "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+      }
+    },
+    {
+      "id": "R04-assignment",
+      "label": "Rail assignment identity and displayed title agree",
+      "status": "passed",
+      "href": "http://localhost:3449/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&origin=all&returnTo=desk",
+      "assignmentId": "30000000-0000-4000-8000-000000000001",
+      "classId": "20000000-0000-4000-8000-000000000001",
+      "title": "Bandwidth and latency — approved demo reading"
+    },
+    {
+      "id": "R04-resume",
+      "label": "Both exact saved drafts opened; snapshots unchanged",
+      "status": "passed",
+      "opened": [
+        {
+          "kind": "lesson",
+          "id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+          "href": "http://localhost:3449/teacher/lessons/2a18db3f-a6dc-4f61-b96d-f50647d574ad/questions",
+          "revision": 7
+        },
+        {
+          "kind": "private intervention",
+          "id": "5f779f2e-3970-496f-b5cc-af01b0558173",
+          "href": "http://localhost:3449/teacher/interventions?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&returnTo=desk&draft=5f779f2e-3970-496f-b5cc-af01b0558173",
+          "revision": 1
+        }
+      ]
+    },
+    {
+      "id": "R06-prepare",
+      "label": "Bounded checked evidence and scope retained; generation never invoked",
+      "status": "passed",
+      "href": "http://localhost:3449/teacher/interventions?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&misconception=transmission_depends_on_distance&returnTo=patterns&seedAttempt=df2410fe-65ec-48b9-86ff-5d12ee25b5b8&seedAttempt=fa840fc3-a80c-4a4a-8629-3eba2b68826a&seedAttempt=dc83056c-3b0a-4aa3-8a08-90d140614487&seedAttempt=7dfa2696-e4be-4113-8cfa-645fa3434762&seedAttempt=1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "seeds": [
+        "df2410fe-65ec-48b9-86ff-5d12ee25b5b8",
+        "fa840fc3-a80c-4a4a-8629-3eba2b68826a",
+        "dc83056c-3b0a-4aa3-8a08-90d140614487",
+        "7dfa2696-e4be-4113-8cfa-645fa3434762",
+        "1f16fd29-fa61-4166-85c8-c13197f1facb"
+      ],
+      "previewRows": [
+        {
+          "attemptId": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+          "selected": true
+        },
+        {
+          "attemptId": "b55ac71d-31c9-4c79-8e3b-fd4e0ae38fe4",
+          "selected": false
+        },
+        {
+          "attemptId": "d5d9c2e5-aff3-4be3-8002-e03cf9cb715d",
+          "selected": false
+        },
+        {
+          "attemptId": "e748f0c5-40f7-46a4-8add-2b93ce813dc9",
+          "selected": false
+        },
+        {
+          "attemptId": "7dfa2696-e4be-4113-8cfa-645fa3434762",
+          "selected": true
+        },
+        {
+          "attemptId": "dc83056c-3b0a-4aa3-8a08-90d140614487",
+          "selected": true
+        },
+        {
+          "attemptId": "fa840fc3-a80c-4a4a-8629-3eba2b68826a",
+          "selected": true
+        },
+        {
+          "attemptId": "193794ec-9e05-4404-8f40-6323fa167b85",
+          "selected": false
+        },
+        {
+          "attemptId": "2acfc81c-2e72-439a-8c14-70875605fff2",
+          "selected": false
+        },
+        {
+          "attemptId": "e8471318-e322-4bfe-881c-e614cf400e03",
+          "selected": false
+        },
+        {
+          "attemptId": "26f804d5-ac14-4529-8e7d-0e602d64775a",
+          "selected": false
+        },
+        {
+          "attemptId": "8c2adc94-c917-4c95-89cc-d90a09a23137",
+          "selected": false
+        },
+        {
+          "attemptId": "98f7d28d-fb3b-4612-8987-03b475480b7e",
+          "selected": false
+        },
+        {
+          "attemptId": "50000000-0000-4000-8000-000000000005",
+          "selected": false
+        },
+        {
+          "attemptId": "997a0ce5-8d34-4e03-8dfd-5a35c9abfe6d",
+          "selected": false
+        },
+        {
+          "attemptId": "df2410fe-65ec-48b9-86ff-5d12ee25b5b8",
+          "selected": true
+        }
+      ],
+      "sourceText": "Selection and approved sources\n\n5 distinct students · 16 responses · 27 enrolled\n\n5 starting responses expanded to include related answers.\n\nCounts describe recorded responses, not ability or enduring mastery. Class metrics and class-insight counts use distinct enrolled students; selected counts describe only the included examples. Explicit response selection includes the selected students' other accepted responses for this concept, including contrary evidence. Supporting means an accepted response indicates an opportunity for review; contradictory means correct or explicitly contrary evidence, not proof of retention. Uncertain answers do not establish a misconception.\n\nPackage: network-performance-v1\nLesson version: 3bd292c1476f5becb658418b70ee36153cfce830\nSource: peterson_davie_1_5_1\nSource revision: 5deec5e741e2b8c0bc44566108a24cb783c2c7de\n\nP05\nWhile you can talk about the bandwidth of the network as a whole,\nsometimes you want to be more precise, focusing, for example, on the\nbandwidth of a single physical link or of a logical process-to-process\nchannel. At the physical level, bandwidth is constantly improving, with\nno end in sight. Intuitively, if you think of a second of time as a\ndistance you could measure with a ruler and bandwidth as how many bits\nfit in that distance, then you can think of each bit as a pulse of some\nwidth. For example, each bit on a 1-Mbps link is 1 μs wide, while each\nbit on a 2-Mbps link is 0.5 μs wide, as illustrated in :numref:`Figure\n%s <fig-bit-width>`. The more sophisticated the transmitting and receiving\ntechnology, the narrower each bit can become and, thus, the higher the\nbandwidth. For logical process-to-process channels, bandwidth is also\ninfluenced by other factors, including how many times the software that\nimplements the channel has to handle, and possibly transform, each bit\nof data.\n\nP07\nWe often think of latency as having three components. First, there is\nthe speed-of-light propagation delay. This delay occurs because nothing,\nincluding a bit on a wire, can travel faster than the speed of light. If\nyou know the distance between two points, you can calculate the\nspeed-of-light latency, although you have to be careful because light\ntravels across different media at different speeds: It travels at\n3.0 × 10\\ :sup:`8` m/s in a vacuum, 2.3 × 10\\ :sup:`8` m/s\nin a copper cable, and 2.0 × 10\\ :sup:`8` m/s in an optical fiber.\nSecond, there is the amount of time it takes to transmit a unit of data.\nThis is a function of the network bandwidth and the size of the packet in\nwhich the data is carried. Third, there may be queuing delays inside the\nnetwork, since packet switches generally need to store packets for some\ntime before forwarding them on an outbound link. So, we could define the\ntotal latency as\n\nP08\n::\n\n   Latency = Propagation + Transmit + Queue\n   Propagation =  Distance/SpeedOfLight\n   Transmit = Size/Bandwidth\n\nwhere ``Distance`` is the length of the wire over which the data will\ntravel, ``SpeedOfLight`` is the effective speed of light over that wire,\n``Size`` is the size of the packet, and ``Bandwidth`` is the bandwidth\nat which the packet is transmitted. Note that if the message contains\nonly one bit and we are talking about a single link (as opposed to a\nwhole network), then the ``Transmit`` and ``Queue`` terms are not\nrelevant, and latency corresponds to the propagation delay only.\n",
+      "returnHref": "http://localhost:3449/teacher/insights?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&returnTo=patterns&misconception=transmission_depends_on_distance#patterns",
+      "generationInvoked": false,
+      "recipientsSelected": false
+    }
+  ],
+  "observations": [],
+  "screenshots": [
+    {
+      "file": "r04-decision-evidence.png",
+      "url": "http://localhost:3449/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=all&concept=bandwidth_throughput&session=2be2efa1-031f-4e3b-8ef2-a992afecb614&attempt=9dde5548-eb2f-4671-83fc-5cdb9483c41b&evaluation=77a9bff2-914e-4629-8fb0-2cd66c404694&returnTo=desk#response-detail-title",
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "dpr": 1,
+      "rootZoom": "1",
+      "overflow": false
+    },
+    {
+      "file": "r04-assignment.png",
+      "url": "http://localhost:3449/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&origin=all&returnTo=desk",
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "dpr": 1,
+      "rootZoom": "1",
+      "overflow": false
+    },
+    {
+      "file": "r04-resume-lesson.png",
+      "url": "http://localhost:3449/teacher/lessons/2a18db3f-a6dc-4f61-b96d-f50647d574ad/questions",
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "dpr": 1,
+      "rootZoom": "1",
+      "overflow": false
+    },
+    {
+      "file": "r04-resume-intervention.png",
+      "url": "http://localhost:3449/teacher/interventions?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&returnTo=desk&draft=5f779f2e-3970-496f-b5cc-af01b0558173",
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "dpr": 1,
+      "rootZoom": "1",
+      "overflow": false
+    },
+    {
+      "file": "r06-evidence-preview.png",
+      "url": "http://localhost:3449/teacher/interventions?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&misconception=transmission_depends_on_distance&returnTo=patterns&seedAttempt=df2410fe-65ec-48b9-86ff-5d12ee25b5b8&seedAttempt=fa840fc3-a80c-4a4a-8629-3eba2b68826a&seedAttempt=dc83056c-3b0a-4aa3-8a08-90d140614487&seedAttempt=7dfa2696-e4be-4113-8cfa-645fa3434762&seedAttempt=1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "dpr": 1,
+      "rootZoom": "1",
+      "overflow": false
+    }
+  ],
+  "blockedRequests": [],
+  "safety": [
+    {
+      "label": "launch-teacher-viewport",
+      "observedAt": "2026-10-25T21:07:50.162Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27174367232,
+          "availableGiB": 25.308101654052734,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27174367232,
+          "availableGiB": 25.308101654052734,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27174367232,
+          "availableGiB": 25.308101654052734,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897581547520,
+          "availableGiB": 835.9379577636719,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27174715392,
+            "availableGiB": 25.308425903320312,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "label": "Overview decision opens its exact saved original evidence",
+      "observedAt": "2026-10-25T21:07:52.969Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27157495808,
+          "availableGiB": 25.292388916015625,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27157495808,
+          "availableGiB": 25.292388916015625,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27157495808,
+          "availableGiB": 25.292388916015625,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897581506560,
+          "availableGiB": 835.9379196166992,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27157381120,
+            "availableGiB": 25.292282104492188,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "label": "Whole-course assignment rail opens its authorized assignment",
+      "observedAt": "2026-10-25T21:07:56.819Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27156508672,
+          "availableGiB": 25.29146957397461,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27156508672,
+          "availableGiB": 25.29146957397461,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27156508672,
+          "availableGiB": 25.29146957397461,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897581461504,
+          "availableGiB": 835.9378776550293,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27154378752,
+            "availableGiB": 25.289485931396484,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "label": "Resume existing lesson and private intervention without writes",
+      "observedAt": "2026-10-25T21:08:00.080Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27141177344,
+          "availableGiB": 25.277191162109375,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27141177344,
+          "availableGiB": 25.277191162109375,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27141177344,
+          "availableGiB": 25.277191162109375,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897581416448,
+          "availableGiB": 835.9378356933594,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27140808704,
+            "availableGiB": 25.27684783935547,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "label": "Populated concern hands bounded selected evidence to private preparation",
+      "observedAt": "2026-10-25T21:08:05.163Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27134578688,
+          "availableGiB": 25.271045684814453,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27134578688,
+          "availableGiB": 25.271045684814453,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27134578688,
+          "availableGiB": 25.271045684814453,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897581338624,
+          "availableGiB": 835.9377632141113,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27134468096,
+            "availableGiB": 25.27094268798828,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    }
+  ],
+  "actualModelCalls": 0,
+  "syntheticEvaluation": true,
+  "method": "Authenticated native browser application checks; all requests after fictional login are read-only. No mutation replay.",
+  "limitations": [
+    "No screen reader or physical device acceptance",
+    "Synthetic fixtures do not demonstrate actual-model decisions"
+  ],
+  "lockOwner": {
+    "action": "combined-structure-handoffs",
+    "source": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+    "state": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+    "out": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\verification\\structure-handoffs-02",
+    "project": "lp-teacher-combined-01a174be",
+    "sourceSha": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8",
+    "token": "[REDACTED local coordination lock token]",
+    "pid": 110336,
+    "startedAt": "2026-10-25T21:07:50.156Z"
+  },
+  "helperSha256": "b2f0d0a3595378361fcb578c55afeee2d7890a8a8775719ed1160f885c3313b6",
+  "category": "R04 and R06 functional handoffs; selected original records; fictional cloned data; no saves, generation, approval, delivery or recipient selection",
+  "requestedChecks": [
+    "R04-decision",
+    "R04-assignment",
+    "R04-resume",
+    "R06-prepare"
+  ],
+  "browserErrors": [],
+  "finishedAt": "2026-10-25T21:08:07.983Z"
+}

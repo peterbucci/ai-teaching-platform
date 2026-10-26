@@ -1,0 +1,67 @@
+{
+  "recordedAt": "2026-10-25T19:15:47.026271+00:00",
+  "baseline": "07efb7f821339538800f150f57b298eb2e606be3",
+  "applicationOrigin": "http://127.0.0.1:3516",
+  "runtime": "Node.js v22.13.0; Next.js 16.4.3 production webpack build; local PostgreSQL 17.11 isolated overview_f database",
+  "commands": [
+    {
+      "check": "focused tests",
+      "command": "node --experimental-strip-types --conditions=react-server --test app/teacher/overview/overview.test.ts tests/teacher-priorities.test.ts tests/teacher-shell-metadata.test.ts tests/teacher-workspace-contracts.test.ts tests/teacher-progress-return.test.ts",
+      "exitCode": 0,
+      "log": "focused-tests.txt",
+      "result": "26 passed, 0 failed"
+    },
+    {
+      "check": "lint",
+      "command": "node node_modules/eslint/bin/eslint.js . --max-warnings=0",
+      "exitCode": 0,
+      "log": "lint.txt",
+      "result": "passed; empty stdout"
+    },
+    {
+      "check": "typecheck",
+      "command": "node node_modules/next/dist/bin/next typegen && node node_modules/typescript/bin/tsc --noEmit",
+      "exitCode": 0,
+      "log": "typecheck.txt",
+      "result": "both commands exited 0"
+    },
+    {
+      "check": "format",
+      "command": "node node_modules/prettier/bin/prettier.cjs --check .",
+      "exitCode": 0,
+      "log": "format.txt",
+      "result": "all matched files conform"
+    },
+    {
+      "check": "build",
+      "command": "node node_modules/next/dist/bin/next build --webpack",
+      "exitCode": 0,
+      "log": "build.txt",
+      "result": "production build passed; existing materials/extract createRequire warning"
+    },
+    {
+      "check": "content",
+      "command": "python content/network-performance-v1/verify_package.py",
+      "exitCode": 0,
+      "log": "content.txt",
+      "result": "293 checks passed"
+    }
+  ],
+  "browser": {
+    "viewports": ["1440x1000", "1024x768", "390x844", "320x844"],
+    "interactionChecks": 20,
+    "errors": 0,
+    "navigationWrites": 0,
+    "dataTablesUnchanged": 9,
+    "nativeZoom": "Actual Chrome UI 200%, fresh origin verified, first action unobscured",
+    "loadingFallback": "Probe attempted; not verified; see loading-attempt.json",
+    "modelCalls": 0
+  },
+  "sourceSha256": {
+    "app/teacher/page.tsx": "47d16b3b1d53af920ec308d747b6c16405902f0b54010aad2e5f5bffa1e860fc",
+    "app/teacher/overview/model.ts": "faae4aac3fa90578b96eb4bd10a129a23af3c725077f06a36f1c375d406bb052",
+    "app/teacher/overview/load.ts": "d27a7f77ba71bd9b7451e97a4c35543887026737f18942cf3595aaddb454cbdd",
+    "app/teacher/overview/overview.css": "9945d7442432d0419165f1cd7260d2ea1c148de94109516d4332d601928e44df",
+    "app/teacher/overview/overview.test.ts": "2eadae46c584f9d07f61fa4f65842c2bf24cc939e1ce0cfb3f6259b7abf1e2fa"
+  }
+}

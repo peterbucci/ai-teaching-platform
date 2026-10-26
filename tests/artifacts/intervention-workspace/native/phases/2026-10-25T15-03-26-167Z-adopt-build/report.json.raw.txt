@@ -1,0 +1,131 @@
+{
+  "status": "passed",
+  "mode": "adopt-build",
+  "runtimeKind": "native-postgresql",
+  "sourceSha": "b0608f6c69f47c48ed85876a992ccc3011bd2a66",
+  "sourceTree": "b2379831f5afacd7c279bc15c82d438ab547bce6",
+  "project": "lp-v22-intervention",
+  "origin": "http://127.0.0.1:3362",
+  "paid_calls": 0,
+  "startedAt": "2026-10-25T15:03:26.168Z",
+  "checks": [
+    {
+      "name": "preflight:adopt-build",
+      "observedAt": "2026-10-25T15:03:26.174Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "availableBytes": 45627920384,
+          "availableGiB": 42.49431228637695,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "availableBytes": 45627916288,
+          "availableGiB": 42.49430847167969,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 45627916288,
+          "availableGiB": 42.49430847167969,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "preflight:postgres-identity",
+      "observedAt": "2026-10-25T15:03:26.187Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "availableBytes": 45627916288,
+          "availableGiB": 42.49430847167969,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "availableBytes": 45627916288,
+          "availableGiB": 42.49430847167969,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 45627916288,
+          "availableGiB": 42.49430847167969,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "postgres-identity",
+      "exitCode": 0,
+      "error": null,
+      "signal": null,
+      "finishedAt": "2026-10-25T15:03:26.290Z"
+    }
+  ],
+  "harnessSha256": "f6a939359bf72b230d37f24319dc46c714f52f09dbb02e62db315615de2806af",
+  "guardSha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+  "nativeBinaryProvenanceSha256": "a64dbf48683928dd7129978d24d7093a201207b40291ead2e86a80b3d3e11caf",
+  "lock_path": "C:\\Users\\sb128\\AppData\\Local\\learning-pulse-acceptance.lock",
+  "databaseBoundary": {
+    "user": "learning_app",
+    "database": "learning_platform",
+    "address": "127.0.0.1",
+    "port": 54362,
+    "fsync": "on",
+    "full_page_writes": "on",
+    "synchronous_commit": "on",
+    "rolsuper": false,
+    "rolcreatedb": false,
+    "rolcreaterole": false
+  },
+  "preservedFixture": {
+    "originalPreparation": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime\\runs\\2026-10-25T13-55-47-456Z-prepare\\fixture.json",
+    "originalPreparationSha256": "3e60dcfea1d3998aa11f009649d0007d1f75104305684c76d897f5a426794e52",
+    "generationSourceSha": "5f2d8dcf819b950dc1dfc31780859bf5e69ce16b",
+    "draft_id": "256d7b47-6ad9-4a75-8a5f-fbe161da4fc2",
+    "assignment_id": "30000000-0000-4000-8000-000000000001",
+    "revision": 4,
+    "title": "Synthetic v2.2 reviewed intervention",
+    "draftSnapshotSha256": "a338e96da589bedc011d84aa03ab6653102742684c11277d9dbd66a207d63f16",
+    "evidenceSha256": "901f345dffa9b8d88bed2ae8cfc45ea9757d0010dd9545e334aca3fc4e65cf89",
+    "content_ref": {
+      "source_id": "peterson_davie_1_5_1",
+      "package_id": "network-performance-v1",
+      "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+      "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+      "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+    },
+    "approvals": 0,
+    "deliveries": 0
+  },
+  "buildReceiptSha256": "9779b9354150f53c568c783a3d283d7e47a8819e6b1e063c9b702758202236ee",
+  "finishedAt": "2026-10-25T15:03:26.485Z",
+  "lock_retained": false
+}

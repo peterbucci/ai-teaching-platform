@@ -1,0 +1,110 @@
+{
+  "category": "Actual shared navigation.tsx and CSS with repository React19.3.0; isolated page-owned dirty/pending capture guard fixture; Next Link/router and metadata mocked; no application/DB changes or actions",
+  "cases": [
+    {
+      "name": "1440-before-guard-dirty",
+      "status": "fail",
+      "error": "TimeoutError: page.waitForFunction: Timeout 8000ms exceeded."
+    },
+    {
+      "name": "1440-before-guard-pending",
+      "status": "fail",
+      "error": "TimeoutError: page.waitForFunction: Timeout 8000ms exceeded."
+    },
+    {
+      "name": "1440-after-guard-dirty",
+      "status": "pass",
+      "mouse": "guard effective; modal dismissed; page recovery focused",
+      "keyboard": "Enter guard effective; page recovery retains focus after asynchronous close",
+      "escape": "opener focus restored",
+      "preserved": "dirty input and original pending identity",
+      "state": {
+        "blocked": 2,
+        "routes": 0,
+        "guardCalls": 2,
+        "events": ["page guard", "page guard"]
+      }
+    },
+    {
+      "name": "1440-after-guard-pending",
+      "status": "pass",
+      "mouse": "guard effective; modal dismissed; page recovery focused",
+      "keyboard": "Enter guard effective; page recovery retains focus after asynchronous close",
+      "escape": "opener focus restored",
+      "preserved": "dirty input and original pending identity",
+      "state": {
+        "blocked": 2,
+        "routes": 0,
+        "guardCalls": 2,
+        "events": ["page guard", "page guard"]
+      }
+    },
+    {
+      "name": "390-before-guard-dirty",
+      "status": "fail",
+      "error": "TimeoutError: page.waitForFunction: Timeout 8000ms exceeded."
+    },
+    {
+      "name": "390-before-guard-pending",
+      "status": "fail",
+      "error": "TimeoutError: page.waitForFunction: Timeout 8000ms exceeded."
+    },
+    {
+      "name": "390-after-guard-dirty",
+      "status": "pass",
+      "mouse": "guard effective; modal dismissed; page recovery focused",
+      "keyboard": "Enter guard effective; page recovery retains focus after asynchronous close",
+      "escape": "opener focus restored",
+      "preserved": "dirty input and original pending identity",
+      "state": {
+        "blocked": 2,
+        "routes": 0,
+        "guardCalls": 2,
+        "events": ["page guard", "page guard"]
+      }
+    },
+    {
+      "name": "390-after-guard-pending",
+      "status": "pass",
+      "mouse": "guard effective; modal dismissed; page recovery focused",
+      "keyboard": "Enter guard effective; page recovery retains focus after asynchronous close",
+      "escape": "opener focus restored",
+      "preserved": "dirty input and original pending identity",
+      "state": {
+        "blocked": 2,
+        "routes": 0,
+        "guardCalls": 2,
+        "events": ["page guard", "page guard"]
+      }
+    },
+    {
+      "name": "normal-navigation-before",
+      "status": "pass",
+      "state": {
+        "blocked": 0,
+        "routes": 1,
+        "guardCalls": 1,
+        "events": ["page guard", "link router"],
+        "lastRoute": "/teacher/lessons?assignment=assignment-a"
+      }
+    },
+    {
+      "name": "normal-navigation-after",
+      "status": "pass",
+      "state": {
+        "blocked": 0,
+        "routes": 1,
+        "guardCalls": 1,
+        "events": ["page guard", "link router"],
+        "lastRoute": "/teacher/lessons?assignment=assignment-a"
+      }
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "1440-after-guard-dirty.png",
+    "1440-after-guard-pending.png",
+    "390-after-guard-dirty.png",
+    "390-after-guard-pending.png"
+  ]
+}

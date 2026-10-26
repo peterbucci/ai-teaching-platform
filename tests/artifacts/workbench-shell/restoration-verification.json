@@ -1,0 +1,106 @@
+{
+  "priorSourceCommit": "a045defe11712b5c8f7ef88c7dae991ef9a33506",
+  "approvedDependency": "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+  "changes": [
+    "Page-owned restoration regions, including existing Evidence, own their focus and scroll without changing page files.",
+    "Anonymous content controls clear stale shared focus; navigation chrome preserves content focus.",
+    "Bounded memory snapshots are keyed by opaque per-history-entry tokens, so repeated visits to the same URL do not overwrite each other.",
+    "History metadata preserves router/page fields and stores no positions, text or form values."
+  ],
+  "geometryChanged": false,
+  "checks": {
+    "unit": {
+      "passed": 559,
+      "failed": 0,
+      "skipped": 0
+    },
+    "focusedIncludingFoundationNavigation": {
+      "passed": 23,
+      "failed": 0
+    },
+    "browser": {
+      "passed": 26,
+      "failed": 0,
+      "browserErrors": 0,
+      "report": "restoration-browser-report.json"
+    },
+    "typecheck": "pass: tsc --noEmit --incremental false",
+    "lint": "pass: eslint . --max-warnings=0",
+    "independentSourceReview": "Page ownership and history boundary reviewed independently."
+  },
+  "priorSourceCI": {
+    "url": "https://github.com/peterbucci/ai-teaching-platform/actions/runs/40164628446",
+    "head": "a045defe11712b5c8f7ef88c7dae991ef9a33506",
+    "productionBuild": "pass",
+    "quality": "pass",
+    "interventionApproval": "pass"
+  },
+  "limitations": [
+    "Actual shared workspace-restoration.tsx with repository React19.3.0 and native history; Next hooks mocked; page-owned per-entry restorer is a labeled fixture, no page/application/DB changes",
+    "Final-source remote CI is tracked on PR120; prior CI does not certify this later correction.",
+    "No combined application/database browser recapture during serialized local acceptance; capture geometry is unchanged.",
+    "PR117/118 page integration remains separate; no merge is authorized."
+  ],
+  "sourceFiles": [
+    {
+      "file": "app/teacher/filters.tsx",
+      "sha256": "705df68297594ea819965be6a227a76d82478da358d1fc1bbb5499b67d4742ca"
+    },
+    {
+      "file": "app/teacher/navigation.tsx",
+      "sha256": "1d813ed08f7c900c453b46ae3f9f2b76fb2506174d8be3ca9a934c3b376f0962"
+    },
+    {
+      "file": "app/teacher/presentation.tsx",
+      "sha256": "a0e5ae4c276571aa9acda7c587c0fab752e36736da4a3a0fc2c8b25c301f6009"
+    },
+    {
+      "file": "app/teacher/layout.tsx",
+      "sha256": "a723c8a93987a4b25b65ff590ced43c7a8c29be69a4769f195f6f0d6e63e6317"
+    },
+    {
+      "file": "app/teacher/workspace-assignment.tsx",
+      "sha256": "3902cd5f95c890c2b5daf934e90cfc9a0e1f0d8f4c1c8b96c43bb40cab779d22"
+    },
+    {
+      "file": "app/teacher/workspace-context.tsx",
+      "sha256": "10f7606348365be95544105e902e8e0acea707ccafb0ccb8b357dd69b20f5c52"
+    },
+    {
+      "file": "app/teacher/workspace-model.ts",
+      "sha256": "6f224436fa39f0a79a48f5af3be808196f0fbd5ad8786abc5ca7699e2066767f"
+    },
+    {
+      "file": "app/teacher/workspace-panes-model.ts",
+      "sha256": "c685dbd533c409c51362e34bddc8b8aeae9a382746f763b9d2993620a61a1789"
+    },
+    {
+      "file": "app/teacher/workspace-panes.tsx",
+      "sha256": "e3da195e09f7589cee501f0849ad83a0cd1e72a51229b8834b56c90e3ec8bead"
+    },
+    {
+      "file": "app/teacher/workspace-restoration.tsx",
+      "sha256": "a4523fa5815e2ada84e1d254c8d1793ada39911ac727dddb878507e5e95cf76d"
+    },
+    {
+      "file": "app/teacher/workspace-shell.css",
+      "sha256": "9e875118ec3649441d2fcf0deec3ab9cabded7064792dc3492a83e8dbb6b05ff"
+    },
+    {
+      "file": "tests/teacher-shell.test.ts",
+      "sha256": "c9f290076953fb9f01c3e78308bd4b352f8b03a7e05990a6f8eb80e685e1bbb3"
+    },
+    {
+      "file": "tests/teacher-workspace-panes.test.ts",
+      "sha256": "7822ca0188c34d7c23f99ba95c8f34e8ecf05fd3ed6f09c27c17b1043df5daea"
+    },
+    {
+      "file": "scripts/check-lesson-uncertainty.ts",
+      "sha256": "e7cccb44b44d1694a7859e75619b37b58ac759e188cd2590771f679c1b23fe40"
+    },
+    {
+      "file": "app/teacher/navigation-context.ts",
+      "sha256": "ff99e10c6ef6b6c3848403a15920eb59753f572753becdc654ecb8d89d4de2bf"
+    }
+  ]
+}

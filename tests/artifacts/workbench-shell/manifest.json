@@ -1,0 +1,411 @@
+{
+  "baseCommit": "76b11ddfa0ce784f70290c0746efd94c7042f6fc",
+  "prototypeMainSha256": "c853369da1250adf24a741a38c3d94d3c97a976c012c352732cf4dd8d924cb54",
+  "browser": "Edge 156.0.4314.42",
+  "fixture": "Isolated PostgreSQL17.10; existing synthetic seed;24 fictional students; identical before/after data; provider disabled",
+  "sourceFiles": [
+    {
+      "file": "app/teacher/filters.tsx",
+      "sha256": "705df68297594ea819965be6a227a76d82478da358d1fc1bbb5499b67d4742ca"
+    },
+    {
+      "file": "app/teacher/navigation.tsx",
+      "sha256": "4950ad9a8fb9394e17a64e22600c20597804b88eab00b74fd72b76377b653c5e"
+    },
+    {
+      "file": "app/teacher/presentation.tsx",
+      "sha256": "e104b20baaa116bda565a77ecf0bc5b3d898d375c5e680758bd93c71a5c839e4"
+    },
+    {
+      "file": "app/teacher/layout.tsx",
+      "sha256": "a723c8a93987a4b25b65ff590ced43c7a8c29be69a4769f195f6f0d6e63e6317"
+    },
+    {
+      "file": "app/teacher/workspace-assignment.tsx",
+      "sha256": "3902cd5f95c890c2b5daf934e90cfc9a0e1f0d8f4c1c8b96c43bb40cab779d22"
+    },
+    {
+      "file": "app/teacher/workspace-context.tsx",
+      "sha256": "10f7606348365be95544105e902e8e0acea707ccafb0ccb8b357dd69b20f5c52"
+    },
+    {
+      "file": "app/teacher/workspace-model.ts",
+      "sha256": "419d58ecd7077fa88de16f7ecec48156f3c4bbb8260a7af9fcc8ff7c770a0445"
+    },
+    {
+      "file": "app/teacher/workspace-panes-model.ts",
+      "sha256": "c685dbd533c409c51362e34bddc8b8aeae9a382746f763b9d2993620a61a1789"
+    },
+    {
+      "file": "app/teacher/workspace-panes.tsx",
+      "sha256": "e3da195e09f7589cee501f0849ad83a0cd1e72a51229b8834b56c90e3ec8bead"
+    },
+    {
+      "file": "app/teacher/workspace-restoration.tsx",
+      "sha256": "a89549037e6c661efab03ee64dc672ac3b05fe23f95422fbca3f7dc414ac5756"
+    },
+    {
+      "file": "app/teacher/workspace-shell.css",
+      "sha256": "9e875118ec3649441d2fcf0deec3ab9cabded7064792dc3492a83e8dbb6b05ff"
+    },
+    {
+      "file": "tests/teacher-shell.test.ts",
+      "sha256": "597bb626e1268a3986b63db85ba39bb126b37ca7a1e1e8c2b4645b7ba2879a40"
+    },
+    {
+      "file": "tests/teacher-workspace-panes.test.ts",
+      "sha256": "7822ca0188c34d7c23f99ba95c8f34e8ecf05fd3ed6f09c27c17b1043df5daea"
+    }
+  ],
+  "images": [
+    {
+      "file": "prototype-overview-1440x1000.png",
+      "bytes": 269845,
+      "sha256": "68156683ba0cdaed0641127bbb9825f5fc14637aeaa51a548f5bb018150f0404"
+    },
+    {
+      "file": "before-overview-1440x1000.png",
+      "bytes": 111545,
+      "sha256": "caf817ee33c84a1006755216692be3d1282eb6381efe99cebb8dadd3f4c559ba"
+    },
+    {
+      "file": "after-overview-1440x1000.png",
+      "bytes": 101218,
+      "sha256": "6a5149222ed4706e42290581e631f2af58f759f9656ab9e886be6bc40e159d32"
+    },
+    {
+      "file": "prototype-progress-1440x1000.png",
+      "bytes": 171460,
+      "sha256": "a971d9445b8b5c8c7e3d5e0e8770be6936f791ccb268e9988f3d9c820724cb50"
+    },
+    {
+      "file": "before-progress-1440x1000.png",
+      "bytes": 163122,
+      "sha256": "18cea49e1a807365a0258838ee75dad282ee3058a6345c74815b0c461bb65c6d"
+    },
+    {
+      "file": "after-progress-1440x1000.png",
+      "bytes": 144115,
+      "sha256": "cc5c379508567f1ff298410a0e5947e0dbe3c0ff62bb35d9b2467800ce8a5689"
+    },
+    {
+      "file": "prototype-student-work-1440x1000.png",
+      "bytes": 133504,
+      "sha256": "8858fc75666cc04fad86460f364a35e745ec53fa25bfbea2298b5403d1625bb8"
+    },
+    {
+      "file": "before-student-work-1440x1000.png",
+      "bytes": 127312,
+      "sha256": "e5ebbf5b846adc500d9a758b7dbf776bbbb6b041d12976752ba7bc50700b1b85"
+    },
+    {
+      "file": "after-student-work-1440x1000.png",
+      "bytes": 105553,
+      "sha256": "c651cd09e2509341f72be67207fef03f87bf8cbb17b0e34e6644ec1f49d2ec88"
+    },
+    {
+      "file": "prototype-overview-1024x768.png",
+      "bytes": 104881,
+      "sha256": "f35a54ae68009cea6d6603d13f9508c6cb99f16fcbe5dbb98eb636957aea4aa5"
+    },
+    {
+      "file": "before-overview-1024x768.png",
+      "bytes": 71391,
+      "sha256": "4c226361cbc88a1ac060b2236db308068f4982ecfff82a98ab4c2b7f9f09514e"
+    },
+    {
+      "file": "after-overview-1024x768.png",
+      "bytes": 57810,
+      "sha256": "7eaa0289f52767818d3b2a00313b91aa11032a14dacbbe65f95c5e1da5cb67ab"
+    },
+    {
+      "file": "prototype-progress-1024x768.png",
+      "bytes": 126792,
+      "sha256": "f8c9987b83b619d8059b1bcfa186f70e7ae1b6bb176b4350ed0d57f8e18e5955"
+    },
+    {
+      "file": "before-progress-1024x768.png",
+      "bytes": 131240,
+      "sha256": "0d73b300e8f5765b6efd2e1be0ea2ad0f04c43803ac494388a7d2d73da8f018a"
+    },
+    {
+      "file": "after-progress-1024x768.png",
+      "bytes": 106302,
+      "sha256": "54881b7c3b17100752e239c8b3831665e6cf1c83fa06a0a9e6debef877739fb4"
+    },
+    {
+      "file": "prototype-student-work-1024x768.png",
+      "bytes": 82470,
+      "sha256": "bb0bddfaea4c57293e2dac55f10df0c818ce17a447d87ac00c53c58c1742f4a2"
+    },
+    {
+      "file": "before-student-work-1024x768.png",
+      "bytes": 83284,
+      "sha256": "2c500ac40f539b27a27f4e296bc88d3faa828c5dc3de58dd5065e6c5d4420ddd"
+    },
+    {
+      "file": "after-student-work-1024x768.png",
+      "bytes": 62849,
+      "sha256": "ac386cd3581c4ab7d3146338a6acd7b6bba0ec3b75b10796add3ae570aaf2807"
+    },
+    {
+      "file": "prototype-overview-390x844.png",
+      "bytes": 73050,
+      "sha256": "91847d3cdd725d5ce27b7d4400f6be572039ba66ea6b56b3837c2600e51d9050"
+    },
+    {
+      "file": "before-overview-390x844.png",
+      "bytes": 38800,
+      "sha256": "ce99ee58db001c77f2d5fbaba618f5886fd2969f203a4aceda17d475d0d38eac"
+    },
+    {
+      "file": "after-overview-390x844.png",
+      "bytes": 43302,
+      "sha256": "42261dbf352db64c140c85c4e89e0356e6ce12c166aaeb6fe8675d52d023a921"
+    },
+    {
+      "file": "prototype-progress-390x844.png",
+      "bytes": 74879,
+      "sha256": "9087ee16bda151dda1ea5147594cb416e8d2b3d3545a0a5da981b061b22f1adc"
+    },
+    {
+      "file": "before-progress-390x844.png",
+      "bytes": 89128,
+      "sha256": "0cff014605f7d7c81f9ea8a0296e72760c50c3690d138453c648124e2365fb09"
+    },
+    {
+      "file": "after-progress-390x844.png",
+      "bytes": 93612,
+      "sha256": "543af0c84087e638bff91bb4eabbf66ac4ed18a522b2ac2889d51da018734fa0"
+    },
+    {
+      "file": "prototype-student-work-390x844.png",
+      "bytes": 71525,
+      "sha256": "586f269b855872bab114a8c0597c1df7aa3596009f3e777673aae4d6ae0e051b"
+    },
+    {
+      "file": "before-student-work-390x844.png",
+      "bytes": 38698,
+      "sha256": "9eb76067d99af43f28fd11921279decd27aece83e762fce8331af2d98da6906e"
+    },
+    {
+      "file": "after-student-work-390x844.png",
+      "bytes": 41568,
+      "sha256": "d6771b4e49c0ddcdc3cdbc015ef76b0d82443240ea2febe213e1f321c26e6838"
+    },
+    {
+      "file": "prototype-overview-320x844.png",
+      "bytes": 68171,
+      "sha256": "50b395bfa03970ac63058e65d8cc2266f1dc7d9bed728ee7cf3e3edce7fe2c41"
+    },
+    {
+      "file": "before-overview-320x844.png",
+      "bytes": 34920,
+      "sha256": "60ce476c5c4b86d597a5a4a839915c6e4bdebab6936510613d72cb264b6e65c1"
+    },
+    {
+      "file": "after-overview-320x844.png",
+      "bytes": 38115,
+      "sha256": "0cdcaed994dcefb101a31a1f1dc3157e9c3eaa88031e7923c4118b884b53c1a8"
+    },
+    {
+      "file": "prototype-progress-320x844.png",
+      "bytes": 68827,
+      "sha256": "728c1fbf7aa2dbb68fe71a49a18b74d4e578a3f0f90090a98207ac35a8e7979e"
+    },
+    {
+      "file": "before-progress-320x844.png",
+      "bytes": 82988,
+      "sha256": "a143442a403c0d5ae69b0a23c0ded66a6cd3643139bdc8cae90f35a0926518e7"
+    },
+    {
+      "file": "after-progress-320x844.png",
+      "bytes": 77930,
+      "sha256": "f7c3dbab88315a5359bd0b2175c16b2b942ad6831a60d92d0d6368b873d3b8ff"
+    },
+    {
+      "file": "prototype-student-work-320x844.png",
+      "bytes": 59305,
+      "sha256": "08713036623f78fb55e095b626474552a15db7d594250c87a584a45b00894836"
+    },
+    {
+      "file": "before-student-work-320x844.png",
+      "bytes": 35691,
+      "sha256": "ef19bbfb466b157f42e63d85c144ee73bdf24d74d2774ab40f2dcf77a1b0624d"
+    },
+    {
+      "file": "after-student-work-320x844.png",
+      "bytes": 37254,
+      "sha256": "04847c8a72163b16613fca1c1d4ca7ec4e09747751338dd7a169508424032dc6"
+    },
+    {
+      "file": "panes-1024x768-modal.png",
+      "bytes": 70823,
+      "sha256": "ced219f1ccc015693535940d14d9b83fceb09c8a07035a4e12cfe3f1b2c58513"
+    },
+    {
+      "file": "panes-1024x768.png",
+      "bytes": 39237,
+      "sha256": "821e7b02e026105f9bfbf7542f0ec11ccf2554cf4819e5c89ec6604b010618c4"
+    },
+    {
+      "file": "panes-1440x1000-two.png",
+      "bytes": 67673,
+      "sha256": "9fbcff0410bd7c685a0e3f83dd7582ae4a46c3b594f150195dcd08c53c94e631"
+    },
+    {
+      "file": "panes-1440x1000.png",
+      "bytes": 85130,
+      "sha256": "66644d8d8c91dc7ace63604d6c178cc497af0ea53f09ffa5a943aae26e2fcf31"
+    },
+    {
+      "file": "panes-320x844-context.png",
+      "bytes": 32699,
+      "sha256": "8ee42f7df3c7613213df439513fd8ab18c504ae3bf1af7196815a7ac9bd44bcb"
+    },
+    {
+      "file": "panes-320x844.png",
+      "bytes": 29391,
+      "sha256": "68793303a060ca62d35e10189efe2bc02b8b5bc0b766f60e971e8a50235b5aac"
+    },
+    {
+      "file": "panes-390x844-context.png",
+      "bytes": 33258,
+      "sha256": "f5c453298fad9b2d417b575f7ecd72358eaefba8a00d4e3da0a58743643087b4"
+    },
+    {
+      "file": "panes-390x844.png",
+      "bytes": 29900,
+      "sha256": "c1bd61ddc4a407cac77ab50918e18298fcad2658399728b87de541717a2f3fb6"
+    },
+    {
+      "file": "actual-browser-200-percent.png",
+      "bytes": 54435,
+      "sha256": "692684496baabf64319f5bb606cf56c8392e13699a7a0b0fa108852fe5dafa38"
+    },
+    {
+      "file": "switcher-guard/1440-mount-guard-dirty.png",
+      "bytes": 38324,
+      "sha256": "8b2194d6b55c8341f4bc0975f0803da3fb875c79b1fd635f5a9f45e6014bb15e"
+    },
+    {
+      "file": "switcher-guard/1440-mount-guard-pending.png",
+      "bytes": 37508,
+      "sha256": "2a94ff408def79955e303cf84d80271607276fcd2d15d2d060e6ad52668286bb"
+    },
+    {
+      "file": "switcher-guard/1440-remount-guard-dirty.png",
+      "bytes": 38324,
+      "sha256": "8b2194d6b55c8341f4bc0975f0803da3fb875c79b1fd635f5a9f45e6014bb15e"
+    },
+    {
+      "file": "switcher-guard/1440-remount-guard-pending.png",
+      "bytes": 37508,
+      "sha256": "2a94ff408def79955e303cf84d80271607276fcd2d15d2d060e6ad52668286bb"
+    },
+    {
+      "file": "switcher-guard/390-mount-guard-dirty.png",
+      "bytes": 26698,
+      "sha256": "7642555be07dd5989e661e1eced5e8b73a9c069335f70a4bc6e9f18242f4f3d6"
+    },
+    {
+      "file": "switcher-guard/390-mount-guard-pending.png",
+      "bytes": 25864,
+      "sha256": "b19f91213c219c83aeb2b4c56483f9dab4737857f8dc0f5a910330e9e55f6551"
+    },
+    {
+      "file": "switcher-guard/390-remount-guard-dirty.png",
+      "bytes": 26698,
+      "sha256": "7642555be07dd5989e661e1eced5e8b73a9c069335f70a4bc6e9f18242f4f3d6"
+    },
+    {
+      "file": "switcher-guard/390-remount-guard-pending.png",
+      "bytes": 25864,
+      "sha256": "b19f91213c219c83aeb2b4c56483f9dab4737857f8dc0f5a910330e9e55f6551"
+    }
+  ],
+  "reports": [
+    {
+      "file": "prototype-measurements.json",
+      "sha256": "65ffbcd2806de71645d2130ad7bd7a91c51e24a66d57287aab83d4cd9ea2587e"
+    },
+    {
+      "file": "before-report.json",
+      "sha256": "32b9078ae0cbb5488e59c2c8fe6e1e27841865e62d0cb1ea8984bd57eca35c10"
+    },
+    {
+      "file": "after-report.json",
+      "sha256": "4169bcc4b04fdfe6a4c60d1464827ebe87233f0aba6a32e31d58e6c2ca439046"
+    },
+    {
+      "file": "navigation-report.json",
+      "sha256": "fcdc38857b4e0ad854ec684146548a60dd49d8439bb9999d68ecca32bd3f4d9d"
+    },
+    {
+      "file": "history-report.json",
+      "sha256": "f6deffc7d904327dab0a22a94302bba35c6f54f6565b737512fe1b9338e638ba"
+    },
+    {
+      "file": "scope-report.json",
+      "sha256": "157003514f35d4d99743e7e8e932c8e3648d97d4f18d9106f3c3f28f3d3a56ec"
+    },
+    {
+      "file": "subnavigation-report.json",
+      "sha256": "ada89beac19c4bf45f76b847d2ea7c2e4009e4d6c7e819ae0c9a394e4b8846bd"
+    },
+    {
+      "file": "pane-component-report.json",
+      "sha256": "05958deb5048c810f12eb0a699f3da749eeea5db3576bf7ffd2063f73af6e136"
+    },
+    {
+      "file": "evidence-before.json",
+      "sha256": "179db58164a6ca4ae11350d329585a9f995ae09c0ec85c763d8dba85234d3e77"
+    },
+    {
+      "file": "evidence-after.json",
+      "sha256": "fec70093a358569e324d6ecf221a284a432aa65d5aed4a759336d62d32c83030"
+    },
+    {
+      "file": "switcher-guard/report.json",
+      "sha256": "85d7a22f05eada98e046bbec4a30e4774a8775dcd91e765a7e862dea591327bb"
+    },
+    {
+      "file": "switcher-guard/report-production.json",
+      "sha256": "15d73d4ab3fa9b80ce431277a8b3d6a3ffd5d07eaf49a74986b4ea177ba8e7db"
+    },
+    {
+      "file": "switcher-guard/report-development.json",
+      "sha256": "3c829d12b1009c7b18371b671d1d2b2a3961918ebb74b7957b77a67ad7df8831"
+    },
+    {
+      "file": "switcher-guard/preinstalled-guard-order-report.json",
+      "sha256": "9326f1be58c8824d30bbdb9d146be3cab7faa48e1e4aeb77c99490234d0d076e"
+    },
+    {
+      "file": "post-capture-verification.json",
+      "sha256": "08861a1acbcd43c96ebc7bcb510ed077c79847d9c9611ef17365f440909e2fb3"
+    },
+    {
+      "file": "dependency-verification.json",
+      "sha256": "b55512d1cf9a89181dfba4c0226f6b56f968bdeb0081110c822ce6ef9826ee96"
+    },
+    {
+      "file": "restoration-browser-report.json",
+      "sha256": "6b4844bedb24493693149be808bbcb628cc23e17d20519dd52fc01c60233da09"
+    },
+    {
+      "file": "restoration-verification.json",
+      "sha256": "523b188b926aff863cbdb118936670d67bb45a69655dfd4dfb43b7be8c49e397"
+    }
+  ],
+  "limits": [
+    "Prototype illustrative counts and lesson version labels differ from real immutable fixture.",
+    "Progress page is legacy review on the exact116 base; actual grid belongs to117.",
+    "Pane component fixture mocks Next URL hook; application page adoption is separate.",
+    "Local final production rebuild deferred for serialized acceptance; captured commit built successfully remotely. See post-capture verification and current PR checks for later corrections."
+  ],
+  "captureSourceCommit": "dd97767cda2e445bb1cf669b94363d1d9e9500b4",
+  "postCaptureVerification": "post-capture-verification.json",
+  "dependencyVerification": "dependency-verification.json",
+  "restorationVerification": "restoration-verification.json"
+}

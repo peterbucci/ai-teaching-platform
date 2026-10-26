@@ -1,0 +1,27 @@
+{
+  "applicationHead": "53e494a639d82bd8daa9dfb7655a23ebca3aa9c4",
+  "date": "2026-10-25",
+  "kind": "Local deterministic authoring tests run after final browser verification; no application server or model calls",
+  "runs": [
+    {
+      "scope": "Lessons authoring state and published handoff, material import/review, objective recovery and source reading",
+      "command": "node --experimental-strip-types --conditions=react-server --test <authoring test paths>",
+      "passed": 21,
+      "failed": 0,
+      "exitCode": 0
+    },
+    {
+      "scope": "Question-bank grouping, stable selection, exact source text and private criteria, dirty-navigation guard",
+      "directory": "app/teacher/lessons/[lessonId]/questions",
+      "command": "node --experimental-strip-types --conditions=react-server --test workbench-state.test.ts",
+      "passed": 6,
+      "failed": 0,
+      "exitCode": 0
+    }
+  ],
+  "totalPassed": 27,
+  "limitations": [
+    "The bracketed question route was run separately because the repository-root test invocation did not discover its six cases.",
+    "These deterministic tests do not prove actual model behavior, browser rendering or native zoom."
+  ]
+}
