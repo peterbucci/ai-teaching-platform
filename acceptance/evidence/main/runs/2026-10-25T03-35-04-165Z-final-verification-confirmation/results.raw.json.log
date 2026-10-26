@@ -1,0 +1,40 @@
+{
+  "sourceSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+  "category": "final acceptance-only changes; full-tree lint/format including evidence-local serializer settings; no paid calls",
+  "checks": [
+    {
+      "name": "lint",
+      "command": [
+        "node",
+        "node_modules/eslint/bin/eslint.js",
+        "."
+      ],
+      "status": "pass",
+      "exitCode": 0,
+      "log": "lint.log"
+    },
+    {
+      "name": "format",
+      "command": [
+        "node",
+        "node_modules/prettier/bin/prettier.cjs",
+        "--check",
+        "."
+      ],
+      "status": "fail",
+      "exitCode": 1,
+      "log": "format.log"
+    },
+    {
+      "name": "collector-syntax",
+      "command": [
+        "node",
+        "--check",
+        "acceptance/collect-evidence.mjs"
+      ],
+      "status": "pass",
+      "exitCode": 0,
+      "log": "collector-syntax.log"
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "target": "pr117",
+  "sha": "6f9dd8991abef5efa8108e50b2274dc3bdc13ce6",
+  "origin": "http://localhost:3323",
+  "environment_manifest": "../manifest.json",
+  "configuration": "provider-disabled; synthetic fixtures; loopback gateway; app/database isolated internal Docker network",
+  "verification": "Provider-disabled browser manual authoring and cross-role assignment using original synthetic material",
+  "run_id": "Manual authoring pr117 1792900233050",
+  "started_at_utc": "2026-10-25T03:50:33.050Z",
+  "status": "passed",
+  "paid_calls": 0,
+  "checks": [
+    "Manual pasted source import, exact extraction review, attribution and private source save",
+    "Manually authored objective with exact source quote saved and explicitly approved",
+    "Four manually authored source-cited questions saved/reviewed/approved; student preview excludes private guidance",
+    "Tutoring sequence prepared, current lesson explicitly approved, immutable version 1 published separately",
+    "Inactive assignment is absent from enrolled student's list before activation",
+    "Separate explicit teacher activation makes the exact assignment visible and openable by enrolled student",
+    "Student reading retains exact imported text; initial question opens with one composer and no private answer/criterion in public API",
+    "New v2 draft requires fresh review; published v1 remains source-pinned and earlier presented student session/attempt remain byte-equivalent"
+  ],
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 900,
+      "page": "reading",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "reading",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "reading",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 844,
+      "page": "reading",
+      "overflow": false
+    }
+  ],
+  "unrun": [
+    "File-upload browser variants",
+    "Fresh model generation/evaluation",
+    "Submitted historical answer/evaluation preservation; only a presented attempt is preserved here",
+    "200% zoom, keyboard-only journey and screen-reader verification",
+    "Full responsive authoring form review"
+  ],
+  "source_id": "7fb928f6-b693-416f-b46c-e32522cca1e9",
+  "source_version": 1,
+  "lesson_id": "882fe835-ae6f-4fc2-acc7-005a445cbf2f",
+  "published_version": "1",
+  "content_ref": {
+    "source_kind": "uploaded",
+    "source_id": "7fb928f6-b693-416f-b46c-e32522cca1e9",
+    "source_version": 1,
+    "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+    "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+    "attribution": {
+      "title": "Manual authoring pr117 1792900233050",
+      "authors": [
+        "Fictional acceptance teacher"
+      ],
+      "copyright": "2026 fictional acceptance fixture",
+      "section": "Imported source",
+      "url": null,
+      "license": "Original synthetic material; permitted for this test",
+      "license_url": null,
+      "cautions": []
+    },
+    "access_scope": {
+      "teacher_id": "10000000-0000-4000-8000-000000000001"
+    },
+    "package_id": "882fe835-ae6f-4fc2-acc7-005a445cbf2f",
+    "content_version": "1"
+  },
+  "assignment_id": "29ce4af3-d172-4dc5-8920-6ee2a4e6c9e9",
+  "student_session_id": "9ce00543-ef89-4753-ac20-019ae5fb3315",
+  "presented_attempt_id": "79355ce7-c385-4992-a5f7-6d8ab1919e0b",
+  "new_draft_version": "2",
+  "new_draft_revision": 7,
+  "checked_at_utc": "2026-10-25T03:50:43.708Z",
+  "screenshots": [
+    "01-extraction-review.png",
+    "02-source-saved.png",
+    "03-objectives-approved.png",
+    "04-student-preview.png",
+    "05-bank-approved.png",
+    "06-lesson-approved.png",
+    "07-published-v1.png",
+    "08-inactive-hidden-student.png",
+    "09-active-assignment.png",
+    "10-student-assignment.png",
+    "11-reading-1440.png",
+    "11-reading-1024.png",
+    "11-reading-390.png",
+    "11-reading-320.png",
+    "12-student-session.png",
+    "13-new-version-requires-review.png",
+    "14-session-preserved-after-v2.png"
+  ]
+}

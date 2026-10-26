@@ -1,0 +1,200 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 482B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.02kB 0.0s done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22.23.2-bookworm-slim
+#3 DONE 0.5s
+
+#4 [build 1/6] FROM docker.io/library/node:22.23.2-bookworm-slim@sha256:48e4b67d85f87bd551df43704e24d252f56cc5f8e9718841aace50f19948f0f9
+#4 DONE 0.0s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 136B done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 5.27MB 4.9s
+#6 transferring context: 5.99MB 6.7s done
+#6 DONE 6.8s
+
+#7 [build 4/6] RUN npm ci
+#7 CACHED
+
+#8 [build 4/6] RUN npm ci
+#8 CACHED
+
+#9 [build 2/6] WORKDIR /app
+#9 CACHED
+
+#10 [build 3/6] COPY package.json package-lock.json ./
+#10 CACHED
+
+#11 [build 5/6] COPY . .
+#11 DONE 1.8s
+
+#12 [build 6/6] RUN npm run build && npm prune --omit=dev
+#12 1.683 
+#12 1.683 > ai-teaching-platform@0.1.0 build
+#12 1.683 > next build
+#12 1.683 
+#12 2.997 ▲ Next.js 16.4.3 (Turbopack)
+#12 3.040 ✓ Running next.config took 42ms
+#12 3.119 
+#12 3.256   Creating an optimized production build ...
+#12 16.24 ✓ Compiled successfully in 13.0s
+#12 16.24   Running TypeScript ...
+#12 36.33   Finished TypeScript in 20.1s ...
+#12 36.34   Collecting page data using 31 workers ...
+#12 41.50   Generating static pages using 31 workers (0/12) ...
+#12 41.95   Generating static pages using 31 workers (3/12) 
+#12 41.97   Generating static pages using 31 workers (6/12) 
+#12 42.23   Generating static pages using 31 workers (9/12) 
+#12 42.28 ✓ Generating static pages using 31 workers (12/12) in 789ms
+#12 42.31   Finalizing page optimization ...
+#12 42.35 
+#12 42.36 Route (app)
+#12 42.36 ┌ ƒ /
+#12 42.36 ├ ○ /_not-found
+#12 42.36 ├ ƒ /api/auth/[...all]
+#12 42.36 ├ ƒ /api/sessions
+#12 42.36 ├ ƒ /api/sessions/[sessionId]
+#12 42.36 ├ ƒ /api/sessions/[sessionId]/answers
+#12 42.36 ├ ƒ /api/sessions/[sessionId]/interventions/[interventionId]
+#12 42.36 ├ ƒ /api/speech
+#12 42.36 ├ ƒ /api/student/interventions
+#12 42.36 ├ ƒ /api/student/interventions/[approvalId]
+#12 42.36 ├ ƒ /api/student/interventions/[approvalId]/followup
+#12 42.36 ├ ƒ /api/study/reading/bookmarks
+#12 42.36 ├ ƒ /api/teacher/assignments/[assignmentId]/approval
+#12 42.36 ├ ƒ /api/teacher/assignments/[assignmentId]/metrics
+#12 42.36 ├ ƒ /api/teacher/interventions
+#12 42.36 ├ ƒ /api/teacher/interventions/[draftId]
+#12 42.36 ├ ƒ /api/teacher/interventions/[draftId]/followup
+#12 42.36 ├ ƒ /api/teacher/lessons/[lessonId]/approval
+#12 42.36 ├ ƒ /api/teacher/lessons/[lessonId]/assembly
+#12 42.36 ├ ƒ /api/teacher/lessons/[lessonId]/assignments
+#12 42.36 ├ ƒ /api/teacher/lessons/[lessonId]/publication
+#12 42.36 ├ ƒ /api/teacher/lessons/[lessonId]/question-bank
+#12 42.36 ├ ƒ /api/teacher/lessons/[lessonId]/versions
+#12 42.36 ├ ƒ /api/teacher/materials
+#12 42.36 ├ ƒ /api/teacher/materials/[documentId]
+#12 42.36 ├ ƒ /api/teacher/materials/preview
+#12 42.36 ├ ƒ /api/teacher/objectives
+#12 42.36 ├ ƒ /api/teacher/objectives/[lessonId]
+#12 42.36 ├ ƒ /api/teacher/objectives/[lessonId]/approve
+#12 42.36 ├ ƒ /api/teacher/objectives/[lessonId]/suggest
+#12 42.36 ├ ƒ /api/teacher/objectives/[lessonId]/suggest/accept
+#12 42.36 ├ ƒ /api/teacher/sessions/[sessionId]
+#12 42.36 ├ ƒ /api/teacher/sessions/[sessionId]/conversation
+#12 42.36 ├ ƒ /api/tutoring
+#12 42.36 ├ ƒ /api/tutoring/[sessionId]
+#12 42.36 ├ ƒ /api/tutoring/[sessionId]/conversation
+#12 42.36 ├ ƒ /api/tutoring/[sessionId]/conversation/display
+#12 42.36 ├ ƒ /api/tutoring/[sessionId]/conversation/operations/[requestId]
+#12 42.36 ├ ƒ /api/tutoring/[sessionId]/reading
+#12 42.36 ├ ƒ /api/tutoring/[sessionId]/restart
+#12 42.36 ├ ○ /dev/visual-player
+#12 42.36 ├ ƒ /login
+#12 42.36 ├ ƒ /study
+#12 42.36 ├ ƒ /study/assignments
+#12 42.36 ├ ƒ /study/assignments/[assignmentId]
+#12 42.36 ├ ƒ /study/audio-preview
+#12 42.36 ├ ƒ /study/dialogue-preview
+#12 42.36 ├ ƒ /study/history
+#12 42.36 ├ ƒ /study/interventions/[approvalId]
+#12 42.36 ├ ƒ /study/reading
+#12 42.36 ├ ƒ /teacher
+#12 42.36 ├ ƒ /teacher/assignments
+#12 42.36 ├ ƒ /teacher/assignments/new
+#12 42.36 ├ ƒ /teacher/insights
+#12 42.36 ├ ƒ /teacher/interventions
+#12 42.36 ├ ƒ /teacher/lessons
+#12 42.36 ├ ƒ /teacher/lessons/[lessonId]
+#12 42.36 ├ ƒ /teacher/lessons/[lessonId]/questions
+#12 42.36 ├ ƒ /teacher/materials
+#12 42.36 ├ ƒ /teacher/materials/[documentId]
+#12 42.36 ├ ƒ /teacher/objectives
+#12 42.36 ├ ƒ /teacher/objectives/[lessonId]
+#12 42.36 ├ ƒ /teacher/sessions/[sessionId]
+#12 42.36 └ ƒ /teacher/students
+#12 42.36 
+#12 42.36 
+#12 42.36 ○  (Static)   prerendered as static content
+#12 42.36 ƒ  (Dynamic)  server-rendered on demand
+#12 42.36 
+#12 46.20 
+#12 46.20 up to date, audited 73 packages in 4s
+#12 46.20 
+#12 46.20 16 packages are looking for funding
+#12 46.20   run `npm fund` for details
+#12 46.20 
+#12 46.20 found 0 vulnerabilities
+#12 DONE 46.3s
+
+#13 [app  3/11] COPY --from=build --chown=node:node /app/package.json /app/package-lock.json ./
+#13 CACHED
+
+#14 [app  4/11] COPY --from=build --chown=node:node /app/node_modules ./node_modules
+#14 CACHED
+
+#15 [app  5/11] COPY --from=build --chown=node:node /app/.next ./.next
+#15 DONE 3.2s
+
+#16 [app  6/11] COPY --from=build --chown=node:node /app/lib ./lib
+#16 DONE 0.3s
+
+#17 [app  7/11] COPY --from=build --chown=node:node /app/scripts ./scripts
+#17 DONE 0.2s
+
+#18 [app  8/11] COPY --from=build --chown=node:node /app/tests/fixtures ./tests/fixtures
+#18 DONE 0.2s
+
+#19 [app  9/11] COPY --from=build --chown=node:node /app/database ./database
+#19 DONE 0.2s
+
+#20 [app 10/11] COPY --from=build --chown=node:node /app/content ./content
+#20 DONE 0.2s
+
+#21 [app 11/11] COPY --from=build --chown=node:node /app/evals ./evals
+#21 DONE 0.3s
+
+#22 exporting to image
+#22 exporting layers
+#22 exporting layers 1.5s done
+#22 writing image sha256:0ac534ba66f901bc44b4d456129c4fda5e1b7fb339474a7a84dd793c12e78112 done
+#22 naming to docker.io/library/lp-accept-pr117:6f9dd8991abef5efa8108e50b2274dc3bdc13ce6 0.0s done
+#22 DONE 1.6s
+
+#23 resolving provenance for metadata file
+#23 DONE 0.1s
+ app  Built
+ Network lp-accept-pr117_acceptance  Creating
+ Network lp-accept-pr117_acceptance  Created
+ Volume "lp-accept-pr117_postgres_data"  Creating
+ Volume "lp-accept-pr117_postgres_data"  Created
+ Container lp-accept-pr117-db-1  Creating
+ Container lp-accept-pr117-db-1  Created
+ Container lp-accept-pr117-app-1  Creating
+ Container lp-accept-pr117-app-1  Created
+ Container lp-accept-pr117-gateway-1  Creating
+ Container lp-accept-pr117-gateway-1  Created
+ Container lp-accept-pr117-db-1  Starting
+ Container lp-accept-pr117-db-1  Started
+ Container lp-accept-pr117-db-1  Waiting
+ Container lp-accept-pr117-db-1  Healthy
+ Container lp-accept-pr117-app-1  Starting
+ Container lp-accept-pr117-app-1  Started
+ Container lp-accept-pr117-app-1  Waiting
+ Container lp-accept-pr117-app-1  Healthy
+ Container lp-accept-pr117-gateway-1  Starting
+ Container lp-accept-pr117-gateway-1  Started
+ Container lp-accept-pr117-db-1  Waiting
+ Container lp-accept-pr117-gateway-1  Waiting
+ Container lp-accept-pr117-app-1  Waiting
+ Container lp-accept-pr117-gateway-1  Healthy
+ Container lp-accept-pr117-app-1  Healthy
+ Container lp-accept-pr117-db-1  Healthy

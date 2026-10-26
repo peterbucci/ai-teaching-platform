@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "mode": "build",
+  "target": "pr118",
+  "sourceSha": "d2dca515b1a926daf28e791044fe04d01bdf20a9",
+  "source": "C:\\Users\\sb128\\.codex\\worktrees\\acceptance-pr118\\LearningPlatform",
+  "project": "lp-accept-pr118",
+  "origin": "http://localhost:3324",
+  "manifest": "C:\\Users\\sb128\\Desktop\\LearningPlatform\\.setup\\acceptance-pr118\\manifest.json",
+  "fixture": "isolated fictional acceptance configuration",
+  "paidModelCallsAuthorized": false,
+  "checks": [
+    {
+      "name": "docker-version",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "provider-disabled integration",
+      "fixture": "isolated fictional acceptance configuration",
+      "sourceSha": "d2dca515b1a926daf28e791044fe04d01bdf20a9",
+      "target": "pr118",
+      "project": "lp-accept-pr118",
+      "origin": "http://localhost:3324",
+      "startedAt": "2026-10-25T03:41:19.260Z",
+      "finishedAt": "2026-10-25T03:41:19.470Z",
+      "command": [
+        "docker",
+        "version",
+        "--format",
+        "{{json .}}"
+      ],
+      "log": "01-docker-version.log"
+    },
+    {
+      "name": "build-and-start",
+      "status": "fail",
+      "exitCode": 1,
+      "signal": null,
+      "category": "provider-disabled integration",
+      "fixture": "isolated fictional acceptance configuration",
+      "sourceSha": "d2dca515b1a926daf28e791044fe04d01bdf20a9",
+      "target": "pr118",
+      "project": "lp-accept-pr118",
+      "origin": "http://localhost:3324",
+      "startedAt": "2026-10-25T03:41:19.471Z",
+      "finishedAt": "2026-10-25T03:42:18.105Z",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "lp-accept-pr118",
+        "--env-file",
+        "C:\\Users\\sb128\\Desktop\\LearningPlatform\\.setup\\acceptance-pr118\\.env.acceptance",
+        "--file",
+        "C:\\Users\\sb128\\Desktop\\LearningPlatform\\.setup\\acceptance-pr118\\compose.json",
+        "up",
+        "--build",
+        "--wait",
+        "--wait-timeout",
+        "240"
+      ],
+      "log": "02-build-and-start.log"
+    }
+  ],
+  "result": "fail",
+  "limitations": [
+    "No hosted release verification",
+    "No fresh or historical actual-model claim",
+    "Browser/accessibility evidence is recorded separately"
+  ]
+}

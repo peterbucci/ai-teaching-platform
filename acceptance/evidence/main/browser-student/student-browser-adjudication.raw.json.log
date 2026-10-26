@@ -1,0 +1,13 @@
+{
+  "source_sha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+  "raw_report": "student-browser-report.json",
+  "raw_report_preserved": true,
+  "product_defects": ["S-02-confirmed-401-misleading-save-status"],
+  "adjudications": [
+    {"id":"RC-05-uncertain-conversation-transport","final_status":"UNRUN","reason":"Existing disabled-help fallback intentionally makes Send avoid conversation dispatch; fault injection did not execute. Harness precondition mismatch."},
+    {"id":"ST-09-seeded-supported-history","final_status":"UNRUN","reason":"synthetic_fixture history intentionally excluded by studentSessionAssignment live_demo filter; unsuitable browser fixture."},
+    {"id":"S-01-seeded-correct-result-visibility","final_status":"UNRUN","reason":"synthetic_fixture history intentionally excluded by studentSessionAssignment live_demo filter. S01 subsequently reproduced on separate explicitly synthetic-evaluator fixture in PR116 only."}
+  ],
+  "core_passes": 12,
+  "separate_cross_role_pass": "Student Two delivered-review UI and safe GET inspected; no fresh-check submission."
+}

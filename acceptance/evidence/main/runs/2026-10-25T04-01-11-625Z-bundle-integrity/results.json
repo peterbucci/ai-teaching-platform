@@ -1,0 +1,50 @@
+{
+  "sourceSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+  "category": "offline five-target evidence packaging; no app/runtime actions",
+  "status": "pass",
+  "artifactCount": 812,
+  "counts": {
+    "main": {
+      "files": 279,
+      "screenshots": 104,
+      "bytes": 9291045
+    },
+    "pr116": {
+      "files": 210,
+      "screenshots": 93,
+      "bytes": 8632996
+    },
+    "pr117": {
+      "files": 76,
+      "screenshots": 19,
+      "bytes": 3060836
+    },
+    "pr118": {
+      "files": 146,
+      "screenshots": 60,
+      "bytes": 6863135
+    },
+    "combined": {
+      "files": 101,
+      "screenshots": 0,
+      "bytes": 314052
+    }
+  },
+  "transformations": {
+    "none": 755,
+    "terminal newline only": 24,
+    "none; exact original source bytes": 32,
+    "JSON whitespace only; human-authored adjudication values unchanged": 1
+  },
+  "checks": [
+    "unique paths",
+    "exact byte lengths and SHA256",
+    "pinned source identity per target",
+    "PNG signatures",
+    "JSON parse",
+    "exact raw derivative digests and equal JSON values",
+    "git byte preservation",
+    "no unindexed target files"
+  ],
+  "inventorySHA256": "ff1c1d07526df9d6d8d0c3c6a08b260e4fe6e948284500069eadc3c0cce4bc43"
+}

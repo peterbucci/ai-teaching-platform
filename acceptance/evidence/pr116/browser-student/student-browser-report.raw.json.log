@@ -1,0 +1,399 @@
+{
+  "source_sha": "5d6363d2867a6f0250f8220db0474342b1241d00",
+  "base": "http://localhost:3322",
+  "started_at": "2026-10-25T03:13:56.663Z",
+  "environment": "local isolated fictional PostgreSQL; providers disabled by operator; browser requests do not enable providers",
+  "evidence_category": "provider-disabled browser/HTTP; seeded evaluations are synthetic historical fixture data",
+  "setup": "Existing curated assignment reviewed and activated through teacher UI before this run; original seeded attempts not altered.",
+  "browser": "156.0.4314.42",
+  "cases": [
+    {
+      "id": "ST-05-refresh-exact-draft",
+      "status": "PASS",
+      "exact_text": "  Acceptance D unsent reasoning.\nCable distance may affect propagation; I am still deciding about transmission.  ",
+      "attempt_id": "e58703c8-1c83-48c2-bfda-f87655e2a54d"
+    },
+    {
+      "id": "ST-05-reading-back-forward-draft",
+      "status": "PASS",
+      "exact_draft_preserved": true,
+      "reading_did_not_submit": true
+    },
+    {
+      "id": "ST-05-quick-action-restores-original",
+      "status": "PASS"
+    },
+    {
+      "id": "RESP-1440x900",
+      "status": "PASS",
+      "viewport": 1440,
+      "document_width": 1440,
+      "body_width": 1440,
+      "overflows": [],
+      "composer_enabled": true,
+      "note": "Viewport/layout check only; full keyboard and screen-reader compliance not implied."
+    },
+    {
+      "id": "RESP-1024x768",
+      "status": "PASS",
+      "viewport": 1024,
+      "document_width": 1024,
+      "body_width": 1024,
+      "overflows": [],
+      "composer_enabled": true,
+      "note": "Viewport/layout check only; full keyboard and screen-reader compliance not implied."
+    },
+    {
+      "id": "RESP-390x844",
+      "status": "PASS",
+      "viewport": 390,
+      "document_width": 390,
+      "body_width": 390,
+      "overflows": [],
+      "composer_enabled": true,
+      "note": "Viewport/layout check only; full keyboard and screen-reader compliance not implied."
+    },
+    {
+      "id": "RESP-320x844",
+      "status": "PASS",
+      "viewport": 320,
+      "document_width": 320,
+      "body_width": 320,
+      "overflows": [],
+      "composer_enabled": true,
+      "note": "Viewport/layout check only; full keyboard and screen-reader compliance not implied."
+    },
+    {
+      "id": "A11Y-keyboard-composer-tab-order",
+      "status": "PASS",
+      "focus_trail": [
+        {
+          "tag": "BUTTON",
+          "text": "Send",
+          "label": null
+        },
+        {
+          "tag": "BODY",
+          "text": "Skip to content\nLearning Pulse\nA little insight. A better next step.\n\nYOUR LEARNING\n\nAssignments\nLea",
+          "label": null
+        },
+        {
+          "tag": "A",
+          "text": "Skip to content",
+          "label": null
+        },
+        {
+          "tag": "A",
+          "text": "Learning Pulse\nA little insight. A better next step.",
+          "label": null
+        },
+        {
+          "tag": "A",
+          "text": "Assignments",
+          "label": null
+        },
+        {
+          "tag": "A",
+          "text": "Learning journal",
+          "label": null
+        }
+      ],
+      "limited_check": true
+    },
+    {
+      "id": "ST-04-provider-disabled-help-ungraded",
+      "status": "PASS",
+      "message": {
+        "request_id": "02861496-666d-45ac-af2e-911e84f0c54d",
+        "attempt_id": "e58703c8-1c83-48c2-bfda-f87655e2a54d",
+        "expected_revision": 0,
+        "text": "What do you mean by packet size?",
+        "classification": "AMBIGUOUS",
+        "outcome": {
+          "status": "fallback",
+          "reason": "disabled",
+          "text": "Extra tutor help is unavailable. You can continue your lesson or open the reading."
+        }
+      },
+      "provider_requests_used": 0,
+      "attempt_unchanged": true,
+      "classification_note": "No-provider route requested explicit clarification. This is not live classification."
+    },
+    {
+      "id": "ST-03-refresh-read-only",
+      "status": "PASS",
+      "api_writes_on_refresh": []
+    },
+    {
+      "id": "RC-02-answer-save-offline",
+      "status": "PASS",
+      "fault": "offline",
+      "text_preserved": true,
+      "saved_response": null,
+      "automatic_retry_count": 0,
+      "next_action": "Retry sending saved answer / Check sign-in",
+      "fault_injection": "Browser route rejected request before server commit; no real network/auth expiry claimed."
+    },
+    {
+      "id": "S-02-confirmed-401-misleading-save-status",
+      "status": "FAIL",
+      "reproduction": "Initial answer POST receives synthetic 401 before server; UI asserts submitted work saved while response_text remains null.",
+      "exact_status": "Please sign in again. Your submitted work is saved.",
+      "screenshot": "answer-save-401-preserved.png",
+      "owner": "Student recovery #76"
+    },
+    {
+      "id": "RC-02-answer-save-401",
+      "status": "PASS",
+      "fault": "401",
+      "text_preserved": true,
+      "saved_response": null,
+      "automatic_retry_count": 0,
+      "next_action": "Retry sending saved answer / Check sign-in",
+      "fault_injection": "Browser route rejected request before server commit; no real network/auth expiry claimed."
+    },
+    {
+      "id": "RC-05-uncertain-conversation-transport",
+      "status": "UNRUN",
+      "error": "This session is already in the disabled-help fallback; Send intentionally does not dispatch a conversation POST. Use a fresh pre-fallback session for this transport test."
+    },
+    {
+      "id": "ST-09-seeded-supported-history",
+      "status": "UNRUN",
+      "reason": "Existing seeded records have synthetic_fixture origin; studentSessionAssignment intentionally permits only live_demo UI sessions. Teacher/API fixture inspection is separate."
+    },
+    {
+      "id": "S-01-seeded-correct-result-visibility",
+      "status": "UNRUN",
+      "reason": "Seeded correct fixture is intentionally excluded from student navigation. Static missing-result finding requires a fresh fictional UI session with explicitly injected synthetic accepted evaluation."
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "reading-1440x900.png",
+      "url": "http://localhost:3322/study/reading?session=f1639d10-3745-4494-8c40-73a6a9f81d5c",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "file": "active-top-1440x900.png",
+      "url": "http://localhost:3322/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=f1639d10-3745-4494-8c40-73a6a9f81d5c",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "file": "composer-1440x900.png",
+      "url": "http://localhost:3322/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=f1639d10-3745-4494-8c40-73a6a9f81d5c",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "file": "active-top-1024x768.png",
+      "url": "http://localhost:3322/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=f1639d10-3745-4494-8c40-73a6a9f81d5c",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      }
+    },
+    {
+      "file": "composer-1024x768.png",
+      "url": "http://localhost:3322/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=f1639d10-3745-4494-8c40-73a6a9f81d5c",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      }
+    },
+    {
+      "file": "active-top-390x844.png",
+      "url": "http://localhost:3322/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=f1639d10-3745-4494-8c40-73a6a9f81d5c",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "file": "composer-390x844.png",
+      "url": "http://localhost:3322/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=f1639d10-3745-4494-8c40-73a6a9f81d5c",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "file": "active-top-320x844.png",
+      "url": "http://localhost:3322/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=f1639d10-3745-4494-8c40-73a6a9f81d5c",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      }
+    },
+    {
+      "file": "composer-320x844.png",
+      "url": "http://localhost:3322/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=f1639d10-3745-4494-8c40-73a6a9f81d5c",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      }
+    },
+    {
+      "file": "help-fallback-ungraded.png",
+      "url": "http://localhost:3322/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=f1639d10-3745-4494-8c40-73a6a9f81d5c",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "file": "answer-save-offline-preserved.png",
+      "url": "http://localhost:3322/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=f1639d10-3745-4494-8c40-73a6a9f81d5c",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "file": "answer-save-401-preserved.png",
+      "url": "http://localhost:3322/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=f1639d10-3745-4494-8c40-73a6a9f81d5c",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    }
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/api/auth/get-session"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tutoring/f1639d10-3745-4494-8c40-73a6a9f81d5c/conversation"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/get-session"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tutoring/f1639d10-3745-4494-8c40-73a6a9f81d5c/conversation"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/get-session"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tutoring/f1639d10-3745-4494-8c40-73a6a9f81d5c/conversation"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/get-session"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tutoring/f1639d10-3745-4494-8c40-73a6a9f81d5c/conversation"
+    },
+    {
+      "method": "POST",
+      "path": "/api/tutoring/f1639d10-3745-4494-8c40-73a6a9f81d5c/reading"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sessions/f1639d10-3745-4494-8c40-73a6a9f81d5c/interventions/489c2d34-d3a8-43bf-a5a1-fead2b648ff8"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tutoring/f1639d10-3745-4494-8c40-73a6a9f81d5c/conversation"
+    },
+    {
+      "method": "POST",
+      "path": "/api/tutoring/f1639d10-3745-4494-8c40-73a6a9f81d5c/reading"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sessions/f1639d10-3745-4494-8c40-73a6a9f81d5c/interventions/489c2d34-d3a8-43bf-a5a1-fead2b648ff8"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tutoring/f1639d10-3745-4494-8c40-73a6a9f81d5c/conversation"
+    },
+    {
+      "method": "POST",
+      "path": "/api/tutoring/f1639d10-3745-4494-8c40-73a6a9f81d5c/conversation"
+    },
+    {
+      "method": "POST",
+      "path": "/api/tutoring/f1639d10-3745-4494-8c40-73a6a9f81d5c/conversation"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/get-session"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tutoring/f1639d10-3745-4494-8c40-73a6a9f81d5c/conversation"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/get-session"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tutoring/f1639d10-3745-4494-8c40-73a6a9f81d5c/conversation"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sessions/f1639d10-3745-4494-8c40-73a6a9f81d5c/answers"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/get-session"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tutoring/f1639d10-3745-4494-8c40-73a6a9f81d5c/conversation"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sessions/f1639d10-3745-4494-8c40-73a6a9f81d5c/answers"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/get-session"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tutoring/f1639d10-3745-4494-8c40-73a6a9f81d5c/conversation"
+    }
+  ],
+  "console_errors": [],
+  "unrun": [
+    "Real screen-reader testing",
+    "Actual browser 200% zoom (headless viewport emulation is not claimed as zoom)",
+    "Fresh actual-model generation/evaluation",
+    "Real provider unknown-outcome recovery (synthetic persistence suite owns this)",
+    "Hosted release",
+    "Failed accepted-help acknowledgment (provider-disabled help produces no accepted help in this run)"
+  ],
+  "session_id": "f1639d10-3745-4494-8c40-73a6a9f81d5c",
+  "initial_attempt": {
+    "id": "e58703c8-1c83-48c2-bfda-f87655e2a54d",
+    "sequence_index": 0,
+    "intent": "initial_retrieval",
+    "prompt_text": "A single cable becomes twice as long. Packet size, link transmission rate, and propagation speed stay unchanged. What happens to transmission delay and propagation delay? Explain why.",
+    "concept_ids": [
+      "transmission_delay",
+      "propagation_delay"
+    ],
+    "presented_at": "2026-10-25T03:10:04.276Z",
+    "submitted_at": null,
+    "response_text": null
+  },
+  "finished_at": "2026-10-25T03:14:08.768Z"
+}

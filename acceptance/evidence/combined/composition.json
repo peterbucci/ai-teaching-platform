@@ -1,0 +1,23 @@
+{
+  "verificationOnly": true,
+  "category": "Synthetic proposed composition; not a PR head or released build",
+  "sourceSha": "545b880749c757f7502a9bfa7fd127afdf290afd",
+  "tree": "0ced8e7b3cf19a30b93261cd313e19d5ef756ade",
+  "baseMain": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+  "pr116": "5d6363d2867a6f0250f8220db0474342b1241d00",
+  "pr117": "6f9dd8991abef5efa8108e50b2274dc3bdc13ce6",
+  "pr118": "d2dca515b1a926daf28e791044fe04d01bdf20a9",
+  "intermediateTree": "38ba34abaea49366ff9238a263c69174b89bd6b1",
+  "intermediateCommit": "f870079ae4e0bb66e0a33cfc67bd7f1d5bfe9191",
+  "commands": [
+    "git merge-tree --write-tree <pr116> <pr117>",
+    "git commit-tree <intermediateTree> -p <pr116> -p <pr117> -m <temporary acceptance description>",
+    "git merge-tree --write-tree <intermediateCommit> <pr118>",
+    "git commit-tree <tree> -p <intermediateCommit> -p <pr118> -m <temporary acceptance description>"
+  ],
+  "conflicts": [],
+  "applicationEditsByAcceptance": 0,
+  "branchesAdvanced": 0,
+  "pullRequestsMerged": 0,
+  "note": "Recreated commit identity may differ with committer metadata; the expected content tree is exact. No manual resolution was needed. All application bytes came from the three pinned owner snapshots."
+}

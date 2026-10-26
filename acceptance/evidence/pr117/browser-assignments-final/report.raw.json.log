@@ -1,0 +1,33 @@
+{
+  "target": "pr117",
+  "source_sha": "6f9dd8991abef5efa8108e50b2274dc3bdc13ce6",
+  "origin": "http://localhost:3323",
+  "started_at": "2026-10-25T03:51:49.461Z",
+  "category": "provider-disabled browser; fictional authored and synthetic histories; no actual model calls",
+  "authoring_fixture": "29ce4af3-d172-4dc5-8920-6ee2a4e6c9e9",
+  "cases": [
+    {
+      "id": "HARNESS",
+      "status": "FAIL",
+      "details": {
+        "stage": "login",
+        "error": "page.waitForURL: Timeout 15000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until \"load\"\n============================================================"
+      }
+    }
+  ],
+  "screenshots": [
+    "failure-teacher.png"
+  ],
+  "status": "failed",
+  "failure_stage": "login",
+  "error": "page.waitForURL: Timeout 15000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until \"load\"\n============================================================",
+  "finished_at": "2026-10-25T03:52:05.538Z",
+  "unrun": [
+    "Real authentication expiry and sign-in return",
+    "Fresh model calls",
+    "Hosted release",
+    "Full keyboard-only and screen-reader journey",
+    "Actual browser200%zoom in this suite",
+    "Unchanged private published-history guarantees beyond separately executed service checks"
+  ]
+}

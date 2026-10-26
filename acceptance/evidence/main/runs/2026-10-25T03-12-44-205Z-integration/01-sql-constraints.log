@@ -1,0 +1,59 @@
+BEGIN
+CREATE FUNCTION
+CREATE FUNCTION
+INSERT 0 5
+INSERT 0 2
+INSERT 0 3
+INSERT 0 2
+INSERT 0 3
+INSERT 0 3
+DO
+ issue3_expect_failure 
+-----------------------
+ 
+(1 row)
+
+ issue3_expect_failure 
+-----------------------
+ 
+(1 row)
+
+ issue3_expect_failure 
+-----------------------
+ 
+(1 row)
+
+ issue3_expect_failure 
+-----------------------
+ 
+(1 row)
+
+ issue3_expect_failure 
+-----------------------
+ 
+(1 row)
+
+ issue3_expect_failure 
+-----------------------
+ 
+(1 row)
+
+INSERT 0 1
+UPDATE 1
+ issue3_expect_failure 
+-----------------------
+ 
+(1 row)
+
+ issue3_expect_failure 
+-----------------------
+ 
+(1 row)
+
+DO
+ROLLBACK
+                                      result                                      
+----------------------------------------------------------------------------------
+ Evidence constraints and atomic persistence checks passed; fixtures rolled back.
+(1 row)
+

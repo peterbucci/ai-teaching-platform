@@ -1,0 +1,114 @@
+{
+  "target": "pr116",
+  "sha": "5d6363d2867a6f0250f8220db0474342b1241d00",
+  "origin": "http://localhost:3322",
+  "environment_manifest": "../manifest.json",
+  "configuration": "provider-disabled; synthetic fixtures; loopback-only; isolated internal Docker network",
+  "verification": "Provider-disabled browser manual authoring and cross-role assignment using original synthetic material",
+  "run_id": "Manual authoring pr116 1792898280048",
+  "started_at_utc": "2026-10-25T03:18:00.048Z",
+  "status": "passed",
+  "paid_calls": 0,
+  "checks": [
+    "Manual pasted source import, exact extraction review, attribution and private source save",
+    "Manually authored objective with exact source quote saved and explicitly approved",
+    "Four manually authored source-cited questions saved/reviewed/approved; student preview excludes private guidance",
+    "Tutoring sequence prepared, current lesson explicitly approved, immutable version 1 published separately",
+    "Inactive assignment is absent from enrolled student's list before activation",
+    "Separate explicit teacher activation makes the exact assignment visible and openable by enrolled student",
+    "Student reading retains exact imported text; initial question opens with one composer and no private answer/criterion in public API",
+    "New v2 draft requires fresh review; published v1 remains source-pinned and earlier presented student session/attempt remain byte-equivalent"
+  ],
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 900,
+      "page": "reading",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "page": "reading",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "page": "reading",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 844,
+      "page": "reading",
+      "overflow": false
+    }
+  ],
+  "unrun": [
+    "File-upload browser variants",
+    "Fresh model generation/evaluation",
+    "Submitted historical answer/evaluation preservation; only a presented attempt is preserved here",
+    "200% zoom, keyboard-only journey and screen-reader verification",
+    "Full responsive authoring form review"
+  ],
+  "source_id": "5fe25086-d05e-4ada-a263-c0b0090e944d",
+  "source_version": 1,
+  "lesson_id": "01b8f786-c9fa-4fc6-9279-467e777a8b9b",
+  "published_version": "1",
+  "content_ref": {
+    "source_kind": "uploaded",
+    "source_id": "5fe25086-d05e-4ada-a263-c0b0090e944d",
+    "source_version": 1,
+    "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+    "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+    "attribution": {
+      "title": "Manual authoring pr116 1792898280048",
+      "authors": [
+        "Fictional acceptance teacher"
+      ],
+      "copyright": "2026 fictional acceptance fixture",
+      "section": "Imported source",
+      "url": null,
+      "license": "Original synthetic material; permitted for this test",
+      "license_url": null,
+      "cautions": []
+    },
+    "access_scope": {
+      "teacher_id": "10000000-0000-4000-8000-000000000001"
+    },
+    "package_id": "01b8f786-c9fa-4fc6-9279-467e777a8b9b",
+    "content_version": "1"
+  },
+  "assignment_id": "2bd8094c-21d0-428c-bc54-3ef9d584f1b5",
+  "student_session_id": "b8d04829-6978-41b0-8fe3-27ce1cca75dd",
+  "presented_attempt_id": "34569feb-1f1f-4db1-bb6a-51627a7a6daf",
+  "new_draft_version": "2",
+  "new_draft_revision": 7,
+  "checked_at_utc": "2026-10-25T03:18:09.093Z",
+  "screenshots": [
+    "01-extraction-review.png",
+    "02-source-saved.png",
+    "03-objectives-approved.png",
+    "04-student-preview.png",
+    "05-bank-approved.png",
+    "06-lesson-approved.png",
+    "07-published-v1.png",
+    "08-inactive-hidden-student.png",
+    "09-active-assignment.png",
+    "10-student-assignment.png",
+    "11-reading-1024.png",
+    "11-reading-1440.png",
+    "11-reading-320.png",
+    "11-reading-390.png",
+    "12-student-session.png",
+    "13-new-version-requires-review.png",
+    "14-session-preserved-after-v2.png"
+  ],
+  "preserved_harness_reports": [
+    "environment-502-report.json",
+    "harness-save-method-report.json",
+    "harness-activation-capture.json",
+    "harness-class-selection-report.json"
+  ]
+}

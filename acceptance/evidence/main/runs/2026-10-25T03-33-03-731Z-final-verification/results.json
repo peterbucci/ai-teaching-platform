@@ -1,0 +1,177 @@
+{
+  "sourceSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+  "category": "final acceptance-only verification source checks; full production tree lint and formatting included",
+  "environment": "Windows x64 Node22.13.0; no provider calls",
+  "evidenceFormatting": "Evidence-local json-stringify parser; exact original bytes retained as raw siblings where terminal newline derivative needed",
+  "checks": [
+    {
+      "name": "lint",
+      "command": [
+        "node",
+        "node_modules/eslint/bin/eslint.js",
+        "."
+      ],
+      "status": "pass",
+      "exitCode": 0,
+      "log": "lint.log"
+    },
+    {
+      "name": "format",
+      "command": [
+        "node",
+        "node_modules/prettier/bin/prettier.cjs",
+        "--check",
+        "."
+      ],
+      "status": "fail",
+      "exitCode": 1,
+      "log": "format.log"
+    },
+    {
+      "name": "syntax-accessibility-browser.mjs",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\accessibility-browser.mjs"
+      ],
+      "status": "pass",
+      "exitCode": 0,
+      "log": "syntax-accessibility-browser.mjs.log"
+    },
+    {
+      "name": "syntax-authoring-browser.mjs",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\authoring-browser.mjs"
+      ],
+      "status": "pass",
+      "exitCode": 0,
+      "log": "syntax-authoring-browser.mjs.log"
+    },
+    {
+      "name": "syntax-collect-evidence.mjs",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\collect-evidence.mjs"
+      ],
+      "status": "pass",
+      "exitCode": 0,
+      "log": "syntax-collect-evidence.mjs.log"
+    },
+    {
+      "name": "syntax-oversized-browser.mjs",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\oversized-browser.mjs"
+      ],
+      "status": "pass",
+      "exitCode": 0,
+      "log": "syntax-oversized-browser.mjs.log"
+    },
+    {
+      "name": "syntax-oversized-evidence.mjs",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\oversized-evidence.mjs"
+      ],
+      "status": "pass",
+      "exitCode": 0,
+      "log": "syntax-oversized-evidence.mjs.log"
+    },
+    {
+      "name": "syntax-priority-browser.mjs",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\priority-browser.mjs"
+      ],
+      "status": "pass",
+      "exitCode": 0,
+      "log": "syntax-priority-browser.mjs.log"
+    },
+    {
+      "name": "syntax-runner.mjs",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\runner.mjs"
+      ],
+      "status": "pass",
+      "exitCode": 0,
+      "log": "syntax-runner.mjs.log"
+    },
+    {
+      "name": "syntax-seed-student-result.mjs",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\seed-student-result.mjs"
+      ],
+      "status": "pass",
+      "exitCode": 0,
+      "log": "syntax-seed-student-result.mjs.log"
+    },
+    {
+      "name": "syntax-student-browser.mjs",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\student-browser.mjs"
+      ],
+      "status": "pass",
+      "exitCode": 0,
+      "log": "syntax-student-browser.mjs.log"
+    },
+    {
+      "name": "syntax-student-result-browser.mjs",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\student-result-browser.mjs"
+      ],
+      "status": "pass",
+      "exitCode": 0,
+      "log": "syntax-student-result-browser.mjs.log"
+    },
+    {
+      "name": "syntax-teacher-browser.mjs",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\teacher-browser.mjs"
+      ],
+      "status": "pass",
+      "exitCode": 0,
+      "log": "syntax-teacher-browser.mjs.log"
+    },
+    {
+      "name": "syntax-workbench-browser.mjs",
+      "command": [
+        "node",
+        "--check",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\acceptance\\workbench-browser.mjs"
+      ],
+      "status": "pass",
+      "exitCode": 0,
+      "log": "syntax-workbench-browser.mjs.log"
+    }
+  ],
+  "harnessSHA256": {
+    "accessibility-browser.mjs": "7c219abe5586e7db91eedfdc14ee97c40afa5b206aff1caaca55f6c252967848",
+    "authoring-browser.mjs": "fc7db06ee755756bfc8d7b817d9f1f19fcd80960e711f768a80d170d959c57e9",
+    "collect-evidence.mjs": "da26ebdc2882ecfc9995dcdc15719df42536a4142abe06c0e0124cc1d30a84d2",
+    "oversized-browser.mjs": "626988734c4dec97c254c8feb233dcc08fdacae33f4a4de36bac93fde79cd99a",
+    "oversized-evidence.mjs": "2de98258b97266f0bb1f7be3e68134a2a4f705a94716aa59dd5254f56462b2bb",
+    "priority-browser.mjs": "71475b42fd030f6120d5607b027e750b5b9a49096932bdfc241c92a2786122da",
+    "runner.mjs": "08a11c8b7494eefee7f8b9887da893285f7d45cb96a238f2ff2877bd473c8745",
+    "seed-student-result.mjs": "904b446526cb6b60fe43bc8f9e8d833d27c6565ffa0210ce055878ff4a4c01d6",
+    "student-browser.mjs": "76d32a1d2decbaf5c035e91c22c21d5366708dad484a5170b48915cca6a945dc",
+    "student-result-browser.mjs": "710d01662d004d9e5d9969a3023266b0d8fcd68d67bb3bceb9c065c36a99bb2d",
+    "teacher-browser.mjs": "85b990521f671fd471d221218807d36e5f99c0cfd40944a75cfeafa37202f34e",
+    "workbench-browser.mjs": "1e1298a2d56dc83d451c09f61b35d9fdebcf1c62fb6155b261d9fc69ec7fe22d"
+  }
+}

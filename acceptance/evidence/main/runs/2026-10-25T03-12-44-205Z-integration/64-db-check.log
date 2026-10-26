@@ -1,0 +1,11 @@
+
+> ai-teaching-platform@0.1.0 db:check
+> node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-persistence.ts --prepare-restart
+
+Restart verification state saved privately in the container.
+PASS: HTTP login/session/logout, scoped APIs, prepared interaction reconstruction, student-safe responses, idempotent answers, evaluation retention, assistance and SQL integrity.
+.env not found. Continuing without it.
+(node:85) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///app/scripts/check-persistence.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)

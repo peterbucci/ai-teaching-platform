@@ -1,0 +1,266 @@
+{
+  "target": "pr116",
+  "sha": "5d6363d2867a6f0250f8220db0474342b1241d00",
+  "origin": "http://localhost:3322",
+  "started_at_utc": "2026-10-25T03:29:11.842Z",
+  "method": "Fresh isolated Edge profiles; native partition.default_zoom_level preference; viewport:null; no CSS zoom, deviceScaleFactor, pinch or emulation",
+  "measurements": {
+    "baseline": {
+      "devicePixelRatio": 1,
+      "innerWidth": 1416,
+      "innerHeight": 808,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "01-baseline-login": {
+      "devicePixelRatio": 1,
+      "innerWidth": 1416,
+      "innerHeight": 808,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "zoom200": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "02-native-200-login": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "03-teacher-200": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "teacher": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "04-evidence-200": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "06-interventions-200": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "08-reading-200": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "reading": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "09-composer-keyboard-200": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    },
+    "composer": {
+      "devicePixelRatio": 2,
+      "innerWidth": 708,
+      "innerHeight": 404,
+      "outerWidth": 1440,
+      "outerHeight": 900,
+      "visualViewportScale": 1,
+      "cssZoom": "1",
+      "overflow": false
+    }
+  },
+  "checks": [
+    "Native 200% zoom measured: DPR doubles, CSS viewport halves, visualViewport.scale and CSS zoom remain 1",
+    "Tab/Enter activation reached assignment, source and composer; exact unsent text entered without submitting; return from reading used native browser history API"
+  ],
+  "keyboard": [
+    {
+      "label": "teacher sign-in",
+      "tabs": 3,
+      "focused": {
+        "tag": "BUTTON",
+        "text": "Demo teacher",
+        "href": null,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "open navigation drawer",
+      "tabs": 2,
+      "focused": {
+        "tag": "BUTTON",
+        "text": "Open navigation",
+        "href": null,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "teacher evidence navigation",
+      "tabs": 3,
+      "focused": {
+        "tag": "A",
+        "text": "Evidence",
+        "href": "/teacher/evidence?assignment=a1c4fb1e-75c6-43fb-adb6-64d467b3e9dc&origin=all&returnTo=evidence",
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "open navigation drawer",
+      "tabs": 33,
+      "focused": {
+        "tag": "BUTTON",
+        "text": "Open navigation",
+        "href": null,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "intervention review navigation",
+      "tabs": 4,
+      "focused": {
+        "tag": "A",
+        "text": "Interventions",
+        "href": "/teacher/interventions?assignment=a1c4fb1e-75c6-43fb-adb6-64d467b3e9dc&origin=all&concept=transmission_delay&session=bd1007fc-e605-445e-87a6-0e76f2c6b8f8&attempt=656cf830-9f07-48a0-8143-ad176cf7be2c&evaluation=b7d8c9fd-726f-4930-9563-d0118d1f7032&returnTo=evidence",
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "student sign-in",
+      "tabs": 2,
+      "focused": {
+        "tag": "BUTTON",
+        "text": "Demo student",
+        "href": null,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "student assignment details",
+      "tabs": 94,
+      "focused": {
+        "tag": "A",
+        "text": "Details: Manual authoring pr116 1792898280048 assignment",
+        "href": "/study/assignments/2bd8094c-21d0-428c-bc54-3ef9d584f1b5",
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 889
+      }
+    },
+    {
+      "label": "student reading",
+      "tabs": 8,
+      "focused": {
+        "tag": "A",
+        "text": "Open reading",
+        "href": "/study/reading?assignment=2bd8094c-21d0-428c-bc54-3ef9d584f1b5",
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 628.5
+      }
+    },
+    {
+      "label": "reading End key scroll",
+      "focused": {
+        "tag": "BODY",
+        "text": "Skip to content\nReading\nCLASS\nNetworking demo — synthetic class\nSynthetic optional speech verification\nSynthetic publishing HTTP 60b30736-6a48-4672-a0f9-d45e9d7",
+        "href": null,
+        "outline": "rgb(23, 48, 45) none 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "student study session",
+      "tabs": 6,
+      "focused": {
+        "tag": "A",
+        "text": "Study session",
+        "href": "/study/assignments/2bd8094c-21d0-428c-bc54-3ef9d584f1b5?tab=study",
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 40
+      }
+    },
+    {
+      "label": "student composer",
+      "tabs": 30,
+      "focused": {
+        "tag": "TEXTAREA",
+        "text": "Ask a question or share your thinking...",
+        "href": null,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 314.5
+      }
+    }
+  ],
+  "unrun": [
+    "open original student evidence: no matching reachable control found within 110 Tab presses",
+    "expand saved interventions: no matching reachable control found within 110 Tab presses",
+    "Screen-reader operation and comprehensive WCAG compliance",
+    "Full keyboard-only editing/approval/delivery and all failure states",
+    "Complete focus/scroll restoration across every page; PR116 Forward not reached"
+  ],
+  "paid_calls": 0,
+  "native_zoom_verified": true,
+  "status": "completed bounded checks",
+  "checked_at_utc": "2026-10-25T03:29:19.746Z"
+}

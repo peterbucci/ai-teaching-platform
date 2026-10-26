@@ -1,0 +1,28 @@
+
+> ai-teaching-platform@0.1.0 audio:check
+> node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-feedback-audio.ts
+
+.env not found. Continuing without it.
+(node:85) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///app/scripts/check-feedback-audio.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Local Piper must return audio.
+
+503 !== 200
+
+    at file:///app/scripts/check-feedback-audio.ts:207:10
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 503,
+  expected: 200,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.23.2

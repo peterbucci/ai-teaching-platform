@@ -1,0 +1,111 @@
+
+> ai-teaching-platform@0.1.0 interventions:approval:lessons
+> node --experimental-strip-types --conditions=react-server --env-file-if-exists=.env scripts/check-intervention-approval-lessons.ts --setup-fixtures --with-followups
+
+.env not found. Continuing without it.
+(node:104) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///app/scripts/check-intervention-lessons.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:116) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///app/scripts/check-interventions.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+file:///app/lib/interventions/store.ts:231
+      throw new EvidenceError(
+            ^
+
+EvidenceError: The hourly limit of 10 draft requests has been reached. Review saved drafts or try later.
+    at file:///app/lib/interventions/store.ts:231:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async inTransaction (file:///app/lib/db.ts:51:20)
+    at async transaction (file:///app/lib/evidence/store.ts:50:12)
+    at async generateInterventionDraft (file:///app/lib/interventions/store.ts:319:20)
+    at async file:///app/scripts/check-interventions.ts:242:5 {
+  status: 409
+}
+
+Node.js v22.23.2
+node:internal/errors:983
+  const err = new Error(message);
+              ^
+
+Error: Command failed: /usr/local/bin/node --experimental-strip-types --conditions=react-server scripts/check-interventions.ts
+(node:116) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///app/scripts/check-interventions.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+file:///app/lib/interventions/store.ts:231
+      throw new EvidenceError(
+            ^
+
+EvidenceError: The hourly limit of 10 draft requests has been reached. Review saved drafts or try later.
+    at file:///app/lib/interventions/store.ts:231:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async inTransaction (file:///app/lib/db.ts:51:20)
+    at async transaction (file:///app/lib/evidence/store.ts:50:12)
+    at async generateInterventionDraft (file:///app/lib/interventions/store.ts:319:20)
+    at async file:///app/scripts/check-interventions.ts:242:5 {
+  status: 409
+}
+
+Node.js v22.23.2
+
+    at genericNodeError (node:internal/errors:983:15)
+    at wrappedFn (node:internal/errors:537:14)
+    at checkExecSyncError (node:child_process:916:11)
+    at execFileSync (node:child_process:952:15)
+    at setupFixture (file:///app/scripts/check-intervention-approval-lessons.ts:35:18)
+    at file:///app/scripts/check-intervention-approval-lessons.ts:56:5
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {
+  status: 1,
+  signal: null,
+  output: [
+    null,
+    '',
+    "(node:116) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///app/scripts/check-interventions.ts is not specified and it doesn't parse as CommonJS.\n" +
+      'Reparsing as ES module because module syntax was detected. This incurs a performance overhead.\n' +
+      'To eliminate this warning, add "type": "module" to /app/package.json.\n' +
+      '(Use `node --trace-warnings ...` to show where the warning was created)\n' +
+      'file:///app/lib/interventions/store.ts:231\n' +
+      '      throw new EvidenceError(\n' +
+      '            ^\n' +
+      '\n' +
+      'EvidenceError: The hourly limit of 10 draft requests has been reached. Review saved drafts or try later.\n' +
+      '    at file:///app/lib/interventions/store.ts:231:13\n' +
+      '    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n' +
+      '    at async inTransaction (file:///app/lib/db.ts:51:20)\n' +
+      '    at async transaction (file:///app/lib/evidence/store.ts:50:12)\n' +
+      '    at async generateInterventionDraft (file:///app/lib/interventions/store.ts:319:20)\n' +
+      '    at async file:///app/scripts/check-interventions.ts:242:5 {\n' +
+      '  status: 409\n' +
+      '}\n' +
+      '\n' +
+      'Node.js v22.23.2\n'
+  ],
+  pid: 116,
+  stdout: '',
+  stderr: "(node:116) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///app/scripts/check-interventions.ts is not specified and it doesn't parse as CommonJS.\n" +
+    'Reparsing as ES module because module syntax was detected. This incurs a performance overhead.\n' +
+    'To eliminate this warning, add "type": "module" to /app/package.json.\n' +
+    '(Use `node --trace-warnings ...` to show where the warning was created)\n' +
+    'file:///app/lib/interventions/store.ts:231\n' +
+    '      throw new EvidenceError(\n' +
+    '            ^\n' +
+    '\n' +
+    'EvidenceError: The hourly limit of 10 draft requests has been reached. Review saved drafts or try later.\n' +
+    '    at file:///app/lib/interventions/store.ts:231:13\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n' +
+    '    at async inTransaction (file:///app/lib/db.ts:51:20)\n' +
+    '    at async transaction (file:///app/lib/evidence/store.ts:50:12)\n' +
+    '    at async generateInterventionDraft (file:///app/lib/interventions/store.ts:319:20)\n' +
+    '    at async file:///app/scripts/check-interventions.ts:242:5 {\n' +
+    '  status: 409\n' +
+    '}\n' +
+    '\n' +
+    'Node.js v22.23.2\n'
+}
+
+Node.js v22.23.2

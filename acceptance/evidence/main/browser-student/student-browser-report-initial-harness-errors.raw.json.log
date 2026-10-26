@@ -1,0 +1,337 @@
+{
+  "source_sha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+  "base": "http://localhost:3321",
+  "started_at": "2026-10-25T03:06:44.657Z",
+  "environment": "local isolated fictional PostgreSQL; providers disabled by operator; browser requests do not enable providers",
+  "evidence_category": "provider-disabled browser/HTTP; seeded evaluations are synthetic historical fixture data",
+  "setup": "Existing curated assignment reviewed and activated through teacher UI before this run; original seeded attempts not altered.",
+  "browser": "156.0.4314.42",
+  "cases": [
+    {
+      "id": "ST-05-refresh-exact-draft",
+      "status": "PASS",
+      "exact_text": "  Acceptance D unsent reasoning.\nCable distance may affect propagation; I am still deciding about transmission.  ",
+      "attempt_id": "23c9d8b2-d8f9-4a06-b9db-2826c4ec8cf4"
+    },
+    {
+      "id": "ST-05-reading-back-forward-draft",
+      "status": "PASS",
+      "exact_draft_preserved": true,
+      "reading_did_not_submit": true
+    },
+    {
+      "id": "ST-05-quick-action-restores-original",
+      "status": "PASS"
+    },
+    {
+      "id": "RESP-1440x900",
+      "status": "PASS",
+      "viewport": 1440,
+      "document_width": 1440,
+      "body_width": 1440,
+      "overflows": [],
+      "composer_enabled": true,
+      "note": "Viewport/layout check only; full keyboard and screen-reader compliance not implied."
+    },
+    {
+      "id": "RESP-1024x768",
+      "status": "PASS",
+      "viewport": 1024,
+      "document_width": 1024,
+      "body_width": 1024,
+      "overflows": [],
+      "composer_enabled": true,
+      "note": "Viewport/layout check only; full keyboard and screen-reader compliance not implied."
+    },
+    {
+      "id": "RESP-390x844",
+      "status": "PASS",
+      "viewport": 390,
+      "document_width": 390,
+      "body_width": 390,
+      "overflows": [],
+      "composer_enabled": true,
+      "note": "Viewport/layout check only; full keyboard and screen-reader compliance not implied."
+    },
+    {
+      "id": "RESP-320x844",
+      "status": "PASS",
+      "viewport": 320,
+      "document_width": 320,
+      "body_width": 320,
+      "overflows": [],
+      "composer_enabled": true,
+      "note": "Viewport/layout check only; full keyboard and screen-reader compliance not implied."
+    },
+    {
+      "id": "A11Y-keyboard-composer-tab-order",
+      "status": "PASS",
+      "focus_trail": [
+        {
+          "tag": "BUTTON",
+          "text": "Send",
+          "label": null
+        },
+        {
+          "tag": "BODY",
+          "text": "Skip to content\nLearning Pulse\nA little insight. A better next step.\n\nYOUR LEARNING\n\nAssignments\nLea",
+          "label": null
+        },
+        {
+          "tag": "A",
+          "text": "Skip to content",
+          "label": null
+        },
+        {
+          "tag": "A",
+          "text": "Learning Pulse\nA little insight. A better next step.",
+          "label": null
+        },
+        {
+          "tag": "A",
+          "text": "Assignments",
+          "label": null
+        },
+        {
+          "tag": "A",
+          "text": "Learning journal",
+          "label": null
+        }
+      ],
+      "limited_check": true
+    },
+    {
+      "id": "ST-04-provider-disabled-help-ungraded",
+      "status": "PASS",
+      "message": {
+        "request_id": "bcad9083-a63a-457e-8962-0b144132ca48",
+        "attempt_id": "23c9d8b2-d8f9-4a06-b9db-2826c4ec8cf4",
+        "expected_revision": 0,
+        "text": "What do you mean by packet size?",
+        "classification": "AMBIGUOUS",
+        "outcome": {
+          "status": "fallback",
+          "reason": "disabled",
+          "text": "Extra tutor help is unavailable. You can continue your lesson or open the reading."
+        }
+      },
+      "provider_requests_used": 0,
+      "attempt_unchanged": true,
+      "classification_note": "No-provider route requested explicit clarification. This is not live classification."
+    },
+    {
+      "id": "ST-03-refresh-read-only",
+      "status": "PASS",
+      "api_writes_on_refresh": []
+    },
+    {
+      "id": "RC-02-answer-save-offline",
+      "status": "FAIL",
+      "error": "locator.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Message your tutor', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <textarea rows=\"3\" disabled required=\"\" class=\"lp-input\" maxlength=\"12000\" placeholder=\"Ask a question or share your thinking...\" id=\"tutor-message-23c9d8b2-d8f9-4a06-b9db-2826c4ec8cf4\"></textarea>\u001b[22m\n\u001b[2m    - fill(\"  Acceptance D offline save must preserve this exact answer.\u001b[22m\n\u001b[2mNo assessed answer has been confirmed.  \")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    59 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m       - element is not enabled\u001b[22m\n\u001b[2m     - retrying fill action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+    },
+    {
+      "id": "RC-02-answer-save-401",
+      "status": "FAIL",
+      "error": "locator.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Message your tutor', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <textarea rows=\"3\" disabled required=\"\" class=\"lp-input\" maxlength=\"12000\" placeholder=\"Ask a question or share your thinking...\" id=\"tutor-message-23c9d8b2-d8f9-4a06-b9db-2826c4ec8cf4\"></textarea>\u001b[22m\n\u001b[2m    - fill(\"  Acceptance D 401 save must preserve this exact answer.\u001b[22m\n\u001b[2mNo assessed answer has been confirmed.  \")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    59 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m       - element is not enabled\u001b[22m\n\u001b[2m     - retrying fill action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+    },
+    {
+      "id": "RC-05-uncertain-conversation-transport",
+      "status": "FAIL",
+      "error": "locator.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Message your tutor', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <textarea rows=\"3\" disabled required=\"\" class=\"lp-input\" maxlength=\"12000\" placeholder=\"Ask a question or share your thinking...\" id=\"tutor-message-23c9d8b2-d8f9-4a06-b9db-2826c4ec8cf4\"></textarea>\u001b[22m\n\u001b[2m    - fill(\"Acceptance D transport interruption: can you explain packet size?\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying fill action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    59 × waiting for element to be visible, enabled and editable\u001b[22m\n\u001b[2m       - element is not enabled\u001b[22m\n\u001b[2m     - retrying fill action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+    },
+    {
+      "id": "ST-09-seeded-supported-history",
+      "status": "FAIL",
+      "error": "The expression evaluated to a falsy value:\n\n  assert.ok(body.includes(attempt.response_text))\n"
+    },
+    {
+      "id": "S-01-seeded-correct-result-visibility",
+      "status": "FAIL",
+      "error": "The expression evaluated to a falsy value:\n\n  assert.ok(text.includes(answer.response_text))\n"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "reading-1440x900.png",
+      "url": "http://localhost:3321/study/reading?session=a1058019-9170-43fc-8200-ad39f1734934",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "file": "active-top-1440x900.png",
+      "url": "http://localhost:3321/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=a1058019-9170-43fc-8200-ad39f1734934",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "file": "composer-1440x900.png",
+      "url": "http://localhost:3321/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=a1058019-9170-43fc-8200-ad39f1734934",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "file": "active-top-1024x768.png",
+      "url": "http://localhost:3321/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=a1058019-9170-43fc-8200-ad39f1734934",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      }
+    },
+    {
+      "file": "composer-1024x768.png",
+      "url": "http://localhost:3321/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=a1058019-9170-43fc-8200-ad39f1734934",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      }
+    },
+    {
+      "file": "active-top-390x844.png",
+      "url": "http://localhost:3321/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=a1058019-9170-43fc-8200-ad39f1734934",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "file": "composer-390x844.png",
+      "url": "http://localhost:3321/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=a1058019-9170-43fc-8200-ad39f1734934",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "file": "active-top-320x844.png",
+      "url": "http://localhost:3321/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=a1058019-9170-43fc-8200-ad39f1734934",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      }
+    },
+    {
+      "file": "composer-320x844.png",
+      "url": "http://localhost:3321/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=a1058019-9170-43fc-8200-ad39f1734934",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      }
+    },
+    {
+      "file": "help-fallback-ungraded.png",
+      "url": "http://localhost:3321/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=a1058019-9170-43fc-8200-ad39f1734934",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "file": "seed-correct-missing-assessment-result-1440x900.png",
+      "url": "http://localhost:3321/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=40000000-0000-4000-8000-000000000002",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    }
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/api/auth/get-session"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tutoring/a1058019-9170-43fc-8200-ad39f1734934/conversation"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/get-session"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tutoring/a1058019-9170-43fc-8200-ad39f1734934/conversation"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tutoring/a1058019-9170-43fc-8200-ad39f1734934/conversation"
+    },
+    {
+      "method": "POST",
+      "path": "/api/tutoring/a1058019-9170-43fc-8200-ad39f1734934/reading"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tutoring/a1058019-9170-43fc-8200-ad39f1734934/conversation"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/get-session"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tutoring/a1058019-9170-43fc-8200-ad39f1734934/conversation"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/get-session"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tutoring/a1058019-9170-43fc-8200-ad39f1734934/conversation"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/get-session"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tutoring/a1058019-9170-43fc-8200-ad39f1734934/conversation"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/get-session"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tutoring/a1058019-9170-43fc-8200-ad39f1734934/conversation"
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/sign-in/email"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/get-session"
+    }
+  ],
+  "console_errors": [],
+  "unrun": [
+    "Real screen-reader testing",
+    "Actual browser 200% zoom (headless viewport emulation is not claimed as zoom)",
+    "Fresh actual-model generation/evaluation",
+    "Real provider unknown-outcome recovery (synthetic persistence suite owns this)",
+    "Hosted release",
+    "Failed accepted-help acknowledgment (provider-disabled help produces no accepted help in this run)"
+  ],
+  "session_id": "a1058019-9170-43fc-8200-ad39f1734934",
+  "initial_attempt": {
+    "id": "23c9d8b2-d8f9-4a06-b9db-2826c4ec8cf4",
+    "sequence_index": 0,
+    "intent": "initial_retrieval",
+    "prompt_text": "A single cable becomes twice as long. Packet size, link transmission rate, and propagation speed stay unchanged. What happens to transmission delay and propagation delay? Explain why.",
+    "concept_ids": [
+      "transmission_delay",
+      "propagation_delay"
+    ],
+    "presented_at": "2026-10-25T03:03:53.330Z",
+    "submitted_at": null,
+    "response_text": null
+  },
+  "finished_at": "2026-10-25T03:08:25.584Z"
+}

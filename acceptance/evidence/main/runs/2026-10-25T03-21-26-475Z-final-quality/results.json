@@ -1,0 +1,47 @@
+{
+  "target": "main-plus-verification-only-files",
+  "sourceSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+  "paidModelCallsAuthorized": false,
+  "checks": [
+    {
+      "name": "lint-with-verification-files",
+      "status": "pass",
+      "exitCode": 0,
+      "sourceSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "target": "main-plus-verification-only-files",
+      "category": "deterministic final verification-tree quality",
+      "fixture": "source checkout plus acceptance artifacts; existing locked dependency installation",
+      "node": "v22.13.0",
+      "platform": "win32",
+      "startedAt": "2026-10-25T03:21:26.479Z",
+      "finishedAt": "2026-10-25T03:21:42.527Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "node_modules/eslint/bin/eslint.js",
+        ".",
+        "--max-warnings=0"
+      ],
+      "log": "lint-with-verification-files.log"
+    },
+    {
+      "name": "format-with-verification-files",
+      "status": "fail",
+      "exitCode": 1,
+      "sourceSha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "target": "main-plus-verification-only-files",
+      "category": "deterministic final verification-tree quality",
+      "fixture": "source checkout plus acceptance artifacts; existing locked dependency installation",
+      "node": "v22.13.0",
+      "platform": "win32",
+      "startedAt": "2026-10-25T03:21:42.528Z",
+      "finishedAt": "2026-10-25T03:21:49.020Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "node_modules/prettier/bin/prettier.cjs",
+        "--check",
+        "."
+      ],
+      "log": "format-with-verification-files.log"
+    }
+  ]
+}
