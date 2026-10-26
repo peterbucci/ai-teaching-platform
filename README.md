@@ -64,15 +64,15 @@ The AI must not silently assign work, change official grades, message students, 
 
 ## Historical hackathon priorities
 
-| Capability                                                                                                                                                       | Team priority         | What success looks like                                                                                                        |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| [**R4 — Teacher-provided lessons**](https://github.com/peterbucci/ai-teaching-platform/issues/20)                                                                | **P0: critical path** | Import a permitted source; review AI concepts and questions; publish a versioned lesson.                                       |
-| [**R7 — Adaptive, agentic tutoring**](https://github.com/peterbucci/ai-teaching-platform/issues/71)                                                              | **P0: critical path** | One conversation; real AI intent recognition, grounded generation, bounded instructional/tool choice and saved evidence.       |
-| [**R1 — Interactive visual tutoring**](https://github.com/peterbucci/ai-teaching-platform/issues/17)                                                             | **P1: showcase goal** | AI selects a validated visual tool; student prediction and explanation affect the next decision.                               |
-| [**R2 — Teacher action center**](https://github.com/peterbucci/ai-teaching-platform/issues/18)                                                                   | **P1: showcase goal** | AI drafts an evidence-backed activity; teacher edits, approves and assigns it; follow-up evidence is linked.                   |
-| [**R5 — Reasoning-pattern discovery**](https://github.com/peterbucci/ai-teaching-platform/issues/21)                                                             | **P1: focused slice** | Tentative, inspectable new-pattern proposal with teacher review.                                                               |
+| Capability                                                                                                                                                       | Team priority         | What success looks like                                                                                                              |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| [**R4 — Teacher-provided lessons**](https://github.com/peterbucci/ai-teaching-platform/issues/20)                                                                | **P0: critical path** | Import a permitted source; review AI concepts and questions; publish a versioned lesson.                                             |
+| [**R7 — Adaptive, agentic tutoring**](https://github.com/peterbucci/ai-teaching-platform/issues/71)                                                              | **P0: critical path** | One conversation; real AI intent recognition, grounded generation, bounded instructional/tool choice and saved evidence.             |
+| [**R1 — Interactive visual tutoring**](https://github.com/peterbucci/ai-teaching-platform/issues/17)                                                             | **P1: showcase goal** | AI selects a validated visual tool; student prediction and explanation affect the next decision.                                     |
+| [**R2 — Teacher action center**](https://github.com/peterbucci/ai-teaching-platform/issues/18)                                                                   | **P1: showcase goal** | AI drafts an evidence-backed activity; teacher edits, approves and assigns it; follow-up evidence is linked.                         |
+| [**R5 — Reasoning-pattern discovery**](https://github.com/peterbucci/ai-teaching-platform/issues/21)                                                             | **P1: focused slice** | Tentative, inspectable new-pattern proposal with teacher review.                                                                     |
 | **Teacher Copilot**                                                                                                                                              | **P1: focused slice** | Proposes structured edits to an active teacher draft and can retrieve authorized evidence. Tracked in #86–#89; optional future work. |
-| [R3 — Teach-the-AI](https://github.com/peterbucci/ai-teaching-platform/issues/19) and [R6 — Voice](https://github.com/peterbucci/ai-teaching-platform/issues/22) | **P2: later**         | Additional learning modes that reuse the same evidence and tutoring system.                                                    |
+| [R3 — Teach-the-AI](https://github.com/peterbucci/ai-teaching-platform/issues/19) and [R6 — Voice](https://github.com/peterbucci/ai-teaching-platform/issues/22) | **P2: later**         | Additional learning modes that reuse the same evidence and tutoring system.                                                          |
 
 These were **team planning priorities**, not the official rubric or a checklist of delivered features. After submission, choose small optional contributions from the current backlog; no deadline or new implementation sprint is implied.
 
@@ -100,15 +100,15 @@ _Reviewed October 26, 2026 against main `db5b9b4f93dd60b911fb8ec97329d74320d4449
 
 ## Architecture at a glance
 
-| Area                     | Existing technology or design                                                                                    |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------- |
-| App and UI               | Next.js / React / TypeScript / Tailwind CSS                                                                      |
-| Identity and persistence | Better Auth, self-hosted PostgreSQL, Docker Compose                                                              |
-| AI                       | OpenAI API and structured, validated model outputs                                                               |
-| Application safeguards   | Zod schemas, server-owned authorization and tutoring state transitions                                           |
-| Content and grounding    | Approved, versioned passages; assignment-scoped retrieval; private uploads and immutable lesson versions |
-| New agentic coordination | **Bounded server-side student orchestrator**, reusing existing evaluator, controller and data access             |
-| Visuals                  | Validated activity specifications, reviewed React renderer, and code-calculated experiments; adaptive integration unfinished              |
+| Area                     | Existing technology or design                                                                                                |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| App and UI               | Next.js / React / TypeScript / Tailwind CSS                                                                                  |
+| Identity and persistence | Better Auth, self-hosted PostgreSQL, Docker Compose                                                                          |
+| AI                       | OpenAI API and structured, validated model outputs                                                                           |
+| Application safeguards   | Zod schemas, server-owned authorization and tutoring state transitions                                                       |
+| Content and grounding    | Approved, versioned passages; assignment-scoped retrieval; private uploads and immutable lesson versions                     |
+| New agentic coordination | **Bounded server-side student orchestrator**, reusing existing evaluator, controller and data access                         |
+| Visuals                  | Validated activity specifications, reviewed React renderer, and code-calculated experiments; adaptive integration unfinished |
 
 A separate agent framework, vector database, model-serving backend, or network of autonomous agents is **not a prerequisite**. Read [Agentic Architecture](docs/AGENTIC_ARCHITECTURE.md) for the detailed proposed design, responsibilities, data flows, limits, and integration checks.
 
@@ -168,17 +168,17 @@ Pick an existing maintenance or future-work issue, inspect current main and rela
 
 We work in focused issues and feature branches, with review before merging into `main`. Check existing PRs and dependencies before changing shared contracts or database migrations. Keep each PR's verified behavior, unrun cases, and remaining integration explicit. Do not overwrite another teammate's work or close an epic on the strength of a mockup.
 
-| Resource                                                                         | Use it for                                                                            |
-| -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| [Project board](https://github.com/users/peterbucci/projects/7)                  | Maintenance, future ideas, historical submission work and verification                                    |
-| [Roadmap / issues](https://github.com/peterbucci/ai-teaching-platform/issues/15) | Tracked capabilities, remaining acceptance and optional enhancements |
-| [Product context](PROJECT_CONTEXT.md)                                            | Revised vision, intended experiences, priorities and demonstration goals              |
-| [Agentic architecture](docs/AGENTIC_ARCHITECTURE.md)                             | Proposed orchestrator, tool permissions, data ownership and evidence flows            |
-| [AGENTS.md](AGENTS.md)                                                           | Engineering and coding-assistant rules                                                |
-| [Start Here](docs/START_HERE.md) · [First Task](docs/FIRST_TASK.md)              | Quick onboarding and an initial contribution                                          |
-| [Getting Started](docs/GETTING_STARTED.md) · [CONTRIBUTING](CONTRIBUTING.md)     | Local setup and team collaboration                                                    |
-| [Codex](docs/CODEX_SETUP.md) · [Claude Code](docs/CLAUDE_CODE_SETUP.md)          | Setup for an AI coding assistant                                                      |
-| [Content overview](content/README.md)                                            | Approved curated demo material and review guidance                                    |
+| Resource                                                                         | Use it for                                                                 |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| [Project board](https://github.com/users/peterbucci/projects/7)                  | Maintenance, future ideas, historical submission work and verification     |
+| [Roadmap / issues](https://github.com/peterbucci/ai-teaching-platform/issues/15) | Tracked capabilities, remaining acceptance and optional enhancements       |
+| [Product context](PROJECT_CONTEXT.md)                                            | Revised vision, intended experiences, priorities and demonstration goals   |
+| [Agentic architecture](docs/AGENTIC_ARCHITECTURE.md)                             | Proposed orchestrator, tool permissions, data ownership and evidence flows |
+| [AGENTS.md](AGENTS.md)                                                           | Engineering and coding-assistant rules                                     |
+| [Start Here](docs/START_HERE.md) · [First Task](docs/FIRST_TASK.md)              | Quick onboarding and an initial contribution                               |
+| [Getting Started](docs/GETTING_STARTED.md) · [CONTRIBUTING](CONTRIBUTING.md)     | Local setup and team collaboration                                         |
+| [Codex](docs/CODEX_SETUP.md) · [Claude Code](docs/CLAUDE_CODE_SETUP.md)          | Setup for an AI coding assistant                                           |
+| [Content overview](content/README.md)                                            | Approved curated demo material and review guidance                         |
 
 `README.md` and `PROJECT_CONTEXT.md` are protected, deliberately reviewed human-facing files. Changes to them should be explicitly requested and made in a separate, focused documentation PR; routine coding tasks must not regenerate them automatically. See [AGENTS.md](AGENTS.md).
 
