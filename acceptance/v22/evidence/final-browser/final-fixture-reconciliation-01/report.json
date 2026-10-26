@@ -1,0 +1,344 @@
+{
+  "startedAt": "2026-10-25T06:11:54.288Z",
+  "purpose": "Read-only parent reconciliation under the retained owned lock; no retry, quota modification, cleanup, restart or lock release",
+  "owner": {
+    "mode": "guarded-fixture-prepare",
+    "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+    "state": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+    "project": "lp-v22-shell5",
+    "sourceSha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+    "token": "7d632cc8-25f0-44a7-a520-f00d522ed7ea",
+    "pid": 62104,
+    "startedAt": "2026-10-25T06:08:54.924Z"
+  },
+  "checks": [
+    {
+      "name": "preflight:container-processes",
+      "observedAt": "2026-10-25T06:11:54.289Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50507157504,
+          "availableGiB": 47.038455963134766,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50507157504,
+          "availableGiB": 47.038455963134766,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50507157504,
+          "availableGiB": 47.038455963134766,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899318882304,
+          "availableGiB": 837.5559768676758,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50507157504,
+            "availableGiB": 47.038455963134766,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "name": "container-processes",
+      "argv": [
+        "docker",
+        "top",
+        "lp-v22-shell5-app-1",
+        "-eo",
+        "pid,args"
+      ],
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "name": "preflight:retained-container-receipt",
+      "observedAt": "2026-10-25T06:11:55.681Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50507149312,
+          "availableGiB": 47.038448333740234,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50507149312,
+          "availableGiB": 47.038448333740234,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50507149312,
+          "availableGiB": 47.038448333740234,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899318882304,
+          "availableGiB": 837.5559768676758,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50507149312,
+            "availableGiB": 47.038448333740234,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "name": "retained-container-receipt",
+      "argv": [
+        "docker",
+        "cp",
+        "lp-v22-shell5-app-1:/tmp/acceptance-output-87123a17-fc2b-495b-bcca-f7d9be6a671e.json",
+        "C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/final-fixture-reconciliation-01/container-receipt.json"
+      ],
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "name": "preflight:quota-and-original-read-only",
+      "observedAt": "2026-10-25T06:11:56.960Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50507116544,
+          "availableGiB": 47.03841781616211,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50507116544,
+          "availableGiB": 47.03841781616211,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50507116544,
+          "availableGiB": 47.03841781616211,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899318882304,
+          "availableGiB": 837.5559768676758,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50507112448,
+            "availableGiB": 47.038414001464844,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "name": "quota-and-original-read-only",
+      "argv": [
+        "docker",
+        "exec",
+        "-i",
+        "lp-v22-shell5-db-1",
+        "psql",
+        "-U",
+        "learning_app",
+        "-d",
+        "learning_platform",
+        "-At",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-c",
+        "BEGIN READ ONLY; SELECT json_build_object('observed_at',clock_timestamp(),'recent_count',(SELECT count(*) FROM teacher_intervention_requests WHERE teacher_id=(SELECT teacher_id FROM classes WHERE id='20000000-0000-4000-8000-000000000001') AND created_at>clock_timestamp()-interval '1 hour'),'earliest_capacity_at',(SELECT created_at+interval '1 hour' FROM teacher_intervention_requests WHERE teacher_id=(SELECT teacher_id FROM classes WHERE id='20000000-0000-4000-8000-000000000001') AND created_at>clock_timestamp()-interval '1 hour' ORDER BY created_at DESC OFFSET 9 LIMIT 1),'recent_requests',(SELECT json_agg(row_to_json(r)) FROM (SELECT request_id,status,created_at,completed_at FROM teacher_intervention_requests WHERE teacher_id=(SELECT teacher_id FROM classes WHERE id='20000000-0000-4000-8000-000000000001') AND created_at>clock_timestamp()-interval '1 hour' ORDER BY created_at)r),'original_evaluations',(SELECT json_agg(row_to_json(e)) FROM (SELECT id,validation_status,evaluated_at FROM evaluations WHERE attempt_id='280d524b-0b14-41df-a287-3e29bfdd5646')e),'authored_draft_count',(SELECT count(*) FROM teacher_intervention_drafts WHERE assignment_id='ebc4eb03-22ba-409b-b1c4-10bc54a86967')); COMMIT;"
+      ],
+      "exitCode": 0,
+      "error": null
+    }
+  ],
+  "database": {
+    "observed_at": "2026-10-25T06:11:58.203755+00:00",
+    "recent_count": 10,
+    "earliest_capacity_at": "2026-10-25T06:53:38.699297+00:00",
+    "recent_requests": [
+      {
+        "request_id": "60f49a6d-8da8-4651-8093-367f6731a996",
+        "status": "completed",
+        "created_at": "2026-10-25T05:53:38.699297+00:00",
+        "completed_at": "2026-10-25T05:53:38.853188+00:00"
+      },
+      {
+        "request_id": "a3252aee-b109-4e7a-8944-cab1a58572b4",
+        "status": "failed",
+        "created_at": "2026-10-25T05:53:38.908929+00:00",
+        "completed_at": "2026-10-25T05:53:38.924203+00:00"
+      },
+      {
+        "request_id": "ff6646cd-7bd9-4c97-9f79-5bc7230db6fb",
+        "status": "failed",
+        "created_at": "2026-10-25T05:53:38.961109+00:00",
+        "completed_at": "2026-10-25T05:53:38.970838+00:00"
+      },
+      {
+        "request_id": "efb69965-c665-4365-ba82-3ff6bf0040f1",
+        "status": "completed",
+        "created_at": "2026-10-25T05:53:38.997121+00:00",
+        "completed_at": "2026-10-25T05:53:39.016152+00:00"
+      },
+      {
+        "request_id": "b15f040f-9e57-4736-a218-f0ed605e8629",
+        "status": "failed",
+        "created_at": "2026-10-25T05:53:39.047184+00:00",
+        "completed_at": "2026-10-25T05:53:39.069966+00:00"
+      },
+      {
+        "request_id": "62ffa827-e596-4604-a4d1-3a8b69cbd8e1",
+        "status": "completed",
+        "created_at": "2026-10-25T05:54:53.816099+00:00",
+        "completed_at": "2026-10-25T05:54:53.976929+00:00"
+      },
+      {
+        "request_id": "df8ea718-2c56-4902-9cda-f2d207b6112f",
+        "status": "failed",
+        "created_at": "2026-10-25T05:54:54.040282+00:00",
+        "completed_at": "2026-10-25T05:54:54.051188+00:00"
+      },
+      {
+        "request_id": "26d7ca45-1647-4667-b66d-48b68ec6cf22",
+        "status": "failed",
+        "created_at": "2026-10-25T05:54:54.087137+00:00",
+        "completed_at": "2026-10-25T05:54:54.096645+00:00"
+      },
+      {
+        "request_id": "84304a85-ce64-4454-b8ce-7d9154b011d2",
+        "status": "completed",
+        "created_at": "2026-10-25T05:54:54.124019+00:00",
+        "completed_at": "2026-10-25T05:54:54.144769+00:00"
+      },
+      {
+        "request_id": "f990564f-d774-47c7-b2cd-dc37066cf9e8",
+        "status": "failed",
+        "created_at": "2026-10-25T05:54:54.173749+00:00",
+        "completed_at": "2026-10-25T05:54:54.192048+00:00"
+      }
+    ],
+    "original_evaluations": [
+      {
+        "id": "f01f8205-6973-4f05-b0c6-822857b48e72",
+        "validation_status": "pending_review",
+        "evaluated_at": "2026-10-25T06:09:01.953272+00:00"
+      },
+      {
+        "id": "bfa4701d-550b-4eaa-bce1-3eef49bcfb0c",
+        "validation_status": "accepted",
+        "evaluated_at": "2026-10-25T06:09:01.972082+00:00"
+      }
+    ],
+    "authored_draft_count": 0
+  },
+  "containerResult": {
+    "status": "failed",
+    "error": "The hourly limit of 10 draft requests has been reached. Review saved drafts or try later.",
+    "seams": [
+      {
+        "kind": "original-answer-evaluation",
+        "started_at": "2026-10-25T06:09:01.919Z",
+        "finished_at": "2026-10-25T06:09:01.980Z",
+        "evaluation_id": "bfa4701d-550b-4eaa-bce1-3eef49bcfb0c",
+        "model": "synthetic-same-browser-journey",
+        "synthetic": true
+      }
+    ]
+  },
+  "fixtureProcessAbsent": true,
+  "lockReleased": false,
+  "status": "reconciled-completed-quota-rejection",
+  "finishedAt": "2026-10-25T06:11:58.311Z"
+}

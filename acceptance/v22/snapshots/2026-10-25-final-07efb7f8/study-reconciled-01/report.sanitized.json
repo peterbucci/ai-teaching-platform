@@ -1,0 +1,210 @@
+{
+  "helper": "read-only-study-controller-reconciliation",
+  "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+  "project": "lp-v22-final-01a173d6",
+  "origin": "http://localhost:3396",
+  "inputSha256": "f0cadf710a1af273f440eef465910b0b7bf126fb63e8d80fc3274bc421d051a4",
+  "runtimeHelperSha256": "8ad52a1724481f7315eb57b0db96d4251520f761c0849c93cc545d169a69d647",
+  "safetySha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+  "startedAt": "2026-10-25T16:53:26.276Z",
+  "status": "passed",
+  "checks": [
+    {
+      "id": "ORIGINAL",
+      "label": "Every immutable original field and full original accepted evaluation preserved",
+      "status": "passed",
+      "attemptId": "ae652658-924b-485d-9a87-7281a7501099",
+      "evaluationId": "2531aac6-c71d-400a-948d-4bb29ac79535",
+      "immutableSha256": "7ff5f272625bb9b463d66ba97bcfb55de80bb689521e20fdbd4bbdf7b24a3e83",
+      "acceptedEvaluationSha256": "35430b2c4eabadd9b0c741406719b72c82dcdbee96219fdab5407b39bca51d7c"
+    },
+    {
+      "id": "DERIVED",
+      "label": "Existing controller recorded expected diagnostic outcome and illustrative review",
+      "status": "passed",
+      "before": null,
+      "after": {
+        "root_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+        "concept_ids": [
+          "d1edb362-fa58-4e34-b8af-08c1f685e583"
+        ],
+        "hypothesis_instance_id": null,
+        "latest_hypothesis_status": null,
+        "outcome": "correct_diagnostic_without_content_assistance",
+        "supporting_attempt_ids": [
+          "ae652658-924b-485d-9a87-7281a7501099",
+          "c3290bd2-1da9-42c2-9b2a-43c1840ad2bd"
+        ],
+        "intervention_ids": [],
+        "recorded_at": "2026-10-25T16:49:38.206215+00:00",
+        "next_review_at": "2026-10-26T16:49:38.198Z",
+        "review_policy_version": "approved-sequence-v1",
+        "review_reason": "Illustrative 24-hour review after this session. Immediate success after assistance does not establish lasting retention."
+      },
+      "source": "lib/tutoring/decide.ts diagnostic_followup correct -> END_SESSION, correct_diagnostic_without_content_assistance",
+      "originalResultRelabeled": false
+    },
+    {
+      "id": "LATEST",
+      "label": "Latest accepted diagnostic result and existing applied controller found without replay",
+      "status": "passed",
+      "attemptId": "c3290bd2-1da9-42c2-9b2a-43c1840ad2bd",
+      "evaluationId": "da750b4d-9635-4518-960d-e5f7130657c9",
+      "action": "END_SESSION"
+    }
+  ],
+  "observations": [],
+  "screenshots": [],
+  "blockedRequests": [],
+  "safety": [
+    {
+      "label": "launch-teacher-viewport",
+      "observedAt": "2026-10-25T16:53:26.281Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "availableBytes": 43278659584,
+          "availableGiB": 40.306392669677734,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "availableBytes": 43278659584,
+          "availableGiB": 40.306392669677734,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 43278659584,
+          "availableGiB": 40.306392669677734,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "learningplatform-db-1",
+          "source": "/var/lib/docker/volumes/learningplatform_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 898954559488,
+          "availableGiB": 837.2166748046875,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 43278585856,
+            "availableGiB": 40.30632400512695,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "label": "launch-student-viewport",
+      "observedAt": "2026-10-25T16:53:28.658Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "availableBytes": 43263787008,
+          "availableGiB": 40.29254150390625,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "availableBytes": 43263787008,
+          "availableGiB": 40.29254150390625,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 43263787008,
+          "availableGiB": 40.29254150390625,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "learningplatform-db-1",
+          "source": "/var/lib/docker/volumes/learningplatform_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 898954518528,
+          "availableGiB": 837.2166366577148,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 43263705088,
+            "availableGiB": 40.29246520996094,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    }
+  ],
+  "actualModelCalls": 0,
+  "syntheticEvaluation": true,
+  "method": "Authenticated read-only APIs after fictional demo sign-in; compare every original attempt field except controller-derived outcome, and full accepted original evaluation.",
+  "limitations": [
+    "No screen reader or physical device acceptance",
+    "Synthetic fixtures do not demonstrate actual-model decisions"
+  ],
+  "lockOwner": {
+    "action": "read-only-study-controller-reconciliation",
+    "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+    "state": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+    "out": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\study-reconciled-01",
+    "project": "lp-v22-final-01a173d6",
+    "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+    "pid": 58300,
+    "startedAt": "2026-10-25T16:53:26.276Z"
+  },
+  "harnessSha256": "ee38a24c0cba6e5e8ff765106ed81df81a4c4343933328a80dc8c1eacb5ac53a",
+  "browserReceiptSha256": "a251ba31080ab5611f7a2c13d9d922f75b76f2b605ff17eaf9dcb74596139d78",
+  "priorApiEvidenceSha256": "f54422eff7d21254e88d4849f9f8a6296605c10ee1cf534fbd11dc99578ffea7",
+  "evaluationCalls": 0,
+  "controllerCalls": 0,
+  "completedReceipt": "fixture.json",
+  "finishedAt": "2026-10-25T16:53:31.834Z"
+}

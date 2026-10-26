@@ -1,0 +1,88 @@
+{
+  "preparedAtUtc": "2026-10-25T16:31:03.5390156Z",
+  "status": "prepared; syntax checked; runtime UNRUN",
+  "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+  "project": "lp-v22-final-01a173d6",
+  "origin": "http://localhost:3396",
+  "changes": [
+    "PR122 helpers: exact combined/runtime identity only; student fixture adapter narrowed to student-regression",
+    "PR113 launcher: task-private bundle, exact combined image/network/identity, new fictional actor from PR122 seed, local dedicated Edge launch",
+    "PR113 fixture actor: use acceptance-regression profile instead of demo student; remove timestamp-based expire mode",
+    "R5 actual expiry intentionally UNRUN through original missing-hook path; original failure/pass assertions remain",
+    "Desktop captures 1440x1000 instead of prior1440x900",
+    "New guarded-matrix wrapper uses unchanged reviewed safety helper, same lock, 10GiB gate and Docker preflight per operation; failed/uncertain outcomes retain own lock",
+    "Wrapper may report completed-with-unrun, exit2 only after all five authorized recovery cases pass and R5 alone is explicitly UNRUN"
+  ],
+  "files": [
+    {
+      "file": "student-regression-browser.mjs",
+      "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform\\acceptance\\v22\\runner-final\\student-regression-browser.mjs",
+      "sourceCommit": "a82b90864b9d87153ba88128eb2282ac60f6dbeb",
+      "sourceSha256": "aeb205251b80b7b807467d66a49413bc6f959f89885aeaf501af42747e774ef7",
+      "outputSha256": "ab0a6951f74555b5599504490173b70df1631b9e27d9e08196bdc7f4b91c35ae"
+    },
+    {
+      "file": "seed-student-regression.mjs",
+      "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform\\acceptance\\v22\\runner-final\\seed-student-regression.mjs",
+      "sourceCommit": "a82b90864b9d87153ba88128eb2282ac60f6dbeb",
+      "sourceSha256": "7e0a79b66b1f628c078401b7f40140e5effc2ebe162a531340b734bad6d4dd2b",
+      "outputSha256": "4d776cb1e0b8d3d861f1e8d4f7f5adc53f053e45ef32c730b9872248a9cb923d"
+    },
+    {
+      "file": "guarded-browser.mjs",
+      "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform\\acceptance\\v22\\runner-final\\guarded-browser.mjs",
+      "sourceCommit": "a82b90864b9d87153ba88128eb2282ac60f6dbeb",
+      "sourceSha256": "2287f0b8c047d82cb9c3a296ba03c6eac03557352dcbaeb4294ccbcf335f9b3a",
+      "outputSha256": "470465b5bd865fefc95f946d916e5faf16b960ad191c8b3499aae20761139bfd"
+    },
+    {
+      "file": "run-browser.mjs",
+      "source": "C:\\Users\\sb128\\.codex\\worktrees\\student-acceptance-blockers\\LearningPlatform\\acceptance\\student-blockers\\run-browser.mjs",
+      "sourceCommit": "71898a8a72908577065bcc7c7fb9035d6cc29ebf",
+      "sourceSha256": "da0241064f58be8171734d04d5ef46fe50b0c28e66a0ec9eccffbfa65482a1ec",
+      "outputSha256": "a138bbc436d0eee88e433bbcd356a660330a8e791c0b9034483af11c28280f97"
+    },
+    {
+      "file": "result-fixture-step.mjs",
+      "source": "C:\\Users\\sb128\\.codex\\worktrees\\student-acceptance-blockers\\LearningPlatform\\acceptance\\student-blockers\\result-fixture-step.mjs",
+      "sourceCommit": "71898a8a72908577065bcc7c7fb9035d6cc29ebf",
+      "sourceSha256": "63ea19bb9ab4053e12befb669aef3d6a315f9c0d520f9f575d5d6335e1947d36",
+      "outputSha256": "f6ac3c542b1d8d355b93e74882191d32ca3c9d223a9812d449d30d2776fc5f29"
+    },
+    {
+      "file": "result-browser-check.mjs",
+      "source": "C:\\Users\\sb128\\.codex\\worktrees\\student-acceptance-blockers\\LearningPlatform\\acceptance\\student-blockers\\result-browser-check.mjs",
+      "sourceCommit": "71898a8a72908577065bcc7c7fb9035d6cc29ebf",
+      "sourceSha256": "013af530f6caeb3bc7a49100910f73339e89330348d88a1a2b7ee7b8d671bf0e",
+      "outputSha256": "6dd6fa22ef871b5fa06204c0dc220269435234170f8c9219408a288118825d4a"
+    },
+    {
+      "file": "recovery-fixture.mjs",
+      "source": "C:\\Users\\sb128\\.codex\\worktrees\\student-acceptance-blockers\\LearningPlatform\\acceptance\\student-blockers\\recovery-fixture.mjs",
+      "sourceCommit": "71898a8a72908577065bcc7c7fb9035d6cc29ebf",
+      "sourceSha256": "ed8d073b29a5e0376e1c324fadb849898a9e51994b3da8b71924906356e1dba2",
+      "outputSha256": "47d56cd3896c325436a10a9b307e8d692c622f4a1238e679efa45e79c317ff70"
+    },
+    {
+      "file": "recovery-browser-check.mjs",
+      "source": "C:\\Users\\sb128\\.codex\\worktrees\\student-acceptance-blockers\\LearningPlatform\\acceptance\\student-blockers\\recovery-browser-check.mjs",
+      "sourceCommit": "71898a8a72908577065bcc7c7fb9035d6cc29ebf",
+      "sourceSha256": "2def9ad389cd7a76ed8db73f8813493d90870e1697085aad63e8b68f2d10cd61",
+      "outputSha256": "2def9ad389cd7a76ed8db73f8813493d90870e1697085aad63e8b68f2d10cd61"
+    },
+    {
+      "file": "guarded-container-fixture.mjs",
+      "source": "C:/Users/sb128/.codex/worktrees/workbench-verification-report/LearningPlatform/acceptance/v22/runner-final/guarded-container-fixture.mjs",
+      "sourceCommit": "a82b90864b9d87153ba88128eb2282ac60f6dbeb",
+      "sourceSha256": "d1b4245fbe17f4a159a9aa66b00a2d03a078bf077ed1acc2b7cd59f1ed5c2e2a",
+      "outputSha256": "bb1092ee255a9534e4c9e9cbd7aa66179be101268f63be471aab56f112949474"
+    }
+  ],
+  "newFiles": [
+    {
+      "file": "guarded-matrix.mjs",
+      "sha256": "6bc3c5bacfba9ce3a3b0be199ad785b33772f183c57730a834129e50a9bc655e"
+    }
+  ]
+}

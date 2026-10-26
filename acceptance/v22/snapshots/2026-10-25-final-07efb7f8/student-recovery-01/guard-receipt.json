@@ -1,0 +1,84 @@
+{
+  "mode": "recovery",
+  "status": "completed-with-unrun",
+  "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+  "origin": "http://localhost:3396",
+  "project": "lp-v22-final-01a173d6",
+  "fixtureSha256": "6caee8af7fe4782bfc00a614daad1407d4647b3994d13d15bf8fda2a03ff74c6",
+  "wrapperSha256": "6bc3c5bacfba9ce3a3b0be199ad785b33772f183c57730a834129e50a9bc655e",
+  "runnerSha256": "a138bbc436d0eee88e433bbcd356a660330a8e791c0b9034483af11c28280f97",
+  "paidModelCalls": 0,
+  "startedAt": "2026-10-25T16:59:06.124Z",
+  "out": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\student-recovery-01",
+  "preflight": {
+    "observedAt": "2026-10-25T16:59:06.129Z",
+    "minimumGiB": 10,
+    "host": [
+      {
+        "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+        "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+        "availableBytes": 43186356224,
+        "availableGiB": 40.220428466796875,
+        "minimumGiB": 10,
+        "pass": true
+      },
+      {
+        "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+        "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+        "availableBytes": 43186356224,
+        "availableGiB": 40.220428466796875,
+        "minimumGiB": 10,
+        "pass": true
+      },
+      {
+        "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+        "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+        "availableBytes": 43186356224,
+        "availableGiB": 40.220428466796875,
+        "minimumGiB": 10,
+        "pass": true
+      }
+    ],
+    "engine": {
+      "status": "healthy",
+      "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+      "name": "docker-desktop",
+      "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+      "root": "/var/lib/docker",
+      "storage": {
+        "status": "verified",
+        "method": "read-only df on explicitly selected existing container volume",
+        "container": "learningplatform-db-1",
+        "source": "/var/lib/docker/volumes/learningplatform_postgres_data/_data",
+        "destination": "/var/lib/postgresql/data",
+        "availableBytes": 898954067968,
+        "availableGiB": 837.2162170410156,
+        "pass": true
+      }
+    },
+    "backingStorage": {
+      "provenance": "explicit owner-verified Docker storage path",
+      "disks": [
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+          "availableBytes": 43186298880,
+          "availableGiB": 40.220375061035156,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ]
+    },
+    "pass": true
+  },
+  "childExitCode": 1,
+  "unrun": [
+    {
+      "id": "R5-real-auth-expiry-safe-return",
+      "reason": "No saved timestamp alteration authorized"
+    }
+  ],
+  "finishedAt": "2026-10-25T16:59:49.854Z",
+  "lockRetained": false
+}

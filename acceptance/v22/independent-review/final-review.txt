@@ -1,0 +1,67 @@
+FINAL INDEPENDENT VERIFICATION REVIEW
+October 25, 2026 — Learning Pulse Workbench v2.2
+
+Scope and outcome
+The reviewed verification utilities preserve the separation between exact branch snapshots, their combined application and unrun browser/model acceptance. No consequential verification-code defect remains in the reviewed final runner/authoring changes. This does not approve the implementation PRs for merge: the application context defects and incomplete acceptance listed below remain.
+
+All final-review activity was file inspection and artifact packaging during the coordinator's storage hold. No build, browser, database mutation, new fixture, paid call, merge or implementation edit was performed during that hold. The earlier browser checks explicitly identified below ran before it.
+
+Application identity
+Combined commit: eba2fba3eee223bb43c0eea5fe197e9569285ea9
+Combined tree: 016e8aeebd3b1f584cc7bd5a1036afcfeb8eac5c
+Main: 723ed6fea41138b604a9d333ebcd4a07b2202c36
+Merge order and pinned heads: #116 76b11ddfa0ce784f70290c0746efd94c7042f6fc; #117 6f9dd8991abef5efa8108e50b2274dc3bdc13ce6; #118 d2dca515b1a926daf28e791044fe04d01bdf20a9; #113 2b490863cc6de69a7659f1df1e4628bc22dd7d9a.
+
+Final utility review
+- runner.mjs SHA256 f3f75f560ee049f512a4a7a582a9b5262a54d41c6b688855923674fdbd34a2a7: validates HEAD/tree, rejects unexpected tracked/untracked/ignored inputs, discloses generated-file exceptions, refuses existing target Docker resources before fresh init, and preserves separate runtime/check records. Incremental reports are running; normal early exit is aborted; completed pass requires command completion. A force-killed process can retain running, not a completed pass.
+- authoring-browser.mjs SHA256 e39f6a361586ea09a8a6062bf03b2ee95852a3d967270dde08d1f11ee67003c8: the earlier failed-responsive exit0 defect is corrected; every non-passed final status sets a nonzero exit. Browser requests outside the selected origin are now blocked (inline data/blob resources remain allowed). Original errors and screenshots are retained. Manual approval/publication/activation remain separate. This script is prepared, not runtime-accepted.
+- authoring-tests.mjs SHA256 b5073c8b19b9876154cb2fa095313634b5619ff731fddbc650878f5c5d4f5d13: explicit imports include the bracketed Next.js path; files absent on older snapshots receive named skips. Skips are not application passes.
+- compose-candidate.mjs SHA256 2002f9a05ffdf5745a465aa4cc560b8913294c96ecdcc15066c157a6d62fae99: creates a new temporary branch/worktree from fixed main, merges fixed heads in recorded order, stops and preserves conflicts, and compares the final tree. It does not alter remote branches or merge into main. Recreated merge commits can differ while the tree matches.
+- Prepared student fixture/browser utilities were reviewed for scope and reporting: they use new fictional learners, explicitly synthetic evaluations, exact fixture/source identity, local runtime checks and separate nonzero failure reporting. Their recovery fault is an injected precommit401, not a claim that actual session expiry was tested. Both remain unrun.
+- Fixed target names support one sequentially coordinated runtime per target. Concurrent initialization of the same target is unsupported. Generated next-env.d.ts is an explicit source-guard exception; existing node_modules can be reused only in the explicitly reported quality mode.
+
+Application findings (owning PRs; see compatibility-review.txt for source references)
+C1 P2 — #117 / shared-shell coordination: a class-filtered implicit assignment selection is not passed to TeacherFrame, so shared navigation can fall back to another class's first authorized assignment. Static confirmation; browser unrun because the initial seed lacked the required second-class case.
+C2 P2 — #117 and #116 return contract: assignment progress -> full session -> Back routes to Learning insights instead of the selected assignment progress cell. Reproduced in the combined real browser. The confirmed report records both the rendered href and actual destination URL.
+C3 P2 — #116: shared navigation can overwrite the saved intervention's server-corrected concept/origin with stale URL parameters. Static confirmation; saved-draft browser case unrun. A wrong assignment is explicitly rejected; this is not a cross-assignment authorization leak.
+C4 P2 — #116 / #118: lesson-title q search is propagated into Evidence's student/question/response text search. Static confirmation; initial browser seed lacked an owned lesson title.
+C5 P3 — #118 / #117: published Lessons still uses its legacy exact-version assignment creation disclosure and generic Assignments link rather than the new exact-version builder handoff. The legacy form preserves version identity; this is a continuity gap, not an immutable-version service failure.
+
+Earlier browser evidence retained here
+browser-context-confirmed/report.json:
+- Real authenticated fictional teacher, exact combined commit/tree, GET-only application navigation after demo login.
+- C2 reproduced with assignment 30000000-0000-4000-8000-000000000001, selected student/concept, exact attempt link, Back to learning insights label and actual /teacher/insights destination.
+- C1/C3/C4 explicitly unrun for missing initial prerequisites.
+- Zero blocked requests and zero page errors recorded. No application record was created by this read-only path.
+
+browser-accessibility/report.json:
+- Actual native browser 200% verified with separate Edge profiles: outer 1440x1000; baseline DPR 1 and CSS 1416x908; zoomed DPR 2 and CSS 708x454. visualViewportScale remained 1 and root CSS zoom remained 1. This is browser zoom, not CSS zoom or a scaled screenshot.
+- Keyboard login, drawer opening, Escape focus restoration, Evidence navigation and original-response/full-session links were reached. Measured Login, Desk, Evidence and full-session captures had no horizontal document overflow.
+- Browser Back restored H2#response-detail-title for the same original response. Forward was reached; its immediate BODY focus observation is insufficient to declare complete focus restoration.
+- The bounded pass ended on a test-selector ambiguity during reload. This is a harness failure, not an application defect. Reload confirmation and dedicated 390/320 drawer checks remain incomplete. The delivered accessibility script corrects that selector and adds settled-focus sampling; the correction was not rerun before the storage hold.
+- Screen-reader verification, student long-response/reading/composer checks, comprehensive keyboard editing and comprehensive accessibility acceptance remain unrun by this reviewer.
+
+What the broader executed suites establish
+Read-only inspection of the coordinator's retained combined reports confirms 89 integration command phases with no failing phase, and 5 approval/follow-up command phases with no failing phase, all against the same application commit. These counts include restart/health/gateway phases; they are not counts of distinct application test cases. The older integration report predates runCompleted reporting; the later approval report records runCompleted=true. Current harness changes do not retroactively change the retained run identities.
+
+Those repository/database/HTTP fixtures do not complete the newly authored cross-role browser journey. The manual source->lesson->inactive assignment->activation->student help/answer->teacher evidence browser scenario remains UNRUN. Same-browser-journey intervention delivery and linked follow-up remain UNRUN. Actual-model verification and screen-reader verification remain UNRUN. A separately committed shared-shell composition still requires its own pinned integration and acceptance.
+
+Publication hygiene
+The publishable package contains only this review, the static compatibility review, the focused verification scripts, the two executed report.json files and their PNG screenshots. Browser profiles, cookies, environment files, credentials, private project references, application code and duplicate superseded test attempts are excluded. The export manifest records file hashes. Raw historical reports are preserved rather than rewritten to claim a later run occurred.
+
+Published-copy review: SHA-256 comparison confirmed all nine current runner/helpers/status/report/log files under acceptance/v22 are byte-identical to the reviewed ROOT/runner-work files. No published application changes were inspected or approved by this utility review.
+
+Packaging validation: the two dedicated context/accessibility scripts were formatted and passed syntax checks without starting a browser. The preserved executed reports retain their original runner hashes; later formatting and the explicitly noted accessibility selector repair are not represented as another executed acceptance run.
+
+Safety addition checkpoint — 2026-10-25 04:49 UTC
+This checkpoint reviews only the PR121 safety helper/test copy and its wiring into the verification runner. No consequential flaw was found in this delta. The original application runs above retain their old harness hashes and are not rerun or reclassified by this review.
+- Guarded runner.mjs SHA256: 9edadf9d6cf38231bb539162065f450c360525ca78e4722162e3873a6b64996a.
+- safety.mjs SHA256: af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485.
+- safety.test.mjs SHA256: 819efd0de539780581236109fcbe72cde23352748942c77c80392eb235dd30d3.
+- Independently compared both safety files with coordinator PR121 commit fe8323ae8406e4d6415e4486849317fb48a91821's retained source copies; hashes are identical. This review adds no competing guard implementation.
+- Host source/state/temp space is measured before Docker probes. Init checks safety before resource inventory or creating credentials/configuration; each subsequent non-report child command is gated. Required available space is 20 GiB for init/build/quality/preflight and 10 GiB for runtime modes. Quality uses host checks only; report mode is read-only and exempt from storage probing.
+- Unknown/local-engine-storage failures and insufficient space fail closed. A failed child command now aborts the remaining phases instead of continuing. The per-user shared lock is acquired before mode execution, and release checks its unique owner token. It never automatically removes an existing or changed-owner lock. Diagnostic directories/reports may be written on rejection; no runtime resource creation is implied by those artifacts.
+- Read retained safety-tests.log: 10 pure tests passed, zero failed/skipped. Low-space behavior is tested with injected storage readings and confirms zero Docker probes; this is not an actual low-disk runtime execution.
+- Read the actual 2026-10-25T04:46:53.987Z preflight receipt: exit 1 at an already-existing shared lock. The existing lock remained present; no manifest, compose file or credentials were created. The report is aborted with runCompleted=false. Storage and Docker probes were not reached. Do not describe this as an actual low-space refusal; host headroom subsequently changed and no further probe was performed by this reviewer.
+- The published compose-candidate.mjs hash is b459b7418be0e69bd82eefc06d1e23f35f0a19d515ac88e3ba3b2d38c6d265a8. Inspection confirms only formatting differs from the earlier reviewed original hash 2002f9a05ffdf5745a465aa4cc560b8913294c96ecdcc15066c157a6d62fae99. Historical composition receipts remain tied to their actual executed original.
+- New committed shell and updated assignment/lesson snapshots became available after the first application review. Their separate static contract review is shell-review.txt; it does not supersede the first combination's raw evidence or establish a new combined runtime pass.

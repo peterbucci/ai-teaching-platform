@@ -1,0 +1,799 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-25T05:12:46.641Z",
+  "category": "Static Git object-only intake; no build, Docker, browser, database or model run",
+  "repository": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+  "targets": [
+    {
+      "pr": 113,
+      "before": "2b490863cc6de69a7659f1df1e4628bc22dd7d9a",
+      "after": "2fc0d49a63f046a99e62805398b83cdada01a87a",
+      "owner": "PR #113 student conversation/recovery",
+      "tree": "ec9cf579dd308adc3a18d3a90092f4029ef1374d",
+      "deltaCommits": [
+        "2fc0d49a63f046a99e62805398b83cdada01a87a Preserve answer save uncertainty and reconcile recovery"
+      ],
+      "changedFiles": [
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/RESULTS.md"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/evidence/before-2b490863/active-top-1024x768.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/evidence/before-2b490863/active-top-1440x900.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/evidence/before-2b490863/active-top-320x844.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/evidence/before-2b490863/active-top-390x844.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/evidence/before-2b490863/answer-save-401-preserved.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/evidence/before-2b490863/answer-save-offline-preserved.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/evidence/before-2b490863/composer-1024x768.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/evidence/before-2b490863/composer-1440x900.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/evidence/before-2b490863/composer-320x844.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/evidence/before-2b490863/composer-390x844.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/evidence/before-2b490863/correct-result-1024x768.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/evidence/before-2b490863/correct-result-1440x900.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/evidence/before-2b490863/correct-result-320x844.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/evidence/before-2b490863/correct-result-390x844.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/evidence/before-2b490863/correct-result-visible-text.txt"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/evidence/before-2b490863/help-fallback-ungraded.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/evidence/before-2b490863/reading-1440x900.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/evidence/before-2b490863/student-browser-report.json"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/evidence/before-2b490863/student-result-report.json"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/recovery-browser-check.mjs"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/recovery-fixture.mjs"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/result-browser-check.mjs"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/result-fixture-step.mjs"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "acceptance/student-blockers/run-browser.mjs"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "app/study/answer-recovery.ts"
+          ]
+        },
+        {
+          "status": "M",
+          "paths": [
+            "app/study/dialogue.tsx"
+          ]
+        },
+        {
+          "status": "M",
+          "paths": [
+            "app/study/session.tsx"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "tests/answer-recovery.test.ts"
+          ]
+        }
+      ],
+      "productionChangedFiles": [
+        "app/study/answer-recovery.ts",
+        "app/study/dialogue.tsx",
+        "app/study/session.tsx"
+      ]
+    },
+    {
+      "pr": 116,
+      "before": "76b11ddfa0ce784f70290c0746efd94c7042f6fc",
+      "after": "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+      "owner": "PR #116 Teaching Desk, Evidence and Interventions",
+      "tree": "a965e4febd5918318eaaa75ce840b1d2ad92463e",
+      "deltaCommits": [
+        "94e4e534ea4d68d86ea0810067497bf07258e6d2 Fix saved draft scope, evaluation wording, and navigation recovery"
+      ],
+      "changedFiles": [
+        {
+          "status": "A",
+          "paths": [
+            "app/teacher/evidence/evaluation-display.ts"
+          ]
+        },
+        {
+          "status": "M",
+          "paths": [
+            "app/teacher/evidence/page.tsx"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "app/teacher/evidence/results-navigation.ts"
+          ]
+        },
+        {
+          "status": "M",
+          "paths": [
+            "app/teacher/evidence/results.tsx"
+          ]
+        },
+        {
+          "status": "M",
+          "paths": [
+            "app/teacher/interventions/editor.tsx"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "app/teacher/interventions/navigation-block.ts"
+          ]
+        },
+        {
+          "status": "M",
+          "paths": [
+            "app/teacher/interventions/page.tsx"
+          ]
+        },
+        {
+          "status": "M",
+          "paths": [
+            "app/teacher/interventions/snapshot-context.ts"
+          ]
+        },
+        {
+          "status": "M",
+          "paths": [
+            "app/teacher/interventions/workspace.tsx"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "app/teacher/navigation-context.ts"
+          ]
+        },
+        {
+          "status": "M",
+          "paths": [
+            "app/teacher/navigation.tsx"
+          ]
+        },
+        {
+          "status": "M",
+          "paths": [
+            "app/teacher/presentation.tsx"
+          ]
+        },
+        {
+          "status": "M",
+          "paths": [
+            "docs/TEACHER_WORKBENCH_CONTRACTS.md"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "tests/teacher-evaluation-display.test.ts"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "tests/teacher-evidence-results-navigation.test.ts"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "tests/teacher-intervention-navigation-block.test.ts"
+          ]
+        },
+        {
+          "status": "M",
+          "paths": [
+            "tests/teacher-intervention-snapshot-context.test.ts"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "tests/teacher-navigation-context.test.ts"
+          ]
+        }
+      ],
+      "productionChangedFiles": [
+        "app/teacher/evidence/evaluation-display.ts",
+        "app/teacher/evidence/page.tsx",
+        "app/teacher/evidence/results-navigation.ts",
+        "app/teacher/evidence/results.tsx",
+        "app/teacher/interventions/editor.tsx",
+        "app/teacher/interventions/navigation-block.ts",
+        "app/teacher/interventions/page.tsx",
+        "app/teacher/interventions/snapshot-context.ts",
+        "app/teacher/interventions/workspace.tsx",
+        "app/teacher/navigation-context.ts",
+        "app/teacher/navigation.tsx",
+        "app/teacher/presentation.tsx"
+      ]
+    },
+    {
+      "pr": 117,
+      "before": "9f300ce6e975ab460328a8aa4428c26d441ee0ab",
+      "after": "9f300ce6e975ab460328a8aa4428c26d441ee0ab",
+      "owner": "PR #117 Assignments",
+      "tree": "3359c1975902b6ba1bdb7818d061ca1a584f4aa1",
+      "deltaCommits": [],
+      "changedFiles": [],
+      "productionChangedFiles": []
+    },
+    {
+      "pr": 118,
+      "before": "7b82197f5c0b665a955d5dc47a07e13d8a19627a",
+      "after": "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445",
+      "owner": "PR #118 Lessons",
+      "tree": "fe076e9d9a2fe3fd3527b402b577cd812e8c8333",
+      "deltaCommits": [
+        "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445 Verify final objectives menu after storage recovery"
+      ],
+      "changedFiles": [
+        {
+          "status": "M",
+          "paths": [
+            "app/teacher/lessons/verification/after-objectives-1440.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "app/teacher/lessons/verification/after-objectives-menu-1024.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "app/teacher/lessons/verification/after-objectives-menu-320.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "app/teacher/lessons/verification/after-objectives-menu-390.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "app/teacher/lessons/verification/after-objectives-published-v1-1440.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "app/teacher/lessons/verification/after-objectives-recovery-320.png"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "app/teacher/lessons/verification/final-menu-verification.json"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "app/teacher/lessons/verification/production-build-receipt.json"
+          ]
+        },
+        {
+          "status": "A",
+          "paths": [
+            "app/teacher/lessons/verification/production-build.txt"
+          ]
+        },
+        {
+          "status": "M",
+          "paths": [
+            "app/teacher/lessons/verification/report.html"
+          ]
+        }
+      ],
+      "productionChangedFiles": []
+    },
+    {
+      "pr": 120,
+      "before": "dd97767cda2e445bb1cf669b94363d1d9e9500b4",
+      "after": "dd97767cda2e445bb1cf669b94363d1d9e9500b4",
+      "owner": "PR #120 shared shell",
+      "tree": "f4583943f459973043959d5c7acf1d279d49aa3b",
+      "deltaCommits": [],
+      "changedFiles": [],
+      "productionChangedFiles": []
+    }
+  ],
+  "pairwise": [
+    {
+      "pair": [
+        113,
+        116
+      ],
+      "ours": "2fc0d49a63f046a99e62805398b83cdada01a87a",
+      "theirs": "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "result": "clean-object-only-merge",
+      "generatedTreeObject": "4ba4d7b257d8dd94737cff1f54a6d2ba25a96d59",
+      "unmergedPaths": [],
+      "conflictMessages": [],
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "2fc0d49a63f046a99e62805398b83cdada01a87a",
+        "94e4e534ea4d68d86ea0810067497bf07258e6d2"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "4ba4d7b257d8dd94737cff1f54a6d2ba25a96d59\n\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "pair": [
+        113,
+        117
+      ],
+      "ours": "2fc0d49a63f046a99e62805398b83cdada01a87a",
+      "theirs": "9f300ce6e975ab460328a8aa4428c26d441ee0ab",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "result": "clean-object-only-merge",
+      "generatedTreeObject": "b9f269bf237fe8948d601dd447f6d0a913b839f2",
+      "unmergedPaths": [],
+      "conflictMessages": [],
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "2fc0d49a63f046a99e62805398b83cdada01a87a",
+        "9f300ce6e975ab460328a8aa4428c26d441ee0ab"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "b9f269bf237fe8948d601dd447f6d0a913b839f2\n\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "pair": [
+        113,
+        118
+      ],
+      "ours": "2fc0d49a63f046a99e62805398b83cdada01a87a",
+      "theirs": "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "result": "clean-object-only-merge",
+      "generatedTreeObject": "6ff9c4bc00f380e8bafd882f943bb61b168e2cc7",
+      "unmergedPaths": [],
+      "conflictMessages": [],
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "2fc0d49a63f046a99e62805398b83cdada01a87a",
+        "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "6ff9c4bc00f380e8bafd882f943bb61b168e2cc7\n\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "pair": [
+        113,
+        120
+      ],
+      "ours": "2fc0d49a63f046a99e62805398b83cdada01a87a",
+      "theirs": "dd97767cda2e445bb1cf669b94363d1d9e9500b4",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "result": "clean-object-only-merge",
+      "generatedTreeObject": "01987d93c8db8991e35c2854c1325440f69e74d6",
+      "unmergedPaths": [],
+      "conflictMessages": [],
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "2fc0d49a63f046a99e62805398b83cdada01a87a",
+        "dd97767cda2e445bb1cf669b94363d1d9e9500b4"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "01987d93c8db8991e35c2854c1325440f69e74d6\n\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "pair": [
+        116,
+        117
+      ],
+      "ours": "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+      "theirs": "9f300ce6e975ab460328a8aa4428c26d441ee0ab",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "result": "clean-object-only-merge",
+      "generatedTreeObject": "fc0480d8e4a839cf13685e9881385230dcf113c9",
+      "unmergedPaths": [],
+      "conflictMessages": [],
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+        "9f300ce6e975ab460328a8aa4428c26d441ee0ab"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "fc0480d8e4a839cf13685e9881385230dcf113c9\n\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "pair": [
+        116,
+        118
+      ],
+      "ours": "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+      "theirs": "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "result": "clean-object-only-merge",
+      "generatedTreeObject": "ce871638c0a703ab464aeff04e9f4932b69735a4",
+      "unmergedPaths": [],
+      "conflictMessages": [],
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+        "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "ce871638c0a703ab464aeff04e9f4932b69735a4\n\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "pair": [
+        116,
+        120
+      ],
+      "ours": "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+      "theirs": "dd97767cda2e445bb1cf669b94363d1d9e9500b4",
+      "mergeBase": "76b11ddfa0ce784f70290c0746efd94c7042f6fc",
+      "result": "conflict",
+      "generatedTreeObject": "004f48c50f3ce775c8906cedf297fbd6b9d14e0f",
+      "unmergedPaths": [
+        "app/teacher/navigation.tsx"
+      ],
+      "conflictMessages": [
+        "CONFLICT (content): Merge conflict in app/teacher/navigation.tsx"
+      ],
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+        "dd97767cda2e445bb1cf669b94363d1d9e9500b4"
+      ],
+      "exitCode": 1,
+      "signal": null,
+      "stdout": "004f48c50f3ce775c8906cedf297fbd6b9d14e0f\n100644 a21518f6fead9057ab864ad679cdfa29f7686faa 1\tapp/teacher/navigation.tsx\n100644 caac60f1c8bf30293e4091b8bcccf9584df903cf 2\tapp/teacher/navigation.tsx\n100644 a1e8fc5b626e791cb00d099b91c3ea91426bd86e 3\tapp/teacher/navigation.tsx\n\nAuto-merging app/teacher/navigation.tsx\nCONFLICT (content): Merge conflict in app/teacher/navigation.tsx\nAuto-merging app/teacher/presentation.tsx\nAuto-merging docs/TEACHER_WORKBENCH_CONTRACTS.md\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "pair": [
+        117,
+        118
+      ],
+      "ours": "9f300ce6e975ab460328a8aa4428c26d441ee0ab",
+      "theirs": "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "result": "clean-object-only-merge",
+      "generatedTreeObject": "22f5cb90a69466fb252dc9372b322559fa4766e0",
+      "unmergedPaths": [],
+      "conflictMessages": [],
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "9f300ce6e975ab460328a8aa4428c26d441ee0ab",
+        "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "22f5cb90a69466fb252dc9372b322559fa4766e0\n\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "pair": [
+        117,
+        120
+      ],
+      "ours": "9f300ce6e975ab460328a8aa4428c26d441ee0ab",
+      "theirs": "dd97767cda2e445bb1cf669b94363d1d9e9500b4",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "result": "clean-object-only-merge",
+      "generatedTreeObject": "639bd654e67715b9b69bd94eae02ac10cef45d4e",
+      "unmergedPaths": [],
+      "conflictMessages": [],
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "9f300ce6e975ab460328a8aa4428c26d441ee0ab",
+        "dd97767cda2e445bb1cf669b94363d1d9e9500b4"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "639bd654e67715b9b69bd94eae02ac10cef45d4e\n\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "pair": [
+        118,
+        120
+      ],
+      "ours": "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445",
+      "theirs": "dd97767cda2e445bb1cf669b94363d1d9e9500b4",
+      "mergeBase": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "result": "clean-object-only-merge",
+      "generatedTreeObject": "554694f4a82f59fe2be08c0fb6509d8429477958",
+      "unmergedPaths": [],
+      "conflictMessages": [],
+      "argv": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "9c44fe8eb1b122c0e7c1181e1f937ab4b3044445",
+        "dd97767cda2e445bb1cf669b94363d1d9e9500b4"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "554694f4a82f59fe2be08c0fb6509d8429477958\n\n",
+      "stderr": "",
+      "error": null
+    }
+  ],
+  "pairwiseSummary": {
+    "total": 10,
+    "clean": 9,
+    "conflicts": 1,
+    "commandFailures": 0
+  },
+  "method": "git merge-tree --write-tree --messages writes unreachable tree/blob objects only. It does not update refs, index or worktree. Exit and raw stdout/stderr are preserved per pair. Earlier read-only --trivial-merge identified three conflict regions in navigation.tsx; this report uses the modern merge algorithm for all ten pairs.",
+  "acceptedCombinedTree": null,
+  "runnableLatestCandidateCreated": false,
+  "latestCombinationStatus": "BLOCKED: unresolved #116/#120 navigation conflict; no five-head combined candidate was attempted",
+  "conflictsAndOwnership": [
+    {
+      "severity": "P1 merge blocker",
+      "owners": [
+        "PR #116",
+        "PR #120"
+      ],
+      "path": "app/teacher/navigation.tsx",
+      "status": "confirmed textual conflict",
+      "explanation": "#116 adds authoritative saved-draft context and destination-specific href filtering to the older sidebar component. #120 replaces that component with the horizontal course/assignment shell and different selection/navigation functions.",
+      "reproduction": [
+        "git",
+        "-C",
+        "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform",
+        "merge-tree",
+        "--write-tree",
+        "--messages",
+        "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+        "dd97767cda2e445bb1cf669b94363d1d9e9500b4"
+      ],
+      "requiredOwnerDecision": "Owners must integrate saved-draft authority, complete removal of stale absent identities, ordinary URL selection updates and destination filtering into the shared shell while retaining its navigation hierarchy. Verification owner must not choose a side or implement a competing fix."
+    },
+    {
+      "severity": "P1 semantic integration gate",
+      "owners": [
+        "PR #116",
+        "PR #120"
+      ],
+      "paths": [
+        "app/teacher/presentation.tsx",
+        "app/teacher/navigation-context.ts",
+        "app/teacher/workspace-model.ts",
+        "docs/TEACHER_WORKBENCH_CONTRACTS.md"
+      ],
+      "status": "overlap/contract risk; not an additional confirmed textual conflict",
+      "explanation": "presentation.tsx and the contract document are edited by both branches but the read-only three-tree comparison has no conflict markers there. #116 introduces contextIsAuthoritative and context-sensitive links; #120 resolveWorkspaceSelection spreads URL params under context and workspaceNavigationHref forwards general investigation context. A clean textual merge cannot prove missing snapshot identities are cleared or destination-specific query fields are correct."
+    }
+  ],
+  "deltaInterpretation": {
+    "pr113": "Production changes in app/study/answer-recovery.ts, dialogue.tsx and session.tsx add local/unconfirmed/unknown/acknowledged save states, validated exact-answer acknowledgments, bounded request timeout, preserved original submission identity and explicit read-before-retry recovery. New helpers/tests and before artifacts are added. Static review does not establish successful recovery.",
+    "pr116": "Production changes affect saved intervention snapshot authority, acknowledged request scope, blocked-navigation dialog recovery, evidence row/history/focus restoration, and selected-versus-current accepted-evaluation wording. No database migration or server authorization implementation is changed by this delta; behavioral integration still requires runtime verification.",
+    "pr118": {
+      "artifactsOnly": true,
+      "changedFileCount": 10,
+      "productionDelta": "none outside the verification artifact directory",
+      "ownerReceipts": "production-build-receipt.json and final-menu-verification.json explicitly record 7b82197f5c0b665a955d5dc47a07e13d8a19627a, image sha256:4baf89e279fa924a4c75b014c3807d4628db10a8b02718d0fa4c690119433e03. Their new commit contains evidence of the earlier implementation; no shared-shell integration claim."
+    },
+    "pr117And120": "Unchanged pins in this intake, not newly revalidated branch heads."
+  },
+  "runtimeEvidenceBoundary": [
+    {
+      "evidence": "First combined source eba2fba3eee223bb43c0eea5fe197e9569285ea9, tree 016e8aeebd3b1f584cc7bd5a1036afcfeb8eac5c",
+      "validity": "Historical results and screenshots remain valid only for their recorded source, fixture and runtime. They do not validate new #113/#116 behavior or the shared-shell composition."
+    },
+    {
+      "evidence": "Second candidate 1a9d95b3be3e30d08d9dafc7ec6d1a14208368ac, tree c2f1c30b3f62391283ced9f798bbcae5cc7ca794",
+      "validity": "Separate previously prepared candidate uses #113 2b49086, #116 76b11dd, #117 9f300ce, #118 7b82197, #120 dd97767. Its planned 36 default captures at localhost:3350 remain a valid baseline plan for that exact older combination only. No acceptance or capture result is supplied by this intake."
+    },
+    {
+      "evidence": "New #113 before screenshots and RESULTS.md",
+      "validity": "They are explicitly before 2b490863 artifacts; owner report says exact-head after-fix browser run is pending. Independent S-02 authentication/network/lost-response, same-key retry, reload/reader preservation and cross-session isolation must rerun on the new composition."
+    },
+    {
+      "evidence": "New #116 navigation, evidence and intervention recovery changes",
+      "validity": "Prior pass/fail outcomes for draft scope, selected/current evaluation wording, unsaved or pending drawer navigation, results scrolling/focus and Back/Forward are superseded as claims about current behavior. Preserve prior defects as historical and retest owner fixes after compatible resolution."
+    },
+    {
+      "evidence": "New #118 artifact-only commit",
+      "validity": "No application-byte change means earlier lesson implementation findings are not invalidated merely by this commit. Build/menu receipts still belong to 7b82197, not a new five-PR runtime. Lesson-to-assignment and shared navigation must still pass on any new combined source."
+    }
+  ],
+  "nextGates": [
+    "Owners resolve #116/#120 navigation contract and publish reviewed snapshots.",
+    "Compose an exact new combination only after conflicts are resolved, then independently build and test it.",
+    "Keep older second-candidate runtime plan/results separate from the blocked latest intake.",
+    "No claims of actual-model, screen-reader, native zoom or paid-call verification from this static intake."
+  ]
+}

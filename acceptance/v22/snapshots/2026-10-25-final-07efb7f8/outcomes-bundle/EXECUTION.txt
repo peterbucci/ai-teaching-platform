@@ -1,0 +1,14 @@
+Prepared only; no runtime execution by this agent.
+
+Root owns scheduling and the shared lock. Use a fresh output directory. In PowerShell:
+
+$v = 'C:/Users/sb128/.codex/visualizations/2026/10/25/01a173d6-e789-7233-92d2-b0b55d4559ed'
+node "$v/outcomes-bundle/guarded-legacy-outcomes.mjs" legacy-outcomes "$v/runtime-final" "$v/runtime-final/runs/2026-10-25T16-33-03-562Z-approval/approval-details.json" "$v/legacy-outcomes-01" "$v/outcomes-bundle/safety.mjs"
+
+The new helper pins the current application SHA/tree/project3396, current passing approval parent and exact approval-details hash. The existing PR121 safety module, shared lock and 10GiB runtime checks are retained unchanged. The helper never starts/stops a stack or removes a volume.
+
+Inside the pinned image it reads the original legacy suite and verifies its source hash. Before any domain mutation it SELECTs the exact curated draft from the current approval matrix, checks teacher/assignment/synthetic observation identities and existing response provenance, and writes an immutable reconciliation receipt. Missing provenance stops before cloning or login. No response provenance is invented.
+
+It creates a uniquely named verification script in the disposable container. All original legacy assertions remain; only hardcoded report output filenames are relocated to unique /tmp paths. The original suite uses real authenticated HTTP and PostgreSQL with explicitly injected providers, makes its own synthetic verification copies, checks accepted uncertainty and failed/unknown recovery, and waits for the real cooldown. It never changes quotas or saved timestamps to pass. Rejected timestamp UPDATEs remain as assert.rejects integrity tests. The legacy suite also normally removes only its own temporary foreign test actor after sign-out; durable evidence copies remain.
+
+Result locations are listed in host-receipt.json. fixture.json contains the complete legacy report and read-only reconciliation, original/adapted helper hashes and output relocations. If the child fails or its result is uncertain, the shared lock is retained. Do not replay. First inspect process state and the uniquely named *.reconciliation.json / *.outcomes.json paths from the host receipt. A separate --verify-persistence execution is not claimed by this new run.

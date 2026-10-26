@@ -1,0 +1,31 @@
+{
+  "sourcePullRequest": "https://github.com/peterbucci/ai-teaching-platform/pull/121",
+  "sourceCommit": "fe8323ae8406e4d6415e4486849317fb48a91821",
+  "sourceWorkingTreeClean": true,
+  "copiedFiles": [
+    {
+      "file": "safety.mjs",
+      "sha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+      "byteIdenticalToReviewedSource": true
+    },
+    {
+      "file": "safety.test.mjs",
+      "sha256": "819efd0de539780581236109fcbe72cde23352748942c77c80392eb235dd30d3",
+      "byteIdenticalToReviewedSource": true
+    }
+  ],
+  "runnerSha256": "9edadf9d6cf38231bb539162065f450c360525ca78e4722162e3873a6b64996a",
+  "validation": {
+    "pureGuardTests": {
+      "passed": 10,
+      "failed": 0,
+      "log": "evidence/storage-guard/safety-tests.log"
+    },
+    "syntax": "passed",
+    "eslint": "passed",
+    "format": "passed",
+    "actualInvocation": "Preflight mode stopped at an existing shared lock before storage or Docker probes. No credentials, compose file, or manifest created. Existing lock preserved.",
+    "runtime": "unrun with this guarded harness revision",
+    "lowSpace": "Pure injected-measurement test only; no actual low-disk preflight result claimed. Host headroom subsequently changed."
+  }
+}

@@ -1,0 +1,323 @@
+{
+  "phase": "curated-activation",
+  "status": "passed",
+  "source_sha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "source_tree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "project": "lp-v22-shell5",
+  "origin": "http://localhost:3350",
+  "seam_sha256": "7e99672e7cf7e6689d1bcc53d57a68f1a052eecd6b09ee77ea7a8d9de3970051",
+  "input_kind": "passed authoring receipt for separate curated activation; no completed intervention seam claimed",
+  "harness_sha256": "c488f413328300b4e464d5c75ef28d8531634b208097ec74ba36ec355258f28e",
+  "preparation": {
+    "authoring": {
+      "target": "shell",
+      "project": "lp-v22-shell5",
+      "sha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+      "tree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+      "sourceSha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+      "sourceTree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+      "harness_sha256": "cf1c72d53b01999bcbaf0c8a49f08ef1ca3e6aff5f48abe4ec2461cc68084e62",
+      "harness_upstream_sha256": "e39f6a361586ea09a8a6062bf03b2ee95852a3d967270dde08d1f11ee67003c8",
+      "origin": "http://localhost:3350",
+      "environment_manifest": "../manifest.json",
+      "configuration": "provider-disabled; synthetic fixtures; loopback gateway; app/database isolated internal Docker network",
+      "verification": "Provider-disabled browser manual authoring and cross-role assignment using original synthetic material",
+      "run_id": "Water changing state · verification 1792908096868",
+      "started_at_utc": "2026-10-25T06:08:38.508Z",
+      "status": "passed",
+      "paid_calls": 0,
+      "blocked_off_origin_requests": [],
+      "full_journey": "incomplete: same source→lesson→inactive assignment→activation→student→help fallback→original answer→teacher evidence; no accepted model evaluation or same-session intervention/follow-up is claimed",
+      "functional_completed_through": "teacher-original-evidence",
+      "fixture_scope": "One original fictional source, one objective and four manually authored questions; not a count-equivalent prototype dataset.",
+      "checks": [
+        "Explicit fallback answer submission preserved exact whitespace/text and published v1 source identity; reload retained it and teacher inspected original response in the same session."
+      ],
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000,
+          "page": "17-teacher-original-evidence",
+          "overflow": false
+        },
+        {
+          "width": 1024,
+          "height": 768,
+          "page": "17-teacher-original-evidence",
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "height": 844,
+          "page": "17-teacher-original-evidence",
+          "overflow": false
+        },
+        {
+          "width": 320,
+          "height": 844,
+          "page": "17-teacher-original-evidence",
+          "overflow": false
+        }
+      ],
+      "unrun": [
+        "File-upload browser variants",
+        "Fresh model generation/evaluation",
+        "Accepted model evaluation and same-journey intervention delivery/follow-up (provider disabled)",
+        "200% zoom, keyboard-only journey and screen-reader verification"
+      ],
+      "source_id": "48bae4f7-63a2-4876-bc6d-b5b2d99a6b9f",
+      "source_version": 1,
+      "lesson_id": "d1468c98-b268-4566-9301-114be6f836da",
+      "prepared_revision": 6,
+      "published_version": "1",
+      "content_ref": {
+        "source_kind": "uploaded",
+        "source_id": "48bae4f7-63a2-4876-bc6d-b5b2d99a6b9f",
+        "source_version": 1,
+        "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+        "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+        "attribution": {
+          "title": "Water changing state · verification 1792908096868",
+          "authors": [
+            "Fictional acceptance teacher"
+          ],
+          "copyright": "2026 fictional acceptance fixture",
+          "section": "Imported source",
+          "url": null,
+          "license": "Original synthetic material; permitted for this test",
+          "license_url": null,
+          "cautions": []
+        },
+        "access_scope": {
+          "teacher_id": "10000000-0000-4000-8000-000000000001"
+        },
+        "package_id": "d1468c98-b268-4566-9301-114be6f836da",
+        "content_version": "1"
+      },
+      "assignment_id": "ebc4eb03-22ba-409b-b1c4-10bc54a86967",
+      "class_id": "20000000-0000-4000-8000-000000000001",
+      "student_session_id": "07c3336c-108a-4e79-bca3-02c382b3756a",
+      "student_session_url": "http://localhost:3350/study/assignments/ebc4eb03-22ba-409b-b1c4-10bc54a86967?tab=study&session=07c3336c-108a-4e79-bca3-02c382b3756a",
+      "presented_attempt_id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+      "original_response": "  I think evaporation makes liquid water stop existing rather than changing its state.\nThis is an original fictional acceptance response.  ",
+      "new_draft_version": "2",
+      "new_draft_revision": 7,
+      "assignment_handoff": {
+        "published_url": "http://localhost:3350/teacher/lessons/d1468c98-b268-4566-9301-114be6f836da?version=1",
+        "href": "/teacher/assignments",
+        "exact_version_automatically_carried": false,
+        "resolution": "Teacher explicitly selects the just-published lesson/version in the new assignment builder.",
+        "selected_builder_url": "http://localhost:3350/teacher/assignments/new?lesson=d1468c98-b268-4566-9301-114be6f836da&version=1"
+      },
+      "resumed_from": {
+        "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\final-authoring-04\\report.json",
+        "sha256": "5eb2b980af7eae48ae736ce7a9162b62ba459aee0bb324f128de5ba352b9c94f",
+        "prior_status": "failed",
+        "prior_failure_stage": "explicit answer submission and original evidence",
+        "prior_completed_checks": [
+          "Resumed the same immutable published lesson from the retained failed-run receipt; prior approvals are recorded separately.",
+          "Inactive assignment is absent from enrolled student's list before activation",
+          "Separate explicit teacher activation makes the exact assignment visible and openable by enrolled student",
+          "Student reading retains exact imported text; initial question opens with one composer and no private answer/criterion in public API",
+          "New v2 draft requires fresh review; published v1 remains source-pinned and earlier presented student session/attempt remain byte-equivalent",
+          "Browser help request required explicit clarification with provider disabled; fallback preserved the original unanswered attempt and consumed zero provider requests."
+        ],
+        "earlier_resume": {
+          "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\final-authoring-03\\report.json",
+          "sha256": "b99dbdb38d3b1cfb5efb29fb29c6bf30f5f87b8f9bf3eef71d78383f287e17b9",
+          "prior_status": "failed",
+          "prior_failure_stage": "inactive assignment",
+          "prior_completed_checks": [
+            "Manual pasted source import, exact extraction review, attribution and private source save",
+            "Manually authored objective with exact source quote saved and explicitly approved",
+            "Four manually authored source-cited questions saved/reviewed/approved; student preview excludes private guidance",
+            "Tutoring sequence prepared, current lesson explicitly approved, immutable version 1 published separately"
+          ],
+          "scope": "Continue the already reviewed and published lesson; do not replay source creation or approval decisions."
+        },
+        "scope": "Read-only verification of the already submitted original answer; no creation, answer, evaluation, or approval is replayed."
+      },
+      "student_id": "10000000-0000-4000-8000-000000000002",
+      "checked_at_utc": "2026-10-25T06:08:40.641Z",
+      "screenshots": [
+        "16-original-answer-saved-provider-disabled.png",
+        "17-teacher-original-evidence.png",
+        "17-teacher-original-evidence-1440x1000.png",
+        "17-teacher-original-evidence-1024x768.png",
+        "17-teacher-original-evidence-390x844.png",
+        "17-teacher-original-evidence-320x844.png"
+      ]
+    }
+  },
+  "started_at": "2026-10-25T06:19:09.295Z",
+  "checks": [],
+  "screenshots": [
+    {
+      "file": "curated-reviewed-exact-lesson-1440x1000.png",
+      "stage": "separate-curated-assignment-review",
+      "width": 1440,
+      "height": 1000,
+      "url": "http://localhost:3350/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=review",
+      "overflow": false
+    },
+    {
+      "file": "curated-active-before-regression-fixture-1440x1000.png",
+      "stage": "separate-curated-assignment-review",
+      "width": 1440,
+      "height": 1000,
+      "url": "http://localhost:3350/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=review",
+      "overflow": false
+    }
+  ],
+  "safety": [
+    {
+      "before": "browser-launch",
+      "observedAt": "2026-10-25T06:19:09.299Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50464694272,
+          "availableGiB": 46.99890899658203,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50464694272,
+          "availableGiB": 46.99890899658203,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50464694272,
+          "availableGiB": 46.99890899658203,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899318517760,
+          "availableGiB": 837.5556373596191,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50464583680,
+            "availableGiB": 46.99880599975586,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "login-teacher",
+      "observedAt": "2026-10-25T06:19:10.821Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50461589504,
+          "availableGiB": 46.99601745605469,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50461589504,
+          "availableGiB": 46.99601745605469,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50461589504,
+          "availableGiB": 46.99601745605469,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899318517760,
+          "availableGiB": 837.5556373596191,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50450362368,
+            "availableGiB": 46.98556137084961,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    }
+  ],
+  "blocked_off_origin_requests": [],
+  "blocked_context_writes": [],
+  "context_checks": [],
+  "paid_calls": 0,
+  "actual_model_verification": "unrun",
+  "screen_reader": "unrun",
+  "native_200_percent_zoom": "unrun",
+  "functional_completed_through": null,
+  "curated_assignment": {
+    "assignment_id": "30000000-0000-4000-8000-000000000001",
+    "class_id": "20000000-0000-4000-8000-000000000001",
+    "content_ref": {
+      "package_id": "network-performance-v1",
+      "content_version": "3bd292c1476f5becb658418b70ee36153cfce830",
+      "source_id": "peterson_davie_1_5_1",
+      "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+      "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73"
+    },
+    "title": "Bandwidth and latency — approved demo reading",
+    "before_approved_at": "2026-10-25T05:54:56.909Z",
+    "decision": "already-active-no-new-approval",
+    "separate_from_authored_journey": true,
+    "after_approved_at": "2026-10-25T05:54:56.909Z"
+  },
+  "finished_at": "2026-10-25T06:19:13.510Z"
+}

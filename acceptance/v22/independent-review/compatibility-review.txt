@@ -1,0 +1,72 @@
+Independent compatibility review — Learning Pulse Workbench
+Date: October 25, 2026 (America/New_York)
+Scope: Read-only inspection of actual committed source and cross-PR navigation/data contracts. No application files changed. No model calls, browser tests, database tests, screen-reader tests or visual acceptance performed by this reviewer. Parent integration run owns executable and visual results.
+
+BASELINES
+main: 723ed6fea41138b604a9d333ebcd4a07b2202c36
+Repaired #116: 76b11ddfa0ce784f70290c0746efd94c7042f6fc
+#117: 6f9dd8991abef5efa8108e50b2274dc3bdc13ce6
+#118: d2dca515b1a926daf28e791044fe04d01bdf20a9
+#113: 2b490863cc6de69a7659f1df1e4628bc22dd7d9a
+
+Read PROJECT_CONTEXT.md using the user's explicit substitution for the unavailable local reference. Read repaired #116 docs/TEACHER_WORKBENCH_CONTRACTS.md. Its URL context contract requires selected assignment/source and investigation context to survive shared navigation. Existing application services remain authority for ownership, immutable versions, approval and activation.
+
+Local shared-shell availability: codex/workbench-v22-shell resolves to 76b11ddfa0ce784f70290c0746efd94c7042f6fc, the repaired #116 snapshot, at inspection. It is attached to C:/Users/sb128/.codex/worktrees/workbench-v22-shell/LearningPlatform. There is no separately committed shell delta at that ref yet. Direct status inspection of that worktree returned Permission denied; its uncommitted state was not inspected. Do not treat another agent's working edits as a reviewed snapshot. Locally cached origin/codex/teacher-workbench-slice remains 5d6363d2867a6f0250f8220db0474342b1241d00, so repaired #116 and the cached remote branch must not be conflated.
+
+FINDINGS
+
+C1 — P2 — Implicit assignment selection is lost on shared navigation
+Owner: #117, with shared-shell contract coordination in #116 / #114.
+Evidence: #117 app/teacher/assignments/page.tsx:30 resolves selection with selected.id but :33 renders TeacherFrame without context. app/teacher/assignments/load.ts:122-125 selects the first filtered assignment when the URL has no assignment. #116 app/teacher/navigation.tsx:35-48 reconstructs context from URL and optional server props; lib/teacher/workspace-contracts.ts does not carry class/status. app/teacher/data.ts:27 falls back to the first global teacher assignment when assignment is absent.
+Reproduction: Use a fictional teacher with classes A and B, with A sorted first. Open Assignments, choose Class B and apply filters. The selected detail shows B's first assignment while the URL contains class/status, not assignment. Click Evidence or Teaching Desk in the shared shell. The generated URL lacks B's assignment and those pages choose A's first assignment.
+Expected: The visible selected assignment remains the authoritative shell scope.
+Impact: Teacher moves from a selected assignment to a different class's authorized evidence without requesting that change. This is context loss, not an authorization bypass. A single-class fixture would miss it.
+Verification level: Confirmed by code-path inspection; browser reproduction pending.
+
+C2 — P2 — Full-session return from assignment progress goes to Insights
+Owner: #117 plus #116 shared return contract.
+Evidence: #117 app/teacher/assignments/progress-model.ts:62-72 produces session URLs with assignment/origin/student/concept and an attempt hash, but no return destination or assignment progress/list context. #116 app/teacher/sessions/[sessionId]/page.tsx:57-64 defaults absent returnTo to insights; :86-105 supports no Assignments return destination. lib/teacher/workspace-contracts.ts:15 likewise excludes it.
+Reproduction: Open assignment Class progress; select a student/concept cell; open Full session evidence; activate the displayed Back link. It opens Learning insights rather than the selected assignment progress cell. Class/status filters and the progress tab are lost.
+Expected: An explicit contextual return restores assignment progress with student/concept/list selection and focus. Browser Back is a separate requirement and may still work.
+Verification level: Confirmed by generated route and destination code; browser focus restoration unrun.
+
+C3 — P2 — Raw URL scope overrides corrected saved-intervention scope in the shell
+Owner: #116, shared navigation and intervention handoff.
+Evidence: #116 app/teacher/interventions/page.tsx:70-75 resolves the saved draft context using snapshotInterventionContext; app/teacher/interventions/snapshot-context.ts:9-19 restores persisted assignment/origin/concept/misconception/starting responses. However app/teacher/navigation.tsx:44-47 spreads raw URL parameters after the resolved server context and replaces seedAttempt from the raw URL.
+Reproduction: Open an authorized saved intervention with its correct assignment ID but stale concept and/or origin query parameters from an earlier same-assignment investigation. The intervention displays its persisted scope correctly. Follow the shared-shell Evidence link: the link contains the stale URL concept/origin instead of the displayed draft's saved evidence scope. A stale same-assignment attempt outside that scope can also be reintroduced.
+Expected: Shared navigation from a saved artifact uses the authorized persisted context shown on the page.
+Important limit: A mismatched assignment is explicitly rejected by snapshotInterventionContext; this finding does NOT claim cross-assignment acceptance or a permissions leak.
+Verification level: Confirmed precedence mismatch by inspection; exact browser case pending.
+
+C4 — P2 — Lesson-title search becomes an evidence-text filter
+Owner: #116 shared navigation, coordinated with #118.
+Evidence: #118 app/teacher/lessons/page.tsx uses q to filter lesson titles and submits a GET search form to /teacher/lessons. #116 app/teacher/navigation.tsx:35-48 captures that same q and :63-67 copies it into every navigation destination. #116 app/teacher/evidence/selection.ts:80-86 interprets q as student/question/original-answer search instead.
+Reproduction: Search Lessons for an existing title that does not occur in the selected assignment's student names/questions/responses; click Evidence in the shared shell. Evidence opens with the lesson-title query and hides its response list. The reverse direction can similarly hide Lessons after an evidence-text search.
+Expected: Page-local searches stay scoped to their owning page, or are deliberately cleared when changing destinations. Shared identity/origin context can remain.
+Verification level: Confirmed conflicting semantics and unconditional propagation by inspection; browser reproduction pending.
+
+C5 — P3 integration gap — Published-lesson handoff does not enter the new assignment builder
+Owners: #118 and #117.
+Evidence: #118 app/teacher/lessons/[lessonId]/page.tsx retains an unscoped Open class assignments link and the legacy CreateClassAssignment control in a disclosure; #117 adds /teacher/assignments/new?lesson=<id>&version=<version> and a separate recovery-aware CreateAssignment component. The new route is not used by #118's published lesson view.
+Reproduction: Open an exact published version in Lessons, choose Open class assignments, then New assignment. The new builder starts with its own first catalog choice instead of the published version just reviewed. Alternatively use the legacy creation disclosure, which does pass the exact version but is a second creation/recovery experience.
+Expected integration decision: Agree one deliberate exact-version handoff into the new builder, or document/review the retained separate route. Do not call this an immutable-version failure: the legacy form correctly passes the selected version and the new builder shows its chosen version.
+Verification level: Static integration gap; not a service or authorization defect.
+
+BOUNDARY MATRIX (STATIC ONLY)
+116 + 117 shell/assignments: Same TeacherFrame contract composes, no overlapping changed application files; C1/C2 remain.
+116 + 118 shell/lessons: Same TeacherFrame contract composes; class/assignment is absent after lesson-local links; C4 requires scoped search semantics.
+117 + 118 lesson-to-assignment: Existing immutable service and inactive-create/explicit-activate boundary retained. New and legacy creation controls coexist; C5 remains.
+116 evidence/interventions: Server snapshot and evidence loaders validate ownership and exact relationships. Shared-shell scope precedence C3 remains.
+113 + teacher branches: Changed application paths do not overlap. #113 adds student completion wording and conversation scrolling; its store change replaces the completion-message string, not the controller/authorization transition. Student runtime and long-message scrolling still require combined browser testing.
+Authorization/source identity: No new competing authorization or content-resolver service in the inspected teacher diffs. #117 uses readAssignmentContent for pinned assignment review and exact version in creation. #118 uses readPublishedLessonForReview for published snapshots and exact source_version in material links. This is favorable code evidence only; it does not prove cross-role denial, version pinning or database integration passed.
+
+REQUIRED RECHECKS
+1. Reproduce C1 with at least two classes; single-class happy paths cannot validate it.
+2. Reproduce C2 keyboard return and compare URL, restored selection, focus and scroll.
+3. Reproduce C3 with correct assignment and stale concept/origin, then test consistent saved draft URLs.
+4. Reproduce C4 in both directions using distinguishable title and answer search text.
+5. Decide C5 handoff ownership before claiming a continuous lesson-to-assignment design flow.
+6. Pin a separately committed shared-shell snapshot and repeat all combinations; do not integrate mutable worktree state.
+7. Run root's combined database/browser verification. Independent branch tests, this read-only inspection, and a clean textual merge do not establish combined acceptance.
+
+Subsequent checkpoint: C2 was later reproduced on combined eba2fba3eee223bb43c0eea5fe197e9569285ea9. See final-review.txt and browser-context-confirmed/report.json. Other findings retain their stated static/unrun limits; the earlier scope paragraph describes this initial static inspection only.

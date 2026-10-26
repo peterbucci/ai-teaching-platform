@@ -1,0 +1,19 @@
+{
+  "createdAt": "2026-10-25T16:53:17.3210408Z",
+  "status": "prepared-not-executed-by-this-agent",
+  "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "helper": "reconcile-study-browser.mjs",
+  "sha256": "ee38a24c0cba6e5e8ff765106ed81df81a4c4343933328a80dc8c1eacb5ac53a",
+  "syntax": "passed",
+  "reviewedFailureSha256": "f0cadf710a1af273f440eef465910b0b7bf126fb63e8d80fc3274bc421d051a4",
+  "method": "Authenticated GET reconciliation only; no evaluation/apply imports or calls",
+  "assertions": [
+    "Every original attempt field except separately derived outcome exactly equal",
+    "Full original accepted evaluation exactly equal",
+    "Every latest submitted diagnostic field preserved",
+    "Latest stored accepted synthetic result already has END_SESSION",
+    "Expected derived root outcome and illustrative24h policy explicitly recorded"
+  ],
+  "priorFailedExecutionPreserved": true,
+  "sharedRuntimeChanged": false
+}

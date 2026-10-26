@@ -1,0 +1,146 @@
+{
+  "source": "C:/Users/sb128/.codex/worktrees/workbench-current-verification/LearningPlatform",
+  "sourceSha": "e6126016c9b4ec2b479d252ff45e4e16a6a633f7",
+  "sourceTree": "fc9dd9f5db5e0843a6d46327df6be1e631dada94",
+  "completedAt": "2026-10-25T05:36:34.4400346Z",
+  "mode": "offline combined snapshot checks; existing dependencies only",
+  "status": "passed",
+  "sourceCleanBeforeObserved": true,
+  "sourceCleanAfter": true,
+  "nodeVersion": "v22.13.0",
+  "pythonVersion": "Python 3.13.1",
+  "dependencyJunction": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-acceptance\\LearningPlatform\\node_modules",
+  "packageLockSha256": "eba6237900204f79433f27f73f20861c2401b820cbebedb2d4554d9b3567027d",
+  "tests": {
+    "unitPassed": 601,
+    "unitFailed": 0,
+    "unitSkipped": 0,
+    "authoringFiles": 6,
+    "authoringPassed": 24,
+    "authoringFailed": 0,
+    "authoringSkipped": 0,
+    "contentChecks": 293
+  },
+  "checks": [
+    {
+      "name": "unit",
+      "exitCode": 0,
+      "receipt": "current-unit-receipt.json",
+      "receiptSha256": "fea82443687084d5cce4387e4c899159e8382533c70b7d32706ba00684eeb2aa",
+      "log": "current-unit.log",
+      "logSha256": "a25fc0b39d98c06989d4829d0031b1327a0030b32feabd941e5ab4943c85e957",
+      "startedAt": "2026-10-25T05:33:04.4977529Z",
+      "finishedAt": "2026-10-25T05:33:17.1002685Z",
+      "command": [
+        "node",
+        "--experimental-strip-types",
+        "--conditions=react-server",
+        "--test",
+        "tests/*.test.ts"
+      ]
+    },
+    {
+      "name": "authoring-all",
+      "exitCode": 0,
+      "receipt": "current-authoring-all-receipt.json",
+      "receiptSha256": "6a24b7bd2b53ced3e733a6dbf073c4467e43a00dcc1ef636de3147068833a828",
+      "log": "current-authoring-all.log",
+      "logSha256": "31b1f9a40a8ec1c078e664af8c12504726a3f0ae558069d7ce42aaabb5dc1bbf",
+      "startedAt": "2026-10-25T05:33:39.6538855Z",
+      "finishedAt": "2026-10-25T05:33:40.0490144Z",
+      "command": [
+        "node",
+        "--experimental-strip-types",
+        "--conditions=react-server",
+        "--test",
+        "C:/Users/sb128/.codex/worktrees/workbench-verification-report/LearningPlatform/acceptance/v22/authoring-tests.mjs"
+      ]
+    },
+    {
+      "name": "lint",
+      "exitCode": 0,
+      "receipt": "current-lint-receipt.json",
+      "receiptSha256": "0334d96e2f34a94e0e7300922998ace3d58a871457b858e08b5e8cf58d5a3978",
+      "log": "current-lint.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "startedAt": "2026-10-25T05:33:57.1598988Z",
+      "finishedAt": "2026-10-25T05:34:14.0979415Z",
+      "command": [
+        "node",
+        "node_modules/eslint/bin/eslint.js",
+        ".",
+        "--max-warnings=0"
+      ]
+    },
+    {
+      "name": "typegen",
+      "exitCode": 0,
+      "receipt": "current-typegen-receipt.json",
+      "receiptSha256": "03b494a2016f546276243edaacc3bf5c9c0bbab3384b6251122eec2f0a4e43e4",
+      "log": "current-typegen.log",
+      "logSha256": "8b0db89a1e25137a4cb79143a4ea63ae347e6f5f2247f026d984e133255d3084",
+      "startedAt": "2026-10-25T05:34:48.8590621Z",
+      "finishedAt": "2026-10-25T05:34:56.7702421Z",
+      "command": [
+        "node",
+        "node_modules/next/dist/bin/next",
+        "typegen"
+      ]
+    },
+    {
+      "name": "typecheck",
+      "exitCode": 0,
+      "receipt": "current-typecheck-receipt.json",
+      "receiptSha256": "8034711acc5fd72ed925aba25bdde386b08de1dcc4655e2bdbd113d41cc24794",
+      "log": "current-typecheck.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "startedAt": "2026-10-25T05:35:08.5891522Z",
+      "finishedAt": "2026-10-25T05:35:28.2109374Z",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--incremental",
+        "false"
+      ]
+    },
+    {
+      "name": "format",
+      "exitCode": 0,
+      "receipt": "current-format-receipt.json",
+      "receiptSha256": "40b49bb23494f57a20f1ebef1726cd0f5cc0d6add05bbde8227192b673fc9c82",
+      "log": "current-format.log",
+      "logSha256": "f20510a9da4717c51c4cffee6d0dd88d6c9a723d0a83711d01216f5b48961283",
+      "startedAt": "2026-10-25T05:35:40.3877731Z",
+      "finishedAt": "2026-10-25T05:35:49.2899777Z",
+      "command": [
+        "node",
+        "node_modules/prettier/bin/prettier.cjs",
+        "--check",
+        "."
+      ]
+    },
+    {
+      "name": "content",
+      "exitCode": 0,
+      "receipt": "current-content-receipt.json",
+      "receiptSha256": "e0d48f1060fa0b21dd347910e6d554be05b30e2e9f83ea9bd9c75b26a1c4f99e",
+      "log": "current-content.log",
+      "logSha256": "24ca75cedc808ea6504db496af4171213c7c787aba61396136740e05e61a61ed",
+      "startedAt": "2026-10-25T05:36:03.1996401Z",
+      "finishedAt": "2026-10-25T05:36:03.5555947Z",
+      "command": [
+        "python",
+        "content/network-performance-v1/verify_package.py"
+      ]
+    }
+  ],
+  "unrun": [
+    "Production build",
+    "Docker or database integration",
+    "Current browser journey",
+    "Actual model verification",
+    "Screen reader"
+  ],
+  "historicalBoundary": "Do not transfer the older shell 557-test or old combined runtime results to this source; this record applies only to e6126016/fc9dd9f5."
+}

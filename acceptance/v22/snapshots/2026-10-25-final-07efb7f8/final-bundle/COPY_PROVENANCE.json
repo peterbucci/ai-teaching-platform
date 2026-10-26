@@ -1,0 +1,82 @@
+{
+  "preparedAtUtc": "2026-10-25T16:17:36.9747597Z",
+  "category": "verification-only copy; unrun runtime",
+  "sourcePR": 122,
+  "sourceCommit": "a82b90864b9d87153ba88128eb2282ac60f6dbeb",
+  "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+  "project": "lp-v22-final-01a173d6",
+  "origin": "http://localhost:3396",
+  "files": [
+    {
+      "file": "runner.mjs",
+      "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform\\acceptance\\v22\\runner.mjs",
+      "sourceSha256": "9edadf9d6cf38231bb539162065f450c360525ca78e4722162e3873a6b64996a",
+      "changes": [
+        "shell port 3350 -> 3396",
+        "shell project lp-v22-shell5 -> lp-v22-final-01a173d6",
+        "harnessVersion -> workbench-v22-final-integration-01a173d6-v1; preserved upstreamRunnerSha256"
+      ],
+      "outputSha256": "ee0710ea8db7955f29ac2059d129f08fa787831e447ad9f7f76c60a6f4fda892"
+    },
+    {
+      "file": "safety.mjs",
+      "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform\\acceptance\\v22\\safety.mjs",
+      "sourceSha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+      "changes": [],
+      "outputSha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485"
+    },
+    {
+      "file": "safety.test.mjs",
+      "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform\\acceptance\\v22\\safety.test.mjs",
+      "sourceSha256": "819efd0de539780581236109fcbe72cde23352748942c77c80392eb235dd30d3",
+      "changes": [],
+      "outputSha256": "819efd0de539780581236109fcbe72cde23352748942c77c80392eb235dd30d3"
+    },
+    {
+      "file": "authoring-tests.mjs",
+      "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform\\acceptance\\v22\\authoring-tests.mjs",
+      "sourceSha256": "30693ed1cc75f93cde5e0c579b6bf56042832c3a6bcd120d1f1d17ac3770f372",
+      "changes": [
+        "Add seventh current colocated published-assignment-href.test.ts to explicit import list"
+      ],
+      "outputSha256": "4a0d32571f990213896739974e272901299582a4fc4d31621118fda51c793954"
+    },
+    {
+      "file": "runner-final/guarded-browser.mjs",
+      "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform\\acceptance\\v22\\runner-final\\guarded-browser.mjs",
+      "sourceSha256": "2287f0b8c047d82cb9c3a296ba03c6eac03557352dcbaeb4294ccbcf335f9b3a",
+      "changes": [
+        "source SHA/tree -> final combined candidate",
+        "project/origin -> new isolated shell runtime",
+        "historical resume hashes preserved; unavailable for this new snapshot"
+      ],
+      "outputSha256": "470465b5bd865fefc95f946d916e5faf16b960ad191c8b3499aae20761139bfd"
+    },
+    {
+      "file": "runner-final/shell-authoring-browser.mjs",
+      "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform\\acceptance\\v22\\runner-final\\shell-authoring-browser.mjs",
+      "sourceSha256": "cf1c72d53b01999bcbaf0c8a49f08ef1ca3e6aff5f48abe4ec2461cc68084e62",
+      "changes": [
+        "source SHA/tree -> final combined candidate",
+        "project/origin -> new isolated shell runtime",
+        "historical resume hashes preserved; unavailable for this new snapshot",
+        "Use current publication-status paragraph instead of removed Published version heading",
+        "Use Prepare assignment from version link; assert exact outgoing/receiving version and aria-current without manually changing selection"
+      ],
+      "outputSha256": "baa6d62d38efb8333d5fbbd068708d9795782b998ef75eaf823fcb276bbac003"
+    },
+    {
+      "file": "final-verification/capture-shell.mjs",
+      "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-verification-report\\LearningPlatform\\acceptance\\v22\\final-verification\\capture-shell.mjs",
+      "sourceSha256": "e80e2e1f3a395588d22e088a8be5c8fa52b3b95d63acd488de93e9f0fd090d9f",
+      "changes": [
+        "source SHA/tree -> final combined candidate",
+        "project/origin -> new isolated shell runtime",
+        "historical resume hashes preserved; unavailable for this new snapshot"
+      ],
+      "outputSha256": "cda1ae8c4983dec885113c6a53045b4239fbf62480f5a57ba21f1561bb206e75"
+    }
+  ],
+  "portRevision": "3366 was already occupied; root directed new isolated port3396 before runtime. Earlier root init receipt retained separately."
+}

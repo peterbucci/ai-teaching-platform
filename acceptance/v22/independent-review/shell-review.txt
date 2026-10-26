@@ -1,0 +1,49 @@
+SHARED-SHELL SNAPSHOT CONTRACT REVIEW
+October 25, 2026 — second pinned snapshot, static inspection only
+
+Scope
+Read-only review of committed application source. No application edits, Docker commands, database changes, browser run, model calls or screen-reader verification were performed for this report. This is not a passing combined-runtime result. The earlier compatibility-review.txt and its actual C2 browser evidence describe the first combination and remain unchanged.
+
+Pinned proposed composition
+Main: 723ed6fea41138b604a9d333ebcd4a07b2202c36
+Repaired #116: 76b11ddfa0ce784f70290c0746efd94c7042f6fc
+Shared shell #120: dd97767cda2e445bb1cf669b94363d1d9e9500b4 (stacked on repaired #116)
+Updated #117: 9f300ce6e975ab460328a8aa4428c26d441ee0ab
+Updated #118: 7b82197f5c0b665a955d5dc47a07e13d8a19627a
+#113: 2b490863cc6de69a7659f1df1e4628bc22dd7d9a
+Root owns creation and verification of the final combined commit/tree. These branch snapshots must not be reported as runtime-compatible merely because their code can be read or merged.
+
+S1 — P2 — Course Assignments and mobile Back retain the selected detail
+Owners: #120 shared navigation and #117 assignment discovery contract.
+#120 docs/WORKBENCH_V22_SHELL.md states that /teacher/assignments without view means course discovery. However app/teacher/navigation.tsx:132 sends the mobile "Back to course assignments" link through href("/teacher/assignments"), and :193 sends the course Assignments link through the same generic adapter. app/teacher/workspace-model.ts:50-58 preserves assignment and only clears seedAttempt. Updated #117 app/teacher/assignments/load.ts:126-128 selects any supplied assignment, and assignments/workspace-model.ts:11 defaults missing view to review. assignments/page.tsx:117-125 therefore renders selected assignment detail rather than discovery.
+Reproduction: Open /teacher/assignments?assignment=<authorized-id>&view=progress. Choose the course-level Assignments link, or use mobile Back to course assignments. The resulting URL still contains assignment and has no view. The shell labels it course Assignments while the page shows the selected assignment review. The discovery list does not appear.
+Expected: Course navigation and the labelled Back action deliberately enter discovery; assignment-area Progress remains pinned to the chosen assignment. This requires a coordinated destination contract, not a service change.
+Verification: Confirmed opposing source contracts; latest-combination browser reproduction required.
+
+Earlier findings re-evaluated
+C1 — Original reproduction removed, not runtime-accepted. Updated #117 load.ts:126-128 no longer silently selects the first class-filtered assignment when assignment is absent. Discovery is selected=null. Therefore the original "visible class B detail -> shell silently chooses class A" path is no longer present. The shell still defaults absent assignment to its first authorized item; verify class-filtered discovery labels and destination scope separately. Do not carry the old C1 defect forward as if its reproduction is unchanged.
+
+C2 — P2 remains, owners #117 + #116/#120 return contract. Updated #117 progress-model.ts:78-89 still creates full-session URLs with assignment/origin/student/concept only. It omits returnTo and assignment progress context. Unchanged #116 sessions/[sessionId]/page.tsx defaults returnTo to insights, and workspace-contracts.ts excludes assignments as a return target. Reproduce selected progress cell -> Full session evidence -> displayed Back link. First-combination browser evidence confirmed the wrong Insights destination; this latest composition still needs its own browser confirmation. Class/status/progressView/pane are also absent from this handoff.
+
+C3 — P2 partially repaired; residual stale record identity, owners #120 + #116 snapshot handoff. #120 workspace-model.ts:40 now gives explicit server-context properties precedence over URL values. Thus saved concept/origin override is repaired, and generic navigation clears seedAttempt. But #116 interventions/snapshot-context.ts:42-58 omits student/session/attempt/evaluation entirely when the URL record is not a member of the saved evidence. The shell's {...params, ...context} merge preserves those omitted raw URL properties. A deliberately excluded record can be reintroduced into the shared Student work link.
+Reproduction: Open an authorized saved draft with its correct assignment and a same-assignment attempt outside the saved observations; supply that attempt's student/session/evaluation as appropriate. snapshotInterventionContext returns the saved concept/origin with no selected record. Follow the shell Student work link. It still carries the stale attempt and related record identifiers. A different-concept or different-origin record is rejected by the evidence loader, producing a broken destination; a same-concept record can select evidence outside the displayed saved draft. Use a valid saved draft fixture and inspect the generated href before navigation.
+Limits: A wrong assignment is explicitly rejected. Existing destination authorization still runs. This is stale context reintroduction, not demonstrated cross-class or cross-role access. Browser reproduction remains unrun.
+
+C4 — P2 remains, owners #120 + #118. Lessons still uses q for title filtering. #120 resolveWorkspaceSelection parses q and workspaceNavigationHref copies it to all destinations; #116 evidence/selection.ts:80-86 interprets q as student/question/original-answer text. Search an owned lesson title absent from the assignment's evidence, then move to Student work through the shell. The unrelated title query hides responses; the reverse direction can hide lessons. Browser reproduction remains unrun.
+
+C5 — P3 continuity gap remains, owners #118 + #117. Updated #118 lessons/[lessonId]/page.tsx:417 links generically to /teacher/assignments; :458-464 still embeds CreateClassAssignment with the exact lesson/version. It does not enter #117 /teacher/assignments/new?lesson=<id>&version=<version>. The legacy form still pins the correct version and creates inactive work; this is not an immutable-version failure. It leaves two assignment preparation/recovery experiences. Verify the agreed exact-version handoff before claiming a continuous authoring journey.
+
+Shell/consumer interoperability
+- #120 preserves TeacherFrame's optional context contract and supplies authorized assignment metadata from existing services. Page loaders remain authority. #117's explicit selected assignment comes from the URL; its current TeacherFrame call supplies no context. That now avoids the original implicit-selection mismatch because discovery has no selected item, but S1 remains.
+- #120 introduces TeacherWorkspacePanes and workspacePane URL/history semantics. Updated #118 still uses its separate AuthoringWorkspace with local useState("editor"), while #117 owns its progress pane component and pane URL parameter. Therefore #120's isolated pane tests are not evidence that the latest lesson or assignment panes inherit its focus/history/reload behavior. Their actual consumer journeys need independent verification.
+- #118's published lesson and source links still reference exact immutable versions; #117 creation/approval boundaries remain distinct. #120 layout uses requireActor/evidenceAccess/teacherAssignments/assignmentReview and exposes display metadata rather than private rubric content. No competing authorization or content-resolution service was found in the reviewed deltas.
+- No new application overlap with #113 was observed in these teacher-only deltas. This static observation does not establish student conversation, long response, reading or completion regression acceptance.
+
+Required focused checks on the new combined runtime
+1. S1 desktop course navigation and mobile Back: URL, actual discovery content and focus.
+2. C2 progress full-session return: student/concept, progress subview, class/status and focus.
+3. C3 saved-draft stale same-assignment record: inspect href, loader response and preserved saved scope.
+4. C4 title/evidence search cross-navigation in both directions.
+5. C5 exact published lesson -> inactive assignment -> separate activation.
+6. Actual consumer panes at 1440x1000, 1024x768, 390x844 and 320x844; native 200% zoom, keyboard/reading, Back/Forward/reload and unsaved inputs. Shared component fixtures alone do not cover consumers.
+7. Authorization and exact version identity against the final combined tree, followed by the complete provider-disabled cross-role browser journey. Actual-model and screen-reader verification remain unrun unless separately executed.

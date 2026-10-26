@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Authoring continuation — actual captures</title>
+    <style>
+      body {
+        font: 16px/1.5 system-ui;
+        margin: 20px;
+        color: #18332c;
+        background: #f4f7f5;
+      }
+      select {
+        max-width: 100%;
+        font: inherit;
+        padding: 8px;
+      }
+      main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      article {
+        min-width: 0;
+        background: white;
+        padding: 14px;
+        border: 1px solid #c8d8d1;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        border: 1px solid #bacbc3;
+      }
+      a {
+        color: #075c47;
+      }
+      h1 {
+        font-size: 24px;
+      }
+      h2 {
+        font-size: 18px;
+      }
+      @media (max-width: 800px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Same-record continuation: actual saved images</h1>
+    <p>
+      Three executions retain their own results and hashes. Provider disabled;
+      no accepted model evaluation. Teacher evidence at page top shows the help
+      conversation; assessed answer is below this captured viewport.
+    </p>
+    <p>
+      Prototype is structural reference only where the task/route differs.
+      Student screens have no corresponding captured Workbench teacher
+      prototype; no reference image is invented. Some student conversation
+      captures are desktop-only.
+    </p>
+    <label
+      >Capture
+      <select id="capture">
+        <option value="0">
+          final-authoring-04 / 07-resumed-published-v1-1440x1000.png
+        </option>
+        <option value="1">
+          final-authoring-04 / 09-active-assignment-1440x1000.png
+        </option>
+        <option value="2">
+          final-authoring-04 / 13-new-version-requires-review-1440x1000.png
+        </option>
+        <option value="3">final-authoring-04 / 11-reading-1440.png</option>
+        <option value="4">
+          final-authoring-05 / 17-teacher-original-evidence-1440x1000.png
+        </option>
+        <option value="5">
+          final-authoring-04 / 07-resumed-published-v1-1024x768.png
+        </option>
+        <option value="6">
+          final-authoring-04 / 09-active-assignment-1024x768.png
+        </option>
+        <option value="7">
+          final-authoring-04 / 13-new-version-requires-review-1024x768.png
+        </option>
+        <option value="8">final-authoring-04 / 11-reading-1024.png</option>
+        <option value="9">
+          final-authoring-05 / 17-teacher-original-evidence-1024x768.png
+        </option>
+        <option value="10">
+          final-authoring-04 / 07-resumed-published-v1-390x844.png
+        </option>
+        <option value="11">
+          final-authoring-04 / 09-active-assignment-390x844.png
+        </option>
+        <option value="12">
+          final-authoring-04 / 13-new-version-requires-review-390x844.png
+        </option>
+        <option value="13">final-authoring-04 / 11-reading-390.png</option>
+        <option value="14">
+          final-authoring-05 / 17-teacher-original-evidence-390x844.png
+        </option>
+        <option value="15">
+          final-authoring-04 / 07-resumed-published-v1-320x844.png
+        </option>
+        <option value="16">
+          final-authoring-04 / 09-active-assignment-320x844.png
+        </option>
+        <option value="17">
+          final-authoring-04 / 13-new-version-requires-review-320x844.png
+        </option>
+        <option value="18">final-authoring-04 / 11-reading-320.png</option>
+        <option value="19">
+          final-authoring-05 / 17-teacher-original-evidence-320x844.png
+        </option>
+        <option value="20">
+          final-authoring-04 / 08-inactive-hidden-student.png
+        </option>
+        <option value="21">
+          final-authoring-04 / 10-student-assignment.png
+        </option>
+        <option value="22">final-authoring-04 / 12-student-session.png</option>
+        <option value="23">
+          final-authoring-04 / 14-session-preserved-after-v2.png
+        </option>
+        <option value="24">
+          final-authoring-04 / 15-help-clarified-not-graded.png
+        </option>
+        <option value="25">
+          final-authoring-05 / 16-original-answer-saved-provider-disabled.png
+        </option>
+      </select></label
+    >
+    <main>
+      <article>
+        <h2>Actual prototype reference</h2>
+        <p id="reference-note"></p>
+        <a id="reference-link"
+          ><img
+            id="reference"
+            alt="Actual exported prototype structural reference"
+        /></a>
+      </article>
+      <article>
+        <h2 id="title"></h2>
+        <p>Original pixels and scroll position. Click for full-size image.</p>
+        <a id="image-link"
+          ><img id="image" alt="Actual same-record implementation capture"
+        /></a>
+      </article>
+    </main>
+    <p>
+      <a href="../POPULATED_CONTINUATION_VISUAL_REPORT.md"
+        >Findings and execution limits</a
+      >
+      ·
+      <a href="visual-evidence.json">Exact identities and screenshot hashes</a>
+    </p>
+    <script>
+      const rows = [
+          {
+            source_folder: "final-authoring-04",
+            name: "07-resumed-published-v1-1440x1000.png",
+            width: 1440,
+            height: 1000,
+            sha256:
+              "cb9008051fa0f2ba8b9fe6cb15b3a88a037472d8e1aa25da13aefa6b3469f118",
+            reference: "lesson-published-1440x1000.png",
+          },
+          {
+            source_folder: "final-authoring-04",
+            name: "09-active-assignment-1440x1000.png",
+            width: 1440,
+            height: 1000,
+            sha256:
+              "08625a89289e53045e001a30c61b2ad543cf58773e200f2f6f96f333a0ada6b5",
+            reference: "assignment-section-a-1440x1000.png",
+          },
+          {
+            source_folder: "final-authoring-04",
+            name: "13-new-version-requires-review-1440x1000.png",
+            width: 1440,
+            height: 1000,
+            sha256:
+              "6f7c621dc6dcdb21dbe6259c8abc0b8e48f080bd0600cdcde2389ce5bd126e27",
+            reference: "lesson-published-1440x1000.png",
+          },
+          {
+            source_folder: "final-authoring-04",
+            name: "11-reading-1440.png",
+            width: 1440,
+            height: 1000,
+            sha256:
+              "a2692fc22795416a65a54ef11218988a1a8946f65cc9f8ca7c06b1f918781cf6",
+            reference: null,
+          },
+          {
+            source_folder: "final-authoring-05",
+            name: "17-teacher-original-evidence-1440x1000.png",
+            width: 1440,
+            height: 1000,
+            sha256:
+              "fc6689fcbf15478edec87d46c334d7150a3a17277d6f0b4f4b6f6b03f4a83fb2",
+            reference: "evidence-original-answer-1440x1000.png",
+          },
+          {
+            source_folder: "final-authoring-04",
+            name: "07-resumed-published-v1-1024x768.png",
+            width: 1024,
+            height: 768,
+            sha256:
+              "8ae083dd55941f3e1bb6df2ddb5feae167598e0aa10be8397aaa84b067e5e301",
+            reference: "lesson-published-1024x768.png",
+          },
+          {
+            source_folder: "final-authoring-04",
+            name: "09-active-assignment-1024x768.png",
+            width: 1024,
+            height: 768,
+            sha256:
+              "1e6c72ac4c98070f4131b3436100179a2ac06cdbe83ca2dcccee9e3a5b249283",
+            reference: "assignment-section-a-1024x768.png",
+          },
+          {
+            source_folder: "final-authoring-04",
+            name: "13-new-version-requires-review-1024x768.png",
+            width: 1024,
+            height: 768,
+            sha256:
+              "4f3b90e9806e8a6dae5702dc37a199f2915d3c476e687b826c49f73139d6cb11",
+            reference: "lesson-published-1024x768.png",
+          },
+          {
+            source_folder: "final-authoring-04",
+            name: "11-reading-1024.png",
+            width: 1024,
+            height: 768,
+            sha256:
+              "b38269a23d01de89fd258da3549628c32ad2cf7ca129362aa30992f91f6a2e88",
+            reference: null,
+          },
+          {
+            source_folder: "final-authoring-05",
+            name: "17-teacher-original-evidence-1024x768.png",
+            width: 1024,
+            height: 768,
+            sha256:
+              "6221b3ce4bf1ce38e6d1bda520beb96563232bd1b0824d8e45a7e56d26092dbb",
+            reference: "evidence-original-answer-1024x768.png",
+          },
+          {
+            source_folder: "final-authoring-04",
+            name: "07-resumed-published-v1-390x844.png",
+            width: 390,
+            height: 844,
+            sha256:
+              "184f7b202ff790abb9d74482d2f2aa5bb69aa394da7efe71fe8983e345ead165",
+            reference: "lesson-published-390x844.png",
+          },
+          {
+            source_folder: "final-authoring-04",
+            name: "09-active-assignment-390x844.png",
+            width: 390,
+            height: 844,
+            sha256:
+              "4e67ac2bec6a93d7e13032798ac45215d356dbbba757621f6a9850b64f176576",
+            reference: "assignment-section-a-390x844.png",
+          },
+          {
+            source_folder: "final-authoring-04",
+            name: "13-new-version-requires-review-390x844.png",
+            width: 390,
+            height: 844,
+            sha256:
+              "cec2cc4a25b0af18a24e96850339bc1e6ecbe221aa9dbce3dc6668461e3e1fec",
+            reference: "lesson-published-390x844.png",
+          },
+          {
+            source_folder: "final-authoring-04",
+            name: "11-reading-390.png",
+            width: 390,
+            height: 844,
+            sha256:
+              "01dec5325a75332dd9a3789e285507591ec3e3aec2d314296134e74dbf8ff957",
+            reference: null,
+          },
+          {
+            source_folder: "final-authoring-05",
+            name: "17-teacher-original-evidence-390x844.png",
+            width: 390,
+            height: 844,
+            sha256:
+              "26bdc018109994e26acdc2c68392683306482443e7e6aac0ab71dcd27ad3b5ed",
+            reference: "evidence-original-answer-390x844.png",
+          },
+          {
+            source_folder: "final-authoring-04",
+            name: "07-resumed-published-v1-320x844.png",
+            width: 320,
+            height: 844,
+            sha256:
+              "cee19280c849996f01f8fba24b6fb2d4103cae0dce5c89e707e7c2015579ca98",
+            reference: "lesson-published-320x844.png",
+          },
+          {
+            source_folder: "final-authoring-04",
+            name: "09-active-assignment-320x844.png",
+            width: 320,
+            height: 844,
+            sha256:
+              "7bed01fc40049280bf724d36684fe1f24e1647cfda3deae07092cae8e9a8268b",
+            reference: "assignment-section-a-320x844.png",
+          },
+          {
+            source_folder: "final-authoring-04",
+            name: "13-new-version-requires-review-320x844.png",
+            width: 320,
+            height: 844,
+            sha256:
+              "b3500bbe536108a73605ea8a15c0301de31346fe3e9641b94d5265846a7b662c",
+            reference: "lesson-published-320x844.png",
+          },
+          {
+            source_folder: "final-authoring-04",
+            name: "11-reading-320.png",
+            width: 320,
+            height: 844,
+            sha256:
+              "4005b0985c945334b8816af07297911f3cc96d4829c15a8803cb52d06ab1477b",
+            reference: null,
+          },
+          {
+            source_folder: "final-authoring-05",
+            name: "17-teacher-original-evidence-320x844.png",
+            width: 320,
+            height: 844,
+            sha256:
+              "9d16b6963890b8889aaeb437d7ed6bf90362cc68db5f0447d43c7a1ba8bfec1e",
+            reference: "evidence-original-answer-320x844.png",
+          },
+          {
+            source_folder: "final-authoring-04",
+            name: "08-inactive-hidden-student.png",
+            width: 1440,
+            height: 1000,
+            sha256:
+              "ab0694eb985e9847faf5fde6eb7f0b570df07e972586b3fdb19f49544f027689",
+            reference: null,
+          },
+          {
+            source_folder: "final-authoring-04",
+            name: "10-student-assignment.png",
+            width: 1440,
+            height: 1000,
+            sha256:
+              "e27f9def7bface4499c049e1e0a04ea53f1ea4e4ab253aa4d9c8de6848463990",
+            reference: null,
+          },
+          {
+            source_folder: "final-authoring-04",
+            name: "12-student-session.png",
+            width: 1440,
+            height: 1000,
+            sha256:
+              "02c9b2db6b2ba1de27e37fb6bbe5e5da210a74492ea237cbf497e5f4a58ddfc7",
+            reference: null,
+          },
+          {
+            source_folder: "final-authoring-04",
+            name: "14-session-preserved-after-v2.png",
+            width: 1440,
+            height: 1000,
+            sha256:
+              "a2960f6c98bd634c83df41e19df75376198a33098b15fade85c294fadd820123",
+            reference: null,
+          },
+          {
+            source_folder: "final-authoring-04",
+            name: "15-help-clarified-not-graded.png",
+            width: 1440,
+            height: 1000,
+            sha256:
+              "a2ba7f0451e627a7ee6c17455ec77bac72de3cc4899d0a723afb9f58b8f39153",
+            reference: null,
+          },
+          {
+            source_folder: "final-authoring-05",
+            name: "16-original-answer-saved-provider-disabled.png",
+            width: 1440,
+            height: 1000,
+            sha256:
+              "1ee37817072e3fc45ccdb07c0b05154a09e84813ed1a1fe110983bfd2f996c9d",
+            reference: null,
+          },
+        ],
+        refs = {
+          "lesson-published-1440x1000.png":
+            "../../prototype-verification/screenshots/lesson-published-1440x1000.png",
+          "assignment-section-a-1440x1000.png":
+            "../../prototype-verification/screenshots/assignment-section-a-1440x1000.png",
+          "evidence-original-answer-1440x1000.png":
+            "../../prototype-verification/screenshots/evidence-original-answer-1440x1000.png",
+          "lesson-published-1024x768.png":
+            "../../prototype-verification/screenshots/lesson-published-1024x768.png",
+          "assignment-section-a-1024x768.png":
+            "../../prototype-verification/screenshots/assignment-section-a-1024x768.png",
+          "evidence-original-answer-1024x768.png":
+            "../../prototype-verification/screenshots/evidence-original-answer-1024x768.png",
+          "lesson-published-390x844.png":
+            "../../prototype-verification/screenshots/lesson-published-390x844.png",
+          "assignment-section-a-390x844.png":
+            "../../prototype-verification/screenshots/assignment-section-a-390x844.png",
+          "evidence-original-answer-390x844.png":
+            "../../prototype-verification/screenshots/evidence-original-answer-390x844.png",
+          "lesson-published-320x844.png":
+            "../../prototype-verification/screenshots/lesson-published-320x844.png",
+          "assignment-section-a-320x844.png":
+            "../../prototype-verification/screenshots/assignment-section-a-320x844.png",
+          "evidence-original-answer-320x844.png":
+            "../../prototype-verification/screenshots/evidence-original-answer-320x844.png",
+        };
+      const select = document.querySelector("#capture");
+      function render() {
+        const item = rows[Number(select.value)],
+          ref = document.querySelector("#reference");
+        document.querySelector("#image").src = item.name;
+        document.querySelector("#image-link").href = item.name;
+        document.querySelector("#title").textContent = item.name;
+        ref.hidden = !item.reference;
+        document.querySelector("#reference-note").textContent = item.reference
+          ? "Different fictional density and, for assignment/session routes, a different task state. Compare structure with this limitation."
+          : "No equivalent student prototype capture is available.";
+        if (item.reference) {
+          ref.src = refs[item.reference];
+          document.querySelector("#reference-link").href = refs[item.reference];
+        } else {
+          ref.removeAttribute("src");
+          document.querySelector("#reference-link").removeAttribute("href");
+        }
+      }
+      select.addEventListener("change", render);
+      render();
+    </script>
+  </body>
+</html>

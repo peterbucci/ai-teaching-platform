@@ -1,0 +1,14 @@
+file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/runner-work/runner.mjs:480
+      throw new Error(
+            ^
+
+Error: Target lp-v22-main5 already owns containers: lp-v22-main5-gateway-1
+lp-v22-main5-app-1
+lp-v22-main5-db-1. Reuse its initialized state or explicitly allocate a new target; nothing was removed.
+    at requireFreshProject (file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/runner-work/runner.mjs:480:13)
+    at file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/runner-work/runner.mjs:599:3
+    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5)
+
+Node.js v22.13.0

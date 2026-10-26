@@ -1,0 +1,39 @@
+Focused accessibility follow-up review — 2026-10-25
+
+Application: 462cfb1b31d9108cec70d18b6553bd45048d2eed, tree 03cca1fed3900a122e689c4a512afadd9052e5af.
+Prepared helper SHA256: d200de27bb64ccf74672e58a4667574b8a19680f416991f82c6ef549cb395b64.
+Runtime: UNRUN, awaiting coordinator GO. Syntax, repository ESLint and formatting passed.
+Source-grounded author review followed by independent peer review from locate_reference. The peer identified and re-reviewed the visibility and intercepted-mutation claim corrections below. This remains static review, not a second runtime observation.
+
+Exact harness corrections
+1. Progress readiness now waits for .ap-workbench[data-pane="details"] and #cell-evidence, and checks assignment/view URL identity. At widths below 1240, application progress.css:625 intentionally hides .ap-main, including Class progress. The first run's mobile/native 200% heading timeouts were verifier errors; the application is not required to make a hidden pane heading visible.
+2. Objective field uses the exact existing placeholder Students will be able to explain… from objectives/editor.tsx:1497. The first screenshot showed the objective form loaded and the field label below the viewport. Changing this locator does not change the input or expected retention; the test still fills local text, moves Reading→Outline→Editor, compares exact value and restores the original without save.
+3. Scope keyboard verification starts on a freshly loaded compact Lessons course page and uses forward Tab. The first desktop test traversed backward from a long teacher desk and exhausted its 100-key bound. Actual Tab/Enter/dialog/Escape interaction remains required; no DOM focus shortcut is introduced for this test.
+4. Evidence confirmation explicitly reaches the first response via real Tab from the preceding search field, records the focused row and history memory, presses Enter, then native Back. After exact URL/selected-row readiness and 500 ms settling it expects focus on that originating row. No focus/scroll setter runs after Back. This is a focused confirmation of the run01 mismatch, not a replacement for the already passed repeatedURL sequence.
+
+Assertion limits and scope
+- Scope-dialog checks cover the course-level Lessons trigger. They do not prove every assignment-level opener or comprehensive keyboard navigation. The visible flag now requires viewport intersection and, for response rows, intersection with the enclosing list scroller. Rendered state is recorded separately. The test does not claim a comprehensive focus-indicator/contrast audit.
+- Native 200% is measured again only because a new isolated browser profile must be calibrated before interpreting its source-reading screenshots. Desktop/mobile CSS viewport tests remain distinct from native zoom.
+- S1 mobile still requires discovery without a selected assignment and its Assignments heading; the route expectation is unchanged.
+- Unsaved checking now includes a separate actual reload and course-navigation/Back case, in addition to pane changes. It does not claim browser-close, storage-loss, autosave or server-mutation recovery. The utility blocks all application writes after fictional login.
+- Evidence expected row is the keyboard-activated actual response link. Exact raw original text, repeatedURL list scroll and forward/reload checks remain the immutable run01 evidence; the focused pass does not broaden their claims.
+- Actual model and screen reader remain UNRUN. No prior result was changed or hidden.
+
+First-run findings for coordinator inclusion (not master report edits)
+P2 S1, #120/#117: from selected assignment Progress, Course Assignments href retains assignment 30000000-0000-4000-8000-000000000001 without view, opening selected review instead of discovery. The actual rendered Assignments heading count was 0. Mobile is still unverified until this focused pass.
+P2 C2, #117 progress link / #116 session return with #120 shell integration: Progress→Read in full displays Back to learning insights and goes to /teacher/insights, losing assignment progress view/pane despite retaining some filters.
+P2 candidate, #116 Evidence with #120 integration: base Evidence URL→first already-selected response→B→A→Back three times retained selected response/list position but focused response-detail-title rather than originating evidence-response-* link. The first observation used 180 ms settling; a focused confirmation with 500 ms settling remains pending; do not yet describe it as independently reproduced.
+
+Raw first run: evidence/final-accessibility-01/report.json and 14 PNGs. Counts: 50 pass, 3 failed assertions, 6 harness/runtime errors; actual native 200% verified, no screenshot overflow. Original helper SHA 5d46286a6d0631f89a7b3c6cc1a62b76cd404b9f0dec2f00eacd718d9ff3abdc and first report remain unchanged.
+
+
+Peer-review corrections
+5. Visible focus now requires a nonzero rectangle intersecting both viewport and enclosing Evidence list; a merely mounted offscreen row cannot pass.
+6. The local unsaved check derives whether a save was attempted from intercepted mutation requests. Any blocked application mutation after login fails acceptance, and existing partial/failed status is preserved. The readonly guard cannot hide a mutation and still yield a passing outcome.
+
+
+Requested reload/navigation extension (independently reviewed by locate_reference on final SHA)
+7. Authorized GET pins the same lesson, v2 draft revision and source version before editing. A pre-existing recovery copy is preserved, marking only that test unrun. The sentinel is typed into the actual objective field; the verifier only reads the recovery key written by the application.
+8. Actual reload accepts the browser beforeunload prompt, verifies the offered recovery and unchanged saved draft, then uses Restore unfinished edits. Actual mobile Lessons navigation and native Back must retain exact text either in the mounted editor or through the offered recovery; the mechanism is recorded.
+9. The pane and reload cases clean up through the application's Discard edits and reload / Reload saved draft control, whose GET result must equal the original snapshot. This restores review flags as well as words. No Save, approval, or direct browser-storage write is used. Unknown recovery remains untouched; failures remain failures and later independent cases continue.
+

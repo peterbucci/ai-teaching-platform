@@ -1,0 +1,1939 @@
+{
+  "sourceSha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "sourceTree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "project": "lp-v22-shell5",
+  "origin": "http://localhost:3350",
+  "harness_sha256": "5d46286a6d0631f89a7b3c6cc1a62b76cd404b9f0dec2f00eacd718d9ff3abdc",
+  "authoring_report_sha256": "7e99672e7cf7e6689d1bcc53d57a68f1a052eecd6b09ee77ea7a8d9de3970051",
+  "started_at": "2026-10-25T06:13:02.375Z",
+  "status": "completed-with-failures",
+  "checks": [
+    {
+      "label": "desktop-scope-keyboard",
+      "status": "harness-or-runtime-error",
+      "error": "Keyboard target not reached: Desktop scope dialog trigger"
+    },
+    {
+      "label": "S1 course Assignments returns to discovery",
+      "status": "fail",
+      "owner": "#120 / #117",
+      "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001",
+      "actual_url": "http://localhost:3350/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001",
+      "discovery_heading_count": 0,
+      "focus": {
+        "tag": "A",
+        "id": "",
+        "className": "",
+        "text": "Assignments",
+        "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001",
+        "controls": null,
+        "name": null,
+        "inDialog": false,
+        "visible": true,
+        "outline": "rgb(23, 109, 88) none 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "Browser Back restores assignment selection URL",
+      "status": "pass",
+      "url": "http://localhost:3350/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=all&student=10000000-0000-4000-8000-000000000002&concept=transmission_delay&status=all&pane=details#cell-evidence"
+    },
+    {
+      "label": "Browser Forward restores exact session URL",
+      "status": "pass",
+      "url": "http://localhost:3350/teacher/sessions/40000000-0000-4000-8000-000000000001?assignment=30000000-0000-4000-8000-000000000001&origin=all&student=10000000-0000-4000-8000-000000000002&concept=transmission_delay#attempt-50000000-0000-4000-8000-000000000001"
+    },
+    {
+      "label": "Session reload preserves exact selected URL",
+      "status": "pass",
+      "url": "http://localhost:3350/teacher/sessions/40000000-0000-4000-8000-000000000001?assignment=30000000-0000-4000-8000-000000000001&origin=all&student=10000000-0000-4000-8000-000000000002&concept=transmission_delay#attempt-50000000-0000-4000-8000-000000000001"
+    },
+    {
+      "label": "C2 displayed session return restores progress selection",
+      "status": "fail",
+      "owner": "#117 / #116 / #120",
+      "source_url": "http://localhost:3350/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=all&student=10000000-0000-4000-8000-000000000002&concept=transmission_delay&status=all&pane=details#cell-evidence",
+      "full_session_url": "http://localhost:3350/teacher/sessions/40000000-0000-4000-8000-000000000001?assignment=30000000-0000-4000-8000-000000000001&origin=all&student=10000000-0000-4000-8000-000000000002&concept=transmission_delay#attempt-50000000-0000-4000-8000-000000000001",
+      "rendered_back": {
+        "text": "Back to learning insights",
+        "href": "/teacher/insights?assignment=30000000-0000-4000-8000-000000000001&origin=all&concept=transmission_delay&student=10000000-0000-4000-8000-000000000002&returnTo=insights#responses"
+      },
+      "actual_return": "http://localhost:3350/teacher/insights?assignment=30000000-0000-4000-8000-000000000001&origin=all&concept=transmission_delay&student=10000000-0000-4000-8000-000000000002&returnTo=insights#responses"
+    },
+    {
+      "label": "Evidence first A entry preserves exact selected record",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 0,
+      "entryToken": "199df74369e3d20ccf2c2a86df56d50a"
+    },
+    {
+      "label": "Evidence first A entry restores page-owned focus",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedFocus": "response-detail-title",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 0,
+      "entryToken": "199df74369e3d20ccf2c2a86df56d50a"
+    },
+    {
+      "label": "Evidence first A entry keeps the selected row visible in its scroller",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 0,
+      "entryToken": "199df74369e3d20ccf2c2a86df56d50a"
+    },
+    {
+      "label": "Evidence B entry preserves exact selected record",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=ae71b8e0-54cb-416e-8f03-bac46347ae6e&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb&evaluation=42a472b6-f120-4170-8ddf-843be29033de&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "originalResponse": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 8849,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "4fe7ac2cba7d50426afa1066169d43c2"
+    },
+    {
+      "label": "Evidence B entry restores page-owned focus",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedFocus": "response-detail-title",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=ae71b8e0-54cb-416e-8f03-bac46347ae6e&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb&evaluation=42a472b6-f120-4170-8ddf-843be29033de&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "originalResponse": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 8849,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "4fe7ac2cba7d50426afa1066169d43c2"
+    },
+    {
+      "label": "Evidence B entry keeps the selected row visible in its scroller",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=ae71b8e0-54cb-416e-8f03-bac46347ae6e&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb&evaluation=42a472b6-f120-4170-8ddf-843be29033de&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "originalResponse": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 8849,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "4fe7ac2cba7d50426afa1066169d43c2"
+    },
+    {
+      "label": "Evidence repeated A entry preserves exact selected record",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "328c3617bc7c13f61afa2ad2c2102256"
+    },
+    {
+      "label": "Evidence repeated A entry restores page-owned focus",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedFocus": "response-detail-title",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "328c3617bc7c13f61afa2ad2c2102256"
+    },
+    {
+      "label": "Evidence repeated A entry keeps the selected row visible in its scroller",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "328c3617bc7c13f61afa2ad2c2102256"
+    },
+    {
+      "label": "Evidence actual links revisit the identical URL",
+      "status": "pass",
+      "first": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title",
+      "repeat": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title"
+    },
+    {
+      "label": "Repeated Evidence URL preserves the exact original response",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "attempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540"
+    },
+    {
+      "label": "Evidence Back to B preserves exact selected record",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=ae71b8e0-54cb-416e-8f03-bac46347ae6e&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb&evaluation=42a472b6-f120-4170-8ddf-843be29033de&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "originalResponse": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 8849,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "4fe7ac2cba7d50426afa1066169d43c2"
+    },
+    {
+      "label": "Evidence Back to B restores page-owned focus",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedFocus": "response-detail-title",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=ae71b8e0-54cb-416e-8f03-bac46347ae6e&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb&evaluation=42a472b6-f120-4170-8ddf-843be29033de&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "originalResponse": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 8849,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "4fe7ac2cba7d50426afa1066169d43c2"
+    },
+    {
+      "label": "Evidence Back to B keeps the selected row visible in its scroller",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=ae71b8e0-54cb-416e-8f03-bac46347ae6e&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb&evaluation=42a472b6-f120-4170-8ddf-843be29033de&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "originalResponse": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 8849,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "4fe7ac2cba7d50426afa1066169d43c2"
+    },
+    {
+      "label": "Evidence Back to B preserves original response text",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "actualAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb"
+    },
+    {
+      "label": "Evidence Back to B restores the known list position",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedScrollTop": 8849,
+      "actualScrollTop": 8849,
+      "tolerancePixels": 4
+    },
+    {
+      "label": "Evidence Back to first A preserves exact selected record",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "199df74369e3d20ccf2c2a86df56d50a"
+    },
+    {
+      "label": "Evidence Back to first A restores page-owned focus",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedFocus": "response-detail-title",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "199df74369e3d20ccf2c2a86df56d50a"
+    },
+    {
+      "label": "Evidence Back to first A keeps the selected row visible in its scroller",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "199df74369e3d20ccf2c2a86df56d50a"
+    },
+    {
+      "label": "Evidence Back to first A preserves original response text",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "actualAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540"
+    },
+    {
+      "label": "Evidence Back to first A restores the known list position",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedScrollTop": 0,
+      "actualScrollTop": 0,
+      "tolerancePixels": 4
+    },
+    {
+      "label": "Evidence Back to originating row preserves exact selected record",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 0,
+      "entryToken": "97c63f212c42a0142928ad40f82c178b"
+    },
+    {
+      "label": "Evidence Back to originating row restores page-owned focus",
+      "status": "fail",
+      "owner": "#116 / #120",
+      "expectedFocus": "evidence-response-7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 0,
+      "entryToken": "97c63f212c42a0142928ad40f82c178b"
+    },
+    {
+      "label": "Evidence Back to originating row keeps the selected row visible in its scroller",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 0,
+      "entryToken": "97c63f212c42a0142928ad40f82c178b"
+    },
+    {
+      "label": "Evidence Back to originating row preserves original response text",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "actualAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540"
+    },
+    {
+      "label": "Evidence Back to originating row restores the known list position",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedScrollTop": 0,
+      "actualScrollTop": 0,
+      "tolerancePixels": 4
+    },
+    {
+      "label": "Evidence Forward to first A preserves exact selected record",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "199df74369e3d20ccf2c2a86df56d50a"
+    },
+    {
+      "label": "Evidence Forward to first A restores page-owned focus",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedFocus": "response-detail-title",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "199df74369e3d20ccf2c2a86df56d50a"
+    },
+    {
+      "label": "Evidence Forward to first A keeps the selected row visible in its scroller",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "199df74369e3d20ccf2c2a86df56d50a"
+    },
+    {
+      "label": "Evidence Forward to first A preserves original response text",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "actualAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540"
+    },
+    {
+      "label": "Evidence Forward to first A restores the known list position",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedScrollTop": 0,
+      "actualScrollTop": 0,
+      "tolerancePixels": 4
+    },
+    {
+      "label": "Evidence Forward to B preserves exact selected record",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=ae71b8e0-54cb-416e-8f03-bac46347ae6e&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb&evaluation=42a472b6-f120-4170-8ddf-843be29033de&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "originalResponse": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 8849,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "4fe7ac2cba7d50426afa1066169d43c2"
+    },
+    {
+      "label": "Evidence Forward to B restores page-owned focus",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedFocus": "response-detail-title",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=ae71b8e0-54cb-416e-8f03-bac46347ae6e&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb&evaluation=42a472b6-f120-4170-8ddf-843be29033de&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "originalResponse": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 8849,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "4fe7ac2cba7d50426afa1066169d43c2"
+    },
+    {
+      "label": "Evidence Forward to B keeps the selected row visible in its scroller",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=ae71b8e0-54cb-416e-8f03-bac46347ae6e&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb&evaluation=42a472b6-f120-4170-8ddf-843be29033de&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "originalResponse": "Both double. Transmission takes twice as long because the bits must be transmitted across twice the distance.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 8849,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "4fe7ac2cba7d50426afa1066169d43c2"
+    },
+    {
+      "label": "Evidence Forward to B preserves original response text",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "actualAttempt": "1f16fd29-fa61-4166-85c8-c13197f1facb"
+    },
+    {
+      "label": "Evidence Forward to B restores the known list position",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedScrollTop": 8849,
+      "actualScrollTop": 8849,
+      "tolerancePixels": 4
+    },
+    {
+      "label": "Evidence Forward to repeated A preserves exact selected record",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "328c3617bc7c13f61afa2ad2c2102256"
+    },
+    {
+      "label": "Evidence Forward to repeated A restores page-owned focus",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedFocus": "response-detail-title",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "328c3617bc7c13f61afa2ad2c2102256"
+    },
+    {
+      "label": "Evidence Forward to repeated A keeps the selected row visible in its scroller",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 559,
+      "entryToken": "328c3617bc7c13f61afa2ad2c2102256"
+    },
+    {
+      "label": "Evidence Forward to repeated A preserves original response text",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "actualAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540"
+    },
+    {
+      "label": "Evidence Forward to repeated A restores the known list position",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedScrollTop": 0,
+      "actualScrollTop": 0,
+      "tolerancePixels": 4
+    },
+    {
+      "label": "Evidence repeated-URL reload selection/hash preserves exact selected record",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 0,
+      "entryToken": "328c3617bc7c13f61afa2ad2c2102256"
+    },
+    {
+      "label": "Evidence repeated-URL reload selection/hash restores page-owned focus",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "expectedFocus": "response-detail-title",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 0,
+      "entryToken": "328c3617bc7c13f61afa2ad2c2102256"
+    },
+    {
+      "label": "Evidence repeated-URL reload selection/hash keeps the selected row visible in its scroller",
+      "status": "pass",
+      "owner": "#116 / #120",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title",
+      "selectedAttempt": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "originalResponse": "Fictional follow-up response preserved during an uncertain request.",
+      "activeId": "response-detail-title",
+      "activeTag": "H2",
+      "focusVisible": true,
+      "selectedRowVisibleInList": true,
+      "listScrollTop": 0,
+      "listClientHeight": 640,
+      "listScrollHeight": 9489,
+      "windowScrollY": 0,
+      "entryToken": "328c3617bc7c13f61afa2ad2c2102256"
+    },
+    {
+      "label": "Anonymous Evidence filter does not restore stale response-row focus",
+      "status": "pass",
+      "owner": "#120",
+      "before": {
+        "tag": "INPUT",
+        "id": "",
+        "className": "lp-input",
+        "text": "",
+        "href": null,
+        "controls": null,
+        "name": "q",
+        "inDialog": false,
+        "visible": true,
+        "outline": "rgb(47, 138, 107) solid 3px",
+        "scrollY": 0
+      },
+      "after": {
+        "tag": "BODY",
+        "id": "",
+        "className": "",
+        "text": "requestAnimationFrame(function(){$RT=performance.now()});(globalThis[\"TURBOPACK\"] || (globalThis[\"TURBOPACK\"] = [])).push({\"otherChunks\":[\"static/chunks/1x6obpmlu1_c2.js\",\"static/c",
+        "href": null,
+        "controls": null,
+        "name": null,
+        "inDialog": false,
+        "visible": true,
+        "outline": "rgb(23, 48, 45) none 3px",
+        "scrollY": 0
+      },
+      "exactAnonymousControlRestorationRequired": false
+    },
+    {
+      "label": "S1-mobile",
+      "status": "harness-or-runtime-error",
+      "error": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('heading', { name: 'Class progress', exact: true }) to be visible\u001b[22m\n"
+    },
+    {
+      "label": "mobile-scope-390",
+      "status": "harness-or-runtime-error",
+      "error": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('heading', { name: 'Class progress', exact: true }) to be visible\u001b[22m\n"
+    },
+    {
+      "label": "mobile-scope-320",
+      "status": "harness-or-runtime-error",
+      "error": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('heading', { name: 'Class progress', exact: true }) to be visible\u001b[22m\n"
+    },
+    {
+      "label": "authored-pane-retention",
+      "status": "harness-or-runtime-error",
+      "error": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('Learning objective', { exact: true }).first() to be visible\u001b[22m\n"
+    },
+    {
+      "label": "Actual native200 browser zoom measurement",
+      "status": "pass",
+      "baseline": {
+        "dpr": 1,
+        "innerWidth": 1416,
+        "innerHeight": 908,
+        "outerWidth": 1440,
+        "outerHeight": 1000,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 1416,
+        "overflow": false
+      },
+      "zoom": {
+        "dpr": 2,
+        "innerWidth": 708,
+        "innerHeight": 454,
+        "outerWidth": 1440,
+        "outerHeight": 1000,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 708,
+        "overflow": false
+      }
+    },
+    {
+      "label": "Native200 scope dialog keyboard focus remains inside dialog",
+      "status": "pass",
+      "owner": "#120",
+      "sequence": [
+        {
+          "tag": "A",
+          "id": "",
+          "className": "",
+          "text": "Overview",
+          "href": "/teacher?assignment=30000000-0000-4000-8000-000000000001&origin=all",
+          "controls": null,
+          "name": null,
+          "inDialog": true,
+          "visible": true,
+          "outline": "rgb(47, 138, 107) solid 3px",
+          "scrollY": 0
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "className": "",
+          "text": "Assignments",
+          "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001",
+          "controls": null,
+          "name": null,
+          "inDialog": true,
+          "visible": true,
+          "outline": "rgb(47, 138, 107) solid 3px",
+          "scrollY": 0
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "className": "",
+          "text": "Overview",
+          "href": "/teacher?assignment=30000000-0000-4000-8000-000000000001&origin=all",
+          "controls": null,
+          "name": null,
+          "inDialog": true,
+          "visible": true,
+          "outline": "rgb(47, 138, 107) solid 3px",
+          "scrollY": 0
+        }
+      ]
+    },
+    {
+      "label": "Native200 scope dialog Escape restores opener",
+      "status": "pass",
+      "owner": "#120",
+      "before": {
+        "tag": "BUTTON",
+        "id": "",
+        "className": "tw-scope-switch",
+        "text": "Networking demo — synthetic classNetworking demo — synthetic classOverview",
+        "href": null,
+        "controls": "teacher-workspace-switcher",
+        "name": null,
+        "inDialog": false,
+        "visible": true,
+        "outline": "rgb(47, 138, 107) solid 3px",
+        "scrollY": 0
+      },
+      "after": {
+        "tag": "BUTTON",
+        "id": "",
+        "className": "tw-scope-switch",
+        "text": "Networking demo — synthetic classNetworking demo — synthetic classOverview",
+        "href": null,
+        "controls": "teacher-workspace-switcher",
+        "name": null,
+        "inDialog": false,
+        "visible": true,
+        "outline": "rgb(47, 138, 107) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "native200-scope-and-reading",
+      "status": "harness-or-runtime-error",
+      "error": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('heading', { name: 'Class progress', exact: true }) to be visible\u001b[22m\n"
+    }
+  ],
+  "observations": [
+    {
+      "label": "native100 keyboard login",
+      "key": "Tab",
+      "tabs": 3,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "className": "lp-button",
+        "text": "Demo teacher",
+        "href": null,
+        "controls": null,
+        "name": null,
+        "inDialog": false,
+        "visible": true,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "Browser Back focus (inspect separately from route pass)",
+      "before": {
+        "tag": "A",
+        "id": "",
+        "className": "ap-link",
+        "text": "Read in full",
+        "href": "/teacher/sessions/40000000-0000-4000-8000-000000000001?assignment=30000000-0000-4000-8000-000000000001&origin=all&student=10000000-0000-4000-8000-000000000002&concept=transmission_delay#attempt-50000000-0000-4000-8000-000000000001",
+        "controls": null,
+        "name": null,
+        "inDialog": false,
+        "visible": true,
+        "outline": "rgb(47, 138, 107) solid 3px",
+        "scrollY": 0
+      },
+      "after": {
+        "tag": "ASIDE",
+        "id": "cell-evidence",
+        "className": "ap-details",
+        "text": "Details",
+        "href": null,
+        "controls": null,
+        "name": null,
+        "inDialog": false,
+        "visible": true,
+        "outline": "rgb(23, 48, 45) none 3px",
+        "scrollY": 210
+      }
+    },
+    {
+      "label": "Browser Forward focus",
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "className": "",
+        "text": "requestAnimationFrame(function(){$RT=performance.now()});(globalThis[\"TURBOPACK\"] || (globalThis[\"TURBOPACK\"] = [])).push({\"otherChunks\":[\"static/chunks/1x6obpmlu1_c2.js\",\"static/c",
+        "href": null,
+        "controls": null,
+        "name": null,
+        "inDialog": false,
+        "visible": true,
+        "outline": "rgb(23, 48, 45) none 3px",
+        "scrollY": 454
+      }
+    },
+    {
+      "label": "Evidence history fixture",
+      "rows": 48,
+      "first": "7a7d38e4-d960-4f01-bf3d-099077c5b540",
+      "last": "1f16fd29-fa61-4166-85c8-c13197f1facb",
+      "overflowing": true
+    },
+    {
+      "label": "Repeated-URL entry identities (opaque diagnostics only)",
+      "first": "199df74369e3d20ccf2c2a86df56d50a",
+      "repeat": "328c3617bc7c13f61afa2ad2c2102256"
+    },
+    {
+      "label": "native200 keyboard login",
+      "key": "Tab",
+      "tabs": 3,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "className": "lp-button",
+        "text": "Demo teacher",
+        "href": null,
+        "controls": null,
+        "name": null,
+        "inDialog": false,
+        "visible": true,
+        "outline": "rgb(50, 130, 100) solid 3px",
+        "scrollY": 0
+      }
+    },
+    {
+      "label": "Native200 scope dialog trigger",
+      "key": "Shift+Tab",
+      "tabs": 27,
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "className": "tw-scope-switch",
+        "text": "Networking demo — synthetic classNetworking demo — synthetic classOverview",
+        "href": null,
+        "controls": "teacher-workspace-switcher",
+        "name": null,
+        "inDialog": false,
+        "visible": true,
+        "outline": "rgb(47, 138, 107) solid 3px",
+        "scrollY": 0
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "native100-login.png",
+      "stage": "guard",
+      "url": "http://localhost:3350/login",
+      "dpr": 1,
+      "innerWidth": 1416,
+      "innerHeight": 908,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 1416,
+      "overflow": false
+    },
+    {
+      "file": "failure-desktop-scope-keyboard.png",
+      "stage": "desktop-scope-keyboard",
+      "url": "http://localhost:3350/teacher",
+      "dpr": 1,
+      "innerWidth": 1416,
+      "innerHeight": 908,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 1416,
+      "overflow": false
+    },
+    {
+      "file": "S1-course-assignments.png",
+      "stage": "S1-desktop",
+      "url": "http://localhost:3350/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001",
+      "dpr": 1,
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 1440,
+      "overflow": false
+    },
+    {
+      "file": "C2-full-session.png",
+      "stage": "C2-and-history",
+      "url": "http://localhost:3350/teacher/sessions/40000000-0000-4000-8000-000000000001?assignment=30000000-0000-4000-8000-000000000001&origin=all&student=10000000-0000-4000-8000-000000000002&concept=transmission_delay#attempt-50000000-0000-4000-8000-000000000001",
+      "dpr": 1,
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 1440,
+      "overflow": false
+    },
+    {
+      "file": "C2-actual-return.png",
+      "stage": "C2-and-history",
+      "url": "http://localhost:3350/teacher/insights?assignment=30000000-0000-4000-8000-000000000001&origin=all&concept=transmission_delay&student=10000000-0000-4000-8000-000000000002&returnTo=insights#responses",
+      "dpr": 1,
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 1440,
+      "overflow": false
+    },
+    {
+      "file": "evidence-repeated-A-entry.png",
+      "stage": "evidence-page-owned-history",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&session=88cd8ee9-43d4-4b60-8145-b78863889aa6&attempt=7a7d38e4-d960-4f01-bf3d-099077c5b540&evaluation=27a4d969-d0f6-4ce1-adb4-47f3316b6814&returnTo=evidence#response-detail-title",
+      "dpr": 1,
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 1440,
+      "overflow": false
+    },
+    {
+      "file": "evidence-originating-row-restored.png",
+      "stage": "evidence-page-owned-history",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+      "dpr": 1,
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 1440,
+      "overflow": false
+    },
+    {
+      "file": "evidence-anonymous-filter-history.png",
+      "stage": "evidence-page-owned-history",
+      "url": "http://localhost:3350/teacher/evidence?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay",
+      "dpr": 1,
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 1440,
+      "overflow": false
+    },
+    {
+      "file": "failure-S1-mobile.png",
+      "stage": "S1-mobile",
+      "url": "http://localhost:3350/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=all&student=10000000-0000-4000-8000-000000000002&concept=transmission_delay&status=all&pane=details#cell-evidence",
+      "dpr": 1,
+      "innerWidth": 390,
+      "innerHeight": 844,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 390,
+      "overflow": false
+    },
+    {
+      "file": "failure-mobile-scope-390.png",
+      "stage": "mobile-scope-390",
+      "url": "http://localhost:3350/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=all&student=10000000-0000-4000-8000-000000000002&concept=transmission_delay&status=all&pane=details#cell-evidence",
+      "dpr": 1,
+      "innerWidth": 390,
+      "innerHeight": 844,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 390,
+      "overflow": false
+    },
+    {
+      "file": "failure-mobile-scope-320.png",
+      "stage": "mobile-scope-320",
+      "url": "http://localhost:3350/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=all&student=10000000-0000-4000-8000-000000000002&concept=transmission_delay&status=all&pane=details#cell-evidence",
+      "dpr": 1,
+      "innerWidth": 320,
+      "innerHeight": 844,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 320,
+      "overflow": false
+    },
+    {
+      "file": "failure-authored-pane-retention.png",
+      "stage": "authored-pane-retention",
+      "url": "http://localhost:3350/teacher/objectives/d1468c98-b268-4566-9301-114be6f836da",
+      "dpr": 1,
+      "innerWidth": 390,
+      "innerHeight": 844,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 390,
+      "overflow": false
+    },
+    {
+      "file": "native200-login.png",
+      "stage": "authored-pane-retention",
+      "url": "http://localhost:3350/login",
+      "dpr": 2,
+      "innerWidth": 708,
+      "innerHeight": 454,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 708,
+      "overflow": false
+    },
+    {
+      "file": "failure-native200-scope-and-reading.png",
+      "stage": "native200-scope-and-reading",
+      "url": "http://localhost:3350/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=all&student=10000000-0000-4000-8000-000000000002&concept=transmission_delay&status=all&pane=details#cell-evidence",
+      "dpr": 2,
+      "innerWidth": 708,
+      "innerHeight": 454,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "visualViewportScale": 1,
+      "rootZoom": "1",
+      "scrollWidth": 708,
+      "overflow": false
+    }
+  ],
+  "safety": [
+    {
+      "before": "initial",
+      "observedAt": "2026-10-25T06:13:02.378Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50512990208,
+          "availableGiB": 47.043888092041016,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50512990208,
+          "availableGiB": 47.043888092041016,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50512990208,
+          "availableGiB": 47.043888092041016,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899318882304,
+          "availableGiB": 837.5559768676758,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50512990208,
+            "availableGiB": 47.043888092041016,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "launch-native100",
+      "observedAt": "2026-10-25T06:13:03.502Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50512990208,
+          "availableGiB": 47.043888092041016,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50512990208,
+          "availableGiB": 47.043888092041016,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50512990208,
+          "availableGiB": 47.043888092041016,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899318882304,
+          "availableGiB": 837.5559768676758,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50512986112,
+            "availableGiB": 47.04388427734375,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "desktop-scope-keyboard",
+      "observedAt": "2026-10-25T06:13:05.533Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50495725568,
+          "availableGiB": 47.027809143066406,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50495725568,
+          "availableGiB": 47.027809143066406,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50495725568,
+          "availableGiB": 47.027809143066406,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899318874112,
+          "availableGiB": 837.5559692382812,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50495496192,
+            "availableGiB": 47.02759552001953,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "S1-desktop",
+      "observedAt": "2026-10-25T06:13:07.250Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50495172608,
+          "availableGiB": 47.02729415893555,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50495172608,
+          "availableGiB": 47.02729415893555,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50495172608,
+          "availableGiB": 47.02729415893555,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899318857728,
+          "availableGiB": 837.5559539794922,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50495164416,
+            "availableGiB": 47.027286529541016,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "C2-and-history",
+      "observedAt": "2026-10-25T06:13:09.117Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50494308352,
+          "availableGiB": 47.0264892578125,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50494308352,
+          "availableGiB": 47.0264892578125,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50494308352,
+          "availableGiB": 47.0264892578125,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899318824960,
+          "availableGiB": 837.5559234619141,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50494308352,
+            "availableGiB": 47.0264892578125,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "evidence-page-owned-history",
+      "observedAt": "2026-10-25T06:13:12.154Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50493923328,
+          "availableGiB": 47.02613067626953,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50493923328,
+          "availableGiB": 47.02613067626953,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50493923328,
+          "availableGiB": 47.02613067626953,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899318718464,
+          "availableGiB": 837.5558242797852,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50495975424,
+            "availableGiB": 47.02804183959961,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "S1-mobile",
+      "observedAt": "2026-10-25T06:13:17.888Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50494078976,
+          "availableGiB": 47.026275634765625,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50494078976,
+          "availableGiB": 47.026275634765625,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50494078976,
+          "availableGiB": 47.026275634765625,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899318611968,
+          "availableGiB": 837.5557250976562,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50493689856,
+            "availableGiB": 47.02591323852539,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "mobile-scope-390",
+      "observedAt": "2026-10-25T06:13:34.345Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50493440000,
+          "availableGiB": 47.02568054199219,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50493440000,
+          "availableGiB": 47.02568054199219,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50493440000,
+          "availableGiB": 47.02568054199219,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899318587392,
+          "availableGiB": 837.5557022094727,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50493440000,
+            "availableGiB": 47.02568054199219,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "mobile-scope-320",
+      "observedAt": "2026-10-25T06:13:50.564Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50494803968,
+          "availableGiB": 47.02695083618164,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50494803968,
+          "availableGiB": 47.02695083618164,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50494803968,
+          "availableGiB": 47.02695083618164,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899318587392,
+          "availableGiB": 837.5557022094727,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50494681088,
+            "availableGiB": 47.02683639526367,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "authored-pane-retention",
+      "observedAt": "2026-10-25T06:14:06.767Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50493042688,
+          "availableGiB": 47.02531051635742,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50493042688,
+          "availableGiB": 47.02531051635742,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50493042688,
+          "availableGiB": 47.02531051635742,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899318587392,
+          "availableGiB": 837.5557022094727,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50493042688,
+            "availableGiB": 47.02531051635742,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "launch-native200",
+      "observedAt": "2026-10-25T06:14:23.678Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50494234624,
+          "availableGiB": 47.02642059326172,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50494234624,
+          "availableGiB": 47.02642059326172,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50494234624,
+          "availableGiB": 47.02642059326172,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899318575104,
+          "availableGiB": 837.5556907653809,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50494234624,
+            "availableGiB": 47.02642059326172,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "native200-scope-and-reading",
+      "observedAt": "2026-10-25T06:14:25.659Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-final-verification\\LearningPlatform",
+          "availableBytes": 50476474368,
+          "availableGiB": 47.00988006591797,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runtime-final",
+          "availableBytes": 50476474368,
+          "availableGiB": 47.00988006591797,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 50476474368,
+          "availableGiB": 47.00988006591797,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-integration5-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-integration5_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899318566912,
+          "availableGiB": 837.5556831359863,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 50476580864,
+            "availableGiB": 47.009979248046875,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    }
+  ],
+  "blocked_requests": [],
+  "method": "Native Edge zoom from isolated Preferences, viewport:null and a 1440x1000 window; CSS mobile viewport checks separately labelled. GET/HEAD only after demo login. Actual Evidence links create repeated URLs; native Back/Forward restores page-owned records. Unsaved objective text is changed locally then restored without saving.",
+  "native_200_percent_verified": true,
+  "actual_model_verification": "unrun",
+  "screen_reader": "unrun",
+  "unrun": [
+    "Comprehensive keyboard/WCAG audit",
+    "Student composer long-response stress",
+    "Unsaved work across reload or leaving the editor",
+    "Pending/failed mutation recovery"
+  ],
+  "native100": {
+    "dpr": 1,
+    "innerWidth": 1416,
+    "innerHeight": 908,
+    "outerWidth": 1440,
+    "outerHeight": 1000,
+    "visualViewportScale": 1,
+    "rootZoom": "1",
+    "scrollWidth": 1416,
+    "overflow": false
+  },
+  "native200": {
+    "dpr": 2,
+    "innerWidth": 708,
+    "innerHeight": 454,
+    "outerWidth": 1440,
+    "outerHeight": 1000,
+    "visualViewportScale": 1,
+    "rootZoom": "1",
+    "scrollWidth": 708,
+    "overflow": false
+  },
+  "finished_at": "2026-10-25T06:14:42.807Z",
+  "horizontal_overflow_observations": []
+}

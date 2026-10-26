@@ -1,0 +1,3147 @@
+
+> ai-teaching-platform@0.1.0 test
+> node --experimental-strip-types --conditions=react-server --test tests/*.test.ts
+
+(node:15308) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+TAP version 13
+# (node:122660) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:122660) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/bounded-request.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: bounded JSON reader rejects actual excess bytes despite missing or false Content-Length
+ok 1 - bounded JSON reader rejects actual excess bytes despite missing or false Content-Length
+  ---
+  duration_ms: 48.8267
+  ...
+# Subtest: bounded JSON reader handles split Unicode and counts bytes rather than characters
+ok 2 - bounded JSON reader handles split Unicode and counts bytes rather than characters
+  ---
+  duration_ms: 10.064
+  ...
+# Subtest: bounded JSON reader retains origin and content-type checks
+ok 3 - bounded JSON reader retains origin and content-type checks
+  ---
+  duration_ms: 3.4137
+  ...
+# (node:92480) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:92480) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/class-fixture.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: 24-student fixture is deterministic, retains original histories and covers the five concepts without real accounts
+ok 4 - 24-student fixture is deterministic, retains original histories and covers the five concepts without real accounts
+  ---
+  duration_ms: 360.4537
+  ...
+# Subtest: fictional scenarios retain uncertainty, contradictory history, assistance, failure and simulated delayed links
+ok 5 - fictional scenarios retain uncertainty, contradictory history, assistance, failure and simulated delayed links
+  ---
+  duration_ms: 177.498
+  ...
+# (node:112692) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:112692) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/conversation-transport.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: authenticated conversation transport preserves exact message and display identities without caching
+ok 6 - authenticated conversation transport preserves exact message and display identities without caching
+  ---
+  duration_ms: 63.4946
+  ...
+# Subtest: uncertain transport outcomes never resend a paid action or acknowledge help
+ok 7 - uncertain transport outcomes never resend a paid action or acknowledge help
+  ---
+  duration_ms: 51.7648
+  ...
+# Subtest: curated answer fallback requires reconciled activity and never bypasses clarification or unseen help
+ok 8 - curated answer fallback requires reconciled activity and never bypasses clarification or unseen help
+  ---
+  duration_ms: 0.7587
+  ...
+# (node:111652) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:111652) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/conversation.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: one message action preserves free text and optional chips without accepting browser classifications
+ok 9 - one message action preserves free text and optional chips without accepting browser classifications
+  ---
+  duration_ms: 7.6612
+  ...
+# Subtest: validated help and answers reuse different existing workflows without changing lesson state
+ok 10 - validated help and answers reuse different existing workflows without changing lesson state
+  ---
+  duration_ms: 8.3021
+  ...
+# Subtest: ambiguous or disputed intent requires a bound explicit choice and never grades itself
+ok 11 - ambiguous or disputed intent requires a bound explicit choice and never grades itself
+  ---
+  duration_ms: 6.6591
+  ...
+# Subtest: request replays are read-only; stale, changed, concurrent and already-resolved actions fail
+ok 12 - request replays are read-only; stale, changed, concurrent and already-resolved actions fail
+  ---
+  duration_ms: 4.6367
+  ...
+# Subtest: off-topic, private, unavailable and invalid classifications preserve original messages without an answer
+ok 13 - off-topic, private, unavailable and invalid classifications preserve original messages without an answer
+  ---
+  duration_ms: 4.0378
+  ...
+# Subtest: conversation projection preserves messages and terminal outcomes across refresh without private data
+ok 14 - conversation projection preserves messages and terminal outcomes across refresh without private data
+  ---
+  duration_ms: 3.946
+  ...
+# Subtest: help references exact safe dialogue, preserves followups, and awaits display before an answer
+ok 15 - help references exact safe dialogue, preserves followups, and awaits display before an answer
+  ---
+  duration_ms: 82.6341
+  ...
+# (node:120188) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:120188) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/date-time.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: local dates use supported browser zones and Eastern fallback for missing or invalid zones
+ok 16 - local dates use supported browser zones and Eastern fallback for missing or invalid zones
+  ---
+  duration_ms: 83.8553
+  ...
+# Subtest: assignment dates use the local calendar day near midnight without changing their timestamp
+ok 17 - assignment dates use the local calendar day near midnight without changing their timestamp
+  ---
+  duration_ms: 4.9221
+  ...
+# Subtest: saved work timestamps follow Eastern daylight saving rather than a fixed UTC offset
+ok 18 - saved work timestamps follow Eastern daylight saving rather than a fixed UTC offset
+  ---
+  duration_ms: 2.7861
+  ...
+# (node:113200) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:113200) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/demo-login.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: demo shortcuts require explicit local configuration, including a loopback bind
+ok 19 - demo shortcuts require explicit local configuration, including a loopback bind
+  ---
+  duration_ms: 116.4442
+  ...
+# Subtest: demo shortcuts reject cross-origin requests, missing origins and caller-provided credentials
+ok 20 - demo shortcuts reject cross-origin requests, missing origins and caller-provided credentials
+  ---
+  duration_ms: 13.2925
+  ...
+# Subtest: demo shortcuts use configured accounts through the ordinary rate-limited sign-in path
+ok 21 - demo shortcuts use configured accounts through the ordinary rate-limited sign-in path
+  ---
+  duration_ms: 30.3309
+  ...
+# (node:126496) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:126496) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/dialogue-application.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: only published policy enables runtime generation; curated content stays deterministic
+ok 22 - only published policy enables runtime generation; curated content stays deterministic
+  ---
+  duration_ms: 142.6864
+  ...
+# Subtest: unanswered help cannot borrow permission for assessed corrective feedback
+ok 23 - unanswered help cannot borrow permission for assessed corrective feedback
+  ---
+  duration_ms: 0.4934
+  ...
+# Subtest: each assessed tool requires its exact permitted controller action
+ok 24 - each assessed tool requires its exact permitted controller action
+  ---
+  duration_ms: 0.6284
+  ...
+# (node:14248) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:14248) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/dialogue-controller-operation.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: a controller reservation stays separate from browser messages and requires accepted unapplied evidence
+ok 25 - a controller reservation stays separate from browser messages and requires accepted unapplied evidence
+  ---
+  duration_ms: 374.9438
+  ...
+# Subtest: controller recovery cannot revive settled, cancelled, changed or unanswered observations
+ok 26 - controller recovery cannot revive settled, cancelled, changed or unanswered observations
+  ---
+  duration_ms: 85.9317
+  ...
+# Subtest: controller request intent follows the established activity decision
+ok 27 - controller request intent follows the established activity decision
+  ---
+  duration_ms: 0.2548
+  ...
+# Subtest: installed controller coverage is advertised and rejects narrowing before generation
+ok 28 - installed controller coverage is advertised and rejects narrowing before generation
+  ---
+  duration_ms: 265.5448
+  ...
+# (node:61328) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:61328) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/dialogue-model-provider.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: dialogue provider requires explicit configuration before transport
+ok 29 - dialogue provider requires explicit configuration before transport
+  ---
+  duration_ms: 3.7986
+  ...
+# Subtest: one bounded request uses structured output and records actual provenance without tools
+ok 30 - one bounded request uses structured output and records actual provenance without tools
+  ---
+  duration_ms: 50.1997
+  ...
+# Subtest: refusal, incomplete and invalid output preserve known usage and never expose raw output
+ok 31 - refusal, incomplete and invalid output preserve known usage and never expose raw output
+  ---
+  duration_ms: 37.6754
+  ...
+# Subtest: provider access, quota and uncertain transport failures are sanitized with zero retries
+ok 32 - provider access, quota and uncertain transport failures are sanitized with zero retries
+  ---
+  duration_ms: 30.4753
+  ...
+# Subtest: cancellation is forwarded to transport and requires reconciliation only after a request starts
+ok 33 - cancellation is forwarded to transport and requires reconciliation only after a request starts
+  ---
+  duration_ms: 4.0907
+  ...
+# Subtest: uploaded proposal, help and question schemas omit URI only on the provider wire
+ok 34 - uploaded proposal, help and question schemas omit URI only on the provider wire
+  ---
+  duration_ms: 182.705
+  ...
+# Subtest: wire compatibility preserves canonical URL checks and exact approved source authority
+ok 35 - wire compatibility preserves canonical URL checks and exact approved source authority
+  ---
+  duration_ms: 49.0022
+  ...
+# (node:90924) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:90924) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/dialogue-preview.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: refresh cancels only unfinished fixture classification and preserves its original message
+ok 36 - refresh cancels only unfinished fixture classification and preserves its original message
+  ---
+  duration_ms: 1059.2581
+  ...
+# (node:63428) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:63428) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/dialogue-service.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: contextual classification preserves exact student text and remains a proposal, including ANSWER
+ok 37 - contextual classification preserves exact student text and remains a proposal, including ANSWER
+  ---
+  duration_ms: 59.4724
+  ...
+# Subtest: classification accepts 12000 characters but overlong help cannot enter generation or be truncated
+ok 38 - classification accepts 12000 characters but overlong help cannot enter generation or be truncated
+  ---
+  duration_ms: 2.2681
+  ...
+# Subtest: help uses its own 2000-character limit and rejects inconsistent original messages
+ok 39 - help uses its own 2000-character limit and rejects inconsistent original messages
+  ---
+  duration_ms: 9.9744
+  ...
+# Subtest: malformed classifier output cannot introduce an action or bypass intent categories
+ok 40 - malformed classifier output cannot introduce an action or bypass intent categories
+  ---
+  duration_ms: 4.438
+  ...
+# Subtest: grounded help uses separate generation and review reservations and only review sees the private rubric
+ok 41 - grounded help uses separate generation and review reservations and only review sees the private rubric
+  ---
+  duration_ms: 5.0224
+  ...
+# Subtest: replaying stored generation preserves content identity, provenance and the review reservation payload
+ok 42 - replaying stored generation preserves content identity, provenance and the review reservation payload
+  ---
+  duration_ms: 5.3762
+  ...
+# Subtest: the permitted explanation strategy reaches both generation and independent review
+ok 43 - the permitted explanation strategy reaches both generation and independent review
+  ---
+  duration_ms: 4.1713
+  ...
+# Subtest: clarify rejects teaching labels and explain rejects neutral output before spending on review
+ok 44 - clarify rejects teaching labels and explain rejects neutral output before spending on review
+  ---
+  duration_ms: 13.6098
+  ...
+# Subtest: neutral clarification can pass but relabeled teaching still fails semantic review
+ok 45 - neutral clarification can pass but relabeled teaching still fails semantic review
+  ---
+  duration_ms: 41.1955
+  ...
+# Subtest: a selected transmission diagnostic preserves the full joint-question context in both prompts
+ok 46 - a selected transmission diagnostic preserves the full joint-question context in both prompts
+  ---
+  duration_ms: 14.3047
+  ...
+# Subtest: generated concepts and citations cannot broaden or change the selected source before review
+ok 47 - generated concepts and citations cannot broaden or change the selected source before review
+  ---
+  duration_ms: 8.8299
+  ...
+# Subtest: source selection outside the authorized concept or passage scope fails before any call
+ok 48 - source selection outside the authorized concept or passage scope fails before any call
+  ---
+  duration_ms: 2.2686
+  ...
+# Subtest: an instructional strategy incompatible with the permitted response is rejected before spending
+ok 49 - an instructional strategy incompatible with the permitted response is rejected before spending
+  ---
+  duration_ms: 3.9413
+  ...
+# Subtest: a valid prior question outside the authorized scope is rejected before any provider reservation
+ok 50 - a valid prior question outside the authorized scope is rejected before any provider reservation
+  ---
+  duration_ms: 1.8308
+  ...
+# Subtest: generated content rejects malformed, wrong-version, unknown concept and invalid citation drafts before review
+ok 51 - generated content rejects malformed, wrong-version, unknown concept and invalid citation drafts before review
+  ---
+  duration_ms: 8.1288
+  ...
+# Subtest: even an existing passage or concept is rejected outside the caller's authorized scope
+ok 52 - even an existing passage or concept is rejected outside the caller's authorized scope
+  ---
+  duration_ms: 3.1717
+  ...
+# Subtest: independent review rejects unsupported claims, irrelevant help, understated assistance and calculations
+ok 53 - independent review rejects unsupported claims, irrelevant help, understated assistance and calculations
+  ---
+  duration_ms: 71.7619
+  ...
+# Subtest: semantic coverage requires every field, supported claims and exact quotes from every cited passage
+ok 54 - semantic coverage requires every field, supported claims and exact quotes from every cited passage
+  ---
+  duration_ms: 15.4889
+  ...
+# Subtest: copied private guidance is rejected before review and paraphrased disclosure is rejected by independent review
+ok 55 - copied private guidance is rejected before review and paraphrased disclosure is rejected by independent review
+  ---
+  duration_ms: 3.2426
+  ...
+# Subtest: controller generation cannot replace an unanswered question or run without permission
+ok 56 - controller generation cannot replace an unanswered question or run without permission
+  ---
+  duration_ms: 2.2943
+  ...
+# Subtest: diagnostics and permitted retests reuse immutable question snapshots and cover all private criteria
+ok 57 - diagnostics and permitted retests reuse immutable question snapshots and cover all private criteria
+  ---
+  duration_ms: 5.5372
+  ...
+# Subtest: question review cannot omit private criteria even when the prompt is supported
+ok 58 - question review cannot omit private criteria even when the prompt is supported
+  ---
+  duration_ms: 4.5028
+  ...
+# Subtest: exact repeated prompts are rejected before review and semantic paraphrases fail novelty review
+ok 59 - exact repeated prompts are rejected before review and semantic paraphrases fail novelty review
+  ---
+  duration_ms: 4.1297
+  ...
+# Subtest: reservation denial propagates without provider work and a denied review cannot expose a draft
+ok 60 - reservation denial propagates without provider work and a denied review cannot expose a draft
+  ---
+  duration_ms: 3.6858
+  ...
+# Subtest: unknown provider outcomes preserve reconciliation and never cause an automatic retry
+ok 61 - unknown provider outcomes preserve reconciliation and never cause an automatic retry
+  ---
+  duration_ms: 3.2881
+  ...
+# Subtest: direct candidate review still enforces authorized context and cannot accept malformed content
+ok 62 - direct candidate review still enforces authorized context and cannot accept malformed content
+  ---
+  duration_ms: 2.4968
+  ...
+# Subtest: generated assessed questions reject declared scaffolding before review or direct-review bypass
+ok 63 - generated assessed questions reject declared scaffolding before review or direct-review bypass
+  ---
+  duration_ms: 2.0718
+  ...
+# Subtest: question-only policy requires independent inspection for undeclared hints and preserves help prompts
+ok 64 - question-only policy requires independent inspection for undeclared hints and preserves help prompts
+  ---
+  duration_ms: 6.5391
+  ...
+# (node:10368) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:10368) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/dialogue-view.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: ask and return actions preserve the existing activity and cannot become answer submissions
+ok 65 - ask and return actions preserve the existing activity and cannot become answer submissions
+  ---
+  duration_ms: 4.2129
+  ...
+# Subtest: free-text asks preserve exact wording; optional quick actions keep compatible metadata
+ok 66 - free-text asks preserve exact wording; optional quick actions keep compatible metadata
+  ---
+  duration_ms: 2.1027
+  ...
+# Subtest: follow-up asks retain earlier messages and the same unanswered activity
+ok 67 - follow-up asks retain earlier messages and the same unanswered activity
+  ---
+  duration_ms: 24.8437
+  ...
+# Subtest: student dialogue keeps accepted safe help and never accepts private guidance or generated questions
+ok 68 - student dialogue keeps accepted safe help and never accepts private guidance or generated questions
+  ---
+  duration_ms: 4.6082
+  ...
+# Subtest: wrong session, question, assignment, source and regressed revisions cannot replace current dialogue
+ok 69 - wrong session, question, assignment, source and regressed revisions cannot replace current dialogue
+  ---
+  duration_ms: 4.6452
+  ...
+# Subtest: invalid, repeated, missing or wrong-version citations reject an otherwise valid response
+ok 70 - invalid, repeated, missing or wrong-version citations reject an otherwise valid response
+  ---
+  duration_ms: 2.4204
+  ...
+# Subtest: only current accepted help gets a display acknowledgement; old displayed history stays readable
+ok 71 - only current accepted help gets a display acknowledgement; old displayed history stays readable
+  ---
+  duration_ms: 9.5274
+  ...
+# Subtest: fallback and pending views expose no unvalidated output and duplicate requests are rejected
+ok 72 - fallback and pending views expose no unvalidated output and duplicate requests are rejected
+  ---
+  duration_ms: 4.7323
+  ...
+# Subtest: late loads cannot remove, rewrite or regress accepted help; cancellation only retires undisplayed help
+ok 73 - late loads cannot remove, rewrite or regress accepted help; cancellation only retires undisplayed help
+  ---
+  duration_ms: 6.815
+  ...
+# Subtest: uploaded dialogue accepts private reading citations without fabricating a public source URL
+ok 74 - uploaded dialogue accepts private reading citations without fabricating a public source URL
+  ---
+  duration_ms: 18.4614
+  ...
+# Subtest: uploaded dialogue pins source version, original and excerpt hashes, owner and attribution across recovery
+ok 75 - uploaded dialogue pins source version, original and excerpt hashes, owner and attribution across recovery
+  ---
+  duration_ms: 9.7932
+  ...
+# (node:63076) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:63076) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/dialogue.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: asking and returning preserve the unanswered activity and draft; only explicit submit delegates an answer
+ok 76 - asking and returning preserve the unanswered activity and draft; only explicit submit delegates an answer
+  ---
+  duration_ms: 6.4433
+  ...
+# Subtest: strict actions reject inferred intent, private fields, stale/cross-session requests and overlapping asks
+ok 77 - strict actions reject inferred intent, private fields, stale/cross-session requests and overlapping asks
+  ---
+  duration_ms: 2.2418
+  ...
+# Subtest: two distinct generated diagnostic fixtures reuse question snapshots without inventing misconception categories
+ok 78 - two distinct generated diagnostic fixtures reuse question snapshots without inventing misconception categories
+  ---
+  duration_ms: 2.572
+  ...
+# Subtest: grounding requires exact versions, scoped citations and independent server permission
+ok 79 - grounding requires exact versions, scoped citations and independent server permission
+  ---
+  duration_ms: 3.8601
+  ...
+# Subtest: generated help is hidden until accepted, and only actual display counts as assistance
+ok 80 - generated help is hidden until accepted, and only actual display counts as assistance
+  ---
+  duration_ms: 24.6944
+  ...
+# Subtest: generated diagnostics require reviewed controller acceptance and a new authorized attempt before display
+ok 81 - generated diagnostics require reviewed controller acceptance and a new authorized attempt before display
+  ---
+  duration_ms: 40.2819
+  ...
+# Subtest: cancelled/stale completions cannot apply and late failure bookkeeping preserves the original request
+ok 82 - cancelled/stale completions cannot apply and late failure bookkeeping preserves the original request
+  ---
+  duration_ms: 5.1348
+  ...
+# Subtest: private-answer and off-topic requests remain asks; safe fallback never supplies grading data
+ok 83 - private-answer and off-topic requests remain asks; safe fallback never supplies grading data
+  ---
+  duration_ms: 2.7156
+  ...
+# Subtest: request/history/output and session budgets are bounded without restricting the curated answer contract
+ok 84 - request/history/output and session budgets are bounded without restricting the curated answer contract
+  ---
+  duration_ms: 3.1438
+  ...
+# Subtest: explicit retries are linked and bounded; failed/unknown requests cannot silently regenerate
+ok 85 - explicit retries are linked and bounded; failed/unknown requests cannot silently regenerate
+  ---
+  duration_ms: 9.0323
+  ...
+# (node:129404) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:129404) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/display-acknowledgement.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: feedback waits for actual visibility and repeated observer events cannot duplicate a pending acknowledgment
+ok 86 - feedback waits for actual visibility and repeated observer events cannot duplicate a pending acknowledgment
+  ---
+  duration_ms: 3.4578
+  ...
+# Subtest: cleanup stops unissued acknowledgments and effect restarts share pending identities
+ok 87 - cleanup stops unissued acknowledgments and effect restarts share pending identities
+  ---
+  duration_ms: 0.5287
+  ...
+# Subtest: a failed display save requires explicit retry and a late failure does not update unmounted UI
+ok 88 - a failed display save requires explicit retry and a late failure does not update unmounted UI
+  ---
+  duration_ms: 0.6605
+  ...
+# (node:97360) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:97360) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/evaluation-provider.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: provider requires explicit configuration and never makes a fallback request
+ok 89 - provider requires explicit configuration and never makes a fallback request
+  ---
+  duration_ms: 3.8191
+  ...
+# Subtest: provider uses one bounded Structured Outputs request and retains actual provenance and usage
+ok 90 - provider uses one bounded Structured Outputs request and retains actual provenance and usage
+  ---
+  duration_ms: 46.8612
+  ...
+# Subtest: refusals, incomplete output and invalid JSON/schema fail safely without losing reported usage
+ok 91 - refusals, incomplete output and invalid JSON/schema fail safely without losing reported usage
+  ---
+  duration_ms: 26.5842
+  ...
+# Subtest: provider access failures, rate limits and transport errors are sanitized without automatic retries
+ok 92 - provider access failures, rate limits and transport errors are sanitized without automatic retries
+  ---
+  duration_ms: 47.8965
+  ...
+# Subtest: terminal provider statuses settle while queued work remains unknown
+ok 93 - terminal provider statuses settle while queued work remains unknown
+  ---
+  duration_ms: 13.4538
+  ...
+# (node:118016) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:118016) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/evaluation-recovery.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: recovery waits, caps requests, and never retries an accepted judgment
+ok 94 - recovery waits, caps requests, and never retries an accepted judgment
+  ---
+  duration_ms: 325.346
+  ...
+# Subtest: only linked settled provider failures are retryable; unknown outcomes need reconciliation
+ok 95 - only linked settled provider failures are retryable; unknown outcomes need reconciliation
+  ---
+  duration_ms: 178.1034
+  ...
+# (node:101844) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:101844) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/evaluation-result.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: model quotations become exact Unicode code-point spans; absent or ambiguous text is rejected
+ok 96 - model quotations become exact Unicode code-point spans; absent or ambiguous text is rejected
+  ---
+  duration_ms: 5.7206
+  ...
+# Subtest: model results cannot inject actions, omit assessed concepts, invent citations or grade without evidence
+ok 97 - model results cannot inject actions, omit assessed concepts, invent citations or grade without evidence
+  ---
+  duration_ms: 51.7809
+  ...
+# Subtest: grounding sends the exact snapshot, relevant passages, approved assumptions and student text as data
+ok 98 - grounding sends the exact snapshot, relevant passages, approved assumptions and student text as data
+  ---
+  duration_ms: 6.5817
+  ...
+# (node:42396) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:42396) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/evaluator-validation.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: tentative candidates retain exact Unicode response evidence without applying a hypothesis
+ok 99 - tentative candidates retain exact Unicode response evidence without applying a hypothesis
+  ---
+  duration_ms: 200.6849
+  ...
+# Subtest: candidate contracts reject confirmed diagnoses, missing support and missing uncertainty
+ok 100 - candidate contracts reject confirmed diagnoses, missing support and missing uncertainty
+  ---
+  duration_ms: 15.8165
+  ...
+# Subtest: candidate grounding rejects unknown, mismatched and duplicate categories and fabricated response evidence
+ok 101 - candidate grounding rejects unknown, mismatched and duplicate categories and fabricated response evidence
+  ---
+  duration_ms: 1078.8875
+  ...
+# (node:130324) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:130324) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/evidence.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: approved synthetic histories reconstruct after JSONB-style serialization without losing concepts, assistance or outcomes
+ok 102 - approved synthetic histories reconstruct after JSONB-style serialization without losing concepts, assistance or outcomes
+  ---
+  duration_ms: 89.8151
+  ...
+# Subtest: API boundaries reject cross-origin writes and hide internal errors without disguising required sign-in
+ok 103 - API boundaries reject cross-origin writes and hide internal errors without disguising required sign-in
+  ---
+  duration_ms: 38.4795
+  ...
+# Subtest: curated snapshots preserve the two-concept question and reject forged IDs, text and versions
+ok 104 - curated snapshots preserve the two-concept question and reject forged IDs, text and versions
+  ---
+  duration_ms: 2.2346
+  ...
+# Subtest: generated questions use the same grounded snapshot without a bank ID
+ok 105 - generated questions use the same grounded snapshot without a bank ID
+  ---
+  duration_ms: 2.2017
+  ...
+# Subtest: mixed correctness stays separate and fabricated quotes or incomplete concept judgments fail
+ok 106 - mixed correctness stays separate and fabricated quotes or incomplete concept judgments fail
+  ---
+  duration_ms: 1.5546
+  ...
+# Subtest: hypotheses reject unknown categories and repeated evaluation of one response cannot establish support
+ok 107 - hypotheses reject unknown categories and repeated evaluation of one response cannot establish support
+  ---
+  duration_ms: 1.7991
+  ...
+# Subtest: assistance counts only displayed pre-submission help, per concept; retests remain assisted
+ok 108 - assistance counts only displayed pre-submission help, per concept; retests remain assisted
+  ---
+  duration_ms: 1.7874
+  ...
+# Subtest: student submission and session projection cannot carry ownership, rubrics or internal evaluations
+ok 109 - student submission and session projection cannot carry ownership, rubrics or internal evaluations
+  ---
+  duration_ms: 6.5654
+  ...
+# (node:128416) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:128416) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/generated-controller.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: reviewed generated diagnostic binds its UUID to the existing authored controller slot without changing the candidate
+ok 110 - reviewed generated diagnostic binds its UUID to the existing authored controller slot without changing the candidate
+  ---
+  duration_ms: 37.7922
+  ...
+# Subtest: generated diagnostic and both retests continue through the existing decision/evidence path
+ok 111 - generated diagnostic and both retests continue through the existing decision/evidence path
+  ---
+  duration_ms: 13.0585
+  ...
+# Subtest: generated diagnostics never receive an authored numerical worked example for different inputs
+ok 112 - generated diagnostics never receive an authored numerical worked example for different inputs
+  ---
+  duration_ms: 1.8592
+  ...
+# Subtest: binding rejects model-chosen slots, wrong intent, missing assessed concepts and changed source
+ok 113 - binding rejects model-chosen slots, wrong intent, missing assessed concepts and changed source
+  ---
+  duration_ms: 9.4925
+  ...
+# Subtest: unbound or mismatched generated activities cannot enter controller continuation
+ok 114 - unbound or mismatched generated activities cannot enter controller continuation
+  ---
+  duration_ms: 2.8819
+  ...
+# Subtest: generated UUIDs cannot reset the controller's unsupported-response retry bound
+ok 115 - generated UUIDs cannot reset the controller's unsupported-response retry bound
+  ---
+  duration_ms: 7.7319
+  ...
+# Subtest: generated assessed prompts cannot carry assistance before a question-display acknowledgment exists
+ok 116 - generated assessed prompts cannot carry assistance before a question-display acknowledgment exists
+  ---
+  duration_ms: 2.3673
+  ...
+# Subtest: approved uploaded bank questions retain their authored slots even with generated provenance
+ok 117 - approved uploaded bank questions retain their authored slots even with generated provenance
+  ---
+  duration_ms: 18.2483
+  ...
+# Subtest: runtime uploaded diagnostics bind the published slot and exact source without registering a new bank question
+ok 118 - runtime uploaded diagnostics bind the published slot and exact source without registering a new bank question
+  ---
+  duration_ms: 8.6503
+  ...
+# Subtest: runtime diagnostic slots preserve the resolver's unclassified-hypothesis safeguards
+ok 119 - runtime diagnostic slots preserve the resolver's unclassified-hypothesis safeguards
+  ---
+  duration_ms: 6.561
+  ...
+# (node:17348) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:17348) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/intervention-approval.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: teacher edits preserve the original evidence, source version and generation provenance
+ok 120 - teacher edits preserve the original evidence, source version and generation provenance
+  ---
+  duration_ms: 10.0471
+  ...
+# Subtest: rejects forged question identity, provenance, source versions and evidence changes
+ok 121 - rejects forged question identity, provenance, source versions and evidence changes
+  ---
+  duration_ms: 5.3303
+  ...
+# Subtest: student projection excludes answer guidance, evidence, hypotheses, recipient identities and model traces
+ok 122 - student projection excludes answer guidance, evidence, hypotheses, recipient identities and model traces
+  ---
+  duration_ms: 18.7803
+  ...
+# Subtest: approval requires explicit distinct recipients and a positive reviewed revision
+ok 123 - approval requires explicit distinct recipients and a positive reviewed revision
+  ---
+  duration_ms: 6.3904
+  ...
+# (node:60168) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:60168) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/intervention-generation.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: selection preserves original accepted evidence, contrary reasoning, distinct counts and assistance
+ok 124 - selection preserves original accepted evidence, contrary reasoning, distinct counts and assistance
+  ---
+  duration_ms: 17.5718
+  ...
+# Subtest: explicit examples include same-student contrary follow-ups and preserve class insight counts
+ok 125 - explicit examples include same-student contrary follow-ups and preserve class insight counts
+  ---
+  duration_ms: 72.1695
+  ...
+# Subtest: rejects scope, unknown selection, unaccepted responses and source-version mismatches
+ok 126 - rejects scope, unknown selection, unaccepted responses and source-version mismatches
+  ---
+  duration_ms: 35.7586
+  ...
+# Subtest: provider projection omits roster identity and preserves reasoning, uncertainty and revision context
+ok 127 - provider projection omits roster identity and preserves reasoning, uncertainty and revision context
+  ---
+  duration_ms: 38.69
+  ...
+# Subtest: valid qualitative activity creates generated snapshots and checked source/evidence receipts
+ok 128 - valid qualitative activity creates generated snapshots and checked source/evidence receipts
+  ---
+  duration_ms: 32.0028
+  ...
+# Subtest: rejects fabricated source, response and private guidance, unsupported recipients and omitted counterevidence
+ok 129 - rejects fabricated source, response and private guidance, unsupported recipients and omitted counterevidence
+  ---
+  duration_ms: 43.9537
+  ...
+# Subtest: rejects repeated checks, unverified quantitative problems and injected executable content without mutating valid work
+ok 130 - rejects repeated checks, unverified quantitative problems and injected executable content without mutating valid work
+  ---
+  duration_ms: 42.8354
+  ...
+# Subtest: preserves multiple assessed concepts and requires authorized citations for each
+ok 131 - preserves multiple assessed concepts and requires authorized citations for each
+  ---
+  duration_ms: 49.8225
+  ...
+# Subtest: keeps rationale concise, counts all recipient history in code, and keeps review notices outside the exercise
+ok 132 - keeps rationale concise, counts all recipient history in code, and keeps review notices outside the exercise
+  ---
+  duration_ms: 10.5558
+  ...
+# Subtest: accepts the full reviewed objective length supported by lesson authoring
+ok 133 - accepts the full reviewed objective length supported by lesson authoring
+  ---
+  duration_ms: 11.7705
+  ...
+# Subtest: legacy trimmed source snapshots regenerate without rewriting history or accepting changed excerpts
+ok 134 - legacy trimmed source snapshots regenerate without rewriting history or accepting changed excerpts
+  ---
+  duration_ms: 45.8291
+  ...
+# Subtest: uploaded UUID concepts never receive instructions to substitute curated networking IDs
+ok 135 - uploaded UUID concepts never receive instructions to substitute curated networking IDs
+  ---
+  duration_ms: 21.6912
+  ...
+# Subtest: source and concept rule failures carry fixed typed reasons without model text
+ok 136 - source and concept rule failures carry fixed typed reasons without model text
+  ---
+  duration_ms: 9.7121
+  ...
+# (node:6748) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:6748) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/intervention-outcomes.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: opening or explicitly starting a follow-up does not invent a response or failed evaluation
+ok 137 - opening or explicitly starting a follow-up does not invent a response or failed evaluation
+  ---
+  duration_ms: 194.0061
+  ...
+# Subtest: a saved response and unknown dispatch remain pending and never become a retryable failure with elapsed time
+ok 138 - a saved response and unknown dispatch remain pending and never become a retryable failure with elapsed time
+  ---
+  duration_ms: 171.2225
+  ...
+# Subtest: a linked unknown final outcome remains pending even when its dispatch is marked failed
+ok 139 - a linked unknown final outcome remains pending even when its dispatch is marked failed
+  ---
+  duration_ms: 145.3718
+  ...
+# Subtest: accepted uncertain judgments stay accepted while the student projection excludes private rubric and evaluator details
+ok 140 - accepted uncertain judgments stay accepted while the student projection excludes private rubric and evaluator details
+  ---
+  duration_ms: 6.8042
+  ...
+# Subtest: known failures respect the cooldown and durable dispatch cap, including configuration failures without a model evaluation
+ok 141 - known failures respect the cooldown and durable dispatch cap, including configuration failures without a model evaluation
+  ---
+  duration_ms: 6.7096
+  ...
+# Subtest: an immediate fresh check never becomes independent retrieval; only assistance displayed before submission appears in its snapshot
+ok 142 - an immediate fresh check never becomes independent retrieval; only assistance displayed before submission appears in its snapshot
+  ---
+  duration_ms: 10.8006
+  ...
+# (node:14380) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:14380) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/intervention-provider.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: intervention SDK requests support private and attributed uploaded sources without weakening the canonical schema
+ok 143 - intervention SDK requests support private and attributed uploaded sources without weakening the canonical schema
+  ---
+  duration_ms: 143.6176
+  ...
+# Subtest: intervention responses still reject malformed attribution URLs and source identities after wire adaptation
+ok 144 - intervention responses still reject malformed attribution URLs and source identities after wire adaptation
+  ---
+  duration_ms: 27.8035
+  ...
+# (node:66916) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:66916) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/lesson-assembly.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: assembly preserves reviewed words, private criteria and metadata while creating a bounded compatible fallback
+ok 145 - assembly preserves reviewed words, private criteria and metadata while creating a bounded compatible fallback
+  ---
+  duration_ms: 192.1471
+  ...
+# Subtest: assembly requires a reviewed unchanged bank, explicit scoring policy and teacher feedback
+ok 146 - assembly requires a reviewed unchanged bank, explicit scoring policy and teacher feedback
+  ---
+  duration_ms: 80.1195
+  ...
+# Subtest: a selected family changes routing without rewriting the other reviewed family
+ok 147 - a selected family changes routing without rewriting the other reviewed family
+  ---
+  duration_ms: 26.2474
+  ...
+# Subtest: publication rejects a misconception mapped to a diagnostic that does not assess its concept
+ok 148 - publication rejects a misconception mapped to a diagnostic that does not assess its concept
+  ---
+  duration_ms: 42.5803
+  ...
+# Subtest: previously approved global diagnostic categories remain readable without weakening concept-specific scope
+ok 149 - previously approved global diagnostic categories remain readable without weakening concept-specific scope
+  ---
+  duration_ms: 3.0748
+  ...
+# (node:134764) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:134764) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/lessons.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: curated source IDs survive serialization and uploaded refs need no fabricated Git hash
+ok 150 - curated source IDs survive serialization and uploaded refs need no fabricated Git hash
+  ---
+  duration_ms: 604.4846
+  ...
+# Subtest: published content rejects foreign versions, passage scope, hashes and duplicate IDs
+ok 151 - published content rejects foreign versions, passage scope, hashes and duplicate IDs
+  ---
+  duration_ms: 27.1673
+  ...
+# Subtest: publication rejects unsupported or incomplete fallback sequences
+ok 152 - publication rejects unsupported or incomplete fallback sequences
+  ---
+  duration_ms: 18.6287
+  ...
+# Subtest: feedback cannot reuse an already answered prompt as its fresh retest
+ok 153 - feedback cannot reuse an already answered prompt as its fresh retest
+  ---
+  duration_ms: 6.7014
+  ...
+# Subtest: runtime generated snapshots can be validated without catalog registration but cannot replace a saved question
+ok 154 - runtime generated snapshots can be validated without catalog registration but cannot replace a saved question
+  ---
+  duration_ms: 4.2623
+  ...
+# Subtest: diagnostic mappings must assess their misconception's concrete concept
+ok 155 - diagnostic mappings must assess their misconception's concrete concept
+  ---
+  duration_ms: 9.155
+  ...
+# Subtest: published bank questions cannot forge runtime controller bindings
+ok 156 - published bank questions cannot forge runtime controller bindings
+  ---
+  duration_ms: 3.8543
+  ...
+# (node:135284) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:135284) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/material-extraction.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: pasted text preserves untrusted content, order, deterministic keys and original-byte hash
+ok 157 - pasted text preserves untrusted content, order, deterministic keys and original-byte hash
+  ---
+  duration_ms: 14.7605
+  ...
+# Subtest: UTF-8 text and Markdown retain Unicode and source headings as plain text
+ok 158 - UTF-8 text and Markdown retain Unicode and source headings as plain text
+  ---
+  duration_ms: 3.4752
+  ...
+# Subtest: strict UTF-8 and unreadable input reject instead of replacing or partially importing
+ok 159 - strict UTF-8 and unreadable input reject instead of replacing or partially importing
+  ---
+  duration_ms: 2.6237
+  ...
+# Subtest: file and character limits reject overflow without truncation and allow the exact boundary
+ok 160 - file and character limits reject overflow without truncation and allow the exact boundary
+  ---
+  duration_ms: 17.5957
+  ...
+# Subtest: unsupported extensions, inconsistent MIME, empty and invalid filenames fail explicitly
+ok 161 - unsupported extensions, inconsistent MIME, empty and invalid filenames fail explicitly
+  ---
+  duration_ms: 1.0717
+  ...
+# Subtest: pathological tiny sections exceed the explicit review-passage bound without partial output
+ok 162 - pathological tiny sections exceed the explicit review-passage bound without partial output
+  ---
+  duration_ms: 22.2462
+  ...
+# Subtest: real PDF parser extracts ordered text pages with references and original-byte provenance
+ok 163 - real PDF parser extracts ordered text pages with references and original-byte provenance
+  ---
+  duration_ms: 1347.15
+  ...
+# Subtest: a valid_flat PDF page tree preserves every page in order with its references
+ok 164 - a valid_flat PDF page tree preserves every page in order with its references
+  ---
+  duration_ms: 620.998
+  ...
+# Subtest: a valid_nested PDF page tree preserves every page in order with its references
+ok 165 - a valid_nested PDF page tree preserves every page in order with its references
+  ---
+  duration_ms: 593.1473
+  ...
+# Subtest: a valid_empty_branch PDF page tree preserves every page in order with its references
+ok 166 - a valid_empty_branch PDF page tree preserves every page in order with its references
+  ---
+  duration_ms: 492.9304
+  ...
+# Subtest: PDF root_undercount rejects the entire page tree before returning a partial extraction
+ok 167 - PDF root_undercount rejects the entire page tree before returning a partial extraction
+  ---
+  duration_ms: 287.4588
+  ...
+# Subtest: PDF nested_undercount rejects the entire page tree before returning a partial extraction
+ok 168 - PDF nested_undercount rejects the entire page tree before returning a partial extraction
+  ---
+  duration_ms: 263.5671
+  ...
+# Subtest: PDF hidden_corrupt_page rejects the entire page tree before returning a partial extraction
+ok 169 - PDF hidden_corrupt_page rejects the entire page tree before returning a partial extraction
+  ---
+  duration_ms: 233.9825
+  ...
+# Subtest: PDF root_overcount rejects the entire page tree before returning a partial extraction
+ok 170 - PDF root_overcount rejects the entire page tree before returning a partial extraction
+  ---
+  duration_ms: 249.2421
+  ...
+# Subtest: PDF zero_count rejects the entire page tree before returning a partial extraction
+ok 171 - PDF zero_count rejects the entire page tree before returning a partial extraction
+  ---
+  duration_ms: 213.3671
+  ...
+# Subtest: PDF missing_count rejects the entire page tree before returning a partial extraction
+ok 172 - PDF missing_count rejects the entire page tree before returning a partial extraction
+  ---
+  duration_ms: 307.6413
+  ...
+# Subtest: PDF noninteger_count rejects the entire page tree before returning a partial extraction
+ok 173 - PDF noninteger_count rejects the entire page tree before returning a partial extraction
+  ---
+  duration_ms: 274.2542
+  ...
+# Subtest: PDF missing_child rejects the entire page tree before returning a partial extraction
+ok 174 - PDF missing_child rejects the entire page tree before returning a partial extraction
+  ---
+  duration_ms: 274.2675
+  ...
+# Subtest: PDF direct_child rejects the entire page tree before returning a partial extraction
+ok 175 - PDF direct_child rejects the entire page tree before returning a partial extraction
+  ---
+  duration_ms: 251.1053
+  ...
+# Subtest: PDF duplicate_child rejects the entire page tree before returning a partial extraction
+ok 176 - PDF duplicate_child rejects the entire page tree before returning a partial extraction
+  ---
+  duration_ms: 237.9576
+  ...
+# Subtest: PDF cyclic_pages rejects the entire page tree before returning a partial extraction
+ok 177 - PDF cyclic_pages rejects the entire page tree before returning a partial extraction
+  ---
+  duration_ms: 245.4828
+  ...
+# Subtest: PDF invalid_parent rejects the entire page tree before returning a partial extraction
+ok 178 - PDF invalid_parent rejects the entire page tree before returning a partial extraction
+  ---
+  duration_ms: 293.0154
+  ...
+# Subtest: PDF invalid_nested_parent rejects the entire page tree before returning a partial extraction
+ok 179 - PDF invalid_nested_parent rejects the entire page tree before returning a partial extraction
+  ---
+  duration_ms: 258.8271
+  ...
+# Subtest: PDF invalid_page_type rejects the entire page tree before returning a partial extraction
+ok 180 - PDF invalid_page_type rejects the entire page tree before returning a partial extraction
+  ---
+  duration_ms: 219.9782
+  ...
+# Subtest: PDF invalid_pages_type rejects the entire page tree before returning a partial extraction
+ok 181 - PDF invalid_pages_type rejects the entire page tree before returning a partial extraction
+  ---
+  duration_ms: 221.3055
+  ...
+# Subtest: PDF empty_branch_count_mismatch rejects the entire page tree before returning a partial extraction
+ok 182 - PDF empty_branch_count_mismatch rejects the entire page tree before returning a partial extraction
+  ---
+  duration_ms: 291.9486
+  ...
+# Subtest: a valid page with two content streams preserves both distinct paragraphs in order
+ok 183 - a valid page with two content streams preserves both distinct paragraphs in order
+  ---
+  duration_ms: 413.7773
+  ...
+# Subtest: a valid_ascii85_flate page with two content streams preserves both distinct paragraphs in order
+ok 184 - a valid_ascii85_flate page with two content streams preserves both distinct paragraphs in order
+  ---
+  duration_ms: 415.13
+  ...
+# Subtest: PDF corrupt_flate_header in a later content stream rejects the entire extraction
+ok 185 - PDF corrupt_flate_header in a later content stream rejects the entire extraction
+  ---
+  duration_ms: 279.4237
+  ...
+# Subtest: PDF truncated_flate_body in a later content stream rejects the entire extraction
+ok 186 - PDF truncated_flate_body in a later content stream rejects the entire extraction
+  ---
+  duration_ms: 253.0976
+  ...
+# Subtest: PDF truncated_flate_trailer in a later content stream rejects the entire extraction
+ok 187 - PDF truncated_flate_trailer in a later content stream rejects the entire extraction
+  ---
+  duration_ms: 290.8043
+  ...
+# Subtest: PDF unsupported_filter in a later content stream rejects the entire extraction
+ok 188 - PDF unsupported_filter in a later content stream rejects the entire extraction
+  ---
+  duration_ms: 245.8784
+  ...
+# Subtest: PDF missing_object in a later content stream rejects the entire extraction
+ok 189 - PDF missing_object in a later content stream rejects the entire extraction
+  ---
+  duration_ms: 281.4612
+  ...
+# Subtest: PDF non_stream_object in a later content stream rejects the entire extraction
+ok 190 - PDF non_stream_object in a later content stream rejects the entire extraction
+  ---
+  duration_ms: 291.6507
+  ...
+# Subtest: PDF bad_stream_length in a later content stream rejects the entire extraction
+ok 191 - PDF bad_stream_length in a later content stream rejects the entire extraction
+  ---
+  duration_ms: 265.3945
+  ...
+# Subtest: PDF bad_flate_checksum in a later content stream rejects the entire extraction
+ok 192 - PDF bad_flate_checksum in a later content stream rejects the entire extraction
+  ---
+  duration_ms: 218.2973
+  ...
+# Subtest: PDF trailing_flate_bytes in a later content stream rejects the entire extraction
+ok 193 - PDF trailing_flate_bytes in a later content stream rejects the entire extraction
+  ---
+  duration_ms: 252.3573
+  ...
+# Subtest: PDF repaired_startxref in a later content stream rejects the entire extraction
+ok 194 - PDF repaired_startxref in a later content stream rejects the entire extraction
+  ---
+  duration_ms: 246.2164
+  ...
+# Subtest: PDF ascii85_partial_overflow in a later content stream rejects the entire extraction
+ok 195 - PDF ascii85_partial_overflow in a later content stream rejects the entire extraction
+  ---
+  duration_ms: 386.2954
+  ...
+# Subtest: PDF image_subtype_contents in a later content stream rejects the entire extraction
+ok 196 - PDF image_subtype_contents in a later content stream rejects the entire extraction
+  ---
+  duration_ms: 412.8204
+  ...
+# Subtest: PDF extraction admits two workers, rejects a third, and releases capacity afterward
+ok 197 - PDF extraction admits two workers, rejects a third, and releases capacity afterward
+  ---
+  duration_ms: 850.6947
+  ...
+# Subtest: scanned, mixed scan/text, encrypted and damaged PDFs fail with no partial result
+ok 198 - scanned, mixed scan/text, encrypted and damaged PDFs fail with no partial result
+  ---
+  duration_ms: 1773.0756
+  ...
+# Subtest: a late image after a full operator chunk cannot become a partial successful preview
+ok 199 - a late image after a full operator chunk cannot become a partial successful preview
+  ---
+  duration_ms: 496.3478
+  ...
+# Subtest: garbled PDF character mapping is rejected rather than saved as source text
+ok 200 - garbled PDF character mapping is rejected rather than saved as source text
+  ---
+  duration_ms: 406.6956
+  ...
+# Subtest: PDF expansion cannot bypass the extracted character cap
+ok 201 - PDF expansion cannot bypass the extracted character cap
+  ---
+  duration_ms: 498.3767
+  ...
+# Subtest: preview schema rejects duplicate passage identities and oversized aggregate corrections
+ok 202 - preview schema rejects duplicate passage identities and oversized aggregate corrections
+  ---
+  duration_ms: 0.9896
+  ...
+# (node:72608) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:72608) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/material-request.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: same-origin multipart extraction retains exact UTF-8 source bytes and hashes
+ok 203 - same-origin multipart extraction retains exact UTF-8 source bytes and hashes
+  ---
+  duration_ms: 65.5647
+  ...
+# Subtest: multipart requests require an explicit matching origin and valid form encoding
+ok 204 - multipart requests require an explicit matching origin and valid form encoding
+  ---
+  duration_ms: 29.7504
+  ...
+# Subtest: unsupported and duplicate fields and ambiguous input sources are rejected
+ok 205 - unsupported and duplicate fields and ambiguous input sources are rejected
+  ---
+  duration_ms: 1.8089
+  ...
+# Subtest: declared oversized or malformed lengths fail before decoding the request
+ok 206 - declared oversized or malformed lengths fail before decoding the request
+  ---
+  duration_ms: 2.955
+  ...
+# Subtest: preview renewal accepts the original source plus one receipt but never review changes
+ok 207 - preview renewal accepts the original source plus one receipt but never review changes
+  ---
+  duration_ms: 2.6137
+  ...
+# Subtest: chunked and under-declared requests are bounded by received bytes and cancelled
+ok 208 - chunked and under-declared requests are bounded by received bytes and cancelled
+  ---
+  duration_ms: 2.7286
+  ...
+# Subtest: source limit counts UTF-8 bytes and save metadata must be bounded text
+ok 209 - source limit counts UTF-8 bytes and save metadata must be bounded text
+  ---
+  duration_ms: 31.9069
+  ...
+# (node:84252) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:84252) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/material-review.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: a receipt preserves extraction and binds it to one actor, original hash, and expiry
+ok 210 - a receipt preserves extraction and binds it to one actor, original hash, and expiry
+  ---
+  duration_ms: 18.1348
+  ...
+# Subtest: modified extraction, forged signatures, and malformed receipts are rejected
+ok 211 - modified extraction, forged signatures, and malformed receipts are rejected
+  ---
+  duration_ms: 1.4046
+  ...
+# Subtest: authentic previews from an older extraction policy cannot be saved or renewed
+ok 212 - authentic previews from an older extraction policy cannot be saved or renewed
+  ---
+  duration_ms: 2.6453
+  ...
+# Subtest: renewal keeps an expired preview and retry identity while checking its actor, bytes, and signature
+ok 213 - renewal keeps an expired preview and retry identity while checking its actor, bytes, and signature
+  ---
+  duration_ms: 2.4733
+  ...
+# Subtest: corrections and exclusions preserve original passage ordering and references
+ok 214 - corrections and exclusions preserve original passage ordering and references
+  ---
+  duration_ms: 6.629
+  ...
+# Subtest: every original passage must be reviewed exactly once; foreign references cannot be injected
+ok 215 - every original passage must be reviewed exactly once; foreign references cannot be injected
+  ---
+  duration_ms: 2.4549
+  ...
+# Subtest: approval requires readable included content within the total correction limit
+ok 216 - approval requires readable included content within the total correction limit
+  ---
+  duration_ms: 2.8463
+  ...
+# Subtest: untrusted source text is retained as text, and approval/version authority is explicit
+ok 217 - untrusted source text is retained as text, and approval/version authority is explicit
+  ---
+  duration_ms: 1.5882
+  ...
+# Subtest: corrections reject unreadable Unicode just as extraction does, without corrupting valid Unicode
+ok 218 - corrections reject unreadable Unicode just as extraction does, without corrupting valid Unicode
+  ---
+  duration_ms: 1.0313
+  ...
+# (node:45364) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:45364) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/metrics.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: metrics count students once and separate initial, assisted and immediate evidence
+ok 219 - metrics count students once and separate initial, assisted and immediate evidence
+  ---
+  duration_ms: 14.9602
+  ...
+# Subtest: new pending evidence stays visible; failed grading cannot erase an accepted judgment
+ok 220 - new pending evidence stays visible; failed grading cannot erase an accepted judgment
+  ---
+  duration_ms: 3.3842
+  ...
+# Subtest: one added live student's evidence changes only assessed concepts and respects origin filtering
+ok 221 - one added live student's evidence changes only assessed concepts and respects origin filtering
+  ---
+  duration_ms: 86.3983
+  ...
+# (node:4768) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:4768) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/objective-generation.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: suggestions get a separate semantic review with exact source evidence in at most two calls
+ok 222 - suggestions get a separate semantic review with exact source evidence in at most two calls
+  ---
+  duration_ms: 26.4695
+  ...
+# Subtest: a valid passage ID cannot make a contradictory objective supported
+ok 223 - a valid passage ID cannot make a contradictory objective supported
+  ---
+  duration_ms: 4.5535
+  ...
+# Subtest: uncertainty remains visible even if the second model marks a suggestion supported
+ok 224 - uncertainty remains visible even if the second model marks a suggestion supported
+  ---
+  duration_ms: 1.6721
+  ...
+# Subtest: unknown and repeated passage references stop before another paid call
+ok 225 - unknown and repeated passage references stop before another paid call
+  ---
+  duration_ms: 4.8515
+  ...
+# Subtest: source review rejects unknown, duplicate and out-of-scope excerpt IDs and missing coverage
+ok 226 - source review rejects unknown, duplicate and out-of-scope excerpt IDs and missing coverage
+  ---
+  duration_ms: 5.2946
+  ...
+# Subtest: review must cover each ordinal once and results preserve original suggestion order
+ok 227 - review must cover each ordinal once and results preserve original suggestion order
+  ---
+  duration_ms: 2.3423
+  ...
+# Subtest: untrusted source instructions stay data and model permission claims fail strict validation
+ok 228 - untrusted source instructions stay data and model permission claims fail strict validation
+  ---
+  duration_ms: 0.8665
+  ...
+# Subtest: invalid or oversized context is rejected before provider access
+ok 229 - invalid or oversized context is rejected before provider access
+  ---
+  duration_ms: 1.7035
+  ...
+# Subtest: provider failure preserves inputs and never retries or returns unchecked suggestions
+ok 230 - provider failure preserves inputs and never retries or returns unchecked suggestions
+  ---
+  duration_ms: 1.8347
+  ...
+# Subtest: real adapter uses strict structured output, official endpoint, no storage and no retries
+ok 231 - real adapter uses strict structured output, official endpoint, no storage and no retries
+  ---
+  duration_ms: 104.7877
+  ...
+# Subtest: configuration absence never makes a request and rate limits remain one sanitized attempt
+ok 232 - configuration absence never makes a request and rate limits remain one sanitized attempt
+  ---
+  duration_ms: 7.6702
+  ...
+# Subtest: server-owned evidence preserves CRLF, nonbreaking spaces, Unicode and formulas exactly
+ok 233 - server-owned evidence preserves CRLF, nonbreaking spaces, Unicode and formulas exactly
+  ---
+  duration_ms: 0.6143
+  ...
+# Subtest: bounded contiguous excerpts preserve full context and do not split surrogate pairs or CRLF
+ok 234 - bounded contiguous excerpts preserve full context and do not split surrogate pairs or CRLF
+  ---
+  duration_ms: 5.223
+  ...
+# Subtest: one invalid review rejects the whole batch instead of returning unchecked partial suggestions
+ok 235 - one invalid review rejects the whole batch instead of returning unchecked partial suggestions
+  ---
+  duration_ms: 0.7636
+  ...
+# Subtest: actual adapter validates selected evidence IDs, passage coverage and rejects model-written quotes
+ok 236 - actual adapter validates selected evidence IDs, passage coverage and rejects model-written quotes
+  ---
+  duration_ms: 51.8992
+  ...
+# (node:138356) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:138356) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/objective-http.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: objective body accepts same-origin JSON and preserves UTF-8 text
+ok 237 - objective body accepts same-origin JSON and preserves UTF-8 text
+  ---
+  duration_ms: 101.8067
+  ...
+# Subtest: objective body rejects foreign origins and non-JSON media types
+ok 238 - objective body rejects foreign origins and non-JSON media types
+  ---
+  duration_ms: 33.772
+  ...
+# Subtest: malformed JSON, malformed UTF-8 and missing bodies produce client errors
+ok 239 - malformed JSON, malformed UTF-8 and missing bodies produce client errors
+  ---
+  duration_ms: 26.9411
+  ...
+# Subtest: chunked objective bodies are limited even without a Content-Length header
+ok 240 - chunked objective bodies are limited even without a Content-Length header
+  ---
+  duration_ms: 26.5132
+  ...
+# Subtest: the documented maximum accepts exactly 300,000 UTF-8 bytes
+ok 241 - the documented maximum accepts exactly 300,000 UTF-8 bytes
+  ---
+  duration_ms: 5.9616
+  ...
+# (node:131820) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:131820) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/objectives.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: manual source review creates stable concepts and JSON reload preserves reviewed and unreviewed states
+ok 242 - manual source review creates stable concepts and JSON reload preserves reviewed and unreviewed states
+  ---
+  duration_ms: 21.2891
+  ...
+# Subtest: invalid references, fabricated quotes, absent support and duplicate identities cannot be reviewed
+ok 243 - invalid references, fabricated quotes, absent support and duplicate identities cannot be reviewed
+  ---
+  duration_ms: 3.2662
+  ...
+# Subtest: unchanged unsupported AI cannot be approved through quote/note edits, punctuation or an intermediate save
+ok 244 - unchanged unsupported AI cannot be approved through quote/note edits, punctuation or an intermediate save
+  ---
+  duration_ms: 20.5009
+  ...
+# Subtest: editing, merging and reordering retain survivor identity and existing canonical boundaries
+ok 245 - editing, merging and reordering retain survivor identity and existing canonical boundaries
+  ---
+  duration_ms: 5.7681
+  ...
+# Subtest: generic lesson edits cannot fabricate, remove or bypass objective review
+ok 246 - generic lesson edits cannot fabricate, remove or bypass objective review
+  ---
+  duration_ms: 35.299
+  ...
+# Subtest: objective approval is distinct from full lesson approval and metadata is excluded from publication
+ok 247 - objective approval is distinct from full lesson approval and metadata is excluded from publication
+  ---
+  duration_ms: 72.8553
+  ...
+# (node:21296) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:21296) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/orchestration.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# (node:21296) ExperimentalWarning: The MockTimers API is an experimental feature and might change at any time
+# Subtest: retrieval executes exactly one approved tool with separate proposal and validation audit
+ok 248 - retrieval executes exactly one approved tool with separate proposal and validation audit
+  ---
+  duration_ms: 42.6818
+  ...
+# Subtest: returning preserves the original unanswered activity without submitting or discarding work
+ok 249 - returning preserves the original unanswered activity without submitting or discarding work
+  ---
+  duration_ms: 12.5265
+  ...
+# Subtest: model-selected tools cannot bypass teacher policy, installed capabilities or the controller
+ok 250 - model-selected tools cannot bypass teacher policy, installed capabilities or the controller
+  ---
+  duration_ms: 58.7248
+  ...
+# Subtest: unavailable policy or adapters stop help without claiming the budget was spent
+ok 251 - unavailable policy or adapters stop help without claiming the budget was spent
+  ---
+  duration_ms: 9.7375
+  ...
+# Subtest: permitted help with too little remaining budget retains the limit fallback
+ok 252 - permitted help with too little remaining budget retains the limit fallback
+  ---
+  duration_ms: 4.2245
+  ...
+# Subtest: strict arguments reject injected permissions, malformed values and duplicate references
+ok 253 - strict arguments reject injected permissions, malformed values and duplicate references
+  ---
+  duration_ms: 32.8851
+  ...
+# Subtest: source version and scope mismatches fail closed before dispatch
+ok 254 - source version and scope mismatches fail closed before dispatch
+  ---
+  duration_ms: 34.1669
+  ...
+# Subtest: stale preflight, disabled sessions and actor mismatches stop before a paid proposal
+ok 255 - stale preflight, disabled sessions and actor mismatches stop before a paid proposal
+  ---
+  duration_ms: 5.8998
+  ...
+# Subtest: late proposals cannot cross a revision change or cancellation
+ok 256 - late proposals cannot cross a revision change or cancellation
+  ---
+  duration_ms: 27.9458
+  ...
+# Subtest: generated output cannot commit after the lesson changes
+ok 257 - generated output cannot commit after the lesson changes
+  ---
+  duration_ms: 22.4013
+  ...
+# Subtest: identical requests replay but an altered payload with the same identity is rejected
+ok 258 - identical requests replay but an altered payload with the same identity is rejected
+  ---
+  duration_ms: 12.7862
+  ...
+# Subtest: overlapping duplicates cannot dispatch while the original provider call is pending
+ok 259 - overlapping duplicates cannot dispatch while the original provider call is pending
+  ---
+  duration_ms: 16.2295
+  ...
+# Subtest: shared provider limits include one proposal and separate generation and review calls
+ok 260 - shared provider limits include one proposal and separate generation and review calls
+  ---
+  duration_ms: 33.0108
+  ...
+# Subtest: known provider failures retain safe fallback with no automatic paid retry
+ok 261 - known provider failures retain safe fallback with no automatic paid retry
+  ---
+  duration_ms: 16.2514
+  ...
+# Subtest: unknown provider and commit outcomes require reconciliation instead of blind reruns
+ok 262 - unknown provider and commit outcomes require reconciliation instead of blind reruns
+  ---
+  duration_ms: 14.1595
+  ...
+# Subtest: failure to save a failure remains reconcilable
+ok 263 - failure to save a failure remains reconcilable
+  ---
+  duration_ms: 3.3973
+  ...
+# Subtest: generation requires trusted grounding and leakage review plus exact source references
+ok 264 - generation requires trusted grounding and leakage review plus exact source references
+  ---
+  duration_ms: 41.9098
+  ...
+# Subtest: generated help is not displayed assistance and student projection excludes private metadata
+ok 265 - generated help is not displayed assistance and student projection excludes private metadata
+  ---
+  duration_ms: 12.6282
+  ...
+# Subtest: controller-authorized diagnostics preserve question snapshots and keep rubrics private
+ok 266 - controller-authorized diagnostics preserve question snapshots and keep rubrics private
+  ---
+  duration_ms: 27.938
+  ...
+# Subtest: proposal input uses current reasoning and approved objectives without private answer criteria
+ok 267 - proposal input uses current reasoning and approved objectives without private answer criteria
+  ---
+  duration_ms: 12.0776
+  ...
+# Subtest: a simulated new observation reaches a subsequent decision with a changed tool
+ok 268 - a simulated new observation reaches a subsequent decision with a changed tool
+  ---
+  duration_ms: 31.1571
+  ...
+# Subtest: malformed unidentified requests fail before storage or provider work
+ok 269 - malformed unidentified requests fail before storage or provider work
+  ---
+  duration_ms: 3.2277
+  ...
+# Subtest: an explanation cannot claim neutral assistance while neutral clarification remains permitted
+ok 270 - an explanation cannot claim neutral assistance while neutral clarification remains permitted
+  ---
+  duration_ms: 24.3732
+  ...
+# Subtest: the bounded timeout aborts the provider and ignores its late result
+ok 271 - the bounded timeout aborts the provider and ignores its late result
+  ---
+  duration_ms: 5.6964
+  ...
+# Subtest: only displayed help enters the next decision's assistance history
+ok 272 - only displayed help enters the next decision's assistance history
+  ---
+  duration_ms: 26.0071
+  ...
+# Subtest: an accepted evaluation informs the proposal with original saved reasoning and uncertainty
+ok 273 - an accepted evaluation informs the proposal with original saved reasoning and uncertainty
+  ---
+  duration_ms: 13.883
+  ...
+# Subtest: the proposal bridge reserves every call with stable provenance and a schema-wrapped result
+ok 274 - the proposal bridge reserves every call with stable provenance and a schema-wrapped result
+  ---
+  duration_ms: 16.1118
+  ...
+# Subtest: the proposal bridge preserves provider uncertainty and never retries a failed reservation
+ok 275 - the proposal bridge preserves provider uncertainty and never retries a failed reservation
+  ---
+  duration_ms: 14.4355
+  ...
+# Subtest: missing provider configuration or cancellation prevents even a reservation
+ok 276 - missing provider configuration or cancellation prevents even a reservation
+  ---
+  duration_ms: 0.8338
+  ...
+# Subtest: retrieving a passage records every exposed concept even when the proposed target is narrower
+ok 277 - retrieving a passage records every exposed concept even when the proposed target is narrower
+  ---
+  duration_ms: 11.9324
+  ...
+# Subtest: generation allows its two bounded provider calls but stops after their combined deadline
+ok 278 - generation allows its two bounded provider calls but stops after their combined deadline
+  ---
+  duration_ms: 10.7628
+  ...
+# Subtest: a controller-permitted generated retest needs a fresh question and installed handoff capability
+ok 279 - a controller-permitted generated retest needs a fresh question and installed handoff capability
+  ---
+  duration_ms: 91.2131
+  ...
+# Subtest: recorded recovery revalidates source, actor, revision and action before touching saved output
+ok 280 - recorded recovery revalidates source, actor, revision and action before touching saved output
+  ---
+  duration_ms: 7.3984
+  ...
+# Subtest: recorded recovery needs no new proposal or call budget and keeps existing controller decisions
+ok 281 - recorded recovery needs no new proposal or call budget and keeps existing controller decisions
+  ---
+  duration_ms: 4.3415
+  ...
+# (node:130436) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:130436) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/packet-delay.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: one link calculates 8 ms transmission and 1 ms propagation separately
+ok 282 - one link calculates 8 ms transmission and 1 ms propagation separately
+  ---
+  duration_ms: 11.1509
+  ...
+# Subtest: approved NP-TX-02 and NP-PROP-01 examples use bytes, decimal Mbps and km
+ok 283 - approved NP-TX-02 and NP-PROP-01 examples use bytes, decimal Mbps and km
+  ---
+  duration_ms: 1.649
+  ...
+# Subtest: finite rates retain one-bit transmission time and approved small/large transfers
+ok 284 - finite rates retain one-bit transmission time and approved small/large transfers
+  ---
+  duration_ms: 0.7449
+  ...
+# Subtest: controlled changes affect only their own component and the explicit sum
+ok 285 - controlled changes affect only their own component and the explicit sum
+  ---
+  duration_ms: 1.1648
+  ...
+# Subtest: conversions keep fractional rates and distances without rounding results
+ok 286 - conversions keep fractional rates and distances without rounding results
+  ---
+  duration_ms: 1.014
+  ...
+# Subtest: accepted range boundaries yield finite positive delays or zero-distance propagation
+ok 287 - accepted range boundaries yield finite positive delays or zero-distance propagation
+  ---
+  duration_ms: 0.6705
+  ...
+# Subtest: invalid inputs are rejected without coercion, guessed units or supplied results
+ok 288 - invalid inputs are rejected without coercion, guessed units or supplied results
+  ---
+  duration_ms: 3.8998
+  ...
+# Subtest: each parameter rejects negative, nonfinite and out-of-range values
+ok 289 - each parameter rejects negative, nonfinite and out-of-range values
+  ---
+  duration_ms: 3.6257
+  ...
+# Subtest: conversion helpers reject invalid values and results beyond model ranges
+ok 290 - conversion helpers reject invalid values and results beyond model ranges
+  ---
+  duration_ms: 3.4678
+  ...
+# Subtest: server recomputation is repeatable, versioned and stable through JSON replay
+ok 291 - server recomputation is repeatable, versioned and stable through JSON replay
+  ---
+  duration_ms: 2.6539
+  ...
+# Subtest: calculation does not mutate caller parameters or retain their object
+ok 292 - calculation does not mutate caller parameters or retain their object
+  ---
+  duration_ms: 0.4589
+  ...
+# (node:62016) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:62016) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/patterns.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: a contradictory follow-up changes one student's status, retaining two students and earlier evidence
+ok 293 - a contradictory follow-up changes one student's status, retaining two students and earlier evidence
+  ---
+  duration_ms: 51.8514
+  ...
+# Subtest: class patterns distinguish status, unknown responses, missing activity and origin scope
+ok 294 - class patterns distinguish status, unknown responses, missing activity and origin scope
+  ---
+  duration_ms: 2.569
+  ...
+# Subtest: model candidates are tentative and never double-count an applied hypothesis
+ok 295 - model candidates are tentative and never double-count an applied hypothesis
+  ---
+  duration_ms: 3.5659
+  ...
+# Subtest: named other_or_uncertain candidates and hypotheses still require approval
+ok 296 - named other_or_uncertain candidates and hypotheses still require approval
+  ---
+  duration_ms: 3.275
+  ...
+# Subtest: a lesson without categories keeps uncertain responses visible without inventing a hypothesis
+ok 297 - a lesson without categories keeps uncertain responses visible without inventing a hypothesis
+  ---
+  duration_ms: 29.6905
+  ...
+# (node:129080) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:129080) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/question-bank-editor.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: changing away from calculation clears the hidden specification without mutating the previous item
+ok 298 - changing away from calculation clears the hidden specification without mutating the previous item
+  ---
+  duration_ms: 43.3934
+  ...
+# Subtest: refresh recovery preserves unfinished delivery, calculation unit and partial guidance while saves remain strict
+ok 299 - refresh recovery preserves unfinished delivery, calculation unit and partial guidance while saves remain strict
+  ---
+  duration_ms: 14.0207
+  ...
+# Subtest: recovery continues to reject malformed cache and wrong field types
+ok 300 - recovery continues to reject malformed cache and wrong field types
+  ---
+  duration_ms: 1.2395
+  ...
+# Subtest: changing hints invalidates reviewed policy while preserving fallback actions and refresh recovery
+ok 301 - changing hints invalidates reviewed policy while preserving fallback actions and refresh recovery
+  ---
+  duration_ms: 75.3718
+  ...
+# (node:44624) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:44624) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/question-bank-generation.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: approved multi-concept questions use exactly generation plus independent critique and server provenance
+ok 302 - approved multi-concept questions use exactly generation plus independent critique and server provenance
+  ---
+  duration_ms: 88.1246
+  ...
+# Subtest: unsupported sources, unapproved objectives, unknown preference IDs and oversized requests make no paid call
+ok 303 - unsupported sources, unapproved objectives, unknown preference IDs and oversized requests make no paid call
+  ---
+  duration_ms: 39.7514
+  ...
+# Subtest: foreign target IDs, forged source quotes, missing criteria and invented misconception IDs fail before critique
+ok 304 - foreign target IDs, forged source quotes, missing criteria and invented misconception IDs fail before critique
+  ---
+  duration_ms: 15.7982
+  ...
+# Subtest: a semantic error is retained as a teacher-visible blocking issue rather than accepted as correctness
+ok 305 - a semantic error is retained as a teacher-visible blocking issue rather than accepted as correctness
+  ---
+  duration_ms: 4.3754
+  ...
+# Subtest: selective regeneration proposes one replacement and includes retained teacher wording without mutating it
+ok 306 - selective regeneration proposes one replacement and includes retained teacher wording without mutating it
+  ---
+  duration_ms: 42.3668
+  ...
+# Subtest: multiple-choice and calculation formats remain typed with private answer guidance
+ok 307 - multiple-choice and calculation formats remain typed with private answer guidance
+  ---
+  duration_ms: 6.1112
+  ...
+# Subtest: provider failure and invalid critique never trigger another request or replace saved questions
+ok 308 - provider failure and invalid critique never trigger another request or replace saved questions
+  ---
+  duration_ms: 5.947
+  ...
+# Subtest: arithmetic is recomputed before critique and a model's incorrect calculation is rejected
+ok 309 - arithmetic is recomputed before critique and a model's incorrect calculation is rejected
+  ---
+  duration_ms: 2.5041
+  ...
+# Subtest: saved per-question format and difficulty override global regeneration preferences
+ok 310 - saved per-question format and difficulty override global regeneration preferences
+  ---
+  duration_ms: 3.3621
+  ...
+# Subtest: calculation validation rejects tiny and large incorrect answers while allowing floating-point roundoff
+ok 311 - calculation validation rejects tiny and large incorrect answers while allowing floating-point roundoff
+  ---
+  duration_ms: 8.8727
+  ...
+# Subtest: provider uses bounded structured output on official endpoint with no storage or retry
+ok 312 - provider uses bounded structured output on official endpoint with no storage or retry
+  ---
+  duration_ms: 39.4633
+  ...
+# Subtest: provider rejects missing configuration, malformed output, refusal and rate limits without retry
+ok 313 - provider rejects missing configuration, malformed output, refusal and rate limits without retry
+  ---
+  duration_ms: 12.4033
+  ...
+# (node:63196) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:63196) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/question-bank.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: question bank reuses approved multi-concept snapshots and private guidance without whole-lesson approval
+ok 314 - question bank reuses approved multi-concept snapshots and private guidance without whole-lesson approval
+  ---
+  duration_ms: 170.5526
+  ...
+# Subtest: approval binds source, objectives, preferences, teacher edits and delivery but permits separate sequence assembly
+ok 315 - approval binds source, objectives, preferences, teacher edits and delivery but permits separate sequence assembly
+  ---
+  duration_ms: 26.3576
+  ...
+# Subtest: unsupported source references, copied foreign snapshots and unapproved concepts are flagged
+ok 316 - unsupported source references, copied foreign snapshots and unapproved concepts are flagged
+  ---
+  duration_ms: 16.0452
+  ...
+# Subtest: private answer criteria require actual supporting quotes, not merely valid passage IDs
+ok 317 - private answer criteria require actual supporting quotes, not merely valid passage IDs
+  ---
+  duration_ms: 5.4722
+  ...
+# Subtest: exact source identity and passage hash changes invalidate the reviewed bank
+ok 318 - exact source identity and passage hash changes invalidate the reviewed bank
+  ---
+  duration_ms: 17.643
+  ...
+# Subtest: unknown misconceptions remain hypotheses and cannot become approved category references
+ok 319 - unknown misconceptions remain hypotheses and cannot become approved category references
+  ---
+  duration_ms: 4.1915
+  ...
+# Subtest: diagnostics may narrow a multi-concept assessment but cannot investigate an unrelated approved concept or category
+ok 320 - diagnostics may narrow a multi-concept assessment but cannot investigate an unrelated approved concept or category
+  ---
+  duration_ms: 5.1226
+  ...
+# Subtest: each assessed concept needs quoted criterion support, not an unused valid passage reference
+ok 321 - each assessed concept needs quoted criterion support, not an unused valid passage reference
+  ---
+  duration_ms: 3.4619
+  ...
+# Subtest: retests require a complete family and meaningful mechanical variation
+ok 322 - retests require a complete family and meaningful mechanical variation
+  ---
+  duration_ms: 3.5687
+  ...
+# Subtest: different question formats need answerable choices or reviewed calculations
+ok 323 - different question formats need answerable choices or reviewed calculations
+  ---
+  duration_ms: 12.7239
+  ...
+# Subtest: bounded arithmetic computes in code and rejects nonfinite results
+ok 324 - bounded arithmetic computes in code and rejects nonfinite results
+  ---
+  duration_ms: 1.4274
+  ...
+# Subtest: educational review failures block approval even when the structural references are valid
+ok 325 - educational review failures block approval even when the structural references are valid
+  ---
+  duration_ms: 3.8415
+  ...
+# Subtest: student projection excludes rubrics, expected answers, private review and generation metadata
+ok 326 - student projection excludes rubrics, expected answers, private review and generation metadata
+  ---
+  duration_ms: 1.4384
+  ...
+# Subtest: draft-only metadata is retained by authoring schema and omitted from publication projection
+ok 327 - draft-only metadata is retained by authoring schema and omitted from publication projection
+  ---
+  duration_ms: 4.2699
+  ...
+# (node:81680) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:81680) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/reading.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: prepared reading resolves only the pinned assigned passages and retains editorial notes
+ok 328 - prepared reading resolves only the pinned assigned passages and retains editorial notes
+  ---
+  duration_ms: 909.5941
+  ...
+# Subtest: teacher-provided reading projects its own ordered passages without private guidance or borrowed textbook metadata
+ok 329 - teacher-provided reading projects its own ordered passages without private guidance or borrowed textbook metadata
+  ---
+  duration_ms: 18.0464
+  ...
+# Subtest: reading keeps a saved teacher lesson version and rejects a reference from a newer publication
+ok 330 - reading keeps a saved teacher lesson version and rejects a reference from a newer publication
+  ---
+  duration_ms: 8.8429
+  ...
+# Subtest: reading counts only after display and only for supported concepts; later reading cannot rewrite prior performance
+ok 331 - reading counts only after display and only for supported concepts; later reading cannot rewrite prior performance
+  ---
+  duration_ms: 18.3303
+  ...
+# (node:95336) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:95336) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/speech.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: speech rejects unavailable/invalid requests, does not cache failures, and reuses valid audio
+ok 332 - speech rejects unavailable/invalid requests, does not cache failures, and reuses valid audio
+  ---
+  duration_ms: 62.1723
+  ...
+# (node:26400) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:26400) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/student-assignments.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: assignment categories preserve pending/support states and never infer assignment completion from topic counts
+ok 333 - assignment categories preserve pending/support states and never infer assignment completion from topic counts
+  ---
+  duration_ms: 5.7658
+  ...
+# Subtest: resume selects the newest unfinished saved session without hiding or changing other assignments
+ok 334 - resume selects the newest unfinished saved session without hiding or changing other assignments
+  ---
+  duration_ms: 8.1743
+  ...
+# Subtest: class and source filters keep distinct identities without dropping assignments that share reading
+ok 335 - class and source filters keep distinct identities without dropping assignments that share reading
+  ---
+  duration_ms: 22.9262
+  ...
+# Subtest: chapter filters include descendant sections but do not cross sources with matching chapter labels
+ok 336 - chapter filters include descendant sections but do not cross sources with matching chapter labels
+  ---
+  duration_ms: 1.7909
+  ...
+# Subtest: location identity includes ancestors and supports unnumbered sections
+ok 337 - location identity includes ancestors and supports unnumbered sections
+  ---
+  duration_ms: 0.7673
+  ...
+# Subtest: articles and empty projections never invent chapters
+ok 338 - articles and empty projections never invent chapters
+  ---
+  duration_ms: 0.3198
+  ...
+# Subtest: scope normalization removes unavailable class, source, and chapter selections
+ok 339 - scope normalization removes unavailable class, source, and chapter selections
+  ---
+  duration_ms: 0.874
+  ...
+# Subtest: assignment search trims input and matches actual titles, class, source, chapter, section, and approved topics
+ok 340 - assignment search trims input and matches actual titles, class, source, chapter, section, and approved topics
+  ---
+  duration_ms: 0.4694
+  ...
+# (node:110540) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:110540) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/student-dashboard.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: source navigation uses verified ancestors only for the retained textbook version
+ok 341 - source navigation uses verified ancestors only for the retained textbook version
+  ---
+  duration_ms: 250.4367
+  ...
+# Subtest: topic practice counts distinct approved concepts from submitted responses, not completion or judgments
+ok 342 - topic practice counts distinct approved concepts from submitted responses, not completion or judgments
+  ---
+  duration_ms: 40.042
+  ...
+# Subtest: current work retains active and pending saved work ahead of new or complete assignments
+ok 343 - current work retains active and pending saved work ahead of new or complete assignments
+  ---
+  duration_ms: 0.5557
+  ...
+# Subtest: current work is deterministic by newest saved session then stable IDs without mutating input
+ok 344 - current work is deterministic by newest saved session then stable IDs without mutating input
+  ---
+  duration_ms: 0.5434
+  ...
+# (node:135464) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:135464) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/student-journal.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: journal scopes distinguish classes and sources, retain sessions sharing a reading, and match chapter descendants
+ok 345 - journal scopes distinguish classes and sources, retain sessions sharing a reading, and match chapter descendants
+  ---
+  duration_ms: 66.2828
+  ...
+# Subtest: journal categories preserve actual pending/support states without inferring completion from answers or reading
+ok 346 - journal categories preserve actual pending/support states without inferring completion from answers or reading
+  ---
+  duration_ms: 1.0153
+  ...
+# Subtest: journal date filters use exact rolling cutoffs and the actual session start
+ok 347 - journal date filters use exact rolling cutoffs and the actual session start
+  ---
+  duration_ms: 0.4978
+  ...
+# Subtest: journal search uses real assignment, class, source, hierarchy and submitted topics and handles empty sources
+ok 348 - journal search uses real assignment, class, source, hierarchy and submitted topics and handles empty sources
+  ---
+  duration_ms: 14.393
+  ...
+# Subtest: journal month groups support explicit UTC and stable newest-first ordering without changing input
+ok 349 - journal month groups support explicit UTC and stable newest-first ordering without changing input
+  ---
+  duration_ms: 3.5299
+  ...
+# Subtest: journal month groups and displayed dates agree at a local month boundary
+ok 350 - journal month groups and displayed dates agree at a local month boundary
+  ---
+  duration_ms: 4.8871
+  ...
+# Subtest: journal Eastern fallback observes daylight saving and valid browser time zones
+ok 351 - journal Eastern fallback observes daylight saving and valid browser time zones
+  ---
+  duration_ms: 3.7793
+  ...
+# (node:138664) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:138664) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/student-practice-topics.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: assignment practice uses the configured activity while retaining broader reading approval
+ok 352 - assignment practice uses the configured activity while retaining broader reading approval
+  ---
+  duration_ms: 3.003
+  ...
+# Subtest: other configured activities determine their own topics, order, and approved passage links
+ok 353 - other configured activities determine their own topics, order, and approved passage links
+  ---
+  duration_ms: 0.8343
+  ...
+# Subtest: progress excludes out-of-activity concepts and repeated attempts without changing evidence
+ok 354 - progress excludes out-of-activity concepts and repeated attempts without changing evidence
+  ---
+  duration_ms: 17.5433
+  ...
+# Subtest: invalid content references and approval scopes fail instead of showing misleading topics
+ok 355 - invalid content references and approval scopes fail instead of showing misleading topics
+  ---
+  duration_ms: 3.0307
+  ...
+# Subtest: empty, duplicate, unknown, or unresolved activity concepts fail safely
+ok 356 - empty, duplicate, unknown, or unresolved activity concepts fail safely
+  ---
+  duration_ms: 0.6853
+  ...
+# (node:672) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:672) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/student-reader-presentation.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: reading search matches authorized text and titles with useful excerpts
+ok 357 - reading search matches authorized text and titles with useful excerpts
+  ---
+  duration_ms: 3.0785
+  ...
+# Subtest: source navigation preserves real numbering and differentiates assigned excerpts
+ok 358 - source navigation preserves real numbering and differentiates assigned excerpts
+  ---
+  duration_ms: 1.4705
+  ...
+# Subtest: reader hides only standalone source-line references without altering prose or teaching notes
+ok 359 - reader hides only standalone source-line references without altering prose or teaching notes
+  ---
+  duration_ms: 0.3044
+  ...
+# Subtest: reading links retain the exact assignment, version, passage and optional session
+ok 360 - reading links retain the exact assignment, version, passage and optional session
+  ---
+  duration_ms: 0.9278
+  ...
+# (node:39924) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:39924) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/teacher-assignment-create.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: draft recovery separates accounts and exact lesson versions without delimiter collisions
+ok 361 - draft recovery separates accounts and exact lesson versions without delimiter collisions
+  ---
+  duration_ms: 1.2931
+  ...
+# Subtest: unsent fields survive reload exactly, including an incomplete title and multiline instructions
+ok 362 - unsent fields survive reload exactly, including an incomplete title and multiline instructions
+  ---
+  duration_ms: 25.5609
+  ...
+# Subtest: an uncertain retry retains its request identity and frozen fields after reload
+ok 363 - an uncertain retry retains its request identity and frozen fields after reload
+  ---
+  duration_ms: 2.1722
+  ...
+# Subtest: cross-tab checks reject stale edits even when another tab cleared or confirmed a request
+ok 364 - cross-tab checks reject stale edits even when another tab cleared or confirmed a request
+  ---
+  duration_ms: 0.5091
+  ...
+# Subtest: a successful response must confirm the expected class and exact published version
+ok 365 - a successful response must confirm the expected class and exact published version
+  ---
+  duration_ms: 4.8244
+  ...
+# Subtest: confirmed creation survives reload and blocks another request until an explicit reset
+ok 366 - confirmed creation survives reload and blocks another request until an explicit reset
+  ---
+  duration_ms: 6.337
+  ...
+# Subtest: conflicts and uncertain failures cannot be treated as proof that creation failed
+ok 367 - conflicts and uncertain failures cannot be treated as proof that creation failed
+  ---
+  duration_ms: 0.4078
+  ...
+# (node:10384) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:10384) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/teacher-assignment-preview.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: assignment coverage includes sequence-only questions and counts each prepared question once
+ok 368 - assignment coverage includes sequence-only questions and counts each prepared question once
+  ---
+  duration_ms: 279.9804
+  ...
+# Subtest: uploaded lessons retain all objectives and multi-concept coverage without treating concept totals as distinct questions
+ok 369 - uploaded lessons retain all objectives and multi-concept coverage without treating concept totals as distinct questions
+  ---
+  duration_ms: 15.6226
+  ...
+# Subtest: student preview allowlist excludes every private question, rubric, hypothesis and future feedback field
+ok 370 - student preview allowlist excludes every private question, rubric, hypothesis and future feedback field
+  ---
+  duration_ms: 6.849
+  ...
+# Subtest: review and student preview reject a different publication or source version instead of silently substituting content
+ok 371 - review and student preview reject a different publication or source version instead of silently substituting content
+  ---
+  duration_ms: 305.0975
+  ...
+# (node:55288) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:55288) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/teacher-assignment-progress.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: progress distinguishes distinct students, response counts, and assisted evidence without changing history
+ok 372 - progress distinguishes distinct students, response counts, and assisted evidence without changing history
+  ---
+  duration_ms: 23.1259
+  ...
+# Subtest: a resumed session retains old work until a new answer replaces the latest result
+ok 373 - a resumed session retains old work until a new answer replaces the latest result
+  ---
+  duration_ms: 21.4598
+  ...
+# Subtest: pending, failed and rejected answers remain distinct from missing responses and older grades
+ok 374 - pending, failed and rejected answers remain distinct from missing responses and older grades
+  ---
+  duration_ms: 10.77
+  ...
+# Subtest: a later failed reevaluation preserves the current accepted judgment and uncertainty
+ok 375 - a later failed reevaluation preserves the current accepted judgment and uncertainty
+  ---
+  duration_ms: 2.7645
+  ...
+# Subtest: origin filtering retains the roster and gives truthful zero participation
+ok 376 - origin filtering retains the roster and gives truthful zero participation
+  ---
+  duration_ms: 3.1153
+  ...
+# Subtest: grid and full evidence links preserve the authorized assignment, selection and exact attempt
+ok 377 - grid and full evidence links preserve the authorized assignment, selection and exact attempt
+  ---
+  duration_ms: 1.8537
+  ...
+# Subtest: progress does not silently include evidence outside the authorized roster
+ok 378 - progress does not silently include evidence outside the authorized roster
+  ---
+  duration_ms: 1.675
+  ...
+# Subtest: student-only and concept-only selections include their matching saved work
+ok 379 - student-only and concept-only selections include their matching saved work
+  ---
+  duration_ms: 1.3059
+  ...
+# Subtest: class-grid marks retain every original attempt in chronological order
+ok 380 - class-grid marks retain every original attempt in chronological order
+  ---
+  duration_ms: 4.5201
+  ...
+# Subtest: reading-only marks require displayed recorded reading and never become content-help marks
+ok 381 - reading-only marks require displayed recorded reading and never become content-help marks
+  ---
+  duration_ms: 23.3988
+  ...
+# Subtest: progress navigation carries subview and reversible pane with selection
+ok 382 - progress navigation carries subview and reversible pane with selection
+  ---
+  duration_ms: 0.9582
+  ...
+# (node:77912) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:77912) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/teacher-assignment-workspace.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: discovery has no implicit assignment and legacy assignment links open review
+ok 383 - discovery has no implicit assignment and legacy assignment links open review
+  ---
+  duration_ms: 7.6233
+  ...
+# Subtest: class and availability filtering uses identities, including unavailable assignments
+ok 384 - class and availability filtering uses identities, including unavailable assignments
+  ---
+  duration_ms: 1.7135
+  ...
+# Subtest: assignment navigation resets incompatible record selection but retains view filters
+ok 385 - assignment navigation resets incompatible record selection but retains view filters
+  ---
+  duration_ms: 2.1017
+  ...
+# Subtest: returning to discovery retains only the class and availability filters
+ok 386 - returning to discovery retains only the class and availability filters
+  ---
+  duration_ms: 0.4034
+  ...
+# Subtest: discovery groups exact lesson and version identities while retaining every class assignment
+ok 387 - discovery groups exact lesson and version identities while retaining every class assignment
+  ---
+  duration_ms: 1.2278
+  ...
+# Subtest: filtered discovery retains lesson ownership without showing unassigned catalog versions
+ok 388 - filtered discovery retains lesson ownership without showing unassigned catalog versions
+  ---
+  duration_ms: 0.4385
+  ...
+# (node:43288) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:43288) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/teacher-evidence-selection.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: session-only selection opens that session's latest submitted response
+ok 389 - session-only selection opens that session's latest submitted response
+  ---
+  duration_ms: 120.7794
+  ...
+# Subtest: student-only and matching student/session selections stay within that student
+ok 390 - student-only and matching student/session selections stay within that student
+  ---
+  duration_ms: 13.8867
+  ...
+# Subtest: student and session must agree even when no attempt was supplied
+ok 391 - student and session must agree even when no attempt was supplied
+  ---
+  duration_ms: 9.5054
+  ...
+# Subtest: a requested empty session never falls back to another session's answer
+ok 392 - a requested empty session never falls back to another session's answer
+  ---
+  duration_ms: 11.9588
+  ...
+# Subtest: unsubmitted questions cannot become a selected original response
+ok 393 - unsubmitted questions cannot become a selected original response
+  ---
+  duration_ms: 11.4032
+  ...
+# Subtest: evaluation-only selection resolves its exact attempt and preserves historical evaluation identity
+ok 394 - evaluation-only selection resolves its exact attempt and preserves historical evaluation identity
+  ---
+  duration_ms: 6.7327
+  ...
+# Subtest: all supplied identifiers must refer to the same response and concept
+ok 395 - all supplied identifiers must refer to the same response and concept
+  ---
+  duration_ms: 8.1133
+  ...
+# Subtest: selection cannot reach records outside the authorized assignment snapshot
+ok 396 - selection cannot reach records outside the authorized assignment snapshot
+  ---
+  duration_ms: 11.378
+  ...
+# Subtest: default concept selection uses the explicitly scoped student's available work
+ok 397 - default concept selection uses the explicitly scoped student's available work
+  ---
+  duration_ms: 5.2246
+  ...
+# Subtest: no explicit identity preserves default/search selection, while exact links survive search
+ok 398 - no explicit identity preserves default/search selection, while exact links survive search
+  ---
+  duration_ms: 13.7962
+  ...
+# (node:71980) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:71980) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/teacher-intervention-assistance.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: a multi-concept response can record help while remaining independent for a different concept
+ok 399 - a multi-concept response can record help while remaining independent for a different concept
+  ---
+  duration_ms: 1.986
+  ...
+# Subtest: a displayed hint for the selected concept is recorded and prevents independent retrieval
+ok 400 - a displayed hint for the selected concept is recorded and prevents independent retrieval
+  ---
+  duration_ms: 1.3667
+  ...
+# Subtest: a submitted retrieval without displayed assistance shows no recorded help and remains independent
+ok 401 - a submitted retrieval without displayed assistance shows no recorded help and remains independent
+  ---
+  duration_ms: 0.354
+  ...
+# Subtest: created or failed hints that were never displayed do not count as assistance
+ok 402 - created or failed hints that were never displayed do not count as assistance
+  ---
+  duration_ms: 0.6672
+  ...
+# Subtest: lack of independent eligibility does not invent assistance
+ok 403 - lack of independent eligibility does not invent assistance
+  ---
+  duration_ms: 0.2503
+  ...
+# Subtest: missing and incomplete assistance remain unknown
+ok 404 - missing and incomplete assistance remain unknown
+  ---
+  duration_ms: 0.2706
+  ...
+# Subtest: scaffolding, displayed tutor interactions and question content are not labelled no help
+ok 405 - scaffolding, displayed tutor interactions and question content are not labelled no help
+  ---
+  duration_ms: 0.4235
+  ...
+# (node:50284) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:50284) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/teacher-intervention-direction-recovery.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: Student09 and Student23 preparations restore and edit their own direction
+ok 406 - Student09 and Student23 preparations restore and edit their own direction
+  ---
+  duration_ms: 11.7153
+  ...
+# Subtest: actor, assignment, concept, origin and pattern isolate recovery
+ok 407 - actor, assignment, concept, origin and pattern isolate recovery
+  ---
+  duration_ms: 0.3617
+  ...
+# Subtest: response order and duplicate identities do not create a different preparation
+ok 408 - response order and duplicate identities do not create a different preparation
+  ---
+  duration_ms: 0.229
+  ...
+# Subtest: opening an older draft or acknowledging another request cannot erase unsent work
+ok 409 - opening an older draft or acknowledging another request cannot erase unsent work
+  ---
+  duration_ms: 0.3051
+  ...
+# Subtest: acknowledged generation clears only its matching preparation and request
+ok 410 - acknowledged generation clears only its matching preparation and request
+  ---
+  duration_ms: 0.5979
+  ...
+# Subtest: a late acknowledgement cannot erase newer edits or a later request
+ok 411 - a late acknowledgement cannot erase newer edits or a later request
+  ---
+  duration_ms: 0.6617
+  ...
+# Subtest: unscoped legacy values and malformed storage are not restored
+ok 412 - unscoped legacy values and malformed storage are not restored
+  ---
+  duration_ms: 0.49
+  ...
+# Subtest: unavailable browser storage cannot prevent generation or discard in-memory text
+ok 413 - unavailable browser storage cannot prevent generation or discard in-memory text
+  ---
+  duration_ms: 0.4907
+  ...
+# (node:111528) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:111528) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/teacher-intervention-evidence-navigation.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: bookmarked or history-restored evidence hashes resolve only saved response identities
+ok 414 - bookmarked or history-restored evidence hashes resolve only saved response identities
+  ---
+  duration_ms: 1.937
+  ...
+# Subtest: pane navigation resolves both headings without treating arbitrary hashes as evidence
+ok 415 - pane navigation resolves both headings without treating arbitrary hashes as evidence
+  ---
+  duration_ms: 0.3049
+  ...
+# Subtest: revealed response opens its detail before receiving focus and scrolling
+ok 416 - revealed response opens its detail before receiving focus and scrolling
+  ---
+  duration_ms: 2.1225
+  ...
+# Subtest: switching to a pane heading supports focus without requiring response details
+ok 417 - switching to a pane heading supports focus without requiring response details
+  ---
+  duration_ms: 0.2839
+  ...
+# (node:115836) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:115836) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/teacher-intervention-handoff.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: selected-response handoff previews related and contrary evidence without changing recipient choice
+ok 418 - selected-response handoff previews related and contrary evidence without changing recipient choice
+  ---
+  duration_ms: 54.3873
+  ...
+# Subtest: changing or clearing a starting set requires another server preview; ordering alone does not
+ok 419 - changing or clearing a starting set requires another server preview; ordering alone does not
+  ---
+  duration_ms: 0.3039
+  ...
+# Subtest: preview and investigation links exclude generation and draft identities
+ok 420 - preview and investigation links exclude generation and draft identities
+  ---
+  duration_ms: 0.8584
+  ...
+# (node:94028) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:94028) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/teacher-intervention-snapshot-context.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: saved snapshot replaces conflicting filters and seeds without rewriting the snapshot
+ok 421 - saved snapshot replaces conflicting filters and seeds without rewriting the snapshot
+  ---
+  duration_ms: 12.5701
+  ...
+# Subtest: saved draft rejects a different explicit assignment and inconsistent snapshot assignment
+ok 422 - saved draft rejects a different explicit assignment and inconsistent snapshot assignment
+  ---
+  duration_ms: 0.5151
+  ...
+# Subtest: only matching exact response identities survive saved draft navigation
+ok 423 - only matching exact response identities survive saved draft navigation
+  ---
+  duration_ms: 0.724
+  ...
+# Subtest: full-session inspection links use saved evidence rather than conflicting URL scope
+ok 424 - full-session inspection links use saved evidence rather than conflicting URL scope
+  ---
+  duration_ms: 1.7983
+  ...
+# (node:125816) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:125816) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/teacher-priorities.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: a newer empty session cannot hide the exact saved assessed response
+ok 425 - a newer empty session cannot hide the exact saved assessed response
+  ---
+  duration_ms: 43.7975
+  ...
+# Subtest: a failed retry does not replace an accepted evaluation or its preparation eligibility
+ok 426 - a failed retry does not replace an accepted evaluation or its preparation eligibility
+  ---
+  duration_ms: 11.6007
+  ...
+# Subtest: a newer submitted answer awaiting evaluation has its own priority and never borrows an old grade
+ok 427 - a newer submitted answer awaiting evaluation has its own priority and never borrows an old grade
+  ---
+  duration_ms: 28.8315
+  ...
+# Subtest: historical difficulty is not presented as current incorrectness and correct follow-ups retain assistance
+ok 428 - historical difficulty is not presented as current incorrectness and correct follow-ups retain assistance
+  ---
+  duration_ms: 22.7022
+  ...
+# Subtest: no activity or a filtered-out origin never creates a learning concern
+ok 429 - no activity or a filtered-out origin never creates a learning concern
+  ---
+  duration_ms: 13.5091
+  ...
+# Subtest: a learning concern never hides unresolved evaluations for the same concept
+ok 430 - a learning concern never hides unresolved evaluations for the same concept
+  ---
+  duration_ms: 10.2236
+  ...
+# Subtest: historical follow-up opens the latest response of a student with repeated difficulty
+ok 431 - historical follow-up opens the latest response of a student with repeated difficulty
+  ---
+  duration_ms: 7.7911
+  ...
+# Subtest: inspection links use the current URL selection instead of stale rendered seeds, including clearing all
+ok 432 - inspection links use the current URL selection instead of stale rendered seeds, including clearing all
+  ---
+  duration_ms: 21.2689
+  ...
+# (node:74740) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:74740) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/teacher-shell.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: explicit unknown or malformed assignment IDs cannot silently select another class
+ok 433 - explicit unknown or malformed assignment IDs cannot silently select another class
+  ---
+  duration_ms: 22.9032
+  ...
+# Subtest: the page's server-resolved assignment wins over a stale URL without inventing authorization
+ok 434 - the page's server-resolved assignment wins over a stale URL without inventing authorization
+  ---
+  duration_ms: 1.4014
+  ...
+# Subtest: switching assignment starts Progress with only the new scope and origin
+ok 435 - switching assignment starts Progress with only the new scope and origin
+  ---
+  duration_ms: 2.4311
+  ...
+# Subtest: shared navigation preserves investigation scope while removing mutation and intervention seed state
+ok 436 - shared navigation preserves investigation scope while removing mutation and intervention seed state
+  ---
+  duration_ms: 3.4192
+  ...
+# Subtest: approved course and assignment hierarchy retains all existing teacher destinations
+ok 437 - approved course and assignment hierarchy retains all existing teacher destinations
+  ---
+  duration_ms: 0.8179
+  ...
+# (node:126796) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:126796) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/teacher-workspace-contracts.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: workspace handoff retains exact evidence identities without private content or mutation identities
+ok 438 - workspace handoff retains exact evidence identities without private content or mutation identities
+  ---
+  duration_ms: 24.9293
+  ...
+# Subtest: explicit invalid, ambiguous and oversized selections cannot silently change scope
+ok 439 - explicit invalid, ambiguous and oversized selections cannot silently change scope
+  ---
+  duration_ms: 3.6458
+  ...
+# Subtest: a deliberate scope change clears selected records and repeated seeds deduplicate
+ok 440 - a deliberate scope change clears selected records and repeated seeds deduplicate
+  ---
+  duration_ms: 0.7822
+  ...
+# (node:123876) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:123876) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/teacher-workspace-panes.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: pane selection only accepts one available fixed presentation token
+ok 441 - pane selection only accepts one available fixed presentation token
+  ---
+  duration_ms: 3.5423
+  ...
+# Subtest: pane links retain current assignment, repeated evidence identities and hash without mutating their source
+ok 442 - pane links retain current assignment, repeated evidence identities and hash without mutating their source
+  ---
+  duration_ms: 0.9829
+  ...
+# Subtest: pane URL round trips support refresh and browser history without storing page data
+ok 443 - pane URL round trips support refresh and browser history without storing page data
+  ---
+  duration_ms: 0.6251
+  ...
+# Subtest: pane keyboard focus wraps only through supplied panes and supports Home and End
+ok 444 - pane keyboard focus wraps only through supplied panes and supports Home and End
+  ---
+  duration_ms: 0.3717
+  ...
+# (node:88476) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:88476) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/tutoring-completion.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: correct initial and diagnostic answers get visible-safe confirmation without changing evidence
+ok 445 - correct initial and diagnostic answers get visible-safe confirmation without changing evidence
+  ---
+  duration_ms: 4.277
+  ...
+# Subtest: a correct retest retains the recorded help distinction
+ok 446 - a correct retest retains the recorded help distinction
+  ---
+  duration_ms: 0.7903
+  ...
+# Subtest: uncertain, partial and incorrect answers are not reported as correct
+ok 447 - uncertain, partial and incorrect answers are not reported as correct
+  ---
+  duration_ms: 1.1726
+  ...
+# Subtest: pending, rejected, failed and unevaluated work cannot receive a success message
+ok 448 - pending, rejected, failed and unevaluated work cannot receive a success message
+  ---
+  duration_ms: 1.2426
+  ...
+# Subtest: missing, duplicated or foreign concept results cannot imply complete correctness
+ok 449 - missing, duplicated or foreign concept results cannot imply complete correctness
+  ---
+  duration_ms: 0.8878
+  ...
+# Subtest: a superseded or wrong-attempt evaluation cannot supply the current answer result
+ok 450 - a superseded or wrong-attempt evaluation cannot supply the current answer result
+  ---
+  duration_ms: 0.495
+  ...
+# Subtest: an earlier correct answer cannot hide a later incorrect or unsubmitted answer
+ok 451 - an earlier correct answer cannot hide a later incorrect or unsubmitted answer
+  ---
+  duration_ms: 0.6181
+  ...
+# (node:128936) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:128936) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/tutoring.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: controller routes all eight recorded real evaluations without following unavailable model actions
+ok 452 - controller routes all eight recorded real evaluations without following unavailable model actions
+  ---
+  duration_ms: 17.0871
+  ...
+# Subtest: a distinct diagnostic response supports the hypothesis; a fresh retest cannot erase its history
+ok 453 - a distinct diagnostic response supports the hypothesis; a fresh retest cannot erase its history
+  ---
+  duration_ms: 2.3174
+  ...
+# Subtest: stale, failed and already applied evaluations cannot choose a new activity
+ok 454 - stale, failed and already applied evaluations cannot choose a new activity
+  ---
+  duration_ms: 1.4885
+  ...
+# Subtest: fresh retests preserve diagnostic history and close as immediate performance after help
+ok 455 - fresh retests preserve diagnostic history and close as immediate performance after help
+  ---
+  duration_ms: 4.4097
+  ...
+# Subtest: unsupported input has one bounded repeat without a hypothesis or an invented grade
+ok 456 - unsupported input has one bounded repeat without a hypothesis or an invented grade
+  ---
+  duration_ms: 5.1435
+  ...
+# Subtest: a reviewed neutral diagnostic tests an error without inventing a hypothesis
+ok 457 - a reviewed neutral diagnostic tests an error without inventing a hypothesis
+  ---
+  duration_ms: 14.9624
+  ...
+# Subtest: multiple approved diagnostics select the matching category and question
+ok 458 - multiple approved diagnostics select the matching category and question
+  ---
+  duration_ms: 3.4386
+  ...
+# Subtest: neutral diagnostic results do not promote a category from unrelated evidence
+ok 459 - neutral diagnostic results do not promote a category from unrelated evidence
+  ---
+  duration_ms: 3.4405
+  ...
+# Subtest: arithmetic feedback does not assume the lesson is about networking
+ok 460 - arithmetic feedback does not assume the lesson is about networking
+  ---
+  duration_ms: 1.6263
+  ...
+# Subtest: an unrelated diagnostic assessment advances without changing an earlier hypothesis
+ok 461 - an unrelated diagnostic assessment advances without changing an earlier hypothesis
+  ---
+  duration_ms: 17.9795
+  ...
+# Subtest: a global category cannot carry a hypothesis instance across assessed concepts
+ok 462 - a global category cannot carry a hypothesis instance across assessed concepts
+  ---
+  duration_ms: 3.3561
+  ...
+# Subtest: reserved uncertainty candidates never establish a specific hypothesis
+ok 463 - reserved uncertainty candidates never establish a specific hypothesis
+  ---
+  duration_ms: 2.2024
+  ...
+# Subtest: reserved uncertainty stays uncertain on repeated, correct, and inconclusive diagnostics
+ok 464 - reserved uncertainty stays uncertain on repeated, correct, and inconclusive diagnostics
+  ---
+  duration_ms: 10.3487
+  ...
+# Subtest: reserved uncertainty on a retest cannot claim a specific distance misconception outcome
+ok 465 - reserved uncertainty on a retest cannot claim a specific distance misconception outcome
+  ---
+  duration_ms: 3.3635
+  ...
+# (node:95756) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:95756) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/uploaded-evaluation.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: uploaded generated attempts use their immutable private rubric and exact source version in the existing evaluator
+ok 466 - uploaded generated attempts use their immutable private rubric and exact source version in the existing evaluator
+  ---
+  duration_ms: 115.7557
+  ...
+# Subtest: uploaded evaluation rejects replacement source versions and out-of-scope concepts before model work
+ok 467 - uploaded evaluation rejects replacement source versions and out-of-scope concepts before model work
+  ---
+  duration_ms: 20.9972
+  ...
+# (node:29152) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:29152) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/visual-contracts.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: accepts a valid concept graph
+ok 468 - accepts a valid concept graph
+  ---
+  duration_ms: 8.0053
+  ...
+# Subtest: visuals preserve canonical concept IDs from uploaded lessons
+ok 469 - visuals preserve canonical concept IDs from uploaded lessons
+  ---
+  duration_ms: 11.1485
+  ...
+# Subtest: unknown and inherited activity kinds return validation errors
+ok 470 - unknown and inherited activity kinds return validation errors
+  ---
+  duration_ms: 0.4207
+  ...
+# Subtest: rejects an edge that points to an unknown node
+ok 471 - rejects an edge that points to an unknown node
+  ---
+  duration_ms: 0.8094
+  ...
+# Subtest: rejects duplicate node IDs
+ok 472 - rejects duplicate node IDs
+  ---
+  duration_ms: 4.9196
+  ...
+# Subtest: rejects a concept graph with an unsupported control
+ok 473 - rejects a concept graph with an unsupported control
+  ---
+  duration_ms: 0.5194
+  ...
+# Subtest: rejects an activity event with no session link
+ok 474 - rejects an activity event with no session link
+  ---
+  duration_ms: 3.1246
+  ...
+# Subtest: rejects extra fields such as a hidden rubric
+ok 475 - rejects extra fields such as a hidden rubric
+  ---
+  duration_ms: 0.7281
+  ...
+# Subtest: accepts a valid sequence diagram
+ok 476 - accepts a valid sequence diagram
+  ---
+  duration_ms: 0.7504
+  ...
+# Subtest: rejects a message to an unknown participant
+ok 477 - rejects a message to an unknown participant
+  ---
+  duration_ms: 1.2621
+  ...
+# Subtest: rejects a sequence diagram with no messages
+ok 478 - rejects a sequence diagram with no messages
+  ---
+  duration_ms: 3.6789
+  ...
+# Subtest: accepts a valid packet experiment
+ok 479 - accepts a valid packet experiment
+  ---
+  duration_ms: 0.4214
+  ...
+# Subtest: rejects a default setting outside its allowed range
+ok 480 - rejects a default setting outside its allowed range
+  ---
+  duration_ms: 0.5784
+  ...
+# Subtest: rejects a hidden expected answer in a packet experiment
+ok 481 - rejects a hidden expected answer in a packet experiment
+  ---
+  duration_ms: 0.3814
+  ...
+# Subtest: accepts a valid activity event log
+ok 482 - accepts a valid activity event log
+  ---
+  duration_ms: 5.6659
+  ...
+# Subtest: rejects an unknown event type
+ok 483 - rejects an unknown event type
+  ---
+  duration_ms: 0.2642
+  ...
+# Subtest: rejects duplicate event IDs
+ok 484 - rejects duplicate event IDs
+  ---
+  duration_ms: 0.3836
+  ...
+# Subtest: rejects a follow-up attempt beyond the limit
+ok 485 - rejects a follow-up attempt beyond the limit
+  ---
+  duration_ms: 1.229
+  ...
+# Subtest: hides a result until the same activity has a prediction
+ok 486 - hides a result until the same activity has a prediction
+  ---
+  duration_ms: 1.3202
+  ...
+# Subtest: shows the result once the activity has a prediction
+ok 487 - shows the result once the activity has a prediction
+  ---
+  duration_ms: 0.5543
+  ...
+# Subtest: rejects a concept graph over the node limit
+ok 488 - rejects a concept graph over the node limit
+  ---
+  duration_ms: 0.5086
+  ...
+# Subtest: rejects a source reference with a malformed commit
+ok 489 - rejects a source reference with a malformed commit
+  ---
+  duration_ms: 2.2549
+  ...
+# Subtest: rejects an unknown unit in a packet experiment
+ok 490 - rejects an unknown unit in a packet experiment
+  ---
+  duration_ms: 0.3777
+  ...
+# Subtest: rejects a second prediction for the same activity
+ok 491 - rejects a second prediction for the same activity
+  ---
+  duration_ms: 0.3556
+  ...
+# Subtest: a prediction on one activity does not reveal another activity's result
+ok 492 - a prediction on one activity does not reveal another activity's result
+  ---
+  duration_ms: 0.344
+  ...
+# Subtest: accepts a teacher-only activity key
+ok 493 - accepts a teacher-only activity key
+  ---
+  duration_ms: 0.9125
+  ...
+# Subtest: rejects a teacher-only activity key with an empty rubric
+ok 494 - rejects a teacher-only activity key with an empty rubric
+  ---
+  duration_ms: 0.3646
+  ...
+# Subtest: student activity schemas reject teacher answer-key fields
+ok 495 - student activity schemas reject teacher answer-key fields
+  ---
+  duration_ms: 0.8964
+  ...
+# (node:121748) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:121748) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/visual-curated-compat.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: approved curated content still loads with the visual contracts present
+ok 496 - approved curated content still loads with the visual contracts present
+  ---
+  duration_ms: 1.4763
+  ...
+# Subtest: concept graph example links to the approved source version
+ok 497 - concept graph example links to the approved source version
+  ---
+  duration_ms: 1.1613
+  ...
+# Subtest: concept graph example uses only curated concept IDs
+ok 498 - concept graph example uses only curated concept IDs
+  ---
+  duration_ms: 0.2315
+  ...
+# Subtest: sequence diagram example links to the approved source version
+ok 499 - sequence diagram example links to the approved source version
+  ---
+  duration_ms: 0.1756
+  ...
+# Subtest: sequence diagram example uses only curated concept IDs
+ok 500 - sequence diagram example uses only curated concept IDs
+  ---
+  duration_ms: 0.2866
+  ...
+# Subtest: packet experiment example links to the approved source version
+ok 501 - packet experiment example links to the approved source version
+  ---
+  duration_ms: 0.155
+  ...
+# Subtest: packet experiment example uses only curated concept IDs
+ok 502 - packet experiment example uses only curated concept IDs
+  ---
+  duration_ms: 0.2342
+  ...
+# (node:139016) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:139016) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/visual-generation.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: accepted graph binds the exact authorized source and provenance without changing original evidence
+ok 503 - accepted graph binds the exact authorized source and provenance without changing original evidence
+  ---
+  duration_ms: 39.0077
+  ...
+# Subtest: sequence generation preserves a distinct ordered structure accepted by the shared player contract
+ok 504 - sequence generation preserves a distinct ordered structure accepted by the shared player contract
+  ---
+  duration_ms: 14.9512
+  ...
+# Subtest: missing authorization, unknown references and wrong immutable versions fail before any provider reservation
+ok 505 - missing authorization, unknown references and wrong immutable versions fail before any provider reservation
+  ---
+  duration_ms: 6.4723
+  ...
+# Subtest: strict requests reject source and permission claims supplied alongside IDs
+ok 506 - strict requests reject source and permission claims supplied alongside IDs
+  ---
+  duration_ms: 0.6176
+  ...
+# Subtest: packet generation binds v2 SI inputs and reviews a server calculation without revealing it
+ok 507 - packet generation binds v2 SI inputs and reviews a server calculation without revealing it
+  ---
+  duration_ms: 24.759
+  ...
+# Subtest: packet permission, malformed SI bounds and model-supplied authority or results fail safely
+ok 508 - packet permission, malformed SI bounds and model-supplied authority or results fail safely
+  ---
+  duration_ms: 30.4175
+  ...
+# Subtest: packet critique must cover settings and reject unsupported or premature-answer content
+ok 509 - packet critique must cover settings and reject unsupported or premature-answer content
+  ---
+  duration_ms: 19.622
+  ...
+# Subtest: uploaded lesson UUID concepts retain exact ownership/version scope and reject a foreign valid ID
+ok 510 - uploaded lesson UUID concepts retain exact ownership/version scope and reject a foreign valid ID
+  ---
+  duration_ms: 21.7185
+  ...
+# Subtest: generation never receives private criteria or hidden answer guidance
+ok 511 - generation never receives private criteria or hidden answer guidance
+  ---
+  duration_ms: 5.8814
+  ...
+# Subtest: malformed drafts, prototype kinds and model-controlled authority fields are rejected
+ok 512 - malformed drafts, prototype kinds and model-controlled authority fields are rejected
+  ---
+  duration_ms: 15.1445
+  ...
+# Subtest: markup, external assets and instruction injection cannot become displayed activity fields
+ok 513 - markup, external assets and instruction injection cannot become displayed activity fields
+  ---
+  duration_ms: 6.3223
+  ...
+# Subtest: private grading literals copied into ordinary labels are rejected before factual review
+ok 514 - private grading literals copied into ordinary labels are rejected before factual review
+  ---
+  duration_ms: 1.7339
+  ...
+# Subtest: student prompt injection stays untrusted data and cannot replace generation instructions
+ok 515 - student prompt injection stays untrusted data and cannot replace generation instructions
+  ---
+  duration_ms: 2.8288
+  ...
+# Subtest: unsupported or uncertain factual, disclosure and answerability review never accepts a visual
+ok 516 - unsupported or uncertain factual, disclosure and answerability review never accepts a visual
+  ---
+  duration_ms: 24.5878
+  ...
+# Subtest: a structurally valid hallucinated relationship is rejected by the independent factual-review verdict
+ok 517 - a structurally valid hallucinated relationship is rejected by the independent factual-review verdict
+  ---
+  duration_ms: 2.4006
+  ...
+# Subtest: review must cover every actual field once and cite exact text from the permitted passages
+ok 518 - review must cover every actual field once and cite exact text from the permitted passages
+  ---
+  duration_ms: 12.5621
+  ...
+# Subtest: source citations tolerate only ASCII layout whitespace and preserve the original review quote
+ok 519 - source citations tolerate only ASCII layout whitespace and preserve the original review quote
+  ---
+  duration_ms: 3.7716
+  ...
+# Subtest: layout normalization cannot hide changed words, punctuation, case, Unicode spaces, wrong passages or uncertain review
+ok 520 - layout normalization cannot hide changed words, punctuation, case, Unicode spaces, wrong passages or uncertain review
+  ---
+  duration_ms: 16.1137
+  ...
+# Subtest: stale operations fail before generation, before review and before acceptance without extra paid calls
+ok 521 - stale operations fail before generation, before review and before acceptance without extra paid calls
+  ---
+  duration_ms: 9.0694
+  ...
+# Subtest: context mutation across a provider await is stale even if the authorization port reports current
+ok 522 - context mutation across a provider await is stale even if the authorization port reports current
+  ---
+  duration_ms: 1.3487
+  ...
+# Subtest: provider timeout or interrupted review preserves uncertainty and does not automatically retry
+ok 523 - provider timeout or interrupted review preserves uncertainty and does not automatically retry
+  ---
+  duration_ms: 15.5937
+  ...
+# Subtest: shared-budget rejection prevents generation or review instead of falling back to an unrestricted call
+ok 524 - shared-budget rejection prevents generation or review instead of falling back to an unrestricted call
+  ---
+  duration_ms: 4.334
+  ...
+# Subtest: billed incomplete provider failures preserve exact usage and response identity without a paid review retry
+ok 525 - billed incomplete provider failures preserve exact usage and response identity without a paid review retry
+  ---
+  duration_ms: 2.8764
+  ...
+# Subtest: an unclassified interrupted reservation stays unresolved and never bypasses the reservation service
+ok 526 - an unclassified interrupted reservation stays unresolved and never bypasses the reservation service
+  ---
+  duration_ms: 1.162
+  ...
+# Subtest: unconfigured provider and already stale revision make no reserved or paid request
+ok 527 - unconfigured provider and already stale revision make no reserved or paid request
+  ---
+  duration_ms: 0.6603
+  ...
+# Subtest: oversized private guidance for a generated question is rejected before either paid model step
+ok 528 - oversized private guidance for a generated question is rejected before either paid model step
+  ---
+  duration_ms: 1.2791
+  ...
+# (node:129956) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:129956) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/visual-lifecycle-tool.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: accepts proposed, accepted, and failed lifecycle events
+ok 529 - accepts proposed, accepted, and failed lifecycle events
+  ---
+  duration_ms: 9.6534
+  ...
+# Subtest: rejects an unknown failure reason
+ok 530 - rejects an unknown failure reason
+  ---
+  duration_ms: 0.6086
+  ...
+# Subtest: a model proposal carries only an activity kind
+ok 531 - a model proposal carries only an activity kind
+  ---
+  duration_ms: 0.6742
+  ...
+# Subtest: a model proposal cannot supply permissions, source, or results
+ok 532 - a model proposal cannot supply permissions, source, or results
+  ---
+  duration_ms: 0.6778
+  ...
+# Subtest: a server-written request links the proposal to an eligible action and source
+ok 533 - a server-written request links the proposal to an eligible action and source
+  ---
+  duration_ms: 9.6622
+  ...
+# Subtest: a request must carry the full activity snapshot
+ok 534 - a request must carry the full activity snapshot
+  ---
+  duration_ms: 1.5395
+  ...
+# Subtest: a request rejects a snapshot whose kind differs from the proposal
+ok 535 - a request rejects a snapshot whose kind differs from the proposal
+  ---
+  duration_ms: 1.0041
+  ...
+# Subtest: a verified result needs a server observation and display acknowledgement
+ok 536 - a verified result needs a server observation and display acknowledgement
+  ---
+  duration_ms: 5.4849
+  ...
+# Subtest: a rejected result cannot claim it was displayed
+ok 537 - a rejected result cannot claim it was displayed
+  ---
+  duration_ms: 1.1002
+  ...
+# Subtest: v2 packet requests and results use an explicit version and numeric observation
+ok 538 - v2 packet requests and results use an explicit version and numeric observation
+  ---
+  duration_ms: 14.5804
+  ...
+# (node:40316) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:40316) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/visual-packet.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: current packet activities use the reviewed SI calculator and replay exact numeric results
+ok 539 - current packet activities use the reviewed SI calculator and replay exact numeric results
+  ---
+  duration_ms: 16.5298
+  ...
+# Subtest: fractional non-packet settings survive unchanged while packet bits stay integral
+ok 540 - fractional non-packet settings survive unchanged while packet bits stay integral
+  ---
+  duration_ms: 2.8097
+  ...
+# Subtest: activity controls can narrow model bounds but cannot widen them or change fixed inputs
+ok 541 - activity controls can narrow model bounds but cannot widen them or change fixed inputs
+  ---
+  duration_ms: 2.7753
+  ...
+# Subtest: source version and authorized concept membership are checked separately from ID syntax
+ok 542 - source version and authorized concept membership are checked separately from ID syntax
+  ---
+  duration_ms: 1.1726
+  ...
+# Subtest: unrecognized units, model versions and injected results never become calculator input
+ok 543 - unrecognized units, model versions and injected results never become calculator input
+  ---
+  duration_ms: 1.8863
+  ...
+# Subtest: stored numeric results reject tampering and invalid inputs without throwing from safeParse
+ok 544 - stored numeric results reject tampering and invalid inputs without throwing from safeParse
+  ---
+  duration_ms: 3.4018
+  ...
+# Subtest: legacy packets and string events remain readable with an explicit text fallback
+ok 545 - legacy packets and string events remain readable with an explicit text fallback
+  ---
+  duration_ms: 16.1455
+  ...
+# Subtest: numeric packet events preserve exact settings and reveal results only after their own prediction
+ok 546 - numeric packet events preserve exact settings and reveal results only after their own prediction
+  ---
+  duration_ms: 5.7691
+  ...
+# (node:85704) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:85704) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-shell-verification/LearningPlatform/tests/visual-player.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-shell-verification\\LearningPlatform\\package.json.
+# Subtest: the player accepts shared records and safely rejects malformed or private records
+ok 547 - the player accepts shared records and safely rejects malformed or private records
+  ---
+  duration_ms: 22.217
+  ...
+# Subtest: replay rejects another session or attempt and mismatched activity records
+ok 548 - replay rejects another session or attempt and mismatched activity records
+  ---
+  duration_ms: 13.3435
+  ...
+# Subtest: replay preserves prediction text and hides an outcome preceding its prediction
+ok 549 - replay preserves prediction text and hides an outcome preceding its prediction
+  ---
+  duration_ms: 1.5914
+  ...
+# Subtest: replay cannot attach a revealed outcome to later changed settings
+ok 550 - replay cannot attach a revealed outcome to later changed settings
+  ---
+  duration_ms: 1.3189
+  ...
+# Subtest: submitted settings must match the declared controls, bounds and integer units
+ok 551 - submitted settings must match the declared controls, bounds and integer units
+  ---
+  duration_ms: 1.4041
+  ...
+# Subtest: an adapter result must match the exact request identity and contain only public fields
+ok 552 - an adapter result must match the exact request identity and contain only public fields
+  ---
+  duration_ms: 5.9578
+  ...
+# Subtest: a late adapter result is rejected after cancellation or invalid submitted settings
+ok 553 - a late adapter result is rejected after cancellation or invalid submitted settings
+  ---
+  duration_ms: 1.5818
+  ...
+# Subtest: v2 playback accepts fractional settings and binds numeric results to the last exact state
+ok 554 - v2 playback accepts fractional settings and binds numeric results to the last exact state
+  ---
+  duration_ms: 6.108
+  ...
+# Subtest: uploaded source versions and stable concept IDs are valid player records
+ok 555 - uploaded source versions and stable concept IDs are valid player records
+  ---
+  duration_ms: 4.9968
+  ...
+# Subtest: event submission respects permissions, prediction-before-reveal and duplicate identity
+ok 556 - event submission respects permissions, prediction-before-reveal and duplicate identity
+  ---
+  duration_ms: 1.2745
+  ...
+# Subtest: the event budget refuses another submission without changing existing evidence
+ok 557 - the event budget refuses another submission without changing existing evidence
+  ---
+  duration_ms: 1.1016
+  ...
+1..557
+# tests 557
+# suites 0
+# pass 557
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 17240.1567

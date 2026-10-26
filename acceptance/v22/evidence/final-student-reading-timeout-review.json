@@ -1,0 +1,13 @@
+{
+  "reviewedAt": "2026-10-25T06:35:12.5580855Z",
+  "helperSha256": "aeb205251b80b7b807467d66a49413bc6f959f89885aeaf501af42747e774ef7",
+  "scope": "Narrow static review of bounded waits/progress receipts in the authorized reading-only follow-up; real display acknowledgement remains permitted.",
+  "status": "no-consequential-blocker",
+  "checks": [
+    "Unbounded Response.finished removed from real200 reading path.",
+    "Delivery JSON, original/after reads and Back/reload operations bounded15s with persisted wait/completion progress.",
+    "200 status, returned intervention ID, rendered acknowledged article, exact original attempts and exact UI return URL assertions retained.",
+    "No broader writes, answer/evaluation replay or automatic retry added."
+  ],
+  "runtimeByReviewer": "unrun"
+}

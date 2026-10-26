@@ -1,0 +1,252 @@
+{
+  "mode": "prepare",
+  "status": "completed",
+  "source_sha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "source_tree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "project": "lp-v22-shell5",
+  "origin": "http://localhost:3350",
+  "input_sha256": "7e99672e7cf7e6689d1bcc53d57a68f1a052eecd6b09ee77ea7a8d9de3970051",
+  "harness_sha256": "73339c1a74649ef46d77902d30bc9afe707881a0878f35e3e601ff933efd251d",
+  "started_at": "2026-10-25T06:53:58.474Z",
+  "actual_model_calls": 0,
+  "injected_evaluation_calls": 0,
+  "injected_draft_calls": 1,
+  "seams": [
+    {
+      "kind": "original-answer-evaluation",
+      "reused_existing_accepted": true,
+      "evaluation_id": "bfa4701d-550b-4eaa-bce1-3eef49bcfb0c",
+      "model": "synthetic-same-browser-journey",
+      "paid_calls": 0
+    },
+    {
+      "kind": "private-intervention-draft",
+      "synthetic": true,
+      "request_id": "704c03d0-c726-41cf-837b-3f6bdd82a922",
+      "draft_id": "1d5a7619-340e-42ab-8cbd-4ebff2b9176f",
+      "started_at": "2026-10-25T06:53:58.541Z",
+      "finished_at": "2026-10-25T06:53:58.586Z"
+    }
+  ],
+  "authoring": {
+    "target": "shell",
+    "project": "lp-v22-shell5",
+    "sha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+    "tree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+    "sourceSha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+    "sourceTree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+    "harness_sha256": "cf1c72d53b01999bcbaf0c8a49f08ef1ca3e6aff5f48abe4ec2461cc68084e62",
+    "harness_upstream_sha256": "e39f6a361586ea09a8a6062bf03b2ee95852a3d967270dde08d1f11ee67003c8",
+    "origin": "http://localhost:3350",
+    "environment_manifest": "../manifest.json",
+    "configuration": "provider-disabled; synthetic fixtures; loopback gateway; app/database isolated internal Docker network",
+    "verification": "Provider-disabled browser manual authoring and cross-role assignment using original synthetic material",
+    "run_id": "Water changing state · verification 1792908096868",
+    "started_at_utc": "2026-10-25T06:08:38.508Z",
+    "status": "passed",
+    "paid_calls": 0,
+    "blocked_off_origin_requests": [],
+    "full_journey": "incomplete: same source→lesson→inactive assignment→activation→student→help fallback→original answer→teacher evidence; no accepted model evaluation or same-session intervention/follow-up is claimed",
+    "functional_completed_through": "teacher-original-evidence",
+    "fixture_scope": "One original fictional source, one objective and four manually authored questions; not a count-equivalent prototype dataset.",
+    "checks": [
+      "Explicit fallback answer submission preserved exact whitespace/text and published v1 source identity; reload retained it and teacher inspected original response in the same session."
+    ],
+    "viewports": [
+      {
+        "width": 1440,
+        "height": 1000,
+        "page": "17-teacher-original-evidence",
+        "overflow": false
+      },
+      {
+        "width": 1024,
+        "height": 768,
+        "page": "17-teacher-original-evidence",
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "page": "17-teacher-original-evidence",
+        "overflow": false
+      },
+      {
+        "width": 320,
+        "height": 844,
+        "page": "17-teacher-original-evidence",
+        "overflow": false
+      }
+    ],
+    "unrun": [
+      "File-upload browser variants",
+      "Fresh model generation/evaluation",
+      "Accepted model evaluation and same-journey intervention delivery/follow-up (provider disabled)",
+      "200% zoom, keyboard-only journey and screen-reader verification"
+    ],
+    "source_id": "48bae4f7-63a2-4876-bc6d-b5b2d99a6b9f",
+    "source_version": 1,
+    "lesson_id": "d1468c98-b268-4566-9301-114be6f836da",
+    "prepared_revision": 6,
+    "published_version": "1",
+    "content_ref": {
+      "source_kind": "uploaded",
+      "source_id": "48bae4f7-63a2-4876-bc6d-b5b2d99a6b9f",
+      "source_version": 1,
+      "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+      "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+      "attribution": {
+        "title": "Water changing state · verification 1792908096868",
+        "authors": [
+          "Fictional acceptance teacher"
+        ],
+        "copyright": "2026 fictional acceptance fixture",
+        "section": "Imported source",
+        "url": null,
+        "license": "Original synthetic material; permitted for this test",
+        "license_url": null,
+        "cautions": []
+      },
+      "access_scope": {
+        "teacher_id": "10000000-0000-4000-8000-000000000001"
+      },
+      "package_id": "d1468c98-b268-4566-9301-114be6f836da",
+      "content_version": "1"
+    },
+    "assignment_id": "ebc4eb03-22ba-409b-b1c4-10bc54a86967",
+    "class_id": "20000000-0000-4000-8000-000000000001",
+    "student_session_id": "07c3336c-108a-4e79-bca3-02c382b3756a",
+    "student_session_url": "http://localhost:3350/study/assignments/ebc4eb03-22ba-409b-b1c4-10bc54a86967?tab=study&session=07c3336c-108a-4e79-bca3-02c382b3756a",
+    "presented_attempt_id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+    "original_response": "  I think evaporation makes liquid water stop existing rather than changing its state.\nThis is an original fictional acceptance response.  ",
+    "new_draft_version": "2",
+    "new_draft_revision": 7,
+    "assignment_handoff": {
+      "published_url": "http://localhost:3350/teacher/lessons/d1468c98-b268-4566-9301-114be6f836da?version=1",
+      "href": "/teacher/assignments",
+      "exact_version_automatically_carried": false,
+      "resolution": "Teacher explicitly selects the just-published lesson/version in the new assignment builder.",
+      "selected_builder_url": "http://localhost:3350/teacher/assignments/new?lesson=d1468c98-b268-4566-9301-114be6f836da&version=1"
+    },
+    "resumed_from": {
+      "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\final-authoring-04\\report.json",
+      "sha256": "5eb2b980af7eae48ae736ce7a9162b62ba459aee0bb324f128de5ba352b9c94f",
+      "prior_status": "failed",
+      "prior_failure_stage": "explicit answer submission and original evidence",
+      "prior_completed_checks": [
+        "Resumed the same immutable published lesson from the retained failed-run receipt; prior approvals are recorded separately.",
+        "Inactive assignment is absent from enrolled student's list before activation",
+        "Separate explicit teacher activation makes the exact assignment visible and openable by enrolled student",
+        "Student reading retains exact imported text; initial question opens with one composer and no private answer/criterion in public API",
+        "New v2 draft requires fresh review; published v1 remains source-pinned and earlier presented student session/attempt remain byte-equivalent",
+        "Browser help request required explicit clarification with provider disabled; fallback preserved the original unanswered attempt and consumed zero provider requests."
+      ],
+      "earlier_resume": {
+        "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\final-authoring-03\\report.json",
+        "sha256": "b99dbdb38d3b1cfb5efb29fb29c6bf30f5f87b8f9bf3eef71d78383f287e17b9",
+        "prior_status": "failed",
+        "prior_failure_stage": "inactive assignment",
+        "prior_completed_checks": [
+          "Manual pasted source import, exact extraction review, attribution and private source save",
+          "Manually authored objective with exact source quote saved and explicitly approved",
+          "Four manually authored source-cited questions saved/reviewed/approved; student preview excludes private guidance",
+          "Tutoring sequence prepared, current lesson explicitly approved, immutable version 1 published separately"
+        ],
+        "scope": "Continue the already reviewed and published lesson; do not replay source creation or approval decisions."
+      },
+      "scope": "Read-only verification of the already submitted original answer; no creation, answer, evaluation, or approval is replayed."
+    },
+    "student_id": "10000000-0000-4000-8000-000000000002",
+    "checked_at_utc": "2026-10-25T06:08:40.641Z",
+    "screenshots": [
+      "16-original-answer-saved-provider-disabled.png",
+      "17-teacher-original-evidence.png",
+      "17-teacher-original-evidence-1440x1000.png",
+      "17-teacher-original-evidence-1024x768.png",
+      "17-teacher-original-evidence-390x844.png",
+      "17-teacher-original-evidence-320x844.png"
+    ]
+  },
+  "original_attempt_snapshot": {
+    "id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+    "session_id": "07c3336c-108a-4e79-bca3-02c382b3756a",
+    "sequence_index": 0,
+    "parent_attempt_id": null,
+    "root_attempt_id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+    "review_of_attempt_id": null,
+    "question": {
+      "origin": "curated",
+      "question_id": "teacher-7d193f0a-6213-4e80-bb37-eafd5664cfd8",
+      "sequence_id": "d1468c98-b268-4566-9301-114be6f836da:teacher-7d193f0a-6213-4e80-bb37-eafd5664cfd8:practice",
+      "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+      "content_ref": {
+        "source_kind": "uploaded",
+        "source_id": "48bae4f7-63a2-4876-bc6d-b5b2d99a6b9f",
+        "source_version": 1,
+        "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+        "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+        "attribution": {
+          "title": "Water changing state · verification 1792908096868",
+          "authors": [
+            "Fictional acceptance teacher"
+          ],
+          "copyright": "2026 fictional acceptance fixture",
+          "section": "Imported source",
+          "url": null,
+          "license": "Original synthetic material; permitted for this test",
+          "license_url": null,
+          "cautions": []
+        },
+        "access_scope": {
+          "teacher_id": "10000000-0000-4000-8000-000000000001"
+        },
+        "package_id": "d1468c98-b268-4566-9301-114be6f836da",
+        "content_version": "1"
+      },
+      "concept_ids": [
+        "94d2ba56-7792-499e-a7d1-57849660864d"
+      ],
+      "source_passage_ids": [
+        "p001"
+      ],
+      "rubric": {
+        "version": "teacher-review-v1",
+        "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+        "criteria": [
+          "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+        ],
+        "acceptable_variations": [
+          "Water becomes a gas in the air; the material still exists."
+        ],
+        "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+      },
+      "embedded_scaffolding": [],
+      "generation": null
+    },
+    "intent": "initial_retrieval",
+    "presented_at": "2026-10-25T06:05:25.331Z",
+    "submitted_at": "2026-10-25T06:05:28.226Z",
+    "response_text": "  I think evaporation makes liquid water stop existing rather than changing its state.\nThis is an original fictional acceptance response.  ",
+    "submission_key": "3a063814-b3c0-4a21-bd0a-43607205a791",
+    "assistance": {
+      "intervention_ids": [],
+      "assistance_level": "none_recorded",
+      "scaffolding_types": [],
+      "independent_retrieval_eligible_by_concept": {
+        "94d2ba56-7792-499e-a7d1-57849660864d": true
+      },
+      "most_recent_content_assistance_at": null,
+      "elapsed_since_content_assistance_seconds": null
+    },
+    "current_evaluation_id": "bfa4701d-550b-4eaa-bce1-3eef49bcfb0c",
+    "outcome": null
+  },
+  "original_answer_sha256": "a007b66ac2172e2e772eb65b872dbd343b106cc8c802b6d19325d4bb302564a1",
+  "concept_id": "94d2ba56-7792-499e-a7d1-57849660864d",
+  "original_evaluation_id": "bfa4701d-550b-4eaa-bce1-3eef49bcfb0c",
+  "draft_request_id": "704c03d0-c726-41cf-837b-3f6bdd82a922",
+  "draft_id": "1d5a7619-340e-42ab-8cbd-4ebff2b9176f",
+  "teacher_url": "/teacher/interventions?assignment=ebc4eb03-22ba-409b-b1c4-10bc54a86967&concept=94d2ba56-7792-499e-a7d1-57849660864d&origin=all&draft=1d5a7619-340e-42ab-8cbd-4ebff2b9176f&seedAttempt=280d524b-0b14-41df-a287-3e29bfdd5646",
+  "followup_response": "The water can evaporate from the soil and become water vapor, a gas. It remains water in a different state rather than stopping existing.",
+  "finished_at": "2026-10-25T06:53:58.598Z"
+}

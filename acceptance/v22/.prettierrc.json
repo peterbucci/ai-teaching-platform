@@ -1,0 +1,32 @@
+{
+  "overrides": [
+    {
+      "files": [
+        "evidence/**",
+        "**/screenshots*/**",
+        "independent-review/browser-*/**",
+        "baselines.json",
+        "authoring-tests.log",
+        "**/interaction-checks/**",
+        "independent-review/export-manifest.json",
+        "current-baselines.json",
+        "final-baselines.json",
+        "**/*PUBLISHED_BUNDLE.json",
+        "final-verification/populated-*/visual-evidence.json",
+        "runner-final/SHELL_ACCESSIBILITY_STATIC.json",
+        "final-verification/PACKAGING_UTILITY_LINT_FIX.json",
+        "runner-final/*_STATIC.json",
+        "final-verification/SELECTED_ANSWER_PUBLICATION.json",
+        "independent-review/FINAL_ACCESSIBILITY_FOLLOWUP_REVIEW.json",
+        "final-verification/DENSITY_INTERVENTION_PUBLICATION.json",
+        "final-verification/intervention-visual-review.json",
+        "final-verification/published-density-01/report.json",
+        "runner-final/executed-intervention-helpers/manifest.json"
+      ],
+      "options": {
+        "requirePragma": true,
+        "parser": "babel"
+      }
+    }
+  ]
+}

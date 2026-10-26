@@ -1,0 +1,34 @@
+{
+  "purpose": "Separate synchronous-readiness capture helper; preparation only.",
+  "candidateSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "candidateTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+  "script": "capture-application-v3.mjs",
+  "sha256": "a5c22bd3e1f512535feb3186e9051060cd41a1ed7cbe992f5666bfdc64c04fe6",
+  "parentScript": "capture-application-v2.mjs",
+  "unchangedParentSha256": "d73dbb1b15f78d1bdffd8580ac8a23e5364dec9a7bc9e03ced1df412fa17bc0e",
+  "validation": {
+    "syntax": "node --check passed",
+    "browserExecuted": false
+  },
+  "reason": "Root observed application-captures-02 readiness=false followed by shell count=0. Preserve these as harness readiness/polling failures, not application defects.",
+  "changes": [
+    "waitForFunction predicate is now synchronous; visibility, unique scoped shell, hydrated control, heading and expected text checks remain.",
+    "Every observation must explicitly return a nonfalse object with visibleScopedShells=1 and shellControlHydrated=true; required expectedTextVisible must also equal true.",
+    "Three animation frames are awaited in a separate page.evaluate, then a second synchronous readiness observation verifies identical scope/headings/geometry/text-length.",
+    "Maximum three stabilization attempts; no application mutation, arbitrary first match, omitted expected state or auth weakening."
+  ],
+  "unchanged": [
+    "capture-application.mjs",
+    "capture-application-v2.mjs",
+    "capture-common.mjs",
+    "safety.mjs",
+    "application-scenario-final-01.json",
+    "application source",
+    "earlier output reports/screenshots"
+  ],
+  "outputRequired": "Fresh application-captures-03; never overwrite runs01/02",
+  "limitations": [
+    "Syntax preparation is not a browser pass.",
+    "Capture success establishes an image exists for the required state; independent visual acceptance still required."
+  ]
+}

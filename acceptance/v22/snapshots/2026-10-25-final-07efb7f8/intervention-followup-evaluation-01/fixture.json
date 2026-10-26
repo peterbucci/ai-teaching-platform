@@ -1,0 +1,1132 @@
+{
+  "mode": "evaluate-followup",
+  "status": "completed",
+  "source_sha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "source_tree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+  "project": "lp-v22-final-01a173d6",
+  "origin": "http://localhost:3396",
+  "input_sha256": "849c0b4b4b514776c8186f4a73bcf66e2acc5348a28c5f3526380bfbb765ec0a",
+  "harness_sha256": "68c1115988cb6cdbc76da8cc80f5f74d89465d58989d04fb0136e22a2a892f9e",
+  "started_at": "2026-10-25T17:44:01.647Z",
+  "actual_model_calls": 0,
+  "injected_evaluation_calls": 1,
+  "injected_draft_calls": 0,
+  "seams": [
+    {
+      "kind": "followup-evaluation",
+      "synthetic": true,
+      "request_id": "111596a8-73f8-4cd7-8c28-b60f44594d19",
+      "evaluation_id": "b2e02dda-4b3b-4ddf-a818-ea7906c0e601",
+      "started_at": "2026-10-25T17:44:01.764Z",
+      "finished_at": "2026-10-25T17:44:01.907Z"
+    }
+  ],
+  "authoring": {
+    "target": "shell",
+    "project": "lp-v22-final-01a173d6",
+    "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+    "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+    "sha": "07efb7f821339538800f150f57b298eb2e606be3",
+    "tree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+    "origin": "http://localhost:3396",
+    "run_id": "Water changing state · verification 1792946023062",
+    "paid_calls": 0,
+    "started_at_utc": "2026-10-25T16:40:52.698Z",
+    "status": "passed",
+    "functional_completed_through": "teacher-original-evidence",
+    "fixture_scope": "One original fictional source, one objective and four manually authored questions; not a count-equivalent prototype dataset.",
+    "configuration": "provider-disabled; synthetic fixtures; loopback gateway; app/database isolated internal Docker network",
+    "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+    "source_version": 1,
+    "lesson_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+    "prepared_revision": 6,
+    "published_version": "1",
+    "content_ref": {
+      "source_kind": "uploaded",
+      "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+      "source_version": 1,
+      "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+      "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+      "attribution": {
+        "title": "Water changing state · verification 1792946023062",
+        "authors": [
+          "Fictional acceptance teacher"
+        ],
+        "copyright": "2026 fictional acceptance fixture",
+        "section": "Imported source",
+        "url": null,
+        "license": "Original synthetic material; permitted for this test",
+        "license_url": null,
+        "cautions": []
+      },
+      "access_scope": {
+        "teacher_id": "10000000-0000-4000-8000-000000000001"
+      },
+      "package_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+      "content_version": "1"
+    },
+    "assignment_id": "382f0724-3800-4e6c-8a15-40b4813cb4ab",
+    "class_id": "20000000-0000-4000-8000-000000000001",
+    "assignment_handoff": {
+      "published_url": "http://localhost:3396/teacher/lessons/2a18db3f-a6dc-4f61-b96d-f50647d574ad?version=1",
+      "href": "/teacher/assignments/new?lesson=2a18db3f-a6dc-4f61-b96d-f50647d574ad&version=1",
+      "exact_version_automatically_carried": true,
+      "resolution": "Published lesson handoff must preserve and preselect its exact immutable version.",
+      "selected_builder_url": "http://localhost:3396/teacher/assignments/new?lesson=2a18db3f-a6dc-4f61-b96d-f50647d574ad&version=1"
+    },
+    "student_session_id": "c619a811-af67-4aeb-9348-686fe439db98",
+    "student_session_url": "http://localhost:3396/study/assignments/382f0724-3800-4e6c-8a15-40b4813cb4ab?tab=study&session=c619a811-af67-4aeb-9348-686fe439db98",
+    "presented_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+    "inherited_checks": [
+      {
+        "check": "Manual pasted source import, exact extraction review, attribution and private source save",
+        "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authoring-01\\report.json",
+        "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+        "report_sha256": "d0e934029f6666f2b5945697c296b959efb7a610a6dcefbf15b3e79c5eda202e"
+      },
+      {
+        "check": "Manually authored objective with exact source quote saved and explicitly approved",
+        "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authoring-01\\report.json",
+        "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+        "report_sha256": "d0e934029f6666f2b5945697c296b959efb7a610a6dcefbf15b3e79c5eda202e"
+      },
+      {
+        "check": "Four manually authored source-cited questions saved/reviewed/approved; student preview excludes private guidance",
+        "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authoring-01\\report.json",
+        "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+        "report_sha256": "d0e934029f6666f2b5945697c296b959efb7a610a6dcefbf15b3e79c5eda202e"
+      },
+      {
+        "check": "Tutoring sequence prepared, current lesson explicitly approved, immutable version 1 published separately",
+        "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authoring-01\\report.json",
+        "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+        "report_sha256": "d0e934029f6666f2b5945697c296b959efb7a610a6dcefbf15b3e79c5eda202e"
+      },
+      {
+        "check": "Inactive assignment is absent from enrolled student's list before activation",
+        "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authoring-01\\report.json",
+        "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+        "report_sha256": "d0e934029f6666f2b5945697c296b959efb7a610a6dcefbf15b3e79c5eda202e"
+      },
+      {
+        "check": "Separate explicit teacher activation makes the exact assignment visible and openable by enrolled student",
+        "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authoring-01\\report.json",
+        "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+        "report_sha256": "d0e934029f6666f2b5945697c296b959efb7a610a6dcefbf15b3e79c5eda202e"
+      },
+      {
+        "check": "Student reading retains exact imported text; initial question opens with one composer and no private answer/criterion in public API",
+        "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authoring-01\\report.json",
+        "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+        "report_sha256": "d0e934029f6666f2b5945697c296b959efb7a610a6dcefbf15b3e79c5eda202e"
+      }
+    ],
+    "resumed_from": {
+      "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authoring-01\\report.json",
+      "report_sha256": "d0e934029f6666f2b5945697c296b959efb7a610a6dcefbf15b3e79c5eda202e",
+      "api_evidence": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authoring-01\\api-evidence.json",
+      "api_evidence_sha256": "ffbf7b95b3d39c33504d809547a2627d693b706ff054728437e966641e39f46b",
+      "status": "failed",
+      "failure_stage": "new version and history preservation",
+      "error": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('heading', { name: 'Published version 1', exact: true }) to be visible\u001b[22m\n",
+      "scope": "No earlier authoring/assignment/version mutation is repeated. Existing state must reconcile before new help/answer actions."
+    },
+    "checks": [
+      "Read-only reconciliation verified existing draft v2/revision7, published v1, active exact-v1 assignment, original unanswered session/attempt and empty conversation before any new action.",
+      "Actual help question and explicit help clarification preserved the unanswered attempt; provider-disabled fallback consumed zero provider requests. No generated help is claimed.",
+      "One intended answer preserved exact whitespace, original attempt/submission identity and published v1 source; student refresh did not resubmit; teacher inspected exact original evidence."
+    ],
+    "mutations": [
+      {
+        "stage": "send-help-question",
+        "method": "POST",
+        "url": "http://localhost:3396/api/tutoring/c619a811-af67-4aeb-9348-686fe439db98/conversation",
+        "body": {
+          "version": "r7-conversation-v1",
+          "request_id": "c0af9944-6849-4194-943b-3b17e84a6e4b",
+          "session_id": "c619a811-af67-4aeb-9348-686fe439db98",
+          "attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+          "expected_revision": 0,
+          "action": "send_message",
+          "text": "What does water vapor mean in the reading?"
+        }
+      },
+      {
+        "stage": "clarify-help-intent",
+        "method": "POST",
+        "url": "http://localhost:3396/api/tutoring/c619a811-af67-4aeb-9348-686fe439db98/conversation",
+        "body": {
+          "version": "r7-conversation-v1",
+          "request_id": "3a66aa77-e4d0-47cb-aa6b-e84d2f030f1d",
+          "session_id": "c619a811-af67-4aeb-9348-686fe439db98",
+          "attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+          "expected_revision": 0,
+          "action": "resolve_intent",
+          "message_request_id": "c0af9944-6849-4194-943b-3b17e84a6e4b",
+          "choice": "help"
+        }
+      },
+      {
+        "stage": "submit-original-answer",
+        "method": "POST",
+        "url": "http://localhost:3396/api/sessions/c619a811-af67-4aeb-9348-686fe439db98/answers",
+        "body": {
+          "attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+          "submission_key": "12482ec6-7609-464e-8b71-c803921b4d51",
+          "response_text": "  I think evaporation makes liquid water stop existing rather than changing its state.\nThis is an original fictional acceptance response.  "
+        }
+      },
+      {
+        "stage": "automatic-provider-disabled-evaluation",
+        "method": "POST",
+        "url": "http://localhost:3396/api/tutoring/c619a811-af67-4aeb-9348-686fe439db98",
+        "body": {
+          "attempt_id": "ae652658-924b-485d-9a87-7281a7501099"
+        }
+      }
+    ],
+    "blocked_requests": [],
+    "viewports": [
+      {
+        "width": 1440,
+        "height": 1000,
+        "page": "published-v1-after-v2-reconciled",
+        "overflow": false
+      },
+      {
+        "width": 1024,
+        "height": 768,
+        "page": "published-v1-after-v2-reconciled",
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "page": "published-v1-after-v2-reconciled",
+        "overflow": false
+      },
+      {
+        "width": 320,
+        "height": 844,
+        "page": "published-v1-after-v2-reconciled",
+        "overflow": false
+      },
+      {
+        "width": 1440,
+        "height": 1000,
+        "page": "help-clarified-not-graded",
+        "overflow": false
+      },
+      {
+        "width": 1024,
+        "height": 768,
+        "page": "help-clarified-not-graded",
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "page": "help-clarified-not-graded",
+        "overflow": false
+      },
+      {
+        "width": 320,
+        "height": 844,
+        "page": "help-clarified-not-graded",
+        "overflow": false
+      },
+      {
+        "width": 1440,
+        "height": 1000,
+        "page": "original-answer-saved",
+        "overflow": false
+      },
+      {
+        "width": 1024,
+        "height": 768,
+        "page": "original-answer-saved",
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "page": "original-answer-saved",
+        "overflow": false
+      },
+      {
+        "width": 320,
+        "height": 844,
+        "page": "original-answer-saved",
+        "overflow": false
+      },
+      {
+        "width": 1440,
+        "height": 1000,
+        "page": "teacher-original-evidence",
+        "overflow": false
+      },
+      {
+        "width": 1024,
+        "height": 768,
+        "page": "teacher-original-evidence",
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "page": "teacher-original-evidence",
+        "overflow": false
+      },
+      {
+        "width": 320,
+        "height": 844,
+        "page": "teacher-original-evidence",
+        "overflow": false
+      }
+    ],
+    "screenshots": [
+      "published-v1-after-v2-reconciled-1440x1000.png",
+      "published-v1-after-v2-reconciled-1024x768.png",
+      "published-v1-after-v2-reconciled-390x844.png",
+      "published-v1-after-v2-reconciled-320x844.png",
+      "help-clarified-not-graded-1440x1000.png",
+      "help-clarified-not-graded-1024x768.png",
+      "help-clarified-not-graded-390x844.png",
+      "help-clarified-not-graded-320x844.png",
+      "original-answer-saved-1440x1000.png",
+      "original-answer-saved-1024x768.png",
+      "original-answer-saved-390x844.png",
+      "original-answer-saved-320x844.png",
+      "teacher-original-evidence-1440x1000.png",
+      "teacher-original-evidence-1024x768.png",
+      "teacher-original-evidence-390x844.png",
+      "teacher-original-evidence-320x844.png"
+    ],
+    "prior_screenshots": {
+      "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authoring-01\\report.json",
+      "files": [
+        "01-extraction-review.png",
+        "01-extraction-review-1440x1000.png",
+        "01-extraction-review-1024x768.png",
+        "01-extraction-review-390x844.png",
+        "01-extraction-review-320x844.png",
+        "02-source-saved.png",
+        "02-source-saved-1440x1000.png",
+        "02-source-saved-1024x768.png",
+        "02-source-saved-390x844.png",
+        "02-source-saved-320x844.png",
+        "03-objectives-approved.png",
+        "03-objectives-approved-1440x1000.png",
+        "03-objectives-approved-1024x768.png",
+        "03-objectives-approved-390x844.png",
+        "03-objectives-approved-320x844.png",
+        "04-student-preview.png",
+        "04-student-preview-1440x1000.png",
+        "04-student-preview-1024x768.png",
+        "04-student-preview-390x844.png",
+        "04-student-preview-320x844.png",
+        "05-bank-approved.png",
+        "05-bank-approved-1440x1000.png",
+        "05-bank-approved-1024x768.png",
+        "05-bank-approved-390x844.png",
+        "05-bank-approved-320x844.png",
+        "06-lesson-approved.png",
+        "06-lesson-approved-1440x1000.png",
+        "06-lesson-approved-1024x768.png",
+        "06-lesson-approved-390x844.png",
+        "06-lesson-approved-320x844.png",
+        "07-published-v1.png",
+        "07-published-v1-1440x1000.png",
+        "07-published-v1-1024x768.png",
+        "07-published-v1-390x844.png",
+        "07-published-v1-320x844.png",
+        "08-inactive-hidden-student.png",
+        "09-active-assignment.png",
+        "09-active-assignment-1440x1000.png",
+        "09-active-assignment-1024x768.png",
+        "09-active-assignment-390x844.png",
+        "09-active-assignment-320x844.png",
+        "10-student-assignment.png",
+        "11-reading-1440.png",
+        "11-reading-1024.png",
+        "11-reading-390.png",
+        "11-reading-320.png",
+        "12-student-session.png",
+        "13-new-version-requires-review.png",
+        "13-new-version-requires-review-1440x1000.png",
+        "13-new-version-requires-review-1024x768.png",
+        "13-new-version-requires-review-390x844.png",
+        "13-new-version-requires-review-320x844.png",
+        "14-session-preserved-after-v2.png",
+        "failure-teacher.png",
+        "failure-student.png"
+      ]
+    },
+    "unrun": [
+      "Actual-model generation/evaluation",
+      "Screen reader and physical device",
+      "Full teacher/student/intervention chain pending separate synthetic evaluation/draft continuation"
+    ],
+    "harness_sha256": "7eb1b10d1ccbc84296813e14d822e6929e3a58e046951a48751a0d2b9ce552d6",
+    "new_draft_version": "2",
+    "new_draft_revision": 7,
+    "original_response": "  I think evaporation makes liquid water stop existing rather than changing its state.\nThis is an original fictional acceptance response.  ",
+    "automatic_evaluation_requested": true,
+    "student_id": "10000000-0000-4000-8000-000000000002",
+    "full_journey": "Prior hash-pinned source→objectives→questions→approval→publication→inactive assignment→activation steps plus this reconciled same-record help/answer/teacher continuation. Accepted synthetic evaluation and intervention remain separate subsequent seams.",
+    "checked_at_utc": "2026-10-25T16:41:04.998Z"
+  },
+  "original_attempt_snapshot": {
+    "id": "ae652658-924b-485d-9a87-7281a7501099",
+    "session_id": "c619a811-af67-4aeb-9348-686fe439db98",
+    "sequence_index": 0,
+    "parent_attempt_id": null,
+    "root_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+    "review_of_attempt_id": null,
+    "question": {
+      "origin": "curated",
+      "question_id": "teacher-251fda60-a4de-49ce-b6cb-7334ee4eaeb1",
+      "sequence_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad:teacher-251fda60-a4de-49ce-b6cb-7334ee4eaeb1:practice",
+      "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+      "content_ref": {
+        "source_kind": "uploaded",
+        "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+        "source_version": 1,
+        "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+        "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+        "attribution": {
+          "title": "Water changing state · verification 1792946023062",
+          "authors": [
+            "Fictional acceptance teacher"
+          ],
+          "copyright": "2026 fictional acceptance fixture",
+          "section": "Imported source",
+          "url": null,
+          "license": "Original synthetic material; permitted for this test",
+          "license_url": null,
+          "cautions": []
+        },
+        "access_scope": {
+          "teacher_id": "10000000-0000-4000-8000-000000000001"
+        },
+        "package_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+        "content_version": "1"
+      },
+      "concept_ids": [
+        "d1edb362-fa58-4e34-b8af-08c1f685e583"
+      ],
+      "source_passage_ids": [
+        "p001"
+      ],
+      "rubric": {
+        "version": "teacher-review-v1",
+        "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+        "criteria": [
+          "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+        ],
+        "acceptable_variations": [
+          "Water becomes a gas in the air; the material still exists."
+        ],
+        "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+      },
+      "embedded_scaffolding": [],
+      "generation": null
+    },
+    "intent": "initial_retrieval",
+    "presented_at": "2026-10-25T16:33:59.557Z",
+    "submitted_at": "2026-10-25T16:41:03.424Z",
+    "response_text": "  I think evaporation makes liquid water stop existing rather than changing its state.\nThis is an original fictional acceptance response.  ",
+    "submission_key": "12482ec6-7609-464e-8b71-c803921b4d51",
+    "assistance": {
+      "intervention_ids": [],
+      "assistance_level": "none_recorded",
+      "scaffolding_types": [],
+      "independent_retrieval_eligible_by_concept": {
+        "d1edb362-fa58-4e34-b8af-08c1f685e583": true
+      },
+      "most_recent_content_assistance_at": null,
+      "elapsed_since_content_assistance_seconds": null
+    },
+    "current_evaluation_id": "2531aac6-c71d-400a-948d-4bb29ac79535",
+    "outcome": {
+      "root_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+      "concept_ids": [
+        "d1edb362-fa58-4e34-b8af-08c1f685e583"
+      ],
+      "hypothesis_instance_id": null,
+      "latest_hypothesis_status": null,
+      "outcome": "correct_diagnostic_without_content_assistance",
+      "supporting_attempt_ids": [
+        "ae652658-924b-485d-9a87-7281a7501099",
+        "c3290bd2-1da9-42c2-9b2a-43c1840ad2bd"
+      ],
+      "intervention_ids": [],
+      "recorded_at": "2026-10-25T16:49:38.206215+00:00",
+      "next_review_at": "2026-10-26T16:49:38.198Z",
+      "review_policy_version": "approved-sequence-v1",
+      "review_reason": "Illustrative 24-hour review after this session. Immediate success after assistance does not establish lasting retention."
+    }
+  },
+  "original_answer_sha256": "a007b66ac2172e2e772eb65b872dbd343b106cc8c802b6d19325d4bb302564a1",
+  "concept_id": "d1edb362-fa58-4e34-b8af-08c1f685e583",
+  "completed_read_only_resume_sha256": "849c0b4b4b514776c8186f4a73bcf66e2acc5348a28c5f3526380bfbb765ec0a",
+  "preparation": {
+    "mode": "prepare-draft",
+    "status": "completed",
+    "source_sha": "07efb7f821339538800f150f57b298eb2e606be3",
+    "source_tree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+    "project": "lp-v22-final-01a173d6",
+    "origin": "http://localhost:3396",
+    "input_sha256": "78b8bbb419209e2789024e5f69fe879d59f2b7f09af6556d524e9de491044c49",
+    "harness_sha256": "f6df14f6c7582ef3e77e363c243a65661df29619888aa36e03de02bb3bad5880",
+    "started_at": "2026-10-25T17:33:42.552Z",
+    "actual_model_calls": 0,
+    "injected_evaluation_calls": 0,
+    "injected_draft_calls": 1,
+    "seams": [
+      {
+        "kind": "original-answer-evaluation",
+        "reused_existing_accepted": true,
+        "evaluation_id": "2531aac6-c71d-400a-948d-4bb29ac79535",
+        "model": "synthetic-same-browser-journey",
+        "paid_calls": 0
+      },
+      {
+        "kind": "original-evaluation-and-controller",
+        "read_only_reconciliation": true,
+        "evaluation_id": "2531aac6-c71d-400a-948d-4bb29ac79535",
+        "reapplied": false,
+        "reevaluated": false
+      },
+      {
+        "kind": "private-intervention-draft",
+        "synthetic": true,
+        "request_id": "3e0c6d3d-6767-4ff0-8546-828d2f75ce28",
+        "draft_id": "9a7a3e77-6933-400f-8656-893588248ccc",
+        "started_at": "2026-10-25T17:33:42.651Z",
+        "finished_at": "2026-10-25T17:33:42.711Z"
+      }
+    ],
+    "authoring": {
+      "target": "shell",
+      "project": "lp-v22-final-01a173d6",
+      "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+      "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+      "sha": "07efb7f821339538800f150f57b298eb2e606be3",
+      "tree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+      "origin": "http://localhost:3396",
+      "run_id": "Water changing state · verification 1792946023062",
+      "paid_calls": 0,
+      "started_at_utc": "2026-10-25T16:40:52.698Z",
+      "status": "passed",
+      "functional_completed_through": "teacher-original-evidence",
+      "fixture_scope": "One original fictional source, one objective and four manually authored questions; not a count-equivalent prototype dataset.",
+      "configuration": "provider-disabled; synthetic fixtures; loopback gateway; app/database isolated internal Docker network",
+      "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+      "source_version": 1,
+      "lesson_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+      "prepared_revision": 6,
+      "published_version": "1",
+      "content_ref": {
+        "source_kind": "uploaded",
+        "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+        "source_version": 1,
+        "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+        "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+        "attribution": {
+          "title": "Water changing state · verification 1792946023062",
+          "authors": [
+            "Fictional acceptance teacher"
+          ],
+          "copyright": "2026 fictional acceptance fixture",
+          "section": "Imported source",
+          "url": null,
+          "license": "Original synthetic material; permitted for this test",
+          "license_url": null,
+          "cautions": []
+        },
+        "access_scope": {
+          "teacher_id": "10000000-0000-4000-8000-000000000001"
+        },
+        "package_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+        "content_version": "1"
+      },
+      "assignment_id": "382f0724-3800-4e6c-8a15-40b4813cb4ab",
+      "class_id": "20000000-0000-4000-8000-000000000001",
+      "assignment_handoff": {
+        "published_url": "http://localhost:3396/teacher/lessons/2a18db3f-a6dc-4f61-b96d-f50647d574ad?version=1",
+        "href": "/teacher/assignments/new?lesson=2a18db3f-a6dc-4f61-b96d-f50647d574ad&version=1",
+        "exact_version_automatically_carried": true,
+        "resolution": "Published lesson handoff must preserve and preselect its exact immutable version.",
+        "selected_builder_url": "http://localhost:3396/teacher/assignments/new?lesson=2a18db3f-a6dc-4f61-b96d-f50647d574ad&version=1"
+      },
+      "student_session_id": "c619a811-af67-4aeb-9348-686fe439db98",
+      "student_session_url": "http://localhost:3396/study/assignments/382f0724-3800-4e6c-8a15-40b4813cb4ab?tab=study&session=c619a811-af67-4aeb-9348-686fe439db98",
+      "presented_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+      "inherited_checks": [
+        {
+          "check": "Manual pasted source import, exact extraction review, attribution and private source save",
+          "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authoring-01\\report.json",
+          "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+          "report_sha256": "d0e934029f6666f2b5945697c296b959efb7a610a6dcefbf15b3e79c5eda202e"
+        },
+        {
+          "check": "Manually authored objective with exact source quote saved and explicitly approved",
+          "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authoring-01\\report.json",
+          "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+          "report_sha256": "d0e934029f6666f2b5945697c296b959efb7a610a6dcefbf15b3e79c5eda202e"
+        },
+        {
+          "check": "Four manually authored source-cited questions saved/reviewed/approved; student preview excludes private guidance",
+          "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authoring-01\\report.json",
+          "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+          "report_sha256": "d0e934029f6666f2b5945697c296b959efb7a610a6dcefbf15b3e79c5eda202e"
+        },
+        {
+          "check": "Tutoring sequence prepared, current lesson explicitly approved, immutable version 1 published separately",
+          "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authoring-01\\report.json",
+          "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+          "report_sha256": "d0e934029f6666f2b5945697c296b959efb7a610a6dcefbf15b3e79c5eda202e"
+        },
+        {
+          "check": "Inactive assignment is absent from enrolled student's list before activation",
+          "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authoring-01\\report.json",
+          "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+          "report_sha256": "d0e934029f6666f2b5945697c296b959efb7a610a6dcefbf15b3e79c5eda202e"
+        },
+        {
+          "check": "Separate explicit teacher activation makes the exact assignment visible and openable by enrolled student",
+          "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authoring-01\\report.json",
+          "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+          "report_sha256": "d0e934029f6666f2b5945697c296b959efb7a610a6dcefbf15b3e79c5eda202e"
+        },
+        {
+          "check": "Student reading retains exact imported text; initial question opens with one composer and no private answer/criterion in public API",
+          "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authoring-01\\report.json",
+          "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+          "report_sha256": "d0e934029f6666f2b5945697c296b959efb7a610a6dcefbf15b3e79c5eda202e"
+        }
+      ],
+      "resumed_from": {
+        "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authoring-01\\report.json",
+        "report_sha256": "d0e934029f6666f2b5945697c296b959efb7a610a6dcefbf15b3e79c5eda202e",
+        "api_evidence": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authoring-01\\api-evidence.json",
+        "api_evidence_sha256": "ffbf7b95b3d39c33504d809547a2627d693b706ff054728437e966641e39f46b",
+        "status": "failed",
+        "failure_stage": "new version and history preservation",
+        "error": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('heading', { name: 'Published version 1', exact: true }) to be visible\u001b[22m\n",
+        "scope": "No earlier authoring/assignment/version mutation is repeated. Existing state must reconcile before new help/answer actions."
+      },
+      "checks": [
+        "Read-only reconciliation verified existing draft v2/revision7, published v1, active exact-v1 assignment, original unanswered session/attempt and empty conversation before any new action.",
+        "Actual help question and explicit help clarification preserved the unanswered attempt; provider-disabled fallback consumed zero provider requests. No generated help is claimed.",
+        "One intended answer preserved exact whitespace, original attempt/submission identity and published v1 source; student refresh did not resubmit; teacher inspected exact original evidence."
+      ],
+      "mutations": [
+        {
+          "stage": "send-help-question",
+          "method": "POST",
+          "url": "http://localhost:3396/api/tutoring/c619a811-af67-4aeb-9348-686fe439db98/conversation",
+          "body": {
+            "version": "r7-conversation-v1",
+            "request_id": "c0af9944-6849-4194-943b-3b17e84a6e4b",
+            "session_id": "c619a811-af67-4aeb-9348-686fe439db98",
+            "attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+            "expected_revision": 0,
+            "action": "send_message",
+            "text": "What does water vapor mean in the reading?"
+          }
+        },
+        {
+          "stage": "clarify-help-intent",
+          "method": "POST",
+          "url": "http://localhost:3396/api/tutoring/c619a811-af67-4aeb-9348-686fe439db98/conversation",
+          "body": {
+            "version": "r7-conversation-v1",
+            "request_id": "3a66aa77-e4d0-47cb-aa6b-e84d2f030f1d",
+            "session_id": "c619a811-af67-4aeb-9348-686fe439db98",
+            "attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+            "expected_revision": 0,
+            "action": "resolve_intent",
+            "message_request_id": "c0af9944-6849-4194-943b-3b17e84a6e4b",
+            "choice": "help"
+          }
+        },
+        {
+          "stage": "submit-original-answer",
+          "method": "POST",
+          "url": "http://localhost:3396/api/sessions/c619a811-af67-4aeb-9348-686fe439db98/answers",
+          "body": {
+            "attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+            "submission_key": "12482ec6-7609-464e-8b71-c803921b4d51",
+            "response_text": "  I think evaporation makes liquid water stop existing rather than changing its state.\nThis is an original fictional acceptance response.  "
+          }
+        },
+        {
+          "stage": "automatic-provider-disabled-evaluation",
+          "method": "POST",
+          "url": "http://localhost:3396/api/tutoring/c619a811-af67-4aeb-9348-686fe439db98",
+          "body": {
+            "attempt_id": "ae652658-924b-485d-9a87-7281a7501099"
+          }
+        }
+      ],
+      "blocked_requests": [],
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000,
+          "page": "published-v1-after-v2-reconciled",
+          "overflow": false
+        },
+        {
+          "width": 1024,
+          "height": 768,
+          "page": "published-v1-after-v2-reconciled",
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "height": 844,
+          "page": "published-v1-after-v2-reconciled",
+          "overflow": false
+        },
+        {
+          "width": 320,
+          "height": 844,
+          "page": "published-v1-after-v2-reconciled",
+          "overflow": false
+        },
+        {
+          "width": 1440,
+          "height": 1000,
+          "page": "help-clarified-not-graded",
+          "overflow": false
+        },
+        {
+          "width": 1024,
+          "height": 768,
+          "page": "help-clarified-not-graded",
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "height": 844,
+          "page": "help-clarified-not-graded",
+          "overflow": false
+        },
+        {
+          "width": 320,
+          "height": 844,
+          "page": "help-clarified-not-graded",
+          "overflow": false
+        },
+        {
+          "width": 1440,
+          "height": 1000,
+          "page": "original-answer-saved",
+          "overflow": false
+        },
+        {
+          "width": 1024,
+          "height": 768,
+          "page": "original-answer-saved",
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "height": 844,
+          "page": "original-answer-saved",
+          "overflow": false
+        },
+        {
+          "width": 320,
+          "height": 844,
+          "page": "original-answer-saved",
+          "overflow": false
+        },
+        {
+          "width": 1440,
+          "height": 1000,
+          "page": "teacher-original-evidence",
+          "overflow": false
+        },
+        {
+          "width": 1024,
+          "height": 768,
+          "page": "teacher-original-evidence",
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "height": 844,
+          "page": "teacher-original-evidence",
+          "overflow": false
+        },
+        {
+          "width": 320,
+          "height": 844,
+          "page": "teacher-original-evidence",
+          "overflow": false
+        }
+      ],
+      "screenshots": [
+        "published-v1-after-v2-reconciled-1440x1000.png",
+        "published-v1-after-v2-reconciled-1024x768.png",
+        "published-v1-after-v2-reconciled-390x844.png",
+        "published-v1-after-v2-reconciled-320x844.png",
+        "help-clarified-not-graded-1440x1000.png",
+        "help-clarified-not-graded-1024x768.png",
+        "help-clarified-not-graded-390x844.png",
+        "help-clarified-not-graded-320x844.png",
+        "original-answer-saved-1440x1000.png",
+        "original-answer-saved-1024x768.png",
+        "original-answer-saved-390x844.png",
+        "original-answer-saved-320x844.png",
+        "teacher-original-evidence-1440x1000.png",
+        "teacher-original-evidence-1024x768.png",
+        "teacher-original-evidence-390x844.png",
+        "teacher-original-evidence-320x844.png"
+      ],
+      "prior_screenshots": {
+        "report": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authoring-01\\report.json",
+        "files": [
+          "01-extraction-review.png",
+          "01-extraction-review-1440x1000.png",
+          "01-extraction-review-1024x768.png",
+          "01-extraction-review-390x844.png",
+          "01-extraction-review-320x844.png",
+          "02-source-saved.png",
+          "02-source-saved-1440x1000.png",
+          "02-source-saved-1024x768.png",
+          "02-source-saved-390x844.png",
+          "02-source-saved-320x844.png",
+          "03-objectives-approved.png",
+          "03-objectives-approved-1440x1000.png",
+          "03-objectives-approved-1024x768.png",
+          "03-objectives-approved-390x844.png",
+          "03-objectives-approved-320x844.png",
+          "04-student-preview.png",
+          "04-student-preview-1440x1000.png",
+          "04-student-preview-1024x768.png",
+          "04-student-preview-390x844.png",
+          "04-student-preview-320x844.png",
+          "05-bank-approved.png",
+          "05-bank-approved-1440x1000.png",
+          "05-bank-approved-1024x768.png",
+          "05-bank-approved-390x844.png",
+          "05-bank-approved-320x844.png",
+          "06-lesson-approved.png",
+          "06-lesson-approved-1440x1000.png",
+          "06-lesson-approved-1024x768.png",
+          "06-lesson-approved-390x844.png",
+          "06-lesson-approved-320x844.png",
+          "07-published-v1.png",
+          "07-published-v1-1440x1000.png",
+          "07-published-v1-1024x768.png",
+          "07-published-v1-390x844.png",
+          "07-published-v1-320x844.png",
+          "08-inactive-hidden-student.png",
+          "09-active-assignment.png",
+          "09-active-assignment-1440x1000.png",
+          "09-active-assignment-1024x768.png",
+          "09-active-assignment-390x844.png",
+          "09-active-assignment-320x844.png",
+          "10-student-assignment.png",
+          "11-reading-1440.png",
+          "11-reading-1024.png",
+          "11-reading-390.png",
+          "11-reading-320.png",
+          "12-student-session.png",
+          "13-new-version-requires-review.png",
+          "13-new-version-requires-review-1440x1000.png",
+          "13-new-version-requires-review-1024x768.png",
+          "13-new-version-requires-review-390x844.png",
+          "13-new-version-requires-review-320x844.png",
+          "14-session-preserved-after-v2.png",
+          "failure-teacher.png",
+          "failure-student.png"
+        ]
+      },
+      "unrun": [
+        "Actual-model generation/evaluation",
+        "Screen reader and physical device",
+        "Full teacher/student/intervention chain pending separate synthetic evaluation/draft continuation"
+      ],
+      "harness_sha256": "7eb1b10d1ccbc84296813e14d822e6929e3a58e046951a48751a0d2b9ce552d6",
+      "new_draft_version": "2",
+      "new_draft_revision": 7,
+      "original_response": "  I think evaporation makes liquid water stop existing rather than changing its state.\nThis is an original fictional acceptance response.  ",
+      "automatic_evaluation_requested": true,
+      "student_id": "10000000-0000-4000-8000-000000000002",
+      "full_journey": "Prior hash-pinned source→objectives→questions→approval→publication→inactive assignment→activation steps plus this reconciled same-record help/answer/teacher continuation. Accepted synthetic evaluation and intervention remain separate subsequent seams.",
+      "checked_at_utc": "2026-10-25T16:41:04.998Z"
+    },
+    "original_attempt_snapshot": {
+      "id": "ae652658-924b-485d-9a87-7281a7501099",
+      "session_id": "c619a811-af67-4aeb-9348-686fe439db98",
+      "sequence_index": 0,
+      "parent_attempt_id": null,
+      "root_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+      "review_of_attempt_id": null,
+      "question": {
+        "origin": "curated",
+        "question_id": "teacher-251fda60-a4de-49ce-b6cb-7334ee4eaeb1",
+        "sequence_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad:teacher-251fda60-a4de-49ce-b6cb-7334ee4eaeb1:practice",
+        "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+        "content_ref": {
+          "source_kind": "uploaded",
+          "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+          "source_version": 1,
+          "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+          "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+          "attribution": {
+            "title": "Water changing state · verification 1792946023062",
+            "authors": [
+              "Fictional acceptance teacher"
+            ],
+            "copyright": "2026 fictional acceptance fixture",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic material; permitted for this test",
+            "license_url": null,
+            "cautions": []
+          },
+          "access_scope": {
+            "teacher_id": "10000000-0000-4000-8000-000000000001"
+          },
+          "package_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+          "content_version": "1"
+        },
+        "concept_ids": [
+          "d1edb362-fa58-4e34-b8af-08c1f685e583"
+        ],
+        "source_passage_ids": [
+          "p001"
+        ],
+        "rubric": {
+          "version": "teacher-review-v1",
+          "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+          "criteria": [
+            "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+          ],
+          "acceptable_variations": [
+            "Water becomes a gas in the air; the material still exists."
+          ],
+          "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+        },
+        "embedded_scaffolding": [],
+        "generation": null
+      },
+      "intent": "initial_retrieval",
+      "presented_at": "2026-10-25T16:33:59.557Z",
+      "submitted_at": "2026-10-25T16:41:03.424Z",
+      "response_text": "  I think evaporation makes liquid water stop existing rather than changing its state.\nThis is an original fictional acceptance response.  ",
+      "submission_key": "12482ec6-7609-464e-8b71-c803921b4d51",
+      "assistance": {
+        "intervention_ids": [],
+        "assistance_level": "none_recorded",
+        "scaffolding_types": [],
+        "independent_retrieval_eligible_by_concept": {
+          "d1edb362-fa58-4e34-b8af-08c1f685e583": true
+        },
+        "most_recent_content_assistance_at": null,
+        "elapsed_since_content_assistance_seconds": null
+      },
+      "current_evaluation_id": "2531aac6-c71d-400a-948d-4bb29ac79535",
+      "outcome": {
+        "root_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+        "concept_ids": [
+          "d1edb362-fa58-4e34-b8af-08c1f685e583"
+        ],
+        "hypothesis_instance_id": null,
+        "latest_hypothesis_status": null,
+        "outcome": "correct_diagnostic_without_content_assistance",
+        "supporting_attempt_ids": [
+          "ae652658-924b-485d-9a87-7281a7501099",
+          "c3290bd2-1da9-42c2-9b2a-43c1840ad2bd"
+        ],
+        "intervention_ids": [],
+        "recorded_at": "2026-10-25T16:49:38.206215+00:00",
+        "next_review_at": "2026-10-26T16:49:38.198Z",
+        "review_policy_version": "approved-sequence-v1",
+        "review_reason": "Illustrative 24-hour review after this session. Immediate success after assistance does not establish lasting retention."
+      }
+    },
+    "original_answer_sha256": "a007b66ac2172e2e772eb65b872dbd343b106cc8c802b6d19325d4bb302564a1",
+    "concept_id": "d1edb362-fa58-4e34-b8af-08c1f685e583",
+    "original_evaluation_id": "2531aac6-c71d-400a-948d-4bb29ac79535",
+    "original_evaluation_canonical_sha256": "78f4ffa5678299732d09ee3494a1eafc3218f266df1e0e3732a7e12860fd67c7",
+    "original_immutable_fields_unchanged": true,
+    "derived_original_outcome": {
+      "before": null,
+      "after": {
+        "root_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+        "concept_ids": [
+          "d1edb362-fa58-4e34-b8af-08c1f685e583"
+        ],
+        "hypothesis_instance_id": null,
+        "latest_hypothesis_status": null,
+        "outcome": "correct_diagnostic_without_content_assistance",
+        "supporting_attempt_ids": [
+          "ae652658-924b-485d-9a87-7281a7501099",
+          "c3290bd2-1da9-42c2-9b2a-43c1840ad2bd"
+        ],
+        "intervention_ids": [],
+        "recorded_at": "2026-10-25T16:49:38.206215+00:00",
+        "next_review_at": "2026-10-26T16:49:38.198Z",
+        "review_policy_version": "approved-sequence-v1",
+        "review_reason": "Illustrative 24-hour review after this session. Immediate success after assistance does not establish lasting retention."
+      },
+      "explanation": "Existing tutoring controller recorded the completed actual diagnostic answer; original answer, assistance, source and accepted original evaluation are unchanged."
+    },
+    "controller": {
+      "evaluation_id": "2531aac6-c71d-400a-948d-4bb29ac79535",
+      "original_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+      "reused_existing_applied_result": false,
+      "applied_result": {
+        "action": "ASK_DIAGNOSTIC_FOLLOWUP",
+        "hypothesis_events": []
+      },
+      "before_attempt_ids": [
+        "ae652658-924b-485d-9a87-7281a7501099"
+      ],
+      "after_attempt_ids": [
+        "ae652658-924b-485d-9a87-7281a7501099",
+        "c3290bd2-1da9-42c2-9b2a-43c1840ad2bd"
+      ],
+      "new_intervention_ids": [],
+      "student_view": {
+        "session": {
+          "id": "c619a811-af67-4aeb-9348-686fe439db98",
+          "status": "active",
+          "started_at": "2026-10-25T16:33:59.548Z",
+          "ended_at": null
+        },
+        "attempts": [
+          {
+            "id": "ae652658-924b-485d-9a87-7281a7501099",
+            "sequence_index": 0,
+            "intent": "initial_retrieval",
+            "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+            "concept_ids": [
+              "d1edb362-fa58-4e34-b8af-08c1f685e583"
+            ],
+            "presented_at": "2026-10-25T16:33:59.557Z",
+            "submitted_at": "2026-10-25T16:41:03.424Z",
+            "response_text": "  I think evaporation makes liquid water stop existing rather than changing its state.\nThis is an original fictional acceptance response.  "
+          },
+          {
+            "id": "c3290bd2-1da9-42c2-9b2a-43c1840ad2bd",
+            "sequence_index": 1,
+            "intent": "diagnostic_followup",
+            "prompt_text": "Someone says that the water from a drying tabletop has ceased to exist. What would you say to them, and why?",
+            "concept_ids": [
+              "d1edb362-fa58-4e34-b8af-08c1f685e583"
+            ],
+            "presented_at": "2026-10-25T16:41:57.712Z",
+            "submitted_at": null,
+            "response_text": null
+          }
+        ],
+        "interventions": [],
+        "pending_reading": null,
+        "progress": {
+          "phase": "answer",
+          "current_attempt_id": "c3290bd2-1da9-42c2-9b2a-43c1840ad2bd",
+          "failed_evaluation_id": null,
+          "retry_allowed": false,
+          "retry_after": null,
+          "message": "Explain your thinking in your own words.",
+          "next_review_at": null
+        },
+        "citations": []
+      }
+    },
+    "draft_only_continuation_of_sha256": "78b8bbb419209e2789024e5f69fe879d59f2b7f09af6556d524e9de491044c49",
+    "original_evaluation_and_controller_read_only": true,
+    "draft_request_id": "3e0c6d3d-6767-4ff0-8546-828d2f75ce28",
+    "draft_id": "9a7a3e77-6933-400f-8656-893588248ccc",
+    "teacher_url": "/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&origin=all&draft=9a7a3e77-6933-400f-8656-893588248ccc&seedAttempt=ae652658-924b-485d-9a87-7281a7501099",
+    "followup_response": "The water can evaporate from the soil and become water vapor, a gas. It remains water in a different state rather than stopping existing.",
+    "finished_at": "2026-10-25T17:33:42.726Z"
+  },
+  "approval_id": "608d1c43-4cdb-407e-b809-bf373f016372",
+  "draft_id": "9a7a3e77-6933-400f-8656-893588248ccc",
+  "teacher_url": "/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&origin=all&draft=9a7a3e77-6933-400f-8656-893588248ccc&seedAttempt=ae652658-924b-485d-9a87-7281a7501099",
+  "followup_response": "The water can evaporate from the soil and become water vapor, a gas. It remains water in a different state rather than stopping existing.",
+  "browser_report_sha256": "849c0b4b4b514776c8186f4a73bcf66e2acc5348a28c5f3526380bfbb765ec0a",
+  "before_followup": {
+    "approval_id": "608d1c43-4cdb-407e-b809-bf373f016372",
+    "started_at": "2026-10-25T17:35:38.576Z",
+    "attempt_id": "8ad2d8b8-a662-4647-a1be-a90b4fcbca9d",
+    "submitted_at": "2026-10-25T17:35:39.959Z",
+    "response_text": "The water can evaporate from the soil and become water vapor, a gas. It remains water in a different state rather than stopping existing.",
+    "assistance": {
+      "intervention_ids": [
+        "3198d511-4260-4163-9355-9307cb03b856"
+      ],
+      "assistance_level": "corrective_feedback",
+      "scaffolding_types": [],
+      "independent_retrieval_eligible_by_concept": {
+        "d1edb362-fa58-4e34-b8af-08c1f685e583": false
+      },
+      "most_recent_content_assistance_at": "2026-10-25T17:35:36.908Z",
+      "elapsed_since_content_assistance_seconds": 3.051
+    },
+    "evaluation_status": "failed",
+    "evaluation_id": null,
+    "results": [],
+    "uncertain": false,
+    "feedback": "Your response is saved, but evaluation did not succeed. You can retry when available without resubmitting your answer.",
+    "retry_allowed": true,
+    "retry_after": "2026-10-25T17:36:39.990Z",
+    "evaluator_type": null,
+    "evaluation_provenance": null
+  },
+  "followup_request_id": "111596a8-73f8-4cd7-8c28-b60f44594d19",
+  "followup": {
+    "approval_id": "608d1c43-4cdb-407e-b809-bf373f016372",
+    "started_at": "2026-10-25T17:35:38.576Z",
+    "attempt_id": "8ad2d8b8-a662-4647-a1be-a90b4fcbca9d",
+    "submitted_at": "2026-10-25T17:35:39.959Z",
+    "response_text": "The water can evaporate from the soil and become water vapor, a gas. It remains water in a different state rather than stopping existing.",
+    "assistance": {
+      "intervention_ids": [
+        "3198d511-4260-4163-9355-9307cb03b856"
+      ],
+      "assistance_level": "corrective_feedback",
+      "scaffolding_types": [],
+      "independent_retrieval_eligible_by_concept": {
+        "d1edb362-fa58-4e34-b8af-08c1f685e583": false
+      },
+      "most_recent_content_assistance_at": "2026-10-25T17:35:36.908Z",
+      "elapsed_since_content_assistance_seconds": 3.051
+    },
+    "evaluation_status": "accepted",
+    "evaluation_id": "b2e02dda-4b3b-4ddf-a818-ea7906c0e601",
+    "results": [
+      {
+        "concept_id": "d1edb362-fa58-4e34-b8af-08c1f685e583",
+        "correctness": "correct"
+      }
+    ],
+    "uncertain": false,
+    "feedback": "Your response demonstrates the assessed reasoning on this check. Success after review does not establish lasting retention.",
+    "retry_allowed": false,
+    "retry_after": null,
+    "evaluator_type": "language_model",
+    "evaluation_provenance": "injected_fixture"
+  },
+  "comparison_counts": {
+    "intended": 1,
+    "started": 1,
+    "submitted": 1,
+    "missing": 0,
+    "accepted": 1,
+    "pending": 0,
+    "failed": 0,
+    "uncertain": 0
+  },
+  "finished_at": "2026-10-25T17:44:01.960Z"
+}

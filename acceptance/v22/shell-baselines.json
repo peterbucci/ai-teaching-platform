@@ -1,0 +1,52 @@
+{
+  "observedAt": "2026-10-25T04:46:16Z",
+  "baselines": [
+    {
+      "target": "main",
+      "sha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "branch": "main"
+    },
+    {
+      "target": 116,
+      "sha": "76b11ddfa0ce784f70290c0746efd94c7042f6fc",
+      "branch": "codex/teacher-workbench-slice",
+      "base": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "draft": true
+    },
+    {
+      "target": 117,
+      "sha": "9f300ce6e975ab460328a8aa4428c26d441ee0ab",
+      "branch": "codex/workbench-assignments",
+      "base": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "draft": true
+    },
+    {
+      "target": 118,
+      "sha": "7b82197f5c0b665a955d5dc47a07e13d8a19627a",
+      "branch": "codex/workbench-lessons",
+      "base": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "draft": true
+    },
+    {
+      "target": 113,
+      "sha": "2b490863cc6de69a7659f1df1e4628bc22dd7d9a",
+      "branch": "codex/show-answer-result",
+      "base": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "draft": true
+    },
+    {
+      "target": 120,
+      "sha": "dd97767cda2e445bb1cf669b94363d1d9e9500b4",
+      "branch": "codex/workbench-v22-shell",
+      "base": "76b11ddfa0ce784f70290c0746efd94c7042f6fc",
+      "draft": true
+    }
+  ],
+  "combination": {
+    "sha": "1a9d95b3be3e30d08d9dafc7ec6d1a14208368ac",
+    "tree": "c2f1c30b3f62391283ced9f798bbcae5cc7ca794",
+    "mergeOrder": [116, 117, 118, 113, 120],
+    "conflicts": []
+  },
+  "verificationLevel": "separately pinned updated composition; first-snapshot runtime results do not apply"
+}

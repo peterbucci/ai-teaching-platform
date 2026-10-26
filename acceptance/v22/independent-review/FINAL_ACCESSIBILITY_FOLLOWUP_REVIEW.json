@@ -1,0 +1,33 @@
+{
+  "source_sha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "source_tree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "scope": "Verification utilities and retained browser evidence only; no application source changes",
+  "peer_reviewer": "/root/locate_reference",
+  "reviews": [
+    {
+      "helper": "keyboard-reading-accessibility-browser.mjs",
+      "sha256": "0901613974c4e2623e571fd717a181d0c5675a00351bd8b193562640ddbfb9d1",
+      "changes": "Visible course-scope destination readiness; explicit allowlist returns before excluded callbacks",
+      "peer_result": "No consequential issue; static review before runtime",
+      "syntax_eslint_format": "passed",
+      "actual_run": "final-accessibility-03/report.json",
+      "actual_exit": 1,
+      "actual_counts": {"pass": 9, "fail": 0, "harness_or_runtime_error": 1, "unrun_filtered": 4},
+      "error_diagnosis": "Desktop Lessons course surface has no desktop assignment scope opener; corrected in separate run04"
+    },
+    {
+      "helper": "desktop-scope-accessibility-browser.mjs",
+      "sha256": "d43c14700cdd05f895e9ec5a0afc0098e87a0a6844f3d1e32bbc07798ea2dae7",
+      "changes": "Only desktop assignment review surface runs; exact visible assignment switcher; no native200 launch or other callback",
+      "peer_result": "No consequential issue; static review before runtime",
+      "syntax_eslint_format": "passed",
+      "actual_run": "final-accessibility-04/report.json",
+      "actual_exit": 0,
+      "actual_counts": {"pass": 3, "fail": 0, "harness_or_runtime_error": 0, "unrun_filtered": 6}
+    }
+  ],
+  "unchanged_historical_runs": ["final-accessibility-01", "final-accessibility-02"],
+  "private_profiles_published": false,
+  "screen_reader": "unrun",
+  "actual_model": "unrun"
+}

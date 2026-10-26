@@ -1,0 +1,15 @@
+{
+  "reviewedAt": "2026-10-25T06:30:17.2909743Z",
+  "sourceSha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "helperSha256": "455ad2c2aa7ad56e57aaa8b0caa2e212221c7002a926b929e6371454b305006f",
+  "scope": "Static review of explicitly authorized normal reading-open/display acknowledgement delta only.",
+  "status": "no-consequential-blocker",
+  "checks": [
+    "Only the long fictional session/context and same-origin POST reading-open/acknowledgement paths are allowed.",
+    "Response acknowledgement must match returned intervention_id, status200 and displayed timestamp.",
+    "Original public attempts remain exactly unchanged; actual Back/reload URL equality remains required.",
+    "Any other intercepted mutation refuses success; no help/answer/evaluation replay."
+  ],
+  "runtimeByReviewer": "unrun",
+  "wording": "Requested removal of stale read-only wording because the normal display acknowledgement is an explicit write."
+}

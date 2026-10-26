@@ -1,0 +1,200 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 518B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.02kB 0.0s done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22.23.2-bookworm-slim
+#3 DONE 0.6s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 136B done
+#4 DONE 0.0s
+
+#5 [build 1/6] FROM docker.io/library/node:22.23.2-bookworm-slim@sha256:48e4b67d85f87bd551df43704e24d252f56cc5f8e9718841aace50f19948f0f9
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 40.00MB 5.1s
+#6 transferring context: 45.11MB 5.9s done
+#6 DONE 6.0s
+
+#7 [build 2/6] WORKDIR /app
+#7 CACHED
+
+#8 [build 3/6] COPY package.json package-lock.json ./
+#8 CACHED
+
+#9 [build 4/6] RUN npm ci
+#9 CACHED
+
+#10 [build 5/6] COPY . .
+#10 DONE 0.3s
+
+#11 [build 6/6] RUN npm run build && npm prune --omit=dev
+#11 0.563 
+#11 0.563 > ai-teaching-platform@0.1.0 build
+#11 0.563 > next build
+#11 0.563 
+#11 1.229 ▲ Next.js 16.4.3 (Turbopack)
+#11 1.241 ✓ Running next.config took 11ms
+#11 1.305 
+#11 1.340   Creating an optimized production build ...
+#11 8.788 ✓ Compiled successfully in 7.4s
+#11 8.792   Running TypeScript ...
+#11 26.78   Finished TypeScript in 18.0s ...
+#11 26.78   Collecting page data using 31 workers ...
+#11 32.14   Generating static pages using 31 workers (0/12) ...
+#11 32.40   Generating static pages using 31 workers (3/12) 
+#11 32.41   Generating static pages using 31 workers (6/12) 
+#11 32.61   Generating static pages using 31 workers (9/12) 
+#11 32.66 ✓ Generating static pages using 31 workers (12/12) in 520ms
+#11 32.68   Finalizing page optimization ...
+#11 32.72 
+#11 32.72 Route (app)
+#11 32.72 ┌ ƒ /
+#11 32.72 ├ ○ /_not-found
+#11 32.72 ├ ƒ /api/auth/[...all]
+#11 32.72 ├ ƒ /api/sessions
+#11 32.72 ├ ƒ /api/sessions/[sessionId]
+#11 32.72 ├ ƒ /api/sessions/[sessionId]/answers
+#11 32.72 ├ ƒ /api/sessions/[sessionId]/interventions/[interventionId]
+#11 32.72 ├ ƒ /api/speech
+#11 32.72 ├ ƒ /api/student/interventions
+#11 32.72 ├ ƒ /api/student/interventions/[approvalId]
+#11 32.72 ├ ƒ /api/student/interventions/[approvalId]/followup
+#11 32.72 ├ ƒ /api/study/reading/bookmarks
+#11 32.72 ├ ƒ /api/teacher/assignments/[assignmentId]/approval
+#11 32.72 ├ ƒ /api/teacher/assignments/[assignmentId]/metrics
+#11 32.72 ├ ƒ /api/teacher/interventions
+#11 32.72 ├ ƒ /api/teacher/interventions/[draftId]
+#11 32.72 ├ ƒ /api/teacher/interventions/[draftId]/followup
+#11 32.72 ├ ƒ /api/teacher/lessons/[lessonId]/approval
+#11 32.72 ├ ƒ /api/teacher/lessons/[lessonId]/assembly
+#11 32.72 ├ ƒ /api/teacher/lessons/[lessonId]/assignments
+#11 32.72 ├ ƒ /api/teacher/lessons/[lessonId]/publication
+#11 32.72 ├ ƒ /api/teacher/lessons/[lessonId]/question-bank
+#11 32.72 ├ ƒ /api/teacher/lessons/[lessonId]/versions
+#11 32.72 ├ ƒ /api/teacher/materials
+#11 32.72 ├ ƒ /api/teacher/materials/[documentId]
+#11 32.72 ├ ƒ /api/teacher/materials/preview
+#11 32.72 ├ ƒ /api/teacher/objectives
+#11 32.72 ├ ƒ /api/teacher/objectives/[lessonId]
+#11 32.72 ├ ƒ /api/teacher/objectives/[lessonId]/approve
+#11 32.72 ├ ƒ /api/teacher/objectives/[lessonId]/suggest
+#11 32.72 ├ ƒ /api/teacher/objectives/[lessonId]/suggest/accept
+#11 32.72 ├ ƒ /api/teacher/sessions/[sessionId]
+#11 32.72 ├ ƒ /api/teacher/sessions/[sessionId]/conversation
+#11 32.72 ├ ƒ /api/tutoring
+#11 32.72 ├ ƒ /api/tutoring/[sessionId]
+#11 32.72 ├ ƒ /api/tutoring/[sessionId]/conversation
+#11 32.72 ├ ƒ /api/tutoring/[sessionId]/conversation/display
+#11 32.72 ├ ƒ /api/tutoring/[sessionId]/conversation/operations/[requestId]
+#11 32.72 ├ ƒ /api/tutoring/[sessionId]/reading
+#11 32.72 ├ ƒ /api/tutoring/[sessionId]/restart
+#11 32.72 ├ ○ /dev/visual-player
+#11 32.72 ├ ƒ /login
+#11 32.72 ├ ƒ /study
+#11 32.72 ├ ƒ /study/assignments
+#11 32.72 ├ ƒ /study/assignments/[assignmentId]
+#11 32.72 ├ ƒ /study/audio-preview
+#11 32.72 ├ ƒ /study/dialogue-preview
+#11 32.72 ├ ƒ /study/history
+#11 32.72 ├ ƒ /study/interventions/[approvalId]
+#11 32.72 ├ ƒ /study/reading
+#11 32.72 ├ ƒ /teacher
+#11 32.72 ├ ƒ /teacher/assignments
+#11 32.72 ├ ƒ /teacher/assignments/new
+#11 32.72 ├ ƒ /teacher/evidence
+#11 32.72 ├ ƒ /teacher/insights
+#11 32.72 ├ ƒ /teacher/interventions
+#11 32.72 ├ ƒ /teacher/lessons
+#11 32.72 ├ ƒ /teacher/lessons/[lessonId]
+#11 32.72 ├ ƒ /teacher/lessons/[lessonId]/questions
+#11 32.72 ├ ƒ /teacher/materials
+#11 32.72 ├ ƒ /teacher/materials/[documentId]
+#11 32.72 ├ ƒ /teacher/objectives
+#11 32.72 ├ ƒ /teacher/objectives/[lessonId]
+#11 32.72 ├ ƒ /teacher/sessions/[sessionId]
+#11 32.72 └ ƒ /teacher/students
+#11 32.72 
+#11 32.72 
+#11 32.72 ○  (Static)   prerendered as static content
+#11 32.72 ƒ  (Dynamic)  server-rendered on demand
+#11 32.72 
+#11 36.61 
+#11 36.61 up to date, audited 73 packages in 4s
+#11 36.61 
+#11 36.61 16 packages are looking for funding
+#11 36.61   run `npm fund` for details
+#11 36.61 
+#11 36.61 found 0 vulnerabilities
+#11 DONE 36.8s
+
+#12 [app  3/11] COPY --from=build --chown=node:node /app/package.json /app/package-lock.json ./
+#12 CACHED
+
+#13 [app  4/11] COPY --from=build --chown=node:node /app/node_modules ./node_modules
+#13 CACHED
+
+#14 [app  5/11] COPY --from=build --chown=node:node /app/.next ./.next
+#14 DONE 2.2s
+
+#15 [app  6/11] COPY --from=build --chown=node:node /app/lib ./lib
+#15 DONE 0.2s
+
+#16 [app  7/11] COPY --from=build --chown=node:node /app/scripts ./scripts
+#16 DONE 0.1s
+
+#17 [app  8/11] COPY --from=build --chown=node:node /app/tests/fixtures ./tests/fixtures
+#17 DONE 0.1s
+
+#18 [app  9/11] COPY --from=build --chown=node:node /app/database ./database
+#18 DONE 0.1s
+
+#19 [app 10/11] COPY --from=build --chown=node:node /app/content ./content
+#19 DONE 0.1s
+
+#20 [app 11/11] COPY --from=build --chown=node:node /app/evals ./evals
+#20 DONE 0.1s
+
+#21 exporting to image
+#21 exporting layers
+#21 exporting layers 1.3s done
+#21 writing image sha256:98e1cd317d115367d36fd0959337b1ee2d8ae493d25c780a50f4b8df1185b396 0.0s done
+#21 naming to docker.io/library/lp-v22-final-01a173d6:07efb7f821339538800f150f57b298eb2e606be3 0.1s done
+#21 DONE 1.5s
+
+#22 resolving provenance for metadata file
+#22 DONE 0.1s
+ app  Built
+ Network lp-v22-final-01a173d6_browser  Creating
+ Network lp-v22-final-01a173d6_browser  Created
+ Network lp-v22-final-01a173d6_acceptance  Creating
+ Network lp-v22-final-01a173d6_acceptance  Created
+ Volume "lp-v22-final-01a173d6_postgres_data"  Creating
+ Volume "lp-v22-final-01a173d6_postgres_data"  Created
+ Container lp-v22-final-01a173d6-db-1  Creating
+ Container lp-v22-final-01a173d6-db-1  Created
+ Container lp-v22-final-01a173d6-app-1  Creating
+ Container lp-v22-final-01a173d6-app-1  Created
+ Container lp-v22-final-01a173d6-gateway-1  Creating
+ Container lp-v22-final-01a173d6-gateway-1  Created
+ Container lp-v22-final-01a173d6-db-1  Starting
+ Container lp-v22-final-01a173d6-db-1  Started
+ Container lp-v22-final-01a173d6-db-1  Waiting
+ Container lp-v22-final-01a173d6-db-1  Healthy
+ Container lp-v22-final-01a173d6-app-1  Starting
+ Container lp-v22-final-01a173d6-app-1  Started
+ Container lp-v22-final-01a173d6-app-1  Waiting
+ Container lp-v22-final-01a173d6-app-1  Healthy
+ Container lp-v22-final-01a173d6-gateway-1  Starting
+ Container lp-v22-final-01a173d6-gateway-1  Started
+ Container lp-v22-final-01a173d6-gateway-1  Waiting
+ Container lp-v22-final-01a173d6-app-1  Waiting
+ Container lp-v22-final-01a173d6-db-1  Waiting
+ Container lp-v22-final-01a173d6-db-1  Healthy
+ Container lp-v22-final-01a173d6-gateway-1  Healthy
+ Container lp-v22-final-01a173d6-app-1  Healthy

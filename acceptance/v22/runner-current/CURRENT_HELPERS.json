@@ -1,0 +1,71 @@
+{
+  "prepared_at": "2026-10-25T05:35:52.4296454Z",
+  "source_sha": "e6126016c9b4ec2b479d252ff45e4e16a6a633f7",
+  "source_tree": "fc9dd9f5db5e0843a6d46327df6be1e631dada94",
+  "source": "C:/Users/sb128/.codex/worktrees/workbench-current-verification/LearningPlatform",
+  "state": "runtime-current",
+  "project": "lp-v22-shell5",
+  "origin": "http://localhost:3350",
+  "runtime": "unrun",
+  "checks": {
+    "syntax": "8 owned JavaScript files passed",
+    "eslint": "8 owned JavaScript files passed repository ESLint",
+    "formatting": "owned code/Markdown/JSON formatted or checked",
+    "mock_adapter_tests": {
+      "passed": 3,
+      "failed": 0,
+      "log": "guarded-container-fixture-test.log",
+      "log_sha256": "369e6ccd5b2d09fdac72ed955e1774aaf9eb0d04e229379b86ddad8539d31995",
+      "docker_calls": 0,
+      "real_shared_lock": "not acquired"
+    },
+    "previous_bundle_copy_hash_mismatches": []
+  },
+  "files": [
+    {
+      "file": "shell-authoring-browser.mjs",
+      "sha256": "f386ebfe2dbfc67d5ce8e15204a208ac1e2e7e0bc06e2e22183865e8d783a5ab"
+    },
+    {
+      "file": "authoring-tests.mjs",
+      "sha256": "b5073c8b19b9876154cb2fa095313634b5619ff731fddbc650878f5c5d4f5d13"
+    },
+    {
+      "file": "intervention-continuation-fixture.mjs",
+      "sha256": "3a995b633781636393f9a8ca7736d6e2dca4b77a6517d20c23ba33a5306d2c25"
+    },
+    {
+      "file": "intervention-continuation-browser.mjs",
+      "sha256": "8480ef088679042bff3bdaed09f79a1104332a5afa796790013fe923ea1dc30a"
+    },
+    {
+      "file": "seed-student-regression.mjs",
+      "sha256": "0e3cc8cb4bda9fdda05dc2de3a095dd086065251deae7b002529905975690c97"
+    },
+    {
+      "file": "student-regression-browser.mjs",
+      "sha256": "34f0a1e01a5054e4cbafd7ec0672fe9902a4bbeaebc8603065cef6e94ac79d27"
+    },
+    {
+      "file": "guarded-container-fixture.mjs",
+      "sha256": "2a2747e0edf00a158696fb0c5d12184bc0d1e2c8c45a51dd47eb2bcc407e8318"
+    },
+    {
+      "file": "guarded-container-fixture.test.mjs",
+      "sha256": "914f5c5478bc4c0ff0e857e34d9bea4980ad86c26ac3a63ec394df20e90fae71"
+    },
+    {
+      "file": "INTERVENTION_CONTINUATION.md",
+      "sha256": "1a1a86baa5196f3930dd50f8bf1ae08e33d2e4a8bb3f10b6ee3a5616b42f7a6a"
+    },
+    {
+      "file": "SHELL_AUTHORING_STATUS.txt",
+      "sha256": "6145a0f770d736907fc55eaa1a3d37244d9b032c789d93c1606e01564726d9f4"
+    },
+    {
+      "file": "CURRENT_HELPERS.md",
+      "sha256": "7f7285e7f7638e09ff684b64fab354cec3daab1438fc53e22cdb88dd0fe0dddb"
+    }
+  ],
+  "separately_owned": ["guarded-browser.mjs", "GUARDED_BROWSER_PLACEMENT.md"]
+}

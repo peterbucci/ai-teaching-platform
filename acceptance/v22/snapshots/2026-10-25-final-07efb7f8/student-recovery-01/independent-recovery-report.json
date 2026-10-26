@@ -1,0 +1,442 @@
+{
+  "source_sha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "base": "http://localhost:3396",
+  "started_at": "2026-10-25T16:59:16.469Z",
+  "original_answer": "  Original café 🌱 answer.\nKeep  all spacing.  ",
+  "category": "Provider-disabled real browser/auth/database with explicit precommit/postcommit fault injection",
+  "actual_model_calls": 0,
+  "cases": [
+    {
+      "id": "R1-initial-save-401",
+      "status": "PASS",
+      "started_at": "2026-10-25T16:59:16.470Z",
+      "session_id": "a3dc6691-2de4-444f-b90a-d37dd0355428",
+      "attempt_id": "1b2ec3dc-9214-43b0-8930-a9aee6383520",
+      "quiet_refresh": {
+        "answers": 1,
+        "evaluations": 0,
+        "text_preserved": true
+      },
+      "reconciliation": {
+        "confirmed": "absent",
+        "answer_writes": 0,
+        "evaluation_writes": 0
+      },
+      "automatic_retries": 0,
+      "original_identity_preserved_after_refresh": true,
+      "answer_posts": [
+        {
+          "attempt_id": "1b2ec3dc-9214-43b0-8930-a9aee6383520",
+          "submission_key": "a1bf010b-5e09-4cc8-a752-65e8fab59a78",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        },
+        {
+          "attempt_id": "1b2ec3dc-9214-43b0-8930-a9aee6383520",
+          "submission_key": "a1bf010b-5e09-4cc8-a752-65e8fab59a78",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [
+        {
+          "status": 401
+        },
+        {
+          "status": 200
+        }
+      ],
+      "evaluation_posts": [
+        {
+          "attempt_id": "1b2ec3dc-9214-43b0-8930-a9aee6383520"
+        }
+      ],
+      "finished_at": "2026-10-25T16:59:22.435Z"
+    },
+    {
+      "id": "R2-offline-save",
+      "status": "PASS",
+      "started_at": "2026-10-25T16:59:22.451Z",
+      "session_id": "adc72276-b8c8-48fa-85f6-60127a248b96",
+      "attempt_id": "a8b3c09f-391a-4f3f-8c2f-6483df3bd1a7",
+      "quiet_refresh": {
+        "answers": 1,
+        "evaluations": 0,
+        "text_preserved": true
+      },
+      "reconciliation": {
+        "confirmed": "absent",
+        "answer_writes": 0,
+        "evaluation_writes": 0
+      },
+      "automatic_retries": 0,
+      "original_identity_preserved_after_refresh": true,
+      "answer_posts": [
+        {
+          "attempt_id": "a8b3c09f-391a-4f3f-8c2f-6483df3bd1a7",
+          "submission_key": "5a121059-9987-4b69-bd4d-4d3930337773",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        },
+        {
+          "attempt_id": "a8b3c09f-391a-4f3f-8c2f-6483df3bd1a7",
+          "submission_key": "5a121059-9987-4b69-bd4d-4d3930337773",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [
+        {
+          "status": 200
+        }
+      ],
+      "evaluation_posts": [
+        {
+          "attempt_id": "a8b3c09f-391a-4f3f-8c2f-6483df3bd1a7"
+        }
+      ],
+      "finished_at": "2026-10-25T16:59:27.978Z"
+    },
+    {
+      "id": "R3-committed-response-lost",
+      "status": "PASS",
+      "started_at": "2026-10-25T16:59:27.990Z",
+      "session_id": "21479598-68ea-47e8-aa1c-705017aa50f7",
+      "attempt_id": "b79daec5-11da-4c7e-9c7d-d638dcb5bc9a",
+      "quiet_refresh": {
+        "answers": 1,
+        "evaluations": 0,
+        "text_preserved": false
+      },
+      "fault": "Real server answer 200 discarded before the page received it",
+      "read_only_reconciliation": true,
+      "answer_posts": [
+        {
+          "attempt_id": "b79daec5-11da-4c7e-9c7d-d638dcb5bc9a",
+          "submission_key": "6d047e76-3aa2-41e9-bfd3-7b302330d79b",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [],
+      "evaluation_posts": [],
+      "finished_at": "2026-10-25T16:59:33.237Z"
+    },
+    {
+      "id": "R4-acknowledged-save-evaluation-401",
+      "status": "PASS",
+      "started_at": "2026-10-25T16:59:33.255Z",
+      "session_id": "2c815b79-2901-459a-9e65-bca87cc57e49",
+      "attempt_id": "b3dcf8ae-7090-43c6-893b-65a6f1ae2ba2",
+      "quiet_refresh": {
+        "answers": 1,
+        "evaluations": 1,
+        "text_preserved": false
+      },
+      "server_save_acknowledged": true,
+      "evaluation_fault": "401 intercepted before server/provider execution",
+      "answer_posts": [
+        {
+          "attempt_id": "b3dcf8ae-7090-43c6-893b-65a6f1ae2ba2",
+          "submission_key": "ddd12a7a-05dd-42bb-abf6-85cce2942ffa",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [
+        {
+          "status": 200
+        }
+      ],
+      "evaluation_posts": [
+        {
+          "attempt_id": "b3dcf8ae-7090-43c6-893b-65a6f1ae2ba2"
+        }
+      ],
+      "finished_at": "2026-10-25T16:59:38.447Z"
+    },
+    {
+      "id": "R5-real-auth-expiry-safe-return",
+      "status": "UNRUN",
+      "started_at": "2026-10-25T16:59:38.458Z",
+      "session_id": "fc15587d-aa02-491c-8146-bdd00a399558",
+      "attempt_id": "cfbf26e5-85f7-4c68-ba62-0577269b4427",
+      "error": "Missing isolated auth-expiry operator hook; real expiry is UNRUN.",
+      "answer_posts": [],
+      "answer_responses": [],
+      "evaluation_posts": [],
+      "finished_at": "2026-10-25T16:59:41.988Z"
+    },
+    {
+      "id": "R6-duplicate-and-original-identity",
+      "status": "PASS",
+      "started_at": "2026-10-25T16:59:42.010Z",
+      "session_id": "8de0c887-b715-4b2a-85a7-aebff8f7507a",
+      "attempt_id": "11d922c8-49f0-4d86-add3-b7c34d2b284f",
+      "reconciliation": {
+        "confirmed": "absent",
+        "answer_writes": 0,
+        "evaluation_writes": 0
+      },
+      "answer_replays": {
+        "exact": 200,
+        "altered": 409,
+        "new_identity": 409
+      },
+      "accepted_evaluation_reused": "cc7e5c43-0338-4ad0-924f-7005745d0200",
+      "evaluation_replays": [
+        200,
+        200
+      ],
+      "sequential_evaluation_replay": 200,
+      "answer_posts": [
+        {
+          "attempt_id": "11d922c8-49f0-4d86-add3-b7c34d2b284f",
+          "submission_key": "acba293c-0406-41f9-a158-09bcbfac7ba6",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        },
+        {
+          "attempt_id": "11d922c8-49f0-4d86-add3-b7c34d2b284f",
+          "submission_key": "acba293c-0406-41f9-a158-09bcbfac7ba6",
+          "response_text": "  Original café 🌱 answer.\nKeep  all spacing.  "
+        }
+      ],
+      "answer_responses": [
+        {
+          "status": 200
+        }
+      ],
+      "evaluation_posts": [
+        {
+          "attempt_id": "11d922c8-49f0-4d86-add3-b7c34d2b284f"
+        }
+      ],
+      "finished_at": "2026-10-25T16:59:49.526Z"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "R1-initial-save-401-1440x1000.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R1-initial-save-401-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R1-initial-save-401-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R1-initial-save-401-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    },
+    {
+      "file": "R2-offline-save-1440x1000.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R2-offline-save-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R2-offline-save-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R2-offline-save-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    },
+    {
+      "file": "R3-unknown-before-check-1440x1000.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R3-unknown-before-check-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R3-unknown-before-check-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R3-unknown-before-check-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    },
+    {
+      "file": "R4-acknowledged-save-1440x1000.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R4-acknowledged-save-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R4-acknowledged-save-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R4-acknowledged-save-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    },
+    {
+      "file": "R5-real-auth-expiry-safe-return-failure.png",
+      "failure": true
+    },
+    {
+      "file": "R6-preserved-answer-1440x1000.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "geometry": {
+        "width": 1440,
+        "document_width": 1440
+      }
+    },
+    {
+      "file": "R6-preserved-answer-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "geometry": {
+        "width": 1024,
+        "document_width": 1024
+      }
+    },
+    {
+      "file": "R6-preserved-answer-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "document_width": 390
+      }
+    },
+    {
+      "file": "R6-preserved-answer-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "geometry": {
+        "width": 320,
+        "document_width": 320
+      }
+    }
+  ],
+  "limitations": [
+    "Viewport emulation is not native zoom, mobile keyboard or screen-reader verification."
+  ],
+  "finished_at": "2026-10-25T16:59:49.538Z",
+  "result": "INCOMPLETE_OR_FAILED"
+}

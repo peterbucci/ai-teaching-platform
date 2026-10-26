@@ -1,0 +1,304 @@
+{
+  "helper": "authoring-mobile-pane-retention-only",
+  "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+  "project": "lp-v22-final-01a173d6",
+  "origin": "http://localhost:3396",
+  "inputSha256": "5752d87f715616caaf2c2e553f96411a155a54c0d8f561508606c2426ad48fbf",
+  "runtimeHelperSha256": "8ad52a1724481f7315eb57b0db96d4251520f761c0849c93cc545d169a69d647",
+  "safetySha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+  "startedAt": "2026-10-25T17:56:05.568Z",
+  "status": "failed",
+  "checks": [
+    {
+      "id": "authored-pane-retention",
+      "label": "Exact authored objective retains local edits across mobile panes",
+      "status": "failed",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'Learning objectiveExplain that evaporation changes liquid water into water vapor rather than making it disappear.'\n- 'Learning objective'\n",
+      "url": "http://localhost:3396/teacher/objectives/2a18db3f-a6dc-4f61-b96d-f50647d574ad?objective=d1edb362-fa58-4e34-b8af-08c1f685e583"
+    }
+  ],
+  "observations": [
+    {
+      "label": "after-navigation",
+      "url": "http://localhost:3396/teacher/objectives/2a18db3f-a6dc-4f61-b96d-f50647d574ad?objective=d1edb362-fa58-4e34-b8af-08c1f685e583",
+      "dom": {
+        "shells": [
+          {
+            "scope": "course",
+            "rects": 1
+          }
+        ],
+        "panes": [],
+        "objectiveTextareas": [],
+        "activePane": []
+      }
+    },
+    {
+      "label": "exact-objective-field-ready",
+      "url": "http://localhost:3396/teacher/objectives/2a18db3f-a6dc-4f61-b96d-f50647d574ad?objective=d1edb362-fa58-4e34-b8af-08c1f685e583",
+      "dom": {
+        "shells": [
+          {
+            "scope": "course",
+            "rects": 1
+          }
+        ],
+        "panes": [
+          {
+            "rects": 1,
+            "text": "OutlineEditorReading"
+          }
+        ],
+        "objectiveTextareas": [
+          {
+            "label": "Learning objectiveExplain that evaporation changes liquid water into water vapor rather than making it disappear.",
+            "rects": 1,
+            "visible": "visible",
+            "detailsOpen": null,
+            "directLabel": true,
+            "placeholder": "Students will be able to explain…"
+          },
+          {
+            "label": "Exact supporting quoteEvaporation changes liquid water into water vapor, a gas.",
+            "rects": 1,
+            "visible": "visible",
+            "detailsOpen": false,
+            "directLabel": false,
+            "placeholder": "Copy the relevant words from this passage"
+          },
+          {
+            "label": "How does the evidence support this objective?The passage identifies liquid water becoming vapor and says it has not disappeared.",
+            "rects": 1,
+            "visible": "visible",
+            "detailsOpen": false,
+            "directLabel": false,
+            "placeholder": "Explain which part of the objective the passage supports."
+          }
+        ],
+        "activePane": [
+          "editor"
+        ]
+      }
+    },
+    {
+      "label": "failure-diagnostics",
+      "url": "http://localhost:3396/teacher/objectives/2a18db3f-a6dc-4f61-b96d-f50647d574ad?objective=d1edb362-fa58-4e34-b8af-08c1f685e583",
+      "dom": {
+        "shells": [
+          {
+            "scope": "course",
+            "rects": 1
+          }
+        ],
+        "panes": [
+          {
+            "rects": 1,
+            "text": "OutlineEditorReading"
+          }
+        ],
+        "objectiveTextareas": [
+          {
+            "label": "Learning objectiveExplain that evaporation changes liquid water into water vapor rather than making it disappear.",
+            "rects": 1,
+            "visible": "visible",
+            "detailsOpen": null,
+            "directLabel": true,
+            "placeholder": "Students will be able to explain…"
+          },
+          {
+            "label": "Exact supporting quoteEvaporation changes liquid water into water vapor, a gas.",
+            "rects": 1,
+            "visible": "visible",
+            "detailsOpen": false,
+            "directLabel": false,
+            "placeholder": "Copy the relevant words from this passage"
+          },
+          {
+            "label": "How does the evidence support this objective?The passage identifies liquid water becoming vapor and says it has not disappeared.",
+            "rects": 1,
+            "visible": "visible",
+            "detailsOpen": false,
+            "directLabel": false,
+            "placeholder": "Explain which part of the objective the passage supports."
+          }
+        ],
+        "activePane": [
+          "editor"
+        ]
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "failure-authored-pane-retention-1.png",
+      "url": "http://localhost:3396/teacher/objectives/2a18db3f-a6dc-4f61-b96d-f50647d574ad?objective=d1edb362-fa58-4e34-b8af-08c1f685e583",
+      "innerWidth": 390,
+      "innerHeight": 844,
+      "outerWidth": 516,
+      "outerHeight": 844,
+      "dpr": 1,
+      "rootZoom": "1",
+      "overflow": false
+    }
+  ],
+  "blockedRequests": [],
+  "safety": [
+    {
+      "label": "launch-teacher-viewport",
+      "observedAt": "2026-10-25T17:56:05.575Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "availableBytes": 40024027136,
+          "availableGiB": 37.2752799987793,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "availableBytes": 40024027136,
+          "availableGiB": 37.2752799987793,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 40024027136,
+          "availableGiB": 37.2752799987793,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "learningplatform-db-1",
+          "source": "/var/lib/docker/volumes/learningplatform_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 898845683712,
+          "availableGiB": 837.1152763366699,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 40023285760,
+            "availableGiB": 37.27458953857422,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "label": "Exact authored objective retains local edits across mobile panes",
+      "observedAt": "2026-10-25T17:56:08.337Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "availableBytes": 40008073216,
+          "availableGiB": 37.26042175292969,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "availableBytes": 40008073216,
+          "availableGiB": 37.26042175292969,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 40008073216,
+          "availableGiB": 37.26042175292969,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "learningplatform-db-1",
+          "source": "/var/lib/docker/volumes/learningplatform_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 898845675520,
+          "availableGiB": 837.1152687072754,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 40006352896,
+            "availableGiB": 37.258819580078125,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    }
+  ],
+  "actualModelCalls": 0,
+  "syntheticEvaluation": true,
+  "method": "Authenticated native browser application checks; all requests after fictional login are read-only. No mutation replay.",
+  "limitations": [
+    "No screen reader or physical device acceptance",
+    "Synthetic fixtures do not demonstrate actual-model decisions"
+  ],
+  "lockOwner": {
+    "action": "authoring-mobile-pane-retention-only",
+    "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+    "state": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+    "out": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\authored-pane-retention-03",
+    "project": "lp-v22-final-01a173d6",
+    "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+    "pid": 110932,
+    "startedAt": "2026-10-25T17:56:05.569Z"
+  },
+  "harnessSha256": "2516b9825586630a1fd77cc7b0a0bbe0ad57ae1e212da72f232bcea525151086",
+  "supplement": {
+    "priorRuns": [
+      "shell-accessibility-01",
+      "shell-accessibility-02"
+    ],
+    "priorSha256": [
+      "a2836ba03dd46a0e53c31e3c27b0d35e81719c9329771f150f225d8c85294038",
+      "9eb165c2b973c643f549d10eb4c51acb18af9ce62964cc0836810d19848944b4"
+    ],
+    "reason": "Prior screenshots show the requested field. Replace undocumented React property and overly broad textarea predicates with the source-defined direct Learning objective label; observe actual Unsaved changes UI before pane navigation. Exact prior wait phase was not recorded and is not inferred.",
+    "scope": "Only mobile authored objective pane retention; all earlier scope/history passes and failures are preserved."
+  },
+  "objectiveReceiptBeforeSha256": "6b8dc85644733c0a982e7db93cf84faef452d20b1677d563831a3f9765707af8",
+  "finishedAt": "2026-10-25T17:56:11.154Z"
+}

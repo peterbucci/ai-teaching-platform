@@ -1,0 +1,406 @@
+diff --git a/C:/Users/sb128/.codex/worktrees/workbench-verification-report/LearningPlatform/acceptance/v22/runner-final/intervention-continuation-browser.mjs "b/C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runner-final\\intervention-continuation-browser.mjs"
+index 6ab9823..d69de8d 100644
+--- a/C:/Users/sb128/.codex/worktrees/workbench-verification-report/LearningPlatform/acceptance/v22/runner-final/intervention-continuation-browser.mjs
++++ "b/C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a1713e-abef-7833-aa2a-a0ffa25ec46e\\runner-final\\intervention-continuation-browser.mjs"
+@@ -1,5 +1,5 @@
+ /** Provider-disabled browser continuation. See INTERVENTION_CONTINUATION.md.
+- * Usage: <review-and-submit|inspect-followup> <state> <seam-json> <fresh-output> <playwright-package> <reviewed-safety.mjs>
++ * Usage: <review-and-submit|inspect-followup|context-checks|curated-activation> <state> <seam-json> <fresh-output> <playwright-package> <reviewed-safety.mjs>
+  */
+ import assert from "node:assert/strict";
+ import { createHash } from "node:crypto";
+@@ -10,7 +10,14 @@ import { resolve } from "node:path";
+ import { pathToFileURL } from "node:url";
+ const [phase, stateArg, seamArg, outArg, playwrightArg, safetyArg] =
+   process.argv.slice(2);
+-assert.ok(["review-and-submit", "inspect-followup"].includes(phase));
++assert.ok(
++  [
++    "review-and-submit",
++    "inspect-followup",
++    "context-checks",
++    "curated-activation",
++  ].includes(phase),
++);
+ for (const value of [stateArg, seamArg, outArg, playwrightArg, safetyArg])
+   assert.ok(value);
+ const hash = (value) => createHash("sha256").update(value).digest("hex");
+@@ -24,7 +31,7 @@ assert.equal(
+ const manifest = JSON.parse(readFileSync(resolve(state, "manifest.json")));
+ const seamBytes = readFileSync(resolve(seamArg));
+ const seam = JSON.parse(seamBytes);
+-const preparation = phase === "review-and-submit" ? seam : seam.preparation;
++const preparation = phase === "inspect-followup" ? seam.preparation : seam;
+ const authoring = preparation.authoring;
+ assert.equal(manifest.sourceSha, "462cfb1b31d9108cec70d18b6553bd45048d2eed");
+ assert.equal(manifest.sourceTree, "03cca1fed3900a122e689c4a512afadd9052e5af");
+@@ -81,6 +88,8 @@ const report = {
+   screenshots: [],
+   safety: [],
+   blocked_off_origin_requests: [],
++  blocked_context_writes: [],
++  context_checks: [],
+   paid_calls: 0,
+   actual_model_verification: "unrun",
+   screen_reader: "unrun",
+@@ -91,6 +100,7 @@ let release,
+   browser,
+   teacher,
+   student,
++  contextReadOnly = false,
+   stage = "guard";
+ const save = () =>
+   writeFile(resolve(out, "report.json"), JSON.stringify(report, null, 2));
+@@ -211,6 +221,294 @@ async function showTeacherComparison() {
+   assert.ok(visible.includes(preparation.followup_response));
+   return recipient;
+ }
++async function contextCase(id, run) {
++  stage = id;
++  try {
++    report.context_checks.push({ id, status: "passed", ...(await run()) });
++  } catch (error) {
++    report.context_checks.push({
++      id,
++      status: "failed",
++      error: error.message,
++      url: teacher.url(),
++    });
++    try {
++      await capture(teacher, id + "-failure");
++    } catch {
++      /* Keep the original finding. */
++    }
++  }
++  await save();
++}
++async function checkSavedContext(context, endpoint, initialReview) {
++  await contextCase("C3-saved-intervention-context", async () => {
++    const saved = initialReview.draft.evidence;
++    const selection = saved.selection;
++    assert.equal(selection.assignment_id, authoring.assignment_id);
++    assert.deepEqual(saved.content_ref, authoring.content_ref);
++    const conflicting = new URL(preparation.teacher_url, manifest.origin);
++    const raw = {
++      concept: "acceptance-conflicting-concept",
++      origin:
++        selection.origin === "live_demo" ? "synthetic_fixture" : "live_demo",
++      seedAttempt: "00000000-0000-4000-8000-0000000000c3",
++    };
++    assert.notEqual(raw.concept, selection.concept_id);
++    assert.ok(!selection.attempt_ids.includes(raw.seedAttempt));
++    conflicting.searchParams.set("assignment", selection.assignment_id);
++    for (const [key, value] of Object.entries(raw))
++      conflicting.searchParams.set(key, value);
++    await teacher.goto(conflicting.href);
++    await teacher
++      .getByRole("heading", { name: "Interventions", exact: true, level: 1 })
++      .waitFor();
++    await teacher
++      .getByRole("heading", { name: saved.concept.title, exact: true })
++      .first()
++      .waitFor();
++    await teacher
++      .locator("#evidence-" + authoring.presented_attempt_id)
++      .waitFor();
++    assert.equal(
++      await teacher
++        .locator('.lp-teacher-filters select[name="origin"]')
++        .inputValue(),
++      selection.origin,
++    );
++    const back = new URL(
++      await teacher
++        .getByRole("link", { name: "Back to your investigation", exact: true })
++        .getAttribute("href"),
++      manifest.origin,
++    );
++    assert.equal(back.searchParams.get("assignment"), selection.assignment_id);
++    assert.equal(back.searchParams.get("concept"), selection.concept_id);
++    assert.equal(back.searchParams.get("origin"), selection.origin);
++    assert.deepEqual(
++      back.searchParams.getAll("seedAttempt").sort(),
++      [...selection.attempt_ids].sort(),
++    );
++    const observedLinks = [];
++    for (const label of [
++      "Assignment workspace",
++      "Assignment workspace mobile",
++    ]) {
++      const navigation = teacher.getByRole("navigation", {
++        name: label,
++        exact: true,
++        includeHidden: true,
++      });
++      const link = navigation.getByRole("link", {
++        name: "Student work",
++        exact: true,
++        includeHidden: true,
++      });
++      assert.equal(await link.count(), 1);
++      const href = new URL(await link.getAttribute("href"), manifest.origin);
++      assert.equal(href.pathname, "/teacher/evidence");
++      assert.equal(
++        href.searchParams.get("assignment"),
++        selection.assignment_id,
++      );
++      assert.equal(href.searchParams.get("concept"), selection.concept_id);
++      assert.equal(href.searchParams.get("origin"), selection.origin);
++      assert.equal(
++        href.searchParams.get("misconception"),
++        selection.misconception_id,
++      );
++      assert.deepEqual(
++        href.searchParams.getAll("seedAttempt"),
++        [],
++        "Shared navigation deliberately clears starting-response selection.",
++      );
++      assert.equal(href.searchParams.get("draft"), null);
++      observedLinks.push({ navigation: label, href: href.href });
++    }
++    await capture(teacher, "C3-saved-scope-conflicting-url");
++    await teacher
++      .getByRole("navigation", { name: "Assignment workspace", exact: true })
++      .getByRole("link", { name: "Student work", exact: true })
++      .click();
++    await teacher
++      .getByRole("heading", { name: "Evidence", exact: true, level: 1 })
++      .waitFor();
++    const used = new URL(teacher.url());
++    assert.equal(used.searchParams.get("assignment"), selection.assignment_id);
++    assert.equal(used.searchParams.get("concept"), selection.concept_id);
++    assert.equal(used.searchParams.get("origin"), selection.origin);
++    assert.equal(
++      await teacher.locator('select[name="concept"]').inputValue(),
++      selection.concept_id,
++    );
++    assert.equal(
++      await teacher
++        .locator('.lp-teacher-filters select[name="origin"]')
++        .inputValue(),
++      selection.origin,
++    );
++    assert.deepEqual(
++      (await read(context, endpoint)).draft,
++      initialReview.draft,
++    );
++    await capture(teacher, "C3-followed-saved-evidence-scope");
++    return {
++      expected_from: "authorized persisted draft API receipt",
++      draft_id: initialReview.draft.id,
++      persisted_selection: selection,
++      content_ref: saved.content_ref,
++      conflicting_url: conflicting.href,
++      raw,
++      observed_links: observedLinks,
++      followed_url: used.href,
++      draft_unchanged: true,
++    };
++  });
++  await contextCase("C4-lesson-search-shell-evidence", async () => {
++    const title = authoring.run_id;
++    assert.equal(typeof title, "string");
++    assert.ok(title.length > 0 && title.length <= 120);
++    assert.ok(!authoring.original_response.includes(title));
++    await teacher.goto(new URL("/teacher/lessons", manifest.origin).href);
++    await teacher
++      .getByRole("textbox", { name: "Find a lesson", exact: true })
++      .fill(title);
++    await teacher.getByRole("button", { name: "Search", exact: true }).click();
++    await teacher.waitForURL(
++      (url) =>
++        url.pathname === "/teacher/lessons" &&
++        url.searchParams.get("q") === title,
++    );
++    await teacher
++      .locator('.la-lesson-name[href*="' + authoring.lesson_id + '"]')
++      .waitFor();
++    assert.equal(
++      await teacher.locator(".tw-shell").getAttribute("data-scope"),
++      "course",
++    );
++    const links = await teacher
++      .locator(
++        ".tw-course-nav a, .tw-assignment-nav a, .tw-section-nav a, .tw-bottom-nav a, .tw-switcher a",
++      )
++      .evaluateAll((elements) =>
++        elements
++          .map((element) => ({
++            text: element.textContent.trim(),
++            href: element.href,
++          }))
++          .filter(
++            (value) => new URL(value.href).pathname === "/teacher/evidence",
++          ),
++      );
++    await capture(teacher, "C4-lesson-title-search-course-shell");
++    if (!links.length)
++      return {
++        status: "unreachable",
++        reason:
++          "The current course-level Lessons shell exposes no Evidence/Student work link. The historical direct-click reproduction is unreachable; no search-isolation pass is inferred.",
++        lesson_id: authoring.lesson_id,
++        query: title,
++        shell_scope: "course",
++        evidence_links: [],
++      };
++    for (const link of links)
++      assert.notEqual(
++        new URL(link.href).searchParams.get("q"),
++        title,
++        "Lesson-title search leaked into a shell Evidence destination.",
++      );
++    return {
++      query: title,
++      evidence_links: links,
++      scope:
++        "Rendered link inspection only; no claim about other navigation paths.",
++    };
++  });
++  assert.deepEqual((await read(context, endpoint)).draft, initialReview.draft);
++  assert.deepEqual(report.blocked_context_writes, []);
++  report.context_check_counts = Object.fromEntries(
++    ["passed", "failed", "unreachable"].map((status) => [
++      status,
++      report.context_checks.filter((check) => check.status === status).length,
++    ]),
++  );
++}
++async function reviewCuratedAssignment(context) {
++  stage = "separate-curated-assignment-review";
++  const assignmentId = "30000000-0000-4000-8000-000000000001";
++  assert.notEqual(assignmentId, authoring.assignment_id);
++  const endpoint = `/api/teacher/assignments/${assignmentId}/approval`;
++  await teacher.goto(
++    new URL(
++      `/teacher/assignments?assignment=${assignmentId}&view=review`,
++      manifest.origin,
++    ).href,
++  );
++  await teacher.locator(".awa-lesson-review").waitFor();
++  const before = await read(context, endpoint);
++  assert.equal(before.id, assignmentId);
++  assert.equal(before.class_id, "20000000-0000-4000-8000-000000000001");
++  await teacher.locator("#assigned-reading").scrollIntoViewIfNeeded();
++  assert.ok(
++    (await teacher.locator("#assigned-reading").innerText()).length > 100,
++  );
++  await teacher
++    .locator("#prepared-practice > details")
++    .first()
++    .locator("summary")
++    .first()
++    .click();
++  await teacher.locator("#learning-goals").scrollIntoViewIfNeeded();
++  await capture(teacher, "curated-reviewed-exact-lesson");
++  report.curated_assignment = {
++    assignment_id: assignmentId,
++    class_id: before.class_id,
++    content_ref: before.content_ref,
++    title: before.title,
++    before_approved_at: before.teacher_approved_at,
++    decision: before.teacher_approved_at
++      ? "already-active-no-new-approval"
++      : "explicit-ui-approval-and-activation",
++    separate_from_authored_journey: true,
++  };
++  if (!before.teacher_approved_at) {
++    await teacher
++      .getByLabel("I have reviewed this reading, its learning goals")
++      .check();
++    guard("curated-assignment-explicit-activation");
++    const pending = teacher.waitForResponse(
++      (response) =>
++        new URL(response.url()).pathname === endpoint &&
++        response.request().method() === "POST",
++    );
++    await teacher
++      .getByRole("button", { name: "Approve and activate", exact: true })
++      .click();
++    const response = await pending;
++    await response.finished();
++    assert.equal(response.status(), 200);
++    assert.equal(
++      response.request().postDataJSON().review_token,
++      before.review_token,
++    );
++    report.checks.push({
++      action: "separate-curated-assignment-activation",
++      at: new Date().toISOString(),
++      http_status: response.status(),
++      review_identity_sha256: hash(before.review_token),
++    });
++  }
++  await teacher
++    .getByRole("heading", { name: "Active for enrolled students", exact: true })
++    .waitFor();
++  const after = await read(context, endpoint);
++  assert.deepEqual(after.content_ref, before.content_ref);
++  assert.equal(after.id, assignmentId);
++  assert.ok(after.teacher_approved_at);
++  if (before.teacher_approved_at)
++    assert.equal(after.teacher_approved_at, before.teacher_approved_at);
++  report.curated_assignment.after_approved_at = after.teacher_approved_at;
++  await capture(teacher, "curated-active-before-regression-fixture");
++}
+ try {
+   release = acquireLock({
+     mode: "browser-intervention-" + phase,
+@@ -231,6 +529,16 @@ try {
+   for (const context of contexts)
+     await context.route("**/*", async (route) => {
+       const url = new URL(route.request().url());
++      if (
++        contextReadOnly &&
++        !["GET", "HEAD", "OPTIONS"].includes(route.request().method())
++      ) {
++        report.blocked_context_writes.push({
++          url: url.href,
++          method: route.request().method(),
++        });
++        return route.abort("blockedbyclient");
++      }
+       if (
+         url.origin === manifest.origin ||
+         ["data:", "blob:"].includes(url.protocol)
+@@ -246,7 +554,9 @@ try {
+   );
+   for (const page of [teacher, student]) page.setDefaultTimeout(20000);
+   await login(teacher, "teacher");
+-  await login(student, "student");
++  if (["review-and-submit", "inspect-followup"].includes(phase))
++    await login(student, "student");
++  contextReadOnly = phase === "context-checks";
+   const endpoint = "/api/teacher/interventions/" + preparation.draft_id;
+   await teacher.goto(new URL(preparation.teacher_url, manifest.origin).href);
+   let review = await read(contexts[0], endpoint);
+@@ -257,7 +567,11 @@ try {
+     )?.attempt.response_text,
+     authoring.original_response,
+   );
+-  if (phase === "review-and-submit") {
++  if (phase === "context-checks") {
++    await checkSavedContext(contexts[0], endpoint, review);
++  } else if (phase === "curated-activation") {
++    await reviewCuratedAssignment(contexts[0]);
++  } else if (phase === "review-and-submit") {
+     assert.equal(
+       review.approval,
+       null,
+@@ -463,9 +777,13 @@ try {
+     report.continuity =
+       "Same source, immutable lesson version, assignment, student, original answer, approved intervention and linked follow-up across recorded browser stages. Synthetic evaluation/private-draft seams remain explicit; no actual-model claim.";
+   }
+-  report.status = report.screenshots.some((value) => value.overflow)
+-    ? "failed-responsive"
+-    : "passed";
++  report.status = report.context_checks.some(
++    (value) => value.status === "failed",
++  )
++    ? "failed-context"
++    : report.screenshots.some((value) => value.overflow)
++      ? "failed-responsive"
++      : "passed";
+ } catch (error) {
+   report.status = "failed";
+   report.failure_stage = stage;

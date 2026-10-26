@@ -1,0 +1,240 @@
+Merge made by the 'ort' strategy.
+ app/teacher/lessons/[lessonId]/page.tsx            |  629 +++--
+ .../lessons/[lessonId]/questions/editor.tsx        | 2702 ++++++++++++--------
+ app/teacher/lessons/[lessonId]/questions/page.tsx  |   58 +-
+ .../lessons/[lessonId]/questions/questions.css     |  325 +++
+ .../[lessonId]/questions/workbench-state.test.ts   |  168 ++
+ .../[lessonId]/questions/workbench-state.ts        |  141 +
+ app/teacher/lessons/authoring-state.test.ts        |  188 ++
+ app/teacher/lessons/authoring-state.ts             |   45 +
+ app/teacher/lessons/authoring.css                  |  752 ++++++
+ app/teacher/lessons/error.tsx                      |   22 +
+ app/teacher/lessons/loading.tsx                    |    3 +
+ app/teacher/lessons/page.tsx                       |  343 ++-
+ app/teacher/lessons/preview.tsx                    |  577 +++--
+ .../lessons/published-assignment-href.test.ts      |   54 +
+ app/teacher/lessons/published-assignment-href.ts   |   21 +
+ app/teacher/lessons/published-assignment.tsx       |   44 +
+ app/teacher/lessons/readiness.ts                   |  116 +
+ app/teacher/lessons/reading-text.css               |   16 +
+ app/teacher/lessons/reading-text.tsx               |    7 +
+ app/teacher/lessons/reading.tsx                    |   59 +
+ app/teacher/lessons/sequence.tsx                   |  132 +
+ .../lessons/verification/after-objectives-1440.png |  Bin 0 -> 130789 bytes
+ .../verification/after-objectives-menu-1024.png    |  Bin 0 -> 76753 bytes
+ .../verification/after-objectives-menu-320.png     |  Bin 0 -> 29506 bytes
+ .../verification/after-objectives-menu-390.png     |  Bin 0 -> 30663 bytes
+ .../after-objectives-published-v1-1440.png         |  Bin 0 -> 105023 bytes
+ .../verification/after-objectives-recovery-320.png |  Bin 0 -> 31385 bytes
+ .../lessons/verification/after-outline-390.png     |  Bin 0 -> 26206 bytes
+ .../lessons/verification/after-questions-1024.png  |  Bin 0 -> 74628 bytes
+ .../lessons/verification/after-questions-1440.png  |  Bin 0 -> 120283 bytes
+ .../lessons/verification/after-questions-320.png   |  Bin 0 -> 27806 bytes
+ .../lessons/verification/after-questions-390.png   |  Bin 0 -> 30901 bytes
+ .../lessons/verification/after-reading-1024.png    |  Bin 0 -> 87728 bytes
+ .../lessons/verification/after-reading-320.png     |  Bin 0 -> 37327 bytes
+ .../lessons/verification/after-review-1440.png     |  Bin 0 -> 121100 bytes
+ .../lessons/verification/after-review-320.png      |  Bin 0 -> 31742 bytes
+ .../lessons/verification/after-source-1440.png     |  Bin 0 -> 91769 bytes
+ .../verification/after-student-preview-320.png     |  Bin 0 -> 34094 bytes
+ .../lessons/verification/before-questions-1024.png |  Bin 0 -> 69074 bytes
+ .../lessons/verification/before-questions-1440.png |  Bin 0 -> 106859 bytes
+ .../lessons/verification/before-questions-320.png  |  Bin 0 -> 32825 bytes
+ .../lessons/verification/before-questions-390.png  |  Bin 0 -> 36743 bytes
+ .../verification/final-menu-verification.json      |  114 +
+ .../verification/production-build-receipt.json     |   26 +
+ .../lessons/verification/production-build.txt      |  165 ++
+ .../verification/prototype-question-1024.png       |  Bin 0 -> 105119 bytes
+ .../verification/prototype-question-1440.png       |  Bin 0 -> 225609 bytes
+ .../verification/prototype-question-320.png        |  Bin 0 -> 42185 bytes
+ .../verification/prototype-question-390.png        |  Bin 0 -> 48503 bytes
+ app/teacher/lessons/verification/report.html       |  523 ++++
+ .../verification/v22-after/b8-browser-metrics.json |  353 +++
+ .../verification/v22-after/published-1024x768.png  |  Bin 0 -> 74688 bytes
+ .../verification/v22-after/published-1440x1000.png |  Bin 0 -> 189174 bytes
+ .../verification/v22-after/published-320x844.png   |  Bin 0 -> 45257 bytes
+ .../verification/v22-after/published-390x844.png   |  Bin 0 -> 49048 bytes
+ .../v22-after/published-reading-1024x768.png       |  Bin 0 -> 89265 bytes
+ .../v22-after/published-reading-320x844.png        |  Bin 0 -> 51638 bytes
+ .../verification/v22-after/questions-1440x1000.png |  Bin 0 -> 138646 bytes
+ .../student-preview-private-hidden-1440x1000.png   |  Bin 0 -> 122120 bytes
+ .../lessons/verification/v22-authoring-tests.json  |   27 +
+ .../v22-before/before-published-1024x768.png       |  Bin 0 -> 55075 bytes
+ .../v22-before/before-published-1440x1000.png      |  Bin 0 -> 119947 bytes
+ .../v22-before/before-published-320x844.png        |  Bin 0 -> 26826 bytes
+ .../v22-before/before-published-390x844.png        |  Bin 0 -> 33069 bytes
+ .../lessons/verification/v22-before/manifest.json  |  181 ++
+ .../v22-before/prototype-published-1024x768.png    |  Bin 0 -> 129932 bytes
+ .../v22-before/prototype-published-1440x1000.png   |  Bin 0 -> 288389 bytes
+ .../v22-before/prototype-published-320x844.png     |  Bin 0 -> 65192 bytes
+ .../v22-before/prototype-published-390x844.png     |  Bin 0 -> 71136 bytes
+ .../verification/v22-ci-results-ff16f12.json       |  414 +++
+ .../lessons/verification/v22-ci-results.json       |  421 +++
+ .../verification/v22-cross-agent-results.json      |   78 +
+ .../v22-final/approval-before-1440x1000.jpg        |  Bin 0 -> 155526 bytes
+ ...roval-complete-before-publication-1440x1000.jpg |  Bin 0 -> 157847 bytes
+ .../assignment-handoff-version1-320x844.jpg        |  Bin 0 -> 40108 bytes
+ .../verification/v22-final/browser-metrics.json    |  818 ++++++
+ .../verification/v22-final/capture-manifest.json   |  354 +++
+ .../v22-final/material-passage-1440x1000.jpg       |  Bin 0 -> 84271 bytes
+ .../v22-final/objectives-1440x1000.jpg             |  Bin 0 -> 147146 bytes
+ .../verification/v22-final/objectives-320x844.jpg  |  Bin 0 -> 34672 bytes
+ .../objectives-emphasis-menu-1440x1000.jpg         |  Bin 0 -> 148464 bytes
+ .../v22-final/objectives-reading-320x844.jpg       |  Bin 0 -> 43465 bytes
+ ...jectives-saved-review-invalidated-1440x1000.jpg |  Bin 0 -> 154910 bytes
+ .../v22-final/objectives-unsaved-1440x1000.jpg     |  Bin 0 -> 155971 bytes
+ .../verification/v22-final/published-1024x768.jpg  |  Bin 0 -> 80181 bytes
+ .../verification/v22-final/published-1440x1000.jpg |  Bin 0 -> 194374 bytes
+ .../verification/v22-final/published-320x844.jpg   |  Bin 0 -> 45558 bytes
+ .../verification/v22-final/published-390x844.jpg   |  Bin 0 -> 49901 bytes
+ .../published-objectives-unchanged-1440x1000.jpg   |  Bin 0 -> 149695 bytes
+ .../verification/v22-final/questions-1024x768.jpg  |  Bin 0 -> 73915 bytes
+ .../verification/v22-final/questions-1440x1000.jpg |  Bin 0 -> 139546 bytes
+ .../verification/v22-final/questions-320x844.jpg   |  Bin 0 -> 37268 bytes
+ .../verification/v22-final/questions-390x844.jpg   |  Bin 0 -> 40768 bytes
+ .../questions-private-criteria-1440x1000.jpg       |  Bin 0 -> 140385 bytes
+ .../v22-final/questions-reading-1024x768.jpg       |  Bin 0 -> 77090 bytes
+ .../questions-student-preview-1440x1000.jpg        |  Bin 0 -> 122258 bytes
+ .../v22-final/review-reading-1440x1000.jpg         |  Bin 0 -> 156820 bytes
+ .../verification/v22-final/sequence-1440x1000.jpg  |  Bin 0 -> 186340 bytes
+ .../v22-final/source-review-1440x1000.jpg          |  Bin 0 -> 128195 bytes
+ .../v22-final/water-published-1440x1000.jpg        |  Bin 0 -> 148982 bytes
+ .../verification/v22-final/workflow-results.json   |   28 +
+ app/teacher/lessons/verification/v22-finish.html   | 1063 ++++++++
+ .../lessons/verification/v22-fixture-results.json  |  391 +++
+ .../verification/v22-native-results-b8.json        |   91 +
+ .../lessons/verification/v22-native-results.json   |   92 +
+ .../verification/viewport-measurements.json        |   90 +
+ app/teacher/lessons/workbench.tsx                  |  440 ++++
+ app/teacher/materials/[documentId]/page.tsx        |  229 +-
+ app/teacher/materials/error.tsx                    |   34 +
+ app/teacher/materials/import-draft.test.ts         |   92 +
+ app/teacher/materials/import-draft.ts              |   76 +
+ app/teacher/materials/import-form.tsx              | 1163 ++++++---
+ app/teacher/materials/materials.css                |  412 ++-
+ app/teacher/materials/page.tsx                     |  111 +-
+ app/teacher/materials/source-review-model.test.ts  |   42 +
+ app/teacher/materials/source-review-model.ts       |   23 +
+ app/teacher/materials/source-review.tsx            |  329 +++
+ app/teacher/objectives/[lessonId]/page.tsx         |   42 +-
+ app/teacher/objectives/client-contracts.ts         |   13 +-
+ app/teacher/objectives/draft-recovery.test.ts      |  126 +
+ app/teacher/objectives/draft-recovery.ts           |   62 +
+ app/teacher/objectives/editor.tsx                  | 1715 ++++++++-----
+ app/teacher/objectives/library.tsx                 |  186 +-
+ app/teacher/objectives/objectives.css              |  397 ++-
+ app/teacher/objectives/page.tsx                    |   43 +-
+ app/teacher/objectives/source-reading.test.ts      |   41 +
+ app/teacher/objectives/source-reading.ts           |   39 +
+ 127 files changed, 14412 insertions(+), 2834 deletions(-)
+ create mode 100644 app/teacher/lessons/[lessonId]/questions/workbench-state.test.ts
+ create mode 100644 app/teacher/lessons/[lessonId]/questions/workbench-state.ts
+ create mode 100644 app/teacher/lessons/authoring-state.test.ts
+ create mode 100644 app/teacher/lessons/authoring-state.ts
+ create mode 100644 app/teacher/lessons/authoring.css
+ create mode 100644 app/teacher/lessons/error.tsx
+ create mode 100644 app/teacher/lessons/loading.tsx
+ create mode 100644 app/teacher/lessons/published-assignment-href.test.ts
+ create mode 100644 app/teacher/lessons/published-assignment-href.ts
+ create mode 100644 app/teacher/lessons/published-assignment.tsx
+ create mode 100644 app/teacher/lessons/readiness.ts
+ create mode 100644 app/teacher/lessons/reading-text.css
+ create mode 100644 app/teacher/lessons/reading-text.tsx
+ create mode 100644 app/teacher/lessons/reading.tsx
+ create mode 100644 app/teacher/lessons/sequence.tsx
+ create mode 100644 app/teacher/lessons/verification/after-objectives-1440.png
+ create mode 100644 app/teacher/lessons/verification/after-objectives-menu-1024.png
+ create mode 100644 app/teacher/lessons/verification/after-objectives-menu-320.png
+ create mode 100644 app/teacher/lessons/verification/after-objectives-menu-390.png
+ create mode 100644 app/teacher/lessons/verification/after-objectives-published-v1-1440.png
+ create mode 100644 app/teacher/lessons/verification/after-objectives-recovery-320.png
+ create mode 100644 app/teacher/lessons/verification/after-outline-390.png
+ create mode 100644 app/teacher/lessons/verification/after-questions-1024.png
+ create mode 100644 app/teacher/lessons/verification/after-questions-1440.png
+ create mode 100644 app/teacher/lessons/verification/after-questions-320.png
+ create mode 100644 app/teacher/lessons/verification/after-questions-390.png
+ create mode 100644 app/teacher/lessons/verification/after-reading-1024.png
+ create mode 100644 app/teacher/lessons/verification/after-reading-320.png
+ create mode 100644 app/teacher/lessons/verification/after-review-1440.png
+ create mode 100644 app/teacher/lessons/verification/after-review-320.png
+ create mode 100644 app/teacher/lessons/verification/after-source-1440.png
+ create mode 100644 app/teacher/lessons/verification/after-student-preview-320.png
+ create mode 100644 app/teacher/lessons/verification/before-questions-1024.png
+ create mode 100644 app/teacher/lessons/verification/before-questions-1440.png
+ create mode 100644 app/teacher/lessons/verification/before-questions-320.png
+ create mode 100644 app/teacher/lessons/verification/before-questions-390.png
+ create mode 100644 app/teacher/lessons/verification/final-menu-verification.json
+ create mode 100644 app/teacher/lessons/verification/production-build-receipt.json
+ create mode 100644 app/teacher/lessons/verification/production-build.txt
+ create mode 100644 app/teacher/lessons/verification/prototype-question-1024.png
+ create mode 100644 app/teacher/lessons/verification/prototype-question-1440.png
+ create mode 100644 app/teacher/lessons/verification/prototype-question-320.png
+ create mode 100644 app/teacher/lessons/verification/prototype-question-390.png
+ create mode 100644 app/teacher/lessons/verification/report.html
+ create mode 100644 app/teacher/lessons/verification/v22-after/b8-browser-metrics.json
+ create mode 100644 app/teacher/lessons/verification/v22-after/published-1024x768.png
+ create mode 100644 app/teacher/lessons/verification/v22-after/published-1440x1000.png
+ create mode 100644 app/teacher/lessons/verification/v22-after/published-320x844.png
+ create mode 100644 app/teacher/lessons/verification/v22-after/published-390x844.png
+ create mode 100644 app/teacher/lessons/verification/v22-after/published-reading-1024x768.png
+ create mode 100644 app/teacher/lessons/verification/v22-after/published-reading-320x844.png
+ create mode 100644 app/teacher/lessons/verification/v22-after/questions-1440x1000.png
+ create mode 100644 app/teacher/lessons/verification/v22-after/student-preview-private-hidden-1440x1000.png
+ create mode 100644 app/teacher/lessons/verification/v22-authoring-tests.json
+ create mode 100644 app/teacher/lessons/verification/v22-before/before-published-1024x768.png
+ create mode 100644 app/teacher/lessons/verification/v22-before/before-published-1440x1000.png
+ create mode 100644 app/teacher/lessons/verification/v22-before/before-published-320x844.png
+ create mode 100644 app/teacher/lessons/verification/v22-before/before-published-390x844.png
+ create mode 100644 app/teacher/lessons/verification/v22-before/manifest.json
+ create mode 100644 app/teacher/lessons/verification/v22-before/prototype-published-1024x768.png
+ create mode 100644 app/teacher/lessons/verification/v22-before/prototype-published-1440x1000.png
+ create mode 100644 app/teacher/lessons/verification/v22-before/prototype-published-320x844.png
+ create mode 100644 app/teacher/lessons/verification/v22-before/prototype-published-390x844.png
+ create mode 100644 app/teacher/lessons/verification/v22-ci-results-ff16f12.json
+ create mode 100644 app/teacher/lessons/verification/v22-ci-results.json
+ create mode 100644 app/teacher/lessons/verification/v22-cross-agent-results.json
+ create mode 100644 app/teacher/lessons/verification/v22-final/approval-before-1440x1000.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/approval-complete-before-publication-1440x1000.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/assignment-handoff-version1-320x844.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/browser-metrics.json
+ create mode 100644 app/teacher/lessons/verification/v22-final/capture-manifest.json
+ create mode 100644 app/teacher/lessons/verification/v22-final/material-passage-1440x1000.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/objectives-1440x1000.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/objectives-320x844.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/objectives-emphasis-menu-1440x1000.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/objectives-reading-320x844.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/objectives-saved-review-invalidated-1440x1000.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/objectives-unsaved-1440x1000.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/published-1024x768.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/published-1440x1000.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/published-320x844.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/published-390x844.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/published-objectives-unchanged-1440x1000.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/questions-1024x768.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/questions-1440x1000.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/questions-320x844.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/questions-390x844.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/questions-private-criteria-1440x1000.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/questions-reading-1024x768.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/questions-student-preview-1440x1000.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/review-reading-1440x1000.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/sequence-1440x1000.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/source-review-1440x1000.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/water-published-1440x1000.jpg
+ create mode 100644 app/teacher/lessons/verification/v22-final/workflow-results.json
+ create mode 100644 app/teacher/lessons/verification/v22-finish.html
+ create mode 100644 app/teacher/lessons/verification/v22-fixture-results.json
+ create mode 100644 app/teacher/lessons/verification/v22-native-results-b8.json
+ create mode 100644 app/teacher/lessons/verification/v22-native-results.json
+ create mode 100644 app/teacher/lessons/verification/viewport-measurements.json
+ create mode 100644 app/teacher/lessons/workbench.tsx
+ create mode 100644 app/teacher/materials/error.tsx
+ create mode 100644 app/teacher/materials/import-draft.test.ts
+ create mode 100644 app/teacher/materials/import-draft.ts
+ create mode 100644 app/teacher/materials/source-review-model.test.ts
+ create mode 100644 app/teacher/materials/source-review-model.ts
+ create mode 100644 app/teacher/materials/source-review.tsx
+ create mode 100644 app/teacher/objectives/draft-recovery.test.ts
+ create mode 100644 app/teacher/objectives/draft-recovery.ts
+ create mode 100644 app/teacher/objectives/source-reading.test.ts
+ create mode 100644 app/teacher/objectives/source-reading.ts

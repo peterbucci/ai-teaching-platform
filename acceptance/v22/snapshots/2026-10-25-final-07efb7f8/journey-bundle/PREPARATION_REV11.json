@@ -1,0 +1,29 @@
+{
+  "purpose": "Read-only reconciliation of original/counterevidence strict locator failure; then bounded synthetic evaluation of already submitted follow-up after normal retry delay",
+  "originalFailureSha256": "168d54da035e08222e64d480ca177109428060b1ee5abb346a2fc1fa03833f5c",
+  "safetySha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+  "preparationSha256": "7e46f9994b0f272e29d7d95067b119e68d4e179911fb9f5d7c1d23de89e0a42c",
+  "createdAt": "2026-10-25T17:41:15.5782349Z",
+  "files": [
+    {
+      "preparedSha256": "6dec14f29f5147e26cf7a304b09310f7a304b69f191e378491d8b1b5bd5bb3c5",
+      "source": "intervention-continuation-browser.mjs",
+      "prepared": "intervention-continuation-browser-v2.mjs",
+      "sourceSha256": "9d60a6c3f6266ac0ee9f682ee324f218416b069d7205cbcefdbfbcf4f73a0bb8"
+    },
+    {
+      "preparedSha256": "68c1115988cb6cdbc76da8cc80f5f74d89465d58989d04fb0136e22a2a892f9e",
+      "source": "intervention-continuation-fixture.mjs",
+      "prepared": "intervention-continuation-fixture-v2.mjs",
+      "sourceSha256": "f6df14f6c7582ef3e77e363c243a65661df29619888aa36e03de02bb3bad5880"
+    },
+    {
+      "preparedSha256": "96f81d621b730823476768de383fb73fd8b49be93e6dc53be1f1dfdd5e115f0b",
+      "source": "guarded-container-fixture.mjs",
+      "prepared": "guarded-container-fixture-v2.mjs",
+      "sourceSha256": "b1113e8f4922a4d937a3feb88217dbc264a6d79004d9a804ce6b012c6b1be5ea"
+    }
+  ],
+  "syntaxChecks": "All three node --check commands passed",
+  "executed": false
+}

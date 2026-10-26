@@ -1,0 +1,160 @@
+{
+  "category": "Selected consequential fictional API evidence; not the original whole API payload",
+  "original_api_sha256": "36cd81968dd19522e362568df8eeca874f09ed305c6c6bb9a80b546530a0c75e",
+  "report_sha256": "5eb2b980af7eae48ae736ce7a9162b62ba459aee0bb324f128de5ba352b9c94f",
+  "selection": "Source/revision/publication/assignment identity and exact original question/response only. Private criteria, generation/operation payloads, submission keys, request keys, auth data and unrelated intervention records are omitted.",
+  "teacher": [
+    {
+      "url": "http://localhost:3350/api/teacher/lessons/d1468c98-b268-4566-9301-114be6f836da/assignments",
+      "status": 200,
+      "body": {
+        "lesson_id": "d1468c98-b268-4566-9301-114be6f836da",
+        "class_id": "20000000-0000-4000-8000-000000000001",
+        "lesson_version": "1",
+        "id": "ebc4eb03-22ba-409b-b1c4-10bc54a86967"
+      }
+    },
+    {
+      "url": "http://localhost:3350/api/teacher/assignments/ebc4eb03-22ba-409b-b1c4-10bc54a86967/approval",
+      "status": 200,
+      "body": {
+        "http_status": 200
+      }
+    },
+    {
+      "url": "http://localhost:3350/api/teacher/lessons/d1468c98-b268-4566-9301-114be6f836da/versions",
+      "status": 200,
+      "body": {
+        "version": "2",
+        "lesson_id": "d1468c98-b268-4566-9301-114be6f836da",
+        "revision": 7
+      }
+    }
+  ],
+  "student": [
+    {
+      "url": "http://localhost:3350/api/tutoring",
+      "status": 200,
+      "body": {
+        "session": {
+          "id": "07c3336c-108a-4e79-bca3-02c382b3756a",
+          "status": "active",
+          "started_at": "2026-10-25T06:05:25.325Z",
+          "ended_at": null
+        },
+        "attempts": [
+          {
+            "id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+            "sequence_index": 0,
+            "intent": "initial_retrieval",
+            "presented_at": "2026-10-25T06:05:25.331Z",
+            "submitted_at": null,
+            "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+            "concept_ids": [
+              "94d2ba56-7792-499e-a7d1-57849660864d"
+            ],
+            "response_text": null
+          }
+        ],
+        "progress": {
+          "phase": "answer",
+          "current_attempt_id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+          "failed_evaluation_id": null,
+          "retry_allowed": false,
+          "retry_after": null,
+          "message": "Explain your thinking in your own words."
+        }
+      }
+    }
+  ],
+  "session_before": {
+    "session": {
+      "id": "07c3336c-108a-4e79-bca3-02c382b3756a",
+      "status": "active",
+      "started_at": "2026-10-25T06:05:25.325Z",
+      "ended_at": null
+    },
+    "attempts": [
+      {
+        "id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+        "sequence_index": 0,
+        "intent": "initial_retrieval",
+        "presented_at": "2026-10-25T06:05:25.331Z",
+        "submitted_at": null,
+        "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+        "concept_ids": [
+          "94d2ba56-7792-499e-a7d1-57849660864d"
+        ],
+        "response_text": null
+      }
+    ],
+    "progress": {
+      "phase": "answer",
+      "current_attempt_id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+      "failed_evaluation_id": null,
+      "retry_allowed": false,
+      "retry_after": null,
+      "message": "Explain your thinking in your own words."
+    }
+  },
+  "session_after": {
+    "session": {
+      "id": "07c3336c-108a-4e79-bca3-02c382b3756a",
+      "status": "active",
+      "started_at": "2026-10-25T06:05:25.325Z",
+      "ended_at": null
+    },
+    "attempts": [
+      {
+        "id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+        "sequence_index": 0,
+        "intent": "initial_retrieval",
+        "presented_at": "2026-10-25T06:05:25.331Z",
+        "submitted_at": null,
+        "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+        "concept_ids": [
+          "94d2ba56-7792-499e-a7d1-57849660864d"
+        ],
+        "response_text": null
+      }
+    ],
+    "progress": {
+      "phase": "answer",
+      "current_attempt_id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+      "failed_evaluation_id": null,
+      "retry_allowed": false,
+      "retry_after": null,
+      "message": "Explain your thinking in your own words."
+    }
+  },
+  "help_fallback_session": {
+    "session": {
+      "id": "07c3336c-108a-4e79-bca3-02c382b3756a",
+      "status": "active",
+      "started_at": "2026-10-25T06:05:25.325Z",
+      "ended_at": null
+    },
+    "attempts": [
+      {
+        "id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+        "sequence_index": 0,
+        "intent": "initial_retrieval",
+        "presented_at": "2026-10-25T06:05:25.331Z",
+        "submitted_at": null,
+        "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+        "concept_ids": [
+          "94d2ba56-7792-499e-a7d1-57849660864d"
+        ],
+        "response_text": null
+      }
+    ],
+    "progress": {
+      "phase": "answer",
+      "current_attempt_id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+      "failed_evaluation_id": null,
+      "retry_allowed": false,
+      "retry_after": null,
+      "message": "Explain your thinking in your own words."
+    }
+  }
+}

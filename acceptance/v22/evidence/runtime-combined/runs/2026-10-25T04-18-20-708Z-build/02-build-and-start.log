@@ -1,0 +1,101 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 522B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.02kB 0.0s done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22.23.2-bookworm-slim
+#3 DONE 0.4s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 136B 0.0s done
+#4 DONE 0.1s
+
+#5 [build 1/6] FROM docker.io/library/node:22.23.2-bookworm-slim@sha256:48e4b67d85f87bd551df43704e24d252f56cc5f8e9718841aace50f19948f0f9
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 34.30kB 0.1s done
+#6 DONE 0.1s
+
+#7 [app  8/11] COPY --from=build --chown=node:node /app/tests/fixtures ./tests/fixtures
+#7 CACHED
+
+#8 [app 10/11] COPY --from=build --chown=node:node /app/content ./content
+#8 CACHED
+
+#9 [app  6/11] COPY --from=build --chown=node:node /app/lib ./lib
+#9 CACHED
+
+#10 [app  7/11] COPY --from=build --chown=node:node /app/scripts ./scripts
+#10 CACHED
+
+#11 [build 4/6] RUN npm ci
+#11 CACHED
+
+#12 [build 6/6] RUN npm run build && npm prune --omit=dev
+#12 CACHED
+
+#13 [app  5/11] COPY --from=build --chown=node:node /app/.next ./.next
+#13 CACHED
+
+#14 [app  9/11] COPY --from=build --chown=node:node /app/database ./database
+#14 CACHED
+
+#15 [build 3/6] COPY package.json package-lock.json ./
+#15 CACHED
+
+#16 [app  4/11] COPY --from=build --chown=node:node /app/node_modules ./node_modules
+#16 CACHED
+
+#17 [build 2/6] WORKDIR /app
+#17 CACHED
+
+#18 [app  3/11] COPY --from=build --chown=node:node /app/package.json /app/package-lock.json ./
+#18 CACHED
+
+#19 [build 5/6] COPY . .
+#19 CACHED
+
+#20 [app 11/11] COPY --from=build --chown=node:node /app/evals ./evals
+#20 CACHED
+
+#21 exporting to image
+#21 exporting layers done
+#21 writing image sha256:b45d71e75a64d57b7803db92ee4c9ee65249073fce7fd9fdfac7a3fb2f38c965 0.0s done
+#21 naming to docker.io/library/lp-v22-integration5:eba2fba3eee223bb43c0eea5fe197e9569285ea9 done
+#21 DONE 0.0s
+
+#22 resolving provenance for metadata file
+#22 DONE 0.0s
+ app  Built
+ Network lp-v22-integration5_browser  Creating
+ Network lp-v22-integration5_browser  Created
+ Network lp-v22-integration5_acceptance  Creating
+ Network lp-v22-integration5_acceptance  Created
+ Volume "lp-v22-integration5_postgres_data"  Creating
+ Volume "lp-v22-integration5_postgres_data"  Created
+ Container lp-v22-integration5-db-1  Creating
+ Container lp-v22-integration5-db-1  Created
+ Container lp-v22-integration5-app-1  Creating
+ Container lp-v22-integration5-app-1  Created
+ Container lp-v22-integration5-gateway-1  Creating
+ Container lp-v22-integration5-gateway-1  Created
+ Container lp-v22-integration5-db-1  Starting
+ Container lp-v22-integration5-db-1  Started
+ Container lp-v22-integration5-db-1  Waiting
+ Container lp-v22-integration5-db-1  Healthy
+ Container lp-v22-integration5-app-1  Starting
+ Container lp-v22-integration5-app-1  Started
+ Container lp-v22-integration5-app-1  Waiting
+ Container lp-v22-integration5-app-1  Healthy
+ Container lp-v22-integration5-gateway-1  Starting
+ Container lp-v22-integration5-gateway-1  Started
+ Container lp-v22-integration5-gateway-1  Waiting
+ Container lp-v22-integration5-app-1  Waiting
+ Container lp-v22-integration5-db-1  Waiting
+ Container lp-v22-integration5-app-1  Healthy
+ Container lp-v22-integration5-gateway-1  Healthy
+ Container lp-v22-integration5-db-1  Healthy

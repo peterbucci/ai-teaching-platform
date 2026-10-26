@@ -1,0 +1,20 @@
+## Latest independent snapshot — October 25, 2026
+
+**CHANGES REQUIRED.** [Current merge readiness](snapshots/2026-10-25-final-07efb7f8/MERGE_READINESS.md) tests combined application `07efb7f821339538800f150f57b298eb2e606be3` / tree `948b9a6005a056c97f10d181c589b5352d6221f3`. The new snapshot contains exact inputs, connected workflow evidence, all required visual sizes, recovery results and actionable owners.
+
+The historical report below is preserved verbatim and applies to its original application snapshots, not this new candidate.
+
+---
+
+# Remaining combined acceptance gates
+
+The fifth composition **462cfb1b31d9108cec70d18b6553bd45048d2eed**, tree **03cca1fed3900a122e689c4a512afadd9052e5af**, composes cleanly and passes offline, production and combined service checks. The requested verification pass is complete, including the connected browser journey with explicit synthetic seams. **The application is not accepted for the complete Workbench v2.2 refactor.**
+
+1. **P1 Evidence and intervention layout V02/V03/V09 — #116 with #120.** Selected phone evidence remains below the list/filter stack; desktop/tablet lack the reference's adjacent source/context treatment. The populated intervention also lacks the adjacent Steps pane/phone Steps tab and places work far below a heading/filter stack. Owners must adopt the shared pane behavior and receive fresh four-size acceptance.
+2. **Confirmed P2 navigation/focus S1/C2/F1 — #117/#116/#120.** Course Assignments returns to a selected review; the displayed session return loses progress context; native Back loses the originating Evidence-row focus. Reproduction steps and exact evidence are in [DEFECTS.md](DEFECTS.md).
+3. **Remaining visual differences and data equivalence.** Disposition V05–V08 and inherited contextual-label finding V10. The larger published fixture has 5 concepts/19 snapshots/13 passages and four inactive empty classes, while the reference has 15 questions and different class states/history. The implementation's required four follow-ups were preserved. These captures exercise populated layout but do not establish exact count/state fidelity or editable large-bank acceptance. [Published density](final-verification/PUBLISHED_DENSITY_VISUAL_REPORT.md), [intervention comparison](final-verification/INTERVENTION_VISUAL_REPORT.md).
+4. **Real agentic product gate remains unrun.** No paid calls are authorized here. Synthetic generation/evaluation cannot prove real model intent classification, divergent instructional choices or tool/observation/adaptation. That needs a separately authorized scope.
+
+The same-record browser chain, context C3, scoped student result/recovery, native200% zoom, desktop/mobile dialog keyboard behavior and unsaved reload/navigation recovery are no longer pending gates for this verification pass. Preserved verifier failures and precise coverage limits remain inspectable. Real authentication expiry, physical mobile keyboard/touch, comprehensive accessibility and screen-reader testing were not performed in this combined run; independent branch evidence is not substituted.
+
+Historical M01/T01 conflict/assertion failures are resolved for these exact fifth-snapshot heads. The earlier shared storage hold is not current; fresh guarded execution passed. All earlier volumes and failed receipts remain preserved. No merge, deployment, release approval or implementation PR/issue changes are granted. A new owner fix requires a newly pinned compatible composition and consequential retests, not reuse of this tree's results.

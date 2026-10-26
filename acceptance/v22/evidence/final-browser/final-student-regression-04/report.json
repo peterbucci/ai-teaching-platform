@@ -1,0 +1,208 @@
+{
+  "source_sha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "source_tree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "harness_sha256": "aeb205251b80b7b807467d66a49413bc6f959f89885aeaf501af42747e774ef7",
+  "fixture_sha256": "91d91617085af50d8fcbe732db279008618cfa62e7bbd3db9a4ee28ac4fe0657",
+  "origin": "http://localhost:3350",
+  "project": "lp-v22-shell5",
+  "browser": "156.0.4314.42",
+  "started_at": "2026-10-25T06:39:50.472Z",
+  "status": "pass",
+  "cases": [
+    {
+      "id": "S01-accepted-result-visible",
+      "status": "unrun-filtered"
+    },
+    {
+      "id": "accepted-reload-and-other-student-isolation",
+      "status": "unrun-filtered"
+    },
+    {
+      "id": "long-response-manual-scroll-and-jump",
+      "status": "unrun-filtered"
+    },
+    {
+      "id": "long-response-reading-back-and-reload",
+      "status": "pass",
+      "detail": {
+        "exact_response_retained": true,
+        "characters": 10292,
+        "original_session_url": "http://localhost:3350/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=3356554c-bbd0-4c1b-9bac-c8e07183fa5e",
+        "restored_url": "http://localhost:3350/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=3356554c-bbd0-4c1b-9bac-c8e07183fa5e",
+        "displayed_reading_intervention_id": "4b54075e-3a8e-48d4-9420-93f14e0982fb",
+        "intended_reading_effect": {
+          "type": "reading",
+          "delivery_status": "displayed",
+          "visible_at": "2026-10-25T06:27:00.507Z",
+          "exact_attempts_unchanged": true
+        },
+        "reading_write_scope": "Normal application passage opening and displayed-text acknowledgement only; no answer or evaluation replay."
+      }
+    },
+    {
+      "id": "help-fallback-never-grades",
+      "status": "unrun-filtered"
+    },
+    {
+      "id": "S02-precommit-401-durability-message",
+      "status": "unrun-filtered"
+    }
+  ],
+  "case_filter": "long-response-reading-back-and-reload",
+  "screenshots": [
+    {
+      "file": "long-response-reading.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "url": "http://localhost:3350/study/reading?session=3356554c-bbd0-4c1b-9bac-c8e07183fa5e"
+    },
+    {
+      "file": "long-response-reload.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "url": "http://localhost:3350/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=3356554c-bbd0-4c1b-9bac-c8e07183fa5e"
+    }
+  ],
+  "category": "real provider-disabled browser with explicitly synthetic accepted evaluation; no model-quality claim",
+  "actual_model_calls": 0,
+  "blocked_off_origin_requests": [],
+  "blocked_mutation_attempts": [],
+  "allowed_reading_requests": [
+    {
+      "url": "http://localhost:3350/api/tutoring/3356554c-bbd0-4c1b-9bac-c8e07183fa5e/reading",
+      "method": "POST",
+      "body": {
+        "passage_id": "P01"
+      }
+    },
+    {
+      "url": "http://localhost:3350/api/sessions/3356554c-bbd0-4c1b-9bac-c8e07183fa5e/interventions/4b54075e-3a8e-48d4-9420-93f14e0982fb",
+      "method": "POST",
+      "body": {}
+    }
+  ],
+  "reading_progress": [
+    {
+      "label": "read original saved session",
+      "status": "waiting",
+      "at": "2026-10-25T06:39:52.286Z"
+    },
+    {
+      "label": "read original saved session",
+      "status": "completed",
+      "at": "2026-10-25T06:39:52.619Z"
+    },
+    {
+      "label": "click exact session Reading",
+      "status": "waiting",
+      "at": "2026-10-25T06:39:52.625Z"
+    },
+    {
+      "label": "click exact session Reading",
+      "status": "completed",
+      "at": "2026-10-25T06:39:52.655Z"
+    },
+    {
+      "label": "reading open response headers",
+      "status": "waiting",
+      "at": "2026-10-25T06:39:52.655Z"
+    },
+    {
+      "label": "reading open response headers",
+      "status": "completed",
+      "at": "2026-10-25T06:39:53.001Z"
+    },
+    {
+      "label": "reading open response",
+      "http_status": 200
+    },
+    {
+      "label": "reading delivery JSON",
+      "status": "waiting",
+      "at": "2026-10-25T06:39:53.002Z"
+    },
+    {
+      "label": "reading delivery JSON",
+      "status": "completed",
+      "at": "2026-10-25T06:39:53.012Z"
+    },
+    {
+      "label": "reading display acknowledgement headers",
+      "status": "waiting",
+      "at": "2026-10-25T06:39:53.013Z"
+    },
+    {
+      "label": "reading display acknowledgement headers",
+      "status": "completed",
+      "at": "2026-10-25T06:39:53.029Z"
+    },
+    {
+      "label": "reading acknowledgement",
+      "http_status": 200,
+      "url": "http://localhost:3350/api/sessions/3356554c-bbd0-4c1b-9bac-c8e07183fa5e/interventions/4b54075e-3a8e-48d4-9420-93f14e0982fb"
+    },
+    {
+      "label": "rendered and acknowledged reading",
+      "status": "waiting",
+      "at": "2026-10-25T06:39:53.031Z"
+    },
+    {
+      "label": "rendered and acknowledged reading",
+      "status": "completed",
+      "at": "2026-10-25T06:39:53.037Z"
+    },
+    {
+      "label": "Browser Back",
+      "status": "waiting",
+      "at": "2026-10-25T06:39:53.092Z"
+    },
+    {
+      "label": "Browser Back",
+      "status": "completed",
+      "at": "2026-10-25T06:39:53.099Z"
+    },
+    {
+      "label": "exact original session URL",
+      "status": "waiting",
+      "at": "2026-10-25T06:39:53.099Z"
+    },
+    {
+      "label": "exact original session URL",
+      "status": "completed",
+      "at": "2026-10-25T06:39:53.100Z"
+    },
+    {
+      "label": "reload original session",
+      "status": "waiting",
+      "at": "2026-10-25T06:39:53.406Z"
+    },
+    {
+      "label": "reload original session",
+      "status": "completed",
+      "at": "2026-10-25T06:39:53.476Z"
+    },
+    {
+      "label": "read saved session after reading",
+      "status": "waiting",
+      "at": "2026-10-25T06:39:53.797Z"
+    },
+    {
+      "label": "read saved session after reading",
+      "status": "completed",
+      "at": "2026-10-25T06:39:53.833Z"
+    }
+  ],
+  "unrun": [
+    "Actual-model verification",
+    "Screen reader",
+    "Native 200% zoom",
+    "Real session expiry (401 is a browser injection)",
+    "Multi-turn generated conversation (long case is one original authored response)",
+    "Hosted release"
+  ],
+  "finished_at": "2026-10-25T06:39:54.485Z"
+}

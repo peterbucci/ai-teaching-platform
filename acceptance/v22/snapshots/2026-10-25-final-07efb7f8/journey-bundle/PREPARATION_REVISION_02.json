@@ -1,0 +1,75 @@
+{
+  "createdAt": "2026-10-25T16:45:34.7629997Z",
+  "status": "prepared-not-executed-by-this-agent",
+  "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+  "origin": "http://localhost:3396",
+  "priorProvenance": "COPY_PROVENANCE.json; TARGETED_PREPARATION.json retained unchanged",
+  "newFiles": [
+    "study-step-browser.mjs",
+    "study-evaluation-fixture.mjs"
+  ],
+  "changes": [
+    "Original accepted evaluator applies reviewed tutoring controller once through applyTutoring",
+    "Separate bounded actual next-answer browser and synthetic evaluator service phases",
+    "Latest result verified separately from original immutable answer/evaluation/assistance",
+    "Reconciled quota partial preparation remains explicitly incomplete",
+    "Draft-only continuation pinned to reviewed partial receipt; no original eval/controller replay",
+    "Separate curated normal activation requires current reviewed authoring receipt hash",
+    "Shared runtime closure timer bounded and cleared; uncertainty preserves lock reason"
+  ],
+  "safetyUnchanged": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+  "mockedSafetyTests": "7 passed; no actual Docker/browser/database calls",
+  "files": [
+    {
+      "file": "guarded-container-fixture.mjs",
+      "sha256": "b1113e8f4922a4d937a3feb88217dbc264a6d79004d9a804ce6b012c6b1be5ea",
+      "syntax": "passed"
+    },
+    {
+      "file": "intervention-continuation-fixture.mjs",
+      "sha256": "0606a244b2eead4f3874b4be620e667eabe3e594ae9bfd0415b588efb3b31ade",
+      "syntax": "passed"
+    },
+    {
+      "file": "intervention-continuation-browser.mjs",
+      "sha256": "9d60a6c3f6266ac0ee9f682ee324f218416b069d7205cbcefdbfbcf4f73a0bb8",
+      "syntax": "passed"
+    },
+    {
+      "file": "read-only-runtime.mjs",
+      "sha256": "8ad52a1724481f7315eb57b0db96d4251520f761c0849c93cc545d169a69d647",
+      "syntax": "passed"
+    },
+    {
+      "file": "six-blocker-browser.mjs",
+      "sha256": "a6aee47ef4420a8f03b729a452ca0507770a92d3795585ff4e650264eac3258a",
+      "syntax": "passed"
+    },
+    {
+      "file": "original-result-browser.mjs",
+      "sha256": "01f1e536e5b1400986ee8faa644307e1e3b2b427a3f39c31ccd2efc38afcc988",
+      "syntax": "passed"
+    },
+    {
+      "file": "study-step-browser.mjs",
+      "sha256": "67d34bb2eae7725d6a751341144f01277ecdafad7b8ec6d47d5a6f832030a256",
+      "syntax": "passed"
+    },
+    {
+      "file": "study-evaluation-fixture.mjs",
+      "sha256": "7dad04e9a0bc30e0911a0c37ac232f1d081d57841b4f9623e32d8a0f921163ae",
+      "syntax": "passed"
+    },
+    {
+      "file": "teacher-recovery-browser.mjs",
+      "sha256": "0e59dc6ce9284115304121ea567d996e5c556be2848077067f817a23defac1a8",
+      "syntax": "passed"
+    },
+    {
+      "file": "safety.mjs",
+      "sha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+      "syntax": "passed"
+    }
+  ]
+}

@@ -1,0 +1,185 @@
+Merge made by the 'ort' strategy.
+ app/teacher/assignments/assignments.css            |  596 ++++++++++
+ app/teacher/assignments/create-model.ts            |  115 ++
+ app/teacher/assignments/create.tsx                 |  473 ++++++++
+ app/teacher/assignments/lesson-review.css          |  231 ++++
+ app/teacher/assignments/lesson-review.tsx          |  262 +++++
+ app/teacher/assignments/load.ts                    |  164 +++
+ app/teacher/assignments/new/page.tsx               |  207 ++++
+ app/teacher/assignments/new/selection.ts           |   46 +
+ app/teacher/assignments/page.tsx                   |  789 +++++++++----
+ app/teacher/assignments/preview-model.ts           |   78 ++
+ app/teacher/assignments/progress-model.ts          |  378 ++++++
+ app/teacher/assignments/progress-pane.tsx          |  148 +++
+ app/teacher/assignments/progress.css               |  696 ++++++++++++
+ app/teacher/assignments/progress.tsx               |  877 ++++++++++++++
+ app/teacher/assignments/version-label.tsx          |   23 +
+ app/teacher/assignments/workspace-model.ts         |  135 +++
+ .../assignments-activation-1440.jpg                |  Bin 0 -> 96027 bytes
+ .../teacher-assignments/assignments-create-320.jpg |  Bin 0 -> 34106 bytes
+ .../assignments-evidence-320.jpg                   |  Bin 0 -> 40045 bytes
+ .../assignments-evidence-390.jpg                   |  Bin 0 -> 44495 bytes
+ .../teacher-assignments/assignments-grid-1440.jpg  |  Bin 0 -> 102131 bytes
+ .../assignments-progress-1024.jpg                  |  Bin 0 -> 63002 bytes
+ .../assignments-progress-1440.jpg                  |  Bin 0 -> 87156 bytes
+ .../fidelity/after-details-1024.jpg                |  Bin 0 -> 70057 bytes
+ .../fidelity/after-details-1440.jpg                |  Bin 0 -> 147863 bytes
+ .../fidelity/after-details-320.jpg                 |  Bin 0 -> 35755 bytes
+ .../fidelity/after-details-390.jpg                 |  Bin 0 -> 46228 bytes
+ .../fidelity/after-discovery-1440.jpg              |  Bin 0 -> 112226 bytes
+ .../fidelity/after-discovery-320.jpg               |  Bin 0 -> 35236 bytes
+ .../fidelity/after-preview-1440.jpg                |  Bin 0 -> 129042 bytes
+ .../fidelity/after-preview-320.jpg                 |  Bin 0 -> 35100 bytes
+ .../fidelity/after-progress-1440.jpg               |  Bin 0 -> 103912 bytes
+ .../fidelity/after-progress-320.jpg                |  Bin 0 -> 35948 bytes
+ .../fidelity/after-review-1440.jpg                 |  Bin 0 -> 132533 bytes
+ .../fidelity/before-details-1024.jpg               |  Bin 0 -> 73104 bytes
+ .../fidelity/before-details-1440.jpg               |  Bin 0 -> 102300 bytes
+ .../fidelity/before-details-320.jpg                |  Bin 0 -> 34814 bytes
+ .../fidelity/before-details-390.jpg                |  Bin 0 -> 41181 bytes
+ .../fidelity/before-discovery-1440.jpg             |  Bin 0 -> 100861 bytes
+ .../fidelity/before-discovery-320.jpg              |  Bin 0 -> 28803 bytes
+ .../fidelity/before-progress-1440.jpg              |  Bin 0 -> 87124 bytes
+ .../fidelity/before-progress-320.jpg               |  Bin 0 -> 32774 bytes
+ .../teacher-assignments/fidelity/captures.json     |  218 ++++
+ .../fidelity/reference-details-1024.jpg            |  Bin 0 -> 124482 bytes
+ .../fidelity/reference-details-1440.jpg            |  Bin 0 -> 196218 bytes
+ .../fidelity/reference-details-320.jpg             |  Bin 0 -> 52220 bytes
+ .../fidelity/reference-details-390.jpg             |  Bin 0 -> 63057 bytes
+ .../fidelity/reference-discovery-1440.jpg          |  Bin 0 -> 117408 bytes
+ .../fidelity/reference-discovery-320.jpg           |  Bin 0 -> 46954 bytes
+ .../fidelity/reference-progress-1440.jpg           |  Bin 0 -> 143111 bytes
+ .../fidelity/reference-progress-320.jpg            |  Bin 0 -> 50461 bytes
+ .../teacher-assignments/fidelity/report.html       | 1112 ++++++++++++++++++
+ .../integration/after-details-1024x768.jpg         |  Bin 0 -> 59260 bytes
+ .../integration/after-details-1440x1000.jpg        |  Bin 0 -> 135495 bytes
+ .../integration/after-details-320x844.jpg          |  Bin 0 -> 40356 bytes
+ .../integration/after-details-390x844.jpg          |  Bin 0 -> 40583 bytes
+ .../integration/after-discovery-1024x768.jpg       |  Bin 0 -> 43772 bytes
+ .../integration/after-discovery-1440x1000.jpg      |  Bin 0 -> 54482 bytes
+ .../integration/after-discovery-320x844.jpg        |  Bin 0 -> 37085 bytes
+ .../integration/after-discovery-390x844.jpg        |  Bin 0 -> 38934 bytes
+ .../integration/after-empty-filter-320x844.jpg     |  Bin 0 -> 33719 bytes
+ .../after-exact-version-draft-1440x1000.jpg        |  Bin 0 -> 136910 bytes
+ .../after-inactive-review-1440x1000.jpg            |  Bin 0 -> 141810 bytes
+ .../integration/after-long-version-320x844.jpg     |  Bin 0 -> 40497 bytes
+ .../integration/after-progress-1024x768.jpg        |  Bin 0 -> 73369 bytes
+ .../integration/after-progress-1440x1000.jpg       |  Bin 0 -> 120129 bytes
+ .../integration/after-progress-320x844.jpg         |  Bin 0 -> 37729 bytes
+ .../integration/after-progress-390x844.jpg         |  Bin 0 -> 41577 bytes
+ .../after-restored-draft-form-1440x1000.jpg        |  Bin 0 -> 157437 bytes
+ .../integration/after-session-return-1440x1000.jpg |  Bin 0 -> 83632 bytes
+ .../after-student-preview-1440x1000.jpg            |  Bin 0 -> 128518 bytes
+ .../integration/after-student-preview-320x844.jpg  |  Bin 0 -> 41116 bytes
+ .../after-zero-participation-1440x1000.jpg         |  Bin 0 -> 118979 bytes
+ .../integration/before-discovery-1024x768.png      |  Bin 0 -> 46084 bytes
+ .../integration/before-discovery-1440x1000.png     |  Bin 0 -> 53732 bytes
+ .../integration/before-discovery-320x844.png       |  Bin 0 -> 37823 bytes
+ .../integration/before-discovery-390x844.png       |  Bin 0 -> 44406 bytes
+ .../integration/browser-results.json               |  620 ++++++++++
+ .../integration/cross-workspace-results.json       |  415 +++++++
+ .../integration/historical-captures.json           |   66 ++
+ .../integration/prototype-discovery-1024x768.png   |  Bin 0 -> 110303 bytes
+ .../integration/prototype-discovery-1440x1000.png  |  Bin 0 -> 149279 bytes
+ .../integration/prototype-discovery-320x844.png    |  Bin 0 -> 63190 bytes
+ .../integration/prototype-discovery-390x844.png    |  Bin 0 -> 70312 bytes
+ .../teacher-assignments/integration/report.html    | 1198 ++++++++++++++++++++
+ .../integration/verification.json                  |  107 ++
+ tests/teacher-assignment-create.test.ts            |  133 +++
+ tests/teacher-assignment-http.ts                   |  996 ++++++++++++++++
+ tests/teacher-assignment-preview.test.ts           |  164 +++
+ tests/teacher-assignment-progress.test.ts          |  649 +++++++++++
+ tests/teacher-assignment-selection.test.ts         |   99 ++
+ tests/teacher-assignment-workspace.test.ts         |  300 +++++
+ 92 files changed, 11047 insertions(+), 248 deletions(-)
+ create mode 100644 app/teacher/assignments/assignments.css
+ create mode 100644 app/teacher/assignments/create-model.ts
+ create mode 100644 app/teacher/assignments/create.tsx
+ create mode 100644 app/teacher/assignments/lesson-review.css
+ create mode 100644 app/teacher/assignments/lesson-review.tsx
+ create mode 100644 app/teacher/assignments/load.ts
+ create mode 100644 app/teacher/assignments/new/page.tsx
+ create mode 100644 app/teacher/assignments/new/selection.ts
+ create mode 100644 app/teacher/assignments/preview-model.ts
+ create mode 100644 app/teacher/assignments/progress-model.ts
+ create mode 100644 app/teacher/assignments/progress-pane.tsx
+ create mode 100644 app/teacher/assignments/progress.css
+ create mode 100644 app/teacher/assignments/progress.tsx
+ create mode 100644 app/teacher/assignments/version-label.tsx
+ create mode 100644 app/teacher/assignments/workspace-model.ts
+ create mode 100644 tests/artifacts/teacher-assignments/assignments-activation-1440.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/assignments-create-320.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/assignments-evidence-320.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/assignments-evidence-390.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/assignments-grid-1440.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/assignments-progress-1024.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/assignments-progress-1440.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/after-details-1024.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/after-details-1440.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/after-details-320.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/after-details-390.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/after-discovery-1440.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/after-discovery-320.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/after-preview-1440.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/after-preview-320.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/after-progress-1440.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/after-progress-320.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/after-review-1440.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/before-details-1024.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/before-details-1440.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/before-details-320.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/before-details-390.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/before-discovery-1440.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/before-discovery-320.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/before-progress-1440.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/before-progress-320.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/captures.json
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/reference-details-1024.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/reference-details-1440.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/reference-details-320.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/reference-details-390.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/reference-discovery-1440.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/reference-discovery-320.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/reference-progress-1440.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/reference-progress-320.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/fidelity/report.html
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-details-1024x768.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-details-1440x1000.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-details-320x844.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-details-390x844.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-discovery-1024x768.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-discovery-1440x1000.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-discovery-320x844.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-discovery-390x844.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-empty-filter-320x844.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-exact-version-draft-1440x1000.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-inactive-review-1440x1000.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-long-version-320x844.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-progress-1024x768.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-progress-1440x1000.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-progress-320x844.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-progress-390x844.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-restored-draft-form-1440x1000.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-session-return-1440x1000.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-student-preview-1440x1000.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-student-preview-320x844.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/after-zero-participation-1440x1000.jpg
+ create mode 100644 tests/artifacts/teacher-assignments/integration/before-discovery-1024x768.png
+ create mode 100644 tests/artifacts/teacher-assignments/integration/before-discovery-1440x1000.png
+ create mode 100644 tests/artifacts/teacher-assignments/integration/before-discovery-320x844.png
+ create mode 100644 tests/artifacts/teacher-assignments/integration/before-discovery-390x844.png
+ create mode 100644 tests/artifacts/teacher-assignments/integration/browser-results.json
+ create mode 100644 tests/artifacts/teacher-assignments/integration/cross-workspace-results.json
+ create mode 100644 tests/artifacts/teacher-assignments/integration/historical-captures.json
+ create mode 100644 tests/artifacts/teacher-assignments/integration/prototype-discovery-1024x768.png
+ create mode 100644 tests/artifacts/teacher-assignments/integration/prototype-discovery-1440x1000.png
+ create mode 100644 tests/artifacts/teacher-assignments/integration/prototype-discovery-320x844.png
+ create mode 100644 tests/artifacts/teacher-assignments/integration/prototype-discovery-390x844.png
+ create mode 100644 tests/artifacts/teacher-assignments/integration/report.html
+ create mode 100644 tests/artifacts/teacher-assignments/integration/verification.json
+ create mode 100644 tests/teacher-assignment-create.test.ts
+ create mode 100644 tests/teacher-assignment-http.ts
+ create mode 100644 tests/teacher-assignment-preview.test.ts
+ create mode 100644 tests/teacher-assignment-progress.test.ts
+ create mode 100644 tests/teacher-assignment-selection.test.ts
+ create mode 100644 tests/teacher-assignment-workspace.test.ts

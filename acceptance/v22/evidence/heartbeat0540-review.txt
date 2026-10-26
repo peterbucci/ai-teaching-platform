@@ -1,0 +1,27 @@
+05:40 intake — urgent static delta assessment
+Date: 2026-10-25. Read-only source comparison; no application edit, build, Docker, database or browser execution.
+
+New refs fetched in the report worktree without moving any branch or current candidate:
+refs/verification/v22/intake0540-pr120 = dd7401edcabe80b8308da30431ae06f05f0f1a9b
+refs/verification/v22/intake0540-pr113 = 71898a8a72908577065bcc7c7fb9035d6cc29ebf
+
+Recommendation: supersede e6126016 before an expensive current runtime build.
+PR120 contains a substantive production change directly affecting required browser Back/Forward and focus acceptance. Compose a fresh immutable candidate with reviewed latest pins; preserve e6126016/fc9dd9f5 and its601 unit/24 authoring/offline results as a separate historical checkpoint. Those passes do not certify the new restoration code. No forced merge or application repair is proposed.
+
+PR120 a045defe11712b5c8f7ef88c7dae991ef9a33506 -> dd7401edcabe80b8308da30431ae06f05f0f1a9b
+Single production file changed: app/teacher/workspace-restoration.tsx (213 changed lines in diffstat). Five additional docs/artifact files record contracts and owner evidence. The new commit is a direct child of a045def.
+- Replaces URL-keyed scroll/focus positions with bounded in-memory snapshots keyed by opaque per-history-entry tokens. Only the token enters history.state; existing router/page state is spread and preserved. No answer/form text is stored in the new token.
+- Observes popstate revisions with useSyncExternalStore, including distinct entries with identical URLs; defers placement until location/entry/revision agree.
+- Excludes data-workspace-restoration="page" regions and existing Evidence list selectors from shared focus/pane restoration. If a page has already focused its own visible control, shell placement yields, including ancestor scrolling.
+- Anonymous content controls clear a previously remembered focus target. Navigation chrome alone retains the prior content target.
+- Handles missing metadata and SecurityError history write rejection with guarded renewal/native fallback. No authorization, source-version, database, approval, activation or delivery service changes were found.
+
+Risk and required checks
+This is an interaction correctness change, not a display-only artifact update. Ordering between Next's patched history, native popstate, page-owned Evidence restoration, layout effects and requestAnimationFrame must be verified in the actual combined application. Exercise repeated identical-URL entries, anonymous filters after row focus, both row/detail hashes, Back/Forward and reload, nested list/window scroll, and delayed route placement. The owner's26 component regressions use actual shared code/native history but mocked Next hooks and a labelled page-restorer fixture; they do not prove the complete application's router/evidence integration. No new source/API selector changes are required by this delta alone. The existing focused accessibility helper covers a narrower ordinary session-return path and must not be described as full coverage of the new per-entry cases.
+S1 discovery routing remains unchanged by this commit because navigation-context.ts, workspace-model.ts and the assignment loader are untouched. C2 displayed full-session return routing is also unchanged.
+
+PR113 83114efdb2a5c7deb5238a0b28756429b1952b21 -> 71898a8a72908577065bcc7c7fb9035d6cc29ebf
+Artifacts/documentation only:50 files under acceptance/student-blockers, comprising RESULTS.md plus retained before/after screenshots and JSON receipts. No app, lib or scripts production diff. The new commit is a direct child of83114ef. The prior2fc0d49 recovery implementation and83114ef exact401-await harness fix are unchanged. Existing student helper adaptation remains valid; new owner receipts are evidence from their stated snapshots, not independently run latest combined acceptance.
+
+Helper disposition
+Leave runner-current's e6126016 pins intact until a new exact combined commit/tree is assigned. Preserve historical helper hashes. Any new candidate requires explicit pin updates plus new output/runtime provenance; do not let an old e612 checker silently accept the later source. Current accessibility preparation remains unrun and bounded; native200 measurement and read-only unsaved-pane checks are unaffected in method, while focus/history claims require the actual new runtime.

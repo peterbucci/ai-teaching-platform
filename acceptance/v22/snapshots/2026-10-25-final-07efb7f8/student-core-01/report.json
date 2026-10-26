@@ -1,0 +1,295 @@
+{
+  "source_sha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "source_tree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+  "harness_sha256": "ab0a6951f74555b5599504490173b70df1631b9e27d9e08196bdc7f4b91c35ae",
+  "fixture_sha256": "6caee8af7fe4782bfc00a614daad1407d4647b3994d13d15bf8fda2a03ff74c6",
+  "origin": "http://localhost:3396",
+  "project": "lp-v22-final-01a173d6",
+  "browser": "156.0.4314.42",
+  "started_at": "2026-10-25T16:54:30.430Z",
+  "status": "pass",
+  "cases": [
+    {
+      "id": "S01-accepted-result-visible",
+      "status": "pass",
+      "detail": {
+        "evaluation_id": "5c1f0e8c-3874-4a50-9bfa-47ef4666fd95",
+        "original_text_visible": true,
+        "evaluation_provenance": "synthetic_fixture"
+      }
+    },
+    {
+      "id": "accepted-reload-and-other-student-isolation",
+      "status": "pass",
+      "detail": {
+        "unchanged_on_reload": true,
+        "cross_student_status": 404
+      }
+    },
+    {
+      "id": "long-response-manual-scroll-and-jump",
+      "status": "pass",
+      "detail": {
+        "initial": {
+          "top": 78,
+          "height": 480,
+          "total": 3846
+        },
+        "afterManual": 0,
+        "afterJump": {
+          "top": 78,
+          "focused": true
+        },
+        "method": "Actual pointer wheel and Jump to latest button; no direct DOM scroll mutation."
+      }
+    },
+    {
+      "id": "long-response-reading-back-and-reload",
+      "status": "pass",
+      "detail": {
+        "exact_response_retained": true,
+        "characters": 10292,
+        "original_session_url": "http://localhost:3396/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=c6d05c9a-6af6-40b3-a487-f91ec5d3ee75",
+        "restored_url": "http://localhost:3396/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=c6d05c9a-6af6-40b3-a487-f91ec5d3ee75",
+        "displayed_reading_intervention_id": "f10bcd56-20d6-410b-9085-c59358c955ea",
+        "intended_reading_effect": {
+          "type": "reading",
+          "delivery_status": "displayed",
+          "visible_at": "2026-10-25T16:54:33.663Z",
+          "exact_attempts_unchanged": true
+        },
+        "reading_write_scope": "Normal application passage opening and displayed-text acknowledgement only; no answer or evaluation replay."
+      }
+    },
+    {
+      "id": "help-fallback-never-grades",
+      "status": "pass",
+      "detail": {
+        "ungraded": true,
+        "provider_requests": 0,
+        "classification": "Explicit no-provider clarification; no model interpretation claimed."
+      }
+    },
+    {
+      "id": "S02-precommit-401-durability-message",
+      "status": "pass",
+      "detail": {
+        "exact_local_text_preserved": true,
+        "server_response": null,
+        "automatic_retries": 0,
+        "explicit_authorized_check": true,
+        "explicit_retries": 1,
+        "original_submission_key_preserved": true,
+        "fault": "Injected browser401 before server; real session expiry unrun"
+      }
+    }
+  ],
+  "case_filter": null,
+  "screenshots": [
+    {
+      "file": "accepted-1440x1000.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "url": "http://localhost:3396/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=4632afb4-18c5-4721-b1b2-ea7c61c2e23c"
+    },
+    {
+      "file": "accepted-1024x768.png",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "url": "http://localhost:3396/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=4632afb4-18c5-4721-b1b2-ea7c61c2e23c"
+    },
+    {
+      "file": "accepted-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "url": "http://localhost:3396/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=4632afb4-18c5-4721-b1b2-ea7c61c2e23c"
+    },
+    {
+      "file": "accepted-320x844.png",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "url": "http://localhost:3396/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=4632afb4-18c5-4721-b1b2-ea7c61c2e23c"
+    },
+    {
+      "file": "long-response-earlier-text.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "url": "http://localhost:3396/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=c6d05c9a-6af6-40b3-a487-f91ec5d3ee75"
+    },
+    {
+      "file": "long-response-jump-restores-region-focus.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "url": "http://localhost:3396/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=c6d05c9a-6af6-40b3-a487-f91ec5d3ee75"
+    },
+    {
+      "file": "long-response-reading.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "url": "http://localhost:3396/study/reading?session=c6d05c9a-6af6-40b3-a487-f91ec5d3ee75"
+    },
+    {
+      "file": "long-response-reload.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "url": "http://localhost:3396/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=c6d05c9a-6af6-40b3-a487-f91ec5d3ee75"
+    },
+    {
+      "file": "precommit-401-local-text-preserved.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "url": "http://localhost:3396/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=9cc81da0-638d-4a5e-bebe-01d26e1b47b2"
+    },
+    {
+      "file": "precommit-401-explicit-same-identity-retry.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "url": "http://localhost:3396/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=9cc81da0-638d-4a5e-bebe-01d26e1b47b2"
+    }
+  ],
+  "category": "real provider-disabled browser with explicitly synthetic accepted evaluation; no model-quality claim",
+  "actual_model_calls": 0,
+  "blocked_off_origin_requests": [],
+  "blocked_mutation_attempts": [],
+  "allowed_reading_requests": [],
+  "reading_progress": [
+    {
+      "label": "read original saved session",
+      "status": "waiting",
+      "at": "2026-10-25T16:54:33.237Z"
+    },
+    {
+      "label": "read original saved session",
+      "status": "completed",
+      "at": "2026-10-25T16:54:33.253Z"
+    },
+    {
+      "label": "click exact session Reading",
+      "status": "waiting",
+      "at": "2026-10-25T16:54:33.256Z"
+    },
+    {
+      "label": "click exact session Reading",
+      "status": "completed",
+      "at": "2026-10-25T16:54:33.281Z"
+    },
+    {
+      "label": "reading open response headers",
+      "status": "waiting",
+      "at": "2026-10-25T16:54:33.282Z"
+    },
+    {
+      "label": "reading open response headers",
+      "status": "completed",
+      "at": "2026-10-25T16:54:33.639Z"
+    },
+    {
+      "label": "reading open response",
+      "http_status": 200
+    },
+    {
+      "label": "reading delivery JSON",
+      "status": "waiting",
+      "at": "2026-10-25T16:54:33.640Z"
+    },
+    {
+      "label": "reading delivery JSON",
+      "status": "completed",
+      "at": "2026-10-25T16:54:33.641Z"
+    },
+    {
+      "label": "reading display acknowledgement headers",
+      "status": "waiting",
+      "at": "2026-10-25T16:54:33.642Z"
+    },
+    {
+      "label": "reading display acknowledgement headers",
+      "status": "completed",
+      "at": "2026-10-25T16:54:33.674Z"
+    },
+    {
+      "label": "reading acknowledgement",
+      "http_status": 200,
+      "url": "http://localhost:3396/api/sessions/c6d05c9a-6af6-40b3-a487-f91ec5d3ee75/interventions/f10bcd56-20d6-410b-9085-c59358c955ea"
+    },
+    {
+      "label": "rendered and acknowledged reading",
+      "status": "waiting",
+      "at": "2026-10-25T16:54:33.675Z"
+    },
+    {
+      "label": "rendered and acknowledged reading",
+      "status": "completed",
+      "at": "2026-10-25T16:54:33.682Z"
+    },
+    {
+      "label": "Browser Back",
+      "status": "waiting",
+      "at": "2026-10-25T16:54:33.726Z"
+    },
+    {
+      "label": "Browser Back",
+      "status": "completed",
+      "at": "2026-10-25T16:54:33.733Z"
+    },
+    {
+      "label": "exact original session URL",
+      "status": "waiting",
+      "at": "2026-10-25T16:54:33.733Z"
+    },
+    {
+      "label": "exact original session URL",
+      "status": "completed",
+      "at": "2026-10-25T16:54:33.734Z"
+    },
+    {
+      "label": "reload original session",
+      "status": "waiting",
+      "at": "2026-10-25T16:54:34.566Z"
+    },
+    {
+      "label": "reload original session",
+      "status": "completed",
+      "at": "2026-10-25T16:54:34.650Z"
+    },
+    {
+      "label": "read saved session after reading",
+      "status": "waiting",
+      "at": "2026-10-25T16:54:34.968Z"
+    },
+    {
+      "label": "read saved session after reading",
+      "status": "completed",
+      "at": "2026-10-25T16:54:35.000Z"
+    }
+  ],
+  "unrun": [
+    "Actual-model verification",
+    "Screen reader",
+    "Native 200% zoom",
+    "Real session expiry (401 is a browser injection)",
+    "Multi-turn generated conversation (long case is one original authored response)",
+    "Hosted release"
+  ],
+  "finished_at": "2026-10-25T16:54:36.672Z"
+}

@@ -1,0 +1,58 @@
+Independent static density-fixture review — 2026-10-25
+
+Application snapshot: 462cfb1b31d9108cec70d18b6553bd45048d2eed
+Tree: 03cca1fed3900a122e689c4a512afadd9052e5af
+
+Exact reviewed utility SHA-256 values:
+published-density-fixture.mjs
+6c92688288adf7b3a517cf1d6c87356b8e78b8ff53966e90ccae1ce5c593614a
+capture-published-density.mjs
+2846ec9cae1bc7417715027cda865235a7f0e1b8f3e280e43839c27cd6ccdd05
+guarded-browser.mjs
+2287f0b8c047d82cb9c3a296ba03c6eac03557352dcbaeb4294ccbcf335f9b3a
+guarded-container-fixture.mjs
+d1b4245fbe17f4a159a9aa66b00a2d03a078bf077ed1acc2b7cd59f1ed5c2e2a
+
+No consequential blocker found in the scoped static review. No runtime,
+database, browser, model call, or application source edit was performed by
+this reviewer. Runtime results remain separately authorized and unproven.
+
+Inspected actual source creation, draft save, approval, publication and
+assignment services, plus the published lesson page and responsive authoring
+pane selectors. The fixture creates a distinct owned attributed source and
+lesson; all copied questions/passages use its exact source/content version.
+It preserves the approved package's 19 serialized question snapshots:
+15 authored bank questions plus 4 required bounded sequence snapshots.
+It does not prune content or invent R4 authoring review metadata to claim
+15-row parity. Exact prototype question-count equivalence remains open.
+
+Prepare, approve, publish and inactive-assignment creation are separate
+operator-run phases. The new source approval and lesson service approval
+are explicitly synthetic fixture decisions, not browser teacher-review
+evidence. Four new empty fictional classes are owned by the demo teacher;
+their four assignments remain inactive and have no enrollments. No service
+used activates an assignment, delivers an activity or submits an answer.
+Fetch/provider paths are disabled and host/container identity checks remain.
+
+Before/after fingerprints cover original profiles, classes, enrollments,
+sessions, attempts, evaluations and interventions, plus unrelated lessons,
+versions, assignments, source documents and source versions. Only this
+fixture's newly created IDs are excluded. This is the stated fingerprint
+coverage, not a claim that every table in the database was hashed. Partial
+phase failures retain receipts/records and require reconciliation, with no
+automatic replay or cleanup. The container adapter retains its own shared
+lock on uncertain/nonzero fixture execution and preserves prior guard logic.
+
+The capture uses the exact published version and four assignment identities.
+It asserts 5 objectives, 19 questions/articles and 13 passages in the actual
+DOM; four class-assignment links must match the fixture IDs. It records six
+states at four requested CSS sizes. One demo teacher login is allowed;
+subsequent mutations and off-origin requests are blocked and fail acceptance.
+Every state must actually capture without root overflow for the overall
+capture status to pass. These are CSS viewport captures, explicitly not
+native200 zoom, screen-reader verification or actual-model behavior.
+
+The visual fixture approximates density. Its inactive assignments, empty
+classes, different text and 19-question count remain different from the
+prototype; successful capture must not be promoted to visual acceptance
+without separate comparison of the rendered screenshots.

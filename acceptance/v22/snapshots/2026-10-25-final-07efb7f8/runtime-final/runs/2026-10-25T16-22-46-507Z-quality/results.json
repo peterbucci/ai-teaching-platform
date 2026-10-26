@@ -1,0 +1,693 @@
+{
+  "schemaVersion": 1,
+  "mode": "quality",
+  "runCompleted": true,
+  "finishedAt": "2026-10-25T16:24:52.886Z",
+  "target": "shell",
+  "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+  "harness": {
+    "version": "workbench-v22-final-integration-01a173d6-v1",
+    "sha256": "ee0710ea8db7955f29ac2059d129f08fa787831e447ad9f7f76c60a6f4fda892",
+    "authoringTestsSha256": "4a0d32571f990213896739974e272901299582a4fc4d31621118fda51c793954",
+    "storageGuard": {
+      "pullRequest": "https://github.com/peterbucci/ai-teaching-platform/pull/121",
+      "commit": "fe8323ae8406e4d6415e4486849317fb48a91821",
+      "sha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+      "testsSha256": "819efd0de539780581236109fcbe72cde23352748942c77c80392eb235dd30d3",
+      "revision": "reviewed-PR121-byte-identical-copy"
+    },
+    "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+    "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d",
+    "ignoredSourceAllowlist": [
+      "node_modules/",
+      ".next/",
+      "next-env.d.ts",
+      "*.tsbuildinfo"
+    ]
+  },
+  "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+  "project": "lp-v22-final-01a173d6",
+  "origin": "http://localhost:3396",
+  "manifest": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final\\manifest.json",
+  "fixture": "repository unit fixtures; curated network-performance-v1 package",
+  "paidModelCallsAuthorized": false,
+  "dependencies": "install",
+  "verificationLevel": "separate repository suites on the exact pinned application snapshot",
+  "combinedBrowserJourney": "unrun; separate passing suites do not prove one connected browser journey",
+  "checks": [
+    {
+      "name": "preflight:npm-ci",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T16:22:47.198Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "availableBytes": 46057783296,
+          "availableGiB": 42.8946533203125,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "availableBytes": 46057783296,
+          "availableGiB": 42.8946533203125,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 46057783296,
+          "availableGiB": 42.8946533203125,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "npm-ci",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic quality",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+      "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+      "harness": {
+        "version": "workbench-v22-final-integration-01a173d6-v1",
+        "sha256": "ee0710ea8db7955f29ac2059d129f08fa787831e447ad9f7f76c60a6f4fda892",
+        "authoringTestsSha256": "4a0d32571f990213896739974e272901299582a4fc4d31621118fda51c793954",
+        "storageGuard": {
+          "pullRequest": "https://github.com/peterbucci/ai-teaching-platform/pull/121",
+          "commit": "fe8323ae8406e4d6415e4486849317fb48a91821",
+          "sha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+          "testsSha256": "819efd0de539780581236109fcbe72cde23352748942c77c80392eb235dd30d3",
+          "revision": "reviewed-PR121-byte-identical-copy"
+        },
+        "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+        "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d",
+        "ignoredSourceAllowlist": [
+          "node_modules/",
+          ".next/",
+          "next-env.d.ts",
+          "*.tsbuildinfo"
+        ]
+      },
+      "target": "shell",
+      "project": "lp-v22-final-01a173d6",
+      "origin": "http://localhost:3396",
+      "startedAt": "2026-10-25T16:22:47.202Z",
+      "finishedAt": "2026-10-25T16:23:20.999Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "ci"
+      ],
+      "log": "02-npm-ci.log"
+    },
+    {
+      "name": "preflight:test",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T16:23:21.000Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "availableBytes": 45394313216,
+          "availableGiB": 42.27674865722656,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "availableBytes": 45394313216,
+          "availableGiB": 42.27674865722656,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 45394313216,
+          "availableGiB": 42.27674865722656,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "test",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic quality",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+      "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+      "harness": {
+        "version": "workbench-v22-final-integration-01a173d6-v1",
+        "sha256": "ee0710ea8db7955f29ac2059d129f08fa787831e447ad9f7f76c60a6f4fda892",
+        "authoringTestsSha256": "4a0d32571f990213896739974e272901299582a4fc4d31621118fda51c793954",
+        "storageGuard": {
+          "pullRequest": "https://github.com/peterbucci/ai-teaching-platform/pull/121",
+          "commit": "fe8323ae8406e4d6415e4486849317fb48a91821",
+          "sha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+          "testsSha256": "819efd0de539780581236109fcbe72cde23352748942c77c80392eb235dd30d3",
+          "revision": "reviewed-PR121-byte-identical-copy"
+        },
+        "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+        "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d",
+        "ignoredSourceAllowlist": [
+          "node_modules/",
+          ".next/",
+          "next-env.d.ts",
+          "*.tsbuildinfo"
+        ]
+      },
+      "target": "shell",
+      "project": "lp-v22-final-01a173d6",
+      "origin": "http://localhost:3396",
+      "startedAt": "2026-10-25T16:23:21.001Z",
+      "finishedAt": "2026-10-25T16:23:35.264Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "test"
+      ],
+      "log": "04-test.log"
+    },
+    {
+      "name": "preflight:lint",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T16:23:35.264Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "availableBytes": 45393739776,
+          "availableGiB": 42.276214599609375,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "availableBytes": 45393739776,
+          "availableGiB": 42.276214599609375,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 45393739776,
+          "availableGiB": 42.276214599609375,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "lint",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic quality",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+      "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+      "harness": {
+        "version": "workbench-v22-final-integration-01a173d6-v1",
+        "sha256": "ee0710ea8db7955f29ac2059d129f08fa787831e447ad9f7f76c60a6f4fda892",
+        "authoringTestsSha256": "4a0d32571f990213896739974e272901299582a4fc4d31621118fda51c793954",
+        "storageGuard": {
+          "pullRequest": "https://github.com/peterbucci/ai-teaching-platform/pull/121",
+          "commit": "fe8323ae8406e4d6415e4486849317fb48a91821",
+          "sha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+          "testsSha256": "819efd0de539780581236109fcbe72cde23352748942c77c80392eb235dd30d3",
+          "revision": "reviewed-PR121-byte-identical-copy"
+        },
+        "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+        "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d",
+        "ignoredSourceAllowlist": [
+          "node_modules/",
+          ".next/",
+          "next-env.d.ts",
+          "*.tsbuildinfo"
+        ]
+      },
+      "target": "shell",
+      "project": "lp-v22-final-01a173d6",
+      "origin": "http://localhost:3396",
+      "startedAt": "2026-10-25T16:23:35.265Z",
+      "finishedAt": "2026-10-25T16:23:53.753Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "lint"
+      ],
+      "log": "06-lint.log"
+    },
+    {
+      "name": "preflight:typecheck",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T16:23:53.754Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "availableBytes": 45381251072,
+          "availableGiB": 42.264583587646484,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "availableBytes": 45381251072,
+          "availableGiB": 42.264583587646484,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 45381251072,
+          "availableGiB": 42.264583587646484,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "typecheck",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic quality",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+      "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+      "harness": {
+        "version": "workbench-v22-final-integration-01a173d6-v1",
+        "sha256": "ee0710ea8db7955f29ac2059d129f08fa787831e447ad9f7f76c60a6f4fda892",
+        "authoringTestsSha256": "4a0d32571f990213896739974e272901299582a4fc4d31621118fda51c793954",
+        "storageGuard": {
+          "pullRequest": "https://github.com/peterbucci/ai-teaching-platform/pull/121",
+          "commit": "fe8323ae8406e4d6415e4486849317fb48a91821",
+          "sha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+          "testsSha256": "819efd0de539780581236109fcbe72cde23352748942c77c80392eb235dd30d3",
+          "revision": "reviewed-PR121-byte-identical-copy"
+        },
+        "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+        "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d",
+        "ignoredSourceAllowlist": [
+          "node_modules/",
+          ".next/",
+          "next-env.d.ts",
+          "*.tsbuildinfo"
+        ]
+      },
+      "target": "shell",
+      "project": "lp-v22-final-01a173d6",
+      "origin": "http://localhost:3396",
+      "startedAt": "2026-10-25T16:23:53.755Z",
+      "finishedAt": "2026-10-25T16:24:08.474Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "typecheck"
+      ],
+      "log": "08-typecheck.log"
+    },
+    {
+      "name": "preflight:format:check",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T16:24:08.475Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "availableBytes": 45389185024,
+          "availableGiB": 42.27197265625,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "availableBytes": 45389185024,
+          "availableGiB": 42.27197265625,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 45389185024,
+          "availableGiB": 42.27197265625,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "format:check",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic quality",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+      "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+      "harness": {
+        "version": "workbench-v22-final-integration-01a173d6-v1",
+        "sha256": "ee0710ea8db7955f29ac2059d129f08fa787831e447ad9f7f76c60a6f4fda892",
+        "authoringTestsSha256": "4a0d32571f990213896739974e272901299582a4fc4d31621118fda51c793954",
+        "storageGuard": {
+          "pullRequest": "https://github.com/peterbucci/ai-teaching-platform/pull/121",
+          "commit": "fe8323ae8406e4d6415e4486849317fb48a91821",
+          "sha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+          "testsSha256": "819efd0de539780581236109fcbe72cde23352748942c77c80392eb235dd30d3",
+          "revision": "reviewed-PR121-byte-identical-copy"
+        },
+        "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+        "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d",
+        "ignoredSourceAllowlist": [
+          "node_modules/",
+          ".next/",
+          "next-env.d.ts",
+          "*.tsbuildinfo"
+        ]
+      },
+      "target": "shell",
+      "project": "lp-v22-final-01a173d6",
+      "origin": "http://localhost:3396",
+      "startedAt": "2026-10-25T16:24:08.475Z",
+      "finishedAt": "2026-10-25T16:24:19.217Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "format:check"
+      ],
+      "log": "10-format-check.log"
+    },
+    {
+      "name": "preflight:build",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T16:24:19.218Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "availableBytes": 45388558336,
+          "availableGiB": 42.27138900756836,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "availableBytes": 45388558336,
+          "availableGiB": 42.27138900756836,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 45388558336,
+          "availableGiB": 42.27138900756836,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "build",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic quality",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+      "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+      "harness": {
+        "version": "workbench-v22-final-integration-01a173d6-v1",
+        "sha256": "ee0710ea8db7955f29ac2059d129f08fa787831e447ad9f7f76c60a6f4fda892",
+        "authoringTestsSha256": "4a0d32571f990213896739974e272901299582a4fc4d31621118fda51c793954",
+        "storageGuard": {
+          "pullRequest": "https://github.com/peterbucci/ai-teaching-platform/pull/121",
+          "commit": "fe8323ae8406e4d6415e4486849317fb48a91821",
+          "sha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+          "testsSha256": "819efd0de539780581236109fcbe72cde23352748942c77c80392eb235dd30d3",
+          "revision": "reviewed-PR121-byte-identical-copy"
+        },
+        "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+        "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d",
+        "ignoredSourceAllowlist": [
+          "node_modules/",
+          ".next/",
+          "next-env.d.ts",
+          "*.tsbuildinfo"
+        ]
+      },
+      "target": "shell",
+      "project": "lp-v22-final-01a173d6",
+      "origin": "http://localhost:3396",
+      "startedAt": "2026-10-25T16:24:19.218Z",
+      "finishedAt": "2026-10-25T16:24:52.328Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "run",
+        "build"
+      ],
+      "log": "12-build.log"
+    },
+    {
+      "name": "preflight:authoring-tests",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T16:24:52.329Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "availableBytes": 45174210560,
+          "availableGiB": 42.07176208496094,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "availableBytes": 45174210560,
+          "availableGiB": 42.07176208496094,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 45174210560,
+          "availableGiB": 42.07176208496094,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "authoring-tests",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic colocated authoring tests; additional to npm test",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+      "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+      "harness": {
+        "version": "workbench-v22-final-integration-01a173d6-v1",
+        "sha256": "ee0710ea8db7955f29ac2059d129f08fa787831e447ad9f7f76c60a6f4fda892",
+        "authoringTestsSha256": "4a0d32571f990213896739974e272901299582a4fc4d31621118fda51c793954",
+        "storageGuard": {
+          "pullRequest": "https://github.com/peterbucci/ai-teaching-platform/pull/121",
+          "commit": "fe8323ae8406e4d6415e4486849317fb48a91821",
+          "sha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+          "testsSha256": "819efd0de539780581236109fcbe72cde23352748942c77c80392eb235dd30d3",
+          "revision": "reviewed-PR121-byte-identical-copy"
+        },
+        "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+        "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d",
+        "ignoredSourceAllowlist": [
+          "node_modules/",
+          ".next/",
+          "next-env.d.ts",
+          "*.tsbuildinfo"
+        ]
+      },
+      "target": "shell",
+      "project": "lp-v22-final-01a173d6",
+      "origin": "http://localhost:3396",
+      "startedAt": "2026-10-25T16:24:52.331Z",
+      "finishedAt": "2026-10-25T16:24:52.750Z",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "--experimental-strip-types",
+        "--conditions=react-server",
+        "--test",
+        "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\final-bundle\\authoring-tests.mjs"
+      ],
+      "log": "14-authoring-tests.log"
+    },
+    {
+      "name": "preflight:content:check",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T16:24:52.751Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "availableBytes": 45174181888,
+          "availableGiB": 42.07173538208008,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "availableBytes": 45174181888,
+          "availableGiB": 42.07173538208008,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 45174181888,
+          "availableGiB": 42.07173538208008,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "content:check",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "category": "deterministic curated content verification",
+      "fixture": "repository unit fixtures; curated network-performance-v1 package",
+      "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+      "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+      "harness": {
+        "version": "workbench-v22-final-integration-01a173d6-v1",
+        "sha256": "ee0710ea8db7955f29ac2059d129f08fa787831e447ad9f7f76c60a6f4fda892",
+        "authoringTestsSha256": "4a0d32571f990213896739974e272901299582a4fc4d31621118fda51c793954",
+        "storageGuard": {
+          "pullRequest": "https://github.com/peterbucci/ai-teaching-platform/pull/121",
+          "commit": "fe8323ae8406e4d6415e4486849317fb48a91821",
+          "sha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+          "testsSha256": "819efd0de539780581236109fcbe72cde23352748942c77c80392eb235dd30d3",
+          "revision": "reviewed-PR121-byte-identical-copy"
+        },
+        "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+        "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d",
+        "ignoredSourceAllowlist": [
+          "node_modules/",
+          ".next/",
+          "next-env.d.ts",
+          "*.tsbuildinfo"
+        ]
+      },
+      "target": "shell",
+      "project": "lp-v22-final-01a173d6",
+      "origin": "http://localhost:3396",
+      "startedAt": "2026-10-25T16:24:52.751Z",
+      "finishedAt": "2026-10-25T16:24:52.883Z",
+      "command": [
+        "python",
+        "content/network-performance-v1/verify_package.py"
+      ],
+      "log": "16-content-check.log"
+    }
+  ],
+  "safetyPolicy": {
+    "buildMinimumGiB": 20,
+    "runtimeMinimumGiB": 10,
+    "sharedLock": "C:\\Users\\sb128\\AppData\\Local\\learning-pulse-acceptance.lock"
+  },
+  "stoppedAfterFailure": false,
+  "result": "pass",
+  "limitations": [
+    "No hosted release verification",
+    "No fresh or historical actual-model claim",
+    "Browser/accessibility evidence is recorded separately",
+    "Real model calls and screen-reader verification remain unrun",
+    "Storage thresholds cannot guarantee headroom against concurrent unguarded clients or one command exhausting storage",
+    "The shared lock covers guarded runners only; browser utilities and other Docker clients require explicit coordinator scheduling"
+  ]
+}

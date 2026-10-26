@@ -1,0 +1,74 @@
+
+> ai-teaching-platform@0.1.0 dialogue:check
+> node --experimental-strip-types --conditions=react-server scripts/check-dialogue.ts
+
+PASS: Student, teacher, auth-user binding, cross-class and cross-teacher isolation
+PASS: Concurrent repeated request reserves once, rejects altered input, and preserves exact original message across refresh
+PASS: Help never grades; accepted help stays invisible until a matching display receipt; repeated acknowledgement and immutable audit history
+PASS: Explicit assessed answer applies once through existing submission; assistance and earlier answer/evaluation remain intact after new dialogue
+PASS: One concurrent provider operation per session; saved known result replays without another callback; altered prompt hash rejected
+PASS: Cancelled late model result is recorded for reconciliation but cannot add help or change lesson progress
+PASS: Legacy answer advances revision; stale completion cannot overwrite the answer or change its already projected stale fallback
+PASS: Interrupted outcome remains unknown across refresh and cancellation; neither same-ID nor new-ID retries dispatch a second call
+PASS: Persisted reservation left by a process interruption survives reconnect without an automatic retry
+PASS: Server-owned limits stop the 37th provider call and 13th conversation turn
+PASS: Legacy evaluations share provider concurrency and budget; evaluation_failed stays unresolved until a known result is recorded
+PASS: Exact linked settled evaluator outcome permits explicit new work; spent budget and original evidence retained
+PASS: Exact linked unknown evaluator outcome blocks evaluator and dialogue work; spent budget and original evidence retained
+PASS: Unshown controller feedback rejects a new message before any durable operation or turn is inserted
+PASS: Orchestration claim, proposal, validation, dispatch and executed receipt persist once; accepted help and result commit together without marking display
+PASS: Invalid help and unsupported generated assessment are preserved as private generated/rejected events with no delivery or answer side effect
+PASS: HTTP routes authenticate real synthetic login cookies, reject anonymous/cross-user/cross-teacher requests and cross-origin writes, and replay safely
+PASS: Known provider failure replays its recorded outcome and cannot authorize additional stages
+Checking the real 45-second reservation timeout using an in-memory provider fixture; no external request.
+PASS: Real 45-second timeout aborts, preserves uncertainty, blocks retries, and reconciles the original late result without lesson side effects
+{
+  "fixture_only": true,
+  "sessions": [
+    "e3c71d79-864d-408a-975c-60d1e39c15ae",
+    "97ab6080-bb23-421d-9244-e4394c407071",
+    "821d23e0-61ac-487c-9b34-7662c52eb90c",
+    "42fa5042-32c5-4304-a608-cce22b50e997",
+    "82ca5cb1-9fc0-4a8b-a7dc-df1d1b61f9e9",
+    "29446f8a-c4f7-469d-8623-76a4b2e9904d",
+    "464739c2-c594-483b-a2b8-36f7f1d7f7e2",
+    "a141d6a9-aea2-421b-9122-7251e2cc105f",
+    "fe5b370f-5f04-4e0f-b7a8-0ca1dc36ef2a",
+    "c23c4670-d01c-47ed-9e83-da1677617f01",
+    "59164587-ddd7-4f72-a47c-330ffd472310",
+    "5661d063-f097-410c-9736-ad083249b7be",
+    "984284c7-8e6d-4e8d-b5a8-ccb44529ec6e",
+    "932c8dd6-c6c5-42dc-8db8-8ce21bb75fc0",
+    "290c6c29-9932-4ef1-a65a-3ef6e5c904b6",
+    "5dd55998-a261-4511-aa80-9ed9110b2ee9",
+    "e4ad3543-06f9-41e5-bfc6-3513d43f9de0",
+    "d4802d04-4e55-4698-9995-f8d01836604a",
+    "72ae9a46-5691-4554-9c47-3312d8d55e31"
+  ],
+  "checks": [
+    "Student, teacher, auth-user binding, cross-class and cross-teacher isolation",
+    "Concurrent repeated request reserves once, rejects altered input, and preserves exact original message across refresh",
+    "Help never grades; accepted help stays invisible until a matching display receipt; repeated acknowledgement and immutable audit history",
+    "Explicit assessed answer applies once through existing submission; assistance and earlier answer/evaluation remain intact after new dialogue",
+    "One concurrent provider operation per session; saved known result replays without another callback; altered prompt hash rejected",
+    "Cancelled late model result is recorded for reconciliation but cannot add help or change lesson progress",
+    "Legacy answer advances revision; stale completion cannot overwrite the answer or change its already projected stale fallback",
+    "Interrupted outcome remains unknown across refresh and cancellation; neither same-ID nor new-ID retries dispatch a second call",
+    "Persisted reservation left by a process interruption survives reconnect without an automatic retry",
+    "Server-owned limits stop the 37th provider call and 13th conversation turn",
+    "Legacy evaluations share provider concurrency and budget; evaluation_failed stays unresolved until a known result is recorded",
+    "Exact linked settled evaluator outcome permits explicit new work; spent budget and original evidence retained",
+    "Exact linked unknown evaluator outcome blocks evaluator and dialogue work; spent budget and original evidence retained",
+    "Unshown controller feedback rejects a new message before any durable operation or turn is inserted",
+    "Orchestration claim, proposal, validation, dispatch and executed receipt persist once; accepted help and result commit together without marking display",
+    "Invalid help and unsupported generated assessment are preserved as private generated/rejected events with no delivery or answer side effect",
+    "HTTP routes authenticate real synthetic login cookies, reject anonymous/cross-user/cross-teacher requests and cross-origin writes, and replay safely",
+    "Known provider failure replays its recorded outcome and cannot authorize additional stages",
+    "Real 45-second timeout aborts, preserves uncertainty, blocks retries, and reconciles the original late result without lesson side effects"
+  ],
+  "database": "learning_platform"
+}
+(node:72) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///app/scripts/check-dialogue.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)

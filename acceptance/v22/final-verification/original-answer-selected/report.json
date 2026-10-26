@@ -1,0 +1,185 @@
+{
+  "status": "passed",
+  "startedAt": "2026-10-25T06:35:29.413Z",
+  "sourceSha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "sourceTree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "origin": "http://localhost:3350",
+  "project": "lp-v22-shell5",
+  "category": "Read-only teacher original-answer viewport capture after authorized demo login",
+  "fixture_report_sha256": "7e99672e7cf7e6689d1bcc53d57a68f1a052eecd6b09ee77ea7a8d9de3970051",
+  "script_sha256": "6135fe2740e42843ec2098edfa67baa4d0d3abe51993558919703a9689c67fa2",
+  "identity": {
+    "assignment": "ebc4eb03-22ba-409b-b1c4-10bc54a86967",
+    "session": "07c3336c-108a-4e79-bca3-02c382b3756a",
+    "attempt": "280d524b-0b14-41df-a287-3e29bfdd5646",
+    "source": "48bae4f7-63a2-4876-bc6d-b5b2d99a6b9f",
+    "source_version": 1,
+    "lesson": "d1468c98-b268-4566-9301-114be6f836da",
+    "published_version": "1"
+  },
+  "provenance_limit": "Source/lesson identity comes from the pinned run05 reconciliation receipt; this capture independently verifies route, attempt element and exact rendered response text.",
+  "paid_calls": 0,
+  "mutating_requests": [
+    {
+      "method": "POST",
+      "path": "/api/auth/demo-sign-in",
+      "reason": "authorized fictional teacher login"
+    }
+  ],
+  "blocked_requests": [],
+  "page_errors": [],
+  "states": [
+    {
+      "status": "captured",
+      "pathname": "/teacher/sessions/07c3336c-108a-4e79-bca3-02c382b3756a?assignment=ebc4eb03-22ba-409b-b1c4-10bc54a86967&origin=all",
+      "selector": "#attempt-280d524b-0b14-41df-a287-3e29bfdd5646 .lp-evidence-answer",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "exact_original_response_matched": true,
+      "response_text_sha256": "a007b66ac2172e2e772eb65b872dbd343b106cc8c802b6d19325d4bb302564a1",
+      "metrics": {
+        "x": 293,
+        "y": 526.125,
+        "width": 854,
+        "height": 92,
+        "bottom": 618.125,
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "scrollY": 594,
+        "horizontalOverflow": false,
+        "fontFamily": "Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Arial, sans-serif",
+        "fontSize": "16px",
+        "lineHeight": "28px",
+        "fixedVisible": []
+      },
+      "screenshot": "teacher-original-answer-selected-1440x1000.png"
+    },
+    {
+      "status": "captured",
+      "pathname": "/teacher/sessions/07c3336c-108a-4e79-bca3-02c382b3756a?assignment=ebc4eb03-22ba-409b-b1c4-10bc54a86967&origin=all",
+      "selector": "#attempt-280d524b-0b14-41df-a287-3e29bfdd5646 .lp-evidence-answer",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "exact_original_response_matched": true,
+      "response_text_sha256": "a007b66ac2172e2e772eb65b872dbd343b106cc8c802b6d19325d4bb302564a1",
+      "metrics": {
+        "x": 85,
+        "y": 338.125,
+        "width": 854,
+        "height": 92,
+        "bottom": 430.125,
+        "viewport": {
+          "width": 1024,
+          "height": 768
+        },
+        "scrollY": 782,
+        "horizontalOverflow": false,
+        "fontFamily": "Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Arial, sans-serif",
+        "fontSize": "16px",
+        "lineHeight": "28px",
+        "fixedVisible": []
+      },
+      "screenshot": "teacher-original-answer-selected-1024x768.png"
+    },
+    {
+      "status": "captured",
+      "pathname": "/teacher/sessions/07c3336c-108a-4e79-bca3-02c382b3756a?assignment=ebc4eb03-22ba-409b-b1c4-10bc54a86967&origin=all",
+      "selector": "#attempt-280d524b-0b14-41df-a287-3e29bfdd5646 .lp-evidence-answer",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "exact_original_response_matched": true,
+      "response_text_sha256": "a007b66ac2172e2e772eb65b872dbd343b106cc8c802b6d19325d4bb302564a1",
+      "metrics": {
+        "x": 35,
+        "y": 338.03125,
+        "width": 320,
+        "height": 168,
+        "bottom": 506.03125,
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "scrollY": 873,
+        "horizontalOverflow": false,
+        "fontFamily": "Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Arial, sans-serif",
+        "fontSize": "16px",
+        "lineHeight": "28px",
+        "fixedVisible": [
+          {
+            "tag": "HEADER",
+            "label": null,
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 57
+          },
+          {
+            "tag": "NAV",
+            "label": "Assignment workspace mobile",
+            "x": 0,
+            "y": 779,
+            "width": 390,
+            "height": 65
+          }
+        ]
+      },
+      "screenshot": "teacher-original-answer-selected-390x844.png"
+    },
+    {
+      "status": "captured",
+      "pathname": "/teacher/sessions/07c3336c-108a-4e79-bca3-02c382b3756a?assignment=ebc4eb03-22ba-409b-b1c4-10bc54a86967&origin=all",
+      "selector": "#attempt-280d524b-0b14-41df-a287-3e29bfdd5646 .lp-evidence-answer",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "exact_original_response_matched": true,
+      "response_text_sha256": "a007b66ac2172e2e772eb65b872dbd343b106cc8c802b6d19325d4bb302564a1",
+      "metrics": {
+        "x": 33,
+        "y": 337.53125,
+        "width": 254,
+        "height": 168,
+        "bottom": 505.53125,
+        "viewport": {
+          "width": 320,
+          "height": 844
+        },
+        "scrollY": 933,
+        "horizontalOverflow": false,
+        "fontFamily": "Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Arial, sans-serif",
+        "fontSize": "16px",
+        "lineHeight": "28px",
+        "fixedVisible": [
+          {
+            "tag": "HEADER",
+            "label": null,
+            "x": 0,
+            "y": 0,
+            "width": 320,
+            "height": 57
+          },
+          {
+            "tag": "NAV",
+            "label": "Assignment workspace mobile",
+            "x": 0,
+            "y": 764,
+            "width": 320,
+            "height": 80
+          }
+        ]
+      },
+      "screenshot": "teacher-original-answer-selected-320x844.png"
+    }
+  ],
+  "browser": "156.0.4314.42",
+  "finishedAt": "2026-10-25T06:35:31.866Z"
+}

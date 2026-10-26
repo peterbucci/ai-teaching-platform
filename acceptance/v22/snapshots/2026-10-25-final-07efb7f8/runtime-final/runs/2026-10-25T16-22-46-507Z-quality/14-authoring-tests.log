@@ -1,0 +1,152 @@
+TAP version 13
+# (node:119708) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:119708) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-v22-final-integration/LearningPlatform/app/teacher/objectives/draft-recovery.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform\\package.json.
+# Subtest: unfinished objective recovery preserves wording, stable IDs and original revision
+ok 1 - unfinished objective recovery preserves wording, stable IDs and original revision
+  ---
+  duration_ms: 4.9993
+  ...
+# Subtest: recovery refuses a different lesson or exact source version
+ok 2 - recovery refuses a different lesson or exact source version
+  ---
+  duration_ms: 0.3911
+  ...
+# Subtest: corrupt, oversized and server-owned recovery fields are rejected
+ok 3 - corrupt, oversized and server-owned recovery fields are rejected
+  ---
+  duration_ms: 0.3471
+  ...
+# Subtest: source handoff selects only an available approved exact version
+ok 4 - source handoff selects only an available approved exact version
+  ---
+  duration_ms: 0.3288
+  ...
+# Subtest: material recovery retains original extraction, corrected and excluded passages, and retry identity
+ok 5 - material recovery retains original extraction, corrected and excluded passages, and retry identity
+  ---
+  duration_ms: 4.5455
+  ...
+# Subtest: material recovery is separated by teacher, source document, and expected version
+ok 6 - material recovery is separated by teacher, source document, and expected version
+  ---
+  duration_ms: 0.3019
+  ...
+# Subtest: recovery rejects shuffled or missing passage identities and a lost preview receipt
+ok 7 - recovery rejects shuffled or missing passage identities and a lost preview receipt
+  ---
+  duration_ms: 1.0371
+  ...
+# Subtest: partial material recovery permits unfinished attribution and fails safely for damaged storage
+ok 8 - partial material recovery permits unfinished attribution and fails safely for damaged storage
+  ---
+  duration_ms: 0.5139
+  ...
+# Subtest: source inspector pairs reviewed text by stable identity while retaining original order and excluded passages
+ok 9 - source inspector pairs reviewed text by stable identity while retaining original order and excluded passages
+  ---
+  duration_ms: 1.1028
+  ...
+# Subtest: source inspector cannot substitute a different passage with the same displayed position
+ok 10 - source inspector cannot substitute a different passage with the same displayed position
+  ---
+  duration_ms: 0.3168
+  ...
+# Subtest: exact quotes highlight every occurrence without changing source text
+ok 11 - exact quotes highlight every occurrence without changing source text
+  ---
+  duration_ms: 0.8765
+  ...
+# Subtest: overlapping evidence quotes combine without duplicating or losing source words
+ok 12 - overlapping evidence quotes combine without duplicating or losing source words
+  ---
+  duration_ms: 0.2841
+  ...
+# Subtest: unsupported wording and empty quotes cannot create false evidence highlights
+ok 13 - unsupported wording and empty quotes cannot create false evidence highlights
+  ---
+  duration_ms: 0.2081
+  ...
+# Subtest: legacy prepared lessons remain reviewable without optional objective or question-bank workflows
+ok 14 - legacy prepared lessons remain reviewable without optional objective or question-bank workflows
+  ---
+  duration_ms: 12.9827
+  ...
+# Subtest: resume follows current authoring reviews and does not treat old lesson approval as current readiness
+ok 15 - resume follows current authoring reviews and does not treat old lesson approval as current readiness
+  ---
+  duration_ms: 2.5546
+  ...
+# Subtest: sequence coverage distinguishes the multi-concept bank from the selected prepared family
+ok 16 - sequence coverage distinguishes the multi-concept bank from the selected prepared family
+  ---
+  duration_ms: 1.0802
+  ...
+# Subtest: readiness groups deduplicate requirements while preserving every diagnostic and source of truth
+ok 17 - readiness groups deduplicate requirements while preserving every diagnostic and source of truth
+  ---
+  duration_ms: 0.7316
+  ...
+# Subtest: version conflicts point to publication without losing raw errors or inventing requirements
+ok 18 - version conflicts point to publication without losing raw errors or inventing requirements
+  ---
+  duration_ms: 0.178
+  ...
+# Subtest: an older selected publication goes directly to the exact-version preparation form
+ok 19 - an older selected publication goes directly to the exact-version preparation form
+  ---
+  duration_ms: 1.3787
+  ...
+# Subtest: opaque version and class identifiers stay intact without injecting assignment actions
+ok 20 - opaque version and class identifiers stay intact without injecting assignment actions
+  ---
+  duration_ms: 0.2621
+  ...
+# Subtest: a missing publication cannot silently fall back to an unpinned assignment form
+ok 21 - a missing publication cannot silently fall back to an unpinned assignment form
+  ---
+  duration_ms: 0.3971
+  ...
+# Subtest: multi-concept grouping keeps each question once and retains exact private criteria and source identity
+ok 22 - multi-concept grouping keeps each question once and retains exact private criteria and source identity
+  ---
+  duration_ms: 1.525
+  ...
+# Subtest: questions with missing or unknown concepts remain reachable for correction
+ok 23 - questions with missing or unknown concepts remain reachable for correction
+  ---
+  duration_ms: 1.4157
+  ...
+# Subtest: selection follows the stable ID through reorder and falls back safely after removal
+ok 24 - selection follows the stable ID through reorder and falls back safely after removal
+  ---
+  duration_ms: 0.6477
+  ...
+# Subtest: reading follows the selected question while retaining source order, identity and usage
+ok 25 - reading follows the selected question while retaining source order, identity and usage
+  ---
+  duration_ms: 1.2421
+  ...
+# Subtest: quote highlighting preserves exact text and does not mark unsupported wording
+ok 26 - quote highlighting preserves exact text and does not mark unsupported wording
+  ---
+  duration_ms: 0.2307
+  ...
+# Subtest: dirty-navigation guard protects page changes without blocking recovery downloads or source inspection
+ok 27 - dirty-navigation guard protects page changes without blocking recovery downloads or source inspection
+  ---
+  duration_ms: 0.259
+  ...
+1..27
+# tests 27
+# suites 0
+# pass 27
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 331.4056
+(node:114604) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

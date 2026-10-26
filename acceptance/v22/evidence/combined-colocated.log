@@ -1,0 +1,92 @@
+(node:18180) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+TAP version 13
+# (node:34660) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:34660) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/app/teacher/lessons/authoring-state.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# Subtest: legacy prepared lessons remain reviewable without optional objective or question-bank workflows
+ok 1 - legacy prepared lessons remain reviewable without optional objective or question-bank workflows
+  ---
+  duration_ms: 25.465
+  ...
+# Subtest: resume follows current authoring reviews and does not treat old lesson approval as current readiness
+ok 2 - resume follows current authoring reviews and does not treat old lesson approval as current readiness
+  ---
+  duration_ms: 5.4961
+  ...
+# Subtest: sequence coverage distinguishes the multi-concept bank from the selected prepared family
+ok 3 - sequence coverage distinguishes the multi-concept bank from the selected prepared family
+  ---
+  duration_ms: 1.5104
+  ...
+# Subtest: readiness groups deduplicate requirements while preserving every diagnostic and source of truth
+ok 4 - readiness groups deduplicate requirements while preserving every diagnostic and source of truth
+  ---
+  duration_ms: 0.7649
+  ...
+# Subtest: version conflicts point to publication without losing raw errors or inventing requirements
+ok 5 - version conflicts point to publication without losing raw errors or inventing requirements
+  ---
+  duration_ms: 0.2443
+  ...
+# (node:74504) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:74504) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/app/teacher/materials/import-draft.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# Subtest: material recovery retains original extraction, corrected and excluded passages, and retry identity
+ok 6 - material recovery retains original extraction, corrected and excluded passages, and retry identity
+  ---
+  duration_ms: 11.643
+  ...
+# Subtest: material recovery is separated by teacher, source document, and expected version
+ok 7 - material recovery is separated by teacher, source document, and expected version
+  ---
+  duration_ms: 0.2451
+  ...
+# Subtest: recovery rejects shuffled or missing passage identities and a lost preview receipt
+ok 8 - recovery rejects shuffled or missing passage identities and a lost preview receipt
+  ---
+  duration_ms: 1.4163
+  ...
+# Subtest: partial material recovery permits unfinished attribution and fails safely for damaged storage
+ok 9 - partial material recovery permits unfinished attribution and fails safely for damaged storage
+  ---
+  duration_ms: 0.7851
+  ...
+# (node:104764) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:104764) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/app/teacher/objectives/draft-recovery.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# Subtest: unfinished objective recovery preserves wording, stable IDs and original revision
+ok 10 - unfinished objective recovery preserves wording, stable IDs and original revision
+  ---
+  duration_ms: 6.1504
+  ...
+# Subtest: recovery refuses a different lesson or exact source version
+ok 11 - recovery refuses a different lesson or exact source version
+  ---
+  duration_ms: 0.541
+  ...
+# Subtest: corrupt, oversized and server-owned recovery fields are rejected
+ok 12 - corrupt, oversized and server-owned recovery fields are rejected
+  ---
+  duration_ms: 0.5076
+  ...
+# Subtest: source handoff selects only an available approved exact version
+ok 13 - source handoff selects only an available approved exact version
+  ---
+  duration_ms: 0.3948
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 349.1992

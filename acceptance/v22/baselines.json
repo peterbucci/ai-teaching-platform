@@ -1,0 +1,127 @@
+{
+  "observedAt": "2026-10-25T04:09:19Z",
+  "baselines": [
+    {
+      "target": 113,
+      "sha": "2b490863cc6de69a7659f1df1e4628bc22dd7d9a",
+      "branch": "codex/show-answer-result",
+      "base": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "draft": true,
+      "updatedAt": "2026-10-25T03:40:58Z"
+    },
+    {
+      "target": 116,
+      "sha": "76b11ddfa0ce784f70290c0746efd94c7042f6fc",
+      "branch": "codex/teacher-workbench-slice",
+      "base": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "draft": true,
+      "updatedAt": "2026-10-25T03:54:08Z"
+    },
+    {
+      "target": 117,
+      "sha": "6f9dd8991abef5efa8108e50b2274dc3bdc13ce6",
+      "branch": "codex/workbench-assignments",
+      "base": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "draft": true,
+      "updatedAt": "2026-10-25T03:16:43Z"
+    },
+    {
+      "target": 118,
+      "sha": "d2dca515b1a926daf28e791044fe04d01bdf20a9",
+      "branch": "codex/workbench-lessons",
+      "base": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "draft": true,
+      "updatedAt": "2026-10-25T03:22:16Z"
+    },
+    {
+      "target": "main",
+      "sha": "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+      "branch": "main"
+    }
+  ],
+  "combination": {
+    "sha": "eba2fba3eee223bb43c0eea5fe197e9569285ea9",
+    "tree": "016e8aeebd3b1f584cc7bd5a1036afcfeb8eac5c",
+    "mergeOrder": [
+      116,
+      117,
+      118,
+      113
+    ],
+    "conflicts": []
+  },
+  "branchChecks": [
+    {
+      "pr": 113,
+      "sha": "2b490863cc6de69a7659f1df1e4628bc22dd7d9a",
+      "checks": [
+        {
+          "name": "intervention-approval",
+          "conclusion": "success",
+          "detailsUrl": "https://github.com/peterbucci/ai-teaching-platform/actions/runs/40010626843/job/120609766206",
+          "completedAt": "2026-10-23T19:22:10Z"
+        },
+        {
+          "name": "quality",
+          "conclusion": "success",
+          "detailsUrl": "https://github.com/peterbucci/ai-teaching-platform/actions/runs/40010626843/job/120609765897",
+          "completedAt": "2026-10-23T19:28:44Z"
+        }
+      ]
+    },
+    {
+      "pr": 116,
+      "sha": "76b11ddfa0ce784f70290c0746efd94c7042f6fc",
+      "checks": [
+        {
+          "name": "quality",
+          "conclusion": "success",
+          "detailsUrl": "https://github.com/peterbucci/ai-teaching-platform/actions/runs/40159267530/job/121067188281",
+          "completedAt": "2026-10-25T03:52:06Z"
+        },
+        {
+          "name": "intervention-approval",
+          "conclusion": "success",
+          "detailsUrl": "https://github.com/peterbucci/ai-teaching-platform/actions/runs/40159267530/job/121067188140",
+          "completedAt": "2026-10-25T03:45:25Z"
+        }
+      ]
+    },
+    {
+      "pr": 117,
+      "sha": "6f9dd8991abef5efa8108e50b2274dc3bdc13ce6",
+      "checks": [
+        {
+          "name": "quality",
+          "conclusion": "success",
+          "detailsUrl": "https://github.com/peterbucci/ai-teaching-platform/actions/runs/40157619734/job/121062266949",
+          "completedAt": "2026-10-25T03:24:22Z"
+        },
+        {
+          "name": "intervention-approval",
+          "conclusion": "success",
+          "detailsUrl": "https://github.com/peterbucci/ai-teaching-platform/actions/runs/40157619734/job/121062266865",
+          "completedAt": "2026-10-25T03:18:30Z"
+        }
+      ]
+    },
+    {
+      "pr": 118,
+      "sha": "d2dca515b1a926daf28e791044fe04d01bdf20a9",
+      "checks": [
+        {
+          "name": "quality",
+          "conclusion": "success",
+          "detailsUrl": "https://github.com/peterbucci/ai-teaching-platform/actions/runs/40157960293/job/121063285193",
+          "completedAt": "2026-10-25T03:29:18Z"
+        },
+        {
+          "name": "intervention-approval",
+          "conclusion": "success",
+          "detailsUrl": "https://github.com/peterbucci/ai-teaching-platform/actions/runs/40157960293/job/121063284576",
+          "completedAt": "2026-10-25T03:23:59Z"
+        }
+      ]
+    }
+  ]
+}

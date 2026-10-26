@@ -1,0 +1,241 @@
+{
+  "teacher": [
+    {
+      "url": "http://localhost:3350/api/teacher/lessons/d1468c98-b268-4566-9301-114be6f836da/assignments",
+      "status": 200,
+      "body": {
+        "id": "ebc4eb03-22ba-409b-b1c4-10bc54a86967",
+        "class_id": "20000000-0000-4000-8000-000000000001",
+        "lesson_id": "d1468c98-b268-4566-9301-114be6f836da",
+        "lesson_version": "1"
+      }
+    },
+    {
+      "url": "http://localhost:3350/api/teacher/assignments/ebc4eb03-22ba-409b-b1c4-10bc54a86967/approval",
+      "status": 200,
+      "body": {
+        "http_status": 200
+      }
+    },
+    {
+      "url": "http://localhost:3350/api/teacher/lessons/d1468c98-b268-4566-9301-114be6f836da/versions",
+      "status": 200,
+      "body": {
+        "lesson_id": "d1468c98-b268-4566-9301-114be6f836da",
+        "version": "2",
+        "revision": 7
+      }
+    }
+  ],
+  "student": [
+    {
+      "url": "http://localhost:3350/api/tutoring",
+      "status": 200,
+      "body": {
+        "session": {
+          "id": "07c3336c-108a-4e79-bca3-02c382b3756a",
+          "status": "active",
+          "started_at": "2026-10-25T06:05:25.325Z",
+          "ended_at": null
+        },
+        "attempts": [
+          {
+            "id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+            "sequence_index": 0,
+            "intent": "initial_retrieval",
+            "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+            "concept_ids": [
+              "94d2ba56-7792-499e-a7d1-57849660864d"
+            ],
+            "presented_at": "2026-10-25T06:05:25.331Z",
+            "submitted_at": null,
+            "response_text": null
+          }
+        ],
+        "interventions": [],
+        "pending_reading": null,
+        "progress": {
+          "phase": "answer",
+          "current_attempt_id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+          "failed_evaluation_id": null,
+          "retry_allowed": false,
+          "retry_after": null,
+          "message": "Explain your thinking in your own words.",
+          "next_review_at": null
+        },
+        "citations": []
+      }
+    }
+  ],
+  "session_before": {
+    "session": {
+      "id": "07c3336c-108a-4e79-bca3-02c382b3756a",
+      "status": "active",
+      "started_at": "2026-10-25T06:05:25.325Z",
+      "ended_at": null
+    },
+    "attempts": [
+      {
+        "id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+        "sequence_index": 0,
+        "intent": "initial_retrieval",
+        "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+        "concept_ids": [
+          "94d2ba56-7792-499e-a7d1-57849660864d"
+        ],
+        "presented_at": "2026-10-25T06:05:25.331Z",
+        "submitted_at": null,
+        "response_text": null
+      }
+    ],
+    "interventions": [],
+    "pending_reading": null,
+    "progress": {
+      "phase": "answer",
+      "current_attempt_id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+      "failed_evaluation_id": null,
+      "retry_allowed": false,
+      "retry_after": null,
+      "message": "Explain your thinking in your own words.",
+      "next_review_at": null
+    },
+    "citations": []
+  },
+  "session_after": {
+    "session": {
+      "id": "07c3336c-108a-4e79-bca3-02c382b3756a",
+      "status": "active",
+      "started_at": "2026-10-25T06:05:25.325Z",
+      "ended_at": null
+    },
+    "attempts": [
+      {
+        "id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+        "sequence_index": 0,
+        "intent": "initial_retrieval",
+        "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+        "concept_ids": [
+          "94d2ba56-7792-499e-a7d1-57849660864d"
+        ],
+        "presented_at": "2026-10-25T06:05:25.331Z",
+        "submitted_at": null,
+        "response_text": null
+      }
+    ],
+    "interventions": [],
+    "pending_reading": null,
+    "progress": {
+      "phase": "answer",
+      "current_attempt_id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+      "failed_evaluation_id": null,
+      "retry_allowed": false,
+      "retry_after": null,
+      "message": "Explain your thinking in your own words.",
+      "next_review_at": null
+    },
+    "citations": []
+  },
+  "help_fallback": {
+    "session": {
+      "session": {
+        "id": "07c3336c-108a-4e79-bca3-02c382b3756a",
+        "status": "active",
+        "started_at": "2026-10-25T06:05:25.325Z",
+        "ended_at": null
+      },
+      "attempts": [
+        {
+          "id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+          "sequence_index": 0,
+          "intent": "initial_retrieval",
+          "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+          "concept_ids": [
+            "94d2ba56-7792-499e-a7d1-57849660864d"
+          ],
+          "presented_at": "2026-10-25T06:05:25.331Z",
+          "submitted_at": null,
+          "response_text": null
+        }
+      ],
+      "interventions": [],
+      "pending_reading": null,
+      "progress": {
+        "phase": "answer",
+        "current_attempt_id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+        "failed_evaluation_id": null,
+        "retry_allowed": false,
+        "retry_after": null,
+        "message": "Explain your thinking in your own words.",
+        "next_review_at": null
+      },
+      "citations": []
+    },
+    "conversation": {
+      "dialogue": {
+        "state": {
+          "version": "r7-v1",
+          "revision": 0,
+          "lesson": {
+            "session_id": "07c3336c-108a-4e79-bca3-02c382b3756a",
+            "assignment_id": "ebc4eb03-22ba-409b-b1c4-10bc54a86967",
+            "attempt_id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+            "root_attempt_id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+            "sequence_index": 0,
+            "content_ref": {
+              "source_kind": "uploaded",
+              "source_id": "48bae4f7-63a2-4876-bc6d-b5b2d99a6b9f",
+              "source_version": 1,
+              "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+              "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+              "attribution": {
+                "title": "Water changing state · verification 1792908096868",
+                "authors": [
+                  "Fictional acceptance teacher"
+                ],
+                "copyright": "2026 fictional acceptance fixture",
+                "section": "Imported source",
+                "url": null,
+                "license": "Original synthetic material; permitted for this test",
+                "license_url": null,
+                "cautions": []
+              },
+              "access_scope": {
+                "teacher_id": "10000000-0000-4000-8000-000000000001"
+              },
+              "package_id": "d1468c98-b268-4566-9301-114be6f836da",
+              "content_version": "1"
+            }
+          },
+          "progress": {
+            "phase": "answer",
+            "current_attempt_id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+            "failed_evaluation_id": null,
+            "retry_allowed": false,
+            "retry_after": null,
+            "message": "Your saved conversation and lesson.",
+            "next_review_at": null
+          },
+          "enabled": true,
+          "active_request_id": null,
+          "turns_used": 1,
+          "provider_requests_used": 0
+        },
+        "turns": []
+      },
+      "messages": [
+        {
+          "request_id": "9bfbd2a9-9eaa-485d-acf4-bc118321765b",
+          "attempt_id": "280d524b-0b14-41df-a287-3e29bfdd5646",
+          "expected_revision": 0,
+          "text": "What does water vapor mean in the reading?",
+          "classification": "AMBIGUOUS",
+          "outcome": {
+            "status": "fallback",
+            "reason": "disabled",
+            "text": "Extra tutor help is unavailable. You can continue your lesson or open the reading."
+          }
+        }
+      ]
+    }
+  }
+}

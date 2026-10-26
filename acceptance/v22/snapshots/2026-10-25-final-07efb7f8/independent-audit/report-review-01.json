@@ -1,0 +1,72 @@
+{
+  "reviewedAt": "2026-10-25T17:15:46.1420226Z",
+  "status": "no-material-false-pass-found-at-stated-cutoff; wording-and-fixture-boundary-corrections-recommended",
+  "application": "07efb7f821339538800f150f57b298eb2e606be3",
+  "reportsAtReviewCompletion": [
+    {
+      "file": "report-drafts/END_TO_END_EVIDENCE.md",
+      "sha256": "de9776d983d952cb0363028781fae73a2cf55b8e768a185b9bd7b63cd5725919"
+    },
+    {
+      "file": "report-drafts/ACCESSIBILITY_RECOVERY.md",
+      "sha256": "b2fb1e6981d9c3a6c0094a2ec84dce85b094f41d06d23de3e5f5c97b6cca8944"
+    },
+    {
+      "file": "report-drafts/DEFECTS.md",
+      "sha256": "1224193f652d0e4a59e3550ca1edf1d59d50a8068e921918c12d98f18c7afaca"
+    },
+    {
+      "file": "report-drafts/FUNCTIONAL_REPORT.md",
+      "sha256": "8f8d9cf3c74048f1f9fcbc2ed45daa5040f7089c84a6a1ad82bca4fbb8cba368"
+    },
+    {
+      "file": "report-drafts/INTEGRATION_MATRIX.md",
+      "sha256": "39592825db5b36e9462892a292b7c5edf08331c9b0d843d77213988fd2094ded"
+    }
+  ],
+  "scope": "Read-only local artifacts/source and one original screenshot; no runtime, database, browser automation or application edits",
+  "confirmed": [
+    "Original authored journey no-help assistance snapshot: none_recorded, empty intervention IDs, no displayed-help timestamp",
+    "Actual initial help requests did not submit or grade an answer",
+    "Separate long-response student 8f958f8f-dd69-49b3-9e96-9c9c12a8872e / session c6d05c9a-6af6-40b3-a487-f91ec5d3ee75 had later displayed-reading intervention f10bcd56-20d6-410b-9085-c59358c955ea; not retroactive original-answer assistance",
+    "Real original and diagnostic browser submission receipts plus authorized GETs prove persisted records; latest accepted diagnostic result is not original incorrect result",
+    "Original result/derived-outcome evaluator failure retained and read-only reconciliation did not replay controller",
+    "632 native unit tests, 27 colocated tests, 293 content checks and 178 integration check/preflight receipts match counts",
+    "R01/R02 displayed return failures match teacher-recovery-01 while native URL restoration passes",
+    "Teacher recovery 13 passed / 2 unrun matches raw receipt; native Emphasis popup independently viewed at 1440 × 1000 and visibly unclipped",
+    "Six student core cases and five-pass/one-unrun recovery accounting match receipts",
+    "Independent tree, commit and six recorded ownership scopes match matrix"
+  ],
+  "recommendations": [
+    {
+      "severity": "clarity",
+      "document": "END_TO_END_EVIDENCE.md",
+      "phrase": "original student session remain unchanged",
+      "change": "Say session remains pinned to published version 1; its progress legitimately changes later"
+    },
+    {
+      "severity": "accuracy",
+      "document": "DEFECTS.md",
+      "phrase": "All seven page/source ownership preservation audits pass",
+      "change": "Use all recorded ownership preservation comparisons; preservation.json contains six ownerScopes"
+    },
+    {
+      "severity": "clarity",
+      "document": "DEFECTS.md",
+      "phrase": "Roster/Insights/Patterns files supporting R04-R06",
+      "change": "Associate inherited byte-identical files with R05-R06 explicitly; Overview changed in PR #116"
+    },
+    {
+      "severity": "evidence-boundary",
+      "document": "FUNCTIONAL_REPORT.md / ACCESSIBILITY_RECOVERY.md",
+      "phrase": "No saved timestamp altered",
+      "change": "Distinguish no backdating/expiry/quota bypass from ordinary synthetic fixture setup. check-assignments.ts lines 194–197 directly constructs completed synthetic session with ended_at now; its service pass is not browser completion proof"
+    }
+  ],
+  "persistenceLimits": [
+    "Earlier service-fixture restart/durability checks do not prove later connected journey IDs survived a restart",
+    "Separate nonzero reading receipt is after a saved answer in another student account; it does not establish content help before the original authored answer",
+    "Pending intervention steps and final blocker/native-zoom/gallery placeholders intentionally not flagged before finalization"
+  ],
+  "artifactsUnmodified": true
+}

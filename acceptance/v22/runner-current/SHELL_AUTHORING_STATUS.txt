@@ -1,0 +1,25 @@
+Prepared shell authoring browser verifier — October 25, 2026
+
+Runtime execution: UNRUN. No browser, Docker or database action was performed while preparing this utility. Syntax validation and formatting passed.
+
+Prepared utility: shell-authoring-browser.mjs
+Current helper hashes and original-copy lineage are recorded in CURRENT_HELPERS.json and COPY_PROVENANCE.json.
+Application commit: e6126016c9b4ec2b479d252ff45e4e16a6a633f7
+Application tree: fc9dd9f5db5e0843a6d46327df6be1e631dada94
+Expected isolated runtime: target shell, project lp-v22-shell5, loopback port 3350.
+
+The utility checks exact manifest/source identity, tracked application cleanliness, explicitly empty provider configuration and local origin before browser startup. Both actor contexts block off-origin requests. It creates new fictional material through actual UI controls, preserves separate objective/question-bank/lesson approval, publication, inactive assignment creation and activation, and reports nonzero failure with stage and partial evidence. Existing reports cannot be overwritten.
+
+Adapted controls from committed #118/#117/#120 source:
+- Persistent source/lesson outline uses Start a lesson from version 1 and All questions.
+- Question editor uses Private marking guide and Source references details, persistent Add a question, Student preview/Return to editor and Review question bank controls.
+- Sequence links into the persistent Approve, publish and assign section; approval and publication remain separate actions on that page.
+- Published lesson's generic Assignments link is recorded as observed. The script then enters New assignment and deliberately selects the exact published lesson/version in #117's builder. This is explicit user selection, not proof that the generic link correctly carries context (C5 remains).
+- Version-preservation checks use the actual saved revisions and exact session/content-reference comparisons, rather than the removed numbered-stage labels.
+
+Continuation contract
+The report includes target/project/origin/sourceSha/sourceTree; source_id/source_version; lesson_id/published_version/content_ref; assignment_id/class_id; student_session_id/student_id/presented_attempt_id; and original_response with exact whitespace. functional_completed_through becomes teacher-original-evidence only after the same teacher browser inspects the original response and its capture succeeds. Failure before that point leaves the marker null.
+
+The scripted response has no accepted model evaluation with providers disabled. A later supplemental synthetic evaluation/intervention fixture must be explicitly identified as such. This script alone does not claim intervention approval, delivery, student completion or linked follow-up. Actual-model and screen-reader verification remain unrun.
+
+Fixture density is disclosed: one original water-state source, one objective and four manual questions. Screenshot dimensions match the required four viewports; the fixture does not pretend to reproduce prototype counts.

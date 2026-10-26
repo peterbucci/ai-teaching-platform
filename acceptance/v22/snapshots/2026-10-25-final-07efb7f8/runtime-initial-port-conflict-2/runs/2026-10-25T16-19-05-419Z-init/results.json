@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "mode": "init",
+  "runCompleted": true,
+  "finishedAt": "2026-10-25T16:19:08.475Z",
+  "target": "shell",
+  "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+  "harness": {
+    "version": "workbench-v22-final-integration-01a173d6-v1",
+    "sha256": "319cd24ede4251729be9d4e87a8fc9f4c80c75d3f89952eaffe7ba6c6a5f8273",
+    "authoringTestsSha256": "30693ed1cc75f93cde5e0c579b6bf56042832c3a6bcd120d1f1d17ac3770f372",
+    "storageGuard": {
+      "pullRequest": "https://github.com/peterbucci/ai-teaching-platform/pull/121",
+      "commit": "fe8323ae8406e4d6415e4486849317fb48a91821",
+      "sha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+      "testsSha256": "819efd0de539780581236109fcbe72cde23352748942c77c80392eb235dd30d3",
+      "revision": "reviewed-PR121-byte-identical-copy"
+    },
+    "adaptedFrom": "acceptance/runner.mjs inspected 2026-10-25",
+    "upstreamSha256": "3181f4d04e9c050ae67dbffc94739911ab079345e701f3afa2b14be37b9c611d",
+    "ignoredSourceAllowlist": [
+      "node_modules/",
+      ".next/",
+      "next-env.d.ts",
+      "*.tsbuildinfo"
+    ]
+  },
+  "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+  "project": "lp-v22-final-01a173d6",
+  "origin": "http://localhost:3366",
+  "manifest": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final\\manifest.json",
+  "fixture": "isolated fictional acceptance configuration",
+  "paidModelCallsAuthorized": false,
+  "dependencies": "application image",
+  "verificationLevel": "separate repository suites on the exact pinned application snapshot",
+  "combinedBrowserJourney": "unrun; separate passing suites do not prove one connected browser journey",
+  "checks": [
+    {
+      "name": "preflight:initialize-fresh-project",
+      "category": "host disk, Docker health and backing-storage safety",
+      "status": "pass",
+      "observedAt": "2026-10-25T16:19:05.808Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "availableBytes": 45671833600,
+          "availableGiB": 42.53520965576172,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "availableBytes": 45671833600,
+          "availableGiB": 42.53520965576172,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 45671833600,
+          "availableGiB": 42.53520965576172,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "learningplatform-db-1",
+          "source": "/var/lib/docker/volumes/learningplatform_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 899316740096,
+          "availableGiB": 837.5539817810059,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 45670989824,
+            "availableGiB": 42.534423828125,
+            "minimumGiB": 20,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    }
+  ],
+  "safetyPolicy": {
+    "buildMinimumGiB": 20,
+    "runtimeMinimumGiB": 10,
+    "sharedLock": "C:\\Users\\sb128\\AppData\\Local\\learning-pulse-acceptance.lock"
+  },
+  "stoppedAfterFailure": false,
+  "result": "pass",
+  "limitations": [
+    "No hosted release verification",
+    "No fresh or historical actual-model claim",
+    "Browser/accessibility evidence is recorded separately",
+    "Real model calls and screen-reader verification remain unrun",
+    "Storage thresholds cannot guarantee headroom against concurrent unguarded clients or one command exhausting storage",
+    "The shared lock covers guarded runners only; browser utilities and other Docker clients require explicit coordinator scheduling"
+  ]
+}

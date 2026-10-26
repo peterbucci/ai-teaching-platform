@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  /><title>Workbench — actual prototype / main / combined captures</title
+  ><style>
+    body {
+      margin: 0;
+      font:
+        15px/1.5 system-ui,
+        sans-serif;
+      background: #edf1ef;
+      color: #18302b;
+    }
+    header {
+      padding: 20px 24px;
+      background: white;
+      border-bottom: 1px solid #ccd8d1;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    h1 {
+      font-size: 22px;
+      margin: 0 0 8px;
+    }
+    p {
+      margin: 6px 0;
+    }
+    label {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      margin: 10px 20px 0 0;
+    }
+    select {
+      padding: 8px;
+      font: inherit;
+    }
+    main {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(240px, 1fr));
+      gap: 18px;
+      padding: 24px;
+      align-items: start;
+    }
+    figure {
+      margin: 0;
+      min-width: 0;
+      background: white;
+      border: 1px solid #ccd8d1;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    figcaption {
+      padding: 14px;
+      min-height: 145px;
+    }
+    h2 {
+      font-size: 18px;
+      margin: 0 0 6px;
+    }
+    small {
+      display: block;
+      overflow-wrap: anywhere;
+      color: #456055;
+    }
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-top: 1px solid #ccd8d1;
+    }
+    a {
+      color: #176d58;
+    }
+    #note {
+      color: #765519;
+    }
+    footer {
+      padding: 0 24px 24px;
+    }
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+      figcaption {
+        min-height: 0;
+      }
+    }
+  </style>
+  <header>
+    <h1>
+      Actual screenshot comparison — Workbench v2.2 / final combined snapshot
+    </h1>
+    <p>
+      Main, first combined and final combined were captured with the default
+      fictional seed. All final screenshots are actual captures from the pinned
+      production build. The prototype uses richer, different synthetic data; its
+      density is not a pixel-equivalent fixture.
+    </p>
+    <label
+      >Surface
+      <select id="surface">
+        <option value="desk">Overview / Teaching Desk</option>
+        <option value="assignments">Assignment browse / review</option>
+        <option value="assignment-selected">
+          Selected inactive assignment
+        </option>
+        <option value="lessons">Lessons library</option>
+        <option value="evidence-concern">Concept evidence</option>
+        <option value="evidence-original-answer">
+          Original student answer
+        </option>
+        <option value="interventions">Interventions</option>
+      </select></label
+    ><label
+      >CSS viewport
+      <select id="size">
+        <option>1440x1000</option>
+        <option>1024x768</option>
+        <option>390x844</option>
+        <option>320x844</option>
+      </select></label
+    >
+    <p id="note"></p>
+  </header>
+  <main id="images"></main>
+  <footer>
+    These are unchanged PNG screenshots linked to their full-resolution files.
+    No screenshot pixels or prototype contents were edited.
+    <a href="FINAL_ACCEPTANCE_REPORT.md">Read measured differences and limits</a
+    >.
+  </footer>
+  <script>
+    const mapping = {
+      desk: [
+        "overview",
+        "desk",
+        "desk",
+        "Whole-course prototype overview versus selected-class implementation dashboard. Compare shell and information hierarchy; counts differ.",
+      ],
+      assignments: [
+        "assignments",
+        "assignments",
+        "assignments",
+        "Prototype groups lesson → published version → class assignments. Implementation seed has one inactive assignment; row-count density differs.",
+      ],
+      "assignment-selected": [
+        "assignment-inactive-section-c",
+        "assignment-selected",
+        "assignment-selected",
+        "Inactive assignment reference. Prototype Section C has twelve students; implementation fixture has three. Final capture explicitly requests progress; earlier implementation snapshots show default review. These are distinct routes/states.",
+      ],
+      lessons: [
+        "lessons",
+        "lessons",
+        "lessons",
+        "Prototype has three lessons/materials. All implementation default snapshots have an empty authoring library. This is fixture non-equivalence, not proof of a missing feature.",
+      ],
+      "evidence-concern": [
+        "evidence-concern",
+        "insights-concept",
+        "evidence-concern",
+        "Prototype concern aggregate, legacy main Learning insights, and new response-led Evidence are different screens. Compare navigation/geometry; do not claim a like-for-like concern density match.",
+      ],
+      "evidence-original-answer": [
+        "evidence-original-answer",
+        "original-session",
+        "evidence-original-answer",
+        "Original answer task: prototype Maya Chen, main anchored session evaluation, combined selected Student One response. Main and combined share exact seeded answer; routes/layouts differ.",
+      ],
+      interventions: [
+        "intervention-approved",
+        "interventions",
+        "interventions",
+        "Prototype has an approved undelivered activity; seeded implementations have no intervention. Compare surrounding shell only; populated workflow equivalence remains unverified.",
+      ],
+    };
+    const columns = [
+      {
+        title: "Design authority — exported prototype",
+        sha: "HTML c853369da1250adf24a741a38c3d94d3c97a976c012c352732cf4dd8d924cb54",
+        dir: "../prototype-verification/screenshots/",
+      },
+      {
+        title: "Before — current main",
+        sha: "723ed6fea41138b604a9d333ebcd4a07b2202c36",
+        dir: "../implementation-verification/screenshots-main/",
+      },
+      {
+        title: "First combined — before shared shell",
+        sha: "eba2fba3eee223bb43c0eea5fe197e9569285ea9",
+        dir: "../implementation-verification/screenshots-completed/",
+      },
+      {
+        title: "Final combined — actual default captures",
+        sha: "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+        dir: "screenshots-default/",
+      },
+    ];
+    function render() {
+      const row = mapping[document.querySelector("#surface").value],
+        size = document.querySelector("#size").value;
+      document.querySelector("#note").textContent = row[3];
+      const host = document.querySelector("#images");
+      host.replaceChildren();
+      columns.forEach((c, i) => {
+        const figure = document.createElement("figure"),
+          cap = document.createElement("figcaption"),
+          h = document.createElement("h2"),
+          s = document.createElement("small"),
+          link = document.createElement("a"),
+          img = document.createElement("img");
+        h.textContent = c.title;
+        s.textContent = c.sha;
+        const file = c.dir + row[i === 3 ? 2 : i] + "-" + size + ".png";
+        link.href = file;
+        link.textContent = "Open full-resolution screenshot · " + size;
+        cap.append(h, s, link);
+        img.src = file;
+        img.onerror = () => {
+          const note = document.createElement("p");
+          note.textContent =
+            "Capture not available yet; no acceptance result claimed.";
+          note.style.padding = "14px";
+          img.replaceWith(note);
+        };
+        img.alt =
+          c.title +
+          " " +
+          document.querySelector("#surface").selectedOptions[0].textContent +
+          " " +
+          size;
+        figure.append(cap, img);
+        host.append(figure);
+      });
+    }
+    document
+      .querySelectorAll("select")
+      .forEach((s) => s.addEventListener("change", render));
+    render();
+  </script>
+</html>

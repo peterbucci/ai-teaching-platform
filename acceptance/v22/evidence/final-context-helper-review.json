@@ -1,0 +1,15 @@
+{
+  "reviewedAt": "2026-10-25T05:56:42.2290086Z",
+  "sourceSha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "sourceTree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "helper": "intervention-continuation-browser.mjs",
+  "helperSha256": "dad71d0bdfe53da13989961d695895cfe7c029389c7fe0825bcbdb6e1ba678f7",
+  "scope": "Static review of added context-checks and curated-activation phases only; existing journey branches unchanged.",
+  "finding": "No consequential blocker found in this delta.",
+  "observations": [
+    "C3 expected scope derives from an authorized persisted draft and checks conflicting URL, both rendered shell hrefs, actual followed Evidence and unchanged stored draft.",
+    "C4 no rendered Evidence destination is unreachable, excluded from pass count; it is not proof of search isolation.",
+    "Curated review uses normal explicit checkbox and review_token approval/activation POST, preserves exact content_ref, and records already-active separately."
+  ],
+  "runtime": "unrun"
+}

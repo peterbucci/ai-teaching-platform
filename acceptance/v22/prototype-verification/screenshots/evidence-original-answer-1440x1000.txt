@@ -1,0 +1,183 @@
+Learning Pulse
+NET 210 · Fall 2026
+Overview
+Assignments
+Lessons
+Find
+PROTOTYPE
+JR
+Jamie Rivera
+Instructor
+ASSIGNMENT
+Section A · Bandwidth and Latency, v3
+Active
+16 of 18 students have answered · 68 answers
+Progress
+Student work
+Interventions
+1
+Roster
+Your path
+Concern: Cable length and transmission delay
+›
+Maya’s first answer · Oct 20
+Link
+Concerns
+All answers
+By idea
+
+A concern is a difficulty that several answers suggest. Most evidence first.
+
+Transmission delay attributed to cable length
+Transmission delay · 6 of 15 students
+3 repeated in a follow-up · 1 suggested, not yet checked · 1 unclear · 1 contradicted by a follow-up
+No intervention yet
+Return trip assumed equal to outward trip
+Latency & RTT · 3 of 9 students
+2 repeated in a follow-up · 1 contradicted by a follow-up
+Delivered
+Queue wait treated as transmission
+Queuing delay · 1 of 13 students
+1 repeated in a follow-up
+Approved · not delivered
+Available rate treated as guaranteed throughput
+Bandwidth & throughput · 1 of 4 students
+1 repeated in a follow-up
+Private draft
+Signal speed tied to link data rate
+Propagation delay · 1 of 15 students
+1 suggested, not yet checked
+No intervention yet
+Uncategorized responses to review
+Propagation delay · 1 of 15 students
+1 unclear
+Needs your reading
+
+‹ Back to the concern: Cable length and transmission delay
+
+ANSWER · SECTION A
+
+Maya Chen’s first answer
+
+First answer
+Oct 20, 10:14 AM · Live test session
+
+Pick to compare
+Maya’s record
+Prepare an intervention on transmission delay
+Question in the lesson
+Question
+NP-TX-01 · First question
+
+A single cable becomes twice as long. Packet size, link transmission rate, and propagation speed stay unchanged. What happens to transmission delay and propagation delay? Explain why.
+
+Help shown before this answer
+No help shown before
+
+Only help shown in Learning Pulse is recorded. Help from anywhere else can’t be seen.
+
+Maya’s answer
+original words
+Both delays double. The bits have to travel twice as far, so it takes twice as long to send them and twice as long for them to arrive.
+
+Highlighted: the words the evaluation’s observation points to.
+
+Evaluation
+
+Incorrect
+Transmission delay
+First answer · no help shown
+
+Correct
+Propagation delay
+First answer · no help shown
+
+What the evaluator saw. Connects the cable’s length to the time needed to send the bits as well as to their travel time.
+
+Uncertainty. “Send” could mean the whole delivery rather than transmission delay specifically.
+
+Error type: Conceptual
+
+Concern
+
+Transmission delay attributed to cable length
+
+Suggested, not yet checked with a follow-up · linked by the evaluator
+
+Explicitly attributes sending time to the longer distance.
+
+Tutor’s next step
+
+Ask a diagnostic follow-up
+
+Recorded by the tutor; not a teacher decision.
+
+Later answers
+
+Maya’s answer to a follow-up question
+Oct 20, 10:19 AM
+
+Maya’s fresh check
+Oct 20, 10:27 AM
+
+Checks right after help show what a student can do then — not that it will last.
+
+Context
+for this answer
+
+Maya’s work on transmission delay and propagation delay in order, help included
+
+First answer · this answer
+10:14 AM
+
+Follow-up question
+10:19 AM
+
+Hint · P08
+10:22 AM
+
+Reading opened · P08
+10:23 AM
+
+Fresh check
+10:27 AM
+
+Reading this question uses
+
+P07 · Three components of latency
+
+We often think of latency as having three components. First, there is the speed-of-light propagation delay. … Second, there is the amount of time it takes to transmit a unit of data. This is a function of the network bandwidth and the size of the packet in which the data is carried. Third, there may be queuing delays inside the network.
+
+P08 · Latency = Propagation + Transmit + Queue
+
+Latency = Propagation + Transmit + Queue; Propagation = Distance / SpeedOfLight; Transmit = Size / Bandwidth — where Distance is the length of the wire over which the data will travel, SpeedOfLight is the effective speed of light over that wire, Size is the size of the packet, and Bandwidth is the bandwidth at which the packet is transmitted.
+
+P12 · Latency, delay and one-way vs round trip
+
+When we are referring to the specific amount of time it takes a signal to propagate from one end of a link to another, we use the term propagation delay. Also, we make it clear in the context of the discussion whether we are referring to the one-way latency or the round-trip time.
+
+Marking guide only you and the evaluator see this
+
+Point 1 Transmission delay Identifies packet size and transmission rate as the determinants of transmission delay.
+
+Point 2 Propagation delay Identifies cable length and propagation speed as the determinants of propagation delay.
+
+Model answer. Transmission delay is unchanged because it is packet size divided by transmission rate, both fixed. Propagation delay doubles because it is cable length divided by propagation speed.
+
+Partial credit. One correct effect with the other missing or wrong is partial. Both effects correct without explanation are partial and need a brief reasoning probe.
+
+Approved hint. Write each delay as a ratio. Which ratio contains cable length?
+
+How to read the marks
+
+Correct
+Partly correct
+Incorrect
+Uncertain
+Evaluation pending
+Evaluation failed
+Not answered
+amber underline: help shown before
+blue dots: reading only
+
+The same marks and colours students see in their own work.

@@ -1,0 +1,21 @@
+{
+  "createdAt": "2026-10-25T17:22:21.4965525Z",
+  "status": "prepared-not-executed",
+  "helper": "journey-persistence.mjs",
+  "sha256": "6a199269cdf2a575f01cbd04fcfb4a6c8238a900575a253996003cea7bd6ec26",
+  "syntax": "passed",
+  "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+  "guardSha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+  "reviewedSchema": [
+    "001_initial.sql evidence/session tables",
+    "006_lesson_registry.sql source and published/current lesson records",
+    "009_intervention_drafts.sql private draft/request journal",
+    "014_intervention_approval.sql approval/delivery/recipient/action journal",
+    "016_intervention_outcomes.sql follow-up and evaluation journal"
+  ],
+  "reviewedService": "lib/interventions/approval.ts records approved_revision from prior draft and increments terminal draft once",
+  "mutationScope": "Only exact verified private DB container restart, once; all record reads inside repeatable-read READ ONLY transaction",
+  "uncertainty": "Retain owned shared guard after dispatched restart failure; no replay/reseed/migration/app restart/cleanup",
+  "inputRequirement": "Completed exact same-record inspect-followup browser report with accepted injected follow-up"
+}

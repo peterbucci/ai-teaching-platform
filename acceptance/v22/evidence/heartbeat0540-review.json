@@ -1,0 +1,35 @@
+{
+  "date":"2026-10-25",
+  "scope":"read-only static latest delta assessment",
+  "runtime_executed":false,
+  "application_edits":false,
+  "existing_combination":"e6126016c9b4ec2b479d252ff45e4e16a6a633f7",
+  "recommendation":"Supersede before expensive build/runtime, while retaining existing exact-source offline results.",
+  "deltas":[
+    {
+      "pr":120,
+      "from":"a045defe11712b5c8f7ef88c7dae991ef9a33506",
+      "to":"dd7401edcabe80b8308da30431ae06f05f0f1a9b",
+      "direct_child":true,
+      "substantive_production_change":true,
+      "production_paths":["app/teacher/workspace-restoration.tsx"],
+      "total_files_changed":6,
+      "contract_changes":["Per-history-entry restoration identity","Same-URL popstate revision subscription","Page-owned restoration opt-out and Evidence recognition","Anonymous content controls clear stale focus","Guarded missing-token renewal and write-rejection fallback"],
+      "required_combined_checks":["Repeated identical-URL Back/Forward entries","Evidence list/window scroll and row/detail hash focus","Anonymous filter control after row focus","Reload and delayed Next route placement"],
+      "unchanged_findings":["S1","C2"],
+      "owner_component_evidence_is_combined_acceptance":false
+    },
+    {
+      "pr":113,
+      "from":"83114efdb2a5c7deb5238a0b28756429b1952b21",
+      "to":"71898a8a72908577065bcc7c7fb9035d6cc29ebf",
+      "direct_child":true,
+      "substantive_production_change":false,
+      "total_files_changed":50,
+      "changed_scope":"acceptance/student-blockers docs, screenshots and receipts only",
+      "new_helper_selector_changes_required":false
+    }
+  ],
+  "current_helper_action":"Preserve e612 pins until coordinator assigns a new combined commit/tree.",
+  "report":"heartbeat0540-review.txt"
+}

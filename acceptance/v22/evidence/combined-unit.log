@@ -1,0 +1,2043 @@
+
+> ai-teaching-platform@0.1.0 test
+> node --experimental-strip-types --conditions=react-server --test tests/*.test.ts
+
+(node:100276) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+TAP version 13
+# (node:44400) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:44400) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/bounded-request.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\api.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\bounded-request.test.ts
+not ok 1 - tests\\bounded-request.test.ts
+  ---
+  duration_ms: 653.2338
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\bounded-request.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:86400) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:86400) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/class-fixture.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\class-fixture.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\class-fixture.test.ts
+not ok 2 - tests\\class-fixture.test.ts
+  ---
+  duration_ms: 695.2847
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\class-fixture.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:37228) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:37228) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/conversation-transport.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\dialogue\\contracts.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\conversation-transport.test.ts
+not ok 3 - tests\\conversation-transport.test.ts
+  ---
+  duration_ms: 726.812
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\conversation-transport.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:85812) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:85812) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/conversation.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\content.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\conversation.test.ts
+not ok 4 - tests\\conversation.test.ts
+  ---
+  duration_ms: 726.3874
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\conversation.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:91640) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:91640) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/date-time.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# Subtest: local dates use supported browser zones and Eastern fallback for missing or invalid zones
+ok 5 - local dates use supported browser zones and Eastern fallback for missing or invalid zones
+  ---
+  duration_ms: 31.4065
+  ...
+# Subtest: assignment dates use the local calendar day near midnight without changing their timestamp
+ok 6 - assignment dates use the local calendar day near midnight without changing their timestamp
+  ---
+  duration_ms: 2.9054
+  ...
+# Subtest: saved work timestamps follow Eastern daylight saving rather than a fixed UTC offset
+ok 7 - saved work timestamps follow Eastern daylight saving rather than a fixed UTC offset
+  ---
+  duration_ms: 1.9687
+  ...
+# (node:87308) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:87308) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/demo-login.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\demo-login.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\demo-login.test.ts
+not ok 6 - tests\\demo-login.test.ts
+  ---
+  duration_ms: 637.3844
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\demo-login.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:86120) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:86120) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/dialogue-application.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\content.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\dialogue-application.test.ts
+not ok 7 - tests\\dialogue-application.test.ts
+  ---
+  duration_ms: 729.1043
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\dialogue-application.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:65764) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:65764) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/dialogue-controller-operation.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\content.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\dialogue-controller-operation.test.ts
+not ok 8 - tests\\dialogue-controller-operation.test.ts
+  ---
+  duration_ms: 812.7592
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\dialogue-controller-operation.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:61860) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\dialogue-model-provider.test.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\dialogue-model-provider.test.ts
+not ok 9 - tests\\dialogue-model-provider.test.ts
+  ---
+  duration_ms: 684.388
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\dialogue-model-provider.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:103916) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:103916) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/dialogue-preview.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\dialogue\\conversation.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\dialogue-preview.test.ts
+not ok 10 - tests\\dialogue-preview.test.ts
+  ---
+  duration_ms: 705.724
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\dialogue-preview.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:97788) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\dialogue-service.test.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\dialogue-service.test.ts
+not ok 11 - tests\\dialogue-service.test.ts
+  ---
+  duration_ms: 709.8144
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\dialogue-service.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:11504) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:11504) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/dialogue-view.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\content.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\dialogue-view.test.ts
+not ok 12 - tests\\dialogue-view.test.ts
+  ---
+  duration_ms: 723.1183
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\dialogue-view.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:14380) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:14380) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/dialogue.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\content.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\dialogue.test.ts
+not ok 13 - tests\\dialogue.test.ts
+  ---
+  duration_ms: 855.0272
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\dialogue.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:96688) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:96688) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/display-acknowledgement.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# Subtest: feedback waits for actual visibility and repeated observer events cannot duplicate a pending acknowledgment
+ok 16 - feedback waits for actual visibility and repeated observer events cannot duplicate a pending acknowledgment
+  ---
+  duration_ms: 3.3085
+  ...
+# Subtest: cleanup stops unissued acknowledgments and effect restarts share pending identities
+ok 17 - cleanup stops unissued acknowledgments and effect restarts share pending identities
+  ---
+  duration_ms: 0.438
+  ...
+# Subtest: a failed display save requires explicit retry and a late failure does not update unmounted UI
+ok 18 - a failed display save requires explicit retry and a late failure does not update unmounted UI
+  ---
+  duration_ms: 0.6142
+  ...
+# (node:97724) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\evaluation-provider.test.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\evaluation-provider.test.ts
+not ok 15 - tests\\evaluation-provider.test.ts
+  ---
+  duration_ms: 664.7013
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\evaluation-provider.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:69308) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:69308) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/evaluation-recovery.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\contracts.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\evaluation-recovery.test.ts
+not ok 16 - tests\\evaluation-recovery.test.ts
+  ---
+  duration_ms: 698.9334
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\evaluation-recovery.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:119348) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:119348) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/evaluation-result.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\content.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\evaluation-result.test.ts
+not ok 17 - tests\\evaluation-result.test.ts
+  ---
+  duration_ms: 917.4689
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\evaluation-result.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:57328) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:57328) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/evaluator-validation.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\contracts.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\evaluator-validation.test.ts
+not ok 18 - tests\\evaluator-validation.test.ts
+  ---
+  duration_ms: 953.5036
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\evaluator-validation.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:95096) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:95096) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/evidence.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\api.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\evidence.test.ts
+not ok 19 - tests\\evidence.test.ts
+  ---
+  duration_ms: 970.7536
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\evidence.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:82440) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:82440) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/generated-controller.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\content.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\generated-controller.test.ts
+not ok 20 - tests\\generated-controller.test.ts
+  ---
+  duration_ms: 1141.1416
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\generated-controller.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:122616) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\intervention-approval.test.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\intervention-approval.test.ts
+not ok 21 - tests\\intervention-approval.test.ts
+  ---
+  duration_ms: 855.4736
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\intervention-approval.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:67436) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'openai' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\intervention-generation.test.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\intervention-generation.test.ts
+not ok 22 - tests\\intervention-generation.test.ts
+  ---
+  duration_ms: 820.7768
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\intervention-generation.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:116272) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:116272) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/intervention-outcomes.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\content.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\intervention-outcomes.test.ts
+not ok 23 - tests\\intervention-outcomes.test.ts
+  ---
+  duration_ms: 959.4838
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\intervention-outcomes.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:25124) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\intervention-provider.test.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\intervention-provider.test.ts
+not ok 24 - tests\\intervention-provider.test.ts
+  ---
+  duration_ms: 788.8947
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\intervention-provider.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:44276) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:44276) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/lesson-assembly.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\lessons\\assemble.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\lesson-assembly.test.ts
+not ok 25 - tests\\lesson-assembly.test.ts
+  ---
+  duration_ms: 918.5625
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\lesson-assembly.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:104560) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:104560) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/lessons.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\contracts.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\lessons.test.ts
+not ok 26 - tests\\lessons.test.ts
+  ---
+  duration_ms: 834.1106
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\lessons.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:124992) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:124992) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/material-extraction.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\materials\\contracts.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\material-extraction.test.ts
+not ok 27 - tests\\material-extraction.test.ts
+  ---
+  duration_ms: 921.154
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\material-extraction.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:119156) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:119156) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/material-request.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\store.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\material-request.test.ts
+not ok 28 - tests\\material-request.test.ts
+  ---
+  duration_ms: 801.6747
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\material-request.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:94280) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\material-review.test.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\material-review.test.ts
+not ok 29 - tests\\material-review.test.ts
+  ---
+  duration_ms: 767.1346
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\material-review.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:89340) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:89340) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/metrics.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\content.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\metrics.test.ts
+not ok 30 - tests\\metrics.test.ts
+  ---
+  duration_ms: 831.2844
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\metrics.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:106200) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\objective-generation.test.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\objective-generation.test.ts
+not ok 31 - tests\\objective-generation.test.ts
+  ---
+  duration_ms: 762.6282
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\objective-generation.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:114192) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:114192) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/objective-http.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\store.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\objective-http.test.ts
+not ok 32 - tests\\objective-http.test.ts
+  ---
+  duration_ms: 769.9141
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\objective-http.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:95308) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:95308) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/objectives.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\lessons\\contracts.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\objectives.test.ts
+not ok 33 - tests\\objectives.test.ts
+  ---
+  duration_ms: 827.3744
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\objectives.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:60952) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:60952) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/orchestration.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\dialogue\\contracts.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\orchestration.test.ts
+not ok 34 - tests\\orchestration.test.ts
+  ---
+  duration_ms: 924.2351
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\orchestration.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:24660) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\packet-delay.test.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\packet-delay.test.ts
+not ok 35 - tests\\packet-delay.test.ts
+  ---
+  duration_ms: 734.5436
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\packet-delay.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:81724) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:81724) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/patterns.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\class-fixture.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\patterns.test.ts
+not ok 36 - tests\\patterns.test.ts
+  ---
+  duration_ms: 859.7336
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\patterns.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:112268) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:112268) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/question-bank-editor.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\contracts.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\question-bank-editor.test.ts
+not ok 37 - tests\\question-bank-editor.test.ts
+  ---
+  duration_ms: 844.1522
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\question-bank-editor.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:95112) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\question-bank-generation.test.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\question-bank-generation.test.ts
+not ok 38 - tests\\question-bank-generation.test.ts
+  ---
+  duration_ms: 780.4525
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\question-bank-generation.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:105260) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:105260) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/question-bank.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\lessons\\contracts.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\question-bank.test.ts
+not ok 39 - tests\\question-bank.test.ts
+  ---
+  duration_ms: 807.3898
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\question-bank.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:88524) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:88524) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/reading.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\content.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\reading.test.ts
+not ok 40 - tests\\reading.test.ts
+  ---
+  duration_ms: 791.0171
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\reading.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:114228) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:114228) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/speech.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\speech\\provider.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\speech.test.ts
+not ok 41 - tests\\speech.test.ts
+  ---
+  duration_ms: 706.2972
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\speech.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:63348) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:63348) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/student-assignments.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# Subtest: assignment categories preserve pending/support states and never infer assignment completion from topic counts
+ok 46 - assignment categories preserve pending/support states and never infer assignment completion from topic counts
+  ---
+  duration_ms: 2.0154
+  ...
+# Subtest: resume selects the newest unfinished saved session without hiding or changing other assignments
+ok 47 - resume selects the newest unfinished saved session without hiding or changing other assignments
+  ---
+  duration_ms: 4.1435
+  ...
+# Subtest: class and source filters keep distinct identities without dropping assignments that share reading
+ok 48 - class and source filters keep distinct identities without dropping assignments that share reading
+  ---
+  duration_ms: 33.0049
+  ...
+# Subtest: chapter filters include descendant sections but do not cross sources with matching chapter labels
+ok 49 - chapter filters include descendant sections but do not cross sources with matching chapter labels
+  ---
+  duration_ms: 1.5147
+  ...
+# Subtest: location identity includes ancestors and supports unnumbered sections
+ok 50 - location identity includes ancestors and supports unnumbered sections
+  ---
+  duration_ms: 0.549
+  ...
+# Subtest: articles and empty projections never invent chapters
+ok 51 - articles and empty projections never invent chapters
+  ---
+  duration_ms: 0.3125
+  ...
+# Subtest: scope normalization removes unavailable class, source, and chapter selections
+ok 52 - scope normalization removes unavailable class, source, and chapter selections
+  ---
+  duration_ms: 0.8147
+  ...
+# Subtest: assignment search trims input and matches actual titles, class, source, chapter, section, and approved topics
+ok 53 - assignment search trims input and matches actual titles, class, source, chapter, section, and approved topics
+  ---
+  duration_ms: 0.4171
+  ...
+# (node:110772) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:110772) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/student-dashboard.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\content.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\student-dashboard.test.ts
+not ok 43 - tests\\student-dashboard.test.ts
+  ---
+  duration_ms: 728.8357
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\student-dashboard.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:83336) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:83336) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/student-journal.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# Subtest: journal scopes distinguish classes and sources, retain sessions sharing a reading, and match chapter descendants
+ok 55 - journal scopes distinguish classes and sources, retain sessions sharing a reading, and match chapter descendants
+  ---
+  duration_ms: 35.304
+  ...
+# Subtest: journal categories preserve actual pending/support states without inferring completion from answers or reading
+ok 56 - journal categories preserve actual pending/support states without inferring completion from answers or reading
+  ---
+  duration_ms: 1.1663
+  ...
+# Subtest: journal date filters use exact rolling cutoffs and the actual session start
+ok 57 - journal date filters use exact rolling cutoffs and the actual session start
+  ---
+  duration_ms: 0.4851
+  ...
+# Subtest: journal search uses real assignment, class, source, hierarchy and submitted topics and handles empty sources
+ok 58 - journal search uses real assignment, class, source, hierarchy and submitted topics and handles empty sources
+  ---
+  duration_ms: 14.8083
+  ...
+# Subtest: journal month groups support explicit UTC and stable newest-first ordering without changing input
+ok 59 - journal month groups support explicit UTC and stable newest-first ordering without changing input
+  ---
+  duration_ms: 3.0166
+  ...
+# Subtest: journal month groups and displayed dates agree at a local month boundary
+ok 60 - journal month groups and displayed dates agree at a local month boundary
+  ---
+  duration_ms: 5.9537
+  ...
+# Subtest: journal Eastern fallback observes daylight saving and valid browser time zones
+ok 61 - journal Eastern fallback observes daylight saving and valid browser time zones
+  ---
+  duration_ms: 3.9691
+  ...
+# (node:39680) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:39680) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/student-practice-topics.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\content.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\student-practice-topics.test.ts
+not ok 45 - tests\\student-practice-topics.test.ts
+  ---
+  duration_ms: 689.6782
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\student-practice-topics.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:43124) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:43124) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/student-reader-presentation.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# Subtest: reading search matches authorized text and titles with useful excerpts
+ok 63 - reading search matches authorized text and titles with useful excerpts
+  ---
+  duration_ms: 3.0381
+  ...
+# Subtest: source navigation preserves real numbering and differentiates assigned excerpts
+ok 64 - source navigation preserves real numbering and differentiates assigned excerpts
+  ---
+  duration_ms: 1.4304
+  ...
+# Subtest: reader hides only standalone source-line references without altering prose or teaching notes
+ok 65 - reader hides only standalone source-line references without altering prose or teaching notes
+  ---
+  duration_ms: 0.2809
+  ...
+# Subtest: reading links retain the exact assignment, version, passage and optional session
+ok 66 - reading links retain the exact assignment, version, passage and optional session
+  ---
+  duration_ms: 0.8324
+  ...
+# (node:60744) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:60744) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/teacher-assignment-create.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\app\\teacher\\assignments\\create-model.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\teacher-assignment-create.test.ts
+not ok 47 - tests\\teacher-assignment-create.test.ts
+  ---
+  duration_ms: 633.288
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\teacher-assignment-create.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:96060) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:96060) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/teacher-assignment-preview.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\content.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\teacher-assignment-preview.test.ts
+not ok 48 - tests\\teacher-assignment-preview.test.ts
+  ---
+  duration_ms: 506.7528
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\teacher-assignment-preview.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:89212) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:89212) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/teacher-assignment-progress.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\content.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\teacher-assignment-progress.test.ts
+not ok 49 - tests\\teacher-assignment-progress.test.ts
+  ---
+  duration_ms: 489.1604
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\teacher-assignment-progress.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:119192) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:119192) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/teacher-assignment-workspace.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\app\\teacher\\assignments\\workspace-model.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\teacher-assignment-workspace.test.ts
+not ok 50 - tests\\teacher-assignment-workspace.test.ts
+  ---
+  duration_ms: 466.7143
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\teacher-assignment-workspace.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:103244) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:103244) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/teacher-evidence-selection.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\demo.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\teacher-evidence-selection.test.ts
+not ok 51 - tests\\teacher-evidence-selection.test.ts
+  ---
+  duration_ms: 500.7344
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\teacher-evidence-selection.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:103876) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:103876) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/teacher-intervention-assistance.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\demo.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\teacher-intervention-assistance.test.ts
+not ok 52 - tests\\teacher-intervention-assistance.test.ts
+  ---
+  duration_ms: 426.7515
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\teacher-intervention-assistance.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:80904) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:80904) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/teacher-intervention-direction-recovery.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\app\\teacher\\interventions\\direction-recovery.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\teacher-intervention-direction-recovery.test.ts
+not ok 53 - tests\\teacher-intervention-direction-recovery.test.ts
+  ---
+  duration_ms: 390.056
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\teacher-intervention-direction-recovery.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:42052) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:42052) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/teacher-intervention-evidence-navigation.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# Subtest: bookmarked or history-restored evidence hashes resolve only saved response identities
+ok 74 - bookmarked or history-restored evidence hashes resolve only saved response identities
+  ---
+  duration_ms: 2.0161
+  ...
+# Subtest: pane navigation resolves both headings without treating arbitrary hashes as evidence
+ok 75 - pane navigation resolves both headings without treating arbitrary hashes as evidence
+  ---
+  duration_ms: 0.3198
+  ...
+# Subtest: revealed response opens its detail before receiving focus and scrolling
+ok 76 - revealed response opens its detail before receiving focus and scrolling
+  ---
+  duration_ms: 2.5905
+  ...
+# Subtest: switching to a pane heading supports focus without requiring response details
+ok 77 - switching to a pane heading supports focus without requiring response details
+  ---
+  duration_ms: 0.3531
+  ...
+# (node:104040) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:104040) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/teacher-intervention-handoff.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\class-fixture.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\teacher-intervention-handoff.test.ts
+not ok 55 - tests\\teacher-intervention-handoff.test.ts
+  ---
+  duration_ms: 417.7334
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\teacher-intervention-handoff.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:100720) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:100720) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/teacher-intervention-snapshot-context.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\class-fixture.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\teacher-intervention-snapshot-context.test.ts
+not ok 56 - tests\\teacher-intervention-snapshot-context.test.ts
+  ---
+  duration_ms: 406.7875
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\teacher-intervention-snapshot-context.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:47192) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:47192) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/teacher-priorities.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\demo.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\teacher-priorities.test.ts
+not ok 57 - tests\\teacher-priorities.test.ts
+  ---
+  duration_ms: 371.1911
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\teacher-priorities.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:40844) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:40844) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/teacher-workspace-contracts.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\teacher\\workspace-contracts.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\teacher-workspace-contracts.test.ts
+not ok 58 - tests\\teacher-workspace-contracts.test.ts
+  ---
+  duration_ms: 303.8775
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\teacher-workspace-contracts.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:74220) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:74220) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/tutoring-completion.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\content.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\tutoring-completion.test.ts
+not ok 59 - tests\\tutoring-completion.test.ts
+  ---
+  duration_ms: 339.9223
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\tutoring-completion.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:112444) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\tutoring.test.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\tutoring.test.ts
+not ok 60 - tests\\tutoring.test.ts
+  ---
+  duration_ms: 325.4841
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\tutoring.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:127532) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\uploaded-evaluation.test.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\uploaded-evaluation.test.ts
+not ok 61 - tests\\uploaded-evaluation.test.ts
+  ---
+  duration_ms: 323.663
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\uploaded-evaluation.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:126592) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:126592) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/visual-contracts.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\visual\\contracts.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\visual-contracts.test.ts
+not ok 62 - tests\\visual-contracts.test.ts
+  ---
+  duration_ms: 424.3267
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\visual-contracts.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:49752) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:49752) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/visual-curated-compat.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'server-only' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\content.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\visual-curated-compat.test.ts
+not ok 63 - tests\\visual-curated-compat.test.ts
+  ---
+  duration_ms: 345.9181
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\visual-curated-compat.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:110056) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\visual-generation.test.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\visual-generation.test.ts
+not ok 64 - tests\\visual-generation.test.ts
+  ---
+  duration_ms: 357.4736
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\visual-generation.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:47940) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:47940) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/visual-lifecycle-tool.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\visual\\contracts.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\visual-lifecycle-tool.test.ts
+not ok 65 - tests\\visual-lifecycle-tool.test.ts
+  ---
+  duration_ms: 348.671
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\visual-lifecycle-tool.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:98260) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:98260) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/visual-packet.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\evidence\\contracts.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\visual-packet.test.ts
+not ok 66 - tests\\visual-packet.test.ts
+  ---
+  duration_ms: 359.2482
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\visual-packet.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# (node:84688) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:84688) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/workbench-integration-verification/LearningPlatform/tests/visual-player.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\package.json.
+# node:internal/modules/esm/resolve:857
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'zod' imported from C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\lib\\visual\\contracts.ts
+#     at packageResolve (node:internal/modules/esm/resolve:857:9)
+#     at moduleResolve (node:internal/modules/esm/resolve:926:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1056:11)
+#     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:654:12)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:603:25)
+#     at ModuleLoader.resolve (node:internal/modules/esm/loader:586:38)
+#     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:242:38)
+#     at ModuleJob._link (node:internal/modules/esm/module_job:135:49) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v22.13.0
+# Subtest: tests\\visual-player.test.ts
+not ok 67 - tests\\visual-player.test.ts
+  ---
+  duration_ms: 349.4465
+  location: 'C:\\Users\\sb128\\.codex\\worktrees\\workbench-integration-verification\\LearningPlatform\\tests\\visual-player.test.ts:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..90
+# tests 90
+# suites 0
+# pass 29
+# fail 61
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1943.6092

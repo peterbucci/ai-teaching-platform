@@ -1,0 +1,21 @@
+{
+  "status": "independent-static-review-approved-awaiting-runtime-go",
+  "reviewer": "/root",
+  "source_sha": "462cfb1b31d9108cec70d18b6553bd45048d2eed",
+  "source_tree": "03cca1fed3900a122e689c4a512afadd9052e5af",
+  "helper": "capture-original-answer.mjs",
+  "helper_sha256": "6135fe2740e42843ec2098edfa67baa4d0d3abe51993558919703a9689c67fa2",
+  "wrapper": "../runner-final/guarded-browser.mjs",
+  "wrapper_sha256": "4c13e49ed3b5ee0cec8e01b8554ab377b780cec63bd2a830b5b53cef23f402cf",
+  "fixture_receipt_sha256": "7e99672e7cf7e6689d1bcc53d57a68f1a052eecd6b09ee77ea7a8d9de3970051",
+  "reviewed_checks": [
+    "Exact run05 receipt hash matches",
+    "One permitted demo teacher login",
+    "Same-origin read-only navigation thereafter",
+    "Exact attempt and rendered response text assertion",
+    "All four viewport bounds asserted",
+    "Manifest source pins and shared guard preserved"
+  ],
+  "finding": "No consequential issue identified by independent static review.",
+  "runtime_status_at_review": "unrun; wait for coordinator GO after other owners release shared runtime"
+}

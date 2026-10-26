@@ -1,0 +1,27 @@
+Independent final inspection/capture delta review — 2026-10-25
+
+Final helper SHA-256:
+ffa4e2f2fe4562db82d6f8da30f494b1a37159e26a24065204b9ab6af43cb87a
+Earlier reviewed acknowledgement/read-only-resume helper: f527329be01d23a6
+aff3196d8cb2b68639f007796ac6d6907b92598c0b90078e.
+
+The narrow final inspection delta is statically approved. No runtime or
+application edits were performed by this reviewer. Inspect-followup is now
+read-only after authorized fictional logins; any attempted application write
+is blocked and fails the run. Existing displayed-reading acknowledgement must
+already exist; the utility cannot silently add one during this inspection.
+
+For each of the four requested viewport sizes, separate student saved-answer,
+teacher original-answer and teacher linked-follow-up captures require exactly
+one target, exact textContent bytes, explicit centered scrolling, full bounding
+box containment, and unobscured inset top/center/bottom hit-test points. The
+report records each rectangle, scroll position, hit points and text hash.
+The initial center-only test was strengthened because it could overlook text
+behind a sticky header or bottom navigation. Ordinary teacher-page geometry
+captures remain separate from deliberately scrolled evidence captures.
+
+These checks establish bounded capture readiness, not complete visual or
+accessibility acceptance. The resulting actual images still require visual
+inspection and retain any layout defect, partial capture or failure. The
+approved synthetic evaluation remains explicitly labeled; no actual-model,
+educational effectiveness or screen-reader claim is introduced.

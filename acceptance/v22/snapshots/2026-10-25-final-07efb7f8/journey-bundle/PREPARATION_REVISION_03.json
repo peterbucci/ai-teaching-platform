@@ -1,0 +1,16 @@
+{
+  "createdAt": "2026-10-25T16:48:15.1892272Z",
+  "status": "prepared-not-executed-by-this-agent",
+  "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "priorFailure": "study-step-01/report.json retained; no writes before missing direct fallback locator",
+  "helper": "study-step-browser.mjs",
+  "sha256": "021854ffce5c19ccf5d7cd85c3b32370cd4ddc76cc415d5fa7b81e76ee784058",
+  "syntax": "passed",
+  "changes": [
+    "Actual Send precedes real explicit answer confirmation",
+    "Whitelist exact conversation send and resolve actions with current revision and request identity",
+    "Reconcile saved answer submission key through actual confirmed conversation",
+    "Retain failure screenshot before closing browser"
+  ],
+  "sharedRuntimeChanged": false
+}

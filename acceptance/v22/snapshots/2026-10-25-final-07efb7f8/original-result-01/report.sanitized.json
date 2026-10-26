@@ -1,0 +1,452 @@
+{
+  "helper": "same-session-original-result-and-assistance",
+  "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+  "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+  "project": "lp-v22-final-01a173d6",
+  "origin": "http://localhost:3396",
+  "inputSha256": "78b8bbb419209e2789024e5f69fe879d59f2b7f09af6556d524e9de491044c49",
+  "runtimeHelperSha256": "8ad52a1724481f7315eb57b0db96d4251520f761c0849c93cc545d169a69d647",
+  "safetySha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+  "startedAt": "2026-10-25T16:51:47.036Z",
+  "status": "passed",
+  "checks": [
+    {
+      "id": "J09",
+      "label": "Accepted result is tied to the exact original attempt and source",
+      "status": "passed",
+      "sessionId": "c619a811-af67-4aeb-9348-686fe439db98",
+      "assignmentId": "382f0724-3800-4e6c-8a15-40b4813cb4ab",
+      "attemptId": "ae652658-924b-485d-9a87-7281a7501099",
+      "evaluationId": "2531aac6-c71d-400a-948d-4bb29ac79535",
+      "contentRef": {
+        "source_kind": "uploaded",
+        "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+        "source_version": 1,
+        "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+        "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+        "attribution": {
+          "title": "Water changing state · verification 1792946023062",
+          "authors": [
+            "Fictional acceptance teacher"
+          ],
+          "copyright": "2026 fictional acceptance fixture",
+          "section": "Imported source",
+          "url": null,
+          "license": "Original synthetic material; permitted for this test",
+          "license_url": null,
+          "cautions": []
+        },
+        "access_scope": {
+          "teacher_id": "10000000-0000-4000-8000-000000000001"
+        },
+        "package_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+        "content_version": "1"
+      },
+      "provider": {
+        "type": "language_model",
+        "model": "synthetic-same-browser-journey",
+        "version": "grounded-network-performance-v2",
+        "provider_reservation_id": "75950951-1ca8-4d70-8af1-15f8ba42f11b",
+        "provider_outcome": "settled"
+      },
+      "appliedResult": {
+        "action": "ASK_DIAGNOSTIC_FOLLOWUP",
+        "hypothesis_events": []
+      }
+    },
+    {
+      "id": "J10",
+      "label": "Original submission assistance snapshot remains immutable",
+      "status": "passed",
+      "assistance": {
+        "intervention_ids": [],
+        "assistance_level": "none_recorded",
+        "scaffolding_types": [],
+        "independent_retrieval_eligible_by_concept": {
+          "d1edb362-fa58-4e34-b8af-08c1f685e583": true
+        },
+        "most_recent_content_assistance_at": null,
+        "elapsed_since_content_assistance_seconds": null
+      },
+      "displayedBeforeSubmission": [],
+      "countedInterventions": []
+    },
+    {
+      "id": "J10",
+      "label": "Unavailable conversational help did not become delivered content assistance",
+      "status": "passed",
+      "assistance": {
+        "intervention_ids": [],
+        "assistance_level": "none_recorded",
+        "scaffolding_types": [],
+        "independent_retrieval_eligible_by_concept": {
+          "d1edb362-fa58-4e34-b8af-08c1f685e583": true
+        },
+        "most_recent_content_assistance_at": null,
+        "elapsed_since_content_assistance_seconds": null
+      },
+      "scope": "Authored help request explicitly fell back because provider is disabled; no tutoring help claimed"
+    },
+    {
+      "id": "J09",
+      "label": "Student displays assessment scoped to latest actual saved answer",
+      "status": "passed",
+      "expected": "Your answer is correct.",
+      "latestAttemptId": "c3290bd2-1da9-42c2-9b2a-43c1840ad2bd",
+      "latestEvaluationId": "da750b4d-9635-4518-960d-e5f7130657c9",
+      "originalAttemptId": "ae652658-924b-485d-9a87-7281a7501099",
+      "originalEvaluationId": "2531aac6-c71d-400a-948d-4bb29ac79535",
+      "latestAssistance": {
+        "intervention_ids": [],
+        "assistance_level": "none_recorded",
+        "scaffolding_types": [
+          "diagnostic_prompt_without_answer"
+        ],
+        "independent_retrieval_eligible_by_concept": {
+          "d1edb362-fa58-4e34-b8af-08c1f685e583": false
+        },
+        "most_recent_content_assistance_at": null,
+        "elapsed_since_content_assistance_seconds": null
+      },
+      "originalAssistance": {
+        "intervention_ids": [],
+        "assistance_level": "none_recorded",
+        "scaffolding_types": [],
+        "independent_retrieval_eligible_by_concept": {
+          "d1edb362-fa58-4e34-b8af-08c1f685e583": true
+        },
+        "most_recent_content_assistance_at": null,
+        "elapsed_since_content_assistance_seconds": null
+      },
+      "progress": {
+        "phase": "completed",
+        "current_attempt_id": "c3290bd2-1da9-42c2-9b2a-43c1840ad2bd",
+        "failed_evaluation_id": null,
+        "retry_allowed": false,
+        "retry_after": null,
+        "message": "Your answer is correct. Practice complete. This records today's performance, not lasting mastery.",
+        "next_review_at": "2026-10-26T16:49:38.198Z"
+      },
+      "appliedResult": {
+        "action": "END_SESSION",
+        "hypothesis_events": []
+      },
+      "originalResultNotRelabeled": true
+    },
+    {
+      "id": "J09",
+      "label": "Student projection does not expose private evaluation criteria",
+      "status": "passed"
+    },
+    {
+      "id": "J10",
+      "label": "Teacher displays original answer and exact no-help wording",
+      "status": "passed",
+      "attemptId": "ae652658-924b-485d-9a87-7281a7501099",
+      "assistance": {
+        "intervention_ids": [],
+        "assistance_level": "none_recorded",
+        "scaffolding_types": [],
+        "independent_retrieval_eligible_by_concept": {
+          "d1edb362-fa58-4e34-b8af-08c1f685e583": true
+        },
+        "most_recent_content_assistance_at": null,
+        "elapsed_since_content_assistance_seconds": null
+      }
+    },
+    {
+      "id": "J11",
+      "label": "Selected Evidence response opens exact intervention preparation scope",
+      "status": "passed",
+      "from": "http://localhost:3396/teacher/evidence?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&origin=all&session=c619a811-af67-4aeb-9348-686fe439db98&attempt=ae652658-924b-485d-9a87-7281a7501099&evaluation=2531aac6-c71d-400a-948d-4bb29ac79535&concept=d1edb362-fa58-4e34-b8af-08c1f685e583",
+      "link": "/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&origin=all&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&session=c619a811-af67-4aeb-9348-686fe439db98&attempt=ae652658-924b-485d-9a87-7281a7501099&evaluation=2531aac6-c71d-400a-948d-4bb29ac79535&returnTo=evidence&seedAttempt=ae652658-924b-485d-9a87-7281a7501099",
+      "destination": "http://localhost:3396/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&origin=all&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&session=c619a811-af67-4aeb-9348-686fe439db98&attempt=ae652658-924b-485d-9a87-7281a7501099&evaluation=2531aac6-c71d-400a-948d-4bb29ac79535&returnTo=evidence&seedAttempt=ae652658-924b-485d-9a87-7281a7501099",
+      "expectedScope": {
+        "assignment": "382f0724-3800-4e6c-8a15-40b4813cb4ab",
+        "session": "c619a811-af67-4aeb-9348-686fe439db98",
+        "attempt": "ae652658-924b-485d-9a87-7281a7501099",
+        "evaluation": "2531aac6-c71d-400a-948d-4bb29ac79535"
+      },
+      "generationMutationAttempted": false
+    },
+    {
+      "id": "J11",
+      "label": "Preparation displays the original selected saved answer",
+      "status": "passed",
+      "attemptId": "ae652658-924b-485d-9a87-7281a7501099"
+    },
+    {
+      "id": "J10",
+      "label": "Read-only inspection did not change original evidence",
+      "status": "passed",
+      "beforeSha256": "1cc5aed8daaae4e7e4446b35a21483f0ff2f164082ef5b4f1cfb18c9605e2a47",
+      "afterSha256": "1cc5aed8daaae4e7e4446b35a21483f0ff2f164082ef5b4f1cfb18c9605e2a47"
+    }
+  ],
+  "observations": [
+    {
+      "label": "Student latest matching assessment after natural controller progression",
+      "expected": "Your answer is correct.",
+      "visible": true,
+      "progress": {
+        "phase": "completed",
+        "current_attempt_id": "c3290bd2-1da9-42c2-9b2a-43c1840ad2bd",
+        "failed_evaluation_id": null,
+        "retry_allowed": false,
+        "retry_after": null,
+        "message": "Your answer is correct. Practice complete. This records today's performance, not lasting mastery.",
+        "next_review_at": "2026-10-26T16:49:38.198Z"
+      },
+      "sessionStatus": "completed",
+      "latestAttemptId": "c3290bd2-1da9-42c2-9b2a-43c1840ad2bd",
+      "latestEvaluationId": "da750b4d-9635-4518-960d-e5f7130657c9",
+      "originalAttemptId": "ae652658-924b-485d-9a87-7281a7501099",
+      "originalEvaluationId": "2531aac6-c71d-400a-948d-4bb29ac79535"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "student-original-result-after-synthetic-evaluation.png",
+      "url": "http://localhost:3396/study/assignments/382f0724-3800-4e6c-8a15-40b4813cb4ab?tab=study&session=c619a811-af67-4aeb-9348-686fe439db98",
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "dpr": 1,
+      "rootZoom": "1",
+      "overflow": false
+    },
+    {
+      "file": "teacher-original-and-recorded-assistance.png",
+      "url": "http://localhost:3396/teacher/sessions/c619a811-af67-4aeb-9348-686fe439db98?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&origin=all",
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "dpr": 1,
+      "rootZoom": "1",
+      "overflow": false
+    },
+    {
+      "file": "evidence-selected-to-intervention-preparation.png",
+      "url": "http://localhost:3396/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&origin=all&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&session=c619a811-af67-4aeb-9348-686fe439db98&attempt=ae652658-924b-485d-9a87-7281a7501099&evaluation=2531aac6-c71d-400a-948d-4bb29ac79535&returnTo=evidence&seedAttempt=ae652658-924b-485d-9a87-7281a7501099",
+      "innerWidth": 1440,
+      "innerHeight": 1000,
+      "outerWidth": 1440,
+      "outerHeight": 1000,
+      "dpr": 1,
+      "rootZoom": "1",
+      "overflow": false
+    }
+  ],
+  "blockedRequests": [],
+  "safety": [
+    {
+      "label": "launch-teacher-viewport",
+      "observedAt": "2026-10-25T16:51:47.042Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "availableBytes": 43201785856,
+          "availableGiB": 40.234798431396484,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "availableBytes": 43201785856,
+          "availableGiB": 40.234798431396484,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 43201785856,
+          "availableGiB": 40.234798431396484,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "learningplatform-db-1",
+          "source": "/var/lib/docker/volumes/learningplatform_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 898954678272,
+          "availableGiB": 837.2167854309082,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 43200483328,
+            "availableGiB": 40.233585357666016,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "label": "launch-student-viewport",
+      "observedAt": "2026-10-25T16:51:49.884Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "availableBytes": 43182698496,
+          "availableGiB": 40.21702194213867,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "availableBytes": 43182698496,
+          "availableGiB": 40.21702194213867,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 43182698496,
+          "availableGiB": 40.21702194213867,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "learningplatform-db-1",
+          "source": "/var/lib/docker/volumes/learningplatform_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 898954678272,
+          "availableGiB": 837.2167854309082,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 43183300608,
+            "availableGiB": 40.21758270263672,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "label": "Exact accepted original evaluation, source and assistance",
+      "observedAt": "2026-10-25T16:51:52.380Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+          "availableBytes": 43174350848,
+          "availableGiB": 40.20924758911133,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+          "availableBytes": 43174350848,
+          "availableGiB": 40.20924758911133,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 43174350848,
+          "availableGiB": 40.20924758911133,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "learningplatform-db-1",
+          "source": "/var/lib/docker/volumes/learningplatform_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 898954661888,
+          "availableGiB": 837.2167701721191,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 43173601280,
+            "availableGiB": 40.20854949951172,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    }
+  ],
+  "actualModelCalls": 0,
+  "syntheticEvaluation": true,
+  "method": "Authenticated native browser application checks; all requests after fictional login are read-only. No mutation replay.",
+  "limitations": [
+    "No screen reader or physical device acceptance",
+    "Synthetic fixtures do not demonstrate actual-model decisions"
+  ],
+  "lockOwner": {
+    "action": "same-session-original-result-and-assistance",
+    "source": "C:\\Users\\sb128\\.codex\\worktrees\\workbench-v22-final-integration\\LearningPlatform",
+    "state": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\runtime-final",
+    "out": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a173d6-e789-7233-92d2-b0b55d4559ed\\original-result-01",
+    "project": "lp-v22-final-01a173d6",
+    "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+    "pid": 104596,
+    "startedAt": "2026-10-25T16:51:47.037Z"
+  },
+  "harnessSha256": "01f1e536e5b1400986ee8faa644307e1e3b2b427a3f39c31ccd2efc38afcc988",
+  "interventionDraftPreparation": "incomplete-hourly-quota",
+  "syntheticSeam": "Synthetic accepted evaluator output applied by existing tutoring controller. Any additional diagnostic answers were actually entered and saved through the browser. This helper verifies the latest scoped result separately from original intervention evidence.",
+  "finishedAt": "2026-10-25T16:51:57.579Z"
+}
