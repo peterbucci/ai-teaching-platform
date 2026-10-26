@@ -1,4 +1,6 @@
-# Learning Pulse — Hackathon Demonstration Plan
+# Learning Pulse — Historical Hackathon Demonstration Plan
+
+> **Archived planning context — October 26, 2026:** The maintainer confirmed submission on October 25. This October 22 plan, its intended scenes and unchecked runbook are preserved as history, not as proof that every segment was submitted or passed. See [the submission and verification record](SUBMISSION_RECORD.md) for the known integration snapshot and unresolved submitted SHA. Future work is optional; no deadline below creates a new commitment.
 
 **Status:** Revised demo target; not a claim that every feature works  
 **Planning date:** October 22, 2026  

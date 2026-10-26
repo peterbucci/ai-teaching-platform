@@ -1,21 +1,21 @@
 # Development Instructions — Learning Pulse
 
-_Last revised for the agentic product direction: October 22, 2026_
+_Product direction: October 22, 2026 · Post-submission workflow: October 26, 2026_
 
-These instructions apply to Codex, Claude Code, and other contributors working on the **PEAAII Learning Pulse** repository. The repository is a shared, time-limited hackathon project. Prefer **small, dependable, reviewable changes** over large rewrites.
+These instructions apply to Codex, Claude Code, and other contributors working on the **PEAAII Learning Pulse** repository. The hackathon submission was completed on October 25, 2026, as confirmed by the maintainer. The public repository remains active for optional maintenance and future development; there is no new implementation sprint or deadline. Prefer **small, dependable, reviewable changes** over large rewrites.
 
 ## 1. Product goals and sources of truth
 
 **Read [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md) before significant product, architecture, schema, or agent-behavior work.** It describes our approved product direction: teacher-provided lessons, agentic student tutoring, a teacher copilot, and evidence-backed recommendations/interventions.
 
-- **Hackathon alignment:** The 2026 PEAAII theme is **Agentic AI**. The team's submission must demonstrate a **real, bounded AI decision → permitted tool execution → observed result → adaptive next decision**. Merely grading an answer, displaying a scripted tutoring branch, or rendering a mockup does not establish this.
-- **Critical path:** R4 teacher-provided/approved lessons **plus** R7 conversational, tool-using tutor. **High-priority showcase targets:** R1 visual tutoring and R2 teacher-reviewed interventions, with narrow R5 pattern discovery and Teacher Copilot functionality. R3 Teach-the-AI and R6 voice remain later roadmap goals.
+- **Hackathon alignment:** The 2026 PEAAII theme is **Agentic AI**. An agentic completion claim must demonstrate a **real, bounded AI decision → permitted tool execution → observed result → adaptive next decision**. Merely grading an answer, displaying a scripted tutoring branch, or rendering a mockup does not establish this.
+- **Historical hackathon priorities:** R4 teacher-provided/approved lessons **plus** R7 conversational, tool-using tutor. **High-priority showcase targets:** R1 visual tutoring and R2 teacher-reviewed interventions, with narrow R5 pattern discovery and Teacher Copilot functionality. R3 Teach-the-AI and R6 voice remain later roadmap goals.
 - **Keep the existing deterministic tutoring path:** It remains a reliability and regression baseline, **not the complete new product definition**. All agentic features should degrade safely to a usable text-based experience.
 - **Do not invent progress:** Planned stories, example schemas, fixture UIs, and draft PRs are **not** evidence that their live features work.
 
 Check the [GitHub roadmap (#15)](https://github.com/peterbucci/ai-teaching-platform/issues/15), [Project #7](https://github.com/users/peterbucci/projects/7), relevant issues, current PRs, and repository code **before** changing anything. The older roadmap/release/README descriptions have not necessarily been reconciled with this product reset. When documents conflict with a newer explicit team decision, **surface the conflict**; do not silently rewrite history or assume a feature is implemented. For *actual implementation status*, code, merged PRs, and passing integration checks take precedence over aspirational prose.
 
-The official hackathon project deadline is **October 25, 2026**. Verify detailed Canvas-only submission/judging requirements with a team member who has access; do not invent them.
+See [the submission record](docs/SUBMISSION_RECORD.md): the submission event is confirmed, but the exact submitted SHA is unconfirmed. Preserve recorded evidence at its original revision; do not fabricate a receipt or infer that unperformed tests passed.
 
 ## 2. Engineering principles
 
@@ -68,7 +68,7 @@ For the completed integrated feature, verify with **actual model calls** that tw
 - Keep all operations idempotent with request/submission identities, expected revisions, stale-response handling, safe resume, bounded timeouts and retries. Provider uncertainty must be reconciled rather than blindly rerun.
 - Use the existing approved-content resolver and reading/citation system. Runtime questions and diagrams must reference the **exact authorized lesson version**.
 
-**Important current-status note:** PR #81 has single-composer UX and contracts/fixture behavior, but as checked October 22 it is a **draft** with no live classifier or durable dialogue backend. Coordinate the live classifier/generation/persistence with R7 #74/#75 rather than inventing production output in the UI.
+**Current-status note (October 26):** #81's work was incorporated through merged #98, which includes live R7 provider/orchestration and durable dialogue. #147 integrates the Teacher Workbench and Student Notebook. Open #73–#76 track remaining acceptance; inspect current contracts and evidence before changing shared files. See [the submission record](docs/SUBMISSION_RECORD.md).
 
 ## 5. Teacher material, lesson authoring and copilot (R4)
 
@@ -101,8 +101,8 @@ Do not create a parallel insights service merely because a new agent needs to qu
 ## 8. GitHub issues, branches, team coordination
 
 - Track substantive work in [Project #7](https://github.com/users/peterbucci/projects/7) and focused GitHub Issues. Read [roadmap #15](https://github.com/peterbucci/ai-teaching-platform/issues/15), release epic #9, and the active issue before implementation.
-- The revised capability priority is **R4 + R7 critical path; R1 + R2 showcase; narrow R5/Teacher Copilot; R3/R6 later**. Do not erase historical issue completion or blindly relabel an unimplemented feature as done.
-- Keep existing project statuses **Backlog, Todo, In Progress, In Review, Done**. Use explicit owners/dependencies/target dates and distinguish fixture-tested, actual-model-tested and integrated-verified work.
+- The historical capability priority was **R4 + R7 critical path; R1 + R2 showcase; narrow R5/Teacher Copilot; R3/R6 later**. Future enhancements are optional and use existing issues. Do not erase historical issue completion or blindly relabel an unimplemented feature as done.
+- Keep existing project statuses **Backlog, Ready, In Progress, In Review, Blocked, Done**. Use actual owners and concrete dependencies; add target dates only when agreed and distinguish fixture-tested, actual-model-tested and integrated-verified work.
 - Prefer expanding an existing story to creating a duplicate issue. A **single focused orchestration story** and a **Teacher Copilot epic** are reasonable new work if not already present. Create or change issues, fields, assignees, and milestones **only when authorized by the user/task**.
 - Use a feature/fix branch, not direct commits to `main`. Open focused PRs referencing issues. Use `Closes #N` only when all acceptance criteria are actually satisfied; identify unresolved integration gates clearly.
 - Coordinate before editing shared migrations, core contracts, authentication, tutor state, and content-resolution paths. Check current PR branches and worktrees so you do not overwrite other contributors.
