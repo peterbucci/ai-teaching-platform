@@ -1,9 +1,12 @@
 # Learning Pulse — Agentic Architecture
 
-**Status:** Proposed design and integration contract · **Product reset:** October 22, 2026  
+**Status:** Target design and historical integration contract · **Product reset:** October 22, 2026
+
 **Audience:** Teammates, reviewers, and coding assistants implementing the student tutor, teacher authoring, AI copilot, and learning insights.
 
 > **Read this with [PROJECT_CONTEXT.md](../PROJECT_CONTEXT.md) and [AGENTS.md](../AGENTS.md).** This document describes the **target architecture**, not functionality already working in `main`. Do not treat diagrams, example tool names, pseudocode or fixture output as an implemented API. The existing [roadmap (#15)](https://github.com/peterbucci/ai-teaching-platform/issues/15) and [release epic (#9)](https://github.com/peterbucci/ai-teaching-platform/issues/9) still contain older scope language pending coordinated review.
+
+> **October 26 status:** R4, live R7 orchestration/dialogue, R2 and Workbench/Notebook implementation have since merged. The October 22 inventory and sequencing below remain historical design context; they are not the current backlog. Consult [the current snapshot](../PROJECT_CONTEXT.md#11-status-snapshot-and-work-not-yet-complete) and [submission record](SUBMISSION_RECORD.md). Copilot, full visual adaptation and other unfinished extensions remain optional.
 
 ## 1. Design goals and non-goals
 
@@ -169,7 +172,7 @@ The copilot may also **read** authorized class metrics and original evidence, pr
 
 A student can ask about a term, ask for another example, provide an answer, or express uncertainty through **one composer**. Optional quick actions only fill editable text; they do not determine whether the message counts as an answer.
 
-The current [PR #81](https://github.com/peterbucci/ai-teaching-platform/pull/81) proposes `lib/dialogue/conversation.ts` with `send_message`, intent proposals and clarification contracts. It is **draft UI/contracts**, not a working live classifier or storage integration.
+At the October 22 checkpoint, [PR #81](https://github.com/peterbucci/ai-teaching-platform/pull/81) proposes `lib/dialogue/conversation.ts` with `send_message`, intent proposals and clarification contracts. It was **draft UI/contracts** at that checkpoint; its later integration through #98 supersedes that implementation-status statement.
 
 ### Routing table
 
@@ -371,6 +374,6 @@ Don't claim tests were executed because this document exists. Record exact model
 - When to offer optional practice, how to select a bounded review question, and how its evidence links back to the triggering session.
 - The reviewed rules for offering an R1 visual versus grounded text, including the accessible fallback.
 - Which class insight thresholds and student-support recommendations are defensible with fictional small-sample evidence.
-- Deployment, official Canvas judging details, and the final live-model verification report before October 25, 2026.
+- Preserve the historical deployment/submission verification gaps; any future hosted or live-model checks require a separately agreed scope.
 
 **Bottom line:** Learning Pulse should be recognizable as an **agentic AI application because the AI interprets evidence, proposes a meaningful instructional or authoring action, uses permitted tools under server control, observes the outcome, and changes its next recommendation.** A chat window, a passing fixture, or a fixed decision tree alone does not meet that target.

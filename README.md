@@ -5,11 +5,11 @@ _A little insight. A better next step._
 
 Learning Pulse helps teachers turn their own course material into guided learning, helps students reason through difficult concepts with an adaptive AI tutor, and helps teachers decide what to do next using inspectable learning evidence.
 
-We're building it for the **PEAAII AI Applications Hackathon at UMass Boston**, whose 2026 theme is **Agentic AI**. The project submission deadline is **October 25, 2026**; the finalist symposium is **October 29, 2026**. Check the official event and Canvas instructions for submission details and judging criteria not reproduced here.
+**Post-hackathon status — October 26, 2026.** The maintainer confirmed that Learning Pulse was submitted to the PEAAII AI Applications Hackathon on **October 25, 2026**. The public repository remains active for optional maintenance and future development; there is no new release deadline. [Submission and verification record](docs/SUBMISSION_RECORD.md) distinguishes the confirmed submission event from the exact submitted snapshot, which has not yet been established.
 
 > **Our principle: AI supports student reasoning; teachers remain in control.**
 
-**This README describes our revised product direction as of October 22, 2026—not a claim that every capability is already implemented.** For implementation status, see the [GitHub project](https://github.com/users/peterbucci/projects/7), [roadmap](https://github.com/peterbucci/ai-teaching-platform/issues/15), and [pull requests](https://github.com/peterbucci/ai-teaching-platform/pulls). Some existing roadmap issues still use the older definition of the MVP and need to be brought into line with [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md).
+The product vision below includes implemented capabilities and optional extensions. Use the current implementation snapshot and linked issues to distinguish them.
 
 ## What we're building
 
@@ -25,7 +25,7 @@ A teacher provides permitted course material—a reading, notes, slide text, or 
 - **Work with a context-aware AI copilot**: for example, “Make these questions more conceptual and focus on transmission versus propagation delay.” The copilot proposes changes to the actual draft form for the teacher to review—not just text to copy and paste.
 - **Publish a reviewed lesson version** and assign it to an authorized class. Later edits create new versions without altering earlier student work.
 
-We will support a bounded set of formats first: pasted text, UTF-8 `.txt`/`.md`, and text-based PDFs. Slide documents and more complex or image-heavy sources are planned extensions and require reviewed extraction before use. Uploading a file alone does not mean the system correctly understood every figure or formula.
+The bounded importer supports pasted text, UTF-8 `.txt`/`.md`, and text-based PDFs. Slide documents and more complex or image-heavy sources are planned extensions and require reviewed extraction before use. Uploading a file alone does not mean the system correctly understood every figure or formula.
 
 ### 2. Students learn in one adaptive conversation
 
@@ -62,7 +62,7 @@ The AI must not silently assign work, change official grades, message students, 
 
 **This is our intended integrated demonstration, not a claim that the full journey works in the application today.** A useful agentic demonstration must show a **real AI decision and permitted tool use followed by another observation**, not simply a predefined sequence with generated wording.
 
-## Hackathon priorities
+## Historical hackathon priorities
 
 | Capability                                                                                                                                                       | Team priority         | What success looks like                                                                                                        |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
@@ -71,10 +71,10 @@ The AI must not silently assign work, change official grades, message students, 
 | [**R1 — Interactive visual tutoring**](https://github.com/peterbucci/ai-teaching-platform/issues/17)                                                             | **P1: showcase goal** | AI selects a validated visual tool; student prediction and explanation affect the next decision.                               |
 | [**R2 — Teacher action center**](https://github.com/peterbucci/ai-teaching-platform/issues/18)                                                                   | **P1: showcase goal** | AI drafts an evidence-backed activity; teacher edits, approves and assigns it; follow-up evidence is linked.                   |
 | [**R5 — Reasoning-pattern discovery**](https://github.com/peterbucci/ai-teaching-platform/issues/21)                                                             | **P1: focused slice** | Tentative, inspectable new-pattern proposal with teacher review.                                                               |
-| **Teacher Copilot**                                                                                                                                              | **P1: focused slice** | Proposes structured edits to an active teacher draft and can retrieve authorized evidence. New epic/story planning is pending. |
+| **Teacher Copilot**                                                                                                                                              | **P1: focused slice** | Proposes structured edits to an active teacher draft and can retrieve authorized evidence. Tracked in #86–#89; optional future work. |
 | [R3 — Teach-the-AI](https://github.com/peterbucci/ai-teaching-platform/issues/19) and [R6 — Voice](https://github.com/peterbucci/ai-teaching-platform/issues/22) | **P2: later**         | Additional learning modes that reuse the same evidence and tutoring system.                                                    |
 
-These are **team priorities**, not a claim that the official hackathon rubric requires each named reach goal. With the deadline approaching, we'll favor small, genuinely integrated demonstrations over a long list of disconnected interfaces.
+These were **team planning priorities**, not the official rubric or a checklist of delivered features. After submission, choose small optional contributions from the current backlog; no deadline or new implementation sprint is implied.
 
 ### What stays from the original foundation?
 
@@ -84,23 +84,19 @@ The earlier fixed-question learning loop remains a **regression test and safe fa
 
 ## Current implementation snapshot
 
-_Checked against the repository and open PRs on October 22, 2026. Follow the linked issues/PRs for changes after that date._
+_Reviewed October 26, 2026 against main `db5b9b4f93dd60b911fb8ec97329d74320d4449b` and recorded PR evidence; no new runtime or model tests were performed for this documentation update._
 
-**Already established in `main`:**
+**Implemented on main:**
 
-- Next.js, React, TypeScript, Tailwind CSS, Docker Compose, PostgreSQL, and Better Auth.
-- The versioned networking content package, basic teacher/student authorization, durable evidence records, grounded AI evaluator, and deterministic tutor/recovery mechanisms.
-- Student learning/assignment views, teacher evidence, class metrics, and initial reasoning-pattern views. These do not by themselves establish agentic tool choice or lesson import.
-- R7 dialogue **contracts and synthetic examples** from [PR #77](https://github.com/peterbucci/ai-teaching-platform/pull/77), not a live generation service.
+- The existing Next.js/React/TypeScript, Docker/PostgreSQL, Better Auth, grounded evaluator, deterministic tutoring fallback, approved networking content, and authorized evidence/metrics.
+- R4 teacher material import, reviewed objectives and question banks, immutable lesson publication and assignment-scoped content resolution ([#93](https://github.com/peterbucci/ai-teaching-platform/pull/93), [#97](https://github.com/peterbucci/ai-teaching-platform/pull/97), [#100–#102](https://github.com/peterbucci/ai-teaching-platform/pull/102), [#112](https://github.com/peterbucci/ai-teaching-platform/pull/112)).
+- R7 single conversation, live provider/orchestration and durable dialogue through [#98](https://github.com/peterbucci/ai-teaching-platform/pull/98); teacher-reviewed R2 intervention drafting, delivery and follow-up through #99/#103/#106.
+- Visual contracts, calculations, player and generation foundations; optional local audio through #84. These do not establish the complete visual adaptation loop or voice dictation.
+- Teacher Workbench and Student Notebook integration through [#147](https://github.com/peterbucci/ai-teaching-platform/pull/147).
 
-**In progress or planned:**
+**Verification has limits.** #147 records 753 deterministic tests, typecheck, build and a provider-disabled teacher-activation/student-start smoke test on its combined source. It did not submit a student answer or run live model calls. Earlier live-model and browser/database evidence remains tied to its original SHA. Current-main hosted, complete cross-role, human, accessibility and security acceptance is not established by those results. See [the evidence record](docs/SUBMISSION_RECORD.md) and [#35](https://github.com/peterbucci/ai-teaching-platform/issues/35).
 
-- [PR #81](https://github.com/peterbucci/ai-teaching-platform/pull/81): **draft**, single-composer student conversation and intent-routing contracts. It uses labeled fixtures; live model classification, grounded dialogue and durable message routing are not complete.
-- [PR #82](https://github.com/peterbucci/ai-teaching-platform/pull/82): **draft**, separate teacher workspace pages.
-- [R4 stories #49–#53](https://github.com/peterbucci/ai-teaching-platform/issues/20): teacher-owned source import, objective/question review, lesson version resolution and publication still require implementation and integration.
-- R7 orchestration and generation, R1 interactive visual selection, R2 intervention delivery, R5 discovery and Teacher Copilot workflows must be verified as real integrated features before being described as complete.
-
-The [old roadmap #15](https://github.com/peterbucci/ai-teaching-platform/issues/15) and [release epic #9](https://github.com/peterbucci/ai-teaching-platform/issues/9) still include older scope language as of this revision. Our agreed product direction is documented in [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md); the GitHub planning records need a reviewed update, not silent retroactive completion claims.
+**Optional future work:** finish visual selection/adaptation and replay (#42/#43), Teacher Copilot (#86–#89), new pattern discovery (#54/#55), evidence-backed practice (#90), Teach-the-AI (#47/#48), dictation (#56), sharing and cross-lesson comparisons (#79/#80). Implemented work awaiting acceptance remains open; these ideas are not a new hackathon commitment.
 
 ## Architecture at a glance
 
@@ -110,9 +106,9 @@ The [old roadmap #15](https://github.com/peterbucci/ai-teaching-platform/issues/
 | Identity and persistence | Better Auth, self-hosted PostgreSQL, Docker Compose                                                              |
 | AI                       | OpenAI API and structured, validated model outputs                                                               |
 | Application safeguards   | Zod schemas, server-owned authorization and tutoring state transitions                                           |
-| Content and grounding    | Approved, versioned passages; assignment-scoped retrieval; planned private uploads and immutable lesson versions |
-| New agentic coordination | **Planned bounded server-side orchestrator**, reusing existing evaluator, controller and data access             |
-| Visuals                  | Planned validated activity specifications, reviewed React renderer, and code-calculated experiments              |
+| Content and grounding    | Approved, versioned passages; assignment-scoped retrieval; private uploads and immutable lesson versions |
+| New agentic coordination | **Bounded server-side student orchestrator**, reusing existing evaluator, controller and data access             |
+| Visuals                  | Validated activity specifications, reviewed React renderer, and code-calculated experiments; adaptive integration unfinished              |
 
 A separate agent framework, vector database, model-serving backend, or network of autonomous agents is **not a prerequisite**. Read [Agentic Architecture](docs/AGENTIC_ARCHITECTURE.md) for the detailed proposed design, responsibilities, data flows, limits, and integration checks.
 
@@ -164,14 +160,18 @@ npm run build
 
 The content checker uses Python 3. Database-backed checks (`assignments:check`, `reading:check`, `metrics:check`, `patterns:check`, `tutor:check`) and live model checks (`eval:live`) require their appropriate local services and configuration. **Passing deterministic or fixture tests does not prove an agentic feature works with a real model.**
 
+## Continue development
+
+Pick an existing maintenance or future-work issue, inspect current main and related PRs, and agree a small scope before coding. Preserve the submission evidence and use a feature branch with review. Runtime, hosted and paid-model checks need their own explicit scope; no open issue creates a new deadline or budget.
+
 ## Team workflow and documentation
 
 We work in focused issues and feature branches, with review before merging into `main`. Check existing PRs and dependencies before changing shared contracts or database migrations. Keep each PR's verified behavior, unrun cases, and remaining integration explicit. Do not overwrite another teammate's work or close an epic on the strength of a mockup.
 
 | Resource                                                                         | Use it for                                                                            |
 | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| [Project board](https://github.com/users/peterbucci/projects/7)                  | Live assignments, ownership, blockers and progress                                    |
-| [Roadmap / issues](https://github.com/peterbucci/ai-teaching-platform/issues/15) | Tracked capabilities, stories and acceptance criteria; being reconciled to this reset |
+| [Project board](https://github.com/users/peterbucci/projects/7)                  | Maintenance, future ideas, historical submission work and verification                                    |
+| [Roadmap / issues](https://github.com/peterbucci/ai-teaching-platform/issues/15) | Tracked capabilities, remaining acceptance and optional enhancements |
 | [Product context](PROJECT_CONTEXT.md)                                            | Revised vision, intended experiences, priorities and demonstration goals              |
 | [Agentic architecture](docs/AGENTIC_ARCHITECTURE.md)                             | Proposed orchestrator, tool permissions, data ownership and evidence flows            |
 | [AGENTS.md](AGENTS.md)                                                           | Engineering and coding-assistant rules                                                |

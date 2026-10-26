@@ -1,8 +1,8 @@
-# Learning Pulse — Product Context and Hackathon Plan
+# Learning Pulse — Product Context and Development Backlog
 
-_Last product-direction revision: October 22, 2026 · Working product name: Learning Pulse_
+_Product direction: October 22, 2026 · Post-submission housekeeping: October 26, 2026 · Working product name: Learning Pulse_
 
-> **Purpose:** This is the team's product specification: what Learning Pulse should do, why it matters, and what a truthful demonstration must prove. It is **not** a claim that all described features are implemented. Check the [GitHub roadmap (#15)](https://github.com/peterbucci/ai-teaching-platform/issues/15), [project board](https://github.com/users/peterbucci/projects/7), current pull requests, and actual code for implementation status. The roadmap and older guides still need to be reconciled with this product reset.
+> **Purpose:** This is the team's product specification: what Learning Pulse should do, why it matters, and what a truthful demonstration must prove. It is **not** a claim that all described features are implemented. Check the [GitHub roadmap (#15)](https://github.com/peterbucci/ai-teaching-platform/issues/15), [project board](https://github.com/users/peterbucci/projects/7), current pull requests, and actual code for implementation status. Dated hackathon planning remains historical; the current snapshot below and linked issues govern continuation.
 
 ## 1. What we're building
 
@@ -26,9 +26,11 @@ A **context-aware teacher copilot** supports these workflows. It can retrieve pe
 
 ### Hackathon context
 
-The project is for the **PEAAII AI Applications Hackathon at UMass Boston**. The [PEAAII program's 2026 theme is Agentic AI](https://ai.umb.edu/events/). The posted project submission deadline is **October 25, 2026**; the finalist symposium is **October 29, 2026**. Team members must confirm submission details and any additional judging criteria in the official Canvas materials; this file does not claim to reproduce that private rubric.
+The maintainer confirmed submission on **October 25, 2026**. The repository remains public and active for optional future work. The exact submitted SHA and artifact inventory are not established; see [the submission record](docs/SUBMISSION_RECORD.md). No new deadline, deployment or model budget is implied.
 
-The **team's revised demonstration objective** is to show a real, bounded, goal-directed AI workflow—not merely a static chat UI or one model call. We are prioritizing **R4 + R7 as the critical path**, **R1 + R2 as high-priority connected showcase goals**, a focused **R5** discovery path, and the first useful **Teacher Copilot** workflow. This supersedes the earlier planning assumption that the prepared single-lesson tutoring loop alone represented the full hackathon target.
+The project was developed for the **PEAAII AI Applications Hackathon at UMass Boston**. The [PEAAII program's 2026 theme is Agentic AI](https://ai.umb.edu/events/). The posted project submission deadline was **October 25, 2026**; the finalist symposium is **October 29, 2026**. Team members must confirm submission details and any additional judging criteria in the official Canvas materials; this file does not claim to reproduce that private rubric.
+
+The **team's October 22 demonstration objective** was to show a real, bounded, goal-directed AI workflow—not merely a static chat UI or one model call. The historical plan prioritized **R4 + R7 as the critical path**, **R1 + R2 as high-priority connected showcase goals**, a focused **R5** discovery path, and the first useful **Teacher Copilot** workflow. This supersedes the earlier planning assumption that the prepared single-lesson tutoring loop alone represented the full hackathon target.
 
 ## 2. The end-to-end product journey
 
@@ -233,7 +235,7 @@ Do not rename these approved IDs, silently expand the assigned excerpt, or rewri
 
 Use this fixture to compare actual model decisions with known examples and to keep the **nonagentic tutoring fallback** testable. New teacher-created lessons must go through the same authorized evidence and tutoring pipeline, not a special demo-only system.
 
-## 10. Hackathon targets and realistic scope
+## 10. Historical hackathon targets and realistic scope
 
 **The legacy single-lesson path is a regression baseline, not the new definition of a successful agentic showcase.** It should keep working, but it cannot substitute for a live AI decision and tool-use loop.
 
@@ -247,7 +249,7 @@ Use this fixture to compare actual model decisions with known examples and to ke
 | **New Teacher Copilot capability** | Assistant proposes a structured, reviewable change to a draft assignment and can answer an authorized evidence question. | **P1 — narrow slice** |
 | R3 / E10 and R6 / E12 | Teach-the-AI and optional voice; keep planned work visible. | **P2 — later** |
 
-These priorities express the **team's desired deliverable**, not unsupported claims that the official judging rubric mandates each named reach goal. With the October 25 deadline, finish and verify vertical slices rather than claiming a broad but unconnected feature set. Missing showcase work must be reported honestly, not silently replaced with fixtures.
+These priorities express the **team's desired deliverable**, not unsupported claims that the official judging rubric mandates each named reach goal. These targets are preserved as historical planning, not a new development commitment. Missing showcase work must be reported honestly, not silently replaced with fixtures.
 
 ### Target end-to-end demonstration
 
@@ -264,19 +266,19 @@ These priorities express the **team's desired deliverable**, not unsupported cla
 
 ## 11. Status snapshot and work not yet complete
 
-_Checked against the repository and issue/PR descriptions on October 22, 2026. The live state may have changed; inspect before editing._
+_Reviewed October 26, 2026 against main `db5b9b4f93dd60b911fb8ec97329d74320d4449b` and recorded PR evidence; no new runtime or model tests were performed for this documentation update._
 
-**Implemented foundations on `main`:** Next.js/React/TypeScript, Docker/PostgreSQL, Better Auth, approved networking package, grounded evaluator, deterministic tutor/controller and saved evidence, teacher metrics/patterns, core student pages and assignment/reading improvements. These constitute real infrastructure, **not** the finished agentic experience.
+**Implemented on main:**
 
-**Work in flight:**
+- The existing Next.js/React/TypeScript, Docker/PostgreSQL, Better Auth, grounded evaluator, deterministic tutoring fallback, approved networking content, and authorized evidence/metrics.
+- R4 teacher material import, reviewed objectives and question banks, immutable lesson publication and assignment-scoped content resolution ([#93](https://github.com/peterbucci/ai-teaching-platform/pull/93), [#97](https://github.com/peterbucci/ai-teaching-platform/pull/97), [#100–#102](https://github.com/peterbucci/ai-teaching-platform/pull/102), [#112](https://github.com/peterbucci/ai-teaching-platform/pull/112)).
+- R7 single conversation, live provider/orchestration and durable dialogue through [#98](https://github.com/peterbucci/ai-teaching-platform/pull/98); teacher-reviewed R2 intervention drafting, delivery and follow-up through #99/#103/#106.
+- Visual contracts, calculations, player and generation foundations; optional local audio through #84. These do not establish the complete visual adaptation loop or voice dictation.
+- Teacher Workbench and Student Notebook integration through [#147](https://github.com/peterbucci/ai-teaching-platform/pull/147).
 
-- [PR #81](https://github.com/peterbucci/ai-teaching-platform/pull/81): single-composer student conversation and intent contracts with fixtures; **draft** and **not live AI classification or durable dialogue integration**. Actual model recognition/generation and persistence belong to [#74](https://github.com/peterbucci/ai-teaching-platform/issues/74) and [#75](https://github.com/peterbucci/ai-teaching-platform/issues/75).
-- [PR #82](https://github.com/peterbucci/ai-teaching-platform/pull/82): teacher workspace pages; **draft** and not an implemented teacher copilot.
-- [R7 contracts #72 / PR #77](https://github.com/peterbucci/ai-teaching-platform/pull/77) were merged, but contracts and fixtures do **not** establish live agentic behavior.
+**Verification has limits.** #147 records 753 deterministic tests, typecheck, build and a provider-disabled teacher-activation/student-start smoke test on its combined source. It did not submit a student answer or run live model calls. Earlier live-model and browser/database evidence remains tied to its original SHA. Current-main hosted, complete cross-role, human, accessibility and security acceptance is not established by those results. See [the evidence record](docs/SUBMISSION_RECORD.md) and [#35](https://github.com/peterbucci/ai-teaching-platform/issues/35).
 
-**Planned or integration-incomplete:** R4 import/concept/question/publish [#49–#53](https://github.com/peterbucci/ai-teaching-platform/issues/20); R7 real selection/generation/persistence/evaluation; R1 visual action and feedback; R2 intervention workflow; R5 new pattern discovery; Teacher Copilot; production end-to-end showcase.
-
-Older README/issue/guide claims about a *locked nonagentic MVP* or *six reach goals* are historical and **must be reconciled** with this approved product direction. Do not silently mark issues complete or rewrite status history. Update roadmap #15, release epic #9, relevant issue criteria, and protected docs in a reviewed, explicitly authorized change.
+**Optional future work:** finish visual selection/adaptation and replay (#42/#43), Teacher Copilot (#86–#89), new pattern discovery (#54/#55), evidence-backed practice (#90), Teach-the-AI (#47/#48), dictation (#56), sharing and cross-lesson comparisons (#79/#80). Implemented work awaiting acceptance remains open; these ideas are not a new hackathon commitment.
 
 ## 12. Roadmap ownership and GitHub project organization
 
@@ -285,14 +287,14 @@ Keep the existing workstreams and issues where possible; avoid reimplementing me
 | Existing issue area | What it should now deliver |
 | --- | --- |
 | [R4 #20 / #49–#53](https://github.com/peterbucci/ai-teaching-platform/issues/20) | Teacher-supplied and immutable versioned content, approved concepts/questions, assignment publication. |
-| [R7 #71 / #73–#76](https://github.com/peterbucci/ai-teaching-platform/issues/71) | Single student conversation, live intent and instructional-action selection, grounded generation, safe persistence and real tests. Add one focused orchestration story if no existing issue owns it. |
+| [R7 #71 / #73–#76](https://github.com/peterbucci/ai-teaching-platform/issues/71) | Single student conversation, live intent and instructional-action selection, grounded generation, safe persistence and real tests. Existing orchestration is tracked in #85; do not create a duplicate. |
 | [R1 #17 / #38–#43](https://github.com/peterbucci/ai-teaching-platform/issues/17) | Validated visual tool, calculation, generated visual, tutoring adapter, and saved interaction evidence. |
 | [R2 #18 / #44–#46](https://github.com/peterbucci/ai-teaching-platform/issues/18) | Draft, teacher approval and delivery, later evidence comparison. |
 | [R5 #21 / #54–#55](https://github.com/peterbucci/ai-teaching-platform/issues/21) | New potential patterns, correctable teacher review. |
-| **New Teacher Copilot epic (proposed)** | Context-aware assistant, structured draft patches, authorized insights, teacher confirmation. |
+| [Teacher Copilot #86](https://github.com/peterbucci/ai-teaching-platform/issues/86) | Context-aware assistant, structured draft patches, authorized insights, teacher confirmation. |
 | [Integration/release #9, #35–#37](https://github.com/peterbucci/ai-teaching-platform/issues/9) | Real agentic demo acceptance, deployment, failure recovery and submitted evidence. Keep the old baseline regression checks. |
 
-Retain Project #7's **Backlog, Todo, In Progress, In Review, Done** statuses. Use views such as *Critical Path, Teacher Authoring & Copilot, Agentic Tutoring, Insights & Interventions, Integration & Release,* and *Later*. Track priority, owner, dependency, target date, and **verification level** (fixture / real-model / integrated). An attractive or passing UI fixture is not a real service.
+Retain Project #7's existing **Backlog, Ready, In Progress, In Review, Blocked, Done** workflow and completed history. Use **Hackathon — Submitted**, **Maintenance / Next** and **Future Ideas** for routine navigation; specialized historical views may remain. Keep only genuinely active work In Progress, record concrete blockers and verification levels, and leave optional unstarted enhancements Ready/Later. Preserve existing owners; do not invent deadlines or assign the entire backlog.
 
 Parallelize independent contracts, visual renderer, pure simulation, teacher form, and analytics work. Coordinate shared migrations, lesson/content references, agent action contracts, and session/teacher permissions before merging. Do not assign invented teammate handles or override someone else's branch.
 
@@ -326,18 +328,17 @@ For the hackathon use **fictional accounts and synthetic student records**, with
 
 ## 15. Decisions still requiring review
 
-- Confirm the official Canvas submission rubric, deliverables, and any account-specific requirements.
-- Identify who owns the new R7 orchestration, R4 resolver/import, Teacher Copilot, and integrated demo.
-- Agree the first teacher-provided source and its permitted rights; choose whether slide/Word parsing fits before the deadline.
-- Define the precise teacher-authoring approval and draft patch/apply API contracts.
-- Agree which R1 visual formats and available tutor actions are enabled in the initial agentic demo.
-- Choose honest thresholds for reporting pattern evidence and student practice recommendations; avoid unvalidated mastery claims.
-- Verify production model credentials/budget and deployment, then run actual-model tests and an independent teammate rehearsal.
+- Establish the exact submitted SHA and permitted artifact inventory from the original submission; do not infer them from a merge or commit title.
+- Choose a small existing issue when someone elects to resume development; agree owner/reviewer and shared-file scope then.
+- Retain source rights, attribution and private data boundaries when considering additional import formats.
+- Resolve remaining Copilot draft/apply contracts and R1 action/evidence integration only within their existing issues.
+- Keep pattern/practice claims tentative and evidence-backed.
+- Obtain a separate authorized host/model-test scope if deployment or paid verification is requested; no such work is authorized by housekeeping.
 
 ## 16. Definition of done and final principle
 
 A **feature** is done only when its actual authorized workflow works end to end, its important failure paths preserve state, and its claims are backed by relevant tests. The **legacy curated tutoring baseline** should always remain usable; it is necessary regression coverage but is **not sufficient** to call the revised hackathon product agentic.
 
-Our **agentic demonstration** is complete only when a real model can interpret a student's goal/evidence, propose a meaningful permitted action, use the approved tool through server validation, observe the result, and adapt—while the teacher can inspect the underlying learning evidence. Our team's broader submission goal also connects teacher-authored content and the prioritized R1/R2 showcase experiences. Report any unfinished elements openly.
+Our **agentic demonstration** is complete only when a real model can interpret a student's goal/evidence, propose a meaningful permitted action, use the approved tool through server validation, observe the result, and adapt—while the teacher can inspect the underlying learning evidence. The historical broader submission goal also connected teacher-authored content and the prioritized R1/R2 showcase experiences. Report any unfinished elements openly.
 
 **Build a platform that helps teachers decide what to teach and students decide how to reason—not a black-box grader, a collection of mockups, or an unrestricted autonomous agent.**
