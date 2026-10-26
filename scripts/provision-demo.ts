@@ -14,7 +14,11 @@ const Credentials = z.object({
 });
 
 /** Local operator command only; this registration-enabled instance has no HTTP route. */
-export async function provisionDemoAccounts() {
+export async function provisionDemoAccounts(
+  displayNames: Partial<
+    Record<"teacher" | "studentOne" | "studentTwo", string>
+  > = {},
+) {
   const accounts = [
     {
       key: "teacher",
@@ -41,7 +45,11 @@ export async function provisionDemoAccounts() {
       throw new Error(
         `Set ${account.prefix}_EMAIL and ${account.prefix}_PASSWORD (12–128 characters) in the ignored environment file.`,
       );
-    return { ...account, ...parsed.data };
+    return {
+      ...account,
+      name: displayNames[account.key] ?? account.name,
+      ...parsed.data,
+    };
   });
   if (new Set(inputs.map(({ email }) => email)).size !== inputs.length) {
     throw new Error(

@@ -1,0 +1,267 @@
+{
+  "schema_version": 1,
+  "project": "Learning Pulse",
+  "fixture_purpose": "Fictional showcase class for PEAAII recording; not real students, observed educational outcomes, or measured model judgments.",
+  "class": {
+    "name": "CS 446 — Computer Networks",
+    "instructor": "Dr. Maya Chen",
+    "assignment_title": "Understanding Bandwidth & Latency"
+  },
+  "student_count": 24,
+  "students": [
+    {
+      "number": 1,
+      "name": "Alex Rivera",
+      "scenario": "correct after diagnostic and feedback",
+      "shift_days": 8,
+      "responses": {},
+      "shift_minutes": 5
+    },
+    {
+      "number": 2,
+      "name": "Jordan Patel",
+      "scenario": "correct on first attempt",
+      "shift_days": 9,
+      "responses": {},
+      "shift_minutes": 35
+    },
+    {
+      "number": 3,
+      "name": "Taylor Brooks",
+      "scenario": "not started",
+      "shift_days": 0,
+      "responses": {},
+      "shift_minutes": 0
+    },
+    {
+      "number": 4,
+      "name": "Morgan Lee",
+      "scenario": "independent correct responses",
+      "shift_days": 2,
+      "responses": {
+        "NP-BW-01": "The link has 12 Mbps available, but the program only got 7 Mbps. That sounds like its actual throughput. There could be overhead or other things slowing the transfer down.",
+        "NP-RTT-01": "The first timer stops when the message reaches B, so it measures one-way latency. The second includes the trip back to A, so that is RTT. Both would be measured in milliseconds or seconds.",
+        "NP-TX-01": "Only the distance changed. The time to send the bits onto the wire stays the same, but they take twice as long to travel along the longer cable.",
+        "NP-QUEUE-01": "The packet spends 4 ms waiting in a queue before it can be sent. Transmission starts after that, as the bits go onto the link. If there is no wait, queueing is 0 ms."
+      },
+      "shift_minutes": 165
+    },
+    {
+      "number": 5,
+      "name": "Samira Ahmed",
+      "scenario": "independent correct responses",
+      "shift_days": 5,
+      "responses": {
+        "NP-BW-01": "12 Mbps is the most this link can offer and 7 Mbps is what the application actually measured. Reaching the maximum is not guaranteed in real conditions.",
+        "NP-RTT-01": "A to B alone is a one-way delay. Starting at A and ending when the reply gets back gives a round-trip time. I would report each in ms.",
+        "NP-TX-01": "Transmission time depends on the amount of data and the bit rate, neither of which changed. Propagation depends on distance and signal speed, so it doubles with the cable length.",
+        "NP-QUEUE-01": "The four milliseconds is queueing delay because nothing is being transmitted yet; the packet is waiting in the switch. If the next case states zero waiting, I would not add another delay."
+      },
+      "shift_minutes": 430
+    },
+    {
+      "number": 6,
+      "name": "Ethan Cooper",
+      "scenario": "independent correct responses",
+      "shift_days": 7,
+      "responses": {
+        "NP-BW-01": "Bandwidth: 12 Mbps. Measured throughput: 7 Mbps. The measured transfer can be lower than the advertised link rate due to how the system actually runs.",
+        "NP-RTT-01": "The first trip is one-way latency from host A to host B. The other is RTT since it also includes the response returning to A. Both are durations, not data rates, so milliseconds makes sense.",
+        "NP-TX-01": "Even on a longer wire, a same-sized packet takes the same time to be pushed onto a link with the same bit rate. The propagation time is twice as long, because the signal covers twice the distance.",
+        "NP-QUEUE-01": "Waiting at the switch is queuing. Putting bits onto the outgoing link is transmission. With forwarding starting immediately, the queue wait would be 0, not another 4 ms."
+      },
+      "shift_minutes": 555
+    },
+    {
+      "number": 7,
+      "name": "Priya Nair",
+      "scenario": "independent correct responses",
+      "shift_days": 8,
+      "responses": {
+        "NP-BW-01": "The maximum available rate is 12 Mbps, while the application managed 7. Those are different measurements and an app can fall short of the maximum.",
+        "NP-RTT-01": "First is one-way delay (A to B). Second is round-trip time because A waits for B’s reply to come back. I could use seconds, though ms is probably easier.",
+        "NP-TX-01": "Transmission delay stays fixed because packet size and bandwidth are fixed. Propagation delay doubles because the bits have twice the distance to travel at the same propagation speed.",
+        "NP-QUEUE-01": "The 4 ms is the packet sitting in a queue. It has not started being serialized onto the output link, which is a different delay. No queue means zero queuing delay."
+      },
+      "shift_minutes": 300
+    },
+    {
+      "number": 8,
+      "name": "Luis Martinez",
+      "scenario": "partial explanations",
+      "shift_days": 3,
+      "responses": {
+        "NP-BW-01": "12 Mbps is bandwidth and 7 Mbps is throughput.",
+        "NP-RTT-01": "The second measurement is RTT. The first one is just latency."
+      },
+      "shift_minutes": 485
+    },
+    {
+      "number": 9,
+      "name": "Olivia Park",
+      "scenario": "partial explanations",
+      "shift_days": 5,
+      "responses": {
+        "NP-BW-01": "The 12 is what the connection can carry, and 7 is the speed they got in the test.",
+        "NP-RTT-01": "One-way versus round trip, I think. One measures A to B and the other includes a reply."
+      },
+      "shift_minutes": 165
+    },
+    {
+      "number": 10,
+      "name": "Noah Bennett",
+      "scenario": "partial explanations",
+      "shift_days": 8,
+      "responses": {
+        "NP-BW-01": "Bandwidth would be 12 Mbps. Actual throughput is 7 Mbps.",
+        "NP-RTT-01": "The first is one-way latency, then it is RTT on the second one."
+      },
+      "shift_minutes": 540
+    },
+    {
+      "number": 11,
+      "name": "Sofia Garcia",
+      "scenario": "incorrect conceptual reasoning",
+      "shift_days": 1,
+      "responses": {
+        "NP-BW-01": "I would expect the transfer to be 12 Mbps. If the link is 12, the application should be getting that much too.",
+        "NP-RTT-01": "Round trip means getting from A to B. The second timer is just measuring the reply, so I would call that one-way delay.",
+        "NP-TX-01": "Transmission delay doubles because the packet has to travel twice as far, but propagation should stay the same since we kept the rate fixed.",
+        "NP-QUEUE-01": "The packet spent 4 ms transmitting inside the switch. Waiting and putting the data on the next cable are basically the same thing."
+      },
+      "shift_minutes": 280
+    },
+    {
+      "number": 12,
+      "name": "Daniel Kim",
+      "scenario": "incorrect conceptual reasoning",
+      "shift_days": 6,
+      "responses": {
+        "NP-BW-01": "Throughput must match the link bandwidth. A 12 Mbps link cannot have a different transfer rate.",
+        "NP-RTT-01": "I think A to B is the round trip, and A waiting for the reply is the one-way measurement.",
+        "NP-TX-01": "Making the cable longer means transmitting the packet takes longer. I do not see why propagation would change since signal speed did not change.",
+        "NP-QUEUE-01": "The 4 ms is transmission delay: the switch is still holding the packet while it sends it. The waiting case always needs a positive amount."
+      },
+      "shift_minutes": 620
+    },
+    {
+      "number": 13,
+      "name": "Chloe Thompson",
+      "scenario": "incorrect conceptual reasoning",
+      "shift_days": 7,
+      "responses": {
+        "NP-BW-01": "They should both be 12 Mbps. The 7 Mbps reading is probably incorrect because bandwidth tells you the actual rate.",
+        "NP-RTT-01": "The outward trip is RTT. Waiting for the reply measures just the one-way latency of the return.",
+        "NP-TX-01": "I think transmission doubles with distance and propagation is unchanged because the packet and data rate stay the same.",
+        "NP-QUEUE-01": "Queuing is the time it takes to send a packet onto the link, so I would call that 4 ms transmission too, even if the queue is empty."
+      },
+      "shift_minutes": 400
+    },
+    {
+      "number": 14,
+      "name": "Aisha Johnson",
+      "scenario": "improved after corrective feedback",
+      "shift_days": 4,
+      "responses": {},
+      "shift_minutes": 315
+    },
+    {
+      "number": 15,
+      "name": "Mateo Silva",
+      "scenario": "improved after corrective feedback",
+      "shift_days": 8,
+      "responses": {},
+      "shift_minutes": 500
+    },
+    {
+      "number": 16,
+      "name": "Harper Nguyen",
+      "scenario": "improved after corrective feedback",
+      "shift_days": 9,
+      "responses": {},
+      "shift_minutes": 195
+    },
+    {
+      "number": 17,
+      "name": "Amelia Foster",
+      "scenario": "diagnostic contradicts initial hypothesis",
+      "shift_days": 4,
+      "responses": {},
+      "shift_minutes": 625
+    },
+    {
+      "number": 18,
+      "name": "Eli Rosen",
+      "scenario": "diagnostic contradicts initial hypothesis",
+      "shift_days": 6,
+      "responses": {},
+      "shift_minutes": 345
+    },
+    {
+      "number": 19,
+      "name": "Layla Haddad",
+      "scenario": "awaiting diagnostic response",
+      "shift_days": 8,
+      "responses": {},
+      "shift_minutes": 560
+    },
+    {
+      "number": 20,
+      "name": "Benjamin Ortiz",
+      "scenario": "diagnostic inconclusive",
+      "shift_days": 9,
+      "responses": {},
+      "shift_minutes": 260
+    },
+    {
+      "number": 21,
+      "name": "Grace Wu",
+      "scenario": "uncertain answer and failed evaluation",
+      "shift_days": 8,
+      "responses": {
+        "NP-TX-01": "I know one of them depends on the length of the cable, but I am mixing up which. I need another example to be sure.",
+        "NP-BW-01": "I think 12 Mbps is the link limit and 7 Mbps is what the student actually measured, but I did not finish checking my reasoning."
+      },
+      "shift_minutes": 430
+    },
+    {
+      "number": 22,
+      "name": "Isaac Carter",
+      "scenario": "evaluation awaiting review",
+      "shift_days": 9,
+      "responses": {},
+      "shift_minutes": 540
+    },
+    {
+      "number": 23,
+      "name": "Zoe Mitchell",
+      "scenario": "separate later review session",
+      "shift_days": 7,
+      "responses": {
+        "NP-BW-01": "The link offers up to 12 Mbps. The app only reached 7 Mbps, which is its observed throughput. Actual transfers can run below link capacity.",
+        "NP-BW-02": "20 million bits divided by 5 seconds gives 4 Mbps. That is the observed application throughput; the available link speed can still be 10 Mbps."
+      },
+      "shift_minutes": 185
+    },
+    {
+      "number": 24,
+      "name": "Avery Coleman",
+      "scenario": "not started",
+      "shift_days": 0,
+      "responses": {},
+      "shift_minutes": 0
+    }
+  ],
+  "demo_story": {
+    "teacher": "Dr. Maya Chen reviews activity in CS 446, identifies a possible confusion between transmission and propagation, and looks at individual student reasoning before making a teaching decision.",
+    "student": "Alex Rivera is used for a live teacher-to-student demonstration; their prepared sample history shows how a similar misunderstanding could be explored. Use a fresh separate session for any genuine live model behavior.",
+    "cross_student_example": "Jordan Patel answered independently, while Alex Rivera improved after corrective feedback; compare the evidence without calling assisted practice proof of retention.",
+    "privacy_and_provenance": "All names and historical responses are fictional. Keep data_origin=synthetic_fixture and evaluator provenance. Clearly distinguish live model interactions during the recording."
+  },
+  "recording_notes": [
+    "Activate the assignment through the teacher UI after setting up the isolated database; do not bypass review/approval flags with raw SQL.",
+    "Use existing configured fictional demo-account emails and locally generated private passwords. Do not include credentials in the data pack or Git.",
+    "Some students have no activity, partial work, uncertain responses, failed/pending evaluation; the dashboard should not claim everyone completed.",
+    "The demo database must be a separate Compose project with its own volume; never drop or reset the original database."
+  ]
+}

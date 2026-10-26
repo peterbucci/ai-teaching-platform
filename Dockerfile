@@ -17,6 +17,7 @@ COPY --from=build --chown=node:node /app/scripts ./scripts
 COPY --from=build --chown=node:node /app/tests/fixtures ./tests/fixtures
 COPY --from=build --chown=node:node /app/database ./database
 COPY --from=build --chown=node:node /app/content ./content
+COPY --from=build --chown=node:node /app/showcase ./showcase
 COPY --from=build --chown=node:node /app/evals ./evals
 USER node
 EXPOSE 3000
