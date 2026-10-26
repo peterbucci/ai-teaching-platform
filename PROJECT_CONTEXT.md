@@ -266,7 +266,7 @@ These priorities express the **team's desired deliverable**, not unsupported cla
 
 ## 11. Status snapshot and work not yet complete
 
-_Reviewed October 26, 2026 against main `db5b9b4f93dd60b911fb8ec97329d74320d4449b` and recorded PR evidence; no new runtime or model tests were performed for this documentation update._
+_Reviewed October 26, 2026 against main `db5b9b4f93dd60b911fb8ec97329d74320d4449b` and recorded PR evidence; this housekeeping did not perform new live-model or human acceptance checks._
 
 **Implemented on main:**
 
