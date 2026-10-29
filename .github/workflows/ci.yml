@@ -22,7 +22,8 @@ jobs:
 
       - run: npm ci
       - run: npm run content:check
-      - run: npm test
+      - name: Run tests with readable output   
+        run: npm test -- --test-reporter=spec
       - run: npm run lint
       - run: npm run typecheck
       - run: npm run format:check
