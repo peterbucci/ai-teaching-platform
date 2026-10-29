@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width"
+  /><title>Concern investigation — visual comparison</title
+  ><style>
+    body {
+      font: 15px/1.6 system-ui;
+      margin: 24px;
+      color: #213c32;
+      background: #f5f6f2;
+    }
+    h1 {
+      font-size: 26px;
+    }
+    nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    a {
+      color: #17694e;
+    }
+    section {
+      margin: 40px 0;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    figure {
+      margin: 0;
+      background: white;
+      padding: 12px;
+      border: 1px solid #d4ded4;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      border: 1px solid #d4ded4;
+    }
+    figcaption {
+      font-weight: 600;
+      padding-bottom: 10px;
+    }
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    p {
+      max-width: 95ch;
+    }
+  </style>
+  <h1>Concern investigation: prototype → baseline → implementation</h1>
+  <p>
+    Actual screenshots, not recreated mockups. Baseline is 07efb7f;
+    implementation uses existing fictional class records. Prototype and app use
+    different students, counts and lesson versions. No new misunderstandings
+    were invented. All regular captures are 900px high. Native 200% captures use
+    a 1440×1000 browser window, actual zoom 2, devicePixelRatio 2 and 712 CSS
+    pixels of content width.
+  </p>
+  <nav>
+    <a href="#w1440">1440px</a><a href="#w1024">1024px</a
+    ><a href="#w390">390px</a><a href="#w320">320px</a
+    ><a href="#wnative-200">Actual 200% zoom</a
+    ><a href="../PARITY.md">Parity and verification report</a>
+  </nav>
+  <section id="w1440">
+    <h2>1440px wide</h2>
+    <div class="grid">
+      <figure>
+        <figcaption>Prototype</figcaption>
+        <a href="prototype-concern-1440.png"
+          ><img
+            src="prototype-concern-1440.png"
+            alt="Prototype, 1440"
+            loading="lazy"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>Baseline: Learning Insights</figcaption>
+        <a href="current-1440.png"
+          ><img
+            src="current-1440.png"
+            alt="Baseline: Learning Insights, 1440"
+            loading="lazy"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>After: concern investigation</figcaption>
+        <a href="after-concern-1440.png"
+          ><img
+            src="after-concern-1440.png"
+            alt="After: concern investigation, 1440"
+            loading="lazy"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section id="w1024">
+    <h2>1024px wide</h2>
+    <div class="grid">
+      <figure>
+        <figcaption>Prototype</figcaption>
+        <a href="prototype-concern-1024.png"
+          ><img
+            src="prototype-concern-1024.png"
+            alt="Prototype, 1024"
+            loading="lazy"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>Baseline: Learning Insights</figcaption>
+        <a href="current-1024.png"
+          ><img
+            src="current-1024.png"
+            alt="Baseline: Learning Insights, 1024"
+            loading="lazy"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>After: concern investigation</figcaption>
+        <a href="after-concern-1024.png"
+          ><img
+            src="after-concern-1024.png"
+            alt="After: concern investigation, 1024"
+            loading="lazy"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section id="w390">
+    <h2>390px wide</h2>
+    <div class="grid">
+      <figure>
+        <figcaption>Prototype</figcaption>
+        <a href="prototype-concern-390.png"
+          ><img
+            src="prototype-concern-390.png"
+            alt="Prototype, 390"
+            loading="lazy"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>Baseline: Learning Insights</figcaption>
+        <a href="current-390.png"
+          ><img
+            src="current-390.png"
+            alt="Baseline: Learning Insights, 390"
+            loading="lazy"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>After: concern investigation</figcaption>
+        <a href="after-concern-390.png"
+          ><img
+            src="after-concern-390.png"
+            alt="After: concern investigation, 390"
+            loading="lazy"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section id="w320">
+    <h2>320px wide</h2>
+    <div class="grid">
+      <figure>
+        <figcaption>Prototype</figcaption>
+        <a href="prototype-concern-320.png"
+          ><img
+            src="prototype-concern-320.png"
+            alt="Prototype, 320"
+            loading="lazy"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>Baseline: Learning Insights</figcaption>
+        <a href="current-320.png"
+          ><img
+            src="current-320.png"
+            alt="Baseline: Learning Insights, 320"
+            loading="lazy"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>After: concern investigation</figcaption>
+        <a href="after-concern-320.png"
+          ><img
+            src="after-concern-320.png"
+            alt="After: concern investigation, 320"
+            loading="lazy"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section id="wnative-200">
+    <h2>Actual 200% browser zoom</h2>
+    <div class="grid">
+      <figure>
+        <figcaption>Prototype</figcaption>
+        <a href="prototype-concern-native-200.png"
+          ><img
+            src="prototype-concern-native-200.png"
+            alt="Prototype, native-200"
+            loading="lazy"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>Baseline: Learning Insights</figcaption>
+        <a href="current-native-200.png"
+          ><img
+            src="current-native-200.png"
+            alt="Baseline: Learning Insights, native-200"
+            loading="lazy"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>After: concern investigation</figcaption>
+        <a href="after-concern-native-200.png"
+          ><img
+            src="after-concern-native-200.png"
+            alt="After: concern investigation, native-200"
+            loading="lazy"
+        /></a>
+      </figure>
+    </div>
+  </section>
+  <section>
+    <h2>By idea and source context</h2>
+    <p>
+      The implementation reuses existing situation metrics, labels their limits,
+      retains earlier responses, and opens exact records in the real Evidence
+      workspace.
+    </p>
+    <div class="grid">
+      <figure>
+        <figcaption>Prototype By idea</figcaption>
+        <a href="prototype-ideas-1440.png"
+          ><img
+            src="prototype-ideas-1440.png"
+            alt="Prototype By idea"
+            loading="lazy"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>Application By idea</figcaption>
+        <a href="after-ideas-1440.png"
+          ><img
+            src="after-ideas-1440.png"
+            alt="Application By idea"
+            loading="lazy"
+        /></a>
+      </figure>
+      <figure>
+        <figcaption>Tablet source drawer</figcaption>
+        <a href="after-context-1024.png"
+          ><img
+            src="after-context-1024.png"
+            alt="Tablet source drawer"
+            loading="lazy"
+        /></a>
+      </figure>
+    </div>
+  </section>
+</html>

@@ -1,0 +1,315 @@
+.workspace {
+  container: notebook-reading / inline-size;
+  min-width: 0;
+  width: 100%;
+  background: #fff;
+  color: #17302d;
+  font:
+    400 15px/1.55 Inter,
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+  overflow-wrap: anywhere;
+}
+.workspace *,
+.citations * {
+  box-sizing: border-box;
+}
+.workspace :is(p, h2, ul, dl, dd) {
+  margin: 0;
+}
+.workspace :is(a, button, input, select, summary):focus-visible,
+.citations a:focus-visible {
+  outline: 3px solid #2f8a6b;
+  outline-offset: 2px;
+}
+.workspace a,
+.citations a {
+  color: #176d58;
+  text-underline-offset: 3px;
+}
+.identity {
+  padding: 20px 20px 12px;
+  display: grid;
+  gap: 6px;
+  border-bottom: 1px solid #e1e9e4;
+  font-size: 13.5px;
+  color: #4f6359;
+}
+.eyebrow {
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 650;
+}
+.heading {
+  color: #17302d;
+  font-size: 19px;
+  line-height: 1.35;
+  font-weight: 650;
+}
+.sourceDetails summary {
+  cursor: pointer;
+  min-height: 40px;
+  padding: 8px 0;
+  color: #176d58;
+}
+.sourceDetails dl {
+  display: grid;
+  grid-template-columns: minmax(5rem, 1fr) minmax(0, 3fr);
+  gap: 6px 12px;
+}
+.sourceDetails dt {
+  font-weight: 600;
+}
+.sourceDetails ul {
+  padding: 8px 0 8px 20px;
+}
+.notice {
+  margin: 12px 20px;
+  padding: 12px;
+  border: 1px solid #c5d9eb;
+  border-radius: 10px;
+  background: #ecf3fa;
+  color: #23476a;
+  font-size: 14px;
+}
+.workspace > .heading {
+  padding: 20px 20px 0;
+}
+.reader {
+  min-width: 0;
+}
+.citations {
+  color: #17302d;
+  font:
+    400 14px/1.5 Inter,
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+}
+.citations ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.citations a {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #c5d9eb;
+  border-radius: 10px;
+  background: #f8fbfe;
+}
+.citations a span {
+  font-weight: 650;
+}
+
+/* Adapt existing markup only inside this presentation. All reading behavior,
+   including busy return links and --reader-size, stays with StudentReader. */
+.reader :global(.lp-s-reader-refined) {
+  max-width: none;
+  padding: 16px 20px 28px;
+  color: #17302d;
+  font-size: 14px;
+}
+.reader :global(.read-hero) {
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-bottom: 12px;
+}
+.reader :global(.read-hero h1) {
+  font-size: 19px;
+  font-weight: 650;
+  letter-spacing: 0;
+}
+.reader :global(.reading-selector) {
+  gap: 8px 12px;
+  padding: 12px;
+  background: #f7f9f8;
+  border-radius: 10px;
+}
+.reader :global(.reading-selector:not(:has(select:enabled))),
+.reader :global(.read-hero:not(:has(a))) {
+  display: none;
+}
+.reader :global(.reader-workspace) {
+  grid-template-columns: 270px minmax(0, 1fr);
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+  gap: 32px;
+}
+.reader :global(.chapter-nav) {
+  border: 1px solid #e1e9e4;
+  border-radius: 10px;
+  background: #fff;
+  align-self: start;
+}
+.reader :global(.chapter-contents) {
+  max-height: none;
+}
+.reader :global(.reader-main) {
+  min-width: 0;
+}
+.reader :global(.reader-tools) {
+  padding: 0 0 12px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.reader :global(.reader-tools-right) {
+  gap: 8px;
+}
+.reader :global(.reader-tools-label) {
+  font-size: 13.5px;
+}
+.reader :global(.searchbox input) {
+  min-width: 0;
+  width: 100%;
+  font-size: 14px;
+  border-color: #7d8e86;
+  background: #fff;
+}
+.reader :global(.searchbox) {
+  flex: 1 1 200px;
+}
+.reader :global(.reader-button) {
+  min-height: 44px;
+  padding: 9px 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.reader :global(.text-buttons button) {
+  min-width: 40px;
+  min-height: 40px;
+  font-size: 14px;
+}
+.reader :global(.reading-article) {
+  padding: 12px 0;
+  min-height: 0;
+}
+.reader :global(.section-title) {
+  font-size: 19px;
+  font-weight: 650;
+  letter-spacing: 0;
+  margin: 6px 0 12px;
+}
+.reader :global(.passage-title) {
+  font-size: 16px;
+  font-weight: 650;
+}
+.reader :global(.reading-body) {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: var(--reader-size, 16px);
+  line-height: 1.7;
+  color: #1d3a33;
+  max-width: 66ch;
+}
+.reader :global(.reading-body p) {
+  line-height: inherit;
+  margin: 0 0 14px;
+}
+.reader :global(.reading-body pre) {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.reader :global(.reader-bottom) {
+  padding: 14px 0;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.reader :global(.read-source) {
+  text-align: left;
+  justify-content: flex-start;
+  font-size: 13.5px;
+  border-top: 1px solid #e1e9e4;
+}
+.reader :global(.reader-footnote) {
+  padding: 10px 0;
+}
+.reader :global(.reader-notice),
+.reader :global(.search-note) {
+  font-size: 13.5px;
+}
+.reader :global(.search-results) {
+  padding: 12px;
+}
+
+/* Container width makes the same reader work in a 384/372px facing slot,
+   standalone reading and the full-width mobile replacement supplied by N1. */
+@container notebook-reading (max-width: 900px) {
+  .reader :global(.reader-workspace) {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .reader :global(.chapter-nav) {
+    display: none;
+    width: 100%;
+  }
+  .reader :global(.chapter-nav.open) {
+    display: flex;
+  }
+  .reader :global(.chapter-mobile-trigger) {
+    display: flex;
+    width: 100%;
+    min-height: 44px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 12px;
+    background: #fff;
+    color: #176d58;
+    border: 1px solid #cbd9d1;
+    border-radius: 10px;
+  }
+  .reader :global(.reader-main) {
+    width: 100%;
+  }
+  .reader :global(.reader-tools),
+  .reader :global(.reader-tools-right) {
+    width: 100%;
+  }
+  .reader :global(.reading-selector) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .reader :global(.reader-tools-label) {
+    display: none;
+  }
+  .reader :global(.searchbox) {
+    flex-basis: 100%;
+  }
+  .reader :global(.chapter-sidebar-toggle) {
+    display: none;
+  }
+  .reader :global(.contents-collapsed .chapter-contents) {
+    display: grid;
+  }
+  .reader :global(.reading-actions) {
+    flex-wrap: wrap;
+  }
+}
+@container notebook-reading (max-width: 360px) {
+  .identity {
+    padding: 14px 14px 10px;
+  }
+  .reader :global(.lp-s-reader-refined) {
+    padding: 12px 14px 40px;
+  }
+  .sourceDetails dl {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+  .sourceDetails dd {
+    margin-bottom: 8px;
+  }
+}

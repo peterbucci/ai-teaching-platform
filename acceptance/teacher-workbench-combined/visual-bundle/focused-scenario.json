@@ -1,0 +1,145 @@
+{
+  "fixtureLabel": "New combined candidate on an explicit clone of the prior fictional acceptance database. Original fixture identities preserved; no new authoring claimed. Source/head and saved records are checked independently.",
+  "sourceSha": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8",
+  "sourceTree": "333b73e1cae1daddf6edd61300655d0b4825ed67",
+  "provenance": {
+    "historicalScenarioSha256": "99229dad0c5388998f65c13fc004969d4fbbef8359d44cad8a5e413d23bf9936",
+    "historicalSnapshot": "07efb7f821339538800f150f57b298eb2e606be3",
+    "historicalFixtureClone": true,
+    "preparedFullScenarioSha256": "c1912a53ad5aa896608cce283eb327c8f81b54474d216089e77d52407a6ff6dc",
+    "preparedFullScenario": "inherited-scenario.json",
+    "sourceAuditSha": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8"
+  },
+  "states": [
+    {
+      "name": "overview",
+      "path": "/teacher",
+      "fixtureLabel": "Whole-course Overview on cloned fictional database, including multiple assignments and private lesson work. Counts differ from prototype.",
+      "readySelector": ".ov-workspace",
+      "expectedText": "Needs a decision",
+      "structureProbes": [
+        {
+          "label": "all assignments",
+          "selector": "#ov-assignments"
+        },
+        {
+          "label": "unfinished work",
+          "selector": "#ov-resume"
+        },
+        {
+          "label": "recent activity",
+          "selector": "#ov-activity"
+        }
+      ]
+    },
+    {
+      "name": "assignments",
+      "path": "/teacher/assignments",
+      "fixtureLabel": "Inherited fictional acceptance fixture; counts/lifecycle differ from prototype. Actual discovery includes authored journey and service-check fictional lessons/classes. Counts, long titles and lifecycle mix differ from prototype."
+    },
+    {
+      "name": "lessons",
+      "path": "/teacher/lessons",
+      "fixtureLabel": "Inherited fictional acceptance fixture; counts/lifecycle differ from prototype. Actual populated library includes evaporation journey and other service fixtures; count is not prototype-equivalent.",
+      "readySelector": ".ll-list",
+      "expectedText": "Lessons",
+      "mobileLessonProbes": true,
+      "structureProbes": [
+        {
+          "label": "lesson rows",
+          "selector": ".ll-row"
+        },
+        {
+          "label": "teaching material section",
+          "selector": "#material-library-heading"
+        }
+      ]
+    },
+    {
+      "name": "evidence",
+      "path": "/teacher/evidence?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&origin=live_demo&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&workspacePane=navigation",
+      "fixtureLabel": "Inherited fictional acceptance fixture; counts/lifecycle differ from prototype. All answers list for actual evaporation journey, live fictional source scope; accepted synthetic evaluation and subsequent saved responses. This is not a Concerns capture.",
+      "expectedText": "Saved responses",
+      "readySelector": ".wb-response-list"
+    },
+    {
+      "name": "original-response",
+      "path": "/teacher/evidence?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&origin=live_demo&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&session=c619a811-af67-4aeb-9348-686fe439db98&attempt=ae652658-924b-485d-9a87-7281a7501099&evaluation=2531aac6-c71d-400a-948d-4bb29ac79535&workspacePane=main#response-detail-title",
+      "fixtureLabel": "Inherited fictional acceptance fixture; counts/lifecycle differ from prototype. Exact original evaporation answer and accepted synthetic evaluation 2531aac6-c71d-400a-948d-4bb29ac79535; published v1/source v1 and recorded no-content-help snapshot. Different response from prototype.",
+      "expectedText": "Original response",
+      "readySelector": ".wb-original-response"
+    },
+    {
+      "name": "interventions",
+      "path": "/teacher/interventions?draft=1e68ead8-23ae-442f-a200-91b41d266b37&workspacePane=context",
+      "fixtureLabel": "Inherited fictional acceptance fixture; counts/lifecycle differ from prototype. SEPARATE SERVICE FIXTURE, not connected evaporation journey: curated assignment 30000000-0000-4000-8000-000000000001, saved draft 1e68ead8-23ae-442f-a200-91b41d266b37, explicit approval 27f76757-7264-40d2-89c1-0583c13cbda3 then delivery verified by service/HTTP receipt. Injected generation/evaluations, zero paid calls. Steps selected on mobile/tablet; prototype approved/not-delivered differs.",
+      "readySelector": ".lp-intervention-steps"
+    },
+    {
+      "name": "roster",
+      "path": "/teacher/students?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&origin=live_demo",
+      "fixtureLabel": "Combined Roster workspace using inherited evaporation assignment; verify visible concept trails, intervention summaries, and new focused student workspaces.",
+      "readySelector": ".roster-table",
+      "structureProbes": [
+        {
+          "label": "concept trails grid",
+          "selector": ".roster-table"
+        },
+        {
+          "label": "bounded grid scroll",
+          "selector": ".roster-table-scroll"
+        }
+      ]
+    },
+    {
+      "name": "learning-insights",
+      "path": "/teacher/insights?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&concept=transmission_delay&misconception=transmission_depends_on_distance&view=concerns&returnTo=patterns&workspacePane=main#patterns",
+      "fixtureLabel": "Separate prepared curated class example from the cloned database, not the connected evaporation journey. Explicit transmission-distance supported concern from approved synthetic histories. Populated investigation required; no empty-state substitution. Prototype concern has different students, evidence and counts.",
+      "readySelector": ".ci-record .ci-counts",
+      "expectedText": "distinct linked responses",
+      "structureProbes": [
+        {
+          "label": "populated concern investigation",
+          "selector": ".ci-record .ci-counts"
+        },
+        {
+          "label": "evidence action group",
+          "selector": ".ci-record .ci-actions"
+        }
+      ]
+    },
+    {
+      "name": "roster-student",
+      "path": "/teacher/students?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&origin=live_demo&student=10000000-0000-4000-8000-000000000002&rosterPane=main&workspacePane=main",
+      "fixtureLabel": "Selected Student One (fictional), inherited evaporation assignment, Work log primary state. Prototype Lena Fischer has different concepts and histories. Read-only Ideas, Summary and Work log pane probes occur after the primary image.",
+      "readySelector": ".roster-log",
+      "expectedText": "Every saved session",
+      "paneProbes": [
+        {
+          "label": "Ideas",
+          "selector": ".roster-ideas"
+        },
+        {
+          "label": "Summary",
+          "selector": ".roster-summary"
+        },
+        {
+          "label": "Work log",
+          "selector": ".roster-log"
+        }
+      ]
+    }
+  ],
+  "captureScope": [
+    "overview",
+    "assignments",
+    "lessons",
+    "evidence",
+    "original-response",
+    "interventions",
+    "roster",
+    "learning-insights",
+    "roster-student"
+  ],
+  "scopeReason": "Focused integration comparison: five changed page-owner surfaces plus assignments, dedicated Evidence list/original record and selected Roster Work log. Nine states at 1440, 1024, 390, 320 and actual native200. Unchanged objectives/questions/published/class-progress visual repeats excluded; original full scenario and prior acceptance evidence retained."
+}

@@ -1,0 +1,454 @@
+{
+  "origin": "http://127.0.0.1:3407",
+  "startedAt": "2026-10-25T18:00:01.876Z",
+  "providersDisabled": true,
+  "paidModelCalls": 0,
+  "browser": "Chromium via Playwright",
+  "sources": {
+    "app/study/reading/reader.tsx": "1e3445b91a61088f097c70290bc4da46f0eaeadde42eb62de1ff9fe2b392a309",
+    "app/study/reading/visibility.ts": "10249052e7da1d8f4b23baf633f8baa8623f03350b5aa00ca02554e84639475b",
+    "app/study/reading/page.tsx": "086e50869f8a31f9f927a799180153f383582b3d430877da0265c94821edb41a"
+  },
+  "cases": [
+    {
+      "id": "standalone-unsent-draft-roundtrip",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "6c54b4fd-25ef-4455-a0fc-d9c367e4fa62",
+        "attemptId": "4508c3cf-ad9f-4641-b4ab-a1ae8a49d506",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "before": {
+        "interventions": [],
+        "attempts": [
+          {
+            "id": "4508c3cf-ad9f-4641-b4ab-a1ae8a49d506",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "3f527f1e-2b8c-41ab-80e1-6ef2ae0595a2",
+            "related_attempt_id": "4508c3cf-ad9f-4641-b4ab-a1ae8a49d506",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:00:10.695Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "4508c3cf-ad9f-4641-b4ab-a1ae8a49d506",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/6c54b4fd-25ef-4455-a0fc-d9c367e4fa62/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951208849
+        },
+        {
+          "path": "/api/sessions/6c54b4fd-25ef-4455-a0fc-d9c367e4fa62/interventions/3f527f1e-2b8c-41ab-80e1-6ef2ae0595a2",
+          "body": "{}",
+          "time": 1792951209728
+        }
+      ],
+      "unsentDraftExact": true
+    },
+    {
+      "id": "offscreen-body-awaits-presentation",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "db90b117-83fd-4ebb-b9fe-6b681b2b157d",
+        "attemptId": "7e5de55d-ff6f-4bf2-a335-5e94a5572c8f",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "pending": {
+        "interventions": [
+          {
+            "id": "b6a67797-1610-41e1-808c-f4e84f767ddf",
+            "related_attempt_id": "7e5de55d-ff6f-4bf2-a335-5e94a5572c8f",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "created",
+            "visible_at": null
+          }
+        ],
+        "attempts": [
+          {
+            "id": "7e5de55d-ff6f-4bf2-a335-5e94a5572c8f",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "b6a67797-1610-41e1-808c-f4e84f767ddf",
+            "related_attempt_id": "7e5de55d-ff6f-4bf2-a335-5e94a5572c8f",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:00:14.141Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "7e5de55d-ff6f-4bf2-a335-5e94a5572c8f",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/db90b117-83fd-4ebb-b9fe-6b681b2b157d/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951213615
+        },
+        {
+          "path": "/api/sessions/db90b117-83fd-4ebb-b9fe-6b681b2b157d/interventions/b6a67797-1610-41e1-808c-f4e84f767ddf",
+          "body": "{}",
+          "time": 1792951214061
+        }
+      ],
+      "offscreenBody": {
+        "x": 36,
+        "y": 1989.46875,
+        "width": 248,
+        "height": 1032.765625
+      }
+    },
+    {
+      "id": "background-during-open-signal-simulation",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "234bcd2a-1ef7-4713-8106-e06528d612fb",
+        "attemptId": "b048d6b1-7226-4814-92fd-c923ee5268f3",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "pending": {
+        "interventions": [
+          {
+            "id": "c7d3047f-93e2-417f-8ace-b780429f374c",
+            "related_attempt_id": "b048d6b1-7226-4814-92fd-c923ee5268f3",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "created",
+            "visible_at": null
+          }
+        ],
+        "attempts": [
+          {
+            "id": "b048d6b1-7226-4814-92fd-c923ee5268f3",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "c7d3047f-93e2-417f-8ace-b780429f374c",
+            "related_attempt_id": "b048d6b1-7226-4814-92fd-c923ee5268f3",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:00:16.162Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "b048d6b1-7226-4814-92fd-c923ee5268f3",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/234bcd2a-1ef7-4713-8106-e06528d612fb/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951215347
+        },
+        {
+          "path": "/api/sessions/234bcd2a-1ef7-4713-8106-e06528d612fb/interventions/c7d3047f-93e2-417f-8ace-b780429f374c",
+          "body": "{}",
+          "time": 1792951216121
+        }
+      ],
+      "qualification": "Injected document.visibilityState/visibilitychange in actual browser; not native tab-background proof"
+    },
+    {
+      "id": "hidden-browsing-selects-only-final-passage",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "13682fb9-398b-41a4-a0b4-ff4f1f57fc7a",
+        "attemptId": "7ced253b-5f87-4c7a-a52d-26b24fae2b97",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "before": {
+        "interventions": [],
+        "attempts": [
+          {
+            "id": "7ced253b-5f87-4c7a-a52d-26b24fae2b97",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "6405e5e8-7997-4917-96b6-70fdad5824c8",
+            "related_attempt_id": "7ced253b-5f87-4c7a-a52d-26b24fae2b97",
+            "source_passage_ids": ["P10"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:00:18.289Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "7ced253b-5f87-4c7a-a52d-26b24fae2b97",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/13682fb9-398b-41a4-a0b4-ff4f1f57fc7a/reading",
+          "body": "{\"passage_id\":\"P10\"}",
+          "time": 1792951218141
+        },
+        {
+          "path": "/api/sessions/13682fb9-398b-41a4-a0b4-ff4f1f57fc7a/interventions/6405e5e8-7997-4917-96b6-70fdad5824c8",
+          "body": "{}",
+          "time": 1792951218241
+        }
+      ],
+      "selectedWhileHidden": ["P09", "P10", "P11", "P10"]
+    },
+    {
+      "id": "native-background-before-open",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "11818e4c-d86f-40d4-b39c-5628a92e464a",
+        "attemptId": "3eca0bdc-cfb2-47b8-b708-725f5f1ab51c",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "pending": {
+        "interventions": [],
+        "attempts": [
+          {
+            "id": "3eca0bdc-cfb2-47b8-b708-725f5f1ab51c",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "d550fd3b-51d6-4e3f-90bc-1322e60ac374",
+            "related_attempt_id": "3eca0bdc-cfb2-47b8-b708-725f5f1ab51c",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:00:22.294Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "3eca0bdc-cfb2-47b8-b708-725f5f1ab51c",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/11818e4c-d86f-40d4-b39c-5628a92e464a/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951222080
+        },
+        {
+          "path": "/api/sessions/11818e4c-d86f-40d4-b39c-5628a92e464a/interventions/d550fd3b-51d6-4e3f-90bc-1322e60ac374",
+          "body": "{}",
+          "time": 1792951222233
+        }
+      ],
+      "backgroundSignal": {
+        "visibility": "visible",
+        "focused": false
+      },
+      "foregroundSignal": {
+        "visibility": "visible",
+        "focused": true
+      },
+      "method": "Real browser tab bringToFront with CDP focus emulation disabled on both tabs; no document/focus mutation"
+    },
+    {
+      "id": "native-background-during-open",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "429c0b0a-2b64-49c6-95f1-6a190003b75b",
+        "attemptId": "d57168ad-d874-427a-b7f2-c3867c02038a",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "pending": {
+        "interventions": [
+          {
+            "id": "2619c82d-f01f-4263-875b-110d1772303d",
+            "related_attempt_id": "d57168ad-d874-427a-b7f2-c3867c02038a",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "created",
+            "visible_at": null
+          }
+        ],
+        "attempts": [
+          {
+            "id": "d57168ad-d874-427a-b7f2-c3867c02038a",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "2619c82d-f01f-4263-875b-110d1772303d",
+            "related_attempt_id": "d57168ad-d874-427a-b7f2-c3867c02038a",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:00:27.336Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "d57168ad-d874-427a-b7f2-c3867c02038a",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/429c0b0a-2b64-49c6-95f1-6a190003b75b/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951226588
+        },
+        {
+          "path": "/api/sessions/429c0b0a-2b64-49c6-95f1-6a190003b75b/interventions/2619c82d-f01f-4263-875b-110d1772303d",
+          "body": "{}",
+          "time": 1792951227281
+        }
+      ],
+      "backgroundSignal": {
+        "visibility": "visible",
+        "focused": false
+      },
+      "foregroundSignal": {
+        "visibility": "visible",
+        "focused": true
+      },
+      "method": "Real browser tab bringToFront with CDP focus emulation disabled on both tabs; no document/focus mutation"
+    }
+  ],
+  "browserVersion": "156.0.4314.42",
+  "finishedAt": "2026-10-25T18:00:28.168Z"
+}

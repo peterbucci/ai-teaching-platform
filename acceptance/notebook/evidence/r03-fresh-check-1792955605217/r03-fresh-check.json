@@ -1,0 +1,50 @@
+{
+  "source": "35b21a2908cfc42d02a21651fc337826e8e73c16",
+  "diffSha256": "32f324f60a6ea18eaaaab26a41329bf80ca0da9cb392ef4a87381b5bf098357d",
+  "runtime": "production",
+  "buildId": "OSi94hZSaMmZ8UE2it5pB",
+  "base": "http://127.0.0.1:3407",
+  "sourceFiles": [
+    {
+      "file": "app/study/interventions/[approvalId]/activity.tsx",
+      "sha256": "7b3b1eda995dfebaebf791c3342d26c14038fded710da347d80a42e69d5f64b3"
+    },
+    {
+      "file": "app/study/interventions/[approvalId]/page.tsx",
+      "sha256": "274fc99b7ccb5bfd1dcff9e36a354633bc3516117040b8874ea3f5732147e189"
+    },
+    {
+      "file": "app/study/notebook/reviews/presenters.tsx",
+      "sha256": "d1d249e74b4c1c6443711b5cf03c1323ac04aa974479c913862f15306a0e4477"
+    },
+    {
+      "file": "lib/interventions/student-concept-names.ts",
+      "sha256": "beebb47d3636f8eb4467da7b686b6e096c82d517c1812ca1dc885463faeaf737"
+    },
+    {
+      "file": "lib/interventions/outcomes.ts",
+      "sha256": "bfd506c6e13b580acd3ec0f1d2e29f09a7c85873ae05ab00b9ff87a0d92b7af3"
+    },
+    {
+      "file": "app/teacher/interventions/followup.tsx",
+      "sha256": "ab4f9f44fa16db60a523176643fa58bb63784697c6ccb8ba604af8dfd21b7230"
+    }
+  ],
+  "sourceFilesSha256": "e0aa9a98efdff7fb324704f3496271c9c68fab34a6c0e9e87cc5350dab87cbb2",
+  "fixture": "New uploaded synthetic water-state lesson with digit-leading UUID concepts",
+  "evaluationProvenance": "Authored synthetic fixture; no actual-model assessment",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "checks": [],
+  "comparisons": [],
+  "screenshots": [],
+  "pageErrors": [],
+  "knownGaps": [
+    "The existing teacher follow-up UI still displays raw concept IDs. This check compares its accepted identity/results, not student/teacher label parity."
+  ],
+  "result": "FAIL",
+  "failure": {
+    "name": "AssertionError",
+    "message": "Authored uploaded activity must validate"
+  }
+}

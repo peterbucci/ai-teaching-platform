@@ -1,0 +1,322 @@
+{
+  "category": "Actual shared pane TSX and actual shared CSS; isolated fictional React fixture; repository production React/ReactDOM; next/navigation URL hook mocked; no application or database coverage",
+  "startedAt": "2026-10-25T04:31:14.710Z",
+  "browser": "156.0.4314.42",
+  "sourceFiles": [
+    "app/teacher/workspace-panes.tsx",
+    "app/teacher/workspace-panes-model.ts",
+    "app/teacher/workspace-shell.css"
+  ],
+  "cases": [
+    {
+      "name": "1440-docked-three-pane-geometry",
+      "status": "pass",
+      "details": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "layout": "wide",
+        "panes": [
+          {
+            "class": "tw-panes-panel tw-panes-panel--navigation",
+            "visible": true,
+            "rect": {
+              "x": 0,
+              "y": 201,
+              "width": 330,
+              "height": 801,
+              "top": 201,
+              "right": 330,
+              "bottom": 1002,
+              "left": 0
+            },
+            "modal": false
+          },
+          {
+            "class": "tw-panes-panel tw-panes-panel--main",
+            "visible": true,
+            "rect": {
+              "x": 330,
+              "y": 201,
+              "width": 750,
+              "height": 801,
+              "top": 201,
+              "right": 1080,
+              "bottom": 1002,
+              "left": 330
+            },
+            "modal": false
+          },
+          {
+            "class": "tw-panes-context tw-panes-panel",
+            "visible": true,
+            "rect": {
+              "x": 1080,
+              "y": 201,
+              "width": 360,
+              "height": 801,
+              "top": 201,
+              "right": 1440,
+              "bottom": 1002,
+              "left": 1080
+            },
+            "open": true,
+            "modal": false
+          }
+        ],
+        "react": "19.3.0"
+      }
+    },
+    {
+      "name": "1440-docked-two-pane-geometry",
+      "status": "pass",
+      "details": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "layout": "wide",
+        "panes": [
+          {
+            "class": "tw-panes-panel tw-panes-panel--main",
+            "visible": true,
+            "rect": {
+              "x": 0,
+              "y": 201,
+              "width": 1060,
+              "height": 801,
+              "top": 201,
+              "right": 1060,
+              "bottom": 1002,
+              "left": 0
+            },
+            "modal": false
+          },
+          {
+            "class": "tw-panes-context tw-panes-panel",
+            "visible": true,
+            "rect": {
+              "x": 1060,
+              "y": 201,
+              "width": 380,
+              "height": 801,
+              "top": 201,
+              "right": 1440,
+              "bottom": 1002,
+              "left": 1060
+            },
+            "open": true,
+            "modal": false
+          }
+        ],
+        "react": "19.3.0"
+      }
+    },
+    {
+      "name": "1024-drawer-escape-focus-and-child-state",
+      "status": "pass",
+      "details": {
+        "closedGeometry": {
+          "width": 1024,
+          "scrollWidth": 1024,
+          "layout": "medium",
+          "panes": [
+            {
+              "class": "tw-panes-panel tw-panes-panel--navigation",
+              "visible": true,
+              "rect": {
+                "x": 0,
+                "y": 245,
+                "width": 300,
+                "height": 569,
+                "top": 245,
+                "right": 300,
+                "bottom": 814,
+                "left": 0
+              },
+              "modal": false
+            },
+            {
+              "class": "tw-panes-panel tw-panes-panel--main",
+              "visible": true,
+              "rect": {
+                "x": 300,
+                "y": 245,
+                "width": 724,
+                "height": 569,
+                "top": 245,
+                "right": 1024,
+                "bottom": 814,
+                "left": 300
+              },
+              "modal": false
+            },
+            {
+              "class": "tw-panes-context tw-panes-panel",
+              "visible": true,
+              "rect": {
+                "x": 624,
+                "y": 0,
+                "width": 400,
+                "height": 768,
+                "top": 0,
+                "right": 1024,
+                "bottom": 768,
+                "left": 624
+              },
+              "open": true,
+              "modal": true
+            }
+          ],
+          "react": "19.3.0"
+        },
+        "escape": "closed and focused opener",
+        "close": "closed and focused opener",
+        "childState": "preserved across modal closes"
+      }
+    },
+    {
+      "name": "390-single-pane-keyboard-history-scroll-draft",
+      "status": "pass",
+      "details": {
+        "geometry": {
+          "width": 390,
+          "scrollWidth": 390,
+          "layout": "compact",
+          "panes": [
+            {
+              "class": "tw-panes-panel tw-panes-panel--navigation",
+              "visible": false,
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 0,
+                "height": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "modal": false
+            },
+            {
+              "class": "tw-panes-panel tw-panes-panel--main",
+              "visible": false,
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 0,
+                "height": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "modal": false
+            },
+            {
+              "class": "tw-panes-context tw-panes-panel",
+              "visible": true,
+              "rect": {
+                "x": 0,
+                "y": 144,
+                "width": 390,
+                "height": 675,
+                "top": 144,
+                "right": 390,
+                "bottom": 819,
+                "left": 0
+              },
+              "open": true,
+              "modal": false
+            }
+          ],
+          "react": "19.3.0"
+        },
+        "history": "Back and Forward restored pane, scroll, focus and unsent child input",
+        "refresh": "URL-selected context restored",
+        "keyboard": "ArrowLeft then Enter selected and focused heading"
+      }
+    },
+    {
+      "name": "320-single-pane-keyboard-history-scroll-draft",
+      "status": "pass",
+      "details": {
+        "geometry": {
+          "width": 320,
+          "scrollWidth": 320,
+          "layout": "compact",
+          "panes": [
+            {
+              "class": "tw-panes-panel tw-panes-panel--navigation",
+              "visible": false,
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 0,
+                "height": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "modal": false
+            },
+            {
+              "class": "tw-panes-panel tw-panes-panel--main",
+              "visible": false,
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 0,
+                "height": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "modal": false
+            },
+            {
+              "class": "tw-panes-context tw-panes-panel",
+              "visible": true,
+              "rect": {
+                "x": 0,
+                "y": 144,
+                "width": 320,
+                "height": 675,
+                "top": 144,
+                "right": 320,
+                "bottom": 819,
+                "left": 0
+              },
+              "open": true,
+              "modal": false
+            }
+          ],
+          "react": "19.3.0"
+        },
+        "history": "Back and Forward restored pane, scroll, focus and unsent child input",
+        "refresh": "URL-selected context restored",
+        "keyboard": "ArrowLeft then Enter selected and focused heading"
+      }
+    },
+    {
+      "name": "responsive-modal-to-mobile-preserves-focus",
+      "status": "pass",
+      "details": {
+        "focus": "remains visible on Context draft",
+        "content": "preserved",
+        "modal": false
+      }
+    }
+  ],
+  "screenshots": [
+    "panes-1440x1000.png",
+    "panes-1440x1000-two.png",
+    "panes-1024x768-modal.png",
+    "panes-1024x768.png",
+    "panes-390x844-context.png",
+    "panes-390x844.png",
+    "panes-320x844-context.png",
+    "panes-320x844.png"
+  ],
+  "errors": []
+}

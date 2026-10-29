@@ -1,0 +1,78 @@
+{
+  "kind": "Independent shell-agent evidence directly inspected by Lessons agent",
+  "recovery": {
+    "source": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+    "receiptSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9",
+    "cases": [
+      {
+        "name": "actual objective unsaved pane reload Back recovery",
+        "status": "pass",
+        "lesson": "0bff1f7e-7c75-405c-adb8-55033477d785",
+        "serverSnapshotSha256": "d0702cde446f705a27adf5117be052a5e6e8d0ab352f9926b6bdd10e155962d8",
+        "paneReloadAndBackPreserved": true
+      },
+      {
+        "name": "actual objective unsaved guard cancels switcher navigation",
+        "status": "pass",
+        "lesson": "0bff1f7e-7c75-405c-adb8-55033477d785",
+        "confirmation": {
+          "type": "confirm",
+          "message": "This browser cannot keep a recovery copy. Leave and discard your unsaved objective edits?"
+        },
+        "retainedURL": "http://127.0.0.1:3317/teacher/objectives/0bff1f7e-7c75-405c-adb8-55033477d785",
+        "modalClosed": true,
+        "editorFocusable": true,
+        "serverSnapshotSha256": "d0702cde446f705a27adf5117be052a5e6e8d0ab352f9926b6bdd10e155962d8"
+      }
+    ]
+  },
+  "finalShell": {
+    "source": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+    "receiptSha256": "28faab2c4cec7789dbabfa62eb45fed4adb730bb4db54b97043c741571778ff5",
+    "cases": [
+      {
+        "name": "targeted switcher Escape 1440",
+        "status": "pass"
+      },
+      {
+        "name": "targeted switcher Escape 1024",
+        "status": "pass"
+      },
+      {
+        "name": "targeted switcher Escape 390",
+        "status": "pass"
+      },
+      {
+        "name": "targeted Details Escape 320",
+        "status": "pass"
+      },
+      {
+        "name": "targeted Details Escape 1024",
+        "status": "pass"
+      },
+      {
+        "name": "C2 grid details 390",
+        "status": "pass"
+      },
+      {
+        "name": "read-only evidence receipts unchanged",
+        "status": "pass"
+      },
+      {
+        "name": "no browser errors or mutation attempts",
+        "status": "pass"
+      }
+    ]
+  },
+  "limitations": [
+    "Objective recovery and denied-storage guard belong to the earlier b8 combined runtime, not final9ca.",
+    "These independent shell checks do not establish Lessons actual200% zoom or the incomplete question-editor reload check."
+  ],
+  "runtimeRelease": {
+    "reportedBy": "Assignments agent D",
+    "port3317Listeners": 0,
+    "sharedGuardAbsent": true,
+    "postReleaseFreeGiB": 43.2,
+    "postgresAndData": "untouched"
+  }
+}

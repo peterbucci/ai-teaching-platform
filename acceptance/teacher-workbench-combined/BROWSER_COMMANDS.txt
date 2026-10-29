@@ -1,0 +1,50 @@
+Prepared for application c26664e49b7cc15fa7c63828f5c582c9b8cac2d8 / tree333b73e1cae1daddf6edd61300655d0b4825ed67.
+Project lp-teacher-combined-01a174be; origin http://localhost:3449.
+Preparation only: no database, browser, login, build or model execution by the preparer.
+
+Set these PowerShell variables; state is the coordinator's freshly initialized runtime directory:
+$v = 'C:/Users/sb128/.codex/visualizations/2026/10/25/01a174be-f6b2-7012-b723-c460b8858df5/verification'
+$state = '<absolute current runtime state directory>'
+$pw = 'C:/Users/sb128/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright'
+$safety = "$v/journey-bundle/safety.mjs"
+$env:BROWSER_EXECUTABLE = 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'
+
+Every command below owns the same PR121 guard. Run sequentially after another owner releases it; do not wrap one guard inside another. Use fresh output directories with an existing parent. Never rerun acknowledged writes to hide a verifier failure. On a timeout/uncertain result, preserve the lock and inspect actual process/records before coordinator release.
+
+1. After coordinator verifies the cloned fictional database, focused current-source contracts:
+node "$v/guarded-focused-browser.mjs" returns $state "$v/returns-01"
+node "$v/guarded-focused-browser.mjs" navigation $state "$v/navigation-01"
+node "$v/guarded-focused-browser.mjs" evidence $state "$v/evidence-01"
+node "$v/guarded-focused-browser.mjs" hydration $state "$v/hydration-01" 1e68ead8-23ae-442f-a200-91b41d266b37
+node "$v/journey-bundle/r03-labels-browser.mjs" $state "$v/r03-labels-01" $pw $safety
+
+The wrappers pin the current candidate/manifest and invoke the current candidate's existing K/I tests, without receiver-mode DOM replacement. R01/R02 uses integrated mode. Evidence uses the original inherited fixture. Hydration checks saved delivered R07 with four widths/native200 and differing locales. Guard receipt process completion is not a case pass; inspect case report and retained errors. Authenticated profiles/logs stay private until publication review. R03 requires exact inherited attempt8ad2d8b8 and evaluationb2e02dda, with Evaporation visible and raw UUID absent.
+
+2. New connected lifecycle from inherited original evidence (no original evaluation/controller replay):
+node "$v/journey-bundle/guarded-container-fixture.mjs" prepare $state "$v/journey-bundle/inherited-fixture.json" "$v/new-intervention-prepare-01" $safety
+node "$v/journey-bundle/intervention-continuation-browser.mjs" review-and-submit $state "$v/new-intervention-prepare-01/fixture.json" "$v/new-intervention-browser-01" $pw $safety
+
+The inherited descriptor preserves the old source SHA/tree/origin solely as historical provenance, while the runtime/preparation report is pinned to the new combined candidate. Prepare requires already accepted original evaluation2531aac6, creates a NEW nonce-derived private draft and request, and compares the complete original session before/after. No applyTutoring or evaluateSubmittedAttempt call exists in the adapted fixture. It does not approve or deliver. The browser then inspects original evidence, edits/saves, selects the exact fictional student, approves, verifies pre-delivery denial, separately delivers, logs in as the same student, starts and submits a new followup, and inspects the teacher's linked saved response. Ordinary providers are disabled, so its first evaluation must fail honestly while retaining the new answer.
+
+Read the browser report's followup.retry_after and wait for normal eligibility. Do not change quotas/timestamps. Only when review-and-submit completed its intended lifecycle:
+node "$v/journey-bundle/guarded-container-fixture.mjs" evaluate-followup $state "$v/new-intervention-browser-01/report.json" "$v/new-intervention-evaluation-01" $safety
+node "$v/journey-bundle/intervention-continuation-browser.mjs" inspect-followup $state "$v/new-intervention-evaluation-01/fixture.json" "$v/new-intervention-accepted-01" $pw $safety
+
+This retry deliberately injects a synthetic evaluation through the existing service; it is not model evidence. It requires failed+retry_allowed or an already accepted result, preserves original evidence and saved new answer, and uses an idempotent request derived from the same nonce. Old hash-pinned reconciliation phases are not allowed. If a new browser run stops after writes, prepare a new narrow read-only reconciliation after inspecting its actual receipt instead of forcing a completed status or replaying it.
+
+3. Actual prototype and inherited populated visual matrix:
+$prototype = 'C:/Users/sb128/.codex/visualizations/2026/10/25/01a1713e-abef-7833-aa2a-a0ffa25ec46e/prototype-verification/export'
+node "$v/visual-bundle/capture-prototype.mjs" $state "$v/prototype-01" $safety $prototype "$v/visual-bundle/focused-scenario.json"
+node "$v/visual-bundle/capture-application-v3.mjs" $state "$v/application-01" $safety "$v/visual-bundle/focused-scenario.json"
+node "$v/visual-bundle/build-gallery-v2.mjs" "$v/application-01/report.json" "$v/prototype-01/report.json" "$v/comparison-gallery.html"
+
+The focused scenario contains nine matching application/prototype states, 45 primary images each: Overview, Assignments, Lessons, Evidence, original response, Interventions, Roster, populated Concerns and selected Roster Work log. It uses the old exact R07 delivered draft. The R06 concern uses the cloned prepared curated fixture rather than the evaporation empty-concern scope. Missing populated data fails readiness; it is not silently replaced. R05 Ideas/Summary/Work log interactions follow primary screenshots at all five sizes; R08 keyboard Details/Search/Clear probes follow primary screenshots at390/320/native200. Inspect functionalProbeFailures independently of capture count. The original full inherited scenario and its hash remain preserved. Add a separate scenario using the new draft's actual teacher_url to compare new lifecycle states; do not invent equal prototype records. Capture alone never establishes acceptance. Independently inspect paired full images and rank real differences. The old prototype objectives locator has a known problem; if reproduced preserve its failed report and run capture-prototype-objectives.mjs as a separate focused supplement. Native100/native200 metrics and raw CDP images are retained; browser profiles must not be published.
+
+Source adaptation:
+- PR122 orchestration and PR121 safety retained; safety is byte-identical af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485.
+- Current tablet Evidence drawer replaces the prior helper's obsolete Steps drawer assumption.
+- Current completed-stage comparison opens its actual disclosure.
+- Multiple original records are disambiguated by exact full original text, not by discarding counterevidence.
+- Application files and previous evidence are untouched.
+
+Boundary: This is integration verification, not independent acceptance. Fresh connected work begins at new draft preparation from inherited fictional evidence; no new teacher lesson authoring is claimed.

@@ -1,0 +1,4917 @@
+{
+  "status": "passed",
+  "baseline": "07efb7f821339538800f150f57b298eb2e606be3",
+  "candidate": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8",
+  "candidateTree": "333b73e1cae1daddf6edd61300655d0b4825ed67",
+  "expectedTree": "333b73e1cae1daddf6edd61300655d0b4825ed67",
+  "sources": [
+    {
+      "owner": "K Navigation",
+      "pr": 139,
+      "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+      "integration": "43ac64b2dd1efc5d57928aaec236c39d7fd39a50",
+      "baselineIsAncestor": true,
+      "headIsAncestorOfCandidate": true,
+      "files": [
+        "app/teacher/sessions/[sessionId]/page.tsx",
+        "app/teacher/workspace-panes.tsx",
+        "app/teacher/workspace-session-context.ts",
+        "app/teacher/workspace-shell.css",
+        "docs/TEACHER_CONTEXTUAL_RETURNS.md",
+        "lib/teacher/workspace-contracts.ts",
+        "tests/artifacts/teacher-contextual-returns/VERIFICATION.md",
+        "tests/artifacts/teacher-contextual-returns/after-insights-1440.png",
+        "tests/artifacts/teacher-contextual-returns/after-insights-390.png",
+        "tests/artifacts/teacher-contextual-returns/after-students-1440.png",
+        "tests/artifacts/teacher-contextual-returns/after-students-390.png",
+        "tests/artifacts/teacher-contextual-returns/before-01.json",
+        "tests/artifacts/teacher-contextual-returns/before-insights-1440.png",
+        "tests/artifacts/teacher-contextual-returns/before-insights-390.png",
+        "tests/artifacts/teacher-contextual-returns/before-students-1440.png",
+        "tests/artifacts/teacher-contextual-returns/before-students-390.png",
+        "tests/artifacts/teacher-contextual-returns/build-webpack.txt",
+        "tests/artifacts/teacher-contextual-returns/evidence-fingerprints.json",
+        "tests/artifacts/teacher-contextual-returns/f1-final-fixture-01.json",
+        "tests/artifacts/teacher-contextual-returns/integrated-final.json",
+        "tests/artifacts/teacher-contextual-returns/integration-build-webpack.txt",
+        "tests/artifacts/teacher-contextual-returns/lint-results.txt",
+        "tests/artifacts/teacher-contextual-returns/loaded-screens.json",
+        "tests/artifacts/teacher-contextual-returns/panes-04.json",
+        "tests/artifacts/teacher-contextual-returns/receiver-03.json",
+        "tests/artifacts/teacher-contextual-returns/role-check.json",
+        "tests/artifacts/teacher-contextual-returns/s1-c2-01.json",
+        "tests/artifacts/teacher-contextual-returns/s1-c2-native200.json",
+        "tests/artifacts/teacher-contextual-returns/static-checks.json",
+        "tests/artifacts/teacher-contextual-returns/switcher-01.json",
+        "tests/artifacts/teacher-contextual-returns/typecheck-results.txt",
+        "tests/artifacts/teacher-contextual-returns/unit-results.txt",
+        "tests/teacher-contextual-return-browser.mjs",
+        "tests/teacher-contextual-return.test.ts",
+        "tests/teacher-evidence-return-regression-browser.mjs",
+        "tests/teacher-pane-drawer-browser.mjs",
+        "tests/teacher-return-regression-browser.mjs"
+      ]
+    },
+    {
+      "owner": "I Interventions",
+      "pr": 136,
+      "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+      "integration": "9fdf0d1298fb55c793cb3a8d8233431488bfbbfb",
+      "baselineIsAncestor": true,
+      "headIsAncestorOfCandidate": true,
+      "files": [
+        "app/teacher/interventions/editor.tsx",
+        "app/teacher/interventions/followup.tsx",
+        "app/teacher/interventions/interventions.css",
+        "app/teacher/interventions/timestamp.ts",
+        "app/teacher/interventions/workspace.tsx",
+        "app/teacher/workspace-panes.tsx",
+        "app/teacher/workspace-shell.css",
+        "tests/artifacts/intervention-fidelity/VERIFICATION.md",
+        "tests/artifacts/intervention-fidelity/after/1024.png",
+        "tests/artifacts/intervention-fidelity/after/1440.png",
+        "tests/artifacts/intervention-fidelity/after/320.png",
+        "tests/artifacts/intervention-fidelity/after/390.png",
+        "tests/artifacts/intervention-fidelity/after/native200.png",
+        "tests/artifacts/intervention-fidelity/after/report.json",
+        "tests/artifacts/intervention-fidelity/approval-followup.json",
+        "tests/artifacts/intervention-fidelity/before/1024.png",
+        "tests/artifacts/intervention-fidelity/before/1440.png",
+        "tests/artifacts/intervention-fidelity/before/320.png",
+        "tests/artifacts/intervention-fidelity/before/390.png",
+        "tests/artifacts/intervention-fidelity/before/native200.png",
+        "tests/artifacts/intervention-fidelity/before/report.json",
+        "tests/artifacts/intervention-fidelity/component-report.json",
+        "tests/artifacts/intervention-fidelity/component-source-manifest.json",
+        "tests/artifacts/intervention-fidelity/copy-provenance.json",
+        "tests/artifacts/intervention-fidelity/followup-browser.mjs",
+        "tests/artifacts/intervention-fidelity/followup/1024-followup.png",
+        "tests/artifacts/intervention-fidelity/followup/1024-original.png",
+        "tests/artifacts/intervention-fidelity/followup/1440-followup.png",
+        "tests/artifacts/intervention-fidelity/followup/1440-original.png",
+        "tests/artifacts/intervention-fidelity/followup/320-followup.png",
+        "tests/artifacts/intervention-fidelity/followup/320-original.png",
+        "tests/artifacts/intervention-fidelity/followup/390-followup.png",
+        "tests/artifacts/intervention-fidelity/followup/390-original.png",
+        "tests/artifacts/intervention-fidelity/followup/native200-followup.png",
+        "tests/artifacts/intervention-fidelity/followup/native200-original.png",
+        "tests/artifacts/intervention-fidelity/followup/report.json",
+        "tests/artifacts/intervention-fidelity/generation-service.log",
+        "tests/artifacts/intervention-fidelity/lifecycle-browser.mjs",
+        "tests/artifacts/intervention-fidelity/lifecycle/approved-undelivered-1024.png",
+        "tests/artifacts/intervention-fidelity/lifecycle/approved-undelivered-1440.png",
+        "tests/artifacts/intervention-fidelity/lifecycle/approved-undelivered-320.png",
+        "tests/artifacts/intervention-fidelity/lifecycle/approved-undelivered-390.png",
+        "tests/artifacts/intervention-fidelity/lifecycle/approved-undelivered-native200.png",
+        "tests/artifacts/intervention-fidelity/lifecycle/delivered-1024.png",
+        "tests/artifacts/intervention-fidelity/lifecycle/delivered-1440.png",
+        "tests/artifacts/intervention-fidelity/lifecycle/delivered-320.png",
+        "tests/artifacts/intervention-fidelity/lifecycle/delivered-390.png",
+        "tests/artifacts/intervention-fidelity/lifecycle/delivered-native200.png",
+        "tests/artifacts/intervention-fidelity/lifecycle/edited-saved-1024.png",
+        "tests/artifacts/intervention-fidelity/lifecycle/edited-saved-1440.png",
+        "tests/artifacts/intervention-fidelity/lifecycle/edited-saved-320.png",
+        "tests/artifacts/intervention-fidelity/lifecycle/edited-saved-390.png",
+        "tests/artifacts/intervention-fidelity/lifecycle/edited-saved-native200.png",
+        "tests/artifacts/intervention-fidelity/lifecycle/private-1024.png",
+        "tests/artifacts/intervention-fidelity/lifecycle/private-1440.png",
+        "tests/artifacts/intervention-fidelity/lifecycle/private-320.png",
+        "tests/artifacts/intervention-fidelity/lifecycle/private-390.png",
+        "tests/artifacts/intervention-fidelity/lifecycle/private-native200.png",
+        "tests/artifacts/intervention-fidelity/lifecycle/report.json",
+        "tests/artifacts/intervention-fidelity/prior-attempts.json",
+        "tests/artifacts/intervention-fidelity/prototype/1024x768.png",
+        "tests/artifacts/intervention-fidelity/prototype/1440x1000.png",
+        "tests/artifacts/intervention-fidelity/prototype/320x844.png",
+        "tests/artifacts/intervention-fidelity/prototype/390x844.png",
+        "tests/artifacts/intervention-fidelity/prototype/native200-cdp.png",
+        "tests/artifacts/intervention-fidelity/quality/build.log",
+        "tests/artifacts/intervention-fidelity/quality/content-check.log",
+        "tests/artifacts/intervention-fidelity/quality/focused-tests.log",
+        "tests/artifacts/intervention-fidelity/quality/format-check.log",
+        "tests/artifacts/intervention-fidelity/quality/lint.log",
+        "tests/artifacts/intervention-fidelity/quality/results.json",
+        "tests/artifacts/intervention-fidelity/quality/test.log",
+        "tests/artifacts/intervention-fidelity/quality/typecheck.log",
+        "tests/artifacts/intervention-workspace/component-browser.mjs",
+        "tests/artifacts/intervention-workspace/component-build.mjs",
+        "tests/intervention-hydration-browser.mjs",
+        "tests/teacher-intervention-timestamp.test.ts",
+        "tests/teacher-pane-drawer-browser.mjs"
+      ]
+    },
+    {
+      "owner": "J Lessons",
+      "pr": 135,
+      "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+      "integration": "86c60347bdaddd88497c3cb49950d1eaf7dcbda2",
+      "baselineIsAncestor": true,
+      "headIsAncestorOfCandidate": true,
+      "files": [
+        "app/teacher/lessons/authoring.css",
+        "app/teacher/lessons/page.tsx",
+        "app/teacher/lessons/verification/library-mobile/after.json",
+        "app/teacher/lessons/verification/library-mobile/after/1024x768-full.png",
+        "app/teacher/lessons/verification/library-mobile/after/1024x768.png",
+        "app/teacher/lessons/verification/library-mobile/after/1440x1000-full.png",
+        "app/teacher/lessons/verification/library-mobile/after/1440x1000.png",
+        "app/teacher/lessons/verification/library-mobile/after/320x844-full.png",
+        "app/teacher/lessons/verification/library-mobile/after/320x844.png",
+        "app/teacher/lessons/verification/library-mobile/after/390x844-full.png",
+        "app/teacher/lessons/verification/library-mobile/after/390x844.png",
+        "app/teacher/lessons/verification/library-mobile/after/native200.png",
+        "app/teacher/lessons/verification/library-mobile/before-native.json",
+        "app/teacher/lessons/verification/library-mobile/before.json",
+        "app/teacher/lessons/verification/library-mobile/before/1024x768.png",
+        "app/teacher/lessons/verification/library-mobile/before/1440x1000.png",
+        "app/teacher/lessons/verification/library-mobile/before/320x844.png",
+        "app/teacher/lessons/verification/library-mobile/before/390x844.png",
+        "app/teacher/lessons/verification/library-mobile/before/native200.png",
+        "app/teacher/lessons/verification/library-mobile/browser-check-executed.mjs.raw.txt",
+        "app/teacher/lessons/verification/library-mobile/browser-check.mjs",
+        "app/teacher/lessons/verification/library-mobile/browser-initial.json",
+        "app/teacher/lessons/verification/library-mobile/browser-intermediate.json",
+        "app/teacher/lessons/verification/library-mobile/browser.json",
+        "app/teacher/lessons/verification/library-mobile/data-integrity.json",
+        "app/teacher/lessons/verification/library-mobile/fixture.json",
+        "app/teacher/lessons/verification/library-mobile/index.html",
+        "app/teacher/lessons/verification/library-mobile/prototype-native.json",
+        "app/teacher/lessons/verification/library-mobile/prototype.json",
+        "app/teacher/lessons/verification/library-mobile/prototype/1024x768.png",
+        "app/teacher/lessons/verification/library-mobile/prototype/1440x1000.png",
+        "app/teacher/lessons/verification/library-mobile/prototype/320x844.png",
+        "app/teacher/lessons/verification/library-mobile/prototype/390x844.png",
+        "app/teacher/lessons/verification/library-mobile/prototype/native200.png",
+        "app/teacher/lessons/verification/library-mobile/provenance.json",
+        "app/teacher/lessons/verification/library-mobile/states/below-fold-320x844.png",
+        "app/teacher/lessons/verification/library-mobile/states/details-320x844.png",
+        "app/teacher/lessons/verification/library-mobile/states/details-390x844.png",
+        "app/teacher/lessons/verification/library-mobile/states/empty-1440x1000.png",
+        "app/teacher/lessons/verification/library-mobile/states/empty-320x844.png",
+        "app/teacher/lessons/verification/library-mobile/states/keyboard-320x844.png",
+        "app/teacher/lessons/verification/library-mobile/states/long-title-320x844.png",
+        "app/teacher/lessons/verification/library-mobile/states/native200-details-surface.png",
+        "app/teacher/lessons/verification/library-mobile/states/no-results-320x844.png"
+      ]
+    },
+    {
+      "owner": "F Overview",
+      "pr": 138,
+      "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+      "integration": "08bf5d3e464ca3629bc7cabc07eeecea7998abf9",
+      "baselineIsAncestor": true,
+      "headIsAncestorOfCandidate": true,
+      "files": [
+        "app/teacher/overview/load.ts",
+        "app/teacher/overview/model.ts",
+        "app/teacher/overview/overview.css",
+        "app/teacher/overview/overview.test.ts",
+        "app/teacher/overview/verification/.gitignore",
+        "app/teacher/overview/verification/REPORT.html",
+        "app/teacher/overview/verification/baseline-overview-1440.png",
+        "app/teacher/overview/verification/build-launch-failure.txt",
+        "app/teacher/overview/verification/build.txt",
+        "app/teacher/overview/verification/checks.json",
+        "app/teacher/overview/verification/ci-followup/REPORT.html",
+        "app/teacher/overview/verification/ci-followup/browser.json",
+        "app/teacher/overview/verification/ci-followup/focused-tests.txt",
+        "app/teacher/overview/verification/ci-followup/format.txt",
+        "app/teacher/overview/verification/ci-followup/lint.txt",
+        "app/teacher/overview/verification/ci-followup/service-gate.txt",
+        "app/teacher/overview/verification/ci-followup/typecheck.txt",
+        "app/teacher/overview/verification/ci-followup/unit-tests.txt",
+        "app/teacher/overview/verification/ci-followup/uploaded-uncertainty.png",
+        "app/teacher/overview/verification/content.txt",
+        "app/teacher/overview/verification/empty-evidence-1440.png",
+        "app/teacher/overview/verification/empty-teacher.png",
+        "app/teacher/overview/verification/fixture.json",
+        "app/teacher/overview/verification/focused-tests.txt",
+        "app/teacher/overview/verification/format.txt",
+        "app/teacher/overview/verification/interaction-check.mjs",
+        "app/teacher/overview/verification/interactions.json",
+        "app/teacher/overview/verification/keyboard-focus.png",
+        "app/teacher/overview/verification/lint.txt",
+        "app/teacher/overview/verification/loading-attempt.json",
+        "app/teacher/overview/verification/missing-assignment.png",
+        "app/teacher/overview/verification/native-200-browser.png",
+        "app/teacher/overview/verification/native-200-full.png",
+        "app/teacher/overview/verification/native-200.json",
+        "app/teacher/overview/verification/native-200.png",
+        "app/teacher/overview/verification/native-measure.mjs",
+        "app/teacher/overview/verification/native-origin.json",
+        "app/teacher/overview/verification/overview-1024-full.png",
+        "app/teacher/overview/verification/overview-1024.png",
+        "app/teacher/overview/verification/overview-1440-full.png",
+        "app/teacher/overview/verification/overview-1440.png",
+        "app/teacher/overview/verification/overview-320-full.png",
+        "app/teacher/overview/verification/overview-320.png",
+        "app/teacher/overview/verification/overview-390-full.png",
+        "app/teacher/overview/verification/overview-390.png",
+        "app/teacher/overview/verification/parity.json",
+        "app/teacher/overview/verification/partial-unavailable.png",
+        "app/teacher/overview/verification/populated-fixture.json",
+        "app/teacher/overview/verification/prototype-1024.png",
+        "app/teacher/overview/verification/prototype-1440.png",
+        "app/teacher/overview/verification/prototype-320.png",
+        "app/teacher/overview/verification/prototype-390.png",
+        "app/teacher/overview/verification/prototype-check.mjs",
+        "app/teacher/overview/verification/prototype-run.txt",
+        "app/teacher/overview/verification/prototype.json",
+        "app/teacher/overview/verification/resume-320.png",
+        "app/teacher/overview/verification/typecheck.txt",
+        "app/teacher/overview/verification/uncertainty-browser.mjs",
+        "app/teacher/overview/verification/viewport-check.mjs",
+        "app/teacher/overview/verification/viewports.json",
+        "app/teacher/page.tsx",
+        "scripts/assert-uploaded-overview.ts",
+        "scripts/check-lesson-uncertainty.ts",
+        "tests/teacher-overview-streamed.test.ts"
+      ]
+    },
+    {
+      "owner": "H Concerns",
+      "pr": 137,
+      "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+      "integration": "744b5c71ce9432e57ca84c2b8b015fc83ca61f91",
+      "baselineIsAncestor": true,
+      "headIsAncestorOfCandidate": true,
+      "files": [
+        "app/teacher/insights/PARITY.md",
+        "app/teacher/insights/concerns.css",
+        "app/teacher/insights/model.ts",
+        "app/teacher/insights/page.tsx",
+        "app/teacher/insights/verification/after-concern-1024.png",
+        "app/teacher/insights/verification/after-concern-1440.png",
+        "app/teacher/insights/verification/after-concern-320.png",
+        "app/teacher/insights/verification/after-concern-390.png",
+        "app/teacher/insights/verification/after-concern-native-200.png",
+        "app/teacher/insights/verification/after-context-1024.png",
+        "app/teacher/insights/verification/after-context-native-200.png",
+        "app/teacher/insights/verification/after-ideas-1024.png",
+        "app/teacher/insights/verification/after-ideas-1440.png",
+        "app/teacher/insights/verification/after-ideas-320.png",
+        "app/teacher/insights/verification/after-ideas-390.png",
+        "app/teacher/insights/verification/after-ideas-native-200.png",
+        "app/teacher/insights/verification/browser-report.json",
+        "app/teacher/insights/verification/comparison.html",
+        "app/teacher/insights/verification/current-1024.png",
+        "app/teacher/insights/verification/current-1440.png",
+        "app/teacher/insights/verification/current-320.png",
+        "app/teacher/insights/verification/current-390.png",
+        "app/teacher/insights/verification/current-native-200.png",
+        "app/teacher/insights/verification/integrated-return-report.json",
+        "app/teacher/insights/verification/native-zoom-report.json",
+        "app/teacher/insights/verification/prototype-concern-1024.png",
+        "app/teacher/insights/verification/prototype-concern-1440.png",
+        "app/teacher/insights/verification/prototype-concern-320.png",
+        "app/teacher/insights/verification/prototype-concern-390.png",
+        "app/teacher/insights/verification/prototype-concern-native-200.png",
+        "app/teacher/insights/verification/prototype-ideas-1024.png",
+        "app/teacher/insights/verification/prototype-ideas-1440.png",
+        "app/teacher/insights/verification/prototype-ideas-320.png",
+        "app/teacher/insights/verification/prototype-ideas-390.png",
+        "app/teacher/insights/workspace.tsx",
+        "app/teacher/patterns.tsx",
+        "scripts/check-lesson-uncertainty.ts",
+        "scripts/check-metrics.ts",
+        "scripts/check-patterns.ts",
+        "tests/concern-investigation.browser.mjs",
+        "tests/concern-investigation.test.ts",
+        "tests/concern-privacy.integration.ts"
+      ]
+    },
+    {
+      "owner": "G Roster",
+      "pr": 140,
+      "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+      "integration": "edecbfd95b203568d7ac8957a002e5bba25b211b",
+      "baselineIsAncestor": true,
+      "headIsAncestorOfCandidate": true,
+      "files": [
+        "app/teacher/students/page.tsx",
+        "app/teacher/students/roster-context.ts",
+        "app/teacher/students/roster-links.tsx",
+        "app/teacher/students/roster-model.ts",
+        "app/teacher/students/roster-page.tsx",
+        "app/teacher/students/roster.css",
+        "app/teacher/students/verification/ACCEPTANCE.md",
+        "app/teacher/students/verification/checks.json",
+        "app/teacher/students/verification/screenshots/browser-results.json",
+        "app/teacher/students/verification/screenshots/grid-320x844.png",
+        "app/teacher/students/verification/screenshots/grid-390x844.png",
+        "app/teacher/students/verification/screenshots/grid-native-200.png",
+        "app/teacher/students/verification/screenshots/ideas-320x844.png",
+        "app/teacher/students/verification/screenshots/ideas-390x844.png",
+        "app/teacher/students/verification/screenshots/native-zoom.json",
+        "app/teacher/students/verification/screenshots/roster-1024x768.png",
+        "app/teacher/students/verification/screenshots/roster-1440x1000.png",
+        "app/teacher/students/verification/screenshots/roster-320x844.png",
+        "app/teacher/students/verification/screenshots/roster-390x844.png",
+        "app/teacher/students/verification/screenshots/roster-native-200.png",
+        "app/teacher/students/verification/screenshots/student-1024x768.png",
+        "app/teacher/students/verification/screenshots/student-1440x1000.png",
+        "app/teacher/students/verification/screenshots/student-320x844.png",
+        "app/teacher/students/verification/screenshots/student-390x844.png",
+        "app/teacher/students/verification/screenshots/student-native-200.png",
+        "app/teacher/students/verification/screenshots/summary-1024x768.png",
+        "app/teacher/students/verification/screenshots/summary-320x844.png",
+        "app/teacher/students/verification/screenshots/summary-390x844.png",
+        "app/teacher/students/verification/screenshots/summary-native-200.png",
+        "app/teacher/students/verification/screenshots/work-320x844.png",
+        "app/teacher/students/verification/screenshots/work-390x844.png",
+        "app/teacher/students/verification/screenshots/work-native-200.png",
+        "scripts/check-metrics.ts",
+        "tests/roster-auth-seed.ts",
+        "tests/roster-native-zoom.mjs",
+        "tests/roster-seed.ts",
+        "tests/roster.browser.mjs",
+        "tests/roster.test.ts"
+      ]
+    },
+    {
+      "owner": "R03 student concept labels",
+      "pr": 134,
+      "head": "9b4f5e357146338e6d0b99dadc1a0104714ba406",
+      "integration": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8",
+      "method": "cherry-pick -x",
+      "baselineIsAncestor": true,
+      "headIsAncestorOfCandidate": false,
+      "files": [
+        "app/study/interventions/[approvalId]/activity.tsx",
+        "app/study/interventions/[approvalId]/page.tsx",
+        "lib/interventions/student-concept-names.ts",
+        "tests/student-intervention-concept-names.test.ts"
+      ]
+    }
+  ],
+  "fileMatrix": [
+    {
+      "file": "app/study/interventions/[approvalId]/activity.tsx",
+      "candidateBlob": "d46e346cbc5dfeef8eacea2067716a77029b400d",
+      "sourceBlobs": [
+        {
+          "owner": "R03 student concept labels",
+          "head": "9b4f5e357146338e6d0b99dadc1a0104714ba406",
+          "blob": "d46e346cbc5dfeef8eacea2067716a77029b400d"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/study/interventions/[approvalId]/page.tsx",
+      "candidateBlob": "17610bb2cfa1540308dfa9e023b45107abef0de3",
+      "sourceBlobs": [
+        {
+          "owner": "R03 student concept labels",
+          "head": "9b4f5e357146338e6d0b99dadc1a0104714ba406",
+          "blob": "17610bb2cfa1540308dfa9e023b45107abef0de3"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/concerns.css",
+      "candidateBlob": "fb682842b93d3f97e72cbeba81b224428b879f8b",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "fb682842b93d3f97e72cbeba81b224428b879f8b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/model.ts",
+      "candidateBlob": "5d0e9cb71aca2e31c156b3af1997c13c327203c7",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "5d0e9cb71aca2e31c156b3af1997c13c327203c7"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/page.tsx",
+      "candidateBlob": "6249f189ab0fb946a06ce8fd6e900a63b40120bb",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "6249f189ab0fb946a06ce8fd6e900a63b40120bb"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/PARITY.md",
+      "candidateBlob": "c78238932427d2c01e082a2ad4193dff6f38b0ea",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "c78238932427d2c01e082a2ad4193dff6f38b0ea"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/after-concern-1024.png",
+      "candidateBlob": "020a7ce4d810d3a95aa431cc070e0473d164171e",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "020a7ce4d810d3a95aa431cc070e0473d164171e"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/after-concern-1440.png",
+      "candidateBlob": "e7827597394e1b08c72a1bffdda351cae5fa9e6c",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "e7827597394e1b08c72a1bffdda351cae5fa9e6c"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/after-concern-320.png",
+      "candidateBlob": "a8ae726e6f22f7c53af3e050d4f3740d8fc18370",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "a8ae726e6f22f7c53af3e050d4f3740d8fc18370"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/after-concern-390.png",
+      "candidateBlob": "1fe13b0c5e274e27e06bc50f7221b9af72be5103",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "1fe13b0c5e274e27e06bc50f7221b9af72be5103"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/after-concern-native-200.png",
+      "candidateBlob": "f6211091ba40c7832f47af3f1326926da701b851",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "f6211091ba40c7832f47af3f1326926da701b851"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/after-context-1024.png",
+      "candidateBlob": "596240ae59c1569be9d0f66e9a74c0e4e126520d",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "596240ae59c1569be9d0f66e9a74c0e4e126520d"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/after-context-native-200.png",
+      "candidateBlob": "898239b8c1a9144cb3c05003372d4b258c5381df",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "898239b8c1a9144cb3c05003372d4b258c5381df"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/after-ideas-1024.png",
+      "candidateBlob": "32fb4ffded1cc2f86384c67f2c25ececca43bc7e",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "32fb4ffded1cc2f86384c67f2c25ececca43bc7e"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/after-ideas-1440.png",
+      "candidateBlob": "e6aada75696900038df185fb321364dcd329e2b9",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "e6aada75696900038df185fb321364dcd329e2b9"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/after-ideas-320.png",
+      "candidateBlob": "cbe1d887a0c59fc6338ec15768db6d5b4ce6beac",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "cbe1d887a0c59fc6338ec15768db6d5b4ce6beac"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/after-ideas-390.png",
+      "candidateBlob": "c614e76a7e4a3266980c8b93be24ff3c6a4fd2be",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "c614e76a7e4a3266980c8b93be24ff3c6a4fd2be"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/after-ideas-native-200.png",
+      "candidateBlob": "cba294d2766d1fe7e81223e3b5bdca4decb4e1da",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "cba294d2766d1fe7e81223e3b5bdca4decb4e1da"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/browser-report.json",
+      "candidateBlob": "b4ad1a5950868b4ee695cac4464de3c3840db64c",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "b4ad1a5950868b4ee695cac4464de3c3840db64c"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/comparison.html",
+      "candidateBlob": "2650275e24562b8960ec80ecc110d3457328a216",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "2650275e24562b8960ec80ecc110d3457328a216"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/current-1024.png",
+      "candidateBlob": "6f751714ffb93122b218305c32adbfe90c2bc9ad",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "6f751714ffb93122b218305c32adbfe90c2bc9ad"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/current-1440.png",
+      "candidateBlob": "7ea129204d04aad2cff5f5f98a6c999a0d1cac4a",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "7ea129204d04aad2cff5f5f98a6c999a0d1cac4a"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/current-320.png",
+      "candidateBlob": "dd202e645c7ccb17959fb6dec1eea154892e865e",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "dd202e645c7ccb17959fb6dec1eea154892e865e"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/current-390.png",
+      "candidateBlob": "048fa78a8bb11bf366e3247f21c9ce5db39defee",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "048fa78a8bb11bf366e3247f21c9ce5db39defee"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/current-native-200.png",
+      "candidateBlob": "3a99f49c95b58874e2d57572c6b5da57413f2851",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "3a99f49c95b58874e2d57572c6b5da57413f2851"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/integrated-return-report.json",
+      "candidateBlob": "a4b3da2dc46c14241f636c5b3b11a2bd4c9abaf7",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "a4b3da2dc46c14241f636c5b3b11a2bd4c9abaf7"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/native-zoom-report.json",
+      "candidateBlob": "981c9885648a8864a7fa9b9b6492dc801ce365a6",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "981c9885648a8864a7fa9b9b6492dc801ce365a6"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/prototype-concern-1024.png",
+      "candidateBlob": "b466a22381633369d999e5a3bdfc987ffd9f02a6",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "b466a22381633369d999e5a3bdfc987ffd9f02a6"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/prototype-concern-1440.png",
+      "candidateBlob": "1cc1dbd8d33ffd5a7534cf3b89ba93c8085928de",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "1cc1dbd8d33ffd5a7534cf3b89ba93c8085928de"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/prototype-concern-320.png",
+      "candidateBlob": "3692e62b5874917d4e418dd0d6140c43e60fa9f2",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "3692e62b5874917d4e418dd0d6140c43e60fa9f2"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/prototype-concern-390.png",
+      "candidateBlob": "b0d946b31b14df767c4178c597529dbc4a2ec9b0",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "b0d946b31b14df767c4178c597529dbc4a2ec9b0"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/prototype-concern-native-200.png",
+      "candidateBlob": "e3e26d54ec60897323e7ff0a6bc08677ae9c4493",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "e3e26d54ec60897323e7ff0a6bc08677ae9c4493"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/prototype-ideas-1024.png",
+      "candidateBlob": "c1f9002bdfebd26e8a2e817afd0a3015f9338295",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "c1f9002bdfebd26e8a2e817afd0a3015f9338295"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/prototype-ideas-1440.png",
+      "candidateBlob": "7c641e9461c90b06ce9100beb254548c8d325e42",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "7c641e9461c90b06ce9100beb254548c8d325e42"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/prototype-ideas-320.png",
+      "candidateBlob": "7d943b9c2409db91c725ba0e266c802ddbe8983b",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "7d943b9c2409db91c725ba0e266c802ddbe8983b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/verification/prototype-ideas-390.png",
+      "candidateBlob": "f53c53238cbfe4b6216c722762ae0a084a1daeda",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "f53c53238cbfe4b6216c722762ae0a084a1daeda"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/workspace.tsx",
+      "candidateBlob": "804866eca14275e2ff21249b63cc5e1c396d5941",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "804866eca14275e2ff21249b63cc5e1c396d5941"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/interventions/editor.tsx",
+      "candidateBlob": "dfa2f3bfe143512c8c8cb8a6934d293547db95b8",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "dfa2f3bfe143512c8c8cb8a6934d293547db95b8"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/interventions/followup.tsx",
+      "candidateBlob": "86b3af835d87f9b2611c85a696886ce7da092242",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "86b3af835d87f9b2611c85a696886ce7da092242"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/interventions/interventions.css",
+      "candidateBlob": "0819e88025636eec1424466e5b90cad2582e7718",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "0819e88025636eec1424466e5b90cad2582e7718"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/interventions/timestamp.ts",
+      "candidateBlob": "b073922c7b65d424df5cad5577544f16cd514b4b",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "b073922c7b65d424df5cad5577544f16cd514b4b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/interventions/workspace.tsx",
+      "candidateBlob": "13d28a5041cf53ef12db027303db8df630b19b38",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "13d28a5041cf53ef12db027303db8df630b19b38"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/authoring.css",
+      "candidateBlob": "1bcfcb370f609b8c6905da0b8088eeb959fa0f5b",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "1bcfcb370f609b8c6905da0b8088eeb959fa0f5b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/page.tsx",
+      "candidateBlob": "f970620faed18d713331af987f2a77253975cb9c",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "f970620faed18d713331af987f2a77253975cb9c"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/after.json",
+      "candidateBlob": "f552bbfc27d9be0932836c1dba35a70fdc3dd422",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "f552bbfc27d9be0932836c1dba35a70fdc3dd422"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/after/1024x768-full.png",
+      "candidateBlob": "3bd07d964b2be6dc5ad7833baa0f2b8d6fcf0abb",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "3bd07d964b2be6dc5ad7833baa0f2b8d6fcf0abb"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/after/1024x768.png",
+      "candidateBlob": "2e2427f06d3639ca35b5ef586ad823dc6576f6ad",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "2e2427f06d3639ca35b5ef586ad823dc6576f6ad"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/after/1440x1000-full.png",
+      "candidateBlob": "70ec500fff32cfc4a99691848ce0888f08100065",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "70ec500fff32cfc4a99691848ce0888f08100065"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/after/1440x1000.png",
+      "candidateBlob": "faa11d9e47fc6c9a624a9b34747a2ea92a55d539",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "faa11d9e47fc6c9a624a9b34747a2ea92a55d539"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/after/320x844-full.png",
+      "candidateBlob": "e0bc0219ab0f7fe32b0d15fbeda77977b944fcf8",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "e0bc0219ab0f7fe32b0d15fbeda77977b944fcf8"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/after/320x844.png",
+      "candidateBlob": "79f6291955f6aa25be21387c77e7bd9ad8e3c4a8",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "79f6291955f6aa25be21387c77e7bd9ad8e3c4a8"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/after/390x844-full.png",
+      "candidateBlob": "0def1093856c233711887c325b9650d1a706f021",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "0def1093856c233711887c325b9650d1a706f021"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/after/390x844.png",
+      "candidateBlob": "d378b9d2814d96f267d448e64d16c24927eb7bfa",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "d378b9d2814d96f267d448e64d16c24927eb7bfa"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/after/native200.png",
+      "candidateBlob": "b64699134786e333d2430aa85af2e2d11c5d56b2",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "b64699134786e333d2430aa85af2e2d11c5d56b2"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/before-native.json",
+      "candidateBlob": "78b0645e562ed6023e801dbb9b8de4b40c51fab6",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "78b0645e562ed6023e801dbb9b8de4b40c51fab6"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/before.json",
+      "candidateBlob": "7e53eda54f152376a0d7b3c04004e6e19c84d163",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "7e53eda54f152376a0d7b3c04004e6e19c84d163"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/before/1024x768.png",
+      "candidateBlob": "a8ebac2c120d7b6ce46d8898beacf4c1a8622797",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "a8ebac2c120d7b6ce46d8898beacf4c1a8622797"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/before/1440x1000.png",
+      "candidateBlob": "0afbcf3c35ad0697e1f0f16442aedd81a5bf3bbf",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "0afbcf3c35ad0697e1f0f16442aedd81a5bf3bbf"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/before/320x844.png",
+      "candidateBlob": "929e44cf574569209f8dbdb1fa8b9fde78389b60",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "929e44cf574569209f8dbdb1fa8b9fde78389b60"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/before/390x844.png",
+      "candidateBlob": "2a90cc786a72cf65ba669e158017aa7e6f364581",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "2a90cc786a72cf65ba669e158017aa7e6f364581"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/before/native200.png",
+      "candidateBlob": "f27693887e2f4280c814262954504b9f0a3c0364",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "f27693887e2f4280c814262954504b9f0a3c0364"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/browser-check-executed.mjs.raw.txt",
+      "candidateBlob": "f1cceaafe894b0a9625f92bbca05b25c7dd3ea85",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "f1cceaafe894b0a9625f92bbca05b25c7dd3ea85"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/browser-check.mjs",
+      "candidateBlob": "0cefb3603f5e9214cd50837fed94ac2e98e3d7f2",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "0cefb3603f5e9214cd50837fed94ac2e98e3d7f2"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/browser-initial.json",
+      "candidateBlob": "9f3b97fd59e2b1336ae80d93dc85adb5ae32eaba",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "9f3b97fd59e2b1336ae80d93dc85adb5ae32eaba"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/browser-intermediate.json",
+      "candidateBlob": "e98c68d7baed33a008181da444f556378796249c",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "e98c68d7baed33a008181da444f556378796249c"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/browser.json",
+      "candidateBlob": "77c3612b02faaf2b16224ba1704d723e31dfdf25",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "77c3612b02faaf2b16224ba1704d723e31dfdf25"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/data-integrity.json",
+      "candidateBlob": "bf62e5c0e8c597ddbab10de9050270157147511a",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "bf62e5c0e8c597ddbab10de9050270157147511a"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/fixture.json",
+      "candidateBlob": "3e48ea92d46332b77e8999af220a927588c3403a",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "3e48ea92d46332b77e8999af220a927588c3403a"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/index.html",
+      "candidateBlob": "14fafe9335d287bf47c15437b16710e8afe9ed09",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "14fafe9335d287bf47c15437b16710e8afe9ed09"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/prototype-native.json",
+      "candidateBlob": "9775599e7b7385e7c5757179079e174b22beb15f",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "9775599e7b7385e7c5757179079e174b22beb15f"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/prototype.json",
+      "candidateBlob": "b247aea75be084cfb3b690c88ac0dece6771a1e9",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "b247aea75be084cfb3b690c88ac0dece6771a1e9"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/prototype/1024x768.png",
+      "candidateBlob": "fd3a70c64c707c9240357d83a60894c9ae38fea4",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "fd3a70c64c707c9240357d83a60894c9ae38fea4"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/prototype/1440x1000.png",
+      "candidateBlob": "7f170fb21e590660ac8d816fcb906c013252ae6e",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "7f170fb21e590660ac8d816fcb906c013252ae6e"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/prototype/320x844.png",
+      "candidateBlob": "9b16d667074853b80636d0e028b9816d8ff6adcf",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "9b16d667074853b80636d0e028b9816d8ff6adcf"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/prototype/390x844.png",
+      "candidateBlob": "18b651eee4cf77f0eaf8ddabd5c4afdf801c2f0c",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "18b651eee4cf77f0eaf8ddabd5c4afdf801c2f0c"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/prototype/native200.png",
+      "candidateBlob": "ccc1821c409621aca453e554caa326adb3197dc6",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "ccc1821c409621aca453e554caa326adb3197dc6"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/provenance.json",
+      "candidateBlob": "bfcbf210ffdc70ec79a214ae493cb6e4e145e860",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "bfcbf210ffdc70ec79a214ae493cb6e4e145e860"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/states/below-fold-320x844.png",
+      "candidateBlob": "0761815ddbb38b18f85dabd74a848b10246766d3",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "0761815ddbb38b18f85dabd74a848b10246766d3"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/states/details-320x844.png",
+      "candidateBlob": "8d45ea7610228fabf18a2b2744efb698552b898b",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "8d45ea7610228fabf18a2b2744efb698552b898b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/states/details-390x844.png",
+      "candidateBlob": "846dab7404d4d3090c904b29397f56f6d63b2b41",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "846dab7404d4d3090c904b29397f56f6d63b2b41"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/states/empty-1440x1000.png",
+      "candidateBlob": "ee076e80c13d1a1346f62f9ca1a7be7c0178bb46",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "ee076e80c13d1a1346f62f9ca1a7be7c0178bb46"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/states/empty-320x844.png",
+      "candidateBlob": "c955bcf299cec29a86ae175af84f2c8cf0c963fa",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "c955bcf299cec29a86ae175af84f2c8cf0c963fa"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/states/keyboard-320x844.png",
+      "candidateBlob": "cf9beb8060739734fc3ba1b55df155d6827ddf6d",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "cf9beb8060739734fc3ba1b55df155d6827ddf6d"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/states/long-title-320x844.png",
+      "candidateBlob": "252798161884f5741bbda39189f5ed68752bb884",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "252798161884f5741bbda39189f5ed68752bb884"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/states/native200-details-surface.png",
+      "candidateBlob": "1e1cdae33284ff950876a9259c521cc91a54a6d4",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "1e1cdae33284ff950876a9259c521cc91a54a6d4"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/verification/library-mobile/states/no-results-320x844.png",
+      "candidateBlob": "58e378619dfe0b484bae7e4ba21d7f55cec1afca",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "58e378619dfe0b484bae7e4ba21d7f55cec1afca"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/load.ts",
+      "candidateBlob": "159d24039e9617340835f6273fddc3a97ef36dc2",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "159d24039e9617340835f6273fddc3a97ef36dc2"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/model.ts",
+      "candidateBlob": "344a382b9476dd0261a559cfac123c24a27c18af",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "344a382b9476dd0261a559cfac123c24a27c18af"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/overview.css",
+      "candidateBlob": "e96f93a00a4b895dff048a946aad79562fae51f6",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "e96f93a00a4b895dff048a946aad79562fae51f6"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/overview.test.ts",
+      "candidateBlob": "82706a9f5cc48e9bf77458c8e371175f0e3df996",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "82706a9f5cc48e9bf77458c8e371175f0e3df996"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/.gitignore",
+      "candidateBlob": "01114aa888cce14f0afa2c58819dbcf0f1069dcd",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "01114aa888cce14f0afa2c58819dbcf0f1069dcd"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/baseline-overview-1440.png",
+      "candidateBlob": "014b015a4f6840bfdd89358b3e291a74cf1796e3",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "014b015a4f6840bfdd89358b3e291a74cf1796e3"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/build-launch-failure.txt",
+      "candidateBlob": "f7224bd8bb23a0ab9eeba435fcb3e5e707782e07",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "f7224bd8bb23a0ab9eeba435fcb3e5e707782e07"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/build.txt",
+      "candidateBlob": "a3c9825fc8e6553a6502127491140b2e4044751b",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "a3c9825fc8e6553a6502127491140b2e4044751b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/checks.json",
+      "candidateBlob": "8034414da7d157171a1947d13af36e209d443eca",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "8034414da7d157171a1947d13af36e209d443eca"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/ci-followup/browser.json",
+      "candidateBlob": "ba642c6690f428fde3c34865401c50d2bc3d77f8",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "ba642c6690f428fde3c34865401c50d2bc3d77f8"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/ci-followup/focused-tests.txt",
+      "candidateBlob": "27f684d10b2500e5d7e2ec6dc22a4d2223f73bcc",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "27f684d10b2500e5d7e2ec6dc22a4d2223f73bcc"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/ci-followup/format.txt",
+      "candidateBlob": "4aa0d16e7a0ff5c16269bf45771cebe89cc2e81d",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "4aa0d16e7a0ff5c16269bf45771cebe89cc2e81d"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/ci-followup/lint.txt",
+      "candidateBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/ci-followup/REPORT.html",
+      "candidateBlob": "840e191fae5755cadd81b80f8a1777b91aa54749",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "840e191fae5755cadd81b80f8a1777b91aa54749"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/ci-followup/service-gate.txt",
+      "candidateBlob": "32df8f274c42c9a8c480c4bd28c70de3661875ee",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "32df8f274c42c9a8c480c4bd28c70de3661875ee"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/ci-followup/typecheck.txt",
+      "candidateBlob": "7bab5fceadb39ca7d44c9f1a13fba79599520d0b",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "7bab5fceadb39ca7d44c9f1a13fba79599520d0b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/ci-followup/unit-tests.txt",
+      "candidateBlob": "575ecf233d885dd48759bede5597dd704bea429c",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "575ecf233d885dd48759bede5597dd704bea429c"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/ci-followup/uploaded-uncertainty.png",
+      "candidateBlob": "482c38411ce38351dcda559d2ce4d914a727de9b",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "482c38411ce38351dcda559d2ce4d914a727de9b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/content.txt",
+      "candidateBlob": "4d87302b13243f737031f2bee7491d5b2fccaef6",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "4d87302b13243f737031f2bee7491d5b2fccaef6"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/empty-evidence-1440.png",
+      "candidateBlob": "b7c2304b2ccebdf737622c07e78d4d073886b139",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "b7c2304b2ccebdf737622c07e78d4d073886b139"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/empty-teacher.png",
+      "candidateBlob": "170e13ed76ede4e07969f9805018c8525b024118",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "170e13ed76ede4e07969f9805018c8525b024118"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/fixture.json",
+      "candidateBlob": "b81c721208fdc16aa5c1dce0f74b7a2b1cfee9d5",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "b81c721208fdc16aa5c1dce0f74b7a2b1cfee9d5"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/focused-tests.txt",
+      "candidateBlob": "677f97a890e16aeadfeb81ece635bf524f309cb9",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "677f97a890e16aeadfeb81ece635bf524f309cb9"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/format.txt",
+      "candidateBlob": "4aa0d16e7a0ff5c16269bf45771cebe89cc2e81d",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "4aa0d16e7a0ff5c16269bf45771cebe89cc2e81d"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/interaction-check.mjs",
+      "candidateBlob": "fa7ecf22f6b9cf37f4e49479a6a29a9c067feb31",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "fa7ecf22f6b9cf37f4e49479a6a29a9c067feb31"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/interactions.json",
+      "candidateBlob": "9ede80cd7edd0fc5225dd9626a769118c4f1a845",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "9ede80cd7edd0fc5225dd9626a769118c4f1a845"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/keyboard-focus.png",
+      "candidateBlob": "35bd8fb959a025cdae86761e5c6bea74e51321b9",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "35bd8fb959a025cdae86761e5c6bea74e51321b9"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/lint.txt",
+      "candidateBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/loading-attempt.json",
+      "candidateBlob": "9eaf7de8733d9b9fceab52208f647576a552e8bc",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "9eaf7de8733d9b9fceab52208f647576a552e8bc"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/missing-assignment.png",
+      "candidateBlob": "212852162f86c09fdd50bb9a747d195d63ed2db7",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "212852162f86c09fdd50bb9a747d195d63ed2db7"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/native-200-browser.png",
+      "candidateBlob": "1db17afcd5431adedacda2a8d7d36e65b6c62500",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "1db17afcd5431adedacda2a8d7d36e65b6c62500"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/native-200-full.png",
+      "candidateBlob": "9cd9a49bf3f2e2224ce0fcc3dee6e8ad1fc92211",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "9cd9a49bf3f2e2224ce0fcc3dee6e8ad1fc92211"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/native-200.json",
+      "candidateBlob": "181b047d279deb0b6414dc9ed790bca3b7857c97",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "181b047d279deb0b6414dc9ed790bca3b7857c97"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/native-200.png",
+      "candidateBlob": "330774a425413c2a518515ccecaccd8146d620ea",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "330774a425413c2a518515ccecaccd8146d620ea"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/native-measure.mjs",
+      "candidateBlob": "71cb948045eed37027f501340dad5590c999eb0b",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "71cb948045eed37027f501340dad5590c999eb0b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/native-origin.json",
+      "candidateBlob": "bb43c2101bed552a54108886ada557b44e112194",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "bb43c2101bed552a54108886ada557b44e112194"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/overview-1024-full.png",
+      "candidateBlob": "33d85bc8075c8bd1442579270b0281316aa5c829",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "33d85bc8075c8bd1442579270b0281316aa5c829"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/overview-1024.png",
+      "candidateBlob": "47e2da5c4477e8b6217d5434e7ffe8b4a5e4cc92",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "47e2da5c4477e8b6217d5434e7ffe8b4a5e4cc92"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/overview-1440-full.png",
+      "candidateBlob": "642dd42cf33cfc57f90539486ad928328441486f",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "642dd42cf33cfc57f90539486ad928328441486f"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/overview-1440.png",
+      "candidateBlob": "2e5e48298f77677fcb95403797be2e8a20f98074",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "2e5e48298f77677fcb95403797be2e8a20f98074"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/overview-320-full.png",
+      "candidateBlob": "616292522c04ba509823040b5cee9e249527d027",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "616292522c04ba509823040b5cee9e249527d027"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/overview-320.png",
+      "candidateBlob": "99d9b5322a9c4d5b4787cdea4ebcd6cae9f0f0db",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "99d9b5322a9c4d5b4787cdea4ebcd6cae9f0f0db"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/overview-390-full.png",
+      "candidateBlob": "0bbe407b36c050579264997d0da69fa8048460e1",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "0bbe407b36c050579264997d0da69fa8048460e1"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/overview-390.png",
+      "candidateBlob": "f8fe0d19ee85861ef854ce4a6ba1584b23a7b5e3",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "f8fe0d19ee85861ef854ce4a6ba1584b23a7b5e3"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/parity.json",
+      "candidateBlob": "bb8d9707392982fa81304c2b94dd2eb954656686",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "bb8d9707392982fa81304c2b94dd2eb954656686"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/partial-unavailable.png",
+      "candidateBlob": "f58c79acd289b63eb5e274c632686dbcbd931536",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "f58c79acd289b63eb5e274c632686dbcbd931536"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/populated-fixture.json",
+      "candidateBlob": "f2c0925ff4598fe5e0d9b941727f5106c277f585",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "f2c0925ff4598fe5e0d9b941727f5106c277f585"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/prototype-1024.png",
+      "candidateBlob": "3381b03c240160cc8e2c6b5914a1693352d8473f",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "3381b03c240160cc8e2c6b5914a1693352d8473f"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/prototype-1440.png",
+      "candidateBlob": "5ac5a14fa10e0b4d5cf65b3449ee668545491cf1",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "5ac5a14fa10e0b4d5cf65b3449ee668545491cf1"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/prototype-320.png",
+      "candidateBlob": "fd562f9cfe31533a58004bc8a898fafb02eb303a",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "fd562f9cfe31533a58004bc8a898fafb02eb303a"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/prototype-390.png",
+      "candidateBlob": "dc02204df2eda92313163e39257f7d080979b19b",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "dc02204df2eda92313163e39257f7d080979b19b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/prototype-check.mjs",
+      "candidateBlob": "6a44703f6f75366802c92361245e8c17da015163",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "6a44703f6f75366802c92361245e8c17da015163"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/prototype-run.txt",
+      "candidateBlob": "ce7ea08320aaff0eb2d063cbbdc723336f2c0b45",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "ce7ea08320aaff0eb2d063cbbdc723336f2c0b45"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/prototype.json",
+      "candidateBlob": "d339ef72f14c0195b8a9a6efea2d709c5c2f4e59",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "d339ef72f14c0195b8a9a6efea2d709c5c2f4e59"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/REPORT.html",
+      "candidateBlob": "7272e33ad36c9ebf5636bba0054d7b2143998a6b",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "7272e33ad36c9ebf5636bba0054d7b2143998a6b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/resume-320.png",
+      "candidateBlob": "8f2fa73c766a927f223f3bef41011263d1460243",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "8f2fa73c766a927f223f3bef41011263d1460243"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/typecheck.txt",
+      "candidateBlob": "7bab5fceadb39ca7d44c9f1a13fba79599520d0b",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "7bab5fceadb39ca7d44c9f1a13fba79599520d0b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/uncertainty-browser.mjs",
+      "candidateBlob": "6cbc811436cdd44664c3e9bc29a6a3acaddf44b5",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "6cbc811436cdd44664c3e9bc29a6a3acaddf44b5"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/viewport-check.mjs",
+      "candidateBlob": "a6e0f02091185c855254bda7613441dc8d51c963",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "a6e0f02091185c855254bda7613441dc8d51c963"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/verification/viewports.json",
+      "candidateBlob": "63355ff8f37e157feff9259f4ba67329564b5a32",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "63355ff8f37e157feff9259f4ba67329564b5a32"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/page.tsx",
+      "candidateBlob": "7f48ebfcfcaa49a2322a1172562f58c041f52021",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "7f48ebfcfcaa49a2322a1172562f58c041f52021"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/patterns.tsx",
+      "candidateBlob": "ca6fb6e0feb975b26ed65cfd68420afcd916a2e2",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "ca6fb6e0feb975b26ed65cfd68420afcd916a2e2"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/sessions/[sessionId]/page.tsx",
+      "candidateBlob": "07d682a0f1e128e3a2ff90419633872856ed7a97",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "07d682a0f1e128e3a2ff90419633872856ed7a97"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/page.tsx",
+      "candidateBlob": "61f4a891a28e356f32efefb5e3a630f190f4f8df",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "61f4a891a28e356f32efefb5e3a630f190f4f8df"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/roster-context.ts",
+      "candidateBlob": "3775e2ecb323aea72f4cbc15ae9a8898dda7f9db",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "3775e2ecb323aea72f4cbc15ae9a8898dda7f9db"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/roster-links.tsx",
+      "candidateBlob": "df1332bef5f1d2b9488fc24a431fc16d21b1256b",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "df1332bef5f1d2b9488fc24a431fc16d21b1256b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/roster-model.ts",
+      "candidateBlob": "3d41779a9baa615dbf234158c1e1e9b2a098fbed",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "3d41779a9baa615dbf234158c1e1e9b2a098fbed"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/roster-page.tsx",
+      "candidateBlob": "e2f24ba1bc4001ca59df10ca6bce8c25fffacbed",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "e2f24ba1bc4001ca59df10ca6bce8c25fffacbed"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/roster.css",
+      "candidateBlob": "07ec2585842d917e7e2e39efa628e86a28126b58",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "07ec2585842d917e7e2e39efa628e86a28126b58"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/ACCEPTANCE.md",
+      "candidateBlob": "4606333072c5b9240587f3286c1960729f8e50cf",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "4606333072c5b9240587f3286c1960729f8e50cf"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/checks.json",
+      "candidateBlob": "87502e8f50e60d17cf7f0358558fe6486ffd3178",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "87502e8f50e60d17cf7f0358558fe6486ffd3178"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/browser-results.json",
+      "candidateBlob": "9b49376513a7b17a933079220fd3e1ae248ce647",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "9b49376513a7b17a933079220fd3e1ae248ce647"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/grid-320x844.png",
+      "candidateBlob": "788a3a7d7ae26fe25959d416a9edfe4859d194cf",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "788a3a7d7ae26fe25959d416a9edfe4859d194cf"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/grid-390x844.png",
+      "candidateBlob": "96ac3af79225e02674a580532c04ec4aecfdbd04",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "96ac3af79225e02674a580532c04ec4aecfdbd04"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/grid-native-200.png",
+      "candidateBlob": "0c62c407b83001476f63412a1b26c0285dde4850",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "0c62c407b83001476f63412a1b26c0285dde4850"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/ideas-320x844.png",
+      "candidateBlob": "5750757c280a74487c5ecf483098602c839af0f3",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "5750757c280a74487c5ecf483098602c839af0f3"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/ideas-390x844.png",
+      "candidateBlob": "0bfe904860325b7970204182ede2730ff36f2dd0",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "0bfe904860325b7970204182ede2730ff36f2dd0"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/native-zoom.json",
+      "candidateBlob": "9bd9bc6badc30d8aafad769b8ec2671e6d5d2344",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "9bd9bc6badc30d8aafad769b8ec2671e6d5d2344"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/roster-1024x768.png",
+      "candidateBlob": "21e9fbe8073157abb0eb95d6e4b6b191cf63fbcd",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "21e9fbe8073157abb0eb95d6e4b6b191cf63fbcd"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/roster-1440x1000.png",
+      "candidateBlob": "6c40767509358a5f3a3cdac081fa91cac57e0770",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "6c40767509358a5f3a3cdac081fa91cac57e0770"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/roster-320x844.png",
+      "candidateBlob": "8c6ebff16a5d7b0960d8e671a2bb082b99e6f973",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "8c6ebff16a5d7b0960d8e671a2bb082b99e6f973"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/roster-390x844.png",
+      "candidateBlob": "33ea4d2f251314bd2c829a8a6b72e1287842e414",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "33ea4d2f251314bd2c829a8a6b72e1287842e414"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/roster-native-200.png",
+      "candidateBlob": "6038919f10217cbd72db4e087df61cf49f0d5af8",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "6038919f10217cbd72db4e087df61cf49f0d5af8"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/student-1024x768.png",
+      "candidateBlob": "1a6c2ea89d056d498093f19410f600ee80550de7",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "1a6c2ea89d056d498093f19410f600ee80550de7"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/student-1440x1000.png",
+      "candidateBlob": "ad34d95fae2a2e15dfee50832073fe9c004787fc",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "ad34d95fae2a2e15dfee50832073fe9c004787fc"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/student-320x844.png",
+      "candidateBlob": "01eaf31fb31e8549dcdc275f900dd6281c641a03",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "01eaf31fb31e8549dcdc275f900dd6281c641a03"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/student-390x844.png",
+      "candidateBlob": "76db7a75a4a9f6a09631533f260d81bc81cb7d48",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "76db7a75a4a9f6a09631533f260d81bc81cb7d48"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/student-native-200.png",
+      "candidateBlob": "c191d013759a5fbbd72d80f39c8993f9e6595024",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "c191d013759a5fbbd72d80f39c8993f9e6595024"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/summary-1024x768.png",
+      "candidateBlob": "b0021210efc8ea496eaaf37756f2cee957989e08",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "b0021210efc8ea496eaaf37756f2cee957989e08"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/summary-320x844.png",
+      "candidateBlob": "13084d3129ac29337a5c3fe033ae31cbb9790af6",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "13084d3129ac29337a5c3fe033ae31cbb9790af6"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/summary-390x844.png",
+      "candidateBlob": "299193e5eb5c069124d196ef5c576b9e9c303d9b",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "299193e5eb5c069124d196ef5c576b9e9c303d9b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/summary-native-200.png",
+      "candidateBlob": "86bf63597fca2a9ef8a04d2a884e68097afbaf19",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "86bf63597fca2a9ef8a04d2a884e68097afbaf19"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/work-320x844.png",
+      "candidateBlob": "61e19efbab47cdb22f8ddc6ea3960b39a5d0a0a0",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "61e19efbab47cdb22f8ddc6ea3960b39a5d0a0a0"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/work-390x844.png",
+      "candidateBlob": "8ad276f206ff617d6b8b3dc374e52c5106356a9b",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "8ad276f206ff617d6b8b3dc374e52c5106356a9b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/verification/screenshots/work-native-200.png",
+      "candidateBlob": "81accafa812ecfbbd85c8ca9a048e49cf7735f46",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "81accafa812ecfbbd85c8ca9a048e49cf7735f46"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/workspace-panes.tsx",
+      "candidateBlob": "d7a72ccfeb6e049960bd116510bd4a31eb1259e9",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "d7a72ccfeb6e049960bd116510bd4a31eb1259e9"
+        },
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "d7a72ccfeb6e049960bd116510bd4a31eb1259e9"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/workspace-session-context.ts",
+      "candidateBlob": "182b399afaeacd345384af704771877ec99f1db4",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "182b399afaeacd345384af704771877ec99f1db4"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/workspace-shell.css",
+      "candidateBlob": "7f47da14237d4892aec244aa22b60b3205866934",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "7f47da14237d4892aec244aa22b60b3205866934"
+        },
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "7f47da14237d4892aec244aa22b60b3205866934"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "docs/TEACHER_CONTEXTUAL_RETURNS.md",
+      "candidateBlob": "cc6fa7ad6b9b5d23b9918a9270230af194617aa0",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "cc6fa7ad6b9b5d23b9918a9270230af194617aa0"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "lib/interventions/student-concept-names.ts",
+      "candidateBlob": "86e4915a0fbd1d446ebf25a77c6d0f522d44fee7",
+      "sourceBlobs": [
+        {
+          "owner": "R03 student concept labels",
+          "head": "9b4f5e357146338e6d0b99dadc1a0104714ba406",
+          "blob": "86e4915a0fbd1d446ebf25a77c6d0f522d44fee7"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "lib/teacher/workspace-contracts.ts",
+      "candidateBlob": "f76fb78f302e5ab754f2a8397229502a75419cce",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "f76fb78f302e5ab754f2a8397229502a75419cce"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "scripts/assert-uploaded-overview.ts",
+      "candidateBlob": "81f89402e9970d5125da3439419e1d064b71e4eb",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "81f89402e9970d5125da3439419e1d064b71e4eb"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "scripts/check-lesson-uncertainty.ts",
+      "candidateBlob": "62242c372360a5f6397e96f002d00afbdd89752e",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "553a8e771af60b996262c332b7e75f6a0778a9dd"
+        },
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "d70313e260f0afc5715d6cdd1fb7db1409dff088"
+        }
+      ],
+      "intentionalResolution": true,
+      "unchangedFromEverySource": false
+    },
+    {
+      "file": "scripts/check-metrics.ts",
+      "candidateBlob": "d632991c86ed0315b1a20d13bb55cdf70b604309",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "ef611bb86440601eee2da9df6c40725bf9058969"
+        },
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "ebda37d44ee8ab9ee1aecba8834e72f44f142736"
+        }
+      ],
+      "intentionalResolution": true,
+      "unchangedFromEverySource": false
+    },
+    {
+      "file": "scripts/check-patterns.ts",
+      "candidateBlob": "c3e0168335f8057e13536345e80b23f436b5188a",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "c3e0168335f8057e13536345e80b23f436b5188a"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/after/1024.png",
+      "candidateBlob": "9e3a814eb175f8a76bc734fbb1b31753f6b2ed39",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "9e3a814eb175f8a76bc734fbb1b31753f6b2ed39"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/after/1440.png",
+      "candidateBlob": "ee9ff1d6842b2475a5086b52f88417b8287afd2c",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "ee9ff1d6842b2475a5086b52f88417b8287afd2c"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/after/320.png",
+      "candidateBlob": "55669664621a77fc18582091bef8be85d0e6ba1b",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "55669664621a77fc18582091bef8be85d0e6ba1b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/after/390.png",
+      "candidateBlob": "71d61b62f83f8382496501e96f5ba51f70060ac1",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "71d61b62f83f8382496501e96f5ba51f70060ac1"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/after/native200.png",
+      "candidateBlob": "b7c00eae149921208cdf63f40948a814b94015c5",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "b7c00eae149921208cdf63f40948a814b94015c5"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/after/report.json",
+      "candidateBlob": "e9dd7350ec009b66b68b6244f4fe023b27c74a5b",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "e9dd7350ec009b66b68b6244f4fe023b27c74a5b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/approval-followup.json",
+      "candidateBlob": "8c92822ea68a49c97959c17a4b0b244ee1908652",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "8c92822ea68a49c97959c17a4b0b244ee1908652"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/before/1024.png",
+      "candidateBlob": "2b123ace32450528565819a17aa0a1ebe08934e5",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "2b123ace32450528565819a17aa0a1ebe08934e5"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/before/1440.png",
+      "candidateBlob": "cfe06441b93629ed0a180adff743b2e1f0c6e8b5",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "cfe06441b93629ed0a180adff743b2e1f0c6e8b5"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/before/320.png",
+      "candidateBlob": "2dce7586428b4613f5942f051fdfe69f515b8777",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "2dce7586428b4613f5942f051fdfe69f515b8777"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/before/390.png",
+      "candidateBlob": "d521323d48fdaf660c288d05d022ffaa01e54c81",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "d521323d48fdaf660c288d05d022ffaa01e54c81"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/before/native200.png",
+      "candidateBlob": "0cba8177e7c3fcf03c88cea48ff38aebb393d789",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "0cba8177e7c3fcf03c88cea48ff38aebb393d789"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/before/report.json",
+      "candidateBlob": "b091ca226840de490b7cc57b592addbb63cf1417",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "b091ca226840de490b7cc57b592addbb63cf1417"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/component-report.json",
+      "candidateBlob": "dece8e323b2001c896d6871ed7a36fde018b6f55",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "dece8e323b2001c896d6871ed7a36fde018b6f55"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/component-source-manifest.json",
+      "candidateBlob": "6e15dc072fa46a6af91c8f8b10fbe295266f1458",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "6e15dc072fa46a6af91c8f8b10fbe295266f1458"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/copy-provenance.json",
+      "candidateBlob": "2f0ba466a9c2be12f1ce08f6264f235e5b3d4ab2",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "2f0ba466a9c2be12f1ce08f6264f235e5b3d4ab2"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/followup-browser.mjs",
+      "candidateBlob": "19712f3ec0268446914fd1465e4b48ab583f641a",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "19712f3ec0268446914fd1465e4b48ab583f641a"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/followup/1024-followup.png",
+      "candidateBlob": "b822674f55cacd2de04809b4085f947953dba252",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "b822674f55cacd2de04809b4085f947953dba252"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/followup/1024-original.png",
+      "candidateBlob": "7a6ec4e1ed5305e559d11832213d3a5937eec6a9",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "7a6ec4e1ed5305e559d11832213d3a5937eec6a9"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/followup/1440-followup.png",
+      "candidateBlob": "41a7894cb06be1efe3bb4885d88e3259aa097660",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "41a7894cb06be1efe3bb4885d88e3259aa097660"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/followup/1440-original.png",
+      "candidateBlob": "9ede98a2d632351c69ff78703d19195cccb43306",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "9ede98a2d632351c69ff78703d19195cccb43306"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/followup/320-followup.png",
+      "candidateBlob": "09dec1a33c72fc1c9a344c4a6edbab189e4211a9",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "09dec1a33c72fc1c9a344c4a6edbab189e4211a9"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/followup/320-original.png",
+      "candidateBlob": "65aaf6b78f4d961807967ed061d35c01ca9e15ca",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "65aaf6b78f4d961807967ed061d35c01ca9e15ca"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/followup/390-followup.png",
+      "candidateBlob": "794986f7e52c16a160af5fd43e5cabce90d6ce19",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "794986f7e52c16a160af5fd43e5cabce90d6ce19"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/followup/390-original.png",
+      "candidateBlob": "f9dfc905c00d1d757b9491fcf44146a7e9dc75c8",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "f9dfc905c00d1d757b9491fcf44146a7e9dc75c8"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/followup/native200-followup.png",
+      "candidateBlob": "c514b59cbf3d84fa8181e69be0300b54f29fb17f",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "c514b59cbf3d84fa8181e69be0300b54f29fb17f"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/followup/native200-original.png",
+      "candidateBlob": "23c245089484b530dd7052317e0c51e11ccafa3a",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "23c245089484b530dd7052317e0c51e11ccafa3a"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/followup/report.json",
+      "candidateBlob": "05d42438beb28749fddb40db23942986b6a86c21",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "05d42438beb28749fddb40db23942986b6a86c21"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/generation-service.log",
+      "candidateBlob": "13b0e09eb7c49b7e57535b9148fbd3f402eeb1f5",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "13b0e09eb7c49b7e57535b9148fbd3f402eeb1f5"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle-browser.mjs",
+      "candidateBlob": "d634dfd6891640a227d2392f08f19a9dd16234dc",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "d634dfd6891640a227d2392f08f19a9dd16234dc"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/approved-undelivered-1024.png",
+      "candidateBlob": "f7886944561fcca5638ed1f7e1dc8d4e7a562428",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "f7886944561fcca5638ed1f7e1dc8d4e7a562428"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/approved-undelivered-1440.png",
+      "candidateBlob": "771cf1d4bfabbd3185dbbbb78e6e3104af6bedbf",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "771cf1d4bfabbd3185dbbbb78e6e3104af6bedbf"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/approved-undelivered-320.png",
+      "candidateBlob": "ec692651060e2327ae85bf1a118b23c486f2577f",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "ec692651060e2327ae85bf1a118b23c486f2577f"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/approved-undelivered-390.png",
+      "candidateBlob": "dc6ea69291dedb74763745ecff300205e20c7d77",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "dc6ea69291dedb74763745ecff300205e20c7d77"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/approved-undelivered-native200.png",
+      "candidateBlob": "80c08b003d7b1fb45d88cc17fbbf5b1756a79a76",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "80c08b003d7b1fb45d88cc17fbbf5b1756a79a76"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/delivered-1024.png",
+      "candidateBlob": "fc9d476e76d611579f02f8afa41e8dbe0ee38323",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "fc9d476e76d611579f02f8afa41e8dbe0ee38323"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/delivered-1440.png",
+      "candidateBlob": "2c3024a8d20d18a3fb835592455eedb81559bafb",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "2c3024a8d20d18a3fb835592455eedb81559bafb"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/delivered-320.png",
+      "candidateBlob": "4b0f95d35a93ae2a7a17e052d4e766d3eba4cdf4",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "4b0f95d35a93ae2a7a17e052d4e766d3eba4cdf4"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/delivered-390.png",
+      "candidateBlob": "66bf8ef417ee2f9bef5b79fd7266d9702e01a117",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "66bf8ef417ee2f9bef5b79fd7266d9702e01a117"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/delivered-native200.png",
+      "candidateBlob": "40295b5ecaf9d7875d96b52b3e99518ef3125708",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "40295b5ecaf9d7875d96b52b3e99518ef3125708"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/edited-saved-1024.png",
+      "candidateBlob": "1d60e1a3eb6948b14392453f7008d1480c950b73",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "1d60e1a3eb6948b14392453f7008d1480c950b73"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/edited-saved-1440.png",
+      "candidateBlob": "0c17f5959748ef77c2cd4380e29a2f18b721efc9",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "0c17f5959748ef77c2cd4380e29a2f18b721efc9"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/edited-saved-320.png",
+      "candidateBlob": "36fc0100a845105207ed2a4e89940119891ca2f1",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "36fc0100a845105207ed2a4e89940119891ca2f1"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/edited-saved-390.png",
+      "candidateBlob": "128080bc22968e7f911ac95bf2b34118fabc0207",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "128080bc22968e7f911ac95bf2b34118fabc0207"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/edited-saved-native200.png",
+      "candidateBlob": "6f851c2396d9ff1603ab04fa18f9d9dfcf69ef2f",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "6f851c2396d9ff1603ab04fa18f9d9dfcf69ef2f"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/private-1024.png",
+      "candidateBlob": "d91540ab253abadabd14aee5d722036628ad63fc",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "d91540ab253abadabd14aee5d722036628ad63fc"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/private-1440.png",
+      "candidateBlob": "2f86b23951d92330cd9d96e4cdfad9744f667b3b",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "2f86b23951d92330cd9d96e4cdfad9744f667b3b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/private-320.png",
+      "candidateBlob": "38c35b1f2a0230ac9c543585cb684a0df58c8998",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "38c35b1f2a0230ac9c543585cb684a0df58c8998"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/private-390.png",
+      "candidateBlob": "b438a9cdf5ca97d22e3d668581ab102251a328be",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "b438a9cdf5ca97d22e3d668581ab102251a328be"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/private-native200.png",
+      "candidateBlob": "c1fd89020bfd5d9dc8213b4ad520fc90dc76c91c",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "c1fd89020bfd5d9dc8213b4ad520fc90dc76c91c"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/lifecycle/report.json",
+      "candidateBlob": "7165c656c4c0bdbd87ae09499b4a0c626d6a1c43",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "7165c656c4c0bdbd87ae09499b4a0c626d6a1c43"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/prior-attempts.json",
+      "candidateBlob": "afd85d55069d5a1c9ff4e99d357b789ddedf2530",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "afd85d55069d5a1c9ff4e99d357b789ddedf2530"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/prototype/1024x768.png",
+      "candidateBlob": "f66ce5bbd3456a3d5254ebe54eeb070e33f487a8",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "f66ce5bbd3456a3d5254ebe54eeb070e33f487a8"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/prototype/1440x1000.png",
+      "candidateBlob": "148256fa3c0c7faff27889687fc8be6b87095256",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "148256fa3c0c7faff27889687fc8be6b87095256"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/prototype/320x844.png",
+      "candidateBlob": "f5cc7efa29eb54973fed427d8459d35fbe692d2f",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "f5cc7efa29eb54973fed427d8459d35fbe692d2f"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/prototype/390x844.png",
+      "candidateBlob": "dd3b3fc65b253b19045f77cb505cafcd86285f5a",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "dd3b3fc65b253b19045f77cb505cafcd86285f5a"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/prototype/native200-cdp.png",
+      "candidateBlob": "05628cfbab4be563fc27b3804fd5706243bf4619",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "05628cfbab4be563fc27b3804fd5706243bf4619"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/quality/build.log",
+      "candidateBlob": "08120f07c95f343787f14178be678bd9804707e1",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "08120f07c95f343787f14178be678bd9804707e1"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/quality/content-check.log",
+      "candidateBlob": "db06eb9d7d7504679e03f2cd49ae7d1da7b317fc",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "db06eb9d7d7504679e03f2cd49ae7d1da7b317fc"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/quality/focused-tests.log",
+      "candidateBlob": "ffe12aa0a9bbbfba9b6de4f711ef609bc766b7a6",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "ffe12aa0a9bbbfba9b6de4f711ef609bc766b7a6"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/quality/format-check.log",
+      "candidateBlob": "045394fe9fd0b74e6a93cb8ac92ad88e851c0379",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "045394fe9fd0b74e6a93cb8ac92ad88e851c0379"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/quality/lint.log",
+      "candidateBlob": "480922e977b949dece941ba6dfb4fcde44add033",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "480922e977b949dece941ba6dfb4fcde44add033"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/quality/results.json",
+      "candidateBlob": "d7ffea3a3d403bc636d047202a87eb1bdebb6264",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "d7ffea3a3d403bc636d047202a87eb1bdebb6264"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/quality/test.log",
+      "candidateBlob": "a82313a97113f9e056088f5a0264982f9743f66e",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "a82313a97113f9e056088f5a0264982f9743f66e"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/quality/typecheck.log",
+      "candidateBlob": "f2d4b8efe8e6b4d95f6495dcb2d5b8cea0e15c09",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "f2d4b8efe8e6b4d95f6495dcb2d5b8cea0e15c09"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-fidelity/VERIFICATION.md",
+      "candidateBlob": "5799a488b7fd62067727fcb5de48a449e5490e87",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "5799a488b7fd62067727fcb5de48a449e5490e87"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-workspace/component-browser.mjs",
+      "candidateBlob": "ab9e7651251a01bb23304ae831c7d96e998764ca",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "ab9e7651251a01bb23304ae831c7d96e998764ca"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/intervention-workspace/component-build.mjs",
+      "candidateBlob": "47f25c3d32f2630d61b4b12fd6d18581654a4cb5",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "47f25c3d32f2630d61b4b12fd6d18581654a4cb5"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/after-insights-1440.png",
+      "candidateBlob": "c8333d34f2f8d771b0a8ce5d5252ab8f19285bf4",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "c8333d34f2f8d771b0a8ce5d5252ab8f19285bf4"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/after-insights-390.png",
+      "candidateBlob": "bc6417a77730afedc559fcc0a22ad95345eede1c",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "bc6417a77730afedc559fcc0a22ad95345eede1c"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/after-students-1440.png",
+      "candidateBlob": "918d4b3ecea0d001b256ae688f486303851cf4a4",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "918d4b3ecea0d001b256ae688f486303851cf4a4"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/after-students-390.png",
+      "candidateBlob": "5d8f2a182c2455694841975165753470730687ff",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "5d8f2a182c2455694841975165753470730687ff"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/before-01.json",
+      "candidateBlob": "7d5f5a05ceec137fb2fab6784b392bde815c24e0",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "7d5f5a05ceec137fb2fab6784b392bde815c24e0"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/before-insights-1440.png",
+      "candidateBlob": "5f0559507c51eddc6bec4802584afefaaae29854",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "5f0559507c51eddc6bec4802584afefaaae29854"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/before-insights-390.png",
+      "candidateBlob": "faf3be75cb0e08f7e6706ac44c71b19d2275d443",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "faf3be75cb0e08f7e6706ac44c71b19d2275d443"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/before-students-1440.png",
+      "candidateBlob": "605ffb752d6f228547620aa0273bf8fb72178461",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "605ffb752d6f228547620aa0273bf8fb72178461"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/before-students-390.png",
+      "candidateBlob": "faf3be75cb0e08f7e6706ac44c71b19d2275d443",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "faf3be75cb0e08f7e6706ac44c71b19d2275d443"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/build-webpack.txt",
+      "candidateBlob": "6737d2885ed1c033d1df43183a9f1b525686e358",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "6737d2885ed1c033d1df43183a9f1b525686e358"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/evidence-fingerprints.json",
+      "candidateBlob": "47601e07f3d60b7ba388043ddd690d147a0cfb0c",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "47601e07f3d60b7ba388043ddd690d147a0cfb0c"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/f1-final-fixture-01.json",
+      "candidateBlob": "622a7b9e83525d2f1a286a91929758b2912bc91f",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "622a7b9e83525d2f1a286a91929758b2912bc91f"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/integrated-final.json",
+      "candidateBlob": "a4b3da2dc46c14241f636c5b3b11a2bd4c9abaf7",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "a4b3da2dc46c14241f636c5b3b11a2bd4c9abaf7"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/integration-build-webpack.txt",
+      "candidateBlob": "6c86307d64ece9cf2a6c6353d1c87ed99fc277f4",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "6c86307d64ece9cf2a6c6353d1c87ed99fc277f4"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/lint-results.txt",
+      "candidateBlob": "480922e977b949dece941ba6dfb4fcde44add033",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "480922e977b949dece941ba6dfb4fcde44add033"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/loaded-screens.json",
+      "candidateBlob": "6e373fa06c99bf6d6a79ae294ec8673dd6fd867d",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "6e373fa06c99bf6d6a79ae294ec8673dd6fd867d"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/panes-04.json",
+      "candidateBlob": "bd58a82472e499d315757220a0e22b406f41a1e0",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "bd58a82472e499d315757220a0e22b406f41a1e0"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/receiver-03.json",
+      "candidateBlob": "2f10ad8a11bbb808f3ab858ad3581e5549872920",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "2f10ad8a11bbb808f3ab858ad3581e5549872920"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/role-check.json",
+      "candidateBlob": "0ddecbc18cd003585b40fd0eaf3c60ba2edccc94",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "0ddecbc18cd003585b40fd0eaf3c60ba2edccc94"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/s1-c2-01.json",
+      "candidateBlob": "09bc29dd51f3a48d90a56ac8c07cb56a681bfeb7",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "09bc29dd51f3a48d90a56ac8c07cb56a681bfeb7"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/s1-c2-native200.json",
+      "candidateBlob": "cf5a9e84c0b9c037a4f422f1cd55f03fa0df1c53",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "cf5a9e84c0b9c037a4f422f1cd55f03fa0df1c53"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/static-checks.json",
+      "candidateBlob": "fbc95f376104d11fa4c6575619369d7b619eeb8e",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "fbc95f376104d11fa4c6575619369d7b619eeb8e"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/switcher-01.json",
+      "candidateBlob": "2752a2dd7570e8fbf3041ad0eb19a950f571b824",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "2752a2dd7570e8fbf3041ad0eb19a950f571b824"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/typecheck-results.txt",
+      "candidateBlob": "f2d4b8efe8e6b4d95f6495dcb2d5b8cea0e15c09",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "f2d4b8efe8e6b4d95f6495dcb2d5b8cea0e15c09"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/unit-results.txt",
+      "candidateBlob": "67173935eb5e12aa503f11bb52d5b40b769d1827",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "67173935eb5e12aa503f11bb52d5b40b769d1827"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/artifacts/teacher-contextual-returns/VERIFICATION.md",
+      "candidateBlob": "e7c89aed93eb45b5806b516c66170a5aa7cf21ff",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "e7c89aed93eb45b5806b516c66170a5aa7cf21ff"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/concern-investigation.browser.mjs",
+      "candidateBlob": "9ff1fcc95307427017625ecffb9708d1437dc37a",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "9ff1fcc95307427017625ecffb9708d1437dc37a"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/concern-investigation.test.ts",
+      "candidateBlob": "24df8c5fb2bc380c6b8fade6b7f927634ea4c40e",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "24df8c5fb2bc380c6b8fade6b7f927634ea4c40e"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/concern-privacy.integration.ts",
+      "candidateBlob": "b79c7b704fbbdd676a1e556267ae77ec082214d4",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "b79c7b704fbbdd676a1e556267ae77ec082214d4"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/intervention-hydration-browser.mjs",
+      "candidateBlob": "41664a30fd8de8179b8944e77c0fce6237883a15",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "41664a30fd8de8179b8944e77c0fce6237883a15"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/roster-auth-seed.ts",
+      "candidateBlob": "84b2c88207c8cde2477208f8752d8264019220de",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "84b2c88207c8cde2477208f8752d8264019220de"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/roster-native-zoom.mjs",
+      "candidateBlob": "4e4c2288869a55459bed244566a06c5315529943",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "4e4c2288869a55459bed244566a06c5315529943"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/roster-seed.ts",
+      "candidateBlob": "e6ce91e670e1a77dbfabd84b2680e2ff0347fb46",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "e6ce91e670e1a77dbfabd84b2680e2ff0347fb46"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/roster.browser.mjs",
+      "candidateBlob": "74365918e2f65eca4db11e16ab800d63db8ac659",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "74365918e2f65eca4db11e16ab800d63db8ac659"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/roster.test.ts",
+      "candidateBlob": "6547c16e7b9a03f416acd4f684f6b35bd34fa463",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "6547c16e7b9a03f416acd4f684f6b35bd34fa463"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/student-intervention-concept-names.test.ts",
+      "candidateBlob": "45bb2b417dbae086da03a228cbe718f3bfa16c8d",
+      "sourceBlobs": [
+        {
+          "owner": "R03 student concept labels",
+          "head": "9b4f5e357146338e6d0b99dadc1a0104714ba406",
+          "blob": "45bb2b417dbae086da03a228cbe718f3bfa16c8d"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/teacher-contextual-return-browser.mjs",
+      "candidateBlob": "bf54ed491240a19ccd719dfa43420d5b3110da70",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "bf54ed491240a19ccd719dfa43420d5b3110da70"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/teacher-contextual-return.test.ts",
+      "candidateBlob": "a15096e0a8bb3afb1b84e3ec226b7a52e6cb610d",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "a15096e0a8bb3afb1b84e3ec226b7a52e6cb610d"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/teacher-evidence-return-regression-browser.mjs",
+      "candidateBlob": "4f33505027b76202a97579a2f075e40597549405",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "4f33505027b76202a97579a2f075e40597549405"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/teacher-intervention-timestamp.test.ts",
+      "candidateBlob": "790cc523fbde5fb02fbc0b92c342a2ebfbde3a3c",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "790cc523fbde5fb02fbc0b92c342a2ebfbde3a3c"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/teacher-overview-streamed.test.ts",
+      "candidateBlob": "43fd76c1e09858efac976ec530cd666452e94700",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "43fd76c1e09858efac976ec530cd666452e94700"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/teacher-pane-drawer-browser.mjs",
+      "candidateBlob": "6a629dae5a90016a6a0e6bc43096b1d756ef6edf",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "6a629dae5a90016a6a0e6bc43096b1d756ef6edf"
+        },
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "6a629dae5a90016a6a0e6bc43096b1d756ef6edf"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "tests/teacher-return-regression-browser.mjs",
+      "candidateBlob": "051cea33e3443f9b4cbb63453725fd4be3f97318",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "051cea33e3443f9b4cbb63453725fd4be3f97318"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    }
+  ],
+  "productionFiles": [
+    {
+      "file": "app/study/interventions/[approvalId]/activity.tsx",
+      "candidateBlob": "d46e346cbc5dfeef8eacea2067716a77029b400d",
+      "sourceBlobs": [
+        {
+          "owner": "R03 student concept labels",
+          "head": "9b4f5e357146338e6d0b99dadc1a0104714ba406",
+          "blob": "d46e346cbc5dfeef8eacea2067716a77029b400d"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/study/interventions/[approvalId]/page.tsx",
+      "candidateBlob": "17610bb2cfa1540308dfa9e023b45107abef0de3",
+      "sourceBlobs": [
+        {
+          "owner": "R03 student concept labels",
+          "head": "9b4f5e357146338e6d0b99dadc1a0104714ba406",
+          "blob": "17610bb2cfa1540308dfa9e023b45107abef0de3"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/concerns.css",
+      "candidateBlob": "fb682842b93d3f97e72cbeba81b224428b879f8b",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "fb682842b93d3f97e72cbeba81b224428b879f8b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/model.ts",
+      "candidateBlob": "5d0e9cb71aca2e31c156b3af1997c13c327203c7",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "5d0e9cb71aca2e31c156b3af1997c13c327203c7"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/page.tsx",
+      "candidateBlob": "6249f189ab0fb946a06ce8fd6e900a63b40120bb",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "6249f189ab0fb946a06ce8fd6e900a63b40120bb"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/insights/workspace.tsx",
+      "candidateBlob": "804866eca14275e2ff21249b63cc5e1c396d5941",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "804866eca14275e2ff21249b63cc5e1c396d5941"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/interventions/editor.tsx",
+      "candidateBlob": "dfa2f3bfe143512c8c8cb8a6934d293547db95b8",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "dfa2f3bfe143512c8c8cb8a6934d293547db95b8"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/interventions/followup.tsx",
+      "candidateBlob": "86b3af835d87f9b2611c85a696886ce7da092242",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "86b3af835d87f9b2611c85a696886ce7da092242"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/interventions/interventions.css",
+      "candidateBlob": "0819e88025636eec1424466e5b90cad2582e7718",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "0819e88025636eec1424466e5b90cad2582e7718"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/interventions/timestamp.ts",
+      "candidateBlob": "b073922c7b65d424df5cad5577544f16cd514b4b",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "b073922c7b65d424df5cad5577544f16cd514b4b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/interventions/workspace.tsx",
+      "candidateBlob": "13d28a5041cf53ef12db027303db8df630b19b38",
+      "sourceBlobs": [
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "13d28a5041cf53ef12db027303db8df630b19b38"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/authoring.css",
+      "candidateBlob": "1bcfcb370f609b8c6905da0b8088eeb959fa0f5b",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "1bcfcb370f609b8c6905da0b8088eeb959fa0f5b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/lessons/page.tsx",
+      "candidateBlob": "f970620faed18d713331af987f2a77253975cb9c",
+      "sourceBlobs": [
+        {
+          "owner": "J Lessons",
+          "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+          "blob": "f970620faed18d713331af987f2a77253975cb9c"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/load.ts",
+      "candidateBlob": "159d24039e9617340835f6273fddc3a97ef36dc2",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "159d24039e9617340835f6273fddc3a97ef36dc2"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/model.ts",
+      "candidateBlob": "344a382b9476dd0261a559cfac123c24a27c18af",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "344a382b9476dd0261a559cfac123c24a27c18af"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/overview/overview.css",
+      "candidateBlob": "e96f93a00a4b895dff048a946aad79562fae51f6",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "e96f93a00a4b895dff048a946aad79562fae51f6"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/page.tsx",
+      "candidateBlob": "7f48ebfcfcaa49a2322a1172562f58c041f52021",
+      "sourceBlobs": [
+        {
+          "owner": "F Overview",
+          "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+          "blob": "7f48ebfcfcaa49a2322a1172562f58c041f52021"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/patterns.tsx",
+      "candidateBlob": "ca6fb6e0feb975b26ed65cfd68420afcd916a2e2",
+      "sourceBlobs": [
+        {
+          "owner": "H Concerns",
+          "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+          "blob": "ca6fb6e0feb975b26ed65cfd68420afcd916a2e2"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/sessions/[sessionId]/page.tsx",
+      "candidateBlob": "07d682a0f1e128e3a2ff90419633872856ed7a97",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "07d682a0f1e128e3a2ff90419633872856ed7a97"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/page.tsx",
+      "candidateBlob": "61f4a891a28e356f32efefb5e3a630f190f4f8df",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "61f4a891a28e356f32efefb5e3a630f190f4f8df"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/roster-context.ts",
+      "candidateBlob": "3775e2ecb323aea72f4cbc15ae9a8898dda7f9db",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "3775e2ecb323aea72f4cbc15ae9a8898dda7f9db"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/roster-links.tsx",
+      "candidateBlob": "df1332bef5f1d2b9488fc24a431fc16d21b1256b",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "df1332bef5f1d2b9488fc24a431fc16d21b1256b"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/roster-model.ts",
+      "candidateBlob": "3d41779a9baa615dbf234158c1e1e9b2a098fbed",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "3d41779a9baa615dbf234158c1e1e9b2a098fbed"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/roster-page.tsx",
+      "candidateBlob": "e2f24ba1bc4001ca59df10ca6bce8c25fffacbed",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "e2f24ba1bc4001ca59df10ca6bce8c25fffacbed"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/students/roster.css",
+      "candidateBlob": "07ec2585842d917e7e2e39efa628e86a28126b58",
+      "sourceBlobs": [
+        {
+          "owner": "G Roster",
+          "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+          "blob": "07ec2585842d917e7e2e39efa628e86a28126b58"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/workspace-panes.tsx",
+      "candidateBlob": "d7a72ccfeb6e049960bd116510bd4a31eb1259e9",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "d7a72ccfeb6e049960bd116510bd4a31eb1259e9"
+        },
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "d7a72ccfeb6e049960bd116510bd4a31eb1259e9"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/workspace-session-context.ts",
+      "candidateBlob": "182b399afaeacd345384af704771877ec99f1db4",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "182b399afaeacd345384af704771877ec99f1db4"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "app/teacher/workspace-shell.css",
+      "candidateBlob": "7f47da14237d4892aec244aa22b60b3205866934",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "7f47da14237d4892aec244aa22b60b3205866934"
+        },
+        {
+          "owner": "I Interventions",
+          "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+          "blob": "7f47da14237d4892aec244aa22b60b3205866934"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "lib/interventions/student-concept-names.ts",
+      "candidateBlob": "86e4915a0fbd1d446ebf25a77c6d0f522d44fee7",
+      "sourceBlobs": [
+        {
+          "owner": "R03 student concept labels",
+          "head": "9b4f5e357146338e6d0b99dadc1a0104714ba406",
+          "blob": "86e4915a0fbd1d446ebf25a77c6d0f522d44fee7"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    },
+    {
+      "file": "lib/teacher/workspace-contracts.ts",
+      "candidateBlob": "f76fb78f302e5ab754f2a8397229502a75419cce",
+      "sourceBlobs": [
+        {
+          "owner": "K Navigation",
+          "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+          "blob": "f76fb78f302e5ab754f2a8397229502a75419cce"
+        }
+      ],
+      "intentionalResolution": false,
+      "unchangedFromEverySource": true
+    }
+  ],
+  "unexpectedOwnerDifferences": [],
+  "unownedChanges": [],
+  "missingSourceChanges": [],
+  "counts": {
+    "candidateChangedFiles": 302,
+    "sourceUnionFiles": 302,
+    "productionOwnerFiles": 30,
+    "baselineFilesPreservedOutsideSourceUnion": 1259,
+    "baselineRecoveryFiles": 19,
+    "previousEvidenceFiles": 702
+  },
+  "recoveryDifferences": [],
+  "previousEvidenceDifferences": [
+    "tests/artifacts/intervention-workspace/component-browser.mjs",
+    "tests/artifacts/intervention-workspace/component-build.mjs"
+  ],
+  "scopeDifferences": {
+    "lib/tutoring": [],
+    "lib/evaluation": [],
+    "lib/evidence": [],
+    "lib/lessons": [],
+    "app/teacher/evidence": [],
+    "app/api": [],
+    "db": [],
+    "content": []
+  },
+  "drawerShared": [
+    {
+      "file": "app/teacher/workspace-panes.tsx",
+      "k": "d7a72ccfeb6e049960bd116510bd4a31eb1259e9",
+      "i": "d7a72ccfeb6e049960bd116510bd4a31eb1259e9",
+      "candidate": "d7a72ccfeb6e049960bd116510bd4a31eb1259e9"
+    },
+    {
+      "file": "app/teacher/workspace-shell.css",
+      "k": "7f47da14237d4892aec244aa22b60b3205866934",
+      "i": "7f47da14237d4892aec244aa22b60b3205866934",
+      "candidate": "7f47da14237d4892aec244aa22b60b3205866934"
+    },
+    {
+      "file": "tests/teacher-pane-drawer-browser.mjs",
+      "k": "6a629dae5a90016a6a0e6bc43096b1d756ef6edf",
+      "i": "6a629dae5a90016a6a0e6bc43096b1d756ef6edf",
+      "candidate": "6a629dae5a90016a6a0e6bc43096b1d756ef6edf"
+    }
+  ],
+  "r03": {
+    "source": "9b4f5e357146338e6d0b99dadc1a0104714ba406",
+    "candidateCommit": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8",
+    "sourcePatchId": "5b7ab4f01d47d03287fe383ad7eaaab01b86684d",
+    "candidatePatchId": "5b7ab4f01d47d03287fe383ad7eaaab01b86684d",
+    "equal": true,
+    "sourceCommitAncestor": false,
+    "note": "Exact cherry-pick -x patch; only four R03 files from the direct baseline child. No later #134 or N7 ancestry imported."
+  },
+  "resolutions": [
+    {
+      "file": "scripts/check-metrics.ts",
+      "blob": "d632991c86ed0315b1a20d13bb55cdf70b604309",
+      "sha256": "8af230ee143595536c769a4db7554182fcafde5cf2377d459a8e751c01330a0a",
+      "description": "Union: retain Overview evidence discovery, G Roster/work-log exact attempt/card streamed-placeholder expansion, evaluation/source/return contracts and privacy checks; retain H rendered By idea navigation, exact evidence/session identities, provenance and refreshed displayed metrics. Remove obsolete direct session-link assumptions on the Roster landing and Concerns landing. Share evaluationId, escapedAnswer and concept declarations; preserve both result descriptions."
+    },
+    {
+      "file": "scripts/check-lesson-uncertainty.ts",
+      "blob": "62242c372360a5f6397e96f002d00afbdd89752e",
+      "sha256": "0c8b50b5fb62dbb55afb3b9ad2e8b125873eafa5463dbfa3baaf99ca07701213",
+      "description": "Union: retain resolved Overview sections, both uploaded assignments, distinct-student uncertainty/missing work and exact original-response actions; retain Insights heading plus enrolled-count alternatives, original uncertainty text and each exact evaluation/session anchor."
+    }
+  ],
+  "recomposition": [
+    {
+      "source": "K Navigation",
+      "head": "e88e45acea1478d562a2fb3fd2ebb9caa5403ed8",
+      "input": "07efb7f821339538800f150f57b298eb2e606be3",
+      "mergeStatus": 0,
+      "automaticTree": "2bc2398a6668292aa601cef1b5412c1b91388333",
+      "mergeOutput": "2bc2398a6668292aa601cef1b5412c1b91388333",
+      "resolutions": [],
+      "resolvedTree": "2bc2398a6668292aa601cef1b5412c1b91388333",
+      "recordedIntegrationTree": "2bc2398a6668292aa601cef1b5412c1b91388333",
+      "matchesRecordedIntegrationTree": true,
+      "recompositionCommit": "c6997ebf50c0b7649e2a6d8b3f3a4c59914cf30b"
+    },
+    {
+      "source": "I Interventions",
+      "head": "83bba436ab148f9b2ddaa4de61d29b857458a138",
+      "input": "c6997ebf50c0b7649e2a6d8b3f3a4c59914cf30b",
+      "mergeStatus": 0,
+      "automaticTree": "9a1e52d7971ef3e75f9f1a6b9879e016bd3f3366",
+      "mergeOutput": "9a1e52d7971ef3e75f9f1a6b9879e016bd3f3366",
+      "resolutions": [],
+      "resolvedTree": "9a1e52d7971ef3e75f9f1a6b9879e016bd3f3366",
+      "recordedIntegrationTree": "9a1e52d7971ef3e75f9f1a6b9879e016bd3f3366",
+      "matchesRecordedIntegrationTree": true,
+      "recompositionCommit": "c7cfbf15efcaca9fd498536e95d3c560e1b5018b"
+    },
+    {
+      "source": "J Lessons",
+      "head": "c56d31d594d9eedb30b0313c2ab3f22ce65e94a7",
+      "input": "c7cfbf15efcaca9fd498536e95d3c560e1b5018b",
+      "mergeStatus": 0,
+      "automaticTree": "4280b448a9d67dc3859003501134483bd02f8419",
+      "mergeOutput": "4280b448a9d67dc3859003501134483bd02f8419",
+      "resolutions": [],
+      "resolvedTree": "4280b448a9d67dc3859003501134483bd02f8419",
+      "recordedIntegrationTree": "4280b448a9d67dc3859003501134483bd02f8419",
+      "matchesRecordedIntegrationTree": true,
+      "recompositionCommit": "3e7ea17f241fac74cf216bb750c4d238a42b1225"
+    },
+    {
+      "source": "F Overview",
+      "head": "798f32438b1807d625e5c9b9ac9f0a5439dd5b41",
+      "input": "3e7ea17f241fac74cf216bb750c4d238a42b1225",
+      "mergeStatus": 0,
+      "automaticTree": "d08f60e6d6bcdf86b3a65c9d4c5dad8113e606ca",
+      "mergeOutput": "d08f60e6d6bcdf86b3a65c9d4c5dad8113e606ca",
+      "resolutions": [],
+      "resolvedTree": "d08f60e6d6bcdf86b3a65c9d4c5dad8113e606ca",
+      "recordedIntegrationTree": "d08f60e6d6bcdf86b3a65c9d4c5dad8113e606ca",
+      "matchesRecordedIntegrationTree": true,
+      "recompositionCommit": "c96828af2ac9f66e1f0b05e3a08a9a95db3c9dcb"
+    },
+    {
+      "source": "H Concerns",
+      "head": "afd91d6749129a77b88f020b2ac98201058cf082",
+      "input": "c96828af2ac9f66e1f0b05e3a08a9a95db3c9dcb",
+      "mergeStatus": 1,
+      "automaticTree": "c580d6cd974c908ef56755e1dfbbffe13e3b6de7",
+      "mergeOutput": "c580d6cd974c908ef56755e1dfbbffe13e3b6de7\nscripts/check-lesson-uncertainty.ts\n\nAuto-merging scripts/check-lesson-uncertainty.ts\nCONFLICT (content): Merge conflict in scripts/check-lesson-uncertainty.ts",
+      "resolutions": [
+        {
+          "file": "scripts/check-lesson-uncertainty.ts",
+          "blob": "62242c372360a5f6397e96f002d00afbdd89752e"
+        }
+      ],
+      "resolvedTree": "73f16af531d6bc5c491b8b9a58d8a6444f34a14a",
+      "recordedIntegrationTree": "73f16af531d6bc5c491b8b9a58d8a6444f34a14a",
+      "matchesRecordedIntegrationTree": true,
+      "recompositionCommit": "98250f5a6f66fcb23127d3bd7bb839c75efb5478"
+    },
+    {
+      "source": "G Roster",
+      "head": "af4eec9c1df2e20658400881e94ff9dbbc7f012e",
+      "input": "98250f5a6f66fcb23127d3bd7bb839c75efb5478",
+      "mergeStatus": 1,
+      "automaticTree": "6087f12f917dd96e989a994f4bea0fa9f89e2c9b",
+      "mergeOutput": "6087f12f917dd96e989a994f4bea0fa9f89e2c9b\nscripts/check-metrics.ts\n\nAuto-merging scripts/check-metrics.ts\nCONFLICT (content): Merge conflict in scripts/check-metrics.ts",
+      "resolutions": [
+        {
+          "file": "scripts/check-metrics.ts",
+          "blob": "d632991c86ed0315b1a20d13bb55cdf70b604309"
+        }
+      ],
+      "resolvedTree": "82ec8c2c5e91fd74c19e7084f607e66d9314e2c9",
+      "recordedIntegrationTree": "82ec8c2c5e91fd74c19e7084f607e66d9314e2c9",
+      "matchesRecordedIntegrationTree": true,
+      "recompositionCommit": "2f95f49d355e36a812ead93a614cce5b33fe9f09"
+    },
+    {
+      "source": "R03 student concept labels",
+      "head": "9b4f5e357146338e6d0b99dadc1a0104714ba406",
+      "input": "2f95f49d355e36a812ead93a614cce5b33fe9f09",
+      "mergeStatus": 0,
+      "automaticTree": "333b73e1cae1daddf6edd61300655d0b4825ed67",
+      "mergeOutput": "333b73e1cae1daddf6edd61300655d0b4825ed67",
+      "resolutions": [],
+      "resolvedTree": "333b73e1cae1daddf6edd61300655d0b4825ed67",
+      "recordedIntegrationTree": "333b73e1cae1daddf6edd61300655d0b4825ed67",
+      "matchesRecordedIntegrationTree": true,
+      "recompositionCommit": "3533d219a539250a0f7b3e176dc5a028cbf58dd6"
+    }
+  ],
+  "recomposedTree": "333b73e1cae1daddf6edd61300655d0b4825ed67",
+  "reviewLimit": "Composition verification was performed by the source-audit agent, which also authored the two conflict resolutions. Recomposition independently checks all source blobs and merge outputs but is not an independent acceptance or independent review of those two resolutions. It deliberately uses their recorded resolved blobs. Functional service/browser checks and final independent acceptance remain separate.",
+  "reproduction": "node audit.cjs C:/path/to/ai-teaching-platform (repository must contain the recorded source and candidate commits). Creates only this report directory and an object-only recomposition.git with source objects as read-only alternates. No worktree checkout, application edit, database workload or provider call."
+}

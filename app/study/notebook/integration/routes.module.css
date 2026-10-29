@@ -1,0 +1,27 @@
+.route {
+  min-height: 100dvh;
+}
+
+/* The existing leaves supply the page heading and their own gutters. Keep the
+   N1 header/navigation once, without a second title above the same page. */
+.route[data-leaf-heading="true"] [role="region"] > div:first-child:has(> h1) {
+  display: none;
+}
+
+.route [role="region"] > div:first-child:has(> h1),
+.route [role="region"] > div:last-child {
+  max-width: 1200px;
+}
+
+/* N2's desktop main column is narrower than the N5 standalone breakpoint.
+   Keep the summary action beside its text when that actual column has room. */
+@container sn-review-card (min-width: 560px) {
+  .route [data-notebook-slot="teacher-reviews"] :global(.sn-review-row) {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .route [data-notebook-slot="teacher-reviews"] :global(.sn-review-actions) {
+    align-items: flex-end;
+    max-width: 250px;
+  }
+}

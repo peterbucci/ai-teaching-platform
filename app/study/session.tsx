@@ -19,7 +19,14 @@ import { LearningOverview } from "./overview.tsx";
 import { SessionElapsed } from "./session-elapsed.tsx";
 
 import { FeedbackAudio } from "./feedback-audio.tsx";
-
+import {
+  ActiveStudyNotebook,
+  type NotebookReadingSelection,
+} from "./notebook/integration/active-study.tsx";
+import type { StudentReaderView } from "../../lib/reading/model.ts";
+import type { ReadingDeliveryState } from "./reading/reader.tsx";
+import { LocalTime } from "../components/local-time.tsx";
+import { NotebookNotices } from "./notebook/shell/surface.tsx";
 import type { StudentDashboard } from "../../lib/tutoring/dashboard-model.ts";
 
 import { assignmentStudyHref } from "../../lib/tutoring/navigation.ts";
@@ -30,6 +37,17 @@ import {
   type TutorView,
 } from "../../lib/tutoring/contracts.ts";
 
+import {
+  acknowledgeAnswerSave,
+  answerSaveMessage,
+  canRetryOriginalAnswer,
+  failedAnswerSave,
+  hasMatchingSavedAnswer,
+  restoreAnswerRecovery,
+  studyRequest as request,
+  type AnswerRecovery,
+} from "./answer-recovery.ts";
+
 const button = "lp-button lp-button-primary";
 
 // Keep drafts across same-tab reader navigation even if browser storage is blocked.
@@ -39,12 +57,7 @@ const button = "lp-button lp-button-primary";
 const draftMemory = new Map<string, string>();
 
 // Some browsers disable tab storage. That must never prevent an answer being sent.
-
-function saveDraft(
-  attempt: string,
-
-  value: { key: string; response: string; locked?: boolean } | null,
-) {
+function saveDraft(attempt: string, value: AnswerRecovery | null) {
   const serialized = value === null ? null : JSON.stringify(value);
 
   if (serialized === null) draftMemory.delete(attempt);
@@ -58,44 +71,6 @@ function saveDraft(
     // The in-memory submission key still protects retries in this tab.
   }
 }
-
-async function request(path: string, body?: unknown): Promise<unknown> {
-  let response: Response;
-
-  try {
-    response = await fetch(path, {
-      method: body === undefined ? "GET" : "POST",
-
-      headers: body === undefined ? {} : { "Content-Type": "application/json" },
-
-      body: body === undefined ? undefined : JSON.stringify(body),
-    });
-  } catch {
-    throw new Error(
-      "We couldn’t connect. Your answer stays here; check your connection and try again.",
-    );
-  }
-
-  const value: unknown = await response.json().catch(() => null);
-
-  if (!response.ok)
-    throw new Error(
-      response.status === 401
-        ? "Please sign in again. Your submitted work is saved."
-        : value &&
-            typeof value === "object" &&
-            "error" in value &&
-            typeof value.error === "string"
-          ? value.error
-          : "We couldn’t finish that request. Your saved work is safe.",
-    );
-
-  if (value === null)
-    throw new Error("We couldn’t load your progress. Please try again.");
-
-  return value;
-}
-
 export function StudySession({
   lessons,
 
@@ -106,6 +81,8 @@ export function StudySession({
   dashboard,
 
   assignmentId,
+  readerView = null,
+  className,
 }: {
   lessons: AssignedLesson[];
 
@@ -118,13 +95,18 @@ export function StudySession({
   /** Existing session UI embedded in its authorized assignment detail page. */
 
   assignmentId?: string;
+  readerView?: StudentReaderView | null;
+  className?: string;
 }) {
   const router = useRouter();
 
   const wantsReading = useSearchParams().get("reading") === "1";
-
-  const [view, setView] = useState(initial);
-
+  const [view, setViewSnapshot] = useState(initial);
+  const appliedViewRevision = useRef(0);
+  const setView = useCallback((updated: TutorView) => {
+    appliedViewRevision.current += 1;
+    setViewSnapshot(updated);
+  }, []);
   const [draft, setDraft] = useState("");
 
   const [busy, setBusy] = useState(false);
@@ -134,17 +116,38 @@ export function StudySession({
   const [refreshing, setRefreshing] = useState(false);
 
   const [locked, setLocked] = useState(false);
-
   const [teachBack, setTeachBack] = useState(false);
-
+  const [answerRecovery, setAnswerRecovery] = useState<AnswerRecovery | null>(
+    null,
+  );
+  const [answerRetryAllowed, setAnswerRetryAllowed] = useState(false);
   const [displayRetry, setDisplayRetry] = useState(0);
 
   const [error, setError] = useState<string | null>(null);
-
+  const [selectedAttemptId, setSelectedAttemptId] = useState(
+    initial?.attempts.at(-1)?.id ?? "",
+  );
+  const [readingSelection, setReadingSelection] =
+    useState<NotebookReadingSelection | null>(
+      initial?.pending_reading
+        ? { passageId: initial.pending_reading.passage_id }
+        : null,
+    );
+  const [readingAttempt, setReadingAttempt] = useState(
+    initial?.attempts.at(-1)?.id,
+  );
+  const [readingBlocked, setReadingBlocked] = useState(
+    Boolean(initial?.pending_reading),
+  );
+  const readingConfirmed = useRef<string | null>(null);
+  const readerReceipt = useRef<
+    | (ReadingDeliveryState & { selection: NotebookReadingSelection | null })
+    | null
+  >(null);
   const currentStep = useRef<HTMLHeadingElement>(null);
 
   const feedbackStep = useRef<HTMLHeadingElement>(null);
-
+  const completionStep = useRef<HTMLParagraphElement>(null);
   const acknowledgingHelp = useRef(new Set<string>());
 
   const focusedAttempt = useRef<string | null>(null);
@@ -178,23 +181,94 @@ export function StudySession({
   }, [view?.session.id, wantsReading, router]);
 
   const busyRef = useRef(false);
-
-  const submission = useRef<{
-    attempt: string;
-
-    key: string;
-
-    response: string;
-  } | null>(null);
-
+  const submission = useRef<AnswerRecovery | null>(null);
+  const rememberAnswer = useCallback((next: AnswerRecovery) => {
+    submission.current = next;
+    saveDraft(next.attempt, next);
+    setAnswerRecovery(next.state === "local" ? null : next);
+    setLocked(next.state !== "local");
+  }, []);
   const last = view?.attempts.at(-1);
 
   const lastId = last?.id;
-
+  const previousLastId = useRef(lastId);
   const submittedAt = last?.submitted_at;
-
+  const savedResponse = last?.response_text;
+  const sessionId = view?.session.id;
   const phase = view?.progress.phase;
-
+  const notebook = Boolean(view && assignmentId);
+  const selectedId = view?.attempts.some(
+    (attempt) => attempt.id === selectedAttemptId,
+  )
+    ? selectedAttemptId
+    : lastId;
+  const selectedIndex =
+    view?.attempts.findIndex((attempt) => attempt.id === selectedId) ?? 0;
+  const showingCurrent = selectedId === lastId;
+  const currentDraftStatus =
+    answerRecovery && answerRecovery.state !== "acknowledged"
+      ? "Save not confirmed"
+      : last?.submitted_at || answerRecovery?.state === "acknowledged"
+        ? "Original answer saved"
+        : draft.length > 0
+          ? "Text kept in this tab"
+          : "No submitted answer";
+  const headerStatus = showingCurrent
+    ? currentDraftStatus
+    : view?.attempts.find((attempt) => attempt.id === selectedId)?.submitted_at
+      ? `Page ${selectedIndex + 1} · Original answer saved`
+      : `Page ${selectedIndex + 1} · No submitted answer`;
+  const effectiveReadingSelection =
+    readingAttempt === lastId ? readingSelection : null;
+  const readingBlocksCurrent = readingAttempt === lastId && readingBlocked;
+  useEffect(() => {
+    if (!lastId) return;
+    const advanced = previousLastId.current !== lastId;
+    previousLastId.current = lastId;
+    const selectFromLocation = () => {
+      const id = window.location.hash.replace(/^#question-/, "");
+      setSelectedAttemptId(
+        view?.attempts.some((attempt) => attempt.id === id) ? id : lastId,
+      );
+    };
+    if (advanced) {
+      setSelectedAttemptId(lastId);
+      if (window.location.hash.startsWith("#question-"))
+        window.history.replaceState(null, "", `#question-${lastId}`);
+    } else selectFromLocation();
+    window.addEventListener("popstate", selectFromLocation);
+    window.addEventListener("hashchange", selectFromLocation);
+    return () => {
+      window.removeEventListener("popstate", selectFromLocation);
+      window.removeEventListener("hashchange", selectFromLocation);
+    };
+  }, [lastId, view?.attempts]);
+  function selectAttempt(id: string) {
+    setSelectedAttemptId(id);
+    window.history.pushState(null, "", `#question-${id}`);
+  }
+  const selectReading = useCallback(
+    (selection: NotebookReadingSelection) => {
+      setReadingBlocked(true);
+      setReadingAttempt(lastId);
+      setReadingSelection(selection);
+    },
+    [lastId],
+  );
+  const notebookReader = useMemo(
+    () =>
+      readerView && readerView.session && readerView.session.id === sessionId
+        ? {
+            ...readerView,
+            session: {
+              ...readerView.session,
+              currentAttemptId: lastId ?? null,
+              pendingPassageId: pendingReading?.passage_id ?? null,
+            },
+          }
+        : null,
+    [readerView, sessionId, lastId, pendingReading?.passage_id],
+  );
   const progressMessage =
     view?.session.status === "pending_evaluation"
       ? "Your answer is saved and evaluation is pending. Refresh saved progress in a moment."
@@ -209,17 +283,69 @@ export function StudySession({
   const assignment = lessons.find(
     (lesson) => lesson.session?.id === view?.session.id,
   );
-
-  const refresh = useCallback(async (sessionId: string) => {
-    const updated = TutorViewSchema.parse(
-      await request(`/api/tutoring/${sessionId}`),
-    );
-
-    setView(updated);
-
-    return updated;
-  }, []);
-
+  const refresh = useCallback(
+    async (sessionId: string, shouldApply?: () => boolean) => {
+      const updated = TutorViewSchema.parse(
+        await request(`/api/tutoring/${sessionId}`),
+      );
+      // Reader reconciliation may finish after a newer passage or tutor action.
+      // Reject it before changing either answer recovery or the accepted view.
+      if (shouldApply && !shouldApply()) return null;
+      const original = submission.current;
+      if (original && hasMatchingSavedAnswer(updated, original)) {
+        rememberAnswer({ ...original, state: "acknowledged" });
+        setAnswerRetryAllowed(false);
+      }
+      setView(updated);
+      return updated;
+    },
+    [rememberAnswer, setView],
+  );
+  const receiveReadingState = useCallback(
+    (state: ReadingDeliveryState) => {
+      readerReceipt.current = {
+        ...state,
+        selection: effectiveReadingSelection,
+      };
+      // Inactive initial reader is mounted but has not requested any passage.
+      if (!effectiveReadingSelection || !sessionId) return;
+      if (state.busy) {
+        setReadingBlocked(true);
+        return;
+      }
+      if (!state.confirmedId) return;
+      readingConfirmed.current = state.confirmedId;
+      const revision = appliedViewRevision.current;
+      const sameReading = () =>
+        readerReceipt.current?.selection === effectiveReadingSelection &&
+        readerReceipt.current.busy === false &&
+        readerReceipt.current.confirmedId === state.confirmedId;
+      const shouldApply = () =>
+        appliedViewRevision.current === revision &&
+        !busyRef.current &&
+        sameReading();
+      void refresh(sessionId, shouldApply)
+        .then((updated) => {
+          // A skipped response must not unlock controls using its stale data.
+          // The accepted refresh advances the local view revision exactly once.
+          if (
+            updated &&
+            appliedViewRevision.current === revision + 1 &&
+            !busyRef.current &&
+            !updated.pending_reading &&
+            sameReading()
+          )
+            setReadingBlocked(false);
+        })
+        .catch(() => {
+          if (!shouldApply()) return;
+          setError(
+            "The reading receipt was saved, but your current question could not be refreshed. Refresh saved progress before answering.",
+          );
+        });
+    },
+    [effectiveReadingSelection, sessionId, refresh],
+  );
   async function perform(operation: () => Promise<void>) {
     if (busyRef.current) return;
 
@@ -247,8 +373,16 @@ export function StudySession({
       setRefreshing(true);
 
       try {
-        await refresh(view.session.id);
-
+        const updated = await refresh(view.session.id);
+        if (!updated) return;
+        if (
+          !updated.pending_reading &&
+          readingConfirmed.current &&
+          readerReceipt.current?.busy === false &&
+          readerReceipt.current.selection === effectiveReadingSelection &&
+          readerReceipt.current.confirmedId === readingConfirmed.current
+        )
+          setReadingBlocked(false);
         setDisplayRetry((value) => value + 1);
       } finally {
         setRefreshing(false);
@@ -257,59 +391,63 @@ export function StudySession({
   }
 
   useEffect(() => {
-    if (!lastId || submittedAt) return;
-
-    submission.current = null;
-
-    queueMicrotask(() => setLocked(false));
-
+    if (!lastId || !sessionId) return;
+    const restoredSessionId = sessionId;
     let stored = draftMemory.get(lastId) ?? null;
 
     try {
       stored ??= sessionStorage.getItem(`learning-pulse:${lastId}`);
     } catch {
-      /* Sending answers still works when tab storage is unavailable. */
+      /* The active tab still retains its original answer. */
     }
-
-    if (stored) {
-      try {
-        const saved: unknown = JSON.parse(stored);
-
-        if (
-          saved &&
-          typeof saved === "object" &&
-          "key" in saved &&
-          "response" in saved &&
-          typeof saved.key === "string" &&
-          typeof saved.response === "string"
-        ) {
-          const wasSending = "locked" in saved && saved.locked === true;
-
-          if (wasSending)
-            submission.current = {
-              attempt: lastId,
-
-              key: saved.key,
-
-              response: saved.response,
-            };
-
-          // Restore only a draft belonging to this server-authorized attempt.
-
-          const restored = saved.response;
-
-          queueMicrotask(() => {
-            setDraft(restored);
-
-            setLocked(wasSending);
-          });
-        }
-      } catch {
-        saveDraft(lastId, null);
+    const restored = stored
+      ? restoreAnswerRecovery(stored, restoredSessionId, lastId)
+      : null;
+    queueMicrotask(() => {
+      setAnswerRetryAllowed(false);
+      if (restored) {
+        const next =
+          submittedAt && savedResponse === restored.response
+            ? { ...restored, state: "acknowledged" as const }
+            : restored;
+        rememberAnswer(next);
+        setDraft(
+          submittedAt && next.state === "acknowledged" ? "" : next.response,
+        );
+      } else {
+        submission.current = null;
+        setAnswerRecovery(null);
+        setLocked(false);
+        setDraft("");
       }
-    } else queueMicrotask(() => setDraft(""));
-  }, [lastId, submittedAt]);
-
+    });
+    // Restore only when the authorized attempt or its submission changes.
+  }, [lastId, submittedAt, savedResponse, sessionId, rememberAnswer]);
+  async function checkAnswerSave() {
+    if (!view || !submission.current) return;
+    await perform(async () => {
+      const updated = await refresh(view.session.id);
+      if (!updated) return;
+      const original = submission.current;
+      if (!original) return;
+      if (hasMatchingSavedAnswer(updated, original)) {
+        setDraft("");
+        return;
+      }
+      setAnswerRetryAllowed(
+        updated.progress.phase === "answer" &&
+          canRetryOriginalAnswer(updated, original),
+      );
+      if (
+        updated.attempts.find((attempt) => attempt.id === original.attempt)
+          ?.submitted_at &&
+        original.state !== "acknowledged"
+      )
+        setError(
+          "A different answer is saved for this question. Your original text is still kept in this tab; it will not replace the saved answer.",
+        );
+    });
+  }
   // Acknowledgement follows rendering. Creating or fetching help alone does not
 
   // record it as assistance. The server owns its visibility timestamp.
@@ -322,9 +460,6 @@ export function StudySession({
       .map((i) => i.id)
 
       .join(",") ?? "";
-
-  const sessionId = view?.session.id;
-
   const conversationTransport = useMemo(
     () => (sessionId ? createConversationTransport(sessionId) : undefined),
 
@@ -391,8 +526,7 @@ export function StudySession({
 
       clearTimeout(timer);
     };
-  }, [sessionId, phase, retryAfter, busy]);
-
+  }, [sessionId, phase, retryAfter, busy, setView]);
   useEffect(() => {
     if (phase !== "answer" && phase !== "completed" && phase !== "feedback")
       return;
@@ -403,9 +537,26 @@ export function StudySession({
       phase === "feedback"
         ? feedbackStep.current
         : phase === "completed"
-          ? (feedbackStep.current ?? currentStep.current)
+          ? completionStep.current
           : currentStep.current;
-
+    if (
+      target
+        ?.closest("[data-conversation-scroll]")
+        ?.getAttribute("data-follow-latest") === "false"
+    )
+      return;
+    if (
+      !target?.checkVisibility({
+        checkOpacity: true,
+        checkVisibilityCSS: true,
+      }) ||
+      target
+        .closest("[data-active-study]")
+        ?.querySelector(
+          "details.lp-account-menu[open], details[data-notebook-prompt][open], dialog[open]",
+        )
+    )
+      return;
     target?.focus({ preventScroll: true });
 
     target?.scrollIntoView({ block: "nearest" });
@@ -434,9 +585,19 @@ export function StudySession({
           return false;
 
         const element = document.getElementById(`feedback-${id}`);
-
-        if (!element) return false;
-
+        if (
+          !element ||
+          !element.checkVisibility({
+            checkOpacity: true,
+            checkVisibilityCSS: true,
+          }) ||
+          element
+            .closest("[data-active-study]")
+            ?.querySelector(
+              "details.lp-account-menu[open], details[data-notebook-prompt][open], dialog[open]",
+            )
+        )
+          return false;
         const rect = element.getBoundingClientRect();
 
         return (
@@ -491,7 +652,7 @@ export function StudySession({
     }
 
     document.addEventListener("visibilitychange", confirm);
-
+    document.addEventListener("toggle", confirm, true);
     return () => {
       cancelled = true;
 
@@ -500,9 +661,9 @@ export function StudySession({
       observer.disconnect();
 
       document.removeEventListener("visibilitychange", confirm);
+      document.removeEventListener("toggle", confirm, true);
     };
-  }, [pendingHelp, sessionId, displayRetry]);
-
+  }, [pendingHelp, sessionId, displayRetry, setView]);
   async function start(id: string) {
     await perform(async () => {
       const updated = TutorViewSchema.parse(
@@ -567,54 +728,64 @@ export function StudySession({
 
   async function answer(response: string) {
     if (!view || !last || !response.trim()) return;
-
+    const existing = submission.current;
+    if (
+      existing?.state === "acknowledged" ||
+      (existing && existing.state !== "local" && !answerRetryAllowed)
+    )
+      return;
     await perform(async () => {
-      const stored = submission.current;
-
-      const next =
-        stored?.attempt === last.id
-          ? stored
-          : { attempt: last.id, key: crypto.randomUUID(), response };
-
-      submission.current = next;
-
-      setLocked(true);
-
-      saveDraft(last.id, { ...next, locked: true });
-
-      await request(`/api/sessions/${view.session.id}/answers`, {
-        attempt_id: last.id,
-
-        submission_key: next.key,
-
-        response_text: next.response,
-      });
-
-      await refresh(view.session.id);
-
-      saveDraft(last.id, null);
-
+      const original: AnswerRecovery =
+        existing?.attempt === last.id
+          ? existing
+          : {
+              session: view.session.id,
+              attempt: last.id,
+              key: crypto.randomUUID(),
+              response,
+              state: "local",
+            };
+      setAnswerRetryAllowed(false);
+      // Persist uncertainty before dispatch, so refresh cannot silently resend.
+      rememberAnswer({ ...original, state: "unknown" });
+      try {
+        const receipt = await request(
+          `/api/sessions/${view.session.id}/answers`,
+          {
+            attempt_id: original.attempt,
+            submission_key: original.key,
+            response_text: original.response,
+          },
+        );
+        rememberAnswer(acknowledgeAnswerSave(receipt, original));
+      } catch (error) {
+        rememberAnswer(failedAnswerSave(original, error));
+        throw error;
+      }
+      const updated = await refresh(view.session.id);
+      if (!updated) return;
+      if (!hasMatchingSavedAnswer(updated, original))
+        throw new Error(
+          "The server acknowledged your answer, but its latest progress could not be confirmed. Check the answer save before continuing.",
+        );
       setDraft("");
-
-      submission.current = null;
-
-      setLocked(false);
-
-      const isFictionalLearnerTurn = last.prompt_text.startsWith(
-        "Fictional learner (AI): ",
-      );
-
-      const useTeachBackRoute = teachBack && !isFictionalLearnerTurn;
-
-      setView(
-        TutorViewSchema.parse(
-          await request(
-            `/api/tutoring/${view.session.id}${useTeachBackRoute ? "/teach-back" : ""}`,
-
-            { attempt_id: last.id },
+      if (
+        updated.progress.phase === "evaluate" &&
+        updated.progress.current_attempt_id === original.attempt
+      ) {
+        const isFictionalLearnerTurn = last.prompt_text.startsWith(
+          "Fictional learner (AI): ",
+        );
+        const useTeachBackRoute = teachBack && !isFictionalLearnerTurn;
+        setView(
+          TutorViewSchema.parse(
+            await request(
+              `/api/tutoring/${view.session.id}${useTeachBackRoute ? "/teach-back" : ""}`,
+              { attempt_id: original.attempt },
+            ),
           ),
-        ),
-      );
+        );
+      }
     });
   }
 
@@ -635,8 +806,188 @@ export function StudySession({
       <Icon name="refresh" />
     </button>
   );
-
-  return (
+  const renderHistory = (position: "question" | "outcome" | "all") =>
+    view ? (
+      <ol
+        className={position === "outcome" ? "lp-outcomes" : "lp-turns"}
+        aria-label={
+          position === "outcome"
+            ? "Original answer and feedback"
+            : "Your saved learning conversation"
+        }
+      >
+        {view.attempts.map((attempt, index) => (
+          <li
+            key={attempt.id}
+            className="lp-turn"
+            hidden={notebook && attempt.id !== selectedId}
+          >
+            {position !== "outcome" && (
+              <>
+                <div className="lp-message-label">
+                  <span className="lp-tutor-mark">
+                    <Icon name="pulse" />
+                  </span>
+                  Learning Pulse
+                </div>
+                <div className="lp-question">
+                  <h2
+                    id={`question-${attempt.id}`}
+                    ref={attempt.id === lastId ? currentStep : undefined}
+                    tabIndex={-1}
+                  >
+                    {attempt.intent === "diagnostic_followup"
+                      ? "Let’s check your reasoning"
+                      : attempt.intent === "immediate_retest"
+                        ? "Try a fresh question"
+                        : attempt.intent === "neutral_clarification"
+                          ? "Tell us a little more"
+                          : `Question ${index + 1}`}
+                  </h2>
+                  {notebook && (
+                    <p className="nb-question-time">
+                      <LocalTime value={attempt.presented_at} includeTime />
+                    </p>
+                  )}
+                  <p className="whitespace-pre-wrap leading-7">
+                    {attempt.prompt_text}
+                  </p>
+                  {notebook && readerView && (
+                    <div className="nb-concepts">
+                      {attempt.concept_ids.map((id) => (
+                        <span key={id}>
+                          {readerView.reading.concepts.find(
+                            (concept) => concept.id === id,
+                          )?.title ?? id}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {notebook && !attempt.submitted_at && (
+                    <p className="nb-next-step">
+                      Explain your thinking. You can answer below or ask for
+                      help.
+                    </p>
+                  )}
+                </div>
+              </>
+            )}
+            {position !== "question" && (
+              <>
+                {attempt.submitted_at && (
+                  <div className="lp-student-message">
+                    <h3 className="lp-message-label">
+                      Your answer — saved <Icon name="check" />
+                    </h3>
+                    <p className="lp-answer">
+                      {attempt.response_text || "No response entered."}
+                    </p>
+                  </div>
+                )}
+                {view.interventions
+                  .filter(
+                    (help) =>
+                      help.related_attempt_id === attempt.id &&
+                      help.type !== "reading",
+                  )
+                  .map((help) => (
+                    <article key={help.id} className="lp-feedback">
+                      <div className="lp-message-label">
+                        <span className="lp-tutor-mark">
+                          <Icon name="pulse" />
+                        </span>
+                        Learning Pulse
+                      </div>
+                      <div className="lp-question">
+                        <h2
+                          ref={
+                            help.id === latestFeedback
+                              ? feedbackStep
+                              : undefined
+                          }
+                          tabIndex={-1}
+                        >
+                          {help.type === "fallback"
+                            ? "Let’s return to the question"
+                            : "Feedback"}
+                        </h2>
+                        <p
+                          id={`feedback-${help.id}`}
+                          className="mt-2 whitespace-pre-wrap leading-7"
+                        >
+                          {help.text_shown}
+                        </p>
+                        {help.delivery_status === "displayed" && (
+                          <FeedbackAudio
+                            key={`${help.id}:${last?.id}:${view.session.status}`}
+                            source={{
+                              session_id: view.session.id,
+                              intervention_id: help.id,
+                            }}
+                          />
+                        )}
+                        {view.citations
+                          .filter((c) => c.intervention_id === help.id)
+                          .map((citation) => (
+                            <Link
+                              key={citation.passage_id}
+                              className="lp-citation"
+                              href={`/study/reading?${new URLSearchParams({
+                                ...(assignmentId
+                                  ? { assignment: assignmentId }
+                                  : {}),
+                                session: view.session.id,
+                                version: citation.content_version,
+                                passage: citation.passage_id,
+                                citation: citation.intervention_id,
+                              })}`}
+                              prefetch={false}
+                              aria-disabled={busy || undefined}
+                              onClick={(event) => {
+                                if (busy) event.preventDefault();
+                                else if (
+                                  notebook &&
+                                  readerView &&
+                                  event.button === 0 &&
+                                  !event.ctrlKey &&
+                                  !event.metaKey &&
+                                  !event.shiftKey &&
+                                  !event.altKey
+                                ) {
+                                  event.preventDefault();
+                                  selectReading({
+                                    passageId: citation.passage_id,
+                                    citationId: citation.intervention_id,
+                                  });
+                                }
+                              }}
+                            >
+                              <Icon name="book" /> Reading ·{" "}
+                              {citation.passage_id}
+                              <span className="lp-study-citation-version">
+                                {citation.content_version}
+                              </span>
+                            </Link>
+                          ))}
+                      </div>
+                    </article>
+                  ))}
+                {notebook && phase === "completed" && attempt.id === lastId && (
+                  <p
+                    className="lp-study-session-state nb-completion-result"
+                    ref={completionStep}
+                    tabIndex={-1}
+                  >
+                    {progressMessage}
+                  </p>
+                )}
+              </>
+            )}
+          </li>
+        ))}
+      </ol>
+    ) : null;
+  const content = (
     <section
       className={
         view
@@ -665,13 +1016,18 @@ export function StudySession({
           </div>
         </header>
       )}
-
-      {error && (
+      {error && !notebook && (
         <div role="alert" className="lp-notice lp-notice-warning mb-5">
           {error}{" "}
-          <Link href="/login" className="underline">
-            Check sign-in
-          </Link>
+          <Link
+            href="/login"
+            target="_blank"
+            rel="noopener"
+            className="underline"
+          >
+            Sign in in a new tab
+          </Link>{" "}
+          Return to this tab to check your progress.
         </div>
       )}
 
@@ -688,8 +1044,15 @@ export function StudySession({
                   ? "Saving and checking your answer… You can return to this session if you need to leave."
                   : progressMessage}
           </div>
-
-          <div id="conversation" className="lp-panel lp-conversation-card">
+          <div
+            id="conversation"
+            className={`lp-panel lp-conversation-card${notebook ? " nb-notebook-paper" : ""}`}
+          >
+            {notebook && (
+              <div className="nb-page-gutter" aria-hidden="true">
+                {selectedIndex + 1}
+              </div>
+            )}
             <div className="lp-study-chat-toolbar">
               <span>
                 <span
@@ -729,241 +1092,88 @@ export function StudySession({
               </div>
             </div>
 
-            <ol
-              className="lp-turns"
-
-              aria-label="Your saved learning conversation"
-
-              tabIndex={0}
-            >
-              {view.attempts.map((attempt, index) => (
-                <li key={attempt.id} className="lp-turn">
-                  <div className="lp-message-label">
-                    <span className="lp-tutor-mark">
-                      <Icon name="pulse" />
-                    </span>
-
-                    {attempt.prompt_text.startsWith("Fictional learner (AI): ")
-                      ? "Fictional learner (AI)"
-                      : "Learning Pulse"}
-                  </div>
-
-                  <div className="lp-question">
-                    <h2
-                      id={`question-${attempt.id}`}
-
-                      ref={attempt.id === lastId ? currentStep : undefined}
-
-                      tabIndex={-1}
-                    >
-                      {attempt.prompt_text.startsWith(
-                        "Fictional learner (AI): ",
-                      )
-                        ? "The fictional learner asks"
-                        : attempt.intent === "diagnostic_followup"
-                          ? "Let’s check your reasoning"
-                          : attempt.intent === "immediate_retest"
-                            ? "Try a fresh question"
-                            : attempt.intent === "neutral_clarification"
-                              ? "Tell us a little more"
-                              : `Question ${index + 1}`}
-                    </h2>
-
-                    <p className="whitespace-pre-wrap leading-7">
-                      {attempt.prompt_text}
-                    </p>
-                  </div>
-
-                  {attempt.submitted_at && (
-                    <div className="lp-student-message">
-                      <h3 className="lp-message-label">
-                        Your answer — saved <Icon name="check" />
-                      </h3>
-
-                      <p className="lp-answer">
-                        {attempt.response_text || "No response entered."}
-                      </p>
-                    </div>
-                  )}
-
-                  {teachBack && attempt.id === lastId && (
-                    <aside
-                      className="lp-notice mb-4"
-                      aria-label="Teach-back mode"
-                    >
-                      <strong>Teach-back mode · fictional AI learner</strong>
-
-                      <p className="mt-1">
-                        The AI is role-playing a fictional learner. Explain the
-                        approved concept in your own words using the assigned
-                        reading. If your explanation leaves a gap, the learner
-                        will ask one question and wait for your reply.
-                      </p>
-
-                      <details className="mt-3">
-                        <summary className="cursor-pointer font-semibold">
-                          Optional flawed-explanation exercise
-                        </summary>
-
-                        <p className="mt-2">
-                          <strong>Exercise — intentionally flawed:</strong> “A
-                          longer cable increases transmission delay because each
-                          bit takes longer to travel along it.”
-                        </p>
-
-                        <details className="mt-2">
-                          <summary className="cursor-pointer font-semibold">
-                            Show correction and debrief
-                          </summary>
-
-                          <p className="mt-2">
-                            <strong>Correction:</strong> Transmission delay is
-                            the time to put a packet’s bits onto the link and
-                            depends on packet size and link rate. Cable length
-                            affects propagation delay, the time for the signal
-                            to travel. The assigned reading treats these as
-                            separate components.
-                          </p>
-                        </details>
-                      </details>
-                    </aside>
-                  )}
-
-                  {view.interventions
-
-                    .filter(
-                      (help) =>
-                        help.related_attempt_id === attempt.id &&
-                        help.type !== "reading",
-                    )
-
-                    .map((help) => (
-                      <article key={help.id} className="lp-feedback">
-                        <div className="lp-message-label">
-                          <span className="lp-tutor-mark">
-                            <Icon name="pulse" />
-                          </span>
-
-                          {help.text_shown.startsWith(
-                            "Fictional learner (AI): ",
-                          )
-                            ? "Fictional learner (AI)"
-                            : "Learning Pulse"}
-                        </div>
-
-                        <div className="lp-question">
-                          <h2
-                            ref={
-                              help.id === latestFeedback
-                                ? feedbackStep
-                                : undefined
-                            }
-
-                            tabIndex={-1}
-                          >
-                            {help.type === "fallback"
-                              ? "Let’s return to the question"
-                              : "Feedback"}
-                          </h2>
-
-                          <p
-                            id={`feedback-${help.id}`}
-
-                            className="mt-2 whitespace-pre-wrap leading-7"
-                          >
-                            {help.text_shown}
-                          </p>
-
-                          {help.delivery_status === "displayed" && (
-                            <FeedbackAudio
-                              key={`${help.id}:${last?.id}:${view.session.status}`}
-
-                              source={{
-                                session_id: view.session.id,
-
-                                intervention_id: help.id,
-                              }}
-                            />
-                          )}
-
-                          {view.citations
-
-                            .filter((c) => c.intervention_id === help.id)
-
-                            .map((citation) => (
-                              <Link
-                                key={citation.passage_id}
-
-                                className="lp-citation"
-
-                                href={`/study/reading?${new URLSearchParams({
-                                  ...(assignmentId
-                                    ? { assignment: assignmentId }
-                                    : {}),
-
-                                  session: view.session.id,
-
-                                  version: citation.content_version,
-
-                                  passage: citation.passage_id,
-
-                                  citation: citation.intervention_id,
-                                })}`}
-
-                                prefetch={false}
-
-                                aria-disabled={busy || undefined}
-
-                                onClick={(event) => {
-                                  if (busy) event.preventDefault();
-                                }}
-                              >
-                                <Icon name="book" /> Reading ·{" "}
-                                {citation.passage_id}
-                                <span className="lp-study-citation-version">
-                                  {citation.content_version}
-                                </span>
-                              </Link>
-                            ))}
-                        </div>
-                      </article>
-                    ))}
-                </li>
-              ))}
-            </ol>
-
-            {view.progress.phase === "answer" && (
-              <label className="mb-3 flex items-center gap-2 font-semibold">
-                <input
-                  type="checkbox"
-                  checked={teachBack}
-                  disabled={busy || Boolean(pendingReading)}
-                  onChange={(event) => setTeachBack(event.target.checked)}
-                />
-                Practice explaining to a fictional learner (AI)
-              </label>
-            )}
             {last && (
               <StudyDialogue
                 key={last.id}
+                historyOnly={notebook && !showingCurrent}
+                selectedAnchorId={
+                  notebook ? `question-${selectedId}` : undefined
+                }
+                onReturnToCurrent={() => selectAttempt(last.id)}
+                feedbackAnchorId={
+                  pendingHelp
+                    ? `feedback-${pendingHelp.split(",")[0]}`
+                    : undefined
+                }
+                lessonHistory={renderHistory(notebook ? "question" : "all")}
+                lessonOutcome={notebook ? renderHistory("outcome") : undefined}
+                savedAnswerText={
+                  notebook
+                    ? (view.attempts.find(
+                        (attempt) => attempt.id === selectedId,
+                      )?.response_text ?? undefined)
+                    : undefined
+                }
                 sessionId={view.session.id}
+                draftStatus={currentDraftStatus}
                 attemptId={last.id}
-                disabled={busy || Boolean(pendingReading)}
+                disabled={
+                  busy || Boolean(pendingReading) || readingBlocksCurrent
+                }
                 locked={locked}
+                answerRetryAllowed={answerRetryAllowed}
+                answerRecoveryNotice={
+                  answerRecovery ? (
+                    <div className="lp-notice mx-4 my-2" role="status">
+                      <p>{answerSaveMessage(answerRecovery)}</p>
+                      <button
+                        type="button"
+                        className="lp-text-link mr-4"
+                        disabled={busy}
+                        onClick={() => void checkAnswerSave()}
+                      >
+                        Check answer save
+                      </button>
+                      {answerRecovery.state !== "acknowledged" && (
+                        <Link
+                          href="/login"
+                          target="_blank"
+                          rel="noopener"
+                          className="lp-text-link"
+                        >
+                          Sign in in a new tab
+                        </Link>
+                      )}
+                      {answerRecovery.state !== "acknowledged" && (
+                        <p>
+                          After signing in, return to this tab and check the
+                          answer save.
+                        </p>
+                      )}
+                    </div>
+                  ) : undefined
+                }
                 readOnly={view.progress.phase !== "answer"}
                 transport={conversationTransport}
                 text={draft}
                 onTextChange={(text) => {
                   setDraft(text);
-                  if (!submission.current)
-                    saveDraft(last.id, {
-                      key: crypto.randomUUID(),
+                  if (
+                    !submission.current ||
+                    submission.current.state === "local"
+                  )
+                    rememberAnswer({
+                      session: view.session.id,
+                      attempt: last.id,
+                      key: submission.current?.key ?? crypto.randomUUID(),
                       response: text,
+                      state: "local",
                     });
                 }}
                 onSubmitAnswer={answer}
                 onLessonChanged={async ({ evaluate: evaluateAnswer }) => {
                   const updated = await refresh(view.session.id);
+                  if (!updated) return;
                   if (
                     evaluateAnswer &&
                     updated.progress.phase === "evaluate" &&
@@ -972,11 +1182,20 @@ export function StudySession({
                     saveDraft(last.id, null);
                     setDraft("");
                     submission.current = null;
+                    setAnswerRecovery(null);
+                    setAnswerRetryAllowed(false);
                     setLocked(false);
                     await evaluate();
                   }
                 }}
                 onCitation={({ passage_id, intervention_id }) => {
+                  if (notebook && readerView) {
+                    selectReading({
+                      passageId: passage_id,
+                      citationId: intervention_id,
+                    });
+                    return;
+                  }
                   router.push(
                     `/study/reading?${new URLSearchParams({
                       ...(assignmentId ? { assignment: assignmentId } : {}),
@@ -990,69 +1209,123 @@ export function StudySession({
               />
             )}
           </div>
-
-          {((phase !== "answer" && view.session.status !== "completed") ||
+          {((phase !== "answer" &&
+            (!notebook || phase !== "completed" || error)) ||
             pendingReading ||
-            (phase !== "answer" && error)) && (
-            <div className="lp-session-actions">
-              {phase !== "answer" && view.session.status !== "completed" && (
-                <p className="lp-study-session-state">{progressMessage}</p>
-              )}
-
-              {pendingReading && (
-                <p className="lp-study-session-state" role="status">
-                  Finish opening your reading before continuing.{" "}
-                  <Link
-                    href={`/study/reading?${new URLSearchParams({ session: view.session.id, passage: pendingReading.passage_id, from: "study" })}`}
-
-                    prefetch={false}
-
-                    className="lp-text-link"
+            readingBlocksCurrent) && (
+            <NotebookNotices>
+              <div className="lp-session-actions">
+                {phase !== "answer" && (!notebook || phase !== "completed") && (
+                  <p
+                    className="lp-study-session-state"
+                    ref={phase === "completed" ? completionStep : undefined}
+                    tabIndex={phase === "completed" ? -1 : undefined}
                   >
-                    Return to reading
-                  </Link>
-                </p>
-              )}
-
-              {view.progress.phase === "evaluate" && (
-                <button
-                  type="button"
-
-                  className={button}
-
-                  disabled={busy || Boolean(pendingReading)}
-
-                  onClick={() => void evaluate()}
-                >
-                  {busy ? "Checking your answer…" : "Evaluate saved answer"}
-                </button>
-              )}
-
-              {view.progress.phase === "failed" && (
-                <button
-                  type="button"
-
-                  className={button}
-
-                  disabled={
-                    busy ||
-                    Boolean(pendingReading) ||
-                    !view.progress.retry_allowed
-                  }
-
-                  onClick={() => void evaluate(true)}
-                >
-                  {busy ? "Retrying evaluation…" : "Retry evaluation"}
-                </button>
-              )}
-
-              {phase !== "answer" &&
-                (view.session.status !== "completed" || error) &&
-                refreshButton}
-            </div>
+                    {progressMessage}
+                  </p>
+                )}
+                {pendingReading && (
+                  <p className="lp-study-session-state" role="status">
+                    Finish opening your reading before continuing.{" "}
+                    {readerView && notebook ? (
+                      <button
+                        type="button"
+                        className="lp-text-link"
+                        onClick={() =>
+                          selectReading({
+                            passageId: pendingReading.passage_id,
+                          })
+                        }
+                      >
+                        Return to reading
+                      </button>
+                    ) : (
+                      <Link
+                        href={`/study/reading?${new URLSearchParams({ session: view.session.id, passage: pendingReading.passage_id, from: "study" })}`}
+                        prefetch={false}
+                        className="lp-text-link"
+                      >
+                        Return to reading
+                      </Link>
+                    )}
+                  </p>
+                )}
+                {readingBlocksCurrent && !pendingReading && (
+                  <p className="lp-study-session-state" role="status">
+                    Reading progress is not yet confirmed for this question.
+                    Your draft is kept. Refresh saved progress after finishing
+                    any reading recovery.
+                  </p>
+                )}
+                {view.progress.phase === "evaluate" && (
+                  <button
+                    type="button"
+                    className={button}
+                    disabled={
+                      busy || Boolean(pendingReading) || readingBlocksCurrent
+                    }
+                    onClick={() => void evaluate()}
+                  >
+                    {busy ? "Checking your answer…" : "Evaluate saved answer"}
+                  </button>
+                )}
+                {view.progress.phase === "failed" && (
+                  <button
+                    type="button"
+                    className={button}
+                    disabled={
+                      busy ||
+                      Boolean(pendingReading) ||
+                      readingBlocksCurrent ||
+                      !view.progress.retry_allowed
+                    }
+                    onClick={() => void evaluate(true)}
+                  >
+                    {busy ? "Retrying evaluation…" : "Retry evaluation"}
+                  </button>
+                )}
+                {(readingBlocksCurrent ||
+                  (phase !== "answer" &&
+                    (view.session.status !== "completed" || error))) &&
+                  (!notebook || !error) &&
+                  refreshButton}
+              </div>
+            </NotebookNotices>
           )}
         </>
       )}
     </section>
+  );
+  return view && assignmentId ? (
+    <ActiveStudyNotebook
+      view={view}
+      assignmentId={assignmentId}
+      title={assignment?.title ?? initialTitle ?? "Study session"}
+      className={className}
+      reader={notebookReader}
+      selectedAttemptId={selectedId ?? ""}
+      headerStatus={headerStatus}
+      onSelectAttempt={selectAttempt}
+      readingSelection={effectiveReadingSelection}
+      onSelectReading={selectReading}
+      onCloseReading={() => setReadingSelection(null)}
+      onReadingState={receiveReadingState}
+      notices={
+        error ? (
+          <div role="alert" className="lp-notice lp-notice-warning">
+            <p>{error}</p>
+            <Link href="/login" target="_blank" rel="noopener">
+              Sign in in a new tab
+            </Link>
+            <span> Return here to check your saved progress.</span>
+            {refreshButton}
+          </div>
+        ) : null
+      }
+    >
+      {content}
+    </ActiveStudyNotebook>
+  ) : (
+    content
   );
 }

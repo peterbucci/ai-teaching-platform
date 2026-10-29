@@ -1,0 +1,2071 @@
+{
+  "phase": "inspect-followup",
+  "status": "passed",
+  "source_sha": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8",
+  "source_tree": "333b73e1cae1daddf6edd61300655d0b4825ed67",
+  "project": "lp-teacher-combined-01a174be",
+  "origin": "http://localhost:3449",
+  "seam_sha256": "0e4fd35f10f2d64f635cf8fc5515c32c9c48a7966b1e0cd0d40467d7b5c7c5a1",
+  "input_kind": "explicit synthetic preparation/evaluation receipt",
+  "harness_sha256": "4d45dfe1a52836c5ed464432faf445aa6391981cfc354e393b1223371c20a624",
+  "preparation": {
+    "mode": "prepare",
+    "status": "completed",
+    "source_sha": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8",
+    "source_tree": "333b73e1cae1daddf6edd61300655d0b4825ed67",
+    "project": "lp-teacher-combined-01a174be",
+    "origin": "http://localhost:3449",
+    "input_sha256": "8b3fd3dbd87cb165c07f15a71c6bc1a422401eb3fcebf45e689bb0bab7c72e62",
+    "harness_sha256": "66b9f0651306587e1394dea7a1a8def6ecb12d95eed89aaf61569f5af4ee911e",
+    "started_at": "2026-10-25T21:01:04.429Z",
+    "actual_model_calls": 0,
+    "injected_evaluation_calls": 0,
+    "injected_draft_calls": 1,
+    "seams": [
+      {
+        "kind": "inherited-original-answer",
+        "read_only": true,
+        "evaluation_id": "2531aac6-c71d-400a-948d-4bb29ac79535",
+        "model": "synthetic-same-browser-journey",
+        "reevaluated": false
+      },
+      {
+        "kind": "private-intervention-draft",
+        "synthetic": true,
+        "request_id": "3a989476-3aa3-41ff-84ac-572fee24b584",
+        "draft_id": "7dd12f61-4dbd-46d4-8a57-8381d8a7bb87",
+        "started_at": "2026-10-25T21:01:04.613Z",
+        "finished_at": "2026-10-25T21:01:04.694Z"
+      }
+    ],
+    "authoring": {
+      "status": "passed",
+      "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+      "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+      "sha": "07efb7f821339538800f150f57b298eb2e606be3",
+      "tree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+      "origin": "http://localhost:3396",
+      "student_id": "10000000-0000-4000-8000-000000000002",
+      "lesson_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+      "assignment_id": "382f0724-3800-4e6c-8a15-40b4813cb4ab",
+      "student_session_id": "c619a811-af67-4aeb-9348-686fe439db98",
+      "presented_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+      "content_ref": {
+        "source_kind": "uploaded",
+        "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+        "source_version": 1,
+        "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+        "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+        "attribution": {
+          "title": "Water changing state · verification 1792946023062",
+          "authors": ["Fictional acceptance teacher"],
+          "copyright": "2026 fictional acceptance fixture",
+          "section": "Imported source",
+          "url": null,
+          "license": "Original synthetic material; permitted for this test",
+          "license_url": null,
+          "cautions": []
+        },
+        "access_scope": {
+          "teacher_id": "10000000-0000-4000-8000-000000000001"
+        },
+        "package_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+        "content_version": "1"
+      },
+      "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+      "source_version": 1,
+      "published_version": "1",
+      "original_response": "  I think evaporation makes liquid water stop existing rather than changing its state.\nThis is an original fictional acceptance response.  ",
+      "class_id": "20000000-0000-4000-8000-000000000001",
+      "run_id": "Water changing state · verification 1792946023062",
+      "functional_completed_through": "teacher-original-evidence",
+      "target": "shell",
+      "paid_calls": 0
+    },
+    "request_namespace": "bc141d5e-d0a3-49e2-91d8-7523b44e8da5",
+    "fixture_scope": "Original lesson/answer/accepted evaluation inherited from the explicitly cloned fictional baseline; no new authoring or original evaluation/controller execution is claimed. New private draft and subsequent browser lifecycle run on the current candidate.",
+    "original_attempt_snapshot": {
+      "id": "ae652658-924b-485d-9a87-7281a7501099",
+      "session_id": "c619a811-af67-4aeb-9348-686fe439db98",
+      "sequence_index": 0,
+      "parent_attempt_id": null,
+      "root_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+      "review_of_attempt_id": null,
+      "question": {
+        "origin": "curated",
+        "question_id": "teacher-251fda60-a4de-49ce-b6cb-7334ee4eaeb1",
+        "sequence_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad:teacher-251fda60-a4de-49ce-b6cb-7334ee4eaeb1:practice",
+        "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+        "content_ref": {
+          "source_kind": "uploaded",
+          "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+          "source_version": 1,
+          "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+          "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+          "attribution": {
+            "title": "Water changing state · verification 1792946023062",
+            "authors": ["Fictional acceptance teacher"],
+            "copyright": "2026 fictional acceptance fixture",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic material; permitted for this test",
+            "license_url": null,
+            "cautions": []
+          },
+          "access_scope": {
+            "teacher_id": "10000000-0000-4000-8000-000000000001"
+          },
+          "package_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+          "content_version": "1"
+        },
+        "concept_ids": ["d1edb362-fa58-4e34-b8af-08c1f685e583"],
+        "source_passage_ids": ["p001"],
+        "rubric": {
+          "version": "teacher-review-v1",
+          "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+          "criteria": [
+            "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+          ],
+          "acceptable_variations": [
+            "Water becomes a gas in the air; the material still exists."
+          ],
+          "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+        },
+        "embedded_scaffolding": [],
+        "generation": null
+      },
+      "intent": "initial_retrieval",
+      "presented_at": "2026-10-25T16:33:59.557Z",
+      "submitted_at": "2026-10-25T16:41:03.424Z",
+      "response_text": "  I think evaporation makes liquid water stop existing rather than changing its state.\nThis is an original fictional acceptance response.  ",
+      "submission_key": "12482ec6-7609-464e-8b71-c803921b4d51",
+      "assistance": {
+        "intervention_ids": [],
+        "assistance_level": "none_recorded",
+        "scaffolding_types": [],
+        "independent_retrieval_eligible_by_concept": {
+          "d1edb362-fa58-4e34-b8af-08c1f685e583": true
+        },
+        "most_recent_content_assistance_at": null,
+        "elapsed_since_content_assistance_seconds": null
+      },
+      "current_evaluation_id": "2531aac6-c71d-400a-948d-4bb29ac79535",
+      "outcome": {
+        "root_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+        "concept_ids": ["d1edb362-fa58-4e34-b8af-08c1f685e583"],
+        "hypothesis_instance_id": null,
+        "latest_hypothesis_status": null,
+        "outcome": "correct_diagnostic_without_content_assistance",
+        "supporting_attempt_ids": [
+          "ae652658-924b-485d-9a87-7281a7501099",
+          "c3290bd2-1da9-42c2-9b2a-43c1840ad2bd"
+        ],
+        "intervention_ids": [],
+        "recorded_at": "2026-10-25T16:49:38.206215+00:00",
+        "next_review_at": "2026-10-26T16:49:38.198Z",
+        "review_policy_version": "approved-sequence-v1",
+        "review_reason": "Illustrative 24-hour review after this session. Immediate success after assistance does not establish lasting retention."
+      }
+    },
+    "original_answer_sha256": "a007b66ac2172e2e772eb65b872dbd343b106cc8c802b6d19325d4bb302564a1",
+    "concept_id": "d1edb362-fa58-4e34-b8af-08c1f685e583",
+    "original_evaluation_id": "2531aac6-c71d-400a-948d-4bb29ac79535",
+    "original_evaluation_and_controller_read_only": true,
+    "controller": {
+      "evaluation_id": "2531aac6-c71d-400a-948d-4bb29ac79535",
+      "applied_result": {
+        "action": "ASK_DIAGNOSTIC_FOLLOWUP",
+        "hypothesis_events": []
+      },
+      "reapplied": false
+    },
+    "proposal_preflight": {
+      "validator": "unchanged application validateInterventionActivity",
+      "status": "passed",
+      "practice_prompt": "A caretaker finds a dry birdbath with no sign of a spill. Trace the water through evaporation, identifying its state before and after the change.",
+      "fresh_prompt": "A visitor sees no liquid left in a small dish but claims the air cannot contain any of that water. Explain how evaporation could challenge this claim, identifying the form the water takes."
+    },
+    "draft_request_id": "3a989476-3aa3-41ff-84ac-572fee24b584",
+    "draft_id": "7dd12f61-4dbd-46d4-8a57-8381d8a7bb87",
+    "teacher_url": "/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&origin=all&draft=7dd12f61-4dbd-46d4-8a57-8381d8a7bb87&seedAttempt=ae652658-924b-485d-9a87-7281a7501099",
+    "followup_response": "The air can contain the water as water vapor, a gas, after evaporation. The water changed from liquid to gas; it did not stop existing.",
+    "inherited_original_unchanged": true,
+    "finished_at": "2026-10-25T21:01:04.720Z"
+  },
+  "started_at": "2026-10-25T21:12:24.674Z",
+  "checks": [],
+  "progress": [
+    {
+      "label": "GET /api/teacher/interventions/7dd12f61-4dbd-46d4-8a57-8381d8a7bb87",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:30.450Z"
+    },
+    {
+      "label": "GET /api/teacher/interventions/7dd12f61-4dbd-46d4-8a57-8381d8a7bb87",
+      "status": "completed",
+      "at": "2026-10-25T21:12:30.818Z"
+    },
+    {
+      "label": "GET JSON /api/teacher/interventions/7dd12f61-4dbd-46d4-8a57-8381d8a7bb87",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:30.823Z"
+    },
+    {
+      "label": "GET JSON /api/teacher/interventions/7dd12f61-4dbd-46d4-8a57-8381d8a7bb87",
+      "status": "completed",
+      "at": "2026-10-25T21:12:30.827Z"
+    },
+    {
+      "label": "GET /api/student/interventions/f187e046-fa5b-4f9d-bb3e-ddd1b457cee6/followup",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:31.116Z"
+    },
+    {
+      "label": "GET /api/student/interventions/f187e046-fa5b-4f9d-bb3e-ddd1b457cee6/followup",
+      "status": "completed",
+      "at": "2026-10-25T21:12:31.141Z"
+    },
+    {
+      "label": "GET JSON /api/student/interventions/f187e046-fa5b-4f9d-bb3e-ddd1b457cee6/followup",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:31.142Z"
+    },
+    {
+      "label": "GET JSON /api/student/interventions/f187e046-fa5b-4f9d-bb3e-ddd1b457cee6/followup",
+      "status": "completed",
+      "at": "2026-10-25T21:12:31.144Z"
+    },
+    {
+      "label": "fonts for 07-student-accepted-fixture",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:31.186Z"
+    },
+    {
+      "label": "fonts for 07-student-accepted-fixture",
+      "status": "completed",
+      "at": "2026-10-25T21:12:31.189Z"
+    },
+    {
+      "label": "fonts for 07-student-accepted-fixture",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:31.332Z"
+    },
+    {
+      "label": "fonts for 07-student-accepted-fixture",
+      "status": "completed",
+      "at": "2026-10-25T21:12:31.335Z"
+    },
+    {
+      "label": "fonts for 07-student-accepted-fixture",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:31.429Z"
+    },
+    {
+      "label": "fonts for 07-student-accepted-fixture",
+      "status": "completed",
+      "at": "2026-10-25T21:12:31.432Z"
+    },
+    {
+      "label": "fonts for 07-student-accepted-fixture",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:31.499Z"
+    },
+    {
+      "label": "fonts for 07-student-accepted-fixture",
+      "status": "completed",
+      "at": "2026-10-25T21:12:31.502Z"
+    },
+    {
+      "label": "GET /api/teacher/interventions/7dd12f61-4dbd-46d4-8a57-8381d8a7bb87/followup",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:31.569Z"
+    },
+    {
+      "label": "GET /api/teacher/interventions/7dd12f61-4dbd-46d4-8a57-8381d8a7bb87/followup",
+      "status": "completed",
+      "at": "2026-10-25T21:12:31.588Z"
+    },
+    {
+      "label": "GET JSON /api/teacher/interventions/7dd12f61-4dbd-46d4-8a57-8381d8a7bb87/followup",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:31.589Z"
+    },
+    {
+      "label": "GET JSON /api/teacher/interventions/7dd12f61-4dbd-46d4-8a57-8381d8a7bb87/followup",
+      "status": "completed",
+      "at": "2026-10-25T21:12:31.591Z"
+    },
+    {
+      "label": "reload teacher comparison",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:31.592Z"
+    },
+    {
+      "label": "reload teacher comparison",
+      "status": "completed",
+      "at": "2026-10-25T21:12:31.733Z"
+    },
+    {
+      "label": "fonts for 08-teacher-followup-page-geometry",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:32.820Z"
+    },
+    {
+      "label": "fonts for 08-teacher-followup-page-geometry",
+      "status": "completed",
+      "at": "2026-10-25T21:12:32.826Z"
+    },
+    {
+      "label": "fonts for 08-teacher-followup-page-geometry",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:32.968Z"
+    },
+    {
+      "label": "fonts for 08-teacher-followup-page-geometry",
+      "status": "completed",
+      "at": "2026-10-25T21:12:32.971Z"
+    },
+    {
+      "label": "fonts for 08-teacher-followup-page-geometry",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:33.106Z"
+    },
+    {
+      "label": "fonts for 08-teacher-followup-page-geometry",
+      "status": "completed",
+      "at": "2026-10-25T21:12:33.110Z"
+    },
+    {
+      "label": "fonts for 08-teacher-followup-page-geometry",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:33.205Z"
+    },
+    {
+      "label": "fonts for 08-teacher-followup-page-geometry",
+      "status": "completed",
+      "at": "2026-10-25T21:12:33.209Z"
+    },
+    {
+      "label": "fonts for 09-teacher-original-response",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:33.320Z"
+    },
+    {
+      "label": "fonts for 09-teacher-original-response",
+      "status": "completed",
+      "at": "2026-10-25T21:12:33.323Z"
+    },
+    {
+      "label": "fonts for 09-teacher-original-response",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:33.520Z"
+    },
+    {
+      "label": "fonts for 09-teacher-original-response",
+      "status": "completed",
+      "at": "2026-10-25T21:12:33.524Z"
+    },
+    {
+      "label": "fonts for 09-teacher-original-response",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:33.691Z"
+    },
+    {
+      "label": "fonts for 09-teacher-original-response",
+      "status": "completed",
+      "at": "2026-10-25T21:12:33.695Z"
+    },
+    {
+      "label": "fonts for 09-teacher-original-response",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:33.828Z"
+    },
+    {
+      "label": "fonts for 09-teacher-original-response",
+      "status": "completed",
+      "at": "2026-10-25T21:12:33.831Z"
+    },
+    {
+      "label": "fonts for 10-teacher-linked-followup-response",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:33.946Z"
+    },
+    {
+      "label": "fonts for 10-teacher-linked-followup-response",
+      "status": "completed",
+      "at": "2026-10-25T21:12:33.950Z"
+    },
+    {
+      "label": "fonts for 10-teacher-linked-followup-response",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:34.078Z"
+    },
+    {
+      "label": "fonts for 10-teacher-linked-followup-response",
+      "status": "completed",
+      "at": "2026-10-25T21:12:34.082Z"
+    },
+    {
+      "label": "fonts for 10-teacher-linked-followup-response",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:34.207Z"
+    },
+    {
+      "label": "fonts for 10-teacher-linked-followup-response",
+      "status": "completed",
+      "at": "2026-10-25T21:12:34.209Z"
+    },
+    {
+      "label": "fonts for 10-teacher-linked-followup-response",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:34.305Z"
+    },
+    {
+      "label": "fonts for 10-teacher-linked-followup-response",
+      "status": "completed",
+      "at": "2026-10-25T21:12:34.309Z"
+    },
+    {
+      "label": "close owned browser",
+      "status": "waiting",
+      "at": "2026-10-25T21:12:34.401Z"
+    },
+    {
+      "label": "close owned browser",
+      "status": "completed",
+      "at": "2026-10-25T21:12:34.785Z"
+    }
+  ],
+  "mutations": [],
+  "screenshots": [
+    {
+      "file": "07-student-accepted-fixture-1440x1000.png",
+      "stage": "student-reloads-explicit-synthetic-evaluation",
+      "width": 1440,
+      "height": 1000,
+      "url": "http://localhost:3449/study/interventions/f187e046-fa5b-4f9d-bb3e-ddd1b457cee6",
+      "focused_evidence": {
+        "top": 573.703125,
+        "bottom": 621.296875,
+        "left": 479,
+        "right": 1203,
+        "width": 724,
+        "height": 47.59375,
+        "scroll_y": 644,
+        "viewport_height": 1000,
+        "viewport_width": 1440,
+        "hit_points": [
+          {
+            "x": 841,
+            "y": 575.703125,
+            "unobscured": true
+          },
+          {
+            "x": 841,
+            "y": 597.5,
+            "unobscured": true
+          },
+          {
+            "x": 841,
+            "y": 619.296875,
+            "unobscured": true
+          }
+        ],
+        "all_sampled_points_unobscured": true,
+        "selector": ".lp-followup-saved blockquote",
+        "text_sha256": "df2f4cc099eb3da9e64d427427c526bda1f4644fabc006f3d84cc22a1af8318b"
+      },
+      "overflow": false
+    },
+    {
+      "file": "07-student-accepted-fixture-1024x768.png",
+      "stage": "student-reloads-explicit-synthetic-evaluation",
+      "width": 1024,
+      "height": 768,
+      "url": "http://localhost:3449/study/interventions/f187e046-fa5b-4f9d-bb3e-ddd1b457cee6",
+      "focused_evidence": {
+        "top": 360.09375,
+        "bottom": 407.6875,
+        "left": 300,
+        "right": 942,
+        "width": 642,
+        "height": 47.59375,
+        "scroll_y": 846,
+        "viewport_height": 768,
+        "viewport_width": 1024,
+        "hit_points": [
+          {
+            "x": 621,
+            "y": 362.09375,
+            "unobscured": true
+          },
+          {
+            "x": 621,
+            "y": 383.890625,
+            "unobscured": true
+          },
+          {
+            "x": 621,
+            "y": 405.6875,
+            "unobscured": true
+          }
+        ],
+        "all_sampled_points_unobscured": true,
+        "selector": ".lp-followup-saved blockquote",
+        "text_sha256": "df2f4cc099eb3da9e64d427427c526bda1f4644fabc006f3d84cc22a1af8318b"
+      },
+      "overflow": false
+    },
+    {
+      "file": "07-student-accepted-fixture-390x844.png",
+      "stage": "student-reloads-explicit-synthetic-evaluation",
+      "width": 390,
+      "height": 844,
+      "url": "http://localhost:3449/study/interventions/f187e046-fa5b-4f9d-bb3e-ddd1b457cee6",
+      "focused_evidence": {
+        "top": 374.703125,
+        "bottom": 469.890625,
+        "left": 62,
+        "right": 328,
+        "width": 266,
+        "height": 95.1875,
+        "scroll_y": 1116,
+        "viewport_height": 844,
+        "viewport_width": 390,
+        "hit_points": [
+          {
+            "x": 195,
+            "y": 376.703125,
+            "unobscured": true
+          },
+          {
+            "x": 195,
+            "y": 422.296875,
+            "unobscured": true
+          },
+          {
+            "x": 195,
+            "y": 467.890625,
+            "unobscured": true
+          }
+        ],
+        "all_sampled_points_unobscured": true,
+        "selector": ".lp-followup-saved blockquote",
+        "text_sha256": "df2f4cc099eb3da9e64d427427c526bda1f4644fabc006f3d84cc22a1af8318b"
+      },
+      "overflow": false
+    },
+    {
+      "file": "07-student-accepted-fixture-320x844.png",
+      "stage": "student-reloads-explicit-synthetic-evaluation",
+      "width": 320,
+      "height": 844,
+      "url": "http://localhost:3449/study/interventions/f187e046-fa5b-4f9d-bb3e-ddd1b457cee6",
+      "focused_evidence": {
+        "top": 362.578125,
+        "bottom": 481.5625,
+        "left": 62,
+        "right": 258,
+        "width": 196,
+        "height": 118.984375,
+        "scroll_y": 1328,
+        "viewport_height": 844,
+        "viewport_width": 320,
+        "hit_points": [
+          {
+            "x": 160,
+            "y": 364.578125,
+            "unobscured": true
+          },
+          {
+            "x": 160,
+            "y": 422.0703125,
+            "unobscured": true
+          },
+          {
+            "x": 160,
+            "y": 479.5625,
+            "unobscured": true
+          }
+        ],
+        "all_sampled_points_unobscured": true,
+        "selector": ".lp-followup-saved blockquote",
+        "text_sha256": "df2f4cc099eb3da9e64d427427c526bda1f4644fabc006f3d84cc22a1af8318b"
+      },
+      "overflow": false
+    },
+    {
+      "file": "08-teacher-followup-page-geometry-1440x1000.png",
+      "stage": "teacher-inspects-original-and-accepted-linked-followup",
+      "width": 1440,
+      "height": 1000,
+      "url": "http://localhost:3449/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&origin=all&draft=7dd12f61-4dbd-46d4-8a57-8381d8a7bb87&seedAttempt=ae652658-924b-485d-9a87-7281a7501099",
+      "overflow": false
+    },
+    {
+      "file": "08-teacher-followup-page-geometry-1024x768.png",
+      "stage": "teacher-inspects-original-and-accepted-linked-followup",
+      "width": 1024,
+      "height": 768,
+      "url": "http://localhost:3449/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&origin=all&draft=7dd12f61-4dbd-46d4-8a57-8381d8a7bb87&seedAttempt=ae652658-924b-485d-9a87-7281a7501099",
+      "overflow": false
+    },
+    {
+      "file": "08-teacher-followup-page-geometry-390x844.png",
+      "stage": "teacher-inspects-original-and-accepted-linked-followup",
+      "width": 390,
+      "height": 844,
+      "url": "http://localhost:3449/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&origin=all&draft=7dd12f61-4dbd-46d4-8a57-8381d8a7bb87&seedAttempt=ae652658-924b-485d-9a87-7281a7501099&workspacePane=context",
+      "overflow": false
+    },
+    {
+      "file": "08-teacher-followup-page-geometry-320x844.png",
+      "stage": "teacher-inspects-original-and-accepted-linked-followup",
+      "width": 320,
+      "height": 844,
+      "url": "http://localhost:3449/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&origin=all&draft=7dd12f61-4dbd-46d4-8a57-8381d8a7bb87&seedAttempt=ae652658-924b-485d-9a87-7281a7501099&workspacePane=context",
+      "overflow": false
+    },
+    {
+      "file": "09-teacher-original-response-1440x1000.png",
+      "stage": "teacher-inspects-original-and-accepted-linked-followup",
+      "width": 1440,
+      "height": 1000,
+      "url": "http://localhost:3449/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&origin=all&draft=7dd12f61-4dbd-46d4-8a57-8381d8a7bb87&seedAttempt=ae652658-924b-485d-9a87-7281a7501099&workspacePane=context",
+      "focused_evidence": {
+        "top": 580.96875,
+        "bottom": 671.90625,
+        "left": 1144,
+        "right": 1406,
+        "width": 262,
+        "height": 90.9375,
+        "scroll_y": 0,
+        "viewport_height": 1000,
+        "viewport_width": 1440,
+        "hit_points": [
+          {
+            "x": 1275,
+            "y": 582.96875,
+            "unobscured": true
+          },
+          {
+            "x": 1275,
+            "y": 626.4375,
+            "unobscured": true
+          },
+          {
+            "x": 1275,
+            "y": 669.90625,
+            "unobscured": true
+          }
+        ],
+        "all_sampled_points_unobscured": true,
+        "selector": ".lp-followup-before blockquote",
+        "text_sha256": "a007b66ac2172e2e772eb65b872dbd343b106cc8c802b6d19325d4bb302564a1"
+      },
+      "overflow": false
+    },
+    {
+      "file": "09-teacher-original-response-1024x768.png",
+      "stage": "teacher-inspects-original-and-accepted-linked-followup",
+      "width": 1024,
+      "height": 768,
+      "url": "http://localhost:3449/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&origin=all&draft=7dd12f61-4dbd-46d4-8a57-8381d8a7bb87&seedAttempt=ae652658-924b-485d-9a87-7281a7501099&workspacePane=context",
+      "focused_evidence": {
+        "top": 486.96875,
+        "bottom": 577.90625,
+        "left": 728,
+        "right": 990,
+        "width": 262,
+        "height": 90.9375,
+        "scroll_y": 0,
+        "viewport_height": 768,
+        "viewport_width": 1024,
+        "hit_points": [
+          {
+            "x": 859,
+            "y": 488.96875,
+            "unobscured": true
+          },
+          {
+            "x": 859,
+            "y": 532.4375,
+            "unobscured": true
+          },
+          {
+            "x": 859,
+            "y": 575.90625,
+            "unobscured": true
+          }
+        ],
+        "all_sampled_points_unobscured": true,
+        "selector": ".lp-followup-before blockquote",
+        "text_sha256": "a007b66ac2172e2e772eb65b872dbd343b106cc8c802b6d19325d4bb302564a1"
+      },
+      "overflow": false
+    },
+    {
+      "file": "09-teacher-original-response-390x844.png",
+      "stage": "teacher-inspects-original-and-accepted-linked-followup",
+      "width": 390,
+      "height": 844,
+      "url": "http://localhost:3449/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&origin=all&draft=7dd12f61-4dbd-46d4-8a57-8381d8a7bb87&seedAttempt=ae652658-924b-485d-9a87-7281a7501099&workspacePane=context",
+      "focused_evidence": {
+        "top": 460.28125,
+        "bottom": 514.84375,
+        "left": 64,
+        "right": 356,
+        "width": 292,
+        "height": 54.5625,
+        "scroll_y": 0,
+        "viewport_height": 844,
+        "viewport_width": 390,
+        "hit_points": [
+          {
+            "x": 210,
+            "y": 462.28125,
+            "unobscured": true
+          },
+          {
+            "x": 210,
+            "y": 487.5625,
+            "unobscured": true
+          },
+          {
+            "x": 210,
+            "y": 512.84375,
+            "unobscured": true
+          }
+        ],
+        "all_sampled_points_unobscured": true,
+        "selector": ".lp-followup-before blockquote",
+        "text_sha256": "a007b66ac2172e2e772eb65b872dbd343b106cc8c802b6d19325d4bb302564a1"
+      },
+      "overflow": false
+    },
+    {
+      "file": "09-teacher-original-response-320x844.png",
+      "stage": "teacher-inspects-original-and-accepted-linked-followup",
+      "width": 320,
+      "height": 844,
+      "url": "http://localhost:3449/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&origin=all&draft=7dd12f61-4dbd-46d4-8a57-8381d8a7bb87&seedAttempt=ae652658-924b-485d-9a87-7281a7501099&workspacePane=context",
+      "focused_evidence": {
+        "top": 434.15625,
+        "bottom": 525.09375,
+        "left": 64,
+        "right": 286,
+        "width": 222,
+        "height": 90.9375,
+        "scroll_y": 0,
+        "viewport_height": 844,
+        "viewport_width": 320,
+        "hit_points": [
+          {
+            "x": 175,
+            "y": 436.15625,
+            "unobscured": true
+          },
+          {
+            "x": 175,
+            "y": 479.625,
+            "unobscured": true
+          },
+          {
+            "x": 175,
+            "y": 523.09375,
+            "unobscured": true
+          }
+        ],
+        "all_sampled_points_unobscured": true,
+        "selector": ".lp-followup-before blockquote",
+        "text_sha256": "a007b66ac2172e2e772eb65b872dbd343b106cc8c802b6d19325d4bb302564a1"
+      },
+      "overflow": false
+    },
+    {
+      "file": "10-teacher-linked-followup-response-1440x1000.png",
+      "stage": "teacher-inspects-original-and-accepted-linked-followup",
+      "width": 1440,
+      "height": 1000,
+      "url": "http://localhost:3449/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&origin=all&draft=7dd12f61-4dbd-46d4-8a57-8381d8a7bb87&seedAttempt=ae652658-924b-485d-9a87-7281a7501099&workspacePane=context",
+      "focused_evidence": {
+        "top": 589.703125,
+        "bottom": 662.453125,
+        "left": 1160,
+        "right": 1390,
+        "width": 230,
+        "height": 72.75,
+        "scroll_y": 0,
+        "viewport_height": 1000,
+        "viewport_width": 1440,
+        "hit_points": [
+          {
+            "x": 1275,
+            "y": 591.703125,
+            "unobscured": true
+          },
+          {
+            "x": 1275,
+            "y": 626.078125,
+            "unobscured": true
+          },
+          {
+            "x": 1275,
+            "y": 660.453125,
+            "unobscured": true
+          }
+        ],
+        "all_sampled_points_unobscured": true,
+        "selector": ".lp-followup-after blockquote",
+        "text_sha256": "df2f4cc099eb3da9e64d427427c526bda1f4644fabc006f3d84cc22a1af8318b"
+      },
+      "overflow": false
+    },
+    {
+      "file": "10-teacher-linked-followup-response-1024x768.png",
+      "stage": "teacher-inspects-original-and-accepted-linked-followup",
+      "width": 1024,
+      "height": 768,
+      "url": "http://localhost:3449/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&origin=all&draft=7dd12f61-4dbd-46d4-8a57-8381d8a7bb87&seedAttempt=ae652658-924b-485d-9a87-7281a7501099&workspacePane=context",
+      "focused_evidence": {
+        "top": 495.703125,
+        "bottom": 568.453125,
+        "left": 744,
+        "right": 974,
+        "width": 230,
+        "height": 72.75,
+        "scroll_y": 0,
+        "viewport_height": 768,
+        "viewport_width": 1024,
+        "hit_points": [
+          {
+            "x": 859,
+            "y": 497.703125,
+            "unobscured": true
+          },
+          {
+            "x": 859,
+            "y": 532.078125,
+            "unobscured": true
+          },
+          {
+            "x": 859,
+            "y": 566.453125,
+            "unobscured": true
+          }
+        ],
+        "all_sampled_points_unobscured": true,
+        "selector": ".lp-followup-after blockquote",
+        "text_sha256": "df2f4cc099eb3da9e64d427427c526bda1f4644fabc006f3d84cc22a1af8318b"
+      },
+      "overflow": false
+    },
+    {
+      "file": "10-teacher-linked-followup-response-390x844.png",
+      "stage": "teacher-inspects-original-and-accepted-linked-followup",
+      "width": 390,
+      "height": 844,
+      "url": "http://localhost:3449/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&origin=all&draft=7dd12f61-4dbd-46d4-8a57-8381d8a7bb87&seedAttempt=ae652658-924b-485d-9a87-7281a7501099&workspacePane=context",
+      "focused_evidence": {
+        "top": 451.453125,
+        "bottom": 524.203125,
+        "left": 80,
+        "right": 340,
+        "width": 260,
+        "height": 72.75,
+        "scroll_y": 0,
+        "viewport_height": 844,
+        "viewport_width": 390,
+        "hit_points": [
+          {
+            "x": 210,
+            "y": 453.453125,
+            "unobscured": true
+          },
+          {
+            "x": 210,
+            "y": 487.828125,
+            "unobscured": true
+          },
+          {
+            "x": 210,
+            "y": 522.203125,
+            "unobscured": true
+          }
+        ],
+        "all_sampled_points_unobscured": true,
+        "selector": ".lp-followup-after blockquote",
+        "text_sha256": "df2f4cc099eb3da9e64d427427c526bda1f4644fabc006f3d84cc22a1af8318b"
+      },
+      "overflow": false
+    },
+    {
+      "file": "10-teacher-linked-followup-response-320x844.png",
+      "stage": "teacher-inspects-original-and-accepted-linked-followup",
+      "width": 320,
+      "height": 844,
+      "url": "http://localhost:3449/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&origin=all&draft=7dd12f61-4dbd-46d4-8a57-8381d8a7bb87&seedAttempt=ae652658-924b-485d-9a87-7281a7501099&workspacePane=context",
+      "focused_evidence": {
+        "top": 434.640625,
+        "bottom": 525.578125,
+        "left": 80,
+        "right": 270,
+        "width": 190,
+        "height": 90.9375,
+        "scroll_y": 0,
+        "viewport_height": 844,
+        "viewport_width": 320,
+        "hit_points": [
+          {
+            "x": 175,
+            "y": 436.640625,
+            "unobscured": true
+          },
+          {
+            "x": 175,
+            "y": 480.109375,
+            "unobscured": true
+          },
+          {
+            "x": 175,
+            "y": 523.578125,
+            "unobscured": true
+          }
+        ],
+        "all_sampled_points_unobscured": true,
+        "selector": ".lp-followup-after blockquote",
+        "text_sha256": "df2f4cc099eb3da9e64d427427c526bda1f4644fabc006f3d84cc22a1af8318b"
+      },
+      "overflow": false
+    }
+  ],
+  "safety": [
+    {
+      "before": "browser-launch",
+      "observedAt": "2026-10-25T21:12:24.680Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27115872256,
+          "availableGiB": 25.253623962402344,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27115872256,
+          "availableGiB": 25.253623962402344,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27115872256,
+          "availableGiB": 25.253623962402344,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897579421696,
+          "availableGiB": 835.935977935791,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27115806720,
+            "availableGiB": 25.253562927246094,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "login-teacher",
+      "observedAt": "2026-10-25T21:12:26.463Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27111755776,
+          "availableGiB": 25.24979019165039,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27111755776,
+          "availableGiB": 25.24979019165039,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27111763968,
+          "availableGiB": 25.249797821044922,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897579421696,
+          "availableGiB": 835.935977935791,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27101716480,
+            "availableGiB": 25.240440368652344,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "login-student",
+      "observedAt": "2026-10-25T21:12:28.286Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27100934144,
+          "availableGiB": 25.23971176147461,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27100934144,
+          "availableGiB": 25.23971176147461,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27100934144,
+          "availableGiB": 25.23971176147461,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897579413504,
+          "availableGiB": 835.9359703063965,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27100639232,
+            "availableGiB": 25.239437103271484,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    }
+  ],
+  "blocked_off_origin_requests": [],
+  "blocked_context_writes": [],
+  "context_checks": [],
+  "paid_calls": 0,
+  "actual_model_verification": "unrun",
+  "screen_reader": "unrun",
+  "native_200_percent_zoom": "unrun",
+  "functional_completed_through": "teacher-inspected-accepted-linked-followup-with-explicit-synthetic-seams",
+  "lock_owner": {
+    "mode": "browser-intervention-inspect-followup",
+    "source": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+    "state": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+    "project": "lp-teacher-combined-01a174be",
+    "sourceSha": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8",
+    "token": "[REDACTED local coordination lock token]",
+    "pid": 39072,
+    "startedAt": "2026-10-25T21:12:24.674Z"
+  },
+  "approval_id": "f187e046-fa5b-4f9d-bb3e-ddd1b457cee6",
+  "followup": {
+    "approval_id": "f187e046-fa5b-4f9d-bb3e-ddd1b457cee6",
+    "started_at": "2026-10-25T21:10:23.050Z",
+    "attempt_id": "14da4daa-5649-46ea-a19d-d875e1afda9a",
+    "submitted_at": "2026-10-25T21:10:24.472Z",
+    "response_text": "The air can contain the water as water vapor, a gas, after evaporation. The water changed from liquid to gas; it did not stop existing.",
+    "assistance": {
+      "intervention_ids": ["ef85cce5-9496-4a6d-a7f6-a2d96d9e42cc"],
+      "assistance_level": "corrective_feedback",
+      "scaffolding_types": [],
+      "independent_retrieval_eligible_by_concept": {
+        "d1edb362-fa58-4e34-b8af-08c1f685e583": false
+      },
+      "most_recent_content_assistance_at": "2026-10-25T21:10:21.099Z",
+      "elapsed_since_content_assistance_seconds": 3.373
+    },
+    "evaluation_status": "accepted",
+    "evaluation_id": "4381b3b2-5e0f-46f5-ab18-3f53fef978ba",
+    "results": [
+      {
+        "concept_id": "d1edb362-fa58-4e34-b8af-08c1f685e583",
+        "correctness": "correct"
+      }
+    ],
+    "uncertain": false,
+    "feedback": "Your response demonstrates the assessed reasoning on this check. Success after review does not establish lasting retention.",
+    "retry_allowed": false,
+    "retry_after": null,
+    "evaluator_type": "language_model",
+    "evaluation_provenance": "injected_fixture"
+  },
+  "comparison": {
+    "approval_id": "f187e046-fa5b-4f9d-bb3e-ddd1b457cee6",
+    "draft_id": "7dd12f61-4dbd-46d4-8a57-8381d8a7bb87",
+    "approved_revision": 2,
+    "assignment_id": "382f0724-3800-4e6c-8a15-40b4813cb4ab",
+    "content_ref": {
+      "source_kind": "uploaded",
+      "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+      "source_version": 1,
+      "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+      "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+      "attribution": {
+        "title": "Water changing state · verification 1792946023062",
+        "authors": ["Fictional acceptance teacher"],
+        "copyright": "2026 fictional acceptance fixture",
+        "section": "Imported source",
+        "url": null,
+        "license": "Original synthetic material; permitted for this test",
+        "license_url": null,
+        "cautions": []
+      },
+      "access_scope": {
+        "teacher_id": "10000000-0000-4000-8000-000000000001"
+      },
+      "package_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+      "content_version": "1"
+    },
+    "counts": {
+      "intended": 1,
+      "started": 1,
+      "submitted": 1,
+      "missing": 0,
+      "accepted": 1,
+      "pending": 0,
+      "failed": 0,
+      "uncertain": 0
+    },
+    "original_evidence": {
+      "selection": {
+        "assignment_id": "382f0724-3800-4e6c-8a15-40b4813cb4ab",
+        "concept_id": "d1edb362-fa58-4e34-b8af-08c1f685e583",
+        "misconception_id": null,
+        "attempt_ids": ["ae652658-924b-485d-9a87-7281a7501099"],
+        "origin": "all"
+      },
+      "content_ref": {
+        "source_kind": "uploaded",
+        "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+        "source_version": 1,
+        "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+        "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+        "attribution": {
+          "title": "Water changing state · verification 1792946023062",
+          "authors": ["Fictional acceptance teacher"],
+          "copyright": "2026 fictional acceptance fixture",
+          "section": "Imported source",
+          "url": null,
+          "license": "Original synthetic material; permitted for this test",
+          "license_url": null,
+          "cautions": []
+        },
+        "access_scope": {
+          "teacher_id": "10000000-0000-4000-8000-000000000001"
+        },
+        "package_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+        "content_version": "1"
+      },
+      "concept": {
+        "id": "d1edb362-fa58-4e34-b8af-08c1f685e583",
+        "title": "Evaporation",
+        "objectives": [
+          "Explain that evaporation changes liquid water into water vapor rather than making it disappear."
+        ],
+        "boundaries": [
+          "Use only the reviewed source passages supporting this objective."
+        ],
+        "source_passage_ids": ["p001"]
+      },
+      "related_concepts": [],
+      "metrics": {
+        "definition_version": "class-evidence-v1",
+        "origin_filter": "all",
+        "enrolled_students": 27,
+        "participation": {
+          "numerator": 1,
+          "denominator": 27
+        },
+        "no_activity_students": 26,
+        "origins": {
+          "synthetic_fixture": 0,
+          "live_demo": 1
+        },
+        "concepts": [
+          {
+            "concept_id": "d1edb362-fa58-4e34-b8af-08c1f685e583",
+            "latest": {
+              "correct": 1,
+              "partially_correct": 0,
+              "incorrect": 0,
+              "uncertain": 0,
+              "pending": 0,
+              "evaluation_failed": 0,
+              "rejected": 0,
+              "no_response": 26,
+              "accepted_students": 1,
+              "correct_rate": {
+                "numerator": 1,
+                "denominator": 1
+              }
+            },
+            "independent": {
+              "correct": 0,
+              "partially_correct": 0,
+              "incorrect": 1,
+              "uncertain": 0,
+              "pending": 0,
+              "evaluation_failed": 0,
+              "rejected": 0,
+              "no_response": 26,
+              "accepted_students": 1,
+              "correct_rate": {
+                "numerator": 0,
+                "denominator": 1
+              }
+            },
+            "content_assisted": {
+              "correct": 1,
+              "partially_correct": 0,
+              "incorrect": 0,
+              "uncertain": 0,
+              "pending": 0,
+              "evaluation_failed": 0,
+              "rejected": 0,
+              "no_response": 26,
+              "accepted_students": 1,
+              "correct_rate": {
+                "numerator": 1,
+                "denominator": 1
+              }
+            },
+            "immediate_retest": {
+              "correct": 1,
+              "partially_correct": 0,
+              "incorrect": 0,
+              "uncertain": 0,
+              "pending": 0,
+              "evaluation_failed": 0,
+              "rejected": 0,
+              "no_response": 26,
+              "accepted_students": 1,
+              "correct_rate": {
+                "numerator": 1,
+                "denominator": 1
+              }
+            },
+            "delayed_review": {
+              "correct": 0,
+              "partially_correct": 0,
+              "incorrect": 0,
+              "uncertain": 0,
+              "pending": 0,
+              "evaluation_failed": 0,
+              "rejected": 0,
+              "no_response": 27,
+              "accepted_students": 0,
+              "correct_rate": {
+                "numerator": 0,
+                "denominator": 0
+              }
+            },
+            "repeated_difficulty": {
+              "numerator": 0,
+              "denominator": 1
+            }
+          }
+        ]
+      },
+      "observations": [
+        {
+          "evidence_id": "E1",
+          "student_id": "10000000-0000-4000-8000-000000000002",
+          "student_name": "Student One (fictional)",
+          "pseudonym": "Learner 1",
+          "session_id": "c619a811-af67-4aeb-9348-686fe439db98",
+          "data_origin": "live_demo",
+          "attempt": {
+            "id": "ae652658-924b-485d-9a87-7281a7501099",
+            "session_id": "c619a811-af67-4aeb-9348-686fe439db98",
+            "sequence_index": 0,
+            "parent_attempt_id": null,
+            "root_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+            "review_of_attempt_id": null,
+            "question": {
+              "origin": "curated",
+              "question_id": "teacher-251fda60-a4de-49ce-b6cb-7334ee4eaeb1",
+              "sequence_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad:teacher-251fda60-a4de-49ce-b6cb-7334ee4eaeb1:practice",
+              "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Water changing state · verification 1792946023062",
+                  "authors": ["Fictional acceptance teacher"],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+                "content_version": "1"
+              },
+              "concept_ids": ["d1edb362-fa58-4e34-b8af-08c1f685e583"],
+              "source_passage_ids": ["p001"],
+              "rubric": {
+                "version": "teacher-review-v1",
+                "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+                "criteria": [
+                  "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                ],
+                "acceptable_variations": [
+                  "Water becomes a gas in the air; the material still exists."
+                ],
+                "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+              },
+              "embedded_scaffolding": [],
+              "generation": null
+            },
+            "intent": "initial_retrieval",
+            "presented_at": "2026-10-25T16:33:59.557Z",
+            "submitted_at": "2026-10-25T16:41:03.424Z",
+            "response_text": "  I think evaporation makes liquid water stop existing rather than changing its state.\nThis is an original fictional acceptance response.  ",
+            "submission_key": "12482ec6-7609-464e-8b71-c803921b4d51",
+            "assistance": {
+              "intervention_ids": [],
+              "assistance_level": "none_recorded",
+              "scaffolding_types": [],
+              "independent_retrieval_eligible_by_concept": {
+                "d1edb362-fa58-4e34-b8af-08c1f685e583": true
+              },
+              "most_recent_content_assistance_at": null,
+              "elapsed_since_content_assistance_seconds": null
+            },
+            "current_evaluation_id": "2531aac6-c71d-400a-948d-4bb29ac79535",
+            "outcome": {
+              "root_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+              "concept_ids": ["d1edb362-fa58-4e34-b8af-08c1f685e583"],
+              "hypothesis_instance_id": null,
+              "latest_hypothesis_status": null,
+              "outcome": "correct_diagnostic_without_content_assistance",
+              "supporting_attempt_ids": [
+                "ae652658-924b-485d-9a87-7281a7501099",
+                "c3290bd2-1da9-42c2-9b2a-43c1840ad2bd"
+              ],
+              "intervention_ids": [],
+              "recorded_at": "2026-10-25T16:49:38.206215+00:00",
+              "next_review_at": "2026-10-26T16:49:38.198Z",
+              "review_policy_version": "approved-sequence-v1",
+              "review_reason": "Illustrative 24-hour review after this session. Immediate success after assistance does not establish lasting retention."
+            }
+          },
+          "evaluation": {
+            "id": "2531aac6-c71d-400a-948d-4bb29ac79535",
+            "attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+            "validation_status": "accepted",
+            "evaluator": {
+              "type": "language_model",
+              "model": "synthetic-same-browser-journey",
+              "version": "grounded-network-performance-v2",
+              "provider_reservation_id": "75950951-1ca8-4d70-8af1-15f8ba42f11b",
+              "provider_outcome": "settled"
+            },
+            "evaluated_at": "2026-10-25T16:41:57.689Z",
+            "supersedes_id": null,
+            "result": {
+              "per_concept_results": [
+                {
+                  "concept_id": "d1edb362-fa58-4e34-b8af-08c1f685e583",
+                  "correctness": "incorrect",
+                  "error_type": "conceptual",
+                  "rubric_criteria_met": [],
+                  "rubric_criteria_missing": [
+                    "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                  ]
+                }
+              ],
+              "source_passage_ids": ["p001"],
+              "evidence_quotes": [
+                {
+                  "response_id": "ae652658-924b-485d-9a87-7281a7501099",
+                  "quote": "  I think evaporation makes liquid water stop existing rather than changing its state.\nThis is an original fictional acceptance response.  ",
+                  "start_character": 0,
+                  "end_character": 139,
+                  "interpretation": "Explicit synthetic evaluator seam for original response identity; not a model judgment."
+                }
+              ],
+              "misconception_candidates": [],
+              "reasoning_observed": "Synthetic browser-journey fixture; no real model was called and no educational effectiveness is established.",
+              "uncertainty_reason": null,
+              "proposed_next_action": "ASK_DIAGNOSTIC_FOLLOWUP"
+            },
+            "applied_result": {
+              "action": "ASK_DIAGNOSTIC_FOLLOWUP",
+              "hypothesis_events": []
+            },
+            "failure_reason": null
+          },
+          "role": "supporting"
+        },
+        {
+          "evidence_id": "E2",
+          "student_id": "10000000-0000-4000-8000-000000000002",
+          "student_name": "Student One (fictional)",
+          "pseudonym": "Learner 1",
+          "session_id": "c619a811-af67-4aeb-9348-686fe439db98",
+          "data_origin": "live_demo",
+          "attempt": {
+            "id": "c3290bd2-1da9-42c2-9b2a-43c1840ad2bd",
+            "session_id": "c619a811-af67-4aeb-9348-686fe439db98",
+            "sequence_index": 1,
+            "parent_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+            "root_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+            "review_of_attempt_id": null,
+            "question": {
+              "origin": "curated",
+              "question_id": "teacher-46ed9cb4-f943-4a57-bb2c-a028fce88f4f",
+              "sequence_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad:teacher-251fda60-a4de-49ce-b6cb-7334ee4eaeb1:practice",
+              "prompt_text": "Someone says that the water from a drying tabletop has ceased to exist. What would you say to them, and why?",
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Water changing state · verification 1792946023062",
+                  "authors": ["Fictional acceptance teacher"],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+                "content_version": "1"
+              },
+              "concept_ids": ["d1edb362-fa58-4e34-b8af-08c1f685e583"],
+              "source_passage_ids": ["p001"],
+              "rubric": {
+                "version": "teacher-review-v1",
+                "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+                "criteria": [
+                  "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                ],
+                "acceptable_variations": [
+                  "Water becomes a gas in the air; the material still exists."
+                ],
+                "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+              },
+              "embedded_scaffolding": [],
+              "generation": null
+            },
+            "intent": "diagnostic_followup",
+            "presented_at": "2026-10-25T16:41:57.712Z",
+            "submitted_at": "2026-10-25T16:48:11.898Z",
+            "response_text": "Evaporation changes liquid water into water vapor, a gas in the air. The water remains matter rather than disappearing. This is my intended fictional diagnostic answer 1.",
+            "submission_key": "f592d8a1-c4d2-4e51-8023-a568457c7161",
+            "assistance": {
+              "intervention_ids": [],
+              "assistance_level": "none_recorded",
+              "scaffolding_types": ["diagnostic_prompt_without_answer"],
+              "independent_retrieval_eligible_by_concept": {
+                "d1edb362-fa58-4e34-b8af-08c1f685e583": false
+              },
+              "most_recent_content_assistance_at": null,
+              "elapsed_since_content_assistance_seconds": null
+            },
+            "current_evaluation_id": "da750b4d-9635-4518-960d-e5f7130657c9",
+            "outcome": null
+          },
+          "evaluation": {
+            "id": "da750b4d-9635-4518-960d-e5f7130657c9",
+            "attempt_id": "c3290bd2-1da9-42c2-9b2a-43c1840ad2bd",
+            "validation_status": "accepted",
+            "evaluator": {
+              "type": "language_model",
+              "model": "synthetic-same-browser-journey",
+              "version": "grounded-network-performance-v2",
+              "provider_reservation_id": "3f5ae02b-26c3-409f-9e6d-2a8e043f5361",
+              "provider_outcome": "settled"
+            },
+            "evaluated_at": "2026-10-25T16:49:38.181Z",
+            "supersedes_id": null,
+            "result": {
+              "per_concept_results": [
+                {
+                  "concept_id": "d1edb362-fa58-4e34-b8af-08c1f685e583",
+                  "correctness": "correct",
+                  "error_type": null,
+                  "rubric_criteria_met": [
+                    "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+                  ],
+                  "rubric_criteria_missing": []
+                }
+              ],
+              "source_passage_ids": ["p001"],
+              "evidence_quotes": [
+                {
+                  "response_id": "c3290bd2-1da9-42c2-9b2a-43c1840ad2bd",
+                  "quote": "Evaporation changes liquid water into water vapor, a gas in the air. The water remains matter rather than disappearing. This is my intended fictional diagnostic answer 1.",
+                  "start_character": 0,
+                  "end_character": 170,
+                  "interpretation": "Explicit synthetic acceptance evaluator for a real additional browser answer; not actual-model judgment."
+                }
+              ],
+              "misconception_candidates": [],
+              "reasoning_observed": "Synthetic evaluator seam; zero paid model calls.",
+              "uncertainty_reason": null,
+              "proposed_next_action": "SCHEDULE_REVIEW"
+            },
+            "applied_result": {
+              "action": "END_SESSION",
+              "hypothesis_events": []
+            },
+            "failure_reason": null
+          },
+          "role": "contradictory"
+        },
+        {
+          "evidence_id": "E3",
+          "student_id": "10000000-0000-4000-8000-000000000002",
+          "student_name": "Student One (fictional)",
+          "pseudonym": "Learner 1",
+          "session_id": "fe497dbd-597c-47d0-97bb-06e4df2c493c",
+          "data_origin": "live_demo",
+          "attempt": {
+            "id": "8ad2d8b8-a662-4647-a1be-a90b4fcbca9d",
+            "session_id": "fe497dbd-597c-47d0-97bb-06e4df2c493c",
+            "sequence_index": 0,
+            "parent_attempt_id": null,
+            "root_attempt_id": "8ad2d8b8-a662-4647-a1be-a90b4fcbca9d",
+            "review_of_attempt_id": null,
+            "question": {
+              "origin": "generated",
+              "question_id": "f05fa884-9727-4dfa-83e8-1cae54abcfcc",
+              "sequence_id": null,
+              "prompt_text": "A gardener notices that damp soil dries after watering. Explain where the water can go and whether it still exists.",
+              "content_ref": {
+                "source_kind": "uploaded",
+                "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+                "source_version": 1,
+                "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+                "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+                "attribution": {
+                  "title": "Water changing state · verification 1792946023062",
+                  "authors": ["Fictional acceptance teacher"],
+                  "copyright": "2026 fictional acceptance fixture",
+                  "section": "Imported source",
+                  "url": null,
+                  "license": "Original synthetic material; permitted for this test",
+                  "license_url": null,
+                  "cautions": []
+                },
+                "access_scope": {
+                  "teacher_id": "10000000-0000-4000-8000-000000000001"
+                },
+                "package_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+                "content_version": "1"
+              },
+              "concept_ids": ["d1edb362-fa58-4e34-b8af-08c1f685e583"],
+              "source_passage_ids": ["p001"],
+              "rubric": {
+                "version": "teacher-intervention-v4",
+                "answer_guidance": "Evaporation changes liquid water into water vapor, a gas.",
+                "criteria": [
+                  "Evaporation changes liquid water into water vapor, a gas."
+                ],
+                "acceptable_variations": [],
+                "partial_credit_guidance": null
+              },
+              "embedded_scaffolding": [],
+              "generation": {
+                "model": "synthetic-same-browser-journey",
+                "prompt_template_version": "teacher-intervention-v4",
+                "generated_at": "2026-10-25T17:33:42.694Z"
+              }
+            },
+            "intent": "immediate_retest",
+            "presented_at": "2026-10-25T17:35:38.576Z",
+            "submitted_at": "2026-10-25T17:35:39.959Z",
+            "response_text": "The water can evaporate from the soil and become water vapor, a gas. It remains water in a different state rather than stopping existing.",
+            "submission_key": "cccdf7a7-974f-43c4-ae38-bf7e88f66d7c",
+            "assistance": {
+              "intervention_ids": ["3198d511-4260-4163-9355-9307cb03b856"],
+              "assistance_level": "corrective_feedback",
+              "scaffolding_types": [],
+              "independent_retrieval_eligible_by_concept": {
+                "d1edb362-fa58-4e34-b8af-08c1f685e583": false
+              },
+              "most_recent_content_assistance_at": "2026-10-25T17:35:36.908Z",
+              "elapsed_since_content_assistance_seconds": 3.051
+            },
+            "current_evaluation_id": "b2e02dda-4b3b-4ddf-a818-ea7906c0e601",
+            "outcome": null
+          },
+          "evaluation": {
+            "id": "b2e02dda-4b3b-4ddf-a818-ea7906c0e601",
+            "attempt_id": "8ad2d8b8-a662-4647-a1be-a90b4fcbca9d",
+            "validation_status": "accepted",
+            "evaluator": {
+              "type": "language_model",
+              "model": "synthetic-same-browser-journey",
+              "version": "grounded-network-performance-v2",
+              "provider_reservation_id": "846c585d-bcce-4ae3-8e8e-489652383928",
+              "provider_outcome": "settled"
+            },
+            "evaluated_at": "2026-10-25T17:44:01.865Z",
+            "supersedes_id": null,
+            "result": {
+              "per_concept_results": [
+                {
+                  "concept_id": "d1edb362-fa58-4e34-b8af-08c1f685e583",
+                  "correctness": "correct",
+                  "error_type": null,
+                  "rubric_criteria_met": [
+                    "Evaporation changes liquid water into water vapor, a gas."
+                  ],
+                  "rubric_criteria_missing": []
+                }
+              ],
+              "source_passage_ids": ["p001"],
+              "evidence_quotes": [
+                {
+                  "response_id": "8ad2d8b8-a662-4647-a1be-a90b4fcbca9d",
+                  "quote": "The water can evaporate from the soil and become water vapor, a gas. It remains water in a different state rather than stopping existing.",
+                  "start_character": 0,
+                  "end_character": 137,
+                  "interpretation": "Explicit synthetic evaluator seam for original response identity; not a model judgment."
+                }
+              ],
+              "misconception_candidates": [],
+              "reasoning_observed": "Synthetic browser-journey fixture; no real model was called and no educational effectiveness is established.",
+              "uncertainty_reason": null,
+              "proposed_next_action": "SCHEDULE_REVIEW"
+            },
+            "applied_result": null,
+            "failure_reason": null
+          },
+          "role": "contradictory"
+        }
+      ],
+      "pattern": null,
+      "counts": {
+        "selected_students": 1,
+        "selected_responses": 3,
+        "enrolled_students": 27
+      },
+      "sources": [
+        {
+          "passage_id": "p001",
+          "text": "Evaporation changes liquid water into water vapor, a gas. A puddle can shrink as water evaporates into the air. The water has changed state; it has not disappeared.\n\nCondensation changes water vapor into liquid water. When water vapor in air cools near a cold surface, liquid droplets can form on the surface. Evaporation and condensation describe opposite changes of state.",
+          "url": null
+        }
+      ],
+      "scope_note": "Counts describe recorded responses, not ability or enduring mastery. Class metrics and class-insight counts use distinct enrolled students; selected counts describe only the included examples. Explicit response selection includes the selected students' other accepted responses for this concept, including contrary evidence. Supporting means an accepted response indicates an opportunity for review; contradictory means correct or explicitly contrary evidence, not proof of retention. Uncertain answers do not establish a misconception."
+    },
+    "metrics": {
+      "definition_version": "class-evidence-v1",
+      "origin_filter": "all",
+      "enrolled_students": 1,
+      "participation": {
+        "numerator": 1,
+        "denominator": 1
+      },
+      "no_activity_students": 0,
+      "origins": {
+        "synthetic_fixture": 0,
+        "live_demo": 1
+      },
+      "concepts": [
+        {
+          "concept_id": "d1edb362-fa58-4e34-b8af-08c1f685e583",
+          "latest": {
+            "correct": 1,
+            "partially_correct": 0,
+            "incorrect": 0,
+            "uncertain": 0,
+            "pending": 0,
+            "evaluation_failed": 0,
+            "rejected": 0,
+            "no_response": 0,
+            "accepted_students": 1,
+            "correct_rate": {
+              "numerator": 1,
+              "denominator": 1
+            }
+          },
+          "independent": {
+            "correct": 0,
+            "partially_correct": 0,
+            "incorrect": 0,
+            "uncertain": 0,
+            "pending": 0,
+            "evaluation_failed": 0,
+            "rejected": 0,
+            "no_response": 1,
+            "accepted_students": 0,
+            "correct_rate": {
+              "numerator": 0,
+              "denominator": 0
+            }
+          },
+          "content_assisted": {
+            "correct": 1,
+            "partially_correct": 0,
+            "incorrect": 0,
+            "uncertain": 0,
+            "pending": 0,
+            "evaluation_failed": 0,
+            "rejected": 0,
+            "no_response": 0,
+            "accepted_students": 1,
+            "correct_rate": {
+              "numerator": 1,
+              "denominator": 1
+            }
+          },
+          "immediate_retest": {
+            "correct": 1,
+            "partially_correct": 0,
+            "incorrect": 0,
+            "uncertain": 0,
+            "pending": 0,
+            "evaluation_failed": 0,
+            "rejected": 0,
+            "no_response": 0,
+            "accepted_students": 1,
+            "correct_rate": {
+              "numerator": 1,
+              "denominator": 1
+            }
+          },
+          "delayed_review": {
+            "correct": 0,
+            "partially_correct": 0,
+            "incorrect": 0,
+            "uncertain": 0,
+            "pending": 0,
+            "evaluation_failed": 0,
+            "rejected": 0,
+            "no_response": 1,
+            "accepted_students": 0,
+            "correct_rate": {
+              "numerator": 0,
+              "denominator": 0
+            }
+          },
+          "repeated_difficulty": {
+            "numerator": 0,
+            "denominator": 1
+          }
+        }
+      ]
+    },
+    "recipients": [
+      {
+        "student_id": "10000000-0000-4000-8000-000000000002",
+        "display_name": "Student One (fictional)",
+        "displayed_at": "2026-10-25T21:10:21.09992+00:00",
+        "session_id": "da635123-2e7b-4bd3-80b0-b01c13d37015",
+        "followup": {
+          "approval_id": "f187e046-fa5b-4f9d-bb3e-ddd1b457cee6",
+          "started_at": "2026-10-25T21:10:23.050Z",
+          "attempt_id": "14da4daa-5649-46ea-a19d-d875e1afda9a",
+          "submitted_at": "2026-10-25T21:10:24.472Z",
+          "response_text": "The air can contain the water as water vapor, a gas, after evaporation. The water changed from liquid to gas; it did not stop existing.",
+          "assistance": {
+            "intervention_ids": ["ef85cce5-9496-4a6d-a7f6-a2d96d9e42cc"],
+            "assistance_level": "corrective_feedback",
+            "scaffolding_types": [],
+            "independent_retrieval_eligible_by_concept": {
+              "d1edb362-fa58-4e34-b8af-08c1f685e583": false
+            },
+            "most_recent_content_assistance_at": "2026-10-25T21:10:21.099Z",
+            "elapsed_since_content_assistance_seconds": 3.373
+          },
+          "evaluation_status": "accepted",
+          "evaluation_id": "4381b3b2-5e0f-46f5-ab18-3f53fef978ba",
+          "results": [
+            {
+              "concept_id": "d1edb362-fa58-4e34-b8af-08c1f685e583",
+              "correctness": "correct"
+            }
+          ],
+          "uncertain": false,
+          "feedback": "Your response demonstrates the assessed reasoning on this check. Success after review does not establish lasting retention.",
+          "retry_allowed": false,
+          "retry_after": null,
+          "evaluator_type": "language_model",
+          "evaluation_provenance": "injected_fixture"
+        },
+        "attempt": {
+          "id": "14da4daa-5649-46ea-a19d-d875e1afda9a",
+          "session_id": "da635123-2e7b-4bd3-80b0-b01c13d37015",
+          "sequence_index": 0,
+          "parent_attempt_id": null,
+          "root_attempt_id": "14da4daa-5649-46ea-a19d-d875e1afda9a",
+          "review_of_attempt_id": null,
+          "question": {
+            "origin": "generated",
+            "question_id": "78c0d016-481c-4841-958c-bd260e8e6828",
+            "sequence_id": null,
+            "prompt_text": "A visitor sees no liquid left in a small dish but claims the air cannot contain any of that water. Explain how evaporation could challenge this claim, identifying the form the water takes.",
+            "content_ref": {
+              "source_kind": "uploaded",
+              "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+              "source_version": 1,
+              "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+              "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+              "attribution": {
+                "title": "Water changing state · verification 1792946023062",
+                "authors": ["Fictional acceptance teacher"],
+                "copyright": "2026 fictional acceptance fixture",
+                "section": "Imported source",
+                "url": null,
+                "license": "Original synthetic material; permitted for this test",
+                "license_url": null,
+                "cautions": []
+              },
+              "access_scope": {
+                "teacher_id": "10000000-0000-4000-8000-000000000001"
+              },
+              "package_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+              "content_version": "1"
+            },
+            "concept_ids": ["d1edb362-fa58-4e34-b8af-08c1f685e583"],
+            "source_passage_ids": ["p001"],
+            "rubric": {
+              "version": "teacher-intervention-v4",
+              "answer_guidance": "Evaporation changes liquid water into water vapor, a gas.",
+              "criteria": [
+                "Evaporation changes liquid water into water vapor, a gas."
+              ],
+              "acceptable_variations": [],
+              "partial_credit_guidance": null
+            },
+            "embedded_scaffolding": [],
+            "generation": {
+              "model": "synthetic-same-browser-journey",
+              "prompt_template_version": "teacher-intervention-v4",
+              "generated_at": "2026-10-25T21:01:04.672Z"
+            }
+          },
+          "intent": "immediate_retest",
+          "presented_at": "2026-10-25T21:10:23.050Z",
+          "submitted_at": "2026-10-25T21:10:24.472Z",
+          "response_text": "The air can contain the water as water vapor, a gas, after evaporation. The water changed from liquid to gas; it did not stop existing.",
+          "submission_key": "2b0864dd-0006-4290-84d5-43c088dab467",
+          "assistance": {
+            "intervention_ids": ["ef85cce5-9496-4a6d-a7f6-a2d96d9e42cc"],
+            "assistance_level": "corrective_feedback",
+            "scaffolding_types": [],
+            "independent_retrieval_eligible_by_concept": {
+              "d1edb362-fa58-4e34-b8af-08c1f685e583": false
+            },
+            "most_recent_content_assistance_at": "2026-10-25T21:10:21.099Z",
+            "elapsed_since_content_assistance_seconds": 3.373
+          },
+          "current_evaluation_id": "4381b3b2-5e0f-46f5-ab18-3f53fef978ba",
+          "outcome": null
+        },
+        "evaluation": {
+          "id": "4381b3b2-5e0f-46f5-ab18-3f53fef978ba",
+          "attempt_id": "14da4daa-5649-46ea-a19d-d875e1afda9a",
+          "validation_status": "accepted",
+          "evaluator": {
+            "type": "language_model",
+            "model": "synthetic-same-browser-journey",
+            "version": "grounded-network-performance-v2",
+            "provider_reservation_id": "8bfdc798-c9e7-4cb3-b7d1-55012d41393c",
+            "provider_outcome": "settled"
+          },
+          "evaluated_at": "2026-10-25T21:11:36.804Z",
+          "supersedes_id": null,
+          "result": {
+            "per_concept_results": [
+              {
+                "concept_id": "d1edb362-fa58-4e34-b8af-08c1f685e583",
+                "correctness": "correct",
+                "error_type": null,
+                "rubric_criteria_met": [
+                  "Evaporation changes liquid water into water vapor, a gas."
+                ],
+                "rubric_criteria_missing": []
+              }
+            ],
+            "source_passage_ids": ["p001"],
+            "evidence_quotes": [
+              {
+                "response_id": "14da4daa-5649-46ea-a19d-d875e1afda9a",
+                "quote": "The air can contain the water as water vapor, a gas, after evaporation. The water changed from liquid to gas; it did not stop existing.",
+                "start_character": 0,
+                "end_character": 135,
+                "interpretation": "Explicit synthetic evaluator seam for original response identity; not a model judgment."
+              }
+            ],
+            "misconception_candidates": [],
+            "reasoning_observed": "Synthetic browser-journey fixture; no real model was called and no educational effectiveness is established.",
+            "uncertainty_reason": null,
+            "proposed_next_action": "SCHEDULE_REVIEW"
+          },
+          "applied_result": null,
+          "failure_reason": null
+        },
+        "evaluations": [
+          {
+            "id": "8bfdc798-c9e7-4cb3-b7d1-55012d41393c",
+            "attempt_id": "14da4daa-5649-46ea-a19d-d875e1afda9a",
+            "validation_status": "pending_review",
+            "evaluator": {
+              "type": "language_model",
+              "model": "injected-fixture",
+              "version": "grounded-network-performance-v2"
+            },
+            "evaluated_at": "2026-10-25T21:11:36.789Z",
+            "supersedes_id": null,
+            "result": null,
+            "applied_result": null,
+            "failure_reason": "Evaluation request started. If no result arrives, ask your teacher to check it before another paid request."
+          },
+          {
+            "id": "4381b3b2-5e0f-46f5-ab18-3f53fef978ba",
+            "attempt_id": "14da4daa-5649-46ea-a19d-d875e1afda9a",
+            "validation_status": "accepted",
+            "evaluator": {
+              "type": "language_model",
+              "model": "synthetic-same-browser-journey",
+              "version": "grounded-network-performance-v2",
+              "provider_reservation_id": "8bfdc798-c9e7-4cb3-b7d1-55012d41393c",
+              "provider_outcome": "settled"
+            },
+            "evaluated_at": "2026-10-25T21:11:36.804Z",
+            "supersedes_id": null,
+            "result": {
+              "per_concept_results": [
+                {
+                  "concept_id": "d1edb362-fa58-4e34-b8af-08c1f685e583",
+                  "correctness": "correct",
+                  "error_type": null,
+                  "rubric_criteria_met": [
+                    "Evaporation changes liquid water into water vapor, a gas."
+                  ],
+                  "rubric_criteria_missing": []
+                }
+              ],
+              "source_passage_ids": ["p001"],
+              "evidence_quotes": [
+                {
+                  "response_id": "14da4daa-5649-46ea-a19d-d875e1afda9a",
+                  "quote": "The air can contain the water as water vapor, a gas, after evaporation. The water changed from liquid to gas; it did not stop existing.",
+                  "start_character": 0,
+                  "end_character": 135,
+                  "interpretation": "Explicit synthetic evaluator seam for original response identity; not a model judgment."
+                }
+              ],
+              "misconception_candidates": [],
+              "reasoning_observed": "Synthetic browser-journey fixture; no real model was called and no educational effectiveness is established.",
+              "uncertainty_reason": null,
+              "proposed_next_action": "SCHEDULE_REVIEW"
+            },
+            "applied_result": null,
+            "failure_reason": null
+          }
+        ]
+      }
+    ]
+  },
+  "continuity": "Same source, immutable lesson version, assignment, student, original answer, approved intervention and linked follow-up across recorded browser stages. Synthetic evaluation/private-draft seams remain explicit; no actual-model claim.",
+  "lock_retained": false,
+  "finished_at": "2026-10-25T21:12:34.788Z"
+}

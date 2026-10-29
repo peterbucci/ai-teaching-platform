@@ -1,0 +1,127 @@
+{
+  "source": "64c78ab656911ff07d09167ba4d9b80e0d52d573",
+  "buildId": "f6Qh9QKKA0H4NAxo54wNb",
+  "ownerHashes": {
+    "app/study/notebook/integration/standalone-reading.tsx": "31a49146a526de9846098f28e3831e287a89249358a748a38cae451f613e7ad9",
+    "app/study/reading/reader.tsx": "1fadc919afa135a04ee51dd9b767166327800b3475e82c4329ed53222726077b",
+    "app/study/notebook/shell/notebook-shell.tsx": "51ce2a1860b5ada889296c4e5393aa81249ac9c26d9c2b7e3d7ba817b5c0ae5e",
+    "app/components/account-menu.tsx": "913f8c786ad283855a906d6b6b33a736d2c4a1c38e174676a4e89f9a91498f8a"
+  },
+  "paidCalls": 0,
+  "measures": [
+    {
+      "width": 1440,
+      "stage": "held-delivery-account",
+      "immediate": "false",
+      "trace": [
+        {
+          "phase": "active-mutation",
+          "at": 644,
+          "old": "true",
+          "active": "false",
+          "accountOpen": false
+        },
+        {
+          "phase": "active-mutation",
+          "at": 660.7999999523163,
+          "old": "false",
+          "active": "true",
+          "accountOpen": false
+        },
+        {
+          "phase": "host-capture",
+          "active": "true",
+          "target": "path",
+          "targetElement": true
+        },
+        {
+          "phase": "host-bubble",
+          "active": "true",
+          "target": "path",
+          "targetElement": true
+        },
+        {
+          "phase": "target",
+          "kind": "account",
+          "target": "path",
+          "matched": "SUMMARY",
+          "insideHost": true,
+          "ancestors": [
+            "path",
+            "svg",
+            "SUMMARY",
+            "DETAILS",
+            "DIV",
+            "DIV",
+            "HEADER",
+            "DIV",
+            "MAIN",
+            "DIV",
+            "BODY",
+            "HTML"
+          ]
+        },
+        {
+          "phase": "click-bubble",
+          "kind": "account",
+          "at": 661.0999999046326,
+          "active": "true",
+          "accountOpen": false,
+          "pane": "page"
+        },
+        {
+          "phase": "microtask",
+          "kind": "account",
+          "at": 661.1999999284744,
+          "active": "true",
+          "accountOpen": false,
+          "pane": "page"
+        },
+        {
+          "phase": "window-bubble",
+          "kind": "account",
+          "at": 661.1999999284744,
+          "active": "true",
+          "accountOpen": false,
+          "pane": "page"
+        },
+        {
+          "phase": "frame-1",
+          "kind": "account",
+          "at": 662.8999999761581,
+          "active": "true",
+          "accountOpen": true,
+          "pane": "page"
+        },
+        {
+          "phase": "active-mutation",
+          "at": 665.3999999761581,
+          "old": "true",
+          "active": "false",
+          "accountOpen": true
+        },
+        {
+          "phase": "toggle",
+          "kind": "account",
+          "at": 665.5999999046326,
+          "active": "false",
+          "accountOpen": true,
+          "pane": "page"
+        },
+        {
+          "phase": "frame-2",
+          "kind": "account",
+          "at": 667.0999999046326,
+          "active": "false",
+          "accountOpen": true,
+          "pane": "page"
+        }
+      ],
+      "receipts": 0
+    }
+  ],
+  "checks": [],
+  "errors": [],
+  "result": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(\n    pendingTrace.some(\n      (event) => event.phase === \"click-bubble\" && event.active === \"false\",\n    ),\n  )\n\n    at file:///C:/Users/sb128/.codex/worktrees/student-notebook-final/LearningPlatform/acceptance/student-integration/reader-timing/verify.mjs:233:12"
+}

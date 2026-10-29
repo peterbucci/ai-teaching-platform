@@ -1,0 +1,870 @@
+{
+  "phase": "review-and-submit",
+  "status": "failed",
+  "source_sha": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8",
+  "source_tree": "333b73e1cae1daddf6edd61300655d0b4825ed67",
+  "project": "lp-teacher-combined-01a174be",
+  "origin": "http://localhost:3449",
+  "seam_sha256": "c1b29d0eae8744299bd263384ec08e9f460fc8cd15d57d9385b83683d52e3133",
+  "input_kind": "explicit synthetic preparation/evaluation receipt",
+  "harness_sha256": "4d45dfe1a52836c5ed464432faf445aa6391981cfc354e393b1223371c20a624",
+  "preparation": {
+    "mode": "prepare",
+    "status": "completed",
+    "source_sha": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8",
+    "source_tree": "333b73e1cae1daddf6edd61300655d0b4825ed67",
+    "project": "lp-teacher-combined-01a174be",
+    "origin": "http://localhost:3449",
+    "input_sha256": "8b3fd3dbd87cb165c07f15a71c6bc1a422401eb3fcebf45e689bb0bab7c72e62",
+    "harness_sha256": "66b9f0651306587e1394dea7a1a8def6ecb12d95eed89aaf61569f5af4ee911e",
+    "started_at": "2026-10-25T21:01:04.429Z",
+    "actual_model_calls": 0,
+    "injected_evaluation_calls": 0,
+    "injected_draft_calls": 1,
+    "seams": [
+      {
+        "kind": "inherited-original-answer",
+        "read_only": true,
+        "evaluation_id": "2531aac6-c71d-400a-948d-4bb29ac79535",
+        "model": "synthetic-same-browser-journey",
+        "reevaluated": false
+      },
+      {
+        "kind": "private-intervention-draft",
+        "synthetic": true,
+        "request_id": "3a989476-3aa3-41ff-84ac-572fee24b584",
+        "draft_id": "7dd12f61-4dbd-46d4-8a57-8381d8a7bb87",
+        "started_at": "2026-10-25T21:01:04.613Z",
+        "finished_at": "2026-10-25T21:01:04.694Z"
+      }
+    ],
+    "authoring": {
+      "status": "passed",
+      "sourceSha": "07efb7f821339538800f150f57b298eb2e606be3",
+      "sourceTree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+      "sha": "07efb7f821339538800f150f57b298eb2e606be3",
+      "tree": "948b9a6005a056c97f10d181c589b5352d6221f3",
+      "origin": "http://localhost:3396",
+      "student_id": "10000000-0000-4000-8000-000000000002",
+      "lesson_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+      "assignment_id": "382f0724-3800-4e6c-8a15-40b4813cb4ab",
+      "student_session_id": "c619a811-af67-4aeb-9348-686fe439db98",
+      "presented_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+      "content_ref": {
+        "source_kind": "uploaded",
+        "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+        "source_version": 1,
+        "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+        "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+        "attribution": {
+          "title": "Water changing state · verification 1792946023062",
+          "authors": ["Fictional acceptance teacher"],
+          "copyright": "2026 fictional acceptance fixture",
+          "section": "Imported source",
+          "url": null,
+          "license": "Original synthetic material; permitted for this test",
+          "license_url": null,
+          "cautions": []
+        },
+        "access_scope": {
+          "teacher_id": "10000000-0000-4000-8000-000000000001"
+        },
+        "package_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+        "content_version": "1"
+      },
+      "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+      "source_version": 1,
+      "published_version": "1",
+      "original_response": "  I think evaporation makes liquid water stop existing rather than changing its state.\nThis is an original fictional acceptance response.  ",
+      "class_id": "20000000-0000-4000-8000-000000000001",
+      "run_id": "Water changing state · verification 1792946023062",
+      "functional_completed_through": "teacher-original-evidence",
+      "target": "shell",
+      "paid_calls": 0
+    },
+    "request_namespace": "bc141d5e-d0a3-49e2-91d8-7523b44e8da5",
+    "fixture_scope": "Original lesson/answer/accepted evaluation inherited from the explicitly cloned fictional baseline; no new authoring or original evaluation/controller execution is claimed. New private draft and subsequent browser lifecycle run on the current candidate.",
+    "original_attempt_snapshot": {
+      "id": "ae652658-924b-485d-9a87-7281a7501099",
+      "session_id": "c619a811-af67-4aeb-9348-686fe439db98",
+      "sequence_index": 0,
+      "parent_attempt_id": null,
+      "root_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+      "review_of_attempt_id": null,
+      "question": {
+        "origin": "curated",
+        "question_id": "teacher-251fda60-a4de-49ce-b6cb-7334ee4eaeb1",
+        "sequence_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad:teacher-251fda60-a4de-49ce-b6cb-7334ee4eaeb1:practice",
+        "prompt_text": "A puddle is smaller after a dry afternoon. Explain what happened to the water and name the process.",
+        "content_ref": {
+          "source_kind": "uploaded",
+          "source_id": "3243e3b8-0c5f-4669-a957-aefc27c279d8",
+          "source_version": 1,
+          "document_sha256": "d1048e7be31909142dfbb28e54e0c2b7657a6d04f5eeeafaebb139f3056af2b6",
+          "excerpt_sha256": "d66dd9d375c8343d5639c2e139ea1c795c4e3c030229cd8cdc3b7837bd7c3e47",
+          "attribution": {
+            "title": "Water changing state · verification 1792946023062",
+            "authors": ["Fictional acceptance teacher"],
+            "copyright": "2026 fictional acceptance fixture",
+            "section": "Imported source",
+            "url": null,
+            "license": "Original synthetic material; permitted for this test",
+            "license_url": null,
+            "cautions": []
+          },
+          "access_scope": {
+            "teacher_id": "10000000-0000-4000-8000-000000000001"
+          },
+          "package_id": "2a18db3f-a6dc-4f61-b96d-f50647d574ad",
+          "content_version": "1"
+        },
+        "concept_ids": ["d1edb362-fa58-4e34-b8af-08c1f685e583"],
+        "source_passage_ids": ["p001"],
+        "rubric": {
+          "version": "teacher-review-v1",
+          "answer_guidance": "The water has changed from liquid to water vapor, a gas, through evaporation; it has not disappeared.",
+          "criteria": [
+            "Explains that evaporation changes liquid water into water vapor rather than destroying it."
+          ],
+          "acceptable_variations": [
+            "Water becomes a gas in the air; the material still exists."
+          ],
+          "partial_credit_guidance": "Credit a stated liquid-to-gas change even if the process name is omitted."
+        },
+        "embedded_scaffolding": [],
+        "generation": null
+      },
+      "intent": "initial_retrieval",
+      "presented_at": "2026-10-25T16:33:59.557Z",
+      "submitted_at": "2026-10-25T16:41:03.424Z",
+      "response_text": "  I think evaporation makes liquid water stop existing rather than changing its state.\nThis is an original fictional acceptance response.  ",
+      "submission_key": "12482ec6-7609-464e-8b71-c803921b4d51",
+      "assistance": {
+        "intervention_ids": [],
+        "assistance_level": "none_recorded",
+        "scaffolding_types": [],
+        "independent_retrieval_eligible_by_concept": {
+          "d1edb362-fa58-4e34-b8af-08c1f685e583": true
+        },
+        "most_recent_content_assistance_at": null,
+        "elapsed_since_content_assistance_seconds": null
+      },
+      "current_evaluation_id": "2531aac6-c71d-400a-948d-4bb29ac79535",
+      "outcome": {
+        "root_attempt_id": "ae652658-924b-485d-9a87-7281a7501099",
+        "concept_ids": ["d1edb362-fa58-4e34-b8af-08c1f685e583"],
+        "hypothesis_instance_id": null,
+        "latest_hypothesis_status": null,
+        "outcome": "correct_diagnostic_without_content_assistance",
+        "supporting_attempt_ids": [
+          "ae652658-924b-485d-9a87-7281a7501099",
+          "c3290bd2-1da9-42c2-9b2a-43c1840ad2bd"
+        ],
+        "intervention_ids": [],
+        "recorded_at": "2026-10-25T16:49:38.206215+00:00",
+        "next_review_at": "2026-10-26T16:49:38.198Z",
+        "review_policy_version": "approved-sequence-v1",
+        "review_reason": "Illustrative 24-hour review after this session. Immediate success after assistance does not establish lasting retention."
+      }
+    },
+    "original_answer_sha256": "a007b66ac2172e2e772eb65b872dbd343b106cc8c802b6d19325d4bb302564a1",
+    "concept_id": "d1edb362-fa58-4e34-b8af-08c1f685e583",
+    "original_evaluation_id": "2531aac6-c71d-400a-948d-4bb29ac79535",
+    "original_evaluation_and_controller_read_only": true,
+    "controller": {
+      "evaluation_id": "2531aac6-c71d-400a-948d-4bb29ac79535",
+      "applied_result": {
+        "action": "ASK_DIAGNOSTIC_FOLLOWUP",
+        "hypothesis_events": []
+      },
+      "reapplied": false
+    },
+    "proposal_preflight": {
+      "validator": "unchanged application validateInterventionActivity",
+      "status": "passed",
+      "practice_prompt": "A caretaker finds a dry birdbath with no sign of a spill. Trace the water through evaporation, identifying its state before and after the change.",
+      "fresh_prompt": "A visitor sees no liquid left in a small dish but claims the air cannot contain any of that water. Explain how evaporation could challenge this claim, identifying the form the water takes."
+    },
+    "draft_request_id": "3a989476-3aa3-41ff-84ac-572fee24b584",
+    "draft_id": "7dd12f61-4dbd-46d4-8a57-8381d8a7bb87",
+    "teacher_url": "/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&origin=all&draft=7dd12f61-4dbd-46d4-8a57-8381d8a7bb87&seedAttempt=ae652658-924b-485d-9a87-7281a7501099",
+    "followup_response": "The air can contain the water as water vapor, a gas, after evaporation. The water changed from liquid to gas; it did not stop existing.",
+    "inherited_original_unchanged": true,
+    "finished_at": "2026-10-25T21:01:04.720Z"
+  },
+  "started_at": "2026-10-25T21:05:36.502Z",
+  "checks": [
+    {
+      "action": "save",
+      "at": "2026-10-25T21:05:50.387Z",
+      "http_status": 200
+    },
+    {
+      "action": "approve",
+      "at": "2026-10-25T21:05:53.520Z",
+      "http_status": 200
+    },
+    {
+      "action": "deliver",
+      "at": "2026-10-25T21:05:55.886Z",
+      "http_status": 200
+    }
+  ],
+  "progress": [
+    {
+      "label": "GET /api/teacher/interventions/7dd12f61-4dbd-46d4-8a57-8381d8a7bb87",
+      "status": "waiting",
+      "at": "2026-10-25T21:05:46.235Z"
+    },
+    {
+      "label": "GET /api/teacher/interventions/7dd12f61-4dbd-46d4-8a57-8381d8a7bb87",
+      "status": "completed",
+      "at": "2026-10-25T21:05:46.607Z"
+    },
+    {
+      "label": "GET JSON /api/teacher/interventions/7dd12f61-4dbd-46d4-8a57-8381d8a7bb87",
+      "status": "waiting",
+      "at": "2026-10-25T21:05:46.608Z"
+    },
+    {
+      "label": "GET JSON /api/teacher/interventions/7dd12f61-4dbd-46d4-8a57-8381d8a7bb87",
+      "status": "completed",
+      "at": "2026-10-25T21:05:46.613Z"
+    },
+    {
+      "label": "click save",
+      "status": "waiting",
+      "at": "2026-10-25T21:05:50.208Z"
+    },
+    {
+      "label": "click save",
+      "status": "completed",
+      "at": "2026-10-25T21:05:50.261Z"
+    },
+    {
+      "label": "response headers save",
+      "status": "waiting",
+      "at": "2026-10-25T21:05:50.262Z"
+    },
+    {
+      "label": "response headers save",
+      "status": "completed",
+      "at": "2026-10-25T21:05:50.353Z"
+    },
+    {
+      "label": "response body save",
+      "status": "waiting",
+      "at": "2026-10-25T21:05:50.356Z"
+    },
+    {
+      "label": "response body save",
+      "status": "completed",
+      "at": "2026-10-25T21:05:50.384Z"
+    },
+    {
+      "label": "fonts for 01-private-student-preview",
+      "status": "waiting",
+      "at": "2026-10-25T21:05:50.449Z"
+    },
+    {
+      "label": "fonts for 01-private-student-preview",
+      "status": "completed",
+      "at": "2026-10-25T21:05:50.454Z"
+    },
+    {
+      "label": "click approve",
+      "status": "waiting",
+      "at": "2026-10-25T21:05:53.425Z"
+    },
+    {
+      "label": "click approve",
+      "status": "completed",
+      "at": "2026-10-25T21:05:53.456Z"
+    },
+    {
+      "label": "response headers approve",
+      "status": "waiting",
+      "at": "2026-10-25T21:05:53.457Z"
+    },
+    {
+      "label": "response headers approve",
+      "status": "completed",
+      "at": "2026-10-25T21:05:53.510Z"
+    },
+    {
+      "label": "response body approve",
+      "status": "waiting",
+      "at": "2026-10-25T21:05:53.511Z"
+    },
+    {
+      "label": "response body approve",
+      "status": "completed",
+      "at": "2026-10-25T21:05:53.518Z"
+    },
+    {
+      "label": "GET /api/student/interventions/f187e046-fa5b-4f9d-bb3e-ddd1b457cee6",
+      "status": "waiting",
+      "at": "2026-10-25T21:05:53.521Z"
+    },
+    {
+      "label": "GET /api/student/interventions/f187e046-fa5b-4f9d-bb3e-ddd1b457cee6",
+      "status": "completed",
+      "at": "2026-10-25T21:05:53.550Z"
+    },
+    {
+      "label": "fonts for 02-approved-still-private",
+      "status": "waiting",
+      "at": "2026-10-25T21:05:53.566Z"
+    },
+    {
+      "label": "fonts for 02-approved-still-private",
+      "status": "completed",
+      "at": "2026-10-25T21:05:53.569Z"
+    },
+    {
+      "label": "click deliver",
+      "status": "waiting",
+      "at": "2026-10-25T21:05:55.786Z"
+    },
+    {
+      "label": "click deliver",
+      "status": "completed",
+      "at": "2026-10-25T21:05:55.819Z"
+    },
+    {
+      "label": "response headers deliver",
+      "status": "waiting",
+      "at": "2026-10-25T21:05:55.820Z"
+    },
+    {
+      "label": "response headers deliver",
+      "status": "completed",
+      "at": "2026-10-25T21:05:55.874Z"
+    },
+    {
+      "label": "response body deliver",
+      "status": "waiting",
+      "at": "2026-10-25T21:05:55.875Z"
+    },
+    {
+      "label": "response body deliver",
+      "status": "completed",
+      "at": "2026-10-25T21:05:55.883Z"
+    },
+    {
+      "label": "fonts for 03-delivered",
+      "status": "waiting",
+      "at": "2026-10-25T21:05:55.899Z"
+    },
+    {
+      "label": "fonts for 03-delivered",
+      "status": "completed",
+      "at": "2026-10-25T21:05:55.902Z"
+    },
+    {
+      "label": "fonts for failure-teacher",
+      "status": "waiting",
+      "at": "2026-10-25T21:05:56.462Z"
+    },
+    {
+      "label": "fonts for failure-teacher",
+      "status": "completed",
+      "at": "2026-10-25T21:05:56.465Z"
+    },
+    {
+      "label": "fonts for failure-student",
+      "status": "waiting",
+      "at": "2026-10-25T21:05:56.538Z"
+    },
+    {
+      "label": "fonts for failure-student",
+      "status": "completed",
+      "at": "2026-10-25T21:05:56.552Z"
+    },
+    {
+      "label": "close owned browser",
+      "status": "waiting",
+      "at": "2026-10-25T21:05:56.621Z"
+    },
+    {
+      "label": "close owned browser",
+      "status": "completed",
+      "at": "2026-10-25T21:05:57.229Z"
+    }
+  ],
+  "mutations": [
+    {
+      "action": "save",
+      "path": "/api/teacher/interventions/7dd12f61-4dbd-46d4-8a57-8381d8a7bb87",
+      "status": "acknowledged",
+      "at": "2026-10-25T21:05:50.204Z",
+      "http_status": 200,
+      "request_identity_sha256": "0ac93bd34091faebf6be4143f59feae837892633593f9162f144eb45b72c2cc4",
+      "response_sha256": "a0dd1958454d0fe7594285aa02031735a3a3300533b047ebb8e7d5c175997159",
+      "response_received_at": "2026-10-25T21:05:50.383Z",
+      "completed_at": "2026-10-25T21:05:50.384Z"
+    },
+    {
+      "action": "approve",
+      "path": "/api/teacher/interventions/7dd12f61-4dbd-46d4-8a57-8381d8a7bb87",
+      "status": "acknowledged",
+      "at": "2026-10-25T21:05:53.423Z",
+      "http_status": 200,
+      "request_identity_sha256": "cfd99a5d71b896f771cc0f98903cf24f342012bff3ae8e295ed55ab6d76d5367",
+      "response_sha256": "fa20af16fdcebfaca647cc3c5caabe4b12a7e3049fc7716cfcd5e13e4a009bef",
+      "response_received_at": "2026-10-25T21:05:53.518Z",
+      "completed_at": "2026-10-25T21:05:53.518Z"
+    },
+    {
+      "action": "deliver",
+      "path": "/api/teacher/interventions/7dd12f61-4dbd-46d4-8a57-8381d8a7bb87",
+      "status": "acknowledged",
+      "at": "2026-10-25T21:05:55.785Z",
+      "http_status": 200,
+      "request_identity_sha256": "61aeed3fea19ecb1bec74d54d4f0a4fcb81f599ed46e26bb8b5c0b61ecc16e58",
+      "response_sha256": "20ca9a6d1c1a54e58d80a17fc11b123611b6b09473871ca610e6c18ea3b26231",
+      "response_received_at": "2026-10-25T21:05:55.883Z",
+      "completed_at": "2026-10-25T21:05:55.883Z"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "01-private-student-preview-1440x1000.png",
+      "stage": "teacher-inspects-original-and-prepares-private-revision",
+      "width": 1440,
+      "height": 1000,
+      "url": "http://localhost:3449/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&origin=all&draft=7dd12f61-4dbd-46d4-8a57-8381d8a7bb87&seedAttempt=ae652658-924b-485d-9a87-7281a7501099",
+      "overflow": false
+    },
+    {
+      "file": "02-approved-still-private-1440x1000.png",
+      "stage": "teacher-explicit-approval",
+      "width": 1440,
+      "height": 1000,
+      "url": "http://localhost:3449/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&origin=all&draft=7dd12f61-4dbd-46d4-8a57-8381d8a7bb87&seedAttempt=ae652658-924b-485d-9a87-7281a7501099",
+      "overflow": false
+    },
+    {
+      "file": "03-delivered-1440x1000.png",
+      "stage": "teacher-explicit-delivery",
+      "width": 1440,
+      "height": 1000,
+      "url": "http://localhost:3449/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&origin=all&draft=7dd12f61-4dbd-46d4-8a57-8381d8a7bb87&seedAttempt=ae652658-924b-485d-9a87-7281a7501099",
+      "overflow": false
+    },
+    {
+      "file": "failure-teacher-1440x1000.png",
+      "stage": "same-student-opens-assigned-review",
+      "width": 1440,
+      "height": 1000,
+      "url": "http://localhost:3449/teacher/interventions?assignment=382f0724-3800-4e6c-8a15-40b4813cb4ab&concept=d1edb362-fa58-4e34-b8af-08c1f685e583&origin=all&draft=7dd12f61-4dbd-46d4-8a57-8381d8a7bb87&seedAttempt=ae652658-924b-485d-9a87-7281a7501099",
+      "overflow": false
+    },
+    {
+      "file": "failure-student-1440x1000.png",
+      "stage": "same-student-opens-assigned-review",
+      "width": 1440,
+      "height": 1000,
+      "url": "http://localhost:3449/study/assignments",
+      "overflow": false
+    }
+  ],
+  "safety": [
+    {
+      "before": "browser-launch",
+      "observedAt": "2026-10-25T21:05:36.511Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27187867648,
+          "availableGiB": 25.320674896240234,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27187867648,
+          "availableGiB": 25.320674896240234,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27187867648,
+          "availableGiB": 25.320674896240234,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897582456832,
+          "availableGiB": 835.9388046264648,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27187687424,
+            "availableGiB": 25.320507049560547,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "login-teacher",
+      "observedAt": "2026-10-25T21:05:39.663Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27178061824,
+          "availableGiB": 25.311542510986328,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27178061824,
+          "availableGiB": 25.311542510986328,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27178061824,
+          "availableGiB": 25.311542510986328,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897582456832,
+          "availableGiB": 835.9388046264648,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27171672064,
+            "availableGiB": 25.305591583251953,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "login-student",
+      "observedAt": "2026-10-25T21:05:42.932Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27169931264,
+          "availableGiB": 25.303970336914062,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27169931264,
+          "availableGiB": 25.303970336914062,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27169931264,
+          "availableGiB": 25.303970336914062,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897582448640,
+          "availableGiB": 835.9387969970703,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27168837632,
+            "availableGiB": 25.30295181274414,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "save",
+      "observedAt": "2026-10-25T21:05:46.748Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27165192192,
+          "availableGiB": 25.299556732177734,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27165192192,
+          "availableGiB": 25.299556732177734,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27165192192,
+          "availableGiB": 25.299556732177734,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897582399488,
+          "availableGiB": 835.9387512207031,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27163742208,
+            "availableGiB": 25.298206329345703,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "approve",
+      "observedAt": "2026-10-25T21:05:51.171Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27163791360,
+          "availableGiB": 25.29825210571289,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27163791360,
+          "availableGiB": 25.29825210571289,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27163791360,
+          "availableGiB": 25.29825210571289,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897582321664,
+          "availableGiB": 835.9386787414551,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27163660288,
+            "availableGiB": 25.29813003540039,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "before": "deliver",
+      "observedAt": "2026-10-25T21:05:53.641Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+          "availableBytes": 27163185152,
+          "availableGiB": 25.297687530517578,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+          "availableBytes": 27163185152,
+          "availableGiB": 25.297687530517578,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 27163185152,
+          "availableGiB": 25.297687530517578,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "healthy",
+        "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+        "name": "docker-desktop",
+        "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "root": "/var/lib/docker",
+        "storage": {
+          "status": "verified",
+          "method": "read-only df on explicitly selected existing container volume",
+          "container": "lp-v22-final-01a173d6-db-1",
+          "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+          "destination": "/var/lib/postgresql/data",
+          "availableBytes": 897582231552,
+          "availableGiB": 835.9385948181152,
+          "pass": true
+        }
+      },
+      "backingStorage": {
+        "provenance": "explicit owner-verified Docker storage path",
+        "disks": [
+          {
+            "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+            "availableBytes": 27163013120,
+            "availableGiB": 25.297527313232422,
+            "minimumGiB": 10,
+            "pass": true
+          }
+        ]
+      },
+      "pass": true
+    }
+  ],
+  "blocked_off_origin_requests": [],
+  "blocked_context_writes": [],
+  "context_checks": [],
+  "paid_calls": 0,
+  "actual_model_verification": "unrun",
+  "screen_reader": "unrun",
+  "native_200_percent_zoom": "unrun",
+  "functional_completed_through": null,
+  "lock_owner": {
+    "mode": "browser-intervention-review-and-submit",
+    "source": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+    "state": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+    "project": "lp-teacher-combined-01a174be",
+    "sourceSha": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8",
+    "token": "[REDACTED local coordination lock token]",
+    "pid": 43608,
+    "startedAt": "2026-10-25T21:05:36.504Z"
+  },
+  "approval_id": "f187e046-fa5b-4f9d-bb3e-ddd1b457cee6",
+  "delivery_id": "91e360b9-7385-4453-a571-6aaf71e6840b",
+  "failure_stage": "same-student-opens-assigned-review",
+  "error": "locator.click: Error: strict mode violation: locator('article.lp-review-card').filter({ has: getByRole('heading', { name: 'Water changes state and remains matter', exact: true }) }).getByRole('link', { name: 'Open review', exact: true }) resolved to 2 elements:\n    1) <a class=\"lp-button lp-button-primary\" href=\"/study/interventions/f187e046-fa5b-4f9d-bb3e-ddd1b457cee6\">Open review</a> aka getByRole('link', { name: 'Open review' }).first()\n    2) <a class=\"lp-button lp-button-primary\" href=\"/study/interventions/608d1c43-4cdb-407e-b809-bf373f016372\">Open review</a> aka getByRole('link', { name: 'Open review' }).nth(1)\n\nCall log:\n\u001b[2m  - waiting for locator('article.lp-review-card').filter({ has: getByRole('heading', { name: 'Water changes state and remains matter', exact: true }) }).getByRole('link', { name: 'Open review', exact: true })\u001b[22m\n",
+  "lock_retained": false,
+  "finished_at": "2026-10-25T21:05:57.231Z"
+}

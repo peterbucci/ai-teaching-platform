@@ -1,0 +1,44 @@
+{
+  "capturedAt": "2026-10-25T18:04:41.317Z",
+  "head": "e7cbf3d6930e892e91f4170ed2aa08c9b8649e67",
+  "worktreeStatus": "M AGENTS.md\n M app/study/assignments/[assignmentId]/page.tsx\n M app/study/assignments/intervention-list.tsx\n M app/study/assignments/page.tsx\n M app/study/history/page.tsx\n M app/study/interventions/[approvalId]/page.tsx\n M app/study/reading/page.tsx\n?? acceptance/notebook/\n?? app/study/notebook/integration/\n?? tests/browser/notebook-integration/",
+  "note": "Development candidate with uncommitted route mounts; not final-commit or production-build acceptance. Run C stores reader source hashes captured when testing began. Current source hashes below were recorded afterward.",
+  "origin": "http://127.0.0.1:3407",
+  "database": "reader_visibility_n7_01a1742c",
+  "modelProvidersDisabled": true,
+  "actualPaidCalls": 0,
+  "runtimeMode": "Next dev --webpack",
+  "readerRun": "c",
+  "readerChecksPassed": 17,
+  "readerChecksFailed": 0,
+  "readerSourcesStillMatchRun": true,
+  "currentSourceHashes": {
+    "app/study/reading/reader.tsx": "1e3445b91a61088f097c70290bc4da46f0eaeadde42eb62de1ff9fe2b392a309",
+    "app/study/reading/visibility.ts": "10249052e7da1d8f4b23baf633f8baa8623f03350b5aa00ca02554e84639475b",
+    "app/study/reading/page.tsx": "086e50869f8a31f9f927a799180153f383582b3d430877da0265c94821edb41a",
+    "app/study/session.tsx": "1ac3fbfd87fdcee92366487865bc680a733b37a1eaeb9e3b0023e4613a703a22",
+    "app/study/dialogue.tsx": "7db31da49962f969f2112e2f2b1f5369c0b7be1575152d30eba0bc6e3fd8b97d",
+    "app/study/answer-recovery.ts": "f975ed954421a0eb56ce5b9218481279be61b0e290bbb3bb7ca3e458ebb6350b",
+    "app/study/conversation-scroll.tsx": "3b442d8a51e18dd9cd2d98f48932b134b53f26c06009e51626a5dc80636c22aa",
+    "app/study/assignments/[assignmentId]/page.tsx": "160675e60b1b5d86ead7dadd2432c83c646a4a07c05c813fdcbfc6bcc6675412",
+    "tests/browser/reader-visibility/run.mjs": "e640f70c705b954a5e43e4c622eed88782dbdc6041c9825ff625dde43ad31b11",
+    "tests/browser/reader-visibility/prepare.mjs": "a4f54e84e61895de6b5afd04042366db3f0f798a3e15d95657053ce17827dbbe",
+    "scripts/check-reading.ts": "939650ee769332b186c45edd34b649bd62b7ca9a4ac67c4ec27e36c9388e5c61",
+    "scripts/check-dialogue-recovery.ts": "7f3ceae43caf556020403b9839e5e1677c4ec6d6e82c60624de67a5b18080a47",
+    "scripts/check-r7-controller.ts": "d34a02ea058ee746c657043af6bff2db9fcd51cd843b77c2e2dd03b1ab72baa7"
+  },
+  "boundedHarnessSha256": "4a1244e9b2592845b78ba695cb98bab31a7d817562df54ef669aa2648cd5fd52",
+  "temporaryFixtureRemoved": true,
+  "logsScannedForConfiguredSecrets": true,
+  "additionalChecks": {
+    "readingHttp": "passed unchanged rerun after transient Next JSON parse failure",
+    "dialogueRecovery": "7 groups passed",
+    "r7Controller": "6 groups passed"
+  },
+  "limitations": [
+    "The full reader wrapper is a temporary test surface, not the live Notebook facing pane.",
+    "No native 200% zoom or mobile software keyboard is proved by these tests.",
+    "Run A stalled in a wait without a deadline; its partial results remain. Local copy adds bounded timeouts and failure diagnostics only.",
+    "Fictional synthetic model results validate persistence/recovery behavior, not real AI behavior."
+  ]
+}

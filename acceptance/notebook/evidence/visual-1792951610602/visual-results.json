@@ -1,0 +1,176 @@
+{
+  "source": "e7cbf3d6930e892e91f4170ed2aa08c9b8649e67",
+  "diffSha256": "47ad0799a28012dd8730a683f1315adcc3cf075d4d25d62e4aee4a6e0b8d8994",
+  "base": "http://127.0.0.1:3407",
+  "journey": "acceptance\\notebook\\evidence\\journey-1792951323081\\journey.json",
+  "session": "51f887fd-6b75-4ef0-863a-1719a9b7729b",
+  "approval": "fa585c15-d5ec-4292-9863-ecf593d50a55",
+  "prototypeZipSha256": "fa69c2d0262b0be684b5e9d21b2131d7c02a5bf9577c1586df07950c6394c570",
+  "prototypeMainSha256": "70fd02f83f6352a988d6deeadfb6b2243b61298c0c13ad0bb2c139b5baac72a4",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "fontNote": "External prototype fonts blocked; screenshots use available local fallback fonts.",
+  "checks": [
+    {
+      "check": "Standalone reader bootstrap / keyboard overlay / one mount",
+      "size": "1440x1000",
+      "initialHiddenReaderBootstrapped": true,
+      "oneReaderPreserved": true,
+      "keyboardAccountOverlay": true,
+      "keyboardNavigationOverlay": false,
+      "inactiveLayoutPreserved": true
+    }
+  ],
+  "pairs": [
+    {
+      "surface": "learning",
+      "title": "My Learning",
+      "size": "1440x1000",
+      "application": "application-learning-1440x1000.png",
+      "prototype": "prototype-learning-1440x1000.png",
+      "note": "Mounted N1/N2/N5; factual assignment/review content differs from prototype fixtures."
+    },
+    {
+      "surface": "overview",
+      "title": "Assignment overview",
+      "size": "1440x1000",
+      "application": "application-overview-1440x1000.png",
+      "prototype": "prototype-overview-1440x1000.png",
+      "note": "Mounted N1/N2; approved objectives and available current data remain authoritative."
+    },
+    {
+      "surface": "saved",
+      "title": "Saved original work",
+      "size": "1440x1000",
+      "application": "application-saved-1440x1000.png",
+      "prototype": "prototype-saved-1440x1000.png",
+      "note": "N3 current-data mode; no prototype chronology/results are invented."
+    },
+    {
+      "surface": "reading",
+      "title": "Standalone reading",
+      "size": "1440x1000",
+      "application": "application-reading-1440x1000.png",
+      "prototype": "prototype-reading-1440x1000.png",
+      "note": "N4 mounted on existing Workspace. Facing pane disabled pending owner approval; no full shell parity claim."
+    }
+  ],
+  "geometry": [
+    {
+      "surface": "learning",
+      "variant": "application",
+      "size": "1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "scrollWidth": 1440,
+      "dpr": 1,
+      "scale": 1,
+      "cssZoom": "1",
+      "overflowElements": []
+    },
+    {
+      "surface": "learning",
+      "variant": "prototype",
+      "size": "1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "scrollWidth": 1440,
+      "dpr": 1,
+      "scale": 1,
+      "cssZoom": "1",
+      "overflowElements": []
+    },
+    {
+      "surface": "overview",
+      "variant": "application",
+      "size": "1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "scrollWidth": 1440,
+      "dpr": 1,
+      "scale": 1,
+      "cssZoom": "1",
+      "overflowElements": []
+    },
+    {
+      "surface": "overview",
+      "variant": "prototype",
+      "size": "1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "scrollWidth": 1440,
+      "dpr": 1,
+      "scale": 1,
+      "cssZoom": "1",
+      "overflowElements": []
+    },
+    {
+      "surface": "saved",
+      "variant": "application",
+      "size": "1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "scrollWidth": 1440,
+      "dpr": 1,
+      "scale": 1,
+      "cssZoom": "1",
+      "overflowElements": []
+    },
+    {
+      "surface": "saved",
+      "variant": "prototype",
+      "size": "1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "scrollWidth": 1440,
+      "dpr": 1,
+      "scale": 1,
+      "cssZoom": "1",
+      "overflowElements": []
+    },
+    {
+      "surface": "reading",
+      "variant": "application",
+      "size": "1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "scrollWidth": 1440,
+      "dpr": 1,
+      "scale": 1,
+      "cssZoom": "1",
+      "overflowElements": []
+    },
+    {
+      "surface": "reading",
+      "variant": "prototype",
+      "size": "1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "scrollWidth": 1440,
+      "dpr": 1,
+      "scale": 1,
+      "cssZoom": "1",
+      "overflowElements": []
+    },
+    {
+      "surface": "review",
+      "variant": "application",
+      "size": "1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "scrollWidth": 1440,
+      "dpr": 1,
+      "scale": 1,
+      "cssZoom": "1",
+      "overflowElements": []
+    }
+  ],
+  "defects": [],
+  "errors": [],
+  "blockedExternalRequests": ["https://fonts.googleapis.com"],
+  "nativeZoom": {
+    "status": "UNRUN",
+    "metrics": []
+  },
+  "failure": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Learning Pulse', { exact: true }).first() to be visible\u001b[22m\n\n    at readyReference (C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-integration\\LearningPlatform\\acceptance\\notebook\\visual.mjs:217:67)\n    at async file:///C:/Users/sb128/.codex/worktrees/student-notebook-integration/LearningPlatform/acceptance/notebook/visual.mjs:301:7"
+}

@@ -1,0 +1,167 @@
+(node:90240) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+TAP version 13
+# (node:145836) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:145836) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a17453-9682-7eb3-90e8-2cb48310f7a2/workbench-overview/app/teacher/overview/overview.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17453-9682-7eb3-90e8-2cb48310f7a2\\workbench-overview\\package.json.
+# Subtest: workspace keeps concerns from both assignments without adding student denominators
+ok 1 - workspace keeps concerns from both assignments without adding student denominators
+  ---
+  duration_ms: 57.0683
+  ...
+# Subtest: missing answers are separate from assessed concerns; inactive and unavailable evidence makes no learning priority
+ok 2 - missing answers are separate from assessed concerns; inactive and unavailable evidence makes no learning priority
+  ---
+  duration_ms: 4.7158
+  ...
+# Subtest: links retain exact saved response and origin, clear unrelated selections, and open Progress explicitly
+ok 3 - links retain exact saved response and origin, clear unrelated selections, and open Progress explicitly
+  ---
+  duration_ms: 4.0436
+  ...
+# Subtest: private, approved and delivered work remain different and published lessons are not unfinished
+ok 4 - private, approved and delivered work remain different and published lessons are not unfinished
+  ---
+  duration_ms: 4.9899
+  ...
+# Subtest: explicit foreign assignment fails before any evidence or private draft read
+ok 5 - explicit foreign assignment fails before any evidence or private draft read
+  ---
+  duration_ms: 3.6828
+  ...
+# Subtest: one unavailable assignment is retained with excluded counts; failures never look like empty saved work
+ok 6 - one unavailable assignment is retained with excluded counts; failures never look like empty saved work
+  ---
+  duration_ms: 3.6897
+  ...
+# (node:1452) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:1452) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a17453-9682-7eb3-90e8-2cb48310f7a2/workbench-overview/tests/teacher-priorities.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17453-9682-7eb3-90e8-2cb48310f7a2\\workbench-overview\\package.json.
+# Subtest: a newer empty session cannot hide the exact saved assessed response
+ok 7 - a newer empty session cannot hide the exact saved assessed response
+  ---
+  duration_ms: 47.1204
+  ...
+# Subtest: a failed retry does not replace an accepted evaluation or its preparation eligibility
+ok 8 - a failed retry does not replace an accepted evaluation or its preparation eligibility
+  ---
+  duration_ms: 10.954
+  ...
+# Subtest: a newer submitted answer awaiting evaluation has its own priority and never borrows an old grade
+ok 9 - a newer submitted answer awaiting evaluation has its own priority and never borrows an old grade
+  ---
+  duration_ms: 32.2504
+  ...
+# Subtest: historical difficulty is not presented as current incorrectness and correct follow-ups retain assistance
+ok 10 - historical difficulty is not presented as current incorrectness and correct follow-ups retain assistance
+  ---
+  duration_ms: 7.6826
+  ...
+# Subtest: no activity or a filtered-out origin never creates a learning concern
+ok 11 - no activity or a filtered-out origin never creates a learning concern
+  ---
+  duration_ms: 5.7098
+  ...
+# Subtest: a learning concern never hides unresolved evaluations for the same concept
+ok 12 - a learning concern never hides unresolved evaluations for the same concept
+  ---
+  duration_ms: 5.1661
+  ...
+# Subtest: historical follow-up opens the latest response of a student with repeated difficulty
+ok 13 - historical follow-up opens the latest response of a student with repeated difficulty
+  ---
+  duration_ms: 8.4659
+  ...
+# Subtest: inspection links use the current URL selection instead of stale rendered seeds, including clearing all
+ok 14 - inspection links use the current URL selection instead of stale rendered seeds, including clearing all
+  ---
+  duration_ms: 15.2056
+  ...
+# (node:96300) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:96300) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a17453-9682-7eb3-90e8-2cb48310f7a2/workbench-overview/tests/teacher-progress-return.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17453-9682-7eb3-90e8-2cb48310f7a2\\workbench-overview\\package.json.
+# Subtest: Class Progress return carries only bounded selection and display context
+ok 15 - Class Progress return carries only bounded selection and display context
+  ---
+  duration_ms: 6.9805
+  ...
+# Subtest: concept-column and whole-class returns do not invent the opened session's student selection
+ok 16 - concept-column and whole-class returns do not invent the opened session's student selection
+  ---
+  duration_ms: 2.096
+  ...
+# Subtest: focus is derived from the visible progress subview instead of a caller selector
+ok 17 - focus is derived from the visible progress subview instead of a caller selector
+  ---
+  duration_ms: 2.9792
+  ...
+# Subtest: authorized session records reject unrelated return identities and pinned-version concepts
+ok 18 - authorized session records reject unrelated return identities and pinned-version concepts
+  ---
+  duration_ms: 2.0266
+  ...
+# Subtest: ambiguous or arbitrary progress return fields are rejected, and other pages keep their own parameter contracts
+ok 19 - ambiguous or arbitrary progress return fields are rejected, and other pages keep their own parameter contracts
+  ---
+  duration_ms: 5.4594
+  ...
+# Subtest: legacy direct session URLs and allowlisted Evidence/Insights returns retain their existing destinations
+ok 20 - legacy direct session URLs and allowlisted Evidence/Insights returns retain their existing destinations
+  ---
+  duration_ms: 1.2917
+  ...
+# Subtest: assignment-wide questions and sessions preserve a different authorized originating student
+ok 21 - assignment-wide questions and sessions preserve a different authorized originating student
+  ---
+  duration_ms: 1.1012
+  ...
+# (node:130368) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:130368) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a17453-9682-7eb3-90e8-2cb48310f7a2/workbench-overview/tests/teacher-shell-metadata.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17453-9682-7eb3-90e8-2cb48310f7a2\\workbench-overview\\package.json.
+# Subtest: one invalid pinned assignment stays unavailable without breaking the owned workspace list
+ok 22 - one invalid pinned assignment stays unavailable without breaking the owned workspace list
+  ---
+  duration_ms: 5.0547
+  ...
+# Subtest: metadata fallback retains existing unavailable cases and propagates unexpected service failures
+ok 23 - metadata fallback retains existing unavailable cases and propagates unexpected service failures
+  ---
+  duration_ms: 1.481
+  ...
+# (node:123260) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# (node:123260) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a17453-9682-7eb3-90e8-2cb48310f7a2/workbench-overview/tests/teacher-workspace-contracts.test.ts is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17453-9682-7eb3-90e8-2cb48310f7a2\\workbench-overview\\package.json.
+# Subtest: workspace handoff retains exact evidence identities without private content or mutation identities
+ok 24 - workspace handoff retains exact evidence identities without private content or mutation identities
+  ---
+  duration_ms: 10.3812
+  ...
+# Subtest: explicit invalid, ambiguous and oversized selections cannot silently change scope
+ok 25 - explicit invalid, ambiguous and oversized selections cannot silently change scope
+  ---
+  duration_ms: 8.7989
+  ...
+# Subtest: a deliberate scope change clears selected records and repeated seeds deduplicate
+ok 26 - a deliberate scope change clears selected records and repeated seeds deduplicate
+  ---
+  duration_ms: 0.8585
+  ...
+1..26
+# tests 26
+# suites 0
+# pass 26
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1689.4528

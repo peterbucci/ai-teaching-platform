@@ -1,0 +1,92 @@
+{
+  "applicationHead": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+  "applicationTree": "fff9c0716e85702e5d205c15766a4cfb6d7f9423",
+  "buildSourceHead": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+  "buildId": "64b_tEa9pg31ghh0nCWvq",
+  "readyAt": "2026-10-25T15:25:08.151Z",
+  "inspectedAt": "2026-10-25T15:27:20.1117804Z",
+  "sourceCheckout": "C:/Users/sb128/.codex/worktrees/assignments-context-integration/LearningPlatform",
+  "origin": "http://127.0.0.1:3317",
+  "evidenceKind": "Direct inspection of current native combined report.json, ready.json and logs; no runtime actions performed during this inspection.",
+  "steps": [
+    {
+      "name": "combined-tests",
+      "exitCode": 0
+    },
+    {
+      "name": "combined-build",
+      "exitCode": 0
+    },
+    {
+      "name": "assignment-http",
+      "exitCode": 0
+    },
+    {
+      "name": "publishing-http",
+      "exitCode": 0
+    }
+  ],
+  "tests": {
+    "total": 625,
+    "passed": 625,
+    "failed": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "assignmentHttp": "passed",
+  "publishingHttp": "passed",
+  "httpScope": [
+    "Assignment read-only preview, private-guidance exclusion, context preservation, evidence/replay and separate activation/enrollment gates.",
+    "Authenticated publication, exact source/version preservation, new-version ownership/revision/idempotency boundaries and private-guidance exclusion."
+  ],
+  "limitations": [
+    "Native combined evidence matches final authoring source 53e494a and is separate from its standalone CI receipt.",
+    "HTTP and test passes do not establish browser rendering, focus, native zoom, populated authoring UI actions or visual acceptance.",
+    "Both HTTP logs explicitly report no model calls. No live-model acceptance is claimed.",
+    "Only current report.json, ready.json and matching logs were inspected; older result files were excluded.",
+    "Runtime environment files, credentials, process identifiers and lease tokens are not copied into this receipt."
+  ],
+  "provenance": [
+    {
+      "file": "report.json",
+      "sourcePath": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a170fa-5b14-70e1-a097-397527a77a9b/assignment-combined-runtime/report.json",
+      "sha256": "c4e88cf64799a462c80dd8d773b87cbd46ed904c2d9922b5e670b89572c8cdc7"
+    },
+    {
+      "file": "ready.json",
+      "sourcePath": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a170fa-5b14-70e1-a097-397527a77a9b/assignment-combined-runtime/ready.json",
+      "sha256": "7be771a37373fbea28825f5a2574d2ad0099d88cb203816d45e21de9f5eee244"
+    },
+    {
+      "file": "combined-tests.log",
+      "sourcePath": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a170fa-5b14-70e1-a097-397527a77a9b/assignment-combined-runtime/combined-tests.log",
+      "sha256": "bc948291ea2108f2a892eb33b673476382c2ed6d17252fabd2343866a60506fe"
+    },
+    {
+      "file": "combined-build.log",
+      "sourcePath": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a170fa-5b14-70e1-a097-397527a77a9b/assignment-combined-runtime/combined-build.log",
+      "sha256": "18f16b7e6f0ccfa16d9d554f9fed0769163d08ed84f236cd5a44ad80efa07fb2"
+    },
+    {
+      "file": "assignment-http.log",
+      "sourcePath": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a170fa-5b14-70e1-a097-397527a77a9b/assignment-combined-runtime/assignment-http.log",
+      "sha256": "34cc8e8a8cd25b1f844da4fbcf57d63466543af1928afb29556d3e8f78e29c2f"
+    },
+    {
+      "file": "publishing-http.log",
+      "sourcePath": "C:/Users/sb128/.codex/visualizations/2026/10/25/01a170fa-5b14-70e1-a097-397527a77a9b/assignment-combined-runtime/publishing-http.log",
+      "sha256": "d87b83766aa88c21c92a1ac3c2a902a5acb21dfc26f37e4e916f990c55bb837f"
+    }
+  ],
+  "authoringSourceEquivalence": {
+    "head": "53e494a639d82bd8daa9dfb7655a23ebca3aa9c4",
+    "paths": [
+      "app/teacher/lessons",
+      "app/teacher/materials",
+      "app/teacher/objectives"
+    ],
+    "gitDiffExitCode": 0
+  },
+  "historicalReceipt": "v22-native-results-b8.json"
+}

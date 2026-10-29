@@ -1,0 +1,211 @@
+import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  writeFileSync,
+} from "node:fs";
+import { dirname, join, resolve, sep } from "node:path";
+import { fileURLToPath } from "node:url";
+import {
+  acquireLock,
+  LOCK_PATH,
+  MIN_BUILD_GIB,
+  MIN_RUNTIME_GIB,
+  preflight,
+} from "./safety.mjs";
+
+const [sourceArg, sourceSha, outArg, buildArg] = process.argv.slice(2);
+assert.ok(sourceArg && outArg && buildArg);
+assert.match(sourceSha, /^[a-f0-9]{40}$/);
+const source = resolve(sourceArg);
+const out = resolve(outArg);
+const build = resolve(buildArg);
+assert.ok(out !== source && !out.startsWith(source + sep));
+assert.ok(build !== source && !build.startsWith(source + sep));
+assert.equal(existsSync(out), false, "Use a fresh receipt output directory");
+const artifacts = join(source, "tests/artifacts/intervention-workspace");
+const scriptRoot = dirname(fileURLToPath(import.meta.url));
+const hash = (file) =>
+  createHash("sha256").update(readFileSync(file)).digest("hex");
+const git = (args) => {
+  const result = spawnSync("git", ["-C", source, ...args], {
+    encoding: "utf8",
+    windowsHide: true,
+    timeout: 15000,
+  });
+  assert.equal(result.status, 0, result.stderr);
+  return result.stdout.trim();
+};
+assert.equal(git(["rev-parse", "HEAD"]), sourceSha);
+assert.equal(
+  git([
+    "diff",
+    "--name-only",
+    "HEAD",
+    "--",
+    "app",
+    "lib",
+    "package.json",
+    "package-lock.json",
+  ]),
+  "",
+  "Application source must match the pinned commit",
+);
+mkdirSync(out, { recursive: true });
+const report = {
+  source,
+  sourceSha,
+  build,
+  category:
+    "Guarded real-component browser verification with synthetic API and Next adapters; no database, Docker, model, or provider execution",
+  safetySha256: hash(join(scriptRoot, "safety.mjs")),
+  startedAt: new Date().toISOString(),
+  status: "running",
+  expectedCases: 15,
+  checks: [],
+  priorArtifacts: [],
+  finalArtifacts: [],
+  lockReleased: false,
+};
+const save = () =>
+  writeFileSync(
+    join(out, "results.json"),
+    JSON.stringify(report, null, 2) + "\n",
+  );
+const env = {
+  ...process.env,
+  COMPONENT_BUILD_DIR: build,
+  COMPONENT_SOURCE_COMMIT: sourceSha,
+  OPENAI_API_KEY: "",
+  OPENAI_MODEL: "",
+  NEXT_TELEMETRY_DISABLED: "1",
+};
+delete env.COMPONENT_CASE;
+let release;
+function run(name, args) {
+  const result = spawnSync(process.execPath, args, {
+    cwd: source,
+    encoding: "utf8",
+    timeout: 180000,
+    maxBuffer: 8000000,
+    windowsHide: true,
+    env,
+  });
+  writeFileSync(
+    join(out, name + ".log"),
+    (result.stdout || "") + (result.stderr || ""),
+  );
+  report.checks.push({
+    name,
+    exitCode: result.status,
+    error: result.error?.message ?? null,
+  });
+  save();
+  assert.equal(result.status, 0, name + " failed; see retained log");
+}
+function gate(name, minimumGiB) {
+  const observation = preflight({
+    source,
+    state: build,
+    minimumGiB,
+    dockerRequired: false,
+  });
+  report.checks.push({ name: "preflight:" + name, ...observation });
+  save();
+  assert.equal(observation.pass, true, name + " storage preflight failed");
+}
+try {
+  release = acquireLock({
+    project: "v22-intervention",
+    mode: "component-final",
+    source,
+    sourceSha,
+    output: out,
+  });
+  report.lock = JSON.parse(readFileSync(join(LOCK_PATH, "owner.json"), "utf8"));
+  const backup = join(out, "prior-artifacts");
+  mkdirSync(backup);
+  for (const file of readdirSync(artifacts).filter(
+    (file) =>
+      /^component-.*\.png$/.test(file) ||
+      ["component-report.json", "component-source-manifest.json"].includes(
+        file,
+      ),
+  )) {
+    const original = join(artifacts, file);
+    copyFileSync(original, join(backup, file));
+    report.priorArtifacts.push({
+      file,
+      sha256: hash(original),
+      retainedAt: join(backup, file),
+    });
+  }
+  save();
+  gate("component-build", MIN_BUILD_GIB);
+  run("format-component-scripts", [
+    "node_modules/prettier/bin/prettier.cjs",
+    "--write",
+    "tests/artifacts/intervention-workspace/component-build.mjs",
+    "tests/artifacts/intervention-workspace/component-browser.mjs",
+    "tests/artifacts/intervention-workspace/component-navigation.js",
+    "tests/artifacts/intervention-workspace/component-original-receipts.json",
+  ]);
+  run("component-build", [
+    "tests/artifacts/intervention-workspace/component-build.mjs",
+  ]);
+  gate("component-browser", MIN_RUNTIME_GIB);
+  run("component-browser", [
+    "tests/artifacts/intervention-workspace/component-browser.mjs",
+  ]);
+  const browserReport = JSON.parse(
+    readFileSync(join(artifacts, "component-report.json"), "utf8"),
+  );
+  report.componentResults = {
+    total: browserReport.cases.length,
+    passed: browserReport.passed,
+    failed: browserReport.failed,
+    browserErrors: browserReport.errors.length,
+    paidCalls: browserReport.paidCalls,
+  };
+  save();
+  assert.equal(browserReport.applicationCommit, sourceSha);
+  assert.equal(browserReport.cases.length, 15);
+  assert.ok(browserReport.cases.every((entry) => entry.status === "pass"));
+  assert.deepEqual(browserReport.errors, []);
+  for (const file of readdirSync(artifacts).filter(
+    (file) =>
+      /^component-.*\.(png|mjs|js|txt)$/.test(file) ||
+      [
+        "component-report.json",
+        "component-source-manifest.json",
+        "component-fixture.json",
+      ].includes(file),
+  )) {
+    report.finalArtifacts.push({ file, sha256: hash(join(artifacts, file)) });
+  }
+  report.status = "passed";
+} catch (error) {
+  report.status = "failed";
+  report.error = String(error);
+  process.exitCode = 1;
+} finally {
+  report.finishedAt = new Date().toISOString();
+  save();
+  if (release) {
+    release();
+    report.lockReleased = true;
+    save();
+  }
+}
+console.log(
+  JSON.stringify({
+    status: report.status,
+    report: join(out, "results.json"),
+    lockReleased: report.lockReleased,
+  }),
+);

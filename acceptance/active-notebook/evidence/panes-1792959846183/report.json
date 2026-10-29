@@ -1,0 +1,55 @@
+{
+  "source": "1810d48b0a1c00c121698aee0b4fbe7dda01733d",
+  "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "runtime": "production",
+  "buildId": "PTknx65ZnNlJU3iUUBhPw",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "cases": [
+    {
+      "name": "hidden reader and pane navigation make zero reading/answer writes; one composer and exact draft survive",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=dc137065-6aa7-434f-8c75-f71fb2001dc0"
+    },
+    {
+      "name": "in-flight reading keeps delivery identity while hidden; exposure acknowledges exactly once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=f53f1c13-adba-4c9e-8fca-3bdf30219a6b"
+    },
+    {
+      "name": "failed reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=249bf5f6-fa1c-439a-b496-ef03bdf44351"
+    },
+    {
+      "name": "unknown reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=4e823b9b-1046-4f88-ac48-18fade6d6cb3"
+    },
+    {
+      "name": "accepted help arriving in hidden page neither acknowledges nor steals context focus",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/79beec8a-a845-4084-9364-2d5c926ca021?tab=study&session=21418a0a-e43f-4919-a654-48819975e5c0"
+    },
+    {
+      "name": "feedback loaded while page hidden is acknowledged only after return",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=1afd9b4a-6ffe-45e9-bc94-c0026619ab40#question-98c34fa2-9458-44ab-904e-dd6de537e26f"
+    },
+    {
+      "name": "confirmed reading with failed progress reload keeps blocker until explicit recovery",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=8112a731-e07a-45ad-8b84-4e40f54b4c6d"
+    },
+    {
+      "name": "earlier page selection retains current draft and pending help identity without hidden acknowledgement",
+      "status": "FAIL",
+      "error": "locator.getAttribute: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('textarea[aria-label=\"Message your tutor\"]')\u001b[22m\n\n    at C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-active\\LearningPlatform\\acceptance\\active-notebook\\panes.mjs:625:12\n    at async check (C:\\Users\\sb128\\.codex\\worktrees\\student-notebook-active\\LearningPlatform\\acceptance\\active-notebook\\panes.mjs:127:5)\n    at async file:///C:/Users/sb128/.codex/worktrees/student-notebook-active/LearningPlatform/acceptance/active-notebook/panes.mjs:576:3",
+      "url": "http://127.0.0.1:3427/study/assignments/79beec8a-a845-4084-9364-2d5c926ca021?tab=study&session=69f7c382-68f6-4727-aeef-65811fbabb45#question-90cb4a65-7449-40eb-a771-a17378c4cb4c"
+    }
+  ],
+  "result": "FAIL",
+  "error": "locator.getAttribute: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('textarea[aria-label=\"Message your tutor\"]')\u001b[22m\n",
+  "diffAfterSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sourceUnchanged": true
+}

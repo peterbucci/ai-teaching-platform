@@ -1,0 +1,23 @@
+(node:76144) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:76144) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/sb128/.codex/worktrees/student-notebook-integration/LearningPlatform/scripts/check-reading.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\sb128\.codex\worktrees\student-notebook-integration\LearningPlatform\package.json.
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+500 !== 404
+
+    at file:///C:/Users/sb128/.codex/worktrees/student-notebook-integration/LearningPlatform/scripts/check-reading.ts:68:10
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 500,
+  expected: 404,
+  operator: 'strictEqual'
+}
+
+Node.js v22.13.0

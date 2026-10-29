@@ -1,0 +1,28 @@
+{
+  "applicationHead": "53e494a639d82bd8daa9dfb7655a23ebca3aa9c4",
+  "combinedHead": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+  "providers": "disabled",
+  "data": "fictional",
+  "passed": [
+    "published and question editor geometry at 1440x1000, 1024x768, 390x844, 320x844 without document horizontal overflow",
+    "objective mobile reading opens and Close restores Editor with focus on Reading toggle",
+    "tablet question reading dialog is 400px wide; Escape restores Open reading button",
+    "question expected answer preserved and student preview excludes private criteria",
+    "material passage water-01 retains exact text and source version1; original extraction comparison accessible",
+    "prepared sequence exposes 3 questions from one family and uncovered concept explicitly",
+    "whole-lesson approval followed by separate immutable publication of water lesson version1",
+    "publication creates no class assignment",
+    "new named draft preserves question/objective identities",
+    "unsaved objective text survives Next/Previous objective switching",
+    "saving changed O1 resets the objective's source-support review and objective approval; saved revision9",
+    "published v1 objective retains original wording after draft edit",
+    "dense published version1 outgoing assignment link retains version1 in receiving form while version2 exists"
+  ],
+  "limitations": [
+    "Actual 200% native browser zoom unverified: native Chrome app permission prompt timed out; no security/approval bypass attempted.",
+    "Objectives Emphasis click focused the control but did not visibly expand an IAB native menu; native menu expansion not verified.",
+    "Earlier IAB question unsaved-reload/navigation became unresponsive; recovery was not claimed from that attempt. Shell agent separately verified objective recovery and denied-storage guard on the combined app.",
+    "Assignment handoff confirmation capture is305x804 despite filename; not exact320 viewport proof.",
+    "Full stale-save/authorization and importer format cases are covered by authenticated service checks, not all repeated through UI in this final pass."
+  ]
+}

@@ -1,0 +1,18 @@
+▲ Next.js 16.4.3 (webpack)
+✓ Running next.config took 71ms
+
+  Creating an optimized production build ...
+⚠ Compiled with warnings in 12.2s
+
+./lib/materials/extract.ts
+module.createRequire failed parsing argument.
+
+Import trace for requested module:
+./lib/materials/extract.ts
+./app/api/teacher/materials/preview/route.ts
+
+✓ Compiled successfully in 31.2s
+  Running TypeScript ...
+.next/dev/types/app/study/reader-visibility-check/page.ts(2,24): error TS2307: Cannot find module '../../../../../../app/study/reader-visibility-check/page.js' or its corresponding type declarations.
+.next/dev/types/app/study/reader-visibility-check/page.ts(7,29): error TS2307: Cannot find module '../../../../../../app/study/reader-visibility-check/page.js' or its corresponding type declarations.
+Failed to type check.

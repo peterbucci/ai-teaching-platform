@@ -1,0 +1,320 @@
+.ci-workspace {
+  color: #263c35;
+  font-size: 14px;
+  line-height: 1.6;
+  min-width: 0;
+}
+.ci-tabs {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid #dce3dd;
+  padding: 0 20px;
+  background: #fff;
+}
+.ci-tabs a {
+  padding: 13px 0;
+  text-decoration: none;
+  color: #53675f;
+  font-weight: 600;
+}
+.ci-tabs a[aria-current="page"] {
+  color: #21684e;
+  box-shadow: inset 0 -2px #21684e;
+}
+.ci-workspace .tw-panes {
+  margin-top: 0;
+  border-radius: 0;
+}
+.ci-workspace .tw-panes-body {
+  padding: 0;
+}
+.ci-workspace .tw-panes-heading-row {
+  background: #f7f8f4;
+}
+.ci-filters {
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+  border-bottom: 1px solid #dce3dd;
+}
+.ci-filters label {
+  display: grid;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.ci-filters select {
+  width: 100%;
+  min-width: 0;
+}
+.ci-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.ci-list a {
+  display: block;
+  padding: 17px 18px;
+  border-bottom: 1px solid #dce3dd;
+  text-decoration: none;
+}
+.ci-list a:hover {
+  background: #f4f7f1;
+}
+.ci-list a[aria-current="true"] {
+  background: #edf3e8;
+  border-left: 3px solid #438264;
+  padding-left: 15px;
+}
+.ci-list strong {
+  display: block;
+  line-height: 1.45;
+  font-size: 14px;
+  font-weight: 650;
+}
+.ci-list small {
+  display: block;
+  margin-top: 6px;
+  color: #5b6b60;
+  font-size: 12px;
+}
+.ci-record {
+  padding: 26px 28px 40px;
+  min-width: 0;
+}
+.ci-record h1 {
+  font-size: 27px;
+  line-height: 1.25;
+  letter-spacing: -0.035em;
+  font-weight: 600;
+  margin: 7px 0 12px;
+  text-wrap: balance;
+}
+.ci-record h2 {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.ci-record h2 small,
+.ci-record h3 small {
+  font-size: 12px;
+  font-weight: 400;
+  color: #637064;
+  margin-left: 8px;
+}
+.ci-record h3 {
+  font-weight: 600;
+  font-size: 14px;
+}
+.ci-meta {
+  color: #586b60;
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 7px 0;
+}
+.ci-meta span {
+  display: block;
+}
+.ci-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  align-items: center;
+  margin: 20px 0;
+}
+.ci-actions a {
+  font-size: 13px;
+}
+.ci-counts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  padding: 17px 0;
+  border-block: 1px solid #dce3dd;
+}
+.ci-counts dd {
+  font-size: 23px;
+  line-height: 1.3;
+  font-weight: 550;
+}
+.ci-counts dt {
+  font-size: 12px;
+  color: #586b60;
+}
+.ci-section {
+  margin-top: 28px;
+}
+.ci-section > h2 {
+  border-bottom: 1px solid #dce3dd;
+  padding-bottom: 9px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.ci-student {
+  padding: 18px 0;
+  border-bottom: 1px solid #dce3dd;
+}
+.ci-response {
+  border-left: 2px solid #dce3dd;
+  margin: 14px 0;
+  padding-left: 15px;
+}
+.ci-response blockquote {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 8px 0;
+  white-space: pre-wrap;
+}
+.ci-response a {
+  font-size: 12px;
+}
+.ci-history {
+  margin-top: 10px;
+}
+.ci-history summary {
+  cursor: pointer;
+  color: #27664f;
+  font-size: 13px;
+  padding: 6px 0;
+}
+.ci-history ol {
+  list-style: decimal;
+  padding-left: 20px;
+}
+.ci-history li {
+  padding: 12px 0;
+}
+.ci-history li p {
+  margin: 6px 0;
+}
+.ci-history a,
+.ci-reference-links {
+  font-size: 12px;
+}
+.ci-history a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.ci-reference-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  margin-top: 8px;
+}
+.ci-context {
+  padding: 18px 20px;
+}
+.ci-context section {
+  padding: 0 0 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid #dce3dd;
+}
+.ci-context h2 {
+  font-size: 14px;
+  font-weight: 650;
+  margin-bottom: 10px;
+}
+.ci-context summary {
+  cursor: pointer;
+  font-size: 13px;
+  padding: 6px 0;
+}
+.ci-context blockquote {
+  font-family: Georgia, serif;
+  font-size: 13px;
+  margin: 8px 0;
+}
+.ci-context a {
+  font-size: 12px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.ci-context ul {
+  padding-left: 16px;
+  list-style: disc;
+}
+.ci-empty {
+  padding: 15px 0;
+  font-size: 13px;
+  color: #586b60;
+}
+.ci-note {
+  padding: 12px 14px;
+  border-left: 3px solid #b4c49c;
+  background: #f3f5ec;
+  margin: 15px 0;
+  font-size: 13px;
+}
+.ci-situations {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 18px 0;
+}
+.ci-situations section {
+  border-top: 1px solid #dce3dd;
+  padding-top: 12px;
+}
+.ci-workspace :is(p, h1, h2, h3, blockquote, a, summary, dd, dt) {
+  overflow-wrap: anywhere;
+}
+.ci-workspace :is(a, button, select, summary):focus-visible {
+  outline: 2px solid #24694f;
+  outline-offset: 3px;
+}
+@media (max-width: 800px) {
+  .ci-record {
+    padding: 20px 18px 30px;
+  }
+  .ci-record h1 {
+    font-size: 24px;
+  }
+  .ci-tabs {
+    padding: 0 14px;
+    gap: 20px;
+  }
+  .ci-tabs a {
+    font-size: 13px;
+  }
+  .ci-counts {
+    gap: 13px;
+  }
+  .ci-counts dd {
+    font-size: 21px;
+  }
+}
+@media (max-width: 360px) {
+  .ci-record,
+  .ci-context {
+    padding: 17px 12px;
+  }
+  .ci-counts,
+  .ci-situations {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ci-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .ci-tabs {
+    gap: 15px;
+    padding: 0 10px;
+  }
+}
+.ci-session-link {
+  display: block;
+  margin-top: 7px;
+}
+@media (min-width: 1241px) {
+  .ci-counts {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+.ci-record h1 {
+  font-size: 24px;
+}

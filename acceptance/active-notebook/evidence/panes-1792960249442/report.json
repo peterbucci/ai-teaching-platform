@@ -1,0 +1,73 @@
+{
+  "source": "26ce18833980787d7e0b39de9d3681cb9a9c5f25",
+  "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "runtime": "production",
+  "buildId": "pnjVnENUXivQQ5ONP4zWr",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "cases": [
+    {
+      "name": "hidden reader and pane navigation make zero reading/answer writes; one composer and exact draft survive",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=e96a0a81-37a4-4e35-84b5-03b893f13d86"
+    },
+    {
+      "name": "in-flight reading keeps delivery identity while hidden; exposure acknowledges exactly once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=bfd83668-af99-42f4-b60c-9ca2d24bcc06"
+    },
+    {
+      "name": "failed reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=82e99155-6ad1-4829-8e0b-fb82d4b4d59c"
+    },
+    {
+      "name": "unknown reading receipt preserves notice and retries original identity once",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=df154e76-aa39-4f63-b618-28acf5f47a03"
+    },
+    {
+      "name": "accepted help arriving in hidden page neither acknowledges nor steals context focus",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/0a05c2ae-5083-426a-9b53-c9db8231a77e?tab=study&session=2bed82ac-12bf-4de3-baee-ea688edd4f47"
+    },
+    {
+      "name": "feedback loaded while page hidden is acknowledged only after return",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=3590b634-04ca-421e-a71f-5d4e9f56ad45#question-b482fbc3-81e4-4338-b5ad-8f7a55791fde"
+    },
+    {
+      "name": "confirmed reading with failed progress reload keeps blocker until explicit recovery",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=374ffd54-df4d-495f-b0c6-1c3a94b855ce"
+    },
+    {
+      "name": "earlier page selection retains current draft and pending help identity without hidden acknowledgement",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/0a05c2ae-5083-426a-9b53-c9db8231a77e?tab=study&session=7a05d942-a1ad-4287-874c-6197f87808e1#question-bd54451c-995d-4ba3-b975-1692d02adb1b"
+    },
+    {
+      "name": "late first-reading progress response cannot unblock a newer pending passage",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=577e7141-38c3-4a0d-b36a-2ae05bb14b04"
+    },
+    {
+      "name": "late reading snapshot after second passage and original save cannot roll the page back",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=cb6f05b9-b9a7-4fae-9797-354b85d4a80b"
+    },
+    {
+      "name": "late reading snapshot after manual saved-progress refresh and original save cannot roll the page back",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=5efbbcb6-2da7-4291-85f1-4167bd3ef885"
+    },
+    {
+      "name": "phone quick suggestions stay in one row and keyboard focus reveals the final pill without page overflow",
+      "status": "PASS",
+      "url": "http://127.0.0.1:3427/study/assignments/30000000-0000-4000-8000-000000000001?tab=study&session=9f8d764f-9b4e-408a-847b-900406d8feb6"
+    }
+  ],
+  "result": "PASS",
+  "diffAfterSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sourceUnchanged": true
+}

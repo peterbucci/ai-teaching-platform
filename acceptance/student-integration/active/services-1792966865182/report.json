@@ -1,0 +1,61 @@
+{
+  "source": "b39e74d917d21fe662a98e23644b41bb8629826d",
+  "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "runtime": "production",
+  "buildId": "pFAtaZMHlK_WKmfYtwcfn",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "checks": [
+    {
+      "name": "tutor",
+      "script": "check-tutoring.ts",
+      "arguments": [
+        "--output",
+        "acceptance\\student-integration\\active\\services-1792966865182\\tutor.json"
+      ],
+      "status": "PASS",
+      "exitCode": 0,
+      "started": "2026-10-25T22:21:05.351Z",
+      "finished": "2026-10-25T22:22:08.557Z"
+    },
+    {
+      "name": "reading",
+      "script": "check-reading.ts",
+      "arguments": [],
+      "status": "PASS",
+      "exitCode": 0,
+      "started": "2026-10-25T22:22:08.558Z",
+      "finished": "2026-10-25T22:22:10.232Z"
+    },
+    {
+      "name": "dialogue",
+      "script": "check-dialogue.ts",
+      "arguments": [],
+      "status": "PASS",
+      "exitCode": 0,
+      "started": "2026-10-25T22:22:10.232Z",
+      "finished": "2026-10-25T22:23:07.633Z"
+    },
+    {
+      "name": "dialogue-recovery",
+      "script": "check-dialogue-recovery.ts",
+      "arguments": [],
+      "status": "PASS",
+      "exitCode": 0,
+      "started": "2026-10-25T22:23:07.634Z",
+      "finished": "2026-10-25T22:23:12.860Z"
+    },
+    {
+      "name": "r7-controller",
+      "script": "check-r7-controller.ts",
+      "arguments": [],
+      "status": "PASS",
+      "exitCode": 0,
+      "started": "2026-10-25T22:23:12.860Z",
+      "finished": "2026-10-25T22:23:17.727Z"
+    }
+  ],
+  "diffAfterSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sourceUnchanged": true,
+  "result": "PASS"
+}

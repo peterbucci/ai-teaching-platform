@@ -1,0 +1,184 @@
+{
+  "status": "uncertain",
+  "mode": "init",
+  "runtimeKind": "native-postgresql",
+  "sourceSha": "5f2d8dcf819b950dc1dfc31780859bf5e69ce16b",
+  "sourceTree": "06fdd3774306fc1516659753b910841b8f0e0d5b",
+  "project": "lp-v22-intervention",
+  "origin": "http://127.0.0.1:3362",
+  "paid_calls": 0,
+  "startedAt": "2026-10-25T13:49:43.275Z",
+  "checks": [
+    {
+      "name": "preflight:init",
+      "observedAt": "2026-10-25T13:49:43.282Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "availableBytes": 46568124416,
+          "availableGiB": 43.36994552612305,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "availableBytes": 46568124416,
+          "availableGiB": 43.36994552612305,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 46568124416,
+          "availableGiB": 43.36994552612305,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "preflight:postgres-version",
+      "observedAt": "2026-10-25T13:49:43.290Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "availableBytes": 46568075264,
+          "availableGiB": 43.36989974975586,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "availableBytes": 46568075264,
+          "availableGiB": 43.36989974975586,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 46568075264,
+          "availableGiB": 43.36989974975586,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "postgres-version",
+      "exitCode": 0,
+      "error": null,
+      "signal": null,
+      "finishedAt": "2026-10-25T13:49:43.339Z"
+    },
+    {
+      "name": "preflight:initdb",
+      "observedAt": "2026-10-25T13:49:43.378Z",
+      "minimumGiB": 20,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "availableBytes": 46567792640,
+          "availableGiB": 43.36963653564453,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "availableBytes": 46567792640,
+          "availableGiB": 43.36963653564453,
+          "minimumGiB": 20,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 46567792640,
+          "availableGiB": 43.36963653564453,
+          "minimumGiB": 20,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "initdb",
+      "exitCode": 0,
+      "error": null,
+      "signal": null,
+      "finishedAt": "2026-10-25T13:49:51.976Z"
+    },
+    {
+      "name": "preflight:postgres-start",
+      "observedAt": "2026-10-25T13:49:51.978Z",
+      "minimumGiB": 10,
+      "host": [
+        {
+          "path": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\v22-intervention-workspace\\LearningPlatform",
+          "availableBytes": 46538637312,
+          "availableGiB": 43.34248352050781,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-9237-72d1-ae74-b3b08bc97dae\\intervention-native-runtime",
+          "availableBytes": 46538637312,
+          "availableGiB": 43.34248352050781,
+          "minimumGiB": 10,
+          "pass": true
+        },
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+          "availableBytes": 46538637312,
+          "availableGiB": 43.34248352050781,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ],
+      "engine": {
+        "status": "not-required"
+      },
+      "backingStorage": null,
+      "pass": true
+    },
+    {
+      "name": "postgres-start",
+      "exitCode": 0,
+      "error": "spawnSync C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-652c-7f80-8314-33c0d238576e\\runtime-quality\\pgsql\\bin\\pg_ctl.exe ETIMEDOUT",
+      "signal": null,
+      "finishedAt": "2026-10-25T13:52:51.996Z"
+    }
+  ],
+  "harnessSha256": "7db1ab7bbefb02960b68723d25f5e2f84c3d17d51b146448015b559796168e3c",
+  "guardSha256": "af01b05dd317682a47b6ec64acc5083cae1430383d697dcb1ede53687722c485",
+  "nativeBinaryProvenanceSha256": "a64dbf48683928dd7129978d24d7093a201207b40291ead2e86a80b3d3e11caf",
+  "lock_path": "C:\\Users\\sb128\\AppData\\Local\\learning-pulse-acceptance.lock",
+  "lock_retained": true,
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ Error: spawnSync C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a17320-652c-7f80-8314-33c0d238576e\\runtime-quality\\pgsql\\bin\\pg_ctl.exe ETIMEDOUT\n+     at Object.spawnSync (node:internal/child_process:1120:20)\n+     at spawnSync (node:child_process:868:24)\n+     at run (file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a17320-9237-72d1-ae74-b3b08bc97dae/intervention-verification/native-runner.mjs:248:18)\n+     at file:///C:/Users/sb128/.codex/visualizations/2026/10/25/01a17320-9237-72d1-ae74-b3b08bc97dae/intervention-verification/native-runner.mjs:431:5\n+     at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {\n+   code: 'ETIMEDOUT',\n+   errno: -4039,\n+   path: 'C:\\\\Users\\\\sb128\\\\.codex\\\\visualizations\\\\2026\\\\10\\\\25\\\\01a17320-652c-7f80-8314-33c0d238576e\\\\runtime-quality\\\\pgsql\\\\bin\\\\pg_ctl.exe',\n+   spawnargs: [\n+     '-D',\n+     'C:\\\\Users\\\\sb128\\\\.codex\\\\visualizations\\\\2026\\\\10\\\\25\\\\01a17320-9237-72d1-ae74-b3b08bc97dae\\\\intervention-native-runtime\\\\postgres-data',\n+     '-l',\n+     'C:\\\\Users\\\\sb128\\\\.codex\\\\visualizations\\\\2026\\\\10\\\\25\\\\01a17320-9237-72d1-ae74-b3b08bc97dae\\\\intervention-native-runtime\\\\postgres.log',\n+     '-w',\n+     '-t',\n+     '30',\n+     'start'\n+   ],\n+   syscall: 'spawnSync C:\\\\Users\\\\sb128\\\\.codex\\\\visualizations\\\\2026\\\\10\\\\25\\\\01a17320-652c-7f80-8314-33c0d238576e\\\\runtime-quality\\\\pgsql\\\\bin\\\\pg_ctl.exe'\n+ }\n- undefined\n"
+}

@@ -13,7 +13,7 @@ export function TeacherFiltersForm({
 }) {
   return (
     <form action={action} className="lp-filter-bar lp-teacher-filters">
-      <label className="lp-field">
+      <label className="lp-field tw-assignment-filter">
         Assignment and class
         <select
           name="assignment"

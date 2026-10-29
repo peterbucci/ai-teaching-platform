@@ -96,14 +96,10 @@
   background: transparent;
 }
 .lp-study-session .lp-turns {
-  flex: 1;
-  min-height: 260px;
-  max-height: 55vh;
-  overflow-y: auto;
-  padding: 27px 30px;
+  flex: none;
+  min-height: 0;
+  padding: 0;
   gap: 26px;
-  scrollbar-gutter: stable;
-  overscroll-behavior: contain;
 }
 .lp-study-session .lp-question {
   max-width: 730px;
@@ -256,14 +252,12 @@
 
 @media (max-width: 800px) {
   .lp-study-session .lp-turns {
-    max-height: 58vh;
-    padding: 22px;
+    padding: 0;
   }
 }
 @media (max-width: 540px) {
   .lp-study-session .lp-turns {
-    padding: 20px 15px;
-    max-height: 55vh;
+    padding: 0;
   }
   .lp-study-session .lp-question,
   .lp-study-session .lp-answer {
@@ -294,5 +288,58 @@
   }
   .lp-study-empty {
     padding: 26px;
+  }
+}
+
+/* Questions and tutor messages share one scrolling history; the composer stays put. */
+.lp-dialogue.lp-dialogue-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  padding: 0;
+  border-top: 0;
+}
+.lp-conversation-scroll-shell {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+.lp-conversation-scroll {
+  flex: 1;
+  min-height: 180px;
+  max-height: 55dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  overflow-anchor: none;
+  scrollbar-gutter: stable;
+}
+.lp-conversation-scroll-content {
+  padding: 24px 26px;
+}
+.lp-turns + .lp-dialogue-turns {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.lp-dialogue .lp-ask-composer {
+  flex: none;
+  padding: 16px 24px;
+  border-top: 1px solid var(--line);
+  background: white;
+}
+.lp-conversation-jump {
+  flex: none;
+  align-self: center;
+  margin: 6px;
+  padding: 6px 12px;
+}
+@media (max-width: 540px) {
+  .lp-conversation-scroll-content {
+    padding: 20px 15px;
+  }
+  .lp-dialogue .lp-ask-composer {
+    padding: 14px 15px;
   }
 }

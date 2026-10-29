@@ -1,0 +1,153 @@
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { TeacherWorkspace } from "@source/app/teacher/navigation.tsx";
+import { TeacherWorkspaceMetadata } from "@source/app/teacher/workspace-context.tsx";
+import { InterventionWorkspace } from "@source/app/teacher/interventions/workspace.tsx";
+import { parseTeacherWorkspaceContext } from "@source/lib/teacher/workspace-contracts.ts";
+import { snapshotInterventionContext } from "@source/app/teacher/interventions/snapshot-context.ts";
+import {
+  InterventionActionSchema,
+  InterventionReviewSchema,
+} from "@source/lib/interventions/approval-contracts.ts";
+import { NavigationProvider, usePathname } from "./component-navigation.js";
+import fixture from "./component-fixture.json";
+import "@source/app/teacher/teacher.css";
+import "@source/app/teacher/interventions/interventions.css";
+import "@source/app/components/intervention-activity.css";
+import "@source/app/globals.css";
+
+const initial = InterventionReviewSchema.parse(fixture.review);
+const state = (window.__component = {
+  mode: "normal",
+  stored: structuredClone(initial),
+  requests: [],
+  receipts: new Map(),
+  errors: [],
+  completedSaves: 0,
+  generationComplete: false,
+});
+const query = new URLSearchParams(location.search);
+const preparation = ["preparation", "generation"].includes(
+  query.get("scenario"),
+);
+const pendingRequest =
+  query.get("scenario") === "generation"
+    ? "90000000-0000-4000-8000-000000000001"
+    : null;
+const response = (value, status = 200) =>
+  new Response(JSON.stringify(value), {
+    status,
+    headers: { "content-type": "application/json" },
+  });
+window.fetch = async (input, init) => {
+  const url = new URL(
+    input instanceof Request ? input.url : String(input),
+    location.href,
+  );
+  const method = (init?.method ?? "GET").toUpperCase();
+  const body = init?.body ? JSON.parse(String(init.body)) : null;
+  state.requests.push({ method, path: url.pathname, query: url.search, body });
+  if (url.origin !== location.origin) throw new Error("External fetch denied");
+  if (
+    method === "GET" &&
+    url.pathname === `/api/teacher/interventions/${initial.draft.id}`
+  )
+    return response(state.stored);
+  if (
+    method === "GET" &&
+    url.pathname === "/api/teacher/interventions" &&
+    url.searchParams.get("request") === pendingRequest
+  )
+    return response({
+      status: state.generationComplete ? "completed" : "pending",
+      request_id: pendingRequest,
+      draft: state.generationComplete ? initial.draft : null,
+    });
+  if (
+    method === "POST" &&
+    url.pathname === `/api/teacher/interventions/${initial.draft.id}`
+  ) {
+    const parsed = InterventionActionSchema.safeParse(body);
+    if (!parsed.success)
+      return response({ error: "Synthetic schema rejection" }, 400);
+    if (state.receipts.has(body.request_id))
+      return response(state.receipts.get(body.request_id));
+    if (state.mode === "conflict") {
+      state.stored.draft.revision += 1;
+      state.mode = "normal";
+      return response({ error: "Synthetic stale revision conflict" }, 409);
+    }
+    if (body.expected_revision !== state.stored.draft.revision)
+      return response({ error: "Synthetic stale revision conflict" }, 409);
+    if (body.action !== "save")
+      throw new Error(
+        "This component fixture permits explicit synthetic save only; no approval or delivery emulation",
+      );
+    state.stored.draft.revision += 1;
+    state.stored.draft.activity = structuredClone(body.activity);
+    state.completedSaves += 1;
+    state.receipts.set(body.request_id, structuredClone(state.stored));
+    if (state.mode === "lost_save") {
+      state.mode = "normal";
+      throw new Error("Synthetic response lost after stored save");
+    }
+    return response(state.stored);
+  }
+  throw new Error("Non-allowlisted fixture request denied");
+};
+window.addEventListener("error", (event) => state.errors.push(event.message));
+window.addEventListener("unhandledrejection", (event) =>
+  state.errors.push(String(event.reason)),
+);
+const params = Object.fromEntries(query);
+const context = snapshotInterventionContext(
+  parseTeacherWorkspaceContext({
+    ...params,
+    seedAttempt: query.getAll("seedAttempt"),
+  }),
+  initial.draft,
+);
+const assignments = [
+  {
+    id: initial.draft.assignment_id,
+    title: "Network performance · fictional fixture",
+    class_name: "Synthetic class",
+    version: initial.draft.evidence.content_ref.content_version,
+    availability: "active",
+  },
+];
+function App() {
+  const pathname = usePathname();
+  return (
+    <TeacherWorkspaceMetadata assignments={assignments}>
+      <TeacherWorkspace
+        section="Interventions"
+        context={context}
+        contextIsAuthoritative={!preparation}
+      >
+        <div className="lp-teacher lp-intervention-page">
+          {pathname === "/teacher/interventions" ? (
+            <InterventionWorkspace
+              assignmentId={initial.draft.assignment_id}
+              actorId={fixture.actor}
+              context={context}
+              initialEvidence={initial.draft.evidence}
+              initialDraft={preparation ? null : initial.draft}
+              initialRequestId={pendingRequest}
+              initialDraftId={pendingRequest ? initial.draft.id : null}
+              initialReview={preparation ? null : initial}
+              evidenceControls={null}
+            />
+          ) : (
+            <p id="fixture-other-page">Fictional route reached · {pathname}</p>
+          )}
+        </div>
+      </TeacherWorkspace>
+    </TeacherWorkspaceMetadata>
+  );
+}
+createRoot(document.getElementById("root")).render(
+  <NavigationProvider>
+    <App />
+  </NavigationProvider>,
+);

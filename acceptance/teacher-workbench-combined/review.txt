@@ -1,0 +1,13 @@
+Independent integration code review
+Candidate: c26664e49b7cc15fa7c63828f5c582c9b8cac2d8
+Reviewer: separate integration_review agent; did not author the integration or conflict resolutions.
+
+Result: No actionable integration defect found in the reviewed scope.
+
+Compared scripts/check-metrics.ts against G af4eec9 and H afd91d6. The union retains H's rendered Concerns -> By idea -> selected concept path, exact session/attempt/evaluation links, original answer/evaluator/source checks, and refreshed displayed metrics. It retains G's exact Roster attempt-card selection, explicitly linked React stream expansion, accepted evaluation and source version, bounded return parameters, and anonymous/student privacy checks including the original answer. Removed assertions are only the obsolete direct session-link expectations on the redesigned top-level Roster and Insights pages; the new paths are stricter. Shared evaluationId, escapedAnswer and concept declarations are not duplicated. Existing replay, unrelated-concept and origin-filter assertions remain.
+
+Compared scripts/check-lesson-uncertainty.ts against F 798f324 and H afd91d6. The union retains F's resolved Overview helper, both owned uploaded assignments, per-concept distinct-student uncertainty, separate missing work, exact evidence IDs and original-response drill-down. H's actual Insights text and exact original evaluation/session anchors remain, along with the uncategorized heading assertion. The union does not substitute a loading-shell label for resolved content or drop either owner's evidence path.
+
+Drawer and return checks: candidate shared drawer component/CSS and K return contract/receiver are byte-identical to e88e45a. I's duplicated drawer change is byte-identical to K's original 56e4915 on the shared files. Default remains tabletDrawer=context; only Interventions opts into navigation. One mounted pane rendering path remains. Session loading authenticates and authorizes through readTeacherSession and pinned assignment content before resolving return context. Assignment, student, origin, session, attempt, evaluation, concept and category mismatches are rejected. G/H sender contracts use fixed routes and matching returnTo fields; K's displayed returns strip inspected-record and mutation identities and preserve bounded investigation context.
+
+Limits: read-only source/diff review only; no tests, build, database operations, browser interactions or model calls were run by this reviewer. Existing automated suites and runtime receipts must be evaluated separately. This review does not establish visual parity, final product acceptance, a human review, or live agentic behavior.

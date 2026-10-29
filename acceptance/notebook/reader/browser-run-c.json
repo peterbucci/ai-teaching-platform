@@ -1,0 +1,1259 @@
+{
+  "origin": "http://127.0.0.1:3407",
+  "startedAt": "2026-10-25T18:00:58.934Z",
+  "providersDisabled": true,
+  "paidModelCalls": 0,
+  "browser": "Chromium via Playwright",
+  "sources": {
+    "app/study/reading/reader.tsx": "1e3445b91a61088f097c70290bc4da46f0eaeadde42eb62de1ff9fe2b392a309",
+    "app/study/reading/visibility.ts": "10249052e7da1d8f4b23baf633f8baa8623f03350b5aa00ca02554e84639475b",
+    "app/study/reading/page.tsx": "086e50869f8a31f9f927a799180153f383582b3d430877da0265c94821edb41a"
+  },
+  "cases": [
+    {
+      "id": "baseline-hidden-mount-writes",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "4fe22637-669d-4ff3-a1ef-0b0a2500d6c2",
+        "attemptId": "88226960-5acb-4fc7-9b51-a4eb2fce5c08",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "before": {
+        "interventions": [],
+        "attempts": [
+          {
+            "id": "88226960-5acb-4fc7-9b51-a4eb2fce5c08",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "4247a34e-8919-4ff0-bf0a-bdce9dc3b9b0",
+            "related_attempt_id": "88226960-5acb-4fc7-9b51-a4eb2fce5c08",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:01:02.525Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "88226960-5acb-4fc7-9b51-a4eb2fce5c08",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/4fe22637-669d-4ff3-a1ef-0b0a2500d6c2/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951262369
+        },
+        {
+          "path": "/api/sessions/4fe22637-669d-4ff3-a1ef-0b0a2500d6c2/interventions/4247a34e-8919-4ff0-bf0a-bdce9dc3b9b0",
+          "body": "{}",
+          "time": 1792951262469
+        }
+      ],
+      "observedDefect": true
+    },
+    {
+      "id": "hidden-visible-keyboard-switch-1440",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "5adac960-42c4-4c06-934d-2f551501e652",
+        "attemptId": "edbc2123-809a-4dce-8c39-e6adfc23a0aa",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "before": {
+        "interventions": [],
+        "attempts": [
+          {
+            "id": "edbc2123-809a-4dce-8c39-e6adfc23a0aa",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "ec09aaee-f939-477c-8e6c-1d121635cd71",
+            "related_attempt_id": "edbc2123-809a-4dce-8c39-e6adfc23a0aa",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:01:05.857Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "edbc2123-809a-4dce-8c39-e6adfc23a0aa",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/5adac960-42c4-4c06-934d-2f551501e652/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951264673
+        },
+        {
+          "path": "/api/sessions/5adac960-42c4-4c06-934d-2f551501e652/interventions/ec09aaee-f939-477c-8e6c-1d121635cd71",
+          "body": "{}",
+          "time": 1792951265808
+        }
+      ],
+      "width": 1440,
+      "keyboard": true,
+      "harnessDraftPreserved": true
+    },
+    {
+      "id": "hidden-visible-keyboard-switch-1024",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "92090631-9738-420d-9d3e-590979e37b5b",
+        "attemptId": "ad27e401-cfab-4963-a676-630ce92a40fe",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "before": {
+        "interventions": [],
+        "attempts": [
+          {
+            "id": "ad27e401-cfab-4963-a676-630ce92a40fe",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "7d5042f0-ba43-4db7-a8ad-c2f224f7da6d",
+            "related_attempt_id": "ad27e401-cfab-4963-a676-630ce92a40fe",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:01:09.343Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "ad27e401-cfab-4963-a676-630ce92a40fe",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/92090631-9738-420d-9d3e-590979e37b5b/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951269208
+        },
+        {
+          "path": "/api/sessions/92090631-9738-420d-9d3e-590979e37b5b/interventions/7d5042f0-ba43-4db7-a8ad-c2f224f7da6d",
+          "body": "{}",
+          "time": 1792951269300
+        }
+      ],
+      "width": 1024,
+      "keyboard": true,
+      "harnessDraftPreserved": true
+    },
+    {
+      "id": "hidden-visible-keyboard-switch-390",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "c49de549-b361-4078-9538-f1d629ae9015",
+        "attemptId": "5142d2ef-9b33-4105-bb7e-81f78e61c93d",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "before": {
+        "interventions": [],
+        "attempts": [
+          {
+            "id": "5142d2ef-9b33-4105-bb7e-81f78e61c93d",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "ce4f353f-6938-4f42-8f36-c02a653ff593",
+            "related_attempt_id": "5142d2ef-9b33-4105-bb7e-81f78e61c93d",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:01:11.528Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "5142d2ef-9b33-4105-bb7e-81f78e61c93d",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/c49de549-b361-4078-9538-f1d629ae9015/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951271389
+        },
+        {
+          "path": "/api/sessions/c49de549-b361-4078-9538-f1d629ae9015/interventions/ce4f353f-6938-4f42-8f36-c02a653ff593",
+          "body": "{}",
+          "time": 1792951271477
+        }
+      ],
+      "width": 390,
+      "keyboard": true,
+      "harnessDraftPreserved": true
+    },
+    {
+      "id": "hidden-visible-keyboard-switch-320",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "8b155b94-b4f4-4724-aae8-7ef7c1f39c79",
+        "attemptId": "be290ddc-6fe4-4304-b4f9-af73636b75a2",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "before": {
+        "interventions": [],
+        "attempts": [
+          {
+            "id": "be290ddc-6fe4-4304-b4f9-af73636b75a2",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "a59b6ad5-6068-4f91-83df-f86f5bfae089",
+            "related_attempt_id": "be290ddc-6fe4-4304-b4f9-af73636b75a2",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:01:13.848Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "be290ddc-6fe4-4304-b4f9-af73636b75a2",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/8b155b94-b4f4-4724-aae8-7ef7c1f39c79/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951273671
+        },
+        {
+          "path": "/api/sessions/8b155b94-b4f4-4724-aae8-7ef7c1f39c79/interventions/a59b6ad5-6068-4f91-83df-f86f5bfae089",
+          "body": "{}",
+          "time": 1792951273797
+        }
+      ],
+      "width": 320,
+      "keyboard": true,
+      "harnessDraftPreserved": true
+    },
+    {
+      "id": "inflight-open-hidden-then-resumed",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "fbafa697-479b-4ee6-9b80-da9e3cdf1822",
+        "attemptId": "b6575e09-f7bb-4191-8b5a-5cc47ec2398a",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "pending": {
+        "interventions": [
+          {
+            "id": "6baeea57-1783-474f-8780-df6391e87356",
+            "related_attempt_id": "b6575e09-f7bb-4191-8b5a-5cc47ec2398a",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "created",
+            "visible_at": null
+          }
+        ],
+        "attempts": [
+          {
+            "id": "b6575e09-f7bb-4191-8b5a-5cc47ec2398a",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "6baeea57-1783-474f-8780-df6391e87356",
+            "related_attempt_id": "b6575e09-f7bb-4191-8b5a-5cc47ec2398a",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:01:17.837Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "b6575e09-f7bb-4191-8b5a-5cc47ec2398a",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/fbafa697-479b-4ee6-9b80-da9e3cdf1822/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951275894
+        },
+        {
+          "path": "/api/tutoring/fbafa697-479b-4ee6-9b80-da9e3cdf1822/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951277705
+        },
+        {
+          "path": "/api/sessions/fbafa697-479b-4ee6-9b80-da9e3cdf1822/interventions/6baeea57-1783-474f-8780-df6391e87356",
+          "body": "{}",
+          "time": 1792951277801
+        }
+      ]
+    },
+    {
+      "id": "acknowledgment-pending-switch-no-duplicates",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "18329c69-7a62-4b62-9173-627d55aab68e",
+        "attemptId": "d503829f-0407-423f-b3bd-0ce7a63f8b93",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "pending": {
+        "interventions": [
+          {
+            "id": "91393af7-488d-4307-b750-756b44d80f65",
+            "related_attempt_id": "d503829f-0407-423f-b3bd-0ce7a63f8b93",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "created",
+            "visible_at": null
+          }
+        ],
+        "attempts": [
+          {
+            "id": "d503829f-0407-423f-b3bd-0ce7a63f8b93",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "91393af7-488d-4307-b750-756b44d80f65",
+            "related_attempt_id": "d503829f-0407-423f-b3bd-0ce7a63f8b93",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:01:20.474Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "d503829f-0407-423f-b3bd-0ce7a63f8b93",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/18329c69-7a62-4b62-9173-627d55aab68e/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951279498
+        },
+        {
+          "path": "/api/sessions/18329c69-7a62-4b62-9173-627d55aab68e/interventions/91393af7-488d-4307-b750-756b44d80f65",
+          "body": "{}",
+          "time": 1792951279863
+        }
+      ]
+    },
+    {
+      "id": "failed-ack-survives-context-refresh",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "b3b11ccf-5433-444a-b157-2f3df4355d2a",
+        "attemptId": "def70148-83f0-4f17-991c-c8a05a548816",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "failed": {
+        "interventions": [
+          {
+            "id": "5c357db0-0d13-41c5-a452-5fad8afe37a7",
+            "related_attempt_id": "def70148-83f0-4f17-991c-c8a05a548816",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "created",
+            "visible_at": null
+          }
+        ],
+        "attempts": [
+          {
+            "id": "def70148-83f0-4f17-991c-c8a05a548816",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "5c357db0-0d13-41c5-a452-5fad8afe37a7",
+            "related_attempt_id": "def70148-83f0-4f17-991c-c8a05a548816",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:01:23.293Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "def70148-83f0-4f17-991c-c8a05a548816",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/b3b11ccf-5433-444a-b157-2f3df4355d2a/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951282144
+        },
+        {
+          "path": "/api/sessions/b3b11ccf-5433-444a-b157-2f3df4355d2a/interventions/5c357db0-0d13-41c5-a452-5fad8afe37a7",
+          "body": "{}",
+          "time": 1792951282269
+        },
+        {
+          "path": "/api/sessions/b3b11ccf-5433-444a-b157-2f3df4355d2a/interventions/5c357db0-0d13-41c5-a452-5fad8afe37a7",
+          "body": "{}",
+          "time": 1792951283245
+        }
+      ],
+      "responseLostAfterCommit": false
+    },
+    {
+      "id": "unknown-ack-reconciles-same-id",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "74143cda-9d8f-4bb9-add2-1fe040cd0534",
+        "attemptId": "4aff6717-f90c-43be-b4de-2c1adb22bc2b",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "failed": {
+        "interventions": [
+          {
+            "id": "4556ac90-edfb-462d-9cf2-93b5d6933ecc",
+            "related_attempt_id": "4aff6717-f90c-43be-b4de-2c1adb22bc2b",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:01:25.372Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "4aff6717-f90c-43be-b4de-2c1adb22bc2b",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "4556ac90-edfb-462d-9cf2-93b5d6933ecc",
+            "related_attempt_id": "4aff6717-f90c-43be-b4de-2c1adb22bc2b",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:01:25.372Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "4aff6717-f90c-43be-b4de-2c1adb22bc2b",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/74143cda-9d8f-4bb9-add2-1fe040cd0534/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951285201
+        },
+        {
+          "path": "/api/sessions/74143cda-9d8f-4bb9-add2-1fe040cd0534/interventions/4556ac90-edfb-462d-9cf2-93b5d6933ecc",
+          "body": "{}",
+          "time": 1792951285320
+        },
+        {
+          "path": "/api/sessions/74143cda-9d8f-4bb9-add2-1fe040cd0534/interventions/4556ac90-edfb-462d-9cf2-93b5d6933ecc",
+          "body": "{}",
+          "time": 1792951286394
+        }
+      ],
+      "responseLostAfterCommit": true
+    },
+    {
+      "id": "browser-hidden-signal-simulation",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "0e303ba7-978e-4013-9080-6352faad74d5",
+        "attemptId": "322a6b99-1a86-4f19-9313-29ad4d99a065",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "before": {
+        "interventions": [],
+        "attempts": [
+          {
+            "id": "322a6b99-1a86-4f19-9313-29ad4d99a065",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "3b6f26db-47a1-4b0e-b010-4bf1e88ad98a",
+            "related_attempt_id": "322a6b99-1a86-4f19-9313-29ad4d99a065",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:01:28.780Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "322a6b99-1a86-4f19-9313-29ad4d99a065",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/0e303ba7-978e-4013-9080-6352faad74d5/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951288584
+        },
+        {
+          "path": "/api/sessions/0e303ba7-978e-4013-9080-6352faad74d5/interventions/3b6f26db-47a1-4b0e-b010-4bf1e88ad98a",
+          "body": "{}",
+          "time": 1792951288729
+        }
+      ],
+      "qualification": "Injected document.visibilityState/visibilitychange in actual browser; not native tab-background proof"
+    },
+    {
+      "id": "standalone-back-forward-refresh",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "71f89b42-0b2d-4b35-8e2c-880537391c4e",
+        "attemptId": "2a7a2132-1fac-47ea-bf5e-2f6d3e34c5fe",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "c5b6b263-635d-4b1f-81b8-e24c01858d0c",
+            "related_attempt_id": "2a7a2132-1fac-47ea-bf5e-2f6d3e34c5fe",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:01:30.813Z"
+          },
+          {
+            "id": "322548a1-ab45-494a-9c33-6b269158bb4c",
+            "related_attempt_id": "2a7a2132-1fac-47ea-bf5e-2f6d3e34c5fe",
+            "source_passage_ids": ["P09"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:01:31.308Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "2a7a2132-1fac-47ea-bf5e-2f6d3e34c5fe",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/71f89b42-0b2d-4b35-8e2c-880537391c4e/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951290660
+        },
+        {
+          "path": "/api/sessions/71f89b42-0b2d-4b35-8e2c-880537391c4e/interventions/c5b6b263-635d-4b1f-81b8-e24c01858d0c",
+          "body": "{}",
+          "time": 1792951290772
+        },
+        {
+          "path": "/api/tutoring/71f89b42-0b2d-4b35-8e2c-880537391c4e/reading",
+          "body": "{\"passage_id\":\"P09\"}",
+          "time": 1792951291186
+        },
+        {
+          "path": "/api/sessions/71f89b42-0b2d-4b35-8e2c-880537391c4e/interventions/322548a1-ab45-494a-9c33-6b269158bb4c",
+          "body": "{}",
+          "time": 1792951291274
+        },
+        {
+          "path": "/api/tutoring/71f89b42-0b2d-4b35-8e2c-880537391c4e/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951291499
+        },
+        {
+          "path": "/api/sessions/71f89b42-0b2d-4b35-8e2c-880537391c4e/interventions/c5b6b263-635d-4b1f-81b8-e24c01858d0c",
+          "body": "{}",
+          "time": 1792951291593
+        },
+        {
+          "path": "/api/tutoring/71f89b42-0b2d-4b35-8e2c-880537391c4e/reading",
+          "body": "{\"passage_id\":\"P09\"}",
+          "time": 1792951291848
+        },
+        {
+          "path": "/api/sessions/71f89b42-0b2d-4b35-8e2c-880537391c4e/interventions/322548a1-ab45-494a-9c33-6b269158bb4c",
+          "body": "{}",
+          "time": 1792951291941
+        },
+        {
+          "path": "/api/tutoring/71f89b42-0b2d-4b35-8e2c-880537391c4e/reading",
+          "body": "{\"passage_id\":\"P09\"}",
+          "time": 1792951292831
+        },
+        {
+          "path": "/api/sessions/71f89b42-0b2d-4b35-8e2c-880537391c4e/interventions/322548a1-ab45-494a-9c33-6b269158bb4c",
+          "body": "{}",
+          "time": 1792951292928
+        }
+      ],
+      "storedAssistanceNotDuplicated": true
+    },
+    {
+      "id": "standalone-unsent-draft-roundtrip",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "5e39e40b-fc70-422e-8609-140a9061c296",
+        "attemptId": "2504ea02-b800-4845-99fa-6b6c29c324da",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "before": {
+        "interventions": [],
+        "attempts": [
+          {
+            "id": "2504ea02-b800-4845-99fa-6b6c29c324da",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "d64eb254-1a85-4b20-91e6-53df6bf1930f",
+            "related_attempt_id": "2504ea02-b800-4845-99fa-6b6c29c324da",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:01:35.800Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "2504ea02-b800-4845-99fa-6b6c29c324da",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/5e39e40b-fc70-422e-8609-140a9061c296/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951295647
+        },
+        {
+          "path": "/api/sessions/5e39e40b-fc70-422e-8609-140a9061c296/interventions/d64eb254-1a85-4b20-91e6-53df6bf1930f",
+          "body": "{}",
+          "time": 1792951295763
+        }
+      ],
+      "unsentDraftExact": true
+    },
+    {
+      "id": "offscreen-body-awaits-presentation",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "15d62c01-973b-42b7-90b7-b8e9a358a997",
+        "attemptId": "cb87d3d8-1de4-4b5d-b170-c1eaef3ae686",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "pending": {
+        "interventions": [
+          {
+            "id": "ced62cf7-d328-4b38-8a41-79d8f8de670e",
+            "related_attempt_id": "cb87d3d8-1de4-4b5d-b170-c1eaef3ae686",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "created",
+            "visible_at": null
+          }
+        ],
+        "attempts": [
+          {
+            "id": "cb87d3d8-1de4-4b5d-b170-c1eaef3ae686",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "ced62cf7-d328-4b38-8a41-79d8f8de670e",
+            "related_attempt_id": "cb87d3d8-1de4-4b5d-b170-c1eaef3ae686",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:01:39.085Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "cb87d3d8-1de4-4b5d-b170-c1eaef3ae686",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/15d62c01-973b-42b7-90b7-b8e9a358a997/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951298620
+        },
+        {
+          "path": "/api/sessions/15d62c01-973b-42b7-90b7-b8e9a358a997/interventions/ced62cf7-d328-4b38-8a41-79d8f8de670e",
+          "body": "{}",
+          "time": 1792951299052
+        }
+      ],
+      "offscreenBody": {
+        "x": 36,
+        "y": 1989.46875,
+        "width": 248,
+        "height": 1032.765625
+      }
+    },
+    {
+      "id": "background-during-open-signal-simulation",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "0a72656d-8cea-4962-97c4-5969ebfddb8f",
+        "attemptId": "f375d851-56be-4281-b6f0-f0096e9996c4",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "pending": {
+        "interventions": [
+          {
+            "id": "a8e06c5d-4d83-4920-aba9-538b674ceea9",
+            "related_attempt_id": "f375d851-56be-4281-b6f0-f0096e9996c4",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "created",
+            "visible_at": null
+          }
+        ],
+        "attempts": [
+          {
+            "id": "f375d851-56be-4281-b6f0-f0096e9996c4",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "a8e06c5d-4d83-4920-aba9-538b674ceea9",
+            "related_attempt_id": "f375d851-56be-4281-b6f0-f0096e9996c4",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:01:40.721Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "f375d851-56be-4281-b6f0-f0096e9996c4",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/0a72656d-8cea-4962-97c4-5969ebfddb8f/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951300102
+        },
+        {
+          "path": "/api/sessions/0a72656d-8cea-4962-97c4-5969ebfddb8f/interventions/a8e06c5d-4d83-4920-aba9-538b674ceea9",
+          "body": "{}",
+          "time": 1792951300666
+        }
+      ],
+      "qualification": "Injected document.visibilityState/visibilitychange in actual browser; not native tab-background proof"
+    },
+    {
+      "id": "hidden-browsing-selects-only-final-passage",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "2f838b3e-5745-477d-a5c6-e35efd9b3eea",
+        "attemptId": "f222520d-0607-493c-9a56-785a4b19942f",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "before": {
+        "interventions": [],
+        "attempts": [
+          {
+            "id": "f222520d-0607-493c-9a56-785a4b19942f",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "0053149b-7c7a-459b-9eec-f2c7ba9f7a7c",
+            "related_attempt_id": "f222520d-0607-493c-9a56-785a4b19942f",
+            "source_passage_ids": ["P10"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:01:42.866Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "f222520d-0607-493c-9a56-785a4b19942f",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/2f838b3e-5745-477d-a5c6-e35efd9b3eea/reading",
+          "body": "{\"passage_id\":\"P10\"}",
+          "time": 1792951302727
+        },
+        {
+          "path": "/api/sessions/2f838b3e-5745-477d-a5c6-e35efd9b3eea/interventions/0053149b-7c7a-459b-9eec-f2c7ba9f7a7c",
+          "body": "{}",
+          "time": 1792951302832
+        }
+      ],
+      "selectedWhileHidden": ["P09", "P10", "P11", "P10"]
+    },
+    {
+      "id": "native-background-before-open",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "46cb778f-8c85-4fa4-a5f5-657fd55045b6",
+        "attemptId": "80eb50d3-d7f8-4ab3-91ed-5a2579a652a3",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "pending": {
+        "interventions": [],
+        "attempts": [
+          {
+            "id": "80eb50d3-d7f8-4ab3-91ed-5a2579a652a3",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "94538fef-1a8b-4ca0-b242-09c9c9802cdb",
+            "related_attempt_id": "80eb50d3-d7f8-4ab3-91ed-5a2579a652a3",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:01:46.654Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "80eb50d3-d7f8-4ab3-91ed-5a2579a652a3",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/46cb778f-8c85-4fa4-a5f5-657fd55045b6/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951306441
+        },
+        {
+          "path": "/api/sessions/46cb778f-8c85-4fa4-a5f5-657fd55045b6/interventions/94538fef-1a8b-4ca0-b242-09c9c9802cdb",
+          "body": "{}",
+          "time": 1792951306588
+        }
+      ],
+      "backgroundSignal": {
+        "visibility": "visible",
+        "focused": false
+      },
+      "foregroundSignal": {
+        "visibility": "visible",
+        "focused": true
+      },
+      "method": "Real browser tab bringToFront with CDP focus emulation disabled on both tabs; no document/focus mutation"
+    },
+    {
+      "id": "native-background-during-open",
+      "status": "passed",
+      "fixture": {
+        "sessionId": "6efab306-0a22-44c8-91b6-9161919c39af",
+        "attemptId": "bab03868-3f9f-48db-80a1-929c0a3fba50",
+        "assignmentId": "30000000-0000-4000-8000-000000000001",
+        "sourceVersion": "3bd292c1476f5becb658418b70ee36153cfce830"
+      },
+      "pending": {
+        "interventions": [
+          {
+            "id": "bafda6c2-362f-464f-8780-289678915788",
+            "related_attempt_id": "bab03868-3f9f-48db-80a1-929c0a3fba50",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "created",
+            "visible_at": null
+          }
+        ],
+        "attempts": [
+          {
+            "id": "bab03868-3f9f-48db-80a1-929c0a3fba50",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "after": {
+        "interventions": [
+          {
+            "id": "bafda6c2-362f-464f-8780-289678915788",
+            "related_attempt_id": "bab03868-3f9f-48db-80a1-929c0a3fba50",
+            "source_passage_ids": ["P08"],
+            "content_ref": {
+              "source_id": "peterson_davie_1_5_1",
+              "package_id": "network-performance-v1",
+              "source_commit": "5deec5e741e2b8c0bc44566108a24cb783c2c7de",
+              "excerpt_sha256": "04583798ef79e0538d467aefdecb9ca11698e3e1fdf42a54379415c858ab2b73",
+              "content_version": "3bd292c1476f5becb658418b70ee36153cfce830"
+            },
+            "delivery_status": "displayed",
+            "visible_at": "2026-10-25T18:01:51.389Z"
+          }
+        ],
+        "attempts": [
+          {
+            "id": "bab03868-3f9f-48db-80a1-929c0a3fba50",
+            "response_text": null,
+            "submitted_at": null,
+            "assistance": null,
+            "current_evaluation_id": null
+          }
+        ]
+      },
+      "calls": [
+        {
+          "path": "/api/tutoring/6efab306-0a22-44c8-91b6-9161919c39af/reading",
+          "body": "{\"passage_id\":\"P08\"}",
+          "time": 1792951310610
+        },
+        {
+          "path": "/api/sessions/6efab306-0a22-44c8-91b6-9161919c39af/interventions/bafda6c2-362f-464f-8780-289678915788",
+          "body": "{}",
+          "time": 1792951311328
+        }
+      ],
+      "backgroundSignal": {
+        "visibility": "visible",
+        "focused": false
+      },
+      "foregroundSignal": {
+        "visibility": "visible",
+        "focused": true
+      },
+      "method": "Real browser tab bringToFront with CDP focus emulation disabled on both tabs; no document/focus mutation"
+    }
+  ],
+  "browserVersion": "156.0.4314.42",
+  "finishedAt": "2026-10-25T18:01:52.250Z"
+}

@@ -1,0 +1,87 @@
+{
+  "kind": "hydration",
+  "sourceSha": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8",
+  "sourceTree": "333b73e1cae1daddf6edd61300655d0b4825ed67",
+  "project": "lp-teacher-combined-01a174be",
+  "origin": "http://localhost:3449",
+  "script": "tests/intervention-hydration-browser.mjs",
+  "scriptSha256": "b39dad229573e0f9a5151a929de3254d1dddf39d529242d2c075994d0104be5f",
+  "wrapperSha256": "38844c6db29f663257068b78903acb522411328b964c2c97d85b19224bcab9bb",
+  "startedAt": "2026-10-25T20:50:13.324Z",
+  "paidModelCalls": 0,
+  "status": "failed",
+  "lockOwner": {
+    "action": "combined-focused-browser-hydration",
+    "state": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+    "out": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\verification\\hydration-01",
+    "source": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+    "sourceSha": "c26664e49b7cc15fa7c63828f5c582c9b8cac2d8",
+    "token": "[REDACTED local coordination lock token]",
+    "pid": 146736,
+    "startedAt": "2026-10-25T20:50:13.325Z"
+  },
+  "preflight": {
+    "observedAt": "2026-10-25T20:50:13.328Z",
+    "minimumGiB": 10,
+    "host": [
+      {
+        "path": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+        "measuredPath": "C:\\Users\\sb128\\.codex\\worktrees\\teacher-workbench-combined\\LearningPlatform",
+        "availableBytes": 27605630976,
+        "availableGiB": 25.709747314453125,
+        "minimumGiB": 10,
+        "pass": true
+      },
+      {
+        "path": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+        "measuredPath": "C:\\Users\\sb128\\.codex\\visualizations\\2026\\10\\25\\01a174be-f6b2-7012-b723-c460b8858df5\\runtime",
+        "availableBytes": 27605630976,
+        "availableGiB": 25.709747314453125,
+        "minimumGiB": 10,
+        "pass": true
+      },
+      {
+        "path": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+        "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Temp",
+        "availableBytes": 27605630976,
+        "availableGiB": 25.709747314453125,
+        "minimumGiB": 10,
+        "pass": true
+      }
+    ],
+    "engine": {
+      "status": "healthy",
+      "id": "615024ec-1124-4c48-9cd0-1e7242800140",
+      "name": "docker-desktop",
+      "endpoint": "npipe:////./pipe/dockerDesktopLinuxEngine",
+      "root": "/var/lib/docker",
+      "storage": {
+        "status": "verified",
+        "method": "read-only df on explicitly selected existing container volume",
+        "container": "lp-v22-final-01a173d6-db-1",
+        "source": "/var/lib/docker/volumes/lp-v22-final-01a173d6_postgres_data/_data",
+        "destination": "/var/lib/postgresql/data",
+        "availableBytes": 897586618368,
+        "availableGiB": 835.9426803588867,
+        "pass": true
+      }
+    },
+    "backingStorage": {
+      "provenance": "explicit owner-verified Docker storage path",
+      "disks": [
+        {
+          "path": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+          "measuredPath": "C:\\Users\\sb128\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+          "availableBytes": 27605565440,
+          "availableGiB": 25.709686279296875,
+          "minimumGiB": 10,
+          "pass": true
+        }
+      ]
+    },
+    "pass": true
+  },
+  "exitCode": 1,
+  "error": null,
+  "finishedAt": "2026-10-25T20:50:15.941Z"
+}

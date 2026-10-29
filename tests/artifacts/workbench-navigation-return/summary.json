@@ -1,0 +1,4084 @@
+{
+  "schemaVersion": 2,
+  "publishedAt": "2026-10-25T15:29:34.317Z",
+  "provenance": {
+    "runtimeReportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9",
+    "componentReportSha256": "9158994d8d21213ee0b4450bb8d4f43beec74bbbce6985fa95b563b975820070",
+    "originalComponentRunReportSha256": "280cd7cce3e3ae236b7167082ec6f41fa949bd84402d907934e21edfa0caa55c",
+    "ciReceiptSha256": "84d0f31699215a58d1f0fb630d926584ee69a94a56b3ba84b6f17577faf3daeb",
+    "publisherSha256": "c4568a6c1561b6936e3e998f6ff06b2ef2ddb3234e312252ac0d7f21add0d4fa",
+    "continuationReportSha256s": [
+      "1d8999fcb206f63394ba3f84c971f2a7becc083ffc9151180b37f1737f69638b"
+    ],
+    "focusedReportSha256": "28faab2c4cec7789dbabfa62eb45fed4adb730bb4db54b97043c741571778ff5",
+    "switcherComponentReportSha256": "5b3f4b2a249e81e0a81c978e037cfeb262e7bc819f659c8f0308cefa920db802",
+    "currentHarnessSha256": "baa305ef1db4d5ba6070c9cae349f40b0dbbd479377ae82e1f011424e3eb826c",
+    "currentComponentHarnessSha256": "ad33799aede860eac9a2bbdaf11a33ed6ab4e77c26dbb4455bcf62a208d6c010",
+    "currentHarnessHashNote": "Current file hashes are publication-time observations; the runtime reported harness hash identifies its executed version."
+  },
+  "runtime": {
+    "role": "original full application run",
+    "label": "run-b8d0eb55-02",
+    "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9",
+    "category": "Actual combined runtime navigation; synthetic fixtures; GET/HEAD after one login per isolated browser",
+    "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+    "sourceTree": "466b42f5b70a33400115d9df5f876f65f3d9289f",
+    "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+    "buildSourceTree": "466b42f5b70a33400115d9df5f876f65f3d9289f",
+    "applicationBuildReused": false,
+    "buildDiffPaths": [],
+    "readinessBuildId": "c3-z5ci6U8BgOEWk6IZj8",
+    "harnessSha256": "313eaa098a68e45b0cb98c6a2aa1f72cc3b70e7652be7703dc390d749e604c3e",
+    "readinessReceiptSha256": "702abbf96c3c803dd492fe06c9a83b247143eb00c3328b26b591259db0d30199",
+    "reportedEquivalenceEvidence": {
+      "buildDiffPaths": []
+    },
+    "origin": "http://127.0.0.1:3317/",
+    "startedAt": "2026-10-25T14:43:58.940Z",
+    "finishedAt": "2026-10-25T14:45:17.090Z",
+    "status": "fail",
+    "counts": {
+      "pass": 29,
+      "fail": 2
+    },
+    "cases": [
+      {
+        "name": "authorized fixture classes are distinct",
+        "status": "pass",
+        "details": {
+          "records": [
+            {
+              "assignment": "30000000-0000-4000-8000-000000000001",
+              "class": "20000000-0000-4000-8000-000000000001"
+            },
+            {
+              "assignment": "9534b70b-f922-4f75-96bc-042ccc6c6ec3",
+              "class": "a0c94782-806a-4f61-9b66-b633ef476b2f"
+            }
+          ]
+        }
+      },
+      {
+        "name": "S1 discovery 1440",
+        "status": "pass",
+        "details": {
+          "href": "/teacher/assignments",
+          "after": "http://127.0.0.1:3317/teacher/assignments",
+          "focus": {
+            "tag": "BODY",
+            "id": "",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          }
+        }
+      },
+      {
+        "name": "scope and keyboard 1440",
+        "status": "pass",
+        "details": {
+          "opener": {
+            "tag": "BUTTON",
+            "id": "",
+            "href": null,
+            "controls": "teacher-workspace-switcher",
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "returned": {
+            "tag": "BUTTON",
+            "id": "",
+            "href": null,
+            "controls": "teacher-workspace-switcher",
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "sequence": [
+            {
+              "tag": "A",
+              "id": "",
+              "href": "/teacher?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture",
+              "controls": null,
+              "inDialog": true,
+              "visible": true,
+              "scrollY": 0
+            },
+            {
+              "tag": "A",
+              "id": "",
+              "href": "/teacher/assignments",
+              "controls": null,
+              "inDialog": true,
+              "visible": true,
+              "scrollY": 0
+            },
+            {
+              "tag": "A",
+              "id": "",
+              "href": "/teacher?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture",
+              "controls": null,
+              "inDialog": true,
+              "visible": true,
+              "scrollY": 0
+            }
+          ],
+          "switched": "http://127.0.0.1:3317/teacher/assignments?assignment=9534b70b-f922-4f75-96bc-042ccc6c6ec3&origin=synthetic_fixture&returnTo=evidence&view=progress",
+          "bareAfterSwitch": "http://127.0.0.1:3317/teacher/assignments"
+        }
+      },
+      {
+        "name": "direct URL Back Forward 1440",
+        "status": "pass",
+        "details": {
+          "directURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=grid&class=20000000-0000-4000-8000-000000000001&status=all#ap-selection-4b8c3f34-49fa-4b25-867d-8546beab0085-transmission_delay",
+          "restoredTarget": "ap-selection-4b8c3f34-49fa-4b25-867d-8546beab0085-transmission_delay",
+          "forwardURL": "http://127.0.0.1:3317/teacher/students?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085"
+        }
+      },
+      {
+        "name": "S1 discovery 1024",
+        "status": "pass",
+        "details": {
+          "href": "/teacher/assignments",
+          "after": "http://127.0.0.1:3317/teacher/assignments",
+          "focus": {
+            "tag": "BODY",
+            "id": "",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          }
+        }
+      },
+      {
+        "name": "scope and keyboard 1024",
+        "status": "fail",
+        "failure": {
+          "message": "TimeoutError: locator.waitFor: Timeout 15000ms exceeded.",
+          "sha256": "daa55493ad69be298286c7ccae64b4b2af8d96a9c4f8bd4f11773d4b6f10080a"
+        },
+        "details": {}
+      },
+      {
+        "name": "direct URL Back Forward 1024",
+        "status": "pass",
+        "details": {
+          "directURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=grid&class=20000000-0000-4000-8000-000000000001&status=all#ap-selection-4b8c3f34-49fa-4b25-867d-8546beab0085-transmission_delay",
+          "restoredTarget": "ap-selection-4b8c3f34-49fa-4b25-867d-8546beab0085-transmission_delay",
+          "forwardURL": "http://127.0.0.1:3317/teacher/students?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085"
+        }
+      },
+      {
+        "name": "S1 discovery 390",
+        "status": "pass",
+        "details": {
+          "href": "/teacher/assignments",
+          "after": "http://127.0.0.1:3317/teacher/assignments",
+          "focus": {
+            "tag": "BODY",
+            "id": "",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          }
+        }
+      },
+      {
+        "name": "scope and keyboard 390",
+        "status": "pass",
+        "details": {
+          "opener": {
+            "tag": "BUTTON",
+            "id": "",
+            "href": null,
+            "controls": "teacher-workspace-switcher",
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "returned": {
+            "tag": "BUTTON",
+            "id": "",
+            "href": null,
+            "controls": "teacher-workspace-switcher",
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "sequence": [
+            {
+              "tag": "A",
+              "id": "",
+              "href": "/teacher?assignment=e399899b-99f3-4466-bb3a-557b926d2b75&origin=all",
+              "controls": null,
+              "inDialog": true,
+              "visible": true,
+              "scrollY": 0
+            },
+            {
+              "tag": "A",
+              "id": "",
+              "href": "/teacher/assignments",
+              "controls": null,
+              "inDialog": true,
+              "visible": true,
+              "scrollY": 0
+            },
+            {
+              "tag": "A",
+              "id": "",
+              "href": "/teacher?assignment=e399899b-99f3-4466-bb3a-557b926d2b75&origin=all",
+              "controls": null,
+              "inDialog": true,
+              "visible": true,
+              "scrollY": 0
+            }
+          ],
+          "switched": "http://127.0.0.1:3317/teacher/assignments?assignment=9534b70b-f922-4f75-96bc-042ccc6c6ec3&origin=synthetic_fixture&returnTo=evidence&view=progress",
+          "bareAfterSwitch": "http://127.0.0.1:3317/teacher/assignments"
+        }
+      },
+      {
+        "name": "direct URL Back Forward 390",
+        "status": "pass",
+        "details": {
+          "directURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=grid&class=20000000-0000-4000-8000-000000000001&status=all#ap-selection-4b8c3f34-49fa-4b25-867d-8546beab0085-transmission_delay",
+          "restoredTarget": "ap-selection-4b8c3f34-49fa-4b25-867d-8546beab0085-transmission_delay",
+          "forwardURL": "http://127.0.0.1:3317/teacher/students?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085"
+        }
+      },
+      {
+        "name": "S1 discovery 320",
+        "status": "pass",
+        "details": {
+          "href": "/teacher/assignments",
+          "after": "http://127.0.0.1:3317/teacher/assignments",
+          "focus": {
+            "tag": "BODY",
+            "id": "",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          }
+        }
+      },
+      {
+        "name": "scope and keyboard 320",
+        "status": "pass",
+        "details": {
+          "opener": {
+            "tag": "BUTTON",
+            "id": "",
+            "href": null,
+            "controls": "teacher-workspace-switcher",
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "returned": {
+            "tag": "BUTTON",
+            "id": "",
+            "href": null,
+            "controls": "teacher-workspace-switcher",
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "sequence": [
+            {
+              "tag": "A",
+              "id": "",
+              "href": "/teacher?assignment=e399899b-99f3-4466-bb3a-557b926d2b75&origin=all",
+              "controls": null,
+              "inDialog": true,
+              "visible": true,
+              "scrollY": 0
+            },
+            {
+              "tag": "A",
+              "id": "",
+              "href": "/teacher/assignments",
+              "controls": null,
+              "inDialog": true,
+              "visible": true,
+              "scrollY": 0
+            },
+            {
+              "tag": "A",
+              "id": "",
+              "href": "/teacher?assignment=e399899b-99f3-4466-bb3a-557b926d2b75&origin=all",
+              "controls": null,
+              "inDialog": true,
+              "visible": true,
+              "scrollY": 0
+            }
+          ],
+          "switched": "http://127.0.0.1:3317/teacher/assignments?assignment=9534b70b-f922-4f75-96bc-042ccc6c6ec3&origin=synthetic_fixture&returnTo=evidence&view=progress",
+          "bareAfterSwitch": "http://127.0.0.1:3317/teacher/assignments"
+        }
+      },
+      {
+        "name": "direct URL Back Forward 320",
+        "status": "pass",
+        "details": {
+          "directURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=grid&class=20000000-0000-4000-8000-000000000001&status=all#ap-selection-4b8c3f34-49fa-4b25-867d-8546beab0085-transmission_delay",
+          "restoredTarget": "ap-selection-4b8c3f34-49fa-4b25-867d-8546beab0085-transmission_delay",
+          "forwardURL": "http://127.0.0.1:3317/teacher/students?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085"
+        }
+      },
+      {
+        "name": "C2 grid details 1440",
+        "status": "pass",
+        "details": {
+          "beforeURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+          "sessionURL": "http://127.0.0.1:3317/teacher/sessions/129120b0-f584-41f0-8e58-c3e190941799?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all&attempt=6ed7c7b5-d419-42e2-861f-a2065c01dcf3#attempt-6ed7c7b5-d419-42e2-861f-a2065c01dcf3",
+          "sessionStudent": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+          "selectedStudent": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+          "rendered": {
+            "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence"
+          },
+          "beforeFocus": {
+            "tag": "A",
+            "id": "",
+            "href": "/teacher/sessions/129120b0-f584-41f0-8e58-c3e190941799?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all&attempt=6ed7c7b5-d419-42e2-861f-a2065c01dcf3#attempt-6ed7c7b5-d419-42e2-861f-a2065c01dcf3",
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "historyBackFocus": {
+            "tag": "ASIDE",
+            "id": "cell-evidence",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 135
+          },
+          "returnedFocus": {
+            "tag": "ASIDE",
+            "id": "cell-evidence",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 135
+          },
+          "sharedProgress": {
+            "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+            "returnedURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+            "focus": {
+              "tag": "ASIDE",
+              "id": "cell-evidence",
+              "href": null,
+              "controls": null,
+              "inDialog": false,
+              "visible": true,
+              "scrollY": 135
+            }
+          }
+        }
+      },
+      {
+        "name": "C2 questions grid 1440",
+        "status": "pass",
+        "details": {
+          "beforeURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=questions&pane=grid&class=20000000-0000-4000-8000-000000000001&status=all#progress-main",
+          "sessionURL": "http://127.0.0.1:3317/teacher/sessions/ae71b8e0-54cb-416e-8f03-bac46347ae6e?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=questions&pane=grid&class=20000000-0000-4000-8000-000000000001&status=all&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb#attempt-1f16fd29-fa61-4166-85c8-c13197f1facb",
+          "sessionStudent": "5e4f7f43-86b4-433e-8e20-2274cdd0848f",
+          "selectedStudent": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+          "rendered": {
+            "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=questions&pane=grid&class=20000000-0000-4000-8000-000000000001&status=all#progress-main"
+          },
+          "beforeFocus": {
+            "tag": "A",
+            "id": "",
+            "href": "/teacher/sessions/ae71b8e0-54cb-416e-8f03-bac46347ae6e?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=questions&pane=grid&class=20000000-0000-4000-8000-000000000001&status=all&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb#attempt-1f16fd29-fa61-4166-85c8-c13197f1facb",
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 135
+          },
+          "historyBackFocus": {
+            "tag": "SECTION",
+            "id": "progress-main",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 135
+          },
+          "returnedFocus": {
+            "tag": "SECTION",
+            "id": "progress-main",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 135
+          }
+        }
+      },
+      {
+        "name": "C2 sessions grid 1440",
+        "status": "pass",
+        "details": {
+          "beforeURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=sessions&pane=grid&class=20000000-0000-4000-8000-000000000001&status=all#progress-main",
+          "sessionURL": "http://127.0.0.1:3317/teacher/sessions/df176a6c-85e0-4334-8dde-49fc4dd8a07f?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=sessions&pane=grid&class=20000000-0000-4000-8000-000000000001&status=all",
+          "sessionStudent": "2335302f-0eae-4201-86b9-c4b844ef4ac8",
+          "selectedStudent": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+          "rendered": {
+            "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=sessions&pane=grid&class=20000000-0000-4000-8000-000000000001&status=all#progress-main"
+          },
+          "beforeFocus": {
+            "tag": "A",
+            "id": "",
+            "href": "/teacher/sessions/df176a6c-85e0-4334-8dde-49fc4dd8a07f?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=sessions&pane=grid&class=20000000-0000-4000-8000-000000000001&status=all",
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 135
+          },
+          "historyBackFocus": {
+            "tag": "SECTION",
+            "id": "progress-main",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 135
+          },
+          "returnedFocus": {
+            "tag": "SECTION",
+            "id": "progress-main",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 135
+          }
+        }
+      },
+      {
+        "name": "C2 concepts details 1440",
+        "status": "pass",
+        "details": {
+          "beforeURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=concepts&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+          "sessionURL": "http://127.0.0.1:3317/teacher/sessions/129120b0-f584-41f0-8e58-c3e190941799?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=concepts&pane=details&class=20000000-0000-4000-8000-000000000001&status=all&attempt=6ed7c7b5-d419-42e2-861f-a2065c01dcf3#attempt-6ed7c7b5-d419-42e2-861f-a2065c01dcf3",
+          "sessionStudent": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+          "selectedStudent": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+          "rendered": {
+            "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=concepts&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence"
+          },
+          "beforeFocus": {
+            "tag": "A",
+            "id": "",
+            "href": "/teacher/sessions/129120b0-f584-41f0-8e58-c3e190941799?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=concepts&pane=details&class=20000000-0000-4000-8000-000000000001&status=all&attempt=6ed7c7b5-d419-42e2-861f-a2065c01dcf3#attempt-6ed7c7b5-d419-42e2-861f-a2065c01dcf3",
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "historyBackFocus": {
+            "tag": "ASIDE",
+            "id": "cell-evidence",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 46
+          },
+          "returnedFocus": {
+            "tag": "ASIDE",
+            "id": "cell-evidence",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 46
+          }
+        }
+      },
+      {
+        "name": "hashless native Back questions 1440",
+        "status": "pass",
+        "details": {
+          "contract": "Hashless Questions/Sessions Back restores allowlisted progress-main. Exact response-row focus belongs to F1 Evidence and is not claimed.",
+          "navigation": "Bare library → real activated assignment row → real student/concept cell → real Progress view tab → real Evidence source GET form → rendered session link → native Back/Forward/Back",
+          "assignmentHref": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&status=all&view=progress&origin=all&progressView=grid",
+          "cellHref": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=all&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&status=all&progressView=grid&pane=details#cell-evidence",
+          "viewHref": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=all&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&status=all&progressView=questions&pane=grid#progress-main",
+          "formAction": "/teacher/assignments",
+          "sourceURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&progressView=questions&pane=grid&status=all&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&origin=synthetic_fixture",
+          "sessionURL": "http://127.0.0.1:3317/teacher/sessions/3bc58bb5-0c79-4507-82c8-ee854302f155?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=questions&pane=grid&status=all&attempt=26f804d5-ac14-4529-8e7d-0e602d64775a#attempt-26f804d5-ac14-4529-8e7d-0e602d64775a",
+          "before": {
+            "tag": "A",
+            "id": "",
+            "href": "/teacher/sessions/3bc58bb5-0c79-4507-82c8-ee854302f155?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=questions&pane=grid&status=all&attempt=26f804d5-ac14-4529-8e7d-0e602d64775a#attempt-26f804d5-ac14-4529-8e7d-0e602d64775a",
+            "visible": true,
+            "hitWithinFocusedElement": true,
+            "outline": "rgb(47, 138, 107) solid 3px",
+            "y": 47,
+            "ancestors": [
+              {
+                "tag": "DIV",
+                "id": "",
+                "className": "ap-table-scroll",
+                "top": 0,
+                "left": 0
+              }
+            ]
+          },
+          "restorations": [
+            {
+              "focus": {
+                "tag": "SECTION",
+                "id": "progress-main",
+                "href": null,
+                "visible": true,
+                "hitWithinFocusedElement": true,
+                "outline": "rgb(47, 138, 107) solid 3px",
+                "y": 47,
+                "ancestors": []
+              },
+              "selected": {
+                "assignment": "30000000-0000-4000-8000-000000000001",
+                "origin": "synthetic_fixture",
+                "student": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+                "concept": "transmission_delay",
+                "progressView": "questions",
+                "pane": "grid",
+                "class": null,
+                "status": "all"
+              },
+              "usableLink": {
+                "tag": "A",
+                "id": "",
+                "href": "/teacher/sessions/ae71b8e0-54cb-416e-8f03-bac46347ae6e?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=questions&pane=grid&status=all&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb#attempt-1f16fd29-fa61-4166-85c8-c13197f1facb",
+                "visible": true,
+                "hitWithinFocusedElement": true,
+                "outline": "rgb(47, 138, 107) solid 3px",
+                "y": 47,
+                "ancestors": [
+                  {
+                    "tag": "DIV",
+                    "id": "",
+                    "className": "ap-table-scroll",
+                    "top": 0,
+                    "left": 0
+                  }
+                ]
+              }
+            },
+            {
+              "focus": {
+                "tag": "SECTION",
+                "id": "progress-main",
+                "href": null,
+                "visible": true,
+                "hitWithinFocusedElement": true,
+                "outline": "rgb(47, 138, 107) solid 3px",
+                "y": 47,
+                "ancestors": []
+              },
+              "selected": {
+                "assignment": "30000000-0000-4000-8000-000000000001",
+                "origin": "synthetic_fixture",
+                "student": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+                "concept": "transmission_delay",
+                "progressView": "questions",
+                "pane": "grid",
+                "class": null,
+                "status": "all"
+              },
+              "usableLink": {
+                "tag": "A",
+                "id": "",
+                "href": "/teacher/sessions/ae71b8e0-54cb-416e-8f03-bac46347ae6e?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=questions&pane=grid&status=all&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb#attempt-1f16fd29-fa61-4166-85c8-c13197f1facb",
+                "visible": true,
+                "hitWithinFocusedElement": true,
+                "outline": "rgb(47, 138, 107) solid 3px",
+                "y": 47,
+                "ancestors": [
+                  {
+                    "tag": "DIV",
+                    "id": "",
+                    "className": "ap-table-scroll",
+                    "top": 0,
+                    "left": 0
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "hashless native Back sessions 1440",
+        "status": "pass",
+        "details": {
+          "contract": "Hashless Questions/Sessions Back restores allowlisted progress-main. Exact response-row focus belongs to F1 Evidence and is not claimed.",
+          "navigation": "Bare library → real activated assignment row → real student/concept cell → real Progress view tab → real Evidence source GET form → rendered session link → native Back/Forward/Back",
+          "assignmentHref": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&status=all&view=progress&origin=all&progressView=grid",
+          "cellHref": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=all&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&status=all&progressView=grid&pane=details#cell-evidence",
+          "viewHref": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=all&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&status=all&progressView=sessions&pane=grid#progress-main",
+          "formAction": "/teacher/assignments",
+          "sourceURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&progressView=sessions&pane=grid&status=all&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&origin=synthetic_fixture",
+          "sessionURL": "http://127.0.0.1:3317/teacher/sessions/1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=sessions&pane=grid&status=all",
+          "before": {
+            "tag": "A",
+            "id": "",
+            "href": "/teacher/sessions/1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=sessions&pane=grid&status=all",
+            "visible": true,
+            "hitWithinFocusedElement": true,
+            "outline": "rgb(47, 138, 107) solid 3px",
+            "y": 32,
+            "ancestors": [
+              {
+                "tag": "DIV",
+                "id": "",
+                "className": "ap-table-scroll",
+                "top": 0,
+                "left": 0
+              }
+            ]
+          },
+          "restorations": [
+            {
+              "focus": {
+                "tag": "SECTION",
+                "id": "progress-main",
+                "href": null,
+                "visible": true,
+                "hitWithinFocusedElement": true,
+                "outline": "rgb(47, 138, 107) solid 3px",
+                "y": 32,
+                "ancestors": []
+              },
+              "selected": {
+                "assignment": "30000000-0000-4000-8000-000000000001",
+                "origin": "synthetic_fixture",
+                "student": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+                "concept": "transmission_delay",
+                "progressView": "sessions",
+                "pane": "grid",
+                "class": null,
+                "status": "all"
+              },
+              "usableLink": {
+                "tag": "A",
+                "id": "",
+                "href": "/teacher/sessions/df176a6c-85e0-4334-8dde-49fc4dd8a07f?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=sessions&pane=grid&status=all",
+                "visible": true,
+                "hitWithinFocusedElement": true,
+                "outline": "rgb(47, 138, 107) solid 3px",
+                "y": 32,
+                "ancestors": [
+                  {
+                    "tag": "DIV",
+                    "id": "",
+                    "className": "ap-table-scroll",
+                    "top": 0,
+                    "left": 0
+                  }
+                ]
+              }
+            },
+            {
+              "focus": {
+                "tag": "SECTION",
+                "id": "progress-main",
+                "href": null,
+                "visible": true,
+                "hitWithinFocusedElement": true,
+                "outline": "rgb(47, 138, 107) solid 3px",
+                "y": 32,
+                "ancestors": []
+              },
+              "selected": {
+                "assignment": "30000000-0000-4000-8000-000000000001",
+                "origin": "synthetic_fixture",
+                "student": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+                "concept": "transmission_delay",
+                "progressView": "sessions",
+                "pane": "grid",
+                "class": null,
+                "status": "all"
+              },
+              "usableLink": {
+                "tag": "A",
+                "id": "",
+                "href": "/teacher/sessions/df176a6c-85e0-4334-8dde-49fc4dd8a07f?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=sessions&pane=grid&status=all",
+                "visible": true,
+                "hitWithinFocusedElement": true,
+                "outline": "rgb(47, 138, 107) solid 3px",
+                "y": 32,
+                "ancestors": [
+                  {
+                    "tag": "DIV",
+                    "id": "",
+                    "className": "ap-table-scroll",
+                    "top": 0,
+                    "left": 0
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "C2 grid details 390",
+        "status": "pass",
+        "details": {
+          "beforeURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+          "sessionURL": "http://127.0.0.1:3317/teacher/sessions/129120b0-f584-41f0-8e58-c3e190941799?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all&attempt=6ed7c7b5-d419-42e2-861f-a2065c01dcf3#attempt-6ed7c7b5-d419-42e2-861f-a2065c01dcf3",
+          "sessionStudent": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+          "selectedStudent": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+          "rendered": {
+            "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence"
+          },
+          "beforeFocus": {
+            "tag": "A",
+            "id": "",
+            "href": "/teacher/sessions/129120b0-f584-41f0-8e58-c3e190941799?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all&attempt=6ed7c7b5-d419-42e2-861f-a2065c01dcf3#attempt-6ed7c7b5-d419-42e2-861f-a2065c01dcf3",
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "historyBackFocus": {
+            "tag": "ASIDE",
+            "id": "cell-evidence",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "returnedFocus": {
+            "tag": "ASIDE",
+            "id": "cell-evidence",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "sharedProgress": {
+            "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+            "returnedURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+            "focus": {
+              "tag": "ASIDE",
+              "id": "cell-evidence",
+              "href": null,
+              "controls": null,
+              "inDialog": false,
+              "visible": true,
+              "scrollY": 0
+            }
+          }
+        }
+      },
+      {
+        "name": "C2 questions grid 390",
+        "status": "pass",
+        "details": {
+          "beforeURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=questions&pane=grid&class=20000000-0000-4000-8000-000000000001&status=all#progress-main",
+          "sessionURL": "http://127.0.0.1:3317/teacher/sessions/ae71b8e0-54cb-416e-8f03-bac46347ae6e?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=questions&pane=grid&class=20000000-0000-4000-8000-000000000001&status=all&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb#attempt-1f16fd29-fa61-4166-85c8-c13197f1facb",
+          "sessionStudent": "5e4f7f43-86b4-433e-8e20-2274cdd0848f",
+          "selectedStudent": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+          "rendered": {
+            "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=questions&pane=grid&class=20000000-0000-4000-8000-000000000001&status=all#progress-main"
+          },
+          "beforeFocus": {
+            "tag": "A",
+            "id": "",
+            "href": "/teacher/sessions/ae71b8e0-54cb-416e-8f03-bac46347ae6e?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=questions&pane=grid&class=20000000-0000-4000-8000-000000000001&status=all&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb#attempt-1f16fd29-fa61-4166-85c8-c13197f1facb",
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 627
+          },
+          "historyBackFocus": {
+            "tag": "SECTION",
+            "id": "progress-main",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 34
+          },
+          "returnedFocus": {
+            "tag": "SECTION",
+            "id": "progress-main",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 34
+          }
+        }
+      },
+      {
+        "name": "C2 sessions grid 390",
+        "status": "pass",
+        "details": {
+          "beforeURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=sessions&pane=grid&class=20000000-0000-4000-8000-000000000001&status=all#progress-main",
+          "sessionURL": "http://127.0.0.1:3317/teacher/sessions/df176a6c-85e0-4334-8dde-49fc4dd8a07f?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=sessions&pane=grid&class=20000000-0000-4000-8000-000000000001&status=all",
+          "sessionStudent": "2335302f-0eae-4201-86b9-c4b844ef4ac8",
+          "selectedStudent": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+          "rendered": {
+            "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=sessions&pane=grid&class=20000000-0000-4000-8000-000000000001&status=all#progress-main"
+          },
+          "beforeFocus": {
+            "tag": "A",
+            "id": "",
+            "href": "/teacher/sessions/df176a6c-85e0-4334-8dde-49fc4dd8a07f?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=sessions&pane=grid&class=20000000-0000-4000-8000-000000000001&status=all",
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 608
+          },
+          "historyBackFocus": {
+            "tag": "SECTION",
+            "id": "progress-main",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 34
+          },
+          "returnedFocus": {
+            "tag": "SECTION",
+            "id": "progress-main",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 34
+          }
+        }
+      },
+      {
+        "name": "C2 concepts details 390",
+        "status": "pass",
+        "details": {
+          "beforeURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=concepts&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+          "sessionURL": "http://127.0.0.1:3317/teacher/sessions/129120b0-f584-41f0-8e58-c3e190941799?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=concepts&pane=details&class=20000000-0000-4000-8000-000000000001&status=all&attempt=6ed7c7b5-d419-42e2-861f-a2065c01dcf3#attempt-6ed7c7b5-d419-42e2-861f-a2065c01dcf3",
+          "sessionStudent": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+          "selectedStudent": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+          "rendered": {
+            "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=concepts&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence"
+          },
+          "beforeFocus": {
+            "tag": "A",
+            "id": "",
+            "href": "/teacher/sessions/129120b0-f584-41f0-8e58-c3e190941799?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=concepts&pane=details&class=20000000-0000-4000-8000-000000000001&status=all&attempt=6ed7c7b5-d419-42e2-861f-a2065c01dcf3#attempt-6ed7c7b5-d419-42e2-861f-a2065c01dcf3",
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "historyBackFocus": {
+            "tag": "ASIDE",
+            "id": "cell-evidence",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "returnedFocus": {
+            "tag": "ASIDE",
+            "id": "cell-evidence",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          }
+        }
+      },
+      {
+        "name": "hashless native Back questions 390",
+        "status": "pass",
+        "details": {
+          "contract": "Hashless Questions/Sessions Back restores allowlisted progress-main. Exact response-row focus belongs to F1 Evidence and is not claimed.",
+          "navigation": "Bare library → real activated assignment row → real student/concept cell → real Progress view tab → real Evidence source GET form → rendered session link → native Back/Forward/Back",
+          "assignmentHref": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&status=all&view=progress&origin=all&progressView=grid",
+          "cellHref": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=all&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&status=all&progressView=grid&pane=details#cell-evidence",
+          "viewHref": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=all&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&status=all&progressView=questions&pane=grid#progress-main",
+          "formAction": "/teacher/assignments",
+          "sourceURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&progressView=questions&pane=grid&status=all&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&origin=synthetic_fixture",
+          "sessionURL": "http://127.0.0.1:3317/teacher/sessions/3bc58bb5-0c79-4507-82c8-ee854302f155?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=questions&pane=grid&status=all&attempt=26f804d5-ac14-4529-8e7d-0e602d64775a#attempt-26f804d5-ac14-4529-8e7d-0e602d64775a",
+          "before": {
+            "tag": "A",
+            "id": "",
+            "href": "/teacher/sessions/3bc58bb5-0c79-4507-82c8-ee854302f155?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=questions&pane=grid&status=all&attempt=26f804d5-ac14-4529-8e7d-0e602d64775a#attempt-26f804d5-ac14-4529-8e7d-0e602d64775a",
+            "visible": true,
+            "hitWithinFocusedElement": true,
+            "outline": "rgb(47, 138, 107) solid 3px",
+            "y": 821,
+            "ancestors": [
+              {
+                "tag": "DIV",
+                "id": "",
+                "className": "ap-table-scroll",
+                "top": 0,
+                "left": 0
+              }
+            ]
+          },
+          "restorations": [
+            {
+              "focus": {
+                "tag": "SECTION",
+                "id": "progress-main",
+                "href": null,
+                "visible": true,
+                "hitWithinFocusedElement": true,
+                "outline": "rgb(47, 138, 107) solid 3px",
+                "y": 821,
+                "ancestors": []
+              },
+              "selected": {
+                "assignment": "30000000-0000-4000-8000-000000000001",
+                "origin": "synthetic_fixture",
+                "student": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+                "concept": "transmission_delay",
+                "progressView": "questions",
+                "pane": "grid",
+                "class": null,
+                "status": "all"
+              },
+              "usableLink": {
+                "tag": "A",
+                "id": "",
+                "href": "/teacher/sessions/ae71b8e0-54cb-416e-8f03-bac46347ae6e?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=questions&pane=grid&status=all&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb#attempt-1f16fd29-fa61-4166-85c8-c13197f1facb",
+                "visible": true,
+                "hitWithinFocusedElement": true,
+                "outline": "rgb(47, 138, 107) solid 3px",
+                "y": 627,
+                "ancestors": [
+                  {
+                    "tag": "DIV",
+                    "id": "",
+                    "className": "ap-table-scroll",
+                    "top": 0,
+                    "left": 0
+                  }
+                ]
+              }
+            },
+            {
+              "focus": {
+                "tag": "SECTION",
+                "id": "progress-main",
+                "href": null,
+                "visible": true,
+                "hitWithinFocusedElement": true,
+                "outline": "rgb(47, 138, 107) solid 3px",
+                "y": 627,
+                "ancestors": []
+              },
+              "selected": {
+                "assignment": "30000000-0000-4000-8000-000000000001",
+                "origin": "synthetic_fixture",
+                "student": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+                "concept": "transmission_delay",
+                "progressView": "questions",
+                "pane": "grid",
+                "class": null,
+                "status": "all"
+              },
+              "usableLink": {
+                "tag": "A",
+                "id": "",
+                "href": "/teacher/sessions/ae71b8e0-54cb-416e-8f03-bac46347ae6e?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=questions&pane=grid&status=all&attempt=1f16fd29-fa61-4166-85c8-c13197f1facb#attempt-1f16fd29-fa61-4166-85c8-c13197f1facb",
+                "visible": true,
+                "hitWithinFocusedElement": true,
+                "outline": "rgb(47, 138, 107) solid 3px",
+                "y": 627,
+                "ancestors": [
+                  {
+                    "tag": "DIV",
+                    "id": "",
+                    "className": "ap-table-scroll",
+                    "top": 0,
+                    "left": 0
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "hashless native Back sessions 390",
+        "status": "pass",
+        "details": {
+          "contract": "Hashless Questions/Sessions Back restores allowlisted progress-main. Exact response-row focus belongs to F1 Evidence and is not claimed.",
+          "navigation": "Bare library → real activated assignment row → real student/concept cell → real Progress view tab → real Evidence source GET form → rendered session link → native Back/Forward/Back",
+          "assignmentHref": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&status=all&view=progress&origin=all&progressView=grid",
+          "cellHref": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=all&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&status=all&progressView=grid&pane=details#cell-evidence",
+          "viewHref": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=all&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&status=all&progressView=sessions&pane=grid#progress-main",
+          "formAction": "/teacher/assignments",
+          "sourceURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&progressView=sessions&pane=grid&status=all&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&origin=synthetic_fixture",
+          "sessionURL": "http://127.0.0.1:3317/teacher/sessions/1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=sessions&pane=grid&status=all",
+          "before": {
+            "tag": "A",
+            "id": "",
+            "href": "/teacher/sessions/1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=sessions&pane=grid&status=all",
+            "visible": true,
+            "hitWithinFocusedElement": true,
+            "outline": "rgb(47, 138, 107) solid 3px",
+            "y": 788,
+            "ancestors": [
+              {
+                "tag": "DIV",
+                "id": "",
+                "className": "ap-table-scroll",
+                "top": 0,
+                "left": 0
+              }
+            ]
+          },
+          "restorations": [
+            {
+              "focus": {
+                "tag": "SECTION",
+                "id": "progress-main",
+                "href": null,
+                "visible": true,
+                "hitWithinFocusedElement": true,
+                "outline": "rgb(47, 138, 107) solid 3px",
+                "y": 788,
+                "ancestors": []
+              },
+              "selected": {
+                "assignment": "30000000-0000-4000-8000-000000000001",
+                "origin": "synthetic_fixture",
+                "student": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+                "concept": "transmission_delay",
+                "progressView": "sessions",
+                "pane": "grid",
+                "class": null,
+                "status": "all"
+              },
+              "usableLink": {
+                "tag": "A",
+                "id": "",
+                "href": "/teacher/sessions/df176a6c-85e0-4334-8dde-49fc4dd8a07f?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=sessions&pane=grid&status=all",
+                "visible": true,
+                "hitWithinFocusedElement": true,
+                "outline": "rgb(47, 138, 107) solid 3px",
+                "y": 608,
+                "ancestors": [
+                  {
+                    "tag": "DIV",
+                    "id": "",
+                    "className": "ap-table-scroll",
+                    "top": 0,
+                    "left": 0
+                  }
+                ]
+              }
+            },
+            {
+              "focus": {
+                "tag": "SECTION",
+                "id": "progress-main",
+                "href": null,
+                "visible": true,
+                "hitWithinFocusedElement": true,
+                "outline": "rgb(47, 138, 107) solid 3px",
+                "y": 608,
+                "ancestors": []
+              },
+              "selected": {
+                "assignment": "30000000-0000-4000-8000-000000000001",
+                "origin": "synthetic_fixture",
+                "student": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+                "concept": "transmission_delay",
+                "progressView": "sessions",
+                "pane": "grid",
+                "class": null,
+                "status": "all"
+              },
+              "usableLink": {
+                "tag": "A",
+                "id": "",
+                "href": "/teacher/sessions/df176a6c-85e0-4334-8dde-49fc4dd8a07f?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=sessions&pane=grid&status=all",
+                "visible": true,
+                "hitWithinFocusedElement": true,
+                "outline": "rgb(47, 138, 107) solid 3px",
+                "y": 608,
+                "ancestors": [
+                  {
+                    "tag": "DIV",
+                    "id": "",
+                    "className": "ap-table-scroll",
+                    "top": 0,
+                    "left": 0
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "focused authoring geometry and exact library tools",
+        "status": "fail",
+        "failure": {
+          "message": "TimeoutError: locator.click: Timeout 15000ms exceeded.",
+          "sha256": "104e40f65f720c1c46fd39fd1ac112be4bbfbe907e15184cf33e75b19574b062"
+        },
+        "details": {}
+      },
+      {
+        "name": "actual objective unsaved pane reload Back recovery",
+        "status": "pass",
+        "details": {
+          "lesson": "0bff1f7e-7c75-405c-adb8-55033477d785",
+          "serverSnapshotSha256": "d0702cde446f705a27adf5117be052a5e6e8d0ab352f9926b6bdd10e155962d8",
+          "paneReloadAndBackPreserved": true
+        }
+      },
+      {
+        "name": "actual objective unsaved guard cancels switcher navigation",
+        "status": "pass",
+        "details": {
+          "lesson": "0bff1f7e-7c75-405c-adb8-55033477d785",
+          "confirmation": {
+            "type": "confirm",
+            "message": {
+              "message": "This browser cannot keep a recovery copy. Leave and discard your unsaved objective edits?",
+              "sha256": "ef7eb317d82ea26bfca75a5b744c92070c38cfb880d96d505983fc2d38dcd616"
+            }
+          },
+          "retainedURL": "http://127.0.0.1:3317/teacher/objectives/0bff1f7e-7c75-405c-adb8-55033477d785",
+          "modalClosed": true,
+          "editorFocusable": true,
+          "serverSnapshotSha256": "d0702cde446f705a27adf5117be052a5e6e8d0ab352f9926b6bdd10e155962d8"
+        }
+      },
+      {
+        "name": "native browser zoom 200 percent",
+        "status": "pass",
+        "details": {
+          "method": "native browser profile preference",
+          "normal": {
+            "innerWidth": 1416,
+            "innerHeight": 908,
+            "outerWidth": 1440,
+            "outerHeight": 1000,
+            "dpr": 1,
+            "visualViewportScale": 1,
+            "rootZoom": "1",
+            "scrollWidth": 1416
+          },
+          "zoom": {
+            "innerWidth": 708,
+            "innerHeight": 454,
+            "outerWidth": 1440,
+            "outerHeight": 1000,
+            "dpr": 2,
+            "visualViewportScale": 1,
+            "rootZoom": "1",
+            "scrollWidth": 708
+          },
+          "journey": {
+            "beforeURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+            "sessionURL": "http://127.0.0.1:3317/teacher/sessions/129120b0-f584-41f0-8e58-c3e190941799?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all&attempt=6ed7c7b5-d419-42e2-861f-a2065c01dcf3#attempt-6ed7c7b5-d419-42e2-861f-a2065c01dcf3",
+            "sessionStudent": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+            "selectedStudent": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+            "rendered": {
+              "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence"
+            },
+            "beforeFocus": {
+              "tag": "A",
+              "id": "",
+              "href": "/teacher/sessions/129120b0-f584-41f0-8e58-c3e190941799?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all&attempt=6ed7c7b5-d419-42e2-861f-a2065c01dcf3#attempt-6ed7c7b5-d419-42e2-861f-a2065c01dcf3",
+              "controls": null,
+              "inDialog": false,
+              "visible": true,
+              "scrollY": 34
+            },
+            "historyBackFocus": {
+              "tag": "ASIDE",
+              "id": "cell-evidence",
+              "href": null,
+              "controls": null,
+              "inDialog": false,
+              "visible": true,
+              "scrollY": 34
+            },
+            "returnedFocus": {
+              "tag": "ASIDE",
+              "id": "cell-evidence",
+              "href": null,
+              "controls": null,
+              "inDialog": false,
+              "visible": true,
+              "scrollY": 34
+            }
+          }
+        }
+      },
+      {
+        "name": "read-only evidence receipts unchanged",
+        "status": "pass",
+        "details": {
+          "sessionCount": 5
+        }
+      },
+      {
+        "name": "no browser errors or mutation attempts",
+        "status": "pass",
+        "details": {
+          "blockedRequests": 0
+        }
+      }
+    ],
+    "continuationOf": "run-b8d0eb55-01: preserved failed report; active visible-shell selector correction and real desktop entry points; original 26 component pass referenced, not rerun.",
+    "selectedCaseNames": null,
+    "notExecutedCaseNames": null,
+    "errors": [],
+    "fatal": null,
+    "native200Verified": true,
+    "nativePreferenceObservation": null,
+    "limitations": [
+      "No paid calls or model-behavior claim",
+      "F1 Evidence row ownership is Agent A; this suite does not claim its acceptance",
+      "No comprehensive WCAG or screen-reader claim"
+    ],
+    "blockedRequests": [],
+    "evidenceHashes": [
+      {
+        "session": "129120b0-f584-41f0-8e58-c3e190941799",
+        "before": "4e3f1db58891a90289686072b92b39f5ff0f9dfe5287e2ea21a6b3bd73ceca93",
+        "after": "4e3f1db58891a90289686072b92b39f5ff0f9dfe5287e2ea21a6b3bd73ceca93",
+        "unchanged": true
+      },
+      {
+        "session": "ae71b8e0-54cb-416e-8f03-bac46347ae6e",
+        "before": "e38751ee685e604b9db215804e77b721145d8fbbc63b51fce1421e32099b6a45",
+        "after": "e38751ee685e604b9db215804e77b721145d8fbbc63b51fce1421e32099b6a45",
+        "unchanged": true
+      },
+      {
+        "session": "df176a6c-85e0-4334-8dde-49fc4dd8a07f",
+        "before": "638b47013abc680ebe1130017dee7e5f7080845db9d3abba501d88ed420d9b2e",
+        "after": "638b47013abc680ebe1130017dee7e5f7080845db9d3abba501d88ed420d9b2e",
+        "unchanged": true
+      },
+      {
+        "session": "3bc58bb5-0c79-4507-82c8-ee854302f155",
+        "before": "5248e858e6a129703d4880b9f7d043cc4d7ad8a68d24468bc65f831e0f3d3b9b",
+        "after": "5248e858e6a129703d4880b9f7d043cc4d7ad8a68d24468bc65f831e0f3d3b9b",
+        "unchanged": true
+      },
+      {
+        "session": "1f5bda19-cc63-4dbc-8bb3-0f86bc9402b9",
+        "before": "bb551013d99f555b8a119949a861a13b30308c138b6d5057dccccb4a44a3cef0",
+        "after": "bb551013d99f555b8a119949a861a13b30308c138b6d5057dccccb4a44a3cef0",
+        "unchanged": true
+      }
+    ]
+  },
+  "continuations": [
+    {
+      "role": "bounded same-source continuation",
+      "label": "run-b8d0eb55-03-geometry",
+      "reportSha256": "1d8999fcb206f63394ba3f84c971f2a7becc083ffc9151180b37f1737f69638b",
+      "category": "Actual combined runtime navigation; synthetic fixtures; GET/HEAD after one login per isolated browser",
+      "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "sourceTree": "466b42f5b70a33400115d9df5f876f65f3d9289f",
+      "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "buildSourceTree": "466b42f5b70a33400115d9df5f876f65f3d9289f",
+      "applicationBuildReused": false,
+      "buildDiffPaths": [],
+      "readinessBuildId": "c3-z5ci6U8BgOEWk6IZj8",
+      "harnessSha256": "8ae14e52f9e746e6115549bc6a1578573840e0d1648e2a3ea47b11336913a75a",
+      "readinessReceiptSha256": "702abbf96c3c803dd492fe06c9a83b247143eb00c3328b26b591259db0d30199",
+      "reportedEquivalenceEvidence": {
+        "buildDiffPaths": []
+      },
+      "origin": "http://127.0.0.1:3317/",
+      "startedAt": "2026-10-25T14:47:07.593Z",
+      "finishedAt": "2026-10-25T14:47:12.842Z",
+      "status": "pass",
+      "counts": {
+        "pass": 2
+      },
+      "cases": [
+        {
+          "name": "focused authoring geometry and exact library tools",
+          "status": "pass",
+          "details": {
+            "measurements": [
+              {
+                "width": 1440,
+                "height": 1000,
+                "authoringMode": "focused",
+                "headerHeight": 58,
+                "pathHeight": 45,
+                "pathDisplay": "flex",
+                "contentTop": 103,
+                "authoringTop": 103,
+                "bottomPosition": "static",
+                "bottomLabel": "Course workspace mobile",
+                "bottomBottom": 0,
+                "bottomVisible": false,
+                "bottomLinks": ["Overview", "Assignments", "Lessons"]
+              },
+              {
+                "width": 1024,
+                "height": 768,
+                "authoringMode": "focused",
+                "headerHeight": 58,
+                "pathHeight": 45,
+                "pathDisplay": "flex",
+                "contentTop": 103,
+                "authoringTop": 103,
+                "bottomPosition": "static",
+                "bottomLabel": "Course workspace mobile",
+                "bottomBottom": 0,
+                "bottomVisible": false,
+                "bottomLinks": ["Overview", "Assignments", "Lessons"]
+              },
+              {
+                "width": 390,
+                "height": 844,
+                "authoringMode": "focused",
+                "headerHeight": 57,
+                "pathHeight": 0,
+                "pathDisplay": "none",
+                "contentTop": 57,
+                "authoringTop": 57,
+                "bottomPosition": "fixed",
+                "bottomLabel": "Course workspace mobile",
+                "bottomBottom": 844,
+                "bottomVisible": true,
+                "bottomLinks": ["Overview", "Assignments", "Lessons"]
+              },
+              {
+                "width": 320,
+                "height": 844,
+                "authoringMode": "focused",
+                "headerHeight": 57,
+                "pathHeight": 0,
+                "pathDisplay": "none",
+                "contentTop": 57,
+                "authoringTop": 57,
+                "bottomPosition": "fixed",
+                "bottomLabel": "Course workspace mobile",
+                "bottomBottom": 844,
+                "bottomVisible": true,
+                "bottomLinks": ["Overview", "Assignments", "Lessons"]
+              }
+            ],
+            "libraries": [
+              {
+                "width": 1440,
+                "path": "/teacher/lessons",
+                "links": [
+                  {
+                    "href": "/teacher/lessons"
+                  },
+                  {
+                    "href": "/teacher/materials"
+                  },
+                  {
+                    "href": "/teacher/objectives"
+                  }
+                ]
+              },
+              {
+                "width": 1440,
+                "path": "/teacher/materials",
+                "links": [
+                  {
+                    "href": "/teacher/lessons"
+                  },
+                  {
+                    "href": "/teacher/materials"
+                  },
+                  {
+                    "href": "/teacher/objectives"
+                  }
+                ]
+              },
+              {
+                "width": 1440,
+                "path": "/teacher/objectives",
+                "links": [
+                  {
+                    "href": "/teacher/lessons"
+                  },
+                  {
+                    "href": "/teacher/materials"
+                  },
+                  {
+                    "href": "/teacher/objectives"
+                  }
+                ]
+              },
+              {
+                "width": 390,
+                "path": "/teacher/lessons",
+                "links": [
+                  {
+                    "href": "/teacher/lessons"
+                  },
+                  {
+                    "href": "/teacher/materials"
+                  },
+                  {
+                    "href": "/teacher/objectives"
+                  }
+                ]
+              },
+              {
+                "width": 390,
+                "path": "/teacher/materials",
+                "links": [
+                  {
+                    "href": "/teacher/lessons"
+                  },
+                  {
+                    "href": "/teacher/materials"
+                  },
+                  {
+                    "href": "/teacher/objectives"
+                  }
+                ]
+              },
+              {
+                "width": 390,
+                "path": "/teacher/objectives",
+                "links": [
+                  {
+                    "href": "/teacher/lessons"
+                  },
+                  {
+                    "href": "/teacher/materials"
+                  },
+                  {
+                    "href": "/teacher/objectives"
+                  }
+                ]
+              }
+            ],
+            "ordinaryBackLinkKeyboardNavigation": true,
+            "detailedVisualOwner": "Agent E"
+          }
+        },
+        {
+          "name": "no browser errors or mutation attempts",
+          "status": "pass",
+          "details": {
+            "blockedRequests": 0
+          }
+        }
+      ],
+      "continuationOf": "run-b8d0eb55-02: bounded authoring geometry retry after correcting desktop mobile-only Editor-button assumption; all prior reports preserved; 1024 Escape defect is not rerun or hidden.",
+      "selectedCaseNames": [
+        "focused authoring geometry and exact library tools",
+        "no browser errors or mutation attempts"
+      ],
+      "notExecutedCaseNames": [
+        "authorized fixture classes are distinct",
+        "S1 discovery 1440",
+        "scope and keyboard 1440",
+        "direct URL Back Forward 1440",
+        "S1 discovery 1024",
+        "scope and keyboard 1024",
+        "direct URL Back Forward 1024",
+        "S1 discovery 390",
+        "scope and keyboard 390",
+        "direct URL Back Forward 390",
+        "S1 discovery 320",
+        "scope and keyboard 320",
+        "direct URL Back Forward 320",
+        "C2 grid details 1440",
+        "C2 questions grid 1440",
+        "C2 sessions grid 1440",
+        "C2 concepts details 1440",
+        "hashless native Back questions 1440",
+        "hashless native Back sessions 1440",
+        "C2 grid details 390",
+        "C2 questions grid 390",
+        "C2 sessions grid 390",
+        "C2 concepts details 390",
+        "hashless native Back questions 390",
+        "hashless native Back sessions 390",
+        "actual objective unsaved pane reload Back recovery",
+        "actual objective unsaved guard cancels switcher navigation",
+        "native browser zoom 200 percent",
+        "read-only evidence receipts unchanged"
+      ],
+      "errors": [],
+      "fatal": null,
+      "native200Verified": false,
+      "nativePreferenceObservation": null,
+      "limitations": [
+        "No paid calls or model-behavior claim",
+        "F1 Evidence row ownership is Agent A; this suite does not claim its acceptance",
+        "No comprehensive WCAG or screen-reader claim"
+      ],
+      "blockedRequests": [],
+      "evidenceHashes": []
+    }
+  ],
+  "focused": {
+    "role": "focused final application retest",
+    "label": "actual-app",
+    "reportSha256": "28faab2c4cec7789dbabfa62eb45fed4adb730bb4db54b97043c741571778ff5",
+    "category": "Actual combined runtime navigation; synthetic fixtures; GET/HEAD after one login per isolated browser",
+    "sourceSha": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+    "sourceTree": "fff9c0716e85702e5d205c15766a4cfb6d7f9423",
+    "buildSourceSha": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+    "buildSourceTree": "fff9c0716e85702e5d205c15766a4cfb6d7f9423",
+    "applicationBuildReused": false,
+    "buildDiffPaths": [],
+    "readinessBuildId": "64b_tEa9pg31ghh0nCWvq",
+    "harnessSha256": "baa305ef1db4d5ba6070c9cae349f40b0dbbd479377ae82e1f011424e3eb826c",
+    "readinessReceiptSha256": "7be771a37373fbea28825f5a2574d2ad0099d88cb203816d45e21de9f5eee244",
+    "reportedEquivalenceEvidence": {
+      "buildDiffPaths": []
+    },
+    "origin": "http://127.0.0.1:3317/",
+    "startedAt": "2026-10-25T15:27:08.740Z",
+    "finishedAt": "2026-10-25T15:27:14.983Z",
+    "status": "pass",
+    "counts": {
+      "pass": 8
+    },
+    "cases": [
+      {
+        "name": "targeted switcher Escape 1440",
+        "status": "pass",
+        "details": {
+          "sourceURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+          "afterURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+          "beforeFocus": {
+            "tag": "BUTTON",
+            "id": "",
+            "href": null,
+            "controls": "teacher-workspace-switcher",
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "sequence": [
+            {
+              "tag": "A",
+              "id": "",
+              "href": "/teacher?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture",
+              "controls": null,
+              "inDialog": true,
+              "visible": true,
+              "scrollY": 0
+            },
+            {
+              "tag": "BUTTON",
+              "id": "",
+              "href": null,
+              "controls": null,
+              "inDialog": true,
+              "visible": true,
+              "scrollY": 0
+            }
+          ],
+          "afterFocus": {
+            "tag": "BUTTON",
+            "id": "",
+            "href": null,
+            "controls": "teacher-workspace-switcher",
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "underlyingPane": "details"
+        }
+      },
+      {
+        "name": "targeted switcher Escape 1024",
+        "status": "pass",
+        "details": {
+          "sourceURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+          "afterURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+          "beforeFocus": {
+            "tag": "BUTTON",
+            "id": "",
+            "href": null,
+            "controls": "teacher-workspace-switcher",
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "sequence": [
+            {
+              "tag": "A",
+              "id": "",
+              "href": "/teacher?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture",
+              "controls": null,
+              "inDialog": true,
+              "visible": true,
+              "scrollY": 0
+            },
+            {
+              "tag": "BUTTON",
+              "id": "",
+              "href": null,
+              "controls": null,
+              "inDialog": true,
+              "visible": true,
+              "scrollY": 0
+            }
+          ],
+          "afterFocus": {
+            "tag": "BUTTON",
+            "id": "",
+            "href": null,
+            "controls": "teacher-workspace-switcher",
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "underlyingPane": "details"
+        }
+      },
+      {
+        "name": "targeted switcher Escape 390",
+        "status": "pass",
+        "details": {
+          "sourceURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+          "afterURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+          "beforeFocus": {
+            "tag": "BUTTON",
+            "id": "",
+            "href": null,
+            "controls": "teacher-workspace-switcher",
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "sequence": [
+            {
+              "tag": "A",
+              "id": "",
+              "href": "/teacher?assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture",
+              "controls": null,
+              "inDialog": true,
+              "visible": true,
+              "scrollY": 0
+            },
+            {
+              "tag": "BUTTON",
+              "id": "",
+              "href": null,
+              "controls": null,
+              "inDialog": true,
+              "visible": true,
+              "scrollY": 0
+            }
+          ],
+          "afterFocus": {
+            "tag": "BUTTON",
+            "id": "",
+            "href": null,
+            "controls": "teacher-workspace-switcher",
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "underlyingPane": "details"
+        }
+      },
+      {
+        "name": "targeted Details Escape 320",
+        "status": "pass",
+        "details": {
+          "beforeURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+          "afterURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&class=20000000-0000-4000-8000-000000000001&status=all&progressView=grid&pane=grid#ap-selection-4b8c3f34-49fa-4b25-867d-8546beab0085-transmission_delay",
+          "restoredTarget": "ap-selection-4b8c3f34-49fa-4b25-867d-8546beab0085-transmission_delay",
+          "afterFocus": {
+            "tag": "A",
+            "id": "ap-selection-4b8c3f34-49fa-4b25-867d-8546beab0085-transmission_delay",
+            "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&class=20000000-0000-4000-8000-000000000001&status=all&progressView=grid&pane=details#cell-evidence",
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 589
+          }
+        }
+      },
+      {
+        "name": "targeted Details Escape 1024",
+        "status": "pass",
+        "details": {
+          "beforeURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+          "afterURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&class=20000000-0000-4000-8000-000000000001&status=all&progressView=grid&pane=grid#ap-selection-4b8c3f34-49fa-4b25-867d-8546beab0085-transmission_delay",
+          "restoredTarget": "ap-selection-4b8c3f34-49fa-4b25-867d-8546beab0085-transmission_delay",
+          "afterFocus": {
+            "tag": "A",
+            "id": "ap-selection-4b8c3f34-49fa-4b25-867d-8546beab0085-transmission_delay",
+            "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&class=20000000-0000-4000-8000-000000000001&status=all&progressView=grid&pane=details#cell-evidence",
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 238
+          }
+        }
+      },
+      {
+        "name": "C2 grid details 390",
+        "status": "pass",
+        "details": {
+          "beforeURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+          "sessionURL": "http://127.0.0.1:3317/teacher/sessions/129120b0-f584-41f0-8e58-c3e190941799?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all&attempt=6ed7c7b5-d419-42e2-861f-a2065c01dcf3#attempt-6ed7c7b5-d419-42e2-861f-a2065c01dcf3",
+          "sessionStudent": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+          "selectedStudent": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+          "rendered": {
+            "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence"
+          },
+          "beforeFocus": {
+            "tag": "A",
+            "id": "",
+            "href": "/teacher/sessions/129120b0-f584-41f0-8e58-c3e190941799?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all&attempt=6ed7c7b5-d419-42e2-861f-a2065c01dcf3#attempt-6ed7c7b5-d419-42e2-861f-a2065c01dcf3",
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "historyBackFocus": {
+            "tag": "ASIDE",
+            "id": "cell-evidence",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "returnedFocus": {
+            "tag": "ASIDE",
+            "id": "cell-evidence",
+            "href": null,
+            "controls": null,
+            "inDialog": false,
+            "visible": true,
+            "scrollY": 0
+          },
+          "sharedProgress": {
+            "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+            "returnedURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+            "focus": {
+              "tag": "ASIDE",
+              "id": "cell-evidence",
+              "href": null,
+              "controls": null,
+              "inDialog": false,
+              "visible": true,
+              "scrollY": 0
+            }
+          }
+        }
+      },
+      {
+        "name": "read-only evidence receipts unchanged",
+        "status": "pass",
+        "details": {
+          "sessionCount": 1
+        }
+      },
+      {
+        "name": "no browser errors or mutation attempts",
+        "status": "pass",
+        "details": {
+          "blockedRequests": 0
+        }
+      }
+    ],
+    "continuationOf": "Bounded final Escape integration retest and one C2 journey. Historical b8d0eb55 full-suite reports and component receipt remain separately attributed; no full suite repetition.",
+    "selectedCaseNames": [
+      "targeted switcher Escape 1440",
+      "targeted switcher Escape 1024",
+      "targeted switcher Escape 390",
+      "targeted Details Escape 320",
+      "targeted Details Escape 1024",
+      "C2 grid details 390",
+      "read-only evidence receipts unchanged",
+      "no browser errors or mutation attempts"
+    ],
+    "notExecutedCaseNames": [
+      "authorized fixture classes are distinct",
+      "S1 discovery 1440",
+      "scope and keyboard 1440",
+      "direct URL Back Forward 1440",
+      "S1 discovery 1024",
+      "scope and keyboard 1024",
+      "direct URL Back Forward 1024",
+      "S1 discovery 390",
+      "scope and keyboard 390",
+      "direct URL Back Forward 390",
+      "S1 discovery 320",
+      "scope and keyboard 320",
+      "direct URL Back Forward 320",
+      "C2 grid details 1440",
+      "C2 questions grid 1440",
+      "C2 sessions grid 1440",
+      "C2 concepts details 1440",
+      "hashless native Back questions 1440",
+      "hashless native Back sessions 1440",
+      "C2 questions grid 390",
+      "C2 sessions grid 390",
+      "C2 concepts details 390",
+      "hashless native Back questions 390",
+      "hashless native Back sessions 390",
+      "focused authoring geometry and exact library tools",
+      "actual objective unsaved pane reload Back recovery",
+      "actual objective unsaved guard cancels switcher navigation",
+      "native browser zoom 200 percent"
+    ],
+    "errors": [],
+    "fatal": null,
+    "native200Verified": false,
+    "nativePreferenceObservation": null,
+    "limitations": [
+      "No paid calls or model-behavior claim",
+      "F1 Evidence row ownership is Agent A; this suite does not claim its acceptance",
+      "No comprehensive WCAG or screen-reader claim"
+    ],
+    "blockedRequests": [],
+    "evidenceHashes": [
+      {
+        "session": "129120b0-f584-41f0-8e58-c3e190941799",
+        "before": "4e3f1db58891a90289686072b92b39f5ff0f9dfe5287e2ea21a6b3bd73ceca93",
+        "after": "4e3f1db58891a90289686072b92b39f5ff0f9dfe5287e2ea21a6b3bd73ceca93",
+        "unchanged": true
+      }
+    ],
+    "expectedCases": 8,
+    "expectedCaseNames": [
+      "targeted switcher Escape 1440",
+      "targeted switcher Escape 1024",
+      "targeted switcher Escape 390",
+      "targeted Details Escape 320",
+      "targeted Details Escape 1024",
+      "C2 grid details 390",
+      "read-only evidence receipts unchanged",
+      "no browser errors or mutation attempts"
+    ],
+    "notRecordedExpectedCaseNames": [],
+    "note": "Bounded final-source application retest. These cases do not establish a full suite rerun on this source."
+  },
+  "switcherComponents": {
+    "category": "Actual shared TeacherWorkspace and CSS, isolated page-owned broad Escape fixture; Next hooks, data and ancillary components mocked",
+    "status": "pass",
+    "expectedCases": 6,
+    "cases": [
+      {
+        "name": "production-1440x1000",
+        "status": "pass",
+        "details": {
+          "mode": "production",
+          "width": 1440,
+          "height": 1000,
+          "urlBefore": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=details&reactMode=production",
+          "urlAfterPageEscape": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=grid&reactMode=production",
+          "modalEscape": {
+            "pageEscapes": 0,
+            "registrations": 1,
+            "activePageHandlers": 1,
+            "nativeCancels": 1,
+            "cancelDefaultPrevented": false
+          },
+          "outsideEscape": {
+            "pageEscapes": 1,
+            "registrations": 1,
+            "activePageHandlers": 1,
+            "nativeCancels": 1,
+            "cancelDefaultPrevented": false
+          },
+          "assertions": [
+            "Native dialog closes",
+            "Opener regains focus",
+            "URL and page pane unchanged by modal Escape",
+            "Broad page handler receives no modal Escape",
+            "Escape outside modal still reaches page handler"
+          ]
+        }
+      },
+      {
+        "name": "production-1024x768",
+        "status": "pass",
+        "details": {
+          "mode": "production",
+          "width": 1024,
+          "height": 768,
+          "urlBefore": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=details&reactMode=production",
+          "urlAfterPageEscape": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=grid&reactMode=production",
+          "modalEscape": {
+            "pageEscapes": 0,
+            "registrations": 1,
+            "activePageHandlers": 1,
+            "nativeCancels": 1,
+            "cancelDefaultPrevented": false
+          },
+          "outsideEscape": {
+            "pageEscapes": 1,
+            "registrations": 1,
+            "activePageHandlers": 1,
+            "nativeCancels": 1,
+            "cancelDefaultPrevented": false
+          },
+          "assertions": [
+            "Native dialog closes",
+            "Opener regains focus",
+            "URL and page pane unchanged by modal Escape",
+            "Broad page handler receives no modal Escape",
+            "Escape outside modal still reaches page handler"
+          ]
+        }
+      },
+      {
+        "name": "production-390x844",
+        "status": "pass",
+        "details": {
+          "mode": "production",
+          "width": 390,
+          "height": 844,
+          "urlBefore": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=details&reactMode=production",
+          "urlAfterPageEscape": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=grid&reactMode=production",
+          "modalEscape": {
+            "pageEscapes": 0,
+            "registrations": 1,
+            "activePageHandlers": 1,
+            "nativeCancels": 1,
+            "cancelDefaultPrevented": false
+          },
+          "outsideEscape": {
+            "pageEscapes": 1,
+            "registrations": 1,
+            "activePageHandlers": 1,
+            "nativeCancels": 1,
+            "cancelDefaultPrevented": false
+          },
+          "assertions": [
+            "Native dialog closes",
+            "Opener regains focus",
+            "URL and page pane unchanged by modal Escape",
+            "Broad page handler receives no modal Escape",
+            "Escape outside modal still reaches page handler"
+          ]
+        }
+      },
+      {
+        "name": "development-1440x1000",
+        "status": "pass",
+        "details": {
+          "mode": "development",
+          "width": 1440,
+          "height": 1000,
+          "urlBefore": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=details&reactMode=development",
+          "urlAfterPageEscape": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=grid&reactMode=development",
+          "modalEscape": {
+            "pageEscapes": 0,
+            "registrations": 2,
+            "activePageHandlers": 1,
+            "nativeCancels": 1,
+            "cancelDefaultPrevented": false
+          },
+          "outsideEscape": {
+            "pageEscapes": 1,
+            "registrations": 2,
+            "activePageHandlers": 1,
+            "nativeCancels": 1,
+            "cancelDefaultPrevented": false
+          },
+          "assertions": [
+            "Native dialog closes",
+            "Opener regains focus",
+            "URL and page pane unchanged by modal Escape",
+            "Broad page handler receives no modal Escape",
+            "Escape outside modal still reaches page handler"
+          ]
+        }
+      },
+      {
+        "name": "development-1024x768",
+        "status": "pass",
+        "details": {
+          "mode": "development",
+          "width": 1024,
+          "height": 768,
+          "urlBefore": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=details&reactMode=development",
+          "urlAfterPageEscape": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=grid&reactMode=development",
+          "modalEscape": {
+            "pageEscapes": 0,
+            "registrations": 2,
+            "activePageHandlers": 1,
+            "nativeCancels": 1,
+            "cancelDefaultPrevented": false
+          },
+          "outsideEscape": {
+            "pageEscapes": 1,
+            "registrations": 2,
+            "activePageHandlers": 1,
+            "nativeCancels": 1,
+            "cancelDefaultPrevented": false
+          },
+          "assertions": [
+            "Native dialog closes",
+            "Opener regains focus",
+            "URL and page pane unchanged by modal Escape",
+            "Broad page handler receives no modal Escape",
+            "Escape outside modal still reaches page handler"
+          ]
+        }
+      },
+      {
+        "name": "development-390x844",
+        "status": "pass",
+        "details": {
+          "mode": "development",
+          "width": 390,
+          "height": 844,
+          "urlBefore": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=details&reactMode=development",
+          "urlAfterPageEscape": "http://127.0.0.1:60470/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&pane=grid&reactMode=development",
+          "modalEscape": {
+            "pageEscapes": 0,
+            "registrations": 2,
+            "activePageHandlers": 1,
+            "nativeCancels": 1,
+            "cancelDefaultPrevented": false
+          },
+          "outsideEscape": {
+            "pageEscapes": 1,
+            "registrations": 2,
+            "activePageHandlers": 1,
+            "nativeCancels": 1,
+            "cancelDefaultPrevented": false
+          },
+          "assertions": [
+            "Native dialog closes",
+            "Opener regains focus",
+            "URL and page pane unchanged by modal Escape",
+            "Broad page handler receives no modal Escape",
+            "Escape outside modal still reaches page handler"
+          ]
+        }
+      }
+    ],
+    "counts": {
+      "pass": 6
+    },
+    "reportSha256": "5b3f4b2a249e81e0a81c978e037cfeb262e7bc819f659c8f0308cefa920db802",
+    "sourceSha": "",
+    "sourceTree": "",
+    "buildSourceSha": "",
+    "buildSourceTree": "",
+    "applicationBuildReused": null,
+    "buildDiffPaths": null,
+    "readinessBuildId": "",
+    "harnessSha256": "dcdef299036690af3f84330593c61600548c0a35741b65d24d85fc8231ea512f",
+    "readinessReceiptSha256": "",
+    "reportedEquivalenceEvidence": {},
+    "sourceHashes": {
+      "app/teacher/navigation.tsx": "11994a3679ca521672ffb1ae8acf6afc3de2b2ee60d7d38def3afe21ef904907",
+      "app/teacher/workspace-shell.css": "2c789fac6ef9694d507bed347dc1a59776f78712fa1ff9e70d88d1ace0f44918"
+    },
+    "reactVersion": "19.3.0",
+    "reactRoot": "document",
+    "strictMode": true,
+    "startedAt": "2026-10-25T15:28:38.744Z",
+    "finishedAt": "2026-10-25T15:28:41.176Z",
+    "errors": [],
+    "fatal": null,
+    "limitations": [
+      "Component regression, not application or database verification",
+      "No document capture listener is modeled; the conflicting page listener deliberately runs in document bubble phase"
+    ],
+    "executionNote": "Separate isolated component execution: actual shared component, document React root, mocked Next hooks and deliberate broad page Escape handler. No application or database verification is implied. Source file hashes are retained; no unreported Git commit is inferred."
+  },
+  "consolidation": {
+    "overallAllPassInferred": false,
+    "note": "Historical application results, the final eight-case application retest, 26 earlier restoration component cases, and six switcher component cases are separate evidence sets. No later limited retest relabels the original b8d0eb55 application run as all-pass.",
+    "historicalApplication": {
+      "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "originalStatus": "fail",
+      "originalCounts": {
+        "pass": 29,
+        "fail": 2
+      },
+      "afterExplicitGeometrySupersessionCounts": {
+        "pass": 30,
+        "fail": 1
+      },
+      "recordedCaseCount": 31,
+      "caseResults": [
+        {
+          "name": "authorized fixture classes are distinct",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "S1 discovery 1440",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "scope and keyboard 1440",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "direct URL Back Forward 1440",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "S1 discovery 1024",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "scope and keyboard 1024",
+          "originalStatus": "fail",
+          "status": "fail",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "direct URL Back Forward 1024",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "S1 discovery 390",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "scope and keyboard 390",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "direct URL Back Forward 390",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "S1 discovery 320",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "scope and keyboard 320",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "direct URL Back Forward 320",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "C2 grid details 1440",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "C2 questions grid 1440",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "C2 sessions grid 1440",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "C2 concepts details 1440",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "hashless native Back questions 1440",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "hashless native Back sessions 1440",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "C2 grid details 390",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "C2 questions grid 390",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "C2 sessions grid 390",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "C2 concepts details 390",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "hashless native Back questions 390",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "hashless native Back sessions 390",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "focused authoring geometry and exact library tools",
+          "originalStatus": "fail",
+          "status": "pass",
+          "reportSha256": "1d8999fcb206f63394ba3f84c971f2a7becc083ffc9151180b37f1737f69638b"
+        },
+        {
+          "name": "actual objective unsaved pane reload Back recovery",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "actual objective unsaved guard cancels switcher navigation",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "native browser zoom 200 percent",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "read-only evidence receipts unchanged",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        },
+        {
+          "name": "no browser errors or mutation attempts",
+          "originalStatus": "pass",
+          "status": "pass",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        }
+      ],
+      "remainingNonPass": [
+        {
+          "name": "scope and keyboard 1024",
+          "originalStatus": "fail",
+          "status": "fail",
+          "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9"
+        }
+      ]
+    },
+    "supersessions": [
+      {
+        "kind": "exact historical case only",
+        "caseName": "focused authoring geometry and exact library tools",
+        "fromReportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9",
+        "fromStatus": "fail",
+        "toReportSha256": "1d8999fcb206f63394ba3f84c971f2a7becc083ffc9151180b37f1737f69638b",
+        "toStatus": "pass",
+        "reason": "run-b8d0eb55-02: bounded authoring geometry retry after correcting desktop mobile-only Editor-button assumption; all prior reports preserved; 1024 Escape defect is not rerun or hidden.",
+        "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+        "harnessSha256": "8ae14e52f9e746e6115549bc6a1578573840e0d1648e2a3ea47b11336913a75a"
+      }
+    ],
+    "finalEscapeFollowUp": {
+      "status": "pass",
+      "originalCaseName": "scope and keyboard 1024",
+      "originalReportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9",
+      "targetedCaseName": "targeted switcher Escape 1024",
+      "targetedReportSha256": "28faab2c4cec7789dbabfa62eb45fed4adb730bb4db54b97043c741571778ff5",
+      "targetedSourceSha": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+      "note": "A later targeted Escape case addresses the observed defect; it does not rerun or replace the entire original scope-and-keyboard case or other historical cases."
+    },
+    "separateEvidenceCounts": {
+      "historicalApplication": 31,
+      "focusedApplicationExpected": 8,
+      "focusedApplicationRecorded": 8,
+      "earlierRestorationExpected": 26,
+      "earlierRestorationRecorded": 26,
+      "switcherComponentExpected": 6,
+      "switcherComponentRecorded": 6
+    }
+  },
+  "nativeZoomEvidence": {
+    "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9",
+    "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+    "verified": true,
+    "caseStatus": "pass",
+    "measurements": {
+      "method": "native browser profile preference",
+      "normal": {
+        "innerWidth": 1416,
+        "innerHeight": 908,
+        "outerWidth": 1440,
+        "outerHeight": 1000,
+        "dpr": 1,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 1416
+      },
+      "zoom": {
+        "innerWidth": 708,
+        "innerHeight": 454,
+        "outerWidth": 1440,
+        "outerHeight": 1000,
+        "dpr": 2,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 708
+      },
+      "journey": {
+        "beforeURL": "http://127.0.0.1:3317/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence",
+        "sessionURL": "http://127.0.0.1:3317/teacher/sessions/129120b0-f584-41f0-8e58-c3e190941799?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all&attempt=6ed7c7b5-d419-42e2-861f-a2065c01dcf3#attempt-6ed7c7b5-d419-42e2-861f-a2065c01dcf3",
+        "sessionStudent": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+        "selectedStudent": "4b8c3f34-49fa-4b25-867d-8546beab0085",
+        "rendered": {
+          "href": "/teacher/assignments?assignment=30000000-0000-4000-8000-000000000001&view=progress&origin=synthetic_fixture&student=4b8c3f34-49fa-4b25-867d-8546beab0085&concept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all#cell-evidence"
+        },
+        "beforeFocus": {
+          "tag": "A",
+          "id": "",
+          "href": "/teacher/sessions/129120b0-f584-41f0-8e58-c3e190941799?returnTo=progress&assignment=30000000-0000-4000-8000-000000000001&origin=synthetic_fixture&progressStudent=4b8c3f34-49fa-4b25-867d-8546beab0085&progressConcept=transmission_delay&progressView=grid&pane=details&class=20000000-0000-4000-8000-000000000001&status=all&attempt=6ed7c7b5-d419-42e2-861f-a2065c01dcf3#attempt-6ed7c7b5-d419-42e2-861f-a2065c01dcf3",
+          "controls": null,
+          "inDialog": false,
+          "visible": true,
+          "scrollY": 34
+        },
+        "historyBackFocus": {
+          "tag": "ASIDE",
+          "id": "cell-evidence",
+          "href": null,
+          "controls": null,
+          "inDialog": false,
+          "visible": true,
+          "scrollY": 34
+        },
+        "returnedFocus": {
+          "tag": "ASIDE",
+          "id": "cell-evidence",
+          "href": null,
+          "controls": null,
+          "inDialog": false,
+          "visible": true,
+          "scrollY": 34
+        }
+      }
+    },
+    "imageFramingNote": "The native200 PNG is a 708 × 454 top-left crop. The receipt records actual native browser DPR 1→2 and CSS width 1416→708 with CSS root zoom 1; full physical-window screenshot framing is not established."
+  },
+  "historicalRuntime": {
+    "role": "earlier application harness attempt; component evidence reused",
+    "label": "run-b8d0eb55-01",
+    "reportSha256": "280cd7cce3e3ae236b7167082ec6f41fa949bd84402d907934e21edfa0caa55c",
+    "category": "Actual combined runtime navigation; synthetic fixtures; GET/HEAD after one login per isolated browser",
+    "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+    "sourceTree": "466b42f5b70a33400115d9df5f876f65f3d9289f",
+    "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+    "buildSourceTree": "466b42f5b70a33400115d9df5f876f65f3d9289f",
+    "applicationBuildReused": false,
+    "buildDiffPaths": [],
+    "readinessBuildId": "c3-z5ci6U8BgOEWk6IZj8",
+    "harnessSha256": "39a93d4e7f75282a6e2d826178efecd6559a97723ba5223d7f91b38d0e1eb4e6",
+    "readinessReceiptSha256": "702abbf96c3c803dd492fe06c9a83b247143eb00c3328b26b591259db0d30199",
+    "reportedEquivalenceEvidence": {
+      "buildDiffPaths": []
+    },
+    "origin": "http://127.0.0.1:3317/",
+    "startedAt": "2026-10-25T14:39:01.847Z",
+    "finishedAt": "2026-10-25T14:40:16.157Z",
+    "status": "fail",
+    "counts": {
+      "pass": 3,
+      "fail": 29
+    },
+    "cases": [
+      {
+        "name": "preserved 26 shell restoration scenarios",
+        "status": "pass",
+        "details": {
+          "count": 26,
+          "sourceHash": "a4523fa5815e2ada84e1d254c8d1793ada39911ac727dddb878507e5e95cf76d",
+          "report": "restoration-26/report.json"
+        }
+      },
+      {
+        "name": "authorized fixture classes are distinct",
+        "status": "pass",
+        "details": {
+          "records": [
+            {
+              "assignment": "30000000-0000-4000-8000-000000000001",
+              "class": "20000000-0000-4000-8000-000000000001"
+            },
+            {
+              "assignment": "9534b70b-f922-4f75-96bc-042ccc6c6ec3",
+              "class": "a0c94782-806a-4f61-9b66-b633ef476b2f"
+            }
+          ]
+        }
+      },
+      {
+        "name": "S1 discovery 1440",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 3 elements:",
+          "sha256": "7b6b311642259b842823ea05b1ce6cb9937004e6984fa1c5d0bde35b7a277086"
+        },
+        "details": {}
+      },
+      {
+        "name": "scope and keyboard 1440",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 2 elements:",
+          "sha256": "273163afc0b14898b4f8ca6a4e7c561e2ff368a89968bf8e519e5f131340de3e"
+        },
+        "details": {}
+      },
+      {
+        "name": "direct URL Back Forward 1440",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 4 elements:",
+          "sha256": "a71be8fd608390bdacf3ce4451e6541dd7aa7dd7079022675fa8f484052edd2d"
+        },
+        "details": {}
+      },
+      {
+        "name": "S1 discovery 1024",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 3 elements:",
+          "sha256": "7b6b311642259b842823ea05b1ce6cb9937004e6984fa1c5d0bde35b7a277086"
+        },
+        "details": {}
+      },
+      {
+        "name": "scope and keyboard 1024",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 2 elements:",
+          "sha256": "273163afc0b14898b4f8ca6a4e7c561e2ff368a89968bf8e519e5f131340de3e"
+        },
+        "details": {}
+      },
+      {
+        "name": "direct URL Back Forward 1024",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 3 elements:",
+          "sha256": "7b6b311642259b842823ea05b1ce6cb9937004e6984fa1c5d0bde35b7a277086"
+        },
+        "details": {}
+      },
+      {
+        "name": "S1 discovery 390",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 4 elements:",
+          "sha256": "a71be8fd608390bdacf3ce4451e6541dd7aa7dd7079022675fa8f484052edd2d"
+        },
+        "details": {}
+      },
+      {
+        "name": "scope and keyboard 390",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 2 elements:",
+          "sha256": "273163afc0b14898b4f8ca6a4e7c561e2ff368a89968bf8e519e5f131340de3e"
+        },
+        "details": {}
+      },
+      {
+        "name": "direct URL Back Forward 390",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 3 elements:",
+          "sha256": "7b6b311642259b842823ea05b1ce6cb9937004e6984fa1c5d0bde35b7a277086"
+        },
+        "details": {}
+      },
+      {
+        "name": "S1 discovery 320",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 4 elements:",
+          "sha256": "a71be8fd608390bdacf3ce4451e6541dd7aa7dd7079022675fa8f484052edd2d"
+        },
+        "details": {}
+      },
+      {
+        "name": "scope and keyboard 320",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 2 elements:",
+          "sha256": "273163afc0b14898b4f8ca6a4e7c561e2ff368a89968bf8e519e5f131340de3e"
+        },
+        "details": {}
+      },
+      {
+        "name": "direct URL Back Forward 320",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 4 elements:",
+          "sha256": "a71be8fd608390bdacf3ce4451e6541dd7aa7dd7079022675fa8f484052edd2d"
+        },
+        "details": {}
+      },
+      {
+        "name": "C2 grid details 1440",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 4 elements:",
+          "sha256": "a71be8fd608390bdacf3ce4451e6541dd7aa7dd7079022675fa8f484052edd2d"
+        },
+        "details": {}
+      },
+      {
+        "name": "C2 questions grid 1440",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 4 elements:",
+          "sha256": "a71be8fd608390bdacf3ce4451e6541dd7aa7dd7079022675fa8f484052edd2d"
+        },
+        "details": {}
+      },
+      {
+        "name": "C2 sessions grid 1440",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 4 elements:",
+          "sha256": "a71be8fd608390bdacf3ce4451e6541dd7aa7dd7079022675fa8f484052edd2d"
+        },
+        "details": {}
+      },
+      {
+        "name": "C2 concepts details 1440",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 4 elements:",
+          "sha256": "a71be8fd608390bdacf3ce4451e6541dd7aa7dd7079022675fa8f484052edd2d"
+        },
+        "details": {}
+      },
+      {
+        "name": "hashless native Back questions 1440",
+        "status": "fail",
+        "failure": {
+          "message": "TimeoutError: locator.click: Timeout 15000ms exceeded.",
+          "sha256": "5d7e1caf5b35f2a1c56d4f48a7405ec8093a85d41c0a917e4de52ec2792a7275"
+        },
+        "details": {}
+      },
+      {
+        "name": "hashless native Back sessions 1440",
+        "status": "fail",
+        "failure": {
+          "message": "TimeoutError: locator.click: Timeout 15000ms exceeded.",
+          "sha256": "5d7e1caf5b35f2a1c56d4f48a7405ec8093a85d41c0a917e4de52ec2792a7275"
+        },
+        "details": {}
+      },
+      {
+        "name": "C2 grid details 390",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 4 elements:",
+          "sha256": "a71be8fd608390bdacf3ce4451e6541dd7aa7dd7079022675fa8f484052edd2d"
+        },
+        "details": {}
+      },
+      {
+        "name": "C2 questions grid 390",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 4 elements:",
+          "sha256": "a71be8fd608390bdacf3ce4451e6541dd7aa7dd7079022675fa8f484052edd2d"
+        },
+        "details": {}
+      },
+      {
+        "name": "C2 sessions grid 390",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 4 elements:",
+          "sha256": "a71be8fd608390bdacf3ce4451e6541dd7aa7dd7079022675fa8f484052edd2d"
+        },
+        "details": {}
+      },
+      {
+        "name": "C2 concepts details 390",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 4 elements:",
+          "sha256": "a71be8fd608390bdacf3ce4451e6541dd7aa7dd7079022675fa8f484052edd2d"
+        },
+        "details": {}
+      },
+      {
+        "name": "hashless native Back questions 390",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 4 elements:",
+          "sha256": "a4d286574cf993c9ace8127e102902a51df92da6f4f2bffcedf8944a7ae13429"
+        },
+        "details": {}
+      },
+      {
+        "name": "hashless native Back sessions 390",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 4 elements:",
+          "sha256": "a4d286574cf993c9ace8127e102902a51df92da6f4f2bffcedf8944a7ae13429"
+        },
+        "details": {}
+      },
+      {
+        "name": "focused authoring geometry and exact library tools",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 2 elements:",
+          "sha256": "3f440066794752e1015668dfe832ea6155c01f641a942ce3f7cdd7ddd941db49"
+        },
+        "details": {}
+      },
+      {
+        "name": "actual objective unsaved pane reload Back recovery",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 2 elements:",
+          "sha256": "3f440066794752e1015668dfe832ea6155c01f641a942ce3f7cdd7ddd941db49"
+        },
+        "details": {}
+      },
+      {
+        "name": "actual objective unsaved guard cancels switcher navigation",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 2 elements:",
+          "sha256": "3f440066794752e1015668dfe832ea6155c01f641a942ce3f7cdd7ddd941db49"
+        },
+        "details": {}
+      },
+      {
+        "name": "native browser zoom 200 percent",
+        "status": "fail",
+        "failure": {
+          "message": "Error: locator.waitFor: Error: strict mode violation: locator('.tw-shell') resolved to 4 elements:",
+          "sha256": "a71be8fd608390bdacf3ce4451e6541dd7aa7dd7079022675fa8f484052edd2d"
+        },
+        "details": {}
+      },
+      {
+        "name": "read-only evidence receipts unchanged",
+        "status": "fail",
+        "failure": {
+          "message": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:",
+          "sha256": "c932d3817a8321d0ec3effdeee63e99fd8078c1186ed672a135b0efbad5a5041"
+        },
+        "details": {}
+      },
+      {
+        "name": "no browser errors or mutation attempts",
+        "status": "pass",
+        "details": {
+          "blockedRequests": 0
+        }
+      }
+    ],
+    "continuationOf": "",
+    "selectedCaseNames": null,
+    "notExecutedCaseNames": null,
+    "errors": [],
+    "fatal": null,
+    "native200Verified": false,
+    "nativePreferenceObservation": null,
+    "limitations": [
+      "No paid calls or model-behavior claim",
+      "F1 Evidence row ownership is Agent A; this suite does not claim its acceptance",
+      "No comprehensive WCAG or screen-reader claim"
+    ],
+    "blockedRequests": [],
+    "evidenceHashes": []
+  },
+  "components": {
+    "category": "Actual shared workspace-restoration.tsx with repository React19.3.0 and native history; Next hooks mocked; page-owned per-entry restorer is a labeled fixture, no page/application/DB changes",
+    "sourceHash": "a4523fa5815e2ada84e1d254c8d1793ada39911ac727dddb878507e5e95cf76d",
+    "frameScheduling": "",
+    "status": "pass",
+    "statusDerivation": "Derived from the recorded case statuses and errors; incomplete/missing evidence is not passed.",
+    "expectedCases": 26,
+    "counts": {
+      "pass": 26
+    },
+    "cases": [
+      {
+        "name": "page-first stable-control to anonymous select clears stale shared focus",
+        "status": "pass",
+        "details": {}
+      },
+      {
+        "name": "page-first stable-control to anonymous button clears stale shared focus",
+        "status": "pass",
+        "details": {}
+      },
+      {
+        "name": "page-first row-10 to anonymous select clears stale shared focus",
+        "status": "pass",
+        "details": {}
+      },
+      {
+        "name": "page-first row-10 to anonymous button clears stale shared focus",
+        "status": "pass",
+        "details": {}
+      },
+      {
+        "name": "page-first legacy page entry wins across repeated URLs",
+        "status": "pass",
+        "details": {
+          "first": {
+            "actual": {
+              "focus": "row-3",
+              "list": 140,
+              "ancestor": 364,
+              "generic": 0,
+              "y": 494,
+              "entry": "first",
+              "hash": ""
+            },
+            "placed": {
+              "focus": "row-3",
+              "list": 140,
+              "ancestor": 364,
+              "generic": 0,
+              "y": 494,
+              "entry": "first",
+              "hash": ""
+            },
+            "events": ["page", "shell"]
+          },
+          "second": {
+            "actual": {
+              "focus": "row-18",
+              "list": 1154,
+              "ancestor": 400,
+              "generic": 0,
+              "y": 494,
+              "entry": "second",
+              "hash": ""
+            },
+            "placed": {
+              "focus": "row-18",
+              "list": 1154,
+              "ancestor": 400,
+              "generic": 0,
+              "y": 494,
+              "entry": "second",
+              "hash": ""
+            },
+            "events": ["page", "shell"]
+          }
+        }
+      },
+      {
+        "name": "page-first marker page entry wins across repeated URLs",
+        "status": "pass",
+        "details": {
+          "first": {
+            "actual": {
+              "focus": "row-3",
+              "list": 140,
+              "ancestor": 364,
+              "generic": 0,
+              "y": 494,
+              "entry": "first",
+              "hash": ""
+            },
+            "placed": {
+              "focus": "row-3",
+              "list": 140,
+              "ancestor": 364,
+              "generic": 0,
+              "y": 494,
+              "entry": "first",
+              "hash": ""
+            },
+            "events": ["page", "shell"]
+          },
+          "second": {
+            "actual": {
+              "focus": "row-18",
+              "list": 1154,
+              "ancestor": 400,
+              "generic": 0,
+              "y": 494,
+              "entry": "second",
+              "hash": ""
+            },
+            "placed": {
+              "focus": "row-18",
+              "list": 1154,
+              "ancestor": 400,
+              "generic": 0,
+              "y": 494,
+              "entry": "second",
+              "hash": ""
+            },
+            "events": ["page", "shell"]
+          }
+        }
+      },
+      {
+        "name": "page-first generic shared focus and scrolling retained",
+        "status": "pass",
+        "details": {
+          "saved": {
+            "focus": "stable-control",
+            "list": 140,
+            "ancestor": 95,
+            "generic": 315,
+            "y": 260,
+            "entry": "first",
+            "hash": ""
+          },
+          "actual": {
+            "focus": "stable-control",
+            "list": 500,
+            "ancestor": 95,
+            "generic": 315,
+            "y": 260,
+            "entry": "first",
+            "hash": ""
+          }
+        }
+      },
+      {
+        "name": "page-first exact hash remains page-owned",
+        "status": "pass",
+        "details": {
+          "actual": {
+            "focus": "row-17",
+            "list": 1084,
+            "ancestor": 400,
+            "generic": 0,
+            "y": 494,
+            "entry": "first",
+            "hash": "#row-17"
+          },
+          "placed": {
+            "focus": "row-17",
+            "list": 1084,
+            "ancestor": 400,
+            "generic": 0,
+            "y": 494,
+            "entry": "first",
+            "hash": "#row-17"
+          }
+        }
+      },
+      {
+        "name": "shell-first stable-control to anonymous select clears stale shared focus",
+        "status": "pass",
+        "details": {}
+      },
+      {
+        "name": "shell-first stable-control to anonymous button clears stale shared focus",
+        "status": "pass",
+        "details": {}
+      },
+      {
+        "name": "shell-first row-10 to anonymous select clears stale shared focus",
+        "status": "pass",
+        "details": {}
+      },
+      {
+        "name": "shell-first row-10 to anonymous button clears stale shared focus",
+        "status": "pass",
+        "details": {}
+      },
+      {
+        "name": "shell-first legacy page entry wins across repeated URLs",
+        "status": "pass",
+        "details": {
+          "first": {
+            "actual": {
+              "focus": "row-3",
+              "list": 140,
+              "ancestor": 364,
+              "generic": 0,
+              "y": 494,
+              "entry": "first",
+              "hash": ""
+            },
+            "placed": {
+              "focus": "row-3",
+              "list": 140,
+              "ancestor": 364,
+              "generic": 0,
+              "y": 494,
+              "entry": "first",
+              "hash": ""
+            },
+            "events": ["shell", "page"]
+          },
+          "second": {
+            "actual": {
+              "focus": "row-18",
+              "list": 1154,
+              "ancestor": 400,
+              "generic": 0,
+              "y": 494,
+              "entry": "second",
+              "hash": ""
+            },
+            "placed": {
+              "focus": "row-18",
+              "list": 1154,
+              "ancestor": 400,
+              "generic": 0,
+              "y": 494,
+              "entry": "second",
+              "hash": ""
+            },
+            "events": ["shell", "page"]
+          }
+        }
+      },
+      {
+        "name": "shell-first marker page entry wins across repeated URLs",
+        "status": "pass",
+        "details": {
+          "first": {
+            "actual": {
+              "focus": "row-3",
+              "list": 140,
+              "ancestor": 364,
+              "generic": 0,
+              "y": 494,
+              "entry": "first",
+              "hash": ""
+            },
+            "placed": {
+              "focus": "row-3",
+              "list": 140,
+              "ancestor": 364,
+              "generic": 0,
+              "y": 494,
+              "entry": "first",
+              "hash": ""
+            },
+            "events": ["shell", "page"]
+          },
+          "second": {
+            "actual": {
+              "focus": "row-18",
+              "list": 1154,
+              "ancestor": 400,
+              "generic": 0,
+              "y": 494,
+              "entry": "second",
+              "hash": ""
+            },
+            "placed": {
+              "focus": "row-18",
+              "list": 1154,
+              "ancestor": 400,
+              "generic": 0,
+              "y": 494,
+              "entry": "second",
+              "hash": ""
+            },
+            "events": ["shell", "page"]
+          }
+        }
+      },
+      {
+        "name": "shell-first generic shared focus and scrolling retained",
+        "status": "pass",
+        "details": {
+          "saved": {
+            "focus": "stable-control",
+            "list": 140,
+            "ancestor": 95,
+            "generic": 315,
+            "y": 260,
+            "entry": "first",
+            "hash": ""
+          },
+          "actual": {
+            "focus": "stable-control",
+            "list": 500,
+            "ancestor": 95,
+            "generic": 315,
+            "y": 260,
+            "entry": "first",
+            "hash": ""
+          }
+        }
+      },
+      {
+        "name": "shell-first exact hash remains page-owned",
+        "status": "pass",
+        "details": {
+          "actual": {
+            "focus": "row-17",
+            "list": 1084,
+            "ancestor": 400,
+            "generic": 0,
+            "y": 494,
+            "entry": "first",
+            "hash": "#row-17"
+          },
+          "placed": {
+            "focus": "row-17",
+            "list": 1084,
+            "ancestor": 400,
+            "generic": 0,
+            "y": 494,
+            "entry": "first",
+            "hash": "#row-17"
+          }
+        }
+      },
+      {
+        "name": "normal repeated URL restores distinct generic entries",
+        "status": "pass",
+        "details": {
+          "first": {
+            "focus": "stable-control",
+            "list": 0,
+            "ancestor": 81,
+            "generic": 231,
+            "y": 251,
+            "entry": "first",
+            "hash": ""
+          },
+          "second": {
+            "focus": "stable-second",
+            "list": 0,
+            "ancestor": 181,
+            "generic": 521,
+            "y": 421,
+            "entry": "second",
+            "hash": ""
+          },
+          "returnedFirst": {
+            "focus": "stable-control",
+            "list": 0,
+            "ancestor": 81,
+            "generic": 231,
+            "y": 251,
+            "entry": "first",
+            "hash": ""
+          },
+          "returnedSecond": {
+            "focus": "stable-second",
+            "list": 0,
+            "ancestor": 181,
+            "generic": 521,
+            "y": 421,
+            "entry": "second",
+            "hash": ""
+          }
+        }
+      },
+      {
+        "name": "sync-before repeated URL restores distinct generic entries",
+        "status": "pass",
+        "details": {
+          "first": {
+            "focus": "stable-control",
+            "list": 0,
+            "ancestor": 81,
+            "generic": 231,
+            "y": 251,
+            "entry": "first",
+            "hash": ""
+          },
+          "second": {
+            "focus": "stable-second",
+            "list": 0,
+            "ancestor": 181,
+            "generic": 521,
+            "y": 421,
+            "entry": "second",
+            "hash": ""
+          },
+          "returnedFirst": {
+            "focus": "stable-control",
+            "list": 0,
+            "ancestor": 81,
+            "generic": 231,
+            "y": 251,
+            "entry": "first",
+            "hash": ""
+          },
+          "returnedSecond": {
+            "focus": "stable-second",
+            "list": 0,
+            "ancestor": 181,
+            "generic": 521,
+            "y": 421,
+            "entry": "second",
+            "hash": ""
+          }
+        }
+      },
+      {
+        "name": "delayed repeated URL restores distinct generic entries",
+        "status": "pass",
+        "details": {
+          "first": {
+            "focus": "stable-control",
+            "list": 0,
+            "ancestor": 81,
+            "generic": 231,
+            "y": 251,
+            "entry": "first",
+            "hash": ""
+          },
+          "second": {
+            "focus": "stable-second",
+            "list": 0,
+            "ancestor": 181,
+            "generic": 521,
+            "y": 421,
+            "entry": "second",
+            "hash": ""
+          },
+          "returnedFirst": {
+            "focus": "stable-control",
+            "list": 0,
+            "ancestor": 81,
+            "generic": 231,
+            "y": 251,
+            "entry": "first",
+            "hash": ""
+          },
+          "returnedSecond": {
+            "focus": "stable-second",
+            "list": 0,
+            "ancestor": 181,
+            "generic": 521,
+            "y": 421,
+            "entry": "second",
+            "hash": ""
+          }
+        }
+      },
+      {
+        "name": "normal direct same-URL Back and Forward rerun shared restoration",
+        "status": "pass",
+        "details": {
+          "first": {
+            "focus": "stable-control",
+            "list": 0,
+            "ancestor": 83,
+            "generic": 233,
+            "y": 253,
+            "entry": "first",
+            "hash": ""
+          },
+          "second": {
+            "focus": "stable-second",
+            "list": 0,
+            "ancestor": 183,
+            "generic": 523,
+            "y": 423,
+            "entry": "second",
+            "hash": ""
+          },
+          "returnedFirst": {
+            "focus": "stable-control",
+            "list": 0,
+            "ancestor": 83,
+            "generic": 233,
+            "y": 253,
+            "entry": "first",
+            "hash": ""
+          },
+          "returnedSecond": {
+            "focus": "stable-second",
+            "list": 0,
+            "ancestor": 183,
+            "generic": 523,
+            "y": 423,
+            "entry": "second",
+            "hash": ""
+          }
+        }
+      },
+      {
+        "name": "sync-before direct same-URL Back and Forward rerun shared restoration",
+        "status": "pass",
+        "details": {
+          "first": {
+            "focus": "stable-control",
+            "list": 0,
+            "ancestor": 83,
+            "generic": 233,
+            "y": 253,
+            "entry": "first",
+            "hash": ""
+          },
+          "second": {
+            "focus": "stable-second",
+            "list": 0,
+            "ancestor": 183,
+            "generic": 523,
+            "y": 423,
+            "entry": "second",
+            "hash": ""
+          },
+          "returnedFirst": {
+            "focus": "stable-control",
+            "list": 0,
+            "ancestor": 83,
+            "generic": 233,
+            "y": 253,
+            "entry": "first",
+            "hash": ""
+          },
+          "returnedSecond": {
+            "focus": "stable-second",
+            "list": 0,
+            "ancestor": 183,
+            "generic": 523,
+            "y": 423,
+            "entry": "second",
+            "hash": ""
+          }
+        }
+      },
+      {
+        "name": "delayed direct same-URL Back and Forward rerun shared restoration",
+        "status": "pass",
+        "details": {
+          "first": {
+            "focus": "stable-control",
+            "list": 0,
+            "ancestor": 83,
+            "generic": 233,
+            "y": 253,
+            "entry": "first",
+            "hash": ""
+          },
+          "second": {
+            "focus": "stable-second",
+            "list": 0,
+            "ancestor": 183,
+            "generic": 523,
+            "y": 423,
+            "entry": "second",
+            "hash": ""
+          },
+          "returnedFirst": {
+            "focus": "stable-control",
+            "list": 0,
+            "ancestor": 83,
+            "generic": 233,
+            "y": 253,
+            "entry": "first",
+            "hash": ""
+          },
+          "returnedSecond": {
+            "focus": "stable-second",
+            "list": 0,
+            "ancestor": 183,
+            "generic": 523,
+            "y": 423,
+            "entry": "second",
+            "hash": ""
+          }
+        }
+      },
+      {
+        "name": "same-URL Next metadata reset renews identity without reusing old token",
+        "status": "pass",
+        "details": {
+          "saved": {
+            "focus": "stable-second",
+            "list": 0,
+            "ancestor": 180,
+            "generic": 444,
+            "y": 410,
+            "entry": "first",
+            "hash": ""
+          },
+          "actual": {
+            "focus": "stable-second",
+            "list": 0,
+            "ancestor": 180,
+            "generic": 444,
+            "y": 410,
+            "entry": "first",
+            "hash": ""
+          }
+        }
+      },
+      {
+        "name": "history preserves router/page metadata and reload persists no position or draft",
+        "status": "pass",
+        "details": {
+          "before": {
+            "entry": "first"
+          },
+          "after": {
+            "position": {
+              "focus": "BODY",
+              "list": 0,
+              "ancestor": 0,
+              "generic": 0,
+              "y": 0,
+              "entry": "first",
+              "hash": ""
+            }
+          }
+        }
+      },
+      {
+        "name": "same-URL metadata reset followed immediately by captured leave click preserves origin",
+        "status": "pass",
+        "details": {
+          "saved": {
+            "focus": "stable-second",
+            "list": 0,
+            "ancestor": 190,
+            "generic": 456,
+            "y": 430,
+            "entry": "first",
+            "hash": ""
+          },
+          "actual": {
+            "focus": "stable-second",
+            "list": 0,
+            "ancestor": 190,
+            "generic": 456,
+            "y": 430,
+            "entry": "first",
+            "hash": ""
+          }
+        }
+      },
+      {
+        "name": "SecurityError uses bounded native fallback without per-scroll retries",
+        "status": "pass",
+        "details": {
+          "writes": 4,
+          "position": {
+            "focus": "stable-control",
+            "list": 0,
+            "ancestor": 90,
+            "generic": 190,
+            "y": 190,
+            "entry": "first",
+            "hash": ""
+          }
+        }
+      }
+    ],
+    "errors": [],
+    "fatal": null,
+    "provenance": {
+      "reusedFromSeparateRun": true,
+      "originalReportSha256": "9158994d8d21213ee0b4450bb8d4f43beec74bbbce6985fa95b563b975820070",
+      "originalEnclosingRunReportSha256": "280cd7cce3e3ae236b7167082ec6f41fa949bd84402d907934e21edfa0caa55c",
+      "originalRunLabel": "run-b8d0eb55-01",
+      "executionNote": "Imported component receipt from an earlier run. These 26 cases were not rerun by the selected application run.",
+      "componentStartedAt": "",
+      "componentFinishedAt": "",
+      "originalEnclosingRunStartedAt": "2026-10-25T14:39:01.847Z",
+      "originalEnclosingRunFinishedAt": "2026-10-25T14:40:16.157Z",
+      "timestampNote": "Enclosing-run timestamps are an execution window, not invented component-specific start or finish times.",
+      "originalRunSource": {
+        "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+        "sourceTree": "466b42f5b70a33400115d9df5f876f65f3d9289f",
+        "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+        "buildSourceTree": "466b42f5b70a33400115d9df5f876f65f3d9289f",
+        "applicationBuildReused": false,
+        "buildDiffPaths": [],
+        "readinessBuildId": "c3-z5ci6U8BgOEWk6IZj8",
+        "harnessSha256": "39a93d4e7f75282a6e2d826178efecd6559a97723ba5223d7f91b38d0e1eb4e6",
+        "readinessReceiptSha256": "702abbf96c3c803dd492fe06c9a83b247143eb00c3328b26b591259db0d30199",
+        "reportedEquivalenceEvidence": {
+          "buildDiffPaths": []
+        }
+      },
+      "originalRunStatus": "fail",
+      "originalRunCounts": {
+        "pass": 3,
+        "fail": 29
+      },
+      "originalExecutionCase": {
+        "name": "preserved 26 shell restoration scenarios",
+        "status": "pass",
+        "count": 26,
+        "sourceHash": "a4523fa5815e2ada84e1d254c8d1793ada39911ac727dddb878507e5e95cf76d",
+        "report": "restoration-26/report.json"
+      }
+    }
+  },
+  "ci": {
+    "role": "explicitly selected separate-source CI",
+    "sourceSha": "357a6716a333137e909fb77b9907a90a833a6df3",
+    "baseSha": "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+    "run": "https://github.com/peterbucci/ai-teaching-platform/actions/runs/40205217056",
+    "startedAt": "2026-10-25T15:04:40Z",
+    "updatedAt": "2026-10-25T15:12:32Z",
+    "conclusion": "success",
+    "jobs": {
+      "intervention-approval": "success",
+      "quality": "success"
+    },
+    "unitTests": {
+      "tests": 571,
+      "pass": 571,
+      "fail": 0
+    },
+    "checks": [
+      "content",
+      "unit",
+      "lint",
+      "typecheck",
+      "format",
+      "production build",
+      "isolated SQL and HTTP integration",
+      "intervention approval integration"
+    ],
+    "browserAcceptance": "Tracked separately against the combined application; not established by CI."
+  },
+  "historicalCI": [
+    {
+      "role": "historical",
+      "reportSha256": "89dfed116574a959539111ea8e741c45075a9918529c94faac2d9fe0b69acee1",
+      "receipt": {
+        "sourceSha": "932a446015f8188e21cfb9d37773e14b56968ba9",
+        "baseSha": "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+        "run": "https://github.com/peterbucci/ai-teaching-platform/actions/runs/40201726887",
+        "startedAt": "2026-10-25T14:19:59Z",
+        "updatedAt": "2026-10-25T14:28:29Z",
+        "conclusion": "success",
+        "jobs": {
+          "quality": "success",
+          "intervention-approval": "success"
+        },
+        "unitTests": {
+          "tests": 571,
+          "pass": 571,
+          "fail": 0
+        },
+        "checks": [
+          "content",
+          "unit",
+          "lint",
+          "typecheck",
+          "format",
+          "production build",
+          "isolated SQL and HTTP integration",
+          "intervention approval integration"
+        ],
+        "browserAcceptance": "Not established by this CI run; tracked separately against the combined application."
+      }
+    },
+    {
+      "role": "historical",
+      "reportSha256": "a7546cb4f7604af40de0e9adc240b80c3aba924962ec5e34db8b2a7ce777cec3",
+      "receipt": {
+        "sourceSha": "aff34337c7a49c2bfeb9912d39c919ca3e8bc00d",
+        "baseSha": "94e4e534ea4d68d86ea0810067497bf07258e6d2",
+        "run": "https://github.com/peterbucci/ai-teaching-platform/actions/runs/40197600233",
+        "startedAt": "2026-10-25T13:26:16Z",
+        "updatedAt": "2026-10-25T13:34:51Z",
+        "conclusion": "success",
+        "jobs": {
+          "quality": "success",
+          "intervention-approval": "success"
+        },
+        "unitTests": {
+          "tests": 569,
+          "pass": 569,
+          "fail": 0
+        },
+        "checks": [
+          "content",
+          "unit",
+          "lint",
+          "typecheck",
+          "format",
+          "production build",
+          "isolated SQL and HTTP integration",
+          "intervention approval integration"
+        ],
+        "browserAcceptance": "Not established by this CI run; tracked separately against the combined application."
+      }
+    }
+  ],
+  "images": [
+    {
+      "name": "S1-discovery-1440x1000",
+      "group": "S1 course discovery",
+      "label": "S1-discovery-1440x1000",
+      "runLabel": "run-b8d0eb55-02",
+      "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9",
+      "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "metrics": {
+        "innerWidth": 1440,
+        "innerHeight": 1000,
+        "outerWidth": 1440,
+        "outerHeight": 1000,
+        "dpr": 1,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 1440
+      },
+      "framingNote": null,
+      "file": "screenshots/original-S1-discovery-1440x1000.png",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "26575e185456a08fda283dd4bf7c0809707cf1b778b985fc96e5fd922af12132"
+    },
+    {
+      "name": "S1-discovery-1024x768",
+      "group": "S1 course discovery",
+      "label": "S1-discovery-1024x768",
+      "runLabel": "run-b8d0eb55-02",
+      "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9",
+      "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "metrics": {
+        "innerWidth": 1024,
+        "innerHeight": 768,
+        "outerWidth": 1024,
+        "outerHeight": 768,
+        "dpr": 1,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 1024
+      },
+      "framingNote": null,
+      "file": "screenshots/original-S1-discovery-1024x768.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "42d00b1cd210af22044f3f93d1f83d9905f484299e69f95a00b386277efff80f"
+    },
+    {
+      "name": "S1-discovery-390x844",
+      "group": "S1 course discovery",
+      "label": "S1-discovery-390x844",
+      "runLabel": "run-b8d0eb55-02",
+      "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9",
+      "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "metrics": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "outerWidth": 516,
+        "outerHeight": 844,
+        "dpr": 1,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 390
+      },
+      "framingNote": null,
+      "file": "screenshots/original-S1-discovery-390x844.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "6298bec2b652a253ddb5fb772f368f95e44e02e7192e8f9b7ac447c3f26be66b"
+    },
+    {
+      "name": "S1-discovery-320x844",
+      "group": "S1 course discovery",
+      "label": "S1-discovery-320x844",
+      "runLabel": "run-b8d0eb55-02",
+      "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9",
+      "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "metrics": {
+        "innerWidth": 320,
+        "innerHeight": 844,
+        "outerWidth": 516,
+        "outerHeight": 844,
+        "dpr": 1,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 320
+      },
+      "framingNote": null,
+      "file": "screenshots/original-S1-discovery-320x844.png",
+      "width": 320,
+      "height": 844,
+      "sha256": "11fd71e296363f5bd96915f03cfb46c4d538c6004dfd7f148bbacb67b4f7f506"
+    },
+    {
+      "name": "C2-grid-details-1440x1000",
+      "group": "C2 selection return",
+      "label": "C2-grid-details-1440x1000",
+      "runLabel": "run-b8d0eb55-02",
+      "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9",
+      "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "metrics": {
+        "innerWidth": 1440,
+        "innerHeight": 1000,
+        "outerWidth": 1440,
+        "outerHeight": 1000,
+        "dpr": 1,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 1440
+      },
+      "framingNote": null,
+      "file": "screenshots/original-C2-grid-details-1440x1000.png",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "80fa5272afeac4f507eb91cedf3dfdf46993dd10bd14ba4a2aa87330f1e0bf4c"
+    },
+    {
+      "name": "C2-grid-details-390x844",
+      "group": "C2 selection return",
+      "label": "C2-grid-details-390x844",
+      "runLabel": "run-b8d0eb55-02",
+      "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9",
+      "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "metrics": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "outerWidth": 516,
+        "outerHeight": 844,
+        "dpr": 1,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 390
+      },
+      "framingNote": null,
+      "file": "screenshots/original-C2-grid-details-390x844.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "05a093031b5a93d2292652b4e1d74f46f9798ea6acbed3d53913880bb3127085"
+    },
+    {
+      "name": "authoring-focused-1440x1000",
+      "group": "Focused authoring",
+      "label": "authoring-focused-1440x1000",
+      "runLabel": "run-b8d0eb55-03-geometry",
+      "reportSha256": "1d8999fcb206f63394ba3f84c971f2a7becc083ffc9151180b37f1737f69638b",
+      "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "metrics": {
+        "innerWidth": 1440,
+        "innerHeight": 1000,
+        "outerWidth": 1440,
+        "outerHeight": 1000,
+        "dpr": 1,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 1440
+      },
+      "framingNote": null,
+      "file": "screenshots/continuation-0-authoring-focused-1440x1000.png",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "a863a16554620b61d5c35fde97db860e94e21ce7a4f90b9ff69c43c584be16eb"
+    },
+    {
+      "name": "authoring-focused-1024x768",
+      "group": "Focused authoring",
+      "label": "authoring-focused-1024x768",
+      "runLabel": "run-b8d0eb55-03-geometry",
+      "reportSha256": "1d8999fcb206f63394ba3f84c971f2a7becc083ffc9151180b37f1737f69638b",
+      "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "metrics": {
+        "innerWidth": 1024,
+        "innerHeight": 768,
+        "outerWidth": 1024,
+        "outerHeight": 768,
+        "dpr": 1,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 1024
+      },
+      "framingNote": null,
+      "file": "screenshots/continuation-0-authoring-focused-1024x768.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "47779446c975f87b9faa7bbb72e296cfeaee788a3dc7638db38ab17221b53e6a"
+    },
+    {
+      "name": "authoring-focused-390x844",
+      "group": "Focused authoring",
+      "label": "authoring-focused-390x844",
+      "runLabel": "run-b8d0eb55-03-geometry",
+      "reportSha256": "1d8999fcb206f63394ba3f84c971f2a7becc083ffc9151180b37f1737f69638b",
+      "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "metrics": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "outerWidth": 516,
+        "outerHeight": 844,
+        "dpr": 1,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 390
+      },
+      "framingNote": null,
+      "file": "screenshots/continuation-0-authoring-focused-390x844.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "f2c7bdb9f4ad224ae943b75c3111ae034a47d815f893760f0ba425f267d8eb34"
+    },
+    {
+      "name": "authoring-focused-320x844",
+      "group": "Focused authoring",
+      "label": "authoring-focused-320x844",
+      "runLabel": "run-b8d0eb55-03-geometry",
+      "reportSha256": "1d8999fcb206f63394ba3f84c971f2a7becc083ffc9151180b37f1737f69638b",
+      "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "metrics": {
+        "innerWidth": 320,
+        "innerHeight": 844,
+        "outerWidth": 516,
+        "outerHeight": 844,
+        "dpr": 1,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 320
+      },
+      "framingNote": null,
+      "file": "screenshots/continuation-0-authoring-focused-320x844.png",
+      "width": 320,
+      "height": 844,
+      "sha256": "c08fdfa1adc8369fb64a6dca676f2d65303ab39813eb10731572de5f3e5aa450"
+    },
+    {
+      "name": "native200-progress-return",
+      "group": "Actual browser 200% zoom",
+      "label": "native200-progress-return",
+      "runLabel": "run-b8d0eb55-02",
+      "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9",
+      "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "metrics": {
+        "innerWidth": 708,
+        "innerHeight": 454,
+        "outerWidth": 1440,
+        "outerHeight": 1000,
+        "dpr": 2,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 708
+      },
+      "framingNote": "The 708 × 454 PNG is a top-left crop. Native zoom is established by the recorded DPR 1→2 and CSS width 1416→708; this image does not establish full physical-window framing.",
+      "file": "screenshots/original-native200-progress-return.png",
+      "width": 708,
+      "height": 454,
+      "sha256": "9dc26c23d8ab18918aed37e70fc53101749c9e7cd4d745869c68b78e7adc9d96"
+    },
+    {
+      "name": "unsaved-real-form-cancelled-leave",
+      "group": "Page-owned unsaved guard",
+      "label": "unsaved-real-form-cancelled-leave",
+      "runLabel": "run-b8d0eb55-02",
+      "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9",
+      "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "metrics": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "outerWidth": 516,
+        "outerHeight": 844,
+        "dpr": 1,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 390
+      },
+      "framingNote": null,
+      "file": "screenshots/original-unsaved-real-form-cancelled-leave.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "e48101bb0ee15041a7c7337eaafc7152ff4bca9772aa0c605981c449e6b95218"
+    },
+    {
+      "name": "unsaved-objective-recovered",
+      "group": "Page-owned recovery",
+      "label": "unsaved-objective-recovered",
+      "runLabel": "run-b8d0eb55-02",
+      "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9",
+      "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "metrics": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "outerWidth": 516,
+        "outerHeight": 844,
+        "dpr": 1,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 390
+      },
+      "framingNote": null,
+      "file": "screenshots/original-unsaved-objective-recovered.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "3308fc2c05b90ebee23d7509782a09fec3e9508011aa94d3d4ed73fe93075365"
+    },
+    {
+      "name": "scope-and-keyboard-1024-failure",
+      "group": "Failed case evidence",
+      "label": "scope and keyboard 1024",
+      "runLabel": "run-b8d0eb55-02",
+      "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9",
+      "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "framingNote": null,
+      "file": "screenshots/original-scope-and-keyboard-1024-failure.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "ffa0301d0f8b0fa3e929fc4fa34fb9b9cd56eb0ead5fed5f0fedcf98ce7c2e25"
+    },
+    {
+      "name": "focused-authoring-geometry-and-exact-library-tools-failure",
+      "group": "Failed case evidence",
+      "label": "focused authoring geometry and exact library tools",
+      "runLabel": "run-b8d0eb55-02",
+      "reportSha256": "b6f2702a8efade2b59c3d45e13db18afb655f90fdda2198943f8ef77511855b9",
+      "sourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "buildSourceSha": "b8d0eb55e793905e78452980cc4e92ac178644ab",
+      "framingNote": null,
+      "file": "screenshots/original-focused-authoring-geometry-and-exact-library-tools-failure.png",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "a863a16554620b61d5c35fde97db860e94e21ce7a4f90b9ff69c43c584be16eb"
+    },
+    {
+      "name": "targeted-switcher-escape-1440x1000",
+      "group": "Final focused retest",
+      "label": "targeted-switcher-escape-1440x1000",
+      "runLabel": "actual-app",
+      "reportSha256": "28faab2c4cec7789dbabfa62eb45fed4adb730bb4db54b97043c741571778ff5",
+      "sourceSha": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+      "buildSourceSha": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+      "metrics": {
+        "innerWidth": 1440,
+        "innerHeight": 1000,
+        "outerWidth": 1440,
+        "outerHeight": 1000,
+        "dpr": 1,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 1440
+      },
+      "framingNote": null,
+      "file": "screenshots/focused-targeted-switcher-escape-1440x1000.png",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "63b3cb02b69705fb23866fd42691a31b08397e4187aa9feb853ba28738345c6c"
+    },
+    {
+      "name": "targeted-switcher-escape-1024x768",
+      "group": "Final focused retest",
+      "label": "targeted-switcher-escape-1024x768",
+      "runLabel": "actual-app",
+      "reportSha256": "28faab2c4cec7789dbabfa62eb45fed4adb730bb4db54b97043c741571778ff5",
+      "sourceSha": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+      "buildSourceSha": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+      "metrics": {
+        "innerWidth": 1024,
+        "innerHeight": 768,
+        "outerWidth": 1024,
+        "outerHeight": 768,
+        "dpr": 1,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 1024
+      },
+      "framingNote": null,
+      "file": "screenshots/focused-targeted-switcher-escape-1024x768.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "9c622b5ff1125adf3ef917d5b478c0133b6bc6bc327ee87b39153b3e290a7d9a"
+    },
+    {
+      "name": "targeted-switcher-escape-390x844",
+      "group": "Final focused retest",
+      "label": "targeted-switcher-escape-390x844",
+      "runLabel": "actual-app",
+      "reportSha256": "28faab2c4cec7789dbabfa62eb45fed4adb730bb4db54b97043c741571778ff5",
+      "sourceSha": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+      "buildSourceSha": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+      "metrics": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "outerWidth": 516,
+        "outerHeight": 844,
+        "dpr": 1,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 390
+      },
+      "framingNote": null,
+      "file": "screenshots/focused-targeted-switcher-escape-390x844.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "5c531a558921c4aeb1aac08d02fe114c5d916efde9b85989b8ad32558fb6944c"
+    },
+    {
+      "name": "targeted-details-escape-320x844",
+      "group": "Final focused retest",
+      "label": "targeted-details-escape-320x844",
+      "runLabel": "actual-app",
+      "reportSha256": "28faab2c4cec7789dbabfa62eb45fed4adb730bb4db54b97043c741571778ff5",
+      "sourceSha": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+      "buildSourceSha": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+      "metrics": {
+        "innerWidth": 320,
+        "innerHeight": 844,
+        "outerWidth": 516,
+        "outerHeight": 844,
+        "dpr": 1,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 320
+      },
+      "framingNote": null,
+      "file": "screenshots/focused-targeted-details-escape-320x844.png",
+      "width": 320,
+      "height": 844,
+      "sha256": "3709eb65f88418bbe162035a796dec3dd3925bbf08b87fb223170fb9caac6f8a"
+    },
+    {
+      "name": "targeted-details-escape-1024x768",
+      "group": "Final focused retest",
+      "label": "targeted-details-escape-1024x768",
+      "runLabel": "actual-app",
+      "reportSha256": "28faab2c4cec7789dbabfa62eb45fed4adb730bb4db54b97043c741571778ff5",
+      "sourceSha": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+      "buildSourceSha": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+      "metrics": {
+        "innerWidth": 1024,
+        "innerHeight": 768,
+        "outerWidth": 1024,
+        "outerHeight": 768,
+        "dpr": 1,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 1024
+      },
+      "framingNote": null,
+      "file": "screenshots/focused-targeted-details-escape-1024x768.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "89698eff0ce32b15c0bea6915b8e32f701e705a14a8dafc1b92b7764be59c15c"
+    },
+    {
+      "name": "C2-grid-details-390x844",
+      "group": "Final focused retest",
+      "label": "C2-grid-details-390x844",
+      "runLabel": "actual-app",
+      "reportSha256": "28faab2c4cec7789dbabfa62eb45fed4adb730bb4db54b97043c741571778ff5",
+      "sourceSha": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+      "buildSourceSha": "9ca101893a07910539a9e9efe12bc955bf4a08ba",
+      "metrics": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "outerWidth": 516,
+        "outerHeight": 844,
+        "dpr": 1,
+        "visualViewportScale": 1,
+        "rootZoom": "1",
+        "scrollWidth": 390
+      },
+      "framingNote": null,
+      "file": "screenshots/focused-C2-grid-details-390x844.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "05a093031b5a93d2292652b4e1d74f46f9798ea6acbed3d53913880bb3127085"
+    }
+  ],
+  "warnings": [
+    "Current verify.mjs differs from the report harness hash; the reported run hash remains authoritative."
+  ],
+  "publicationPolicy": {
+    "dataset": "Coordinator confirms a freshly seeded fictional-only test database; synthetic UUIDs are retained for exact selection and return relationships.",
+    "includes": "Allowlisted report fields, geometry, statuses including failures/unrun, hashes, selected root-level PNGs, and a separate CI receipt.",
+    "excludes": "No recursive directory copies; no private browser profiles, environment or lease files, session cookies, network bodies, freeform DOM/answer text, or local filesystem paths.",
+    "errors": "Failure first lines and original-error SHA-256 are retained; multiline assertion bodies are excluded because they can contain network records.",
+    "urls": "Local test URLs retain allowlisted navigation fields and identity anchors; other query values and external/credential-bearing URLs are omitted.",
+    "pngs": "Selected PNG bytes are copied unchanged with SHA-256 receipts. No screenshot is fabricated for a missing or failed capture.",
+    "omittedFields": [
+      "__NA",
+      "__PRIVATE_NEXTJS_INTERNALS_TREE",
+      "__learningPulseWorkspaceEntry",
+      "classLabel",
+      "draft",
+      "fixtureMemory",
+      "pageOwned",
+      "row",
+      "state",
+      "text"
+    ]
+  }
+}

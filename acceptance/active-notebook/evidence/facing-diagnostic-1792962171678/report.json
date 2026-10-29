@@ -1,0 +1,220 @@
+{
+  "source": "8d4221a04029011803dae7cd94cace72accff8e3",
+  "appSourceSha256": "93d2476e907d2f6fdaa308ac6eba58b38c0730c592779dc0738d28da5c86d889",
+  "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "runtime": "production",
+  "buildId": "p1TAyDTUauatonxWTnVL7",
+  "providersDisabled": true,
+  "paidCalls": 0,
+  "cases": [
+    {
+      "name": "facing reading 1024x768",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "sessionId": "a10b27b4-d24b-4249-961b-997240c8d439",
+      "attemptId": "7793137b-cf78-4c8c-8e08-9973d5e1e06b",
+      "status": "FAIL",
+      "screenshots": [
+        "1024x768-summary.png",
+        "1024x768-held-response-hidden.png",
+        "1024x768-displayed-reading.png",
+        "1024x768-failure.png"
+      ],
+      "before": {
+        "width": 1024,
+        "height": 768,
+        "outerScrollWidth": 1024,
+        "scrollY": 160,
+        "maxScroll": 175
+      },
+      "summaryZeroWrites": true,
+      "deliveryId": "c8920de2-909a-4e6d-972f-bb88afc0982a",
+      "contentVersion": "3bd292c1476f5becb658418b70ee36153cfce830",
+      "hiddenResponseNoReceipt": true,
+      "hiddenBy": "Back to page",
+      "actualPassageReceiptOnce": true,
+      "after": {
+        "width": 1024,
+        "height": 768,
+        "outerScrollWidth": 1024,
+        "scrollY": 144,
+        "maxScroll": 175
+      },
+      "error": "AssertionError [ERR_ASSERTION]: reading return preserves document scroll subject to final document bounds\n    at file:///C:/Users/sb128/.codex/worktrees/student-notebook-active/LearningPlatform/acceptance/active-notebook/facing-diagnostic.mjs:316:14",
+      "scrollTrace": [
+        {
+          "type": "scrollTo",
+          "args": [0, 160],
+          "stack": "Error\n    at window.scrollTo (<anonymous>:6:60)\n    at eval (eval at evaluate (:311:30), <anonymous>:2:9)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+          "y": 0,
+          "max": 175,
+          "pane": "page",
+          "at": 780.1000000238419
+        },
+        {
+          "type": "scroll",
+          "y": 160,
+          "max": 175,
+          "pane": "page",
+          "at": 783.3000000715256
+        },
+        {
+          "type": "click",
+          "target": "Reading",
+          "y": 160,
+          "max": 175,
+          "pane": "page",
+          "at": 921.5
+        },
+        {
+          "type": "scroll",
+          "y": 177,
+          "max": 239,
+          "pane": "context",
+          "at": 927.9000000953674
+        },
+        {
+          "type": "scrollTo",
+          "args": [
+            {
+              "top": 160.890625
+            }
+          ],
+          "stack": "Error\n    at window.scrollTo (<anonymous>:6:60)\n    at http://127.0.0.1:3427/_next/static/chunks/8402-b52380747a7020aa.js:1:5388\n    at http://127.0.0.1:3427/_next/static/chunks/8402-b52380747a7020aa.js:1:6128",
+          "y": 177,
+          "max": 239,
+          "pane": "context",
+          "at": 929.4000000953674
+        },
+        {
+          "type": "scroll",
+          "y": 161,
+          "max": 239,
+          "pane": "context",
+          "at": 936.2000000476837
+        },
+        {
+          "type": "click",
+          "target": "Propagation transmission and queuingP07 · Assigned reading",
+          "y": 161,
+          "max": 239,
+          "pane": "context",
+          "at": 990.9000000953674
+        },
+        {
+          "type": "scroll",
+          "y": 369,
+          "max": 447,
+          "pane": "context",
+          "at": 1006.8000000715256
+        },
+        {
+          "type": "click",
+          "target": "Back to page",
+          "y": 369,
+          "max": 447,
+          "pane": "context",
+          "at": 1141.7000000476837
+        },
+        {
+          "type": "scroll",
+          "y": 352,
+          "max": 383,
+          "pane": "page",
+          "at": 1144.9000000953674
+        },
+        {
+          "type": "scrollTo",
+          "args": [0, 160],
+          "stack": "Error\n    at window.scrollTo (<anonymous>:6:60)\n    at http://127.0.0.1:3427/_next/static/chunks/897-4c40f3b5e7219a9b.js:1:16992\n    at http://127.0.0.1:3427/_next/static/chunks/897-4c40f3b5e7219a9b.js:1:16857",
+          "y": 352,
+          "max": 383,
+          "pane": "page",
+          "at": 1145.1000000238419
+        },
+        {
+          "type": "scroll",
+          "y": 160,
+          "max": 383,
+          "pane": "page",
+          "at": 1151.7000000476837
+        },
+        {
+          "type": "click",
+          "target": "Reading",
+          "y": 160,
+          "max": 439,
+          "pane": "page",
+          "at": 1621.7000000476837
+        },
+        {
+          "type": "scroll",
+          "y": 208,
+          "max": 503,
+          "pane": "context",
+          "at": 1652.3000000715256
+        },
+        {
+          "type": "click",
+          "target": "Back to study session",
+          "y": 208,
+          "max": 295,
+          "pane": "context",
+          "at": 1927.8000000715256
+        },
+        {
+          "type": "scroll",
+          "y": 191,
+          "max": 231,
+          "pane": "page",
+          "at": 1932.1000000238419
+        },
+        {
+          "type": "scrollTo",
+          "args": [0, 160],
+          "stack": "Error\n    at window.scrollTo (<anonymous>:6:60)\n    at http://127.0.0.1:3427/_next/static/chunks/897-4c40f3b5e7219a9b.js:1:16992\n    at http://127.0.0.1:3427/_next/static/chunks/897-4c40f3b5e7219a9b.js:1:16857",
+          "y": 191,
+          "max": 231,
+          "pane": "page",
+          "at": 1932.2000000476837
+        },
+        {
+          "type": "scroll",
+          "y": 160,
+          "max": 175,
+          "pane": "page",
+          "at": 1937.9000000953674
+        },
+        {
+          "type": "scrollTo",
+          "args": [
+            {
+              "top": 143.84375
+            }
+          ],
+          "stack": "Error\n    at window.scrollTo (<anonymous>:6:60)\n    at http://127.0.0.1:3427/_next/static/chunks/8402-b52380747a7020aa.js:1:5388\n    at http://127.0.0.1:3427/_next/static/chunks/8402-b52380747a7020aa.js:1:6128",
+          "y": 160,
+          "max": 175,
+          "pane": "page",
+          "at": 1938.2000000476837
+        },
+        {
+          "type": "scroll",
+          "y": 144,
+          "max": 175,
+          "pane": "page",
+          "at": 1944.1000000238419
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "blockedExternal": [],
+  "result": "FAIL",
+  "sourceAfter": "8d4221a04029011803dae7cd94cace72accff8e3",
+  "appSourceAfterSha256": "93d2476e907d2f6fdaa308ac6eba58b38c0730c592779dc0738d28da5c86d889",
+  "sourceUnchanged": true
+}

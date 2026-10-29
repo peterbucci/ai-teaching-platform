@@ -1,296 +1,428 @@
 import Link from "next/link";
-import { Icon } from "../components/icons.tsx";
-import { calculatePatterns } from "../../lib/teacher/patterns.ts";
+import { Suspense } from "react";
+import { notFound, redirect } from "next/navigation";
+import { z } from "zod";
+import { AuthError, requireActor } from "../../lib/auth.ts";
+import { EvidenceError, evidenceAccess } from "../../lib/evidence/store.ts";
 import {
-  loadTeacherView,
-  evidenceDescription,
-  teacherViewHref,
-  type TeacherFilters,
-} from "./data.ts";
-import { TeacherFiltersForm } from "./filters.tsx";
+  parseTeacherWorkspaceContext,
+  type TeacherWorkspaceContext,
+  type TeacherWorkspaceParams,
+} from "../../lib/teacher/workspace-contracts.ts";
 import { TeacherFrame, date, originLabel } from "./presentation.tsx";
+import { evidenceDescription } from "./data.ts";
+import { loadOverview } from "./overview/load.ts";
+import {
+  assignmentHref,
+  progressHref,
+  overviewPriorities,
+  recentActivity,
+  type Priority,
+} from "./overview/model.ts";
+import "./overview/overview.css";
 
 export const dynamic = "force-dynamic";
 
 export default async function TeacherPage({
   searchParams,
 }: {
-  searchParams: Promise<TeacherFilters>;
+  searchParams: Promise<TeacherWorkspaceParams>;
 }) {
-  const { assignments, origin, data } = await loadTeacherView(
-    await searchParams,
-  );
-  if (!data)
-    return (
-      <TeacherFrame>
-        <header className="lp-page-heading">
-          <p className="lp-eyebrow">Your classroom</p>
-          <h1 className="lp-title">Class overview</h1>
-        </header>
-        <section className="lp-panel">
-          <h2>No teaching assignments yet</h2>
-          <p>This teacher account has no class assignments to inspect.</p>
-        </section>
-      </TeacherFrame>
-    );
-  const { content } = data;
-  const { metrics } = data;
-  const insights = teacherViewHref(
-    "/teacher/insights",
-    data.assignment_id,
-    origin,
-  );
-  const directory = teacherViewHref(
-    "/teacher/students",
-    data.assignment_id,
-    origin,
-  );
-  const assignment = `/teacher/assignments?assignment=${data.assignment_id}`;
-  const patterns = calculatePatterns(
-    data.students.map((s) => s.student_id),
-    new Set(data.approved_misconception_ids),
-    data.evidence,
-  );
-  const studentsWithPatterns = new Set(
-    patterns.flatMap((group) =>
-      group.students.map((student) => student.student_id),
-    ),
-  ).size;
-  const recentWork = data.evidence
-    .map((item) => ({
-      ...item,
-      submitted: item.attempts.filter((a) => a.submitted_at !== null),
-    }))
-    .filter((item) => item.submitted.length > 0)
-    .sort((a, b) =>
-      b.submitted
-        .at(-1)!
-        .submitted_at!.localeCompare(a.submitted.at(-1)!.submitted_at!),
-    )
-    .slice(0, 5);
-  const assessedConcepts = metrics.concepts.filter(
-    (c) => c.latest.accepted_students > 0,
-  ).length;
-
+  let context;
+  try {
+    context = parseTeacherWorkspaceContext(await searchParams);
+  } catch (error) {
+    if (error instanceof z.ZodError) notFound();
+    throw error;
+  }
   return (
-    <TeacherFrame>
-      <header className="lp-page-heading lp-teacher-title-row">
-        <div>
-          <p className="lp-eyebrow">Your classroom</p>
-          <h1 className="lp-title">Class overview</h1>
-          <p className="lp-intro">
-            Pick the next teaching action, then inspect the evidence behind it.
-          </p>
-        </div>
-        <Link className="lp-button" href={assignment}>
-          <Icon name="book" /> Review assignment
-        </Link>
-      </header>
-      <TeacherFiltersForm
-        action="/teacher"
-        assignments={assignments}
-        assignment={data.assignment_id}
-        origin={origin}
-      />
-      <div className="lp-teacher-context">
-        <strong>{data.class_name}</strong>
-        <span>{data.title}</span>
-        <span className="lp-badge lp-badge-neutral">
-          {origin === "all"
-            ? "Mixed demo evidence"
-            : origin === "live_demo"
-              ? "Live demo evidence"
-              : "Synthetic histories"}
-        </span>
-      </div>
-      <section
-        className="lp-teacher-focus"
-        aria-labelledby="teacher-focus-title"
-      >
-        <div className="lp-teacher-section-heading">
-          <div>
-            <p className="lp-eyebrow">Start here</p>
-            <h2 id="teacher-focus-title">What needs your attention</h2>
+    <TeacherFrame section="Overview" context={context}>
+      <Suspense
+        fallback={
+          <div className="ov-loading" role="status" aria-busy="true">
+            <h1>Overview</h1>
+            <p>Loading authorized assignments and saved teaching work…</p>
           </div>
-        </div>
-        <div className="lp-teacher-task-grid">
-          <article className="lp-teacher-task lp-teacher-task-highlight">
-            <p className="lp-eyebrow">Review student reasoning</p>
-            <h3>
-              {patterns.length
-                ? "What do students’ explanations tell us?"
-                : "Start with the student evidence"}
-            </h3>
-            <p>
-              {patterns.length
-                ? `${studentsWithPatterns} distinct students have recorded evidence across ${patterns.length} possible reasoning patterns. Read their explanations before deciding what to revisit.`
-                : "No possible patterns are recorded in this view yet. Look at individual responses and feedback as students work through the assignment."}
-            </p>
-            <div className="lp-teacher-task-footer">
-              <span>Observations to inspect, not fixed student labels</span>
-              <Link
-                href={`${insights}#${patterns.length ? "patterns" : "responses"}`}
-                className="lp-text-link"
-              >
-                Review explanations <Icon name="arrow" />
-              </Link>
-            </div>
-          </article>
-          <article className="lp-teacher-task">
-            <p className="lp-eyebrow">Prepare learning</p>
-            <h3>{data.title}</h3>
-            <p>
-              Review the assigned reading, learning goals, and prepared
-              practice. Your classroom approval controls when students can
-              begin.
-            </p>
-            <div className="lp-teacher-task-footer">
-              <Link className="lp-text-link" href={assignment}>
-                Review assignment <Icon name="arrow" />
-              </Link>
-            </div>
-          </article>
-        </div>
+        }
+      >
+        <OverviewContent context={context} />
+      </Suspense>
+    </TeacherFrame>
+  );
+}
+
+async function OverviewContent({
+  context,
+}: {
+  context: TeacherWorkspaceContext;
+}) {
+  const actor = await requireActor().catch((error: unknown) => {
+    if (error instanceof AuthError && error.status === 401) redirect("/login");
+    if (error instanceof AuthError && error.status === 403) notFound();
+    throw error;
+  });
+  let overview;
+  try {
+    overview = await loadOverview(evidenceAccess(actor), context);
+  } catch (error) {
+    if (error instanceof EvidenceError && [403, 404].includes(error.status))
+      notFound();
+    return (
+      <section className="ov-loading" role="alert">
+        <h1>Overview unavailable</h1>
+        <p>Your saved work has not changed. Reload to try again.</p>
+        <a className="lp-button" href="/teacher">
+          Reload Overview
+        </a>
       </section>
-      <section
-        className="lp-panel lp-teacher-snapshot"
-        aria-labelledby="snapshot-title"
-      >
-        <div className="lp-teacher-section-heading">
-          <div>
-            <p className="lp-eyebrow">At a glance</p>
-            <h2 id="snapshot-title">Your class, in context</h2>
-            <p>Use the learning evidence to decide where to look next.</p>
-          </div>
-          <Link className="lp-text-link" href={insights}>
-            Explore learning insights <Icon name="arrow" />
-          </Link>
+    );
+  }
+  const { assignments, work, notices } = overview;
+  const priorities = overviewPriorities(assignments, work, context.origin);
+  const recent = recentActivity(assignments, context.origin);
+  const unfinished = work.filter(
+    (item) => item.kind === "private" || item.kind === "lesson",
+  );
+  const groups = [
+    {
+      id: "decision",
+      title: "Needs a decision",
+      empty:
+        "No recorded teaching decisions in this view. This does not establish mastery.",
+    },
+    {
+      id: "evaluation",
+      title: "Evaluations to check",
+      empty: "No unresolved latest evaluations in the available evidence.",
+    },
+    {
+      id: "missing",
+      title: "Missing work",
+      empty: "No missing-answer counts in the available active assignments.",
+    },
+  ] as const;
+  const decisions = priorities.filter(
+    (item) => item.group === "decision",
+  ).length;
+  return (
+    <div className="ov-workspace">
+      <div className="ov-main" aria-labelledby="overview-title">
+        <header className="ov-heading">
+          <p className="ov-eyebrow">Your teaching workspace</p>
+          <h1 id="overview-title">Overview</h1>
+          <p>
+            Across {assignments.length} authorized{" "}
+            {assignments.length === 1 ? "assignment" : "assignments"}:{" "}
+            {decisions} {decisions === 1 ? "decision" : "decisions"} to review ·{" "}
+            {unfinished.length} saved{" "}
+            {unfinished.length === 1 ? "draft" : "drafts"}.
+          </p>
+        </header>
+        <div className="ov-tools">
+          <nav aria-label="Overview sections">
+            <a href="#ov-assignments">Assignments</a>
+            <a href="#ov-resume">Resume work</a>
+            <a href="#ov-activity">Recent activity</a>
+          </nav>
+          <details className="ov-filter">
+            <summary>
+              Evidence:{" "}
+              {context.origin === "all"
+                ? "all demo records"
+                : context.origin === "live_demo"
+                  ? "live test sessions"
+                  : "prepared histories"}
+            </summary>
+            <form action="/teacher">
+              <label htmlFor="ov-origin">Evidence source</label>
+              <select
+                id="ov-origin"
+                name="origin"
+                defaultValue={context.origin}
+              >
+                <option value="all">All demo records</option>
+                <option value="live_demo">Live test sessions</option>
+                <option value="synthetic_fixture">Prepared histories</option>
+              </select>
+              <button className="lp-button" type="submit">
+                Apply
+              </button>
+            </form>
+          </details>
         </div>
-        <div className="lp-teacher-stat-strip">
-          <div>
-            <span className="lp-teacher-stat-icon">
-              <Icon name="users" />
-            </span>
-            <div>
-              <strong>
-                {metrics.participation.numerator}{" "}
-                <small>of {metrics.enrolled_students}</small>
-              </strong>
-              <span>Students with submitted answers</span>
-            </div>
-          </div>
-          <div>
-            <span className="lp-teacher-stat-icon">
-              <Icon name="book" />
-            </span>
-            <div>
-              <strong>
-                {assessedConcepts} <small>of {metrics.concepts.length}</small>
-              </strong>
-              <span>Concepts with assessed answers</span>
-            </div>
-          </div>
-        </div>
-        <div className="lp-teacher-snapshot-columns">
-          <section>
-            <h3>Latest concept results</h3>
-            <p className="lp-panel-description">
-              Correct among assessed students; includes answers after help.
-            </p>
-            <div className="lp-teacher-concept-list">
-              {metrics.concepts.map((concept) => (
-                <Link
-                  key={concept.concept_id}
-                  className="lp-teacher-concept-link"
-                  href={`${insights}&concept=${encodeURIComponent(concept.concept_id)}#concept-${concept.concept_id}`}
-                >
-                  <div>
-                    <strong>
-                      {content.concepts.get(concept.concept_id)?.title ??
-                        concept.concept_id}
-                    </strong>
-                    <small>
-                      {concept.latest.correct_rate.denominator
-                        ? `${concept.latest.correct_rate.numerator} of ${concept.latest.correct_rate.denominator} correct · ${concept.latest.uncertain} uncertain`
-                        : "No assessed answers yet"}
-                    </small>
-                    {concept.latest.correct_rate.denominator > 0 && (
-                      <progress
-                        className="lp-progress"
-                        aria-label={`${content.concepts.get(concept.concept_id)?.title ?? concept.concept_id}: correct among assessed students`}
-                        max={concept.latest.correct_rate.denominator}
-                        value={concept.latest.correct_rate.numerator}
-                      />
-                    )}
-                  </div>
-                  <Icon name="arrow" />
-                </Link>
+        {notices.length > 0 && (
+          <details className="ov-notice">
+            <summary role="status">
+              Some workspace data is unavailable or limited ({notices.length})
+            </summary>
+            <ul>
+              {notices.map((notice, index) => (
+                <li key={index}>{notice}</li>
               ))}
-            </div>
-          </section>
-          <section>
-            <h3>Recent student work</h3>
-            <p className="lp-panel-description">
-              Open a session to read the original responses and feedback.
+            </ul>
+            <a href={`/teacher?origin=${context.origin}`}>Reload Overview</a>
+          </details>
+        )}
+        {!assignments.length && (
+          <section className="ov-empty">
+            <h2>No teaching assignments yet</h2>
+            <p>
+              Continue a private lesson below, or open Lessons to prepare one
+              for an authorized class.
             </p>
-            {recentWork.length ? (
-              <ul className="lp-teacher-recent-list">
-                {recentWork.map(({ session, submitted }) => {
-                  const student = data.students.find(
-                    (s) => s.student_id === session.student_id,
-                  );
-                  const name = student?.display_name ?? "Enrolled student";
-                  return (
-                    <li key={session.id}>
-                      <Link
-                        className="lp-teacher-work-link"
-                        href={`/teacher/sessions/${session.id}`}
-                      >
-                        <span className="lp-avatar" aria-hidden="true">
-                          {name
-                            .split(/\s+/)
-                            .map((part) => part[0])
-                            .slice(0, 2)
-                            .join("")}
-                        </span>
-                        <span>
-                          <strong>{name}</strong>
-                          <small>
-                            {submitted.length} responses ·{" "}
-                            {originLabel(session.data_origin)}
-                          </small>
-                          <small>{date(submitted.at(-1)!.submitted_at!)}</small>
-                        </span>
-                        <Icon name="arrow" />
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : (
-              <p className="lp-empty-results">
-                No submitted responses in this view yet.
-              </p>
-            )}
             <Link
-              className="lp-text-link lp-teacher-directory-link"
-              href={directory}
+              className="lp-button lp-button-primary"
+              href="/teacher/lessons"
             >
-              View students <Icon name="arrow" />
+              Open lessons
             </Link>
           </section>
-        </div>
-        <p className="lp-teacher-snapshot-note">
-          {evidenceDescription(origin)} {metrics.no_activity_students} students
-          have no submitted answers in this view. Missing answers are not
-          incorrect answers.
+        )}
+        {assignments.length > 0 &&
+          groups.map((group) => {
+            const items = priorities.filter((item) => item.group === group.id);
+            return (
+              <section
+                className="ov-queue"
+                key={group.id}
+                aria-labelledby={`ov-${group.id}`}
+              >
+                <header>
+                  <h2 id={`ov-${group.id}`}>{group.title}</h2>
+                  <span>
+                    {items.length} {items.length === 1 ? "item" : "items"}
+                  </span>
+                </header>
+                {items.length ? (
+                  <ol>
+                    {items.map((item) => (
+                      <PriorityRow
+                        key={item.id}
+                        item={item}
+                        number={priorities.indexOf(item) + 1}
+                        primary={priorities.indexOf(item) === 0}
+                      />
+                    ))}
+                  </ol>
+                ) : (
+                  <p className="ov-empty-note">{group.empty}</p>
+                )}
+                {items.length > 0 && group.id === "decision" && (
+                  <p className="ov-queue-note">
+                    Reasoning counts include answers after help. Review the
+                    evidence before deciding; these prompts do not establish a
+                    misconception.
+                  </p>
+                )}
+                {items.length > 0 && group.id === "evaluation" && (
+                  <p className="ov-queue-note">
+                    Saved answers are not graded as wrong. Opening them does not
+                    retry evaluation.
+                  </p>
+                )}
+              </section>
+            );
+          })}
+        <p className="ov-footnote">
+          Ordered by recorded concern type, then affected students within each
+          assignment; delivery and follow-up reviews come next. No AI ranking.
+          Counts are not added across classes or concepts.
         </p>
-      </section>
-      <p className="lp-teacher-footnote">
-        Immediate success after feedback does not establish lasting
-        understanding. Prepared histories are illustrative, not measured
-        classroom outcomes.
-      </p>
-    </TeacherFrame>
+        <section
+          id="ov-activity"
+          className="ov-activity"
+          aria-labelledby="ov-activity-title"
+        >
+          <h2 id="ov-activity-title">Recent activity</h2>
+          <p className="ov-muted">
+            Latest saved student answers across the available assignments.
+          </p>
+          {recent.length ? (
+            <ul>
+              {recent.map((item) => (
+                <li key={item.id}>
+                  <Link href={item.href}>
+                    <strong>{item.title}</strong>
+                    <span>{item.where}</span>
+                    <small>
+                      {originLabel(item.origin)} ·{" "}
+                      <time dateTime={item.at}>{date(item.at)}</time>
+                    </small>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No submitted answers in this view.</p>
+          )}
+        </section>
+        <p className="ov-footnote">
+          {evidenceDescription(context.origin)} Immediate success after feedback
+          does not establish lasting understanding.
+        </p>
+      </div>
+      <aside
+        className="ov-rail"
+        aria-label="Your assignments and unfinished work"
+      >
+        <section id="ov-assignments" aria-labelledby="ov-assignments-title">
+          <h2 id="ov-assignments-title">Your assignments</h2>
+          <p className="ov-muted">
+            Open progress, evidence or interventions in the right class.
+          </p>
+          {assignments.length ? (
+            <ul className="ov-assignment-list">
+              {assignments.map((assignment) => (
+                <li key={assignment.id}>
+                  <div className="ov-rail-title">
+                    <strong>{assignment.class_name}</strong>
+                    <span className={`ov-badge ov-${assignment.availability}`}>
+                      {assignment.availability === "active"
+                        ? "Active"
+                        : assignment.availability === "inactive"
+                          ? "Not active yet"
+                          : "Unavailable"}
+                    </span>
+                  </div>
+                  <Link
+                    className="ov-assignment-title"
+                    href={assignmentHref(
+                      "/teacher/assignments",
+                      assignment.id,
+                      context.origin,
+                    )}
+                  >
+                    {assignment.title}
+                  </Link>
+                  {assignment.availability === "inactive" ? (
+                    <p className="ov-muted">
+                      Students cannot open this assignment yet.
+                    </p>
+                  ) : assignment.snapshot ? (
+                    <p className="ov-muted">
+                      {assignment.snapshot.metrics.participation.numerator} of{" "}
+                      {assignment.snapshot.metrics.enrolled_students} students
+                      have answered.
+                    </p>
+                  ) : (
+                    <p className="ov-muted">
+                      Evidence unavailable; counts are not shown.
+                    </p>
+                  )}
+                  <nav
+                    aria-label={`${assignment.class_name} · ${assignment.title}`}
+                  >
+                    <Link href={progressHref(assignment.id, context.origin)}>
+                      Progress
+                    </Link>
+                    <details className="ov-assignment-details">
+                      <summary>Details and links</summary>
+                      {assignment.version && (
+                        <p>
+                          Fixed lesson version <code>{assignment.version}</code>
+                        </p>
+                      )}
+                      <Link
+                        href={assignmentHref(
+                          "/teacher/evidence",
+                          assignment.id,
+                          context.origin,
+                        )}
+                      >
+                        Evidence
+                      </Link>
+                      <Link
+                        href={assignmentHref(
+                          "/teacher/interventions",
+                          assignment.id,
+                          context.origin,
+                        )}
+                      >
+                        Interventions
+                      </Link>
+                    </details>
+                  </nav>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No assignments available.</p>
+          )}
+          <Link className="ov-link" href="/teacher/assignments">
+            Browse assignments →
+          </Link>
+        </section>
+        <section id="ov-resume" aria-labelledby="ov-resume-title">
+          <h2 id="ov-resume-title">Pick up where you left off</h2>
+          {unfinished.length ? (
+            <ul className="ov-resume-list">
+              {unfinished.map((item) => (
+                <li key={item.id}>
+                  <strong>{item.title}</strong>
+                  <p className="ov-muted">{item.detail}</p>
+                  <Link className="lp-button" href={item.href}>
+                    {item.action} →
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="ov-muted">
+              No saved unfinished work is available. Changes kept only in an
+              editor’s browser recovery are not listed here.
+            </p>
+          )}
+        </section>
+        <section aria-labelledby="ov-work-title">
+          <h2 id="ov-work-title">Available teaching work</h2>
+          <ul className="ov-work-links">
+            <li>
+              <Link href="/teacher/lessons?new=true">Prepare a lesson →</Link>
+              <span>Start with your teaching material.</span>
+            </li>
+            <li>
+              <Link href="/teacher/lessons">Open lesson library →</Link>
+              <span>Review drafts and published versions.</span>
+            </li>
+            <li>
+              <Link href="/teacher/assignments">Review assignments →</Link>
+              <span>Choose a class and fixed lesson version.</span>
+            </li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+  );
+}
+
+function PriorityRow({
+  item,
+  number,
+  primary,
+}: {
+  item: Priority;
+  number: number;
+  primary: boolean;
+}) {
+  return (
+    <li className="ov-priority">
+      <span className="ov-number" aria-hidden="true">
+        {number}
+      </span>
+      <div>
+        <p className="ov-meta">
+          <b>{item.kind}</b> · {item.where}
+        </p>
+        <h3>{item.title}</h3>
+        <p>{item.detail}</p>
+        {item.note && <p className="ov-muted">{item.note}</p>}
+      </div>
+      <Link
+        className={`lp-button${primary ? " lp-button-primary" : ""}`}
+        href={item.href}
+      >
+        {item.action}
+      </Link>
+    </li>
   );
 }

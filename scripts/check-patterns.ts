@@ -200,10 +200,70 @@ try {
     teacher.cookie,
   );
   assert.equal(page.status, 200);
-  const html = await page.text();
-  assert.ok(html.includes("Possible reasoning patterns"));
+  const concernLink = [
+    ...(await page.text()).matchAll(/<a\b[^>]*href="([^"]+)"/g),
+  ]
+    .map((match) => new URL(match[1].replaceAll("&amp;", "&"), base))
+    .find(
+      (url) =>
+        url.pathname === "/teacher/insights" &&
+        url.searchParams.get("misconception") ===
+          content.sequence.hypothesis_id,
+    );
+  assert.ok(concernLink, "Insights omitted the named concern navigation");
+  assert.equal(concernLink.origin, new URL(base).origin);
+  assert.equal(
+    concernLink.searchParams.get("assignment"),
+    DEMO_IDS.assignmentId,
+  );
+  const concernPage = await request(
+    concernLink.pathname + concernLink.search,
+    teacher.cookie,
+  );
+  assert.equal(concernPage.status, 200);
+  const html = await concernPage.text();
   assert.ok(html.includes(`evaluation-${contradiction}`));
-  assert.ok(html.includes("Inspect contradiction"));
+  const contraryLink = [
+    ...html
+      .replaceAll(/<!--.*?-->/g, "")
+      .matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>Contrary evidence \d+<\/a>/g),
+  ]
+    .map((match) => new URL(match[1].replaceAll("&amp;", "&"), base))
+    .find((url) => url.searchParams.get("evaluation") === contradiction);
+  assert.ok(
+    contraryLink,
+    "The concern omitted its exact contrary evidence link",
+  );
+  const contraryEvaluation = preserved.evaluations.find(
+    (e) => e.id === contradiction,
+  )!;
+  assert.equal(contraryLink.origin, new URL(base).origin);
+  assert.equal(contraryLink.pathname, "/teacher/evidence");
+  assert.equal(
+    contraryLink.searchParams.get("assignment"),
+    DEMO_IDS.assignmentId,
+  );
+  assert.equal(contraryLink.searchParams.get("session"), preserved.session.id);
+  assert.equal(
+    contraryLink.searchParams.get("attempt"),
+    contraryEvaluation.attempt_id,
+  );
+  const original = await request(
+    contraryLink.pathname + contraryLink.search,
+    teacher.cookie,
+  );
+  assert.equal(original.status, 200);
+  const escapedResponse = preserved.attempts
+    .find((a) => a.id === contraryEvaluation.attempt_id)!
+    .response_text!.replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#x27;");
+  assert.ok(
+    (await original.text()).includes(escapedResponse),
+    "Contrary evidence omitted the exact original response",
+  );
   for (const account of [teacher, ...students])
     await request("/api/auth/sign-out", account.cookie, {});
   console.log(
