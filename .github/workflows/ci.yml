@@ -14,17 +14,21 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v7.0.1
+
       - uses: actions/setup-node@v7.1.0
         with:
           node-version: "22"
           cache: npm
+
       - run: npm ci
       - run: npm run content:check
-      - run: npm test
+      - name: Run tests with readable output   
+        run: npm test -- --test-reporter=spec
       - run: npm run lint
       - run: npm run typecheck
       - run: npm run format:check
       - run: npm run build
+
       - name: Configure isolated fictional demo
         run: |
           node --input-type=module <<'NODE'
@@ -44,67 +48,99 @@ jobs:
             DEMO_STUDENT_TWO_EMAIL: 'student-two@example.invalid',
             DEMO_STUDENT_TWO_PASSWORD: secret(),
           };
-          writeFileSync('.env', Object.entries(entries).map(([k,v]) => `${k}=${v}`).join('\n'), { mode: 0o600 });
+          writeFileSync(
+            '.env',
+            Object.entries(entries).map(([k, v]) => `${k}=${v}`).join('\n'),
+            { mode: 0o600 },
+          );
           NODE
+
       - name: Build and start application and database
+        id: compose_up
         run: docker compose up --build --wait --wait-timeout 180
+
       - name: Provision accounts and seed evidence
         run: docker compose exec -T app npm run db:seed
+
       - name: Check SQL constraints
         run: docker compose exec -T db psql -U learning_app -d learning_platform -v ON_ERROR_STOP=1 < database/tests/evidence.sql
+
       - name: Check teacher review and activation boundaries
         run: node scripts/check-isolated.mjs app npm run assignments:check
+
       - name: Check reading citations and displayed assistance
         run: node scripts/check-isolated.mjs app npm run reading:check
+
       - name: Check repeatable fictional class and authorized reconstruction
         run: node scripts/check-isolated.mjs app npm run class:check
+
       - name: Check deterministic tutoring and private evidence
         run: node scripts/check-isolated.mjs app npm run tutor:check
+
       - name: Check durable dialogue and authenticated recovery with synthetic providers
         run: node scripts/check-isolated.mjs -e DIALOGUE_CHECK_SYNTHETIC=1 -e DIALOGUE_CHECK_URL=http://localhost:3000 app npm run dialogue:check
+
       - name: Recover only successful saved dialogue outcomes without provider calls
         run: node scripts/check-isolated.mjs -e DIALOGUE_CHECK_SYNTHETIC=1 -e DIALOGUE_CHECK_URL=http://localhost:3000 app npm run dialogue:recovery:check
+
       - name: Check generated controller handoffs with synthetic providers
         run: node scripts/check-isolated.mjs -e DIALOGUE_CHECK_SYNTHETIC=1 app npm run r7:controller:check
+
       - name: Check authorized metrics and evidence refetch
         run: node scripts/check-isolated.mjs app npm run metrics:check
+
       - name: Check persisted misconception and contradiction counts
         run: node scripts/check-isolated.mjs app npm run patterns:check
+
       - name: Check lesson versions, ownership and historical evidence
         run: node scripts/check-isolated.mjs app npm run lessons:check
+
       - name: Check question-bank review, selective regeneration and durable requests
         run: node scripts/check-isolated.mjs app npm run questions:check
+
       - name: Check objective review, source grounding and proposal recovery
         run: node scripts/check-isolated.mjs app npm run objectives:check
+
       - name: Check login limits and forwarding-header resistance
         run: node scripts/check-isolated.mjs app npm run auth:rate-limit:check
+
       - name: Check HTTP authentication and evidence persistence
         run: node scripts/check-isolated.mjs app npm run db:check -- --prepare-restart
+
       - name: Restart without resetting data
         run: |
           docker compose restart db app
           docker compose up --wait --wait-timeout 180 --no-build --no-recreate
           docker compose exec -T app npm run db:seed
           docker compose exec -T app npm run db:check -- --verify-restart
+
       - name: Check uploaded-lesson uncertainty and authorized teacher pages
         run: node scripts/check-isolated.mjs app npm run lessons:uncertainty:check
+
       - name: Check lesson publishing and isolated class evidence
         run: node scripts/check-isolated.mjs app npm run publishing:check
+
       - name: Check private material extraction, review and version storage
         run: node scripts/check-isolated.mjs app npm run materials:check
+
       - name: Check publishing HTTP and new-version authorization
         run: node scripts/check-isolated.mjs app npm run publishing:http:check
+
       - name: Check intervention generation and immutable evidence with synthetic providers
         run: node scripts/check-isolated.mjs -e CHECK_INTERVENTION_REPORT=/tmp/intervention-fixture.json app npm run interventions:check
+
       - name: Check uploaded intervention source/version authorization
         run: node scripts/check-isolated.mjs app npm run interventions:lessons:check
+
       - name: Check authenticated private intervention review and invalid generation requests
         run: node scripts/check-isolated.mjs -e CHECK_INTERVENTION_REPORT=/tmp/intervention-fixture.json app npm run interventions:http
+
       - name: Show service status on failure
-        if: failure()
+        if: ${{ failure() && steps.compose_up.outcome != 'skipped' }}
         run: docker compose ps --all
+
       - name: Stop isolated stack
-        if: always()
+        if: ${{ always() && steps.compose_up.outcome != 'skipped' }}
         run: docker compose down --volumes
 
   intervention-approval:
@@ -112,9 +148,11 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v7.0.1
+
       - uses: actions/setup-node@v7.1.0
         with:
           node-version: "22"
+
       - name: Configure isolated fictional demo
         run: |
           node --input-type=module <<'NODE'
@@ -134,17 +172,27 @@ jobs:
             DEMO_STUDENT_TWO_EMAIL: 'student-two@example.invalid',
             DEMO_STUDENT_TWO_PASSWORD: secret(),
           };
-          writeFileSync('.env', Object.entries(entries).map(([k,v]) => `${k}=${v}`).join('\n'), { mode: 0o600 });
+          writeFileSync(
+            '.env',
+            Object.entries(entries).map(([k, v]) => `${k}=${v}`).join('\n'),
+            { mode: 0o600 },
+          );
           NODE
+
       - name: Start fresh approval verification stack
+        id: approval_stack_start
         run: docker compose -p intervention-approval up --build --wait --wait-timeout 180
+
       - name: Seed fictional accounts and evidence
         run: docker compose -p intervention-approval exec -T app npm run db:seed
+
       - name: Check uploaded and curated approval, delivery and isolated follow-up outcomes
         run: docker compose -p intervention-approval exec -T app npm run interventions:approval:lessons -- --setup-fixtures --with-followups
+
       - name: Show approval service status on failure
-        if: failure()
+        if: ${{ failure() && steps.approval_stack_start.outcome != 'skipped' }}
         run: docker compose -p intervention-approval ps --all
+
       - name: Stop isolated approval stack
-        if: always()
+        if: ${{ always() && steps.approval_stack_start.outcome != 'skipped' }}
         run: docker compose -p intervention-approval down --volumes

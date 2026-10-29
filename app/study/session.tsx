@@ -1,13 +1,23 @@
 "use client";
+
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+
 import { useRouter, useSearchParams } from "next/navigation";
+
 import Link from "next/link";
+
 import { Icon } from "../components/icons.tsx";
+
 import { StudyDialogue } from "./dialogue.tsx";
+
 import { createConversationTransport } from "./conversation-transport.ts";
+
 import { createDisplayAcknowledgements } from "./display-acknowledgement.ts";
+
 import { LearningOverview } from "./overview.tsx";
+
 import { SessionElapsed } from "./session-elapsed.tsx";
+
 import { FeedbackAudio } from "./feedback-audio.tsx";
 import {
   ActiveStudyNotebook,
@@ -18,7 +28,9 @@ import type { ReadingDeliveryState } from "./reading/reader.tsx";
 import { LocalTime } from "../components/local-time.tsx";
 import { NotebookNotices } from "./notebook/shell/surface.tsx";
 import type { StudentDashboard } from "../../lib/tutoring/dashboard-model.ts";
+
 import { assignmentStudyHref } from "../../lib/tutoring/navigation.ts";
+
 import {
   TutorViewSchema,
   type AssignedLesson,
@@ -37,14 +49,20 @@ import {
 } from "./answer-recovery.ts";
 
 const button = "lp-button lp-button-primary";
+
 // Keep drafts across same-tab reader navigation even if browser storage is blocked.
+
 // Restoration still requires the exact attempt returned by the authorized server.
+
 const draftMemory = new Map<string, string>();
+
 // Some browsers disable tab storage. That must never prevent an answer being sent.
 function saveDraft(attempt: string, value: AnswerRecovery | null) {
   const serialized = value === null ? null : JSON.stringify(value);
+
   if (serialized === null) draftMemory.delete(attempt);
   else draftMemory.set(attempt, serialized);
+
   try {
     if (serialized === null)
       sessionStorage.removeItem(`learning-pulse:${attempt}`);
@@ -55,23 +73,33 @@ function saveDraft(attempt: string, value: AnswerRecovery | null) {
 }
 export function StudySession({
   lessons,
+
   initial,
+
   initialTitle,
+
   dashboard,
+
   assignmentId,
   readerView = null,
   className,
 }: {
   lessons: AssignedLesson[];
+
   initial: TutorView | null;
+
   initialTitle?: string;
+
   dashboard: StudentDashboard;
+
   /** Existing session UI embedded in its authorized assignment detail page. */
+
   assignmentId?: string;
   readerView?: StudentReaderView | null;
   className?: string;
 }) {
   const router = useRouter();
+
   const wantsReading = useSearchParams().get("reading") === "1";
   const [view, setViewSnapshot] = useState(initial);
   const appliedViewRevision = useRef(0);
@@ -80,15 +108,21 @@ export function StudySession({
     setViewSnapshot(updated);
   }, []);
   const [draft, setDraft] = useState("");
+
   const [busy, setBusy] = useState(false);
+
   const [startingNew, setStartingNew] = useState(false);
+
   const [refreshing, setRefreshing] = useState(false);
+
   const [locked, setLocked] = useState(false);
+  const [teachBack, setTeachBack] = useState(false);
   const [answerRecovery, setAnswerRecovery] = useState<AnswerRecovery | null>(
     null,
   );
   const [answerRetryAllowed, setAnswerRetryAllowed] = useState(false);
   const [displayRetry, setDisplayRetry] = useState(0);
+
   const [error, setError] = useState<string | null>(null);
   const [selectedAttemptId, setSelectedAttemptId] = useState(
     initial?.attempts.at(-1)?.id ?? "",
@@ -111,26 +145,41 @@ export function StudySession({
     | null
   >(null);
   const currentStep = useRef<HTMLHeadingElement>(null);
+
   const feedbackStep = useRef<HTMLHeadingElement>(null);
   const completionStep = useRef<HTMLParagraphElement>(null);
   const acknowledgingHelp = useRef(new Set<string>());
+
   const focusedAttempt = useRef<string | null>(null);
+
   const pendingReading = view?.pending_reading;
+
   const restoredReading = useRef<string | null>(null);
+
   useEffect(() => {
     const id = view?.session.id;
+
     if (!id) return;
+
     const passage = window.location.hash.slice(1);
+
     // Preserve old saved reader links without restoring the retired sidebar.
+
     if (/^P\d+$/.test(passage) || wantsReading) {
       const query = new URLSearchParams({ session: id, from: "study" });
+
       if (/^P\d+$/.test(passage)) query.set("passage", passage);
+
       const destination = `/study/reading?${query}`;
+
       if (restoredReading.current === destination) return;
+
       restoredReading.current = destination;
+
       router.replace(destination);
     }
   }, [view?.session.id, wantsReading, router]);
+
   const busyRef = useRef(false);
   const submission = useRef<AnswerRecovery | null>(null);
   const rememberAnswer = useCallback((next: AnswerRecovery) => {
@@ -140,6 +189,7 @@ export function StudySession({
     setLocked(next.state !== "local");
   }, []);
   const last = view?.attempts.at(-1);
+
   const lastId = last?.id;
   const previousLastId = useRef(lastId);
   const submittedAt = last?.submitted_at;
@@ -223,9 +273,13 @@ export function StudySession({
     view?.session.status === "pending_evaluation"
       ? "Your answer is saved and evaluation is pending. Refresh saved progress in a moment."
       : view?.progress.message;
+
   const latestFeedback = view?.interventions
+
     .filter((i) => i.type !== "reading")
+
     .at(-1)?.id;
+
   const assignment = lessons.find(
     (lesson) => lesson.session?.id === view?.session.id,
   );
@@ -294,22 +348,30 @@ export function StudySession({
   );
   async function perform(operation: () => Promise<void>) {
     if (busyRef.current) return;
+
     busyRef.current = true;
+
     setBusy(true);
+
     setError(null);
+
     try {
       await operation();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Please try again.");
     } finally {
       busyRef.current = false;
+
       setBusy(false);
     }
   }
+
   async function refreshProgress() {
     if (!view) return;
+
     await perform(async () => {
       setRefreshing(true);
+
       try {
         const updated = await refresh(view.session.id);
         if (!updated) return;
@@ -327,10 +389,12 @@ export function StudySession({
       }
     });
   }
+
   useEffect(() => {
     if (!lastId || !sessionId) return;
     const restoredSessionId = sessionId;
     let stored = draftMemory.get(lastId) ?? null;
+
     try {
       stored ??= sessionStorage.getItem(`learning-pulse:${lastId}`);
     } catch {
@@ -385,33 +449,51 @@ export function StudySession({
     });
   }
   // Acknowledgement follows rendering. Creating or fetching help alone does not
+
   // record it as assistance. The server owns its visibility timestamp.
+
   const pendingHelp =
     view?.interventions
+
       .filter((i) => i.delivery_status === "created" && i.type !== "reading")
+
       .map((i) => i.id)
+
       .join(",") ?? "";
   const conversationTransport = useMemo(
     () => (sessionId ? createConversationTransport(sessionId) : undefined),
+
     [sessionId],
   );
+
   const retryAfter = view?.progress.retry_after;
+
   // Only read progress: refresh/resume never starts or retries a paid evaluation.
+
   // Bound background checks, then leave the explicit refresh control.
+
   useEffect(() => {
     if (!sessionId || busy || (phase !== "evaluate" && phase !== "failed"))
       return;
+
     let cancelled = false;
+
     let timer: ReturnType<typeof setTimeout>;
+
     let checks = 0;
+
     async function poll() {
       try {
         const updated = TutorViewSchema.parse(
           await request(`/api/tutoring/${sessionId}`),
         );
+
         if (cancelled) return;
+
         setView(updated);
+
         checks += 1;
+
         if (
           checks < 30 &&
           (updated.progress.phase === "evaluate" ||
@@ -426,24 +508,31 @@ export function StudySession({
           );
       }
     }
+
     timer = setTimeout(
       poll,
+
       phase === "failed" && retryAfter
         ? Math.max(
             1000,
+
             Math.min(3000, Date.parse(retryAfter) - Date.now() + 250),
           )
         : 3000,
     );
+
     return () => {
       cancelled = true;
+
       clearTimeout(timer);
     };
   }, [sessionId, phase, retryAfter, busy, setView]);
   useEffect(() => {
     if (phase !== "answer" && phase !== "completed" && phase !== "feedback")
       return;
+
     if (phase === "answer" && focusedAttempt.current === lastId) return;
+
     const target =
       phase === "feedback"
         ? feedbackStep.current
@@ -469,21 +558,32 @@ export function StudySession({
     )
       return;
     target?.focus({ preventScroll: true });
+
     target?.scrollIntoView({ block: "nearest" });
+
     // A delivery acknowledgement must not jump past feedback to the next question.
+
     focusedAttempt.current = lastId ?? null;
   }, [lastId, phase, latestFeedback]);
+
   useEffect(() => {
     if (!pendingHelp || !sessionId) return;
+
     let cancelled = false;
+
     const ids = pendingHelp.split(",");
+
     const intersecting = new Set<string>();
+
     const delivery = createDisplayAcknowledgements({
       ids,
+
       acknowledging: acknowledgingHelp.current,
+
       isVisible(id) {
         if (document.visibilityState !== "visible" || !intersecting.has(id))
           return false;
+
         const element = document.getElementById(`feedback-${id}`);
         if (
           !element ||
@@ -499,6 +599,7 @@ export function StudySession({
         )
           return false;
         const rect = element.getBoundingClientRect();
+
         return (
           rect.width > 0 &&
           rect.height > 0 &&
@@ -508,41 +609,57 @@ export function StudySession({
           rect.left < window.innerWidth
         );
       },
+
       async acknowledge(id) {
         await request(`/api/sessions/${sessionId}/interventions/${id}`, {});
+
         if (cancelled) return;
+
         const updated = TutorViewSchema.parse(
           await request(`/api/tutoring/${sessionId}`),
         );
+
         // A response from an old session/effect cannot replace newer progress.
+
         if (!cancelled) setView(updated);
       },
+
       onError() {
         setError(
           "The feedback is visible, but we couldn’t confirm it was shown. Refresh saved progress before continuing.",
         );
       },
     });
+
     const confirm = () => void delivery.check();
+
     const observer = new IntersectionObserver((entries) => {
       for (const entry of entries) {
         const id = entry.target.id.slice("feedback-".length);
+
         if (entry.isIntersecting && entry.intersectionRatio > 0)
           intersecting.add(id);
         else intersecting.delete(id);
       }
+
       confirm();
     });
+
     for (const id of ids) {
       const element = document.getElementById(`feedback-${id}`);
+
       if (element) observer.observe(element);
     }
+
     document.addEventListener("visibilitychange", confirm);
     document.addEventListener("toggle", confirm, true);
     return () => {
       cancelled = true;
+
       delivery.stop();
+
       observer.disconnect();
+
       document.removeEventListener("visibilitychange", confirm);
       document.removeEventListener("toggle", confirm, true);
     };
@@ -552,41 +669,63 @@ export function StudySession({
       const updated = TutorViewSchema.parse(
         await request("/api/tutoring", { assignment_id: id }),
       );
+
       router.push(assignmentStudyHref(id, updated.session.id));
+
       router.refresh();
     });
   }
+
   async function evaluate(retry = false) {
     if (!view || !last) return;
+
     await perform(async () => {
-      setView(
-        TutorViewSchema.parse(
-          await request(`/api/tutoring/${view.session.id}`, {
+      const isFictionalLearnerTurn = last.prompt_text.startsWith(
+        "Fictional learner (AI): ",
+      );
+
+      const useTeachBackRoute = teachBack && !isFictionalLearnerTurn;
+
+      const evaluated = TutorViewSchema.parse(
+        await request(
+          `/api/tutoring/${view.session.id}${useTeachBackRoute ? "/teach-back" : ""}`,
+
+          {
             attempt_id: last.id,
+
             ...(retry && view.progress.failed_evaluation_id
               ? { retry_of: view.progress.failed_evaluation_id }
               : {}),
-          }),
+          },
         ),
       );
+
+      setView(evaluated);
     });
   }
+
   async function startNewSession() {
     if (!assignmentId || view?.session.status !== "completed") return;
+
     await perform(async () => {
       setStartingNew(true);
+
       try {
         const updated = TutorViewSchema.parse(
           await request(`/api/tutoring/${view.session.id}/restart`, {}),
         );
+
         setView(updated);
+
         router.push(assignmentStudyHref(assignmentId, updated.session.id));
+
         router.refresh();
       } finally {
         setStartingNew(false);
       }
     });
   }
+
   async function answer(response: string) {
     if (!view || !last || !response.trim()) return;
     const existing = submission.current;
@@ -633,23 +772,35 @@ export function StudySession({
       if (
         updated.progress.phase === "evaluate" &&
         updated.progress.current_attempt_id === original.attempt
-      )
+      ) {
+        const isFictionalLearnerTurn = last.prompt_text.startsWith(
+          "Fictional learner (AI): ",
+        );
+        const useTeachBackRoute = teachBack && !isFictionalLearnerTurn;
         setView(
           TutorViewSchema.parse(
-            await request(`/api/tutoring/${view.session.id}`, {
-              attempt_id: original.attempt,
-            }),
+            await request(
+              `/api/tutoring/${view.session.id}${useTeachBackRoute ? "/teach-back" : ""}`,
+              { attempt_id: original.attempt },
+            ),
           ),
         );
+      }
     });
   }
+
   const refreshButton = (
     <button
       type="button"
+
       className="lp-study-refresh"
+
       disabled={busy}
+
       aria-label="Refresh saved progress"
+
       title="Refresh saved progress"
+
       onClick={() => void refreshProgress()}
     >
       <Icon name="refresh" />
@@ -850,11 +1001,13 @@ export function StudySession({
             <p className="lp-eyebrow">
               {view ? "AI Study Session" : "My learning"}
             </p>
+
             <h1 className="lp-title">
               {view
                 ? (assignment?.title ?? initialTitle ?? "Your study session")
                 : `Welcome back, ${dashboard.displayName.trim().split(/\s+/)[0]}.`}
             </h1>
+
             <p className="lp-intro">
               {view
                 ? "Explain your thinking, one question at a time."
@@ -877,6 +1030,7 @@ export function StudySession({
           Return to this tab to check your progress.
         </div>
       )}
+
       {!view ? (
         <LearningOverview dashboard={dashboard} busy={busy} onStart={start} />
       ) : (
@@ -903,27 +1057,36 @@ export function StudySession({
               <span>
                 <span
                   className="lp-study-chat-dot"
+
                   data-status={view.session.status}
+
                   aria-hidden="true"
                 />{" "}
                 {view.session.status === "completed"
                   ? "Completed"
                   : "In progress"}
               </span>
+
               <div className="lp-study-chat-controls">
                 {assignmentId && view.session.status === "completed" && (
                   <button
                     type="button"
+
                     className="lp-text-link lp-study-new-session"
+
                     disabled={busy}
+
                     onClick={() => void startNewSession()}
                   >
                     {startingNew ? "Opening session…" : "Start new session"}
                   </button>
                 )}
+
                 <SessionElapsed
                   key={view.session.id}
+
                   startedAt={view.session.started_at}
+
                   endedAt={view.session.ended_at}
                 />
               </div>
