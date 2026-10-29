@@ -55,6 +55,7 @@ jobs:
           NODE
 
       - name: Build and start application and database
+        id: compose_up
         run: docker compose up --build --wait --wait-timeout 180
 
       - name: Provision accounts and seed evidence
@@ -134,11 +135,11 @@ jobs:
         run: node scripts/check-isolated.mjs -e CHECK_INTERVENTION_REPORT=/tmp/intervention-fixture.json app npm run interventions:http
 
       - name: Show service status on failure
-        if: failure()
+        if: ${{ failure() && steps.compose_up.outcome != 'skipped' }}
         run: docker compose ps --all
 
       - name: Stop isolated stack
-        if: always()
+        if: ${{ always() && steps.compose_up.outcome != 'skipped' }}
         run: docker compose down --volumes
 
   intervention-approval:
@@ -178,6 +179,7 @@ jobs:
           NODE
 
       - name: Start fresh approval verification stack
+        id: approval_stack_start
         run: docker compose -p intervention-approval up --build --wait --wait-timeout 180
 
       - name: Seed fictional accounts and evidence
@@ -187,9 +189,9 @@ jobs:
         run: docker compose -p intervention-approval exec -T app npm run interventions:approval:lessons -- --setup-fixtures --with-followups
 
       - name: Show approval service status on failure
-        if: failure()
+        if: ${{ failure() && steps.approval_stack_start.outcome != 'skipped' }}
         run: docker compose -p intervention-approval ps --all
 
       - name: Stop isolated approval stack
-        if: always()
+        if: ${{ always() && steps.approval_stack_start.outcome != 'skipped' }}
         run: docker compose -p intervention-approval down --volumes
